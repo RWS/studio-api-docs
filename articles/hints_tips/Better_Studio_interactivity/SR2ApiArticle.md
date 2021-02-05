@@ -117,7 +117,7 @@ Up until Studio 2019 SR2 the only option you had to invoke the **Open Package** 
 ```
 Going forward, you will now be able to trigger the same **Open Package** wizard and pass along additional details such as the package file path, the project icon and even a custom job to be executed after the package is imported in Studio. Same as above, all you need to do is publish an `OpenProjectPackageEvent` object with your desired data.
 
-![Alt Text](ProjectsList.png)
+<img style="display:block; " src="images/ProjectsList.png" />
 
 | Property        |  Description  |
 | -------------  | -----|

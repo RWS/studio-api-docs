@@ -1,7 +1,9 @@
+# Processing Files and Application Logic
+============================
 Implement the functionality that changes the status of document segments.
 
 How to trigger the batch task
-==============================
+---------------------------
 Go back to the **MyCustomBatchTask.cs** class. This class is triggered when the user decides to run the batch task. This class inherits from the following abstract class:
 
 # [The Abstract Task Class](#tab/tabid-1)
@@ -18,7 +20,7 @@ Initialise the task settings object and start constructing the report XML string
 [!code-csharp[MyCustomBatchTask](code_samples/MyCustomBatchTask.cs#L43-L50 "Report XML String")]
 ***
 How to process the SDL XLIFF file
-=================================
+-----------------------------------
 You can programmatically access the file that is currently processed through the following member. In a "Hello World"-type implementation you could just output the name and path of the processed file.
 # [Configuring the Converter](#tab/tabid-4)
 [!code-csharp[MyCustomBatchTask](code_samples/MyCustomBatchTask.cs#L54-L71 "Configuring the Converter")]
@@ -40,7 +42,7 @@ Add the following members to store the task settings, the file name and path of 
 [!code-csharp[FileReader](code_samples/FileReader.cs#L21-L16 "The Required Variables")]
 ***
 How to output the segment content to a text file</title>
-================
+------------------------------------------------
 With the following member we start by creating the text output file. This file is created in the same folder as the corresponding SDL XLIFF file and the *.txt extension is appended.
 # [Creating the Output File](#tab/tabid-7)
 [!code-csharp[FileReader](code_samples/FileReader.cs#L40-L44 "Creating the Output File")]
@@ -58,7 +60,7 @@ The following member is required by the interface, although our implementation d
 [!code-csharp[FileReader](code_samples/FileReader.cs#L81-L88 "Job is Complete")]
 ***
 How to complete the Report String
-==========================
+----------------------------------------
 Go back to the **MyCustomBatchTask.cs** class. Here we do the following:
 
 We continue constructing the XML string for the report by adding the name of the file currently processed, its target language and the date/time at which it was processed.
