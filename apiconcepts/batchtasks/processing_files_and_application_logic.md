@@ -1,5 +1,5 @@
 # Processing Files and Application Logic
-============================
+
 Implement the functionality that changes the status of document segments.
 
 How to trigger the batch task

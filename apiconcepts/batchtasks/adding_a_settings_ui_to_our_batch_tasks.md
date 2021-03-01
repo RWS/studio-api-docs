@@ -44,7 +44,7 @@ Finally, the following member is added to retrieve the default value for the con
 [!code-csharp[MyCustomBatchTaskSettings](code_samples/MyCustomBatchTaskSettings.cs#L35-L44)]
 ***	
 
-Adding Functionality to the User Control<
+Adding Functionality to the User Control
 -----------------------------------------
 Open the code view of the user control **MyCustomBatchTaskSettingsControl.cs**. This control implements the following interfaces:
 # [The User Settings Interfaces](#tab/tabid-6)
