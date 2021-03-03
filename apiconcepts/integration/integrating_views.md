@@ -1,9 +1,9 @@
 Integrating views
 =====
-Desktop Integration Api provides support for the third party developers to integrate UI views inside the Studio desktop applications.
+Desktop Integration API provides support for third-party developers to integrate UI views inside the Trados Studio desktop applications.
 
 Example
 ----
-The following example demonstrates how a view can be integrated into Trados Studio application.
+The following example demonstrates how a view can be integrated into the Trados Studio application.
 
 [!code-csharp[MyNewStudioView](code_samples/MyNewStudioView.cs)]

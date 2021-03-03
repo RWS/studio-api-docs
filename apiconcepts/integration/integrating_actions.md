@@ -1,7 +1,7 @@
 Integrating actions
 =====
 
-Desktop Integration Api provides support for the third party developers to integrate actions inside the Trados Studio desktop applications.
+Desktop Integration API provides support for third-party developers to integrate actions inside the Trados Studio desktop applications.
 
 Integrating general actions
 -----

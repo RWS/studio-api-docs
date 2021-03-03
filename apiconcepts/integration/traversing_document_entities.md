@@ -3,10 +3,10 @@ Traversing document entities
 
 The visitor pattern allows a class implementer to traverse all the child objects in an objects hierarchy without having to know how the hierarchy is implemented or having to be aware of any changes in how the hierarchy is implemented.
 
-Implementing IMarkupDataVisitor
+Implementing `IMarkupDataVisitor`
 ----
 
-All that is required is that your class needs to derive from the IMarkupDataVisitor interface and to explicitly implement all the interface’s methods. To use the visitor pattern it is normally helpful to write the similar private method that calls accept visitor for all the markup data child items of the given parent.
+All that is required is that your class needs to derive from the `IMarkupDataVisitor` interface and to explicitly implement all the interface’s methods. To use the visitor pattern, it is normally helpful to write the similar private method that calls accept visitor for all the markup data child items of the given parent.
 
 This method can then be used to kick off the traversal of all the items in a paragraph-unit so that they can be written to the translated target document. This can be done in the implementation of ProcessParagraphUnit where the passed IParagraphUnit object can have its Source and Target paragraphs passed to AppendItems() and the implementations of the IMarkupDataVisitor interface methods can process the various types of text and mark-up objects that form part of the paragraph data hierarchies.
 
@@ -19,6 +19,7 @@ VisitTagPair method is called when a tag pair object of type ITagPair is being v
 VisitPlaceholderTag method is called when a placeholder tag object of type IPlaceholderTag is being visited. This placeholder object is normally processed by writing to the target document this placeholder tag. However, some Bilingual writers may need to cache this information first.
 
 **VisitText()**
+
 VisitText method is called when a text object of type IText is being visited. This text object is normally processed by writing the content of the text object to the target document. However, when processing text items it may be necessary to consider the value of **ContentRestriction** as the content restriction type may indicate that the source text is to be written instead of the target text. If this is the case then when a translatable paragraph-unit is being processed then AppendItems() should be called for the source paragraph rather than then target paragraph ensuring that subsequent calls to VisitText will be for the source text.
 
 **VisitSegment()**

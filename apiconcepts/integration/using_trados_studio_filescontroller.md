@@ -1,6 +1,6 @@
 Using Trados Studio FilesController
 =====
-TranslationStudioAutomation provides support for the third party developers to access the SDL Trados Studio files view and perform project files operations.
+TranslationStudioAutomation provides support for third-party developers to access the Trados Studio files view and perform project files operations.
 
 Creating a custom project files list inside a viewpart that belongs to the files view
 -----

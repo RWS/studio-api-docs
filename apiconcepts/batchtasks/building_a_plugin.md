@@ -6,7 +6,7 @@ Building a Plug-in
 -----
 Since Trados Studio is a Microsoft .NET application, third-party plug-ins should be developed using Add token content here. The Add token content here comes with a number of Visual Studio project templates which give you a quick start to creating various types of plug-ins.
 
-In this topic, we will be creating a Translation Provider plug-in s an example. We will only focus on the aspects that are common to all types of plug-ins. For more information on building a Translation Provider plug-in specifically.
+In this topic, we will be creating a Translation Provider plug-in as an example. We will only focus on the aspects that are common to all types of plug-ins. For more information on building a Translation Provider plug-in specifically. ???
 
 First of all, make sure that you have followed the Setting up a Developer Machine information.
 

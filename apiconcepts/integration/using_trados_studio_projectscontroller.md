@@ -1,6 +1,6 @@
 Using Trados Studio ProjectsController
 =====
-TranslationStudioAutomation provides support for the third party developers to access the Trados Studio projects view and perform project operations.
+TranslationStudioAutomation provides support for third-party developers to access the Trados Studio projects view and perform project operations.
 
 Creating a custom project list inside a viewpart that belongs to the projects view
 ----

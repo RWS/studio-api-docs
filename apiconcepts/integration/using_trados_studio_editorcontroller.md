@@ -1,6 +1,6 @@
 Using Trados Studio EditorController
 =====
-TranslationStudioAutomation provides support for the third party developers to access the Trados Studio editor view and perform editor operations.
+TranslationStudioAutomation provides support for third-party developers to access the Trados Studio editor view and perform editor operations.
 
 Creating a custom document list inside a viewpart that belongs to the editor view
 ----
@@ -14,12 +14,12 @@ The custom list features:
     * Source language
     * Target language
 
-Activating the document list items will active the document in the editor too.
-The active document will always be displayed as selected in the list.
+* Activating the document list items will active the document in the editor too.
+* The active document will always be displayed as selected in the list.
 
 Start by implementing the windows form user control that will fill the content of the viewpart and is implementing the list view.
 
-Finally integrate the new viewpart to the editor view.
+Finally, integrate the new viewpart to the editor view.
 
 Performing operations over document selections
 ----
