@@ -22,6 +22,7 @@ echo "Copy documentation into the repo"
 cp -r $SOURCE_DIR/_site/* .
 
 echo "Push the new docs to the remote branch"
+git config --local user.email "github-actions[bot]@users.noreply.sdl.com"
+git config --local user.name "github-actions[bot]"
 git add . -A
 git commit -m "Update generated documentation"
-git push origin gh-pages
