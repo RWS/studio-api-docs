@@ -12,18 +12,18 @@ rm -rf $TEMP_REPO_DIR
 mkdir $TEMP_REPO_DIR
 
 echo "Cloning the repo with the gh-pages branch"
-git clone remote_repo --branch gh-pages $TEMP_REPO_DIR
+git clone ${remote_repo} --branch gh-pages $TEMP_REPO_DIR
 
 echo "Clear repo directory"
 cd $TEMP_REPO_DIR
 git rm -r *
 
 echo "Copy documentation into the repo"
-cp -r $SOURCE_DIR/_site/* .
+cp -r $SOURCE_DIR/api/* .
 
 echo "Push the new docs to the remote branch"
 git config --local user.email "github-actions[bot]@users.noreply.sdl.com"
 git config --local user.name "github-actions[bot]"
 git add . -A
 git commit -m "Update generated documentation"
-git push origin gh-pages
+git push origin ${remote_repo} --branch gh-pages
