@@ -31,7 +31,8 @@ jobs:
           curl -L https://github.com/dotnet/docfx/releases/latest/download/docfx.zip -o docfx.zip
           unzip -d .docfx docfx.zip
 
-        
+      - name: build _site
+        run: mono .docfx/docfx.exe
       # Runs a set of commands using the runners shell
       - name: commit to gh-pages
         run: bash releaseDocs.sh $GITHUB_ACTOR ${{ secrets.GITHUB_TOKEN }}

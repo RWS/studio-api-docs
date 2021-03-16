@@ -23,7 +23,7 @@ cd $TEMP_REPO_DIR
 git rm -r *
 
 echo "Copy documentation into the repo"
-cp -r $SOURCE_DIR/articles/* .
+cp -r $SOURCE_DIR/_site/* .
 
 echo "Push the new docs to the remote branch"
 git config --local user.email "github-actions[bot]@users.noreply.sdl.com"
