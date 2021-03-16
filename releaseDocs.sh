@@ -26,4 +26,4 @@ git config --local user.email "github-actions[bot]@users.noreply.sdl.com"
 git config --local user.name "github-actions[bot]"
 git add . -A
 git commit -m "Update generated documentation"
-git push origin ${remote_repo} --branch gh-pages
+git push origin gh-pages
