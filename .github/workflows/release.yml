@@ -35,6 +35,14 @@ jobs:
         run: mono .docfx/docfx.exe
         
       # Runs a set of commands using the runners shell
-      - name: publish to gh-pages
+      - name: commit to gh-pages
         run: bash releaseDocs.sh
+      
+      - name: push to gh-pages
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          github_token: {{ secrets.GITHUB_TOKEN}}
+          repository: studio-api-docs
+          branch: gh-pages
+          
           echo test, and deploy your project.
