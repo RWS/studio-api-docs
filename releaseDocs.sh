@@ -15,7 +15,7 @@ echo "Removing temporary doc directory $TEMP_REPO_DIR"
 rm -rf $TEMP_REPO_DIR
 mkdir $TEMP_REPO_DIR
 
-echo "Cloning the repo with the gh-pages branch"
+echo "Cloning the repo ${remote_repo} with the gh-pages branch"
 git clone ${remote_repo} --branch gh-pages $TEMP_REPO_DIR
 
 echo "Clear repo directory"
