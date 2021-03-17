@@ -6,7 +6,7 @@ Building a Plug-in
 -----
 Since Trados Studio is a Microsoft .NET application, third-party plug-ins should be developed using Microsoft .Net Framework 4.5.2. The Trados Studio SDK comes with a number of Visual Studio project templates which give you a quick start to creating various types of plug-ins.
 
-In this topic, we will be creating a Translation Provider plug-in as an example. We will only focus on the aspects that are common to all types of plug-ins. For more information on building a Translation Provider plug-in specifically. ???
+In this topic, we will be creating a Translation Provider plug-in as an example. We will only focus on the aspects that are common to all types of plug-ins. 
 
 First of all, make sure that you have followed the Setting up a Developer Machine information.
 
@@ -19,9 +19,15 @@ The project templates already contains stubs for all the classes you will have t
 
 Firstly, open PluginProperties.cs, which is located next to the AssemblyInfo.cs file in the Properties folder. This contains a single Plugin attribute, which is what fundamentally makes this project a plug-in project. "Plugin_Name" is a resource string defined in PluginResources.resx.
 
+# [C#](#tab/tabid-1)
+[!code-csharp[PluginProperties](code_samples/PluginProperties.cs#L1)]
+***
+
 Open the PluginResources.resx file. You'll see that this contains a string value called "Plugin_Name". This defines the name of the plug-in assembly and will be preset to the name of the Visual Studio project. This is the name that will show up in the SDL Trados Studio plug-in management dialog. Any localizable strings referred to from the plug-in attribute or extension attributes should be defined in PluginResources.resx. This ".resx" file will be compiled into a ".resources" file and will be deployed outside of the plug-in assembly itself, so the host application can access the information within it without having to load the plug-in assembly itself.
 
 Every third-party plug-in has to be deployed using an SDL Plug-in Package (*.sdlplugin). This is an OPC-based file format, essentially a ZIP file, that contains the plug-in assembly, plug-in manifest file and the plug-in resources file. All Visual Studio project templates that come with the Add token content here are configured to automatically create a plug-in package when the project is built. One essential piece of information required in order to do this is the plug-in package manifest, which is defined in the file "pluginpackage.manifest.xml" that was part of the project template.
+
+[!code-xml[ReportXSLT](code_samples/pluginpackage.manifest.xml)]		
 
 The plug-in package manifest defines a couple of pieces of essential information:
 

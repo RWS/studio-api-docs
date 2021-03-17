@@ -24,7 +24,7 @@ Batch tasks are shown the Trados Studio user interface with a name and a descrip
 Batch tasks are then applied to one or multiple files, e.g.:
 <img style="display:block; " src="images/analysis_files.png" />
 
-Batch tasks can have settings that the user configures through a property page. For the analysis task, for example, there is a setting that determines whether cross-file repetitions should be reported or not, for example:
+Batch tasks can have settings that you can configure through a property page. For the analysis task, for example, there is a setting that determines whether cross-file repetitions should be reported or not, for example:
 <img style="display:block; " src="images/analysis_settings.png" />
         
 Batch tasks can also generate a report that the user can view and print. For the analysis task, the report states the number of no matches, fuzzy matches, exact matches, repetitions, etc.

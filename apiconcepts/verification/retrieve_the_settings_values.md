@@ -5,7 +5,11 @@ In this chapter you will learn how to retrieve the settings that have been confi
 Add a Class for Retrieving the Settings Values
 ------
 
-After implementing the user interface you need to add a separate class for retrieving the plug-in settings values. Add a new class to your project, and call it e.g. `IdenticalVerifierSettings.cs`. The class needs to reference the **Sdl.Core.Settings** namespace. Your class needs to be derived from the **SettingsGroup** class. Below you see what the skeleton of your new class looks like:
+After implementing the user interface, you need to add a separate class for retrieving the plug-in settings values. Add a new class to your project, and call it e.g. `IdenticalVerifierSettings.cs`. The class needs to reference the **Sdl.Core.Settings** namespace. Your class needs to be derived from the **SettingsGroup** class. Below you see what the skeleton of your new class looks like:
+
+# [C#](#tab/tabid-1)
+[!code-csharp[Settings](code_samples/Settings.aml#L24-L30)]
+***
 
 Our sample application only has one setting, i.e. a (display code) string value that defines which context should be relevant for the verification, e.g. **H** for **Heading**. This setting will be implemented as a string property, which we will call, for example `CheckContext`:
 

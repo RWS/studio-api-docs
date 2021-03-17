@@ -7,6 +7,10 @@ Integrating ribbon groups
 -----
 The following example demonstrates how to create a ribbon group into a Trados Studio application.
 
+# [C#](#tab/tabid-1)
+[!code-csharp[CreatingRibbonGroups](code_samples/CreatingRibbonGroups.cs#L1-L14)]
+***
+
 > [!NOTE]
 > Trados Studio Integration API provide a special location for the plug-ins (see: TranslationStudioDefaultRibbonTabs).
 

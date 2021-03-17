@@ -6,7 +6,7 @@ Trados Studio Plug-in Support
 ----
 The core Trados Studio application is built in a very modular fashion, consisting entirely of plug-ins. These types of plug-ins are known as *system plug-ins*. Plug-ins of this type cannot be added to an existing Trados Studio installation and can also not be disabled by the end-user.
 
-In addition to system plug-ins, Trados Studio supports various types of so called third-party plug-ins. These plug-ins can be developed by third-party developers using the Add token content here and can be deployed into an existing Trados Studio installation by the end-user. This section concentrates on third-party plug-in development and deployment.
+In addition to system plug-ins, Trados Studio supports various types of so called *third-party plug-ins*. These plug-ins can be developed by third-party developers using the Add token content here and can be deployed into an existing Trados Studio installation by the end-user. This section concentrates on third-party plug-in development and deployment.
 
 Since Trados Studio is a Microsoft .NET application, third-party plug-ins should be developed using Add token content here. The Add token content here comes with a number of Visual Studio project templates which give you a quick start to creating various types of plug-ins. For more information on this, see Building a plug-in.
 

@@ -10,6 +10,10 @@ The source and target language are separated with a semicolon, the language name
 
 Modify the **GetLanguages()** function as shown below. In this function, we parse the first line of the text file to retrieve the language label (for example 'English') and the locale (for example 'en-US'). Based on the locale, Trados Studio assigns the glossary languages to the corresponding project language. After parsing the first line, the method creates two language objects which are added to the results list that the method returns.
 
-Note that you can add more than two languages. If Trados Studio cannot assign the glossary languages automatically to the project languages, then the user has to pick the correct glossary language manually from the dropdown list.
+# [Getting the Term Provider Languages](#tab/tabid-1)
+[!code-csharp[MyTerminologyProvider](code_samples/MyTerminologyProvider.cs#L106-L137)]
+***
+
+Note that you can add more than two languages. If Trados Studio cannot assign the glossary languages automatically to the project languages, then you have to pick the correct glossary language manually from the dropdown list.
 
 <img style="display:block; " src="images/project_01_selected_languages.jpg" />

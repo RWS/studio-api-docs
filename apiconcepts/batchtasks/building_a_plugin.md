@@ -19,17 +19,34 @@ The project templates already contains stubs for all the classes you will have t
 
 First of all open PluginProperties.cs, which is located next to the AssemblyInfo.cs file in the Properties folder. This contains a single Plugin attribute, which is what fundamentally makes this project a plug-in project. "Plugin_Name" is a resource string defined in PluginResources.resx.
 
+# [C#](#tab/tabid-1)
+[!code-csharp[PluginProperties](code_samples/PluginProperties.cs#L1)]
+***
 
-Open the PluginResources.resx file. You'll see that this contains a string value called "Plugin_Name". This defines the name of the plug-in assembly and will be preset to the name of the Visual Studio project. This is the name that will show up in the SDL Trados Studio plug-in management dialog. Any localizable strings referred to from the plug-in attribute or extension attributes should be defined in PluginResources.resx. This ".resx" file will be compiled into a ".resources" file and will be deployed outside of the plug-in assembly itself, so the host application can access the information within it without having to load the plug-in assembly itself.
+Open the PluginResources.resx file. You'll see that this contains a string value called "Plugin_Name". This defines the name of the plug-in assembly and will be preset to the name of the Visual Studio project. This is the name that will show up in the Trados Studio plug-in management dialog. Any localizable strings referred to from the plug-in attribute or extension attributes should be defined in PluginResources.resx. This ".resx" file will be compiled into a ".resources" file and will be deployed outside of the plug-in assembly itself, so the host application can access the information within it without having to load the plug-in assembly itself.
 
 Every third-party plug-in has to be deployed using an SDL Plug-in Package (*.sdlplugin). This is an OPC-based file format, essentially a ZIP file, that contains the plug-in assembly, plug-in manifest file and the plug-in resources file. All Visual Studio project templates that come with the Add token content here are configured to automatically create a plug-in package when the project is built. One essential piece of information required in order to do this is the plug-in package manifest, which is defined in the file "pluginpackage.manifest.xml" that was part of the project template.
+
+```
+<?xml version="1.0" encoding="utf-8"?>
+<PluginPackage xmlns="http://www.sdl.com/Plugins/PluginPackage/1.0">
+  <PlugInName>MyTranslationProvider</PlugInName>
+  <Version>1.0</Version>
+  <Description>MyTranslationProvider</Description>
+  <Author></Author>
+  <RequiredProduct name="SDLTradosStudio" minversion="9.1" />
+  <Include>
+    <File>MyAssembly.dll</File>
+  </Include>
+</PluginPackage> 
+```
 
 The plug-in package manifest defines a couple of pieces of essential information:
 
 * **PlugInName**: the friendly name of the plugin. This can be different to the name of the plug-in defined in PluginResources.resx, because a plug-in package can in theory contain multiple plug-ins.
 * **Version**: the version of the plug-in package. This is important because it will be used to detect updated packages. For more information, see Plug-in deployment.
 * **Description**: description of the plug-in package.
-* **Author**: the name of the plug-in author
+* **Author**: the name of the plug-in author.
 * **RequiredProduct**: this indicates which SDL product this plug-in supports. This must include the minimum version and can optionally include a maximum version.
 * **Include**: a list of additional files to be included into the plugin package.
 Now build the project and have a look in the project output folder. notice the following:

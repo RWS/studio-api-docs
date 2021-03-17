@@ -53,10 +53,20 @@ The Plug-in Manifest
 One essential piece of information required in order to build the plug-in package this is the plug-in package manifest, which is defined in the file **pluginpackage.manifest.xml**. This file is part of the project template. If this manifest is missing, the project package cannot be built.
 
 Below you see what the manifest of our sample plug-in looks like:
+```
+<?xml version="1.0" encoding="utf-8"?>
+<PluginPackage xmlns="http://www.sdl.com/Plugins/PluginPackage/1.0">
+  <PlugInName>Identical Segment Verifier</PlugInName>
+  <Version>1.0</Version>
+  <Description>Verifies whether segments that are not supposed to be translated have been changed during translation/editing.</Description>
+  <Author></Author>
+  <RequiredProduct name="SDLTradosStudio" minversion="10.1" />
+</PluginPackage>
+```
 
 The manifest contains the following information:
 * **PlugInName**: indicates the friendly name of the plugin. This string be different from the name of the plug-in that is defined in **PluginResources.resx**. The reason for this is that a plug-in package can - in theory - contain multiple plug-ins, which need to be distinguished.
-* **Version**: the version of the plug-in package. This information is used to detect any package updates upon start-up of SDL Trados Studio 2017, and is therefore important.
+* **Version**: the version of the plug-in package. This information is used to detect any package updates upon start-up of Trados Studio 2017, and is therefore important.
 * **Description**: descriptive information of the plug-in package.
 * **Author**: the name of the plug-in developer.
 * **RequiredProduct**: this string indicates which SDL product version is required to run the given plug-in. The information that you indicate here must include the minimum version, and can optionally include a maximum version.

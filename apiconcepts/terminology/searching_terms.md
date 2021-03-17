@@ -5,22 +5,22 @@ Searching the terminology source through your term provider is arguably the most
 How to search and recognize terms
 ----
 
-When the user clicks inside a segment in Trados Studio, the segment is scanned for any terminology contained in the term resource. If terms are recognized, they are highlighted with a red line and displayed in the **Term Recognition** window:
+When you click inside a segment in Trados Studio, the segment is scanned for any terminology contained in the term resource. If terms are recognized, they are highlighted with a red line and displayed in the **Term Recognition** window:
 
 <img style="display:block; " src="images/term_recognition.jpg" />
 
-The user can also manually look up terms in the **Termbase Search** window:
+You can also manually look up terms in the **Termbase Search** window:
 
 <img style="display:block; " src="images/term_search.jpg" />
 
 How to implement the search functionality
 -----
-Open the **MyTerminologyProvider.cs** class and go to the **Search()** function (which is implemented by the **AbstractTerminologyProvider** interface). This function is called when the user clicks inside a segment or launches a search in the Termbase Search window. Note that Trados Studio passes a number of useful parameters:
+Open the **MyTerminologyProvider.cs** class and go to the **Search()** function (which is implemented by the **AbstractTerminologyProvider** interface). This function is called when you click inside a segment or launch a search in the Termbase Search window. Note that Trados Studio passes a number of useful parameters:
 
-* **text**: the search string. When the user selects a segment in Trados Studio, this will be the source segment text. When the user launches a search manually, this will be the search string entered by the user.
+* **text**: the search string. When the user selects a segment in Trados Studio, this will be the source segment text. When you launch a search manually, this will be the search string entered by you.
 * **maxResultsCount**: the maximum number of hits to show, i.e. the search depth.
-* **mode**: the search mode, i.e. fuzzy or normal. When selecting a segment in Trados Studio, the mode is 'fuzzy' by default. When the user does a manual lookup, the search mode is 'normal' by default (unless the user has clicked the **Fuzzy Search** button in the **Termbase Search**) window.
-* **targetRequired**: boolean parameter that decides whether source terms without any target term should be shown or not. This parameter is controlled by the user through the Trados Studio UI. Depending on the value returned your implementation needs to decide whether an entry without a target term should be displayed or not.
+* **mode**: the search mode, i.e. fuzzy or normal. When selecting a segment in Trados Studio, the mode is 'fuzzy' by default. When you do a manual lookup, the search mode is 'normal' by default (unless you clicked the **Fuzzy Search** button in the **Termbase Search**) window.
+* **targetRequired**: boolean parameter that decides whether source terms without any target term should be shown or not. This parameter is controlled by you through the Trados Studio UI. Depending on the value returned, your implementation needs to decide whether an entry without a target term should be displayed or not.
 
 Below is the page of the Trados Studio UI where the user can, for example, determine the search depth or whether to display entries without a target term:
 
@@ -34,8 +34,24 @@ The **Search** function returns a list of results to be displayed in Trados Stud
   
 The **Search()** function of our implementation would look as shown below:
 
+# [The Search Function](#tab/tabid-1)
+[!code-csharp[MyTerminologyProvider](code_samples/MyTerminologyProvider.cs#L142-L197)]
+***
+
 As mentioned above, the results list needs to be associated with the corresponding entry that you construct in the following helper function:
+
+# [Constructing the Entry Content](#tab/tabid-2)
+[!code-csharp[MyTerminologyProvider](code_samples/MyTerminologyProvider.cs#L201-L237)]
+***
 
 Make sure that you add the following entry list object to the terminology provider class:
 
+# [The Entry List Object](#tab/tabid-3)
+[!code-csharp[MyTerminologyProvider](code_samples/MyTerminologyProvider.cs#L14)]
+***
+
 Besides the **Search()** method, the term provider interface also calls the **GetEntry()** method, which then outputs the entry with the corresponding entry based on the id parameter:
+
+# [Getting the Entries](#tab/tabid-4)
+[!code-csharp[MyTerminologyProvider](code_samples/MyTerminologyProvider.cs#L90-L95)]
+***

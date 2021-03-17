@@ -8,14 +8,22 @@ Our glossary text file foresees a definition text in the forth column:
 
 *1;photo printer;Fotodrucker;Peripheral device for creating hardcopies of pictures.*
 
-Such information can also be shown when looking up terminology in SDL Trados Studio. When a the descriptive field is declared, it can be selected in the SDL Trados Studio UI:
+Such information can also be shown when looking up terminology in Trados Studio. When the descriptive field is declared, it can be selected in the Trados Studio UI:
 
 <img style="display:block; " src="images/select_fields.jpg" />
 
-If the user selects to display the field, the content (the definition) is shown alongside the search results:
+If you select to display the field, the content (the definition) is shown alongside the search results:
 
 <img style="display:block; " src="images/search_results_with_definition.jpg" />
 
 Go to the **MyTerminologyProvider.cs** class and add the following member. It creates a descriptive field labelled 'Definition', which - in turn - can contain a text string. The example field has the field level 'Entry', i.e. it is not specific to a particular term or language. Instead, in the entry structure, it applies to the whole entry.
 
-This function then needs to be called from the following property, which also calls the **GetLanguages()** method to create the full terminology source definition. The terminology source definition then becomes exposed in the SDL Trados Studio UI where user can select what fields to display (see screenshot above).
+# [Setting the Glossary Descriptive Field](#tab/tabid-1)
+[!code-csharp[MyTerminologyProvider](code_samples/MyTerminologyProvider.cs#L43-L59)]
+***
+
+This function then needs to be called from the following property, which also calls the **GetLanguages()** method to create the full terminology source definition. The terminology source definition then becomes exposed in the Trados Studio UI, where you can select what fields to display (see screenshot above).
+
+# [Retrieving the Glossary Languages](#tab/tabid-2)
+[!code-csharp[MyTerminologyProvider](code_samples/MyTerminologyProvider.cs#L31-L39)]
+***

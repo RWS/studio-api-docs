@@ -9,6 +9,10 @@ Add new class to your project and call it e.g. `IdenticalVerifierUIPage.cs`. Thi
 
 This class needs to be preceded by the following annotation, which makes it an extension class, which is referenced in the plug-in manifest (see also Create a New Project).
 
+# [C#](#tab/tabid-1)
+[!code-csharp[IdenticalVerifierUiPage](code_samples/IdenticalVerifierUiPage.cs#L7-L11)]
+***
+
 Note that there are various strings to provide in the annotation, such as the plug-in page name and description. The plug-in page name corresponds to the link that is clicked in the user interface of SDL Trados Studio 2017 to display the corresponding page.
 Then declare the following private members:
 
@@ -16,9 +20,17 @@ Then declare the following private members:
 * **_ControlSettings**: This member is derived from our IdenticalVerifierSettings class (see Retrieve the Settings Values); it is used to access the setting values of the verifier plug-in.
 The skeleton for your new class should look as shown below:
 
+# [C#](#tab/tabid-2)
+[!code-csharp[IdenticalVerifierUiPage](code_samples/IdenticalVerifierUiPage.cs#L1-L17)]
+***
+
 Access the Verifier Settings
 -----
 Start by adding the following private members, which are derived from the actual plug-in ui (see Implement the User Interface) and the verification settings class (see Retrieve the Settings Values):
+
+# [C#](#tab/tabid-3)
+[!code-csharp[IdenticalVerifierUiPage](code_samples/IdenticalVerifierUiPage.cs#L14-L15)]
+***
 
 In the next step, add the following member, which is used to get a handle on the plug-in user interface (i.e. the control).
 

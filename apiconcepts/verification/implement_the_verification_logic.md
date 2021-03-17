@@ -15,6 +15,8 @@ Now it is time to implement the verification logic in the main verification clas
   
 This class needs to be preceded by the following declaration, which makes it an extension class, which is referenced in the plug-in manifest (see also Create a New Project).
 
+
+
 This line is what makes the plug-in be listed under Verification in the Options or in the Project (Template) Settings dialog box of SDL Trados Studio 2017.
 This class needs to implement the interfaces listed below:
 
@@ -35,6 +37,14 @@ In the next step, add the following internal member. This member is used to get 
 Add the Item Factory Member
 -----
 The item factory allows you to create, for example, tag pairs and placeholders. It is actually *not* required for the functionality of our verifier plug-in, however, it has to be present in our class according to the **IBilingualVerifier** interface.
+
+Add the Message Reporter Member
+-----
+The message reporter is required by the **IBilingualVerifier** interface to implement the functionality of our verifier. Through this member you output messages (if any) to the **Messages** window of Trados Studio 2017. Therefore, this member is responsible for communicating any problems to the end user, who will then try to fix the reported problems.
+
+# [C#](#tab/tabid-1)
+[!code-csharp[TermVerifierMessageService](code_samples/TermVerifierMessageService.cs#L20)]
+***
 
 Add Further Members of IBilingualContentHandler
 -----

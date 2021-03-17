@@ -1,0 +1,1 @@
+[assembly: Sdl.Core.PluginFramework.Plugin("Plugin_Name")]

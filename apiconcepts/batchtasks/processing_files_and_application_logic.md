@@ -4,7 +4,7 @@ Implement the functionality that changes the status of document segments.
 
 How to trigger the batch task
 ---------------------------
-Go back to the **MyCustomBatchTask.cs** class. This class is triggered when the user decides to run the batch task. This class inherits from the following abstract class:
+Go back to the **MyCustomBatchTask.cs** class. This class is triggered when you decide to run the batch task. This class inherits from the following abstract class:
 
 # [The Abstract Task Class](#tab/tabid-1)
 [!code-csharp[MyCustomBatchTask](code_samples/MyCustomBatchTask.cs#L30-L31 "The Abstract Task Class")]
@@ -21,12 +21,12 @@ Initialise the task settings object and start constructing the report XML string
 ***
 How to process the SDL XLIFF file
 -----------------------------------
-You can programmatically access the file that is currently processed through the following member. In a "Hello World"-type implementation you could just output the name and path of the processed file.
+You can programmatically access the file that is currently processed through the following member. In a "Hello World"-type implementation you could output the name and path of the processed file.
 # [Configuring the Converter](#tab/tabid-4)
 [!code-csharp[MyCustomBatchTask](code_samples/MyCustomBatchTask.cs#L54-L71 "Configuring the Converter")]
 ***
 
-As SDL XLIFF is an XML-compliant file type, you could just process it using the standard XML API. However, we recommend that you use the Trados Studio Bilingual API to process the file. This way, we add a new class to our project called **FileReader.cs**.
+As SDL XLIFF is an XML-compliant file type, you could  process it using the standard XML API. However, we recommend that you use the Trados Studio Bilingual API to process the file. This way, we add a new class to our project called **FileReader.cs**.
 
 The **FileReader.cs** class needs to reference the following libraries:
 ```cs
@@ -39,7 +39,7 @@ It also needs to inherit from the following abstract class:
 ***
 Add the following members to store the task settings, the file name and path of the SDL XLIFF file to be processed, and the text file name and path that is used to output the exported segments:
 # [The Required Variables](#tab/tabid-6)
-[!code-csharp[FileReader](code_samples/FileReader.cs#L21-L16 "The Required Variables")]
+[!code-csharp[FileReader](code_samples/FileReader.cs#L21-L26 "The Required Variables")]
 ***
 How to output the segment content to a text file</title>
 ------------------------------------------------
@@ -47,7 +47,7 @@ With the following member we start by creating the text output file. This file i
 # [Creating the Output File](#tab/tabid-7)
 [!code-csharp[FileReader](code_samples/FileReader.cs#L40-L44 "Creating the Output File")]
 ***
-In the next step, we loop through each paragraph unit of the SDL XLIFF file. We make sure to process only paragraph units that actually contain segments. When we encounter a paragraph unit that only contains structure tags (i.e. no localizable segments), we abort. When looping through the segment pairs we write all segments with the selected confirmation status to the output text file:
+In the next step, we loop through each paragraph unit of the SDL XLIFF file. We make sure to process only paragraph units that actually contain segments. When we encounter a paragraph unit that only contains structure tags (i.e. no localizable segments), we abort. When looping through the segment pairs, we write all segments with the selected confirmation status to the output text file:
 # [Outputing the Segment Pairs](#tab/tabid-8)
 [!code-csharp[FileReader](code_samples/FileReader.cs#L48-L68 "Outputing the Segment Pairs")]
 ***

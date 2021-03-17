@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="f889e238-d82f-435f-acd0-1ce02e5da6ec" revisionNumber="1">
+  <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <introduction >
+      <para >In this chapter you will learn how to retrieve the settings
+      that have been configured through the plug-in user interface 
+      (see <link xlink:href="2c6083ec-1f1e-4e25-a9c4-150c81f5b7fe"   />).</para>
+    </introduction>
+
+    <section address="add a class for retrieving settings values" >
+      <title >Add a Class for Retrieving the Settings Values</title>
+      <content >
+        <para >
+        After implementing the user interface you need to add a separate class for retrieving 
+        the plug-in settings values. Add a new class to your project, and call it e.g. 
+        <codeInline >IdenticalVerifierSettings.cs</codeInline>.
+        The class needs to reference the <legacyBold >Sdl.Core.Settings</legacyBold> namespace.
+
+		Your class needs to be derived from the
+		<codeEntityReference >T:Sdl.Core.Settings.SettingsGroup</codeEntityReference>
+		class.
+		Below you see what the skeleton of your new class looks like:
+		<code lang="cs">
+		using Sdl.Core.Settings;
+		namespace Sdl.Verification.Sdk.IdenticalCheck
+		{
+		    class IdenticalVerifierSettings : SettingsGroup
+		    {
+		    }
+		}
+		</code>
+	</para>
+	<para >
+	Our sample application only has one setting, i.e. a (display code) string value that defines which 
+	context should be relevant for the verification, e.g. <legacyBold >H</legacyBold> for 
+	<legacyBold >Heading</legacyBold>.
+	This setting will be implemented as a string
+	property, which we will call, for example <codeInline >CheckContext</codeInline>:
+	<code lang="cs" region="setting" source="..\..\trados-studio-api-samples\Verification\Sdl.Verification.Sdk.IdenticalCheck\IdenticalVerifierSettings.cs" ></code>
+	</para>
+	<para >
+	We will also implement a method for setting the default value.
+	Let us assume that headings are most likely to stay unchanged in the
+	target language.
+	Therefore it makes sense to apply the verification by default to segment pairs whose context has 
+	the context
+	display code <legacyBold >H</legacyBold>:
+	<code lang="cs" region="default" source="..\..\trados-studio-api-samples\Verification\Sdl.Verification.Sdk.IdenticalCheck\IdenticalVerifierSettings.cs" ></code>
+	</para>
+	<para>
+	The plug-in settings are physically stored in the project files (<legacyItalic>*.sdlproj</legacyItalic>) 
+	or project template files (<legacyItalic>*.sdltpl</legacyItalic>). 
+	The settings group in the (XML-compliant) project (template) file can look as shown below.
+	As you can see, the setting id corresponds to the name of the property that we have
+	implemented in this class.
+	<code lang="xml">
+	    &lt;SettingsGroup Id="Identical Verifier"&gt;
+          &lt;Setting Id="Enabled"&gt;True&lt;/Setting&gt;
+        &lt;/SettingsGroup&gt;
+        &lt;SettingsGroup Id="IdenticalVerifierSettings"&gt;
+          &lt;Setting Id="CheckContext"&gt;H&lt;/Setting&gt;
+        &lt;/SettingsGroup&gt;
+	</code>
+	</para>
+	Note that the <legacyBold>Enabled</legacyBold> property does not need to be implemented by your plug-in. 
+	The plug-in framework provides the mechanism for enabling/disabling global verifier plug-ins through 
+	the user interface of <token>product</token>.
+	</content>
+    </section>
+    
+    <section address="putting it together" >
+    	<title >Putting it All Together</title>
+    	<content >
+    	<para >
+    	The complete class that is used for retrieving the settings value should look as shown below:
+    	<code lang="cs" source="..\..\trados-studio-api-samples\Verification\Sdl.Verification.Sdk.IdenticalCheck\IdenticalVerifierSettings.cs" ></code>
+    	</para>
+    	</content>
+    </section>
+   	<relatedTopics >
+<link xlink:href="2c6083ec-1f1e-4e25-a9c4-150c81f5b7fe"   />
+<link xlink:href="37885291-5eac-4616-a996-3275bef90f5e"   />
+    </relatedTopics>
+  </developerConceptualDocument>
+</topic>
