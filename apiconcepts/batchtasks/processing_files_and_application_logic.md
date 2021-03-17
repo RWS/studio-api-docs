@@ -10,7 +10,7 @@ Go back to the **MyCustomBatchTask.cs** class. This class is triggered when you 
 [!code-csharp[MyCustomBatchTask](code_samples/MyCustomBatchTask.cs#L30-L31 "The Abstract Task Class")]
 ***
 	
-Declare a member that stores the plug-in settings as well as a string variable that is used to construct the XML stream for the task report content:
+Declare a member that stores the plug-in settings, as well as a string variable that is used to construct the XML stream for the task report content:
 # [The Task Settings](#tab/tabid-2)
 [!code-csharp[MyCustomBatchTask](code_samples/MyCustomBatchTask.cs#L35-L39 "The Task Settings")]
 ****
@@ -65,7 +65,7 @@ Go back to the **MyCustomBatchTask.cs** class. Here we do the following:
 
 We continue constructing the XML string for the report by adding the name of the file currently processed, its target language and the date/time at which it was processed.
 
-We create a **FileReader** object to which we pass the current SDL XLIFF file name as well as our settings object:
+We create a **FileReader** object to which we pass the current SDL XLIFF file name, as well as our settings object:
 # [Configure converter](#tab/tabid-11)
 [!code-csharp[MyCustomBatchTask](code_samples/MyCustomBatchTask.cs#L54-L71 "Configure converter")]
 ***

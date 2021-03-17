@@ -8,9 +8,9 @@ Installing a Plug-in Package
 Plug-in package installation is really easy. Just double click the plug-in package and follow the instructions.
 
 >[!Note]
-> For Trados Studio version older than 2015 please install the SDL Plugin Installer from here.
+> For Trados Studio version older than 2015, install the SDL Plugin Installer from here.
 
-During development, you can configure the output path of the project to point to c:\Users\[username]\AppData\Roaming\SDL\SDL Trados Studio\[StudioVersionNumber]\Plugins\Packages. This is already configured if you created the project with one of the project templates available in the Add token content here. For more information on this, see Setting up a Developer Machine.
+During development, you can configure the output path of the project to point to c:\Users\[username]\AppData\Roaming\SDL\SDL Trados Studio\[StudioVersionNumber]\Plugins\Packages. This is already configured if you created the project with one of the project templates available in the **Trados Studio SDK**. For more information on this, see Setting up a Developer Machine.
 
 The following warning message will be shown while Trados Studio starts:
 
@@ -29,4 +29,4 @@ Note that it is essential that you increase the version of the plug-in package a
 
 Uninstalling a Plug-in Package
 -----
-To uninstall a plug-in, simply run the SDL Plugin Manager that is installed with Trados Studio 2015 or later. If you have an older Trados Studio version, please install if from here.
+To uninstall a plug-in, simply run the SDL Plugin Manager that is installed with Trados Studio 2015 or later. If you have an older Trados Studio version, install it from here.

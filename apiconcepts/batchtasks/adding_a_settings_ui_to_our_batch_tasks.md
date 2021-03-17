@@ -4,7 +4,7 @@ Add a settings page to your batch task so that users can select the status that 
 
 The User Control
 -------------------------
-In your Visual Studio project go to the yet empty       **MyCustomBatchTaskSettingsControl.cs** control and add the following UI elements:
+In your Visual Studio project, go to the empty **MyCustomBatchTaskSettingsControl.cs** control and add the following UI elements:
 <img style="display:block; " src="images/SettingsPage.jpg" />
 Add the following list items to the dropdown list element (which we name **combo_Status**):
 * Unspecified
@@ -89,7 +89,7 @@ When the user clicks the **Restore Defaults** button, the UI controls are set to
 The Settings UI Container
 -------------------------------------
 
-Note the **MyCustomBatchTaskSettingsPage.cs** class, which has been added to the project by default. This is the class that references the settings UI and the class that controls the UI. Without the settings page class the plug-in would not be aware of the settings UI. It enables the settings UI to be shown when the user reaches the **Settings** page of the plug-in: 
+Note the **MyCustomBatchTaskSettingsPage.cs** class, which has been added to the project by default. This is the class that references the settings UI and the class that controls the UI. Without the settings page class the plug-in would not be aware of the settings UI. It enables the settings UI to be shown when you reach the **Settings** page of the plug-in: 
 <img style="display:block; " src="images/SampleTaskSettings.jpg" />
 > [!NOTE]
 > Leave this class as it is, you do not have to change anything here.

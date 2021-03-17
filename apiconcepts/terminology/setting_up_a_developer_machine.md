@@ -7,7 +7,7 @@ Prerequisites
 
 * For the development environment, we recommend that you use Microsoft Visual Studio 2013 or Microsoft Visual Studio 2015.
 * You need a licensed Trados Studio 2015 SR2 or later.
-* We also recommend installation of the Studio SDK on your machine. You can get the latest version from the developer hub. Note that after the installation of Studio SDK, the New Project dialog box from Microsoft Visual Studio will feature additional project templates specific to the Trados Studio application development.
+* We also recommend installation of the **Trados Studio SDK** on your machine. You can get the latest version from the developer hub. Note that after the installation of **Trados Studio SDK**, the **New Project** dialog box from Microsoft Visual Studio will feature additional project templates specific to the Trados Studio application development.
 
 System requirements for running Trados Studio:
 ----

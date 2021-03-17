@@ -20,7 +20,7 @@ When you implement a custom terminology provider, you need to consider a number 
 <img style="display:block; " src="images/general_01_add_tb.jpg" />
 
 
-Of course, the name of your plug-in will have to feature in the list of terminology providers. Your implementation would then have to call up a user interface in which the terminology source (e.g. a glossary text file) can be selected. In case of a file-based resource it would be an **Open File** dialogue box, e.g.:
+The name of your plug-in will have to feature in the list of terminology providers. Your implementation would then have to call up a user interface in which the terminology source (e.g. a glossary text file) can be selected. In case of a file-based resource, it would be an **Open File** dialogue box, e.g.:
 
 <img style="display:block; " src="images/general_02_add_tb.jpg" />
 
@@ -59,7 +59,7 @@ You can also activate the **Fuzzy Search** option to make the search tolerant, s
 
 The Termbase Viewer
 -------
-A terminology entry can have more than just the source and the target term. It can have supplementary information, such as definitions, notes, remarks, etc. As the **Term Recognition** and **Termbase Search** window by default only show the source and target terms, you can view any further information in the **Termbase Viewer** window, which you can call up through the **View term details** command:
+A terminology entry can have more than just the source and the target term. It can have additional information, such as definitions, notes, remarks, etc. As the **Term Recognition** and **Termbase Search** window by default only show the source and target terms, you can view any further information in the **Termbase Viewer** window, which you can call up through the **View term details** command:
 
 <img style="display:block; " src="images/general_10_tb_viewer.jpg" />
 

@@ -13,7 +13,7 @@ This class needs to be preceded by the following annotation, which makes it an e
 [!code-csharp[IdenticalVerifierUiPage](code_samples/IdenticalVerifierUiPage.cs#L7-L11)]
 ***
 
-Note that there are various strings to provide in the annotation, such as the plug-in page name and description. The plug-in page name corresponds to the link that is clicked in the user interface of SDL Trados Studio 2017 to display the corresponding page.
+Note that there are various strings to provide in the annotation, such as the plug-in page name and description. The plug-in page name corresponds to the link that is clicked in the user interface of Trados Studio 2017 to display the corresponding page.
 Then declare the following private members:
 
 * **_Control**: This member is derived from the user interface class (see Implement the User Interface); we use this member to control the actual user interface (e.g. when the user clicks the buttons **OK, Reset to Defaults**, etc. in the UI)
@@ -26,7 +26,7 @@ The skeleton for your new class should look as shown below:
 
 Access the Verifier Settings
 -----
-Start by adding the following private members, which are derived from the actual plug-in ui (see Implement the User Interface) and the verification settings class (see Retrieve the Settings Values):
+Start by adding the following private members, which are derived from the actual plug-in UI (see Implement the User Interface) and the verification settings class (see Retrieve the Settings Values):
 
 # [C#](#tab/tabid-3)
 [!code-csharp[IdenticalVerifierUiPage](code_samples/IdenticalVerifierUiPage.cs#L14-L15)]
@@ -43,6 +43,8 @@ Now you need to add a number of members that control the user interface. These m
 * determine what happens when the user clicks the **OK** button, thereby saving the configured settings
 * define what happens when the user clicks **Reset to Defaults**, thus restoring the settings to their default values
 * moves away from the settings page, thus cancelling the settings page operation
+
+
 Below you see examples of the members for controlling the user interface. The following member controls what happens when the user clicks the **Reset to Defaults** button, which is provided by the framework:
 
 The following member controls what happens when the user clicks the **OK** button, thereby committing the settings that were configured on the plug-in settings page:

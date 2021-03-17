@@ -17,7 +17,7 @@ This class needs to be preceded by the following declaration, which makes it an 
 
 
 
-This line is what makes the plug-in be listed under Verification in the Options or in the Project (Template) Settings dialog box of SDL Trados Studio 2017.
+This line is what makes the plug-in be listed under Verification in the Options or in the Project (Template) Settings dialog box of Trados Studio 2017.
 This class needs to implement the interfaces listed below:
 
 * IGlobalVerifier
