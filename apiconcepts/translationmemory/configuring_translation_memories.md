@@ -26,7 +26,7 @@ Language Resources
 -----
 A TM can also be configured with language resources. Language resources contain lists of user-defined variables (see above), abbreviations, ordinal followers, and custom segmentation rules. Each TM is equipped with a set of default segmentation rules that determine, for example, whether a colon or semicolon should be treated as a segment delimiter or not. Users can add new segmentation rules or change existing ones. Such information is stored in a so-called language resource.
 
-For file TMs, language resources can also be saved to an external file with the extension *.sdltm.resource. The resource can then be loaded into an existing TM.
+For file TMs, language resources can also be saved to an external file with the extension **.sdltm.resource*. The resource can then be loaded into an existing TM.
 
 Below you see an example of a custom variable list, which is defined in the language resources for a TM:
 

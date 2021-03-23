@@ -4,7 +4,7 @@ This section describes what is included in the configuration of a project and ex
 
 Project Configuration
 ----
-There is always some configuration required in order to process a localization project. Various parts of the system, be it automatic tasks or manual tasks, can be configured to work in various ways depending on the type of input files, the customer for whom the project is done, the languages or other factors. We refer to this as the Project Configuration.
+Some configuration is required in order to process a localization project. Various parts of the system, be it automatic tasks or manual tasks, can be configured to work in various ways depending on the type of input files, the customer for whom the project is done, the languages or other factors. We refer to this as the Project Configuration.
 
 The project configuration consists of the following:
 
@@ -21,11 +21,11 @@ The project configuration consists of the following:
 * Workflow
 
 
-A project configuration is represented by the IProjectConfiguration interface in the object model.
+A project configuration is represented by the `IProjectConfiguration` interface in the object model.
 
 
 Project Settings
-======
+---
 The project settings are settings that are defined for the project as a whole. They use the standard settings mechanism. The project settings can be overridden for individual language directions (see Language direction specific settings).
 
 By default, a number of settings groups are provided to configure some standard tasks in the system:
@@ -45,7 +45,7 @@ Most of these settings can be overridden on a language direction level, that is 
 
 Language Directions
 -----
-The project configuration contains a number of language directions (=source-target language combinations), which determine from which source language into which target languages the files should be translated.
+The project configuration contains a number of language directions (= source-target language combinations), which determine from which source language into which target languages the files should be translated.
 
 A language direction is represented by the **ILanguageDirection** interface in the object model.
 
@@ -56,7 +56,7 @@ Every language direction has the ability to contain a list of translation provid
 * Translation Memory (file- or server-based): the SDL translation memory engine.
 * Automated Translation Server: provides automated or machine translation functionality, based on SDL's ETS engine, Google Translate, etc.
 * Any other custom-developed translation provider plug-in, e.g. a plug-in that retrieves translation solutions from a tab-delimited list
-Note that the translation provider mechanism is pluggable, which means third-parties can develop support for additional translation provider types, such as for instance the Google machine translation engine, or a third-party translation memory implementation. How to develop a translation provider plug-in is outside the scope of this help system. Please refer to ....
+Note that the translation provider mechanism is pluggable, which means third-parties can develop support for additional translation provider types, such as for instance the Google machine translation engine, or a third-party translation memory implementation. How to develop a translation provider plug-in is outside the scope of this help system. 
 
 Translation providers are used in various scenarios during the project lifetime, for instance during project preparation to analyze leverage and automatically apply translations to some or all segments in the project files. Translation providers are also used interactively while the user is manually translating documents, in order to give translation matches and provide concordance search functionality. Newly created translations can also be added to translation providers (mainly to translation memories), either automatically by the system or manually by the user. In order to make sure that only the relevant, reviewed translations end up in the translation memories, project translation memories are generally used. Project TMs serve as a working translation memories that exist only during the lifetime of the project. For more information on these topics, see About Project Translation Memories.
 
@@ -67,14 +67,15 @@ Every language direction can also be associated with one or more AutoSuggest dic
 An AutoSuggest dictionary is represented by the **IAutoSuggestDictionary** interface in the object model.
 
 **Language-specific Settings**
+
 The user can override individual project settings for a specific language direction. For instance, if the project-level minimum translation memory match value is 80%, this can be overridden for a specific language direction to be 90%. All other language directions still inherit the project-level value. Also, all other settings for this language direction, except for the minimum match value, will still be inherited from the project settings.
 
 File Type Configuration
-=====
+------
 The project configuration contains an ordered list of file types available for the project. A file type, sometimes called file type definition, is essentially a collection of settings that influence various aspects of processing translatable files, such as extracting translatable content, preview, special characters and tags that be used while editing the file, etc. The File Type Support Framework provides a mechanism for automatically selecting a matching file type for a given file, but it is possible that for a given file, there are multiple matching file types. By only including certain file types in the project, and by prioritizing these (the first matching file type in the list will be used), the user can get a certain level of control over which file type will be used for processing the files in a project.
 
 Language Resources
-=====
+------
 "Language Resources"" is an umbrella term for settings that affect language-specific processing. The main example of this in use currently is segmentation and tokenization. The following types of language resources are currently available:
 
 1. **Segmentation rules**: These rules determine how translatable content is split into segments, which represent the smallest piece of content that can be translated as a unit. The rules are obviously language specific.
@@ -90,13 +91,13 @@ Note that language resources are specified on the project level, rather than the
 For more information about language resources, please refer to the Translation Memory API documentation.
 
 Termbases
-=====
+-----
 The project can also optionally contain references to one or more termbases that should be used during translation to identify and translate well-known terminology. One of the termbases in the list should be marked as the default termbase. The default termbase is always to termbase that will be searched for matches first. Part of the termbase configuration is also a mapping from project language to termbase indexes, to make sure that the appropriate indexes are used for searching for terminology in the various project languages. For every termbase, a filter can be specified as well; this determines the content of the termbase that should searched within the context of this project.
 
 Termbases can either be file-based or server-based. SDL MultiTerm imposes the limitation that when links to server-based termbases are included in a project, they all have to reside on the same termbase server, since it cannot perform cross-server termbase searches.
 
 Analysis Bands
-=====
+-----
 Analysis bands are the categories in which word, segment and character count statistics are calculated during translation memory analysis as part of project preparation. During that analysis, a translation memory lookup is performed for every segment in a translatable file. The best match returned by the translation memory is then categorized according to the analysis bands. The default categories are:
 
 * Context match: A 100% match, for which the context (preceding segment) matches the current context in the document.
@@ -110,10 +111,16 @@ Analysis bands are the categories in which word, segment and character count sta
   
 All of the above categories are fixed, expect for the fuzzy analysis bands. The fuzzy analysis bands in the example are the defaults, but certain customer have a requirement to change them, which is why they can be specified in the context of a project.
 
+Workflow
+-----
+
+Part of the project configuration are also the types of manual, automatic and complex tasks that can be performed within that project. These are referred to as the workflow. Apart from the available tasks, the workflow also specifies a single complex task which will be executed when the project is started. All other tasks are available after that and can be executed by the user as and when required. For more information on tasks, see [About tasks](projectautomation/about_tasks.md).
+
+
 Project Templates
-=====
+-----
 It would be obviously tedious to have to set up the entire configuration for every single project. For that reason, the Project Automation API implements the concept of project templates, which constitute named project configurations from which projects can be created quickly. When creating a project based on a project template, the project configuration information stored within that project is copied into the project itself. There is no live link between a project and the project template it was created from, i.e. making changes to one will not affect the other.
 
 <img style="display:block; " src="images/NewProject04.jpg"/>
 
-The screenshot above illustrates how main translation memories are selected in the **New Project** wizard of Trados Studio 2017.
+The screenshot above illustrates how main translation memories are selected in the **New Project** wizard of Trados Studio.

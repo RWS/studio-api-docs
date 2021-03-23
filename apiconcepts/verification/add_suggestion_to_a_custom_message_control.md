@@ -27,10 +27,43 @@ The IdenticalVerifierMessageUI custom user control should implement ISuggestionP
 2. Make the class implement ISuggestionProvider - use Visual Studio to add empty implementations.
 3. Make HasSuggestion always return true because there is always a suggestion - replacing the contents of the target segment with the source segment.
 
+```cs
+public Suggestion GetSuggestion()
+{
+    return _suggestion;
+}
+
+public bool HasSuggestion()
+{
+    return true;
+}
+
+public event EventHandler SuggestionChanged;
+```
+
 The IdenticalVerifierMessageUI custom user control needs the source segment to be able to suggest replacing the contents of the target segment with the source segment.
 
 1. Add a using reference to Sdl.FileTypeSupport.Framework.BilingualApi.
 2. Use property ReplaceDocumentSegment of IdenticalVerifierMessageData class to create new Suggestion.
+
+```cs
+public IdenticalVerifierMessageUI(MessageEventArgs messageEventArgs, ISegment originalSegment)
+{
+    InitializeComponent();
+
+    #region Get ExtendedMessage Data
+    IdenticalVerifierMessageData messageData = (IdenticalVerifierMessageData)messageEventArgs.ExtendedData;
+    this.tb_ErrorDetails.Text = messageData.ErrorDetails;
+    _suggestion = new Suggestion(messageEventArgs.FromLocation, messageEventArgs.UptoLocation, 
+        messageData.ReplacementSuggestion.Clone() as IAbstractMarkupData);
+    #endregion
+
+    _originalSegment.Dock = DockStyle.Fill;
+    _originalSegment.IsReadOnly = true;
+    _originalSegment.ReplaceDocumentSegment(originalSegment.Clone() as ISegment);
+    panel_Original.Controls.Add(_originalSegment);
+}
+```
 
 A suggestion is always a replacement where the target contents from one location upto another location is replaced by the new markup. If the new markup is null then the suggestion effectively deletes the contents from one location upto another location. Always set the new markup to null to delete content and do not use empty text markup.
 
@@ -39,6 +72,69 @@ The IdenticalVerifierMessageUI constructor now has the from and upto locations f
 1. Add a private member variable called _suggestion of type Suggestion.
 2. Create the _suggestion from the messageEventArgsFromLocation and UptoLocation and from the messageData.ReplacementSuggestion.
 3. Change the GetSuggestion method to return this suggestion.
+
+```cs
+using System;
+using System.Windows.Forms;
+
+using Sdl.DesktopEditor.BasicControls;
+using Sdl.FileTypeSupport.Framework.BilingualApi;
+using Sdl.FileTypeSupport.Framework.IntegrationApi;
+using Sdl.Verification.Api;
+
+namespace Sdl.Verification.Sdk.IdenticalCheck.Extended.MessageUI
+{
+    public partial class IdenticalVerifierMessageUI : UserControl, ISuggestionProvider
+    {
+        #region Create Edit Controls
+        /// <summary>
+        /// Source segment edit control
+        /// </summary>
+        private readonly BasicSegmentEditControl _originalSegment = new BasicSegmentEditControl();
+
+        /// <summary>
+        /// Target segment edit control
+        /// </summary>
+        private readonly BasicSegmentEditControl _suggestedSegment = new BasicSegmentEditControl();
+        #endregion
+
+        private Suggestion _suggestion;
+
+        #region Constructor
+        public IdenticalVerifierMessageUI(MessageEventArgs messageEventArgs, ISegment originalSegment)
+        {
+            InitializeComponent();
+
+            #region Get ExtendedMessage Data
+            IdenticalVerifierMessageData messageData = (IdenticalVerifierMessageData)messageEventArgs.ExtendedData;
+            this.tb_ErrorDetails.Text = messageData.ErrorDetails;
+            _suggestion = new Suggestion(messageEventArgs.FromLocation, messageEventArgs.UptoLocation, 
+                messageData.ReplacementSuggestion.Clone() as IAbstractMarkupData);
+            #endregion
+
+            _originalSegment.Dock = DockStyle.Fill;
+            _originalSegment.IsReadOnly = true;
+            _originalSegment.ReplaceDocumentSegment(originalSegment.Clone() as ISegment);
+            panel_Original.Controls.Add(_originalSegment);
+        }
+        #endregion
+
+        #region ISuggestionProvider
+        public Suggestion GetSuggestion()
+        {
+            return _suggestion;
+        }
+
+        public bool HasSuggestion()
+        {
+            return true;
+        }
+
+        public event EventHandler SuggestionChanged;
+        #endregion
+    }
+}
+```
 
 Summary
 ====

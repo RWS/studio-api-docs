@@ -1,0 +1,83 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.IO;
+using System.Reflection;
+
+using Sdl.Core.PluginFramework;
+
+namespace Sdl.TranslationStudio.Sdk.Documentation.Samples
+{
+    class HostApplication
+    {
+        private void Main()
+        {
+            #region CreatePluginRegistry
+
+            string applicationDirectory = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            string pluginsDirectory = Path.Combine(applicationDirectory, "plugins");
+
+            // create plug-in registry
+            IPluginRegistry pluginRegistry =
+                PluginManager.CreatePluginRegistry(pluginsDirectory, "plugincache.xml", false);
+
+            #endregion CreatePluginRegistry
+
+            #region GetExtensionPoint
+
+            IExtensionPoint extensionPoint = pluginRegistry.GetExtensionPoint<MessageTransmitterAttribute>();
+
+            #endregion GetExtensionPoint
+
+            #region EnterMessage
+
+            Console.Write("Enter your message: ");
+            string message = Console.ReadLine();
+            
+            #endregion EnterMessage
+
+            #region ListTransmitters
+
+            int i = 0;
+            Console.WriteLine("Available message transmitters:");
+            foreach (IExtension extension in extensionPoint.Extensions)
+            {
+                MessageTransmitterAttribute extensionAttribute =
+                    (MessageTransmitterAttribute)extension.ExtensionAttribute;
+
+                Console.WriteLine(String.Format("{0}) {1} (cost per character: ${2})",
+                    ++i,
+                    extensionAttribute.Name,
+                    extensionAttribute.CostPerCharacter));
+            }
+
+            Console.WriteLine(String.Format("Choose a message transmitter (1-{0}):", i));
+            int number = Convert.ToInt32(Console.ReadLine());
+
+            #endregion ListTransmitters
+
+            #region GetSelectedTransmitter
+
+            IExtension selectedExtension = extensionPoint.Extensions[number - 1];
+            #endregion GetSelectedTransmitter
+
+            #region CreateInstance
+            IMessageTransmitter selectedTransmitter =
+                (IMessageTransmitter)selectedExtension.CreateInstance();
+            #endregion CreateInstance
+
+            #region SendMessage
+            selectedTransmitter.SendMessage(message);
+            #endregion SendMessage
+            
+            #region ObjectRegistry
+
+            ObjectRegistry<MessageTransmitterAttribute, IMessageTransmitter> objectRegistry =
+new ObjectRegistry<MessageTransmitterAttribute, IMessageTransmitter>(pluginRegistry);
+
+            IMessageTransmitter[] messageTransmitters = objectRegistry.CreateObjects();
+            #endregion ObjectRegistry
+
+        }
+    }
+}

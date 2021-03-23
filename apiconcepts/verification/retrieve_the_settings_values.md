@@ -11,14 +11,93 @@ After implementing the user interface, you need to add a separate class for retr
 [!code-csharp[Settings](code_samples/Settings.aml#L24-L30)]
 ***
 
-Our sample application only has one setting, i.e. a (display code) string value that defines which context should be relevant for the verification, e.g. **H** for **Heading**. This setting will be implemented as a string property, which we will call, for example `CheckContext`:
+Our sample application only has one setting, i.e. a (display code) string value that defines which context should be relevant for the verification, e.g. **H** for **Heading**. This setting will be implemented as a string property, which we will call, for example `CheckContext`:// Define the setting constant.
+private const string CheckContext_Setting = "CheckContext";
 
-We will also implement a method for setting the default value. Let us assume that headings are most likely to stay unchanged in the target language. Therefore it makes sense to apply the verification by default to segment pairs whose context has the context display code **H**:
+// Return the value of the setting.
+public Setting<string> CheckContext
+{
+    get { return GetSetting<string>(CheckContext_Setting); }
+}
+```
+
+```cs
+
+
+We will also implement a method for setting the default value. Let's assume that headings are likely to stay unchanged in the target language. Therefore it makes sense to apply the verification by default to segment pairs whose context has the context display code **H**:
+
+```cs
+protected override object GetDefaultValue(string settingId)
+{
+    switch (settingId)
+    {
+        case "CheckContext":
+            return (string)"H";
+        default:
+            return base.GetDefaultValue(settingId);
+    }
+}
+```
 
 The plug-in settings are physically stored in the project files (* .*sdlproj*) or project template files (* .*sdltpl*). The settings group in the (XML-compliant) project (template) file can look as shown below. As you can see, the setting id corresponds to the name of the property that we have implemented in this class.
 
-Note that the **Enabled** property does not need to be implemented by your plug-in. The plug-in framework provides the mechanism for enabling/disabling global verifier plug-ins through the user interface of Trados Studio 2017.
+```cs
+<SettingsGroup Id="Identical Verifier">
+    <Setting Id="Enabled">True</Setting>
+  </SettingsGroup>
+  <SettingsGroup Id="IdenticalVerifierSettings">
+    <Setting Id="CheckContext">H</Setting>
+  </SettingsGroup>
+  ```
+
+Note that the **Enabled** property does not need to be implemented by your plug-in. The plug-in framework provides the mechanism for enabling/disabling global verifier plug-ins through the user interface of Trados Studio.
 
 Putting it All Together
 ----
 The complete class that is used for retrieving the settings value should look as shown below:
+
+```cs
+using Sdl.Core.Settings;
+
+namespace Sdl.Verification.Sdk.IdenticalCheck
+{
+    /// <summary>
+    /// This class is used for reading and writing the plug-in setting(s) value(s).
+    /// The settings are physically stored in an (XML-compliant) *.sdlproj file, which
+    /// is generated for each project that is created in SDL Trados Studio or for 
+    /// each file that is opened and translated.
+    /// </summary>
+    class IdenticalVerifierSettings : SettingsGroup
+    {
+        #region "setting"
+        // Define the setting constant.
+        private const string CheckContext_Setting = "CheckContext";
+
+        // Return the value of the setting.
+        public Setting<string> CheckContext
+        {
+            get { return GetSetting<string>(CheckContext_Setting); }
+        }
+        #endregion
+
+        /// <summary>
+        /// Return the default value of the setting property, i.e the context display code,
+        /// which by default is H (i.e. headline).
+        /// </summary>
+        /// <param name="settingId"></param>
+        /// <returns></returns>
+        #region "default"
+        protected override object GetDefaultValue(string settingId)
+        {
+            switch (settingId)
+            {
+                case "CheckContext":
+                    return (string)"H";
+                default:
+                    return base.GetDefaultValue(settingId);
+            }
+        }
+        #endregion
+    }
+}
+```

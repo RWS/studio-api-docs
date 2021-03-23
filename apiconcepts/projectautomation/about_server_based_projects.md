@@ -2,7 +2,7 @@ About Server Based Projects
 =====
 Group Share 2017 Project Server allows projects to be shared between teams. This chapter explains how to work with server-based projects.
 
-How do server based projects work
+How server based projects work
 ------
 Server projects are stored online and allow Studio users to collaborate on translation projects in a more efficient and centralized way. Server projects can have multiple users working on different project files at the same time without having to distribute project packages containing the work to be completed. Project managers are also able to track the progress of the work that has been checked in.
 

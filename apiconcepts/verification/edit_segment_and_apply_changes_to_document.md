@@ -17,6 +17,17 @@ The figure below shows the dialog box for the QA Checker verifier with the Edit 
 
 In order to change the behaviour of this control, the ISegmentChangedAware interface needs to be implemented.
 
+```cs
+public interface ISegmentChangedAware
+{
+    bool HasSegmentChanged { get; }
+    ISegment EditedSegment { get; }
+    ParagraphUnitId? TargetParagraphId { get; }
+    SegmentId? TargetSegmentId { get; }
+    void ResetSegment();
+    event EventHandler EventArgs SegmentChanged;
+}
+```
 
 For a complete example using the QA Checker verifier, please refer to the Control 
 **CustomMessageControl** in the Project **Sdl.Verification.Sdk.EditAndApplyChanges.MessageUI** that is included with the **SDK samples** for a complete description of how to implement this.

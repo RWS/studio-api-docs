@@ -4,11 +4,11 @@ This section describes how to work with field definitions within translation mem
 
 Field Definitions
 -----
-A translation memory provides the capability to define custom translation units fields, which can be used to assocaiet additional information with translation units. Translation units can be filtered based expressions defined in terms of fields when performing various operations.
+A translation memory provides the capability to define custom translation units fields, which can be used to associate additional information with translation units. Translation units can be filtered based expressions defined in terms of fields when performing various operations.
 
-Every translation memory can have a collection of field definitions, represented by the FieldDefinitionCollection class, which is a collection of FieldDefinition objects.
+Every translation memory can have a collection of field definitions, represented by the `FieldDefinitionCollection` class, which is a collection of `FieldDefinition` objects.
 
-Server-based translation memories have the ability to inherit their field definitions from a fields template (ServerBasedFieldsTemplate). When that is the case, the field definitions can be centrally managed via the fields template, but not on the translation memory itself. For more information, see Working with Field Templates.
+Server-based translation memories have the ability to inherit their field definitions from a fields template (`ServerBasedFieldsTemplate`). When that is the case, the field definitions can be centrally managed via the fields template, but not on the translation memory itself. For more information, see [Working with Field Templates](translationmemory/working_with_field_templates.md).
 
 A field definition can have one of the following types, as defined in **FieldValueType**:
 

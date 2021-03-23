@@ -4,13 +4,13 @@ Translation memories can be used for looking up entire segments as well as parti
 
 Segment Look-up
 ----
-When opening a file in Trados Studio 2017 the document is split up into segments, which are then presented in a side-by-side editor view. Note that a segment corresponds in most cases to a sentence. During translation users can use the application to look for any suitable segment matches in the selected TM(s). If the same or a similar segment is found in the TM, the corresponding translation will be suggested. Users can then accept the translation suggestion as is, or modify it as required by the current context.
+When opening a file in Trados Studio, the document is split up into segments, which are then presented in a side-by-side editor view. Note that a segment corresponds in most cases to a sentence. During translation users can use the application to look for any suitable segment matches in the selected TM(s). If the same or a similar segment is found in the TM, the corresponding translation will be suggested. Users can then accept the translation suggestion as is, or modify it as required by the current context.
 
-The screenshot below shows a number of sample segments as they are presented in the side-by-side editor of Trados Studio 2017:
+The screenshot below shows a number of sample segments as they are presented in the side-by-side editor of Trados Studio:
 
 <img style="display:block; " src="images/SideBySide.jpg"/>
 
-The screenshot below showns an example of a 100% segment match (exact match) that was found found in a TM:
+The screenshot below shows an example of a 100% segment match (exact match) that was found found in a TM:
 
 <img style="display:block; " src="images/ExactMatch.jpg"/>
 
@@ -27,6 +27,6 @@ TMs offer the following match types:
 
 Concordance Search
 -----
-The concordance search is used to look up single words or multi-word expressions that occur in a segment. It works like this: Users select one or several words in the source or target segment, and then get a list of all segments that contain the search string (if any). The concordance search can also find derived forms of the search expression. Example: If users enter the expression location, the concordance results might also include segments that contain the plural form, as the concordance search applies a fuzzy algorithm. TMs can be configured to use a word-based or a character-based search matrix. A character-based search is likely to find more derived forms than a word-based search. However, the character-based search is significantly slower than its word-based counterpart. This is why character-based searching is only recommended for small TMs that contain, for example, only a few hundred or a few thousand translation units. The screenshot below shows an example of a concordance search result in Trados Studio 2017:
+The concordance search is used to look up single words or multi-word expressions that occur in a segment. It works like this: Users select one or several words in the source or target segment, and then get a list of all segments that contain the search string (if any). The concordance search can also find derived forms of the search expression. Example: If users enter the expression location, the concordance results might also include segments that contain the plural form, as the concordance search applies a fuzzy algorithm. TMs can be configured to use a word-based or a character-based search matrix. A character-based search is likely to find more derived forms than a word-based search. However, the character-based search is significantly slower than its word-based counterpart. This is why character-based searching is only recommended for small TMs that contain, for example, only a few hundred or a few thousand translation units. The screenshot below shows an example of a concordance search result in Trados Studio:
 
 <img style="display:block; " src="images/ConcordanceResult.jpg"/>

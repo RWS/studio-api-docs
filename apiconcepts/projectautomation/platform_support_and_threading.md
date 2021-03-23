@@ -8,6 +8,6 @@ Event through the Project Automation API is a pure .Net API, it relies on certai
 
 Multithreading
 -----
-The FileBasedProject class is not thread-safe. This means it is not safe to access the same instance of FileBasedProject from two or more different threads.
+The `FileBasedProject` class is not thread-safe. This means it is not safe to access the same instance of `FileBasedProject` from two or more different threads.
 
 In addition, it is not recommended to work with multiple projects simultaneously on different threads. If you do want to create an application that, for example, creates projects simultaneously, we recommend that you to do this in separate processes, rather than in separate threads within the same process.

@@ -8,7 +8,7 @@ During project creation, users can choose to merge several files into one interm
 
 Merging several native files of different formats into one intermediary (SDL XLIFF) document
 
-Trados Studio 2017 even allows you to merge different native file formats into one intermediary document (e.g. PPT, XLS, DOC, XML, etc.). In the editor of SDL Trados Studio 2017 markers indicate where a file ends and where the next file begins. Depending on where the user has currently positioned the cursor, a native preview is generated for that particular document (provided that the file type plug-in for that specific file format supports the generation of a preview).
+Trados Studio even allows you to merge different native file formats into one intermediary document (e.g. PPT, XLS, DOC, XML, etc.). In the editor of Trados Studio markers indicate where a file ends and where the next file begins. Depending on where the user has currently positioned the cursor, a native preview is generated for that particular document (provided that the file type plug-in for that specific file format supports the generation of a preview).
 
 
 <img style="display:block; " src="images/Merge02.jpg"/>

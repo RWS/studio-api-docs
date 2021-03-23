@@ -2,13 +2,21 @@ Defining an Extension Point
 ====
 This section explains how to create an extension point.
 
+> [!NOTE]
+> This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.
+
+
 Defining an Extension Point
 ----
-An extension point is defined by creating an attribute class, which extends the extension attribute base class, ExtensionAttribute. The properties of this attribute class define the meta-data extension developers can provide with their extensions.
+An extension point is defined by creating an attribute class, which extends the extension attribute base class, ExtensionAttribute. The properties of this attribute class define the metadata extension developers can provide with their extensions.
 
 Extension developers can now create an extension .Net class, and mark this up with the extension attribute to indicate which extension point it targets.
 
 Going back to the example, in order to allow message transmitters to be plugged in, we need to define an extension point. This is done by defining an extension attribute class, `MessageTransmitterAttribute`, which extends the extension attribute base class, `ExtensionAttribute`:
+
+# [C#](#tab/tabid-1)
+[!code-csharp[MessageTransmitterAttribute](code_samples/MessageTransmitterAttribute.cs#L11-L52)]
+***
 
 The purpose of the message transmitter attribute is to allow plug-in developers to use it to annotate their message transmitter extension classes, to make them known as message transmitter implementations to the extension point.
 
@@ -26,6 +34,8 @@ Since all these properties will be extracted to the plug-in manifest file by the
 
 We still have to define which functionality is required from an extension class to be accepted as a valid message transmitter by the host application. This is done by defining an interface:
 
+[!code-csharp[IMessageTransmitter](code_samples/IMessageTransmitter.cs#L1-L15)]
+***
 
 This simple interface contains one method, SendMessage, to be called by the host application to send the message.
 

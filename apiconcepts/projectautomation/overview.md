@@ -1,12 +1,12 @@
 Introduction
 =====
-This documentation provides practical examples of how to use the Project Automation API, which allows programmatic access to the project automation functionality of Trados Studio 2017. Apart from various code snippets that demonstrate common use cases you will also find a fully-documented command-line sample application that showcases how to automate project creation and batch task functionality.
+This documentation provides practical examples of how to use the Project Automation API, which allows programmatic access to the project automation functionality of Trados Studio. Apart from various code snippets that demonstrate common use cases you will also find a fully-documented command-line sample application that showcases how to automate project creation and batch task functionality.
 
 What you can do with this SDK
 ----
 The Project Automation API is concerned with the automation of common project management tasks such as file analysis, pre-translation, generation of finalized target documents, etc. Based on this API you could potentially build fully-fledged, customized workflow systems. Below you find examples of applications for the API:
 
-* Developing a Comand-line application that traverses a folder / sub-folder structure to analyze or pre-translate the translatable documents contained therein.
+* Developing a Command-line application that traverses a folder / sub-folder structure to analyze or pre-translate the translatable documents contained therein.
 * Develop an application that creates custom analysis reports for importing into an accounting system.
 * Develop an application for fully automating the project creation process, e.g. create multiple projects according to a template with one mouse-click.
 * Schedule automated project package creation and assigning manual tasks to a number of users. The application can then upload the packages to an FTP server or forward them via e-mail.

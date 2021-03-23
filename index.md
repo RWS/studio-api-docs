@@ -1,7 +1,7 @@
-# Access the SDL Trados Studio APIs.
+# Access the Trados Studio APIs
 
 ## [Articles](articles/intro.md)
-Read articles on how to achieve different stuff in Trados Studio.
+Read articles on how to get more out of Trados Studio.
 
-## [Learn more about SDL Trados Studio APIs](apiconcepts/overview.md) 
-Learn more about the APis and what you can achieve with them.
+## [Learn more about Trados Studio APIs](apiconcepts/overview.md) 
+Learn more about the APIs and what you can achieve with them.

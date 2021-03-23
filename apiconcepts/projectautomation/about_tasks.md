@@ -8,10 +8,10 @@ During or after creating a project you can run one or several automatic tasks on
 
 <img style="display:block; " src="images/ProjectApiTaskAnalyseReport.jpg"/>
 
-Automatic tasks can be combined in a task sequence. Task sequences are usually run on a project immediately after it has been created, e.g.: converting files to SDL XLIFF, analyzing files, then pre-translating the project files. Below you see an example of a Prepare task sequence in Trados Studio 2017 and the single tasks that the sequence contains:
+Automatic tasks can be combined in a task sequence. Task sequences are usually run on a project immediately after it has been created, e.g.: converting files to SDL XLIFF, analyzing files, then pre-translating the project files. Below you see an example of a **Prepare** task sequence in Trados Studio and the single tasks that the sequence contains:
 
 <img style="display:block; " src="images/ProjectApiTaskSequence.jpg"/>
 
-In Trados Studio 2017 you can also run automatic tasks on one or several selected files by right-clicking the file(s) and selecting the required task from the context menu:
+In Trados Studio, you can also run automatic tasks on one or several selected files by right-clicking the file(s) and selecting the required task from the context menu:
 
 <img style="display:block; " src="images/ProjectApiBatchTasks.jpg"/>

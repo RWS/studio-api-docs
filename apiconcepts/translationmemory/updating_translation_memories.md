@@ -1,6 +1,6 @@
 Updating Translation Memories
 ====
-A TM is updated while the user is translating or editing a document in Trados Studio 2017.
+A TM is updated while the user is translating or editing a document in Trados Studio.
 
 While a translator is translating the following update scenarios will apply:
 

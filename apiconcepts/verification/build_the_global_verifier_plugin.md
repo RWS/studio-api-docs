@@ -32,19 +32,19 @@ and
 
 *C:\Users\[UserName]\AppData\Roaming\SDL\SDL Trados Studio\14\Plugins\Unpacked*
 
-Make sure that you place the **.sdlplugin* file into the sub-folder Packages and launch Trados Studio 2017. During startup of Trados Studio 2017 the content of the package will be automatically extracted to the *Unpacked sub-folder*, as illustrated below:
+Make sure that you place the **.sdlplugin* file into the sub-folder Packages and launch Trados Studio. During startup of Trados Studio, the content of the package will be automatically extracted to the *Unpacked sub-folder*, as illustrated below:
 
 The above folder does not have to be the build output path, but it is convenient to build the project in this folder, as this will also create the *.sdlplugin file where it needs to be. After creating the plug-in based on the (empty) template, you could already build the project. However, it will, of course, not offer any functionality.
 
-Upon start-up Trados Studio 2017 will load the unpacked plug-in and show the following message, which you can confirm with **Yes**, so that the plug-in gets loaded. This message appears when loading plug-ins that have not been certified by SDL, which could potentially be unsafe. The message can be avoided by submitting your plug-in to SDL for certification.
+Upon start-up, Trados Studio will load the unpacked plug-in and show the following message, which you can confirm with **Yes**, so that the plug-in gets loaded. This message appears when loading plug-ins that have not been certified by SDL, which could potentially be unsafe. The message can be avoided by submitting your plug-in to SDL for certification.
 
 
 <img style="display:block; " src="images/PlugInWarning.jpg"/>
 
 > [!NOTE]
-> If a user clicks **No** when the plug-in security message is displayed during start-up of Trados Studio 2017, the plug-in will not be shown in the application.
+> If a user clicks **No** when the plug-in security message is displayed during start-up of Trados Studio, the plug-in will not be shown in the application.
 
-After loading the plug-in in Trados Studio 2017, you can confirm that the plug-in has been added by raising the corresponding dialog box through the menu command **Tools** -> **Plug-ins**. The **Plug-ins** dialog box should list the name of your newly created plug-in:
+After loading the plug-in in Trados Studio, you can confirm that the plug-in has been added by raising the corresponding dialog box through the menu command **Tools** -> **Plug-ins**. The **Plug-ins** dialog box should list the name of your newly created plug-in:
 
 <img style="display:block; " src="images/IdenticalSegmentVerifier.jpg"/>
 
@@ -66,7 +66,7 @@ Below you see what the manifest of our sample plug-in looks like:
 
 The manifest contains the following information:
 * **PlugInName**: indicates the friendly name of the plugin. This string be different from the name of the plug-in that is defined in **PluginResources.resx**. The reason for this is that a plug-in package can - in theory - contain multiple plug-ins, which need to be distinguished.
-* **Version**: the version of the plug-in package. This information is used to detect any package updates upon start-up of Trados Studio 2017, and is therefore important.
+* **Version**: the version of the plug-in package. This information is used to detect any package updates upon start-up of Trados Studio, and is therefore important.
 * **Description**: descriptive information of the plug-in package.
 * **Author**: the name of the plug-in developer.
-* **RequiredProduct**: this string indicates which SDL product version is required to run the given plug-in. The information that you indicate here must include the minimum version, and can optionally include a maximum version.
+* **RequiredProduct**: this string indicates which product version is required to run the given plug-in. The information that you indicate here must include the minimum version, and can optionally include a maximum version.

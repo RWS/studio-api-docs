@@ -4,9 +4,9 @@ This section describes how to work with file-based translation memories.
 
 File-based Translation Memories
 -----
-A file-based translation memory is a translation memory (ITranslationMemory) that is stored in a file with the ".sdltm" extension. It is designed for single-user access and supports only one language direction, which is defined when the translation memory is created and cannot be changed afterwards.
+A file-based translation memory is a translation memory (`ITranslationMemory`) that is stored in a file with the ".sdltm" extension. It is designed for single-user access and supports only one language direction, which is defined when the translation memory is created and cannot be changed afterwards.
 
-File-based translation memories are represented by the FileBasedTranslationMemory class, which in turn inherits from AbstractLocalTranslationMemory, the base class for file-based and in-memory translation memories (InMemoryTranslationMemory).
+File-based translation memories are represented by the `FileBasedTranslationMemory` class, which in turn inherits from `AbstractLocalTranslationMemory`, the base class for file-based and in-memory translation memories (`InMemoryTranslationMemory`).
 
 <img style="display:block; " src="images/FileBasedTranslationMemory.png"/>
 
