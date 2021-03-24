@@ -13,7 +13,7 @@ Setting Up a Development Machine
    Trados Studio runs with Windows XP, Windows Vista 32-bit/64-bit, Windows 7 32-bit/64-bit and Windows 8 32-bit/64-bit. Earlier operating system generations such as Windows 2000, Windows NT and Windows 98 are not supported.
    Trados Studio requires the Microsoft .Net Framework 3.5 SP1.
 
-**System requirements for running SDL GroupShare (SDL TM Server, SDL Multiterm, SDL Project Server):**
+**System requirements for running GroupShare (TM Server, Multiterm, SDL Project Server):**
 
    GroupShare runs with Windows Server 2003 and Windows Server 2008 (32-bit/64-bit)
 * Single CPU and multi-CPU computers are supported.

@@ -17,7 +17,9 @@ For more information on building and deploying a Trados Studio plug-in, see (Bui
 
 Sign and use Strong-Named Assemblies to enable the loading of your plug-ins inside the Trados Studio.
 
-How to: Sign an Assembly with a Strong Name
+
+
+[How to: Sign an Assembly with a Strong Name]((https://docs.microsoft.com/en-us/dotnet/standard/assembly/sign-strong-name?redirectedfrom=MSDN)) 
 
 Choosing a different build output path or not signing your assembly will prevent your plugin from loading.
 

@@ -13,7 +13,7 @@ By default, when you create a project based on this template, the project name w
 
 Add the Required References
 -----
-The plug-in template will come with the **Sdl.Core.PluginFramework.dll** reference. For our global verifier implementation, we also need to reference the Verification API, i.e. **Sdl.Verification.Api.dll**. For implementing the functionality required by our example, you need to add the libraries used for integration with Trados Studio 2017, which are as follows:
+The plug-in template will come with the **Sdl.Core.PluginFramework.dll** reference. For our global verifier implementation, we also need to reference the Verification API, i.e. **Sdl.Verification.Api.dll**. For implementing the functionality required by our example, you need to add the libraries used for integration with Trados Studio, which are as follows:
 
 * **Sdl.Desktop.Platform.dll**
 * **Sdl.FileTypeSupport.Framework.Core**

@@ -1,0 +1,268 @@
+Creating a Server Translation Memory
+====
+
+Server translation memories can either be created in Trados Studio or in the browser-based TM Server Manager (provided that you have the required access rights). In this chapter you will learn how to create server TMs programmatically, which is probably one of the most common applications.
+
+Add a New Class
+----
+The screenshot below illustrates what kind of information you need to provide when creating a new server TM from Trados Studio. Some information is optional such as the description and the copyright information. The mandatory information that you need to provide is a follows:
+
+* TM name
+* TM Server name
+* Container database
+* Organization (default is Root Organization)
+* Language direction
+
+<img style="display:block; " src="images/CreateServerTM.jpg"/>
+
+To create a server TM programmatically, start by adding a new class called ServerTmCreator. Then implement a function called Create, which takes a TM Server object and the name of the TM to create as parameters.
+
+Check if the TM Already Exists
+----
+As it is not allowed to create a TM with a name that exists already, you should also check whether the TM you are trying to create is already present on the server. To make your script robust, loop through the available TMs on the server, and then throw an error if a TM with the same name already exists.
+
+```
+foreach (ServerBasedTranslationMemory item in tmServer.GetTranslationMemories(TranslationMemoryProperties.None))
+{
+    if (item.Name == tmName)
+    {
+        throw new Exception("TM with that name already exists.");
+    }
+}
+```
+Assign the TM Properties
+---
+After you have made certain that a TM with that name does not exist yet, use the `ServerBasedTranslationMemory` class to create a new server TM object. Then assign the TM properties, i.e. the name and the (optional) description and copyright information:
+
+```
+ServerBasedTranslationMemory newTM = new ServerBasedTranslationMemory(tmServer);
+newTM.Name = tmName;
+newTM.Description = "Programmatically created sample TM";
+newTM.Copyright = "(c) 2010 SDL International";
+```
+Select the Container
+----
+In the next step, select the container database in which the new TM should be created. To do this retrieve the containers available on the TM Server. The container is referenced by using the nice name and the container properties as parameters.
+
+```
+containerPath += containerName;
+TranslationMemoryContainer container = tmServer.GetContainer(containerPath, this.GetContainerProperties());
+newTM.Container = container;
+```
+The container properties are returned by a separate function:
+
+```
+private ContainerProperties GetContainerProperties()
+{
+    ContainerProperties props = new ContainerProperties();
+
+    return props;
+}
+```
+
+Select the Language Direction
+----
+Now assign the language direction, e.g. English -> German *(en-US -> de-DE)*:
+
+```
+this.CreateLanguageDirections(newTM.LanguageDirections);
+```
+The creation of the language direction is done in a separate function. Here, you set the locales of the source and target languages, i.e. *en-US* and *de-DE*. This language direction is then added to the language direction collection, which, in turn, is then assigned to the TM.
+
+```
+private void CreateLanguageDirections(ServerBasedTranslationMemoryLanguageDirectionCollection directionsCollection)
+{
+    ServerBasedTranslationMemoryLanguageDirection direction = new ServerBasedTranslationMemoryLanguageDirection();
+    direction.SourceLanguage = CultureInfo.GetCultureInfo("en-US");
+    direction.TargetLanguage = CultureInfo.GetCultureInfo("de-DE");
+
+    directionsCollection.Add(direction);
+}
+```
+Note that while file-based translation memories can only be bilingual, server TMs can be multilingual. This means that you can add multiple directions to the languages directions collection. However, in this example we only add one direction to the language directions collection.
+
+Field and Language Resources Templates
+----
+
+When creating a TM you can select a field and language resources template. Field templates store the fields that can be added to a TU (e.g. *Customer, Project id*, etc.). Language resource templates can store custom abbreviation lists, variables, etc. For more information on these kinds of templates, please see Configuring Translation Memories. In order to select a fields template during creation of a TM, you need to apply the `GetFieldsTemplates` method to the TM server object. This method requires the template name and the template properties (`FieldsTemplateProperties`) as parameters. In the same way you can select the language resources templates by applying the `GetLanguageResourcesTemplates` method, which also takes the template name and the template properties (`LanguageResourcesTemplateProperties`) as parameters:
+
+string sampleFieldTemplateName = "MyFieldTemplate";
+foreach (ServerBasedFieldsTemplate template in tmServer.GetFieldsTemplates(FieldsTemplateProperties.All))
+{
+    if (template.Name == sampleFieldTemplateName)
+    {
+        newTM.FieldsTemplate = tmServer.GetFieldsTemplate(
+            templatePath + sampleFieldTemplateName, FieldsTemplateProperties.Fields);
+        break;
+    }
+}
+
+```
+string sampleLanguageResourcesTemplateName = "MyLanguageResourcesTemplate";
+foreach (ServerBasedLanguageResourcesTemplate template in tmServer.GetLanguageResourcesTemplates(
+    LanguageResourcesTemplateProperties.LanguageResources))
+{
+    if (template.Name == sampleLanguageResourcesTemplateName)
+    {
+        newTM.LanguageResourcesTemplate = tmServer.GetLanguageResourcesTemplate(
+            templatePath + sampleLanguageResourcesTemplateName, LanguageResourcesTemplateProperties.None);
+        break;
+    }
+}
+```
+
+> [!NOTE]
+> Field templates are only available for server TMs. For file-based TMs, fields need to be configured for each TM individually, and cannot be centralized in a field template.
+
+Select the Organization
+---
+
+TMs are assigned to organizations, by default the *Root Organization*. Organizations make it easier to manage large numbers of TMs. For example, if you want to create TMs for a specific customer, you can first define an organization called e.g. *Microsoft*, and then create all Microsoft-related TMs within this organization. It is also possible to define that only particular users should have access to this organization, and thus to the TMs created therein. In our implementation we create the new TM within the *organization* passed in through the organization parameter.
+
+> [!NOTE]
+> If you have not defined organizations, and want to use the Root Organization, the path would simply be:
+
+/
+
+If you take a *sub-ordinate organization*, the path to the organization would look as follows:
+
+/*My Company*
+
+If an organization has sub-organizations (e.g. a company further sub-divides into departments), the path would look as shown below:
+
+/*My Company/Marketing*
+
+Delete the Translation Memory
+----
+Of course, it is also possible to delete server TMs when they are no longer required. Note that this is a dangerous operation, as this will physically delete potentially valuable data. Unless a backup is available, the deleted TM data can no longer be restored. The sample function below opens a server TM and then applies the Delete method to delete the TM from the server. Note that a TM can only be deleted by a user who has the necessary credentials.
+
+```
+public void DeleteTm(TranslationProviderServer tmServer, string organizationPath, string tmName)
+{
+    string tmPath = organizationPath;
+    if (!tmPath.EndsWith("/"))
+        tmPath += "/";
+
+    ServerBasedTranslationMemory tm = tmServer.GetTranslationMemory(tmPath + tmName, TranslationMemoryProperties.All);
+    tm.Delete();
+}
+```
+Putting it All Together
+---
+The complete class should now look as shown below:
+
+```
+namespace Sdl.SDK.LanguagePlatform.Samples.TmAutomation
+{
+    using System;
+    using System.Globalization;
+    using Sdl.LanguagePlatform.TranslationMemoryApi;
+
+    public class ServerTmCreator
+    {
+        #region "create"
+        public void Create(TranslationProviderServer tmServer, string organizationPath, string containerName, string tmName)
+        {
+            #region "CheckExists"
+            foreach (ServerBasedTranslationMemory item in tmServer.GetTranslationMemories(TranslationMemoryProperties.None))
+            {
+                if (item.Name == tmName)
+                {
+                    throw new Exception("TM with that name already exists.");
+                }
+            }
+            #endregion
+
+            #region "TM"
+            ServerBasedTranslationMemory newTM = new ServerBasedTranslationMemory(tmServer);
+            newTM.Name = tmName;
+            newTM.Description = "Programmatically created sample TM";
+            newTM.Copyright = "(c) 2010 SDL International";
+            #endregion
+
+            string containerPath = organizationPath;
+            if (!containerPath.EndsWith("/"))
+                containerPath += "/";
+
+            #region "container"
+            containerPath += containerName;
+            TranslationMemoryContainer container = tmServer.GetContainer(containerPath, this.GetContainerProperties());
+            newTM.Container = container;
+            #endregion
+
+            #region "LanguageDirection"
+            this.CreateLanguageDirections(newTM.LanguageDirections);
+            #endregion
+
+            #region "org"
+            newTM.ParentResourceGroupPath = organizationPath;
+            #endregion
+
+            string templatePath = organizationPath;
+            if (!templatePath.EndsWith("/"))
+                templatePath += "/";
+
+            #region "templates"
+            string sampleFieldTemplateName = "MyFieldTemplate";
+            foreach (ServerBasedFieldsTemplate template in tmServer.GetFieldsTemplates(FieldsTemplateProperties.All))
+            {
+                if (template.Name == sampleFieldTemplateName)
+                {
+                    newTM.FieldsTemplate = tmServer.GetFieldsTemplate(
+                        templatePath + sampleFieldTemplateName, FieldsTemplateProperties.Fields);
+                    break;
+                }
+            }
+
+            string sampleLanguageResourcesTemplateName = "MyLanguageResourcesTemplate";
+            foreach (ServerBasedLanguageResourcesTemplate template in tmServer.GetLanguageResourcesTemplates(
+                LanguageResourcesTemplateProperties.LanguageResources))
+            {
+                if (template.Name == sampleLanguageResourcesTemplateName)
+                {
+                    newTM.LanguageResourcesTemplate = tmServer.GetLanguageResourcesTemplate(
+                        templatePath + sampleLanguageResourcesTemplateName, LanguageResourcesTemplateProperties.None);
+                    break;
+                }
+            }
+            #endregion
+
+
+            newTM.Save();
+        }
+        #endregion
+
+        #region "ContainerProps"
+        private ContainerProperties GetContainerProperties()
+        {
+            ContainerProperties props = new ContainerProperties();
+
+            return props;
+        }
+        #endregion
+
+        #region "languages"
+        private void CreateLanguageDirections(ServerBasedTranslationMemoryLanguageDirectionCollection directionsCollection)
+        {
+            ServerBasedTranslationMemoryLanguageDirection direction = new ServerBasedTranslationMemoryLanguageDirection();
+            direction.SourceLanguage = CultureInfo.GetCultureInfo("en-US");
+            direction.TargetLanguage = CultureInfo.GetCultureInfo("de-DE");
+
+            directionsCollection.Add(direction);
+        }
+        #endregion
+
+        #region "DeleteTm"
+        public void DeleteTm(TranslationProviderServer tmServer, string organizationPath, string tmName)
+        {
+            string tmPath = organizationPath;
+            if (!tmPath.EndsWith("/"))
+                tmPath += "/";
+
+            ServerBasedTranslationMemory tm = tmServer.GetTranslationMemory(tmPath + tmName, TranslationMemoryProperties.All);
+            tm.Delete();
+        }
+        #endregion
+    }
+}
+```

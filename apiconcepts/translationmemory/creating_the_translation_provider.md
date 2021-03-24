@@ -1,16 +1,16 @@
 Creating the Translation Provider
 ======
-This section explains how to create a class that implements the ITranslationProvider interface, which forms the main part of a custom translation provider plug-in implementation.
+This section explains how to create a class that implements the `ITranslationProvider` interface, which forms the main part of a custom translation provider plug-in implementation.
 
 Overview
 -----
-The translation provider component represents a translation engine that provides functionality to translate segments. A translation provider is a class that implements ITranslationProvider. This functionality of this class can be categorized as follows:
+The translation provider component represents a translation engine that provides functionality to translate segments. A translation provider is a class that implements `ITranslationProvider`. This functionality of this class can be categorized as follows:
 
-* **Translation method**: The TranslationMethod property specifies which translation engine is used for generating translation results. Some search options in Trados Studio 2017 can determine whether a translation provider is called or not. This means that if a TM result already exists Trados Studio 2017 may no longer looks up for suggestions in the MT provider.
-* **Supported features**: The translation provider class also has to indicate which functionality it supports. There are a number of "Supports..." properties, which indicate which features the translation provider supports. Again, these values are used by Trados Studio 2017 to determine in which scenarios to use the translation provider and how to use it. See Supported Features.
-* **Language directions**: The translation provider can indicate which language directions it supports, and allows retrieving a language direction (ITranslationProviderLanguageDirection) using the GetLanguageDirection method. See Language Directions.
-* **Serializing and loading state**: When a translation provider is added to an Trados Studio 2017 project, two pieces of information are serialized: the URI (Uri) and additional state information. See Serializing and Loading State.
-A translation provider can support one or more language directions, i.e. source-to-target language combinations. The functionality for a specific language direction is provided by a class that implements ITranslationProviderLanguageDirection.
+* **Translation method**: The TranslationMethod property specifies which translation engine is used for generating translation results. Some search options in Trados Studio can determine whether a translation provider is called or not. This means that if a TM result already exists Trados Studio may no longer looks up for suggestions in the MT provider.
+* **Supported features**: The translation provider class also has to indicate which functionality it supports. There are a number of "Supports..." properties, which indicate which features the translation provider supports. Again, these values are used by Trados Studio to determine in which scenarios to use the translation provider and how to use it. See [Supported Features](translationmemory/creating_the_translation_provider.md).
+* **Language directions**: The translation provider can indicate which language directions it supports, and allows retrieving a language direction (`ITranslationProviderLanguageDirection`) using the GetLanguageDirection method. See [Language Directions](translationmemory/creating_the_translation_provider.md).
+* **Serializing and loading state**: When a translation provider is added to an Trados Studio project, two pieces of information are serialized: the URI (Uri) and additional state information. See [Serializing and Loading State](translationmemory/creating_the_translation_provider.md).
+A translation provider can support one or more language directions, i.e. source-to-target language combinations. The functionality for a specific language direction is provided by a class that implements `ITranslationProviderLanguageDirection`.
 
 <img style="display:block; " src="images/TranslationProvider.png"/>
 
@@ -27,6 +27,6 @@ A translation provider language direction is defined by a source and target lang
 
 Serializing and Loading State
 -----
-When a translation provider is added to an SDL Trados Studio 2017 project, two pieces of information are serialized: the URI and the additional state. The additional state can take the form of additional settings required by the translation provider.
+When a translation provider is added to an Trados Studio project, two pieces of information are serialized: the URI and the additional state. The additional state can take the form of additional settings required by the translation provider.
 
-Serialization of state is done using the SerializeState method. The translation provider implementation is free to determine the format that it serializes its state in. SDL Trados Studio 2017 will only store this state information in the project. Also, the state information is included in packages, so it is not recommended to include sensitive information like credentials in there. There is a seperate mechanism for credentials and other user specific settings. For more details on this mechanism, refer to the Authentication section in Creating the Translation Provider Factory.
+Serialization of state is done using the SerializeState method. The translation provider implementation is free to determine the format that it serializes its state in. Trados Studio will only store this state information in the project. Also, the state information is included in packages, so it is not recommended to include sensitive information like credentials in there. There is a seperate mechanism for credentials and other user specific settings. For more details on this mechanism, refer to the Authentication section in Creating the Translation Provider Factory.

@@ -9,12 +9,12 @@ The Plug-in Package
 Building the project will generate a * *.sdlplugin* file, in our example *Sdl.Verification.Sdk.IdenticalCheck.sdlplugin*, which will be placed inside your build output path. The * *.sdlplugin* file is technically speaking a ZIP archive that contains the required plug-in components such as the plug-in binary (*.dll* itself), the resources file, the manifest etc. For our example, the *.sdlplugin* file will contain the following:
 
 * The plug-in assembly, e.g. **Sdl.Verification.Sdk.IdenticalCheck.dll**
-* The plug-in manifest, e.g. **Sdl.Verification.Sdk.IdenticalCheck.plugin.xml**. The manifest lists information on any extension classes that the plug-in contains. It is this manifest that will be created during the build process. It declares the assembly and the corresponding extension classes to Trados Studio 2017. By deleting this manifest *.xml file you would actually deactivate the plug-in and 'hide' it from the application.
+* The plug-in manifest, e.g. **Sdl.Verification.Sdk.IdenticalCheck.plugin.xml**. The manifest lists information on any extension classes that the plug-in contains. It is this manifest that will be created during the build process. It declares the assembly and the corresponding extension classes to Trados Studio. By deleting this manifest *.xml file you would actually deactivate the plug-in and 'hide' it from the application.
 * The plug-in resources file, e.g. **Sdl.Verification.Sdk.IdenticalCheck.plugin.resources**. This resources file contains all the localizable strings and images referred to within the plug-in manifest, and is compiled from **PluginResources.resx** (see also The Resources File).
   
 The Plug-in Package Path
 -----
-In order for Trados Studio 2017 to pick up the plug-in package and to extract it, the following folders need to be available on your hard drive:
+In order for Trados Studio017 to pick up the plug-in package and to extract it, the following folders need to be available on your hard drive:
 
 **For Windows XP**:
 

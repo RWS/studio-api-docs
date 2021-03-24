@@ -1,6 +1,6 @@
 Retrieve the Settings Values
 ======
-In this chapter you will learn how to retrieve the settings that have been configured through the plug-in user interface (see Implement the User Interface).
+In this chapter you will learn how to retrieve the settings that have been configured through the plug-in user interface (see [Implement the User Interface](verification/implement_the_user_interface.md)).
 
 Add a Class for Retrieving the Settings Values
 ------
@@ -11,7 +11,10 @@ After implementing the user interface, you need to add a separate class for retr
 [!code-csharp[Settings](code_samples/Settings.aml#L24-L30)]
 ***
 
-Our sample application only has one setting, i.e. a (display code) string value that defines which context should be relevant for the verification, e.g. **H** for **Heading**. This setting will be implemented as a string property, which we will call, for example `CheckContext`:// Define the setting constant.
+Our sample application only has one setting, i.e. a (display code) string value that defines which context should be relevant for the verification, e.g. **H** for **Heading**. This setting will be implemented as a string property, which we will call, for example `CheckContext`:
+
+```
+// Define the setting constant.
 private const string CheckContext_Setting = "CheckContext";
 
 // Return the value of the setting.
@@ -20,8 +23,6 @@ public Setting<string> CheckContext
     get { return GetSetting<string>(CheckContext_Setting); }
 }
 ```
-
-```cs
 
 
 We will also implement a method for setting the default value. Let's assume that headings are likely to stay unchanged in the target language. Therefore it makes sense to apply the verification by default to segment pairs whose context has the context display code **H**:
