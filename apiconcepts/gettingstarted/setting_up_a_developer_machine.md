@@ -28,7 +28,8 @@ Prerequisites
 System requirements for running Trados Studio:
 ----
 
-* The minimum requirements for running Trados Studio consist of a PC with a Pentium IV or higher compatible processor and 1 GB RAM. We recommend a recent Intel Core 2 processor or equivalent and 2 GB RAM.
+* A Microsoft Windows-based PC or an Intel-based Apple Mac computer running Windows as an
+operating system
 * A mouse or similar pointing device is required.
 * A minimum of 2 GB of hard disk space should be available.
 * Trados Studio runs with Windows 8/10 32-bit/64-bit. Earlier operating system generations such as Windows 7, Windows XP, 2000, Windows NT and Windows 98 are not supported.
