@@ -11,6 +11,7 @@ items:
   - Sdl.Core.PluginFramework.PluginManager.DefaultPluginRegistry
   - Sdl.Core.PluginFramework.PluginManager.PluginLoadException
   - Sdl.Core.PluginFramework.PluginManager.ResolvePluginAssemblyReference(System.String)
+  - Sdl.Core.PluginFramework.PluginManager.ResolvePluginAssemblyReference(System.String,Sdl.Core.PluginFramework.Configuration.IFrameworkConfiguration)
   langs:
   - csharp
   - vb
@@ -26,18 +27,12 @@ items:
   namespace: Sdl.Core.PluginFramework
   summary: "\nMain entry point to the plug-in framework.\n"
   syntax:
-    content: public static class PluginManager
-    content.vb: Public Module PluginManager
+    content: 'public static class PluginManager : Object'
+    content.vb: >-
+      Public Module PluginManager
+          Inherits Object
   inheritance:
   - System.Object
-  inheritedMembers:
-  - System.Object.ToString
-  - System.Object.Equals(System.Object)
-  - System.Object.Equals(System.Object,System.Object)
-  - System.Object.ReferenceEquals(System.Object,System.Object)
-  - System.Object.GetHashCode
-  - System.Object.GetType
-  - System.Object.MemberwiseClone
   modifiers.csharp:
   - public
   - static
@@ -62,7 +57,7 @@ items:
   assemblies:
   - Sdl.Core.PluginFramework
   namespace: Sdl.Core.PluginFramework
-  summary: "\nCreates the default plu-in cache, stored in an XML file in the user&apos;s profile.\n"
+  summary: "\nCreates the default plug-in cache, stored in an XML file in the user&apos;s profile.\n"
   syntax:
     content: public static IPluginCache CreateDefaultPluginCache()
     return:
@@ -102,6 +97,43 @@ items:
     return:
       type: System.String
     content.vb: Public Shared Function ResolvePluginAssemblyReference(pluginAssemblyReference As String) As String
+  overload: Sdl.Core.PluginFramework.PluginManager.ResolvePluginAssemblyReference*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: Sdl.Core.PluginFramework.PluginManager.ResolvePluginAssemblyReference(System.String,Sdl.Core.PluginFramework.Configuration.IFrameworkConfiguration)
+  commentId: M:Sdl.Core.PluginFramework.PluginManager.ResolvePluginAssemblyReference(System.String,Sdl.Core.PluginFramework.Configuration.IFrameworkConfiguration)
+  id: ResolvePluginAssemblyReference(System.String,Sdl.Core.PluginFramework.Configuration.IFrameworkConfiguration)
+  parent: Sdl.Core.PluginFramework.PluginManager
+  langs:
+  - csharp
+  - vb
+  name: ResolvePluginAssemblyReference(String, IFrameworkConfiguration)
+  nameWithType: PluginManager.ResolvePluginAssemblyReference(String, IFrameworkConfiguration)
+  fullName: Sdl.Core.PluginFramework.PluginManager.ResolvePluginAssemblyReference(System.String, Sdl.Core.PluginFramework.Configuration.IFrameworkConfiguration)
+  type: Method
+  source:
+    path: Sdl.Core.PluginFramework
+    isExternal: true
+  assemblies:
+  - Sdl.Core.PluginFramework
+  namespace: Sdl.Core.PluginFramework
+  summary: "\nResolve the assembly reference when the version is compatible with the current installed version.\n"
+  syntax:
+    content: public static string ResolvePluginAssemblyReference(string pluginAssemblyReference, IFrameworkConfiguration configuration)
+    parameters:
+    - id: pluginAssemblyReference
+      type: System.String
+      description: Assembly reference to resolve
+    - id: configuration
+      type: Sdl.Core.PluginFramework.Configuration.IFrameworkConfiguration
+      description: Plugin Framework configuration data
+    return:
+      type: System.String
+    content.vb: Public Shared Function ResolvePluginAssemblyReference(pluginAssemblyReference As String, configuration As IFrameworkConfiguration) As String
   overload: Sdl.Core.PluginFramework.PluginManager.ResolvePluginAssemblyReference*
   modifiers.csharp:
   - public
@@ -303,285 +335,6 @@ references:
   name: Object
   nameWithType: Object
   fullName: System.Object
-- uid: System.Object.ToString
-  commentId: M:System.Object.ToString
-  parent: System.Object
-  isExternal: true
-  name: ToString()
-  nameWithType: Object.ToString()
-  fullName: System.Object.ToString()
-  spec.csharp:
-  - uid: System.Object.ToString
-    name: ToString
-    nameWithType: Object.ToString
-    fullName: System.Object.ToString
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: System.Object.ToString
-    name: ToString
-    nameWithType: Object.ToString
-    fullName: System.Object.ToString
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Object.Equals(System.Object)
-  commentId: M:System.Object.Equals(System.Object)
-  parent: System.Object
-  isExternal: true
-  name: Equals(Object)
-  nameWithType: Object.Equals(Object)
-  fullName: System.Object.Equals(System.Object)
-  spec.csharp:
-  - uid: System.Object.Equals(System.Object)
-    name: Equals
-    nameWithType: Object.Equals
-    fullName: System.Object.Equals
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: System.Object.Equals(System.Object)
-    name: Equals
-    nameWithType: Object.Equals
-    fullName: System.Object.Equals
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Object.Equals(System.Object,System.Object)
-  commentId: M:System.Object.Equals(System.Object,System.Object)
-  parent: System.Object
-  isExternal: true
-  name: Equals(Object, Object)
-  nameWithType: Object.Equals(Object, Object)
-  fullName: System.Object.Equals(System.Object, System.Object)
-  spec.csharp:
-  - uid: System.Object.Equals(System.Object,System.Object)
-    name: Equals
-    nameWithType: Object.Equals
-    fullName: System.Object.Equals
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: System.Object.Equals(System.Object,System.Object)
-    name: Equals
-    nameWithType: Object.Equals
-    fullName: System.Object.Equals
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Object.ReferenceEquals(System.Object,System.Object)
-  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
-  parent: System.Object
-  isExternal: true
-  name: ReferenceEquals(Object, Object)
-  nameWithType: Object.ReferenceEquals(Object, Object)
-  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
-  spec.csharp:
-  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
-    name: ReferenceEquals
-    nameWithType: Object.ReferenceEquals
-    fullName: System.Object.ReferenceEquals
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
-    name: ReferenceEquals
-    nameWithType: Object.ReferenceEquals
-    fullName: System.Object.ReferenceEquals
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Object.GetHashCode
-  commentId: M:System.Object.GetHashCode
-  parent: System.Object
-  isExternal: true
-  name: GetHashCode()
-  nameWithType: Object.GetHashCode()
-  fullName: System.Object.GetHashCode()
-  spec.csharp:
-  - uid: System.Object.GetHashCode
-    name: GetHashCode
-    nameWithType: Object.GetHashCode
-    fullName: System.Object.GetHashCode
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: System.Object.GetHashCode
-    name: GetHashCode
-    nameWithType: Object.GetHashCode
-    fullName: System.Object.GetHashCode
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Object.GetType
-  commentId: M:System.Object.GetType
-  parent: System.Object
-  isExternal: true
-  name: GetType()
-  nameWithType: Object.GetType()
-  fullName: System.Object.GetType()
-  spec.csharp:
-  - uid: System.Object.GetType
-    name: GetType
-    nameWithType: Object.GetType
-    fullName: System.Object.GetType
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: System.Object.GetType
-    name: GetType
-    nameWithType: Object.GetType
-    fullName: System.Object.GetType
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Object.MemberwiseClone
-  commentId: M:System.Object.MemberwiseClone
-  parent: System.Object
-  isExternal: true
-  name: MemberwiseClone()
-  nameWithType: Object.MemberwiseClone()
-  fullName: System.Object.MemberwiseClone()
-  spec.csharp:
-  - uid: System.Object.MemberwiseClone
-    name: MemberwiseClone
-    nameWithType: Object.MemberwiseClone
-    fullName: System.Object.MemberwiseClone
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: System.Object.MemberwiseClone
-    name: MemberwiseClone
-    nameWithType: Object.MemberwiseClone
-    fullName: System.Object.MemberwiseClone
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
 - uid: System
   commentId: N:System
   isExternal: true
@@ -614,6 +367,19 @@ references:
   name: String
   nameWithType: String
   fullName: System.String
+- uid: Sdl.Core.PluginFramework.Configuration.IFrameworkConfiguration
+  commentId: T:Sdl.Core.PluginFramework.Configuration.IFrameworkConfiguration
+  parent: Sdl.Core.PluginFramework.Configuration
+  isExternal: true
+  name: IFrameworkConfiguration
+  nameWithType: IFrameworkConfiguration
+  fullName: Sdl.Core.PluginFramework.Configuration.IFrameworkConfiguration
+- uid: Sdl.Core.PluginFramework.Configuration
+  commentId: N:Sdl.Core.PluginFramework.Configuration
+  isExternal: true
+  name: Sdl.Core.PluginFramework.Configuration
+  nameWithType: Sdl.Core.PluginFramework.Configuration
+  fullName: Sdl.Core.PluginFramework.Configuration
 - uid: Sdl.Core.PluginFramework.PluginManager.CreatePluginRegistry*
   commentId: Overload:Sdl.Core.PluginFramework.PluginManager.CreatePluginRegistry
   isExternal: true
@@ -683,8 +449,7 @@ references:
   nameWithType: PluginManager.DefaultPluginRegistry
   fullName: Sdl.Core.PluginFramework.PluginManager.DefaultPluginRegistry
 - uid: System.EventHandler{Sdl.Core.PluginFramework.PluginLoadExceptionEventArgs}
-  commentId: T:System.EventHandler{Sdl.Core.PluginFramework.PluginLoadExceptionEventArgs}
-  parent: System
+  commentId: '!:System.EventHandler{Sdl.Core.PluginFramework.PluginLoadExceptionEventArgs}'
   definition: System.EventHandler`1
   name: EventHandler<PluginLoadExceptionEventArgs>
   nameWithType: EventHandler<PluginLoadExceptionEventArgs>
@@ -729,12 +494,12 @@ references:
 - uid: System.EventHandler`1
   commentId: T:System.EventHandler`1
   isExternal: true
-  name: EventHandler<TEventArgs>
-  nameWithType: EventHandler<TEventArgs>
-  fullName: System.EventHandler<TEventArgs>
-  nameWithType.vb: EventHandler(Of TEventArgs)
-  fullName.vb: System.EventHandler(Of TEventArgs)
-  name.vb: EventHandler(Of TEventArgs)
+  name: EventHandler<>
+  nameWithType: EventHandler<>
+  fullName: System.EventHandler<>
+  nameWithType.vb: EventHandler(Of )
+  fullName.vb: System.EventHandler(Of )
+  name.vb: EventHandler(Of )
   spec.csharp:
   - uid: System.EventHandler`1
     name: EventHandler
@@ -744,9 +509,9 @@ references:
   - name: <
     nameWithType: <
     fullName: <
-  - name: TEventArgs
-    nameWithType: TEventArgs
-    fullName: TEventArgs
+  - name: ''
+    nameWithType: ''
+    fullName: ''
   - name: '>'
     nameWithType: '>'
     fullName: '>'
@@ -759,9 +524,9 @@ references:
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - name: TEventArgs
-    nameWithType: TEventArgs
-    fullName: TEventArgs
+  - name: ''
+    nameWithType: ''
+    fullName: ''
   - name: )
     nameWithType: )
     fullName: )

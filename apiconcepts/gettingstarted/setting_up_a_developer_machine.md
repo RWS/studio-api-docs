@@ -2,9 +2,6 @@ Setting up a Developer Machine
 =====
 Make sure you have the right prerequisites and meet the system requirements to develop applications that leverage the Trados Studio public APIs.
 
-> [!NOTE]
-> This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.
-
 Prerequisites
 ----
 
@@ -20,19 +17,18 @@ Prerequisites
 >
 > For more informations regarding how to build and deploy a Studio plug-in see [Building a plug-in](building_a_plugin.md) and [Plug-in deployment](plugin_deployment.md)
 >
-> Sign and use Strong-Named Assemblies to enable the loading of your plug-ins inside the SDL Trados Studio. For more information see [How to: Sign an Assembly with a Strong Name]()
+> Sign and use Strong-Named Assemblies to enable the loading of your plug-ins inside the SDL Trados Studio. For more information see [How to: Sign an Assembly with a Strong Name](https://docs.microsoft.com/en-us/dotnet/standard/assembly/sign-strong-name?redirectedfrom=MSDN)
 > 
 > Choosing a different build output path or not signing your assembly will prevent your plugin to be loaded.
 
 
 System requirements for running Trados Studio:
 ----
-
-* A Microsoft Windows-based PC or an Intel-based Apple Mac computer running Windows as an
-operating system
-* A mouse or similar pointing device is required.
-* A minimum of 2 GB of hard disk space should be available.
-* Trados Studio runs with Windows 8/10 32-bit/64-bit. Earlier operating system generations such as Windows 7, Windows XP, 2000, Windows NT and Windows 98 are not supported.
+* A Microsoft Windows-based PC or an Intel-based Apple Mac computer running Windows as an operating system. Trados Studio runs on the latest build of Windows 10 and the latest updated version of Windows 8.1.
+* Up to 2.5 GB of available disk space to run the SDL Trados Studio 2021 SR1 installer
+* 2 GB of available disk space to run Trados Studio
+* A recent processor with dual or multi-core technology
+* At least 8 GB RAM
 * Trados Studio requires Microsoft .Net Framework 4.8.
 
 System requirements for running SDL GroupShare (SDL TM Server, SDL Multiterm, SDL Project Server):
@@ -43,3 +39,6 @@ System requirements for running SDL GroupShare (SDL TM Server, SDL Multiterm, SD
 * We recommend a recent mid-range server with an Intel Xeon CPU and 4 GB of RAM.
 * The database server should have SCSI hard disks with 100 GB or more storage space in a RAID architecture.
 * To administer TM Server, or to provide web services from the SDL Server, you need Microsoft IIS.
+
+> [!NOTE]
+> This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

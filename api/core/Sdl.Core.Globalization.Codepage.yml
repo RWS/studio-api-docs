@@ -30,6 +30,7 @@ items:
   assemblies:
   - Sdl.Core.Globalization
   namespace: Sdl.Core.Globalization
+  summary: "\n<p>Represents a code page in the sense of a <xref href=\"System.Text.Encoding\" data-throw-if-not-resolved=\"false\"></xref>\nobject, using a mechanism that allows basic manipulations on a system where \nsupport for the code page may not be installed.</p>\n\n<p>Normally the Codepage object is constructed from an Encoding object,\nbut for persistence it can be constructed from a string.</p>\n\n<p>If the code page is supported by the local machine you can use the\n<xref href=\"Sdl.Core.Globalization.Codepage.Encoding\" data-throw-if-not-resolved=\"false\"></xref> property to retrieve the corresponding \n.NET encoding object. If you access this property for a code page\nthat is not supported on this machine this will result in a \n<xref href=\"Sdl.Core.Globalization.UnsupportedCodepageException\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n\n<p>Using this mechanism as opposed to directly using the Encoding class\nmeans that we can still work with files for which a code page is not\nsupported on a certain machine (at least as long as no code page conversion\noperations are needed). This may be a common use case when a file\nis converted on one system and then edited on another.</p>\n\n<p>Use the <xref href=\"Sdl.Core.Globalization.Codepage.IsValid\" data-throw-if-not-resolved=\"false\"></xref> and <xref href=\"Sdl.Core.Globalization.Codepage.IsSupported\" data-throw-if-not-resolved=\"false\"></xref> properties\nto determine if the codepage has been set and if it is supported\non this system.</p>\n"
   syntax:
     content: 'public class Codepage : ICloneable'
     content.vb: >-
@@ -67,11 +68,13 @@ items:
   assemblies:
   - Sdl.Core.Globalization
   namespace: Sdl.Core.Globalization
+  summary: "\nInitializes a new instance of the Codepage class from an existing .NET Encoding.\n"
   syntax:
     content: public Codepage(Encoding encoding)
     parameters:
     - id: encoding
       type: System.Text.Encoding
+      description: An existing .NET Encoding.
     content.vb: Public Sub New(encoding As Encoding)
   overload: Sdl.Core.Globalization.Codepage.#ctor*
   modifiers.csharp:
@@ -95,11 +98,14 @@ items:
   assemblies:
   - Sdl.Core.Globalization
   namespace: Sdl.Core.Globalization
+  summary: "\nConstruction from a code page name.\n\nSee the <xref href=\"Sdl.Core.Globalization.Codepage.Name\" data-throw-if-not-resolved=\"false\"></xref> property for information about what is considered\nto be a valid code page name.\n"
+  remarks: "\n<p>\nThis constructor is typically used only in (de-)serialization. If possible a \nnew code page object should be created from an existing encoding object instead.\n</p>"
   syntax:
     content: public Codepage(string codepageName)
     parameters:
     - id: codepageName
       type: System.String
+      description: A valid codepage name.
     content.vb: Public Sub New(codepageName As String)
   overload: Sdl.Core.Globalization.Codepage.#ctor*
   modifiers.csharp:
@@ -123,6 +129,7 @@ items:
   assemblies:
   - Sdl.Core.Globalization
   namespace: Sdl.Core.Globalization
+  summary: "\nConstructs an invalid code page object (does not set a code page name).\n"
   syntax:
     content: public Codepage()
     content.vb: Public Sub New
@@ -148,11 +155,13 @@ items:
   assemblies:
   - Sdl.Core.Globalization
   namespace: Sdl.Core.Globalization
+  summary: "\nCreate a deep clone of the other object.\n"
   syntax:
     content: protected Codepage(Codepage other)
     parameters:
     - id: other
       type: Sdl.Core.Globalization.Codepage
+      description: Codepage to clone.
     content.vb: Protected Sub New(other As Codepage)
   overload: Sdl.Core.Globalization.Codepage.#ctor*
   modifiers.csharp:
@@ -176,13 +185,16 @@ items:
   assemblies:
   - Sdl.Core.Globalization
   namespace: Sdl.Core.Globalization
+  summary: "\nCase-sensitive comparison on whether the code page names are the same.\n"
   syntax:
     content: public override bool Equals(object obj)
     parameters:
     - id: obj
       type: System.Object
+      description: Object to test equality against.
     return:
       type: System.Boolean
+      description: <code>true</code> if the code page names are the same.
     content.vb: Public Overrides Function Equals(obj As Object) As Boolean
   overridden: System.Object.Equals(System.Object)
   overload: Sdl.Core.Globalization.Codepage.Equals*
@@ -209,10 +221,12 @@ items:
   assemblies:
   - Sdl.Core.Globalization
   namespace: Sdl.Core.Globalization
+  summary: "\nHash code based on the code page name, or 0 if none.\n"
   syntax:
     content: public override int GetHashCode()
     return:
       type: System.Int32
+      description: Hash code based on the code page name, or 0 if none.
     content.vb: Public Overrides Function GetHashCode As Integer
   overridden: System.Object.GetHashCode
   overload: Sdl.Core.Globalization.Codepage.GetHashCode*
@@ -239,10 +253,12 @@ items:
   assemblies:
   - Sdl.Core.Globalization
   namespace: Sdl.Core.Globalization
+  summary: "\nThe code page name.\n"
   syntax:
     content: public override string ToString()
     return:
       type: System.String
+      description: The code page name.
     content.vb: Public Overrides Function ToString As String
   overridden: System.Object.ToString
   overload: Sdl.Core.Globalization.Codepage.ToString*
@@ -269,10 +285,12 @@ items:
   assemblies:
   - Sdl.Core.Globalization
   namespace: Sdl.Core.Globalization
+  summary: "\nReturn a deep clone of this object.\n"
   syntax:
     content: public object Clone()
     return:
       type: System.Object
+      description: A deep clone of this object.
     content.vb: Public Function Clone As Object
   overload: Sdl.Core.Globalization.Codepage.Clone*
   implements:
@@ -298,6 +316,19 @@ items:
   assemblies:
   - Sdl.Core.Globalization
   namespace: Sdl.Core.Globalization
+  summary: "\nTrue if a code page name has been set.\n"
+  remarks: >
+    This does not mean that the actual code page string is valid.
+
+    Since the code page name could represent a code page that is not supported
+
+    on this particular system there is no safe way we can determine if the name
+
+    is a valid encoding name or not. Thus anything else than null or an empty
+
+    string for a name must be considered a &quot;valid&quot; code page name.
+
+    To test if a codepage is supported on this system, use the <xref href="Sdl.Core.Globalization.Codepage.IsSupported" data-throw-if-not-resolved="false"></xref> property.
   syntax:
     content: public bool IsValid { get; }
     parameters: []
@@ -328,6 +359,7 @@ items:
   assemblies:
   - Sdl.Core.Globalization
   namespace: Sdl.Core.Globalization
+  summary: "\nTrue if the code page is supported on this system.\n"
   syntax:
     content: public bool IsSupported { get; }
     parameters: []
@@ -358,6 +390,11 @@ items:
   assemblies:
   - Sdl.Core.Globalization
   namespace: Sdl.Core.Globalization
+  summary: "\nThe IANA preferred name of the code page, e.g. windows-1252 or iso-8859-1.\n"
+  remarks: >
+    This corresponds to the <code>Encoding.WebName</code> property
+
+    for code pages supported by the machine.
   syntax:
     content: public string Name { get; set; }
     parameters: []
@@ -388,6 +425,7 @@ items:
   assemblies:
   - Sdl.Core.Globalization
   namespace: Sdl.Core.Globalization
+  summary: "\nReturns the .NET Encoding that corresponds to this code page.\n\nIf the code page is null this property returns null.\n\nIf the encoding is not supported on this system \nan <xref href=\"Sdl.Core.Globalization.UnsupportedCodepageException\" data-throw-if-not-resolved=\"false\"></xref> is thrown.\n"
   syntax:
     content: public Encoding Encoding { get; set; }
     parameters: []
@@ -395,6 +433,9 @@ items:
       type: System.Text.Encoding
     content.vb: Public Property Encoding As Encoding
   overload: Sdl.Core.Globalization.Codepage.Encoding*
+  exceptions:
+  - type: Sdl.Core.Globalization.UnsupportedCodepageException
+    commentId: T:Sdl.Core.Globalization.UnsupportedCodepageException
   modifiers.csharp:
   - public
   - get
@@ -833,3 +874,9 @@ references:
   name: Encoding
   nameWithType: Codepage.Encoding
   fullName: Sdl.Core.Globalization.Codepage.Encoding
+- uid: Sdl.Core.Globalization.UnsupportedCodepageException
+  commentId: T:Sdl.Core.Globalization.UnsupportedCodepageException
+  isExternal: true
+  name: UnsupportedCodepageException
+  nameWithType: UnsupportedCodepageException
+  fullName: Sdl.Core.Globalization.UnsupportedCodepageException

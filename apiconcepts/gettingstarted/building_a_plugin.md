@@ -8,7 +8,7 @@ This section focuses on how to create a new third-party plug-in for Trados Studi
 
 Building a Plug-in
 -----
-Since Trados Studio is a Microsoft .NET application, third-party plug-ins should be developed using Microsoft .Net Framework 4.5.2. The Trados Studio SDK comes with a number of Visual Studio project templates, which give you a quick start to creating various types of plug-ins.
+Since Trados Studio is a Microsoft .NET Framework application, third-party plug-ins should be developed using Microsoft .Net Framework 4.8. The Trados Studio SDK comes with a number of Visual Studio project templates, which give you a quick start to creating various types of plug-ins.
 
 In this topic, we will be creating a Translation Provider plug-in as an example. We will only focus on aspects common to all types of plug-ins. 
 

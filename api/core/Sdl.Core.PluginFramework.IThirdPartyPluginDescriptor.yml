@@ -7,7 +7,6 @@ items:
   children:
   - Sdl.Core.PluginFramework.IThirdPartyPluginDescriptor.Author
   - Sdl.Core.PluginFramework.IThirdPartyPluginDescriptor.Description
-  - Sdl.Core.PluginFramework.IThirdPartyPluginDescriptor.InvalidAssemblies
   - Sdl.Core.PluginFramework.IThirdPartyPluginDescriptor.InvalidSdlAssemblyReferences
   - Sdl.Core.PluginFramework.IThirdPartyPluginDescriptor.PlugInName
   - Sdl.Core.PluginFramework.IThirdPartyPluginDescriptor.ThirdPartyManifestFilePath
@@ -27,7 +26,6 @@ items:
   - Sdl.Core.PluginFramework
   namespace: Sdl.Core.PluginFramework
   summary: "\nRepresents a third-party plug-in descriptor, which gives access to a seperate third-party plug-in manifest.\n"
-  remarks: "The framework includes one implementation, <xref href=\"Sdl.Core.PluginFramework.FileBasedThirdPartyPluginDescriptor\" data-throw-if-not-resolved=\"false\"></xref>, which loads the plug-in manifest from a file on the local \nfile system."
   syntax:
     content: 'public interface IThirdPartyPluginDescriptor : IPluginDescriptor'
     content.vb: >-
@@ -217,47 +215,6 @@ items:
   - get
   modifiers.vb:
   - ReadOnly
-- uid: Sdl.Core.PluginFramework.IThirdPartyPluginDescriptor.InvalidAssemblies
-  commentId: P:Sdl.Core.PluginFramework.IThirdPartyPluginDescriptor.InvalidAssemblies
-  id: InvalidAssemblies
-  parent: Sdl.Core.PluginFramework.IThirdPartyPluginDescriptor
-  langs:
-  - csharp
-  - vb
-  name: InvalidAssemblies
-  nameWithType: IThirdPartyPluginDescriptor.InvalidAssemblies
-  fullName: Sdl.Core.PluginFramework.IThirdPartyPluginDescriptor.InvalidAssemblies
-  type: Property
-  source:
-    path: Sdl.Core.PluginFramework
-    isExternal: true
-  assemblies:
-  - Sdl.Core.PluginFramework
-  namespace: Sdl.Core.PluginFramework
-  summary: "\nIf plugin is are validated, this contains a list of assemblies that failed verification\n"
-  syntax:
-    content: >-
-      [Obsolete("Use InvalidSdlAssemblyReferences to obtain list of invalid SDL API assembly references")]
-
-      List<string> InvalidAssemblies { get; }
-    parameters: []
-    return:
-      type: System.Collections.Generic.List{System.String}
-    content.vb: >-
-      <Obsolete("Use InvalidSdlAssemblyReferences to obtain list of invalid SDL API assembly references")>
-
-      ReadOnly Property InvalidAssemblies As List(Of String)
-  overload: Sdl.Core.PluginFramework.IThirdPartyPluginDescriptor.InvalidAssemblies*
-  attributes:
-  - type: System.ObsoleteAttribute
-    ctor: System.ObsoleteAttribute.#ctor(System.String)
-    arguments:
-    - type: System.String
-      value: Use InvalidSdlAssemblyReferences to obtain list of invalid SDL API assembly references
-  modifiers.csharp:
-  - get
-  modifiers.vb:
-  - ReadOnly
 - uid: Sdl.Core.PluginFramework.IThirdPartyPluginDescriptor.InvalidSdlAssemblyReferences
   commentId: P:Sdl.Core.PluginFramework.IThirdPartyPluginDescriptor.InvalidSdlAssemblyReferences
   id: InvalidSdlAssemblyReferences
@@ -424,8 +381,7 @@ references:
   nameWithType: IThirdPartyPluginDescriptor.Version
   fullName: Sdl.Core.PluginFramework.IThirdPartyPluginDescriptor.Version
 - uid: System.Version
-  commentId: T:System.Version
-  parent: System
+  commentId: '!:System.Version'
   isExternal: true
   name: Version
   nameWithType: Version
@@ -443,22 +399,21 @@ references:
   name: Boolean
   nameWithType: Boolean
   fullName: System.Boolean
-- uid: Sdl.Core.PluginFramework.IThirdPartyPluginDescriptor.InvalidAssemblies*
-  commentId: Overload:Sdl.Core.PluginFramework.IThirdPartyPluginDescriptor.InvalidAssemblies
+- uid: Sdl.Core.PluginFramework.IThirdPartyPluginDescriptor.InvalidSdlAssemblyReferences*
+  commentId: Overload:Sdl.Core.PluginFramework.IThirdPartyPluginDescriptor.InvalidSdlAssemblyReferences
   isExternal: true
-  name: InvalidAssemblies
-  nameWithType: IThirdPartyPluginDescriptor.InvalidAssemblies
-  fullName: Sdl.Core.PluginFramework.IThirdPartyPluginDescriptor.InvalidAssemblies
-- uid: System.Collections.Generic.List{System.String}
-  commentId: T:System.Collections.Generic.List{System.String}
-  parent: System.Collections.Generic
+  name: InvalidSdlAssemblyReferences
+  nameWithType: IThirdPartyPluginDescriptor.InvalidSdlAssemblyReferences
+  fullName: Sdl.Core.PluginFramework.IThirdPartyPluginDescriptor.InvalidSdlAssemblyReferences
+- uid: System.Collections.Generic.List{Sdl.Core.PluginFramework.InvalidSdlAssemblyReference}
+  commentId: '!:System.Collections.Generic.List{Sdl.Core.PluginFramework.InvalidSdlAssemblyReference}'
   definition: System.Collections.Generic.List`1
-  name: List<String>
-  nameWithType: List<String>
-  fullName: System.Collections.Generic.List<System.String>
-  nameWithType.vb: List(Of String)
-  fullName.vb: System.Collections.Generic.List(Of System.String)
-  name.vb: List(Of String)
+  name: List<InvalidSdlAssemblyReference>
+  nameWithType: List<InvalidSdlAssemblyReference>
+  fullName: System.Collections.Generic.List<Sdl.Core.PluginFramework.InvalidSdlAssemblyReference>
+  nameWithType.vb: List(Of InvalidSdlAssemblyReference)
+  fullName.vb: System.Collections.Generic.List(Of Sdl.Core.PluginFramework.InvalidSdlAssemblyReference)
+  name.vb: List(Of InvalidSdlAssemblyReference)
   spec.csharp:
   - uid: System.Collections.Generic.List`1
     name: List
@@ -468,10 +423,10 @@ references:
   - name: <
     nameWithType: <
     fullName: <
-  - uid: System.String
-    name: String
-    nameWithType: String
-    fullName: System.String
+  - uid: Sdl.Core.PluginFramework.InvalidSdlAssemblyReference
+    name: InvalidSdlAssemblyReference
+    nameWithType: InvalidSdlAssemblyReference
+    fullName: Sdl.Core.PluginFramework.InvalidSdlAssemblyReference
     isExternal: true
   - name: '>'
     nameWithType: '>'
@@ -485,10 +440,10 @@ references:
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - uid: System.String
-    name: String
-    nameWithType: String
-    fullName: System.String
+  - uid: Sdl.Core.PluginFramework.InvalidSdlAssemblyReference
+    name: InvalidSdlAssemblyReference
+    nameWithType: InvalidSdlAssemblyReference
+    fullName: Sdl.Core.PluginFramework.InvalidSdlAssemblyReference
     isExternal: true
   - name: )
     nameWithType: )
@@ -529,62 +484,6 @@ references:
   - name: T
     nameWithType: T
     fullName: T
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Collections.Generic
-  commentId: N:System.Collections.Generic
-  isExternal: true
-  name: System.Collections.Generic
-  nameWithType: System.Collections.Generic
-  fullName: System.Collections.Generic
-- uid: Sdl.Core.PluginFramework.IThirdPartyPluginDescriptor.InvalidSdlAssemblyReferences*
-  commentId: Overload:Sdl.Core.PluginFramework.IThirdPartyPluginDescriptor.InvalidSdlAssemblyReferences
-  isExternal: true
-  name: InvalidSdlAssemblyReferences
-  nameWithType: IThirdPartyPluginDescriptor.InvalidSdlAssemblyReferences
-  fullName: Sdl.Core.PluginFramework.IThirdPartyPluginDescriptor.InvalidSdlAssemblyReferences
-- uid: System.Collections.Generic.List{Sdl.Core.PluginFramework.InvalidSdlAssemblyReference}
-  commentId: T:System.Collections.Generic.List{Sdl.Core.PluginFramework.InvalidSdlAssemblyReference}
-  parent: System.Collections.Generic
-  definition: System.Collections.Generic.List`1
-  name: List<InvalidSdlAssemblyReference>
-  nameWithType: List<InvalidSdlAssemblyReference>
-  fullName: System.Collections.Generic.List<Sdl.Core.PluginFramework.InvalidSdlAssemblyReference>
-  nameWithType.vb: List(Of InvalidSdlAssemblyReference)
-  fullName.vb: System.Collections.Generic.List(Of Sdl.Core.PluginFramework.InvalidSdlAssemblyReference)
-  name.vb: List(Of InvalidSdlAssemblyReference)
-  spec.csharp:
-  - uid: System.Collections.Generic.List`1
-    name: List
-    nameWithType: List
-    fullName: System.Collections.Generic.List
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
-  - uid: Sdl.Core.PluginFramework.InvalidSdlAssemblyReference
-    name: InvalidSdlAssemblyReference
-    nameWithType: InvalidSdlAssemblyReference
-    fullName: Sdl.Core.PluginFramework.InvalidSdlAssemblyReference
-    isExternal: true
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  spec.vb:
-  - uid: System.Collections.Generic.List`1
-    name: List
-    nameWithType: List
-    fullName: System.Collections.Generic.List
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - uid: Sdl.Core.PluginFramework.InvalidSdlAssemblyReference
-    name: InvalidSdlAssemblyReference
-    nameWithType: InvalidSdlAssemblyReference
-    fullName: Sdl.Core.PluginFramework.InvalidSdlAssemblyReference
-    isExternal: true
   - name: )
     nameWithType: )
     fullName: )

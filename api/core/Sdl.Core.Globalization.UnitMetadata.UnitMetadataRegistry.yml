@@ -25,6 +25,7 @@ items:
   assemblies:
   - Sdl.Core.Globalization
   namespace: Sdl.Core.Globalization.UnitMetadata
+  summary: "\nManages the available <xref href=\"Sdl.Core.Globalization.UnitMetadata.UnitMetadata\" data-throw-if-not-resolved=\"false\"></xref> data \n"
   syntax:
     content: public class UnitMetadataRegistry
     content.vb: Public Class UnitMetadataRegistry
@@ -61,6 +62,7 @@ items:
   assemblies:
   - Sdl.Core.Globalization
   namespace: Sdl.Core.Globalization.UnitMetadata
+  summary: "\nReturns the first <xref href=\"Sdl.Core.Globalization.UnitMetadata.UnitMetadata\" data-throw-if-not-resolved=\"false\"></xref> corresponding to <code data-dev-comment-type=\"paramref\" class=\"paramref\">label</code>\nfor the culture <code data-dev-comment-type=\"paramref\" class=\"paramref\">languageCode</code>, or if none found, for the parent\nculture if available, or null if no match is found.\n"
   syntax:
     content: public UnitMetadata UnitMetadataFromLabel(string label, string languageCode)
     parameters:
@@ -93,6 +95,11 @@ items:
   assemblies:
   - Sdl.Core.Globalization
   namespace: Sdl.Core.Globalization.UnitMetadata
+  summary: "\nReturns all <xref href=\"Sdl.Core.Globalization.UnitMetadata.UnitMetadata\" data-throw-if-not-resolved=\"false\"></xref> corresponding to <code data-dev-comment-type=\"paramref\" class=\"paramref\">label</code>\nfor the culture <code data-dev-comment-type=\"paramref\" class=\"paramref\">languageCode</code>, or if none found, for the parent\nculture if available, or null if no match is found.\n"
+  remarks: >-
+    For some cultures, a given label might be used for two or more different units, e.g. as a top-level default label for
+
+    one unit, and a language-specific plural form for another unit.
   syntax:
     content: public List<UnitMetadata> AllUnitMetadataFromLabel(string label, string languageCode)
     parameters:
@@ -125,6 +132,7 @@ items:
   assemblies:
   - Sdl.Core.Globalization
   namespace: Sdl.Core.Globalization.UnitMetadata
+  summary: "\nProvide all metadata that should be recognised in the language for\nall units, from all levels of hierarchy. Note: may therefore return\nmultiple <xref href=\"Sdl.Core.Globalization.UnitMetadata.UnitMetadata\" data-throw-if-not-resolved=\"false\"></xref> objects with the same <xref href=\"Sdl.Core.Globalization.UnitMetadata.UnitMetadata.UnitKey\" data-throw-if-not-resolved=\"false\"></xref> .\nRespects the <xref href=\"Sdl.Core.Globalization.UnitMetadata.UnitMetadata.DoNotInherit\" data-throw-if-not-resolved=\"false\"></xref> flag, i.e. objects above\nwill not be included.\n"
   syntax:
     content: public List<UnitMetadata> GetAllMetadata(string languageCode)
     parameters:
@@ -155,6 +163,7 @@ items:
   assemblies:
   - Sdl.Core.Globalization
   namespace: Sdl.Core.Globalization.UnitMetadata
+  summary: "\nReturns the preferred <xref href=\"Sdl.Core.Globalization.UnitMetadata.LabelValueSet\" data-throw-if-not-resolved=\"false\"></xref> to use for the unit\nspecified in the language specified.\n"
   syntax:
     content: public LabelValueSet GetPreferredLabelValueSet(string unitKey, string languageCode)
     parameters:
@@ -187,6 +196,7 @@ items:
   assemblies:
   - Sdl.Core.Globalization
   namespace: Sdl.Core.Globalization.UnitMetadata
+  summary: "\nReturns the most language-specific <xref href=\"Sdl.Core.Globalization.UnitMetadata.UnitMetadata\" data-throw-if-not-resolved=\"false\"></xref> available for\nthe unit and language specified, checking parent language and top-level/neutral metadata\n"
   syntax:
     content: public UnitMetadata UnitMetadataFromKey(string unitKey, string languageCode, out string languageCodeFound)
     parameters:
@@ -194,8 +204,10 @@ items:
       type: System.String
     - id: languageCode
       type: System.String
+      description: The language to check
     - id: languageCodeFound
       type: System.String
+      description: The code for which metadata was found
     return:
       type: Sdl.Core.Globalization.UnitMetadata.UnitMetadata
     content.vb: Public Function UnitMetadataFromKey(unitKey As String, languageCode As String, ByRef languageCodeFound As String) As UnitMetadata
@@ -249,6 +261,7 @@ items:
   assemblies:
   - Sdl.Core.Globalization
   namespace: Sdl.Core.Globalization.UnitMetadata
+  summary: "\nThe complete set of <xref href=\"Sdl.Core.Globalization.UnitMetadata.UnitDefinition\" data-throw-if-not-resolved=\"false\"></xref> objects \n"
   syntax:
     content: public UnitDefinitionSet UnitDefinitionSet { get; set; }
     parameters: []
