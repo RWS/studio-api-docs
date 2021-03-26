@@ -6,7 +6,7 @@ This section describes how to work with language resource templates in order to 
 
 Overview
 -----
-Just like any other translation memory, server-based translation memories support adding custom language resources. For more information, see [Working with Field Definitions](translationmemory/working_with_field_definitions.md).
+Just like any other translation memory, server-based translation memories support adding custom language resources. For more information, see [Working with Field Definitions](working_with_field_definitions.md).
 
 When managing a large number of translation memories it becomes tedious to have to manage the language resources of each translation memory individually. For this reason, instead of defining language resources for every translation memory individually, server-based translation memories can inherit their language resources from a language resources template, which is essentially a named collection of language resources. Any change to the language resources template is automatically propagated to all the translation memories that are linked to the language resources template.
 

@@ -10,7 +10,7 @@ Translation unit filters are represented by the abstract `FilterExpression` clas
 * **ComposedExpression**: A filter expression that can be used to build complex filter expression from other filter expression, either by combining two filter expressions using the AND or NOT operator, or by negating a filter expression. Composed filter expressions can be nested.
 The field values (**FieldValue**) that can be used in an atomic filter expression include:
 
-* **User-defined fields**: See [Working with Field Definitions](translationmemory/working_with_field_definitions.md).
+* **User-defined fields**: See [Working with Field Definitions](working_with_field_definitions.md).
 * **System fields**: These are a number of built-in translation unit fields as defined in SystemFieldDefinitions.
 
 

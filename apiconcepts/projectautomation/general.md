@@ -18,8 +18,8 @@ Basic Project Automation API Concepts
 ------
 This section of the help system focuses on explaining how the Project Automation API models localization projects. Throughout this section you will find references to how to this is done. The following topics will be covered:
 
-* [About Projects](projectautomation/about_projects.md): High-level overview of a project in the Project Automation API sense.
-* [About Project Files](projectautomation/about_project_files.md)About Project Files: Overview of how various types of files are modeled in a project.
-* [Project Configuration](projectautomation/project_configuration.md): Overview of various configuration options that are provided out-of-the-box to support standard workflows and use cases.
-* [About Tasks](projectautomation/about_tasks.md): Describes how various aspects of the localization project can be automated though automatic tasks and how manual tasks are used to model the human work in a localization project.
-* [About Packages](projectautomation/about_packages.md): Describes how packages are used to send work between the various participants of a project.
+* [About Projects](about_projects.md): High-level overview of a project in the Project Automation API sense.
+* [About Project Files](about_project_files.md)About Project Files: Overview of how various types of files are modeled in a project.
+* [Project Configuration](project_configuration.md): Overview of various configuration options that are provided out-of-the-box to support standard workflows and use cases.
+* [About Tasks](about_tasks.md): Describes how various aspects of the localization project can be automated though automatic tasks and how manual tasks are used to model the human work in a localization project.
+* [About Packages](about_packages.md): Describes how packages are used to send work between the various participants of a project.

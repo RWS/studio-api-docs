@@ -20,4 +20,4 @@ When the import is complete, the results are available through the Statistics pr
 <img style="display:block; " src="images/Import.png"/>
 
 
-Server-based translation memories support scheduling an import, which means the file to be imported is uploaded to the server and the server subsequently imports the file. This is often a quicker way to import data because it avoids the network latency and additional overheads when importing remotely. For more information, see [Performing a Scheduled Import or Export](translationmemory/performing_a_scheduled_import_or_export.md).
+Server-based translation memories support scheduling an import, which means the file to be imported is uploaded to the server and the server subsequently imports the file. This is often a quicker way to import data because it avoids the network latency and additional overheads when importing remotely. For more information, see [Performing a Scheduled Import or Export](performing_a_scheduled_import_or_export.md).

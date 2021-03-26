@@ -30,15 +30,11 @@ System requirements for running Trados Studio:
 * A recent processor with dual or multi-core technology
 * At least 8 GB RAM
 * Trados Studio requires Microsoft .Net Framework 4.8.
+* Additional details can be found on the [product release notes](https://docs.sdl.com/binary/813470/802652/sdl-trados-studio-2021-sr1/sdl-trados-studio-release-notes)
 
 System requirements for running SDL GroupShare (SDL TM Server, SDL Multiterm, SDL Project Server):
 ----
 
-* Windows Server 2012 and Windows Server 2008 (32-bit/64-bit)
-* Single CPU and multi-CPU computers are supported.
-* We recommend a recent mid-range server with an Intel Xeon CPU and 4 GB of RAM.
-* The database server should have SCSI hard disks with 100 GB or more storage space in a RAID architecture.
-* To administer TM Server, or to provide web services from the SDL Server, you need Microsoft IIS.
-
-> [!NOTE]
-> This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.
+* Windows Server 2019, with IIS 10 / Windows Server 2016, with IIS 10 / Windows Server 2012 R2, with IIS 8.5
+* The database servers supported are: SQL Server 2019 / SQL Server 2017 /  SQL Server 2016
+* Additional details can be found on the [product release notes](https://docs.sdl.com/binary/797358/802198/sdl-trados-groupshare-2020-sr1/groupshare2020sr1-release-notes)

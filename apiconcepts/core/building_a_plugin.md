@@ -52,7 +52,7 @@ Every third-party plug-in has to be deployed using a Plug-in Package (*.sdlplugi
 The plug-in package manifest defines a couple of pieces of essential information:
 
 * **PlugInName**: the friendly name of the plugin. This can be different to the name of the plug-in defined in PluginResources.resx``, because a plug-in package can in theory contain multiple plug-ins.
-* **Version**: the version of the plug-in package. This is important because it will be used to detect updated packages. For more information, see [Plug-in Deployment](core/plugin_deployment.md).
+* **Version**: the version of the plug-in package. This is important because it will be used to detect updated packages. For more information, see [Plug-in Deployment](plugin_deployment.md).
 * **Description**: description of the plug-in package.
 * **Author**: the name of the plug-in author
 * **RequiredProduct**: this indicates which product this plug-in supports. This must include the minimum version and can optionally include a maximum version.
@@ -65,4 +65,4 @@ Now build the project and have a look in the project output folder. notice the f
     * The plug-in manifest, `MyTranslationProvider.plugin.xml`, which lists information about all the extension classes. the plug-in contains.
     * The neutral plug-in resources file `MyTranslationProvider.plugin.resources`, which contains all the localizable strings and images referred to within the plug-in manifest. This was compiled from `PluginResources.resx`.
 * The plug-in package, `MyTranslationProvider.sdlplugin` which contains all of the above, together with the plug-in package manifest.
-Now, we are ready to deploy the plug-in package in Trados Studio. See [Plug-in Deployment](core/plugin_deployment.md).
+Now, we are ready to deploy the plug-in package in Trados Studio. See [Plug-in Deployment](plugin_deployment.md).

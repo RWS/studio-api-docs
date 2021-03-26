@@ -114,7 +114,7 @@ All of the above categories are fixed, expect for the fuzzy analysis bands. The 
 Workflow
 -----
 
-Part of the project configuration are also the types of manual, automatic and complex tasks that can be performed within that project. These are referred to as the workflow. Apart from the available tasks, the workflow also specifies a single complex task which will be executed when the project is started. All other tasks are available after that and can be executed by the user as and when required. For more information on tasks, see [About tasks](projectautomation/about_tasks.md).
+Part of the project configuration are also the types of manual, automatic and complex tasks that can be performed within that project. These are referred to as the workflow. Apart from the available tasks, the workflow also specifies a single complex task which will be executed when the project is started. All other tasks are available after that and can be executed by the user as and when required. For more information on tasks, see [About tasks](about_tasks.md).
 
 
 Project Templates

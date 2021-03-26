@@ -14,7 +14,7 @@ Double click the plug-in package and follow the instructions.
 >[!Note]
 > For Trados Studio versions older than 2015, install the Plugin Installer from [here](https://appstore.sdl.com/language/app/sdl-plugin-installer/462/).
 
-During development, you can configure the output path of the project to point to *c:\Users\[username]\AppData\Roaming\SDL\SDL Trados Studio\[StudioVersionNumber]\Plugins\Packages*. This is already configured if you created the project with one of the project templates available in the **Trados Studio SDK** here. For more information on this, see [Setting up a Developer Machine](gettingstarted/setting_up_a_developer_machine.md).
+During development, you can configure the output path of the project to point to *c:\Users\[username]\AppData\Roaming\SDL\SDL Trados Studio\[StudioVersionNumber]\Plugins\Packages*. This is already configured if you created the project with one of the project templates available in the **Trados Studio SDK** here. For more information on this, see [Setting up a Developer Machine](setting_up_a_developer_machine.md).
 
 The following warning message will be shown while Trados Studio starts:
 <img style="display:block; " src="images/UnsignedPluginWarning.png" />
@@ -26,7 +26,7 @@ Once Trados Studio has started, go to the **Tools > Plug-ins** dialog and notice
 
 Updating a Plug-in Package
 ----
-Once deployed, you can update your plug-in package by increasing the version in the plug-in package manifest (see [Plug-in deployment](gettingstarted/plugin_deployment.md)). Double click the plug-in package and follow the instructions. Once the plug-in is deployed, start Trados Studio. The application will automatically detect the presence of the updated plug-in package, verify it, extract its contents into *c:\Users\[username]\AppData\Roaming\SDL\SDL Trados Studio\[StudioVersionNumber\Plugins\Unpackaged* and load it.
+Once deployed, you can update your plug-in package by increasing the version in the plug-in package manifest (see [Plug-in deployment](plugin_deployment.md)). Double click the plug-in package and follow the instructions. Once the plug-in is deployed, start Trados Studio. The application will automatically detect the presence of the updated plug-in package, verify it, extract its contents into *c:\Users\[username]\AppData\Roaming\SDL\SDL Trados Studio\[StudioVersionNumber\Plugins\Unpackaged* and load it.
 
 It is essential that you increase the version of the plug-in package as listed in the plug-in manifest, or the update will not be applied.
 

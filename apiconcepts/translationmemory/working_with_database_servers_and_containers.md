@@ -8,8 +8,8 @@ All server-based translation memories reside in a database that is typically sep
 
 The API uses the following two classes to model these concepts:
 
-* **DatabaseServer**: A database server that hosts one or more translation memory containers. In order to use a database server for hosting translation memory containers, it has to be registered with the system. See [Registering a Database Server](translationmemory/registering_a_database_server.md).
-* **TranslationMemoryContainer**: A translation memory container is a database that is hosted on one of teh registered database servers. Every container can host one or more server-based translation memories (ServerBasedTranslationMemory). See [Creating a Translation Memory Container](translationmemory/working_with_database_servers_and_containers).md:
+* **DatabaseServer**: A database server that hosts one or more translation memory containers. In order to use a database server for hosting translation memory containers, it has to be registered with the system. See [Registering a Database Server](#registering-a-database-server).
+* **TranslationMemoryContainer**: A translation memory container is a database that is hosted on one of teh registered database servers. Every container can host one or more server-based translation memories (ServerBasedTranslationMemory). See [Creating a Translation Memory Container](#creating-a-translation-memory-container).md:
 
 <img style="display:block; " src="images/DatabaseServerAndContainer.png"/>
 

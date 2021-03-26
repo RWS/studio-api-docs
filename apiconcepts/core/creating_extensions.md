@@ -80,4 +80,4 @@ When building the project a plug-in manifest file is created in a plugins subfol
 
 Any errors or warnings related to the manifest generation will be reported in the Visual Studio task list.
 
-Next, we are ready to bring everything together in the host application, which will support sending messages through pluggable message transmitters:  [Creating the Host Application](core/creating_the_host_application.md).
+Next, we are ready to bring everything together in the host application, which will support sending messages through pluggable message transmitters:  [Creating the Host Application](creating_the_host_application.md).

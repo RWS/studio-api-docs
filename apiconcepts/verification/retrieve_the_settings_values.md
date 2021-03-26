@@ -1,6 +1,6 @@
 Retrieve the Settings Values
 ======
-In this chapter you will learn how to retrieve the settings that have been configured through the plug-in user interface (see [Implement the User Interface](verification/implement_the_user_interface.md)).
+In this chapter you will learn how to retrieve the settings that have been configured through the plug-in user interface (see [Implement the User Interface](implement_the_user_interface.md)).
 
 Add a Class for Retrieving the Settings Values
 ------

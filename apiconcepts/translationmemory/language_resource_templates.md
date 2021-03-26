@@ -1,6 +1,6 @@
 Language Resource Templates
 ====
-Like file translation memories, server TMs, too, can leverage language resource templates. (For more information on language resources, see [Configuring Translation Memories](translationmemory/configuring_translation_memories.md).) On this page you will learn how to retrieve server language resource templates and how to create a new language resource template.
+Like file translation memories, server TMs, too, can leverage language resource templates. (For more information on language resources, see [Configuring Translation Memories](configuring_translation_memories.md).) On this page you will learn how to retrieve server language resource templates and how to create a new language resource template.
 
 Add a New Class
 ----

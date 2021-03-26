@@ -23,6 +23,6 @@ This task will use .Net reflection to enumerate all the types in the assembly an
 
 On top of creating the plug-in manifest, the task will also create .Net resource files for resources defined in the `PluginResources.resx` file. This resource file contains all strings and images referred to by extension attribute declarations in the plug-in assembly. When multiple language version of the `PluginResources.resx` file are present, it the task will also create resource files for those, all in the "plugins" folder.
 
-The `CreatePluginManifestTask` also performs validation of the extension attribute declarations, checking for instance whether a value has been specified for all required properties and whether the all extensions implement the interface imposed by the extension point they are targeting. See also [Compile-time Validation](core/compile_time_validation.md).
+The `CreatePluginManifestTask` also performs validation of the extension attribute declarations, checking for instance whether a value has been specified for all required properties and whether the all extensions implement the interface imposed by the extension point they are targeting. See also [Compile-time Validation](compile_time_validation.md).
 
 Currently the `Sdl.Core.PluginFramework.Build` assembly, containg the `CreatePluginManifestTask` is deployed in the GAC.

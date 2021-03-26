@@ -12,7 +12,7 @@ Since Trados Studio is a Microsoft .NET Framework application, third-party plug-
 
 In this topic, we will be creating a Translation Provider plug-in as an example. We will only focus on aspects common to all types of plug-ins. 
 
-First of all, make sure that you have followed the [Setting up a Developer Machine](gettingstarted/setting_up_a_developer_machine.md) information.
+First of all, make sure that you have followed the [Setting up a Developer Machine](setting_up_a_developer_machine.md) information.
 
 Start Visual Studio and click New Project. Select one of the Trados Studio project templates that are available. If you don't see any Trados Studio project templates, make sure you have installed the latest Trados Studio SDK version from the developer hub.
 
@@ -36,7 +36,7 @@ Every third-party plug-in has to be deployed using a Plug-in Package (*.sdlplugi
 The plug-in package manifest defines some pieces of essential information:
 
 * **PlugInName**: the friendly name of the plugin. This can be different to the name of the plug-in defined in `PluginResources.resx`, because a plug-in package can in theory contain multiple plug-ins.
-* **Version**: the version of the plug-in package. This is important, as it will be used to detect updated packages. For more information, see [Plug-in deployment](gettingstarted/plugin_deployment.md).
+* **Version**: the version of the plug-in package. This is important, as it will be used to detect updated packages. For more information, see [Plug-in deployment](plugin_deployment.md).
 * **Description**: description of the plug-in package.
 * **Author**: the name of the plug-in author
 * **RequiredProduct**: this indicates which product this plug-in supports. This must include the minimum version and can optionally include a maximum version.
@@ -49,4 +49,4 @@ Now build the project and have a look in the project output folder. Notice the f
     * The neutral plug-in resources file `MyPlugin.plugin.resources`, which contains all the localizable strings and images referred to within the plug-in manifest. This was compiled from `PluginResources.resx`.
 * The plug-in package, `MyPlugin.sdlplugin` which contains all of the above, together with the plug-in package manifest.
 
-Now, we are ready to deploy the plug-in package in Trados Studio. See [Plug-in deployment](gettingstarted/plugin_deployment.md).
+Now, we are ready to deploy the plug-in package in Trados Studio. See [Plug-in deployment](plugin_deployment.md).

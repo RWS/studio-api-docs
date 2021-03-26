@@ -8,7 +8,7 @@ Translation memories have support for storing custom language resources, such as
 
 The language resources within a translation memory or language resources template are represented by a `LanguageResourceBundleCollection`. This is a collection of `LanguageResourceBundle` objects, each of which represents language resources for a specific language. A translation memory can store language resources for its source language or languages.
 
-Server-based translation memories have the ability to inherit their language resources from a language resources template (`ServerBasedLanguageResourcesTemplate`). When that is the case, the field definitions can be centrally managed via the language resources template, but not on the translation memory itself. For more information, see [Working with Language Resource Templates](translationmemory/working_with_language_resource_templates.md).
+Server-based translation memories have the ability to inherit their language resources from a language resources template (`ServerBasedLanguageResourcesTemplate`). When that is the case, the field definitions can be centrally managed via the language resources template, but not on the translation memory itself. For more information, see [Working with Language Resource Templates](working_with_language_resource_templates.md).
 
 There are four types of customizable language resources:
 

@@ -12,6 +12,6 @@ The basic use cases and features will be explained using an example application.
 
 The following topics will be covered:
 
-* [Defining an Extension Point](core/defining_an_extension_point.md): Defining an extension point so the host application can receive extensions.
-* [Creating Extensions](core/creating_extensions.md): Developing an extension for a specific extension point.
-* [Creating the Host Application](core/creating_the_host_application.md): Consuming the available extensions within the host application.
+* [Defining an Extension Point](defining_an_extension_point.md): Defining an extension point so the host application can receive extensions.
+* [Creating Extensions](creating_extensions.md): Developing an extension for a specific extension point.
+* [Creating the Host Application](creating_the_host_application.md): Consuming the available extensions within the host application.
