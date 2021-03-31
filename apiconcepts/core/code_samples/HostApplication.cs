@@ -66,9 +66,9 @@ namespace Sdl.TranslationStudio.Sdk.Documentation.Samples
                 (IMessageTransmitter)selectedExtension.CreateInstance();
             #endregion CreateInstance
 
-            #region SendMessage
+            
             selectedTransmitter.SendMessage(message);
-            #endregion SendMessage
+            
             
             #region ObjectRegistry
 

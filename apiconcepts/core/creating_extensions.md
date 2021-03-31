@@ -22,7 +22,9 @@ Create a new plug-in project, called `PluginLibrary`. A plug-in project consists
 The first thing to do is look at the `PluginProperties.cs` file in the `Properties` folder. It contains the following:
 
 # [C#](#tab/tabid-1)
-[!code-csharp[PluginProperties](code_samples/PluginProperties.cs#L1)]
+```cs
+[assembly: Sdl.Core.PluginFramework.Plugin("Plugin_Name")]
+```
 ***
 
 The Name property contains the name of the plug-in. This is actually not the name, but the key in the `PluginResources.resx` file, which contains the plug-in name:

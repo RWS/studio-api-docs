@@ -47,7 +47,7 @@ As mentioned above, the results list needs to be associated with the correspondi
 Make sure that you add the following entry list object to the terminology provider class:
 
 # [The Entry List Object](#tab/tabid-3)
-[!code-csharp[MyTerminologyProvider](code_samples/MyTerminologyProvider.cs#L14)]
+[!code-csharp[MyTerminologyProvider](code_samples/MyTerminologyProvider.cs#L13-L15)]
 ***
 
 Besides the **Search()** method, the term provider interface also calls the **GetEntry()** method, which then outputs the entry with the corresponding entry based on the id parameter:

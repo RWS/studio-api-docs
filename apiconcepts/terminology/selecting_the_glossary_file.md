@@ -40,7 +40,7 @@ Open the **MyTerminologyProviderWinFormsUI.cs** class and modify the **Browse()*
 Go to the **MyTerminologyProviderViewerWinFormsUI.cs** class and create a terminology provider object. Make sure that your provider object is initialized as follows:
 
 # [The Term Provider Object](#tab/tabid-6)
-[!code-csharp[MyTerminologyProviderViewerWinFormsUI](code_samples/MyTerminologyProviderViewerWinFormsUI.cs#L13)]
+[!code-csharp[MyTerminologyProviderViewerWinFormsUI](code_samples/MyTerminologyProviderViewerWinFormsUI.cs#L12-L14)]
 ***
 
 # [Initializing the Provider](#tab/tabid-7)

@@ -10,10 +10,12 @@ Prerequisites
 * We also recommend installation of the **Trados Studio SDK** on your machine. You can get the latest version from the [developer hub](https://appstore.sdl.com/language/developers/sdk.html). Note that after the installation of **Trados Studio SDK**, the **New Project** dialog box from Microsoft Visual Studio will feature additional project templates specific to the Trados Studio application development.
 * If your implementations need to connect to a TM Server system, then make sure that the TM Server also runs the latest version.
 * If you are developing against a version of API the which is distributed with one of SDL's publicly released applications (i.e. SDL Trados Studio 2021), then all required assemblies and files should be available alongside the application. Make sure that you have the latest release of SDL Trados Studio installed.
+  
 > [!NOTE]
-> As build output path for your implementations please choose the c:\Users\{username}\AppData\Roaming\SDL\SDL Trados Studio\{StudioVersionNumber}\Plugins\Packages
 >
-> Also check that your library references are pointing to the SDL Trados Studio folder. e.g. C:\Program Files\SDL\SDL Trados Studio\Studio{StudioVersionNumber}.
+> As build output path for your implementations please choose the c:\Users\{username}\AppData\Roaming\SDL\SDL Trados Studio\{ProductVersion}\Plugins\Packages
+>
+> Also check that your library references are pointing to the SDL Trados Studio folder. e.g. C:\Program Files\SDL\SDL Trados Studio\{ProductVersion}.
 >
 > For more informations regarding how to build and deploy a Studio plug-in see [Building a plug-in](building_a_plugin.md) and [Plug-in deployment](plugin_deployment.md)
 >

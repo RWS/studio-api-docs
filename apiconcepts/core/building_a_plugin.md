@@ -31,7 +31,9 @@ This particular project template already contains stubs for all the classes you 
 Open `PluginProperties.cs`, which is located next to the `AssemblyInfo.cs` file in the Properties folder. This contains a single `Plugin` attribute, which is what fundamentally makes this project a plug-in project. "Plugin_Name" is a resource string defined in `PluginResources.resx`.
 
 # [C#](#tab/tabid-1)
-[!code-csharp[PluginProperties](code_samples/PluginProperties.cs#L1)]
+```cs
+[assembly: Sdl.Core.PluginFramework.Plugin("Plugin_Name")]
+```
 ***
 
 Open the `PluginResources.resx` file. You'll see that this contains a string value called "Plugin_Name". This defines the name of the plug-in assembly and will be preset to the name of the Visual Studio project. This is the name that will show up in the Trados Studio plug-in management dialog. Any localizable strings referred to from the plug-in attribute or extension attributes should be defined in `PluginResources.resx`. This ".resx" file will be compiled into a ".resources" file and will be deployed outside of the plug-in assembly itself, so the host application can access the information within it without having to load the plug-in assembly itself.

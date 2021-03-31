@@ -9,9 +9,9 @@ namespace SDL_Terminology_Provider_Plug_in
     [TerminologyProviderViewerWinFormsUI]
     public class MyTerminologyProviderViewerWinFormsUI : ITerminologyProviderViewerWinFormsUI
     {
-        #region "TermProviderObject"
+        
         private MyTerminologyProvider _terminologyProvider;
-        #endregion
+       
 
         #region "ControlObject"
         private TermProviderControl termControl;

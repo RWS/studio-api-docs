@@ -1,0 +1,50 @@
+﻿using Microsoft.DocAsCode.MarkdownLite;
+using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
+
+namespace TradosStudioDocsPlugin
+{
+    public class VariableInlineRule : IMarkdownRule
+    {
+        public string Name => "VariableToken";
+
+        // define my regex to match
+        private static readonly Regex _envVarRegex = new Regex(@"^\<Var:(\w+?)\>", RegexOptions.Compiled);
+
+        public IMarkdownToken TryMatch(IMarkdownParser parser, IMarkdownParsingContext context)
+        {
+            var match = _envVarRegex.Match(context.CurrentMarkdown);
+            if (match.Length == 0)
+            {
+                return null;
+            }
+
+            var envVar = match.Groups[1].Value;
+            string text = GetValueForVariable(envVar);
+            if (text == null)
+            {
+                return null;
+            }
+
+            // 'eat' the characters of the current markdown token so they anr
+            var sourceInfo = context.Consume(match.Length);
+            return new MarkdownTextToken(this, parser.Context, text, sourceInfo);
+        }
+
+        private static string GetValueForVariable(string envVar)
+        {
+
+            var replacementValues = new Dictionary<string, string>
+            {
+                { "ProductName", "Trados Studio" },
+                { "ProductNameWithEdition", "Trados Studio 2021" },
+                { "ProductVersion", "Studio16" },
+            };
+
+            return Environment.GetEnvironmentVariable(envVar) ??
+                (replacementValues.ContainsKey(envVar) ? replacementValues[envVar] : null);
+
+        }
+    }
+}

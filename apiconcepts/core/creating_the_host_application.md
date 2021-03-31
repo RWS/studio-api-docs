@@ -24,7 +24,7 @@ When creating the plug-in registry, the plugins directory is scanned for plug-in
 Next, we get the extension point from the plug-in registry. An extension point is represented by the `IExtensionPoint` interface and provides access to all extensions discovered for that extension point. The extension point is identified by passing `MessageTransmitterAttribute` as the template parameter:
 
 # [C#](#tab/tabid-2)
-[!code-csharp[HostApplication](code_samples/HostApplication.cs#L28)]
+[!code-csharp[HostApplication](code_samples/HostApplication.cs#L27-L29)]
 ***
 
 Prompt the user to enter a message:
@@ -42,7 +42,7 @@ Now list all the available message transmitters, along with their name and the c
 Now, get the extension object corresponding to the user’s choice, and also get hold of the extension attribute instance:
 
 # [C#](#tab/tabid-5)
-[!code-csharp[HostApplication](code_samples/HostApplication.cs#L61)]
+[!code-csharp[HostApplication](code_samples/HostApplication.cs#L60-L61)]
 ***
 
 Now, we are ready to create the actual message transmitter implementation, using the IExtension object:
@@ -54,7 +54,7 @@ Now, we are ready to create the actual message transmitter implementation, using
 Finally, call the SendMessage method to send the message:
 
 # [C#](#tab/tabid-7)
-[!code-csharp[HostApplication](code_samples/HostApplication.cs#L70)]
+[!code-csharp[HostApplication](code_samples/HostApplication.cs#L69-L71)]
 ***
 
 The application produces the following output:

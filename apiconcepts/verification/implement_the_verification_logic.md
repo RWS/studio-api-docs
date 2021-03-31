@@ -91,7 +91,7 @@ Add the Message Reporter Member
 The message reporter is required by the **IBilingualVerifier** interface to implement the functionality of our verifier. Through this member you output messages (if any) to the **Messages** window of Trados Studio. Therefore, this member is responsible for communicating any problems to the end user, who will then try to fix the reported problems.
 
 # [C#](#tab/tabid-1)
-[!code-csharp[TermVerifierMessageService](code_samples/TermVerifierMessageService.cs#L20)]
+[!code-csharp[TermVerifierMessageService](code_samples/TermVerifierMessageService.cs#L19-L21)]
 ***
 
 Add Further Members of IBilingualContentHandler

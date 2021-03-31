@@ -10,9 +10,9 @@ namespace SDL_Terminology_Provider_Plug_in
     public class MyTerminologyProvider : AbstractTerminologyProvider
     {
 
-        #region "EntryList"
+        
         private List<IEntry> _entry = new List<IEntry>();
-        #endregion
+        
 
         #region "FileName"
         //Stores the glossary text file name and path

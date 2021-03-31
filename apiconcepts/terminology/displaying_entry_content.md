@@ -11,7 +11,7 @@ We need to add an Internet Explorer control in which we can display the entry co
 
 Go to the **MyTerminologyProviderViewerWinFormsUI.cs** class and declare the following term controller object:
 # [The Term Controller Object](#tab/tabid-1)
-[!code-csharp[MyTerminologyProvider](code_samples/MyTerminologyProvider.cs#L17)]
+[!code-csharp[MyTerminologyProvider](code_samples/MyTerminologyProvider.cs#L18-L19)]
 ***
 
 Modify the following **TermProviderControl** property (which is implemented by the **ITerminologyProviderViewerWinFormsUI** interface) as shown below to create and return the control element:
