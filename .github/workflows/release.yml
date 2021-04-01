@@ -34,5 +34,13 @@ jobs:
       - name: build _site
         run: .docfx/docfx.exe
       # Runs a set of commands using the runners shell
-      - name: commit to gh-pages
-        run: bash releaseDocs.sh $GITHUB_ACTOR ${{ secrets.GITHUB_TOKEN }}
+      #- name: commit to gh-pages
+      #  run: bash releaseDocs.sh $GITHUB_ACTOR ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish
+        if: github.event_name == 'push'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: docs/_site
+          force_orphan: true
