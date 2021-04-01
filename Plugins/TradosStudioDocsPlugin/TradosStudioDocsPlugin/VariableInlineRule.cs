@@ -10,10 +10,11 @@ namespace TradosStudioDocsPlugin
         public string Name => "VariableToken";
 
         // define my regex to match
-        private static readonly Regex _envVarRegex = new Regex(@"^\<Var:(\w+?)\>", RegexOptions.Compiled);
+        private static readonly Regex _envVarRegex = new Regex(@"^\<Var:(\w+?)\>", RegexOptions.IgnoreCase);
 
         public IMarkdownToken TryMatch(IMarkdownParser parser, IMarkdownParsingContext context)
         {
+            //    var _envVarRegex = new Regex(@"^\<Var:(\w+?)\>", RegexOptions.Compiled);
             var match = _envVarRegex.Match(context.CurrentMarkdown);
             if (match.Length == 0)
             {
