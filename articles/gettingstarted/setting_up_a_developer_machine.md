@@ -16,7 +16,7 @@ Prerequisites
   
 > [!NOTE]
 >
-> As build output path for your implementations please choose the c:\Users\ {username}\AppData\Roaming\SDL\SDL Trados Studio\ <Var:ProductVersion>\Plugins\Packages
+> As build output path for your implementations please choose the %AppData%\Roaming\SDL\SDL Trados Studio\ <Var:VersionNumber>\Plugins\Packages
 >
 > Also check that your library references are pointing to the <Var:ProductName> folder. e.g. C:\Program Files\SDL\SDL Trados Studio\ <Var:ProductVersion>.
 >

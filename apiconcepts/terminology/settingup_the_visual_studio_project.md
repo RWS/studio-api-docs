@@ -28,14 +28,14 @@ Give the terminology provider plug-in a new name, ID and description. Instead of
 
 Make sure the resource file access modifier is set to *public* and that you treat it as an *embedded* resource.
 
-Open the **MyTerminologyProviderWinFormsUI.cs** class. This class controls how the plug-in manifests in the SDL Trados Studio UI. Change the **TypeName** and **TypeDescription** members as shown below.
+Open the **MyTerminologyProviderWinFormsUI.cs** class. This class controls how the plug-in manifests in the <Var:ProductName> UI. Change the **TypeName** and **TypeDescription** members as shown below.
 
 
 How to build and load the plugin in SDL Studio
 ---------------------------------------------
-Build the assembly. The project is automatically configured to build the plug-in file into the *%AppData%\Roaming\SDL\SDL Trados Studio\ <Var:ProductVersion>\Plugins\Packages\** folder. After you have built the plug-in, you should find the SDL Terminology Provider Plug-in 2015.sdlplugin file in the folder. Start <Var:ProductName>. As the plug-in is not yet officially signed by SDL, you will see the following message when starting the application:
+Build the assembly. The project is automatically configured to build the plug-in file into the *%AppData%\Roaming\SDL\SDL Trados Studio\ <Var:VersionNumber>\Plugins\Packages\** folder. After you have built the plug-in, you should find the Terminology Provider1.sdlplugin file in the folder. Start <Var:ProductName>. As the plug-in is not yet officially signed by SDL, you will see the following message when starting the application:
 <img style="display:block; " src="images/Plugin_NotSigned.jpg" />
-For the moment, ignore this message and click **Yes** to make sure that <Var:ProductName> extracts the plug-in file. Once <Var:ProductName> is started, you should find the sub-folder *SDL Terminology Provider Plug-in 2015* under <em>%AppData%\Roaming\SDL\SDL Trados Studio\ <Var:ProductVersion>\Plugins\Unpacked\ </em>. This sub-folder contains the unpacked plug-in assemblies.
+For the moment, ignore this message and click **Yes** to make sure that <Var:ProductName> extracts the plug-in file. Once <Var:ProductName> is started, you should find the sub-folder *Terminology Provider1* under <em>%AppData%\Roaming\SDL\SDL Trados Studio\ <Var:VersionNumber>\Plugins\Unpacked\ </em>. This sub-folder contains the unpacked plug-in assemblies.
 
 > [!NOTE]
 > To officially sign the plugin, send the sdlplugin file to app-signing@sdl.com.

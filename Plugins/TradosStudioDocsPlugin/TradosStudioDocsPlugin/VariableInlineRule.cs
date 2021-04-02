@@ -41,6 +41,7 @@ namespace TradosStudioDocsPlugin
                 { "ProductName", "Trados Studio" },
                 { "ProductNameWithEdition", "Trados Studio 2021" },
                 { "ProductVersion", "Studio16" },
+                { "VersionNumber", "16" },
             };
 
             return Environment.GetEnvironmentVariable(envVar) ??

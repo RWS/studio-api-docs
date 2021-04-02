@@ -26,7 +26,7 @@ You can programmatically access the file that is currently processed through the
 [!code-csharp[MyCustomBatchTask](code_samples/MyCustomBatchTask.cs#L54-L71 "Configuring the Converter")]
 ***
 
-As SDL XLIFF is an XML-compliant file type, you could  process it using the standard XML API. However, we recommend that you use the Trados Studio Bilingual API to process the file. This way, we add a new class to our project called **FileReader.cs**.
+As SDL XLIFF is an XML-compliant file type, you could  process it using the standard XML API. However, we recommend that you use the <Var:ProductName> Bilingual API to process the file. This way, we add a new class to our project called **FileReader.cs**.
 
 The **FileReader.cs** class needs to reference the following libraries:
 ```cs
