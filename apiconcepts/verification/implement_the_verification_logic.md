@@ -4,7 +4,7 @@ In this chapter you will learn how to implement the extension class that contain
 
 Edit the Main Verifier Class
 ----
-Now it is time to implement the verification logic in the main verification class (i.e. IdenticalVerifierMain.cs), which you added previously (see Create a New Project). Start by adding the following namespaces to this class:
+Now it is time to implement the verification logic in the main verification class (i.e. IdenticalVerifierMain.cs), which you added previously (see [Create a New Project](create_a_new_project.md)). Start by adding the following namespaces to this class:
 
 * **Sdl.Verification.Api**
 * **Sdl.Desktop.Platform.Settings**
@@ -13,20 +13,20 @@ Now it is time to implement the verification logic in the main verification clas
 * **Sdl.FileTypeSupport.Framework.NativeApi**
 * **Sdl.Core.Settings**
   
-This class needs to be preceded by the following declaration, which makes it an extension class, which is referenced in the plug-in manifest (see also Create a New Project).
+This class needs to be preceded by the following declaration, which makes it an extension class, which is referenced in the plug-in manifest (see also [Create a New Project](create_a_new_project.md)).
 
 ```cs
 [GlobalVerifier("Identical Segments Verifier", "Plugin_Name", "Plugin_Description")]
 ```
 
-This line is what makes the plug-in be listed under Verification in the Options or in the Project (Template) Settings dialog box of Trados Studio.
+This line is what makes the plug-in be listed under Verification in the Options or in the Project (Template) Settings dialog box of <Var:ProductName>.
 This class needs to implement the interfaces listed below:
 
-* IGlobalVerifier
-* **IBilingualVerifier**
-* **ISharedObjectsAware**
+* [IGlobalVerifier](../../api/verification/Sdl.Verification.Api.IGlobalVerifier.yml)
+* [IBilingualVerifier](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualVerifier.yml)
+* [ISharedObjectsAware](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ISharedObjectsAware.yml)
   
-Moreover, add a private member to the class, which you call e.g. `_verificationSettings`. This object is derived from the `IdenticalVerifierSettings` class (see Retrieve the Settings Values) and it is used to access the plug-in settings, which influence how the actual verification is executed:
+Moreover, add a private member to the class, which you call e.g. `_verificationSettings`. This object is derived from the `IdenticalVerifierSettings` class (see [Retrieve the Settings Values](retrieve_the_settings_values.md)) and it is used to access the plug-in settings, which influence how the actual verification is executed:
 
 ```cs
 private ISharedObjects _sharedObjects;
@@ -35,13 +35,14 @@ private IdenticalVerifierSettings _verificationSettings;
 
 Add the Plug-in Name, Icon and Description
 ----
-Add the following members to implement the plug-in icon, name, and description. Note that these elements are drawn from the resources file (see The Resources File). This controls what end users will see in the **Options** dialog box of Trados Studio under **Verification** in terms of strings and icons.
+Add the following members to implement the plug-in icon, name, and description. Note that these elements are drawn from the resources file (see [The Resources File](the_resources_file.md)). This controls what end users will see in the **Options** dialog box of <Var:ProductName> under **Verification** in terms of strings and icons.
 
 ```cs
 public string Description
 {
     get { return PluginResources.Verifier_Description; }
 }
+
 public System.Drawing.Icon Icon
 {
     get { return PluginResources.icon; }
@@ -76,7 +77,7 @@ internal IdenticalVerifierSettings VerificationSettings
 
 Add the Item Factory Member
 -----
-The item factory allows you to create, for example, tag pairs and placeholders. It is actually *not* required for the functionality of our verifier plug-in, however, it has to be present in our class according to the **IBilingualVerifier** interface.
+The item factory allows you to create, for example, tag pairs and placeholders. It is actually *not* required for the functionality of our verifier plug-in, however, it has to be present in our class according to the [IBilingualVerifier](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualVerifier.yml) interface.
 
 ```cs
 public IDocumentItemFactory ItemFactory
@@ -88,15 +89,15 @@ public IDocumentItemFactory ItemFactory
 
 Add the Message Reporter Member
 -----
-The message reporter is required by the **IBilingualVerifier** interface to implement the functionality of our verifier. Through this member you output messages (if any) to the **Messages** window of Trados Studio. Therefore, this member is responsible for communicating any problems to the end user, who will then try to fix the reported problems.
+The message reporter is required by the [IBilingualVerifier](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualVerifier.yml) interface to implement the functionality of our verifier. Through this member you output messages (if any) to the **Messages** window of <Var:ProductName>. Therefore, this member is responsible for communicating any problems to the end user, who will then try to fix the reported problems.
 
 # [C#](#tab/tabid-1)
 [!code-csharp[TermVerifierMessageService](code_samples/TermVerifierMessageService.cs#L19-L21)]
 ***
 
-Add Further Members of IBilingualContentHandler
+Add Further Members of [IBilingualContentHandler](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.yml)
 -----
-The **IBilingualVerifier** interface requires you to add a number of further members, which are actually not required for the functionality of our particular sample plug-in. You can therefore leave these methods empty.
+The [IBilingualVerifier](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualVerifier.yml) interface requires you to add a number of further members, which are actually not required for the functionality of our particular sample plug-in. You can therefore leave these methods empty.
 
 ```cs
 public void Complete()
@@ -121,9 +122,9 @@ public void Initialize(IDocumentProperties documentInfo)
 ```
 
 > [!NOTE]
-> An intermediary (XLIFF) document to verify might contain a number of individual documents, as Trados Studio allows you to merge several native files into one intermediary master document. Through the `FileComplete` method you can determine what should happen after a particular file has been verified. With `Complete` you can determine what should happen after the entire (merged) document has been verified.
+> An intermediary (XLIFF) document to verify might contain a number of individual documents, as <Var:ProductName> allows you to merge several native files into one intermediary master document. Through the `FileComplete` method you can determine what should happen after a particular file has been verified. With `Complete` you can determine what should happen after the entire (merged) document has been verified.
 
-Through the object derived from **IFileProperties** you can retrieve various information on an individual file such as the original encoding, the original file path, etc. Through an object that is derived from **IDocumentProperties** you can retrieve various information on the entire bilingual document such as the source and target languages, the source count, repetitions, etc.
+Through the object derived from [IFileProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IFileProperties.yml) you can retrieve various information on an individual file such as the original encoding, the original file path, etc. Through an object that is derived from [IDocumentProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IDocumentProperties.yml) you can retrieve various information on the entire bilingual document such as the source and target languages, the source count, repetitions, etc.
 
 Process the Paragraph Units
 -----
@@ -239,7 +240,7 @@ namespace Sdl.Verification.Sdk.IdenticalCheck
         #region Members of IGlobalVerifier
         /// <summary>
         /// The following members set some general properties of the verification plug-in,
-        /// e.g. the plug-in name and the icon that are displayed in the user interface of SDL Trados Studio. 
+        /// e.g. the plug-in name and the icon that are displayed in the user interface of SDL <Var:ProductName>. 
         /// </summary>
         #region "DescriptionNameIcon"
         public string Description
@@ -293,7 +294,7 @@ namespace Sdl.Verification.Sdk.IdenticalCheck
         #endregion
 
         /// <summary>
-        /// This member is used to output any verification messages in the user interface of Trados Studio.
+        /// This member is used to output any verification messages in the user interface of <Var:ProductName>.
         /// </summary>
         #region "MessageReporter"
         public IBilingualContentMessageReporter MessageReporter
@@ -342,7 +343,7 @@ namespace Sdl.Verification.Sdk.IdenticalCheck
         /// the display code is identical to the display code entered in the plug-in settings.
         /// If this is the case, it determines whether the target segment is actually identical to the source segment.
         /// If not, a warning message will be generated, which is then displayed between the source and target segments,
-        /// and in the Messages window of Trados Studio.
+        /// and in the Messages window of <Var:ProductName>.
         /// </summary>
         /// <param name="paragraphUnit"></param>
         #region "verify"
@@ -380,7 +381,8 @@ Ignoring Track Changes
 -----
 Verifiers should ignore any segments that have track changes. If a user has pending track changes on a segment then that means that they have not finished changing the segment and so that segment should not be verified. Furthermore, if a verifier tries to account for track changes then it will make the verifier unnecessarily complex.
 
-The example given above does not ignore track changes but any production verifiers should do so. Usually, a verifier would implement a **IMarkupDataVisitor** to extract the relevant information from the segment. If this visitor visits a revision marker then that segment has track changes and should be ignored. Below is an example of a **IMarkupDataVisitor** that determines whether a segment has track changes. If it visits a revision marker then it sets the property **HasRevisions**.
+The example given above does not ignore track changes but any production verifiers should do so. Usually, a verifier would implement a [IMarkupDataVisitor](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IMarkupDataVisitor.yml) to extract the relevant information from the segment. If this visitor visits a revision marker then that segment has track changes and should be ignored. Below is an example of a [IMarkupDataVisitor](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IMarkupDataVisitor.yml) that determines whether a segment has track changes. If it visits a revision marker then it sets the property **HasRevisions**.
+
 
 ```cs
 using System;
@@ -396,7 +398,7 @@ namespace Sdl.Verification.QAChecker
         public bool HasRevisions {get; set;}
 
         /// <summary>
-        /// Iterates all sub items of container (IAbstractMarkupDataContainer)
+        /// Iterates all sub items of container IAbstractMarkupDataContainer
         /// </summary>
         /// <param name="container"></param>
         private void VisitChildren(IAbstractMarkupDataContainer container)
@@ -453,6 +455,7 @@ namespace Sdl.Verification.QAChecker
 
         }
     }
-}```
+}
+```
 
 All verifiers should ignore any segments that have track changes apart from the **Document Verifier**. For each segment with track changes, the **Document Verifier** generates a warning message "Segment X could not be verified because it contains track changes" so that the user is aware of any segments that have not been verified.

@@ -8,11 +8,11 @@ Enhance the Verifier Plug-in
 
 Let us assume the following: the verifier plug-in needs to be able to 'decide' whether a target segment is identical to the corresponding source segment, even when there is a difference in tags. This means that the user should be able to configure whether tag differences should be taken into account when applying the verification, or whether only text changes should be considered to be differences. If tags are ignored, then the following segments would be regarded as being identical:
 
-```cs
+```html
 This is a headline.
 ```
 
-```cs
+```html
 This is a <u>headline</u>.
 ```
 
@@ -20,7 +20,7 @@ Add a TextGenerator Class
 -----
 To fulfil this requirement you need to extend the plug-in, so that either the plain text (without tags) is be compared or the text with tag content. Start by adding a new a class called e.g. `sTextGenerator.cs` to your project.
 
-This class will be responsible for generating the plain text content from the segment pairs. In this class, reference the namespace **Sdl.FileTypeSupport.Framework.BilingualApi** and have it implement the **IMarkupDataVisitor** interface. The skeleton class should look as shown below:
+This class will be responsible for generating the plain text content from the segment pairs. In this class, reference the namespace **Sdl.FileTypeSupport.Framework.BilingualApi** and have it implement the [IMarkupDataVisitor](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IMarkupDataVisitor.yml) interface. The skeleton class should look as shown below:
 
 ```cs
 using System;
@@ -43,14 +43,12 @@ Continue by adding two new members to the class: a string builder for retrieving
 ```cs
 internal StringBuilder PlainText
 {
-    get;
-    set;
+    get; set;
 }
 
 internal bool IncludeTagText
 {
-    get;
-    set;
+    get; set;
 }
 ```
 
@@ -81,7 +79,7 @@ private void VisitChildren(IAbstractMarkupDataContainer container)
 }
 ```
 
-Last, you need to add a number of class members, each of which processes a particular type of sub-item. Not all of these members might be required for the functionality of your plug-in. For example, in our simple implementation we do not need to consider revision markers, comments, etc. However, all of these members need to be present according to the **IMarkupDataVisitor** interface. Actually, we are mainly interested in opening and closing tags, as well as standalone placeholder tags. Depending on whether the value of the `IncludeTagText` boolean property is True or False, we append the corresponding tag text to the segment text (which should be checked) or not.
+Last, you need to add a number of class members, each of which processes a particular type of sub-item. Not all of these members might be required for the functionality of your plug-in. For example, in our simple implementation we do not need to consider revision markers, comments, etc. However, all of these members need to be present according to the [IMarkupDataVisitor](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IMarkupDataVisitor.yml) interface. Actually, we are mainly interested in opening and closing tags, as well as standalone placeholder tags. Depending on whether the value of the `IncludeTagText` boolean property is True or False, we append the corresponding tag text to the segment text (which should be checked) or not.
 
 ```cs
 public void VisitCommentMarker(ICommentMarker commentMarker)

@@ -5,7 +5,7 @@ In this chapter you will learn how to retrieve the settings that have been confi
 Add a Class for Retrieving the Settings Values
 ------
 
-After implementing the user interface, you need to add a separate class for retrieving the plug-in settings values. Add a new class to your project, and call it e.g. `IdenticalVerifierSettings.cs`. The class needs to reference the **Sdl.Core.Settings** namespace. Your class needs to be derived from the **SettingsGroup** class. Below you see what the skeleton of your new class looks like:
+After implementing the user interface, you need to add a separate class for retrieving the plug-in settings values. Add a new class to your project, and call it e.g. `IdenticalVerifierSettings.cs`. The class needs to reference the **Sdl.Core.Settings** namespace. Your class needs to be derived from the [SettingsGroup](../../api/core/Sdl.Core.Settings.SettingsGroup.yml) class. Below you see what the skeleton of your new class looks like:
 
 # [C#](#tab/tabid-1)
 [!code-csharp[Settings](code_samples/Settings.aml#L24-L30)]
@@ -13,7 +13,7 @@ After implementing the user interface, you need to add a separate class for retr
 
 Our sample application only has one setting, i.e. a (display code) string value that defines which context should be relevant for the verification, e.g. **H** for **Heading**. This setting will be implemented as a string property, which we will call, for example `CheckContext`:
 
-```
+```cs
 // Define the setting constant.
 private const string CheckContext_Setting = "CheckContext";
 
@@ -42,16 +42,16 @@ protected override object GetDefaultValue(string settingId)
 
 The plug-in settings are physically stored in the project files (* .*sdlproj*) or project template files (* .*sdltpl*). The settings group in the (XML-compliant) project (template) file can look as shown below. As you can see, the setting id corresponds to the name of the property that we have implemented in this class.
 
-```cs
+```xml
 <SettingsGroup Id="Identical Verifier">
     <Setting Id="Enabled">True</Setting>
   </SettingsGroup>
   <SettingsGroup Id="IdenticalVerifierSettings">
     <Setting Id="CheckContext">H</Setting>
   </SettingsGroup>
-  ```
+```
 
-Note that the **Enabled** property does not need to be implemented by your plug-in. The plug-in framework provides the mechanism for enabling/disabling global verifier plug-ins through the user interface of Trados Studio.
+Note that the **Enabled** property does not need to be implemented by your plug-in. The plug-in framework provides the mechanism for enabling/disabling global verifier plug-ins through the user interface of <Var:ProductName>.
 
 Putting it All Together
 ----
@@ -65,7 +65,7 @@ namespace Sdl.Verification.Sdk.IdenticalCheck
     /// <summary>
     /// This class is used for reading and writing the plug-in setting(s) value(s).
     /// The settings are physically stored in an (XML-compliant) *.sdlproj file, which
-    /// is generated for each project that is created in SDL Trados Studio or for 
+    /// is generated for each project that is created in <Var:ProductName> or for 
     /// each file that is opened and translated.
     /// </summary>
     class IdenticalVerifierSettings : SettingsGroup
