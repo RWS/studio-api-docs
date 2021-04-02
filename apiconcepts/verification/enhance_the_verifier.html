@@ -82,11 +82,11 @@
 <p>In this chapter you will learn learn how to enhance your plug-in to take inline tag differences into account or to ignore inline tags.</p>
 <h2 id="enhance-the-verifier-plug-in">Enhance the Verifier Plug-in</h2>
 <p>Let us assume the following: the verifier plug-in needs to be able to &#39;decide&#39; whether a target segment is identical to the corresponding source segment, even when there is a difference in tags. This means that the user should be able to configure whether tag differences should be taken into account when applying the verification, or whether only text changes should be considered to be differences. If tags are ignored, then the following segments would be regarded as being identical:</p>
-<pre><code class="lang-cs">This is a headline.
-</code></pre><pre><code class="lang-cs">This is a &lt;u&gt;headline&lt;/u&gt;.
+<pre><code class="lang-html">This is a headline.
+</code></pre><pre><code class="lang-html">This is a &lt;u&gt;headline&lt;/u&gt;.
 </code></pre><h2 id="add-a-textgenerator-class">Add a TextGenerator Class</h2>
 <p>To fulfil this requirement you need to extend the plug-in, so that either the plain text (without tags) is be compared or the text with tag content. Start by adding a new a class called e.g. <code>sTextGenerator.cs</code> to your project.</p>
-<p>This class will be responsible for generating the plain text content from the segment pairs. In this class, reference the namespace <strong>Sdl.FileTypeSupport.Framework.BilingualApi</strong> and have it implement the <strong>IMarkupDataVisitor</strong> interface. The skeleton class should look as shown below:</p>
+<p>This class will be responsible for generating the plain text content from the segment pairs. In this class, reference the namespace <strong>Sdl.FileTypeSupport.Framework.BilingualApi</strong> and have it implement the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IMarkupDataVisitor.html">IMarkupDataVisitor</a> interface. The skeleton class should look as shown below:</p>
 <pre><code class="lang-cs">using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -103,14 +103,12 @@ namespace Sdl.Verification.Sdk.IdenticalCheck.Extended
 </code></pre><p>Continue by adding two new members to the class: a string builder for retrieving the plain text and a boolean setting to determine whether to include tag text or not:</p>
 <pre><code class="lang-cs">internal StringBuilder PlainText
 {
-    get;
-    set;
+    get; set;
 }
 
 internal bool IncludeTagText
 {
-    get;
-    set;
+    get; set;
 }
 </code></pre><p>Now add a string method for retrieving the plain segment text. This method takes a segment object and a boolean parameter that determines whether tag text (if any) should be included when building the string or not.</p>
 <pre><code class="lang-cs">// Returns the plain text representation of a segment. 
@@ -132,7 +130,7 @@ private void VisitChildren(IAbstractMarkupDataContainer container)
         item.AcceptVisitor(this);
     }
 }
-</code></pre><p>Last, you need to add a number of class members, each of which processes a particular type of sub-item. Not all of these members might be required for the functionality of your plug-in. For example, in our simple implementation we do not need to consider revision markers, comments, etc. However, all of these members need to be present according to the <strong>IMarkupDataVisitor</strong> interface. Actually, we are mainly interested in opening and closing tags, as well as standalone placeholder tags. Depending on whether the value of the <code>IncludeTagText</code> boolean property is True or False, we append the corresponding tag text to the segment text (which should be checked) or not.</p>
+</code></pre><p>Last, you need to add a number of class members, each of which processes a particular type of sub-item. Not all of these members might be required for the functionality of your plug-in. For example, in our simple implementation we do not need to consider revision markers, comments, etc. However, all of these members need to be present according to the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IMarkupDataVisitor.html">IMarkupDataVisitor</a> interface. Actually, we are mainly interested in opening and closing tags, as well as standalone placeholder tags. Depending on whether the value of the <code>IncludeTagText</code> boolean property is True or False, we append the corresponding tag text to the segment text (which should be checked) or not.</p>
 <pre><code class="lang-cs">public void VisitCommentMarker(ICommentMarker commentMarker)
 {
     VisitChildren(commentMarker);
