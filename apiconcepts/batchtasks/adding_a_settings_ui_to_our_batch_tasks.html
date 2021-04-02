@@ -1,0 +1,338 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Adding a Settings UI to our Batch Task </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Adding a Settings UI to our Batch Task ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="adding-a-settings-ui-to-our-batch-task">Adding a Settings UI to our Batch Task</h1>
+
+<p>Add a settings page to your batch task so that users can select the status that defines whether the content of a particular segment pair shall be exported to a text file.</p>
+<h2 id="the-user-control">The User Control</h2>
+<p>In your Visual Studio project, go to the empty <strong>MyCustomBatchTaskSettingsControl.cs</strong> control and add the following UI elements:
+<img style="display:block; " src="images/SettingsPage.jpg">
+Add the following list items to the dropdown list element (which we name <strong>combo_Status</strong>):</p>
+<ul>
+<li>Unspecified</li>
+<li>Draft</li>
+<li>Translated</li>
+<li>Approved</li>
+<li>Rejected</li>
+<li>Signed-off</li>
+<li>Sign-off rejected</li>
+</ul>
+<h2 id="the-class-that-controls-the-plug-in-settings">The Class that Controls the Plug-in Settings</h2>
+<p>Open the <strong>MyCustomBatchTaskSettings.cs</strong> class, which has been automatically added to your Visual Studio project. This is the class that we use to programmatically access the settings configured by the elements on the user control UI.</p>
+<p>This class needs to inherit the following class:</p>
+<div class="tabGroup" id="tabgroup_gB6m03Meus">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_gB6m03Meus_tabid-1" role="tab" aria-controls="tabpanel_gB6m03Meus_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">The Settings Class</a>
+</li>
+</ul>
+<section id="tabpanel_gB6m03Meus_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-csharp" name="MyCustomBatchTaskSettings">// The settings class needs to implement the SettingsGroup interface
+public class MyCustomBatchTaskSettings : SettingsGroup
+</code></pre></section>
+</div>
+<p>Here we declare the default setting value, which is the integer value &#39;2&#39; and corresponds to the confirmation level &#39;Translated&#39;:</p>
+<div class="tabGroup" id="tabgroup_gB6m03Meus-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_gB6m03Meus-1_tabid-2" role="tab" aria-controls="tabpanel_gB6m03Meus-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">The Default Setting Value</a>
+</li>
+</ul>
+<section id="tabpanel_gB6m03Meus-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<pre><code class="lang-csharp" name="MyCustomBatchTaskSettings">// We set the default confirmation leve to 2, which corresponds to the &#39;Translated&#39; status
+private readonly int _confirmationLevel = 2;
+</code></pre></section>
+</div>
+<p>The following member gets or to sets the value used for the plug-in settings. In this implementation there is only one integer value that defines the confirmation level:</p>
+<div class="tabGroup" id="tabgroup_gB6m03Meus-2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_gB6m03Meus-2_tabid-3" role="tab" aria-controls="tabpanel_gB6m03Meus-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">Getting or Setting the Value</a>
+</li>
+</ul>
+<section id="tabpanel_gB6m03Meus-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<pre><code class="lang-csharp" name="MyCustomBatchTaskSettings">// Retrieves and sets the segment status value
+public int ConfirmationLevelSetting
+{
+    get { return GetSetting&lt;int&gt;(nameof(ConfirmationLevelSetting)); }
+    set { GetSetting&lt;int&gt;(nameof(ConfirmationLevelSetting)).Value = value; }
+}
+</code></pre></section>
+</div>
+<p>Then we add the following member, which sets the confirmation property to the default value when the user clicks the corresponding button on the UI.</p>
+<div class="tabGroup" id="tabgroup_gB6m03Meus-3">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_gB6m03Meus-3_tabid-4" role="tab" aria-controls="tabpanel_gB6m03Meus-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">Configuring the Default Setting</a>
+</li>
+</ul>
+<section id="tabpanel_gB6m03Meus-3_tabid-4" role="tabpanel" data-tab="tabid-4">
+<pre><code class="lang-csharp" name="MyCustomBatchTaskSettings">// When the user clicks the Restore defaults button
+// The default segment status, i.e. &#39;Translated&#39; (2) should be set
+public void ResetToDefaults()
+{
+    ConfirmationLevelSetting = _confirmationLevel;
+}
+</code></pre></section>
+</div>
+<p>Finally, the following member is added to retrieve the default value for the confirmation level property of our implementation:</p>
+<div class="tabGroup" id="tabgroup_gB6m03Meus-4">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_gB6m03Meus-4_tabid-5" role="tab" aria-controls="tabpanel_gB6m03Meus-4_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">Getting the Default Value</a>
+</li>
+</ul>
+<section id="tabpanel_gB6m03Meus-4_tabid-5" role="tabpanel" data-tab="tabid-5">
+<pre><code class="lang-csharp" name="MyCustomBatchTaskSettings">// Gets the the default segment status value
+protected override object GetDefaultValue(string settingId)
+{
+    switch (settingId)
+    {
+        case nameof(ConfirmationLevelSetting):
+            return _confirmationLevel;
+    }
+    return base.GetDefaultValue(settingId);
+}
+</code></pre></section>
+</div>
+<h2 id="adding-functionality-to-the-user-control">Adding Functionality to the User Control</h2>
+<p>Open the code view of the user control <strong>MyCustomBatchTaskSettingsControl.cs</strong>. This control implements the following interfaces:</p>
+<div class="tabGroup" id="tabgroup_gB6m03Meus-5">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_gB6m03Meus-5_tabid-6" role="tab" aria-controls="tabpanel_gB6m03Meus-5_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">The User Settings Interfaces</a>
+</li>
+</ul>
+<section id="tabpanel_gB6m03Meus-5_tabid-6" role="tabpanel" data-tab="tabid-6">
+<pre><code class="lang-csharp" name="MyCustomBatchTaskSettingsControl">// The visible UI control needs to implement the following interfaces:
+public partial class MyCustomBatchTaskSettingsControl : UserControl, ISettingsAware&lt;MyCustomBatchTaskSettings&gt;
+</code></pre></section>
+</div>
+<p>The following mandatory member needs to be implemented to set and get the settings properties from the <strong>MyCustomBatchTaskSettings</strong> class:</p>
+<div class="tabGroup" id="tabgroup_gB6m03Meus-6">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_gB6m03Meus-6_tabid-7" role="tab" aria-controls="tabpanel_gB6m03Meus-6_tabid-7" data-tab="tabid-7" tabindex="0" aria-selected="true">Getting and Setting the Properties</a>
+</li>
+</ul>
+<section id="tabpanel_gB6m03Meus-6_tabid-7" role="tabpanel" data-tab="tabid-7">
+<pre><code class="lang-csharp" name="MyCustomBatchTaskSettingsControl">// Member that refers to the batch task settings
+public MyCustomBatchTaskSettings Settings { get; set; }
+</code></pre></section>
+</div>
+<p>The following member initializes the user control:</p>
+<div class="tabGroup" id="tabgroup_gB6m03Meus-7">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_gB6m03Meus-7_tabid-8" role="tab" aria-controls="tabpanel_gB6m03Meus-7_tabid-8" data-tab="tabid-8" tabindex="0" aria-selected="true">User Control Initialisation</a>
+</li>
+</ul>
+<section id="tabpanel_gB6m03Meus-7_tabid-8" role="tabpanel" data-tab="tabid-8">
+<pre><code class="lang-csharp" name="MyCustomBatchTaskSettingsControl">// Initializes the UI component
+public MyCustomBatchTaskSettingsControl()
+{
+    InitializeComponent();
+}
+</code></pre></section>
+</div>
+<p>The following member sets the settings on the UI control:</p>
+<div class="tabGroup" id="tabgroup_gB6m03Meus-8">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_gB6m03Meus-8_tabid-9" role="tab" aria-controls="tabpanel_gB6m03Meus-8_tabid-9" data-tab="tabid-9" tabindex="0" aria-selected="true">Setting the Settings</a>
+</li>
+</ul>
+<section id="tabpanel_gB6m03Meus-8_tabid-9" role="tabpanel" data-tab="tabid-9">
+<pre><code class="lang-csharp" name="MyCustomBatchTaskSettingsControl">public void SetSettings(MyCustomBatchTaskSettings taskSettings)
+{
+    // sets the UI element, i.e. the status dropdown list to the corresponding segment status value
+    Settings = taskSettings;
+    SettingsBinder.DataBindSetting&lt;int&gt;(combo_Status, &quot;SelectedIndex&quot;, Settings, nameof(Settings.ConfirmationLevelSetting));
+    UpdateUI(taskSettings);
+}
+</code></pre></section>
+</div>
+<p>The following member updates the settings on the UI control:</p>
+<div class="tabGroup" id="tabgroup_gB6m03Meus-9">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_gB6m03Meus-9_tabid-10" role="tab" aria-controls="tabpanel_gB6m03Meus-9_tabid-10" data-tab="tabid-10" tabindex="0" aria-selected="true">Updating the Settings</a>
+</li>
+</ul>
+<section id="tabpanel_gB6m03Meus-9_tabid-10" role="tabpanel" data-tab="tabid-10">
+<pre><code class="lang-csharp" name="MyCustomBatchTaskSettingsControl">public void UpdateSettings(MyCustomBatchTaskSettings mySettings)
+{
+    Settings = mySettings;
+}
+</code></pre></section>
+</div>
+<p>The above member is called by the following function:</p>
+<div class="tabGroup" id="tabgroup_gB6m03Meus-10">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_gB6m03Meus-10_tabid-11" role="tab" aria-controls="tabpanel_gB6m03Meus-10_tabid-11" data-tab="tabid-11" tabindex="0" aria-selected="true">Updating the UI</a>
+</li>
+</ul>
+<section id="tabpanel_gB6m03Meus-10_tabid-11" role="tabpanel" data-tab="tabid-11">
+<pre><code class="lang-csharp" name="MyCustomBatchTaskSettingsControl">// Updates the UI elements to the corresponding settings
+public void UpdateUI(MyCustomBatchTaskSettings mySettings)
+{
+    Settings = mySettings;
+    this.UpdateSettings(Settings);
+}
+</code></pre></section>
+</div>
+<p>When the UI control is loaded, its control elements are populated with the corresponding values:</p>
+<div class="tabGroup" id="tabgroup_gB6m03Meus-11">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_gB6m03Meus-11_tabid-12" role="tab" aria-controls="tabpanel_gB6m03Meus-11_tabid-12" data-tab="tabid-12" tabindex="0" aria-selected="true">Loading the UI</a>
+</li>
+</ul>
+<section id="tabpanel_gB6m03Meus-11_tabid-12" role="tabpanel" data-tab="tabid-12">
+<pre><code class="lang-csharp" name="MyCustomBatchTaskSettingsControl">// The control elements on the UI are configured with the corresponding values
+protected override void OnLoad(EventArgs e)
+{
+    base.OnLoad(e);
+    this.SetSettings(Settings);
+}
+</code></pre></section>
+</div>
+<p>When the user clicks the <strong>Restore Defaults</strong> button, the UI controls are set to their default values:</p>
+<div class="tabGroup" id="tabgroup_gB6m03Meus-12">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_gB6m03Meus-12_tabid-13" role="tab" aria-controls="tabpanel_gB6m03Meus-12_tabid-13" data-tab="tabid-13" tabindex="0" aria-selected="true">Restoring the Defaults</a>
+</li>
+</ul>
+<section id="tabpanel_gB6m03Meus-12_tabid-13" role="tabpanel" data-tab="tabid-13">
+<pre><code class="lang-csharp" name="MyCustomBatchTaskSettingsControl">// Set dropbown control to the default value &#39;Translate&#39; (2) when the user 
+// clicks the Restore Defaults button
+private void btn_Reset_Click(object sender, EventArgs e)
+{
+    Settings.ResetToDefaults();
+    this.UpdateUI(Settings);
+}
+</code></pre></section>
+</div>
+<h2 id="the-settings-ui-container">The Settings UI Container</h2>
+<p>Note the <strong>MyCustomBatchTaskSettingsPage.cs</strong> class, which has been added to the project by default. This is the class that references the settings UI and the class that controls the UI. Without the settings page class the plug-in would not be aware of the settings UI. It enables the settings UI to be shown when you reach the <strong>Settings</strong> page of the plug-in: 
+<img style="display:block; " src="images/SampleTaskSettings.jpg"></p>
+<div class="NOTE"><h5>Note</h5><p>Leave this class as it is, you do not have to change anything here.</p>
+</div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/sdl/studio-api-docs/blob/main/apiconcepts/batchtasks/adding_a_settings_ui_to_our_batch_tasks.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

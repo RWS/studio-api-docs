@@ -1,0 +1,306 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Selecting the Glossary File </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Selecting the Glossary File ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="selecting-the-glossary-file">Selecting the Glossary File</h1>
+
+<p>Learn how to select the delimited text file as a terminology provider for our implementation.</p>
+<h2 id="how-to-return-the-term-provider-uri-name-and-description">How to return the Term Provider URI, Name and Description</h2>
+<p>Open the <strong>MyTerminologyProvider.cs</strong> class. Add the following public string variable which stores the delimited text file name:</p>
+<div class="tabGroup" id="tabgroup_JCasTWOG64">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_JCasTWOG64_tabid-1" role="tab" aria-controls="tabpanel_JCasTWOG64_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">The Text File Name</a>
+</li>
+</ul>
+<section id="tabpanel_JCasTWOG64_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-csharp" name="MyTerminologyProvider">//Stores the glossary text file name and path
+public readonly string fileName;
+</code></pre></section>
+</div>
+<p>Modify the following members to return the term provider URI, which includes the text file name:</p>
+<div class="tabGroup" id="tabgroup_JCasTWOG64-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_JCasTWOG64-1_tabid-2" role="tab" aria-controls="tabpanel_JCasTWOG64-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">The Term Provider Uri</a>
+</li>
+</ul>
+<section id="tabpanel_JCasTWOG64-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<pre><code class="lang-csharp" name="MyTerminologyProvider">//Return the terminology provider name, uri, and description to show in the Studio UI
+public override string Description
+{
+    get
+    {
+        return PluginResources.My_Terminology_Provider_Description;
+    }
+}
+
+public override string Name
+{
+    get
+    {
+        return PluginResources.My_Terminology_Provider_Name;
+    }
+}
+
+public override Uri Uri
+{
+    get
+    {
+        return new Uri(fileName);
+    }
+}
+</code></pre></section>
+</div>
+<p>Then add the following member, which allows us to pass any settings to the term provider. In our implementation, this will be the path to the glossary file:</p>
+<div class="tabGroup" id="tabgroup_JCasTWOG64-2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_JCasTWOG64-2_tabid-3" role="tab" aria-controls="tabpanel_JCasTWOG64-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">The Term Provider Settings</a>
+</li>
+</ul>
+<section id="tabpanel_JCasTWOG64-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<pre><code class="lang-csharp" name="MyTerminologyProvider">//Sets the terminology provider settings, i.e. in our implementation the glossary file name
+public MyTerminologyProvider(string providerSettings)
+{
+    fileName = providerSettings;
+}
+</code></pre></section>
+</div>
+<p>Modify the two following members to return the term provider name and definition:</p>
+<div class="tabGroup" id="tabgroup_JCasTWOG64-3">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_JCasTWOG64-3_tabid-4" role="tab" aria-controls="tabpanel_JCasTWOG64-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">The Term Provider Name and Definition</a>
+</li>
+</ul>
+<section id="tabpanel_JCasTWOG64-3_tabid-4" role="tabpanel" data-tab="tabid-4">
+<pre><code class="lang-csharp" name="MyTerminologyProvider">//Return the terminology provider name, uri, and description to show in the Studio UI
+public override string Description
+{
+    get
+    {
+        return PluginResources.My_Terminology_Provider_Description;
+    }
+}
+
+public override string Name
+{
+    get
+    {
+        return PluginResources.My_Terminology_Provider_Name;
+    }
+}
+
+public override Uri Uri
+{
+    get
+    {
+        return new Uri(fileName);
+    }
+}
+</code></pre></section>
+</div>
+<h2 id="how-to-select-the-glossary-file">How to select the Glossary File</h2>
+<p>Open the <strong>MyTerminologyProviderWinFormsUI.cs</strong> class and modify the <strong>Browse()</strong> method as shown below. This method allows you to raise the UI in which the user selects the text file, that is the <strong>Open File</strong> dialog box. Create a terminology provider object based on the <strong>MyTerminologyProvider</strong> class and set the <strong>fileName</strong> variable to the selected file name and path.</p>
+<div class="tabGroup" id="tabgroup_JCasTWOG64-4">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_JCasTWOG64-4_tabid-5" role="tab" aria-controls="tabpanel_JCasTWOG64-4_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">Browsing for the Glossary</a>
+</li>
+</ul>
+<section id="tabpanel_JCasTWOG64-4_tabid-5" role="tabpanel" data-tab="tabid-5">
+<pre><code class="lang-csharp" name="MyTerminologyProviderWinFormsUI">//Raises the File Open dialog in which the user selects the glossary text file.
+//The file name and path is then passed to the terminology provider object.
+public ITerminologyProvider[] Browse(IWin32Window owner, ITerminologyProviderCredentialStore credentialStore)
+{
+    OpenFileDialog dlgOpenFile = new OpenFileDialog
+    {
+        Title = &quot;Select list file&quot;,
+        Filter = &quot;Delimited list files (*.txt)|*.txt&quot;
+    };
+    dlgOpenFile.ShowDialog();
+
+    var result = new List&lt;ITerminologyProvider&gt;();
+    var _termProvider = new MyTerminologyProvider(dlgOpenFile.FileName);
+    result.Add(_termProvider);
+    return result.ToArray();
+}
+</code></pre></section>
+</div>
+<p>Go to the <strong>MyTerminologyProviderViewerWinFormsUI.cs</strong> class and create a terminology provider object. Make sure that your provider object is initialized as follows:</p>
+<div class="tabGroup" id="tabgroup_JCasTWOG64-5">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_JCasTWOG64-5_tabid-6" role="tab" aria-controls="tabpanel_JCasTWOG64-5_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">The Term Provider Object</a>
+</li>
+</ul>
+<section id="tabpanel_JCasTWOG64-5_tabid-6" role="tabpanel" data-tab="tabid-6">
+<pre><code class="lang-csharp" name="MyTerminologyProviderViewerWinFormsUI">
+private MyTerminologyProvider _terminologyProvider;
+
+</code></pre></section>
+</div>
+<div class="tabGroup" id="tabgroup_JCasTWOG64-6">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_JCasTWOG64-6_tabid-7" role="tab" aria-controls="tabpanel_JCasTWOG64-6_tabid-7" data-tab="tabid-7" tabindex="0" aria-selected="true">Initializing the Provider</a>
+</li>
+</ul>
+<section id="tabpanel_JCasTWOG64-6_tabid-7" role="tabpanel" data-tab="tabid-7">
+<pre><code class="lang-csharp" name="MyTerminologyProviderViewerWinFormsUI">public void Initialize(ITerminologyProvider terminologyProvider, CultureInfo source, CultureInfo target)
+{
+    _terminologyProvider = (MyTerminologyProvider)terminologyProvider;
+}
+</code></pre></section>
+</div>
+<div class="tabGroup" id="tabgroup_JCasTWOG64-7">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_JCasTWOG64-7_tabid-8" role="tab" aria-controls="tabpanel_JCasTWOG64-7_tabid-8" data-tab="tabid-8" tabindex="0" aria-selected="true">Provider is Initialized</a>
+</li>
+</ul>
+<section id="tabpanel_JCasTWOG64-7_tabid-8" role="tabpanel" data-tab="tabid-8">
+<pre><code class="lang-csharp" name="MyTerminologyProviderViewerWinFormsUI">public bool Initialized
+{
+    get
+    {
+        return true;
+    }
+}
+</code></pre></section>
+</div>
+<p>When selecting the text file, Trados Studio will try to retrieve the languages from the terminology list. As we have not implemented the corresponding functionality yet, simply change the <strong>GetLanguages()</strong> method of the <strong>MyTerminologyProvider.cs</strong> class to return null for the moment.</p>
+<p>We will implement the required language retrieval functionality in the next chapter.</p>
+<h2 id="the-terminology-provider-factory-class">The Terminology Provider Factory Class</h2>
+<p>Open the class <strong>MyTerminologyProviderFactory.cs</strong> and create your term provider object as show below. Only then will Trados Studio be able to access and display your provider in the UI:</p>
+<div class="tabGroup" id="tabgroup_JCasTWOG64-8">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_JCasTWOG64-8_tabid-9" role="tab" aria-controls="tabpanel_JCasTWOG64-8_tabid-9" data-tab="tabid-9" tabindex="0" aria-selected="true">Creating the Terminology Provider Object</a>
+</li>
+</ul>
+<section id="tabpanel_JCasTWOG64-8_tabid-9" role="tabpanel" data-tab="tabid-9">
+<pre><code class="lang-csharp" name="MyTerminologyProviderFactory">//Create the terminology provider and pass the provider uri, which is the glossary text file name and path
+public ITerminologyProvider CreateTerminologyProvider(Uri terminologyProviderUri, ITerminologyProviderCredentialStore credentials)
+{
+    MyTerminologyProvider _terminologyProvider = new MyTerminologyProvider(terminologyProviderUri.ToString());
+    return _terminologyProvider;
+}
+</code></pre></section>
+</div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/sdl/studio-api-docs/blob/main/apiconcepts/terminology/selecting_the_glossary_file.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

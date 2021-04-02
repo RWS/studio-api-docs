@@ -1,0 +1,156 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Adding the Main GUI </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Adding the Main GUI ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="adding-the-main-gui">Adding the Main GUI</h1>
+
+<p>This page describes how to set up the main application form that is used to enter search strings and display the search results.</p>
+<h2 id="add-the-main-application-form">Add the Main Application Form</h2>
+<p>Apart from the main application form we will need other forms for selecting the TM and for configuring search settings. Therefore add a folder called GUI to your project that will contain all the application forms. Then add a form called frmLookup, which will be used to enter search strings and display results.</p>
+<p>Add the following elements to your form:</p>
+<ul>
+<li><strong>txtSearch</strong>: the text field into which the search strings are entered. Make sure to set the <strong>Multiline</strong> property to True.</li>
+<li><strong>txtTmPath</strong>: contains the TM file name and path or the server URI and TM name, depending on whether the user has selected a file TM or a server TM. This text field should be disabled, i.e. read-only to prevent users from changing the value after the TM has been properly selected through the GUI. Set the Modifiers of this control to Public.</li>
+<li><strong>btnSelectTm</strong>: button for selecting the TM to use for the search. Opens a context menu (see item below), which offers a choice between file and server TMs.</li>
+<li><strong>contextMenuTm</strong>: a context menu that is opened through the <strong>Select TM</strong> button. This menu features the options Select File TM and Select Server TM for selecting either type of translation memory.</li>
+</ul>
+<p><img style="display:block; " src="images/ContextMenuStrip.jpg"></p>
+<ul>
+<li><strong>comboIndex</strong>: the combo box through which users can select whether the search should be done in the source or in the target language; the items collection needs to contain the values Source and Target, with the Text property being Source (i.e. Source should be the default value)</li>
+<li><strong>btnSearch</strong>: the button that is used to trigger the concordance search</li>
+<li><strong>richTextBox</strong>: a rich text control element that we will use to display the search results</li>
+<li><strong>menuStrip</strong>: application Settings menu that allows users to fine-tune the search options
+<em>**btnClose</em>*: button element that closes the main window and exits the application</li>
+<li><strong>comboLanguagePairs</strong>: the combo list element that contains the language directions available in the selected TM. Note that file-based TMs only offer a single language direction, whereas server TMs can have multiple language pairs. Set the Modifiers of this control to Public.</li>
+<li><strong>openFileDialog</strong>: dialog box for selecting the file TM. Set the Filter property to Translation Memories (<em>.sdltm)|</em>.sdltm
+The from should look as shown below:</li>
+</ul>
+<p><img style="display:block; " src="images/frmLookupMain.jpg"></p>
+<h2 id="implement-the-gui-functionality">Implement the GUI Functionality</h2>
+<p><strong>Menu Functions</strong></p>
+<p>Clicking the menu items should open the corresponding form, i.e. the form for configuring the search settings:</p>
+<p><strong>Closing the Application</strong></p>
+<p>Clicking the <strong>Close</strong> button should exit the application:</p>
+<p><strong>Selecting the File-based TM</strong></p>
+<p>When the corresponding command in the context menu is clicked, you raise the open file dialog, in which the file TM can be selected. The complete file name is entered into the main application form, as is the TM language direction:</p>
+<p><strong>Raising the Form for Server TM Selection</strong></p>
+<p>Selecting a server TM requires users to enter more than just a file name and path. This is why the second command in the context menu raises a separate form, in which the server URI and user credentials are entered:</p>
+<p><strong>Initializing the Default Search Settings</strong></p>
+<p>When the application is started, the form for configuring the search settings should get the default settings, which - in our implementation - are identical to the settings used by SDL Trados Studio 2017, i.e. 70% as the minimum fuzzy match value and 30 as the maximum number of results that a concordance search should return. Note that both of these settings can have an impact on the search speed.</p>
+<p><strong>Executing the Search</strong></p>
+<p>By clicking the Search button the corresponding function in the (yet to be implemented) Search class should be triggered. This function requires the search string (entered into the txtSearch text field, the source/target flag (as set through the comboIndex list) as parameters. In addition it requires the language pair index, which is provided by the comboLanguagePairs control element, as server TMs can have multiple language pairs:</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/sdl/studio-api-docs/blob/main/apiconcepts/translationmemory/adding_the_main_gui.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

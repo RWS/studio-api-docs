@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Implementing the Search Functionality </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Implementing the Search Functionality ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="implementing-the-search-functionality">Implementing the Search Functionality</h1>
+
+<p>This page outlines how to implement the actual search functionality and how to output the results in the rich text element using a simple string output.</p>
+<h2 id="implement-the-search-function">Implement the Search Function</h2>
+<p>Start by adding a new class called Search to your project. Implement a public function called DoConcordanceSearch, which takes the search text as string parameter and a boolean parameter that indicates whether the search should be done in the target index. In addition, we pass the SelectedIndex property of the comboLanguagePairs control as another parameter. The index of this list corresponds to the index of the server TM language pair. The function returns the search result as a string.</p>
+<p>The function is called by clicking the search button on the main lookup form, which then fills the rich text control with the search result:</p>
+<p>In the DoConcordanceSearch function you first execute the search in the selected TM (file or server TM). The boolean server property from the Connector (see Adding the Connector Class) class flags whether the search should be applied to a file or server TM object.</p>
+<p>The SearchText method takes the search string as well as the search settings as parameters. The search settings (as set by the user on the corresponding form, see Adding the Search Settings Form) are returned by a separate function:</p>
+<p>Next, you start building up the hit result string by determining the hit count:</p>
+<p>In the following step, you need to traverse the search results:</p>
+<p>The loop continues to build up the hitlist string by calling a separate GetTuInformation helper function, which returns TU information such as the source/target segments, the creation date, any field names and values, as well as the match value:</p>
+<p>At the end the DoConcordanceSearch function returns the full hit result string, which is then used to fill the rich text control:</p>
+<h2 id="apply-the-search-settings">Apply the Search Settings</h2>
+<p>Add the following private function called GetSearchSettings, which configures the search settings according to the settings configured on the search settings form (see Adding the Search Settings Form).</p>
+<p>See also Doing Translation Memory Lookups for more information on the available search settings.</p>
+<h2 id="putting-it-all-together">Putting it All Together</h2>
+<p>The complete search class should look as shown below:</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/sdl/studio-api-docs/blob/main/apiconcepts/translationmemory/implementing_the_search_functionality.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

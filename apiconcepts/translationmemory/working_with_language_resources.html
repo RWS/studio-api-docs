@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Working with Language Resources </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Working with Language Resources ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="working-with-language-resources">Working with Language Resources</h1>
+
+<p>This section describes how to work with language resources within translation memories and fields templates.</p>
+<h2 id="language-resources">Language Resources</h2>
+<p>Translation memories have support for storing custom language resources, such as segmentation rules, abbreviations, ordinal followers and variables. Storing these resources in the translation memory ensures that the correct resources are consistently being used when segmenting content that is targeting the translation memory. This ensures consistent, optimal translation re-use.</p>
+<p>The language resources within a translation memory or language resources template are represented by a <code>LanguageResourceBundleCollection</code>. This is a collection of <code>LanguageResourceBundle</code> objects, each of which represents language resources for a specific language. A translation memory can store language resources for its source language or languages.</p>
+<p>Server-based translation memories have the ability to inherit their language resources from a language resources template (<code>ServerBasedLanguageResourcesTemplate</code>). When that is the case, the field definitions can be centrally managed via the language resources template, but not on the translation memory itself. For more information, see <a href="working_with_language_resource_templates.html">Working with Language Resource Templates</a>.</p>
+<p>There are four types of customizable language resources:</p>
+<ol>
+<li><p><strong>Abbreviations</strong>: The segmentation engine uses a default source language abbreviation list when segmenting text. The abbreviation list contains the most common, frequently used abbreviations in the source language, such as max., min. and usd., and all of the abbreviations are followed by a full stop. If the segmentation engine finds a full stop preceded by text, adn the text appears in the abbreviation list, the engine interprets the full stop as an abbreviation punctuation mark and keeps reading until the next full stop. The abbreviations list can be manipulated through a Wordlist object.</p>
+</li>
+<li><p><strong>Ordinal followers</strong>: The segmentation engine uses a default source language ordinal follower list when segmenting text. An ordinal follower, or ordinal noun, is a word that is typically found following a number. The ordinal nouns list allows the segmentation engine to read past instances of the full stop that are preceded by a number and followed by an ordinal noun. This aspect of segmentation is not relevant for all languages, but it is particularly useful for the German language. A dot is not interpreted as a segment boundary marker if it is preceded by a number and followed by an ordinal noun. The ordinal followers list can be manipulated through a Wordlist object.</p>
+</li>
+<li><p><strong>Segmentation rules</strong>: Segmentation rules are rules that govern how text is broken up into segments. Segments can be paragraph or sentence length. As a general rule, in Englsih, a full stop, exclamation mark, question mark, colon, tab character or end of paragrah mark indicate the end of a sentence when they are followed by a space. A quotation mark (&quot; or &#39;&quot;) or a closing parenthesis ()) may follow the closing punctuation mark and precede the space. A semicolon (;) does not end a sentence. The segmentation rules can be customized via the SegmentationRules object.</p>
+</li>
+<li><p><strong>Variables</strong>: This is a customized list of variables in the translation memory setup. Each item on the list is treated as a non-translatable (placeable) element. For example, you may not want to translate a company name. Adding it to the variable list identifies this as untranslatable content. The properties of the variable list are as follows:
+Variables must appear exactly as they do in your documents.
+Each item in the list must be on a line of its own.
+Punctuation inside variables, such as hyphens or commas, is not supported.
+As well as the variables themselves, the list can include comments or headings. Comments or headings must be directly preceded by the hash symbol (#), for example, #comment.</p>
+</li>
+</ol>
+<p><img style="display:block; " src="images/LanguageResources.png"></p>
+<p>In order to define custom language resources for a given language, you have to create a <code>LanguageResourceBundle</code> object for that language. Subsequently for instance, create a new Wordlist object, populated using a custom list of variables and assign it to the <code>Abbreviations</code> property. Finally add it to the language resource bundles collection and save the translation memory or language resources template that own the collection in order to persist the changes.</p>
+<p>Often, when defining custom language resources, the most common scenario is making changes to the default set of language resources. The default language resources can be retrieved from the <code>DefaultLanguageResourceProvider</code>, or by calling <code>GetDefaultLanguageResources</code> in a server scenario. Note that this is only really required when accessing the default language resources from Silverlight, since the <code>DefaultLanguageResourceProvider</code> is not available in Silverlight. Both methods returns the same defaults, using the <code>DefaultLanguageResourceProvider</code> is more efficient since no server roundtrips are required to retrieve the default language resources.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/sdl/studio-api-docs/blob/main/apiconcepts/translationmemory/working_with_language_resources.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

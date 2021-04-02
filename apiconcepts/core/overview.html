@@ -1,0 +1,167 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Plug-in Framework Overview </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Plug-in Framework Overview ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="plug-in-framework-overview">Plug-in Framework Overview</h1>
+
+<p>This help system describes the Plug-in Framework. This framework offers plug-in functionality to applications and components. Application developers can define extension points and dynamically load any plug-ins providing extensions targeting these extension points using the plug-in framework.</p>
+<div class="NOTE"><h5>Note</h5><p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+</div>
+<h2 id="version">Version</h2>
+<p>The version of the Plug-in Framework documented here is the one that was released with Trados Studio 2014.</p>
+<h2 id="design-goals">Design Goals</h2>
+<p>The following are the design goals of the plug-in framework:</p>
+<ul>
+<li>Provide plug-in functionality to support large application design consisting of many loosely connected pieces of functionality.</li>
+<li>Performance: Functionality should only be loaded or created as needed.</li>
+<li>Componentization: Plug-ins can be deactivated and combined as needed through deployment to form different applications.</li>
+<li>Extensibility: Plug-ins can define new extension points and therefore also host other plug-ins.</li>
+<li>Easy development: Configuration is checked by the framework at compile-time. No manual editing of config files is needed.</li>
+<li>Easy deployment: No central configuration should be updated when installing or uninstalling a plug-in.</li>
+<li>Localizability: All plug-in meta-data should be localizable.</li>
+</ul>
+<h2 id="main-concepts-and-definitions">Main Concepts and Definitions</h2>
+<p>This section introduces a number of concepts and definitions that are central to the plug-in framework.</p>
+<ul>
+<li><strong>Hosting Application</strong></li>
+</ul>
+<p>This is the application (or component) which provides plug-in capabilities. The hosting application will define certain extension points and will use the plug-in framework to discover and load plug-ins and extensions for these extension points.</p>
+<ul>
+<li><strong>Extension Point</strong></li>
+</ul>
+<p>An extension point is a point in the application or component that allows adding extensions to it. An extension point is defined by a .Net attribute, called an extension attribute. All extension attributes should derive from the ExtensionAttribute base class.</p>
+<ul>
+<li><strong>Extension</strong></li>
+</ul>
+<p>An extension is a single piece of functionality that adds functionality to an application or component through a specific extension point. An extension is defined by a .Net class, defined in a plug-in assembly, annotated with the extension attribute that identifies the extension point it targets. An extension class typically implements an interface that is required by the extension point it is targeting.</p>
+<ul>
+<li><strong>Plug-in</strong></li>
+</ul>
+<p>A plug-in can contain one or more extensions. A plug-in consist is a .Net assembly which is annotated with the assembly-level PluginAttribute, which has a Name property that contains the friendly name of the plug-in. The presence of this attribute tells the framework that this is a plug-in assembly.</p>
+<ul>
+<li><strong>Plug-in Registry</strong></li>
+</ul>
+<p>The central object in the plug-in framework is the plug-in registry (IPluginRegistry). The plug-in registry provides functionality to the host application to detect which plug-ins and extensions are available and create instances of the extensions provided by these plug-ins.</p>
+<ul>
+<li><strong>Plug-in Manifest</strong></li>
+</ul>
+<p>A plug-in manifest is an XML file, which contains serialized metadata about a plug-in assembly, it contains:</p>
+<pre><code>* The plug-in name, plus the plug-in assembly&#39;s name and version.
+* A list of all the extensions defined within the plug-in assembly, together with the meta data defined in the extension attributes.
+</code></pre><p>The purpose of the plug-in manifest is to avoid loading all the plug-in assemblies at runtime and reflecting over them to discover the available extensions, which would affect startup performance, an important aspect of desktop applications.
+At compile time, the plug-in manifest generator creates a plug-in manifest for every plug-in assembly. The plug-in manifest generator is implemented as an MSBuild task, which runs as part of the standard Visual Studio build. The plug-in manifest generator reflects over the plug-in assembly and creates the plug-in manifest plus any additional resource files containing resources needed by the manifest (see <a href="plugin_resources_and_localizability.html">Plug-in Resources and Localizability</a>). The plug-in registry loads plug-in information from one or more plug-in manifest files.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/sdl/studio-api-docs/blob/main/apiconcepts/core/overview.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

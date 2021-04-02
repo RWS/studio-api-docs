@@ -1,0 +1,368 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Integrating viewparts </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Integrating viewparts ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="integrating-viewparts">Integrating viewparts</h1>
+
+<p>Desktop Integration API provides support for third-party developers to integrate UI view parts inside the Trados Studio desktop applications.</p>
+<p>Integrating view parts implies changes, in the way that a view is no longer having one content, but is built by one too many viewparts having at least one main centered viewpart, which is filling its content.</p>
+<p>The viewparts can be added to be part of an integrated view (see the sample regarding the integration of a view) or to an existing view (see ProjectsController, FilesController, EditorController).</p>
+<h2 id="integrating-view-parts-inside-a-custom-view">Integrating view parts inside a custom view</h2>
+<p>The following example demonstrates how to create a view built by viewparts into a Trados Studio application.</p>
+<p>First, create and integrate a view which allows viewparts:</p>
+<div class="tabGroup" id="tabgroup_Yh4rJMJLM+">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_Yh4rJMJLM+_tabid-1" role="tab" aria-controls="tabpanel_Yh4rJMJLM+_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_Yh4rJMJLM+_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-csharp" name="MyViewWithParts">using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Sdl.Desktop.IntegrationApi;
+using Sdl.Desktop.IntegrationApi.Extensions;
+using Sdl.TranslationStudioAutomation.IntegrationApi.Presentation;
+using Sdl.TranslationStudioAutomation.IntegrationApi.Presentation.DefaultLocations;
+
+namespace Sdl.ViewParts.Sample
+{
+    [View(
+        Id =&quot;MyViewWithViewParts&quot;, 
+        Name = &quot;My View with ViewParts&quot;, 
+        Description = &quot;Sample of a view which allows view parts&quot;, 
+        LocationByType = typeof(TranslationStudioDefaultViews.TradosStudioViewsLocation),
+        AllowViewParts = true)]
+    class MyViewWithParts: AbstractViewController
+    {
+        protected override void Initialize(IViewContext context)
+        {            
+        }
+    }
+}
+</code></pre></section>
+</div>
+<p>Create the main viewpart content of the view.</p>
+<p>To define a main content viewpart, set the <code>Dock</code> property of the <code>ViewPartLayoutAttribute</code> attribute to <code>Fill</code>. </p>
+<div class="tabGroup" id="tabgroup_Yh4rJMJLM+-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_Yh4rJMJLM+-1_tabid-2" role="tab" aria-controls="tabpanel_Yh4rJMJLM+-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_Yh4rJMJLM+-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<pre><code class="lang-csharp" name="MyCustomViewPartContent">using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Sdl.Desktop.IntegrationApi;
+using Sdl.Desktop.IntegrationApi.Extensions;
+
+namespace Sdl.ViewParts.Sample
+{
+    [ViewPart(
+        Id = &quot;MyCustomViewPartContent&quot;, 
+        Name = &quot;My Custom ViewPart Content&quot;, 
+        Description = &quot;This is a sample of viewpart content.&quot;)]
+    [ViewPartLayout(Dock = DockType.Fill, LocationByType = typeof(MyViewWithParts))]
+    public class MyCustomViewPartContent: AbstractViewPartController
+    {
+        protected override System.Windows.Forms.Control GetContentControl()
+        {
+            return _control.Value;
+        }
+
+        protected override void Initialize()
+        {            
+        }
+
+        private readonly Lazy&lt;MyCustomViewPartContentControl&gt; _control = new Lazy&lt;MyCustomViewPartContentControl&gt;(() =&gt; new MyCustomViewPartContentControl());
+    }
+}
+</code></pre></section>
+</div>
+<p>Define other viewparts and order their relevance by setting the <code>ZIndex</code> property.</p>
+<div class="NOTE"><h5>Note</h5><p>The ZIndex ordering is performed only for the intergrated viewparts and displayed only after SDL viewparts and acts as importance from left to right or top to bottom. The highest ZIndex value is in the left or top and the lowest value is in the right or bottom.</p>
+</div>
+<div class="tabGroup" id="tabgroup_Yh4rJMJLM+-2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_Yh4rJMJLM+-2_tabid-3" role="tab" aria-controls="tabpanel_Yh4rJMJLM+-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_Yh4rJMJLM+-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<pre><code class="lang-csharp" name="MyCustomViewPart1">using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Sdl.Desktop.IntegrationApi;
+using Sdl.Desktop.IntegrationApi.Extensions;
+using Sdl.TranslationStudioAutomation.IntegrationApi;
+
+namespace Sdl.ViewParts.Sample
+{
+    [ViewPart(
+        Id = &quot;MyCustomViewPart1&quot;,
+        Name = &quot;My Custom ViewPart 1&quot;,
+        Description = &quot;This is a sample of viewpart.&quot;)]
+    [ViewPartLayout(LocationByType = typeof(MyViewWithParts), ZIndex = 2, Dock = DockType.Bottom)]    
+    public class MyCustomViewPart1 : AbstractViewPartController
+    {
+        protected override System.Windows.Forms.Control GetContentControl()
+        {
+            return _control.Value;
+        }
+
+        protected override void Initialize()
+        {
+        }
+
+        private readonly Lazy&lt;MyCustomViewPart1Control&gt; _control = new Lazy&lt;MyCustomViewPart1Control&gt;(() =&gt; new MyCustomViewPart1Control());
+    }
+}
+</code></pre></section>
+</div>
+<div class="tabGroup" id="tabgroup_Yh4rJMJLM+-3">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_Yh4rJMJLM+-3_tabid-4" role="tab" aria-controls="tabpanel_Yh4rJMJLM+-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_Yh4rJMJLM+-3_tabid-4" role="tabpanel" data-tab="tabid-4">
+<pre><code class="lang-csharp" name="MyCustomViewPart2">using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Sdl.Desktop.IntegrationApi;
+using Sdl.Desktop.IntegrationApi.Extensions;
+
+namespace Sdl.ViewParts.Sample
+{
+    [ViewPart(
+        Id = &quot;MyCustomViewPart2&quot;,
+        Name = &quot;My Custom ViewPart 2&quot;,
+        Description = &quot;This is a sample of viewpart.&quot;)]
+    [ViewPartLayout(Dock = DockType.Bottom,LocationByType = typeof(MyViewWithParts), ZIndex = 1)]
+    public class MyCustomViewPart2 : AbstractViewPartController
+    {
+        protected override System.Windows.Forms.Control GetContentControl()
+        {
+            return _control.Value;
+        }
+
+        protected override void Initialize()
+        {
+        }
+
+        private readonly Lazy&lt;MyCustomViewPart2Control&gt; _control = new Lazy&lt;MyCustomViewPart2Control&gt;(() =&gt; new MyCustomViewPart2Control());
+    }
+}
+</code></pre></section>
+</div>
+<div class="tabGroup" id="tabgroup_Yh4rJMJLM+-4">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_Yh4rJMJLM+-4_tabid-4" role="tab" aria-controls="tabpanel_Yh4rJMJLM+-4_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_Yh4rJMJLM+-4_tabid-4" role="tabpanel" data-tab="tabid-4">
+<pre><code class="lang-csharp" name="MyCustomViewPart3">using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Sdl.Desktop.IntegrationApi;
+using Sdl.Desktop.IntegrationApi.Extensions;
+
+namespace Sdl.ViewParts.Sample
+{
+    [ViewPart(
+        Id = &quot;MyCustomViewPart3&quot;,
+        Name = &quot;My Custom ViewPart 3&quot;,
+        Description = &quot;This is a sample of viewpart.&quot;)]
+    [ViewPartLayout(Dock = DockType.Bottom, LocationByType = typeof(MyViewWithParts), ZIndex = 3)]
+    public class MyCustomViewPart3 : AbstractViewPartController
+    {
+        protected override System.Windows.Forms.Control GetContentControl()
+        {
+            return _control.Value;
+        }
+
+        protected override void Initialize()
+        {
+        }
+
+        private readonly Lazy&lt;MyCustomViewPart3Control&gt; _control = new Lazy&lt;MyCustomViewPart3Control&gt;(() =&gt; new MyCustomViewPart3Control());
+    }
+}
+</code></pre></section>
+</div>
+<h2 id="integrating-viewparts-inside-an-existing-trados-studio-view">Integrating viewparts inside an existing Trados Studio view</h2>
+<p>The following example demonstrates how to create a viewpart and integrate it into the Trados Studio Projects View.</p>
+<div class="tabGroup" id="tabgroup_Yh4rJMJLM+-5">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_Yh4rJMJLM+-5_tabid-5" role="tab" aria-controls="tabpanel_Yh4rJMJLM+-5_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_Yh4rJMJLM+-5_tabid-5" role="tabpanel" data-tab="tabid-5">
+<pre><code class="lang-csharp" name="MyProjectViewPart">using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using Sdl.Desktop.IntegrationApi;
+using Sdl.Desktop.IntegrationApi.Extensions;
+using Sdl.TranslationStudioAutomation.IntegrationApi;
+
+namespace Sdl.ViewParts.Sample
+{
+    [ViewPart(
+        Id = &quot;MyProjectViewPart&quot;, 
+        Name = &quot;My Project View Part&quot;, 
+        Description = &quot;Integrationg a view part inside the project view&quot;)]
+    [ViewPartLayout(Dock = DockType.Bottom, LocationByType = typeof(ProjectsController))]
+    class MyProjectViewPart : AbstractViewPartController
+    {
+        protected override Control GetContentControl()
+        {
+            return _control.Value;
+        }
+
+        protected override void Initialize()
+        {
+            var projectController = SdlTradosStudio.Application.GetController&lt;ProjectsController&gt;();
+            projectController.CurrentProjectChanged += (s, e) =&gt;
+                                                           {
+                                                               if (projectController.CurrentProject == null)
+                                                                   return;
+
+                                                               _control.Value.CurrentProject = projectController.CurrentProject.FilePath;                                                               
+                                                           };
+
+            projectController.SelectedProjectsChanged += (s, e) =&gt;
+                                                             {                                                                 
+                                                                 _control.Value.SelectedProjectsCount = projectController.SelectedProjects.Count();
+                                                             };           
+        }
+
+        private static readonly Lazy&lt;MyProjectViewPartControl&gt; _control = new Lazy&lt;MyProjectViewPartControl&gt;(() =&gt; new MyProjectViewPartControl());
+    }
+}
+</code></pre></section>
+</div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/sdl/studio-api-docs/blob/main/apiconcepts/integration/integrating_viewparts.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

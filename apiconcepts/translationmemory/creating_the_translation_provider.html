@@ -1,0 +1,143 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Creating the Translation Provider </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Creating the Translation Provider ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="creating-the-translation-provider">Creating the Translation Provider</h1>
+
+<p>This section explains how to create a class that implements the <code>ITranslationProvider</code> interface, which forms the main part of a custom translation provider plug-in implementation.</p>
+<h2 id="overview">Overview</h2>
+<p>The translation provider component represents a translation engine that provides functionality to translate segments. A translation provider is a class that implements <code>ITranslationProvider</code>. This functionality of this class can be categorized as follows:</p>
+<ul>
+<li><strong>Translation method</strong>: The TranslationMethod property specifies which translation engine is used for generating translation results. Some search options in Trados Studio can determine whether a translation provider is called or not. This means that if a TM result already exists Trados Studio may no longer looks up for suggestions in the MT provider.</li>
+<li><strong>Supported features</strong>: The translation provider class also has to indicate which functionality it supports. There are a number of &quot;Supports...&quot; properties, which indicate which features the translation provider supports. Again, these values are used by Trados Studio to determine in which scenarios to use the translation provider and how to use it. See <a href="#supported-features">Supported Features</a>.</li>
+<li><strong>Language directions</strong>: The translation provider can indicate which language directions it supports, and allows retrieving a language direction (<code>ITranslationProviderLanguageDirection</code>) using the GetLanguageDirection method. See <a href="#language-directions">Language Directions</a>.</li>
+<li><strong>Serializing and loading state</strong>: When a translation provider is added to an Trados Studio project, two pieces of information are serialized: the URI (Uri) and additional state information. See <a href="#serializing-and-loading-state">Serializing and Loading State</a>.
+A translation provider can support one or more language directions, i.e. source-to-target language combinations. The functionality for a specific language direction is provided by a class that implements <code>ITranslationProviderLanguageDirection</code>.</li>
+</ul>
+<p><img style="display:block; " src="images/TranslationProvider.png"></p>
+<h2 id="supported-features">Supported Features</h2>
+<p>For more information on each of the properties that indicate whether the translation provider supports certain functionality or content, see ITranslationProvider.</p>
+<h2 id="language-directions">Language Directions</h2>
+<p>A translation provider language direction is defined by a source and target language, both of which should be a region-qualified culture. The interface has two method related to language directions:</p>
+<ul>
+<li>SupportsLanguageDirection: This method checks whether the translation provider supports the specified region-qualified source-target language combination.</li>
+<li>GetLanguageDirection: If the translation provider supports a given language direction, a ITranslationProviderLanguageDirection can be retrieved using this method. The ITranslationProviderLanguageDirection contains language-direction specific methods for performing translation unit lookups and updates. Depending on which features are supported by the translation provider, some or all of these methods can be used.</li>
+</ul>
+<h2 id="serializing-and-loading-state">Serializing and Loading State</h2>
+<p>When a translation provider is added to an Trados Studio project, two pieces of information are serialized: the URI and the additional state. The additional state can take the form of additional settings required by the translation provider.</p>
+<p>Serialization of state is done using the SerializeState method. The translation provider implementation is free to determine the format that it serializes its state in. Trados Studio will only store this state information in the project. Also, the state information is included in packages, so it is not recommended to include sensitive information like credentials in there. There is a seperate mechanism for credentials and other user specific settings. For more details on this mechanism, refer to the Authentication section in Creating the Translation Provider Factory.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/sdl/studio-api-docs/blob/main/apiconcepts/translationmemory/creating_the_translation_provider.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

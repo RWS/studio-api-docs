@@ -1,0 +1,138 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Instantiating the Plug-in </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Instantiating the Plug-in ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="instantiating-the-plug-in">Instantiating the Plug-in</h1>
+
+<p>A translation provider plug-in has to be properly instantiated, so that it can be used in and displayed in SDL Trados Studio 2017. Instantiation is done by a component that is also provided in the plug-in template, and which is called <strong>MyTranslationProviderFactory.</strong> In our implementation we will rename this component to <strong>ListTranslationProviderFactory</strong>.</p>
+<h2 id="the-translation-provider-factory-interface">The Translation Provider Factory Interface</h2>
+<p>The factory component implements the interface ITranslationProviderFactory. This interface, in turn, consists of three methods. The following sections outline how we implement these methods for our sample plug-in.</p>
+<p>The class is preceded by the following declaration, which defines it as an extension class, which will be referenced and declared to the SDL Trados Studio 2017 application through the plug-in manifest *.xml file (see also Building the Plug-in).</p>
+<h2 id="create-the-translation-provider">Create the Translation Provider</h2>
+<p>The CreateTranslationProvider: method is used to create the translation provider, which is specified in the translation provider URI. In our implementation we use the string <em>listprovider</em>. As this value is used for identification, it needs to be unique. The URI is also used to store any plug-in settings information, which are loaded through the below method. In our implementation this would be the delimiting character and the delimited text file name and path.</p>
+<p>The plug-in URI is stored in an <em>.sdlproj or an *.sdltlp file. These are the file types that contain, among other things, the translation providers used for a translation project and the corresponding settings.
+Below you see an example of what a plug-in URI looks like for this sample implementation. The URI is prefixed with *listprovider///</em> and followed by the plug-in settings parameters, i.e. <em>delimiter</em> and <em>listfile</em>.</p>
+<h2 id="determine-whether-the-uri-is-supported-by-the-plug-in">Determine Whether the URI is Supported by the Plug-in</h2>
+<p>SupportsTranslationProviderUri method you should determine whether the provided URI is actually valid and supported by the plug-in as shown in the sample code below:</p>
+<h2 id="setting-the-plug-in-info">Setting the Plug-in Info</h2>
+<p>This component is also responsible for setting the plug-in GUI elements, i.e. the name and the plug-in icon. Through the GetTranslationProviderInfo: method you set the plug-in name, which should be shown in the user interface of SDL Trados Studio 2017 as well as the translation method.</p>
+<p>First, create a TranslationProviderInfo object to hold and set the plug-in properties. The string fro the (nice) plug-in name is accessed from the resources file:</p>
+<p>The TranslationMethod is retrieved from a separate ListTranslationOptions class, which we will implement in a later step (see Storing and Retrieving the Plug-in Settings). The translation method is used to specify what kind of translations a given plug-in provides, e.g. translation solutions from a translation memory, a machine translation system, etc.</p>
+<p>After the specifying these plug-in properties, the info object is returned as shown below:</p>
+<h2 id="putting-it-all-together">Putting it All Together</h2>
+<p>The complete factory class should look as shown below:</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/sdl/studio-api-docs/blob/main/apiconcepts/translationmemory/instantiating_the_plugin.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

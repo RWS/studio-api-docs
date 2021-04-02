@@ -1,0 +1,239 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Add Suggestion to a Custom Message Control </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Add Suggestion to a Custom Message Control ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="add-suggestion-to-a-custom-message-control">Add Suggestion to a Custom Message Control</h1>
+
+<p>In this section, the IdenticalCheck custom message control described in Create a Custom MessageControl shall be adapted to make a suggestion.</p>
+<p>A suggestion is a change to the document that will fix the verification problem described by the verification message.</p>
+<p>This project can be found in the samples directory under Sdl.Verification.Sdk.IdenticalCheck.Extended.</p>
+<h2 id="overview">Overview</h2>
+<p>The IdenticalCheck custom message control shall be adapted to make a suggestion to replace the contents of the target segment with the source segment. Since the IdenticalCheck custom message control can make a suggestion then the Change button will be enabled.</p>
+<p><img style="display:block; " src="images/CustomMessageControlSuggestion1.png"></p>
+<p>When the user clicks on the Change button, the suggestion is applied and that will make the target segment identical to the source segment. Since the target segment will be identical to the source segment then the verification problem will be fixed and the verification message will be removed.</p>
+<p><img style="display:block; " src="images/CustomMessageControlSuggestion2.png"></p>
+<h1 id="changing-the-custom-user-control-to-be-a-suggestion-provider">Changing the custom user control to be a suggestion provider</h1>
+<p>The custom user control is responsible for providing a suggestion because the custom user control may allow the user to select a suggestion. Any custom user control that provides a suggestion should implement ISuggestionProvider.</p>
+<p>The IdenticalVerifierMessageUI custom user control should implement ISuggestionProvider to be able to suggest replacing the contents of the target segment with the source segment.</p>
+<ol>
+<li>Add a using reference to Sdl.Verification.Api.</li>
+<li>Make the class implement ISuggestionProvider - use Visual Studio to add empty implementations.</li>
+<li>Make HasSuggestion always return true because there is always a suggestion - replacing the contents of the target segment with the source segment.</li>
+</ol>
+<pre><code class="lang-cs">public Suggestion GetSuggestion()
+{
+    return _suggestion;
+}
+
+public bool HasSuggestion()
+{
+    return true;
+}
+
+public event EventHandler SuggestionChanged;
+</code></pre><p>The IdenticalVerifierMessageUI custom user control needs the source segment to be able to suggest replacing the contents of the target segment with the source segment.</p>
+<ol>
+<li>Add a using reference to Sdl.FileTypeSupport.Framework.BilingualApi.</li>
+<li>Use property ReplaceDocumentSegment of IdenticalVerifierMessageData class to create new Suggestion.</li>
+</ol>
+<pre><code class="lang-cs">public IdenticalVerifierMessageUI(MessageEventArgs messageEventArgs, ISegment originalSegment)
+{
+    InitializeComponent();
+
+    #region Get ExtendedMessage Data
+    IdenticalVerifierMessageData messageData = (IdenticalVerifierMessageData)messageEventArgs.ExtendedData;
+    this.tb_ErrorDetails.Text = messageData.ErrorDetails;
+    _suggestion = new Suggestion(messageEventArgs.FromLocation, messageEventArgs.UptoLocation, 
+        messageData.ReplacementSuggestion.Clone() as IAbstractMarkupData);
+    #endregion
+
+    _originalSegment.Dock = DockStyle.Fill;
+    _originalSegment.IsReadOnly = true;
+    _originalSegment.ReplaceDocumentSegment(originalSegment.Clone() as ISegment);
+    panel_Original.Controls.Add(_originalSegment);
+}
+</code></pre><p>A suggestion is always a replacement where the target contents from one location upto another location is replaced by the new markup. If the new markup is null then the suggestion effectively deletes the contents from one location upto another location. Always set the new markup to null to delete content and do not use empty text markup.</p>
+<p>The IdenticalVerifierMessageUI constructor now has the from and upto locations from the verification message (messageEventArgs) and the new markup from the source segment (messageData.ReplacementSuggestion). All that remains is for IdenticalVerifierMessageUI constructor to create the Suggestion and store it in a member variable for the GetSuggestion method.</p>
+<ol>
+<li>Add a private member variable called _suggestion of type Suggestion.</li>
+<li>Create the _suggestion from the messageEventArgsFromLocation and UptoLocation and from the messageData.ReplacementSuggestion.</li>
+<li>Change the GetSuggestion method to return this suggestion.</li>
+</ol>
+<pre><code class="lang-cs">using System;
+using System.Windows.Forms;
+
+using Sdl.DesktopEditor.BasicControls;
+using Sdl.FileTypeSupport.Framework.BilingualApi;
+using Sdl.FileTypeSupport.Framework.IntegrationApi;
+using Sdl.Verification.Api;
+
+namespace Sdl.Verification.Sdk.IdenticalCheck.Extended.MessageUI
+{
+    public partial class IdenticalVerifierMessageUI : UserControl, ISuggestionProvider
+    {
+        #region Create Edit Controls
+        /// &lt;summary&gt;
+        /// Source segment edit control
+        /// &lt;/summary&gt;
+        private readonly BasicSegmentEditControl _originalSegment = new BasicSegmentEditControl();
+
+        /// &lt;summary&gt;
+        /// Target segment edit control
+        /// &lt;/summary&gt;
+        private readonly BasicSegmentEditControl _suggestedSegment = new BasicSegmentEditControl();
+        #endregion
+
+        private Suggestion _suggestion;
+
+        #region Constructor
+        public IdenticalVerifierMessageUI(MessageEventArgs messageEventArgs, ISegment originalSegment)
+        {
+            InitializeComponent();
+
+            #region Get ExtendedMessage Data
+            IdenticalVerifierMessageData messageData = (IdenticalVerifierMessageData)messageEventArgs.ExtendedData;
+            this.tb_ErrorDetails.Text = messageData.ErrorDetails;
+            _suggestion = new Suggestion(messageEventArgs.FromLocation, messageEventArgs.UptoLocation, 
+                messageData.ReplacementSuggestion.Clone() as IAbstractMarkupData);
+            #endregion
+
+            _originalSegment.Dock = DockStyle.Fill;
+            _originalSegment.IsReadOnly = true;
+            _originalSegment.ReplaceDocumentSegment(originalSegment.Clone() as ISegment);
+            panel_Original.Controls.Add(_originalSegment);
+        }
+        #endregion
+
+        #region ISuggestionProvider
+        public Suggestion GetSuggestion()
+        {
+            return _suggestion;
+        }
+
+        public bool HasSuggestion()
+        {
+            return true;
+        }
+
+        public event EventHandler SuggestionChanged;
+        #endregion
+    }
+}
+</code></pre><h1 id="summary">Summary</h1>
+<p>That completes the work necessary to allow the IdenticalVerifierMessageUI custom message control to provide a suggestion for verification messages produced by the IdenticalCheck global verifier. If the user views a verification message produced by the IdenticalCheck global verifier then the Change button will be enabled and clicking on the Change button will apply the suggestion where the contents of the target segment is replaced with the contents of the source segment as described in the Overview.</p>
+<p>In this simple example, the <strong>SuggestionChanged</strong> event was not used. In complex custom message controls, there may be more than one reasonable suggestion that the user could choose from. These suggestions could be represented in a control like a combo-box or a list box where the user can select a suggestion. As the user selects a suggestion, selects a different suggestion, or &quot;unselects&quot; a suggestion the <strong>SuggestionChanged</strong> event should be fired. This event is listened to by the verification form that updates whether the Change button is enabled or not.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/sdl/studio-api-docs/blob/main/apiconcepts/verification/add_suggestion_to_a_custom_message_control.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

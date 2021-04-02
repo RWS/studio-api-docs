@@ -1,0 +1,243 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Creating Extensions </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Creating Extensions ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="creating-extensions">Creating Extensions</h1>
+
+<p>This section explains how to develop an extension that targets a specific extension point.</p>
+<div class="NOTE"><h5>Note</h5><p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+</div>
+<h2 id="creating-extensions-1">Creating Extensions</h2>
+<p>The plug-in framework comes with a C# project template for developing extensions: <em>SDL Plug-in Project</em>. It shows up in the Visual Studio .Net 2010 New Project dialog:</p>
+<p><img style="display:block; " src="images/CreateNewPluginProject.png"></p>
+<p>Create a new plug-in project, called <code>PluginLibrary</code>. A plug-in project consists of a standard C# library project, with a few extra additions:</p>
+<ul>
+<li>The <code>PluginProperties.cs</code> file: this file contains the <code>PluginAttribute</code> attribute declaration, which marks the assembly as a plug-in assembly, and also indicates the friendly name of the plug-in.</li>
+<li>The <code>PluginResources.resx</code> file: this is a resources file, which contains resources (strings and images) )referred to within extension attribute declarations.</li>
+<li>The plug-in manifest creation build step: the project contains an extra build step, which creates a plug-in manifest file, describing all the extensions contained in the plug-in assembly. This build step uses the standard MSBuild extension mechanism.</li>
+</ul>
+<p><img style="display:block; " src="images/PluginLibraryProject.png"></p>
+<p>The first thing to do is look at the <code>PluginProperties.cs</code> file in the <code>Properties</code> folder. It contains the following:</p>
+<div class="tabGroup" id="tabgroup_Ag1bk2WzFL">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_Ag1bk2WzFL_tabid-1" role="tab" aria-controls="tabpanel_Ag1bk2WzFL_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_Ag1bk2WzFL_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-cs">[assembly: Sdl.Core.PluginFramework.Plugin(&quot;Plugin_Name&quot;)]
+</code></pre></section>
+</div>
+<p>The Name property contains the name of the plug-in. This is actually not the name, but the key in the <code>PluginResources.resx</code> file, which contains the plug-in name:</p>
+<p><img style="display:block; " src="images/PluginResources.png"></p>
+<p>Going back to the example, let&#39;s define a message transmitter which transmits messages by email, the <code>EmailMessageTransmitter</code> class:</p>
+<div class="tabGroup" id="tabgroup_Ag1bk2WzFL-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_Ag1bk2WzFL-1_tabid-2" role="tab" aria-controls="tabpanel_Ag1bk2WzFL-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_Ag1bk2WzFL-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<pre><code class="lang-csharp" name="EmailMessageTransmitter">[MessageTransmitter(
+    Id = &quot;email&quot;,
+    Name = &quot;E-mail Transmitter&quot;,
+    Description = &quot;Send messages via e-mail&quot;,
+    CostPerCharacter = 0.1)]
+public class EmailMessageTransmitter : IMessageTransmitter
+{
+    #region IMessageTransmitter Members
+
+    public void SendMessage(string message)
+    {
+        Console.WriteLine();
+        Console.WriteLine(String.Format(&quot;Email: {0}&quot;, message));
+        Console.WriteLine();
+    }
+
+    #endregion
+}
+</code></pre></section>
+</div>
+<p>The <code>EmailMessageTransmitter</code> class implements the <code>IMessageTransmitter</code> interface. On top of that, the class is annotated with the extension attribute, <code>MessageTransmitter</code>, which we defined earlier, providing an id, a name, a description and the cost per character when sending messages using this transmitter.</p>
+<p>Similar to the email transmitter, we also define the an SMS message transmitter in exactly the same way. We can do this within the same plug-in project, because a plug-in project can contain multiple extensions. Normally, you would do this in a separate plug-in project.</p>
+<div class="tabGroup" id="tabgroup_Ag1bk2WzFL-2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_Ag1bk2WzFL-2_tabid-3" role="tab" aria-controls="tabpanel_Ag1bk2WzFL-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_Ag1bk2WzFL-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<pre><code class="lang-csharp" name="SMSMessageTransmitter">[MessageTransmitter(
+Id = &quot;sms&quot;,
+Name = &quot;SMS Transmitter&quot;,
+Description = &quot;Send messages via SMS&quot;,
+CostPerCharacter = 0.5)]
+public class SMSMessageTransmitter : IMessageTransmitter
+{
+    #region IMessageTransmitter Members
+
+    public int CostPerMessage
+    {
+        get { return 10; }
+    }
+
+    public void SendMessage(string message)
+    {
+        Console.WriteLine();
+        Console.WriteLine(String.Format(&quot;SMS: {0}&quot;, message));
+        Console.WriteLine();
+    }
+
+    #endregion
+}
+</code></pre></section>
+</div>
+<p>When building the project a plug-in manifest file is created in a plugins subfolder of the project output folder. It contains all the metadata for extensions defined in the plug-in assembly:</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;
+&lt;plugin id=&quot;pluginlibrary&quot; name=&quot;My Plugin Library&quot; version=&quot;1.0.0.0&quot;&gt;
+  &lt;extension 
+        type=&quot;PluginLibrary.SMSMessageTransmitter, 
+              PluginLibrary&quot;&gt;
+    &lt;extensionAttribute 
+            type=&quot;ExtensionPointDefinitions.MessageTransmitterAttribute,  
+                  ExtensionPointDefinitions&quot;&gt;
+      &lt;MessageTransmitterAttribute&gt;
+        &lt;Id&gt;sms&lt;/Id&gt;
+        &lt;Name&gt;SMS Transmitter&lt;/Name&gt;
+        &lt;Description&gt;Send messages via SMS&lt;/Description&gt;
+        &lt;CostPerCharacter&gt;0.5&lt;/CostPerCharacter&gt;
+      &lt;/MessageTransmitterAttribute&gt;
+    &lt;/extensionAttribute&gt;
+  &lt;/extension&gt;
+  &lt;extension 
+        type=&quot;PluginLibrary.EmailMessageTransmitter, 
+              PluginLibrary&quot;&gt;
+    &lt;extensionAttribute 
+            type=&quot;ExtensionPointDefinitions.MessageTransmitterAttribute, 
+                  ExtensionPointDefinitions&quot;&gt;
+      &lt;MessageTransmitterAttribute&gt;
+        &lt;Id&gt;email&lt;/Id&gt;
+        &lt;Name&gt;E-mail Transmitter&lt;/Name&gt;
+        &lt;Description&gt;Send messages via e-mail&lt;/Description&gt;
+        &lt;CostPerCharacter&gt;0.1&lt;/CostPerCharacter&gt;
+      &lt;/MessageTransmitterAttribute&gt;
+    &lt;/extensionAttribute&gt;
+  &lt;/extension&gt;
+&lt;/plugin&gt;
+</code></pre><p>Any errors or warnings related to the manifest generation will be reported in the Visual Studio task list.</p>
+<p>Next, we are ready to bring everything together in the host application, which will support sending messages through pluggable message transmitters:  <a href="creating_the_host_application.html">Creating the Host Application</a>.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/sdl/studio-api-docs/blob/main/apiconcepts/core/creating_extensions.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>
