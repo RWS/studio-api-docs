@@ -1,12 +1,12 @@
 Terminology Overview
 =========
 
-This section gives an overview of what terminology providers in Trados Studio are and how they are used.
+This section gives an overview of what terminology providers in <Var:ProductName> are and how they are used.
 
 What is a Terminology Provider?
 -------
 
-A terminology provider plug-in enables Trados Studio to smoothly integrate terminology sources, such as termbases and glossaries. These terminology sources can then be used to:
+A terminology provider plug-in enables <Var:ProductName> to smoothly integrate terminology sources, such as termbases and glossaries. These terminology sources can then be used to:
 
 * look up terminology by searching for a specific string that the user enters, similar to an electronic dictionary lookup
 * search a sentence for any known terminology
@@ -15,7 +15,7 @@ A terminology provider plug-in enables Trados Studio to smoothly integrate termi
 
 Selecting the Terminology Provider
 -------
-When you implement a custom terminology provider, you need to consider a number of features that such plug-ins typically have. First, you select the terminology provider in Trados Studio. By default, Trados Studio features two standard terminology providers for connecting to MultiTerm termbase files or MultiTerm server termbases:
+When you implement a custom terminology provider, you need to consider a number of features that such plug-ins typically have. First, you select the terminology provider in <Var:ProductName>. By default, <Var:ProductName> features two standard terminology providers for connecting to MultiTerm termbase files or MultiTerm server termbases:
 
 <img style="display:block; " src="images/general_01_add_tb.jpg" />
 
@@ -26,17 +26,17 @@ The name of your plug-in will have to feature in the list of terminology provide
 
 Selecting the Terminology Resource languages
 -------		
-A terminology resource typically has terms in several languages. These languages can be named in various ways. For example, the language &apos;English&apos; might be called &apos;ENG&apos;, &apos;Anglais&apos;, &apos;Englisch&apos;, &apos;Inglés&apos;, etc. When selecting a terminology resource, Trados Studio assigns the languages of the terminology resource to the corresponding project language in Trados Studio. This is done in the background using locales, e.g. &apos;en-US&apos; for US English, as the language labels used in the terminology resource cannot always be predicted. If Trados Studio fails to assign the correct languages, you can manually assign the correct language using a dropdown list in Trados Studio, which shows all the languages offered by the terminology resource, e.g.:
+A terminology resource typically has terms in several languages. These languages can be named in various ways. For example, the language &apos;English&apos; might be called &apos;ENG&apos;, &apos;Anglais&apos;, &apos;Englisch&apos;, &apos;Inglés&apos;, etc. When selecting a terminology resource, <Var:ProductName> assigns the languages of the terminology resource to the corresponding project language in <Var:ProductName>. This is done in the background using locales, e.g. &apos;en-US&apos; for US English, as the language labels used in the terminology resource cannot always be predicted. If <Var:ProductName> fails to assign the correct languages, you can manually assign the correct language using a dropdown list in <Var:ProductName>, which shows all the languages offered by the terminology resource, e.g.:
 
 <img style="display:block; " src="images/general_03_add_tb.jpg" />
 
-This is also why, after selecting a terminology resource, Trados Studio prompts you to make sure that the correct languages of the terminology resource have been picked, i.e.:
+This is also why, after selecting a terminology resource, <Var:ProductName> prompts you to make sure that the correct languages of the terminology resource have been picked, i.e.:
 
 <img style="display:block; " src="images/general_04_add_tb.jpg" />
 
 Active Terminology Recognition
 -------	
-When the terminology provider is selected, it will search search the segments in Trados Studio for any
+When the terminology provider is selected, it will search search the segments in <Var:ProductName> for any
 known terminology. It will mark the recognized term (e.g. *photo printer*) with a red line, and display the term and its translation in the **Term Recognition** window, e.g.:
 
 <img style="display:block; " src="images/general_05_term_rec.jpg" />
@@ -67,12 +67,12 @@ Depending on the nature and content of the terminology resources supported by yo
 
 Adding Terminology 
 ------
-The implementation can also be made to support adding term pairs. In this case, you select the source and target term, and use the corresponding command in Trados Studio to add the term pair to the terminology resource. You can programmatically retrieve the source and target string, and then add term pair to the terminology resource.
+The implementation can also be made to support adding term pairs. In this case, you select the source and target term, and use the corresponding command in <Var:ProductName> to add the term pair to the terminology resource. You can programmatically retrieve the source and target string, and then add term pair to the terminology resource.
 
 <img style="display:block; " src="images/general_11_add_term.jpg" />
 
 Term Search Settings
 ------
-Trados Studio features a page through which you can configure various search settings. For example, you can decide whether or not source terms without any target term will be shown to the users. These settings are passed through the terminology provider interface and can be used in your custom term provider implementation.
+<Var:ProductName> features a page through which you can configure various search settings. For example, you can decide whether or not source terms without any target term will be shown to the users. These settings are passed through the terminology provider interface and can be used in your custom term provider implementation.
 
 <img style="display:block; " src="images/search_settings.jpg" />

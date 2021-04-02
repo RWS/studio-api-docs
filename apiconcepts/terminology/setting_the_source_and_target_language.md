@@ -8,12 +8,12 @@ Open the **MyTerminologyProvider.cs** class and go to the **GetLanguages()** fun
 
 The source and target language are separated with a semicolon, the language name and locale are comma-separated.
 
-Modify the **GetLanguages()** function as shown below. In this function, we parse the first line of the text file to retrieve the language label (for example 'English') and the locale (for example 'en-US'). Based on the locale, Trados Studio assigns the glossary languages to the corresponding project language. After parsing the first line, the method creates two language objects which are added to the results list that the method returns.
+Modify the **GetLanguages()** function as shown below. In this function, we parse the first line of the text file to retrieve the language label (for example 'English') and the locale (for example 'en-US'). Based on the locale, <Var:ProductName> assigns the glossary languages to the corresponding project language. After parsing the first line, the method creates two language objects which are added to the results list that the method returns.
 
 # [Getting the Term Provider Languages](#tab/tabid-1)
 [!code-csharp[MyTerminologyProvider](code_samples/MyTerminologyProvider.cs#L106-L137)]
 ***
 
-Note that you can add more than two languages. If Trados Studio cannot assign the glossary languages automatically to the project languages, then you have to pick the correct glossary language manually from the dropdown list.
+Note that you can add more than two languages. If <Var:ProductName> cannot assign the glossary languages automatically to the project languages, then you have to pick the correct glossary language manually from the dropdown list.
 
 <img style="display:block; " src="images/project_01_selected_languages.jpg" />

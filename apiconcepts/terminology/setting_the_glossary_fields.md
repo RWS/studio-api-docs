@@ -8,7 +8,7 @@ Our glossary text file foresees a definition text in the forth column:
 
 *1;photo printer;Fotodrucker;Peripheral device for creating hardcopies of pictures.*
 
-Such information can also be shown when looking up terminology in Trados Studio. When the descriptive field is declared, it can be selected in the Trados Studio UI:
+Such information can also be shown when looking up terminology in <Var:ProductName>. When the descriptive field is declared, it can be selected in the <Var:ProductName> UI:
 
 <img style="display:block; " src="images/select_fields.jpg" />
 
@@ -22,7 +22,7 @@ Go to the **MyTerminologyProvider.cs** class and add the following member. It cr
 [!code-csharp[MyTerminologyProvider](code_samples/MyTerminologyProvider.cs#L43-L59)]
 ***
 
-This function then needs to be called from the following property, which also calls the **GetLanguages()** method to create the full terminology source definition. The terminology source definition then becomes exposed in the Trados Studio UI, where you can select what fields to display (see screenshot above).
+This function then needs to be called from the following property, which also calls the **GetLanguages()** method to create the full terminology source definition. The terminology source definition then becomes exposed in the <Var:ProductName> UI, where you can select what fields to display (see screenshot above).
 
 # [Retrieving the Glossary Languages](#tab/tabid-2)
 [!code-csharp[MyTerminologyProvider](code_samples/MyTerminologyProvider.cs#L31-L39)]

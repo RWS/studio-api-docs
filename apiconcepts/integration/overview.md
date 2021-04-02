@@ -15,4 +15,4 @@ The main topics of the Trados Studio Integration API are:
 Before starting to use the Trados Studio Integration API, it is recommended to read the following topics:
 
 [Setting up a Development Machine](../../articles/gettingstarted/setting_up_a_developer_machine.md) 
-[Studio plug-ins overview](studio_plugins_overview.md) 
+[Studio plug-ins overview](../../articles/gettingstarted/studio_plugin_overview.md) 

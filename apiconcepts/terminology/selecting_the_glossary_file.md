@@ -51,14 +51,14 @@ Go to the **MyTerminologyProviderViewerWinFormsUI.cs** class and create a termin
 [!code-csharp[MyTerminologyProviderViewerWinFormsUI](code_samples/MyTerminologyProviderViewerWinFormsUI.cs#L34-L40)]
 ***
 
-When selecting the text file, Trados Studio will try to retrieve the languages from the terminology list. As we have not implemented the corresponding functionality yet, simply change the **GetLanguages()** method of the **MyTerminologyProvider.cs** class to return null for the moment.
+When selecting the text file, <Var:ProductName> will try to retrieve the languages from the terminology list. As we have not implemented the corresponding functionality yet, simply change the **GetLanguages()** method of the **MyTerminologyProvider.cs** class to return null for the moment.
 
 We will implement the required language retrieval functionality in the next chapter.
 
 The Terminology Provider Factory Class
 -----
 
-Open the class **MyTerminologyProviderFactory.cs** and create your term provider object as show below. Only then will Trados Studio be able to access and display your provider in the UI:
+Open the class **MyTerminologyProviderFactory.cs** and create your term provider object as show below. Only then will <Var:ProductName> be able to access and display your provider in the UI:
 
 # [Creating the Terminology Provider Object](#tab/tabid-9)
 [!code-csharp[MyTerminologyProviderFactory](code_samples/MyTerminologyProviderFactory.cs#L10-L15)]

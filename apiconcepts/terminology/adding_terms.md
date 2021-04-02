@@ -2,13 +2,13 @@ Adding Terms
 =====
 You can configure your custom terminology provider to support adding and editing of terminology entries. Learn how to implement some simplified functionality for adding source and target terms to your delimited text list.
 
-In Trados Studio, you can add source and target terms on the fly by marking them in the Editor and by then clicking either the **Add New Term** button, or the **Quick Add New Term** button.
+In <Var:ProductName>, you can add source and target terms on the fly by marking them in the Editor and by then clicking either the **Add New Term** button, or the **Quick Add New Term** button.
 
 <img style="display:block; " src="images/add_terms_buttons.jpg" />
 
-The difference between these two buttons in the standard, MultiTerm-based implementation of Trados Studio is that **Add New Term** does not immediately save the term pair to the termbase, but opens up an editor control in the **Termbase Viewer** window that allows you to make changes to the terms before saving them. **Quick Add New Term** adds the term pair directly to the terminology source and displays the newly-created entry in the **Termbase Viewer** window. Our simplified implementation will not offer any editing function. This means that the same thing will happen in our implementation, regardless of whether you click Add New Term or Quick Add New Term.
+The difference between these two buttons in the standard, MultiTerm-based implementation of <Var:ProductName> is that **Add New Term** does not immediately save the term pair to the termbase, but opens up an editor control in the **Termbase Viewer** window that allows you to make changes to the terms before saving them. **Quick Add New Term** adds the term pair directly to the terminology source and displays the newly-created entry in the **Termbase Viewer** window. Our simplified implementation will not offer any editing function. This means that the same thing will happen in our implementation, regardless of whether you click Add New Term or Quick Add New Term.
 
-Open the **MyTerminologyProviderViewerWinFormsUI.cs** class and go to the **AddTerm()** function. Trados Studio passes the currently selected source and target term to this function through the **source** and **target** string parameters. We then implement the following functionality, which works like this:
+Open the **MyTerminologyProviderViewerWinFormsUI.cs** class and go to the **AddTerm()** function. <Var:ProductName> passes the currently selected source and target term to this function through the **source** and **target** string parameters. We then implement the following functionality, which works like this:
 
 * Open the glossary text file.
 * Loop to the end of the text file, while counting the lines to determine the next entry id.
@@ -30,7 +30,7 @@ You can also implement your terminology provider to support editing. However, in
 [!code-csharp[MyTerminologyProviderViewerWinFormsUI](code_samples/MyTerminologyProviderViewerWinFormsUI.cs#L60-L63)]
 ***
 
-When you try to add a term that has already been added, Trados Studio throws the following message that prompts you to:
+When you try to add a term that has already been added, <Var:ProductName> throws the following message that prompts you to:
 
 * Edit the entry by clicking **Yes**.
 * Add the term again, thus risking creating a duplicate entry by clicking **No**.
