@@ -2,14 +2,12 @@ Creating Extensions
 =====
 This section explains how to develop an extension that targets a specific extension point.
 
-> [!NOTE]
-> This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.
 
 Creating Extensions
 ----
-The plug-in framework comes with a C# project template for developing extensions: *SDL Plug-in Project*. It shows up in the Visual Studio .Net 2010 New Project dialog:
+The plug-in framework comes with a C# project template for developing extensions: *SDL Plug-in Project*. It shows up in the Visual Studio 2019 New Project dialog:
 
-<img style="display:block; " src="images/CreateNewPluginProject.png"/>
+<img style="display:block; " src="images/PlugInTemplate.jpg"/>
 
 Create a new plug-in project, called `PluginLibrary`. A plug-in project consists of a standard C# library project, with a few extra additions:
 
@@ -46,7 +44,7 @@ Similar to the email transmitter, we also define the an SMS message transmitter 
 ***
 When building the project a plug-in manifest file is created in a plugins subfolder of the project output folder. It contains all the metadata for extensions defined in the plug-in assembly:
 
-```
+```xml
 <?xml version="1.0" encoding="utf-16"?>
 <plugin id="pluginlibrary" name="My Plugin Library" version="1.0.0.0">
   <extension 
@@ -83,3 +81,6 @@ When building the project a plug-in manifest file is created in a plugins subfol
 Any errors or warnings related to the manifest generation will be reported in the Visual Studio task list.
 
 Next, we are ready to bring everything together in the host application, which will support sending messages through pluggable message transmitters:  [Creating the Host Application](creating_the_host_application.md).
+
+> [!NOTE]
+> This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

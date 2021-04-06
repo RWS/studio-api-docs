@@ -2,10 +2,6 @@ Advanced Use Cases
 ====
 This section gives an overview of more advanced use cases and functionality in the plug-in framework.
 
-> [!NOTE]
-> This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.
-
-
 Advanced Use Cases
 ----
 This section gives an overview of other, more advanced functionality and aspects of the plug-in framework.

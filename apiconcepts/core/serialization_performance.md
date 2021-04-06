@@ -2,10 +2,6 @@ Serialization Performance
 =====
 This section describes how to make sure that extensions can be loaded in the most optimal way.
 
-> [!NOTE]
-> This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.
-
-
 Serialization Performance
 -----
 The automatic serialization mechanism that comes with .Net is quite handy, since it let’s you serialize and deserialize objects to and from xml in a virtually a single line of code.
@@ -21,3 +17,7 @@ We can avoid this automatic serialization overhead, by explicitly implementing t
 ***
 
 The plug-in framework calls the `ReadXml` and `WriteXml` methods directly, avoiding the overhead of automatic xml serialization.
+
+> [!NOTE]
+> 
+> This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

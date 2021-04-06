@@ -2,17 +2,13 @@ Defining an Extension Point
 ====
 This section explains how to create an extension point.
 
-> [!NOTE]
-> This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.
-
-
 Defining an Extension Point
 ----
-An extension point is defined by creating an attribute class, which extends the extension attribute base class, ExtensionAttribute. The properties of this attribute class define the metadata extension developers can provide with their extensions.
+An extension point is defined by creating an attribute class, which extends the extension attribute base class,  [ExtensionAttribute](../../api/core/Sdl.Core.PluginFramework.ExtensionAttribute.yml. The properties of this attribute class define the metadata extension developers can provide with their extensions.
 
 Extension developers can now create an extension .Net class, and mark this up with the extension attribute to indicate which extension point it targets.
 
-Going back to the example, in order to allow message transmitters to be plugged in, we need to define an extension point. This is done by defining an extension attribute class, `MessageTransmitterAttribute`, which extends the extension attribute base class, `ExtensionAttribute`:
+Going back to the example, in order to allow message transmitters to be plugged in, we need to define an extension point. This is done by defining an extension attribute class, `MessageTransmitterAttribute`, which extends the extension attribute base class,  [ExtensionAttribute](../../api/core/Sdl.Core.PluginFramework.ExtensionAttribute.yml):
 
 # [C#](#tab/tabid-1)
 [!code-csharp[MessageTransmitterAttribute](code_samples/MessageTransmitterAttribute.cs#L11-L52)]
@@ -20,9 +16,9 @@ Going back to the example, in order to allow message transmitters to be plugged 
 
 The purpose of the message transmitter attribute is to allow plug-in developers to use it to annotate their message transmitter extension classes, to make them known as message transmitter implementations to the extension point.
 
-In order to make the attribute an extension point, we have to annotate with the ExtensionPointInfoAttribute attribute, which specifies the name and type of the extension point. The name can be used by a plug-in manager UI to represent the extension point. The type can be either static or dynamic, referring to whether this extension point allows enabling or disabling of one or more of it’s extensions without having to restart the application. More on that later.
+In order to make the attribute an extension point, we have to annotate with the [ExtensionPointInfoAttribute](../../api/core/Sdl.Core.PluginFramework.ExtensionPointInfoAttribute.yml) attribute, which specifies the name and type of the extension point. The name can be used by a plug-in manager UI to represent the extension point. The type can be either static or dynamic, referring to whether this extension point allows enabling or disabling of one or more of it’s extensions without having to restart the application. More on that later.
 
-The ExtensionAttribute class has the following properties, providing meta data about the extension:
+The  [ExtensionAttribute](../../api/core/Sdl.Core.PluginFramework.ExtensionAttribute.yml class has the following properties, providing meta data about the extension:
 
 * *Id*: A unique id for the extension
 * *Name*: A friendly name for the extension.
@@ -43,4 +39,7 @@ Extension points can also define validation functionality which is used by the f
 
 We define both the `MessageTransmitterAttribute` and the interface in an assembly, called `ExtensionPointDefinitions`, so it can be references by the host applications and by plug-in assemblies.
 
-Next, we can start creating an extension that targets our new extension point in Creating Extensions.
+Next, we can start creating an extension that targets our new extension point in [Creating Extensions](creating_extensions.md).
+
+> [!NOTE]
+> This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

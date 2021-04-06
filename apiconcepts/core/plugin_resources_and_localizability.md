@@ -2,10 +2,6 @@ Plug-in Resources and Localizability
 ======
 This section explains how to make extension meta-data localizable.
 
-> [!NOTE]
-> This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.
-
-
 Plug-in Resources and Localizability
 -----
 All the string metadata values used for the properties of the extension attributes shown in the example above are hard-coded strings. In reality these strings need to be localized.
@@ -37,8 +33,12 @@ The use of the `PluginResource` attribute is supported in the following cases:
 * Extension attribute string properties
 * Auxiliary extension attribute string properties
 * Assembly-level `PluginAttribute` string attributes
-For non-string properties, like for instance an icon, the plug-in resource file can also be used, however, because of the type difference, the value of these kinds of properties cannot be automatically resolved. Define the actual property as a string property, to which uses must assign a resource key. Then, when you need the actual icon, get it from the plug-in resource file using the `GetPluginResource< T>` method:
+For non-string properties, like for instance an icon, the plug-in resource file can also be used, however, because of the type difference, the value of these kinds of properties cannot be automatically resolved. Define the actual property as a string property, to which uses must assign a resource key. Then, when you need the actual icon, get it from the plug-in resource file using the `GetPluginResource<T>` method:
 
 # [C#](#tab/tabid-3)
 [!code-csharp[AdvancedPluginFramework](code_samples/AdvancedPluginFramework.cs#L16-L17)]
 ***
+
+> [!NOTE]
+> 
+> This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

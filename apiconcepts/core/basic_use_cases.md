@@ -2,10 +2,6 @@ Basic Use Cases
 =====
 This section gives an overview of basic use cases and functionality of the plug-in framework.
 
-> [!NOTE]
-> This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.
-
-
 Basic Use Cases
 ----
 The basic use cases and features will be explained using an example application. The application is a simple console application that allows you to send a message using a message transmitter of your choice. The requirement is that these message transmitters should be pluggable.
