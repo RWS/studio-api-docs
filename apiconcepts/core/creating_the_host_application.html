@@ -80,10 +80,8 @@
 <h1 id="creating-the-host-application">Creating the Host Application</h1>
 
 <p>This section explains how to use the plug-in framework top provide plug-in functionality within an application or component.</p>
-<div class="NOTE"><h5>Note</h5><p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
-</div>
 <h2 id="creating-the-host-application-1">Creating the Host Application</h2>
-<p>The first thing to do is create an instance of the plug-in registry using the plug-in manager (see PluginManager):</p>
+<p>The first thing to do is create an instance of the plug-in registry using the plug-in manager (see <a href="../../api/core/Sdl.Core.PluginFramework.PluginManager.html">PluginManager</a>):</p>
 <div class="tabGroup" id="tabgroup_hPeEnsQvG+">
 <ul role="tablist">
 <li role="presentation">
@@ -100,14 +98,14 @@ IPluginRegistry pluginRegistry =
 
 </code></pre></section>
 </div>
-<p>We define the plugins directory as the plugins subfolder of the bin folder, where the plug-in manifest file is located. The, use the <code>PluginManager</code> class to create a plug-in registry instance, passing three parameters:</p>
+<p>We define the plugins directory as the plugins subfolder of the bin folder, where the plug-in manifest file is located. Then, use the <a href="../../api/core/Sdl.Core.PluginFramework.PluginManager.html">PluginManager</a> class to create a plug-in registry instance, passing three parameters:</p>
 <ul>
 <li>The plugins directory</li>
 <li>The plug-in cache file path: this file is used to store which plug-ins are enabled or disabled in case your application would support this.</li>
 <li>A boolean specifying whether to validate all plug-in manifest files found. We pass false, because that ensures that all the extensions are lazily loaded, which is the recommended way. In case there is a problem, we will get an exception when we try to create an instance of the extension or access its meta data.
 When creating the plug-in registry, the plugins directory is scanned for plug-in manifest files and these are loaded. At this point, the plug-in registry knows about all the plug-ins and extensions that are available to the application.</li>
 </ul>
-<p>Next, we get the extension point from the plug-in registry. An extension point is represented by the <code>IExtensionPoint</code> interface and provides access to all extensions discovered for that extension point. The extension point is identified by passing <code>MessageTransmitterAttribute</code> as the template parameter:</p>
+<p>Next, we get the extension point from the plug-in registry. An extension point is represented by the <a href="../../api/core/Sdl.Core.PluginFramework.IExtensionPoint.html">IExtensionPoint</a> interface and provides access to all extensions discovered for that extension point. The extension point is identified by passing <code>MessageTransmitterAttribute</code> as the template parameter:</p>
 <div class="tabGroup" id="tabgroup_hPeEnsQvG+-1">
 <ul role="tablist">
 <li role="presentation">
@@ -132,7 +130,7 @@ IExtensionPoint extensionPoint = pluginRegistry.GetExtensionPoint&lt;MessageTran
 string message = Console.ReadLine();
 </code></pre></section>
 </div>
-<p>Now list all the available message transmitters, along with their name and the cost per character. This is done by iterating over the Extensions collection of the extension point, which contains <code>IExtension</code> objects. These provide access to the extension attribute that was used to annotate the respective extension implementation classes. The name and cost per character can be retreived from that <code>MessageTransmitterAttribute</code>:</p>
+<p>Now list all the available message transmitters, along with their name and the cost per character. This is done by iterating over the Extensions collection of the extension point, which contains <a href="../../api/core/Sdl.Core.PluginFramework.IExtension.html">IExtension</a> objects. These provide access to the extension attribute that was used to annotate the respective extension implementation classes. The name and cost per character can be retreived from that <code>MessageTransmitterAttribute</code>:</p>
 <div class="tabGroup" id="tabgroup_hPeEnsQvG+-3">
 <ul role="tablist">
 <li role="presentation">
@@ -169,7 +167,7 @@ int number = Convert.ToInt32(Console.ReadLine());
 IExtension selectedExtension = extensionPoint.Extensions[number - 1];
 </code></pre></section>
 </div>
-<p>Now, we are ready to create the actual message transmitter implementation, using the IExtension object:</p>
+<p>Now, we are ready to create the actual message transmitter implementation, using the <a href="../../api/core/Sdl.Core.PluginFramework.IExtension.html">IExtension</a> object:</p>
 <div class="tabGroup" id="tabgroup_hPeEnsQvG+-5">
 <ul role="tablist">
 <li role="presentation">
@@ -197,6 +195,8 @@ selectedTransmitter.SendMessage(message);
 <p>The application produces the following output:</p>
 <p><img style="display:block; " src="images/HostApplicationOutput.png"></p>
 <p>This completes the basic use case, demonstrated by a simple sample application.</p>
+<div class="NOTE"><h5>Note</h5><p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+</div>
 </article>
           </div>
           

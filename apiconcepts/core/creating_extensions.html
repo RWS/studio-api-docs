@@ -80,11 +80,9 @@
 <h1 id="creating-extensions">Creating Extensions</h1>
 
 <p>This section explains how to develop an extension that targets a specific extension point.</p>
-<div class="NOTE"><h5>Note</h5><p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
-</div>
 <h2 id="creating-extensions-1">Creating Extensions</h2>
-<p>The plug-in framework comes with a C# project template for developing extensions: <em>SDL Plug-in Project</em>. It shows up in the Visual Studio .Net 2010 New Project dialog:</p>
-<p><img style="display:block; " src="images/CreateNewPluginProject.png"></p>
+<p>The plug-in framework comes with a C# project template for developing extensions: <em>SDL Plug-in Project</em>. It shows up in the Visual Studio 2019 New Project dialog:</p>
+<p><img style="display:block; " src="images/PlugInTemplate.jpg"></p>
 <p>Create a new plug-in project, called <code>PluginLibrary</code>. A plug-in project consists of a standard C# library project, with a few extra additions:</p>
 <ul>
 <li>The <code>PluginProperties.cs</code> file: this file contains the <code>PluginAttribute</code> attribute declaration, which marks the assembly as a plug-in assembly, and also indicates the friendly name of the plug-in.</li>
@@ -168,7 +166,7 @@ public class SMSMessageTransmitter : IMessageTransmitter
 </code></pre></section>
 </div>
 <p>When building the project a plug-in manifest file is created in a plugins subfolder of the project output folder. It contains all the metadata for extensions defined in the plug-in assembly:</p>
-<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;
+<pre><code class="lang-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;
 &lt;plugin id=&quot;pluginlibrary&quot; name=&quot;My Plugin Library&quot; version=&quot;1.0.0.0&quot;&gt;
   &lt;extension 
         type=&quot;PluginLibrary.SMSMessageTransmitter, 
@@ -201,6 +199,8 @@ public class SMSMessageTransmitter : IMessageTransmitter
 &lt;/plugin&gt;
 </code></pre><p>Any errors or warnings related to the manifest generation will be reported in the Visual Studio task list.</p>
 <p>Next, we are ready to bring everything together in the host application, which will support sending messages through pluggable message transmitters:  <a href="creating_the_host_application.html">Creating the Host Application</a>.</p>
+<div class="NOTE"><h5>Note</h5><p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+</div>
 </article>
           </div>
           
