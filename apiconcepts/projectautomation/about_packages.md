@@ -12,9 +12,9 @@ In case of a server-based system, these manual tasks can just be assigned to a u
 
 A project package is essentially a zip file containing an XML manifest file, describing its contents, plus the project files that are part of the manual task. For more information on the contents of a project package, see [project packages](#project-packages).
 
-When the task assignee receives the project package, it can be opened in Trados Studio in order to perform the manual task. When opening a project package in Trados Studio, the contents of the package are extracted, and a Trados Studio project is created based on the system of the assignee. Except for the fact that this project was created by opening a package rather than through the **Create Project Wizard**, it is standard Trados Studio project, i.e. the same functionality is available as for a 'normal' project, which was created in the **New Project** wizard.
+When the task assignee receives the project package, it can be opened in <Var:ProductName> in order to perform the manual task. When opening a project package in <Var:ProductName>, the contents of the package are extracted, and a <Var:ProductName> project is created based on the system of the assignee. Except for the fact that this project was created by opening a package rather than through the **Create Project Wizard**, it is standard <Var:ProductName> project, i.e. the same functionality is available as for a 'normal' project, which was created in the **New Project** wizard.
 
-After performing the manual task, for instance by translating the project files in the Trados Studio translation editor, the user selects the translated files and creates a **return package** in order to send the translated or edited files back. Like a project package, a return package is a ZIP file containing an XML manifest file and the translated project files. For more information on the contents of return packages, see [return packages](#return-packages).
+After performing the manual task, for instance by translating the project files in the <Var:ProductName> translation editor, the user selects the translated files and creates a **return package** in order to send the translated or edited files back. Like a project package, a return package is a ZIP file containing an XML manifest file and the translated project files. For more information on the contents of return packages, see [return packages](#return-packages).
 
 When the task assigner receives and opens the return package, the project from which the package originated is identified and the translated files are added to that project.
 
@@ -81,7 +81,7 @@ When you have an existing Project API-based project, you can create packages fro
 3. To create a return package from a number of task files in an existing project: see **CreateReturnPackage**.
 4. To import a return package into an existing system, see **ImportReturnPackage**.
 Each of the methods above returns an object that derives from IPackageOperation. This object represents the package operation and can be used to monitor that operation though events and to access the results when the operation is completed. After calling the above methods and attaching the relevant event handlers, call **Start** to start the operation.
-During package import operations, certain situations may result in callbacks being invoked to allow external control of the package import process. An example of such a situation is when the package contains files which are older than the files that already exist in the project. A callback allows the calling code to decide whether the file should be overwritten. When doing a package import through Trados Studio, this results in the user being asked a question. The callback are accessed through the **IPackageImportEvents** interface.
+During package import operations, certain situations may result in callbacks being invoked to allow external control of the package import process. An example of such a situation is when the package contains files which are older than the files that already exist in the project. A callback allows the calling code to decide whether the file should be overwritten. When doing a package import through <Var:ProductName>, this results in the user being asked a question. The callback are accessed through the **IPackageImportEvents** interface.
 
 Low-level Package API
 ----
@@ -98,8 +98,16 @@ Note that this API is used under the hood when working with the [High-level Pack
 
 <img style="display:block; " src="images/CreateProjectPackage.jpg"/>
 
-The creation of project packages in Trados Studio is fully wizard-based. Users define the assignee, the due date, the type of manual task to perform, etc.
+The creation of project packages in <Var:ProductName> is fully wizard-based. Users define the assignee, the due date, the type of manual task to perform, etc.
 
 <img style="display:block; " src="images/ProjectPackageOptions.jpg"/>
 
 The screenshot above highlights the various options that are available when creating a project package.
+
+See Also
+----------
+[Creating a Project Package]
+
+[Creating a Return Package]
+
+[Importing a Return Package]
