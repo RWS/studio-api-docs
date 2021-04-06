@@ -8,17 +8,17 @@ Some configuration is required in order to process a localization project. Vario
 
 The project configuration consists of the following:
 
-* Project settings
-* Language directions
+* [Project settings](#project-settings))
+* [Language directions](#language-directions)
 * For every language direction:
-    * Translation providers
-    * AutoSuggest dictionaries
-    * Language direction specific settings
-* File type configuration
-* Language resources
-* Termbases
-* Analysis bands
-* Workflow
+    * [Translation providers](#translation-providers)
+    * [AutoSuggest dictionaries](#language-resources)
+    * [Language direction specific settings](#language-directions)
+* [File type configuration](#file-type-configuration)
+* [Language resources](#language-resources)
+* [Termbases](#termbases)
+* [Analysis bands](#analysis-bands)
+* [Workflow](#workflow)
 
 
 A project configuration is represented by the `IProjectConfiguration` interface in the object model.
@@ -30,14 +30,14 @@ The project settings are settings that are defined for the project as a whole. T
 
 By default, a number of settings groups are provided to configure some standard tasks in the system:
 
-* **Translation Memory Settings**: Settings applicable to all uses of translation memories within the project, for instance minimum match value and various translation memory match value penalties. See **TranslationMemorySettings**.
-* **Analysis Task Settings**: Settings for the automatic Analysis task, which computes translation memory leverage analysis statistics. See **AnalysisTaskSettings**.
+* **Translation Memory Settings**: Settings applicable to all uses of translation memories within the project, for instance minimum match value and various translation memory match value penalties. See [TranslationMemorySettings](../../api/projectautomation/Sdl.ProjectAutomation.Settings.TranslationMemorySettings.yml).
+* **Analysis Task Settings**: Settings for the automatic Analysis task, which computes translation memory leverage analysis statistics. See [AnalysisTaskSettings](../../api/projectautomation/Sdl.ProjectAutomation.Settings.AnalysisTaskSettings.yml).
 * **Project Translation Memory Task Settings**: Settings for the automatic Create/Update Project Translation Memory task. See **ProjectTranslationMemoryTaskSettings**.
 * **Pre-translate Task Settings**: Settings for the automatic Pre-translate task, which applies translation memory matches to translatable files. See **TranslateTaskSettings**.
-* **Word Count Settings**: Settings for the word count task, which counts the total number of words in files. See **WordCountSettings**.
-* **Translation Count Settings**: Settings for the calculate translation progress task, which computes confirmation statistics. See **TranslationCountSettings**.
-* **Translation Memory Update Task Settings**: Settings for the update project and main translation memory tasks. See **TranslationMemoryUpdateTaskSettings**.
-* **Export Files Settings**: Settings for the export files task, which exports various versions of project files to a specified location. See **ExportFilesSettings**.
+* **Word Count Settings**: Settings for the word count task, which counts the total number of words in files. See [WordCountSettings](../../api/projectautomation/Sdl.ProjectAutomation.Settings.WordCountSettings.yml).
+* **Translation Count Settings**: Settings for the calculate translation progress task, which computes confirmation statistics. See [TranslationCountSettings](../../api/projectautomation/Sdl.ProjectAutomation.Settings.TranslationCountSettings.yml).
+* **Translation Memory Update Task Settings**: Settings for the update project and main translation memory tasks. See [TranslationMemoryUpdateTaskSettings](../../api/projectautomation/Sdl.ProjectAutomation.Settings.TranslationMemoryUpdateTaskSettings.yml).
+* **Export Files Settings**: Settings for the export files task, which exports various versions of project files to a specified location. See [ExportFilesSettings](../../api/projectautomation/Sdl.ProjectAutomation.Settings.ExportFilesSettings.yml).
 
 The generic nature of the settings mechanism makes it a natural way for custom components or tasks to store custom project-level settings.
 
@@ -47,7 +47,7 @@ Language Directions
 -----
 The project configuration contains a number of language directions (= source-target language combinations), which determine from which source language into which target languages the files should be translated.
 
-A language direction is represented by the **ILanguageDirection** interface in the object model.
+A language direction is represented by the `ILanguageDirection` interface in the object model.
 
 Translation Providers
 ----
@@ -62,13 +62,13 @@ Translation providers are used in various scenarios during the project lifetime,
 
 **AutoSuggest Dictionaries**
 
-Every language direction can also be associated with one or more AutoSuggest dictionaries. An AutoSuggest dictionary is a bilingual phrase dictionary, which is used by the SDL Trados Studio editing environment to provide translation suggestions for phrases or partial segments as the user types. AutoSuggest dictionaries are typically generated by performing statistical analysis of large translation memories. Currently, only file-based AutoSuggest dictionaries are support, but in the future one can imagine a server-based version becoming available.
+Every language direction can also be associated with one or more AutoSuggest dictionaries. An AutoSuggest dictionary is a bilingual phrase dictionary, which is used by the <Var:ProductName> editing environment to provide translation suggestions for phrases or partial segments as the user types. AutoSuggest dictionaries are typically generated by performing statistical analysis of large translation memories. Currently, only file-based AutoSuggest dictionaries are support, but in the future one can imagine a server-based version becoming available.
 
-An AutoSuggest dictionary is represented by the **IAutoSuggestDictionary** interface in the object model.
+An AutoSuggest dictionary is represented by the `IAutoSuggestDictionary` interface in the object model.
 
 **Language-specific Settings**
 
-The user can override individual project settings for a specific language direction. For instance, if the project-level minimum translation memory match value is 80%, this can be overridden for a specific language direction to be 90%. All other language directions still inherit the project-level value. Also, all other settings for this language direction, except for the minimum match value, will still be inherited from the project settings.
+The user can override individual [project settings](#project-settings) for a specific language direction. For instance, if the project-level minimum translation memory match value is 80%, this can be overridden for a specific language direction to be 90%. All other language directions still inherit the project-level value. Also, all other settings for this language direction, except for the minimum match value, will still be inherited from the project settings.
 
 File Type Configuration
 ------
@@ -123,4 +123,20 @@ It would be obviously tedious to have to set up the entire configuration for eve
 
 <img style="display:block; " src="images/NewProject04.jpg"/>
 
-The screenshot above illustrates how main translation memories are selected in the **New Project** wizard of Trados Studio.
+The screenshot above illustrates how main translation memories are selected in the **New Project** wizard of <Var:ProductName>.
+
+See Also 
+----------
+[Setting the Project Information]
+
+[Adding Translation Memories]
+
+[Adding Termbases]
+
+[Automatic Tasks and Tasks Settings]
+
+[Creating Projects based on Templates]
+
+[Configuering the Project Properties]
+
+[Adding the TM to the Project]

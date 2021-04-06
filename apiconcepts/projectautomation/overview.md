@@ -1,6 +1,6 @@
 Introduction
 =====
-This documentation provides practical examples of how to use the Project Automation API, which allows programmatic access to the project automation functionality of Trados Studio. Apart from various code snippets that demonstrate common use cases you will also find a fully-documented command-line sample application that showcases how to automate project creation and batch task functionality.
+This documentation provides practical examples of how to use the Project Automation API, which allows programmatic access to the project automation functionality of <Var:ProductName>. Apart from various code snippets that demonstrate common use cases you will also find a fully-documented command-line sample application that showcases how to automate project creation and batch task functionality.
 
 What you can do with this SDK
 ----
@@ -15,5 +15,6 @@ The Project Automation API is concerned with the automation of common project ma
 * An application for testing whether a set of native documents can be converted to a translatable (SDL XLIFF) format prior to creating a project. The application loops through a folder structure, identifies any translatable documents and converts them SDL XLIFF. Upon failure, a report is generated that states the file and (if applicable) the reason why the conversion failed (e.g. a Microsoft Word document has the track changes functionality switched on)
 * An application that loops through multiple projects and generates the finalized target files, which are then automatically forwarded to the end customer via e-mail or uploaded to an FTP share. In case of any failure to generate the target documents, an automated mail can be send to the project manager.
 
-
-Note that the Project Automation API might sometimes have to be used in conjunction with the Translation Memory API to cover specific use-cases, e.g. when certain information such as the number of translation units, the TM languages, etc. needs to be read from a TM. This SDK contains an example of how to retrieve the languages of a specified TM using the Translation Memory API and then create a project based on the TM language direction.
+> [!NOTE]
+>
+> Note that the Project Automation API might sometimes have to be used in conjunction with the Translation Memory API to cover specific use-cases, e.g. when certain information such as the number of translation units, the TM languages, etc. needs to be read from a TM. This SDK contains an example of how to retrieve the languages of a specified TM using the Translation Memory API and then create a project based on the TM language direction.

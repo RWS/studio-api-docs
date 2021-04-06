@@ -48,3 +48,15 @@ Extensions have been added to the FileBasedProject class to allow the class to w
 * Uploading files.
 
 * Marking the server project as complete.
+
+See Also
+--------
+[Connecting a Project to a Project Server]
+
+[Viewing and Deleting Published Projects]
+
+[Checking Files In and Out]
+
+[Downloading and Uploading Files]
+
+[Putting it All Together]

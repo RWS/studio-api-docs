@@ -14,4 +14,10 @@ Project translation memories are automatically created during the project prepar
 
 Both file- and server-based project translation memories are supported. Server-based translation memories obviously have the benefit that multiple project participants can reuse translations from each other. Which type of project translation memories is created, is a user choice and is not necessarily determined by the type of the main translation memory used. A server-based project translation memory can be created for a file-based translation memory and vice-versa.
 
-Note that the use of project translation memories is entirely optional. Users can choose not to use project translation memories for a project.
+> [!Note]
+> 
+> The use of project translation memories is entirely optional. Users can choose not to use project translation memories for a project.
+
+See Also
+-------
+[Project TM Creation Settings]
