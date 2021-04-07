@@ -4,7 +4,7 @@ To start setting up your batch task plug-in project, you need to generate a plug
 
 How to create the Visual Studio Project
 ----------------------------------
-Assuming that you already installed the <Var:ProductName> SDK, open Microsoft Visual Studio. You will see the following options when you create a new project:
+Assuming that you already installed the <Var:ProductName> SDK, open <var:VisualStudioEdition>. You will see the following options when you create a new project:
 <img style="display:block; " src="images/CustomBatchTemplate.jpg" />
 With the above templates you can set up the skeleton of an <Var:ProductName> plug-in project. Select **SDL Custom Batch Task (2021)*
 
@@ -35,9 +35,9 @@ In this class, you also reference the settings page that allows the user to conf
 
 The Plug-in Build Folder
 ---------------------------------------------
-Make sure that you sign your assembly. Then build the assembly. The project is automatically configured to build the plug-in file into the folder: <em>%AppData%\Roaming\SDL\SDL Trados Studio\ <Var:VersionNumber>\Plugins\Packages\ </em>. After you have built the plug-in, you should find the file *Custom Batch Task1.sdlplugin*. Now start <Var:ProductName>. Because the plug-in is not yet officially signed by SDL, you will see the following message after you start the application:
+Make sure that you sign your assembly. Then build the assembly. The project is automatically configured to build the plug-in file into the folder: <em> <var:PluginPackedPath> </em>. After you have built the plug-in, you should find the file *Custom Batch Task1.sdlplugin*. Now start <Var:ProductName>. Because the plug-in is not yet officially signed by SDL, you will see the following message after you start the application:
 <img style="display:block; " src="images/Plugin_NotSigned.jpg" />
-For the moment, ignore this message. Click **Yes** to make sure that <Var:ProductName> extracts the plug-in file. Once Studio is started, you should find the sub-folder *Custom Batch Task1* under <em>%AppData%\Roaming\SDL\SDL Trados Studio\ <Var:VersionNumber>\Plugins\Unpacked\ </em>. This sub-folder contains the unpacked plug-in assemblies.
+For the moment, ignore this message. Click **Yes** to make sure that <Var:ProductName> extracts the plug-in file. Once Studio is started, you should find the sub-folder *Custom Batch Task1* under <em> <var:PluginUnpackedPath> </em>. This sub-folder contains the unpacked plug-in assemblies.
 
 In the batch tasks list of <Var:ProductName>, you will see the name of your newly compiled plug-in:
 <img style="display:block; " src="images/SampleTaskName.jpg" />

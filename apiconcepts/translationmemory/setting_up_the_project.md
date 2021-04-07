@@ -1,6 +1,6 @@
 Setting up the Project
 ======
-In this chapter you will learn how to develop a simple command-line application for batch exporting numerous *.sdltm files in Microsoft Visual Studio 2008 using C#.
+In this chapter you will learn how to develop a simple command-line application for batch exporting numerous *.sdltm files in <var:VisualStudioEdition> using C#.
 
 Start by creating a new Console Application called Sdl.**SDK.LanguagePlatform.Samples.BatchExport**.
 

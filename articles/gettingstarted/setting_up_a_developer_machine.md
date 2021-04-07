@@ -5,20 +5,20 @@ Make sure you have the right prerequisites and meet the system requirements to d
 Prerequisites
 ----
 
-* For the development environment, we recommend using Microsoft Visual Studio 2019.
+* For the development environment, we recommend using <var:VisualStudioEdition>.
 * You need a licensed <Var:ProductNameWithEdition> or later installed on your development machine
-* We also recommend installation of the **<Var:ProductName> SDK** on your machine. Note that after the installation of **<Var:ProductName> SDK**, the **New Project** dialog box from Microsoft Visual Studio will feature additional project templates specific to the <Var:ProductName> application development.
+* We also recommend installation of the **<Var:ProductName> SDK** on your machine. Note that after the installation of **<Var:ProductName> SDK**, the **New Project** dialog box from <var:VisualStudioEdition> will feature additional project templates specific to the <Var:ProductName> application development.
   * You can get the latest version from the [developer hub](https://appstore.sdl.com/language/developers/sdk.html). 
-  * Or you can install directly from Visual Studio 2019 -> Tools -> Extensions
+  * Or you can install directly from <var:VisualStudioEdition> -> Tools -> Extensions
   <img style="display:block; " src="images/VisualStudioExtensions.png" />
 * If your implementations need to connect to a TM Server system, then make sure that the TM Server also runs the latest version.
 * If you are developing against a version of API the which is distributed with one of SDL's publicly released applications (i.e. <Var:ProductNameWithEdition>), then all required assemblies and files should be available alongside the application. Make sure that you have the latest release of <Var:ProductName> installed.
   
 > [!NOTE]
 >
-> As build output path for your implementations please choose the %AppData%\Roaming\SDL\SDL Trados Studio\ <Var:VersionNumber>\Plugins\Packages
+> As build output path for your implementations please choose the <var:PluginPackedPath>
 >
-> Also check that your library references are pointing to the <Var:ProductName> folder. e.g. C:\Program Files\SDL\SDL Trados Studio\ <Var:ProductVersion>.
+> Also check that your library references are pointing to the <Var:ProductName> folder. e.g. <var:InstallationFolder>.
 >
 > For more informations regarding how to build and deploy a Studio plug-in see [Building a plug-in](building_a_plugin.md) and [Plug-in deployment](plugin_deployment.md)
 >

@@ -4,25 +4,25 @@ To start setting up your custom display filter project, you need to generate a p
 
 How to create the Visual Studio Project
 -----
-Assuming that you already installed the Trados Studio SDK, open Microsoft Visual Studio. You will see the following options when you create a new project:
+Assuming that you already installed the Trados Studio SDK, open <var:VisualStudioEdition>. You will see the following options when you create a new project:
 
 With the above templates you can set up the skeleton of an Trados Studio plug-in project.
 
-Create a new project from Microsoft Visual Studio using the Trados Studio 2015 Plug-in Project template. Give the plugin a name, for example, AdvancedDisplayFilter.Example.
+Create a new project from <var:VisualStudioEdition> using the Trados Studio 2015 Plug-in Project template. Give the plugin a name, for example, AdvancedDisplayFilter.Example.
 
-Creating the Microsoft Visual Studio project using the Trados Studio 2015 Plug-in template automates the initial setup phase for your development project. It will automatically include all of the standard references to the studio assemblies that you might require for building your project, along with the plugin manifest and resource files. It will also setup the output path of your build environment to the correct location in your systems roaming directory.
+Creating the Visual Studio project using the Trados Studio 2015 Plug-in template automates the initial setup phase for your development project. It will automatically include all of the standard references to the studio assemblies that you might require for building your project, along with the plugin manifest and resource files. It will also setup the output path of your build environment to the correct location in your systems roaming directory.
 
 Your project should look like this after creating the project using the Trados Studio 2015 Plug-in template:
 
 **Important**:The *The Sdl.Core.Globalization* assembly is not automatically added to the project with the Trados Studio 2015 plug-in template. This assembly will be required for this project, as we will be making reference to some of the *ISegmentPair* enumerators.
 
-To add this assembly, from the Solution Explorer, right-click on the **References** node and click **Add Reference** from the context menu. Then, navigate to the **C:\Program Files (x86)\SDL\SDL Trados Studio\Studio5\folder** and select the **Sdl.Core.Globalization.dll file**.
+To add this assembly, from the Solution Explorer, right-click on the **References** node and click **Add Reference** from the context menu. Then, navigate to the **<var:InstallationFolder>** and select the **Sdl.Core.Globalization.dll file**.
 
  How to sign the solution
  ----
 To sign your development solution from the project properties area.
 
-In Microsoft Visual Studio, go to **Project > AdvancedDisplayFilter.Example Properties.**
+In <var:VisualStudioEdition>, go to **Project > AdvancedDisplayFilter.Example Properties.**
 Go to the **Signing tab**
 To sign the assembly of the project, select the **Sign the assembly checkbox** and then the **New…** option from the **Choose a strong name key file** combo box.
 In the **Create Strong Name Key** dialog, provide a name, click **OK** and save the project.

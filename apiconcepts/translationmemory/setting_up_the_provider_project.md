@@ -1,16 +1,16 @@
 Setting up the Project
 =====
-To implement a custom translation provider plug-in, create a new class library project in Microsoft Visual Studio.
+To implement a custom translation provider plug-in, create a new class library project in <var:VisualStudioEdition>.
 
 Install the SDK on your Development Machine
 ----
-Before you start developing plug-ins forDL Trados Studio 2017, you should make sure that the SDL SDK is installed on your development PC. The SDK installer will add new templates to your Microsoft Visual Studio environment, as illustrated in the screenshot below. For the type of plug-in discussed in this chapter, we require the **Translation Provider Plug-in** type.
+Before you start developing plug-ins for SDL Trados Studio 2017, you should make sure that the SDL SDK is installed on your development PC. The SDK installer will add new templates to your <var:VisualStudioEdition> environment, as illustrated in the screenshot below. For the type of plug-in discussed in this chapter, we require the **Translation Provider Plug-in** type.
 
 Please also refer to Setting up a Development Machine.
 
 Set up your Translation Provider Plug-in Project
 ----
-Start by creating a new in Microsoft Visual Studio 2008. In the **New Project** dialog box select the **Translation Provider Plug-in** template. Rename the project to **Sdl.Sdk.LanguagePlatform.Samples.ListProvider**:
+Start by creating a new in <var:VisualStudioEdition>. In the **New Project** dialog box select the **Translation Provider Plug-in** template. Rename the project to **Sdl.Sdk.LanguagePlatform.Samples.ListProvider**:
 
 <img style="display:block; " src="images/TranslationProviderProject.jpg"/>
 

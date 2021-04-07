@@ -4,7 +4,7 @@ This section explains how to create an extension point.
 
 Defining an Extension Point
 ----
-An extension point is defined by creating an attribute class, which extends the extension attribute base class,  [ExtensionAttribute](../../api/core/Sdl.Core.PluginFramework.ExtensionAttribute.yml. The properties of this attribute class define the metadata extension developers can provide with their extensions.
+An extension point is defined by creating an attribute class, which extends the extension attribute base class,  [ExtensionAttribute](../../api/core/Sdl.Core.PluginFramework.ExtensionAttribute.yml). The properties of this attribute class define the metadata extension developers can provide with their extensions.
 
 Extension developers can now create an extension .Net class, and mark this up with the extension attribute to indicate which extension point it targets.
 
@@ -18,7 +18,7 @@ The purpose of the message transmitter attribute is to allow plug-in developers 
 
 In order to make the attribute an extension point, we have to annotate with the [ExtensionPointInfoAttribute](../../api/core/Sdl.Core.PluginFramework.ExtensionPointInfoAttribute.yml) attribute, which specifies the name and type of the extension point. The name can be used by a plug-in manager UI to represent the extension point. The type can be either static or dynamic, referring to whether this extension point allows enabling or disabling of one or more of it’s extensions without having to restart the application. More on that later.
 
-The  [ExtensionAttribute](../../api/core/Sdl.Core.PluginFramework.ExtensionAttribute.yml class has the following properties, providing meta data about the extension:
+The  [ExtensionAttribute](../../api/core/Sdl.Core.PluginFramework.ExtensionAttribute.yml) class has the following properties, providing meta data about the extension:
 
 * *Id*: A unique id for the extension
 * *Name*: A friendly name for the extension.

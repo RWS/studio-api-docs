@@ -5,7 +5,7 @@ This section explains how to develop an extension that targets a specific extens
 
 Creating Extensions
 ----
-The plug-in framework comes with a C# project template for developing extensions: *SDL Plug-in Project*. It shows up in the Visual Studio 2019 New Project dialog:
+The plug-in framework comes with a C# project template for developing extensions: *SDL Plug-in Project*. It shows up in the <var:VisualStudioEdition> New Project dialog:
 
 <img style="display:block; " src="images/PlugInTemplate.jpg"/>
 

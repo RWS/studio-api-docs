@@ -170,7 +170,7 @@ In the `IdenticalCheck` global verifier, a custom message plug-in needs to be de
 4. Add using reference to `Sdl.FileTypeSupport.Framework.IntegrationApi`.
 5. Add using reference to `Sdl.Verification.Api`.
 6. Mark the class with the `MessageControlPlugIn` attribute.
-7. Make the class implement ` [IMessageControlPlugIn](../../api/verification/Sdl.Verification.Api.IMessageControlPlugIn.yml) - use Visual Studio to add empty implementations.
+7. Make the class implement [IMessageControlPlugIn](../../api/verification/Sdl.Verification.Api.IMessageControlPlugIn.yml) - use Visual Studio to add empty implementations.
 `IdenticalVerifierMessagePlugIn` needs to implement the `SupportsMessage` method and determine whether a given verification message is supported or not. All the verification messages reported by the `IdenticalCheck` global verifier include a custom or extended data object with type `IdenticalVerifierMessageData`.
 
 Replace `IdenticalVerifierMessagePlugIn.SupportsMessage` method with the following code.

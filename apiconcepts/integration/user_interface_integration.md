@@ -10,9 +10,9 @@ Make sure the following references are added to your project, you will find them
 * Sdl.TranslationStudioAutomation.IntegrationApi.Extensions.dll
 
 > [!NOTE]
-> As build output path for your implementations please choose the *C:\Users\[username]\AppData\Roaming\SDL\SDL Trados Studio\[StudioVersionNumber]\Plugins\Packages*.
+> As build output path for your implementations please choose the *<var:PluginPackedPath>*.
 
-Also check that your library references are pointing to the Trados Studio folder. e.g. *C:\Program Files\SDL\SDL Trados Studio\Studio[StudioVersionNumber]*.
+Also check that your library references are pointing to the Trados Studio folder. e.g. *<var:InstallationFolder>*.
 
 For more information on building an deploying a Trados Studio plug-in, see (Building a plug-in and Plug-in deployment).
 

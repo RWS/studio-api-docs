@@ -1,7 +1,7 @@
 Introduction
 =====
 
-This guide will walk you through creating a C# project in Visual Studio 2019 to implement a simple global verification plug-in.
+This guide will walk you through creating a C# project in <var:VisualStudioEdition> to implement a simple global verification plug-in.
 
 Global verifiers are not specific to a particular file format. Instead, they can apply to any document type that is localized in <Var:ProductName>.
 

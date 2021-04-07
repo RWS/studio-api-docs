@@ -4,7 +4,7 @@ To start setting up your batch task plug-in project, you need to generate a plug
 
 How to create the Visual Studio Project
 ----------------------------------
-Assuming that you already installed the <Var:ProductName> SDK, open Microsoft Visual Studio. You will see the following options when you create a new project:
+Assuming that you already installed the <Var:ProductName> SDK, open <var:VisualStudioEdition>. You will see the following options when you create a new project:
 <img style="display:block; " src="images/CustomBatchTemplate.jpg" />
 With the above templates you can set up the skeleton of a <Var:ProductName> plug-in project. Select **SDL Terminology Provider (2021)**.
 
@@ -33,12 +33,12 @@ Open the **MyTerminologyProviderWinFormsUI.cs** class. This class controls how t
 
 How to build and load the plugin in SDL Studio
 ---------------------------------------------
-Build the assembly. The project is automatically configured to build the plug-in file into the *%AppData%\Roaming\SDL\SDL Trados Studio\ <Var:VersionNumber>\Plugins\Packages\** folder. After you have built the plug-in, you should find the Terminology Provider1.sdlplugin file in the folder. Start <Var:ProductName>. As the plug-in is not yet officially signed by SDL, you will see the following message when starting the application:
+Build the assembly. The project is automatically configured to build the plug-in file into the *<var:PluginPackedPath>* folder. After you have built the plug-in, you should find the Terminology Provider1.sdlplugin file in the folder. Start <Var:ProductName>. As the plug-in is not yet officially signed by SDL, you will see the following message when starting the application:
 <img style="display:block; " src="images/Plugin_NotSigned.jpg" />
-For the moment, ignore this message and click **Yes** to make sure that <Var:ProductName> extracts the plug-in file. Once <Var:ProductName> is started, you should find the sub-folder *Terminology Provider1* under <em>%AppData%\Roaming\SDL\SDL Trados Studio\ <Var:VersionNumber>\Plugins\Unpacked\ </em>. This sub-folder contains the unpacked plug-in assemblies.
+For the moment, ignore this message and click **Yes** to make sure that <Var:ProductName> extracts the plug-in file. Once <Var:ProductName> is started, you should find the sub-folder *Terminology Provider1* under <em> <var:PluginUnpackedPath> </em>. This sub-folder contains the unpacked plug-in assemblies.
 
 > [!NOTE]
-> To officially sign the plugin, send the sdlplugin file to app-signing@sdl.com.
+> To officially sign the plugin, send the sdlplugin file to <Var:AppSigningEmail>.
 
 Open <Var:ProductName> and go to **File -> Options -> Language Pairs -> All Language Pairs -> Termbases** as illustrated below. When you click Add, the name of your newly-created terminology provider should be listed:
 

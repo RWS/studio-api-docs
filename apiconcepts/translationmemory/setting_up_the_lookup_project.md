@@ -2,7 +2,7 @@ Setting up the Project
 =====
 On this page you will learn how to set up the project for designing our custom TM lookup application in C#.
 
-Create a new Windows Forms application in Microsoft Visual Studio 2010 called **Sdl.SDK.LanguagePlatform.Samples.TmLookup**.
+Create a new Windows Forms application in <var:VisualStudioEdition> called **Sdl.SDK.LanguagePlatform.Samples.TmLookup**.
 
 
 <img style="display:block; " src="images/CreateLookupProject.jpg"/>
