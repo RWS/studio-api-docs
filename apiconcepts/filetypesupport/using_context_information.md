@@ -12,8 +12,14 @@ Example of a context display code for text box content extracted from a PPT docu
 
 Double-clicking the document structure column reveals additional information, in this case the context information on text box content contained on a PowerPoint slide.
 
-Also, Trados Studio can display a document structure tree in the navigation pane on the left-hand side of the application. This tree allows users to quickly navigate in the document, for example, by clicking the corresponding headlines.
+Also, <Var:ProductName> can display a document structure tree in the navigation pane on the left-hand side of the application. This tree allows users to quickly navigate in the document, for example, by clicking the corresponding headlines.
 
 <img style="display:block; " src="images/Context03.jpg"/>
 
 Example of a document structure tree, which helps users quickly navigate to the corresponding sections in the editor. In the example below the structure tree displays the level 1 and 2 headings found in a Microsoft Word document.
+
+See Also
+--------
+[Implementing the File Parser]()
+
+[Adding Context Information]()

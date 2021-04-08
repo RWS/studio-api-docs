@@ -1,10 +1,12 @@
 Used Terminology
+=========
 
 File Type Support Framework Terminology
+------
 
 | Term        | Explanation | Synonym, Older Term or Related Concept|
 | ----------- | ----------- |---------------------------------------|
-|SDL File Type Support Framework     |  Trados SDL File Type Support Framework 2 API      | Trados>Filter Framework 1.0
+|File Type Support Framework     |  Trados File Type Support Framework 2 API      | Trados -> Filter Framework 1.0
 | Source  | Refers to the source language, i.e. the language the localizable material is translated from      | 	Original|
 | Target  | Refers to a target language, i.e. one of the languages that is translated into      | 	Translated|
 | Native  | 	Content in a single language (source or target), normally before or after it is being localized.     | 	monolingual; original file type|
