@@ -1,33 +1,30 @@
 Files controller
 =====
- Trados Studio Integration API provides support for third-party developers to implement project files functionalities for the Trados Studio application.
+ <Var:ProductName> Integration API provides support for third-party developers to implement project files functionalities for the <Var:ProductName> application.
 
 Files controller
 ----
-The FilesController enables the third-party developer to integrate custom UI functionalities inside Trados Studio files view and perform project files operations over the current opened project.
+The [FilesController](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.FilesController.yml) enables the third-party developer to integrate custom UI functionalities inside <Var:ProductName> files view and perform project files operations over the current opened project.
 
-For more information: About project files
+For more information: [About project files](../projectautomation/about_project_files.md)
 
-For a sample on how to use it, see the following sample: Using Trados Studio FilesController
+For a sample on how to use it, see the following sample: [Using <Var:ProductName> FilesController](using_trados_studio_filescontroller.md)
 
-Enhance Trados Studio files view using FilesController
+Enhance <Var:ProductName> files view using FilesController
 ----
-The FilesController provide support for integrating custom UI inside the Trados Studio files view.
+The [FilesController](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.FilesController.yml) provide support for integrating custom UI inside the <Var:ProductName> files view.
 
-Integrating viewparts (see Integrating viewparts)
-
-Integrating menus
-
-Integrating context menus
+* Integrating viewparts(see [Integrating viewparts](integrating_viewparts.md))
+* Integrating menus
+* Integrating context menus
 
 Operations on current project files
 ----
-The FilesController provide support to perform operations for the current project.
+The [FilesController](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.FilesController.yml) provide support to perform operations for the current project.
 
-Operations on the project files and folders
+* Operations on the project files and folders
+* Operations on the selected files
 
-Operations on the selected files
+For more information: [About project files](../projectautomation/about_project_files.md)
 
-For more information: About project files
-
-To open project files for editing, see the Editor controller.
+To open project files for editing, see the [Editor controller](editor_controller.md).

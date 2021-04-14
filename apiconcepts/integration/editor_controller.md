@@ -1,28 +1,25 @@
 Editor controller
 ===
-Trados Studio Integration API provides support for third-party developers to implement editor functionalities for the Trados Studio application.
+<Var:ProductName> Integration API provides support for third-party developers to implement editor functionalities for the <Var:ProductName> application.
 
 Editor controller
 ----
-The EditorController enables the third-party developer to integrate custom UI functionalities inside Trados Studio editor view and perform operations on translatable documents.
+The [EditorController](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.yml) enables the third-party developer to integrate custom UI functionalities inside <Var:ProductName> editor view and perform operations on translatable documents.
 
-For a sample on how to use it, see the following sample: Using Trados Studio EditorController
+For a sample on how to use it, see the following sample: [Using <Var:ProductName> EditorController](using_trados_studio_editorcontroller.md)
 
-Enhance Trados Studio editor view using EditorController
+Enhance <Var:ProductName> editor view using EditorController
 ---
-The EditorController provide support for integrating custom UI inside the Trados Studio editor view.
+The [EditorController](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.yml) provide support for integrating custom UI inside the <Var:ProductName> editor view.
 
-Integrating viewparts (see Integrating viewparts)
-
-Integrating menus
-
-Integrating context menus
+* Integrating viewparts (see [Integrating viewparts](integrating_viewparts.md))
+* Integrating menus
+* Integrating context menus
 
 Operations on translatable documents
 ----
-Based on MVVM pattern, the EditorController provides support for translatable document operations.
+Based on MVVM pattern, the [EditorController](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.yml) provides support for translatable document operations.
 
-Open, save, close, activate document operations using EditorController
-
-Operations on Document (see also Bilingual API - Overview)
-Operations on **DocumentView**
+* Open, save, close, activate document operations using [EditorController](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.yml)
+* Operations on [Document](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Document.yml) (see also [Bilingual API - Overview](bilingual_api.md))
+* Operations on **DocumentView**

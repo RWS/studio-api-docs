@@ -1,14 +1,14 @@
-Create a Studio application initializer
+Create a <Var:ProductName> application initializer
 ====
 
-Trados Studio Integration API provides support for third-party developers to add specific initializations or functionalities at Trados Studio application startup.
+<Var:ProductName> Integration API provides support for third-party developers to add specific initializations or functionalities at <Var:ProductName> application startup.
 
-Creating a Studio application initializer
+Creating a <Var:ProductName> application initializer
 ----
-In order to create a Trados Studio application initializer, a third-party developer will require the following steps:
+In order to create a <Var:ProductName> application initializer, a third-party developer will require the following steps:
 
-* Create an initialization class which implements the `IApplicationInitializer` interface.
-* Decorate the initialization class with the `ApplicationInitializerAttribute` attribute
+* Create an initialization class which implements the [IApplicationInitializer](../../api/integration/Sdl.Desktop.IntegrationApi.IApplicationInitializer.yml) interface.
+* Decorate the initialization class with the [ApplicationInitializerAttribute](../../api/integration/Sdl.Desktop.IntegrationApi.Extensions.ApplicationInitializerAttribute.yml) attribute
 
 
-Creating a Studio application initializer Sample
+[Creating a <Var:ProductName> application initializer Sample](trados_studio_application_initializers.md)
