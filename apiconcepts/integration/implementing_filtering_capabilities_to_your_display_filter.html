@@ -8,7 +8,7 @@
     <title>Implementing filtering capabilities to your Display Filter </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Implementing filtering capabilities to your Display Filter ">
-    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="generator" content="docfx 2.57.1.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
@@ -80,12 +80,19 @@
 <h1 id="implementing-filtering-capabilities-to-your-display-filter">Implementing filtering capabilities to your Display Filter</h1>
 
 <p>Add the basic filtering functionality to your custom filter.</p>
-<p>To work with the Display Filter API, you need to create a class that implements the <em>IDisplayFilter</em> interface from the <em>Sdl.TranslationStudioAutomation.IntegrationApi.DisplayFilters</em> namespace, which exposes one method called <em>EvaluateRow</em>. This method will then be called by the API for each row after the filter is applied on the document, passing in the <em>IDisplayFilterRowInfo</em> model (which includes the <em>ISegmentPair</em> and other relevant properties) that will permit the developer to assert whether or not the segments are visible in the editor.</p>
-<p>Create a new class called <strong>FilterSettings</strong>. This class will manage some basic settings that will persist on the document once the filter has been applied. Make reference to the following example:</p>
-<p>To recover the source and target content, we will need to create a class that implements the <em>IMarkupDataVisitor</em>. This interface is designed in such a way that you decide what properties from the <em>ISegment</em> are relevant and then process only those.</p>
+<p>To work with the Display Filter API, you need to create a class that implements the <a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.DisplayFilters.IDisplayFilter.html">IDisplayFilter</a> interface from the <a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.DisplayFilters.html">Sdl.TranslationStudioAutomation.IntegrationApi.DisplayFilters</a> namespace, which exposes one method called <a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.DisplayFilters.IDisplayFilter.html#Sdl_TranslationStudioAutomation_IntegrationApi_DisplayFilters_IDisplayFilter_EvaluateRow_Sdl_TranslationStudioAutomation_IntegrationApi_DisplayFilters_IDisplayFilterRowInfo_">EvaluateRow</a>. This method will then be called by the API for each row after the filter is applied on the document, passing in the <a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.DisplayFilters.IDisplayFilterRowInfo.html">IDisplayFilterRowInfo</a> model (which includes the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.ISegmentPair.html">ISegmentPair</a> and other relevant properties) that will permit the developer to assert whether or not the segments are visible in the editor.</p>
+<p>Create a new class called <code>FilterSettings</code>. This class will manage some basic settings that will persist on the document once the filter has been applied. Make reference to the following example:</p>
+<p>To recover the source and target content, we will need to create a class that implements the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IMarkupDataVisitor.html">IMarkupDataVisitor</a>. This interface is designed in such a way that you decide what properties from the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.ISegment.html">ISegment</a> are relevant and then process only those.</p>
 <p>For the purpose of this example, we will recover the content as plain text only, including tags and revisions. This should be sufficient in allowing us to apply a filter to the content.</p>
-<p>Create a new class called <strong>ContentProcessor</strong> with reference to the following code:</p>
-<pre><code>using System;
+<p>Create a new class called <code>ContentProcessor</code> with reference to the following code:</p>
+<div class="tabGroup" id="tabgroup_wbwsunMwqv">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_wbwsunMwqv_tabid-1" role="tab" aria-controls="tabpanel_wbwsunMwqv_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_wbwsunMwqv_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-cs">using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -206,11 +213,20 @@ namespace Sdl.TranslationStudio.Plugins.AdvancedDisplayFilter.Content
         }
     }
 }
-</code></pre><p>Next, create a new class called <strong>DisplayFilter</strong>. This will implement the <em>IDisplayFilter</em> interface so that we can evaluate each of the segments and decide whether or not they should be displayed in the Trados Studio Editor.</p>
-<p>It is good design to include a reference to <em>IFilterSetting</em> interface in this class as it will be persisted on the document once the filter has been applied. This is useful to understand the type of filter that is applied (if any), especially in the case when the user is moving between documents in the editor. It permits the developer to differentiate between the internal system filter provider and their own implementation or multiple implementations and then take the appropriate action based on that.</p>
-<p>This example demonstrates how to implement a few filters that are evaluated as the API is iterating over each of the segments after the filter has been applied on the document. Further on in the walkthrough we will discuss how to apply this implementation of the <em>IDisplayFilter</em> on the document itself.</p>
-<p>You will notice from the filter examples that we are using the <em>ContentProcessor</em> functionality that we created earlier to recover the plain text from both the source and target segments and then apply either a regular expression or normal search as criteria for the filter.</p>
-<pre><code>using System;
+</code></pre></section>
+</div>
+<p>Next, create a new class called <code>DisplayFilter</code>. This will implement the <a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.DisplayFilters.IDisplayFilter.html">IDisplayFilter</a> interface so that we can evaluate each of the segments and decide whether or not they should be displayed in the Trados Studio Editor.</p>
+<p>It is good design to include a reference to <code>IFilterSetting</code> interface in this class as it will be persisted on the document once the filter has been applied. This is useful to understand the type of filter that is applied (if any), especially in the case when the user is moving between documents in the editor. It permits the developer to differentiate between the internal system filter provider and their own implementation or multiple implementations and then take the appropriate action based on that.</p>
+<p>This example demonstrates how to implement a few filters that are evaluated as the API is iterating over each of the segments after the filter has been applied on the document. Further on in the walkthrough we will discuss how to apply this implementation of the <a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.DisplayFilters.IDisplayFilter.html">IDisplayFilter</a> on the document itself.</p>
+<p>You will notice from the filter examples that we are using the <code>ContentProcessor</code> functionality that we created earlier to recover the plain text from both the source and target segments and then apply either a regular expression or normal search as criteria for the filter.</p>
+<div class="tabGroup" id="tabgroup_wbwsunMwqv-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_wbwsunMwqv-1_tabid-2" role="tab" aria-controls="tabpanel_wbwsunMwqv-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_wbwsunMwqv-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<pre><code class="lang-cs">using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Sdl.FileTypeSupport.Framework.BilingualApi;
@@ -633,7 +649,9 @@ namespace Sdl.TranslationStudio.Plugins.AdvancedDisplayFilter.DisplayFilters
 
     }
 }
-</code></pre></article>
+</code></pre></section>
+</div>
+</article>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">

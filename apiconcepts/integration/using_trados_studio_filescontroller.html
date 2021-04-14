@@ -8,7 +8,7 @@
     <title>Using Trados Studio FilesController </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Using Trados Studio FilesController ">
-    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="generator" content="docfx 2.57.1.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
@@ -77,18 +77,157 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-<h1 id="using-trados-studio-filescontroller">Using Trados Studio FilesController</h1>
+<h1 id="using-varproductname-filescontroller">Using Trados Studio FilesController</h1>
 
 <p>TranslationStudioAutomation provides support for third-party developers to access the Trados Studio files view and perform project files operations.</p>
 <h2 id="creating-a-custom-project-files-list-inside-a-viewpart-that-belongs-to-the-files-view">Creating a custom project files list inside a viewpart that belongs to the files view</h2>
-<p>The following sample demonstrates how to create a custom project files list built by using the FilesController and add it to the files view as a custom viewpart.</p>
+<p>The following sample demonstrates how to create a custom project files list built by using the <a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.FilesController.html">FilesController</a> and add it to the files view as a custom viewpart.</p>
 <p>The custom list features:</p>
 <ul>
 <li>Display two columns: the project file name and the number of total words from the file.</li>
 <li>The projects files selected in the project files list will be in sync with the one from the custom list.</li>
 </ul>
 <p>Start by implementing the windows form user control that will fill the content of the viewpart and is implementing the list view.</p>
+<div class="tabGroup" id="tabgroup_hgRmX3+yrn">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_hgRmX3+yrn_tabid-1" role="tab" aria-controls="tabpanel_hgRmX3+yrn_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_hgRmX3+yrn_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-cs">using System;
+using System.Collections.Generic;
+using System.Windows.Forms;
+using Sdl.ProjectAutomation.Core;
+using Sdl.TranslationStudioAutomation.IntegrationApi;
+
+namespace Sdl.FilesOperations.Sample
+{
+    public partial class MyFilesViewPartControl : UserControl
+    {
+        public MyFilesViewPartControl()
+        {
+            InitializeComponent();
+            GetFilesController().SelectedFilesChanged += OnSelectedFilesChanged;
+        }    
+
+        private FilesController GetFilesController()
+        {
+            return SdlTradosStudio.Application.GetController&lt;FilesController&gt;();
+        }
+
+        private void OnSelectedFilesChanged(object sender, EventArgs eventArgs)
+        {
+            RepopulateFilesList();
+            OpenFileButton.Enabled = false;
+        }
+
+        private void RepopulateFilesList()
+        {
+            FilesListView.Items.Clear();
+            FilesController filesController = GetFilesController();   
+            foreach (ProjectFile file in filesController.SelectedFiles)
+            {
+                var item = new ListViewItem(file.Name)
+                               {
+                                   Tag = file
+                               };
+                item.SubItems.Add(file.AnalysisStatistics.Total.Words.ToString());
+
+                FilesListView.Items.Add(item);
+            }            
+        }
+
+        private void FilesListView_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+        {
+            OpenFileButton.Enabled = FilesListView.SelectedItems.Count &gt; 0;
+        }
+
+        private void FilesListView_ItemActivate(object sender, EventArgs e)
+        {
+            if (FilesListView.SelectedItems.Count == 0)
+            {
+                return;
+            }
+
+            SdlTradosStudio.Application.GetController&lt;EditorController&gt;().Open((ProjectFile)FilesListView.SelectedItems[0].Tag, EditingMode.Translation);
+        }
+
+        private void OpenFileButton_Click(object sender, EventArgs e)
+        {
+            var selectedProjectFiles = new List&lt;ProjectFile&gt;();
+            for (int i = 0; i &lt; FilesListView.SelectedItems.Count; i++)
+            {
+                selectedProjectFiles.Add((ProjectFile)FilesListView.SelectedItems[i].Tag);
+            }
+
+            if (selectedProjectFiles.Count == 0)
+            {
+                return;
+            }
+
+            try
+            {
+                SdlTradosStudio.Application.GetController&lt;EditorController&gt;()
+                               .Open(selectedProjectFiles, EditingMode.Translation);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(string.Format(&quot;Cannot open the project file: \n{0}&quot;, ex.Message));
+            }
+        }
+
+        private void AddFileButton_Click(object sender, EventArgs e)
+        {
+            GetFilesController().AddFiles();
+        }        
+    }
+}
+</code></pre></section>
+</div>
 <p>Finally integrate the new viewpart to the files view.</p>
+<div class="tabGroup" id="tabgroup_hgRmX3+yrn-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_hgRmX3+yrn-1_tabid-2" role="tab" aria-controls="tabpanel_hgRmX3+yrn-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_hgRmX3+yrn-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<pre><code class="lang-cs">using System;
+using System.Windows.Forms;
+using Sdl.Desktop.IntegrationApi;
+using Sdl.Desktop.IntegrationApi.Extensions;
+using Sdl.TranslationStudioAutomation.IntegrationApi;
+
+namespace Sdl.FilesOperations.Sample
+{
+    [ViewPart(
+        Id = &quot;MyFilesViewPart&quot;, 
+        Name = &quot;My Files View Part&quot;, 
+        Description = &quot;Integrating a view part inside the files view&quot;        
+        )]
+    [ViewPartLayout(typeof(FilesController), Dock = DockType.Bottom)]
+    class MyFilesViewPart : AbstractViewPartController
+    {
+        protected override Control GetContentControl()
+        {
+            return _control.Value;
+        }
+
+        protected override void Initialize()
+        {            
+        }
+
+        private FilesController FilesController
+        {
+            get { return SdlTradosStudio.Application.GetController&lt;FilesController&gt;(); }
+        }
+
+        private static readonly Lazy&lt;MyFilesViewPartControl&gt; _control = new Lazy&lt;MyFilesViewPartControl&gt;(() =&gt; new MyFilesViewPartControl());                        
+    }
+}
+</code></pre></section>
+</div>
 </article>
           </div>
           

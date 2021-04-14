@@ -8,7 +8,7 @@
     <title>Searching Terms </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Searching Terms ">
-    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="generator" content="docfx 2.57.1.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
@@ -102,13 +102,13 @@
 <li><strong>Id</strong>: the id of the entry that the search result needs to be associated with. Note that in Trados Studio, you do not output the search result list, but rather the entries that you need to construct in a different function (see below). The search result objects are linked to the entries using the unique ID. This is also the reason why, in our implementation, every line in the glossary file is preceded with a unique number.</li>
 </ul>
 <p>The <strong>Search()</strong> function of our implementation would look as shown below:</p>
-<div class="tabGroup" id="tabgroup_3+-vgOT-fO">
+<div class="tabGroup" id="tabgroup_3H82O7WGLk">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_3+-vgOT-fO_tabid-1" role="tab" aria-controls="tabpanel_3+-vgOT-fO_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">The Search Function</a>
+<a href="#tabpanel_3H82O7WGLk_tabid-1" role="tab" aria-controls="tabpanel_3H82O7WGLk_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">The Search Function</a>
 </li>
 </ul>
-<section id="tabpanel_3+-vgOT-fO_tabid-1" role="tabpanel" data-tab="tabid-1">
+<section id="tabpanel_3H82O7WGLk_tabid-1" role="tabpanel" data-tab="tabid-1">
 <pre><code class="lang-csharp" name="MyTerminologyProvider">//Is executed when the user launches a lookup operation in the Termbase Search window, 
 //or when the user moves to a segment in the Editor of Studio. Moving to a segment
 //automatically launches a fuzzy search to retrieve any known terminology.
@@ -168,13 +168,13 @@ public override IList&lt;ISearchResult&gt; Search(string text, ILanguage source,
 </code></pre></section>
 </div>
 <p>As mentioned above, the results list needs to be associated with the corresponding entry that you construct in the following helper function:</p>
-<div class="tabGroup" id="tabgroup_3+-vgOT-fO-1">
+<div class="tabGroup" id="tabgroup_3H82O7WGLk-1">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_3+-vgOT-fO-1_tabid-2" role="tab" aria-controls="tabpanel_3+-vgOT-fO-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">Constructing the Entry Content</a>
+<a href="#tabpanel_3H82O7WGLk-1_tabid-2" role="tab" aria-controls="tabpanel_3H82O7WGLk-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">Constructing the Entry Content</a>
 </li>
 </ul>
-<section id="tabpanel_3+-vgOT-fO-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<section id="tabpanel_3H82O7WGLk-1_tabid-2" role="tabpanel" data-tab="tabid-2">
 <pre><code class="lang-csharp" name="MyTerminologyProvider">// This helper function is used to construct the entry content with entry id, source and target term, and
 // definition (if applicable)
 private IEntry CreateEntry(string id, string sourceTerm, string targetTerm, string definitionText, string targetLanguage)
@@ -215,26 +215,26 @@ private IEntry CreateEntry(string id, string sourceTerm, string targetTerm, stri
 </code></pre></section>
 </div>
 <p>Make sure that you add the following entry list object to the terminology provider class:</p>
-<div class="tabGroup" id="tabgroup_3+-vgOT-fO-2">
+<div class="tabGroup" id="tabgroup_3H82O7WGLk-2">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_3+-vgOT-fO-2_tabid-3" role="tab" aria-controls="tabpanel_3+-vgOT-fO-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">The Entry List Object</a>
+<a href="#tabpanel_3H82O7WGLk-2_tabid-3" role="tab" aria-controls="tabpanel_3H82O7WGLk-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">The Entry List Object</a>
 </li>
 </ul>
-<section id="tabpanel_3+-vgOT-fO-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<section id="tabpanel_3H82O7WGLk-2_tabid-3" role="tabpanel" data-tab="tabid-3">
 <pre><code class="lang-csharp" name="MyTerminologyProvider">
 private List&lt;IEntry&gt; _entry = new List&lt;IEntry&gt;();
 
 </code></pre></section>
 </div>
 <p>Besides the <strong>Search()</strong> method, the term provider interface also calls the <strong>GetEntry()</strong> method, which then outputs the entry with the corresponding entry based on the id parameter:</p>
-<div class="tabGroup" id="tabgroup_3+-vgOT-fO-3">
+<div class="tabGroup" id="tabgroup_3H82O7WGLk-3">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_3+-vgOT-fO-3_tabid-4" role="tab" aria-controls="tabpanel_3+-vgOT-fO-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">Getting the Entries</a>
+<a href="#tabpanel_3H82O7WGLk-3_tabid-4" role="tab" aria-controls="tabpanel_3H82O7WGLk-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">Getting the Entries</a>
 </li>
 </ul>
-<section id="tabpanel_3+-vgOT-fO-3_tabid-4" role="tabpanel" data-tab="tabid-4">
+<section id="tabpanel_3H82O7WGLk-3_tabid-4" role="tabpanel" data-tab="tabid-4">
 <pre><code class="lang-csharp" name="MyTerminologyProvider">// Returns the entry for a search result. The entries are associated with the search results
 // through the entry id.
 public override IEntry GetEntry(int id)

@@ -8,7 +8,7 @@
     <title>Plug-in Resources and Localizability </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Plug-in Resources and Localizability ">
-    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="generator" content="docfx 2.57.1.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
@@ -84,13 +84,13 @@
 <p>All the string metadata values used for the properties of the extension attributes shown in the example above are hard-coded strings. In reality these strings need to be localized.</p>
 <p>For that reason, the framework allows adding a specific plug-in resource file to a plug-in project. Instead of hard-coding the strings in code, you can specify the key of a resource string defined in the plug-in resources file. The framework resolves these resource strings at runtime based on the current UI culture and automatically populates the string properties of extension attributes with the corresponding localized values.</p>
 <p>To indicate that the value of a certain property needs to be retrieved from the plug-in resources file, the definition of that property within the extension attribute definition must be annotated with the <code>PluginResource</code> attribute. For instance, a plug-in button extension point, with a localizable <code>ToolTipText</code> property becomes:</p>
-<div class="tabGroup" id="tabgroup_LlFlQcbxj-">
+<div class="tabGroup" id="tabgroup_vmrP5tuOGj">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_LlFlQcbxj-_tabid-1" role="tab" aria-controls="tabpanel_LlFlQcbxj-_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_vmrP5tuOGj_tabid-1" role="tab" aria-controls="tabpanel_vmrP5tuOGj_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_LlFlQcbxj-_tabid-1" role="tabpanel" data-tab="tabid-1">
+<section id="tabpanel_vmrP5tuOGj_tabid-1" role="tabpanel" data-tab="tabid-1">
 <pre><code class="lang-csharp" name="AdvancedPluginFramework">[ExtensionPointInfo(&quot;Plug-in Buttons&quot;, ExtensionPointTypes.Static)]
 public class PluginButtonAttribute2
     : ExtensionAttribute,
@@ -105,13 +105,13 @@ public class PluginButtonAttribute2
 </code></pre></section>
 </div>
 <p>An extension targeting this extension point, <code>MyPluginButton</code>:</p>
-<div class="tabGroup" id="tabgroup_LlFlQcbxj--1">
+<div class="tabGroup" id="tabgroup_vmrP5tuOGj-1">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_LlFlQcbxj--1_tabid-2" role="tab" aria-controls="tabpanel_LlFlQcbxj--1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_vmrP5tuOGj-1_tabid-2" role="tab" aria-controls="tabpanel_vmrP5tuOGj-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_LlFlQcbxj--1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<section id="tabpanel_vmrP5tuOGj-1_tabid-2" role="tabpanel" data-tab="tabid-2">
 <pre><code class="lang-csharp" name="AdvancedPluginFramework">[PluginButton(
 Id = &quot;mypluginbutton&quot;,
 Name = &quot;MyPluginButton_Name&quot;,
@@ -140,13 +140,13 @@ As mentioned before, the plug-in manifest generator requires that you pass the p
 <li>Assembly-level <code>PluginAttribute</code> string attributes
 For non-string properties, like for instance an icon, the plug-in resource file can also be used, however, because of the type difference, the value of these kinds of properties cannot be automatically resolved. Define the actual property as a string property, to which uses must assign a resource key. Then, when you need the actual icon, get it from the plug-in resource file using the <code>GetPluginResource&lt;T&gt;</code> method:</li>
 </ul>
-<div class="tabGroup" id="tabgroup_LlFlQcbxj--2">
+<div class="tabGroup" id="tabgroup_vmrP5tuOGj-2">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_LlFlQcbxj--2_tabid-3" role="tab" aria-controls="tabpanel_LlFlQcbxj--2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_vmrP5tuOGj-2_tabid-3" role="tab" aria-controls="tabpanel_vmrP5tuOGj-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_LlFlQcbxj--2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<section id="tabpanel_vmrP5tuOGj-2_tabid-3" role="tabpanel" data-tab="tabid-3">
 <pre><code class="lang-csharp" name="AdvancedPluginFramework">ExtensionAttribute attribute = extension.ExtensionAttribute;
 Icon icon = extension.Plugin.GetPluginResource&lt;Icon&gt;(attribute.Icon);
 </code></pre></section>

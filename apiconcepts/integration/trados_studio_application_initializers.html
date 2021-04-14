@@ -8,7 +8,7 @@
     <title>Trados Studio application initializers </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Trados Studio application initializers ">
-    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="generator" content="docfx 2.57.1.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
@@ -77,12 +77,69 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-<h1 id="trados-studio-application-initializers">Trados Studio application initializers</h1>
+<h1 id="varproductname-application-initializers">Trados Studio application initializers</h1>
 
-<p>Integration API makes it easy to execute code when Trados Studio starts, so you can initialize your plugin. All you need to do is implement <code>IApplicationInitializer</code> interface, from <code>Sdl.Desktop.IntegrationApi</code> namespace and decorate your class with <code>ApplicationInitializerAttribute</code>. If you fail to implement <code>IApplicationInitializer</code>, an exception will be thrown, but if you omit the <code>ApplicationInitializerAttribute</code>, your plugin will simply be ignored when Trados Studio Starts.</p>
+<p>Integration API makes it easy to execute code when Trados Studio starts, so you can initialize your plugin. All you need to do is implement <a href="../../api/integration/Sdl.Desktop.IntegrationApi.IApplicationInitializer.html">IApplicationInitializer</a> interface, from <code>Sdl.Desktop.IntegrationApi</code> namespace and decorate your class with <a href="../../api/integration/Sdl.Desktop.IntegrationApi.Extensions.ApplicationInitializerAttribute.html">ApplicationInitializerAttribute</a>. If you fail to implement <a href="../../api/integration/Sdl.Desktop.IntegrationApi.IApplicationInitializer.html">IApplicationInitializer</a>, an exception will be thrown, but if you omit the <a href="../../api/integration/Sdl.Desktop.IntegrationApi.Extensions.ApplicationInitializerAttribute.html">ApplicationInitializerAttribute</a>, your plugin will simply be ignored when Trados Studio Starts.</p>
 <h2 id="example">Example</h2>
 <p>The following example demonstrates a simple plugin data initialization. This plugin measures the time since Trados Studio has been opened and if you worked less than required, it displays a warning MessageBox.</p>
 <p>This example also demonstrates how to cleanup when Trados Studio exits. All you have to do is subscribe to <code>Application.Closing</code> event. You can use <code>CancelEventArgs</code> to prevent Trados Studio from closing.</p>
+<div class="tabGroup" id="tabgroup_RTeALsqP0v">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_RTeALsqP0v_tabid-1" role="tab" aria-controls="tabpanel_RTeALsqP0v_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">Simple Plugin Initializer</a>
+</li>
+</ul>
+<section id="tabpanel_RTeALsqP0v_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-cs">using System;
+using System.Windows.Forms;
+using Sdl.Desktop.IntegrationApi;
+using Sdl.Desktop.IntegrationApi.Extensions;
+using Sdl.TranslationStudioAutomation.IntegrationApi;
+
+namespace Sdl.StudioInitializer.Sample
+{    
+    /// &lt;summary&gt;
+    /// Implements an application initializer which will keep track of the application startup and closing time.    
+    /// &lt;/summary&gt;
+    [ApplicationInitializer]
+    class PluginInitializer : IApplicationInitializer
+    {
+        private const int MinimumWorkTime = 4;
+
+        /// &lt;summary&gt;
+        /// This method is executed when the application is starting.
+        /// &lt;/summary&gt;
+        public void Execute()
+        {
+            StudioTracking.Start();
+
+            // Setting up a check at the application closure verifying if the user has worked less then the minimum amount of time 
+            // If the time passed since Studio opening and Studio closing is less than the MinimumWorkTime(4h) than
+            // request a confirmation from the user for the application closure otherwise just exit.
+            SdlTradosStudio.Application.Closing += (s, e) =&gt;
+                {
+                    TimeSpan elapsedTime = StudioTracking.Elapsed;
+                    if (elapsedTime.Hours &lt; MinimumWorkTime)
+                    {
+                        DialogResult dialogResult =
+                            MessageBox.Show(
+                                string.Format(&quot;You have been working for {0:dd\\.hh\\:mm\\:ss} and spending less than {1} hours. Are you sure you want to quit ?&quot;, StudioTracking.Elapsed, MinimumWorkTime)
+                                , string.Format(&quot;Total work time is {0} minutes&quot;, elapsedTime.Minutes)
+                                , MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        if (dialogResult == DialogResult.No)
+                        {
+                            //Cancel the the application closing
+                            e.Cancel = true;
+                            return;
+                        }
+                    }
+                    StudioTracking.Stop();
+                };
+        }
+    }    
+}
+</code></pre></section>
+</div>
 </article>
           </div>
           

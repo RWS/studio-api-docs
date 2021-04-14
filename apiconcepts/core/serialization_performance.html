@@ -8,7 +8,7 @@
     <title>Serialization Performance </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Serialization Performance ">
-    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="generator" content="docfx 2.57.1.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
@@ -85,13 +85,13 @@
 <p>However, as it is often the case, there is a downside to this ease of use: the first time you serialize an object of a certain type, the .Net runtime uses reflection to get the list of properties of the type, then automatically generates code that can serialize and deserialize these properties, compiles that code to an assembly, and finally loads it.</p>
 <p>Especially in the desktop application scenario, this will impact performance dramatically, since this process will be repeated for every extension or auxiliary extension attribute type that is used at start-up.</p>
 <p>We can avoid this automatic serialization overhead, by explicitly implementing the <code>System.Xml.Serialization.IXmlSerializable</code> interface. The extension attribute base class already defines the methods required by this interface: <code>GetSchema</code>, <code>ReadXml</code> and <code>WriteXml</code>. All you need to do is mark your attribute class to implement <code>IXmlSerializable</code> and override <code>ReadXml</code> and <code>WriteXml</code> to read and write additional properties, making sure to call the base class method to read and write the base class properties:</p>
-<div class="tabGroup" id="tabgroup_59MjPcUT1y">
+<div class="tabGroup" id="tabgroup_0vBUpmMeZj">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_59MjPcUT1y_tabid-1" role="tab" aria-controls="tabpanel_59MjPcUT1y_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_0vBUpmMeZj_tabid-1" role="tab" aria-controls="tabpanel_0vBUpmMeZj_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_59MjPcUT1y_tabid-1" role="tabpanel" data-tab="tabid-1">
+<section id="tabpanel_0vBUpmMeZj_tabid-1" role="tabpanel" data-tab="tabid-1">
 <pre><code class="lang-csharp" name="AdvancedPluginFramework">[ExtensionPointInfo(&quot;Plug-in Buttons&quot;, ExtensionPointTypes.Static)]
 public class PluginButtonAttribute : ExtensionAttribute
 {

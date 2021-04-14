@@ -8,7 +8,7 @@
     <title>Using Trados Studio EditorController </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Using Trados Studio EditorController ">
-    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="generator" content="docfx 2.57.1.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
@@ -77,11 +77,11 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-<h1 id="using-trados-studio-editorcontroller">Using Trados Studio EditorController</h1>
+<h1 id="using-varproductname-editorcontroller">Using Trados Studio EditorController</h1>
 
 <p>TranslationStudioAutomation provides support for third-party developers to access the Trados Studio editor view and perform editor operations.</p>
 <h2 id="creating-a-custom-document-list-inside-a-viewpart-that-belongs-to-the-editor-view">Creating a custom document list inside a viewpart that belongs to the editor view</h2>
-<p>The following sample demonstrates how to create a custom documents list built by using the EditorController and add it to the editor view as a custom viewpart.</p>
+<p>The following sample demonstrates how to create a custom documents list built by using the <a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.html">EditorController</a> and add it to the editor view as a custom viewpart.</p>
 <p>The custom list features:</p>
 <ul>
 <li><p>Display the following columns:</p>
@@ -97,9 +97,204 @@
 <li>The active document will always be displayed as selected in the list.</li>
 </ul>
 <p>Start by implementing the windows form user control that will fill the content of the viewpart and is implementing the list view.</p>
+<div class="tabGroup" id="tabgroup_Zc1BJxEQ4B">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_Zc1BJxEQ4B_tabid-1" role="tab" aria-controls="tabpanel_Zc1BJxEQ4B_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_Zc1BJxEQ4B_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-cs">private void InitializeDocumentListTab()
+{
+    _editorController.Opened += (s, e) =&gt; RepopulateDocumentList();
+    _editorController.Closed += (s, e) =&gt; RepopulateDocumentList();
+    _editorController.ActiveDocumentChanged += (s, e) =&gt; ActiveDocument = e.Document;
+}
+
+private void RepopulateDocumentList()
+{
+    DocumentsList.Items.Clear();
+    foreach (Document document in _editorController.GetDocuments())
+    {
+        string documentName = document.Files.Count() &gt; 1 ? &quot;Multiple merged files&quot; : document.Files.First().Name;
+        ListViewItem item = DocumentsList.Items.Add(documentName);
+        item.SubItems.Add(document.SegmentPairs.Count().ToString());
+        item.Tag = document;
+        item.SubItems.Add(document.Project.GetProjectInfo().SourceLanguage.DisplayName);
+        item.SubItems.Add(document.Project.GetProjectInfo().TargetLanguages[0].DisplayName);
+    }
+
+    ActiveDocument = _editorController.ActiveDocument;
+}
+
+private void OpenUsingStudioActionButton_Click(object sender, EventArgs e)
+{
+    SdlTradosStudio.Application.ExecuteAction&lt;OpenDocumentAction&gt;();
+}
+
+private void DocumentsList_ItemActivate(object sender, EventArgs e)
+{
+    _editorController.Activate(DocumentsList.SelectedItems[0].Tag as Document);
+
+    //keep the focus on the list items.
+    _editorController.Activate();
+    DocumentsList.Focus();
+}
+
+private Document ActiveDocument
+{
+    set
+    {
+        for (var i = 0; i &lt; DocumentsList.Items.Count; i++)
+        {
+            var item = DocumentsList.Items[i];
+            item.Selected = item.Tag as Document == value;
+        }
+    }
+}
+</code></pre></section>
+</div>
 <p>Finally, integrate the new viewpart to the editor view.</p>
+<div class="tabGroup" id="tabgroup_Zc1BJxEQ4B-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_Zc1BJxEQ4B-1_tabid-2" role="tab" aria-controls="tabpanel_Zc1BJxEQ4B-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_Zc1BJxEQ4B-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<pre><code class="lang-cs">using System;
+using System.Linq;
+using System.Windows.Forms;
+using Sdl.Desktop.IntegrationApi;
+using Sdl.Desktop.IntegrationApi.Extensions;
+using Sdl.TranslationStudioAutomation.IntegrationApi;
+
+namespace Sdl.EditorOperations.Sample
+{
+    [ViewPart(
+        Id = &quot;MyEditorViewPart&quot;, 
+        Name = &quot;My Editor View Part&quot;, 
+        Description = &quot;Integrationg a view part inside the editor view&quot;        
+        )]
+    [ViewPartLayout(typeof(EditorController), Dock = DockType.Bottom)]
+    class MyEditorViewPart : AbstractViewPartController
+    {
+        protected override Control GetContentControl()
+        {
+            return _control.Value;
+        }
+
+        protected override void Initialize()
+        {                        
+        }
+
+        private static readonly Lazy&lt;MyEditorViewPartControl&gt; _control = new Lazy&lt;MyEditorViewPartControl&gt;(() =&gt; new MyEditorViewPartControl());       
+    }
+}
+</code></pre></section>
+</div>
+<h2 id="tracking-all-editor-document-events-and-display-them-inside-a-list-view">Tracking all editor document events and display them inside a list view.</h2>
+<p>The following sample demonstrates how to bind to all <a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.html">EditorController</a> related events and add them into a tab as an events list view.</p>
+<div class="tabGroup" id="tabgroup_Zc1BJxEQ4B-2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_Zc1BJxEQ4B-2_tabid-3" role="tab" aria-controls="tabpanel_Zc1BJxEQ4B-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_Zc1BJxEQ4B-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<pre><code class="lang-cs">private void InitializeTrackingEventsTab()
+{
+    _editorController.ActiveDocumentChanged +=
+        (sender, args) =&gt;
+        AddListViewEvent(&quot;Active document changed&quot;, args.Document != null ? args.Document.Files.First().Name : string.Empty);
+
+    _editorController.Saving += (sender, args) =&gt; AddListViewEvent(&quot;Document saving&quot;, args.Document.Files.First().Name);
+    _editorController.Saved += (sender, args) =&gt; AddListViewEvent(&quot;Document saved&quot;, args.Document.Files.First().Name);
+    _editorController.SaveFailed += (sender, args) =&gt; AddListViewEvent(&quot;Document save failed&quot;, args.Document.Files.First().Name);
+
+    _editorController.Closing += (sender, args) =&gt;
+        AddListViewEvent(&quot;Document closing&quot;, args.Document != null ? args.Document.Files.First().Name : string.Empty);
+    _editorController.Closed += (sender, args) =&gt;
+        AddListViewEvent(&quot;Document closed&quot;, args.Document != null ? args.Document.Files.First().Name : string.Empty);
+    _editorController.Opening += (sender, args) =&gt;
+        AddListViewEvent(&quot;Document opening&quot;, args.Document != null ? args.Document.Files.First().Name : string.Empty);
+    _editorController.Opened += (sender, args) =&gt;
+    {
+        //bind document events.
+        InitializeDocumentTrackingEvents(args.Document);
+
+        AddListViewEvent(&quot;Document opened&quot;,
+                         args.Document != null
+                             ? args.Document.Files.First().Name
+                             : string.Empty);
+    };
+}
+
+private void InitializeDocumentTrackingEvents(Document doc)
+{
+    doc.ActiveSegmentChanged += (o, eventArgs) =&gt; AddListViewEvent(&quot;ActiveSegmentChanged&quot;);
+    doc.ContentChanged +=
+        (sender, args) =&gt; AddListViewEvent(&quot;Document changed&quot;, args.Segments.First().ToString());
+
+    doc.ActiveFileChanged += (o, eventArgs) =&gt; AddListViewEvent(&quot;Active file changed&quot;);
+    doc.ActiveFilePropertiesChanged += (o, eventArgs) =&gt; AddListViewEvent(&quot;Active file properties changed&quot;);
+
+
+    doc.Selection.Changed +=
+        (o, eventArgs) =&gt; AddListViewEvent(&quot;Document selection changed&quot;, doc.Selection.Current.ToString());
+    doc.Selection.Source.Changed +=
+        (o, eventArgs) =&gt;
+        AddListViewEvent(&quot;Source selection changed.&quot;, doc.Selection.Source.ToString());
+    doc.Selection.Target.Changed +=
+        (o, eventArgs) =&gt;
+        AddListViewEvent(&quot;Target selection changed.&quot;, doc.Selection.Target.ToString());
+
+
+
+}
+
+private void AddListViewEvent(string eventName, string eventMetadata = &quot;&quot;)
+{
+    var item = new ListViewItem(EventsListView.Items.Count.ToString());
+    item.SubItems.Add(eventName);
+    item.SubItems.Add(eventMetadata);
+    EventsListView.Items.Insert(0, item);
+}
+</code></pre></section>
+</div>
 <h2 id="performing-operations-over-document-selections">Performing operations over document selections</h2>
 <p>The following sample demonstrates how to retrieve and replace the current document selection.</p>
+<div class="tabGroup" id="tabgroup_Zc1BJxEQ4B-3">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_Zc1BJxEQ4B-3_tabid-4" role="tab" aria-controls="tabpanel_Zc1BJxEQ4B-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_Zc1BJxEQ4B-3_tabid-4" role="tabpanel" data-tab="tabid-4">
+<pre><code class="lang-cs">private void InitializeSelectionsTab()
+{
+    _editorController.Opened += (sender, args) =&gt;
+    {
+        args.Document.Selection.Changed +=
+            (o, eventArgs) =&gt;
+            CurrentSelectionTextBox.Text = args.Document.Selection.Current.ToString();
+    };
+}
+
+private void ReplaceSelectionButton_Click(object sender, EventArgs e)
+{
+    Document doc = _editorController.ActiveDocument;
+    if (doc.Selection.Current is SourceSelection)
+    {
+        MessageBox.Show(&quot;The replace of a source selection is not available.&quot;);
+        return;
+    }
+
+    doc.Selection.Target.Replace(ReplaceSelectionTextBox.Text, &quot;Manual selection replacement&quot;);
+    doc.Selection.Target.Collapse();
+}
+</code></pre></section>
+</div>
 </article>
           </div>
           

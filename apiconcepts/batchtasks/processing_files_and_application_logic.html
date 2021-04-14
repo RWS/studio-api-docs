@@ -8,7 +8,7 @@
     <title>Processing Files and Application Logic </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Processing Files and Application Logic ">
-    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="generator" content="docfx 2.57.1.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
@@ -82,25 +82,25 @@
 <p>Implement the functionality that changes the status of document segments.</p>
 <h2 id="how-to-trigger-the-batch-task">How to trigger the batch task</h2>
 <p>Go back to the <strong>MyCustomBatchTask.cs</strong> class. This class is triggered when you decide to run the batch task. This class inherits from the following abstract class:</p>
-<div class="tabGroup" id="tabgroup_Qw+6E8utu1">
+<div class="tabGroup" id="tabgroup_WE6RZvERMp">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_Qw+6E8utu1_tabid-1" role="tab" aria-controls="tabpanel_Qw+6E8utu1_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">The Abstract Task Class</a>
+<a href="#tabpanel_WE6RZvERMp_tabid-1" role="tab" aria-controls="tabpanel_WE6RZvERMp_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">The Abstract Task Class</a>
 </li>
 </ul>
-<section id="tabpanel_Qw+6E8utu1_tabid-1" role="tabpanel" data-tab="tabid-1">
+<section id="tabpanel_WE6RZvERMp_tabid-1" role="tabpanel" data-tab="tabid-1">
 <pre><code class="lang-csharp" name="MyCustomBatchTask" title="The Abstract Task Class">// A batch task plug-in needs to implement the AbstractFileContentProcessingAutomaticTask class
 public class MyCustomBatchTask : AbstractFileContentProcessingAutomaticTask
 </code></pre></section>
 </div>
 <p>Declare a member that stores the plug-in settings, as well as a string variable that is used to construct the XML stream for the task report content:</p>
-<div class="tabGroup" id="tabgroup_Qw+6E8utu1-1">
+<div class="tabGroup" id="tabgroup_WE6RZvERMp-1">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_Qw+6E8utu1-1_tabid-2" role="tab" aria-controls="tabpanel_Qw+6E8utu1-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">The Task Settings</a>
+<a href="#tabpanel_WE6RZvERMp-1_tabid-2" role="tab" aria-controls="tabpanel_WE6RZvERMp-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">The Task Settings</a>
 </li>
 </ul>
-<section id="tabpanel_Qw+6E8utu1-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<section id="tabpanel_WE6RZvERMp-1_tabid-2" role="tabpanel" data-tab="tabid-2">
 <pre><code class="lang-csharp" name="MyCustomBatchTask" title="The Task Settings">// These variables store the plug-in settings,
 // the report string content
 // and the language direction
@@ -109,13 +109,13 @@ private string _reportContent;
 </code></pre></section>
 </div>
 <p>Initialise the task settings object and start constructing the report XML string by adding the root element. The root element should contain the selected confirmation level value in an attribute:</p>
-<div class="tabGroup" id="tabgroup_Qw+6E8utu1-2">
+<div class="tabGroup" id="tabgroup_WE6RZvERMp-2">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_Qw+6E8utu1-2_tabid-3" role="tab" aria-controls="tabpanel_Qw+6E8utu1-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">Report XML String</a>
+<a href="#tabpanel_WE6RZvERMp-2_tabid-3" role="tab" aria-controls="tabpanel_WE6RZvERMp-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">Report XML String</a>
 </li>
 </ul>
-<section id="tabpanel_Qw+6E8utu1-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<section id="tabpanel_WE6RZvERMp-2_tabid-3" role="tabpanel" data-tab="tabid-3">
 <pre><code class="lang-csharp" name="MyCustomBatchTask" title="Report XML String">// The task is initialized
 // This means that the settings are retrieved,
 // and we start constructing the report content string
@@ -128,13 +128,13 @@ protected override void OnInitializeTask()
 </div>
 <h2 id="how-to-process-the-sdl-xliff-file">How to process the SDL XLIFF file</h2>
 <p>You can programmatically access the file that is currently processed through the following member. In a &quot;Hello World&quot;-type implementation you could output the name and path of the processed file.</p>
-<div class="tabGroup" id="tabgroup_Qw+6E8utu1-3">
+<div class="tabGroup" id="tabgroup_WE6RZvERMp-3">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_Qw+6E8utu1-3_tabid-4" role="tab" aria-controls="tabpanel_Qw+6E8utu1-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">Configuring the Converter</a>
+<a href="#tabpanel_WE6RZvERMp-3_tabid-4" role="tab" aria-controls="tabpanel_WE6RZvERMp-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">Configuring the Converter</a>
 </li>
 </ul>
-<section id="tabpanel_Qw+6E8utu1-3_tabid-4" role="tabpanel" data-tab="tabid-4">
+<section id="tabpanel_WE6RZvERMp-3_tabid-4" role="tabpanel" data-tab="tabid-4">
 <pre><code class="lang-csharp" name="MyCustomBatchTask" title="Configuring the Converter">// Here we continue constructing the report string.
 // Also we trigger the actual task by creating a FileReader object
 // to which we pass the settings and the SDL XLIFF file name
@@ -160,26 +160,26 @@ protected override void ConfigureConverter(ProjectFile projectFile, IMultiFileCo
 <pre><code class="lang-cs">using Sdl.Core.Globalization
 using Sdl.FileTypeSupport.Framework.BilingualApi
 </code></pre><p>It also needs to inherit from the following abstract class:</p>
-<div class="tabGroup" id="tabgroup_Qw+6E8utu1-4">
+<div class="tabGroup" id="tabgroup_WE6RZvERMp-4">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_Qw+6E8utu1-4_tabid-5" role="tab" aria-controls="tabpanel_Qw+6E8utu1-4_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">Abstract class to Implement</a>
+<a href="#tabpanel_WE6RZvERMp-4_tabid-5" role="tab" aria-controls="tabpanel_WE6RZvERMp-4_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">Abstract class to Implement</a>
 </li>
 </ul>
-<section id="tabpanel_Qw+6E8utu1-4_tabid-5" role="tabpanel" data-tab="tabid-5">
+<section id="tabpanel_WE6RZvERMp-4_tabid-5" role="tabpanel" data-tab="tabid-5">
 <pre><code class="lang-csharp" name="FileReader" title="Abstract class to Implement">// This class performs the actual work, it needs to inherit from the 
 // AbstractBilingualContentProcessor class to process bilingual SDL XLIFF files
 public class FileReader : AbstractBilingualContentProcessor
 </code></pre></section>
 </div>
 <p>Add the following members to store the task settings, the file name and path of the SDL XLIFF file to be processed, and the text file name and path that is used to output the exported segments:</p>
-<div class="tabGroup" id="tabgroup_Qw+6E8utu1-5">
+<div class="tabGroup" id="tabgroup_WE6RZvERMp-5">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_Qw+6E8utu1-5_tabid-6" role="tab" aria-controls="tabpanel_Qw+6E8utu1-5_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">The Required Variables</a>
+<a href="#tabpanel_WE6RZvERMp-5_tabid-6" role="tab" aria-controls="tabpanel_WE6RZvERMp-5_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">The Required Variables</a>
 </li>
 </ul>
-<section id="tabpanel_Qw+6E8utu1-5_tabid-6" role="tabpanel" data-tab="tabid-6">
+<section id="tabpanel_WE6RZvERMp-5_tabid-6" role="tabpanel" data-tab="tabid-6">
 <pre><code class="lang-csharp" name="FileReader" title="The Required Variables">// Variables to retrieve the task settings
 // as well as the SDL XLIFF file patch to process and
 // the path of the TXT file that contains the exported content
@@ -190,13 +190,13 @@ private StreamWriter _outFile;
 </div>
 <h2 id="how-to-output-the-segment-content-to-a-text-filetitle">How to output the segment content to a text file</h2>
 <p>With the following member we start by creating the text output file. This file is created in the same folder as the corresponding SDL XLIFF file and the *.txt extension is appended.</p>
-<div class="tabGroup" id="tabgroup_Qw+6E8utu1-6">
+<div class="tabGroup" id="tabgroup_WE6RZvERMp-6">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_Qw+6E8utu1-6_tabid-7" role="tab" aria-controls="tabpanel_Qw+6E8utu1-6_tabid-7" data-tab="tabid-7" tabindex="0" aria-selected="true">Creating the Output File</a>
+<a href="#tabpanel_WE6RZvERMp-6_tabid-7" role="tab" aria-controls="tabpanel_WE6RZvERMp-6_tabid-7" data-tab="tabid-7" tabindex="0" aria-selected="true">Creating the Output File</a>
 </li>
 </ul>
-<section id="tabpanel_Qw+6E8utu1-6_tabid-7" role="tabpanel" data-tab="tabid-7">
+<section id="tabpanel_WE6RZvERMp-6_tabid-7" role="tabpanel" data-tab="tabid-7">
 <pre><code class="lang-csharp" name="FileReader" title="Creating the Output File">// We use this member to create the TXT export file
 public override void SetFileProperties(IFileProperties fileInfo)
 {
@@ -205,13 +205,13 @@ public override void SetFileProperties(IFileProperties fileInfo)
 </code></pre></section>
 </div>
 <p>In the next step, we loop through each paragraph unit of the SDL XLIFF file. We make sure to process only paragraph units that actually contain segments. When we encounter a paragraph unit that only contains structure tags (i.e. no localizable segments), we abort. When looping through the segment pairs, we write all segments with the selected confirmation status to the output text file:</p>
-<div class="tabGroup" id="tabgroup_Qw+6E8utu1-7">
+<div class="tabGroup" id="tabgroup_WE6RZvERMp-7">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_Qw+6E8utu1-7_tabid-8" role="tab" aria-controls="tabpanel_Qw+6E8utu1-7_tabid-8" data-tab="tabid-8" tabindex="0" aria-selected="true">Outputing the Segment Pairs</a>
+<a href="#tabpanel_WE6RZvERMp-7_tabid-8" role="tab" aria-controls="tabpanel_WE6RZvERMp-7_tabid-8" data-tab="tabid-8" tabindex="0" aria-selected="true">Outputing the Segment Pairs</a>
 </li>
 </ul>
-<section id="tabpanel_Qw+6E8utu1-7_tabid-8" role="tabpanel" data-tab="tabid-8">
+<section id="tabpanel_WE6RZvERMp-7_tabid-8" role="tabpanel" data-tab="tabid-8">
 <pre><code class="lang-csharp" name="FileReader" title="Outputing the Segment Pairs">// This member loops through all the segments, determines the segment status,
 // and then outputs the content to the text file (if applicable)
 public override void ProcessParagraphUnit(IParagraphUnit paragraphUnit)
@@ -236,13 +236,13 @@ public override void ProcessParagraphUnit(IParagraphUnit paragraphUnit)
 </code></pre></section>
 </div>
 <p>Once the file processing is done, we close the text output file.</p>
-<div class="tabGroup" id="tabgroup_Qw+6E8utu1-8">
+<div class="tabGroup" id="tabgroup_WE6RZvERMp-8">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_Qw+6E8utu1-8_tabid-9" role="tab" aria-controls="tabpanel_Qw+6E8utu1-8_tabid-9" data-tab="tabid-9" tabindex="0" aria-selected="true">File is Complete</a>
+<a href="#tabpanel_WE6RZvERMp-8_tabid-9" role="tab" aria-controls="tabpanel_WE6RZvERMp-8_tabid-9" data-tab="tabid-9" tabindex="0" aria-selected="true">File is Complete</a>
 </li>
 </ul>
-<section id="tabpanel_Qw+6E8utu1-8_tabid-9" role="tabpanel" data-tab="tabid-9">
+<section id="tabpanel_WE6RZvERMp-8_tabid-9" role="tabpanel" data-tab="tabid-9">
 <pre><code class="lang-csharp" name="FileReader" title="File is Complete">// Here we close the TXT file
 public override void FileComplete()
 {           
@@ -252,13 +252,13 @@ public override void FileComplete()
 </code></pre></section>
 </div>
 <p>The following member is required by the interface, although our implementation does not actually use it. The file complete member is called when processing a file is finished. However, as users could merge SDL XLIFF files, the following member must be present to determine what happens when the process has been completed for the entire merged file.</p>
-<div class="tabGroup" id="tabgroup_Qw+6E8utu1-9">
+<div class="tabGroup" id="tabgroup_WE6RZvERMp-9">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_Qw+6E8utu1-9_tabid-10" role="tab" aria-controls="tabpanel_Qw+6E8utu1-9_tabid-10" data-tab="tabid-10" tabindex="0" aria-selected="true">Job is Complete</a>
+<a href="#tabpanel_WE6RZvERMp-9_tabid-10" role="tab" aria-controls="tabpanel_WE6RZvERMp-9_tabid-10" data-tab="tabid-10" tabindex="0" aria-selected="true">Job is Complete</a>
 </li>
 </ul>
-<section id="tabpanel_Qw+6E8utu1-9_tabid-10" role="tabpanel" data-tab="tabid-10">
+<section id="tabpanel_WE6RZvERMp-9_tabid-10" role="tabpanel" data-tab="tabid-10">
 <pre><code class="lang-csharp" name="FileReader" title="Job is Complete">// Not really used in this implementation.
 // Users can merge files and process them as one.
 // If a single file is processed, the FileComlete member is invoked
@@ -273,13 +273,13 @@ public override void Complete()
 <p>Go back to the <strong>MyCustomBatchTask.cs</strong> class. Here we do the following:</p>
 <p>We continue constructing the XML string for the report by adding the name of the file currently processed, its target language and the date/time at which it was processed.</p>
 <p>We create a <strong>FileReader</strong> object to which we pass the current SDL XLIFF file name, as well as our settings object:</p>
-<div class="tabGroup" id="tabgroup_Qw+6E8utu1-10">
+<div class="tabGroup" id="tabgroup_WE6RZvERMp-10">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_Qw+6E8utu1-10_tabid-11" role="tab" aria-controls="tabpanel_Qw+6E8utu1-10_tabid-11" data-tab="tabid-11" tabindex="0" aria-selected="true">Configure converter</a>
+<a href="#tabpanel_WE6RZvERMp-10_tabid-11" role="tab" aria-controls="tabpanel_WE6RZvERMp-10_tabid-11" data-tab="tabid-11" tabindex="0" aria-selected="true">Configure converter</a>
 </li>
 </ul>
-<section id="tabpanel_Qw+6E8utu1-10_tabid-11" role="tabpanel" data-tab="tabid-11">
+<section id="tabpanel_WE6RZvERMp-10_tabid-11" role="tabpanel" data-tab="tabid-11">
 <pre><code class="lang-csharp" name="MyCustomBatchTask" title="Configure converter">// Here we continue constructing the report string.
 // Also we trigger the actual task by creating a FileReader object
 // to which we pass the settings and the SDL XLIFF file name
@@ -301,13 +301,13 @@ protected override void ConfigureConverter(ProjectFile projectFile, IMultiFileCo
 </code></pre></section>
 </div>
 <p>We complete the task by adding the closing XML report string with the closing root element. Then we generate the report using the <strong>CreateReport</strong> method implemented by the interface.</p>
-<div class="tabGroup" id="tabgroup_Qw+6E8utu1-11">
+<div class="tabGroup" id="tabgroup_WE6RZvERMp-11">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_Qw+6E8utu1-11_tabid-12" role="tab" aria-controls="tabpanel_Qw+6E8utu1-11_tabid-12" data-tab="tabid-12" tabindex="0" aria-selected="true">Complete task and report string</a>
+<a href="#tabpanel_WE6RZvERMp-11_tabid-12" role="tab" aria-controls="tabpanel_WE6RZvERMp-11_tabid-12" data-tab="tabid-12" tabindex="0" aria-selected="true">Complete task and report string</a>
 </li>
 </ul>
-<section id="tabpanel_Qw+6E8utu1-11_tabid-12" role="tabpanel" data-tab="tabid-12">
+<section id="tabpanel_WE6RZvERMp-11_tabid-12" role="tabpanel" data-tab="tabid-12">
 <pre><code class="lang-csharp" name="MyCustomBatchTask" title="Complete task and report string">// At the end of the task, we output the 
 public override void TaskComplete()
 {
