@@ -8,7 +8,7 @@
     <title>Retrieving Database Servers </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Retrieving Database Servers ">
-    <meta name="generator" content="docfx 2.57.1.0">
+    <meta name="generator" content="docfx 2.57.2.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
@@ -81,11 +81,27 @@
 
 <p>In this chapter you will learn how to get programmatic access to the database server(s) that is/are used by the TM Server.</p>
 <h2 id="add-a-new-class">Add a New Class</h2>
-<p>Start by adding a new class called <code>ServerDBServers</code> to your project. Add a public function called <code>GetDBServers</code>, which takes a <code>TranslationProviderServer</code> object as parameter. Call this function from Connect as shown below:</p>
-<pre><code>ServerDBServers dbServ = new ServerDBServers();
+<p>Start by adding a new class called <code>ServerDBServers</code> to your project. Add a public function called <code>GetDBServers</code>, which takes a <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.html">TranslationProviderServer</a> object as parameter. Call this function from Connect as shown below:</p>
+<div class="tabGroup" id="tabgroup_IV8SVaqY6P">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_IV8SVaqY6P_tabid-1" role="tab" aria-controls="tabpanel_IV8SVaqY6P_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_IV8SVaqY6P_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-cs">ServerDBServers dbServ = new ServerDBServers();
 dbServ.GetDBServers(tmServer);
-</code></pre><p>In the GetDBServers function the GetDatabaseServers method is applied to the server object. Then the function loops through the database servers that are registered for the given TM server. Although most setups involve only a single database server, it is conceivable that the SDL TM Server connects to several DB servers.</p>
-<pre><code>public void GetDBServers(TranslationProviderServer tmServer)
+</code></pre></section>
+</div>
+<p>In the <code>GetDBServers</code> function the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.html#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationProviderServer_GetDatabaseServers_Sdl_LanguagePlatform_TranslationMemoryApi_DatabaseServerProperties_">GetDatabaseServers</a> method is applied to the server object. Then the function loops through the database servers that are registered for the given TM server. Although most setups involve only a single database server, it is conceivable that the SDL TM Server connects to several DB servers.</p>
+<div class="tabGroup" id="tabgroup_IV8SVaqY6P-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_IV8SVaqY6P-1_tabid-2" role="tab" aria-controls="tabpanel_IV8SVaqY6P-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_IV8SVaqY6P-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<pre><code class="lang-cs">public void GetDBServers(TranslationProviderServer tmServer)
 {
     string serverInfo = string.Empty;
 
@@ -99,12 +115,21 @@ dbServ.GetDBServers(tmServer);
 
     MessageBox.Show(serverInfo, &quot;Container Information&quot;);
 }
-</code></pre><p>In the <code>foreach</code> loop we build up the string that contains all DB servers and their properties. <code>ServerName</code> gets the full DNS name or IP address of the DB server, while Name is used to retrieve the friendly DB server name. Note that when registering a DB server the administrator can enter the actual server name (e.g. sqlserv\sqlexpress) and assign a friendly name like <em>TestDB</em>. Among other things, you can retrieve a server Description (which is optional) as well the <code>ServerType</code>, which can currently be SQL Server or Oracle.
+</code></pre></section>
+</div>
+<p>In the <code>foreach</code> loop we build up the string that contains all DB servers and their properties. <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.DatabaseServer.html#Sdl_LanguagePlatform_TranslationMemoryApi_DatabaseServer_ServerName">ServerName</a> gets the full DNS name or IP address of the DB server, while <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.DatabaseServer.html#Sdl_LanguagePlatform_TranslationMemoryApi_DatabaseServer_Name">Name</a> is used to retrieve the friendly DB server name. Note that when registering a DB server the administrator can enter the actual server name (e.g. sqlserv\sqlexpress) and assign a friendly name like <em>TestDB</em>. Among other things, you can retrieve a server <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.DatabaseServer.html#Sdl_LanguagePlatform_TranslationMemoryApi_DatabaseServer_Description">Description</a> (which is optional) as well the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.DatabaseServer.html#Sdl_LanguagePlatform_TranslationMemoryApi_DatabaseServer_ServerType">ServerType</a>, which can currently be SQL Server or Oracle.
 Below you see an example of a box containing information on a particular DB server in the TM Server Manager:</p>
 <p><img style="display:block; " src="images/DbServerInfo.jpg"></p>
 <h2 id="putting-it-all-together">Putting it All Together</h2>
 <p>The complete class looks as shown below:</p>
-<pre><code>namespace Sdl.SDK.LanguagePlatform.Samples.TmAutomation
+<div class="tabGroup" id="tabgroup_IV8SVaqY6P-2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_IV8SVaqY6P-2_tabid-3" role="tab" aria-controls="tabpanel_IV8SVaqY6P-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_IV8SVaqY6P-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<pre><code class="lang-cs">namespace Sdl.SDK.LanguagePlatform.Samples.TmAutomation
 {
     using System.Windows.Forms;
     using Sdl.LanguagePlatform.TranslationMemoryApi;
@@ -129,7 +154,9 @@ Below you see an example of a box containing information on a particular DB serv
         #endregion
     }
 }
-</code></pre></article>
+</code></pre></section>
+</div>
+</article>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">

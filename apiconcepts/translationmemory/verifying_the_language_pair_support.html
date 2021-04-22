@@ -8,7 +8,7 @@
     <title>Verifying the Language Pair Support </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Verifying the Language Pair Support ">
-    <meta name="generator" content="docfx 2.57.1.0">
+    <meta name="generator" content="docfx 2.57.2.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
@@ -82,21 +82,120 @@
 <p>It is essential for the translation provider plug-in to verify whether the language pair that was selected when opening a document (or when creating a project) is actually supported by the selected translation provider source, i.e. in our implementation the delimited text file. If a user has selected e.g. <strong>Japanese -&gt; French</strong> when opening a document for translation, but the delimited list contains <strong>Italian -&gt; Spanish</strong> segment pairs, the text file should be rejected as a translation provider.</p>
 <h2 id="requirements-for-checking-the-language-direction-in-our-implementation">Requirements for Checking the Language Direction in our Implementation</h2>
 <p>Remember that the first line of a delimited text file is required to contain the language pair with the source target languages being separated by the specified delimiting character, e.g.:</p>
-<p>en-US;de_DE</p>
-<p>Our sample plug-in should first of all check whether the first line can be split at the specified delimiter character and whether the languages indicated here match the language pair that the user selected in SDL Trados Studio 2017.
-In the following screenshot English (US) is selected as the source language, the target language is German (Germany). The API would therefore return en-US for the source language SourceCultureName, and de-DE for the target language, i.e. the TargetCultureName property. These strings map, of course, nicely to the locale combination of our list files, which makes checking whether the selected language pair actually fits the selected list very easy.
+<pre><code>en-US;de_DE
+</code></pre><p>Our sample plug-in should first of all check whether the first line can be split at the specified delimiter character and whether the languages indicated here match the language pair that the user selected in Trados Studio.
+In the following screenshot English (US) is selected as the source language, the target language is German (Germany). The API would therefore return en-US for the source language <code>SourceCultureName</code>, and de-DE for the target language, i.e. the <code>TargetCultureName</code> property. These strings map, of course, nicely to the locale combination of our list files, which makes checking whether the selected language pair actually fits the selected list very easy.
 <img style="display:block; " src="images/OpenDocumentWithPlugin.jpg"></p>
 <p>(In other implementations, the translation provider that you connect to might not allow for such an easy mapping of languages, which means that you may have to develop a more involved application logic for verifying the validity of the language combination.)</p>
 <p>The requirement is to check whether the selected language pair actually fits the translation provider, or whether the language pair is supported by the translation provider in the first place. For example, if you connect to an automated translation service that does not support Japanese, but the user has selected Japanese as source or target language, then a corresponding message needs to be thrown, and the user should not be allowed to select this particular translation provider.</p>
 <h2 id="implement-the-logic-for-checking-the-language-direction">Implement the Logic for Checking the Language Direction</h2>
-<p>The logic for checking the language direction is implemented within the SupportsLanguageDirection method of the ITranslationProvider interface. This method takes a region-qualified source-target language combination object as parameter. This object holds the information on the languages that were selected by the user in the user interface of Trados Studio 2017, and which needs to be compared to the language direction of the translation provider.</p>
+<p>The logic for checking the language direction is implemented within the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider.html#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProvider_SupportsLanguageDirection_Sdl_LanguagePlatform_Core_LanguagePair_">SupportsLanguageDirection</a> method of the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider.html">ITranslationProvider</a> interface. This method takes a region-qualified source-target language combination object as parameter. This object holds the information on the languages that were selected by the user in the user interface of Trados Studio, and which needs to be compared to the language direction of the translation provider.</p>
 <p>We start by opening the text file and reading the first line:</p>
-<p>Then we verify whether this first line actually contains the language direction information by matching the string to a regular expression. If the regular expression is not matched, then we return False, which means that the list file cannot be used as a translation provider.</p>
-<p>If the first line matches the regular expression, we can proceed to comparing the language combination that is indicated in the list file to the source/target languages that have been chosen in Trados Studio 2017. Depending on whether the language combination is matching or not, we return True or False.
-When the method returns False, Trados Studio 2017 will throw a message like the one in the example below when selecting the translation provider:</p>
+<div class="tabGroup" id="tabgroup_EIFY7CY8kS">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_EIFY7CY8kS_tabid-1" role="tab" aria-controls="tabpanel_EIFY7CY8kS_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_EIFY7CY8kS_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-cs">using (StreamReader listFile = new StreamReader(Options.ListFileName))
+{
+    firstLine = listFile.ReadLine();
+    listFile.Close();
+}
+</code></pre></section>
+</div>
+<p>Then we verify whether this first line actually contains the language direction information by matching the string to a regular expression. If the regular expression is not matched, then we return <code>False</code>, which means that the list file cannot be used as a translation provider.</p>
+<div class="tabGroup" id="tabgroup_EIFY7CY8kS-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_EIFY7CY8kS-1_tabid-2" role="tab" aria-controls="tabpanel_EIFY7CY8kS-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_EIFY7CY8kS-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<pre><code class="lang-cs">string[] langs = (firstLine.Split(Convert.ToChar(Options.Delimiter)));
+if (langs.Count&lt;string&gt;() != 2)
+{
+    return false;
+}
+</code></pre></section>
+</div>
+<p>If the first line matches the regular expression, we can proceed to comparing the language combination that is indicated in the list file to the source/target languages that have been chosen in Trados Studio. Depending on whether the language combination is matching or not, we return <code>True</code> or <code>False</code>.</p>
+<div class="tabGroup" id="tabgroup_EIFY7CY8kS-2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_EIFY7CY8kS-2_tabid-3" role="tab" aria-controls="tabpanel_EIFY7CY8kS-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_EIFY7CY8kS-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<pre><code class="lang-cs">if (langs[0].ToLower() == languageDirection.SourceCultureName.ToLower()
+    &amp;&amp; langs[1].ToLower() == languageDirection.TargetCultureName.ToLower())
+{
+    // The provider supports the selected language direction.
+    return true;
+}
+else
+{
+    // The provider does not support the selected language direction.
+    return false;
+}
+</code></pre></section>
+</div>
+<p>When the method returns <code>False</code>, Trados Studio will throw a message like the one in the example below when selecting the translation provider:</p>
 <p><img style="display:block; " src="images/LanguagesNotSupported.jpg"></p>
 <h2 id="putting-it-all-together">Putting it All Together</h2>
 <p>The complete method should now look as shown below:</p>
+<div class="tabGroup" id="tabgroup_EIFY7CY8kS-3">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_EIFY7CY8kS-3_tabid-4" role="tab" aria-controls="tabpanel_EIFY7CY8kS-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_EIFY7CY8kS-3_tabid-4" role="tabpanel" data-tab="tabid-4">
+<pre><code class="lang-cs">public bool SupportsLanguageDirection(LanguagePair languageDirection)
+{
+    string firstLine = &quot;&quot;;
+    #region &quot;ReadFirstLine&quot;
+    using (StreamReader listFile = new StreamReader(Options.ListFileName))
+    {
+        firstLine = listFile.ReadLine();
+        listFile.Close();
+    }
+    #endregion
+
+    // Check whether the first line of the text file indicates
+    // the language direction, e.g. en-US;de-DE.
+    // If the first line cannot be split at the delimiter, the delimited list
+    // file should not be accepted as translation provider.
+    #region &quot;FirstLineCheck&quot;
+    string[] langs = (firstLine.Split(Convert.ToChar(Options.Delimiter)));
+    if (langs.Count&lt;string&gt;() != 2)
+    {
+        return false;
+    }
+
+    #endregion
+
+    // This implementation will not be case-sensitive, therefore
+    // we use the ToLower() method when comparing the language direction
+    // of the delimited file to the language direction that was
+    // selected in SDL Trados Studio.
+    #region &quot;CompareLanguages&quot;
+    if (langs[0].ToLower() == languageDirection.SourceCultureName.ToLower()
+        &amp;&amp; langs[1].ToLower() == languageDirection.TargetCultureName.ToLower())
+    {
+        // The provider supports the selected language direction.
+        return true;
+    }
+    else
+    {
+        // The provider does not support the selected language direction.
+        return false;
+    }
+    #endregion
+}
+</code></pre></section>
+</div>
 </article>
           </div>
           

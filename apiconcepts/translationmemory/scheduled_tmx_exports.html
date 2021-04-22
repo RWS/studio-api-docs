@@ -8,7 +8,7 @@
     <title>Scheduled TMX Exports </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Scheduled TMX Exports ">
-    <meta name="generator" content="docfx 2.57.1.0">
+    <meta name="generator" content="docfx 2.57.2.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
@@ -81,18 +81,43 @@
 
 <p>You can also export the content of a server TM to a <em>*.tmx</em> file. Here, the same considerations apply as for the <em>.tmx</em> import, i.e. the export operation, too, could be disrupted by latencies in the WAN connection. This is why exports are run as scheduled tasks. When running an export from a file-based TM, you select the location where the <em>*.tmx</em> document should be created on your local hard disk. When running an export from a server TM you do not select a file path. Instead, the export is run as a scheduled task, and the <em>*.tmx</em> file can then be downloaded once the export has finished.</p>
 <h2 id="add-a-new-class">Add a New Class</h2>
-<p>Start by adding a new class to your project called ServerExporter. Within this class, you implement a public function called ExportToTmx, which takes the TM Server object and the TM name as parameters.</p>
+<p>Start by adding a new class to your project called <code>ServerExporter</code>. Within this class, you implement a public function called <code>ExportToTmx</code>, which takes the TM Server object and the TM name as parameters.</p>
 <h2 id="open-the-tm-and-create-an-exporter-object">Open the TM and Create an Exporter Object</h2>
-<p>First, open the TM from which the export should take place. Programmatically, this is tantamount to creating a TM object by applying the <code>GetTranslationMemory</code> method to the TM Server object. This requires the full path to the TM including the organization name, e.g. /Organization Name/TM Name.</p>
-<pre><code>if (!orgName.StartsWith(&quot;/&quot;)) orgName = &quot;/&quot; + orgName;
+<p>First, open the TM from which the export should take place. Programmatically, this is tantamount to creating a TM object by applying the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.html#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationProviderServer_GetTranslationMemory_System_Guid_Sdl_LanguagePlatform_TranslationMemoryApi_TranslationMemoryProperties_">GetTranslationMemory</a> method to the TM Server object. This requires the full path to the TM including the organization name, e.g. /Organization Name/TM Name.</p>
+<div class="tabGroup" id="tabgroup_-ec90A1J-T">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_-ec90A1J-T_tabid-1" role="tab" aria-controls="tabpanel_-ec90A1J-T_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_-ec90A1J-T_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-cs">if (!orgName.StartsWith(&quot;/&quot;)) orgName = &quot;/&quot; + orgName;
 if (!orgName.EndsWith(&quot;/&quot;)) orgName += &quot;/&quot;;
 ServerBasedTranslationMemory tm = tmServer.GetTranslationMemory(
     orgName + tmName, TranslationMemoryProperties.All);
-</code></pre><p>Next, create an exporter object:</p>
-<pre><code>ScheduledTranslationMemoryExportOperation exporter = new ScheduledTranslationMemoryExportOperation(
+</code></pre></section>
+</div>
+<p>Next, create an exporter object:</p>
+<div class="tabGroup" id="tabgroup_-ec90A1J-T-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_-ec90A1J-T-1_tabid-2" role="tab" aria-controls="tabpanel_-ec90A1J-T-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_-ec90A1J-T-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<pre><code class="lang-cs">ScheduledTranslationMemoryExportOperation exporter = new ScheduledTranslationMemoryExportOperation(
     this.GetLanguageDirection(tm, CultureInfo.GetCultureInfo(&quot;en-US&quot;), CultureInfo.GetCultureInfo(&quot;de-DE&quot;)));
-</code></pre><p>The TMX export file will contain two languages (e.g. en-US -&gt; de-DE). Use the following separate function to verify whether the selected TM supports this language direction and to set the languages for the export:</p>
-<pre><code>private ServerBasedTranslationMemoryLanguageDirection GetLanguageDirection(ServerBasedTranslationMemory tm, CultureInfo source, CultureInfo target)
+</code></pre></section>
+</div>
+<p>The TMX export file will contain two languages (e.g. en-US -&gt; de-DE). Use the following separate function to verify whether the selected TM supports this language direction and to set the languages for the export:</p>
+<div class="tabGroup" id="tabgroup_-ec90A1J-T-2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_-ec90A1J-T-2_tabid-3" role="tab" aria-controls="tabpanel_-ec90A1J-T-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_-ec90A1J-T-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<pre><code class="lang-cs">private ServerBasedTranslationMemoryLanguageDirection GetLanguageDirection(ServerBasedTranslationMemory tm, CultureInfo source, CultureInfo target)
 {
     foreach (ServerBasedTranslationMemoryLanguageDirection item in tm.LanguageDirections)
     {
@@ -104,13 +129,31 @@ ServerBasedTranslationMemory tm = tmServer.GetTranslationMemory(
 
     throw new Exception(&quot;Requested direction doesn&#39;t exist.&quot;);
 }
-</code></pre><p>Configure the Export Settings
-In the next step, you may configure the export settings such as the <code>ChunkSize</code>, which determines the number of TUs that are processed at a given time. Especially when using slower Internet connections, it may be better to choose a smaller chunk size. Note that the default chunk size is 50 (<code>DefaultTranslationUnitChunkSize</code>), the maximum chunk size is 200 (<code>MaxTranslationUnitChunkSize</code>). Another (boolean) parameter that you may set is ContinueOnError. True means that when errors are encountered during the export (e.g. due to an invalid TU), the process should still continue by exporting the remaining (valid) TUs.</p>
-<pre><code>exporter.ChunkSize = 25;
+</code></pre></section>
+</div>
+<h2 id="configure-the-export-settings">Configure the Export Settings</h2>
+<p>In the next step, you may configure the export settings such as the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryExporter.html#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationMemoryExporter_ChunkSize">ChunkSize</a>, which determines the number of TUs that are processed at a given time. Especially when using slower Internet connections, it may be better to choose a smaller chunk size. Note that the default chunk size is 50 (<a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryExporter.html#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationMemoryExporter_DefaultTranslationUnitChunkSize">DefaultTranslationUnitChunkSize</a>), the maximum chunk size is 200 (<a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryExporter.html#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationMemoryExporter_MaxTranslationUnitChunkSize">MaxTranslationUnitChunkSize</a>). Another (boolean) parameter that you may set is <code>ContinueOnError</code>. True means that when errors are encountered during the export (e.g. due to an invalid TU), the process should still continue by exporting the remaining (valid) TUs.</p>
+<div class="tabGroup" id="tabgroup_-ec90A1J-T-3">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_-ec90A1J-T-3_tabid-4" role="tab" aria-controls="tabpanel_-ec90A1J-T-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_-ec90A1J-T-3_tabid-4" role="tabpanel" data-tab="tabid-4">
+<pre><code class="lang-cs">exporter.ChunkSize = 25;
 exporter.ContinueOnError = true;
-</code></pre><h2 id="continue-or-wait">Continue or Wait</h2>
-<p>In the next step you determine whether the export operation should be refreshed or not Through <code>ScheduledOperationStatus</code> you can determine the current status of the export operation. When the operation is, for example, Aborted or Cancelled, the process should not continue. However, when the status of the operation is, for example, Queued or Recovering, the process should be refreshed (Refresh).</p>
-<pre><code>exporter.Queue();
+</code></pre></section>
+</div>
+<h2 id="continue-or-wait">Continue or Wait</h2>
+<p>In the next step you determine whether the export operation should be refreshed or not Through <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ScheduledOperationStatus.html">ScheduledOperationStatus</a> you can determine the current status of the export operation. When the operation is, for example, <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ScheduledOperationStatus.html">Aborted</a> or <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ScheduledOperationStatus.html">Cancelled</a>, the process should not continue. However, when the status of the operation is, for example, <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ScheduledOperationStatus.html">Queued</a> or <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ScheduledOperationStatus.html">Recovering</a>, the process should be refreshed (<a href="">Refresh</a>).</p>
+<div class="tabGroup" id="tabgroup_-ec90A1J-T-4">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_-ec90A1J-T-4_tabid-5" role="tab" aria-controls="tabpanel_-ec90A1J-T-4_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_-ec90A1J-T-4_tabid-5" role="tabpanel" data-tab="tabid-5">
+<pre><code class="lang-cs">exporter.Queue();
 exporter.Refresh();
 
 bool continueWaiting = true;
@@ -142,9 +185,18 @@ while (continueWaiting)
             break;
     }
 }
-</code></pre><h2 id="complete-the-process">Complete the Process</h2>
-<p>At the end you can use the ScheduledOperationStatus class to ascertain whether the export operation has finished, or not. When the status of the operation is Completed, the user should be notified on the successful completion of the process. If the status is Error, the user should also be notified accordingly by throwing an exception message.</p>
-<pre><code>if (exporter.Status == ScheduledOperationStatus.Completed)
+</code></pre></section>
+</div>
+<h2 id="complete-the-process">Complete the Process</h2>
+<p>At the end you can use the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ScheduledOperationStatus.html">ScheduledOperationStatus</a> class to ascertain whether the export operation has finished, or not. When the status of the operation is <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ScheduledOperationStatus.html">Completed</a>, the user should be notified on the successful completion of the process. If the status is <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ScheduledOperationStatus.html">Error</a>, the user should also be notified accordingly by throwing an exception message.</p>
+<div class="tabGroup" id="tabgroup_-ec90A1J-T-5">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_-ec90A1J-T-5_tabid-6" role="tab" aria-controls="tabpanel_-ec90A1J-T-5_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_-ec90A1J-T-5_tabid-6" role="tabpanel" data-tab="tabid-6">
+<pre><code class="lang-cs">if (exporter.Status == ScheduledOperationStatus.Completed)
 {
     using (Stream outputStream  = new FileStream(exportFilePath, FileMode.Create))
     {
@@ -160,9 +212,18 @@ else
 {
     MessageBox.Show(&quot;Export did not finish.&quot;);
 }
-</code></pre><h2 id="putting-it-all-together">Putting it All Together</h2>
+</code></pre></section>
+</div>
+<h2 id="putting-it-all-together">Putting it All Together</h2>
 <p>The complete class should now look as shown below:</p>
-<pre><code>namespace Sdl.SDK.LanguagePlatform.Samples.TmAutomation
+<div class="tabGroup" id="tabgroup_-ec90A1J-T-6">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_-ec90A1J-T-6_tabid-7" role="tab" aria-controls="tabpanel_-ec90A1J-T-6_tabid-7" data-tab="tabid-7" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_-ec90A1J-T-6_tabid-7" role="tabpanel" data-tab="tabid-7">
+<pre><code class="lang-cs">namespace Sdl.SDK.LanguagePlatform.Samples.TmAutomation
 {
     using System;
     using System.IO;
@@ -269,7 +330,15 @@ else
 
     }
 }
-</code></pre></article>
+</code></pre></section>
+</div>
+<div class="NOTE"><h5>Note</h5><p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+</div>
+<h2 id="see-also">See Also</h2>
+<p><a href="scheduled_tmx_imports.html">Scheduled TMX Imports</a></p>
+<p>[Exporting to a TMX File]</p>
+<p>[Importing a TMX File]</p>
+</article>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">

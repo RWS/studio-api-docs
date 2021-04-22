@@ -8,7 +8,7 @@
     <title>Creating the Master Translation Memories </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Creating the Master Translation Memories ">
-    <meta name="generator" content="docfx 2.57.1.0">
+    <meta name="generator" content="docfx 2.57.2.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
@@ -79,12 +79,19 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="creating-the-master-translation-memories">Creating the Master Translation Memories</h1>
 
-<p>Remember that all *.tmx files of the same language direction need to be consolidated in a master TM. If the importer class (see Importing into the Master Translation Memories) determines that the corresponding master TM does not yet exist, it should be created through a separate class. On this page you will learn how to implement the class for creating the master TMs.</p>
+<p>Remember that all *.tmx files of the same language direction need to be consolidated in a master TM. If the importer class (see <a href="importing_into_the_master_translation_memories.html">Importing into the Master Translation Memories</a>) determines that the corresponding master TM does not yet exist, it should be created through a separate class. On this page you will learn how to implement the class for creating the master TMs.</p>
 <h2 id="add-a-new-class">Add a New Class</h2>
-<p>Start by adding a new class called TmCreator to your project. Add a public function called CreateMasterTm, which takes the path in which the master TMs should be created and the source/target language locales as string parameters.</p>
+<p>Start by adding a new class called TmCreator to your project. Add a public function called <code>CreateMasterTm</code>, which takes the path in which the master TMs should be created and the source/target language locales as string parameters.</p>
 <h2 id="create-the-master-tm">Create the Master TM</h2>
 <p>In the next step, implement the logic required for creating the master TM file. Note that for simplicity&#39;s sake, the file name is a combination of a hard-coded string <em>(MasterTM_)</em>, the language direction string, and the extension *.sdltm.</p>
-<pre><code>/// &lt;summary&gt;
+<div class="tabGroup" id="tabgroup_dUeq3gVtwC">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_dUeq3gVtwC_tabid-1" role="tab" aria-controls="tabpanel_dUeq3gVtwC_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_dUeq3gVtwC_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-cs">/// &lt;summary&gt;
 /// Create the master TM based on the source and target locales found in the current TMX file.
 /// &lt;/summary&gt;
 /// &lt;param name=&quot;sourceLanguage&quot;&gt;String representation of translation memory source language.&lt;/param&gt;
@@ -120,8 +127,17 @@ public void CreateMasterTm(string sourceLanguage, string targetLanguage, string 
 
     #endregion
 }
-</code></pre><p>The fuzzy indexes are determined through a separate helper function:</p>
-<pre><code>/// &lt;summary&gt;
+</code></pre></section>
+</div>
+<p>The fuzzy indexes are determined through a separate helper function:</p>
+<div class="tabGroup" id="tabgroup_dUeq3gVtwC-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_dUeq3gVtwC-1_tabid-2" role="tab" aria-controls="tabpanel_dUeq3gVtwC-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_dUeq3gVtwC-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<pre><code class="lang-cs">/// &lt;summary&gt;
 /// Configure the fuzzy indexes, to determine, for example,
 /// that the master TM should support concordance searching 
 /// in the target language.
@@ -134,8 +150,17 @@ private FuzzyIndexes GetFuzzyIndexes()
 {
     return FuzzyIndexes.SourceWordBased | FuzzyIndexes.TargetWordBased;
 }
-</code></pre><p>Also, the recognition settings are set in a distinct helper function:</p>
-<pre><code>/// &lt;summary&gt;
+</code></pre></section>
+</div>
+<p>Also, the recognition settings are set in a distinct helper function:</p>
+<div class="tabGroup" id="tabgroup_dUeq3gVtwC-2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_dUeq3gVtwC-2_tabid-3" role="tab" aria-controls="tabpanel_dUeq3gVtwC-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_dUeq3gVtwC-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<pre><code class="lang-cs">/// &lt;summary&gt;
 /// Configure the recognition settings for the TM.
 /// Here, we simply activate all recognition settings 
 /// through RecognizeAll, which includes recognition
@@ -146,18 +171,19 @@ private BuiltinRecognizers GetRecognizers()
 {
     return BuiltinRecognizers.RecognizeAll;
 }
-</code></pre><p>For more information, on these settings and on TM creation see also Creating a File-based Translation Memory.</p>
+</code></pre></section>
+</div>
+<p>For more information, on these settings and on TM creation see also <a href="">Creating a File-based Translation Memory</a>.</p>
 <h2 id="putting-it-all-together">Putting it All Together</h2>
 <p>The complete class should look as shown below:</p>
-<pre><code>// ---------------------------------
-// &lt;copyright file=&quot;TMCreator.cs&quot; company=&quot;SDL International&quot;&gt;
-// Copyright  2010 All Right Reserved
-// &lt;/copyright&gt;
-// &lt;author&gt;Patrik Mazanek&lt;/author&gt;
-// &lt;email&gt;pmazanek@sdl.com&lt;/email&gt;
-// &lt;date&gt;2010-09-27&lt;/date&gt;
-// ---------------------------------
-namespace Sdl.SDK.LanguagePlatform.Samples.BatchImporter
+<div class="tabGroup" id="tabgroup_dUeq3gVtwC-3">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_dUeq3gVtwC-3_tabid-4" role="tab" aria-controls="tabpanel_dUeq3gVtwC-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_dUeq3gVtwC-3_tabid-4" role="tabpanel" data-tab="tabid-4">
+<pre><code class="lang-cs">namespace Sdl.SDK.LanguagePlatform.Samples.BatchImporter
 {
     using System.Globalization;
     using Sdl.LanguagePlatform.Core.Tokenization;
@@ -244,7 +270,12 @@ namespace Sdl.SDK.LanguagePlatform.Samples.BatchImporter
         #endregion
     }
 }
-</code></pre></article>
+</code></pre></section>
+</div>
+<h2 id="see-also">See Also</h2>
+<p><a href="creating_a_log_file.html">Creating the Log File</a></p>
+<p><a href="">Creating a File-based Translation Memory</a></p>
+</article>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">

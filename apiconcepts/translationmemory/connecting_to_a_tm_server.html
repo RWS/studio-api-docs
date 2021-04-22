@@ -8,7 +8,7 @@
     <title>Connecting to a TM Server </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Connecting to a TM Server ">
-    <meta name="generator" content="docfx 2.57.1.0">
+    <meta name="generator" content="docfx 2.57.2.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
@@ -81,7 +81,7 @@
 
 <p>In this chapter you will learn how to establish a connection to an SDL TM Server programmatically.</p>
 <h2 id="add-a-new-class">Add a New Class</h2>
-<p>Start by adding a class called ServerConnector to your project. Then add a public function called Connect. In this function you create a translation service provider object using the TranslationProviderServer method, which requires the following parameters:</p>
+<p>Start by adding a class called <code>ServerConnector</code> to your project. Then add a public function called Connect. In this function you create a translation service provider object using the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.html">TranslationProviderServer</a> method, which requires the following parameters:</p>
 <ul>
 <li>The server URI (e.g. <a href="http://tmserv">http://tmserv</a>)</li>
 <li>A boolean flag to indicate whether the user that is logging in is a Windows user (i.e. a user taken from Active Directory) or not</li>
@@ -89,18 +89,34 @@
 <li>The password</li>
 </ul>
 <p>Example:</p>
-<pre><code>/// &lt;summary&gt;
+<div class="tabGroup" id="tabgroup_Aeb5UAjA5y">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_Aeb5UAjA5y_tabid-1" role="tab" aria-controls="tabpanel_Aeb5UAjA5y_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_Aeb5UAjA5y_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-cs">/// &lt;summary&gt;
 /// Connects to TranslationProviderServer.
 /// &lt;/summary&gt;
 public TranslationProviderServer Connect()
 {
     return new TranslationProviderServer(this.GetUri(), false, _userName, _password);
 }
-</code></pre><p>The user credentials are provided by the following helper function: In the above example we provide the credentials of a custom user (i.e. not an Active Directory user). TM Server supports Windows users (i.e. users derived from Active Directory or LDAP) as well as custom users. These users are not derived from any existing LDAP source, but are created specifically for use in TM Server or MultiTerm Server. Additionally, you may allow for anonymous access, i.e. organizations in TM Server can be configured for anonymous access, so that users do not have to enter a login.
+</code></pre></section>
+</div>
+<p>The user credentials are provided by the following helper function: In the above example we provide the credentials of a custom user (i.e. not an Active Directory user). TM Server supports Windows users (i.e. users derived from Active Directory or LDAP) as well as custom users. These users are not derived from any existing LDAP source, but are created specifically for use in TM Server or MultiTerm Server. Additionally, you may allow for anonymous access, i.e. organizations in TM Server can be configured for anonymous access, so that users do not have to enter a login.
 Below you see the logon screen of the TM Server manager, which reflects the various user types supported by the system:</p>
 <p><img style="display:block; " src="images/Logon.jpg"></p>
 <p>Last, create a function that returns the SDL TM Server URI string. The example below connects to an SDL TM test server:</p>
-<pre><code>/// &lt;summary&gt;
+<div class="tabGroup" id="tabgroup_Aeb5UAjA5y-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_Aeb5UAjA5y-1_tabid-2" role="tab" aria-controls="tabpanel_Aeb5UAjA5y-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_Aeb5UAjA5y-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<pre><code class="lang-cs">/// &lt;summary&gt;
 /// Gets adress of a test server to connect to.
 /// &lt;/summary&gt;
 /// &lt;returns&gt;Adress of the test server.&lt;/returns&gt;
@@ -108,7 +124,9 @@ private Uri GetUri()
 {
     return new Uri(_serverUri);
 }
-</code></pre></article>
+</code></pre></section>
+</div>
+</article>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">

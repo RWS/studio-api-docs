@@ -8,7 +8,7 @@
     <title>Retrieving TM Containers </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Retrieving TM Containers ">
-    <meta name="generator" content="docfx 2.57.1.0">
+    <meta name="generator" content="docfx 2.57.2.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
@@ -81,11 +81,27 @@
 
 <p>In this chapter you will learn how to get programmatic access to TM containers. Containers are the actual physical databases that contain one or more TMs. Technically speaking, TMs are tables within a container database. Depending on the number of TMs used you may consolidate all TMs in a single container database, or split the TMs among several container databases. This may be a consideration driven by the maximum physical size of a database. For example, Microsoft SQL Express versions only support databases up to a maximum size (4 GB).</p>
 <h2 id="add-a-new-class">Add a New Class</h2>
-<p>Start by adding a new class called <code>ServerContainers</code> to your project. Then implement a public function called <code>GetDBContainers</code> in the class, which takes a <code>TranslationProviderServer</code> object as parameter. This function can be called from the connector class as shown below:</p>
-<pre><code>ServerContainers containers = new ServerContainers();
+<p>Start by adding a new class called <code>ServerContainers</code> to your project. Then implement a public function called <code>GetDBContainers</code> in the class, which takes a <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.html">TranslationProviderServer</a> object as parameter. This function can be called from the connector class as shown below:</p>
+<div class="tabGroup" id="tabgroup_uBZIKnnS56">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_uBZIKnnS56_tabid-1" role="tab" aria-controls="tabpanel_uBZIKnnS56_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_uBZIKnnS56_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-cs">ServerContainers containers = new ServerContainers();
 containers.GetDBContainers(tmServer);
-</code></pre><p>The <code>GetDBContainers</code> function loops through the containers that are associated with the TM Server object and outputs various information in a message box:</p>
-<pre><code>public void GetDBContainers(TranslationProviderServer tmServer)
+</code></pre></section>
+</div>
+<p>The <code>GetDBContainers</code> function loops through the containers that are associated with the TM Server object and outputs various information in a message box:</p>
+<div class="tabGroup" id="tabgroup_uBZIKnnS56-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_uBZIKnnS56-1_tabid-2" role="tab" aria-controls="tabpanel_uBZIKnnS56-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_uBZIKnnS56-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<pre><code class="lang-cs">public void GetDBContainers(TranslationProviderServer tmServer)
 {
     string dbInfo = string.Empty;
 
@@ -100,12 +116,21 @@ containers.GetDBContainers(tmServer);
 
     MessageBox.Show(dbInfo);
 }
-</code></pre><p>Among the properties you can retrieve are the physical DatabaseName as well as the friendly Name assigned by the user during creation of the container database. Apart from that you can also retrieve, for example, the optional container description and the name of the database server on which the container is stored.
+</code></pre></section>
+</div>
+<p>Among the properties you can retrieve are the physical <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryContainer.html#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationMemoryContainer_DatabaseName">DatabaseName</a> as well as the friendly <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryContainer.html#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationMemoryContainer_Name">Name</a> assigned by the user during creation of the container database. Apart from that you can also retrieve, for example, the optional container description and the name of the database server on which the container is stored.
 Below you see an example of a container information box in SDL TM Server Manager:</p>
 <p><img style="display:block; " src="images/ContainerInfo.jpg"></p>
 <h2 id="putting-it-all-together">Putting it All Together</h2>
 <p>The complete class looks as shown below:</p>
-<pre><code>namespace Sdl.SDK.LanguagePlatform.Samples.TmAutomation
+<div class="tabGroup" id="tabgroup_uBZIKnnS56-2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_uBZIKnnS56-2_tabid-3" role="tab" aria-controls="tabpanel_uBZIKnnS56-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_uBZIKnnS56-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<pre><code class="lang-cs">namespace Sdl.SDK.LanguagePlatform.Samples.TmAutomation
 {
     using System.Windows.Forms;
     using Sdl.LanguagePlatform.TranslationMemoryApi;
@@ -131,7 +156,9 @@ Below you see an example of a container information box in SDL TM Server Manager
         #endregion
     }
 }
-</code></pre></article>
+</code></pre></section>
+</div>
+</article>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">

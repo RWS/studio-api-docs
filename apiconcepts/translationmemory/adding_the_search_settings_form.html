@@ -8,7 +8,7 @@
     <title>Implement the GUI Functionality </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Implement the GUI Functionality ">
-    <meta name="generator" content="docfx 2.57.1.0">
+    <meta name="generator" content="docfx 2.57.2.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
@@ -92,13 +92,109 @@ The form configuring the search options needs to have the following control elem
 </ul>
 <p><img style="display:block; " src="images/frmSearchSettings.jpg"></p>
 <h2 id="implement-the-gui-functionality">Implement the GUI Functionality</h2>
-<p><strong>Setting the Fuzziness Value</strong></p>
+<h3 id="setting-the-fuzziness-value">Setting the Fuzziness Value</h3>
 <p>Through the slider users can set the minimum fuzziness value between 30 and 100. When changing the slider position, the value should be updated in the label element:</p>
-<p><strong>Resetting to Default Values</strong></p>
+<div class="tabGroup" id="tabgroup_FjPjiMQb2S">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_FjPjiMQb2S_tabid-1" role="tab" aria-controls="tabpanel_FjPjiMQb2S_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_FjPjiMQb2S_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-cs">private void trackFuzzy_Scroll(object sender, EventArgs e)
+{
+    this.lblFuzzyValue.Text = this.trackFuzzy.Value.ToString();
+}
+</code></pre></section>
+</div>
+<h3 id="resetting-to-default-values">Resetting to Default Values</h3>
 <p>The default settings should be restored as follows by clicking the corresponding button:</p>
-<p><strong>Applying the Settings</strong></p>
+<div class="tabGroup" id="tabgroup_FjPjiMQb2S-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_FjPjiMQb2S-1_tabid-2" role="tab" aria-controls="tabpanel_FjPjiMQb2S-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_FjPjiMQb2S-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<pre><code class="lang-cs">// Reset the control elements to the corresponding default values.
+private void btnDefaults_Click(object sender, EventArgs e)
+{
+    this.trackFuzzy.Value = 70;
+    this.lblFuzzyValue.Text = &quot;70&quot;;
+    this.txtMaxHits.Text = &quot;30&quot;;            
+}
+</code></pre></section>
+</div>
+<h3 id="applying-the-settings">Applying the Settings</h3>
 <p>Add two public properties that represent the search settings:</p>
+<div class="tabGroup" id="tabgroup_FjPjiMQb2S-2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_FjPjiMQb2S-2_tabid-3" role="tab" aria-controls="tabpanel_FjPjiMQb2S-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_FjPjiMQb2S-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<pre><code class="lang-cs">// Property for setting the minimum fuzzy match value
+// that should be used during the search.
+public static int minFuzzy
+{
+    get;
+    set;
+}
+</code></pre></section>
+</div>
+<div class="tabGroup" id="tabgroup_FjPjiMQb2S-3">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_FjPjiMQb2S-3_tabid-4" role="tab" aria-controls="tabpanel_FjPjiMQb2S-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_FjPjiMQb2S-3_tabid-4" role="tabpanel" data-tab="tabid-4">
+<pre><code class="lang-cs">// Property for setting the maximum amount of hits to return
+// from the TM.
+public static int maxHits
+{
+    get;
+    set;
+}
+</code></pre></section>
+</div>
 <p>Clicking the <strong>OK</strong> button should hide the form and apply the settings.</p>
+<div class="tabGroup" id="tabgroup_FjPjiMQb2S-4">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_FjPjiMQb2S-4_tabid-5" role="tab" aria-controls="tabpanel_FjPjiMQb2S-4_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_FjPjiMQb2S-4_tabid-5" role="tabpanel" data-tab="tabid-5">
+<pre><code class="lang-cs">// Apply the setting values from the form.
+private void btnOK_Click(object sender, EventArgs e)
+{            
+    maxHits = Convert.ToInt32(this.txtMaxHits.Text.ToString());
+    minFuzzy = this.trackFuzzy.Value;
+
+    this.Hide();
+}
+</code></pre></section>
+</div>
+<h3 id="cancelling">Cancelling</h3>
+<p>Clicking the <strong>Cancel</strong> button should hide the form without applying the settings.</p>
+<div class="tabGroup" id="tabgroup_FjPjiMQb2S-5">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_FjPjiMQb2S-5_tabid-6" role="tab" aria-controls="tabpanel_FjPjiMQb2S-5_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_FjPjiMQb2S-5_tabid-6" role="tabpanel" data-tab="tabid-6">
+<pre><code class="lang-cs">private void btnCancel_Click(object sender, EventArgs e)
+{
+    this.Hide();
+}
+</code></pre></section>
+</div>
+<h2 id="see-also">See Also</h2>
+<p><a href="adding_the_connector_class.html">Adding the Connector Class</a></p>
+<p><a href="implementing_the_search_functionality.html">Implementing the Search Functionality</a></p>
 </article>
           </div>
           

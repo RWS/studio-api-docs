@@ -8,7 +8,7 @@
     <title>Implementing the Plug-in User Interface </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Implementing the Plug-in User Interface ">
-    <meta name="generator" content="docfx 2.57.1.0">
+    <meta name="generator" content="docfx 2.57.2.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
@@ -80,12 +80,12 @@
 <h1 id="implementing-the-plug-in-user-interface">Implementing the Plug-in User Interface</h1>
 
 <p>The plug-in user interface needs to allow users to select the delimited list text file, and specify the delimiter character during runtime.</p>
-<p>Add a form to your project called ListProviderConfDialog (this form is not part of the project template), which needs to have the following control elements.</p>
+<p>Add a form to your project called <code>ListProviderConfDialog</code> (this form is not part of the project template), which needs to have the following control elements.</p>
 <ul>
 <li><strong>txt_ListFile</strong>: text field for entering the list file name and path.</li>
 <li><strong>combo_Delimiter</strong>: combo list for selecting the delimiter character. Enter the following items: ; : = \t.</li>
 <li><strong>btn_Browse</strong>: button for opening selecting the list text file.</li>
-<li><strong>dlg_OpenFile</strong>: dialog for selecting the list file. The <strong>FileName</strong> property should be empty, the <strong>Filter</strong> property should be List text files (<em>.txt)|(</em>.txt)</li>
+<li><strong>dlg_OpenFile</strong>: dialog for selecting the list file. The <code>FileName</code> property should be empty, the <code>Filter</code> property should be <em>List text files (</em>.txt)|(<em>.txt)</em></li>
 <li><strong>btn_Cancel</strong>: button for closing the form without applying new or changed settings.</li>
 <li><strong>btn_OK</strong>: button for closing the form and applying new or changed settings.</li>
 </ul>
@@ -93,13 +93,51 @@
 <h2 id="implement-the-user-interface-functionality">Implement the User Interface Functionality</h2>
 <p>Take the following steps to implement some of the basic user interface functions:</p>
 <ul>
-<li><p><strong>Selecting the delimited text file</strong>: The <strong>btn_Browse</strong> button should raise the <strong>Open File</strong> dialog for selecting the delimited text file, and enter the file name into <strong>txt_ListFile</strong>:</p>
-</li>
-<li><p><strong>Applying the settings</strong>: The btn_OK button should close the form and apply the plug-in settings, i.e. the name and path of the text file and the delimiter character.</p>
+<li><p><strong>Selecting the delimited text file</strong>: The <code>btn_Browse</code> button should raise the <strong>Open File</strong> dialog for selecting the delimited text file, and enter the file name into <code>txt_ListFile</code>:</p>
+<div class="tabGroup" id="tabgroup_US+mctv5Yy">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_US+mctv5Yy_tabid-1" role="tab" aria-controls="tabpanel_US+mctv5Yy_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<div class="NOTE"><h5>Note</h5><p>Of course, the form should also configure the plug-in settings, however, for this we need to implement a distinct ListTranslationOptions class, which we will implement in one of the following chapters (see Storing and Retrieving the Plug-in Settings).</p>
+<section id="tabpanel_US+mctv5Yy_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-cs">private void btn_Browse_Click(object sender, EventArgs e)
+{
+  this.dlg_OpenFile.ShowDialog();
+  string fileName = dlg_OpenFile.FileName;
+
+  if (fileName != &quot;&quot;)
+  {
+      txt_ListFile.Text = fileName;
+  }
+}
+</code></pre></section>
 </div>
+</li>
+</ul>
+<hr>
+<ul>
+<li><strong>Applying the settings</strong>: The <code>btn_OK</code> button should close the form and apply the plug-in settings, i.e. the name and path of the text file and the delimiter character.</li>
+</ul>
+<div class="tabGroup" id="tabgroup_US+mctv5Yy-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_US+mctv5Yy-1_tabid-2" role="tab" aria-controls="tabpanel_US+mctv5Yy-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_US+mctv5Yy-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<pre><code class="lang-cs">private void bnt_OK_Click(object sender, EventArgs e)
+{
+    Options.Delimiter = this.combo_delimiter.Text;
+    Options.ListFileName = this.txt_ListFile.Text;
+}
+</code></pre></section>
+</div>
+<div class="NOTE"><h5>Note</h5><p>Of course, the form should also configure the plug-in settings, however, for this we need to implement a distinct <code>ListTranslationOptions</code> class, which we will implement in one of the following chapters (see <a href="storing_and_retrieving_the_plugin_settings.html">Storing and Retrieving the Plug-in Settings</a>).</p>
+</div>
+<h2 id="see-also">See Also</h2>
+<p><a href="controlling_the_plugin_user_interface.html">Controlling the Plug-in User Interface</a></p>
+<p><a href="storing_and_retrieving_the_plugin_settings.html">Storing and Retrieving the Plug-in Settings</a></p>
 </article>
           </div>
           

@@ -8,7 +8,7 @@
     <title>Importing into the Master Translation Memories </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Importing into the Master Translation Memories ">
-    <meta name="generator" content="docfx 2.57.1.0">
+    <meta name="generator" content="docfx 2.57.2.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
@@ -81,20 +81,36 @@
 
 <p>The application is required to merge multiple *.tmx files of the same language direction into one master TM. If the master TM with the required language direction does not exist, the application needs to create one before it starts the import.</p>
 <h2 id="add-a-new-class">Add a New Class</h2>
-<p>Start by adding a class called TmImport. The main purpose of this class is to import the *.tmx files into master TMs and to trigger a separate function for creating the master TMs with the corresponding language direction if they are not yet available.</p>
-<p>Implement a public function called Import, which takes the *.tmx file name and path as parameter. Like the export functionality, this function, too, is called from the ProcessDir function of the TmIterator class (see Looping through the Folder(s)).</p>
+<p>Start by adding a class called <code>TmImport</code>. The main purpose of this class is to import the *.tmx files into master TMs and to trigger a separate function for creating the master TMs with the corresponding language direction if they are not yet available.</p>
+<p>Implement a public function called <code>Import</code>, which takes the *.tmx file name and path as parameter. Like the export functionality, this function, too, is called from the <code>ProcessDir</code> function of the <code>TmIterator</code> class (see <a href="looping_through_the_folders.html">Looping through the Folder(s)</a>).</p>
 <h2 id="create-the-master-tm-path">Create the Master TM Path</h2>
 <p>In the next step, set up the path in which the master TMs should be created. To keep this implementation as simple as possible, we will just hard-code the path name. The path should only be created when it does not yet exist:</p>
-<pre><code>// Create the path in which the master TMs should be
+<div class="tabGroup" id="tabgroup_kAXHQlzIKF">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_kAXHQlzIKF_tabid-1" role="tab" aria-controls="tabpanel_kAXHQlzIKF_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_kAXHQlzIKF_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-cs">// Create the path in which the master TMs should be
 // stored (if the path does not exist yet).
 string masterPath = @&quot;c:\MasterTMs\&quot;;
 if (!System.IO.Directory.Exists(masterPath))
 {
     System.IO.Directory.CreateDirectory(masterPath);
 }
-</code></pre><h2 id="determine-the-language-direction">Determine the Language Direction</h2>
+</code></pre></section>
+</div>
+<h2 id="determine-the-language-direction">Determine the Language Direction</h2>
 <p>When generating the *.tmx files we appended the language direction to the TM file names, so that we can retrieve this information for creating and naming the master TMs accordingly. Start by parsing the file name string to retrieve the language direction information. To determine the language direction we use the XML DOM API. Below you see an example of a translation unit in TMX format:</p>
-<pre><code>&lt;tu creationdate=&quot;20090504T230613Z&quot; creationid=&quot;PEGASUS\Ziad&quot; changedate=&quot;20100507T224806Z&quot; changeid=&quot;PEGASUS\Administrator&quot; lastusagedate=&quot;20100507T224806Z&quot; usagecount=&quot;4&quot;&gt;
+<div class="tabGroup" id="tabgroup_kAXHQlzIKF-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_kAXHQlzIKF-1_tabid-2" role="tab" aria-controls="tabpanel_kAXHQlzIKF-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">XML</a>
+</li>
+</ul>
+<section id="tabpanel_kAXHQlzIKF-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<pre><code class="lang-xml">&lt;tu creationdate=&quot;20090504T230613Z&quot; creationid=&quot;PEGASUS\Ziad&quot; changedate=&quot;20100507T224806Z&quot; changeid=&quot;PEGASUS\Administrator&quot; lastusagedate=&quot;20100507T224806Z&quot; usagecount=&quot;4&quot;&gt;
   &lt;prop type=&quot;x-Context&quot;&gt;0, 0&lt;/prop&gt;
   &lt;prop type=&quot;x-Origin&quot;&gt;TM&lt;/prop&gt;
   &lt;prop type=&quot;x-Customer:MultiplePicklist&quot;&gt;Microsoft&lt;/prop&gt;
@@ -105,14 +121,23 @@ if (!System.IO.Directory.Exists(masterPath))
     &lt;seg&gt;Der Befehl Rechtschreibung&lt;/seg&gt;
   &lt;/tuv&gt;
 &lt;/tu&gt;
-</code></pre><p>The source/target language locales can be retrieved from the lang attributes of the tuv elements inside the tu nodes. For our implementation we make the following assumptions about the *.tmx files :</p>
+</code></pre></section>
+</div>
+<p>The source/target language locales can be retrieved from the lang attributes of the tuv elements inside the tu nodes. For our implementation we make the following assumptions about the *.tmx files :</p>
 <ul>
 <li>the files are all bilingual</li>
 <li>each file contains at least one TU</li>
 <li>all TUs in one *.tmx file have the same source/target language locales</li>
-<li>We therefore proceed as follows: We select the first tu element, and then retrieve the values of the lang attributes of the first (i.e. the source) tuv, and then the second (i.e. the target) tuv element:</li>
 </ul>
-<pre><code>// Retrieve the language direction of the current TM
+<p>We therefore proceed as follows: We select the first tu element, and then retrieve the values of the <code>lang</code> attributes of the first (i.e. the source) <code>tuv</code>, and then the second (i.e. the target) <code>tuv</code> element:</p>
+<div class="tabGroup" id="tabgroup_kAXHQlzIKF-2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_kAXHQlzIKF-2_tabid-3" role="tab" aria-controls="tabpanel_kAXHQlzIKF-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_kAXHQlzIKF-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<pre><code class="lang-cs">// Retrieve the language direction of the current TM
 // by reading the appropriate lang values from the first
 // tu element.
 string srcLang = string.Empty;
@@ -131,9 +156,18 @@ catch
     // TU count is zero, i.e. no TM content to import
     Console.WriteLine(tmxPath + &quot; is empty, no content to import.&quot;);
 }
-</code></pre><h2 id="create-the-master-tms">Create the Master TMs</h2>
-<p>Next, check whether a master TM for the language direction of the current *.tmx file already exists. If this is not the case, a separate function should be called to create the TM (see Creating the Master Translation Memories).</p>
-<pre><code>// Check whether a master TM with the language direction found in the 
+</code></pre></section>
+</div>
+<h2 id="create-the-master-tms">Create the Master TMs</h2>
+<p>Next, check whether a master TM for the language direction of the current *.tmx file already exists. If this is not the case, a separate function should be called to create the TM (see <a href="creating_the_master_translation_memories.html">Creating the Master Translation Memories</a>.</p>
+<div class="tabGroup" id="tabgroup_kAXHQlzIKF-3">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_kAXHQlzIKF-3_tabid-4" role="tab" aria-controls="tabpanel_kAXHQlzIKF-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_kAXHQlzIKF-3_tabid-4" role="tabpanel" data-tab="tabid-4">
+<pre><code class="lang-cs">// Check whether a master TM with the language direction found in the 
 // current TMX file already exists. If not, then create the TM.
 string translationMemoryPath = string.Format(&quot;{0}MasterTM_{1}_{2}.sdltm&quot;, masterPath, srcLang, trgLang);
 if (!System.IO.File.Exists(translationMemoryPath))
@@ -141,15 +175,33 @@ if (!System.IO.File.Exists(translationMemoryPath))
     TMCreator create = new TMCreator();
     create.CreateMasterTm(srcLang, trgLang, masterPath);
 }
-</code></pre><h2 id="process-the-import">Process the Import</h2>
+</code></pre></section>
+</div>
+<h2 id="process-the-import">Process the Import</h2>
 <p>Now import the given *.tmx file into the master TM:</p>
-<pre><code>// Open the appropriate master TM and do the import.
+<div class="tabGroup" id="tabgroup_kAXHQlzIKF-4">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_kAXHQlzIKF-4_tabid-5" role="tab" aria-controls="tabpanel_kAXHQlzIKF-4_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_kAXHQlzIKF-4_tabid-5" role="tabpanel" data-tab="tabid-5">
+<pre><code class="lang-cs">// Open the appropriate master TM and do the import.
 FileBasedTranslationMemory tm = new FileBasedTranslationMemory(translationMemoryPath);
 TranslationMemoryImporter importer = new TranslationMemoryImporter(tm.LanguageDirection);
 this.GetImportSettings(importer.ImportSettings);
 importer.Import(tmxPath);
-</code></pre><p>Note that at this point we call a separate function to configure the import settings.</p>
-<pre><code>/// &lt;summary&gt;
+</code></pre></section>
+</div>
+<p>Note that at this point we call a separate function to configure the import settings.</p>
+<div class="tabGroup" id="tabgroup_kAXHQlzIKF-5">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_kAXHQlzIKF-5_tabid-6" role="tab" aria-controls="tabpanel_kAXHQlzIKF-5_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_kAXHQlzIKF-5_tabid-6" role="tabpanel" data-tab="tabid-6">
+<pre><code class="lang-cs">/// &lt;summary&gt;
 ///  Configure the import settings.
 /// &lt;/summary&gt;
 /// &lt;param name=&quot;importSettings&quot;&gt;Group of settings that control way of import.&lt;/param&gt;
@@ -159,18 +211,19 @@ private void GetImportSettings(ImportSettings importSettings)
     importSettings.ExistingFieldsUpdateMode = ImportSettings.FieldUpdateMode.Merge;
     importSettings.ExistingTUsUpdateMode = ImportSettings.TUUpdateMode.Overwrite;
 }
-</code></pre><p>For more information on the import functionality and possible settings, please refer to Importing a TMX File.</p>
+</code></pre></section>
+</div>
+<p>For more information on the import functionality and possible settings, please refer to <a href="">Importing a TMX File</a>.</p>
 <h2 id="putting-it-all-together">Putting it All Together</h2>
 <p>The complete class should look as shown below:</p>
-<pre><code>// ---------------------------------
-// &lt;copyright file=&quot;TMImporter.cs&quot; company=&quot;SDL International&quot;&gt;
-// Copyright  2010 All Right Reserved
-// &lt;/copyright&gt;
-// &lt;author&gt;Patrik Mazanek&lt;/author&gt;
-// &lt;email&gt;pmazanek@sdl.com&lt;/email&gt;
-// &lt;date&gt;2010-09-27&lt;/date&gt;
-// ---------------------------------
-namespace Sdl.SDK.LanguagePlatform.Samples.BatchImporter
+<div class="tabGroup" id="tabgroup_kAXHQlzIKF-6">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_kAXHQlzIKF-6_tabid-7" role="tab" aria-controls="tabpanel_kAXHQlzIKF-6_tabid-7" data-tab="tabid-7" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_kAXHQlzIKF-6_tabid-7" role="tabpanel" data-tab="tabid-7">
+<pre><code class="lang-cs">namespace Sdl.SDK.LanguagePlatform.Samples.BatchImporter
 {
     using System;
     using System.Xml;
@@ -258,7 +311,12 @@ namespace Sdl.SDK.LanguagePlatform.Samples.BatchImporter
         #endregion
     }
 }
-</code></pre></article>
+</code></pre></section>
+</div>
+<h2 id="see-also">See Also</h2>
+<p><a href="creating_the_master_translation_memories.html">Creating the Master Translation Memories</a></p>
+<p><a href="creating_a_log_file.html">Creating the Log File</a></p>
+</article>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">
