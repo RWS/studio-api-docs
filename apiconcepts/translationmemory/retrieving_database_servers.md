@@ -6,15 +6,17 @@ In this chapter you will learn how to get programmatic access to the database se
 Add a New Class
 ----
 
-Start by adding a new class called `ServerDBServers` to your project. Add a public function called `GetDBServers`, which takes a `TranslationProviderServer` object as parameter. Call this function from Connect as shown below:
+Start by adding a new class called `ServerDBServers` to your project. Add a public function called `GetDBServers`, which takes a [TranslationProviderServer](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.yml) object as parameter. Call this function from Connect as shown below:
 
-```
+# [C#](#tab/tabid-1)
+```cs
 ServerDBServers dbServ = new ServerDBServers();
 dbServ.GetDBServers(tmServer);
 ```
-In the GetDBServers function the GetDatabaseServers method is applied to the server object. Then the function loops through the database servers that are registered for the given TM server. Although most setups involve only a single database server, it is conceivable that the SDL TM Server connects to several DB servers.
-
-```
+****
+In the `GetDBServers` function the [GetDatabaseServers](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.yml#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationProviderServer_GetDatabaseServers_Sdl_LanguagePlatform_TranslationMemoryApi_DatabaseServerProperties_) method is applied to the server object. Then the function loops through the database servers that are registered for the given TM server. Although most setups involve only a single database server, it is conceivable that the SDL TM Server connects to several DB servers.
+# [C#](#tab/tabid-2)
+```cs
 public void GetDBServers(TranslationProviderServer tmServer)
 {
     string serverInfo = string.Empty;
@@ -30,7 +32,8 @@ public void GetDBServers(TranslationProviderServer tmServer)
     MessageBox.Show(serverInfo, "Container Information");
 }
 ```
-In the `foreach` loop we build up the string that contains all DB servers and their properties. `ServerName` gets the full DNS name or IP address of the DB server, while Name is used to retrieve the friendly DB server name. Note that when registering a DB server the administrator can enter the actual server name (e.g. sqlserv\sqlexpress) and assign a friendly name like *TestDB*. Among other things, you can retrieve a server Description (which is optional) as well the `ServerType`, which can currently be SQL Server or Oracle.
+****
+In the `foreach` loop we build up the string that contains all DB servers and their properties. [ServerName](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.DatabaseServer.yml#Sdl_LanguagePlatform_TranslationMemoryApi_DatabaseServer_ServerName) gets the full DNS name or IP address of the DB server, while [Name](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.DatabaseServer.yml#Sdl_LanguagePlatform_TranslationMemoryApi_DatabaseServer_Name) is used to retrieve the friendly DB server name. Note that when registering a DB server the administrator can enter the actual server name (e.g. sqlserv\sqlexpress) and assign a friendly name like *TestDB*. Among other things, you can retrieve a server [Description](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.DatabaseServer.yml#Sdl_LanguagePlatform_TranslationMemoryApi_DatabaseServer_Description) (which is optional) as well the [ServerType](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.DatabaseServer.yml#Sdl_LanguagePlatform_TranslationMemoryApi_DatabaseServer_ServerType), which can currently be SQL Server or Oracle.
 Below you see an example of a box containing information on a particular DB server in the TM Server Manager:
 
 <img style="display:block; " src="images/DbServerInfo.jpg"/>
@@ -38,8 +41,8 @@ Below you see an example of a box containing information on a particular DB serv
 Putting it All Together
 ----
 The complete class looks as shown below:
-
-```
+# [C#](#tab/tabid-3)
+```cs
 namespace Sdl.SDK.LanguagePlatform.Samples.TmAutomation
 {
     using System.Windows.Forms;
@@ -66,3 +69,4 @@ namespace Sdl.SDK.LanguagePlatform.Samples.TmAutomation
     }
 }
 ```
+****

@@ -12,6 +12,12 @@ Maintaining a TM can involve, among others, the following typical tasks:
 * Identify and remove potential duplicate units that clutter the TM
 * Filter for a subset of the TM, e.g. all units created on or after a specific date
   
-  In Trados Studio, the maintenance is done in a side-by-side TM view. This is the view in which users typically do TM maintenance work in Trados Studio.
+  In <Var:ProductName>, the maintenance is done in a side-by-side TM view. This is the view in which users typically do TM maintenance work in <Var:ProductName>.
 
   <img style="display:block; " src="images/TmMaintenance.jpg"/>
+
+See Also
+----------
+[Tuning and Maintaining a Translation Memory]()
+
+[Looping through Translation Memories]()

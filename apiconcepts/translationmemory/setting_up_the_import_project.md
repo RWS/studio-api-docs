@@ -25,4 +25,20 @@ The classes in your project should use the following namespaces:
 * Sdl.LanguagePlatform.TranslationMemory
 * Sdl.LanguagePlatform.TranslationMemoryApi
 
-Note that we require the XML API to retrieve information from the *.tmx files, i.e. the source and the target language locale.
+> [!NOTE]
+> 
+> We require the XML API to retrieve information from the *.tmx files, i.e. the source and the target language locale.
+
+> [!NOTE]
+> 
+> This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.
+
+See Also
+-----------
+[Looping through the Folder(s)](looping_through_the_folders.md)
+
+[Importing into the Master Translation Memories](importing_into_the_master_translation_memories.md)
+
+[Creating the Master Translation Memories](creating_the_master_translation_memories.md)
+
+[Creating the Log File](creating_a_log_file.md)

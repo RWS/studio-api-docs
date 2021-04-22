@@ -25,3 +25,13 @@ The classes in your project should use the following namespaces:
 * Sdl.LanguagePlatform.Core.Tokenization
 * Sdl.LanguagePlatform.TranslationMemory
 * Sdl.LanguagePlatform.TranslationMemoryApi
+
+> [!NOTE]
+> 
+> This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.
+
+See Also
+--
+[Looping through the Folder(s)](looping_through_the_folder.md)
+
+[Exporting to TMX](exporting_to_tmx.md)

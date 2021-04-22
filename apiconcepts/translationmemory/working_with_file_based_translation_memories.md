@@ -4,9 +4,9 @@ This section describes how to work with file-based translation memories.
 
 File-based Translation Memories
 -----
-A file-based translation memory is a translation memory (`ITranslationMemory`) that is stored in a file with the ".sdltm" extension. It is designed for single-user access and supports only one language direction, which is defined when the translation memory is created and cannot be changed afterwards.
+A file-based translation memory is a translation memory ([ITranslationMemory](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.yml)) that is stored in a file with the ".sdltm" extension. It is designed for single-user access and supports only one language direction, which is defined when the translation memory is created and cannot be changed afterwards.
 
-File-based translation memories are represented by the `FileBasedTranslationMemory` class, which in turn inherits from `AbstractLocalTranslationMemory`, the base class for file-based and in-memory translation memories (`InMemoryTranslationMemory`).
+File-based translation memories are represented by the [FileBasedTranslationMemory](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.FileBasedTranslationMemory.yml) class, which in turn inherits from [AbstractLocalTranslationMemory](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.AbstractLocalTranslationMemory.yml), the base class for file-based and in-memory translation memories ([InMemoryTranslationMemory](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.InMemoryTranslationMemory.yml)).
 
 <img style="display:block; " src="images/FileBasedTranslationMemory.png"/>
 
@@ -19,3 +19,19 @@ File-based translation memories support a password protection mechanism, which p
 * **Translator password**: A translator can open the translation memory in the Editor view and edit and delete individual translation units. They can also add new translation units to the translation memory.
 * **Guest password**: A user with guest access can open the translation memory and work with the translation memory contents. They cannot edit or delete translation units but they can add new units to the translation memory.
 In order to access a password-protected translation memory, call the Unlock method and pass the password that gives you the required access level.
+
+See Also
+-----------
+[Creating a File-based Translation Memory]()
+
+[Working with Field Definitions](working_with_field_definitions.md)
+
+[Working with Language Resources](working_with_language_resources.md)
+
+[Importing Content into a Translation Memory](importing_content_into_a_translation_memory.md)
+
+[Exporting Content from a Translation Memory](exporting_content_from_a_translation_memory.md)
+
+[Performing Translation Memory Lookups](performing_filebased_tm_lookups.md)
+
+[Working with Server-based Translation Memories](working_with_server_based_translation_memories.md)

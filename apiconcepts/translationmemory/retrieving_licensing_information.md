@@ -4,16 +4,19 @@ An TM Server is licensed for a certain number of concurrent users and the number
 
 Add a New Class
 -----
-Start by adding a class called `ServerLicensing` to your project. Then implement a public function called `GetLicensingInformation`, which takes a `TranslationProviderServer` object as parameter. This function can be called as shown below:
+Start by adding a class called `ServerLicensing` to your project. Then implement a public function called `GetLicensingInformation`, which takes a [TranslationProviderServer](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.yml) object as parameter. This function can be called as shown below:
 
-```
+# [C#](#tab/tabid-1)
+```cs
 ServerLicensing license = new ServerLicensing();
 license.GetLicensingInformation(tmServer);
 ```
+*****
 
-By applying the `GetLicensingStatusInformation` method to the server you create a `LicensingStatusInformation` object, through which we retrieve the required information, such as the maximum allowed number of concurrent users, the maximum allowed numbers of TUs as well as the current TU count:
+By applying the `GetLicensingStatusInformation` method to the server you create a [LicensingStatusInformation](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.LicensingStatusInformation.yml) object, through which we retrieve the required information, such as the maximum allowed number of concurrent users, the maximum allowed numbers of TUs as well as the current TU count:
 
-```
+# [C#](#tab/tabid-2)
+```cs
 public void GetLicensingInformation(TranslationProviderServer tmServer)
 {
     string licInfo = string.Empty;
@@ -27,6 +30,7 @@ public void GetLicensingInformation(TranslationProviderServer tmServer)
     MessageBox.Show(licInfo, "Licensing Information");
 }
 ```
+******
 <img style="display:block; " src="images/LicensingInfo.jpg"/>
 
 Putting it All Together
@@ -34,7 +38,8 @@ Putting it All Together
 
 The complete class looks as shown below:
 
-```
+# [C#](#tab/tabid-3)
+```cs
 namespace Sdl.SDK.LanguagePlatform.Samples.TmAutomation
 {
     using System.Windows.Forms;
@@ -59,3 +64,4 @@ namespace Sdl.SDK.LanguagePlatform.Samples.TmAutomation
     }
 }
 ```
+******

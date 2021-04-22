@@ -15,3 +15,7 @@ Also, make sure that from this point forward your classes use the following name
 
 * Sdl.LanguagePlatform.TranslationMemoryApi
 * Sdl.LanguagePlatform.TranslationMemory
+
+See Also
+-----
+[Required References and Namespaces]()

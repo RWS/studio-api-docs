@@ -4,17 +4,18 @@ Let us assume that at the end of the import process you would like to create a l
 
 Add a New Class
 -----
-Add a class called TmLog, which includes the function CreateLogFile. This function, which takes the main path for the *.tmx import files (i.e. the folder specified by the user) as parameter, and is called from Main.
+Add a class called `TmLog`, which includes the function `CreateLogFile`. This function, which takes the main path for the *.tmx import files (i.e. the folder specified by the user) as parameter, and is called from `Main`.
 
 First, create the log text file as follows:
-
-```
+# [C#](#tab/tabid-1)
+```cs
 TextWriter log = new StreamWriter(translationMemoryPath + @"\log.txt");
 ```
+****
 
 In the next step, loop through the master TM files and output the master TM names and the total translation unit count:
-
-```
+# [C#](#tab/tabid-2)
+```cs
 string[] translationMemoryFiles = Directory.GetFiles(@"c:\MasterTMs");
 foreach (string file in translationMemoryFiles)
 {
@@ -24,26 +25,20 @@ foreach (string file in translationMemoryFiles)
     log.WriteLine();
 }
 ```
+****
 
 Finally, close the log file:
-
+# [C#](#tab/tabid-3)
 ```
 log.Close();
 ```
+***
 
 Putting it All Together
 -----
 The complete class should look as shown below:
-
-```
-// ---------------------------------
-// <copyright file="TMLog.cs" company="SDL International">
-// Copyright  2010 All Right Reserved
-// </copyright>
-// <author>Patrik Mazanek</author>
-// <email>pmazanek@sdl.com</email>
-// <date>2010-09-27</date>
-// ---------------------------------
+# [C#](#tab/tabid-4)
+```cs
 namespace Sdl.SDK.LanguagePlatform.Samples.BatchImporter
 {
     using System.IO;
@@ -85,3 +80,8 @@ namespace Sdl.SDK.LanguagePlatform.Samples.BatchImporter
     }
 }
 ```
+****
+
+See Also
+---------
+[Setting and Retrieving TM Properties]()

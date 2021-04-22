@@ -17,4 +17,21 @@ WindowsBase
 <img style="display:block; " src="images/ReferencesLookupApp.jpg"/>
 
 >[!Note]
->At the time of writing of this version of the SDK it was required to set the build path folder to the directory that contains the Trados Studio 2017 debug build.
+>
+> At the time of writing of this version of the SDK it was required to set the build path folder to the directory that contains the <Var:ProductName> debug build.
+
+> [!NOTE]
+> 
+> This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.
+
+See Also
+------
+[Adding the Main GUI](adding_the_main_gui.md)
+
+[Adding the Server TM Selection Form](adding_the_server_tm_selection_form.md)
+
+[Adding the Search Settings Form](adding_the_search_settings_form.md)
+
+[Adding the Connector Class](adding_the_connector_class.md)
+
+[Implementing the Search Functionality](implementing_the_search_functionality.md)

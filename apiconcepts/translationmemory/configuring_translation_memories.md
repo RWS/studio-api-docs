@@ -14,11 +14,11 @@ TM fields can be configured to contain free text, numerical information, boolean
 
 Recognition Settings
 -----
-TMs can be configured to recognize certain elements within a segment as so-called placeables, i.e. strings that do not need to be translated, but that are 'placed' inside the target segment. Placeables can be numbers, dates, acronyms, times, measurements, and variables. Variables are user-definable strings of elements that do not need or that must not be translated. These can be, for example, product names. Users of Trados Studio 2017 can decide during the creation of a TM whether numbers, dates, etc. should be recognized as placeables, or whether they should be treated as 'normal' translatable text. By default, the recognition settings for all these element types are enabled.
+TMs can be configured to recognize certain elements within a segment as so-called placeables, i.e. strings that do not need to be translated, but that are 'placed' inside the target segment. Placeables can be numbers, dates, acronyms, times, measurements, and variables. Variables are user-definable strings of elements that do not need or that must not be translated. These can be, for example, product names. Users of <Var:ProductName> can decide during the creation of a TM whether numbers, dates, etc. should be recognized as placeables, or whether they should be treated as 'normal' translatable text. By default, the recognition settings for all these element types are enabled.
 
 <img style="display:block; " src="images/RecognitionSettings.jpg"/>
 
-In the editor of Trados Studio 2017 placeable elements (such as the user-defined variable text below) are highlighted with a blue underline:
+In the editor of <Var:ProductName> placeable elements (such as the user-defined variable text below) are highlighted with a blue underline:
 
 <img style="display:block; " src="images/VariableExample.jpg"/>
 
@@ -31,3 +31,15 @@ For file TMs, language resources can also be saved to an external file with the 
 Below you see an example of a custom variable list, which is defined in the language resources for a TM:
 
 <img style="display:block; " src="images/Variables.jpg"/>
+
+See Also
+----------
+[Creating a File-based Translation Memory]
+
+[Adding TM Fields]
+
+[Adding Language Resources]
+
+[TM Fields Templates](tm_fields_templates.md)
+
+[Language Resource Templates](language_resource_templates.md)

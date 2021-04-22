@@ -1,6 +1,6 @@
 Introduction
 ===
-This API provides access to all translation memory functionality, both for file- and server-based translation memories. In addition it also provides the capability to create custom translation providers, which allow applications like Trados Studio to interact with automated translation engines, third-party translation memory implementations or other translation engines in a unified way.
+This API provides access to all translation memory functionality, both for file- and server-based translation memories. In addition it also provides the capability to create custom translation providers, which allow applications like <Var:ProductName> to interact with automated translation engines, third-party translation memory implementations or other translation engines in a unified way.
 
 Translation Memories
 ----
@@ -19,4 +19,4 @@ The majority of the functionality in this API centers around working with transl
   
 Translation Provider Plug-ins
 ----
-Apart from translation memories, Trados Studio can also leverage other translation providers such as Web-based translation services (e.g. Google Translate), and any other kind of resource that provides translation solutions. This SDK contains an example of how to develop a simple translation provider plug-in that performs lookup operations in delimited text files.
+Apart from translation memories, <Var:ProductName> can also leverage other translation providers such as Web-based translation services (e.g. Google Translate), and any other kind of resource that provides translation solutions. This SDK contains an example of how to develop a simple translation provider plug-in that performs lookup operations in delimited text files.

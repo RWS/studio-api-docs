@@ -1,16 +1,17 @@
 Creating the Master Translation Memories
 ======
-Remember that all *.tmx files of the same language direction need to be consolidated in a master TM. If the importer class (see Importing into the Master Translation Memories) determines that the corresponding master TM does not yet exist, it should be created through a separate class. On this page you will learn how to implement the class for creating the master TMs.
+Remember that all *.tmx files of the same language direction need to be consolidated in a master TM. If the importer class (see [Importing into the Master Translation Memories](importing_into_the_master_translation_memories.md)) determines that the corresponding master TM does not yet exist, it should be created through a separate class. On this page you will learn how to implement the class for creating the master TMs.
 
 Add a New Class
 -----
-Start by adding a new class called TmCreator to your project. Add a public function called CreateMasterTm, which takes the path in which the master TMs should be created and the source/target language locales as string parameters.
+Start by adding a new class called TmCreator to your project. Add a public function called `CreateMasterTm`, which takes the path in which the master TMs should be created and the source/target language locales as string parameters.
 
 Create the Master TM
 ------
 In the next step, implement the logic required for creating the master TM file. Note that for simplicity's sake, the file name is a combination of a hard-coded string *(MasterTM_)*, the language direction string, and the extension *.sdltm.
 
-```
+# [C#](#tab/tabid-1)
+```cs
 /// <summary>
 /// Create the master TM based on the source and target locales found in the current TMX file.
 /// </summary>
@@ -48,11 +49,12 @@ public void CreateMasterTm(string sourceLanguage, string targetLanguage, string 
     #endregion
 }
 ```
+****
 
 
 The fuzzy indexes are determined through a separate helper function:
-
-```
+# [C#](#tab/tabid-2)
+```cs
 /// <summary>
 /// Configure the fuzzy indexes, to determine, for example,
 /// that the master TM should support concordance searching 
@@ -67,11 +69,13 @@ private FuzzyIndexes GetFuzzyIndexes()
     return FuzzyIndexes.SourceWordBased | FuzzyIndexes.TargetWordBased;
 }
 ```
+****
 
 
 Also, the recognition settings are set in a distinct helper function:
 
-```
+# [C#](#tab/tabid-3)
+```cs
 /// <summary>
 /// Configure the recognition settings for the TM.
 /// Here, we simply activate all recognition settings 
@@ -84,22 +88,15 @@ private BuiltinRecognizers GetRecognizers()
     return BuiltinRecognizers.RecognizeAll;
 }
 ```
+***
 
-For more information, on these settings and on TM creation see also Creating a File-based Translation Memory.
+For more information, on these settings and on TM creation see also [Creating a File-based Translation Memory]().
 
 Putting it All Together
 ----
 The complete class should look as shown below:
-
-```
-// ---------------------------------
-// <copyright file="TMCreator.cs" company="SDL International">
-// Copyright  2010 All Right Reserved
-// </copyright>
-// <author>Patrik Mazanek</author>
-// <email>pmazanek@sdl.com</email>
-// <date>2010-09-27</date>
-// ---------------------------------
+# [C#](#tab/tabid-4)
+```cs
 namespace Sdl.SDK.LanguagePlatform.Samples.BatchImporter
 {
     using System.Globalization;
@@ -189,3 +186,9 @@ namespace Sdl.SDK.LanguagePlatform.Samples.BatchImporter
 }
 
 ```
+****
+See Also
+-------------
+[Creating the Log File](creating_a_log_file.md)
+
+[Creating a File-based Translation Memory]()
