@@ -8,14 +8,14 @@ Example: Suppose that last year you have processed a project called "Spelling Ch
 Create an Update Project Programmatically
 --
 
-Implement a function called ```CreateBasedOnPreviousProject```. Leverage the [ProjectReference]() class to create a reference project object, which holds the previous project that our new (update) project should be based upon. When creating the reference project object provide the **.sdlproj* file name and path as string parameter:
+Implement a function called ```CreateBasedOnPreviousProject```. Leverage the [ProjectReference](../../../api/projectautomation/Sdl.ProjectAutomation.Core.ProjectReference.yml) class to create a reference project object, which holds the previous project that our new (update) project should be based upon. When creating the reference project object provide the **.sdlproj* file name and path as string parameter:
 
 ```cs
 string refProjFile = @"C:\temp\RefProject.sdlproj";
 ProjectReference refProject = new ProjectReference(refProjFile);
 ```
 
-In the next step, use the [FileBasedProject]() class to create the object for the update project (i.e. the object for the new project that should be based on the previous project). Here, you need to provide the project information (which we retrieve through a separate helper function) and the reference project object as parameters. Finally, persist the update project by applying the [Save]() method:
+In the next step, use the [FileBasedProject](../../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml) class to create the object for the update project (i.e. the object for the new project that should be based on the previous project). Here, you need to provide the project information (which we retrieve through a separate helper function) and the reference project object as parameters. Finally, persist the update project by applying the [Save](../../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml#Sdl_ProjectAutomation_FileBased_FileBasedProject_Save) method:
 
 ```cs
 FileBasedProject updateProject = new FileBasedProject(this.GetUpdateProjectInfo(), refProject);
@@ -46,7 +46,7 @@ info.LocalProjectFolder = localProjectFolder;
 return info;
 ```
 
-Note that the updated source files to translate would also have to be added to the update project, as these will not be taken over from the previous (reference) project. For an example of how to add files to a project see [Adding Files and Folders]().
+Note that the updated source files to translate would also have to be added to the update project, as these will not be taken over from the previous (reference) project. For an example of how to add files to a project see [Adding Files and Folders](adding_files_and_folders.md).
 
 Putting it All Together
 --
@@ -95,6 +95,6 @@ See Also
 
 **Other Resources**
 
-Setting the Project Information
+[Setting the Project Information](se9tting_the_project_information.md)
 
-Configuring the Project Properties
+[Configuring the Project Properties](configuring_the_project_properties.md)

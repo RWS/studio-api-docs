@@ -22,7 +22,7 @@ Note that if you want to use this feature, however, you would still like to aler
 tmSettings.AutoLocalizationPenalty.Value = 1;
 ```
 
-In this case, a penalty of 1% will be applied to each segment in which an auto-localization has taken place (for more information on penalties, please see also [Setting TM Penalties]()).
+In this case, a penalty of 1% will be applied to each segment in which an auto-localization has taken place (for more information on penalties, please see also [Setting TM Penalties](setting_tm_penalties.md)).
 
 Apart from setting whether elements such as dates, times, etc. should be localized, you can also set the preferred long/short date or time format. For example, you can configure whether the English date format *12-31-2010* should be in German *31.12.2010* or *31.12.10*, etc.
 
@@ -41,10 +41,10 @@ See Also
 
 **Other Resources**
 
-Translation Memory Search Settings
+[Translation Memory Search Settings](translation_memory_search_settings.md)
 
-Setting TM Penalties
+[Setting TM Penalties](setting_tm_penalties.md)
 
-Translation Memory Fields Update
+[Translation Memory Fields Update](translation_memory_field_update.md)
 
-Translation Memory Filter Settings
+[Translation Memory Filter Settings](translation_memory_filter_settings.md)

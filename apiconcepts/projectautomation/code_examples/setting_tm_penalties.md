@@ -9,7 +9,7 @@ The screenshot below illustrates the various penalties that can be configured th
 
 The sample code below highlights some of the properties that can be used to configure the penalty values for your project. For example, here we set the penalties for missing or different formatting from the default 1 to 0. This can be done e.g. if the project involves files in which formatting is not important. In this case you can get a higher TM leverage by ignoring (i.e. by not penalizing) formatting differences.
 
-At the same time, for example, we increase the [MultipleTranslationsPenalty]() from the default value 1 to 2. This common penalty is applied when more than one exact match is found for a segment. This can happen when the TM contains different translations for the same source segment, which may be necessary as different translations can apply in different contexts. To alert translators to the fact that the TM contains several possible translations and that they need to check which one applies in the current context, a penalty is applied.
+At the same time, for example, we increase the [MultipleTranslationsPenalty](../../../api/projectautomation/Sdl.ProjectAutomation.Settings.TranslationMemorySettings.yml#Sdl_ProjectAutomation_Settings_TranslationMemorySettings_MultipleTranslationsPenalty) from the default value 1 to 2. This common penalty is applied when more than one exact match is found for a segment. This can happen when the TM contains different translations for the same source segment, which may be necessary as different translations can apply in different contexts. To alert translators to the fact that the TM contains several possible translations and that they need to check which one applies in the current context, a penalty is applied.
 
 ```CS
 tmSettings.MissingFormattingPenalty.Value = 0;
@@ -21,10 +21,10 @@ See Also
 
 **Other Resources**
 
-Translation Memory Search Settings
+[Translation Memory Search Settings](translation_memory_search_settings.md)
 
-Translation Memory Fields Update
+[Translation Memory Fields Update](translation_memory_field_update.md)
 
-Translation Memory Filter Settings
+[Translation Memory Filter Settings](translation_memory_filter_settings.md)
 
-Auto-Substitution Settings
+[Auto-Substitution Settings](auto_substitution_settings.md)

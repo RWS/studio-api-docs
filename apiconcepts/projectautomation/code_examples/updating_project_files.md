@@ -5,13 +5,13 @@ t is a rather common scenario for files to be updated in the middle of a project
 
 Therefore, the project manager will first add the new or updated files and apply the same task sequence to those files that were used on the files that are already in the project.
 
-If you want your application to allow users to add new files or update existing ones with a newer version, you can add a helper function called, e.g. ```UpdateFile```. In our sample implementation this helper function takes the following parameters: a [FileBasedProject]() object, the unique id of the file to be replaced, and the name and path of the updated file to be added to the project:
+If you want your application to allow users to add new files or update existing ones with a newer version, you can add a helper function called, e.g. ```UpdateFile```. In our sample implementation this helper function takes the following parameters: a [FileBasedProject](../../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml) object, the unique id of the file to be replaced, and the name and path of the updated file to be added to the project:
 
 ```cs
 private void UpdateFile(FileBasedProject project, Guid fileId, string newFileName)
 ```
 
-Before we actually replace the existing project file, it is worth taking a look at the various properties that you can retrieve on a file. Each project file is uniquely identified by an id (a guid). To get a handle on a file, you can apply the [GetFile]() method to the project. This method takes the file guid as parameter. The sample code below illustrates how to create an object based on the [ProjectFile]() class and how various properties can be applied to retrieve file information such as the name, the usage, the folder it is stored in, etc.:
+Before we actually replace the existing project file, it is worth taking a look at the various properties that you can retrieve on a file. Each project file is uniquely identified by an id (a guid). To get a handle on a file, you can apply the [GetFile](../../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml#Sdl_ProjectAutomation_FileBased_FileBasedProject_GetFile_System_Guid_) method to the project. This method takes the file guid as parameter. The sample code below illustrates how to create an object based on the [ProjectFile](../../../api/projectautomation/Sdl.ProjectAutomation.Core.ProjectFile.yml) class and how various properties can be applied to retrieve file information such as the name, the usage, the folder it is stored in, etc.:
 
 ```cs
 string fileInfo;
@@ -25,7 +25,7 @@ fileInfo += "Unique file id: " + thisFile.Id.ToString() + "\n";
 MessageBox.Show(fileInfo);
 ```
 
-The actual file replacement is carried out by applying the [AddNewFileVersion]() method to the project. This method requires the unique file id (guid) and the name and path of the new file (string) as parameters:
+The actual file replacement is carried out by applying the [AddNewFileVersion](../../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml#Sdl_ProjectAutomation_FileBased_FileBasedProject_GetFile_System_Guid_) method to the project. This method requires the unique file id (guid) and the name and path of the new file (string) as parameters:
 
 ```cs
 project.AddNewFileVersion(fileId, newFileName);
@@ -50,6 +50,6 @@ See Also
 --
 **Other Resources**
 
-Adding Files and Folders
+[Adding Files and Folders](adding_files_and_folders.md)
 
-Adding Files in the Folder to the Project
+[Adding Files in the Folder to the Project](../\developing_a_sample_app\adding_file_in_the_folder_to_the_project.md)

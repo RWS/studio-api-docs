@@ -1,13 +1,13 @@
 Creating a Return Package
 ==
 
-After translators/editors have fully processed the files contained in a project package (see [Creating a Project Package]()), they send them back in a so-called return package. Similar to a project package, a return package is technically a ZIP file that have the extension **.sdlrpx*. Return packages are usually a lot smaller than project packages, as they contain only the compressed bilingual (SDL XLIFF) files, i.e. no project TMs, reference files, or any other resources. For this reason, when you create a return package programmatically there are far less options available to configure.
+After translators/editors have fully processed the files contained in a project package (see [Creating a Project Package](creating_a_project_package.md)), they send them back in a so-called return package. Similar to a project package, a return package is technically a ZIP file that have the extension **.sdlrpx*. Return packages are usually a lot smaller than project packages, as they contain only the compressed bilingual (SDL XLIFF) files, i.e. no project TMs, reference files, or any other resources. For this reason, when you create a return package programmatically there are far less options available to configure.
 
 Create a Return Package Programmatically
 --
-In the sample implementation below we use a function called ```CreatePackage```, which takes a [FileBasedProject]() object as parameter. First, select the files that need to be included in the return package. It is possible that the original project package on which the return package is based contained several target languages, e.g. when the project package was sent to a translator or agency who can handle more than one target language. However, let us assume for the following example that there is only one target language involved, e.g. German (*de-DE*) and that all files of that target language should be returned. Use the [CultureInfo]() class to create a new Language object.
+In the sample implementation below we use a function called ```CreatePackage```, which takes a [FileBasedProject](../../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml) object as parameter. First, select the files that need to be included in the return package. It is possible that the original project package on which the return package is based contained several target languages, e.g. when the project package was sent to a translator or agency who can handle more than one target language. However, let us assume for the following example that there is only one target language involved, e.g. German (*de-DE*) and that all files of that target language should be returned. Use the [CultureInfo](https://docs.microsoft.com/en-us/dotnet/api/system.globalization.cultureinfo?redirectedfrom=MSDN&view=net-5.0) class to create a new Language object.
 
-Next, apply the [GetTargetLanguageFiles]() method to the project to retrieve the target files for the selected language and to create a [ProjectFile]() array. Since the [GetTargetLanguageFiles]() method, which we are going to apply later requires, the file ids as parameter, apply the ```GetIds``` method to create a ```Guid``` array, which contains the project file ids:
+Next, apply the [GetTargetLanguageFiles](../../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml#Sdl_ProjectAutomation_FileBased_FileBasedProject_GetTargetLanguageFiles) method to the project to retrieve the target files for the selected language and to create a [ProjectFile](../../../api/projectautomation/Sdl.ProjectAutomation.Core.ProjectFile.yml) array. Since the [GetTargetLanguageFiles](../../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml#Sdl_ProjectAutomation_FileBased_FileBasedProject_GetTargetLanguageFiles) method, which we are going to apply later requires, the file ids as parameter, apply the ```GetIds``` method to create a ```Guid``` array, which contains the project file ids:
 
 ```cs
 Language targetLang = new Language(CultureInfo.GetCultureInfo("de-DE"));
@@ -15,7 +15,7 @@ ProjectFile[] files = project.GetTargetLanguageFiles(targetLang);
 Guid[] fileIds = files.GetIds();
 ```
 
-In the next step, apply the [GetTargetLanguageFiles]() method to the project, thus creating a package object that is based on the [ReturnPackageCreation]() class. This method takes the following parameters:
+In the next step, apply the [GetTargetLanguageFiles](../../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml#Sdl_ProjectAutomation_FileBased_FileBasedProject_GetTargetLanguageFiles) method to the project, thus creating a package object that is based on the [ReturnPackageCreation](../../../api/projectautomation/Sdl.ProjectAutomation.Core.ReturnPackageCreation.yml) class. This method takes the following parameters:
 
 * The ids of the project files to include in the package
 * The return package name
@@ -25,7 +25,7 @@ In the next step, apply the [GetTargetLanguageFiles]() method to the project, th
 ReturnPackageCreation returnPackage = project.CreateReturnPackage(fileIds, "Return Package Name", "Comment: Everything went fine");
 ```
 
-Finally, apply the [SavePackageAs](method to the project to physically save the actual return package file. This method requires the package id (which you can retrieve from the [ReturnPackageCreation]() object) and the file name and path as parameters.
+Finally, apply the [SavePackageAs](../../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml#Sdl_ProjectAutomation_FileBased_FileBasedProject_SavePackageAs_System_Guid_System_String_) method to the project to physically save the actual return package file. This method requires the package id (which you can retrieve from the  [ReturnPackageCreation](../../../api/projectautomation/Sdl.ProjectAutomation.Core.ReturnPackageCreation.yml) object) and the file name and path as parameters.
 
 ```cs
 project.SavePackageAs(returnPackage.PackageId, @"c\temp\return_package.sdlrpx");
@@ -37,7 +37,7 @@ Check the Return Package Creation Status
 --
 It may happen that the package creation fails for some reason (e.g. any files to include in the package have accidentally been deleted or have become corrupted). This is why you should check for any events during the project package creation, and output a message to the user if required.
 
-The following sample code leverages the [PackageStatus]() class to check the project package status. It throws an error message if in the end the package status is not [Completed]():
+The following sample code leverages the [PackageStatus](../../../api/projectautomation/Sdl.ProjectAutomation.Core.PackageStatus.yml) class to check the project package status. It throws an error message if in the end the package status is not [Completed](../../../api/projectautomation/Sdl.ProjectAutomation.Core.PackageStatus.yml#fields):
 
 ```cs
 bool packageIsCreated = false;
@@ -126,8 +126,8 @@ See Also
 
 **Other Resources**
 
-Creating a Project Package
+[Creating a Project Package](creating_a_project_package.md)
 
-Importing a Return Package
+[Importing a Return Package](importing_a_return_package.md)
 
-About Packages
+[About Packages](..\about_packages.md)

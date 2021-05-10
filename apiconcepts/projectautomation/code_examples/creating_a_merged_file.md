@@ -13,7 +13,7 @@ The screenshot below illustrates how several files are merged into one SDL XLIFF
 
 Note that you can merge files of different types into one bilingual master file, e.g. * *.doc*, * *.ppt*, * *.pdf*, * *.html*.
 
-To merge project source files into one master file, implement a function called ```MergeFiles```, which takes a [FileBasedProject]() as parameter. When applying the [CreateMergedProjectFile]() method to your project, you need to provide the following parameters:
+To merge project source files into one master file, implement a function called ```MergeFiles```, which takes a [FileBasedProject](../../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml) as parameter. When applying the [CreateMergedProjectFile]((../../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml#Sdl_ProjectAutomation_FileBased_FileBasedProject_CreateMergedProjectFile_System_String_System_String_System_Guid___) method to your project, you need to provide the following parameters:
 
 * The name of the merged (SDL XLIFF) file.
 * The project path in which the merged file should be created. In this implementation, we will leave this string parameter empty. This means that the merged bilingual file will be created in the source language sub-folder (e.g. *en-US*), and will later be propagated to the corresponding target language sub-folders (e.g. *de-DE* and *fr-FR*) when the copy to target languages task is executed. You would only provide a different path in project, if you wanted the system to create the merged file in another sub-folder relative to the project path, e.g. *en-US/MergedFileSubPath*. However, in this case you will need to make sure that your implementation creates this physical path, as it will not be automatically crated by the Project Automation API.
@@ -47,6 +47,6 @@ See Also
 
 **Other Resources**
 
-Adding Files and Folders
+[Adding Files and Folders](adding_files_and_folders.md)
 
-Adding Files in the Folder to the Project
+[Adding Files in the Folder to the Project](../\developing_a_sample_app\adding_file_in_the_folder_to_the_project.md)

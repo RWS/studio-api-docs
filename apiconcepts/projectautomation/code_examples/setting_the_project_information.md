@@ -30,7 +30,7 @@ The screenshot below illustrates how this information is entered in the New Proj
 
 Set the Local Project Folder
 --
-All project files, i.e. translatable and localizable documents, reference files, project TMs, etc. are stored in a specific folder. By default, the main folder used for storing projects is: C:\Documents and Settings\UserName\My Documents\Studio 2017\Projects. Below this main folder SDL Trados Studio 2017 creates sub-folders that carry the name of the respective project. However, you could just as well pick any other folder name, as long as the specified folder is empty so as to avoid collisions with existing files. In the example below we follow the default folder rule of <Var:ProductName> by selecting the Studio 2017\Projects\ folder below MyDocuments, and by appending the project name sub-folder. We then set the [LocalProjectFolder](../../../api\projectautomation\Sdl.ProjectAutomation.Core.ProjectInfo.yml) property accordingly as shown in the example below:
+All project files, i.e. translatable and localizable documents, reference files, project TMs, etc. are stored in a specific folder. By default, the main folder used for storing projects is: C:\Documents and Settings\UserName\My Documents\Studio 2017\Projects. Below this main folder SDL Trados Studio 2017 creates sub-folders that carry the name of the respective project. However, you could just as well pick any other folder name, as long as the specified folder is empty so as to avoid collisions with existing files. In the example below we follow the default folder rule of <Var:ProductName> by selecting the Studio 2017\Projects\ folder below MyDocuments, and by appending the project name sub-folder. We then set the [LocalProjectFolder](../../../api/projectautomation/Sdl.ProjectAutomation.Core.ProjectInfo.yml#Sdl_ProjectAutomation_Core_ProjectInfo_LocalProjectFolder) property accordingly as shown in the example below:
 ```CS
 string localProjectFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).ToString() +
     Path.DirectorySeparatorChar + @"Studio 2011\Projects\" + info.Name;
@@ -42,7 +42,7 @@ Select the Project Languages
 A project must have at least one language pair, i.e. a source language and one target language. Projects can have only one source language, but multiple target languages. The screenshot below illustrates how languages are selected in <Var:ProductName>:
 
 ![NewProject02](images/NewProject02.jpg)
-For this example, let us assume that the source language should be English (US), and the target languages German and French. First, we create the source language object through the ```Language``` class. The language object takes the ```CultureInfo``` as parameter. Then we assign the source language object to the project info by applying the [SourceLanguage](../../../api\projectautomation\Sdl.ProjectAutomation.Core.ProjectInfo.yml)  property:
+For this example, let us assume that the source language should be English (US), and the target languages German and French. First, we create the source language object through the ```Language``` class. The language object takes the ```CultureInfo``` as parameter. Then we assign the source language object to the project info by applying the [SourceLanguage](../../../api/projectautomation/Sdl.ProjectAutomation.Core.ProjectInfo.yml#Sdl_ProjectAutomation_Core_ProjectInfo_SourceLanguage)  property:
 ```CS
 Language srcLang = new Language(CultureInfo.GetCultureInfo("en-US"));
 info.SourceLanguage = srcLang;
@@ -111,17 +111,15 @@ See Also
 --
 **Other Resources**
 
-[Adding Files and Folders]()
+[Adding Files and Folders](adding_files_and_folders.md)
 
-[Adding Translation Memories]()
+[Adding Translation Memories](adding_translation_memories.md)
 
-[Adding Translation Memories]()
+[Running Tasks on the Project Files](running_tasks_on_project_files.md)
 
-[Running Tasks on the Project Files]()
+[Creating Projects Based on Previous Projects](creating_project_based_on_prev_proj.md)
 
-[Creating Projects Based on Previous Projects]()
+[Creating Projects Based on Templates](creating_proj_based_on_templates.md)
 
-[Creating Projects Based on Templates]()
-
-[Configuring the Project Properties]()
+[Configuring the Project Properties](../developing_a_sample_app/configuring_the_project_properties.md)
 

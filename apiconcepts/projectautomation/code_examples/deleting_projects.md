@@ -3,7 +3,7 @@ Deleting Projects
 
 Projects can take a lot of hard disk space, as they are comprised of a number of folders, sub-folders, which contain source and target documents, project termbases, etc. By applying a simple delete you can physically remove a project and all of its files.
 
-All you need to do is to apply the [Delete]() to a specific file-based project object:
+All you need to do is to apply the [Delete](../../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml#Sdl_ProjectAutomation_FileBased_FileBasedProject_GetProjectStatistics) to a specific file-based project object:
 
 ```cs
 FileBasedProject project = new FileBasedProject(GetProjectInfo());
@@ -16,6 +16,6 @@ See Also
 --
 **Other Resources**
 
-Setting the Project Information
+[Setting the Project Information](se9tting_the_project_information.md)
 
-Deleting the Project
+[Deleting the Project](..\developing_a_sample_app\deleting_the_project.md)

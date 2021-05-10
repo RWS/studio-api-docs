@@ -12,13 +12,13 @@ The reports that are associated with a specific task can be saved to a more read
 * MHT
 * XML
 
-After executing a task such as an analysis you can access the reports of this task through the [Reports]() property. A task can have more than one report if it has been executed several times. For example, the analysis task can be run several times to get updated analysis statistics. This is why in a project you may find several analyze files reports, which, however, can be deleted by the user if there are too many of them.
+After executing a task such as an analysis you can access the reports of this task through the [Reports](../../../api/projectautomation/Sdl.ProjectAutomation.Core.AutomaticTask.yml#Sdl_ProjectAutomation_Core_AutomaticTask_Reports) property. A task can have more than one report if it has been executed several times. For example, the analysis task can be run several times to get updated analysis statistics. This is why in a project you may find several analyze files reports, which, however, can be deleted by the user if there are too many of them.
 
-To save a report to a file, you apply the [SaveTaskReportAs]() method to the project. This method requires the following parameters:
+To save a report to a file, you apply the [SaveTaskReportAs](../../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml#Sdl_ProjectAutomation_FileBased_FileBasedProject_SaveTaskReportAs_System_Guid_System_String_Sdl_ProjectAutomation_Core_ReportFormat_) method to the project. This method requires the following parameters:
 
 * The id (guid) of the report to save
 * The file name and path
-* The report format; the available report formats can be accessed through the [ReportFormat]() class
+* The report format; the available report formats can be accessed through the [ReportFormat](../../../api/projectautomation/Sdl.ProjectAutomation.Core.ReportFormat.yml) class
 
 The example below demonstrates how you can generate a report in Microsoft Excel (e.g. for printing) with just two lines of code. First, we retrieve the id of the first report that is available for an analyze file task, then we apply the SaveTaskReportAs method to generate the Excel file
 
@@ -31,6 +31,6 @@ See Also
 --
 **Other Resources**
 
-[Running Tasks on the Project Files]()
+[Running Tasks on the Project Files](running_tasks_on_project_files.md)
 
-[Generating the Task Report]()
+[Generating the Task Report](..\developing_a_sample_app\generating_the_task_report.md)

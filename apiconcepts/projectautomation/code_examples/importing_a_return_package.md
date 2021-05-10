@@ -1,7 +1,7 @@
 Importing a Return Package
 ==
 
-After the return package (see [Creating a Return Package]()) has been sent back to the project manager, e.g. via e-mail, he/she opens it in <Var:ProductName>. This basically means that the package content is extracted, and the translated, edited, or proofread bilingual (SDL XLIFF) document overwrite the previous (e.g. untranslated) files, thus updating the project on the project manager's side.
+After the return package (see [Creating a Return Package](creating_a_return_package.md)) has been sent back to the project manager, e.g. via e-mail, he/she opens it in <Var:ProductName>. This basically means that the package content is extracted, and the translated, edited, or proofread bilingual (SDL XLIFF) document overwrite the previous (e.g. untranslated) files, thus updating the project on the project manager's side.
 
 Import a Return Package Programmatically
 --
@@ -14,7 +14,7 @@ Within the function start by opening the project as shown below:
 FileBasedProject project = new FileBasedProject(projectFile);
 ```
 
-To import and extract the return package content into your project, apply the [ImportReturnPackage]() method to your project to create a [ReturnPackageImport]() object. This method requires the full return package file name and path as parameter, as shown in the example function below:
+To import and extract the return package content into your project, apply the [ImportReturnPackage](../../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml#Sdl_ProjectAutomation_FileBased_FileBasedProject_ImportReturnPackage_System_String_) method to your project to create a [ReturnPackageImport](../../../api/projectautomation/Sdl.ProjectAutomation.Core.ReturnPackageImport.yml) object. This method requires the full return package file name and path as parameter, as shown in the example function below:
 
 
 ```cs
@@ -31,7 +31,7 @@ ReturnPackageImport import = project.ImportReturnPackage(returnPackageFile);
 
 >**Note**
 >
->After importing the return package, the project statistics will usually change, e.g. more segments should now have the translated, reviewed, etc. state. See also [Retrieving the Project Statistics]().
+>After importing the return package, the project statistics will usually change, e.g. more segments should now have the translated, reviewed, etc. state. See also [Retrieving the Project Statistics](retrieving_the_project_statistics.md).
 
 >**Note**
 >
@@ -40,7 +40,7 @@ ReturnPackageImport import = project.ImportReturnPackage(returnPackageFile);
 Check the Import Status
 -- 
 
-It may happen that the return extraction and import fails for some reason (e.g. a project file has accidentally been set to read-only and thus cannot be overwritten and updated by a file in the return package). This is why you should check for the import status, and output a message to the user if required. The following sample code leverages the [PackageStatus]() class to check the project package status. It throws an error message if in the end the package status is not [Completed]():
+It may happen that the return extraction and import fails for some reason (e.g. a project file has accidentally been set to read-only and thus cannot be overwritten and updated by a file in the return package). This is why you should check for the import status, and output a message to the user if required. The following sample code leverages the [PackageStatus](../../../api/projectautomation/Sdl.ProjectAutomation.Core.PackageStatus.yml) class to check the project package status. It throws an error message if in the end the package status is not [Completed](../../../api/projectautomation/Sdl.ProjectAutomation.Core.PackageStatus.yml#fields):
 
 ```cs
 bool packageIsImported = false;
@@ -128,6 +128,6 @@ See Also
 --
 **Other Resources**
 
-Creating a Return Package
+[Creating a Return Package](creating_a_return_package.md)
 
-About Packages
+[About Packages](..\about_packages.md)

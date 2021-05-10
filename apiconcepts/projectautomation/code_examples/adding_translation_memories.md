@@ -15,15 +15,16 @@ TMs are added to the project in three steps:
 * Then you define the entries for the configuration, which is tantamount to selecting the TMs (or automated translation provider sources)
 * Last, you add the TMs to the translation provider configuration of the project
 
-TMs can be added to the project as a whole or to each language pair in the project. Since our sample project has two language pairs (i.e. English -> German and English -> French), we will take two translation providers configuration objects, i.e. one for each target language. We do this by applying the [GetTranslationProviderConfiguration](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml#Sdl_ProjectAutomation_FileBased_FileBasedProject_GetTranslationProviderConfiguration) method to the project. In both cases you provide the respective target language as parameter
+TMs can be added to the project as a whole or to each language pair in the project. Since our sample project has two language pairs (i.e. English -> German and English -> French), we will take two translation providers configuration objects, i.e. one for each target language. We do this by applying the [GetTranslationProviderConfiguration](../../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml#Sdl_ProjectAutomation_FileBased_FileBasedProject_GetTranslationProviderConfiguration) method to the project. In both cases you provide the respective target language as parameter
 
 > **Note**
 >
 >When you add TMs to the entire project, i.e. not to particular language pairs, just apply the above method without any parameter.
 
 ![AllLanguagePairs](images/AllLanguagePairs.jpg)
+
 As the screenshot above illustrates, TMs or any other translation providers can be added either globally for all language pairs, or specifically to each language pair.
-The translation provider configurations, which are based on the [TranslationProviderConfiguration]() class, basically act as containers for all translation providers (e.g. file/server TMs, Web-based automated translation providers, etc.) used in a project.
+The translation provider configurations, which are based on the [TranslationProviderConfiguration](../../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml#Sdl_ProjectAutomation_FileBased_FileBasedProject_GetTranslationProviderConfiguration) class, basically act as containers for all translation providers (e.g. file/server TMs, Web-based automated translation providers, etc.) used in a project.
 
 ```CS
 Language trgLangDe = new Language(CultureInfo.GetCultureInfo("de-DE"));
@@ -32,7 +33,7 @@ Language trgLangFr = new Language(CultureInfo.GetCultureInfo("fr-FR"));
 TranslationProviderConfiguration tmConfigEnDe = project.GetTranslationProviderConfiguration(trgLangDe);
 TranslationProviderConfiguration tmConfigEnFr = project.GetTranslationProviderConfiguration(trgLangFr);
 ```
-In the second step we select the actual TMs. For each TM we create an object derived from the [TranslationProviderCascadeEntry]() class. Each translation provider cascade entry will be part of the whole translation provider configuration. The arrays of entries contains the TMs used for the two project language pairs that we use in our example. When creating the new translation provider entires we provide the following parameters:
+In the second step we select the actual TMs. For each TM we create an object derived from the [TranslationProviderCascadeEntry](../../../api/projectautomation/Sdl.ProjectAutomation.Core.TranslationProviderCascadeEntry.yml) class. Each translation provider cascade entry will be part of the whole translation provider configuration. The arrays of entries contains the TMs used for the two project language pairs that we use in our example. When creating the new translation provider entires we provide the following parameters:
 
 * The name and path of the (file-based) TMs
 * A boolean parameter to indicate whether the TM should be updated during the project lifecycle
@@ -58,7 +59,7 @@ TranslationProviderCascadeEntry[] tmEntriesEnFr =
 >
 > You can add a different number of TMs or other types of translation providers per language direction.
 
-In the last step we add the TMs (i.e. the translation provider entry objects) to the translation provider configuration object by looping through the TM entries collections. Finally, we need to update the project object by applying the [UpdateTranslationProviderConfiguration]() method using the translation provider configuration objects and the respective target language as parameters:
+In the last step we add the TMs (i.e. the translation provider entry objects) to the translation provider configuration object by looping through the TM entries collections. Finally, we need to update the project object by applying the [UpdateTranslationProviderConfiguration](../../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml#Sdl_ProjectAutomation_FileBased_FileBasedProject_UpdateTranslationProviderConfiguration_Sdl_Core_Globalization_Language_Sdl_ProjectAutomation_Core_TranslationProviderConfiguration_) method using the translation provider configuration objects and the respective target language as parameters:
 ```CS
 for (int i = 0; i < tmEntriesEnDe.Length; i++)
 {
@@ -129,7 +130,9 @@ If the file TM is password protected you must add the file using the URI method 
 For a password-protected file-based translation memory, the URI should be of the form:
 
 sdltm.file://ABSOLUTE_TM_PATH
+
 and the credentials should be the password used to unlock the file.
+
 ```CS
 public void AddFileBasedTMWithPassword(FileBasedProject project, string pathIncludingFileName, string password)
 {
@@ -148,13 +151,18 @@ public void AddFileBasedTMWithPassword(FileBasedProject project, string pathIncl
     project.UpdateTranslationProviderConfiguration(tmConfig);
 }
 ```
+
 Adding a Server-based TM
 --
+
 For a server-based translation memory, an entry should be added for the TM Server itself. The URI should be of the form:
 
 sdltm.http[s]://HOSTNAME:PORT
+
 The credentials should be of the form
+
 user=[USERNAME];password=[PASSWORD];type=[TYPE]
+
 where "user" is the user name, "password" the password and "type" is one of the following:
 * Windows - use the currently logged on Windows user; "user" and "password" do not have to be specified.
 * CustomWindows - a non-Windows user defined on the TM Server; "user" should be a domain-qualified Windows user name and "password" should be the matching password.
@@ -188,6 +196,7 @@ Adding SDL BeGlobal Community Machine Translation Provider
 SDL BeGlobal Translation Provider is a free machine translation service provided by SDL for Studio customers. The URI should be in the form:
 
 beglobalcommunity://
+
 > **Note**
 >
 >Beglobal Community Provider will use the credentials of the current user. You must sign up for the service within studio before it can be used to pre-translate files in Project Automation.
@@ -213,14 +222,16 @@ public void AddBeglobalCommunityMT(FileBasedProject project)
 ```
 > **Note**
 >
->Pre-translate does not use Machine Translation Providers by default. To use this provider in a pre-translate task remember to set the NoTranslationMemoryMatchFoundAction property to ApplyAutomatedTranslation see [Pre-translate Settings]()
+>Pre-translate does not use Machine Translation Providers by default. To use this provider in a pre-translate task remember to set the NoTranslationMemoryMatchFoundAction property to ApplyAutomatedTranslation see [Pre-translate Settings](pre_translate_settings.md)
 
 Adding SDL BeGlogal Enterprise Machine Translation Provider
 --
+
 SDL BeGlobal Enterprise Edition is a domain based machine translation provider used to provide high quality machine translations for specific application domains. The URI should be in the form:
 
 languageweavermt.http[s]://[USERKEY:@]HOST:PORT?apimodel=[SOAP|REST]
 The credential should be your Beglobal API key.
+
 > **Note**
 >
 >To use this provider you must have a SDL BeGlobal Online account or a SDL BeGlobal server installed within your company.
@@ -246,7 +257,7 @@ public void AddBeglobalEnterpriseMT(FileBasedProject project, string host, strin
 ```
 >**Note**
 >
->Pre-translate does not use Machine Translation Providers by default. To use this provider in a pre-translate task remember to set the **NoTranslationMemoryMatchFoundAction** property to **ApplyAutomatedTranslation** see [Pre-translate Settings]()
+>Pre-translate does not use Machine Translation Providers by default. To use this provider in a pre-translate task remember to set the **NoTranslationMemoryMatchFoundAction** property to **ApplyAutomatedTranslation** see [Pre-translate Settings](pre_translate_settings.md)
 
 Adding a Google<sup>TM</sup> Machine Translation Provider
 --
@@ -282,27 +293,28 @@ public void AddGoogleMT(FileBasedProject project, string apiKey)
 ```
 >**Note**
 >
->Pre-translate does not use Machine Translation Providers by default. To use this provider in a pre-translate task remember to set the **NoTranslationMemoryMatchFoundAction** property to **ApplyAutomatedTranslation** see [Pre-translate Settings]() 
+>Pre-translate does not use Machine Translation Providers by default. To use this provider in a pre-translate task remember to set the **NoTranslationMemoryMatchFoundAction** property to **ApplyAutomatedTranslation** see [Pre-translate Settings](pre_translate_settings.md) 
 
 See Also
 --
-Other Resources
 
-Adding Termbases
+**Other Resources**
 
-Adding the TM to the Project
+[Adding Termbases](adding_termbases.md)
 
-Translation Memory Settings
+[Adding the TM to the Project](..\developing_a_sample_app\adding_tm_to_the_project.md)
 
-Translation Memory Search Settings
+[Translation Memory Settings](translation_memory_settings.md)
 
-Setting TM Penalties
+[Translation Memory Search Settings](translation_memory_search_settings.md)
 
-Translation Memory Fields Update
+[Setting TM Penalties](setting_tm_penalties.md)
 
-Translation Memory Filter Settings
+[Translation Memory Fields Update](translation_memory_field_update.md)
 
-Auto-Substitution Settings
+[Translation Memory Filter Settings](translation_memory_filter_settings.md)
 
-Project Configuration
+[Auto-Substitution Settings](auto_substitution_settings.md)
+
+[Project Configuration](../project_configuration.md)
 

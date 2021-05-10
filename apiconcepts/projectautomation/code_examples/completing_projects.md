@@ -3,7 +3,7 @@ Completing Projects
 
 Projects can change their states during the translation process. By using the complete functionality you can change for a project the state to completed.
 
-All you need to do is to apply the [Complete]() method to a specific file-based project object:
+All you need to do is to apply the [Complete](../../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml#Sdl_ProjectAutomation_FileBased_FileBasedProject_GetProjectStatistics) method to a specific file-based project object:
 
 ```cs
 public void CompleteProject()
@@ -19,4 +19,4 @@ See Also
 --
 **Other Resources**
 
-Setting the Project Information
+[Setting the Project Information](se9tting_the_project_information.md)

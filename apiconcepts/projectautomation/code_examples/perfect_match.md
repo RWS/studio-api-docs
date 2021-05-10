@@ -11,7 +11,7 @@ The screenshot below shows the settings that can be configured for the Perfect M
 
 ![PerfectMatchSettings](images/PerfectMatchSettings.jpg)
 
-To configure the task settings programmatically, implement a helper function called [GetPerfectMatchTaskSettings](), which takes a [FileBasedProject]() object as a parameter. The settings for a particular task are saved within the project. First, create a ```ISettingsBundle``` object by applying the ```GetSettings``` method to the project object. Then apply the     ```GetSettingsGroup``` method to generate a settings object based on the [PerfectMatchTaskSettings]() class:
+To configure the task settings programmatically, implement a helper function called ```GetPerfectMatchTaskSettings```, which takes a [FileBasedProject](../../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml) object as a parameter. The settings for a particular task are saved within the project. First, create a ```ISettingsBundle``` object by applying the ```GetSettings``` method to the project object. Then apply the     ```GetSettingsGroup``` method to generate a settings object based on the [PerfectMatchTaskSettings](../../../api/projectautomation/Sdl.ProjectAutomation.Settings.PerfectMatchTaskSettings.yml) class:
 
 ```CS
 ISettingsBundle settings = project.GetSettings();
@@ -31,7 +31,7 @@ For now we will assign the default behaviour of true so that the segments are ma
 perfectMatchSettings.MarkAsPerfectMatchAndLock.Value = true;
 ```
 
-Last, you need to apply the settings to the project through the [UpdateSettings]() method, so that the settings are persisted in the project.
+Last, you need to apply the settings to the project through the [UpdateSettings](../../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml#Sdl_ProjectAutomation_FileBased_FileBasedProject_UpdateSettings_Sdl_Core_Globalization_Language_Sdl_Core_Settings_ISettingsBundle_) method, so that the settings are persisted in the project.
 
 ```CS
 project.UpdateSettings(settings);
@@ -71,13 +71,13 @@ Mapping Previous Bilingual Files to Project Files
 
 For Perfect Match to work the files in your project must each hold a reference to a previous bilingual file The ```IProject``` interface contains a number of methods for assigning and removing these association to and from your project files.
 
-[AddBilingualReferenceFiles]() - Maps bilingual reference files using an array of [BilingualFileMapping]() objects.
+[AddBilingualReferenceFiles](../../../api/projectautomation/Sdl.ProjectAutomation.Core.IProject.yml#Sdl_ProjectAutomation_Core_IProject_AddBilingualReferenceFiles_Sdl_ProjectAutomation_Core_BilingualFileMapping___) - Maps bilingual reference files using an array of [BilingualFileMapping](../../../api/projectautomation/Sdl.ProjectAutomation.Core.BilingualFileMapping.yml) objects.
 
-[AddBilingualReferenceFiles]() - Uses a [BilingualFileMapping]() object to map a bilingual reference file to a project file for a particular target language.
+[AddBilingualReferenceFile](../../../api/projectautomation/Sdl.ProjectAutomation.Core.IProject.yml#Sdl_ProjectAutomation_Core_IProject_AddBilingualReferenceFile_Sdl_ProjectAutomation_Core_BilingualFileMapping_) - Uses a [BilingualFileMapping](../../../api/projectautomation/Sdl.ProjectAutomation.Core.BilingualFileMapping.yml) object to map a bilingual reference file to a project file for a particular target language.
 
-[RemoveBilingualReferenceFile]() - Removes the bilingual reference file from a file.
+[RemoveBilingualReferenceFile](../../../api/projectautomation/Sdl.ProjectAutomation.Core.IProject.yml#Sdl_ProjectAutomation_Core_IProject_RemoveBilingualReferenceFile_System_Guid_) - Removes the bilingual reference file from a file.
 
-**Examples of using the [AddBilingualReferenceFiles]() method**
+**Examples of using the [AddBilingualReferenceFiles](../../../api/projectautomation/Sdl.ProjectAutomation.Core.IProject.yml#Sdl_ProjectAutomation_Core_IProject_AddBilingualReferenceFiles_Sdl_ProjectAutomation_Core_BilingualFileMapping___) method**
 
 ```CS
  ProjectInfo info = this.GetProjectInfo();
@@ -98,7 +98,7 @@ project.AddBilingualReferenceFiles(
 ```
 
 
-**Example helper method to return an array of [BilingualFileMapping]() objects**
+**Example helper method to return an array of [BilingualFileMapping](../../../api/projectautomation/Sdl.ProjectAutomation.Core.BilingualFileMapping.yml) objects**
 
 This example uses a simple scan of a previous project to find and associate bilingual files with the current project using a simple match of the language directory and filename.
 
@@ -150,7 +150,7 @@ public BilingualFileMapping[] GetBilingualFileMappings(Language[] targetLanguage
 }
 ```
 
-**Examples of using the [AddBilingualReferenceFile]() method**
+**Examples of using the [AddBilingualReferenceFile](../../../api/projectautomation/Sdl.ProjectAutomation.Core.IProject.yml#Sdl_ProjectAutomation_Core_IProject_AddBilingualReferenceFile_Sdl_ProjectAutomation_Core_BilingualFileMapping_) method**
 
 Single bilingual reference file associations can be made using on of the following methods
 
@@ -185,15 +185,16 @@ AutomaticTaskTemplateIds.PerfectMatch);
 See Also
 --
 **Other Resources**
-Analyze Files Settings
 
-Project TM Creation Settings
+[Analyze Files Settings](analyze_files_settings.md)
 
-Pre-translate Settings
+[Project TM Creation Settings](project_tm_creation_settings.md)
 
-Update Translation Memory Settings
+[Pre-translate Settings](pre_translate_settings.md)
 
-Generating and Exporting Target Files
+[Update Translation Memory Settings](update_translation_memory_settings.md)
 
-Translation Count
+[Generating and Exporting Target Files](generating_and_exporting_target_files.md)
+
+[Translation Count](translation_count.md)
 
