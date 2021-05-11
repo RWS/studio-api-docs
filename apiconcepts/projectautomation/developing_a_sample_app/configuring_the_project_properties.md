@@ -10,7 +10,7 @@ Before the files can be processed we need to create a project, to which we later
 Add the Class for the Project Creation
 --
 
-Add a new class to your project called ProjectCreator. Make sure that this class uses the namespaces listed in the chapter [Required References and Namespaces](required_references_and_namespaces.md). Moreover, you also need to use the following namespaces from the Translation Memory API:
+Add a new class to your project called ProjectCreator. Make sure that this class uses the namespaces listed in the chapter [Required References and Namespaces](../code_examples/required_references_and_namespaces.md). Moreover, you also need to use the following namespaces from the Translation Memory API:
 
 * Sdl.LanguagePlatform.TranslationMemoryApi
 * Sdl.LanguagePlatform.TranslationMemory

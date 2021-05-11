@@ -1,7 +1,7 @@
 Configuring the Analyze Task Settings
 ==
 
-The automatic analyze files task can be configured through various parameters. In our implementation we will use two parameters: the reporting of cross-file repetitions and of the internal fuzzy match leverage. For detailed information on the available task settings, please see [Analyze Files Settings](../code_examples/analyze_file_settings.md).
+The automatic analyze files task can be configured through various parameters. In our implementation we will use two parameters: the reporting of cross-file repetitions and of the internal fuzzy match leverage. For detailed information on the available task settings, please see [Analyze Files Settings](../code_examples/analyze_files_settings.md).
 
 Add a new helper function called GetAnalyzeSettings. Below you see the parameters that need to be provided for this function, i.e. the [FileBasedProject](../../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml)  object, the target locale string and boolean parameters for the two task reporting settings that are configured through the command-line interface:
 

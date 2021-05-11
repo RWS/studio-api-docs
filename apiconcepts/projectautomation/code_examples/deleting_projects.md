@@ -16,6 +16,6 @@ See Also
 --
 **Other Resources**
 
-[Setting the Project Information](se9tting_the_project_information.md)
+[Setting the Project Information](setting_the_project_information.md)
 
 [Deleting the Project](..\developing_a_sample_app\deleting_the_project.md)

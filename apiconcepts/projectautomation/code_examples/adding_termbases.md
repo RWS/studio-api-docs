@@ -126,6 +126,6 @@ See Also
 
 **Other Resources**
 
-[Adding Translation Memories](adding_translation_memories.md0)
+[Adding Translation Memories](adding_translation_memories.md)
 
 [Project Configuration](../project_configuration.md)

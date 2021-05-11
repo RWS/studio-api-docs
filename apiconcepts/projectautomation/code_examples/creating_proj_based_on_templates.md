@@ -86,8 +86,8 @@ See Also
 
 **Other Resources**
 
-[Setting the Project Information](se9tting_the_project_information.md)
+[Setting the Project Information](setting_the_project_information.md)
 
-[Configuring the Project Properties](configuring_the_project_properties.md)
+[Configuring the Project Properties](../developing_a_sample_app/configuring_the_project_properties.md)
 
 [Project Configuration](..\project_configuration.md)

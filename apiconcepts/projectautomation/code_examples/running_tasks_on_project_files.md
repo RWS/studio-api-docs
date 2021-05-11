@@ -259,7 +259,7 @@ See Also
 
 [Automatic Tasks and Task Settings](automatic_tasks_and_task_settings.md)
 
-[Analyze Files Settings](analyze_file_settings.md)
+[Analyze Files Settings](analyze_files_settings.md)
 
 [Project TM Creation Settings](project_tm_creation_settings.md)
 
