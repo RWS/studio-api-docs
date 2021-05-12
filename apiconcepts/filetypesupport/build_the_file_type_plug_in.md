@@ -10,7 +10,7 @@ Building the project will generate a **.sdlplugin* file, in our example Sdl.Sdk.
 
 * The plug-in assembly, e.g. **Sdl.Sdk.FileTypeSupport.Samples.SimpleText.dll**
 * The plug-in manifest, e.g. **Sdl.Sdk.FileTypeSupport.Samples.SimpleText.plugin.xml**. The manifest lists information on any extension classes that the plug-in contains. It is this manifest that will be created during the build process. It declares the assembly and the corresponding extension classes to <Var:ProductName>. By deleting this manifest **.xml* file you would actually deactivate the plug-in and 'hide' it from the application.
-* The plug-in resources file, e.g. **Sdl.Sdk.FileTypeSupport.Samples.SimpleText.plugin.resources**. This resources file contains all the localizable strings and images referred to within the plug-in manifest, and is compiled from **PluginResources.resx** (see also The [Resources File](the_resource_file.md)).
+* The plug-in resources file, e.g. **Sdl.Sdk.FileTypeSupport.Samples.SimpleText.plugin.resources**. This resources file contains all the localizable strings and images referred to within the plug-in manifest, and is compiled from **PluginResources.resx** (see also The [Resources File](the_resources_file.md)).
 
 The Plug-in Package Path
 --
