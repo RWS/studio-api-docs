@@ -59,7 +59,7 @@ Suppose you want to change the usage (role) of two files:
 Implement a dedicated helper function for setting the role of a specific file. This function should be called ```SetFileRole``` and should take the following parameters:
 * A [FileBasedProject](../../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml). object
 * The name of the file whose role should be changed (string)
-* The [FileRole](../../..../../../api/projectautomation/Sdl.ProjectAutomation.Core.FileRole.yml) value to set
+* The [FileRole](../../../api/projectautomation/Sdl.ProjectAutomation.Core.FileRole.yml) value to set
 
 For our two sample files the function can be called as shown below:
 
