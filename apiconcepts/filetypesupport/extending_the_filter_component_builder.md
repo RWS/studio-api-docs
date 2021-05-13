@@ -39,7 +39,7 @@ where ```SimpleTextExtensionPreTweaker``` is the class that implements the new T
 
 Note that extending an extension and extending a filter template are not supported by the filter framework and can have unexpected results.
 
-The next code shows part of the example (SimpleTextExtension) included with the sample projects. Note that the class has an attribute called ```FileTypeComponentBuilderExtensionAttribute``` to enable the plug-in mechanism. The property ```OriginalFileType``` must be set to match the FileTypeId of the FileType you wish to extend. Please refer to the [Build the File Type Plug-in](build_the_file_type_plugin.md) topic for more information.
+The next code shows part of the example (SimpleTextExtension) included with the sample projects. Note that the class has an attribute called ```FileTypeComponentBuilderExtensionAttribute``` to enable the plug-in mechanism. The property ```OriginalFileType``` must be set to match the FileTypeId of the FileType you wish to extend. Please refer to the [Build the File Type Plug-in](build_the_file_type_plug_in.md) topic for more information.
 
 ```cs
 namespace Sdl.Sdk.FileTypeSupport.Samples.SimpleTextExtension
