@@ -55,7 +55,7 @@ The document structure context can be used to generate an overview of the docume
 
 All property objects passed through the methods in the ```IAbstractNativeContentHandler``` are created through a property factory that is provided by the framework. The [IPropertiesFactory](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPropertiesFactory.yml) interface looks like this:
 
-![PropertiesFactory](images.PropertiesFactory.png)
+![PropertiesFactory](images/PropertiesFactory.png)
 
 Filter components may implement [INativeFileTypeComponent](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileTypeComponent.yml) , as shown in the following diagram:
 

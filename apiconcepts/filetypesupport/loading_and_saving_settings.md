@@ -209,11 +209,11 @@ See Also
 
 **Other Resources**
 
-[Implement the User Interface](implement_the_user_interface.md)
+[Implement the User Interface](implement_the_user_interface_native.md)
 
-[Implement the UI Controller Class](implementing_the_ui_controller_class.md)
+[Implement the UI Controller Class](implement_the_ui_controller_class_native.md)
 
-[Implement the Verification Logic](implement_the_verification_logic.md)
+[Implement the Verification Logic](implement_the_verification_logic_native.md)
 
 
 >**!NOTE**

@@ -340,7 +340,7 @@ See Also
 
 [Handling Tags During Segmentation](handling_tags_during_segmentation.md)
 
-[Tag display modes](tab_display_modes.md)
+[Tag display modes](tag_display_modes.md)
 
 >**!NOTE**
 >

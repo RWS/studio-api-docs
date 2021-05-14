@@ -19,7 +19,7 @@ Your **SettingsUI** class needs to use the following namespace:
 The Settings Bundle
 --
 
-Each plug-in uses a settings bundle to store and retrieve settings. The mechanism for doing that is provided in a separate class called **UserSettings**, which we will implement later ([Loading and Saving the Settings](loading_and_saving_user_settings.md)). For now, we create an object based on the **UserSettings** class:
+Each plug-in uses a settings bundle to store and retrieve settings. The mechanism for doing that is provided in a separate class called **UserSettings**, which we will implement later ([Loading and Saving the Settings](loading_and_saving_settings.md)). For now, we create an object based on the **UserSettings** class:
 
 ```cs
 private UserSettings _userSettings;

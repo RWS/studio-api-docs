@@ -30,7 +30,7 @@ Internal preview
 -- 
 Internal preview is responsible for generating of the native file in the format which can be displayed inside the control hosted in <Var:ProductName>. As hosted control, one of predefined controls in ```Sdl.FileTypeSupport.Framework.PreviewControls``` or the custom control which derives from [ISingleFilePreviewControl](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.ISingleFilePreviewControl.yml) and [IPreviewUpdatedViaRefresh](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IPreviewUpdatedViaRefresh.yml) or [INavigablePreview](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.INavigablePreview.yml) can be used.
 
-For more details about the internal preview implementation see [Implement an Internal Preview](internal_preview.md) chapter.
+For more details about the internal preview implementation see [Implement an Internal Preview](internal_preview_introduction.md) chapter.
 
 >**!NOTE**
 >

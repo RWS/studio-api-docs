@@ -1,7 +1,7 @@
 Processing Placeholder Tags
 ==
 
-In one of the previous chapters you learned how to process tag pairs (e.g. <b></b>) during file parsing (see [Processing Inline Formatting](processing_inline_formatting.md)). In this chapter you will learn how to process standalone placeholder tags, such as <img src="button.jpg" />
+In one of the previous chapters you learned how to process tag pairs (e.g. <b></b>) during file parsing (see [Processing Inline Formatting](processing_inline_formatting.md)). In this chapter you will learn how to process standalone placeholder tags, such as < img src="button.jpg" />
 
 Enhance your Parser to Process Standalone Placeholder Tags
 --

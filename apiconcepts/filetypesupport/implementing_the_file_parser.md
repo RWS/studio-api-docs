@@ -121,7 +121,7 @@ Since users cannot see the structure tag content in the editor of <Var:ProductNa
 
 If a given line does not start and end with a bracket, then the string can be considered translatable text, and can therefore be exposed to the user for translation. This is done through the helper function ```WriteText()```.
 
-The ```WriteText()``` helper uses [CreateTextProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPropertiesFactory.yml#Sdl_FileTypeSupport_Framework_NativeApi_IPropertiesFactory_CreateTextProperties_System_String_) method of the properties factory to create a text properties object ([ITextProperties](../..api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ITextProperties.yml)) that contains the localizable text. The actual text of this property can then be output by using the ```Output.Text()``` method.
+The ```WriteText()``` helper uses [CreateTextProperties](../..//api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPropertiesFactory.yml#Sdl_FileTypeSupport_Framework_NativeApi_IPropertiesFactory_CreateTextProperties_System_String_) method ofy properties factory to create a text properties object ([ITextProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ITextProperties.yml)) that contains the localizable text. The actual text of this property can then be output by using the ```Output.Text()``` method.
 
 ```cs
 // output translatable text

@@ -119,7 +119,7 @@ public override void ParagraphUnitStart(IParagraphUnitProperties properties)
     _paragraphUnitId = properties.ParagraphUnitId.Id;
 ```
 
-Next, we make the segments in the real-time preview 'clickable' by outputting the following HTML through the [SegmentStart](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileWriter.ym#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileWriter_SegmentStart_Sdl_FileTypeSupport_Framework_NativeApi_ISegmentPairProperties_) method:
+Next, we make the segments in the real-time preview 'clickable' by outputting the following HTML through the [SegmentStart](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileWriter.yml#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileWriter_SegmentStart_Sdl_FileTypeSupport_Framework_NativeApi_ISegmentPairProperties_) method:
 
 ```cs
 // enclose each segment in a SPAN tag pair
