@@ -460,7 +460,7 @@ See Also
 
 [Project Creator](project_creator.md)
 
-[Wikipedia Search](wikipedia_serach.md)
+[Wikipedia Search](wikipedia_search.md)
 
 [Integrating actions](integrating_actions.md)
 

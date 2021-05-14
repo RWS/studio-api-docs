@@ -167,6 +167,6 @@ See Also
 
 [Integrating ribbon groups](integrating_ribbon_groups.md)
 
-[Integrating viewparts](integrating_view_parts.md)
+[Integrating viewparts](integrating_viewparts.md)
 
 [Integrating views](integrating_views.md)
