@@ -173,6 +173,6 @@ namespace Sdl.Sdk.FileTypeSupport.Samples.SimpleTextExtension
 
 Note that if the ```FileTypeDefinitionId``` is changed in the ```BuildFileTypeInformation``` section, then the extension will appear as a new filter in the Studio file type options dialog. Otherwise it will simply override the original one (i.e. no new filter will appear in U.I.)
 
->**!NOTE**
+>**NOTE**
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

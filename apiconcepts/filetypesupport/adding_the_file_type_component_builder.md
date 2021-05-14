@@ -45,6 +45,6 @@ After adding the file type information above, the corresponding file type plug-i
 
 Of course, a File Type Component Builder file is a lot more comprehensive than what is shown here. As we develop the actual file type plug-in components, we will add the corresponding component references to the File Type Component Builder file step-by-step.
 
->**!NOTE**
+>**NOTE**
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

@@ -35,6 +35,6 @@ Add a resources file (*Resources.resx*) to the project's properties. We will use
 
 Add an icon to the project. You will find a suitable icon file (*Bil.ico*) in the folder **Sdl.Sdk.FileTypeSupport.Samples.Bil** of the SDK sample projects folder. Set the **Build Action** property for the icon file to **Embedded Resource**. The icon that you add to the project will be the one that users will later see in the **Options** dialog box of <Var:ProductName>.
 
->**!NOTE**
+>**NOTE**
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

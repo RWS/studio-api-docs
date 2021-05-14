@@ -106,6 +106,6 @@ After making the above additions to the parser class, the SDL XLIFF document sho
 
 ![ConfirmationLevels](images/ConfirmationLevels.jpg)
 
->**!NOTE**
+>**NOTE**
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

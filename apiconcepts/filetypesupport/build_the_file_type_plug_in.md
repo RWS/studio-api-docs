@@ -93,7 +93,7 @@ See Also
 [Creating a New Project](creating_a_new_project.md)
 
 
->**!NOTE**
+>**NOTE**
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.
 

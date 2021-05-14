@@ -398,6 +398,6 @@ Using the Main Verifier Class
 
 To use this verifier, a new file type definition based upon the Microsoft Word 2007 file type definition needs to be created (see [Create a New File Type Component Builder](create_new_file_type_component_builder.md)).
 
->**!NOTE**
+>**NOTE**
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

@@ -9,6 +9,6 @@ By default, this resources file only includes the **Plugin_Name** string. In our
 
 The ```Sdl.Sdk.FileTypeSupport.Samples.SimpleText``` sample project folder also contains an icon (**icon.ico**) file, which you can add to the resource file of your project. This is the icon that will be displayed next to the plug-in name in the **Options** dialog box.
 
->**!NOTE**
+>**NOTE**
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

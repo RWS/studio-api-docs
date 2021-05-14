@@ -133,6 +133,6 @@ See Also
 
 [Loading and Saving the Settings](loading_and_saving_the_settings_native.md)
 
->**!NOTE**
+>**NOTE**
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

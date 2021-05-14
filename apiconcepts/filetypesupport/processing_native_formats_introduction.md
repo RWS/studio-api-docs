@@ -28,7 +28,7 @@ This text format has the following localization requirements:
 * Certain strings (e.g. *Prd-Code NCC1504*) have to be locked, so that they cannot be changed by the translator.
 To be sure, you could also process this format using the standard regular expressions text file type plug-in, which is included in <Var:ProductName> out-of-the-box. However, for this exercise we would like to show to you how to implement a 'no-frills' file type plug-in for a highly simplified text format. This allows you to develop a file type plug-in with a minimum amount of native file processing logic (and thus source code).
 
->**!NOTE**
+>**NOTE**
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.
 

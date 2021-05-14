@@ -34,6 +34,6 @@ Any settings that may be required by the file sniffer are passed in via an ISett
 
 This can be called from within the ```Sniff()``` method body and will populate any required settings.
 
->**!NOTE**
+>**NOTE**
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

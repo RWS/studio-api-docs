@@ -24,6 +24,6 @@ Based on FFAPI we can create [monolingual](https://en.wikipedia.org/wiki/Monolin
 As you can see, the list of things that the filter will ultimately accomplish is rather comprehensive. In the next chapters we will take you step-by-step through the process of developing a native and a bilingual filter (highly simplified filters) and demonstrate most of the required functions that a filter should implement.
 
 
->**!NOTE**
+>**NOTE**
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

@@ -322,6 +322,6 @@ namespace Sdl.Sdk.FileTypeSupport.Samples.Bil
     }
 }
 ```
->**!NOTE**
+>**NOTE**
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

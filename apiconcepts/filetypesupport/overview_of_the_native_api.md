@@ -78,6 +78,6 @@ Content processors typically apply specialized tasks to the content stream. Exam
 ![Buffer](images/Buffer.png)
 
 
->**!NOTE**
+>**NOTE**
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

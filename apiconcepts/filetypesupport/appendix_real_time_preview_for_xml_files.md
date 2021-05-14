@@ -83,6 +83,6 @@ Once the XSL file has been embedded in the settings bundle, the real-time previe
 
  Settings bundle for your custom XML file type can be of course exported (as **.sdlftsettings*) and distributed to other users.
 
- >**!NOTE**
+ >**NOTE**
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

@@ -40,6 +40,6 @@ Bilingual processors receive calls to Initialize() and SetFileProperties() on th
 Bilingual processor components receive calls to FileComplete() and Complete() as appropriate.
 
 
->**!NOTE**
+>**NOTE**
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

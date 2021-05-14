@@ -15,7 +15,7 @@ Formatting properties should be always applied to [IStartTagProperties](../../ap
 
 For tags that are meant to apply only character formatting, this property should be always set to True.
 
->**!NOTE**
+>**NOTE**
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.
 

@@ -44,6 +44,6 @@ See Also
 
 [Adding a Preview Controller](adding_a_preview_controller.md)
 
->**!NOTE**
+>**NOTE**
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

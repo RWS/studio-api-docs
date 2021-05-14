@@ -23,6 +23,6 @@ Setting Up a Development Machine
 * The database server should have SCSI hard disks with 100 GB or more storage space in a RAID architecture.
 * To administer TM Server, or to provide web services from the SDL Server, you need Microsoft IIS.
 
->**!NOTE**
+>**NOTE**
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

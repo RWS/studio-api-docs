@@ -123,6 +123,6 @@ Below you see an example of a more comprehensive document, which you can use for
 ```
 
 
->**!NOTE**
+>**NOTE**
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

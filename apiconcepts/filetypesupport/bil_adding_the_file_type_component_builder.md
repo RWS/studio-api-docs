@@ -52,6 +52,6 @@ If you added the File Type Component Builder to <Var:ProductName>, it would appe
 
 Of course, a File Type Component Builder file is a lot more comprehensive than what is shown above. As we develop each component of our sample file type plug-in, we will add the corresponding component references to the File Type Component Builder file step by step.
 
->**!NOTE**
+>**NOTE**
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

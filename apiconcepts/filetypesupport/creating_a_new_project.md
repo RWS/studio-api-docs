@@ -35,6 +35,6 @@ See Also
 
 [What is the Verification Framework?](what_is_the_verification_framework.md)
 
->**!NOTE**
+>**NOTE**
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

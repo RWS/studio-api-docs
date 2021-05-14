@@ -66,6 +66,6 @@ See Also
 
 [Creating a Native File Tweaker](creating_a_native_file_tweaker.md)
 
->**!NOTE**
+>**NOTE**
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

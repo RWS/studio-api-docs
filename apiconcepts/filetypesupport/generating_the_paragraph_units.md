@@ -175,6 +175,6 @@ See Also
 
 [Adding the Text Extractor Class](adding_the_text_extractor_class.md)
 
->**!NOTE**
+>**NOTE**
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

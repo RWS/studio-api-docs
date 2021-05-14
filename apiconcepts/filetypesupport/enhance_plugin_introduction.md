@@ -12,6 +12,6 @@ There are a number of features to add to your file type plug-in to either make l
 
 For example, Microsoft PowerPoint documents can contain speaker notes, which may be translatable or not. This is why the standard PPT filter that is delivered with <Var:ProductName> implements a setting that allows you to decide on a case-by-case basis whether to expose speaker note content for translation or not. In the following chapters you will learn how to add such extended functionality to your file type plug-in.
 
->**!NOTE**
+>**NOTE**
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.
