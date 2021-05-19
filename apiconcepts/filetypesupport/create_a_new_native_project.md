@@ -8,7 +8,7 @@ Create the Project
 
 After launching <Var:VisualStudioEdition> choose to create a new <Var:ProductName> Plug-in Project, and give it an appropriate name, e.g. *Sdl.Sdk.FileTypeSupport.Samples.XMLChecker*. The instructions for creating a <Var:ProductName> Plug-in Project are described in the **SDL Plug-in Framework** SDK under **SDL Trado Studio** > **Building a Plug-in**
 
-<Var:ProductName> Plug-in Project produces a SDL Plug-in Package (*.sdlplugin). This needs to be manually deployed or copied to the SDL Trados Studio Plug-in Packages directory so that SDL Trados Studio can use the plug-in. See **SDL Plug-in Framework SDK** under **SDL Trado Studio** > **Plug-in Deployment**.
+<Var:ProductName> Plug-in Project produces a SDL Plug-in Package (.sdlplugin). This needs to be manually deployed or copied to the SDL Trados Studio Plug-in Packages directory so that SDL Trados Studio can use the plug-in. See **SDL Plug-in Framework SDK** under **SDL Trado Studio** > **Plug-in Deployment**.
 
 Add the Required References
 --

@@ -1,4 +1,6 @@
 Implement the User Interface
+==
+
 In this step you will learn how to add a user interface to your plug-in, through which end users can configure the verification settings at runtime.
 
 Add a User Control

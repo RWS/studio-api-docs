@@ -20,4 +20,4 @@ Both file- and server-based project translation memories are supported. Server-b
 
 See Also
 -------
-[Project TM Creation Settings]
+[Project TM Creation Settings](project_tm_creation_settings.md)

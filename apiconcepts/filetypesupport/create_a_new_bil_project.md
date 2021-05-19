@@ -21,7 +21,7 @@ Next add the references from the SDL File Type Support Framework APIs. These are
 Then add the references from the Core APIs.
 * **Sdl.Core.Settings.dll**
 * **Sdl.Core.PluginFramework.dll**
-By default you will find these files in the <Var:ProductName> installation folder, e.g. *C:\Program Files\SDL\SDL Trados Studio\Studio5*. The Copy Local property for these references should be set to True.
+By default you will find these files in the <Var:ProductName> installation folder, e.g. *C:\Program Files\SDL\SDL Trados Studio\Studio5*. The **Copy Local** property for these references should be set to True.
 
 ![BilingualVerifierReferences](images/BilingualVerifierReferences.jpg)
 

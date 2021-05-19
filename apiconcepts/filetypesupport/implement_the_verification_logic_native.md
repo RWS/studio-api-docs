@@ -104,7 +104,7 @@ The [ReportMessage](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Nati
 * The name of the verifier plug-in that has thrown the message
 * The [ErrorLevel](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel.yml), which in this case we set to [Error](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel.yml#fields), which is the highest severity level.
 * A detailed description of the problem, which helps the user ascertain what the problem is and take corrective action.
-* The location, i.e. the target segment that was found to exceed the specified length limit. Double-clicking the message in the Messages window of <Var:ProductName> will display the segment string in a message box.
+* The location, i.e. the target segment that was found to exceed the specified length limit. Double-clicking the message in the **Messages** window of <Var:ProductName> will display the segment string in a message box.
 
 ![Error_Message_Maxlength_XML_Exceeded](images/Error_Message_Maxlength_XML_Exceeded.jpg)
 

@@ -16,7 +16,7 @@ The ```Sniff()``` method returns a [SniffInfo](../../api/filetypesupport/Sdl.Fil
 
 If required, you can store extra information for further use in the parser or writer component, for example the type of line break etc., using the [SetMetaData](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IMetaDataContainer.yml#Sdl_FileTypeSupport_Framework_NativeApi_IMetaDataContainer_SetMetaData_System_String_System_String_) and [GetMetaData](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IMetaDataContainer.yml#Sdl_FileTypeSupport_Framework_NativeApi_IMetaDataContainer_GetMetaData_System_String_) methods to store/load any additional information in/from a ```SniffInfo``` object.
 
-These custom values are then accessible through a IPersistentFileConversionProperties object.
+These custom values are then accessible through a [IPersistentFileConversionProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPersistentFileConversionProperties.yml) object.
 
 Any settings that may be required by the file sniffer are passed in via an ISettingsGroup. This allows the file sniffer to set up any required settings in a manner like that shown below:
 

@@ -75,7 +75,7 @@ private string ProcessFormatting(string sLine)
 ```
 
 This function calls ```WriteText()``` to output 'normal' text and ```WriteInlineTag()``` to output any inline tags that have been found.
-Next, add the function that outputs the inline <b> tags. Note that these inline tags always occur in pairs, i.e. there will be an opening and a closing tag. This is why this function takes a boolean isStart parameter. If this function is called with a True value from ```ProcessFormatting()```, a start tag will be created through the properties factory, which is then output to the bilingual file. Otherwise an end tag will be output.
+Next, add the function that outputs the inline < b> tags. Note that these inline tags always occur in pairs, i.e. there will be an opening and a closing tag. This is why this function takes a boolean isStart parameter. If this function is called with a True value from ```ProcessFormatting()```, a start tag will be created through the properties factory, which is then output to the bilingual file. Otherwise an end tag will be output.
 
 >**Note**
 >

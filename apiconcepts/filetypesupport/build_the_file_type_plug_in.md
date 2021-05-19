@@ -45,7 +45,7 @@ Upon start-up <Var:ProductName> will load the unpacked plug-in and show the foll
 >If a user clicks **No** when the plug-in security message is displayed during start-up of <Var:ProductName>, the plug-in will not be shown in the application.
 
 
-After loading the plug-in in <Var:ProductName>, you can confirm that the plug-in has been added by raising the corresponding dialog box through the menu command **Tools** -> **Plug-ins**. The Plug-ins dialog box should list the name of your newly created plug-in:
+After loading the plug-in in <Var:ProductName>, you can confirm that the plug-in has been added by raising the corresponding dialog box through the menu command **Tools** -> **Plug-ins**. The **Plug-ins** dialog box should list the name of your newly created plug-in:
 
 ![PlugInList](images/PlugInList.jpg)
 

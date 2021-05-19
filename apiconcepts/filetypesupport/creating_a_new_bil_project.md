@@ -13,16 +13,16 @@ Add the Required References
 
 Next add the references from the SDL File Type Support Framework APIs. These are contained in the following assemblies:
 
-* Sdl.FileTypeSupport.Framework.Core.dll: This is the main reference to the SDL File Type Support Framework API
-* Sdl.FileTypeSupport.Framework.Core.Settings.dll
-* Sdl.FileTypeSupport.Framework.Core.Utilities.dll
+* **Sdl.FileTypeSupport.Framework.Core.dll**: This is the main reference to the SDL File Type Support Framework API
+* **Sdl.FileTypeSupport.Framework.Core.Settings.dll**
+* **Sdl.FileTypeSupport.Framework.Core.Utilities.dll**
 
 Then add the references from the Core APIs.
-* Sdl.Core.Globalization.dll
-* Sdl.Core.PluginFramework.dll
-* Sdl.Core.Settings.dll
+* **Sdl.Core.Globalization.dll**
+* **Sdl.Core.PluginFramework.dll**
+* **Sdl.Core.Settings.dll**
 
-By default you find these files in the <Var:ProductName> installation folder, usually *C:\Program Files\SDL\SDL Trados Studio\Studio5*. The Copy Local property for these references should be set to True.
+By default you find these files in the <Var:ProductName> installation folder, usually *C:\Program Files\SDL\SDL Trados Studio\Studio5*. The **Copy Local** property for these references should be set to True.
 
 Remember to generate a key to sign the assembly. It is also recommended that you set **SDLTradosStudio.exe** as the external application for debugging purposes.
 

@@ -61,7 +61,7 @@ info.WinFormSettingsPageIds = new string[]
 
 **WinFormSettingsPageIds** specifies the ids of the settings pages to be associated with a file type plug-in. Here we added **QuickInserts_Settings** so that a settings page that lists the QuickInsert items is associated with this file type plug-in. This code was added in an earlier chapter and so should not be added again.
 
-Since a this **QuickInsert** settings page has been associated, a **QuickInsert** link will be shown below your sample file type plug-in in the Options dialog box of <Var:ProductName>. This is the first time that you have implemented a user interface for your file type plug-in, however, the QuickInsert list is, of course, empty.
+Since a this **QuickInsert** settings page has been associated, a **QuickInsert** link will be shown below your sample file type plug-in in the **Options** dialog box of <Var:ProductName>. This is the first time that you have implemented a user interface for your file type plug-in, however, the QuickInsert list is, of course, empty.
 
 By clicking **Add** you could define your own QuickInsert items. However, this standard user interface is limited insofar as it only allows you to define items for standalone text and text pairs.
 

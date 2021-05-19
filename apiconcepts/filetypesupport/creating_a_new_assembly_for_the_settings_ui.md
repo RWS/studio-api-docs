@@ -23,7 +23,7 @@ By default, when you create a project based on this template, the project name w
 Add the Required References
 --
 
-The plug-in template will come with the Sdl.Core.PluginFramework.dll reference.
+The plug-in template will come with the **Sdl.Core.PluginFramework.dll** reference.
 
 Now add the following libraries as references to the new UI project:
 

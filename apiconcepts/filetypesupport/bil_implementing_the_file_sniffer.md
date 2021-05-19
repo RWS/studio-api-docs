@@ -1,4 +1,6 @@
 Implementing the File Sniffer
+==
+
 In this chapter, we implement the functionality required for determining whether a given BIL file is valid and can be processed by our sample file type plug-in.
 
 Identify the File Validation Criteria

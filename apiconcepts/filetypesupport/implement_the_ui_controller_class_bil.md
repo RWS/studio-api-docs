@@ -5,7 +5,7 @@ In this chapter you will learn how to implement a class that controls the actual
 
 When implementing control for the plug-in user interface, you basically need to cover the following scenarios:
 
-* The user clicks the R**eset to Defaults** button, thereby restoring all control elements to their intended default settings.
+* The user clicks the **Reset to Defaults** button, thereby restoring all control elements to their intended default settings.
 * The user clicks **OK**, thereby applying (saving) the settings.
 After changing the control element settings, the user goes to another settings page, which should also save any changes to the form control elements.
 * The user clicks the **Cancel** button, any changes to the control settings should be discarded.

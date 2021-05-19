@@ -106,8 +106,8 @@ The screenshot above highlights the various options that are available when crea
 
 See Also
 ----------
-[Creating a Project Package]
+[Creating a Project Package](creating_a_project_package.md)
 
-[Creating a Return Package]
+[Creating a Return Package](creating_a_return_package.md)
 
-[Importing a Return Package]
+[Importing a Return Package](importing_a_return_package.md)

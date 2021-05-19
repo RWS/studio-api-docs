@@ -18,14 +18,14 @@ In <Var:ProductName>, you can also run automatic tasks on one or several selecte
 
 See Also
 -----------
-[Running Tasks on Project Files]
+[Running Tasks on Project Files](running_tasks_on_project_files.md)
 
-[Automatic Tasks and Tasks Settings]
+[Automatic Tasks and Tasks Settings](automatic_tasks_and_task_settings.md)
 
-[Creating a Project Package]
+[Creating a Project Package](creating_a_project_package.md)
 
-[Converting the Project Files]
+[Converting the Project Files](converting_the_project_files.md)
 
-[Analyzing the Files]
+[Analyzing the Files](analyzing_the_files.md)
 
-[Configuring the Analyze Task Settings]
+[Configuring the Analyze Task Settings](configuring_the_analyze_task_settings.md)

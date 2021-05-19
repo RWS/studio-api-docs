@@ -6,7 +6,7 @@ In this chapter you will learn how to enhance the preview writer component to su
 Why you Should Enhance the Preview Writer
 --
 
-For the static preview writer it was sufficient to output very simple HTML code (see Implementing the Preview Writer). However, to implement a dynamic real-time preview, which allows users to click segments and jump to the corresponding row in the side-by-side editor, the preview needs to implement active elements through the addition of CSS and JavaScript.
+For the static preview writer it was sufficient to output very simple HTML code (see [Implementing the Preview Writer](implementing_the_preview_writer.md)). However, to implement a dynamic real-time preview, which allows users to click segments and jump to the corresponding row in the side-by-side editor, the preview needs to implement active elements through the addition of CSS and JavaScript.
 
 Enhance the HTML Header
 --
