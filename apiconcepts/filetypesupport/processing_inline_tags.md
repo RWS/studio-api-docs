@@ -4,6 +4,8 @@ Processing Inline Tags
 In this chapter you will learn how to parse inline tags and how to display character formatting in the side-by-side editing environment of <Var:ProductName>.
 
 Enhance the Helper Function for Creating Segments
+--
+
 The segments in our bilingual sample format can contain the following inline tags: *< b>*, *< i>*, and *< u>*. To keep this example simple let us proceed on the assumption that only these three inline tag types can occur in a seg element.
 
 A segment with inline tags may look as follows:
