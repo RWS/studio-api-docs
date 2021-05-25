@@ -51,3 +51,14 @@ The following example demonstrates how to create a viewpart and integrate it int
 # [C#](#tab/tabid-5)
 [!code-csharp[MyProjectViewPart](code_samples/MyProjectViewPart.cs#L1-L44)]
 ***
+
+See Also
+--
+
+**Reference**
+
+[AbstractViewPartController](../../api/integration/Sdl.Desktop.IntegrationApi.AbstractViewPartController.yml)
+
+[ViewPartAttribute](../../api/integration/Sdl.Desktop.IntegrationApi.Extensions.ViewPartAttribute.yml)
+
+[ViewPartLayoutAttribute](../../api/integration/Sdl.Desktop.IntegrationApi.Extensions.ViewPartLayoutAttribute.yml)
