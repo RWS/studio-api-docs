@@ -1,5 +1,5 @@
 Locking Specific Strings
-==
+===
 
 In this chapter you will learn how to protect text against editing by locking strings.
 
@@ -12,6 +12,7 @@ Let us assume that our text files contain single lines that start with a product
 
 To do this enhance your file parser by adding a`` WriteLockedContent()`` helper function:
 
+# [C#](#tab/tabid-1)
 ```cs
 // protect text from being altered during translation 
 // by locking it
@@ -29,11 +30,13 @@ private void WriteLockedContent(string LockedContent)
     Output.LockedContentEnd();
 }
 ```
+***
 
 Here, the [CreateLockedContent](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IDocumentItemFactory.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IDocumentItemFactory_CreateLockedContent_Sdl_FileTypeSupport_Framework_NativeApi_ILockedContentProperties_) method is used to create a mark-up container that can wrap all the other containers and mark-up of a target paragraph in a paragraph unit. However, you must first create an [ILockedContentProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ILockedContentProperties.yml) object by calling [CreateLockedContentProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPropertiesFactory.yml#Sdl_FileTypeSupport_Framework_NativeApi_IPropertiesFactory_CreateLockedContentProperties_Sdl_FileTypeSupport_Framework_NativeApi_LockTypeFlags_) with a parameter of [LockTypeFlags](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.LockTypeFlags.yml). Then, the resulting locked content properties can be passed to the [CreateLockedContentProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPropertiesFactory.yml#Sdl_FileTypeSupport_Framework_NativeApi_IPropertiesFactory_CreateLockedContentProperties_Sdl_FileTypeSupport_Framework_NativeApi_LockTypeFlags_) method. Once an object derived from [ILockedContentProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ILockedContentProperties.yml) object has been created, it can be used to wrap all the mark-up in the target paragraph of the paragraph unit.
 
 All you need to do in our example is to extend the ```ProcessLine()``` helper function to call ```WriteLockedContent()``` whenever a line that starts with a product code prefix has been found:
 
+# [C#](#tab/tabid-2)
 ```cs
 // determines whether a given line is
 // translatable or not
@@ -57,6 +60,7 @@ private void ProcessLine(string sLine)
     }
 }
 ```
+***
 
 After making this enhancement to the file parser, the lines that contain product code strings will be locked as shown below:
 
@@ -69,7 +73,7 @@ Putting it All Together
 
 Your enhanced file parser should now look as shown below:
 
-
+# [C#](#tab/tabid-3)
 ```cs
 using System.Drawing;
 using System.IO;
@@ -284,8 +288,9 @@ namespace Sdl.Sdk.Snippets.Native
     }
 }
 ```
+***
 
 
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

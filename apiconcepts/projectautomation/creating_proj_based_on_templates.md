@@ -84,7 +84,7 @@ public ProjectInfo GetInfoForTemplateProject()
 See Also
 --
 
-**Other Resources**
+
 
 [Setting the Project Information](setting_the_project_information.md)
 

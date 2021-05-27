@@ -52,7 +52,7 @@ newBundle.Abbreviations.Add("hr.");
 newBundle.Abbreviations.Add("cont.");
 ```
 
->**Note**
+>[!NOTE]
 >
 >Abbreviations are case-sensitive.
 
@@ -126,7 +126,7 @@ namespace Sdl.SDK.LanguagePlatform.Samples.TmAutomation
 See Also
 --
 
-**Other Resources**
+
 
 [Configuring Translation Memories](configuring_translation_memories.md)
 

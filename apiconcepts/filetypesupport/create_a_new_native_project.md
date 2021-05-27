@@ -1,5 +1,5 @@
 Create a New Project
-==
+===
 
 In this chapter you will learn how to properly set up a project for developing a verification plug-in that works on the native file format.
 
@@ -26,6 +26,6 @@ By default you find these files in the <Var:ProductName> installation folder, us
 
 ![NativeVerifierReferences](images/NativeVerifierReferences.jpg)
 
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

@@ -43,7 +43,7 @@ After configuring all task settings you need to update the project by applying t
 project.UpdateSettings(settings);
 ```
 
->**Note**
+>[!NOTE]
 >
 >File TMs are created in a Tm sub-folder of the project folder strcture. A German project TM would, for example, be stord in a sub-folder called *Tm/de-DE*. The project TM name is a combination of the project name and the name of the main TM from which the project TM was generated.
 
@@ -73,7 +73,7 @@ public void GetProjectTmTaskSettings(FileBasedProject project)
 See Also
 --
 
-**Other Resources**
+
 
 [Analyze Files Settings](analyze_files_settings.md)
 

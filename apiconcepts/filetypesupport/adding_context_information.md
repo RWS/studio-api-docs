@@ -1,12 +1,12 @@
 Adding Context Information
-==
+===
 
 In this chapter you will learn how to extract helpful context information from a given BIL file.
 
 About Contexts
 --
 
-For the translators it is often useful to know whether a given segment occurs in a headline, paragraph, etc. Units in the BIL sample format may contain a ```type``` element, which indicates the context of a ```unit``` element, e.g.:
+For the translators it is often useful to know whether a given segment occurs in a headline, paragraph, etc. Units in the BIL sample format may contain a `type` element, which indicates the context of a `unit` element, e.g.:
 
 ```xml
 <type spec="Heading"/>
@@ -31,15 +31,16 @@ To keep things simple let us consider only three mapping scenarios. The table be
 
 For our implementation, let us assume the following: If a unit in the BIL file does not have a type element, then the standard context type **paragraph** should be used.
 
-Apart from the ```type``` element content we can also use the context information to store the unique id of the units found in the BIL file. The unit element contains an id attribute, which stores the id value. This id should not be shown to the end user, as it is not relevant for the translation. However, it should be included somewhere in the intermediary (SDL XLIFF) file, so that the writer class (which we will implement later) can reference it when generating the target BIL file (see [Adding the File Writer Class](adding_the_file_writer_class.md)). Within the context properties (but not only there) you can include metadata, which is not visible to the user, but is stored physically in the intermediary (SDL XLIFF) file.
+Apart from the `type` element content we can also use the context information to store the unique id of the units found in the BIL file. The unit element contains an id attribute, which stores the id value. This id should not be shown to the end user, as it is not relevant for the translation. However, it should be included somewhere in the intermediary (SDL XLIFF) file, so that the writer class (which we will implement later) can reference it when generating the target BIL file (see [Adding the File Writer Class](adding_the_file_writer_class.md)). Within the context properties (but not only there) you can include metadata, which is not visible to the user, but is stored physically in the intermediary (SDL XLIFF) file.
 
 Note that adding metadata is not limited to contexts. You can apply metadata to various types of instances such as inline tags, structure tags, placeables, etc.
 
 Extend the Helper Function for Creating Paragraph Units
 --
 
-First, add the following to the ```CreateParagraphUnit()``` helper function:
+First, add the following to the `CreateParagraphUnit()` helper function:
 
+# [C#](#tab/tabid-1)
 ```cs
 // create paragraph unit context
 string id = xmlUnit.SelectSingleNode("./@id").InnerText;
@@ -52,12 +53,14 @@ if(xmlUnit.SelectSingleNode("type/@spec")!=null)
     paragraphUnit.Properties.Contexts = CreateContext("Paragraph", id);
 }
 ```
+***
 
-The above condition determines whether a ```type``` element is available in the first place. If this is the case, the value from the spec attribute is passed to another helper function (which we will add later), which returns the appropriate context properties object. If not, the additional helper function needs to generate a standard paragraph context properties object.
-Second, we determine the value of the id attribute of the current ```unit``` element, and pass it to the separate helper function.
+The above condition determines whether a `type` element is available in the first place. If this is the case, the value from the spec attribute is passed to another helper function (which we will add later), which returns the appropriate context properties object. If not, the additional helper function needs to generate a standard paragraph context properties object.
+Second, we determine the value of the id attribute of the current `unit` element, and pass it to the separate helper function.
 
-The full ```CreateParagraphUnit()``` helper function should look as shown below:
+The full `CreateParagraphUnit()` helper function should look as shown below:
 
+# [C#](#tab/tabid-2)
 ```cs
 // helper function for creating paragraph units
 private IParagraphUnit CreateParagraphUnit(XmlNode xmlUnit)
@@ -106,18 +109,20 @@ private IParagraphUnit CreateParagraphUnit(XmlNode xmlUnit)
     return paragraphUnit;
 }
 ```
+***
 
 Add the Helper Function to Create the Context Properties
 --
 
-Before you implement the new context helper function, add the ```System.Drawing``` library as a reference to your project. This facilitates the task of assigning different background colors to the various context types, which makes distinguishing the contexts easer for the end user.
+Before you implement the new context helper function, add the `System.Drawing` library as a reference to your project. This facilitates the task of assigning different background colors to the various context types, which makes distinguishing the contexts easer for the end user.
 
-Also, you need to add the following namespace to your class, which provides access to the standard context types that the API offers: ```Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi```
+Also, you need to add the following namespace to your class, which provides access to the standard context types that the API offers: `Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi`
 
-This function uses the properties factory to create a context properties object as well as a context information object. By default, we assign the context type [Paragraph](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.StandardContextTypes.yml#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_StandardContextTypes_Paragraph) value from the [StandardContextTypes](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.StandardContextTypes.yml) collection. Also, we set the [ContextPurpose](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ContextPurpose.yml) to [Information](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ContextPurpose.yml#fields). This means that the context information is purely for information, and not for TM matching purposes. The function than uses a switch statement to map the value from the spec attribute of the ```type``` element to the corresponding standard context type and assigns a background colour.
+This function uses the properties factory to create a context properties object as well as a context information object. By default, we assign the context type [Paragraph](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.StandardContextTypes.yml#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_StandardContextTypes_Paragraph) value from the [StandardContextTypes](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.StandardContextTypes.yml) collection. Also, we set the [ContextPurpose](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ContextPurpose.yml) to [Information](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ContextPurpose.yml#fields). This means that the context information is purely for information, and not for TM matching purposes. The function than uses a switch statement to map the value from the spec attribute of the `type` element to the corresponding standard context type and assigns a background colour.
 
-The second context info (```contextID```) that is added to the context properties object contains the unit id. Remember that this information is not supposed to be visible to the end user. That is why we add it through the [MetaData](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IMetaDataContainer.yml#Sdl_FileTypeSupport_Framework_NativeApi_IMetaDataContainer_MetaData) property. In this case, the ```Add()``` method requires two string parameters: the key (i.e. the field name) and the actual value.
+The second context info (`contextID`) that is added to the context properties object contains the unit id. Remember that this information is not supposed to be visible to the end user. That is why we add it through the [MetaData](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IMetaDataContainer.yml#Sdl_FileTypeSupport_Framework_NativeApi_IMetaDataContainer_MetaData) property. In this case, the `Add()` method requires two string parameters: the key (i.e. the field name) and the actual value.
 
+# [C#](#tab/tabid-3)
 ```cs
 private IContextProperties CreateContext(string spec, string unitID)
 {
@@ -154,7 +159,8 @@ private IContextProperties CreateContext(string spec, string unitID)
     return contextProperties;
 }
 ```
+***
 
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

@@ -1,7 +1,7 @@
 Extending existing File Type Component Builder
-==
+===
 
->**Note**
+>[!NOTE]
 >
 >This functionality is only available in Studio 2011 SP3.
 
@@ -14,12 +14,13 @@ A File Type Component Builder is defined by a filter component builder that impl
 
 The XML File Type Component Builder can be inherited from indirectly by implementing the [IFileTypeComponentBuilderAdapter](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilderAdapter.yml) interface. To create an extension for the XML File Type Component Builder you need to add the ```FileTypeComponentBuilderExtension``` attribute to your extension component builder class.You must set the ```OriginalFileType``` property of the attribute to ```XML: Any v 1.2.0.0```. You can now access the original XML component builder methods through the ```Original``` property as shown in the code example at the end of this page.
 
->**Note**
+>[!NOTE]
 >
 >In <Var:ProductName> all the file type plug-in components are designed in a way that you can extend all the functionality.
 
 Every extension filter component builder needs to have a [FileTypeComponentBuilderExtensionAttribute](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeComponentBuilderExtensionAttribute.yml) that describes the file type component builder.
 
+# [C#](#tab/tabid-1)
 ```cs
 [FileTypeComponentBuilderExtension(
     Id = "XML_FilterComponentBuilderExtension_Verifier_Id",
@@ -27,10 +28,12 @@ Every extension filter component builder needs to have a [FileTypeComponentBuild
     Description = "XML_FilterComponentBuilderExtension_Verifier_Description",
     OriginalFileType = "XML: Any v 1.2.0.0")]
 ```
+***
 
 
 "XML_FilterComponentBuilderExtension_Verifier_Name" and "XML_FilterComponentBuilderExtension_Verifier_Description" refers to entries in the **PlugInResources.resx** file.
 
+# [Xml](#tab/tabid-1)
 ```xml
 <data name="XML_FilterComponentBuilderExtension_Verifier_Description" xml:space="preserve">
   <value>Length Check XML Filter Component Builder</value>
@@ -39,9 +42,11 @@ Every extension filter component builder needs to have a [FileTypeComponentBuild
   <value>Length Check XML Filter Component Builder</value>
 </data>
 ```
+***
 
 At this point, we have a new file type definition that is identical to the standard XML File Type Component Builder. This new file type definition needs to be changed so it includes the new native verifier. This can be accomplished simply by calling the original **BuildVerifierCollection** and adding the new verifier to this collection.
 
+# [C#](#tab/tabid-2)
 ```cs
 public  IVerifierCollection BuildVerifierCollection(string name)
 {
@@ -50,9 +55,11 @@ public  IVerifierCollection BuildVerifierCollection(string name)
     return verifierCollection;
 }
 ```
+***
 
 This new file type definition also needs to be changed so it includes the new native verifier settings page. This is accomplished by calling the original **BuildFileTypeInformation** and adding the settings page to **WinFormSettingsPageIds**.
 
+# [C#](#tab/tabid-3)
 ```cs
 public  IFileTypeInformation BuildFileTypeInformation(string name)
 {
@@ -64,10 +71,11 @@ public  IFileTypeInformation BuildFileTypeInformation(string name)
     return fileTypeInformation;
 }
 ```
+***
 
 Here is the complete code for creating a new file type definition based upon the XML file type definition using the new native verifier.
 
-
+# [C#](#tab/tabid-4)
 ```cs
 using System.Collections.Generic;
 using Sdl.FileTypeSupport.Framework.IntegrationApi;
@@ -157,11 +165,12 @@ namespace Sdl.Sdk.FileTypeSupport.Samples.XMLChecker
     }
 }
 ```
+***
 
 See Also
 --
 
-**Other Resources**
+
 
 [Implement the User Interface](implement_the_user_interface_native.md)
 
@@ -169,6 +178,6 @@ See Also
 
 [Implement the Verification Logic](implement_the_verification_logic_native.md)
 
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

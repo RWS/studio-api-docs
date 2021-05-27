@@ -12,7 +12,7 @@ The following screenshot illustrates how a filter is defined in the user interfa
 
 ![filter_penalties](images/filter_penalties.jpg)
 
->**Note**
+>[!NOTE]
 >
 >In order to leverage filters for configuring the project settings you require the functionality offered by the Translation Memory API (see also [Translation Memory Fields Update](translation_memory_field_update.md) and [Required References and Namespaces](required_references_and_namespaces.md)).
 
@@ -66,7 +66,7 @@ tmSettings.HardFilter.Value = hardFilterExpression;
 See Also
 --
 
-**Other Resources**
+
 
 [Translation Memory Search Settings](translation_memory_search_settings.md)
 

@@ -21,19 +21,19 @@ To import and extract the return package content into your project, apply the [I
 ReturnPackageImport import = project.ImportReturnPackage(returnPackageFile);
 ```
 
->**Note**
+>[!NOTE]
 >
 >Note that the system 'knows' to which project a return package belongs, because the XML manifest file contains the unique project id (guid), which is used to identify the project into which the return package content should be imported. If the return package manifest contains a guid that does not match any of the projects of the system, an error will be thrown.
 
->**Note**
+>[!NOTE]
 >
 >After importing a return package, the return package file will be copied into the folder structure of the project. The sub-folder will be called *Packages/In*. Moreover, the package file name will be marked with the date and time of the import, e.g. *return_package-201071-13h39m34s.sdlrpx*.
 
->**Note**
+>[!NOTE]
 >
 >After importing the return package, the project statistics will usually change, e.g. more segments should now have the translated, reviewed, etc. state. See also [Retrieving the Project Statistics](retrieving_the_project_statistics.md).
 
->**Note**
+>[!NOTE]
 >
 >Once a return package has been imported, it cannot be imported again. If you try to re-import the same return package, an exception will be thrown.
 
@@ -126,7 +126,7 @@ public void OpenPackage(string projectFile, string returnPackageFile)
 
 See Also
 --
-**Other Resources**
+
 
 [Creating a Return Package](creating_a_return_package.md)
 

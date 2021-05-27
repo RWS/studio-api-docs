@@ -14,7 +14,7 @@ Note that this will delete all project files and folders including the **.sdlpro
 
 See Also
 --
-**Other Resources**
+
 
 [Setting the Project Information](setting_the_project_information.md)
 

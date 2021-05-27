@@ -1,5 +1,5 @@
 Creating a New Project
-==
+===
 In this chapter you will learn how to properly set up a project for developing a file type plug-in.
 
 Create the Project
@@ -25,16 +25,16 @@ By default these files can be found in the installation folder of <Var:ProductNa
 
 ![NativeFilterRef](images/NativeFilterRef.jpg)
 
->**Note**
+>[!NOTE]
 >
 >Do not forget to sign the assembly. Otherwise, your plug-in might not be loaded by <Var:ProductName>
 
 See Also
 --
-**Other Resources**
+
 
 [What is the Verification Framework?](what_is_the_verification_framework.md)
 
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

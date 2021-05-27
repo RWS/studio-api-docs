@@ -21,17 +21,19 @@ Let us consolidate the message texts thrown by the sniffer in another resources 
 
 Now enhance the [Sniff](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileSniffer.yml#Sdl_FileTypeSupport_Framework_NativeApi_INativeFileSniffer_Sniff_System_String_Sdl_Core_Globalization_Language_Sdl_Core_Globalization_Codepage_Sdl_FileTypeSupport_Framework_NativeApi_INativeTextLocationMessageReporter_Sdl_Core_Settings_ISettingsGroup_) method as outlined below: apply the [ReportMessage](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IBasicMessageReporter.yml#Sdl_FileTypeSupport_Framework_NativeApi_IBasicMessageReporter_ReportMessage_System_Object_System_String_Sdl_FileTypeSupport_Framework_NativeApi_ErrorLevel_System_String_System_String_) method to the locMsgReporter object, which is returned by the [Sniff](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileSniffer.yml#Sdl_FileTypeSupport_Framework_NativeApi_INativeFileSniffer_Sniff_System_String_Sdl_Core_Globalization_Language_Sdl_Core_Globalization_Codepage_Sdl_FileTypeSupport_Framework_NativeApi_INativeTextLocationMessageReporter_Sdl_Core_Settings_ISettingsGroup_) method:
 
+# [C#](#tab/tabid-1)
 ```cs
 locMsgReporter.ReportMessage(this, nativeFilePath,
         ErrorLevel.Error, StringResources.Sniffer_Message, StringResources.Sniffer_Location);
 ```
+***
 
 The [ReportMessage](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IBasicMessageReporter.yml#Sdl_FileTypeSupport_Framework_NativeApi_IBasicMessageReporter_ReportMessage_System_Object_System_String_Sdl_FileTypeSupport_Framework_NativeApi_ErrorLevel_System_String_System_String_) method takes a number of parameters such as the error level. Since not being able to open a file is, of course, a critical problem, we choose the highest severity level, i.e. Error. From our string resources file, we retrieve the descriptive texts, which provide detailed information to the user.
 Instead of just returning the default generic message, the file sniffer will now generate the following output:
 
 ![DetailedErrorMessage](images/DetailedErrorMessage.jpg)
 
->**Note**
+>[!NOTE]
 >
 >Since file type plug-ins can also be used in server-based scenarios, they cannot always present information to users like 'normal', Windows-based applications do, e.g. by using a message box or by directly updating the user interface of the application. Such behavior could cause the server processing to hang, as there is no user to interact with.
 
@@ -40,6 +42,7 @@ Putting it All Together
 
 Your enhanced file sniffer class should now look as shown below:
 
+# [C#](#tab/tabid-2)
 ```cs
 using System.IO;
 using Sdl.FileTypeSupport.Framework.NativeApi;
@@ -82,17 +85,18 @@ namespace Sdl.Sdk.FileTypeSupport.Samples.SimpleText
     }
 }
 ```
+***
 
 See Also
 --
 
-**Other Resources**
+
 
 [Implementing the File Sniffer](implementing_the_file_sniffer.md)
 
 
 
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.
 

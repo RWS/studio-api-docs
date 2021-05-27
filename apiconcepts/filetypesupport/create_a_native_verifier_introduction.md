@@ -1,5 +1,5 @@
 Introduction
-==
+===
 
 This guide will walk you through the creation of a C# project in <Var:VisualStudioEdition> for implementing a simple native verifier that works on XML documents.
 
@@ -10,6 +10,7 @@ Native verifiers do not work on the intermediary (SDL XLIFF) files, but on the n
 
 You need to localize XML files that looks as shown below:
 
+# [Xml](#tab/tabid-1)
 ```xml
 <?xml version="1.0" encoding="utf-8" ?>
 <root>
@@ -19,6 +20,7 @@ You need to localize XML files that looks as shown below:
   </item>
 </root>
 ```
+***
 
 Note that the ```displaytext``` element contains the attribute ```maxlength```, which specifies the maximum length of the text that is enclosed in this tag pair. Image that you need to develop a verification plug-in that checks whether the length limit specified in this attribute has been adhered to during translation.
 
@@ -27,12 +29,12 @@ You will find the complete Visual Studio project for this plug-in in the **Sdl.S
 See Also
 --
 
-**Other Resources**
+
 
 [What is the Verification Framework?](what_is_the_verification_framework.md)
 
 [Create a New Project](create_a_new_native_project.md)
 
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

@@ -1,5 +1,5 @@
 Implement the User Interface
-==
+===
 
 In this chapter you will learn how to implement the user interface of your verification plug-in.
 
@@ -21,15 +21,18 @@ The Settings Bundle
 
 Each plug-in uses a settings bundle to store and retrieve settings. The mechanism for doing that is provided in a separate class called ```VerifierSettings```, which we will implement later (see [Loading and Saving the Settings](loading_and_saving_the_settings_native.md)). Within the controller UI component, we need to create an object based on the ```VerifierSettings``` class:
 
+# [C#](#tab/tabid-1)
 ```cs
 VerifierSettings _settings;
 ```
+***
 
 Initialize the Plug-in User Interface
 --
 
 When the user raises the plug-in user interface, the control element should be set according to what is stored in the settings bundle, which is handled through the ```_settings``` object (which we declared previously).
 
+# [C#](#tab/tabid-2)
 ```cs
 public VerifierSettings Settings
 {
@@ -44,35 +47,40 @@ public VerifierSettings Settings
     }
 }
 ```
+***
 
 
 During initialization the UpdateControl method is invoked, which sets the state of the check box (checked or unchecked) to the value of the ```Enabled``` member of the ```VerifierSettings``` class as shown below:
 
-
+# [C#](#tab/tabid-3)
 ```cs
 public void UpdateControl()
 {
     cb_Enable.Checked = _settings.Enable;
 }
 ```
+***
 
 Save the Settings to the Settings Bundle
 --
 
 Conversely, the user interface needs to save the check box setting to the settings bundle, e.g. when the user raises the plug-in UI, changes the check box setting, and then clicks **OK** to apply the changed setting to the settings bundle:
 
-
+# [C#](#tab/tabid-4)
 ```cs
 private void cb_Enable_CheckedChanged(object sender, EventArgs e)
 {
     _settings.Enable = cb_Enable.Checked;
 }
 ```
+***
+
 Putting it all Together
 --
 
 If you put it all together, the ```SettingsUI``` class should look as shown below:
 
+# [C#](#tab/tabid-5)
 ```cs
 using System;
 using System.Collections.Generic;
@@ -152,16 +160,17 @@ namespace Sdl.Sdk.FileTypeSupport.Samples.XMLChecker
     }
 }
 ```
+***
 
 See Also
 --
 
-**Other Resources**
+
 
 [Implement the UI Controller Class](implement_the_ui_controller_class_native.md)
 
 [Loading and Saving the Settings](loading_and_saving_the_settings_native.md)
 
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

@@ -1,5 +1,5 @@
 Outputting all Comments
-==
+===
 
 In this chapter we will finalize the writer class by making it write any comments attached to the units of the original BIL file as well as any comments that were added to the target segments during translation in <Var:ProductName>.
 
@@ -21,6 +21,7 @@ When we implemented the ```BilTextExtractor``` class (see [Adding the Text Extra
 
 The [VisitCommentMarker](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IMarkupDataVisitor.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IMarkupDataVisitor_VisitCommentMarker_Sdl_FileTypeSupport_Framework_BilingualApi_ICommentMarker_) member, which we originally left empty, should look as shown below:
 
+# [C#](#tab/tabid-1)
 ```cs
 public void VisitCommentMarker(ICommentMarker commentMarker)
 {
@@ -31,6 +32,7 @@ public void VisitCommentMarker(ICommentMarker commentMarker)
     VisitChildren(commentMarker);
 }
 ```
+***
 
 This member actually 'visits' the segments and adds any comments found to our comments string list.
 
@@ -40,12 +42,15 @@ Enhance the Writer Class
 
 Now we need to make some additions to our writer class. Start by adding yet another helper function called, e.g. ```UpdateComments()```. This helper function needs to be invoked from ```CreateParagraphUnit()``` and takes the current paragraph unit and the ```unit``` XML node as parameters, i.e.:
 
+# [C#](#tab/tabid-2)
 ```cs
 UpdateComments(paragraphUnit, xmlUnit);
 ```
+***
 
 The ```UpdateComments()``` helper function first 'wipes the slate clean' by removing any existing comments from the original BIL file:
 
+# [C#](#tab/tabid-3)
 ```cs
 // clear the original comments
 XmlNodeList comments = unitNode.SelectNodes("comment");
@@ -54,12 +59,13 @@ foreach (XmlNode item in comments)
     ((XmlElement)unitNode).RemoveChild(item);
 }
 ```
-
+***
 
 Now we need to compile a consolidated list of all comments (from the original BIL file) and of those comments that were added by the translator. Remember that each ```comment``` element in the BIL file requires an id, which we assign through a ```commentID``` integer variable.
 
 First, we retrieve the comments that we added from the original BIL file and that are attached to the paragraph units:
 
+# [C#](#tab/tabid-4)
 ```cs
 int commentID = 1;
 if (paragraphUnit.Properties.Comments != null)
@@ -72,10 +78,11 @@ if (paragraphUnit.Properties.Comments != null)
     }
 }
 ```
-
+***
 
 Next, we collect the comments that the translator added in the intermediary (SDL XLIFF) file to the target segments. Note that we invoke the corresponding function from our ```BilTextExtractor``` class, which 'visits' the markup elements found within a segment.
 
+# [C#](#tab/tabid-5)
 ```cs
 foreach (ISegmentPair segmentPair in paragraphUnit.SegmentPairs)
 {
@@ -86,9 +93,11 @@ foreach (ISegmentPair segmentPair in paragraphUnit.SegmentPairs)
     }
 }
 ```
+***
 
 The complete helper function looks as shown below:
 
+# [C#](#tab/tabid-6)
 ```cs
 private void UpdateComments(IParagraphUnit paragraphUnit, XmlNode unitNode)
 {
@@ -133,9 +142,11 @@ private void UpdateComments(IParagraphUnit paragraphUnit, XmlNode unitNode)
     #endregion
 }
 ```
+***
 
 Note that the above ```UpdateComments()``` function calls a separate ```AddComment()``` helper function, which generates the actual comment based on the comment text and the comment id, which is then added to the current ```unit``` element of the target BIL file. This helper function looks as shown below:
 
+# [C#](#tab/tabid-7)
 ```cs
 private void AddComment(XmlNode xmlUnit, string commentText, int commentID)
 {
@@ -147,12 +158,13 @@ private void AddComment(XmlNode xmlUnit, string commentText, int commentID)
     xmlUnit.AppendChild(commentElement);
 }
 ```
+***
 
 Putting it All Together
 --
 
 The complete and finished writer class should now look as shown below:
-
+# [C#](#tab/tabid-8)
 ```cs
 using System;
 using System.Collections.Generic;
@@ -348,9 +360,10 @@ namespace Sdl.Sdk.FileTypeSupport.Samples.Bil
     }
 }
 ```
+***
 
 Below you also see the complete and finished text extractor class:
-
+# [C#](#tab/tabid-9)
 ```cs
 using System;
 using System.Collections.Generic;
@@ -465,11 +478,12 @@ namespace Sdl.Sdk.FileTypeSupport.Samples.Bil
     }
 }
 ```
+***
 
 See Also
 --
 
-**Other Resources**
+
 
 [Extracting Comments](extracting_comments.md)
 
@@ -477,6 +491,6 @@ See Also
 
 [Adding the Text Extractor Class](adding_the_text_extractor_class.md)
 
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

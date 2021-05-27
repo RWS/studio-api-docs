@@ -1,5 +1,5 @@
 About the Example BIL Format
-==
+===
 
 In order to demonstrate the main features that can be used when developing a bilingual file type plug-in, we have created an example format with the extension **.bil* (from now on BIL). This file type is not used in any 3rd party application. It is a fictitious document format, which was created only for this SDK sample project.
 
@@ -8,6 +8,7 @@ Format Description
 
 BIL is custom a XML based format which looks as shown below:
 
+# [Xml](#tab/tabid-1)
 ```xml
 <bilingualdocument source-language="en-US" target-language="de-DE">
   <unit id="1" status="exact">
@@ -25,6 +26,7 @@ BIL is custom a XML based format which looks as shown below:
     <type spec="Heading"/>
 </bilingualdocument>
 ```
+***
 
 
 The BIL format contains the following elements:
@@ -56,6 +58,7 @@ When developing the sample file type plug-in we fill primarily focus on extracti
 Example Document
 Below you see an example of a more comprehensive document, which you can use for testing your BIL file type plug-in:
 
+# [Xml](#tab/tabid-2)
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <bilingualdocument source-language="en-US" target-language="de-DE">
@@ -121,8 +124,9 @@ Below you see an example of a more comprehensive document, which you can use for
   </unit>
 </bilingualdocument>
 ```
+***
 
 
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

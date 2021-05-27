@@ -3,6 +3,7 @@ The Sub Content Writer
 
 An example of a sub-content Writer is shown below - note the implementation of [ISubContentWriter](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ISubContentWriter.yml)
 
+# [C#](#tab/tabid-1)
 ```cs
 using System.IO;
 using Sdl.FileTypeSupport.Framework.BilingualApi;
@@ -63,8 +64,8 @@ namespace Sdl.Sdk.Snippets.Native
     }
 }
 ```
+***
 
-
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

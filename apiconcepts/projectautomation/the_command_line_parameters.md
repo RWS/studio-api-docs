@@ -226,6 +226,6 @@ public static void Main(string[] args)
 See Also
 --
 
-**Other Resources**
+
 
 [Configuring the Project Properties](configuring_the_project_properties.md)

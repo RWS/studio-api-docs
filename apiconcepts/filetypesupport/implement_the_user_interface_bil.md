@@ -1,5 +1,5 @@
 Implement the User Interface
-==
+===
 
 In this step you will learn how to add a user interface to your plug-in, through which end users can configure the verification settings at runtime.
 
@@ -23,15 +23,18 @@ The Settings Bundle
 
 Each plug-in uses a settings bundle to store and retrieve settings. The mechanism for doing that is provided in a separate class called ```VerifierSettings```, which we will implement later (see [Loading and Saving the Settings](loading_and_saving_the_settings_bil.md)). For now, we create an object based on the ```VerifierSettings``` class, through which we access the plug-in properties:
 
+# [C#](#tab/tabid-1)
 ```cs
 VerifierSettings _settings;
 ```
+***
 
 Initialize the Plug-in User Interface
 --
 
 When the user raises the plug-in user interface, the control element should be set according to what is stored in the settings bundle, which is handled through the ```_settings``` object (which we declared previously).
 
+# [C#](#tab/tabid-2)
 ```cs
 public VerifierSettings Settings
 {
@@ -46,9 +49,11 @@ public VerifierSettings Settings
     }
 }
 ```
+***
 
 During initialization the ```UpdateControl``` method is invoked, which sets the state of the enabled check box (checked or unchecked) to the value of the CheckWordArt member of the ```VerifierSettings``` class as shown below. The other setting that needs to be retrieved from the bundle is the maximum word count, i.e. ```MaxWordCount```.
 
+# [C#](#tab/tabid-3)
 ```cs
 public void UpdateControl()
 {
@@ -56,6 +61,7 @@ public void UpdateControl()
     txt_MaxWordCount.Text = _settings.MaxWordCount.ToString();
 }
 ```
+***
 
 Save the Settings to the Settings Bundle
 --
@@ -64,15 +70,18 @@ Conversely, the user interface needs to save the check box setting to the settin
 
 The first setting to save is the state of the check box (checked or unchecked). According to the check box the ```CheckWordArt``` property will be set to True or False:
 
+# [C#](#tab/tabid-4)
 ```cs
 private void cb_CheckWordArt_CheckedChanged(object sender, EventArgs e)
 {
     _settings.CheckWordArt = cb_CheckWordArt.Checked;
 }
 ```
+***
 
 The second setting is the maximum word count, which is entered into the UI as a string value. The following function converts the text value to an integer, and sets the ```MaxWordCount``` property of the ```VerifierSettings``` class, if the value is greater than zero:
 
+# [C#](#tab/tabid-5)
 ```cs
 private void txt_MaxWordCount_TextChanged(object sender, EventArgs e)
 {
@@ -84,11 +93,13 @@ private void txt_MaxWordCount_TextChanged(object sender, EventArgs e)
     }
 }
 ```
+***
 
 Putting it all Together
 --
 
 The complete class should look as shown below:
+# [C#](#tab/tabid-6)
 ```cs
 using System;
 using System.Collections.Generic;
@@ -190,16 +201,17 @@ namespace Sdl.Sdk.FileTypeSupport.Samples.WordArtVerifier
     }
 }
 ```
+***
 
 See Also
 --
 
-**Other Resources**
+
 
 [Implement the UI Controller Class](implement_the_ui_controller_class_bil.md)
 
 [Loading and Saving the Settings](loading_and_saving_the_settings_bil.md)
 
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

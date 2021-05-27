@@ -27,7 +27,7 @@ Note that there is a large number of TM settings available. Some of these settin
 See Also
 --
 
-**Other Resources**
+
 
 [Translation Memory Search Settings](translation_memory_search_settings.md)
 

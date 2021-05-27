@@ -1,5 +1,5 @@
 Mapping the Segment Confirmation Levels
-==
+===
 
 In this chapter we will enhance our writer component to map the SDL XLIFF confirmation level values back to the BIL status values.
 
@@ -10,6 +10,7 @@ The parser component mapped the ```status``` attribute values of the BIL units t
 
 First, modify the ```CreateParagraphUnit()``` helper function to call a separate helper function, which returns the status value that was mapped from the paragraph unit confirmation value used in SDL XLIFF. Then, the status attribute of the current BIL ```unit``` element is changed to the string value returned by the ```UpdateStatus()``` helper function:
 
+# [C#](#tab/tabid-1)
 ```cs
 private void CreateParagraphUnit(IParagraphUnit paragraphUnit, XmlNode xmlUnit)
 {
@@ -26,9 +27,11 @@ private void CreateParagraphUnit(IParagraphUnit paragraphUnit, XmlNode xmlUnit)
     }
 }
 ```
+***
 
 Now add the new ```UpdateStatus()``` helper function:
 
+# [C#](#tab/tabid-2)
 ```cs
 private string UpdateStatus(ConfirmationLevel unitLevel)
 {
@@ -53,12 +56,14 @@ private string UpdateStatus(ConfirmationLevel unitLevel)
     return status;
 }
 ```
+***
 
 Putting it All Together
 --
 
 The enhanced writer class should now look as shown below:
 
+# [C#](#tab/tabid-3)
 ```cs
 using System;
 using System.Xml;
@@ -188,14 +193,15 @@ namespace Sdl.Sdk.Snippets.Bilingual
     }
 }
 ```
+***
 
 See Also
 --
 
-**Other Resources**
+
 
 [Applying the Segment Pair Confirmation Levels](applying_the_segment_pair_confirmation_levels.md)
 
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

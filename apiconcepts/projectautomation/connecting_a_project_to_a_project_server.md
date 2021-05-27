@@ -14,6 +14,7 @@ In general you will call this method only after you have performed all the neces
 
 The following example shows how to publish the project to a server.
 
+# [C#](#tab/tabid-1)
 ```cs
 project.PublishProject(
     new Uri("http://myServerAddress:80"),
@@ -31,8 +32,9 @@ project.PublishProject(
          }
      });
 ```
+***
 
->**Note**
+>[!NOTE]
 >
 >Once a project has been published the local project will become the workspace for this project and you will only need to create a new workspace if you access the project from another machine or you delete the existing workspace.
 
@@ -43,6 +45,7 @@ If you do not already have a local copy for a server project you must open the p
 
 The following example shows how to open a server-based project if no pre-existing local copy exists. To use this method, you need the unique id of the project on the server and the path on your local file system where you wish to create the local copy.
 
+# [C#](#tab/tabid-2)
 ```cs
 FileBasedProject SetupServerProjectLocalCopy(Guid projectId, string locationOfLocalCopy)
 {
@@ -53,12 +56,13 @@ FileBasedProject SetupServerProjectLocalCopy(Guid projectId, string locationOfLo
     return project;
 }
 ```
+***
 
->**Note**
+>[!NOTE]
 >
 >Opening the project from the server only downloads the necessary files to describe the contents of the project and any project settings. The actual source and target files are not automatically downloaded to the local copy.
 
->**Note**
+>[!NOTE]
 >
 >If you already have a workspace attached to a server project then you should create a new [FileBasedProject](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml) using the constructor for this purpose
 
@@ -69,17 +73,17 @@ If you already have a local copy of a server project you can open the project us
 
 The following example shows how to open a server-based project from an existing local copy.
 
+# [C#](#tab/tabid-3)
 ```cs
 FileBasedProject project = new FileBasedProject(@"c:\MyProjectDirectory\MyProjectFile.sdlproj", false, "MyUserName", "MyPassword");
 
 ```
+***
 
 See Also
 --
 
-**Other Resources**
-
-[About Server Based Projects](..\about_server_based_projects.md)
+[About Server Based Projects](about_server_based_projects.md)
 
 [Viewing and Deleting Published Projects](viewing_and_deleting_published_projects.md)
 

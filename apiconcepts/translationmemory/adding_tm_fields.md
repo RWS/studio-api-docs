@@ -86,7 +86,7 @@ namespace Sdl.SDK.LanguagePlatform.Samples.TmAutomation
 See Also
 --
 
-**Other Resources**
+
 
 [Configuring Translation Memories](configuring_translation_memories.md)
 

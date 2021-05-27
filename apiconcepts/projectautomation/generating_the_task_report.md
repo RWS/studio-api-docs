@@ -191,7 +191,7 @@ private void CreateReports(FileBasedProject project, string path)
 See Also
 --
 
-**Other Resources**
+
 
 [Retrieving the Project Statistics](retrieving_the_project_statistics.md)
 

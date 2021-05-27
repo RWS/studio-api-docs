@@ -1,5 +1,5 @@
 The Bilingual File Parser
-==
+===
 
 The bilingual parser is used for localizable content extraction. While the native parser allows you to extract source related localizable content, the bilingual parser allows you to set source and target related localizable content, group this content into the paragraph units and the segments.
 
@@ -38,7 +38,7 @@ The [Output](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualAp
 
 The Bilingual Parser should call [Initialize](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentHandler_Initialize_Sdl_FileTypeSupport_Framework_BilingualApi_IDocumentProperties_) method to forward the reference to the [DocumentProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualParser.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualParser_DocumentProperties) object for the document being processed. This is normally done after the [SourceLanguage](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IDocumentProperties.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IDocumentProperties_SourceLanguage) and [TargetLanguage](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IDocumentProperties.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IDocumentProperties_TargetLanguage) have been set using information from the source file being parsed.
 
->**Note**
+>[!NOTE]
 >
 >This method should always be called, and always before any other calls on the [Output](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentProcessor.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentProcessor_Output) interface.
 
@@ -102,26 +102,25 @@ If deriving from the [ISettingsAware](../../api/filetypesupport/Sdl.FileTypeSupp
 
 [InitializeSettings](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.ISettingsAware.yml#Sdl_FileTypeSupport_Framework_IntegrationApi_ISettingsAware_InitializeSettings_Sdl_Core_Settings_ISettingsBundle_System_String_) Passes in an [ISettingsBundle](../../api/core/Sdl.Core.Settings.ISettingsBundle.yml) object and a ```configurationId``` ```FileTypeConfigurationId```. These can be used to populate the required settings object used by the parser:
 
+# [C#](#tab/tabid-1)
 ```cs
-   #region "InitializeSettings"
 public void InitializeSettings(Sdl.Core.Settings.ISettingsBundle settingsBundle, string configurationId)
 {
     UserSettings _userSettings = new UserSettings();
     _userSettings.PopulateFromSettingsBundle(settingsBundle, configurationId);
     LockPrdCodes = _userSettings.LockPrdCodes;
 }
-
-#endregion
 ```
+***
 
 See Also
 --
 
-**Other Resources**
+
 
 [The File Parser](the_file_parser.md)
 
 
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

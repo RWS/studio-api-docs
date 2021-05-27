@@ -1,5 +1,5 @@
 Adding Translation Memories
-==
+===
 Projects can contain one or more translation providers per language directions. These are usually (file or server-based) translation memories (TMs), but they could also include automated translation providers such as Google Translate. TMs are not mandatory, but will usually be part of the project, because without TMs you cannot apply tasks such as creating project TMs, pre-translation, etc. In this chapter you will learn how to programmatically add main TMs to your project.
 
 Add the Main Translation Memories
@@ -7,9 +7,13 @@ Add the Main Translation Memories
 Main TMs are the resources used for pre-translating files and (if applicable) for creating project TMs. When adding TMs to a language pair of a project you can enable it for segment lookup, concordance search and updating. Updating means that the TM is updated during the project lifecycle, i.e. it will be filled with new translation units or existing translation units will be overwritten with updated Translation Units (TUs) from the translated, edited and proofread documents. If you add more than one TM to a project language pair, you will usually only want one TM to be updated while all others should only be used for lookup purposes.
 
 In this example we implement a separate helper function for adding the TMs to our project, which takes a [FileBasedProject](../../api\projectautomation\Sdl.ProjectAutomation.FileBased.FileBasedProject.yml) object and the TM path as parameters:
+
+# [C#](#tab/tabid-1)
 ```CS
 this.AddMasterTMs(newProject, @"c:\ProjectFiles\TMs\");
 ```
+***
+
 TMs are added to the project in three steps:
 * First, you create the translation provider configuration(s) for your project
 * Then you define the entries for the configuration, which is tantamount to selecting the TMs (or automated translation provider sources)
@@ -17,7 +21,7 @@ TMs are added to the project in three steps:
 
 TMs can be added to the project as a whole or to each language pair in the project. Since our sample project has two language pairs (i.e. English -> German and English -> French), we will take two translation providers configuration objects, i.e. one for each target language. We do this by applying the [GetTranslationProviderConfiguration](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml#Sdl_ProjectAutomation_FileBased_FileBasedProject_GetTranslationProviderConfiguration) method to the project. In both cases you provide the respective target language as parameter
 
-> **Note**
+> [!NOTE]
 >
 >When you add TMs to the entire project, i.e. not to particular language pairs, just apply the above method without any parameter.
 
@@ -26,6 +30,7 @@ TMs can be added to the project as a whole or to each language pair in the proje
 As the screenshot above illustrates, TMs or any other translation providers can be added either globally for all language pairs, or specifically to each language pair.
 The translation provider configurations, which are based on the [TranslationProviderConfiguration](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml#Sdl_ProjectAutomation_FileBased_FileBasedProject_GetTranslationProviderConfiguration) class, basically act as containers for all translation providers (e.g. file/server TMs, Web-based automated translation providers, etc.) used in a project.
 
+# [C#](#tab/tabid-2)
 ```CS
 Language trgLangDe = new Language(CultureInfo.GetCultureInfo("de-DE"));
 Language trgLangFr = new Language(CultureInfo.GetCultureInfo("fr-FR"));
@@ -33,6 +38,8 @@ Language trgLangFr = new Language(CultureInfo.GetCultureInfo("fr-FR"));
 TranslationProviderConfiguration tmConfigEnDe = project.GetTranslationProviderConfiguration(trgLangDe);
 TranslationProviderConfiguration tmConfigEnFr = project.GetTranslationProviderConfiguration(trgLangFr);
 ```
+***
+
 In the second step we select the actual TMs. For each TM we create an object derived from the [TranslationProviderCascadeEntry](../../api/projectautomation/Sdl.ProjectAutomation.Core.TranslationProviderCascadeEntry.yml) class. Each translation provider cascade entry will be part of the whole translation provider configuration. The arrays of entries contains the TMs used for the two project language pairs that we use in our example. When creating the new translation provider entires we provide the following parameters:
 
 * The name and path of the (file-based) TMs
@@ -42,6 +49,8 @@ In the second step we select the actual TMs. For each TM we create an object der
 * An optional integer parameter to set a penalty. When you set the penalty to e.g. 2, an exact match from the 'penalized' TM will not be shown as a 100% match, but as a 98% match. You may 'penalize' TMs, for example, if you need to translate technical documentation, for which a TM with technical content should be used as the primary TM. In addition you use a TM with general content as secondary TM. However, since the secondary TM does not relate to the current subject, all matches should be penalized in order to indicate to the translator that the suggested translation might need to be modified to make it fit the current context.
 
 In the following example we select a software-related TM as the primary TM, and a general TM as the secondary TM with a penalty of 2% for each language direction. The primary TM should be updated and searched, the secondary TM should only be used for lookup.
+
+# [C#](#tab/tabid-3)
 ```CS
 TranslationProviderCascadeEntry[] tmEntriesEnDe = 
 {
@@ -55,11 +64,15 @@ TranslationProviderCascadeEntry[] tmEntriesEnFr =
     new TranslationProviderCascadeEntry(path + "General En-Fr.sdltm", true, true, true, 2)
 };
 ```
->**Note**
+***
+
+>[!NOTE]
 >
 > You can add a different number of TMs or other types of translation providers per language direction.
 
 In the last step we add the TMs (i.e. the translation provider entry objects) to the translation provider configuration object by looping through the TM entries collections. Finally, we need to update the project object by applying the [UpdateTranslationProviderConfiguration](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml#Sdl_ProjectAutomation_FileBased_FileBasedProject_UpdateTranslationProviderConfiguration_Sdl_Core_Globalization_Language_Sdl_ProjectAutomation_Core_TranslationProviderConfiguration_) method using the translation provider configuration objects and the respective target language as parameters:
+
+# [C#](#tab/tabid-4)
 ```CS
 for (int i = 0; i < tmEntriesEnDe.Length; i++)
 {
@@ -74,6 +87,8 @@ for (int i = 0; i < tmEntriesEnFr.Length; i++)
 project.UpdateTranslationProviderConfiguration(trgLangDe, tmConfigEnDe);
 project.UpdateTranslationProviderConfiguration(trgLangFr, tmConfigEnFr);
 ```
+***
+
 Please note the following:
 * In contrast to the source documents the main TMs are not copied into the project folder structure. The *.sdlproj file only contains a reference to the original location of the *.sdltm file(s).
 * The TM files can also be added if the corresponding *.sdltm files are not located at the provided location, i.e. the API does not check whether the file TMs are actually present. Therefore, your implementation should check whether the TMs exist, and whether they match the project language directions.
@@ -82,6 +97,8 @@ Please note the following:
 Putting it All Together
 --
 The complete function should look as shown below:
+
+# [C#](#tab/tabid-5)
 ```CS
 public void AddMasterTMs(FileBasedProject project, string path)
 {
@@ -123,6 +140,8 @@ public void AddMasterTMs(FileBasedProject project, string path)
     #endregion
 }
 ```
+****
+
 Adding a file based TM with a password
 --
 
@@ -134,6 +153,7 @@ sdltm.file://ABSOLUTE_TM_PATH
 
 and the credentials should be the password used to unlock the file.
 
+# [C#](#tab/tabid-6)
 ```CS
 public void AddFileBasedTMWithPassword(FileBasedProject project, string pathIncludingFileName, string password)
 {
@@ -152,6 +172,7 @@ public void AddFileBasedTMWithPassword(FileBasedProject project, string pathIncl
     project.UpdateTranslationProviderConfiguration(tmConfig);
 }
 ```
+***
 
 Adding a Server-based TM
 --
@@ -170,6 +191,7 @@ where "user" is the user name, "password" the password and "type" is one of the 
 * CustomUser - a non-Windows user defined on the TM Server. "user" should be the user name and "password" the matching password.
 * CustomUser - a non-Windows user defined on the TM Server. "user" should be the user name and "password" the matching password.
 
+# [C#](#tab/tabid-7)
 ```CS
 private void AddServerBasedTM(FileBasedProject project, Uri uri, string path, string tmname)
 {
@@ -192,16 +214,19 @@ private void AddServerBasedTM(FileBasedProject project, Uri uri, string path, st
     project.UpdateTranslationProviderConfiguration(tmConfig);
 }
 ```
+***
+
 Adding SDL BeGlobal Community Machine Translation Provider
 --
 SDL BeGlobal Translation Provider is a free machine translation service provided by SDL for Studio customers. The URI should be in the form:
 
 beglobalcommunity://
 
-> **Note**
+> [!NOTE]
 >
 >Beglobal Community Provider will use the credentials of the current user. You must sign up for the service within studio before it can be used to pre-translate files in Project Automation.
 
+# [C#](#tab/tabid-8)
 ```CS
 public void AddBeglobalCommunityMT(FileBasedProject project)
 {
@@ -221,7 +246,9 @@ public void AddBeglobalCommunityMT(FileBasedProject project)
 
 }
 ```
-> **Note**
+***
+
+> [!NOTE]
 >
 >Pre-translate does not use Machine Translation Providers by default. To use this provider in a pre-translate task remember to set the NoTranslationMemoryMatchFoundAction property to ApplyAutomatedTranslation see [Pre-translate Settings](pre_translate_settings.md)
 
@@ -233,11 +260,11 @@ SDL BeGlobal Enterprise Edition is a domain based machine translation provider u
 languageweavermt.http[s]://[USERKEY:@]HOST:PORT?apimodel=[SOAP|REST]
 The credential should be your Beglobal API key.
 
-> **Note**
+> [!NOTE]
 >
 >To use this provider you must have a SDL BeGlobal Online account or a SDL BeGlobal server installed within your company.
 
-
+# [C#](#tab/tabid-9)
 ```CS
 public void AddBeglobalEnterpriseMT(FileBasedProject project, string host, string port, string accountid, string apiKey, string touchpointId, string userId)
 {
@@ -256,7 +283,9 @@ public void AddBeglobalEnterpriseMT(FileBasedProject project, string host, strin
     project.UpdateTranslationProviderConfiguration(tmConfig);
 }
 ```
->**Note**
+***
+
+>[!NOTE]
 >
 >Pre-translate does not use Machine Translation Providers by default. To use this provider in a pre-translate task remember to set the **NoTranslationMemoryMatchFoundAction** property to **ApplyAutomatedTranslation** see [Pre-translate Settings](pre_translate_settings.md)
 
@@ -266,10 +295,11 @@ Google Translate<sup>TM</sup> is a chargable machine translation service provide
 
 googlemt://
 
->**Note**
+>[!NOTE]
 >
 >To use this provider you must sign up to use the Google Translate V2 API with Google. Once signed up you will receive an API Key that you must provide in the credentials to use the service.
 
+# [C#](#tab/tabid-10)
 ```CS
 public void AddGoogleMT(FileBasedProject project, string apiKey)
 {
@@ -292,14 +322,14 @@ public void AddGoogleMT(FileBasedProject project, string apiKey)
     project.UpdateTranslationProviderConfiguration(tmConfig);
 }
 ```
->**Note**
+***
+
+>[!NOTE]
 >
 >Pre-translate does not use Machine Translation Providers by default. To use this provider in a pre-translate task remember to set the **NoTranslationMemoryMatchFoundAction** property to **ApplyAutomatedTranslation** see [Pre-translate Settings](pre_translate_settings.md) 
 
 See Also
 --
-
-**Other Resources**
 
 [Adding Termbases](adding_termbases.md)
 

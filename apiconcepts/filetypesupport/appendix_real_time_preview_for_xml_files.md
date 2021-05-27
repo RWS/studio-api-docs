@@ -1,5 +1,5 @@
 Appendix: Real-time Preview for XML Files
-==
+===
 
 This chapter explains how to use XSLT stylesheets to implement a real-time preview for custom XML documents.
 
@@ -13,6 +13,7 @@ The SDK sample folder **Realtime XML Preview** contains a set of sample files:
 
 The sample XML file looks as shown below:
 
+# [Xml](#tab/tabid-1)
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <document>
@@ -35,9 +36,11 @@ The sample XML file looks as shown below:
 </list>
 </document>
 ```
+***
 
 Below you find the corresponding XSL code:
 
+# [Xml](#tab/tabid-1)
 ```xml
 <?xml version="1.0"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
@@ -72,6 +75,7 @@ Below you find the corresponding XSL code:
 <!-- ***********************************************************************-->
 </xsl:stylesheet>
 ```
+***
 
 The XSL stylesheet can be embedded in settings bundle through the File Type Manager user interface by selecting the corresponding file type and by adding the XSL file in the **Preview** section as shown in the following illustration:
 
@@ -83,6 +87,6 @@ Once the XSL file has been embedded in the settings bundle, the real-time previe
 
  Settings bundle for your custom XML file type can be of course exported (as **.sdlftsettings*) and distributed to other users.
 
- >**NOTE**
+ >[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

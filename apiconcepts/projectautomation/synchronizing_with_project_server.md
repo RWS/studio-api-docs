@@ -14,13 +14,13 @@ To synchronize a project use the [SynchronizeServerProjectData](../../api/projec
 project.SynchronizeServerProjectData();
 ```
 
->**Note**
+>[!NOTE]
 >
 >Synchronization does not automatically upload or download files only the status of the files and the project settings.
 
 See Also
 --
-**Other Resources**
+
 
 [About Server Based Projects](about_server_based_projects.md)
 

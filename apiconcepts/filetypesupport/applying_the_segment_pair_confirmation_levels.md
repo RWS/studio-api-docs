@@ -1,5 +1,5 @@
 Applying the Segment Pair Confirmation Levels
-==
+===
 
 In this chapter you will learn how to process the BIL unit status information of a given BIL file and apply it to the corresponding segment pair status used by the SDL XLIFF format.
 
@@ -21,12 +21,15 @@ The status attribute of the unit element is the direct equivalent to the segment
 
 You can apply the appropriate status value to a segment pair object through the [ConfirmationLevel](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ISegmentPairProperties.yml#Sdl_FileTypeSupport_Framework_NativeApi_ISegmentPairProperties_ConfirmationLevel) property. First, enhance the ```CreateParagraphUnit()``` helper function by adding the following line, which calls another helper function that maps the confirmation level values.
 
+# [C#](#tab/tabid-1)
 ```cs
 segmentPairProperties.ConfirmationLevel = CreateConfirmationLevel(xmlUnit.Attributes["status"].Value);
 ```
+***
 
 The complete ```CreateParagraphUnit()``` function should look as shown below:
 
+# [C#](#tab/tabid-2)
 ```cs
 // helper function for creating paragraph units
 private IParagraphUnit CreateParagraphUnit(XmlNode xmlUnit)
@@ -75,9 +78,11 @@ private IParagraphUnit CreateParagraphUnit(XmlNode xmlUnit)
     return paragraphUnit;
 }
 ```
+***
 
 Now add the helper function that uses a switch statement to map the BIL status values to the SDL XLIFF confirmation levels:
 
+# [C#](#tab/tabid-3)
 ```cs
 private ConfirmationLevel CreateConfirmationLevel(string BilStatus)
 {
@@ -102,10 +107,11 @@ private ConfirmationLevel CreateConfirmationLevel(string BilStatus)
     return sdlxliffLevel;
 }
 ```
+***
 After making the above additions to the parser class, the SDL XLIFF document should look in <Var:ProductName> as shown below. Note that the confirmation levels are visualized through different icons, which are displayed between the source and the target segments.
 
 ![ConfirmationLevels](images/ConfirmationLevels.jpg)
 
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

@@ -1,5 +1,5 @@
 Introduction
-==
+===
 
 This guide will walk you step by step through the creation of a C# project in <Var:VisualStudioEdition> for developing a simple bilingual verification plug-in.
 
@@ -18,12 +18,12 @@ The document structure column on the right-hand side contains the context info *
 See Also
 --
 
-**Other Resources**
+
 
 [What is the Verification Framework?](what_is_the_verification_framework.md)
 
 [Create a New Project](create_a_new_bil_project.md)
 
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

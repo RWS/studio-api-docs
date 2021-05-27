@@ -20,6 +20,7 @@ These custom values are then accessible through a [IPersistentFileConversionProp
 
 Any settings that may be required by the file sniffer are passed in via an ISettingsGroup. This allows the file sniffer to set up any required settings in a manner like that shown below:
 
+# [C#](#tab/tabid-1)
 ```cs
   private void OverrideSettings(ISettingsGroup settingsGroup)
 {
@@ -31,9 +32,10 @@ Any settings that may be required by the file sniffer are passed in via an ISett
     _SnifferSettings.PopulateFromSettingsBundle(settingsGroup.SettingsBundle, settingsGroup.Id);           
 }
 ```
+***
 
 This can be called from within the ```Sniff()``` method body and will populate any required settings.
 
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

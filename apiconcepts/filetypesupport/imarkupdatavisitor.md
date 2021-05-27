@@ -1,5 +1,5 @@
 IMarkupDataVisitor
-==
+===
 
 The visitor pattern allows a class implementer to traverse all the child objects in an objects hierarchy without having to know how the hierarchy is implemented or having to be aware of any changes in how the hierarchy is implemented.
 
@@ -8,6 +8,7 @@ Implementing IMarkupDataVisitor
 
 All that is required is that your class needs to derive from the [IMarkupDataVisitor](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IMarkupDataVisitor.yml) interface and to explicitly implement all the interface’s methods. To use the visitor pattern it is normally helpful to write the similar private method that calls accept visitor for all the markup data child items of the given parent.
 
+# [C#](#tab/tabid-1)
 ```cs
 private void AppendItems(IAbstractMarkupDataContainer parent)
 {
@@ -18,6 +19,7 @@ private void AppendItems(IAbstractMarkupDataContainer parent)
     }
 }
 ```
+***
 
 This method can then be used to kick off the traversal of all the items in a paragraph-unit so that they can be written to the translated target document. This can be done in the implementation of [ProcessParagraphUnit](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentHandler_ProcessParagraphUnit_Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_) where the passed [IParagraphUnit](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.yml) object can have its Source and Target paragraphs passed to ```AppendItems()``` and the implementations of the [IMarkupDataVisitor](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IMarkupDataVisitor.yml) interface methods can process the various types of text and mark-up objects that form part of the paragraph data hierarchies.
 
@@ -60,12 +62,12 @@ See Also
 
 [IMarkupDataVisitor](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IMarkupDataVisitor.yml)
 
-**Other Resources**
+
 
 [Visitor pattern](https://en.wikipedia.org/wiki/Visitor_pattern)
 
 [Design patterns](https://en.wikipedia.org/wiki/Design_Patterns)
 
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

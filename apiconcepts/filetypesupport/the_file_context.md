@@ -31,11 +31,11 @@ Contexts are not part of the native format and will therefore not show up in tra
 See Also
 --
 
-**Other Resources**
+
 
 [Adding Context Information](adding_context_information.md)
 
 
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

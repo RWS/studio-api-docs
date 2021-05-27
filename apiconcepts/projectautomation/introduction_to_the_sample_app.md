@@ -26,7 +26,7 @@ The application to develop within the scope of the sample project constitutes a 
 See Also
 --
 
-**Other Resources**
+
 
 [Setting up the Visual Studio Project](setting_up_the_visual_studio_project.md)
 

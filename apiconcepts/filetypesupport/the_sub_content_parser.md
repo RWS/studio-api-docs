@@ -3,6 +3,7 @@ The Sub Content Parser
 
 An example of a sub-content Parser is shown below - note the implementation of [ISubContentParser](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ISubContentParser.yml)
 
+# [C#](#tab/tabid-1)
 ```cs
 using System.Drawing;
 using System.IO;
@@ -207,7 +208,8 @@ namespace Sdl.Sdk.Snippets.Native
     }
 }
 ```
+***
 
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

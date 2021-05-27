@@ -25,6 +25,6 @@ There would be problems when a user tries to open an intermediary (SDL XLIFF) fi
 
 See Also
 ----------
-[Implementing the Settings UI]()
+[Implementing the Settings UI](implementing_the_settings_ui.md)
 
-[Implementing the UI Controller Class]()
+[Implementing the UI Controller Class](implementing_the_ui_controller_class.md)

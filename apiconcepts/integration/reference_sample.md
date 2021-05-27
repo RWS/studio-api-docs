@@ -8,8 +8,8 @@ The reference sample demonstrates how the different extension points offered by 
 
 The custom list features:
 
-[Content Connector]()
+[Content Connector](content_connector.md)
 
-[Project Creator]()
+[Project Creator](project_creator.md)
 
-[Wikipedia search and results view part]()
+[Wikipedia search and results view part](wikipedia_search.md)

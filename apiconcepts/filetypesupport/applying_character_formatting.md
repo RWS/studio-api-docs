@@ -1,5 +1,5 @@
 Applying Character Formatting
-==
+===
 
 In this chapter you will learn how to enrich the editor display in <Var:ProdudctName> with character display formatting.
 
@@ -10,8 +10,9 @@ From the inline tags that our sample format is using it is easy to decide which 
 
 First, you need to add the following namespace to your parser class: using ```Sdl.FileTypeSupport.Framework.Formatting```.
 
-Then you enhance your ```CreateTagPair()``` helper function, so that it not only generates tag pairs, but that is also applies the appropriate formatting at the same time. Through a ``switch`` statement you can then select the appropriate formatting based on the name of the element node:
+Then you enhance your `CreateTagPair()` helper function, so that it not only generates tag pairs, but that is also applies the appropriate formatting at the same time. Through a ``switch`` statement you can then select the appropriate formatting based on the name of the element node:
 
+# [C#](#tab/tabid-1)
 ```cs
 // apply character formatting to the start tag
 IFormattingGroup formattingGroup = PropertiesFactory.FormattingItemFactory.CreateFormatting();
@@ -31,10 +32,11 @@ switch (item.Name)
         break;
 }
 ```
+***
 
 The complete ```CreateTagPair()``` helper function should look as shown below. Note that by setting the [CanHide](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IAbstractInlineTagProperties.yml#Sdl_FileTypeSupport_Framework_NativeApi_IAbstractInlineTagProperties_CanHide) to True the actual tags are by default not displayed in <Var:ProdudctName>. However, <Var:ProdudctName> allows users to toggle on/off the tag display at runtime.
 
-
+# [C#](#tab/tabid-2)
 ```cs
 private ITagPair CreateTagPair(XmlNode item)
 {
@@ -76,6 +78,7 @@ private ITagPair CreateTagPair(XmlNode item)
     return tagPair;
 }
 ```
+***
 
 When you build your project at this point, the intermediary (SDL XLIFF) document should look as shown below:
 
@@ -89,10 +92,8 @@ The following shows what the intermediary (SDL XLIFF) file looks like when the u
 See Also
 --
 
-**Other Resources**
-
 [Processing Inline Tags](processing_inline_tags.md)
 
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

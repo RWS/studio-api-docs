@@ -302,7 +302,7 @@ namespace Sdl.SDK.LanguagePlatform.Samples.TmAutomation
 See Also
 --
 
-**Other Resources**
+
 
 [Importing a TMX File](importing_a_tmx_file.md)
 

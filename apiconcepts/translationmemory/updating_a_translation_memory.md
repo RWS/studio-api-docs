@@ -41,7 +41,7 @@ tu.SourceSegment.Add("A dialog box will open.");
 tu.TargetSegment.Add("Es öffnet sich ein Dialogfenster.");
 ```
 
->**Note**
+>[!NOTE]
 >
 >If the source/target segment text to add requires tags - e.g. for inline formatting -, you need to specify an element rather than a simple string.
 
@@ -76,7 +76,7 @@ private ImportSettings GetImportSettings()
     return settings;
 }
 ```
->**Note**
+>[!NOTE]
 >
 >If the same TU already exists, it will not be added as a duplicate. 
 
@@ -84,7 +84,7 @@ The following screenshot illustrates what the newly added TU will look like in <
 
 ![AddedTu](images/AddedTu.jpg)
 
->**Note**
+>[!NOTE]
 >
 >Information such as the creation date and user is added automatically by the API, and does not have to be explicitly set by your application.
 
@@ -241,7 +241,7 @@ foreach (SearchResult item in results)
     }
 }
 ```
->**Note**
+>[!NOTE]
 >
 >Each TU possesses a unique id by which it can be identified within the TM.
 
@@ -251,7 +251,7 @@ It is also possible to 'wipe' the entire TM by applying the ```DeleteAllTranslat
 tm.LanguageDirection.DeleteAllTranslationUnits();
 ```
 
->**Note**
+>[!NOTE]
 >
 >Deleting all TUs in a TM is a potentially dangerous operation, which should only be performed in exceptional cases, as this batch deletion cannot be undone.
 
@@ -259,7 +259,7 @@ tm.LanguageDirection.DeleteAllTranslationUnits();
 See Also
 --
 
-**Other Resources**
+
 
 [Updating Translation Memories](updating_translation_memories.md)
 

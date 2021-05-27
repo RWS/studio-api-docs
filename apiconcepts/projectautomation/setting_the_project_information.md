@@ -109,7 +109,7 @@ public ProjectInfo GetProjectInfo()
 ```
 See Also
 --
-**Other Resources**
+
 
 [Adding Files and Folders](adding_files_and_folders.md)
 

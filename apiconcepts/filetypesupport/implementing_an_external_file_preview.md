@@ -1,5 +1,5 @@
 Implementing an External File Preview
-==
+===
 
 In this chapter you will learn how to add a simple document preview function based on the standard Windows Notepad application.
 
@@ -18,6 +18,7 @@ First, we recommend that you add the name of the preview application to the reso
 
 Now add the method shown below to the File Type Component Builder. Note how the external preview application name is referenced. Also note that this implements the external preview both for the source and the target content.
 
+# [C#](#tab/tabid-1)
 ```cs
 IPreviewSet externalPreviewSet = previewFactory.CreatePreviewSet();
 externalPreviewSet.Id = new PreviewSetId("ExternalPreview");
@@ -42,9 +43,11 @@ if (targetAppPreviewType != null)
 
 previewFactory.GetPreviewSets(null).Add(externalPreviewSet);
 ```
+***
 
 Now change the File Type Component Builder to include the external preview. Here the Microsoft Notepad application is used by ```GenericExternalPreviewApplication```
 
+# [C#](#tab/tabid-2)
 ```cs
 public IAbstractPreviewApplication BuildPreviewApplication(string name)
 {
@@ -57,10 +60,11 @@ public IAbstractPreviewApplication BuildPreviewApplication(string name)
     return null;
 }
 ```
+***
 
 You will also need to add an assembly reference to Sdl.FileTypeSupport.Framework.PreviewControls.
 
->**Note**
+>[!NOTE]
 >
 >You can also pass an empty string to the ApplicationPath property. In this case the external preview will call the application that is registered in the OS for this particular file type.
 
@@ -68,6 +72,6 @@ When accessing the **File** > **View** In menu command of <Var:ProductName> you 
 
 ![PreviewApplication](images/PreviewApplication.jpg)
 
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

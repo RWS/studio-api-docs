@@ -48,7 +48,7 @@ project.AddNewFileVersion(fileId, newFileName);
 
 See Also
 --
-**Other Resources**
+
 
 [Adding Files and Folders](adding_files_and_folders.md)
 

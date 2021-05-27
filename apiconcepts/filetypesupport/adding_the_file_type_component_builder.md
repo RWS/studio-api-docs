@@ -1,5 +1,5 @@
 Adding the File Type Component Builder
-==
+===
 
 Add the File Type Component Builder to your project. This is the implementation of the interface [IFileTypeComponentBuilder](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilder.yml). and that is used to define the new file type plug-in, so that it can be used in <Var:ProductName>.
 
@@ -10,6 +10,7 @@ The implementation of [IFileTypeComponentBuilder](../../api/filetypesupport/Sdl.
 
 Let us start by adding the general file type information to the implementation of [IFileTypeComponentBuilder](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilder.yml) as shown below:
 
+# [C#](#tab/tabid-1)
 ```cs
 /// <summary>
 /// Returns a file type information object.
@@ -38,6 +39,7 @@ public virtual IFileTypeInformation BuildFileTypeInformation(string name)
     return info;
 }
 ```
+***
 
 After adding the file type information above, the corresponding file type plug-in would be shown to the end user in the **Options** dialog box as illustrated below. Your example file type plug-in will be listed under **File Types**, however, of course it does not implement any functionality yet. Below you see an example of how the information entered in the File Type Component Builder is presented to the user through the UI of <Var:ProductName>:
 
@@ -45,6 +47,6 @@ After adding the file type information above, the corresponding file type plug-i
 
 Of course, a File Type Component Builder file is a lot more comprehensive than what is shown here. As we develop the actual file type plug-in components, we will add the corresponding component references to the File Type Component Builder file step-by-step.
 
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

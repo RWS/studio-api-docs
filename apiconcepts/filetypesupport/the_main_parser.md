@@ -2,10 +2,11 @@ The Main Parser
 ==
 An example of a simplified Main Parser which publishes sub-content. 
 
->**Note**
+>[!NOTE]
 >
 >Usually, you should not add dependency files to the FileProperties unless they are actually used by the sub-content writer - note the implementation of [ISubContentPublisher](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ISubContentPublisher.yml)
 
+# [C#](#tab/tabid-1)
 ```cs
 using System;
 using System.Collections.Generic;
@@ -70,6 +71,8 @@ namespace Sdl.Sdk.Snippets.Native
     }
 }
 ```
->**NOTE**
+***
+
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

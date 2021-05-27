@@ -124,7 +124,7 @@ public void CreatePackage(FileBasedProject project)
 See Also
 -- 
 
-**Other Resources**
+
 
 [Creating a Project Package](creating_a_project_package.md)
 

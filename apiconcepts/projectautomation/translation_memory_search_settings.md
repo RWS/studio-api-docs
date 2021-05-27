@@ -31,7 +31,7 @@ tmSettings.ConcordanceMaximumResults.Value = 50;
 See Also
 --
 
-**Other Resources** 
+ 
 
 [Setting TM Penalties](setting_tm_penalties.md)
 

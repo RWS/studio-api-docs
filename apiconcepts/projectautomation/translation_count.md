@@ -25,7 +25,7 @@ public void RunTranslationCount(FileBasedProject project, string trgLocale)
 See Also
 --
 
-**Other Resources**
+
 
 [Analyze Files Settings](analyze_files_settings.md)
 

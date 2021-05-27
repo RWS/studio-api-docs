@@ -15,7 +15,7 @@ Both preview types offer the three following optiosn:
 * Target: the preview displays the target content in its native format
 * Bilingual: both source and target content is displayed in the native format
 
->**Note**
+>[!NOTE]
 >
 >The bilingual mode may not be practical for all supported file types and in some file filters this mode is not implemented.
 
@@ -32,6 +32,6 @@ Internal preview is responsible for generating of the native file in the format 
 
 For more details about the internal preview implementation see [Implement an Internal Preview](internal_preview_introduction.md) chapter.
 
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

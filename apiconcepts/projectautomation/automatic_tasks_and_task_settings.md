@@ -20,27 +20,36 @@ Implement a helper function called ```ConfigureBatchTaskSettings```, which takes
 
 Since the setting that we are going to configure in this example should apply to specific target languages (and not to the project globally), we first create a ```Language``` object using the target locale string that is provided as a parameter:
 
+# [C#](#tab/tabid-1)
 ```CS
 Language trgLanguage = new Language(CultureInfo.GetCultureInfo(trgLocale));
 ```
+***
+
 Each project is associated with a settings bundle, which contains the settings for all tasks (e.g. pre-translate). First, create a ```ISettingsBundle``` object by applying the ```GetSettings``` method to the project. Then apply the ```GetSettingsGroup``` method to generate a settings object based on the [TranslateTaskSettings](../../api/projectautomation/Sdl.ProjectAutomation.Settings.TranslateTaskSettings.yml) class. In this case, we provide the target language as parameter. When you do not provide a parameter, the settings will apply to the entire project globally:
 
+# [C#](#tab/tabid-2)
 ```CS
 ISettingsBundle settings = project.GetSettings(trgLanguage);
 TranslateTaskSettings pretranslateSettings = settings.GetSettingsGroup<TranslateTaskSettings>();
 ```
+***
 
 In the next step use the [MinimumMatchScore](../../api/projectautomation/Sdl.ProjectAutomation.Settings.TranslateTaskSettings.yml#Sdl_ProjectAutomation_Settings_TranslateTaskSettings_MinimumMatchScore) property to set the required minimum match value for the specified target language:
 
+# [C#](#tab/tabid-3)
 ```CS
 pretranslateSettings.MinimumMatchScore.Value = minMatchValue;
 ```
+***
 
 Finally, persist the settings changes by applying the [UpdateSettings](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml#Sdl_ProjectAutomation_FileBased_FileBasedProject_UpdateSettings_Sdl_Core_Globalization_Language_Sdl_Core_Settings_ISettingsBundle_) method to the project. In this method, provide the ```ISettingsBundle``` and the target language as parameters:
 
+# [C#](#tab/tabid-4)
 ```CS
 project.UpdateSettings(trgLanguage, settings);
 ```
+***
 
 Note that the above is just one example of a task configuration setting. You will find detailed information on available batch tasks and their settings on the bottom of this page under *See Also* . Note that the task settings are physically stored in the project (* *.sdlproj*) file.
 
@@ -49,6 +58,7 @@ Putting it All Together
 
 The complete function should look as shown below:
 
+# [C#](#tab/tabid-5)
 ```CS
 public void ConfigureBatchTaskSettings(FileBasedProject project, string trgLocale, int minMatchValue)
 {
@@ -70,11 +80,10 @@ public void ConfigureBatchTaskSettings(FileBasedProject project, string trgLocal
     #endregion
 }
 ```
+***
 
 See Also
 --
-**Other Resources**
-
 [Pre-translate Settings](pre_translate_settings.md)
 
 [Analyze Files Settings](analyze_files_settings.md)

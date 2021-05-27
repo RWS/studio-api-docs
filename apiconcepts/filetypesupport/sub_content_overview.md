@@ -28,10 +28,10 @@ This is saved in the SDLXLIFF file as individual file sections as shown above. I
 
 ![SEEC](images/SEEC.jpg)
 
->**Note**
+>[!NOTE]
 >
 >It is currently not possible to extend a sub-content component builder in the same manner as a filter component builder.
 
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

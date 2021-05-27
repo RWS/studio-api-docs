@@ -57,7 +57,7 @@ Your class needs to use the following namespaces:
 
 See Also
 --
-**Other Resources**
+
 
 [Setting up a Developer Machine](../../articles/gettingstarted/setting_up_a_developer_machine.md)
 

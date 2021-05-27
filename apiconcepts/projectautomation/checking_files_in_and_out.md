@@ -42,7 +42,7 @@ As you work on files in a server project the local file state will change do ind
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The file on the server matches the file on the local copy.
 
->**Note**
+>[!NOTE]
 >
 >The [LocalFileState](../../api/projectautomation/Sdl.ProjectAutomation.Core.ProjectFile.yml#Sdl_ProjectAutomation_Core_ProjectFile_LocalFileState) can be accessed from the [ProjectFile](../../api/projectautomation/Sdl.ProjectAutomation.Core.ProjectFile.yml) object. As Project Automation API works on a snapshot, you must get the file information from the project again to update the status.
 
@@ -51,6 +51,7 @@ Checking out files
 
 When you open files for translation or review, run a batch task or create a package, you must check the files out first. Use the [CheckoutFiles](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml#Sdl_ProjectAutomation_FileBased_FileBasedProject_CheckoutFiles_System_Guid___System_Boolean_System_EventHandler_Sdl_ProjectAutomation_Core_ProgressEventArgs__) method to check out the file. If the local copy of the file is out of date or missing then it will be automatically downloaded from the server. If the local file has been modified it will not be downloaded unless the override parameter is set to true.
 
+# [C#](#tab/tabid-1)
 ```cs
 project.CheckoutFiles(fileIds, false, 
     (obj, evt) =>
@@ -63,8 +64,9 @@ project.CheckoutFiles(fileIds, false,
     }
 });
 ```
+***
 
->**Note**
+>[!NOTE]
 >
 >You only need to check out files once the project has been published. You can process files without check out before that.
 
@@ -73,6 +75,7 @@ Checking in a new version of a file
 
 When you open a file for translation or review, run a batch task or create a package, you must first check out the files from the Project Server. Once complete, you need to update the files on the Project Server with your locally modified files by checking them in.
 
+# [C#](#tab/tabid-2)
 ```cs
 project.CheckinFiles(fileIds, "This is where you add a check in comment",
      (obj, evt) =>
@@ -85,8 +88,9 @@ project.CheckinFiles(fileIds, "This is where you add a check in comment",
          }
      });
 ```
+***
 
->**Note**
+>[!NOTE]
 >
 >Use the [CheckinFiles](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml#Sdl_ProjectAutomation_FileBased_FileBasedProject_CheckinFiles_System_Guid___System_String_System_EventHandler_Sdl_ProjectAutomation_Core_ProgressEventArgs__) method when checking in a new or modified file. This will make sure that a new version of the file is created on the server and that it is available for other users to check out.
 
@@ -97,6 +101,7 @@ If you add a new file to a server project, checking in the file uploads it to th
 
 The following example uploads and checks in all the new source files that have been added to the project.
 
+# [C#](#tab/tabid-3)
 ```cs
 Guid[] sourceFileIds = project.GetSourceLanguageFiles()
     .Where(file => file.LocalFileState == LocalFileState.New)
@@ -113,8 +118,9 @@ project.CheckinFiles(sourceFileIds, "New Source Files",
          }
      });
 ```
+***
 
->**Note**
+>[!NOTE]
 >
 >Use the [CheckinFiles](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml#Sdl_ProjectAutomation_FileBased_FileBasedProject_CheckinFiles_System_Guid___System_String_System_EventHandler_Sdl_ProjectAutomation_Core_ProgressEventArgs__) method when checking in a new or modified file. This will make sure that a new version of the file is created on the server and that it is available for other users to check out.
 
@@ -123,18 +129,18 @@ Undo file check out
 
 To cancel the checkout of one or more files use the [UndoCheckoutFiles](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml#Sdl_ProjectAutomation_FileBased_FileBasedProject_CheckoutFiles_System_Guid___System_Boolean_System_EventHandler_Sdl_ProjectAutomation_Core_ProgressEventArgs__) method. This unlocks the file on the server without changing the version and leaves the local copy untouched.
 
+# [C#](#tab/tabid-4)
 ```cs
 project.UndoCheckoutFiles(fileIds);
 ```
+***
 
->**Note**
+>[!NOTE]
 >
 >You can only undo the check out for a file if it was previously checked out. If a file is checked out to another user you must have the "Cancel Checkout of Other Users Project Files" permission on the server.
 
 See Also
 --
-
-**Other Resources**
 
 [About Server Based Projects](about_server_based_projects.md)
 

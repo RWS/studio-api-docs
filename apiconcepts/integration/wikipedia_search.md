@@ -8,6 +8,7 @@ Wikipedia Search Action
 
 This sample illustrates how a Ribbon Group can be created on the Add-Ins tab and also how actions can be added to it. In the WikipediaSearchAction class the Initialize method shows how a reference to the EditorController can be obtained. The Execute method shows how this reference can be used.
 
+# [C#](#tab/tabid-1)
 ```cs
 using System;
 using System.Collections.Generic;
@@ -64,12 +65,14 @@ namespace StudioIntegrationApiSample
     }
 }
 ```
+***
 
 Wikipedia ResultsViewPart Controller
 --
 
 The <Var:ProductName> Integration API is built in accordance with the MVC pattern. The ViewPart controller is used to add a new view part using the ViewPart attribute. This controller is also responsible for preparing the lookup URI that will be passed to the UI control for display purposes.
 
+# [C#](#tab/tabid-2)
 ```cs
 using System;
 using System.Collections.Generic;
@@ -112,12 +115,14 @@ namespace StudioIntegrationApiSample
     }
 }
 ```
+***
 
 Wikipedia Results ViewPart Control
 --
 
 This class is responsible for rendering the UI. The view relies on the controller described above to obtain a search URI and passes it to the web browser in order to search Wikipedia and display the results.
 
+# [C#](#tab/tabid-3)
 ```cs
 using System;
 using System.Collections.Generic;
@@ -147,11 +152,12 @@ namespace StudioIntegrationApiSample
     }
 }
 ```
+***
 
 See Also
 --
 
-**Other Resources**
+
 
 [Reference Sample](reference_sample.md)
 

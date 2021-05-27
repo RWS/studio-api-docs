@@ -1,5 +1,5 @@
 Implement the Verification Logic
-==
+===
 
 In this chapter you will learn how to implement the actual verification logic of our native verifier plug-in.
 
@@ -21,15 +21,18 @@ Provide Access to the Native File to Verify
 
 Add the following member to the class, which provides access to important information on the native file such as the name of the file, which you will later load into an XML DOM object.
 
+# [C#](#tab/tabid-1)
 ```cs
 private INativeOutputFileProperties _outputFileProperties;
 ```
+***
 
 Provide Access to the Verification Settings
 --
 
 Now add the following boolean property, which provides programmatic access to the setting of the plug-in settings page according to which the verification logic should be applied or not.
 
+# [C#](#tab/tabid-2)
 ```cs
 public bool Enabled
 {
@@ -37,10 +40,12 @@ public bool Enabled
     set;
 }
 ```
+***
 
 
 Next, implement the ```InitializeSettings``` method of the **ISettingsAware** interface. Here, we call on the ```VerifierSettings``` class and use the ```PopulateFromSettingsBundle``` method to retrieve the setting from the physically stored settings bundle. To do this, we need to provide the settings bundle object and the file type id (here *Length Check XML v 1.0.0.0*) as parameters. The ```Enabled``` property used in our main verification logic will then be set according to the value retrieved from the settings bundle.
 
+# [C#](#tab/tabid-3)
 ```cs
 public void InitializeSettings(ISettingsBundle settingsBundle, string configurationId)
 {
@@ -49,12 +54,14 @@ public void InitializeSettings(ISettingsBundle settingsBundle, string configurat
     Enabled = _settings.Enable;
 }
 ```
+***
 
 Provide Access to the Verification Message Reporter
 --
 
 If your verifier finds any errors in the file, the user should be notified. For this, add the following message reporter member to your class:
 
+# [C#](#tab/tabid-4)
 ```cs
 public INativeTextLocationMessageReporter MessageReporter
 {
@@ -62,6 +69,7 @@ public INativeTextLocationMessageReporter MessageReporter
     set;
 }
 ```
+***
 
 Through the [MessageReporter](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileVerifier.yml#Sdl_FileTypeSupport_Framework_NativeApi_INativeFileVerifier_MessageReporter) you can output error messages (if any) to the **Messages** window of <Var:ProductName>. Users can view these messages and resolve the problem.
 
@@ -70,6 +78,7 @@ Implement the Actual Verification Logic
 
 Add the [Verify](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileVerifier.yml#Sdl_FileTypeSupport_Framework_NativeApi_INativeFileVerifier_Verify) method, which is triggered when the user starts the plug-in through trough the menu command **Tools** > **Verify** or by pressing **F8**. This function uses the standard XML API (i.e. the API of the native format) to perform the verification. It loops through all ```displaytext``` elements and checks for the presence of a ```maxlength``` attribute. If this attribute is found, the element content is compared against the maximum length value. If the text exceeds the maximum length, the [ReportMessage](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IBasicMessageReporter.yml#Sdl_FileTypeSupport_Framework_NativeApi_IBasicMessageReporter_ReportMessage_System_Object_System_String_Sdl_FileTypeSupport_Framework_NativeApi_ErrorLevel_System_String_System_String_) method is used to add an error message (i.e. a message with the highest [ErrorLevel](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel.yml)) to the **Messages** window of <Var:ProductName>.
 
+# [C#](#tab/tabid-5)
 ```cs
 public void Verify()
 {
@@ -99,6 +108,7 @@ public void Verify()
     }
 }
 ```
+***
 
 The [ReportMessage](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IBasicMessageReporter.yml#Sdl_FileTypeSupport_Framework_NativeApi_IBasicMessageReporter_ReportMessage_System_Object_System_String_Sdl_FileTypeSupport_Framework_NativeApi_ErrorLevel_System_String_System_String_) method takes the following parameters:
 * The name of the verifier plug-in that has thrown the message
@@ -113,6 +123,7 @@ Provide Access to the Native Output File
 
 Last, add the following members, which provide programmatic access to the native output file, and thus to information such as the file output path and name, the file encoding, creation date, file type info, etc. These members are not actually required for our sample plug-in, as our simple implementation just checks for adherence to the length limit, but does not do any processing on the native output file. However, these members need to be present in our class according the the [INativeFileVerifier](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileVerifier.yml) interface.
 
+# [C#](#tab/tabid-6)
 ```cs
 public void GetProposedOutputFileInfo(IPersistentFileConversionProperties fileProperties, IOutputFileInfo proposedFileInfo)
 {
@@ -129,12 +140,14 @@ public void SetOutputProperties(INativeOutputFileProperties properties)
     _outputFileProperties = properties;
 }
 ```
+***
 
 Putting it all Together
 --
 
 All put together your main verification class should now look as shown below:
 
+# [C#](#tab/tabid-7)
 ```cs
 using System;
 using System.Collections.Generic;
@@ -257,12 +270,13 @@ namespace Sdl.Sdk.FileTypeSupport.Samples.XMLChecker
     }
 }
 ```
+***
 
 Using the Main Verifier Class
 --
 
 To use this verifier, a new file type definition based upon the XML file type definition needs to be created (see [Extending existing File Type Component Builder](extending_existing_file_type_component_builder.md)).
 
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

@@ -216,7 +216,7 @@ public void RunPrepareWithPerfectMatch()
 
 See Also
 --
-**Other Resources**
+
 
 [Analyze Files Settings](analyze_files_settings.md)
 

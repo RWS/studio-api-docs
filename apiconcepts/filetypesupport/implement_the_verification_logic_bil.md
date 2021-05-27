@@ -1,5 +1,5 @@
 Implement the Verification Logic
-==
+===
 
 In this chapter you will learn how to implement the actual verification logic of the bilingual verification plug-in.
 
@@ -19,6 +19,7 @@ Moreover, your class needs to implement the following interfaces:
 
 Add the following boolean and string properties. These are the programmatic representation of the plug-in settings, which are set by the class that we implemented previously (see [Loading and Saving the Settings](loading_and_saving_the_settings_bil.md)):
 
+# [C#](#tab/tabid-1)
 ```cs
 public bool CheckWordArt
 {
@@ -32,8 +33,11 @@ public int MaxWordCount
     set;
 }
 ```
+***
+
 Next, implement the ```InitializeSettings``` method of the ```ISettingsAware``` interface. Here, we call on the VerifierSettings class and use the ```PopulateFromSettingsBundle``` method to retrieve the setting from the physically stored settings bundle. To do this, we need to provide the settings bundle object and the file type id (here *Word 2007 v 2.0.0.0 WordArt Verifier*) as parameters. *Word 2007 v 2.0.0.0 WordArt Verifier* is the file type id of the new file type that we will create - see [Create a New File Type Component Builder](create_new_file_type_component_builder.md). The ```CheckWordArt``` and ```MaxWordCount``` properties used in our main verification logic will then be set according to the value retrieved from the settings bundle.
 
+# [C#](#tab/tabid-2)
 ```cs
 public void InitializeSettings(ISettingsBundle settingsBundle, string configurationId)
 {
@@ -43,12 +47,14 @@ public void InitializeSettings(ISettingsBundle settingsBundle, string configurat
     MaxWordCount = _settings.MaxWordCount;
 }
 ```
+***
 
 Provide Access to the Verification Message Reporting Functionality
 --
 
 If your verifier finds any errors in the file, the user should be notified accordingly. To this end, add the following message reporter member to your class.
 
+# [C#](#tab/tabid-3)
 ```cs
 public IBilingualContentMessageReporter MessageReporter
 {
@@ -56,6 +62,7 @@ public IBilingualContentMessageReporter MessageReporter
     set;
 }
 ```
+***
 
 The [ReportMessage](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentMessageReporter.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentMessageReporter_ReportMessage_System_Object_System_String_Sdl_FileTypeSupport_Framework_NativeApi_ErrorLevel_System_String_Sdl_FileTypeSupport_Framework_BilingualApi_TextLocation_Sdl_FileTypeSupport_Framework_BilingualApi_TextLocation_) is required for adding error messages (if any) to the **Messages** window of <Var:ProductName>.
 
@@ -64,6 +71,7 @@ Provide Access to the Item Factory
 
 The item factory allows you to create, e.g. structure tags, placeholders, etc. Since our verifier only checks for the number of words in WordArt objects, this functionality is actually not necessary. However, you need to add this member, as it is required by the [IBilingualVerifier](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualVerifier.yml) interface.
 
+# [C#](#tab/tabid-4)
 ```cs
 public IDocumentItemFactory ItemFactory
 {
@@ -71,12 +79,14 @@ public IDocumentItemFactory ItemFactory
     set;
 }
 ```
+***
 
 Add the Initialize Method
 --
 
 Add the ```Initialize``` method, through which you can retrieve various information on the verified document such as the source and target language, source count, repetition count, etc. However, our verification logic does not require this information, therefore this member is strictly speaking not necessary for our example, but it must be added according to the [IBilingualVerifier](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualVerifier.yml) interface.
 
+# [C#](#tab/tabid-5)
 ```cs
 public void Initialize(IDocumentProperties documentInfo)           
 {
@@ -86,12 +96,14 @@ public void Initialize(IDocumentProperties documentInfo)
     // This is not required for this implementation.
 }
 ```
+***
 
 Add the File and Process Complete Members
 --
 
 In a similar manner, the following members need to be added as per the [IBilingualVerifier](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualVerifier.yml) interface, although they are not actually required for the functionality of our plug-in. You may wonder why there is a ```FileComplete``` and a ```Complete``` method, which both seem to serve the same purpose. The reason is that <Var:ProductName> allows you to merge several documents into one bilingual (SDL XLIFF) master file (see [Merging files](merging_files.md)). You could use the ```FileComlete``` to carry out an action after the verification of each of the single (merged) files has been completed. You can then call ```Complete``` when the verification process for the entire bilingual document has finished.
 
+# [C#](#tab/tabid-6)
 ```cs
 /// <summary>
 /// These members of the IBilingualContentHandler interface are not used in this
@@ -121,6 +133,7 @@ public void SetFileProperties(IFileProperties fileInfo)
 
 }
 ```
+***
 
 Traverse the Paragraph Units
 --
@@ -133,7 +146,7 @@ Through an ``if`` condition we determine whether the current paragraph unit cont
 
 If the display code equals this value and if the context description contains the string wordart, we call the helper function ```CheckWordCount``` (which we will add in the next step).
 
-
+# [C#](#tab/tabid-7)
 ```cs
 public void ProcessParagraphUnit(IParagraphUnit paragraphUnit)
 {
@@ -161,6 +174,7 @@ public void ProcessParagraphUnit(IParagraphUnit paragraphUnit)
     }
 }
 ```
+***
 
 Carry out the Actual Word Count Verification
 --
@@ -178,7 +192,7 @@ The ReportMessage method takes the following parameters:
 * A detailed description of the problem, which helps the user ascertain why this segment has been flagged to help him/her take corrective action, i.e. shorten the translation.
 * The start and end location of the target string that has caused the problem. By specifying the 'from' and 'up to' location you allow users to jump to the faulty target segment in the document by double-clicking the error message in the **Messages** window of <Var:ProductName>.
 
-
+# [C#](#tab/tabid-8)
 ```cs
 private void CheckWordCount(ISegment targetSegment)
 {
@@ -201,6 +215,7 @@ private void CheckWordCount(ISegment targetSegment)
     }
 }
 ```
+***
 
 ![Error_Message_Length_Worksheet_Exceeded](images/Error_Message_Length_Worksheet_Exceeded.jpg)
 
@@ -209,6 +224,7 @@ Putting it All Together
 
 The complete verification class should now look as shown below:
 
+# [C#](#tab/tabid-9)
 ```cs
 using System;
 using System.Collections.Generic;
@@ -392,12 +408,13 @@ namespace Sdl.Sdk.FileTypeSupport.Samples.WordArtVerifier
     }
 }
 ```
+***
 
 Using the Main Verifier Class
 --
 
 To use this verifier, a new file type definition based upon the Microsoft Word 2007 file type definition needs to be created (see [Create a New File Type Component Builder](create_new_file_type_component_builder.md)).
 
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

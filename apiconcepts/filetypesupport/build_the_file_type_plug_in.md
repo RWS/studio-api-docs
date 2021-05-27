@@ -1,5 +1,5 @@
 Build the File Type Plug-in
-==
+===
 
 This chapter contains important information on building your file type plug-in and on the plug-in package file, which is created during the building process.
 
@@ -16,21 +16,13 @@ The Plug-in Package Path
 --
 In order for <Var:ProductName> to pick up the plug-in package and to extract it, the following folders need to be available on your hard drive:
 
-**For Windows XP**:
+**For Windows 10\ Windows 7\ Windows 8**:
 
-*C:\Documents and Settings\<UserName>\Application Data\SDL\SDL Trados Studio\14\Plugins\Packages*
-
-and
-
-*C:\Documents and Settings\<UserName>\Application Data\SDL\SDL Trados Studio\14\Plugins\Unpacked*
-
-**For Windows Vista\Windows 7\Windows 8**:
-
-*C:\Users\<UserName>\AppData\Roaming\SDL\SDL Trados Studio\14\Plugins\Packages*
+* <Var:PluginPackedPath> *
 
 and
 
-*C:\Users\<UserName>\AppData\Roaming\SDL\SDL Trados Studio\14\Plugins\Unpacked*
+* <Var:PluginUnpackedPath> *
 
 Make sure that you place the **.sdlplugin* file into the sub-folder Packages and launch <Var:ProductName>. During startup of <Var:ProductName> the content of the package will be automatically extracted to the Unpacked sub-folder, as illustrated below:
 
@@ -40,7 +32,7 @@ Upon start-up <Var:ProductName> will load the unpacked plug-in and show the foll
 
 ![NativeFilterWarning](images/NativeFilterWarning.jpg)
 
->**Note**
+>[!NOTE]
 >
 >If a user clicks **No** when the plug-in security message is displayed during start-up of <Var:ProductName>, the plug-in will not be shown in the application.
 
@@ -56,6 +48,7 @@ One essential piece of information required in order to build the plug-in packag
 
 Below you see what the manifest of our sample plug-in looks like:
 
+# [Xml](#tab/tabid-1)
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <PluginPackage xmlns="http://www.sdl.com/Plugins/PluginPackage/1.0">
@@ -66,6 +59,8 @@ Below you see what the manifest of our sample plug-in looks like:
   <RequiredProduct name="SDLTradosStudio" minversion="9.1" />
 </PluginPackage>
 ```
+***
+
 The manifest contains the following information:
 * **PlugInName**: indicates the friendly name of the plugin. This string be different from the name of the plug-in that is defined in PluginResources.resx. The reason for this is that a plug-in package can - in theory - contain multiple plug-ins, which need to be distinguished.
 * **Version**: the version of the plug-in package. This information is used to detect any package updates upon start-up of <Var:ProductName>, and is therefore important.
@@ -88,12 +83,12 @@ rmdir /S /Q "C:\Users\<UserName>\AppData\Roaming\SDL\SDL Trados Studio\10\Plugin
 
 See Also
 --
-**Other Resources**
+
 
 [Creating a New Project](creating_a_new_project.md)
 
 
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.
 

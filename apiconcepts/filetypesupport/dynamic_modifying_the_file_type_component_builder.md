@@ -1,5 +1,5 @@
 Modifying the File Type Component Builder
-==
+===
 
 The real-time preview is dynamic, i.e. it interacts with the editor. When users select a segment in the real-time preview, the corresponding segment in the editor gets highlighted automatically. Also, when users confirm a segment in the editor of <Var:ProductName> the real-time preview is updated accordingly. Like all other preview types, the real-time preview needs to be referenced in the File Type Component Builder.
 
@@ -14,6 +14,7 @@ To implement the real-time preview we first need to make a few additions to the 
 Add the Internal Real-time Preview Set
 In the next step add the following preview set object node for the internal real-time preview into the File Type Component Builder (e.g. below the internal preview set, see chapter [Modifying the File Type Component Builder](static_modifying_the_file_type_component_builder.md)). Note how the object references the preview name that you previously defined in the resources file. After adding the real-time preview set to the File Type Component Builder, the preview name will already be listed in the combo box of the preview window. However, of course, the real-time preview will not be functional yet. Note that we will make another addition to the File Type Component Builder later, when we reference the (yet-to-be-created) preview control (see chapter [Adding a Preview UI Control](adding_a_preview_ui_control.md))
 
+# [C#](#tab/tabid-1)
 ```cs
 IPreviewSet internalRealPreviewSet = previewFactory.CreatePreviewSet();
 internalRealPreviewSet.Id = new PreviewSetId("InternalRealTimePreview");
@@ -36,14 +37,15 @@ if (targetControlPreviewType2 != null)
 }
 previewFactory.GetPreviewSets(null).Add(internalRealPreviewSet);
 ```
+***
 
 See Also
 --
 
-**Other Resources**
+
 
 [Adding a Preview Controller](adding_a_preview_controller.md)
 
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

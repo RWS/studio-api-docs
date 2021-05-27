@@ -24,7 +24,7 @@ In the following example, we implement a function called ```CreatePackage```, wh
 * The due date for this package (e.g. 3 days from the current date). Note that the package due date should not be later than the project due date. The package usually has to be delivered earlier, so that there is enough time for the project manager for e.g. sign-off, finalization, delivery.
 * The ids of the files that this manual task involves. In the example below we assign all files for the target language German to this task.
 
-
+# [C#](#tab/tabid-1)
 ```cs
 ProjectFile[] packageFiles = project.GetTargetLanguageFiles(new Language(CultureInfo.GetCultureInfo("de-DE")));
 ManualTask newTask = project.CreateManualTask(
@@ -33,6 +33,7 @@ ManualTask newTask = project.CreateManualTask(
     DateTime.Now.AddDays(3), 
     packageFiles.GetIds());9
 ```
+***
 
 To actually create the project package, apply the [CreateProjectPackage](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml#Sdl_ProjectAutomation_FileBased_FileBasedProject_CreateProjectPackage_System_Guid_System_String_System_String_Sdl_ProjectAutomation_Core_ProjectPackageCreationOptions_System_EventHandler_Sdl_ProjectAutomation_Core_ProgressEventArgs__System_EventHandler_Sdl_ProjectAutomation_Core_MessageEventArgs__) method to the project object. This method requires the following parameters:
 
@@ -43,7 +44,7 @@ An optional comment (can be an empty string)
 
 Below is an example that shows how to use the [CreateProjectPackage](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml#Sdl_ProjectAutomation_FileBased_FileBasedProject_CreateProjectPackage_System_Guid_System_String_System_String_Sdl_ProjectAutomation_Core_ProjectPackageCreationOptions_System_EventHandler_Sdl_ProjectAutomation_Core_ProgressEventArgs__System_EventHandler_Sdl_ProjectAutomation_Core_MessageEventArgs__) method in order to create a package, which is programmatically an object based on the [ProjectPackageCreation](../../api/projectautomation/Sdl.ProjectAutomation.Core.ProjectPackageCreation.yml) class:
 
-
+# [C#](#tab/tabid-2)
 ```cs
 ProjectPackageCreation projectPackage = project.CreateProjectPackage(
     newTask.Id,
@@ -51,18 +52,21 @@ ProjectPackageCreation projectPackage = project.CreateProjectPackage(
     "Please hurry up, this is job is urgent!", 
     this.GetPackageOptions());
 ```
-
+***
 
 Afterwards, apply the [SavePackageAs](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml#Sdl_ProjectAutomation_FileBased_FileBasedProject_SavePackageAs_System_Guid_System_String_) method to physically save the project package file at a specific location. This method requires the package id (which you can retrieve from the [ProjectPackageCreation](../../api/projectautomation/Sdl.ProjectAutomation.Core.ProjectPackageCreation.yml) object and the full file name and path as parameters.
 
+# [C#](#tab/tabid-3)
 ```cs
 project.SavePackageAs(projectPackage.PackageId, packageFile);
 ```
->**Note**
+***
+
+>[!NOTE]
 >
 >Even if you save the project package to a specific location, the package file will still be automatically created within the project folder strcture. Outgoing packages will be stored in a sub-folder called *Packaged/Out*.
 
->**Note**
+>[!NOTE]
 >
 >After creating a package, the manual task will be shown in <Var:ProductName> as sent and assigned as illustrated in the screenshot below:
 
@@ -78,10 +82,11 @@ Apart from the above mentioned parameters there are various other options that y
 
 To configure the project package options programmatically, implement a separate helper function called ```GetPackageOptions```, which returns a [ProjectPackageCreationOptions](../../api/projectautomation/Sdl.ProjectAutomation.Core.ProjectPackageCreationOptions.yml) object:
 
+# [C#](#tab/tabid-4)
 ```cs
 ProjectPackageCreationOptions options = new ProjectPackageCreationOptions();
 ```
-
+***
 
 **Resources to Include**
 
@@ -91,20 +96,24 @@ The properties in the code example below demonstrate which resources you can opt
 * You may also decide to include any AutoSuggest dictionaries for subsegment matching. Note that there are no project AutoSuggest dictionaries. If you provide this resource, the full AutoSuggest dictionaries will be included, which usually increased the package size considerably.
 * If your project is associated with any file-based termbases, they can be included in the package as well. Here, the same applies as for the AutoSuggest dictionaries, i.e. there are no project termbases, which means that you will always include the full termbase (**.sdltb*) files.
 
+# [C#](#tab/tabid-5)
 ```cs
 options.IncludeAutoSuggestDictionaries = false;
 options.IncludeMainTranslationMemories = false;
 options.RemoveServerBasedTranslationMemories = false;
 options.IncludeTermbases = true;
 ```
+***
 
 **Remove Automated Translation Providers**
 
 If your project is associated with any automated online translation providers (e.g. Google Translate), you may to decide not to include the links to those online resources in the project package. The reason is that translators tend to download the package and then process its content while not connected to the Internet, which means that they cannot use any online resources.
 
+# [C#](#tab/tabid-6)
 ```cs
 options.RemoveAutomatedTranslationProviders = true;
 ```
+***
 
 **Recompute Analysis Statistics and Project TM Options**
 
@@ -118,16 +127,20 @@ Usually, the package contains the relevant project TM(s), i.e. subsets of the or
 * [UseExisting](../../api/projectautomation/Sdl.ProjectAutomation.Core.ProjectTranslationMemoryPackageOptions.yml#fields): Simply include the project TM(s) that were created during the project set-up (i.e. the project TMs as they exist currently)
 * [None](../../api/projectautomation/Sdl.ProjectAutomation.Core.ProjectTranslationMemoryPackageOptions.yml#fields): Do not include any project TMs at all
 
+# [C#](#tab/tabid-7)
 ```cs
 options.RecomputeAnalysisStatistics = true;
 options.ProjectTranslationMemoryOptions = ProjectTranslationMemoryPackageOptions.CreateNew;
 ```
+***
 
 Finally, do not forget to return the [ProjectPackageCreationOptions](../../api/projectautomation/Sdl.ProjectAutomation.Core.ProjectTranslationMemoryPackageOptions.yml) object:
 
+# [C#](#tab/tabid-8)
 ```cs
 return options;
 ```
+***
 
 Check the Project Package Creation Status
 -- 
@@ -136,6 +149,7 @@ It may happen that the package creation fails for some reason (e.g. the project 
 
 The following sample code leverages the [PackageStatus](../../api/projectautomation/Sdl.ProjectAutomation.Core.PackageStatus.yml) class to check the project package status. It throws an error message if in the end the package status is not [Completed](../../api/projectautomation/Sdl.ProjectAutomation.Core.PackageStatus.yml#fields):
 
+# [C#](#tab/tabid-9)
 ```cs
 bool packageIsCreated = false;
 while (!packageIsCreated)
@@ -164,6 +178,7 @@ if (projectPackage.Status != PackageStatus.Completed)
     throw new Exception("A problem occurred during package creation.");
 }
 ```
+***
 
 
 Putting it All Together
@@ -171,6 +186,7 @@ Putting it All Together
 
 The complete functions should now look as shown below:
 
+# [C#](#tab/tabid-10)
 ```cs
 public void CreatePackage(FileBasedProject project, string packageFile)
 {
@@ -226,7 +242,9 @@ public void CreatePackage(FileBasedProject project, string packageFile)
     #endregion
 }
 ```
+***
 
+# [C#](#tab/tabid-11)
 ```cs
 private ProjectPackageCreationOptions GetPackageOptions()
 {
@@ -255,11 +273,10 @@ private ProjectPackageCreationOptions GetPackageOptions()
     #endregion
 }
 ```
+***
 
 See Also
 --
-
-**Other Resources**
 
 [Creating a Return Package](creating_a_return_package.md)
 

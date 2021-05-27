@@ -1,5 +1,5 @@
 Processing Inline Tags
-==
+===
 
 In this chapter you will learn how to parse inline tags and how to display character formatting in the side-by-side editing environment of <Var:ProductName>.
 
@@ -10,12 +10,15 @@ The segments in our bilingual sample format can contain the following inline tag
 
 A segment with inline tags may look as follows:
 
+# [HTML](#tab/tabid-1)
 ```html
 Open the <b>dialog box</b>.
 ```
+***
 
 You need to enhance the ```CreateSegment()``` helper function to loop through the segment node and create a text object or a tag depending on whether a sub-node found in the segment is of the type **text** or of the type **element**. If a text node is found, you call another helper function (```CreateText()```) that adds the text to the segment or ```CreateTagPair()``` that creates a tag pair:
 
+# [C#](#tab/tabid-2)
 ```cs
 // helper function for creating segment objects
 private ISegment CreateSegment(XmlNode segNode, ISegmentPairProperties pair)
@@ -37,12 +40,14 @@ private ISegment CreateSegment(XmlNode segNode, ISegmentPairProperties pair)
     return segment;
 }
 ```
+***
 
 Add the Helper Function for Generating Text
 --
 
 For convenience reasons, 'outsource' the generation of text items to a separate helper function, which looks as shown below:
 
+# [C#](#tab/tabid-3)
 ```cs
 private IText CreateText(string segText)
 {
@@ -52,6 +57,7 @@ private IText CreateText(string segText)
     return textContent;
 }
 ```
+***
 
 Add the Helper Function for Generating Tag Pairs
 --
@@ -60,6 +66,7 @@ Now add the function for generating tag pairs. This function works as follows: T
 
 Do not forget to extract also the text that is enclosed in the tag pair. To this end we call the ```CreateText()``` helper function, which generates the text between the opening and the closing tag, which is then appended to the tag pair.
 
+# [C#](#tab/tabid-4)
 ```cs
 private ITagPair CreateTagPair(XmlNode item)
 {
@@ -101,6 +108,7 @@ private ITagPair CreateTagPair(XmlNode item)
     return tagPair;
 }
 ```
+***
 
 After you have enhanced your file type plug-in as described above, the BIL sample file should look as shown below in <Var:ProductName>:
 
@@ -109,10 +117,10 @@ After you have enhanced your file type plug-in as described above, the BIL sampl
 See Also
 --
 
-**Other Resources**
+
 
 [Applying Character Formatting](applying_character_formatting.md)
 
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

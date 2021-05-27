@@ -1,5 +1,5 @@
 Overview of the Bilingual API
-==
+===
 
 This section contains a quick overview of the Bilingual API. For detailed documentation on individual interfaces, properties, methods etc. see the reference documentation.
 
@@ -49,6 +49,6 @@ Localizable content can also be processed through a visitor pattern. This is oft
 
 ![VisitorPattern](images/VisitorPattern.png)
 
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

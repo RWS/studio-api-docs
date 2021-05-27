@@ -5,6 +5,7 @@ This class transforms a list of ProjectRequests into the corresponding file base
 
 This task is carried out by the Execute method. It calls the CreateProject method for each request and using the CreateProject method in the Project Automation API creates a new instance of FileBasedProject and adds files from the ProjectRequest object. It then uses FileBasedProjectReference to run a Scan task on the files followed by a DefaultTaskSequence after which it saves the new project. The sample also illustrates how the ProgressChanged and MessageReported events are handled.
 
+# [C#](#tab/tabid-1)
 ```cs
 using System;
 using System.Collections.Generic;
@@ -150,12 +151,13 @@ namespace StudioIntegrationApiSample
 
 }
 ```
+***
 
 
 See Also
 --
 
-**Other Resources**
+
 
 [Content Connector](content_connector.md)
 

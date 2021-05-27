@@ -256,7 +256,7 @@ private void CheckEvents(List<TaskStatusEventArgs> taskStatusEventArgsList, List
 
 See Also
 --
-**Other Resources**
+
 
 [Automatic Tasks and Task Settings](automatic_tasks_and_task_settings.md)
 

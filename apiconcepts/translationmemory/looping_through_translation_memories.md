@@ -168,6 +168,6 @@ namespace Sdl.SDK.LanguagePlatform.Samples.TmAutomation
 See Also
 --
 
-**Other Resources**
+
 
 [Maintaining Translation Memories](maintaining_translation_memories.md)

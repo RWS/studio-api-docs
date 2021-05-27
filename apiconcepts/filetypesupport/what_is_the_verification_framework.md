@@ -27,7 +27,7 @@ See Also
 
 [IGlobalVerifier](../../api/verification/Sdl.Verification.Api.IGlobalVerifier.yml)
 
-**Other Resources**
+
 
 [How to Create a Native Verifier](create_a_native_verifier_introduction.md)
 
@@ -37,6 +37,6 @@ See Also
 
 [Verifying files](verifying_files.md)
 
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

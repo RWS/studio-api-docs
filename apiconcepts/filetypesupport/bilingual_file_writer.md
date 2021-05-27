@@ -1,5 +1,5 @@
 The Bilingual File Writer
-==
+===
 
 The bilingual file writer component is responsible for translated file creating. While the native file writer has access only to the target content, the bilingual filter has access to each paragraph-unit object and can access both source and target segments as well as other bilingual model objects like context etc.
 
@@ -48,27 +48,26 @@ The framework will call [SetFileProperties](../../api/filetypesupport/Sdl.FileTy
 
 The framework will call [ProcessParagraphUnit](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentHandler_ProcessParagraphUnit_Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_) method for each paragraph-unit in each individual file that is processed. It is up to the implementer of the Bilingual filter how the passed [IParagraphUnit](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.yml) object is processed but there is an implementation of the visitor pattern that can be used with these paragraph-unit objects.
 
+# [C#](#tab/tabid-1)
 ```cs
-   #region "InitializeSettings"
 public void InitializeSettings(Sdl.Core.Settings.ISettingsBundle settingsBundle, string configurationId)
 {
     UserSettings _userSettings = new UserSettings();
     _userSettings.PopulateFromSettingsBundle(settingsBundle, configurationId);
     WriteUtf8Bom = _userSettings.WriteUtf8Bom;
 }
-
-#endregion
 ```
+***
 
 See Also
 --
 
-**Other Resources**
+
 
 [The File Writer](the_file_writer.md)
 
 [IMarkupDataVisitor](imarkupdatavisitor.md)
 
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

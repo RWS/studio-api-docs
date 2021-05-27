@@ -1,5 +1,5 @@
 Handling Tags During Segmentation
-==
+===
 
 In this chapter you will learn how to process tags that appear at the beginning or end of a segment.
 
@@ -10,6 +10,7 @@ A tag such as **IMG** may appear right in front or after a segment, i.e. the par
 
 For example, the following leading **IMG** tag would not be shown in the editor view, however, the sub-segment content would be displayed:
 
+# [HTML](#tab/tabid-1)
 ```html
 <img src="button.jpg" alt="Open dialog box" /> Click the Open Dialog box button to open the dialog box.
 ```
@@ -28,9 +29,11 @@ However, you can change this behavior as required through the [SegmentationHint]
 
 You can, however, set the segmentation hint property to [Include](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.SegmentationHint.yml#fields), if you want to make sure that such tags are shown in the same segment as the actual text, e.g.:
 
+# [C#](#tab/tabid-2)
 ```cs
 placeProperties.SegmentationHint = SegmentationHint.Include
 ```
+***
 
 You could also apply the value [IncludeWithText](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.SegmentationHint.yml#fields), which means that tags are not shown unless they contain localizable text. In our example the **IMG** tag will be shown, if it contains localizable text in the **ALT** property, but it will not be displayed, if the **ALT** attribute is missing.
 
@@ -38,11 +41,11 @@ You could also apply the value [IncludeWithText](../../api/filetypesupport/Sdl.F
 See Also
 --
 
-**Other Resources**
+
 
 [Processing Placeholder Tags](processing_placeholder_tags.md)
 
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.
 

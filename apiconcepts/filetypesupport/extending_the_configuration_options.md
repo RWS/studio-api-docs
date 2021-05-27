@@ -1,5 +1,5 @@
 Extending the Configuration Options
-==
+===
 
 This chapter provides an example of how to enhance your file type plug-in with another configuration option.
 
@@ -23,13 +23,16 @@ Extend the file type plug-in settings UI by adding a new text field called e.g. 
 
 Add a helper function that enables or disables the new text field depending on whether the ```cb_LockPrdCodes``` check box is checked or not:
 
+# [C#](#tab/tabid-1)
 ```cs
 private void txt_PrdCodePrefix_TextChanged(object sender, EventArgs e)
 {
     _userSettings.PrdCodesPrefix = txt_PrdCodePrefix.Text;
 }
 ```
+***
 
+# [C#](#tab/tabid-2)
 ```cs
 public void UpdateControl()
 {
@@ -37,6 +40,7 @@ public void UpdateControl()
     txt_PrdCodePrefix.Text = _userSettings.PrdCodesPrefix;
 }
 ```
+***
 
 
 Modify the File Parser
@@ -44,16 +48,19 @@ Modify the File Parser
 
 Last, you need to modify the file parser component, so that it uses the configurable product code prefix property rather than the hard-coded string. First, add a new global property to the file parser class:
 
+# [C#](#tab/tabid-3)
 ```cs
 public string PrdCodesPrefix
- {
-     get;
-     set;
- }
+{
+    get;
+    set;
+}
 ```
+***
 
 In the ```InitializeSettings``` method you need to read this property from the user settings to initialize the file parser class. Here is the complete method with ```PrdCodesPrefix``` initialized from the user settings.
 
+# [C#](#tab/tabid-4)
 ```cs
 public void InitializeSettings(Sdl.Core.Settings.ISettingsBundle settingsBundle, string configurationId)
 {
@@ -63,18 +70,23 @@ public void InitializeSettings(Sdl.Core.Settings.ISettingsBundle settingsBundle,
     PrdCodesPrefix = userSettings.PrdCodesPrefix;
 }
 ```
+***
 
 In the ProcessLine() function you then need to change the ```else if ```condition from:
 
+# [C#](#tab/tabid-5)
 ```cs
  else if (sLine.StartsWith("Prd-Code") && LockPrdCodes==true) 
 ```
+***
 
 to:
 
+# [C#](#tab/tabid-6)
 ```cs
 else if (sLine.StartsWith(PrdCodePrefix) && LockPrdCodes==true)
 ```
+****
 
 After rebuilding your project, the file type plug-in should implement the second configuration option and apply it during parsing.
 
@@ -83,6 +95,7 @@ Putting It All Together
 
 Your extended ```UserSettings``` class should now look as shown below:
 
+# [C#](#tab/tabid-7)
 ```cs
 using Sdl.FileTypeSupport.Framework.Core.Settings;
 using Sdl.Core.Settings;
@@ -178,9 +191,11 @@ namespace Sdl.Sdk.FileTypeSupport.Samples.SimpleText
     }
 }
 ```
+***
 
-Your extended ```SettingsUI``` class should now look as shown below:
+Your extended `SettingsUI` class should now look as shown below:
 
+# [C#](#tab/tabid-8)
 ```cs
 using System;
 using System.Collections.Generic;
@@ -280,6 +295,7 @@ namespace Sdl.Sdk.FileTypeSupport.Samples.SimpleText.WinUI
     }
 }
 ```
->**NOTE**
+****
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

@@ -1,5 +1,5 @@
 Overview of the Native API
-==
+===
 
 This section contains a quick overview of the Native API.
 
@@ -39,7 +39,7 @@ The localization context information is a prioritized list of individual context
 
 ![ContextInfo](images/ContextInfo.png)
 
-If a context is intended to be used by localization tools to e.g. to impact recycling or disambiguate multiple matches in a translation memory its [Purpose](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IContextInfo.yml#Sdl_FileTypeSupport_Framework_NativeApi_IContextInfo_Purpose) property should be set to [Match](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ContextPurpose.yml#fields) . If the context is meant only as additional information to the translator its context purpose should be [Information](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ContextPurpose.yml#fields). The [Location](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ContextPurpose.yml#fields) purpose is used by the framework in the bilingual ```cTontent``` model to reference the location of the tag for paragraph units that hold any localizable tag content.
+If a context is intended to be used by localization tools to e.g. to impact recycling or disambiguate multiple matches in a translation memory its [Purpose](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IContextInfo.yml#Sdl_FileTypeSupport_Framework_NativeApi_IContextInfo_Purpose) property should be set to [Match](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ContextPurpose.yml#fields) . If the context is meant only as additional information to the translator its context purpose should be [Information](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ContextPurpose.yml#fields). The [Location](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ContextPurpose.yml#fields) purpose is used by the framework in the bilingual ```content``` model to reference the location of the tag for paragraph units that hold any localizable tag content.
 
 The [StandardContextTypes](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.StandardContextTypes.yml) is a list of well-known context types. These should be used by filters whenever appropriate in order to ensure the best possible tool support and cross-file type compatibility. If no context in the well-known list is appropriate, a custom context can be specified.
 
@@ -78,6 +78,6 @@ Content processors typically apply specialized tasks to the content stream. Exam
 ![Buffer](images/Buffer.png)
 
 
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

@@ -1,5 +1,5 @@
 Native File Tweakers
-==
+===
 
 Native file tweakers are optional filter components, which allow additional processing to be performed on the input file before parsing begins or after the target file has been generated.
 
@@ -9,6 +9,7 @@ Using a Native File Pre-Tweaker
 --
 
 The following example demonstrates how to include a pre-tweaker in the extractor of a filter File Type Component Builder:
+# [C#](#tab/tabid-1)
 ```cs
 /// <summary>
 /// Gets the file extractor for this component.
@@ -24,6 +25,7 @@ public virtual IFileExtractor BuildFileExtractor(string name)
     return extractor;
 }
 ```
+***
 
 (SimpleFilePreTweaker is a class that implements [AbstractFilePreTweaker](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.AbstractFilePreTweaker.yml))
 
@@ -32,6 +34,7 @@ Using a Native File Post-Tweaker
 
 The following example demonstrates how to include a post-tweaker in the generator of a filter File Type Component Builder:
 
+# [C#](#tab/tabid-2)
 ```cs
 /// <summary>
 /// Gets the file generator for this component.
@@ -46,6 +49,7 @@ public virtual IFileGenerator BuildFileGenerator(string name)
     return generator;
 }
 ```
+***
 
 (SimpleFilePostTweaker is a class that implements [AbstractFilePostTweaker](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.AbstractFilePostTweaker.yml))
 
@@ -62,10 +66,10 @@ See Also
 
 [RegExFilePostTweaker](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.RegExFilePostTweaker.yml)
 
-**Other Resources**
+
 
 [Creating a Native File Tweaker](creating_a_native_file_tweaker.md)
 
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

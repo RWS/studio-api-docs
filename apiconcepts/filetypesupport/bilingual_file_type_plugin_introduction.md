@@ -1,5 +1,5 @@
 Introduction
-==
+===
 
 While the first version of the SDL File Type Support Framework, which was used in SDL Trados 2007, could only process native, monolingual files, the new version also supports bilingual documents such as TTX, ITD, and XLIFF.
 
@@ -15,6 +15,6 @@ Probably the most common example of this is the processing of TTX (TradosTag) an
 
 The TTX and ITD file types as examples of bilingual file type plug-ins.
 
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

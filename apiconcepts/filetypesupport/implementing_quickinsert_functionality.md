@@ -1,5 +1,5 @@
 Implementing QuickInsert Functionality
-==
+===
 
 QuickInsert allows you to further enhance your file type plug-in by adding functionality that allows users to quickly insert inline tags, placeholders, strings (or string pairs), characters that are difficult to type on some keyboards (e.g. ç, ©), etc.
 
@@ -18,7 +18,7 @@ QuickInsert items can be specific to particular file types. For example, HTML us
 
 Below you see an example of how the standard Microsoft Word 2007 file type plug-in is associated with a QuickInsert settings page that lists all the QuickInsert items defined for this file type plug-in.
 
->**Note**
+>[!NOTE]
 >
 >In the UI only QuickInserts specified by user are displayed, the default QuickInserts are only displayed on the <Var:ProductName> toolbar.
 
@@ -51,6 +51,7 @@ Modify the File Type Component Builder
 
 To associate your sample file type plug-in with a settings page that lists the QuickInsert items, the following code was used in the class **SimpleTextFilterComponentBuilder** within the method **BuildFileTypeInformation**.
 
+# [C#](#tab/tabid-1)
 ```cs
 info.WinFormSettingsPageIds = new string[]
 {
@@ -58,6 +59,7 @@ info.WinFormSettingsPageIds = new string[]
     "QuickInserts_Settings",
 };
 ```
+***
 
 **WinFormSettingsPageIds** specifies the ids of the settings pages to be associated with a file type plug-in. Here we added **QuickInserts_Settings** so that a settings page that lists the QuickInsert items is associated with this file type plug-in. This code was added in an earlier chapter and so should not be added again.
 
@@ -77,6 +79,7 @@ Let us assume you want to assign a **B** tag pair to the corresponding default b
 
 Start by adding a class called e.g. **QuickInsertBuilder.cs** to your project. The class needs to be derived from [AbstractQuickTagBuilder](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.IntegrationApi.AbstractQuickTagBuilder.yml). Your class needs to reference the namespace **Sdl.FileTypeSupport.Framework.Core.Utilities.IntegrationApi**. Below you see an example of an implementation that assigns the appropriate tag pair to the standard bold formatting button and a text pair (German quotes) to the first custom QuickInsert button.
 
+# [C#](#tab/tabid-2)
 ```cs
 using System.Collections.Generic;
 using Sdl.FileTypeSupport.Framework.IntegrationApi;
@@ -121,9 +124,11 @@ namespace Sdl.Sdk.FileTypeSupport.Samples.SimpleText
     }
 }
 ```
+***
 
 Add the quick insert builder component to the File Type Component Builder by inserting the following code to your implementation of the [IFileTypeComponentBuilder](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilder.yml) interface. If you do not add the quick insert builder then this component will never be used by the file type plug-in, even if the quick insert builder component has been implemented in the assembly.
 
+# [C#](#tab/tabid-3)
 ```cs
 public IQuickTagsFactory BuildQuickTagsFactory(string name)
 {
@@ -132,6 +137,7 @@ public IQuickTagsFactory BuildQuickTagsFactory(string name)
     return quickTags;
 }
 ```
+***
 
 
 Note that you need to add the following names and values to the **StringResources** file:
@@ -145,11 +151,11 @@ The QuickInsert toolbar for your file type plug-in should now look as shown belo
 See Also
 --
 
-**Other Resources**
+
 
 [Using QuickInserts](using_quickinserts.md)
 
 
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

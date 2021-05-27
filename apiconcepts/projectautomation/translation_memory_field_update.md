@@ -62,7 +62,7 @@ private void GetTmSetup()
 See Also
 --
 
-**Other Resources**
+
 
 [Translation Memory Search Settings](translation_memory_search_settings.md)
 

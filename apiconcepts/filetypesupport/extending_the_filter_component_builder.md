@@ -1,8 +1,8 @@
 Extending the Filter Component Builder
-==
+===
 This section shows how to extend an existing file type plug-in
 
->**Note**
+>[!NOTE]
 >
 >Please note that this functionality is only available in Studio 2011 SP3.
 
@@ -13,6 +13,7 @@ How to do it
 
 The Filter extension implementation consists of a class that implements the ```IFileTypeComponentBuilderAdapter``` interface. The original File Type Component Builder can be accessed by the ```Original``` property. For example to add a new [IFilePreTweaker](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IFilePreTweaker.yml) to the existing SimpleText Filter provided with the examples of this SDK it is enough to implement the [BuildFileExtractor](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.DynamicFilterComponentBuilder.yml#Sdl_FileTypeSupport_Framework_IntegrationApi_DynamicFilterComponentBuilder_BuildFileExtractor_System_String_) method, call the original method and add the new tweaker to the [INativeExtractor](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeExtractor.yml) using [AddFileTweaker](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileExtractor.yml#Sdl_FileTypeSupport_Framework_IntegrationApi_IFileExtractor_AddFileTweaker_Sdl_FileTypeSupport_Framework_NativeApi_IFilePreTweaker_) method. The following code shows how to do this:
 
+# [C#](#tab/tabid-1)
 ```cs
 public  IFileExtractor BuildFileExtractor(string name)
 {
@@ -34,6 +35,7 @@ public  IFileExtractor BuildFileExtractor(string name)
     return extractor;
 }
 ```
+***
 
 where ```SimpleTextExtensionPreTweaker``` is the class that implements the new Tweaker that is being added.
 
@@ -41,6 +43,7 @@ Note that extending an extension and extending a filter template are not support
 
 The next code shows part of the example (SimpleTextExtension) included with the sample projects. Note that the class has an attribute called ```FileTypeComponentBuilderExtensionAttribute``` to enable the plug-in mechanism. The property ```OriginalFileType``` must be set to match the FileTypeId of the FileType you wish to extend. Please refer to the [Build the File Type Plug-in](build_the_file_type_plug_in.md) topic for more information.
 
+# [C#](#tab/tabid-2)
 ```cs
 namespace Sdl.Sdk.FileTypeSupport.Samples.SimpleTextExtension
 {
@@ -170,9 +173,10 @@ namespace Sdl.Sdk.FileTypeSupport.Samples.SimpleTextExtension
     }
 }
 ```
+***
 
 Note that if the ```FileTypeDefinitionId``` is changed in the ```BuildFileTypeInformation``` section, then the extension will appear as a new filter in the Studio file type options dialog. Otherwise it will simply override the original one (i.e. no new filter will appear in U.I.)
 
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

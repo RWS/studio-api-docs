@@ -10,7 +10,7 @@ There are four different access levels for file based TMs:
 * **Read/Write**: This access level is typically used by translators, who need to be able to add/change TUs and search the TM.
 * **Read-only**: Guest access that allows users to perform TM look-ups.
 
->**Note**
+>[!NOTE]
 >
 >Server TMs use a different, much more sophisticated and granular access rights model.
 

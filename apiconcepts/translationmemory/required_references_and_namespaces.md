@@ -32,7 +32,7 @@ Classes that deal with server TM-related tasks such as connecting to a TM Server
 * Sdl.Enterprise2.Platform.Client
 * Sdl.Enterprise2.Platform.Contracts
 
->**Note**
+>[!NOTE]
 >
 >At the moment you need to set the output path to the folder in which <Var:ProductName> is installed. This may change soon, but at the time of writing this was still a requirement. Choosing a different build output path might cause problems with a number of API functions.
 

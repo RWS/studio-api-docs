@@ -3,7 +3,7 @@ The Main Writer
 
 An example of a simplified Main Writer which accepts sub-content from the framework - note the implementation of [ISubContentAware](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ISubContentAware.yml)
 
-
+# [C#](#tab/tabid-1)
 ```cs
 using System;
 using System.Collections.Generic;
@@ -66,6 +66,8 @@ namespace Sdl.Sdk.Snippets.Native
     }
 }
 ```
->**NOTE**
+***
+
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

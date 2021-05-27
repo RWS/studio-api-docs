@@ -22,6 +22,6 @@ Users can also run a batch verification on the entire document (through the menu
 
 See Also
 ------
-[What is the Verification Framework?]()
+[What is the Verification Framework?](what_is_the_verification_framework.md)
 
 [User Communication Through Messaging]()

@@ -16,21 +16,17 @@ The [ProjectsController](../../api/integration/Sdl.TranslationStudioAutomation.I
 
 Integrating viewparts (see [Integrating viewparts](integrating_viewparts.md))
 
-    Integrating menus
-
-    Integrating context menus
+* Integrating menus
+* Integrating context menus
 
 Operations on the projects
 ---
 The [ProjectsController](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.ProjectsController.yml)  provide support for performing project operations.
 
-    Adding projects to the projects list
-
-    Opening a project
-
-    Closing projects
-
-    Operations on the current project
+* Adding projects to the projects list
+* Opening a project
+* Closing projects
+* Operations on the current project
 
 For more informations: [About projects](../projectautomation/about_projects.md)
 

@@ -7,7 +7,7 @@ Integrating general actions
 -----
 
 The following example demonstrates how to create an action into the <Var:ProductName> application which has a general purpose and integrate it into a custom ribbon group (see: [Integrating ribbon groups](integrating_ribbon_groups.md)).
-
+# [C#](#tab/tabid-1)
 ```cs
 [Action("MyMainIconAction", Icon = "MyAction_Icon")]
 [ActionLayout(typeof(MySampleRibbonGroup), 10, DisplayType.Large)]
@@ -20,11 +20,13 @@ public class MyMainIconAction : AbstractAction
     }
 }
 ```
+***
 
 Integrating controller actions
 -----
 The following example demonstrates how to create an action specific to a controller and integrate it into a custom ribbon group (see: [Integrating ribbon groups](integrating_ribbon_groups.md).
 
+# [C#](#tab/tabid-2)
 ```cs
 [Action("MyNormalSizeAction")]
 [ActionLayout(typeof (MySampleRibbonGroup), DisplayType = DisplayType.Normal)]
@@ -48,3 +50,4 @@ public class MyTopAction : AbstractViewControllerAction<EditorController>
     }
 }
 ```
+***

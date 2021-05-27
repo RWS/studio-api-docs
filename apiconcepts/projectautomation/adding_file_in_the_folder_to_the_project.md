@@ -31,6 +31,7 @@ After that, all documents from the specified folder should be added to our proje
 
 The complete function for adding and scanning the source files should look as shown below:
 
+# [C#](#tab/tabid-1)
 ```cs
 /// <summary>
 /// Adds the files from the specified folder to the project and sets the file use, e.g. translatable or reference.            
@@ -52,10 +53,10 @@ private void AddFiles(FileBasedProject project, string folder, bool recursion)
     #endregion
 }
 ```
+***
 
 See Also
 --
-**Other Resources**
 
 [Adding Files and Folders](adding_files_and_folders.md)
 

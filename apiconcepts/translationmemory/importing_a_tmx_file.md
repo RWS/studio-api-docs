@@ -308,7 +308,7 @@ namespace Sdl.SDK.LanguagePlatform.Samples.TmAutomation
 See Also
 --
 
-**Other Resources**
+
 
 [Exporting to a TMX File](exporting_to_a_tmx_file.md)
 

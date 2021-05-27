@@ -1,5 +1,5 @@
 Implementing the UI Controller Class
-==
+===
 
 In this chapter you will learn how to implement the class that manages the relationship between the host application, the user settings and the user interface.
 
@@ -25,9 +25,11 @@ Reference the following namespace in this class:
 
 Your ```SettingsPage``` class then needs be derived from the [AbstractFileTypeSettingsPage< SettingsControlType, SettingsType>](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage-2.yml) class providing the types of the settings and the UI control:
 
+# [C#](#tab/tabid-1)
 ```cs
 class SettingsPage : AbstractFileTypeSettingsPage<SettingsUI, UserSettings>
 ```
+***
 
 Declaring the Page as a Plug-In.
 --
@@ -36,15 +38,18 @@ The **SDL Plugin Framework** requires all plug-in pages to be marked with a C# a
 
 As we are creating a Filter Settings Page we will use the ```FileTypeSettingsPage``` attribute. This attribute requires a unique ID, which will be used to identify this plug-in page at runtime, a name, and a description. If the page needs be localised into other languages, the name and description should be key mappings to the related **PluginResources.resx** file in your assembly.
 
+# [C#](#tab/tabid-2)
 ```cs
 [FileTypeSettingsPage(Id="SimpleText_Settings", Name="Settings_Name", Description="Settings_Description")]
 ```
+***
 
 Implementing the Base Class
 --
 
 The ```FileTypeSettingsPage``` base class takes care of a lot of the plumbing required to make sure all the objects are loaded correctly and updated at the correct points. However, because we are not using data binding in our control, the UI must manually be told when settings have been changed. The two methods that make settings changes are ```ResetToDefaults``` and Refresh so we need to override them and make a call to our ```UpdateControl``` method on the UI to inform it that the underlying settings data has changed.
 
+# [C#](#tab/tabid-3)
 ```cs
 public override void ResetToDefaults()
 {
@@ -52,6 +57,8 @@ public override void ResetToDefaults()
     Control.UpdateControl();
 }
 ```
+***
+# [C#](#tab/tabid-4)
 ```cs
 public override void Refresh()
 {
@@ -59,12 +66,14 @@ public override void Refresh()
     Control.UpdateControl();
 }
 ```
+***
 
 Add the file type settings page to the file type plug-in
 --
 
 To associate your sample file type plug-in with this file type settings page the following code was used in the class **SimpleTextFilterComponentBuilder** within the method **BuildFileTypeInformation**.
 
+# [C#](#tab/tabid-5)
 ```cs
 info.WinFormSettingsPageIds = new string[]
 {
@@ -72,6 +81,8 @@ info.WinFormSettingsPageIds = new string[]
     "QuickInserts_Settings",
 };
 ```
+***
+
 **WinFormSettingsPageIds** specifies the ids of the settings pages to be associated with a file type plug-in. Here we added **SimpleText_Settings** so that this file type settings page is associated with this file type plug-in. This code was added in an earlier chapter and so should not be added again.
 
 After adding this file type settings page, the file type plug-in UI becomes available in the File Type Manager.
@@ -83,6 +94,7 @@ Putting it All Together
 
 All put together, your user interface controller class should now look as shown below:
 
+# [C#](#tab/tabid-6)
 ```cs
 using Sdl.FileTypeSupport.Framework.Core.Settings;
 
@@ -131,7 +143,8 @@ namespace Sdl.Sdk.FileTypeSupport.Samples.SimpleText.WinUI
     }
 }
 ```
+***
 
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

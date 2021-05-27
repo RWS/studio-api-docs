@@ -5,12 +5,14 @@ When writing filters that use the Native API (for monolingual file formats) you 
 
 However, the simplest way to implement a native parser is to merely it derive from the [AbstractNativeFileParser](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileParser.yml) class and the ```INativeContentCycleAware``` interface and then use the helper functions of the ```AbstractNativeFileParser``` class.
 
+# [C#](#tab/tabid-1)
 ```cs
 public class SimpleTextParser : AbstractNativeFileParser, INativeContentCycleAware, ISettingsAware
 {
      ...
 }
 ```
+***
 
 Deriving from the ```AbstractNativeFileParser``` base class provides an implementation of the ```INativeFilterComponent``` and ```INativeFileParser``` interfaces, leaving only the ```INativeContentCycleAware``` and ```ISettingsAware``` interfaces to be implemented by the derived class. If this class is used as a base class, then in its implementation of ```INativeFileParser``` it provides some overridable methods than can be used to simplify the implementation of a native parser class. These overridable methods are as follows:
 
@@ -39,19 +41,17 @@ The ```ISettingsAware``` interface contains one method that needs to be implemen
 
 * [InitializeSettings](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.ISettingsAware.yml#Sdl_FileTypeSupport_Framework_IntegrationApi_ISettingsAware_InitializeSettings_Sdl_Core_Settings_ISettingsBundle_System_String_) method: Passes in an ```ISettingsBundle``` object and a configurationId FileTypeConfigurationId. These can be used to populate the required settings object used by the parser:
 
+# [C#](#tab/tabid-2)
 ```cs
-   #region "InitializeSettings"
 public void InitializeSettings(Sdl.Core.Settings.ISettingsBundle settingsBundle, string configurationId)
 {
     UserSettings _userSettings = new UserSettings();
     _userSettings.PopulateFromSettingsBundle(settingsBundle, configurationId);
     LockPrdCodes = _userSettings.LockPrdCodes;
 }
-
-#endregion
 ```
+***
 
-
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

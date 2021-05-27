@@ -1,5 +1,5 @@
 Introduction
-==
+===
 In this chapter you will learn how to develop a document preview, which goes beyond the features a simple preview document that is shown in an external application.
 
 Enhance your File Type Plug-in by Adding Internal Preview Functionality
@@ -19,10 +19,10 @@ Since our project will require a number of new items, we recommend that you add 
 
 See Also
 --
-**Other Resources**
+
 
 [Previewing files](previewing_files.md)
 
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

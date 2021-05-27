@@ -21,6 +21,7 @@ To merge project source files into one master file, implement a function called 
 
 The following sample function shows how files can be merged programmatically. Note that, for simplicity reasons, we assume that all source files should be merged and that all source files are translatable, i.e. no reference or localizable files, which cannot be merged and would therefore have to be exluded from any kind of merge operation.
 
+# [C#](#tab/tabid-1)
 ```cs
 private void MergeFiles(FileBasedProject project)
 {
@@ -32,20 +33,21 @@ private void MergeFiles(FileBasedProject project)
     project.CreateMergedProjectFile(masterFileName, pathInProject, fileIds);
 }
 ```
+***
 
 Note that only translatable files can be merged. If you try to merge translatable files with reference files, an exception will be thrown. So, you need to make sure to set the usage (i.e. role) of the files to merge to translatable before you apply the merge operation. The following sample code sets all files in the project to translatable:
 
+# [C#](#tab/tabid-2)
 ```cs
 ProjectFile[] files = project.GetSourceLanguageFiles();          
 project.SetFileRole(files.GetIds(), FileRole.Translatable);
 ```
+***
 
 Also note that when you decide to create a merged bilingual file, only this bilingual (SDL XLIFF) file will exist alongside the original native documents. There will be no individual SDL XLIFF files, as is the case if you do not create a merged file.
 
 See Also
 --
-
-**Other Resources**
 
 [Adding Files and Folders](adding_files_and_folders.md)
 

@@ -8,6 +8,7 @@ Content Connector
 
 The ContentConnector class simply reads the file names in the IncomingRequests folder and wraps them in a ProjectRequest object.
 
+# [C#](#tab/tabid-1)
 ```cs
 using System;
 using System.Collections.Generic;
@@ -65,12 +66,14 @@ namespace StudioIntegrationApiSample
     }
 }
 ```
+***
 
 Content Connector View Ribbon Group
 --
 
 This class illustrates how a CreateProjectAction is defined and how a custom RibbonGroup on the Add-Ins ribbon tab is created and also how the action is added to it.
 
+# [C#](#tab/tabid-2)
 ```cs
 using System;
 using System.Collections.Generic;
@@ -120,12 +123,14 @@ namespace StudioIntegrationApiSample
 
 }
 ```
+***
 
 Content Connector ViewController
 --
 
 The <Var:ProductName>> Integration API is built in accordance with the MVC pattern. The View Controller is used to add new views to <Var:ProductName>> - the code sample below illustrates how this is achieved using the View attribute. The controller is also responsible for providing the View UI element. Additionally this sample has a ```CreateProjects()``` method which the controller uses to create new projects from the files in the IncomingRequests folder.
 
+# [C#](#tab/tabid-3)
 ```cs
 using System;
 using System.Collections.Generic;
@@ -309,12 +314,14 @@ namespace StudioIntegrationApiSample
     }
 }
 ```
+***
 
 Content Connector ViewControl
 --
 
 This class is responsible for rendering the UI and interacts with the controller described above for data retrieval.
 
+# [C#](#tab/tabid-4)
 ```cs
 using System;
 using System.Collections.Generic;
@@ -450,11 +457,12 @@ namespace StudioIntegrationApiSample
     }
 }
 ```
+***
 
 See Also
 --
 
-**Other Resources**
+
 
 [Reference Sample](reference_sample.md)
 

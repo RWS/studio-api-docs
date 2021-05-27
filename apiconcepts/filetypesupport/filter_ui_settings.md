@@ -1,5 +1,5 @@
 Filter UI Settings
-==
+===
 
 To configure the filter functionality you may need a user interface through which any parameters can be set in a convenient way.
 
@@ -7,6 +7,7 @@ File Type Settings Pages
 --
 File type settings pages can be defined in the File Type Component Builder while building the File Type Information. The example below shows how to do this inside the FilterComponentBuilder class inside the BuildFileTypeInformation method.
 
+# [C#](#tab/tabid-1)
 ```cs
    public IFileTypeInformation BuildFileTypeInformation(string name)
 {
@@ -31,6 +32,7 @@ File type settings pages can be defined in the File Type Component Builder while
     return info;
 }
 ```
+***
 
 
 The ID of the settings page is defined within the settings page class itself. The **SDL Plugin Framework** is used to locate the plug-in with this ID and display it to the user in the host application at runtime.
@@ -38,12 +40,12 @@ The ID of the settings page is defined within the settings page class itself. Th
 See Also
 --
 
-**Other Resources**
+
 
 [Implementing the UI Controller Class](implementing_the_ui_controller_class.md)
 
 [Implementing the Settings UI](implementing_the_settings_ui.md)
 
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

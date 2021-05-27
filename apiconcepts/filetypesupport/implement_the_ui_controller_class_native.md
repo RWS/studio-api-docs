@@ -1,5 +1,5 @@
 Implement the UI Controller Class
-==
+===
 
 In this chapter you will learn how to implement a class that controls the actual plug-in user interface.
 
@@ -31,10 +31,12 @@ This class needs to use the following namespaces:
 Moreover, this component needs to be derived from the ```AbstractFilterDefinitionSettingsPage``` base class, which provides the methods for setting the plug-in UI according to the values of the settings bundle.
 First, create two objects based on the ```VerifierSettings``` class and on the user interface (i.e. ```SettingsUI```) as shown below:
 
+# [C#](#tab/tabid-1)
 ```cs
 [FileTypeSettingsPage(Id="XMLVerifier_Settings", Name="Settings_Name", Description="Settings_Description")]
 class SettingsPage : AbstractFileTypeSettingsPage<SettingsUI, VerifierSettings>
 ```
+***
 
 Reset to the Default Settings
 --
@@ -45,6 +47,7 @@ Another method provided by the base class is ```ResetToDefaults```. It is trigge
 
 In our implementation we override this method as shown in the example below. We call the ```ResetToDefaults``` method of the ```VerifierSettings``` class, and then update the user interface accordingly.
 
+# [C#](#tab/tabid-2)
 ```cs
 public override void ResetToDefaults()
 {
@@ -52,12 +55,14 @@ public override void ResetToDefaults()
     Control.UpdateControl();
 }
 ```
+***
 
 Refresh the Settings
 --
 
 When the user moves back to the settings page of our plug-in, we need to make certain that the plug-in UI is displayed with the most up-to-date settings from the settings bundle. This is done through the ```ReloadSettings``` method, which we override as shown below. Here, we call the base class which will populate the ```VerificationSettings``` for us.
 
+# [C#](#tab/tabid-3)
 ```cs
 public override void Refresh()
 {
@@ -65,12 +70,14 @@ public override void Refresh()
     Control.UpdateControl();
 }
 ```
+***
 
 Putting it all Together
 --
 
 All put together your ```SettingsPage``` class should now look like as shown below:
 
+# [C#](#tab/tabid-4)
 ```cs
 using System;
 using System.Collections.Generic;
@@ -122,11 +129,12 @@ namespace Sdl.Sdk.FileTypeSupport.Samples.XMLChecker
     }
 }
 ```
+***
 
 See Also
 --
 
-**Other Resources**
+
 
 [Implement the User Interface](implement_the_user_interface_native.md)
 
@@ -134,6 +142,6 @@ See Also
 
 [Loading and Saving the Settings](loading_and_saving_the_settings_native.md)
 
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

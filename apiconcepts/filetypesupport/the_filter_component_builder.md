@@ -11,6 +11,7 @@ This File Type Component Builder is for a filter that uses the classes ```Simple
 
 As you may have noticed, the ```SimpleTextFilterComponentBuilder``` implementation of ```IFilterComponentBuilder``` references a lot of types that are defined in the ```Sdl.FileTypeSupport.Framework.Implementation``` assembly. This is where the main part of the SDL File Type Support Framework implementation resides.
 
+# [C#](#tab/tabid-1)
 ```cs
 using System;
 using Sdl.Core.Globalization;
@@ -290,8 +291,9 @@ namespace Sdl.Sdk.Snippets.Native
     }
 }
 ```
+***
 
 
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

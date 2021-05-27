@@ -1,5 +1,5 @@
 Loading and Saving the Settings
-==
+===
 
 In this chapter we will learn how to implement the class that is actually responsible for physically storing the settings and for loading the plug-in settings into the plug-in UI. The physical storing occurs in an **.sdlproj* or in an **.sdltpl* file, which are both XML compliant.
 
@@ -7,11 +7,13 @@ In this chapter we will learn how to implement the class that is actually respon
 
 The settings bundle stored in an **.sdlproj* file as used by our implementation would look, for example, as shown below:
 
+# [Xml](#tab/tabid-1)
 ```xml
 <SettingsGroup Id="Word 2007 v 2.0.0.0">
       <Setting Id="Enable">True</Setting>
     </SettingsGroup>
 ```
+***
 
 Click or drag to resize
 Loading and Saving the Settings
@@ -21,11 +23,13 @@ In this chapter we will learn how to implement the class that is actually respon
 
 The settings bundle stored in an *.sdlproj file as used by our implementation would look, for example, as shown below:
 
+# [Xml](#tab/tabid-2)
 ```xml
 <SettingsGroup Id="Word 2007 v 2.0.0.0">
       <Setting Id="Enable">True</Setting>
     </SettingsGroup>
 ```
+***
 
 Each **Setting** element contains an **Id** attribute that denotes the setting (property) name. The **Setting** element encloses the property value, which is changed when the user changes the settings in the UI.
 
@@ -45,6 +49,7 @@ Implement the Setting Properties
 
 In this step, add the property that represents our plug-in setting, in this case the boolean property ```CheckWordArt```, which determines whether the verification functionality should be active or not. The ```MaxWordCount``` property is used to set or retrieve the maximum number of words a particular segment is allowed to have.
 
+# [C#](#tab/tabid-3)
 ```cs
 bool _checkWordArt;
 int _maxWordCount;
@@ -69,12 +74,14 @@ public int MaxWordCount
     }
 }
 ```
+***
 
 Implement the Constructor Method
 --
 
 The ```ResetToDefaults``` method is provided by the base class. In our implementation, it is just overridden to set the ```MaxWordCount``` and ```CheckWordArtproperties``` to their default values, i.e. 3 and True:
 
+# [C#](#tab/tabid-4)
 ```cs
 public override void ResetToDefaults()
 {
@@ -82,17 +89,20 @@ public override void ResetToDefaults()
     MaxWordCount = 3;
 }
 ```
+***
+
 Reset to Defaults
 --
 
 Next, implement the constructor method. In this implementation, the constructor just calls on the ```ResetToDefaults``` of the class to set the ```CheckWordArt``` property to its default value, which is True, and 3 as the maximum word count:
-
+# [C#](#tab/tabid-5)
 ```cs
 public VerifierSettings()
 {
     ResetToDefaults();
 }
 ```
+***
 
 Set the Properties to the Values from the Settings Bundle
 --
@@ -101,6 +111,7 @@ The base class provides the ```PopulateFromSettingsBundle``` method to retrieve 
 
 In the **.sdlproj* or **.sdltpl* file a settings bundle can look, for example, as shown below:
 
+# [Xml](#tab/tabid-6)
 ```xml
 <SettingsBundle Guid="e0873e01-9da4-4e37-80e5-a35fc844f03d">
 
@@ -115,11 +126,13 @@ In the **.sdlproj* or **.sdltpl* file a settings bundle can look, for example, a
 
  </SettingsBundle>
 ```
+***
 
 A **SettingsBundle** element can enclose a number of **SettingsGroup** nodes. Each settings bundle has a unique id (guid) that is stored in an attribute. The settings bundles are identified by the id of the plug-in that they refer to. A settings group can enclose, for example, file type settings, verification plug-in settings, etc. In the above example the settings bundle encloses one settings group for the term verifier plug-in and another settings group for our sample WordArt verifier plug-in. This id is retrieved from the File Type Component Builder (see [Create a New File Type Component Builder](create_new_file_type_component_builder.md)).
 
 This XML structure is also reflected in the API. Within the ```SaveToSettingsBundle``` method we create a settings group object based on ```ISettingsGroup``` by applying the ```GetSettingsGroup``` method to the settings bundle. This method takes the settings bundle id (e.g. *Word 2007 v 2.0.0.0*) as string parameter. We then use the ``GetSettingFromSettingsGroup`` method to set the ```CheckWordArt``` and the ```MaxWordCount``` properties. This method requires the settings group object, the name of the setting (e.g. *CheckWordArt*), and the default value as parameters.
 
+# [C#](#tab/tabid-7)
 ```cs
 public override void PopulateFromSettingsBundle(ISettingsBundle settingsBundle, string configurationId)
 {
@@ -129,6 +142,7 @@ public override void PopulateFromSettingsBundle(ISettingsBundle settingsBundle, 
     MaxWordCount = GetSettingFromSettingsGroup(settingsGroup, "MaxWordCount", MaxWordCount);
 }
 ```
+***
 
 Set the Properties to the Values from the Settings Bundle
 --
@@ -139,6 +153,7 @@ Here too, we create a settings group object based on ```ISettingsGroup``` by app
 
 Then we use the ```UpdateSettingInSettingsGroup``` method to save the settings into the physical representation. This method takes the settings group object, the setting name (string), the setting value, and the default value as parameters.
 
+# [C#](#tab/tabid-8)
 ```cs
 public override void SaveToSettingsBundle(ISettingsBundle settingsBundle, string configurationId)
 {
@@ -148,12 +163,14 @@ public override void SaveToSettingsBundle(ISettingsBundle settingsBundle, string
     UpdateSettingInSettingsGroup(settingsGroup, "MaxWordCount", MaxWordCount, defaults.MaxWordCount);
 }
 ```
+***
 
 Putting it All Together
 --
 
 The complete class should now look as shown below:
 
+# [C#](#tab/tabid-9)
 ```cs
 using System;
 using System.Collections.Generic;
@@ -257,11 +274,12 @@ namespace Sdl.Sdk.FileTypeSupport.Samples.WordArtVerifier
     }
 }
 ```
+***
 
 See Also
 --
 
-**Other Resources**
+
 
 [Implement the User Interface](implement_the_user_interface_bil.md)
 
@@ -269,6 +287,6 @@ See Also
 
 [Implement the Verification Logic](implement_the_verification_logic_bil.md)
 
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

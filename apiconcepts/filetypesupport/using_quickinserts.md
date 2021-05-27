@@ -18,4 +18,4 @@ In addition to the QuickInsert toolbar users can also open a separate **Insert T
 
 See Also
 -------
-[Implementing QuickInsert Functionality]()
+[Implementing QuickInsert Functionality](implementing_quickinsert_functionality.md)

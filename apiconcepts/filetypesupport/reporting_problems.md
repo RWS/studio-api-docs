@@ -4,6 +4,7 @@ Reporting Problems
 This topic covers different mechanisms that allows information to be communicated from the componentes of a filter to the application that hosts the SDL File Type Support Framework during content processing.
 
 Overview
+---
 Since filters may be used in server-based scenarios, they cannot display information to users like normal Windows-based applications do, e.g. by using a ```MessageBox``` or directly updating the user interface of an application. Such behavior could cause the server process to hang, as there is no user to interact with the filter.
 
 If a file processing component comes across a show-stopper, it should throw an exception to abort further processing. The exception should have an explanatory error message that clearly points users to the problem and helps them fix it. It is recommended that you derive exceptions thrown for events that occur during content processing from [FileTypeSupportException](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.FileTypeSupportException.yml).
@@ -39,6 +40,7 @@ From the nature of this mechanism it is obvious that the locations reported by t
 
 Here is a code example that shows how to report a warning from a file sniffer:
 
+# [C#](#tab/tabid-1)
 ```cs
 void ReportWarning(string message, int lineNumber, int offset, INativeTextLocationMessageReporter messageReporter)
 {
@@ -46,6 +48,7 @@ void ReportWarning(string message, int lineNumber, int offset, INativeTextLocati
     messageReporter.ReportMessage(this,"SDK Sample", ErrorLevel.Warning, message, from, null);
 }
 ```
+***
 
 File Tweaker
 --
@@ -62,6 +65,7 @@ Like with file sniffers, the locations reported by file tweakers may not transla
 
 Here is a code example that shows how to communicate information from a file tweaker:
 
+# [C#](#tab/tabid-2)
 ```cs
 void ReportMessage(string message, ErrorLevel severity, int lineNumber, int offset, INativeTextLocationMessageReporter messageReporter)
 {
@@ -69,6 +73,7 @@ void ReportMessage(string message, ErrorLevel severity, int lineNumber, int offs
     messageReporter.ReportMessage(this,"SDK Sample", severity, message, from, null);
 }
 ```
+***
 
 Native File Parser and Native Content Processor for Extraction and Generation
 --
@@ -81,7 +86,8 @@ For messages reported by native content processors during generation (writing) t
 
 Here is a code example that shows how a 'suspicious' tag could be reported by a native content processor. The native content processor in this example would be derived from ```AbstractNativeExtractionContentProcessor``` or ```AbstractNativeGenerationContentProcessor``` and the function below overrides the processing of placeholder tags to check for tags that look 'suspicious' and report those to the user.
 
-```
+# [C#](#tab/tabid-3)
+```cs
 public void PlaceholderTag(IPlaceholderTagProperties tagInfo)
   {
     if (IsSuspiciousTag(tagInfo))
@@ -95,6 +101,7 @@ public void PlaceholderTag(IPlaceholderTagProperties tagInfo)
     }
   }
 ```
+***
 
 Bilingual Content Processor, Bilingual Parser and Bilingual Writer
 --
@@ -109,6 +116,7 @@ The locations in the bilingual content model is probably the most reliable messa
 
 Here is a code example that shows how a string that contains a problem could be reported by a bilingual content processor.
 
+# [C#](#tab/tabid-4)
 ```cs
 void ReportOffendingText(IText textItem, int startOffset, int numberOfCharacters)
 {
@@ -119,6 +127,7 @@ void ReportOffendingText(IText textItem, int startOffset, int numberOfCharacters
     MessageReporter.ReportMessage(this,"SDK Sample", ErrorLevel.Warning, "Inappropriate expression!", from, upto);
 }
 ```
+***
 
 Native File Writer
 --
@@ -133,6 +142,7 @@ The SDL File Type Support Framework provides a [INativeLocationTracker](../../ap
 
 Below you find a code example that shows how an unexpected start tag could be reported by a native file writer:
 
+# [C#](#tab/tabid-5)
 ```cs
 public override void InlineStartTag(IStartTagProperties tagInfo)
 {
@@ -150,7 +160,8 @@ public override void InlineStartTag(IStartTagProperties tagInfo)
     ProcessStartTag(tagInfo);
 }
 ```
+**
 
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

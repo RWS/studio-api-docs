@@ -45,14 +45,14 @@ ProjectServer server = new ProjectServer(serverAddress, false, "MyUser", "MyPass
 server.DeleteProject(projectId);
 ```
 
->**Note**
+>[!NOTE]
 >
 >This only removes the project from the server and marks the local copy as deleted You can still access the local copy as a local project but any attempt to access the previously attached server will generate an exception
 
 See Also
 --
 
-**Other Resources**
+
 
 [About Server Based Projects](about_server_based_projects.md)
 

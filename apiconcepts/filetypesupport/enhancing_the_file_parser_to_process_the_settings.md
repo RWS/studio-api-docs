@@ -1,5 +1,5 @@
 Enhancing the File Parser to Process the Settings
-==
+===
 
 Now that you have implemented the user interface for configuring the file type plug-in settings as well as the functionality to load and save these settings, you need to extend your file parser class to make it 'aware' of the settings, so that they can be taken into consideration when processing a given file.
 
@@ -16,6 +16,7 @@ Then your parser class needs to implement the ```ISettingsAware``` interface, wh
 
 In the next step, add the following boolean property to your parser class:
 
+# [C#](#tab/tabid-1)
 ```cs
 public bool LockPrdCodes
 {
@@ -23,11 +24,13 @@ public bool LockPrdCodes
     set;
 }
 ```
+***
 
 The property corresponds to the setting that has been retrieved through the settings UI.
 
 Then, use the ```InitializeSettings``` method of the interface to initialize the plug-in setting. Within this method, we call on the UserSettings class and apply the ```PopulateFromSettingsBundle``` method to retrieve the current plug-in configuration and then set the ```LockPrdCodes``` of the main verifier component accordingly.
 
+# [C#](#tab/tabid-2)
 ```cs
 public void InitializeSettings(Sdl.Core.Settings.ISettingsBundle settingsBundle, string configurationId)
 {
@@ -36,9 +39,11 @@ public void InitializeSettings(Sdl.Core.Settings.ISettingsBundle settingsBundle,
     LockPrdCodes = _userSettings.LockPrdCodes;
 }
 ```
+***
 
 Modify the ```ProcessLine()``` helper function so that it triggers ```WriteLockedContent()``` only if the current line starts with the *Prd-Code* string and if ```LockPrdCodes``` equals True.
 
+# [C#](#tab/tabid-3)
 ```cs
 // determines whether a given line is
 // translatable or not
@@ -62,13 +67,14 @@ private void ProcessLine(string sLine)
     }
 }
 ```
+***
 
 After making these changes your file parser should now respond to settings changes made at runtime.
 
 See Also
 --
 
-**Other Resources**
+
 
 [Creating a New Assembly for the Settings UI](creating_a_new_assembly_for_the_settings_ui.md)
 
@@ -78,6 +84,6 @@ See Also
 
 [Loading and Saving the Settings](loading_and_saving_settings.md)
 
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

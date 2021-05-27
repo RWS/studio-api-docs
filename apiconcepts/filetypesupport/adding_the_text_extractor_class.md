@@ -1,5 +1,5 @@
 Adding the Text Extractor Class
-==
+===
 
 In this chapter you will learn how to add a separate class that helps you access segment content such as text and tag pairs.
 
@@ -15,6 +15,7 @@ Generate the Plain Text
 
 Now add the following members to your class:
 
+# [C#](#tab/tabid-1)
 ```cs
 internal StringBuilder PlainText
 {
@@ -29,9 +30,11 @@ public string GetPlainText(ISegment segment)
     return PlainText.ToString();
 }
 ```
+***
 
 The public ```GetPlainText()``` helper function will be called later from the file writer. The writer will pass the current segment object to this method, which will then generate and return text as well as tag pairs. The ```GetPlainText()``` function calls the ```VisitChildren()``` helper function, which loops through all items in a segment markup container such as text and tags:
 
+# [C#](#tab/tabid-2)
 ```cs
 private void VisitChildren(IAbstractMarkupDataContainer container)
 {
@@ -41,6 +44,7 @@ private void VisitChildren(IAbstractMarkupDataContainer container)
     }
 }
 ```
+***
 
 Collect the Markup Container Items
 --
@@ -51,15 +55,18 @@ We will leave all other members for retrieving e.g. locked content, placeholders
 
 The ```VistText()``` method adds a text object to the ```PlainText``` streambuilder, which is then also returned to the file writer class:
 
+# [C#](#tab/tabid-3)
 ```cs
 public void VisitText(IText text)
 {
     PlainText.Append(text.Properties.Text);
 }
 ```
+***
 
 The [VisitTagPair](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IMarkupDataVisitor.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IMarkupDataVisitor_VisitTagPair_Sdl_FileTypeSupport_Framework_BilingualApi_ITagPair_) method, which is a member of the [IMarkupDataVisitor](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IMarkupDataVisitor.yml) interface, adds a tag pair object to the ```PlainText``` streambuilder, which is then returned to the file writer class:
 
+# [C#](#tab/tabid-4)
 ```cs
 public void VisitTagPair(ITagPair tagPair)
 {
@@ -68,19 +75,22 @@ public void VisitTagPair(ITagPair tagPair)
     PlainText.Append("</" + tagPair.EndTagProperties.TagContent + ">");
 }
 ```
+***
 
 We leave the [VisitCommentMarker](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IMarkupDataVisitor.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IMarkupDataVisitor_VisitCommentMarker_Sdl_FileTypeSupport_Framework_BilingualApi_ICommentMarker_) method empty for the moment, and will come back to it later:
 
+# [C#](#tab/tabid-5)
 ```cs
 public void VisitCommentMarker(ICommentMarker commentMarker)
 {
 
 }
 ```
+***
 
 All other required interface members will be left empty in our sample implementation:
 
-
+# [C#](#tab/tabid-6)
 ```cs
 public void VisitSegment(ISegment segment)
 {
@@ -112,12 +122,14 @@ public void VisitRevisionMarker(IRevisionMarker revisionMarker)
 
 }
 ```
+****
 
 Putting it All Together
 --
 
 The complete text extractor class should now look as shown below:
 
+# [C#](#tab/tabid-7)
 ```cs
 using System.Text;
 using Sdl.FileTypeSupport.Framework.BilingualApi;
@@ -214,16 +226,17 @@ namespace Sdl.Sdk.Snippets.Bilingual
     }
 }
 ```
+***
 
 See Also
 --
 
-**Other Resources**
+
 
 [Adding the File Writer Class](adding_the_file_writer_class.md)
 
 [Generating the Paragraph Units](generating_the_paragraph_units.md)
 
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

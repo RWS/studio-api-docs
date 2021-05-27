@@ -1,8 +1,9 @@
 Putting it all Together
-==
+===
 
 Below you see what the complete parser class looks like:
 
+# [C#](#tab/tabid-1)
 ```cs
 using System;
 using Sdl.FileTypeSupport.Framework.BilingualApi;
@@ -322,6 +323,8 @@ namespace Sdl.Sdk.FileTypeSupport.Samples.Bil
     }
 }
 ```
->**NOTE**
+***
+
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

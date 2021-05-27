@@ -1,5 +1,5 @@
 Processing Placeholder Tags
-==
+===
 
 In one of the previous chapters you learned how to process tag pairs (e.g. <b></b>) during file parsing (see [Processing Inline Formatting](processing_inline_formatting.md)). In this chapter you will learn how to process standalone placeholder tags, such as < img src="button.jpg" />
 
@@ -8,21 +8,26 @@ Enhance your Parser to Process Standalone Placeholder Tags
 
 Let us assume that your sample text files sometimes contain tags for referencing images, e.g.:
 
+# [HTML](#tab/tabid-1)
 ```html
 <img src="button.jpg" alt="Click here" />
 ```
+***
 
 Below you see an example of a segment that contains a standalone placeholder tag:
 
+# [HTML](#tab/tabid-2)
 ```html
 Click the button <img src="button.jpg" alt="Open"/> to open 
 the dialog box.
 ```
+***
 
 These tags are closed within themselves and occur as placeholders within the text. To keep this example as simple as possible let us proceed on the assumption that the **IMG** tag is the only placeholder tag that we can expect to find in any given document.
 
 Start by making a small change to the ```ProcessFormatting()``` helper function: if the regular expression pattern found a match that starts on "**<img**", then the ```WritePlaceHolder()``` helper function (which we still need to implement) should be called, otherwise we call ```WriteInlineTag()```.
 
+# [C#](#tab/tabid-3)
 ```cs
 if (rxMatch.Value.StartsWith("<img"))
 {
@@ -32,9 +37,11 @@ if (rxMatch.Value.StartsWith("<img"))
     WriteInlineTag(rxMatch.Value, IsOpening);
 }
 ```
+***
 
 The complete function now looks as shown below:
 
+# [C#](#tab/tabid-4)
 ```cs
 // this function uses regular expressions to identify
 // what is 'normal' translatable content and which strings
@@ -67,10 +74,12 @@ private string ProcessFormatting(string sLine)
     return sLine.Substring(LastPosition, sLine.Length - LastPosition);
 }
 ```
+***
 
 
 Next, implement the method that outputs the **IMG** placeholder tag. The properties factory implements a [CreatePlaceholderTagProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPropertiesFactory.yml#Sdl_FileTypeSupport_Framework_NativeApi_IPropertiesFactory_CreatePlaceholderTagProperties_System_String_) method that creates properties for a standalone inline tag. When creating the tag property, the tag content is passed to the ```Create()``` method as a parameter. You can define the optional [DisplayText](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IAbstractBasicTagProperties.yml#Sdl_FileTypeSupport_Framework_NativeApi_IAbstractBasicTagProperties_DisplayText property, which specifies how the tag should be displayed in partial tag text mode. The tag property can be output using the method ```Output.InlinePlaceholderTag()```.
 
+# [C#](#tab/tabid-5)
 ```cs
 private void WritePlaceholderTag(string tagContent)
 {
@@ -88,6 +97,7 @@ private void WritePlaceholderTag(string tagContent)
     Output.InlinePlaceholderTag(placeProperties);
 }
 ```
+***
 
 The placeholder tag will appear in partial tag text mode as shown below:
 
@@ -102,28 +112,35 @@ As you can see in the above example tags may contain localizable text such as th
 
 The API allows you to access localizable text that is embedded within a placeable, which is then treated as a so-called sub-segment, i.e. a segment within a segment. To do this you first have to create a sub-segment object through the properties factory. To this end, the properties factory implements the [CreateSubSegmentProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPropertiesFactory.yml#Sdl_FileTypeSupport_Framework_NativeApi_IPropertiesFactory_CreateSubSegmentProperties_System_Int32_System_Int32_) method, which takes two parameters: the offset and the length of the localizable string. Take a look at our example:
 
+# [HTML](#tab/tabid-6)
 ```html
 <img src="button.jpg" alt="img src="button.jgp" alt="Open dialog box" /"/>
 ```
+***
 
 The offset in this example is 27, the length of the localizable piece of text (*Open dialog box*) is 15. The sub-segment object can therefore be created as shown below:
 
+# [C#](#tab/tabid-7)
 ```cs
 ISubSegmentProperties subSeg = PropertiesFactory.CreateSubSegmentProperties(27, 15);
 ```
+***
+
 After creating the sub-segment object, you can add it to the placeable properties by applying the [AddSubSegment](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IAbstractTagProperties.yml#Sdl_FileTypeSupport_Framework_NativeApi_IAbstractTagProperties_AddSubSegment_Sdl_FileTypeSupport_Framework_NativeApi_ISubSegmentProperties_) method:
 
+# [C#](#tab/tabid-8)
 ```cs
 placeProperties.AddSubSegment(subSeg);
 ```
+***
 
 After adding the sub-segment object to the placeable properties you can output the placeable as shown below:
 
-
-
+# [C#](#tab/tabid-9)
 ```cs
 Output.InlinePlaceholderTag(placeProperties);
 ```
+***
 
 The SDL File Type Support Framework API will then handle the extraction of these localizable sub-segments into separate translation units that are displayed to the translator. Therefore, the output in the editor of <Var:ProductName> will look as shown below:
 
@@ -131,7 +148,7 @@ The SDL File Type Support Framework API will then handle the extraction of these
 
 Of course, you would have to implement the functionality to calculate the offset and length, so that your ```WritePlaceholderTag()``` helper function would look as shown below:
 
-
+# [C#](#tab/tabid-10)
 ```cs
 private void WritePlaceholderTag(string tagContent)
 {
@@ -149,16 +166,17 @@ private void WritePlaceholderTag(string tagContent)
     Output.InlinePlaceholderTag(placeProperties);
 }
 ```
+***
 
 See Also
 --
 
-**Other Resources**
+
 
 [Processing Inline Formatting](processing_inline_formatting.md)
 
 [Handling Tags During Segmentation](handling_tags_during_segmentation.md)
 
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

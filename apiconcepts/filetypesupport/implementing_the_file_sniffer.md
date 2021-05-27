@@ -1,5 +1,5 @@
 Implementing the File Sniffer
-==
+===
 
 In this chapter you will learn how to implement the functionality required for determining whether a given file is valid and can therefore be processed by our sample file type plug-in.
 
@@ -21,6 +21,7 @@ Remember, that if you have specific settings which need to be applied to the fil
 
 The minimum amount of code required to build a file sniffer component looks as shown below:
 
+# [C#](#tab/tabid-1)
 ```cs
 using Sdl.Core.Settings;
 using Sdl.FileTypeSupport.Framework.NativeApi;
@@ -40,9 +41,11 @@ namespace Sdl.Sdk.Snippets.Native
     }
 }
 ```
+***
 
 Now you can add the actual logic required to determine whether a file is supported or not. If the file is supported, set the [IsSupported](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.SniffInfo.yml#Sdl_FileTypeSupport_Framework_NativeApi_SniffInfo_IsSupported) property to True, otherwise to False. The complete file sniffer class looks as shown below:
 
+# [C#](#tab/tabid-2)
 ```cs
 using System.IO;
 using Sdl.Core.Settings;
@@ -71,6 +74,7 @@ namespace Sdl.Sdk.Snippets.Native
     }
 }
 ```
+***
 
 Add the Component Reference to the File Type Definition
 --
@@ -80,10 +84,10 @@ Do not forget to reference the file sniffer component to the File Type Component
 See Also
 --
 
-**Other Resources**
+
 
 [User Communication Through Messaging](user_communication_through_messaging.md)
 
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

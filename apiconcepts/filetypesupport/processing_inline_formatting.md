@@ -14,18 +14,21 @@ Second, add the ```Sdl.FileTypeSupport.Framework.Formatting``` namespace. This n
 
 To keep this project simple, let us proceed on the assumption that a text file can only contain the < b> tag for applying bold character formatting. To reflect this in your code, add a new formatting member to the global settings of your class:
 
+# [C#](#tab/tabid-1)
 ```cs
 IPersistentFileConversionProperties _fileConversionProperties;
 StreamReader _reader = null;
 
 FormattingGroup _fBold;
 ```
+***
 
 Add the Functionality Required for Processing Formatting
 --
 
 Change the ```ProcessLine()``` helper as shown below, so that a new ```ProcessFormatting()``` function is called through ```WriteText()```. (We will add this new helper function for processing formatting in the next step.)
 
+# [C#](#tab/tabid-2)
 ```cs
 // determines whether a given line is
 // translatable or not
@@ -44,9 +47,11 @@ private void ProcessLine(string sLine)
     }
 }
 ```
+***
 
 Now add the function that identifies inline tag content (if available) within a translatable line:
 
+# [C#](#tab/tabid-3)
 ```cs
 // this function uses regular expressions to identify
 // what is 'normal' translatable content and which strings
@@ -73,11 +78,12 @@ private string ProcessFormatting(string sLine)
     return sLine.Substring(LastPosition, sLine.Length - LastPosition);
 }
 ```
+***
 
 This function calls ```WriteText()``` to output 'normal' text and ```WriteInlineTag()``` to output any inline tags that have been found.
 Next, add the function that outputs the inline < b> tags. Note that these inline tags always occur in pairs, i.e. there will be an opening and a closing tag. This is why this function takes a boolean isStart parameter. If this function is called with a True value from ```ProcessFormatting()```, a start tag will be created through the properties factory, which is then output to the bilingual file. Otherwise an end tag will be output.
 
->**Note**
+>[!NOTE]
 >
 >Start tags and end tags must be well-formed in the XML sense, i.e. all start tags must match an end tag with the same nesting of paired tags. If not, the SDL File Type Support Framework will throw a fatal exception. When paired tags are processed by the SDL File Type Support Framework and the framework-based editor, this well-formedness is guaranteed to be preserved. This can simplify other tag processing modules such as the native file writer (see [Implementing the File Writer](implementing_the_file_writer.md)).
 
@@ -87,6 +93,7 @@ Next, add the function that outputs the inline < b> tags. Note that these inline
 
 This function also creates a formatting object to apply bold display formatting in the editor for the translator's convenience. We use the [CanHide](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IAbstractInlineTagProperties.yml#Sdl_FileTypeSupport_Framework_NativeApi_IAbstractInlineTagProperties_CanHide) property to hide the inline tags by default. This means that the translator will only see the formatting, not the actual tags, which is usually more convenient for the translation process.
 
+# [C#](#tab/tabid-4)
 ```cs
 // this function outputs an opening or a closing <b> tag
 // and applies bold character formatting to the strings
@@ -115,6 +122,7 @@ private void WriteInlineTag(string tagContent, bool isStart)
     }
 }
 ```
+***
 
 Through the (optional) [DisplayText](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IAbstractBasicTagProperties.yml#Sdl_FileTypeSupport_Framework_NativeApi_IAbstractBasicTagProperties_DisplayText) property you can define the tag text that users see when they decide to display inline tags in the partial tag text mode. The [TagContent](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IAbstractBasicTagProperties.yml#Sdl_FileTypeSupport_Framework_NativeApi_IAbstractBasicTagProperties_TagContent) property determines the tag text that users see when they activate the full tag text view.
 
@@ -137,6 +145,7 @@ Putting it All Together
 
 The enhanced file parser class should now look as shown below:
 
+# [C#](#tab/tabid-5)
 ```cs
 using System.Drawing;
 using System.IO;
@@ -328,11 +337,12 @@ namespace Sdl.Sdk.Snippets.Native
     }
 }
 ```
+***
 
 See Also
 --
 
-**Other Resources**
+
 
 [Implementing the File Parser](implementing_the_file_parser.md)
 
@@ -342,6 +352,6 @@ See Also
 
 [Tag display modes](tag_display_modes.md)
 
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

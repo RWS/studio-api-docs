@@ -1,5 +1,5 @@
 Creating a Native File Tweaker
-==
+===
 
 In this chapter, you will learn how to create a native file tweaker. A native file tweaker can either tweak - or perform a minor change to - the original file before being extracted (a pre-tweaker) or tweak the output file after being written (a post-tweaker). See [Native File Tweakers](native_file_tweakers.md) for more information.
 
@@ -10,10 +10,12 @@ Native file tweakers make use of the following namespaces:
 
 These namespaces should be used and the associated assembly references added when developing native file tweakers.
 
+# [C#](#tab/tabid-1)
 ```cs
 using Sdl.FileTypeSupport.Framework.NativeApi;
 using Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi;
 ```
+***
 
 Creating a Native File Pre-Tweaker
 --
@@ -22,9 +24,11 @@ A simple native file pre-tweaker will be developed to remove the byte order mark
 
 Native file pre-tweakers should inherit from [AbstractFilePreTweaker](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.AbstractFilePreTweaker.yml).
 
+# [C#](#tab/tabid-2)
 ```cs
 public class SimpleFilePreTweaker : AbstractFilePreTweaker
 ```
+***
 
 
 The **properties** parameter contains two important properties:
@@ -42,6 +46,7 @@ In this example, the implementation of the [Tweak](../../api/filetypesupport/Sdl
 
 Add the following code to the [Tweak](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.AbstractFilePreTweaker.yml#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_AbstractFilePreTweaker_Tweak_Sdl_FileTypeSupport_Framework_NativeApi_IPersistentFileConversionProperties_) method.
 
+# [C#](#tab/tabid-3)
 ```cs
 // open original file
 using (StreamReader reader = new StreamReader(properties.OriginalFilePath))
@@ -58,26 +63,32 @@ using (StreamReader reader = new StreamReader(properties.OriginalFilePath))
     }
 }
 ```
+***
 
 [AbstractFilePreTweaker](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.AbstractFilePreTweaker.yml) has a [WillFileBeTweaked](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.AbstractFilePreTweaker.yml#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_AbstractFilePreTweaker_WillFileBeTweaked_System_String_) method that may be overridden.
 
+# [C#](#tab/tabid-4)
 ```cs
 protected override bool WillFileBeTweaked(string originalFilePath)
 ```
+***
 
 There may be some circumstances where the original native file does not need to be tweaked and in these circumstances the [WillFileBeTweaked](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.AbstractFilePreTweaker.yml#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_AbstractFilePreTweaker_WillFileBeTweaked_System_String_) method should return **false** to prevent the original native file from being tweaked.
 Here the original native file only needs to be tweaked if the original native file has a byte order.
 
 Add the following code to the [WillFileBeTweaked](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.AbstractFilePreTweaker.yml#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_AbstractFilePreTweaker_WillFileBeTweaked_System_String_) method.
 
+# [C#](#tab/tabid-5)
 ```cs
 // if original file has a byte order mark then the original file needs to be tweaked
 return HasByteOrderMark(originalFilePath);
 ```
+***
 
 
 Add the following method that determines whether a given file has a byte order mark to the **SimpleFilePreTweaker** class.
 
+# [C#](#tab/tabid-6)
 ```cs
 private bool HasByteOrderMark(string filePath)
 {
@@ -102,6 +113,7 @@ private bool HasByteOrderMark(string filePath)
     }
 }
 ```
+***
 
 
 That completes this simple native file pre-tweaker which removes the byte order mark from the original native file.
@@ -129,6 +141,7 @@ In this example, the implementation of the [Tweak](../../api/filetypesupport/Sdl
 
 Here is the complete simple native file post-tweaker code which adds the byte order mark to the original native file.
 
+# [C#](#tab/tabid-7)
 ```cs
 using System.IO;
 using System.Text;
@@ -170,14 +183,15 @@ namespace Sdl.Sdk.FileTypeSupport.Samples.SimpleText
     }
 }
 ```
+***
 
 See Also
 --
 
-**Other Resources**
+
 
 [Native File Tweakers](native_file_tweakers.md)
 
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

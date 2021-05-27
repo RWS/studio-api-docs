@@ -1,5 +1,5 @@
 Implementing the File Writer
-==
+===
 
 In this chapter you will learn how to implement the component used for generating the target-language file in its native format.
 
@@ -12,6 +12,7 @@ Start by adding a **SimpleTextWriter.cs** class to your project. The skeleton wr
 
 Your writer class needs be derived from [AbstractNativeFileWriter](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileWriter.yml) and must implement the [INativeContentCycleAware](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.yml) interface. The writer class implements the same members as the parser class. Therefore, the minimum amount of code required to build a file type plug-in with a file writer looks as shown below:
 
+# [C#](#tab/tabid-1)
 ```cs
 using System.IO;
 using Sdl.FileTypeSupport.Framework.BilingualApi;
@@ -41,6 +42,7 @@ namespace Sdl.Sdk.Snippets.Native
     }
 }
 ```
+***
 
 Remember, if you have writer specific settings, you also need to implement the [InitializeSettings](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.ISettingsAware.yml#Sdl_FileTypeSupport_Framework_IntegrationApi_ISettingsAware_InitializeSettings_Sdl_Core_Settings_ISettingsBundle_System_String_) method of the [ISettingsAware](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.ISettingsAware.yml) interface.
 
@@ -49,6 +51,7 @@ Create the Output Text File
 
 First, use the [StartOfInput](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.yml#Sdl_FileTypeSupport_Framework_NativeApi_INativeContentCycleAware_StartOfInput) member to apply the logic that creates the native output text file:
 
+# [C#](#tab/tabid-2)
 ```cs
 // create the output text file
 public void StartOfInput()
@@ -56,14 +59,16 @@ public void StartOfInput()
     _targetFile = new StreamWriter(OutputProperties.OutputFilePath);
 }
 ```
+***
 
 Output Text and Tags
-==
+===
 
 The text writer basically traverses the intermediary (SDL XLIFF) file and outputs the elements it encounters (e.g. text and inline tags) to the target output file. Override the methods provided by the abstract file writer class ([AbstractNativeFileWriter](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileWriter.yml)) to output these elements. The methods shown below output translatable text, structure tags, and inline start/end tags.
 
 Through the method [SegmentEnd](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileWriter.yml#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileWriter_SegmentEnd) you determine what should be done after you have written a segment to the native output file. Our simple text format just requires a line break after each segment, which we output using ```WriteLine()```.
 
+# [C#](#tab/tabid-3)
 ```cs
 // iterate through the bilingual file
 // and add translatable text content and the content of
@@ -95,9 +100,11 @@ public override void SegmentEnd()
     _targetFile.WriteLine();
 }
 ```
+***
 
 At the end we close the output file object and dispose of it in the [EndOfInput](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.yml#Sdl_FileTypeSupport_Framework_NativeApi_INativeContentCycleAware_EndOfInput) member of the [INativeContentCycleAware](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.yml) interface:
 
+# [C#](#tab/tabid-4)
 ```cs
 public void EndOfInput()
 {
@@ -106,12 +113,14 @@ public void EndOfInput()
     _targetFile = null;
 }
 ```
+***
 
 Putting Everything Together
 --
 
 The complete file writer class should now look as shown below:
 
+# [C#](#tab/tabid-5)
 ```cs
 using System.IO;
 using Sdl.FileTypeSupport.Framework.BilingualApi;
@@ -182,12 +191,14 @@ namespace Sdl.Sdk.FileTypeSupport.Samples.SimpleText
     }
 }
 ```
+***
 
 Reference the Component in the File Type Component Builder
 --
 
 Do not forget to reference the file writer class by adding the following code to the [IFileTypeComponentBuilder](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilder.yml) implementation:
 
+# [C#](#tab/tabid-6)
 ```cs
 /// <summary>
 /// Gets the file generator for this component.
@@ -202,11 +213,12 @@ public virtual IFileGenerator BuildFileGenerator(string name)
     return generator;
 }
 ```
+***
 
 See Also
 --
 
-**Other Resources**
+
 
 [Implementing the Preview Writer](implementing_the_preview_writer.md)
 

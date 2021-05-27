@@ -97,7 +97,7 @@ private FilterExpression GetFilter()
 }
 ```
 
->**Note**
+>[!NOTE]
 >
 >Filter names must not contain spaces.
 
@@ -316,7 +316,7 @@ namespace Sdl.SDK.LanguagePlatform.Samples.TmAutomation
 See Also
 --
 
-**Other Resources**
+
 
 [Performing Translation Memory Lookups](performing_translation_memory_lookups.md)
 

@@ -111,7 +111,7 @@ void ServerPuttingItAllTogether()
 
 See Also
 --
-**Other Resources**
+
 
 [About Server Based Projects](about_server_based_projects.md)
 

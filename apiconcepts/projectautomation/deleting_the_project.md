@@ -15,6 +15,6 @@ if (!keepProjectFiles)
 See Also
 --
 
-**Other Resources**
+
 
 [Deleting Projects](deleting_projects.md)

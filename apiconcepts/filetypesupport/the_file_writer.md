@@ -32,8 +32,8 @@ The ```ISettingsAware``` interface contains one method that needs to be implemen
 
 * [InitializeSettings](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.ISettingsAware.yml#Sdl_FileTypeSupport_Framework_IntegrationApi_ISettingsAware_InitializeSettings_Sdl_Core_Settings_ISettingsBundle_System_String_) method: Passes in an ISettingsBundle object and a configurationId FileTypeConfigurationId. These can be used to populate the required settings object used by the writer, e.g.:
 
+# [C#](#tab/tabid-1)
 ```cs
-   #region "InitializeSettings"
 public void InitializeSettings(Sdl.Core.Settings.ISettingsBundle settingsBundle, string configurationId)
 {
     UserSettings _userSettings = new UserSettings();
@@ -41,9 +41,9 @@ public void InitializeSettings(Sdl.Core.Settings.ISettingsBundle settingsBundle,
     WriteUtf8Bom = _userSettings.WriteUtf8Bom;
 }
 
-#endregion
 ```
+***
 
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

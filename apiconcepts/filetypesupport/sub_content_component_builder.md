@@ -3,6 +3,7 @@ Sub Content Component Builder
 
 An example of a sub-content component builder is shown below - note the implementation of [ISubContentComponentBuilder](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.ISubContentComponentBuilder.yml)
 
+# [C#](#tab/tabid-1)
 ```cs
 using System;
 using System.Collections.Generic;
@@ -123,7 +124,8 @@ namespace Sdl.Sdk.Snippets.Native
     }
 }
 ```
+***
 
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

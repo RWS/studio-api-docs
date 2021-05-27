@@ -1,5 +1,5 @@
 Creating a New Assembly for the Settings UI
-==
+===
 
 In this chapter we will show you how to create a separate project for adding a user interface to our file type plug-in.
 
@@ -35,16 +35,16 @@ Set the output path for building your project to the installation folder of <Var
 See Also
 --
 
-**Other Resources**
+
 
 [Implementing the Settings UI](implementing_the_settings_ui.md)
 
 [Implementing the UI Controller Class](implementing_the_ui_controller_class.md)
 
->**Note**
+>[!NOTE]
 >
 >Remember to generate a key to sign the assembly.
 
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

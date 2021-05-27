@@ -21,7 +21,7 @@ project.DownloadLatestServerVersion(fileId, (obj, evt) =>
     false);
 ```
 
->**Note**
+>[!NOTE]
 >
 >This method will only download the file to your local copy. It does not automatically check out the file for editing. You should check out the file before performing any editing task including batch processing.
 
@@ -130,7 +130,7 @@ project.CheckinFiles(fileIds, "This is where you add a check in comment",
 See Also
 --
 
-**Other Resources**
+
 
 [About Server Based Projects](about_server_based_projects.md)
 

@@ -1,5 +1,5 @@
 Add a Resources File
-==
+===
 
 In this step, you add a resource file to the project, which contains the message strings that will be shown to end user in the UI of <Var:ProductName>.
 
@@ -17,6 +17,6 @@ The resources file will look as shown below:
 
 ![WordArtVerifierResources](images/WordArtVerifierResources.jpg)
 
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

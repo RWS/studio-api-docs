@@ -134,7 +134,7 @@ public void GetProjectStatistics(FileBasedProject project)
 See Also
 --
 
-**Other Resources**
+
 
 [Generating the Task Report](generating_the_task_report.md)
 

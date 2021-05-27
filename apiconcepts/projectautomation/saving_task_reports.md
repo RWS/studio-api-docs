@@ -29,7 +29,7 @@ project.SaveTaskReportAs(reportId, @"C:\ProjectFiles\Analysis_report.xls", Repor
 
 See Also
 --
-**Other Resources**
+
 
 [Running Tasks on the Project Files](running_tasks_on_project_files.md)
 

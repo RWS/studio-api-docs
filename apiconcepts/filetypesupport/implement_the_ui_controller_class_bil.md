@@ -1,5 +1,5 @@
 Implement the UI Controller Class
-==
+===
 
 In this chapter you will learn how to implement a class that controls the actual plug-in user interface.
 
@@ -40,6 +40,7 @@ The ```ResetToDefaults``` is triggered when the user clicks the button **Reset t
 
 In our implementation we override this method as shown in the example below. We call the base class to make sure that the settings are reset correctly, and then make sure we update the settings accordingly:
 
+# [C#](#tab/tabid-1)
 ```cs
 public override void ResetToDefaults()
 {
@@ -47,12 +48,14 @@ public override void ResetToDefaults()
     Control.UpdateControl();
 }
 ```
+***
 
 Reload the Settings
 --
 
 When the user moves back to the settings page of our plug-in, we need to make certain that the plug-in UI is displayed with the most up-to-date settings from the settings bundle. This is done through the ```ReloadSettings``` method, which we override as shown below. Here, we must calll the base class to make sure that the settings are reloaded correctly before updating the UI:
 
+# [C#](#tab/tabid-2)
 ```cs
 public override void Refresh()
 {
@@ -60,6 +63,7 @@ public override void Refresh()
     Control.UpdateControl();
 }
 ```
+***
 
 Declare the Class in the File Type Component Builder
 --
@@ -68,6 +72,7 @@ For the plug-in settings UI to become visible in <Var:ProductName>, the File Typ
 
 ![excel_verifier_simplified_gui](images/excel_verifier_simplified_gui.jpg)
 
+# [Xml](#tab/tabid-3)
 ```xml
 <property name="WinFormSettingsPageIds">
   <list>
@@ -76,12 +81,14 @@ For the plug-in settings UI to become visible in <Var:ProductName>, the File Typ
     </list>
 </property>
 ```
+***
 
 Putting it all Together
 --
 
 The complete class should now look as shown below:
 
+# [C#](#tab/tabid-4)
 ```cs
 using System;
 using System.Collections.Generic;
@@ -133,16 +140,17 @@ namespace Sdl.Sdk.FileTypeSupport.Samples.WordArtVerifier
     }
 }
 ```
+***
 
 See Also
 --
 
-**Other Resources**
+
 
 [Implement the User Interface](implement_the_user_interface_bil.md)
 
 [Loading and Saving the Settings](loading_and_saving_the_settings_bil.md)
 
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

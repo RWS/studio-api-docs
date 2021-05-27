@@ -19,7 +19,7 @@ tmSettings.MultipleTranslationsPenalty.Value = 2;
 See Also
 --
 
-**Other Resources**
+
 
 [Translation Memory Search Settings](translation_memory_search_settings.md)
 

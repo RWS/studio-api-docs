@@ -1,5 +1,5 @@
 Adding a Preview UI Control
-==
+===
 
 For displaying the document preview your filter requires a suitable control element.
 
@@ -8,13 +8,14 @@ Add a Web Browser Control
 
 When implementing the static internal preview, we simply leveraged the built-in Web browser control of <Var:ProductName> (see [Modifying the File Type Component Builder](static_modifying_the_file_type_component_builder.md)). Depending on the native file format that needs to be displayed, a different control might be required. For example, for DOC files <Var:ProductName> uses a Microsoft Word Viewer control. In this exercise, we are (once again) going to use a Web browser control. However, this time we will not leverage the built-in Web browser control, since we would like to demonstrate how to add and configure a custom control element.
 
-Start by adding a user control called e.g. **InternalPreviewControl.cs** to your project. From the Visual Studio toolbox add a Web browser control, and assign the name ```webBrowserControl``` to it.
+Start by adding a user control called e.g. **InternalPreviewControl.cs** to your project. From the Visual Studio toolbox add a Web browser control, and assign the name `webBrowserControl` to it.
 
 Implement the Preview Control Functionality
 --
 
 For your preview control to be able to respond to events such as the user clicking a segment in the editor, scrolling to a segment, etc., your control needs to implement the following code:
 
+# [C#](#tab/tabid-1)
 ```cs
 using System;
 using System.Windows.Forms;
@@ -199,8 +200,9 @@ namespace Sdl.Sdk.FileTypeSupport.Samples.SimpleText.Preview
     }
 }
 ```
+***
 
->**NOTE**
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.
 
