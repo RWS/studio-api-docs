@@ -19,25 +19,30 @@ Add a New Tuning Class
 
 Start by adding new class called ```TmTuner``` to your project. Next, implement a public function called ```TuneTm```, which takes the file name and path of the TM that should be tuned as string parameter. This function can be called as shown below:
 
+# [C#](#tab/tabid-1)
 ```cs
 TMTuner tuning = new TMTuner();
 tuning.TuneTm(_translationMemoryFilePath);
 ```
+***
 
 We use the ```TuneTm``` function to recompute the fuzzy index and to optimize the TM for speed through the [RecomputeFuzzyIndexStatistics](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.AbstractLocalTranslationMemory.yml#Sdl_LanguagePlatform_TranslationMemoryApi_AbstractLocalTranslationMemory_RecomputeFuzzyIndexStatistics) method as shown in the example below:
 
+# [C#](#tab/tabid-2)
 ```cs
 FileBasedTranslationMemory tm = new FileBasedTranslationMemory(tmPath);
 
 tm.RecomputeFuzzyIndexStatistics();
 tm.Save();
 ```
+***
 
 By applying the [RecomputeFuzzyIndexStatistics](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.AbstractLocalTranslationMemory.yml#Sdl_LanguagePlatform_TranslationMemoryApi_AbstractLocalTranslationMemory_RecomputeFuzzyIndexStatistics) method to the current TM you trigger the process that recomputes the index. Depending on the size of the TM this process can take some time. The **MinScoreIncrease** property can be set between 0 and 20. A value of 20 means that that the TM will be optimized for speed. Speeding up TM lookup operations is basically done by internally adding a percentage value between 0 and 20 to the minimum match score set in the application. Example: You have set the minimum score increase value to 10. The TM contains a 70% fuzzy match, which would normally offered to the user, as the default setting of <Var:ProductName> searches for TUs down to a fuzziness level of 70%. However, since the TM has been configured to always internally add a score value of 10, <Var:ProductName> will not go down to a fuzziness level of 70%, but will already stop searching at 80%. This means that the 70% match will not be offered to the user. However, in return, the lookup speed will be improved, as the TM is 'allowed' to limit itself to searches in the higher fuzzy range. Note that the lower the fuzzy value, the slower the search, as more differences need to be identified and computed. After tuning the TM, do not forget to apply the ```Save``` method.
 
 
 The TM API also allows you to determine when the fuzzy index was last recomputed and whether it is recommended to perform a recomputation. This information can be used, for example, to automatically recompute the fuzzy index when your implementation determines that doing so is recommended.
 
+# [C#](#tab/tabid-3)
 ```cs
 string stats;
 stats = "Fuzzy index last recomputed at: " + tm.FuzzyIndexStatisticsRecomputedAt.Value.ToString();
@@ -45,14 +50,16 @@ stats += "; Fuzzy index needs to be recomuted: " + tm.ShouldRecomputeFuzzyIndexS
 
 MessageBox.Show(stats);
 ```
+***
 
 Putting it All Together
 --
 
 Your complete class should now look as shown below:
 
+# [C#](#tab/tabid-4)
 ```cs
-namespace Sdl.SDK.LanguagePlatform.Samples.TmAutomation
+namespace SDK.LanguagePlatform.Samples.TmAutomation
 {
     using System.Windows.Forms;
     using Sdl.LanguagePlatform.TranslationMemoryApi;
@@ -79,11 +86,9 @@ namespace Sdl.SDK.LanguagePlatform.Samples.TmAutomation
     }
 }
 ```
+***
 
 See Also
 --
-
-
-
 [Maintaining Translation Memories](maintaining_translation_memories.md)
 

@@ -13,11 +13,12 @@ The screenshot below shows the settings that can be configured for the Perfect M
 
 To configure the task settings programmatically, implement a helper function called ```GetPerfectMatchTaskSettings```, which takes a [FileBasedProject](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml) object as a parameter. The settings for a particular task are saved within the project. First, create a ```ISettingsBundle``` object by applying the ```GetSettings``` method to the project object. Then apply the     ```GetSettingsGroup``` method to generate a settings object based on the [PerfectMatchTaskSettings](../../api/projectautomation/Sdl.ProjectAutomation.Settings.PerfectMatchTaskSettings.yml) class:
 
+# [C#](#tab/tabid-1)
 ```CS
 ISettingsBundle settings = project.GetSettings();
 PerfectMatchTaskSettings perfectMatchSettings = settings.GetSettingsGroup<PerfectMatchTaskSettings>();
 ```
-
+***
 
 Afterwards, you configure the task-specific settings as follows:
 
@@ -27,21 +28,26 @@ By default when a perfect match is found and copied the segment is marked as Per
 
 For now we will assign the default behaviour of true so that the segments are marked as Perfect match and locked.
 
+# [C#](#tab/tabid-2)
 ```CS
 perfectMatchSettings.MarkAsPerfectMatchAndLock.Value = true;
 ```
+***
 
 Last, you need to apply the settings to the project through the [UpdateSettings](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml#Sdl_ProjectAutomation_FileBased_FileBasedProject_UpdateSettings_Sdl_Core_Globalization_Language_Sdl_Core_Settings_ISettingsBundle_) method, so that the settings are persisted in the project.
 
+# [C#](#tab/tabid-3)
 ```CS
 project.UpdateSettings(settings);
 ```
+***
 
 Putting it All Together
 --
 
 The function should look as shown below:
 
+# [C#](#tab/tabid-4)
 ```CS
 public void GetPerfectMatchTaskSettings(FileBasedProject project)
 {
@@ -61,6 +67,7 @@ public void GetPerfectMatchTaskSettings(FileBasedProject project)
     #endregion
 }
 ```
+***
 
 **Segments shown in the <Var:ProductName> editor after Perfect Match**
 
@@ -79,9 +86,10 @@ For Perfect Match to work the files in your project must each hold a reference t
 
 **Examples of using the [AddBilingualReferenceFiles](../../api/projectautomation/Sdl.ProjectAutomation.Core.IProject.yml#Sdl_ProjectAutomation_Core_IProject_AddBilingualReferenceFiles_Sdl_ProjectAutomation_Core_BilingualFileMapping___) method**
 
+# [C#](#tab/tabid-5)
 ```CS
- ProjectInfo info = this.GetProjectInfo();
- ProjectFile[] files = project.AddFiles(this.AddProjectFiles(@"c:\ProjectFiles\Documents\"));
+ProjectInfo info = this.GetProjectInfo();
+ProjectFile[] files = project.AddFiles(this.AddProjectFiles(@"c:\ProjectFiles\Documents\"));
 
 
 //Using a helper function to return an array of BilingualFileMappings which are added to the project 
@@ -96,12 +104,14 @@ project.AddBilingualReferenceFiles(
       });
       
 ```
+***
 
 
 **Example helper method to return an array of [BilingualFileMapping](../../api/projectautomation/Sdl.ProjectAutomation.Core.BilingualFileMapping.yml) objects**
 
 This example uses a simple scan of a previous project to find and associate bilingual files with the current project using a simple match of the language directory and filename.
 
+# [C#](#tab/tabid-6)
 ```CS
 /// <summary>
 /// Simple mapping routine to associate bilingual files in a previous project with the file in the current project
@@ -124,7 +134,7 @@ This example uses a simple scan of a previous project to find and associate bili
 /// </remarks>
 /// <param name="targetLanguages">An array of target languages</param>
 /// <param name="translatableFiles">An array of project files </param>
-/// <param name="previousProjectPath">The root directory of the previous SDL Studio Project</param>
+/// <param name="previousProjectPath">The root directory of the previous Trados Studio Project</param>
 public BilingualFileMapping[] GetBilingualFileMappings(Language[] targetLanguages, ProjectFile[] translatableFiles, string previousProjectPath)
 {
     List<BilingualFileMapping> mappings = new List<BilingualFileMapping>();
@@ -149,16 +159,19 @@ public BilingualFileMapping[] GetBilingualFileMappings(Language[] targetLanguage
     return mappings.ToArray();
 }
 ```
+***
 
 **Examples of using the [AddBilingualReferenceFile](../../api/projectautomation/Sdl.ProjectAutomation.Core.IProject.yml#Sdl_ProjectAutomation_Core_IProject_AddBilingualReferenceFile_Sdl_ProjectAutomation_Core_BilingualFileMapping_) method**
 
 Single bilingual reference file associations can be made using on of the following methods
 
+# [C#](#tab/tabid-7)
 ```CS
 //Add a single reference file using a BilingualFileMapping Object
 project.AddBilingualReferenceFile(new BilingualFileMapping(FileIdFromOriginalSourceFile, new Language("fr-FR"), @"c:\ProjectFiles\PreviousProjectFiles\fr-FR\mydocument.docx.sdlxliff"));
 
 ```
+***
 
 Calling Perfect Match as a Single Task
 --
@@ -169,7 +182,7 @@ Alternatively can set up the bilingual reference files using the original docume
 
 **Example of calling Perfect Match on a previously prepared project where the target files are available**
 
-
+# [C#](#tab/tabid-8)
 ```CS
 Language targetLanguage = new Language(CultureInfo.GetCultureInfo(locale));
 
@@ -181,6 +194,7 @@ AutomaticTask perfectMatchTask = project.RunAutomaticTask(
 targetFiles.GetIds(),
 AutomaticTaskTemplateIds.PerfectMatch);
 ```
+***
 
 Calling Perfect Match as Part of a Task Sequence
 --
@@ -189,8 +203,7 @@ Perfect Match can be run as part of a batch task sequence and is included in the
 
 The bilingual file association will be copied to the target document when it is copied to the target language as part of the task sequence.
 
-**Example of setting up Perfect Match associations before calling the Prepare task sequence**
-
+# [Example of setting up Perfect Match associations before calling the Prepare task sequence](#tab/tabid-9)
 ```cs
 public void RunPrepareWithPerfectMatch()
 {
@@ -213,11 +226,10 @@ public void RunPrepareWithPerfectMatch()
     TaskSequence taskSequence = newProject.RunAutomaticTasks(files.GetIds(), TaskSequences.Prepare);
 }
 ```
+***
 
 See Also
 --
-
-
 [Analyze Files Settings](analyze_files_settings.md)
 
 [Project TM Creation Settings](project_tm_creation_settings.md)

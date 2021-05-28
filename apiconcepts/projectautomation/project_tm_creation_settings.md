@@ -20,10 +20,12 @@ If you want to create a server-based project TM (so that geographically distribu
 
 To access the project TM creation task settings programmatically, implement a helper function called ```GetProjectTmTaskSettings```, which takes a [FileBasedProject](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml) object as parameter. The settings for a particular task are saved within the project. First, retrieve a ```ISettingsBundle``` object by applying the GetSettings method to the project object. Then apply the GetSettingsGroup method to generate a settings object based on the [ProjectTranslationMemoryTaskSettings](../../api/projectautomation/Sdl.ProjectAutomation.Settings.ProjectTranslationMemoryTaskSettings.yml) class:
 
+# [C#](#tab/tabid-1)
 ```CS
 ISettingsBundle settings = project.GetSettings();
 ProjectTranslationMemoryTaskSettings projectTmSettings = settings.GetSettingsGroup<ProjectTranslationMemoryTaskSettings>();
 ```
+***
 
 The sample code below illustrates the properties that you need to set in order to create a server-based project TM:
 
@@ -31,17 +33,21 @@ The sample code below illustrates the properties that you need to set in order t
 * [ServerConnectionUri](../../api/projectautomation/Sdl.ProjectAutomation.Settings.ProjectTranslationMemoryTaskSettings.yml#Sdl_ProjectAutomation_Settings_ProjectTranslationMemoryTaskSettings_ServerConnectionUri): The URI required to connect to the TM Server on which the project TM should be created. This will usually be the server that also hosts the main TMs.
 * [TranslationMemoryContainerName](../../api/projectautomation/Sdl.ProjectAutomation.Settings.ProjectTranslationMemoryTaskSettings.yml#Sdl_ProjectAutomation_Settings_ProjectTranslationMemoryTaskSettings_TranslationMemoryContainerName): The name of the physical database in which the project TM should be created. Note that the TMs are stored as tables within a database.
 
+# [C#](#tab/tabid-2)
 ```CS
 projectTmSettings.CreateServerBasedProjectTranslationMemories.Value = true;
 projectTmSettings.ServerConnectionUri.Value = string.Empty;
 projectTmSettings.TranslationMemoryContainerName.Value = "TMCont";
 ```
+***
 
 After configuring all task settings you need to update the project by applying the [UpdateSettings](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml#Sdl_ProjectAutomation_FileBased_FileBasedProject_UpdateSettings_Sdl_Core_Globalization_Language_Sdl_Core_Settings_ISettingsBundle_) method:
 
+# [C#](#tab/tabid-3)
 ```CS
 project.UpdateSettings(settings);
 ```
+***
 
 >[!NOTE]
 >
@@ -50,6 +56,7 @@ project.UpdateSettings(settings);
 Putting it All Together
 --
 
+# [C#](#tab/tabid-4)
 ```CS
 public void GetProjectTmTaskSettings(FileBasedProject project)
 {
@@ -69,12 +76,10 @@ public void GetProjectTmTaskSettings(FileBasedProject project)
     #endregion
 }
 ```
+***
 
 See Also
 --
-
-
-
 [Analyze Files Settings](analyze_files_settings.md)
 
 [Pre-translate Settings](project_tm_creation_settings.md)

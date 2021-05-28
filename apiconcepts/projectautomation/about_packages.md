@@ -4,7 +4,7 @@ This section explains how packages are used in order to send around project file
 
 Overview
 -----
-The initial phase of a localization project typically consists of a number of automatic steps in which the project files are prepared for translation. When this process is completed, the files will be present in SDL XLIFF format, with all available translation leverage applied. At this point, they are ready to be translated.
+The initial phase of a localization project typically consists of a number of automatic steps in which the project files are prepared for translation. When this process is completed, the files will be present in SDLXliff format, with all available translation leverage applied. At this point, they are ready to be translated.
 
 Since the person who prepares the project will typically not be the person who translates and reviews the files, the project files will have to be sent to the translator, who will perform the actual translation work. As explained in [About Tasks](about_tasks.md), a human step in the workflow, like translation, is represented by a manual task.
 

@@ -79,7 +79,7 @@ Next, add the following function, which establishes the server connection. The f
 
 > [!NOTE]
 > 
-> Since a number of things may go wrong when establishing the server connection (e.g. server not available, incorrect password, etc.), you should properly catch any exceptions. (For this example we assume that we are not using Windows logins, but SDL logins, so the useWindowsAuthentication flag is set to False.)
+> Since a number of things may go wrong when establishing the server connection (e.g. server not available, incorrect password, etc.), you should properly catch any exceptions. (For this example we assume that we are not using Windows logins, but RWS logins, so the useWindowsAuthentication flag is set to False.)
 
 # [C#](#tab/tabid-6)
 ```cs
@@ -159,7 +159,7 @@ using Sdl.LanguagePlatform.TranslationMemory;
 using Sdl.LanguagePlatform.Core.Tokenization;
 using Sdl.LanguagePlatform.Core;
 
-namespace Sdl.SDK.LanguagePlatform.Samples.TmLookup
+namespace SDK.LanguagePlatform.Samples.TmLookup
 {
     class Connector
     {

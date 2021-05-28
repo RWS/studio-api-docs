@@ -1,7 +1,7 @@
 Generating the Paragraph Units
 ===
 
-In this chapter you will learn to extend the writer class to output the actual paragraph units from the intermediary (SDL XLIFF) file to the target BIL document.
+In this chapter you will learn to extend the writer class to output the actual paragraph units from the intermediary (SDLXliff) file to the target BIL document.
 
 Modify the Function for Processing the Paragraph Units
 --
@@ -47,7 +47,7 @@ public void Initialize(IDocumentProperties documentInfo)
 ```
 ***
 
-Now you can add the following helper function, which works as follows: the ```source``` and the ```target``` elements are taken from the current BIL ```unit``` element. Then, the function loops through the segment pairs of the current paragraph unit from the intermediary (SDL XLIFF) document. The text extractor object is used to retrieve the plain text and the tag pairs for each segment pair. The ```source``` and the ```target``` elements are then set to the strings that were retrieved through the text extractor object.
+Now you can add the following helper function, which works as follows: the ```source``` and the ```target``` elements are taken from the current BIL ```unit``` element. Then, the function loops through the segment pairs of the current paragraph unit from the intermediary (SDLXliff) document. The text extractor object is used to retrieve the plain text and the tag pairs for each segment pair. The ```source``` and the ```target``` elements are then set to the strings that were retrieved through the text extractor object.
 
 # [C#](#tab/tabid-4)
 ```cs
@@ -66,7 +66,7 @@ private void CreateParagraphUnit(IParagraphUnit paragraphUnit, XmlNode xmlUnit)
 ```
 ***
 
-Note that we loop through all segment pairs, although in our simplified implementation each unit can be assumed to contain only one segment pair. A paragraph unit in the intermediary (SDL XLIFF) document would contain several segment pairs if our fictitious BIL format allowed for more than ```one seg``` element within a ```source``` or ```target``` node.
+Note that we loop through all segment pairs, although in our simplified implementation each unit can be assumed to contain only one segment pair. A paragraph unit in the intermediary (SDLXliff) document would contain several segment pairs if our fictitious BIL format allowed for more than ```one seg``` element within a ```source``` or ```target``` node.
 
 Putting it All Together
 --
@@ -80,7 +80,7 @@ using System.Xml;
 using Sdl.FileTypeSupport.Framework.BilingualApi;
 using Sdl.FileTypeSupport.Framework.NativeApi;
 
-namespace Sdl.Sdk.Snippets.Bilingual
+namespace Sdk.Snippets.Bilingual
 {
     class BilWriter2 : AbstractBilingualFileTypeComponent, IBilingualWriter, INativeOutputSettingsAware
     {

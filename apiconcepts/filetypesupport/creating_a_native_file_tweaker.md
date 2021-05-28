@@ -148,7 +148,7 @@ using System.Text;
 using Sdl.FileTypeSupport.Framework.NativeApi;
 using Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi;
 
-namespace Sdl.Sdk.FileTypeSupport.Samples.SimpleText
+namespace Sdk.FileTypeSupport.Samples.SimpleText
 {
     public class SimpleFilePostTweaker : AbstractFilePostTweaker
     {

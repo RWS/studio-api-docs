@@ -15,6 +15,7 @@ Within main declare the three following variables for setting the following para
 * A boolean parameter that specifies whether the project files should be kept on the hard disk (False by default)
 * A boolean parameter that specifies whether the project files should be published to a server (False by default)
 
+# [C#](#tab/tabid-1)
 ```cs
 string mainPath = string.Empty;
 string tmFile = string.Empty;
@@ -24,10 +25,11 @@ bool reportInternalFuzzyMatchLeverage = false;
 bool keepProjectFiles = false;
 bool publishToServer = false;
 ```
+***
 
 If the two parameters, main file path and TM have not been entered, the application should output some explanation on the usage:
 
-
+# [C#](#tab/tabid-2)
 ```cs
 if (args.Length < 2)
 {
@@ -43,9 +45,11 @@ if (args.Length < 2)
     return;
 }
 ```
+***
 
 In the next step, we need to verify whether the main path entered and a TM has been entered (at this point we do not know if the tm is a file or server tm)
 
+# [C#](#tab/tabid-3)
 ```cs
 if (!String.IsNullOrEmpty(args[0]) && !Directory.Exists(args[0])
     && !String.IsNullOrEmpty(args[1]) )
@@ -54,9 +58,11 @@ if (!String.IsNullOrEmpty(args[0]) && !Directory.Exists(args[0])
     return;
 }
 ```
+***
 
 After the validity check set the variables as shown below:
 
+# [C#](#tab/tabid-4)
 ```cs
 mainPath = args[0];
 tmFile = args[1];
@@ -83,8 +89,11 @@ for (int i = 2; i < args.Length; ++i)
     }
 }
 ```
+***
+
 If you do not wish to publish to a server if must be a file based TM so check it exists
 
+# [C#](#tab/tabid-5)
 ```cs
 if (!publishToServer && !File.Exists(args[1]))
 {
@@ -92,9 +101,11 @@ if (!publishToServer && !File.Exists(args[1]))
     return;
 }
 ```
+***
 
 Start by creating the project and output a success message if the task has been executed successfully. Remember that after running the application the analysis result should be presented in the console.
 
+# [C#](#tab/tabid-6)
 ```cs
 try
 {
@@ -117,12 +128,14 @@ catch (Exception ex)
     Console.ReadLine();
 }
 ```
+***
 
 Putting it All Together
 --
 
 The full implementation should look as shown below:
 
+# [C#](#tab/tabid-7)
 ```cs
 public static void Main(string[] args)
 {
@@ -222,10 +235,8 @@ public static void Main(string[] args)
     #endregion
 }
 ```
+***
 
 See Also
 --
-
-
-
 [Configuring the Project Properties](configuring_the_project_properties.md)

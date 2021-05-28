@@ -8,7 +8,7 @@ Imagine that you need to develop a command-line utility that can quickly analyze
 * Loop through a specified folder and its sub-folders (if any).
 * Identify translatable files (e.g. DOC, PPT, etc.).
 * Create a (temporary) project in the background and add the translatable files that were found in this folder to the project. Through a parameter the user should be able to configure whether sub-folders should be taken into account or not.
-* Convert all translatable files to a translatable, bilingual format (i.e. SDL XLIFF) for further processing.
+* Convert all translatable files to a translatable, bilingual format (i.e. SDLXliff) for further processing.
 * Apply an analyze files batch task to the translatable documents in the project.
 * Generate a file analysis reports in the standard Microsoft Excel (e.g. for printing). Apart from that, a summary of the file analysis results should be displayed in the application console.
 * After the reports have been generated, the project folder and files are by default automatically deleted (unless specified otherwise by the user), as the project is not supposed to be used any further. The expected end result is only the report for the cost estimate.
@@ -25,9 +25,6 @@ The application to develop within the scope of the sample project constitutes a 
 
 See Also
 --
-
-
-
 [Setting up the Visual Studio Project](setting_up_the_visual_studio_project.md)
 
 [Configuring the Project Properties](configuring_the_project_properties.md)

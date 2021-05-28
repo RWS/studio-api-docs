@@ -164,7 +164,7 @@ Putting it All Together
 The complete class should now look as shown below:
 # [C#](#tab/tabid-10)
 ```cs
-namespace Sdl.SDK.LanguagePlatform.Samples.TmAutomation
+namespace SDK.LanguagePlatform.Samples.TmAutomation
 {
     using System;
     using System.Collections.ObjectModel;

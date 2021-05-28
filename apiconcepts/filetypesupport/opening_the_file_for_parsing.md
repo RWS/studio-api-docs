@@ -51,7 +51,7 @@ public void SetFileProperties(IFileProperties properties)
 ```
 ***
 
-The above member creates the object from which you can retrieve various items of information on the input file such as the file name, creation date, etc. It also initializes the ```DocumentProperties``` - used to create properties - and the output file properties. You may wonder why the parser initializes two distinct objects, i.e. a document and a file properties object. The reason for this is that the SDL File Type Support Framework allows you to merge several files (e.g. several **.bil* documents) into a single SDL XLIFF file. In this case there would be a global document properties object for the SDL XLIFF master document and several file properties for the different files that have been merged into one intermediate (e.g. SDL XLIFF) file.
+The above member creates the object from which you can retrieve various items of information on the input file such as the file name, creation date, etc. It also initializes the ```DocumentProperties``` - used to create properties - and the output file properties. You may wonder why the parser initializes two distinct objects, i.e. a document and a file properties object. The reason for this is that the  File Type Support Framework allows you to merge several files (e.g. several **.bil* documents) into a single SDLXliff file. In this case there would be a global document properties object for the SDLXliff master document and several file properties for the different files that have been merged into one intermediate (e.g. SDLXliff) file.
 Then, add the following member, which the input file into the XML DOM object. At the same time, you can use this member to set the progress reporter to 0%:
 
 # [C#](#tab/tabid-3)
@@ -138,7 +138,7 @@ At this point you could already build your project, however, your file type plug
 
 ![EmptyBilFile](images/EmptyBilFile.jpg)
 
-The resulting intermediary (SDL XLIFF) file would merely contain the basic header information that was retrieved from the document and file properties objects such as the original file name, the source/target language, the SDL File Type Support Framework version, etc.
+The resulting intermediary (SDLXliff) file would merely contain the basic header information that was retrieved from the document and file properties objects such as the original file name, the source/target language, the File Type Support Framework version, etc.
 
 Add the Component Reference to the Component Builder
 --

@@ -1,14 +1,14 @@
 Mapping the Segment Confirmation Levels
 ===
 
-In this chapter we will enhance our writer component to map the SDL XLIFF confirmation level values back to the BIL status values.
+In this chapter we will enhance our writer component to map the SDLXliff confirmation level values back to the BIL status values.
 
 Enhance the Writer Class to Update the Status Values
 --
 
-The parser component mapped the ```status``` attribute values of the BIL units to the corresponding confirmation levels that are used in SDL XLIFF (see [Applying the Segment Pair Confirmation Levels](applying_the_segment_pair_confirmation_levels.md)). The writer component needs to do the exact opposite. For example: in the original BIL file the status of a unit was *new*, as it did not have a target segment. In <Var:ProductName> the translation has been added and confirmed by the translator. Thus, the status should be 'upgraded' to exact.
+The parser component mapped the ```status``` attribute values of the BIL units to the corresponding confirmation levels that are used in SDLXliff (see [Applying the Segment Pair Confirmation Levels](applying_the_segment_pair_confirmation_levels.md)). The writer component needs to do the exact opposite. For example: in the original BIL file the status of a unit was *new*, as it did not have a target segment. In <Var:ProductName> the translation has been added and confirmed by the translator. Thus, the status should be 'upgraded' to exact.
 
-First, modify the ```CreateParagraphUnit()``` helper function to call a separate helper function, which returns the status value that was mapped from the paragraph unit confirmation value used in SDL XLIFF. Then, the status attribute of the current BIL ```unit``` element is changed to the string value returned by the ```UpdateStatus()``` helper function:
+First, modify the ```CreateParagraphUnit()``` helper function to call a separate helper function, which returns the status value that was mapped from the paragraph unit confirmation value used in SDLXliff. Then, the status attribute of the current BIL ```unit``` element is changed to the string value returned by the ```UpdateStatus()``` helper function:
 
 # [C#](#tab/tabid-1)
 ```cs
@@ -71,7 +71,7 @@ using Sdl.Core.Globalization;
 using Sdl.FileTypeSupport.Framework.BilingualApi;
 using Sdl.FileTypeSupport.Framework.NativeApi;
 
-namespace Sdl.Sdk.Snippets.Bilingual
+namespace Sdk.Snippets.Bilingual
 {
     class BilWriter3 : AbstractBilingualFileTypeComponent, IBilingualWriter, INativeOutputSettingsAware
     {

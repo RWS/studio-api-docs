@@ -40,7 +40,7 @@ The complete class looks as shown below:
 
 # [C#](#tab/tabid-3)
 ```cs
-namespace Sdl.SDK.LanguagePlatform.Samples.TmAutomation
+namespace SDK.LanguagePlatform.Samples.TmAutomation
 {
     using System.Windows.Forms;
     using Sdl.LanguagePlatform.TranslationMemoryApi;

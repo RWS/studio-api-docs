@@ -115,7 +115,7 @@ using Sdl.LanguagePlatform.TranslationMemory;
 using Sdl.LanguagePlatform.TranslationMemoryApi;
 using Sdl.Sdk.LanguagePlatform.Samples.ListProvider;
 
-namespace Sdl.Sdk.LanguagePlatform.Samples.ListProvider
+namespace Sdk.LanguagePlatform.Samples.ListProvider
 {
     #region "Declaration"
     [TranslationProviderFactory(

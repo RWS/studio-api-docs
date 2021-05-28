@@ -20,8 +20,8 @@ File-based TMs can currently only have one language direction, e.g. *English* to
 
 See Also
 ------
-[Creating a File-based Translation Memory]()
+[Creating a File-based Translation Memory](creating_a_file_based_translation_memory.md)
 
-[Setting and Retrieving TM Properties]()
+[Setting and Retrieving TM Properties](setting_and_retrieving_tm_properties.md)
 
 [Creating a Server Translation Memory](creating_a_server_translation_memory.md)

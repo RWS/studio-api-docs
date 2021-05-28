@@ -8,7 +8,7 @@ An example of a settings page is shown below which sets the sub-content processo
 using Sdl.FileTypeSupport.Framework.Core.Settings;
 using Sdl.Sdk.Snippets.Native;
 
-namespace Sdl.Sdk.FileTypeSupport.Samples.SimpleText.WinUI
+namespace Sdk.FileTypeSupport.Samples.SimpleText.WinUI
 {
     /// <summary>
     /// This class controls the plug-in user interface. It controls what happens, for example,
@@ -26,7 +26,7 @@ namespace Sdl.Sdk.FileTypeSupport.Samples.SimpleText.WinUI
     {
         /// <summary>
         /// Triggered, when the user clicks the button Reset to Defaults button in 
-        /// SDL Trados Studio. Restores the default check box state, which should
+        /// Trados Studio. Restores the default check box state, which should
         /// be Checked (i.e. product code strings should be locked).
         /// </summary>
         #region "ResetToDefaults"

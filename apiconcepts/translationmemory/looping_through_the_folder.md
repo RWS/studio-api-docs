@@ -159,15 +159,7 @@ Putting it All Together
 The complete class should now look as shown below:
 # [C#](#tab/tabid-8)
 ```cs
-// ---------------------------------
-// <copyright file="TMIterator.cs" company="SDL International">
-// Copyright  2010 All Right Reserved
-// </copyright>
-// <author>Kostiantyn Lukianets</author>
-// <email>klukianets@sdl.com</email>
-// <date>2010-09-27</date>
-// ---------------------------------
-namespace Sdl.SDK.LanguagePlatform.Samples.BatchExport
+namespace SDK.LanguagePlatform.Samples.BatchExport
 {
     using System;
     using System.IO;

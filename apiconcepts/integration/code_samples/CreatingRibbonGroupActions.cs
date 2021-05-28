@@ -10,7 +10,7 @@ using System.ComponentModel;
 using Sdl.Desktop.IntegrationApi.DefaultLocations;
 using Sdl.TranslationStudioAutomation.IntegrationApi.Presentation.DefaultLocations;
 
-namespace Sdl.Actions.Sample
+namespace Actions.Sample
 {
     #region General action   
 

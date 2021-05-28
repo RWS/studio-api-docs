@@ -1,7 +1,7 @@
 The Filter Preview
 ==
 
-The preview functionality in the <Var:ProductName> allows you to display the currently opened document (which is available in the bilingual SDL XLIFF format) in native format. For example, if user has Microsoft Word document opened in <Var:ProductName>, he/she can use the preview feature to see what the target document will look like when opened in Microsoft Word proper.
+The preview functionality in the <Var:ProductName> allows you to display the currently opened document (which is available in the bilingual SDLXliff format) in native format. For example, if user has Microsoft Word document opened in <Var:ProductName>, he/she can use the preview feature to see what the target document will look like when opened in Microsoft Word proper.
 
 **<Var:ProductName> offers the following types of preview:**
 --

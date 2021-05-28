@@ -52,7 +52,7 @@ Putting it All Together
 The complete class should look as shown below:
 # [C#](#tab/tabid-2)
 ```cs
-namespace Sdl.SDK.LanguagePlatform.Samples.BatchExport
+namespace SDK.LanguagePlatform.Samples.BatchExport
 {
     using System;
     using System.Globalization;
@@ -116,4 +116,4 @@ namespace Sdl.SDK.LanguagePlatform.Samples.BatchExport
 
 See Also
 ----------
-[Exporting to a TMX File]()
+[Exporting to a TMX File](exporting_to_a_tmx_file.md)

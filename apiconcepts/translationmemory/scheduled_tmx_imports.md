@@ -1,6 +1,6 @@
 Scheduled TMX Imports
 ===
-Like file-based TMs, you can import **.tmx* documents into server-based TMs (see [Importing a TMX File]()). However, in contrast to file TMs, you need to consider the following: If a large *.tmx* file needs to be imported over a WAN connection, there is a risk that the Internet connection breaks down, thus failing the import. It is therefore preferable to upload the import file to the server, and then schedule the import to take place once the file has been fully uploaded, so that the import can take place locally on the server, and not through an Internet connection. In this chapter you will learn how to upload a **.tmx* file for a scheduled import.
+Like file-based TMs, you can import **.tmx* documents into server-based TMs (see [Importing a TMX File](importing_a_tmx_file.md)). However, in contrast to file TMs, you need to consider the following: If a large *.tmx* file needs to be imported over a WAN connection, there is a risk that the Internet connection breaks down, thus failing the import. It is therefore preferable to upload the import file to the server, and then schedule the import to take place once the file has been fully uploaded, so that the import can take place locally on the server, and not through an Internet connection. In this chapter you will learn how to upload a **.tmx* file for a scheduled import.
 
 Add a New Class
 ----
@@ -167,7 +167,7 @@ Putting it All Together
 The complete class should look as shown below:
 # [C#](#tab/tabid-10)
 ```cs
-namespace Sdl.SDK.LanguagePlatform.Samples.TmAutomation
+namespace SDK.LanguagePlatform.Samples.TmAutomation
 {
     using System;
     using System.Globalization;
@@ -301,6 +301,6 @@ See Also
 ----
 [Scheduled TMX Exports](scheduled_tmx_exports.md)
 
-[Importing a TMX File]()
+[Importing a TMX File](importing_a_tmx_file.md)
 
-[Exporting to a TMX File]()
+[Exporting to a TMX File](exporting_to_a_tmx_file.md)

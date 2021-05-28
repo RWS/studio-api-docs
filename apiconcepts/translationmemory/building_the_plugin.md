@@ -24,7 +24,7 @@ Make sure that you place the **.sdlplugin* file into the sub-folder Packages and
 
 <img style="display:block; " src="images/PlugInUnpacked.jpg"/>
 
-Upon start-up <Var:ProductName> will load the unpacked plug-in and show the following message, which you can confirm with **Yes**, so that the plug-in gets loaded. This message appears when loading plug-ins that have not been certified by SDL, which could potentially be unsafe. The message can be avoided by submitting your plug-in to SDL for certification.
+Upon start-up <Var:ProductName> will load the unpacked plug-in and show the following message, which you can confirm with **Yes**, so that the plug-in gets loaded. This message appears when loading plug-ins that have not been certified by RWS, which could potentially be unsafe. The message can be avoided by submitting your plug-in to RWS for certification.
 
 <img style="display:block; " src="images/PluginUncertified.jpg"/>
 

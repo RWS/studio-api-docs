@@ -125,7 +125,7 @@ Putting it All Together
 The complete class should now look as shown below:
 # [C#](#tab/tabid-7)
 ```cs
-namespace Sdl.SDK.LanguagePlatform.Samples.TmAutomation
+namespace SDK.LanguagePlatform.Samples.TmAutomation
 {
     using System;
     using System.IO;
@@ -243,6 +243,6 @@ See Also
 ----
 [Scheduled TMX Imports](scheduled_tmx_imports.md)
 
-[Exporting to a TMX File]
+[Exporting to a TMX File](exporting_to_a_tmx_file.md)
 
-[Importing a TMX File]
+[Importing a TMX File](importing_a_tmx_file.md)

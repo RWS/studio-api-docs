@@ -86,7 +86,7 @@ using Sdl.FileTypeSupport.Framework;
 using Sdl.FileTypeSupport.Framework.IntegrationApi;
 using Sdl.Core.Globalization;
 
-namespace Sdl.Sdk.FileTypeSupport.Samples.WordArtVerifier
+namespace Sdk.FileTypeSupport.Samples.WordArtVerifier
 {
     [FileTypeComponentBuilderExtension(
         Id = "Word2007_FilterComponentBuilderExtension_WordArtVerifier_Id",

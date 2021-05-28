@@ -17,7 +17,7 @@ using Sdl.FileTypeSupport.Framework.IntegrationApi;
 using Sdl.FileTypeSupport.Framework.Core.Utilities.Formatting;
 
 
-namespace Sdl.Sdk.FileTypeSupport.Samples.Bil
+namespace Sdk.FileTypeSupport.Samples.Bil
 {
     class BilParser : AbstractBilingualFileTypeComponent, IBilingualParser, INativeContentCycleAware, ISettingsAware
     {

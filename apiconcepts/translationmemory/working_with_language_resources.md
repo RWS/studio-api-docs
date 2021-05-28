@@ -32,6 +32,6 @@ Often, when defining custom language resources, the most common scenario is maki
 
 See Also
 --------
-[Adding Language Resources]()
+[Adding Language Resources](adding_language_resources.md)
 
 [Working with Language Resource Templates](working_with_language_resource_templates.md)

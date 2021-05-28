@@ -6,7 +6,7 @@ Overview
 -----
 A translation provider is a component which provides functionality to translate segments, i.e. sentences, from one language, the source language, into another language, the target language. A translation provider typically supports translation from many languages into many languages.
 
-Examples of translation provider implementations are SDL Translation Memory, which performs translation of segments by looking them up in a file- or server-based translation memory database ([FileBasedTranslationMemory](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.FileBasedTranslationMemory.yml) or [ServerBasedTranslationMemory](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedTranslationMemory.yml)) and the SDL Automated Translation Provider, which performs translations using SDL's automated translation engine.
+Examples of translation provider implementations are RWS Translation Memory, which performs translation of segments by looking them up in a file- or server-based translation memory database ([FileBasedTranslationMemory](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.FileBasedTranslationMemory.yml) or [ServerBasedTranslationMemory](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedTranslationMemory.yml)) and the RWS Automated Translation Provider, which performs translations using RWS's automated translation engine.
 
 <Var:ProductName> uses translation providers for a number of tasks:
 

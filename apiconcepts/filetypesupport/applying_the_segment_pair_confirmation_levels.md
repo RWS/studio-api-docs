@@ -1,18 +1,18 @@
 Applying the Segment Pair Confirmation Levels
 ===
 
-In this chapter you will learn how to process the BIL unit status information of a given BIL file and apply it to the corresponding segment pair status used by the SDL XLIFF format.
+In this chapter you will learn how to process the BIL unit status information of a given BIL file and apply it to the corresponding segment pair status used by the SDLXliff format.
 
 Process the Segment Pair Status
 --
 
-<Var:ProductName> applies various confirmation levels to segment pairs, e.g. draft, translated, approved, etc. Below you see a list of the available confirmation level values that are used in the SDL XLIFF format:
+<Var:ProductName> applies various confirmation levels to segment pairs, e.g. draft, translated, approved, etc. Below you see a list of the available confirmation level values that are used in the SDLXliff format:
 
 ![ConfirmationLevelList](images/ConfirmationLevelList.jpg)
 
-The status attribute of the unit element is the direct equivalent to the segment pair object in <Var:ProductName>. To keep things simple let us assume that units in a BIL file contain the following status values, which can be mapped to the SDL XLIFF confirmation levels as outlined below:
+The status attribute of the unit element is the direct equivalent to the segment pair object in <Var:ProductName>. To keep things simple let us assume that units in a BIL file contain the following status values, which can be mapped to the SDLXliff confirmation levels as outlined below:
 
-|BIL          | SDL XLIFF   |
+|BIL          | SDLXliff   |
 | ----------- | ----------- |
 | new         | unspecified |
 | fuzzy       | draft       |
@@ -80,7 +80,7 @@ private IParagraphUnit CreateParagraphUnit(XmlNode xmlUnit)
 ```
 ***
 
-Now add the helper function that uses a switch statement to map the BIL status values to the SDL XLIFF confirmation levels:
+Now add the helper function that uses a switch statement to map the BIL status values to the SDLXliff confirmation levels:
 
 # [C#](#tab/tabid-3)
 ```cs
@@ -108,7 +108,7 @@ private ConfirmationLevel CreateConfirmationLevel(string BilStatus)
 }
 ```
 ***
-After making the above additions to the parser class, the SDL XLIFF document should look in <Var:ProductName> as shown below. Note that the confirmation levels are visualized through different icons, which are displayed between the source and the target segments.
+After making the above additions to the parser class, the SDLXliff document should look in <Var:ProductName> as shown below. Note that the confirmation levels are visualized through different icons, which are displayed between the source and the target segments.
 
 ![ConfirmationLevels](images/ConfirmationLevels.jpg)
 

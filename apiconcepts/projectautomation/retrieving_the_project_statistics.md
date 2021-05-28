@@ -15,13 +15,13 @@ During a project lifecycle the segments contained in the project files typically
 Retrieve the Project Statistics Programmatically
 --
 
-Below you see an example of how SDL Trados Studio 2017 uses bar charts to visualize the project statistics:
+Below you see an example of how <Var:ProductName> uses bar charts to visualize the project statistics:
 
 ![Statistics](images/Statistics.jpg)
 
 Below you will find an example of how to retrieve basic statistical information on a project. Start by implementing a helper function called ```GetProjectStatistics```, which takes a [FileBasedProject](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml) object as parameter. In order to retrieve the project statistics, apply the [GetProjectStatistics](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml#Sdl_ProjectAutomation_FileBased_FileBasedProject_GetProjectStatistics) method to the project:
 
-
+# [C#](#tab/tabid-1)
 ```cs
 public void GetProjectStatistics(FileBasedProject project)
 {
@@ -54,12 +54,15 @@ public void GetProjectStatistics(FileBasedProject project)
     #endregion
 }
 ```
+***
 
 By doing so, you can retrieve the statistics for the whole project. Usually, you will be interested in the statistics for particular target languages in order to asertain the progress for a specific target language, i.e. you will want to find out the percentage of words already processed e.g. through pre-translation or interactive translation by human translators. The first step is to use the [TargetLanguageStatistics](../../api/projectautomation/Sdl.ProjectAutomation.Core.TargetLanguageStatistics.yml) class to derive a target language statistics object from the project statistics as shown below:
 
+# [C#](#tab/tabid-2)
 ```cs
 TargetLanguageStatistics[] targetStats = projStats.TargetLanguageStatistics;
 ```
+***
 
 Note that since we assume that our sample project has multiple target languages, we create an array of target language statistics objects.
 In the next step we loop through the target language statistics objects and compile a string that outputs the total number of words as well as the percentage completed for each target language. Within the loop we derive a [ConfirmationStatistics](../../api/projectautomation/Sdl.ProjectAutomation.Core.ConfirmationStatistics.yml) object for each target language. This object holds, among other things, the total number of words that are in e.g. the untranslated, draft, translated, etc. state for the respective target language. You can specify the state for which you want to retrieve the word or segment count through the [CombinedConfirmationLevel](../../api/projectautomation/Sdl.ProjectAutomation.Core.CombinedConfirmationLevel.yml) class. The example below retrieves the following information:
@@ -71,6 +74,7 @@ In the next step we loop through the target language statistics objects and comp
 
 The information on all other states (e.g. reviewed, signed-off) can be retrieved in the same way.
 
+# [C#](#tab/tabid-3)
 ```cs
 StringBuilder trgInfo = new StringBuilder();
 for (int i = 0; i < targetStats.Length; i++)
@@ -90,6 +94,7 @@ for (int i = 0; i < targetStats.Length; i++)
 
 MessageBox.Show(trgInfo.ToString());
 ```
+***
 
 The above is just an example of what kind of statistical information you can retrieve for a project and its target languages. Another example, which shows how to retrieve detailed analysis information can be found in the chapters [Generating the Task Report](generating_the_task_report.md).
 
@@ -98,6 +103,7 @@ Putting it All Together
 
 The complete function should now look as shown below:
 
+# [C#](#tab/tabid-4)
 ```cs
 public void GetProjectStatistics(FileBasedProject project)
 {
@@ -130,12 +136,10 @@ public void GetProjectStatistics(FileBasedProject project)
     #endregion
 }
 ```
+***
 
 See Also
 --
-
-
-
 [Generating the Task Report](generating_the_task_report.md)
 
 [About Project Files](about_project_files.md)

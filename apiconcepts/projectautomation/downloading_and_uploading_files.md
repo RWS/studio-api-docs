@@ -8,6 +8,7 @@ Get the latest version of a file from the project server
 
 Use the ```DownloadLatestVersion``` method in a [FileBasedProject](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml) to get the latest version of a file from the server and copy it to your local copy.
 
+# [C#](#tab/tabid-1)
 ```cs
 project.DownloadLatestServerVersion(fileId, (obj, evt) =>
     {
@@ -20,17 +21,19 @@ project.DownloadLatestServerVersion(fileId, (obj, evt) =>
     }, 
     false);
 ```
+***
 
 >[!NOTE]
 >
 >This method will only download the file to your local copy. It does not automatically check out the file for editing. You should check out the file before performing any editing task including batch processing.
 
->**Caution**
+>[!WARNING]
 >
 >This method does not automatically create the directory structure for the file. If the file location is not already created, an exception will occur
 
 The following example shows how to get all the latest files from the server only downloading files that are missing or out of date in the local workspace. There is also the option to overwrite local files that have been modified in the local workspace with the server version.
 
+# [C#](#tab/tabid-2)
 ```cs
 void DownloadAllLatest(FileBasedProject project, Guid[] fileIds, bool overrideWorkspaceVersion)
 {
@@ -61,6 +64,7 @@ void DownloadAllLatest(FileBasedProject project, Guid[] fileIds, bool overrideWo
     }
 }
 ```
+***
 
 List all versions of a file on the project server
 --
@@ -69,6 +73,7 @@ When a file is uploaded to the server a new version of the file is created. The 
 
 The following example writes all the versions of a file to the console.
 
+# [C#](#tab/tabid-3)
 ```cs
 private void ShowServerFileHistory(FileBasedProject project, Guid fileId)
 {
@@ -85,6 +90,7 @@ private void ShowServerFileHistory(FileBasedProject project, Guid fileId)
     }
 }
 ```
+***
 
 Get a previous version of a file from the project server
 --
@@ -95,6 +101,7 @@ When downloading a specific version you will be asked to provide the directory l
 
 The following example shows how an anonymous delegate can be used to handle the progress and cancelation events.
 
+# [C#](#tab/tabid-4)
 ```cs
 project.DownloadSpecificServerVersion(fileId, 1, @"c:\files", (obj, evt) =>
  {
@@ -106,6 +113,7 @@ project.DownloadSpecificServerVersion(fileId, 1, @"c:\files", (obj, evt) =>
      }
  });
 ```
+***
 
 Uploading a file to the server
 --
@@ -114,6 +122,7 @@ When you use the [CheckinFiles](../../api/projectautomation/Sdl.ProjectAutomatio
 
 The following example shows how to upload files using a lambda expression to handle the progress and cancelation events.
 
+# [C#](#tab/tabid-5)
 ```cs
 project.CheckinFiles(fileIds, "This is where you add a check in comment",
      (obj, evt) =>
@@ -126,12 +135,10 @@ project.CheckinFiles(fileIds, "This is where you add a check in comment",
          }
      });
 ```
+***
 
 See Also
 --
-
-
-
 [About Server Based Projects](about_server_based_projects.md)
 
 [Connecting a Project to a Project Server](connecting_a_project_to_a_project_server.md)

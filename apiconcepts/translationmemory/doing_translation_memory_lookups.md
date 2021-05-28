@@ -8,24 +8,28 @@ Add a New Class
 
 Add a new class called ```TmLookup``` to your project. Then implement a function called ```SearchForText```, which takes the TM file name and path, the search string and the search mode (i.e. segment lookup or concordance search) as parameters. This function can be called as shown in the example below:
 
+# [C#](#tab/tabid-1)
 ```cs
 TMLookup search = new TMLookup();
 search.SearchForText(_translationMemoryFilePath, "To run the Spelling Checker:", SearchMode.NormalSearch);
 ```
+***
 
 Execute the Search and Configure the Search Settings
 --
 
 After opening the TM the search is executed by applying the [SearchText](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.AbstractMachineTranslationProviderLanguageDirection.yml#Sdl_LanguagePlatform_TranslationMemoryApi_AbstractMachineTranslationProviderLanguageDirection_SearchText_Sdl_LanguagePlatform_TranslationMemory_SearchSettings_System_String_) method to the language direction of the selected TM, thereby creating a results object, which holds the search results (if any).
 
+# [C#](#tab/tabid-2)
 ```cs
 FileBasedTranslationMemory tm = new FileBasedTranslationMemory(tmPath);
 SearchResults results = tm.LanguageDirection.SearchText(this.GetSearchSettings(mode), searchText);
 ```
+***
 
 The [SearchText](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.AbstractMachineTranslationProviderLanguageDirection.yml#Sdl_LanguagePlatform_TranslationMemoryApi_AbstractMachineTranslationProviderLanguageDirection_SearchText_Sdl_LanguagePlatform_TranslationMemory_SearchSettings_System_String_) method requires the search string as well as the search settings as parameters. The search parameters are configured in a separate helper function:
 
-
+# [C#](#tab/tabid-3)
 ```cs
 private SearchSettings GetSearchSettings(SearchMode mode)
 {
@@ -39,6 +43,7 @@ private SearchSettings GetSearchSettings(SearchMode mode)
     return settings;
 }
 ```
+***
 
 Here, you can set, for example, the minimum fuzziness score (**MinScore**) that a TU should have to be offered as a result. <Var:ProductName> uses a default minimum fuzziness value of 70%. You may choose a higher value to restrict the search so that it yields only results that are potentially of better quality. You can also restrict the maximum number of results that should be returned (**MaxResults**).
 
@@ -57,30 +62,37 @@ The screenshot below shows an example of a filter that applies a penalty of 1% t
 
 In order to apply a filter to your search, expand the helper function ```GetSearchSettings``` by adding the two following lines:
 
+# [C#](#tab/tabid-4)
 ```cs
 Filter filter = new Filter(this.GetFilter(), "Microsoft", 1);
 settings.AddFilter(filter);
 ```
+***
 
 First, a new filter object is created. This is done by calling a separate helper function called ```GetFilter```, which we will implement in the next step, and which defines the actual filter expression (i.e. the filter criterion). You then provide the filter name as string (which can be any descriptive name) and the penalty value to apply. Then the filter is added to the settings object using the **AddFilter** method.
 
 Now you add the helper function that returns the **FilterExpression** object. As mentioned above, you would like to focus on TUs where the *Customer* field is equal to the value *Microsoft*. Note that in this example, *Customer* is a picklist field that allows multiple values. The following sample code shows you how to set the field name and value and how to build a filter criterion:
 
+# [C#](#tab/tabid-5)
 ```cs
 PicklistItem fieldName = new PicklistItem("Customer");
 MultiplePicklistFieldValue fieldValue = new MultiplePicklistFieldValue("Microsoft");
 fieldValue.Add(fieldName);
 ```
+***
 
 In the next step you use the **AtomicExpression** class to create the filter expression to return to the function that we use to configure the search settings. The parameters required are the field value and the operator. In our case, the filter calls for an **Equal** value. (Other possible values could be **Contains**, **Greater**, **Smaller**, etc.)
 
+# [C#](#tab/tabid-6)
 ```cs
 AtomicExpression filter = new AtomicExpression(fieldValue, AtomicExpression.Operator.Equal);
 return filter;
 ```
+***
 
 The full function for returning the filter expression thus looks as shown below:
 
+# [C#](#tab/tabid-7)
 ```cs
 private FilterExpression GetFilter()
 {
@@ -96,6 +108,7 @@ private FilterExpression GetFilter()
     #endregion
 }
 ```
+***
 
 >[!NOTE]
 >
@@ -114,6 +127,7 @@ After executing the search, you will want to output the result (if any). In our 
 
 The following code loops through the search results and compiles a string with the above mentioned information.
 
+# [C#](#tab/tabid-8)
 ```cs
 string hitList = "Number of hits found: " + results.Count.ToString() + "\n\n";
 
@@ -128,6 +142,7 @@ foreach (SearchResult result in results)
 
 MessageBox.Show(hitList);
 ```
+***
 
 Below is an example of a result displayed in the message box:
 
@@ -138,7 +153,7 @@ Search for Segment or TU
 
 In the example above we provided a 'normal' string as search parameter when applying the [SearchText](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.AbstractMachineTranslationProviderLanguageDirection.yml#Sdl_LanguagePlatform_TranslationMemoryApi_AbstractMachineTranslationProviderLanguageDirection_SearchText_Sdl_LanguagePlatform_TranslationMemory_SearchSettings_System_String_) method. Alternatively, you can also search for a segment or TU object by using [SearchSegment](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderLanguageDirection.yml#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderLanguageDirection_SearchSegment_Sdl_LanguagePlatform_TranslationMemory_SearchSettings_Sdl_LanguagePlatform_Core_Segment_) or [SearchTranslationUnit](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderLanguageDirection.yml#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderLanguageDirection_SearchTranslationUnit_Sdl_LanguagePlatform_TranslationMemory_SearchSettings_Sdl_LanguagePlatform_TranslationMemory_TranslationUnit_). The following sample function outlines how to create and use a **Segment** object to carry out a TM search:
 
-
+# [C#](#tab/tabid-9)
 ```cs
 public void SearchForSegment(string tmPath)
 {
@@ -156,8 +171,11 @@ public void SearchForSegment(string tmPath)
     }
 }
 ```
+***
+
 And the sample function below demonstrates how to create and use a **TranslationUnit** object for a TM search:
 
+# [C#](#tab/tabid-10)
 ```cs
 public void SearchForTu(string tmPath)
 {
@@ -180,14 +198,16 @@ public void SearchForTu(string tmPath)
     }
 }
 ```
+***
 
 Putting it All Together
 --
 
 The complete class should now look as shown below:
 
+# [C#](#tab/tabid-11)
 ```cs
-namespace Sdl.SDK.LanguagePlatform.Samples.TmAutomation
+namespace SDK.LanguagePlatform.Samples.TmAutomation
 {
     using System.Windows.Forms;
     using Sdl.LanguagePlatform.Core;
@@ -312,12 +332,10 @@ namespace Sdl.SDK.LanguagePlatform.Samples.TmAutomation
     }
 }
 ```
+***
 
 See Also
 --
-
-
-
 [Performing Translation Memory Lookups](performing_translation_memory_lookups.md)
 
 [Introduction the TM Lookup Tool](introduction_to_the_tm_lookup_tool.md)

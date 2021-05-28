@@ -23,7 +23,7 @@ using Sdl.Core.Settings;
 using Sdl.FileTypeSupport.Framework.NativeApi;
 using Sdl.Core.Globalization;
 
-namespace Sdl.Sdk.Snippets.Bilingual
+namespace Sdk.Snippets.Bilingual
 {
     class BilSniffer : INativeFileSniffer
     {
@@ -187,7 +187,7 @@ using Sdl.FileTypeSupport.Framework.NativeApi;
 using Sdl.Core.Globalization;
 using Sdl.Core.Settings;
 
-namespace Sdl.Sdk.FileTypeSupport.Samples.Bil
+namespace Sdk.FileTypeSupport.Samples.Bil
 {
     class BilSniffer : INativeFileSniffer
     {

@@ -6,7 +6,7 @@ This guide will walk you through the creation of a C# project in <Var:VisualStud
 The Sample Scenario
 --
 
-Native verifiers do not work on the intermediary (SDL XLIFF) files, but on the native document output. For this sample project let us imagine the following scenario:
+Native verifiers do not work on the intermediary (SDLXliff) files, but on the native document output. For this sample project let us imagine the following scenario:
 
 You need to localize XML files that looks as shown below:
 

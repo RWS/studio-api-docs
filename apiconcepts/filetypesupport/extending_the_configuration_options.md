@@ -100,7 +100,7 @@ Your extended ```UserSettings``` class should now look as shown below:
 using Sdl.FileTypeSupport.Framework.Core.Settings;
 using Sdl.Core.Settings;
 
-namespace Sdl.Sdk.FileTypeSupport.Samples.SimpleText
+namespace Sdk.FileTypeSupport.Samples.SimpleText
 {
     /// <summary>
     /// This class is used to actually store the settings to the settings bundle, which
@@ -207,7 +207,7 @@ using System.Text;
 using System.Windows.Forms;
 using Sdl.FileTypeSupport.Framework.Core.Settings;
 
-namespace Sdl.Sdk.FileTypeSupport.Samples.SimpleText.WinUI
+namespace Sdk.FileTypeSupport.Samples.SimpleText.WinUI
 {
     /// <summary>
     /// Implements the user interface for the file type definition.

@@ -6,7 +6,7 @@ QuickInsert allows you to further enhance your file type plug-in by adding funct
 About QuickInsert
 --
 
-QuickInsert (formerly QuickTag) allows the insertion of bilingual content into the localizable document using the buttons on the **QuickInsert** toolbar of <Var:ProductName>. The bilingual content consists of bilingual SDL File Type Support Framework items such as [ITagPair](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.ITagPair.yml), [IPlaceholderTag](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IPlaceholderTag.yml), [IText](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IText.yml), [Location](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.Location.yml), [ICommentMarker](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.ICommentMarker.yml), or [ILockedContent](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.ILockedContent.yml).
+QuickInsert (formerly QuickTag) allows the insertion of bilingual content into the localizable document using the buttons on the **QuickInsert** toolbar of <Var:ProductName>. The bilingual content consists of bilingual File Type Support Framework items such as [ITagPair](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.ITagPair.yml), [IPlaceholderTag](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IPlaceholderTag.yml), [IText](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IText.yml), [Location](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.Location.yml), [ICommentMarker](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.ICommentMarker.yml), or [ILockedContent](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.ILockedContent.yml).
 
 QuickInsert allows users to insert various items into their target segments:
 
@@ -85,7 +85,7 @@ using System.Collections.Generic;
 using Sdl.FileTypeSupport.Framework.IntegrationApi;
 using Sdl.FileTypeSupport.Framework.Core.Utilities.IntegrationApi;
 
-namespace Sdl.Sdk.FileTypeSupport.Samples.SimpleText
+namespace Sdk.FileTypeSupport.Samples.SimpleText
 {
     class QuickInsertBuilder : AbstractQuickTagBuilder
     {

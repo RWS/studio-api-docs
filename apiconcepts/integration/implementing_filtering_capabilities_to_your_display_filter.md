@@ -22,7 +22,7 @@ using System.Threading.Tasks;
 using Sdl.FileTypeSupport.Framework.BilingualApi;
 using Sdl.FileTypeSupport.Framework.NativeApi;
 
-namespace Sdl.TranslationStudio.Plugins.AdvancedDisplayFilter.Content
+namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Content
 {
     public class ContentProcessor : IMarkupDataVisitor
     {
@@ -158,7 +158,7 @@ using Sdl.TranslationStudio.Plugins.AdvancedDisplayFilter.Models;
 using Sdl.TranslationStudioAutomation.IntegrationApi;
 using Sdl.TranslationStudioAutomation.IntegrationApi.DisplayFilters;
 
-namespace Sdl.TranslationStudio.Plugins.AdvancedDisplayFilter.DisplayFilters
+namespace TranslationStudio.Plugins.AdvancedDisplayFilter.DisplayFilters
 {
     public class DisplayFilter : IDisplayFilter
     {

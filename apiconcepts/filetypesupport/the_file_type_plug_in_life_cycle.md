@@ -1,7 +1,7 @@
 The File Type Plug-in Lifecycle
 ==
 
-This section describes the lifecycle and in particular the initialization process for components in the SDL File Type Support Framework.
+This section describes the lifecycle and in particular the initialization process for components in the  File Type Support Framework.
 
 During its lifecycle a filter component may go through the following steps:
 
@@ -13,11 +13,11 @@ This allows the component to retrieve information on other components with which
 
 3. If the component implements the `INativeFilterComponent` interface the `PropertiesFactory` and `MessageReporter` properties will be set. Components should only create property objects through the property factory. This ensures that all filter components that are used together use the same type of property objects.
 
-    Normally the SDL File Type Support Framework provides a default factory. However, it is possible for the parser to set the factory that should be used by all the components. If a native parser exposes an existing properties factory through the `INativeFilterComponent` interface at initialization time, that factory will be used.
+    Normally the  File Type Support Framework provides a default factory. However, it is possible for the parser to set the factory that should be used by all the components. If a native parser exposes an existing properties factory through the `INativeFilterComponent` interface at initialization time, that factory will be used.
 
 4. If the component implements the `IBilingualFilterComponent` interface, the `ItemsFactory` property will be set. Components should only create bilingual content model items through this factory.
 
-    Normally the SDL File Type Support Framework provides a default factory. However, it is possible for the parser to set the factory that should be used by all the components. If a bilingual parser implements the `IBilingualFilterComponent` and returns a non-null value from the `ItemsFactory` property, it is that factory that will be used.
+    Normally the  File Type Support Framework provides a default factory. However, it is possible for the parser to set the factory that should be used by all the components. If a bilingual parser implements the `IBilingualFilterComponent` and returns a non-null value from the `ItemsFactory` property, it is that factory that will be used.
 
 5. If the component implements the `INativeContentCycleAware` interface, the `SetFileProperties()` method will be called. The file conversion properties (a member of the file properties), among other things, contain the name of the native file that is being processed (in the OriginalFilePath property). Native file parsers must implement this interface and obtain the name of the file to parse from this property.
 

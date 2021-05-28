@@ -1,7 +1,7 @@
 Extracting Comments
 ===
 
-In this chapter you will learn how to extract comments from a given BIL file and add them to the intermediary (SDL XLIFF) document.
+In this chapter you will learn how to extract comments from a given BIL file and add them to the intermediary (SDLXliff) document.
 
 About Comments
 --
@@ -86,7 +86,7 @@ private IParagraphUnit CreateParagraphUnit(XmlNode xmlUnit)
 Add a Helper Function for Generating the Comments
 --
 
-Below you see the helper function that actually generates the comments in the intermediary (SDL XLIFF) file. When generating a comment through the properties factory you need to provide the following parameters: the comment text, the user who added the comment (in this case we just use a hard-coded string to keep this example simple), and the [Severity](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IComment.yml#Sdl_FileTypeSupport_Framework_NativeApi_IComment_Severity) level, which we set to ```Medium```.
+Below you see the helper function that actually generates the comments in the intermediary (SDLXliff) file. When generating a comment through the properties factory you need to provide the following parameters: the comment text, the user who added the comment (in this case we just use a hard-coded string to keep this example simple), and the [Severity](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IComment.yml#Sdl_FileTypeSupport_Framework_NativeApi_IComment_Severity) level, which we set to ```Medium```.
 
 # [C#](#tab/tabid-4)
 ```cs

@@ -15,6 +15,7 @@ Implement the User Control Code
 
 Switch to the code view of the user control, and add the following property to the class. This property is used for data binding of the value that is entered into text field (or the value that is retrieved from it):
 
+# [C#](#tab/tabid-1)
 ```cs
 // Data binding for the text field control
 public string ContextToCheck
@@ -29,15 +30,17 @@ public string ContextToCheck
     }
 }
 ```
+***
 
 Putting it All Together
 -----
 The complete `IdenticalVerifierUI` class should now look as shown below:
 
+# [C#](#tab/tabid-2)
 ```cs
 using System.Windows.Forms;
 
-namespace Sdl.Verification.Sdk.IdenticalCheck
+namespace Verification.Sdk.IdenticalCheck
 {
     public partial class IdenticalVerifierUI : UserControl
     {
@@ -63,3 +66,4 @@ namespace Sdl.Verification.Sdk.IdenticalCheck
     }
 }
 ```
+***

@@ -85,7 +85,7 @@ Next, add the function that outputs the inline < b> tags. Note that these inline
 
 >[!NOTE]
 >
->Start tags and end tags must be well-formed in the XML sense, i.e. all start tags must match an end tag with the same nesting of paired tags. If not, the SDL File Type Support Framework will throw a fatal exception. When paired tags are processed by the SDL File Type Support Framework and the framework-based editor, this well-formedness is guaranteed to be preserved. This can simplify other tag processing modules such as the native file writer (see [Implementing the File Writer](implementing_the_file_writer.md)).
+>Start tags and end tags must be well-formed in the XML sense, i.e. all start tags must match an end tag with the same nesting of paired tags. If not, the  File Type Support Framework will throw a fatal exception. When paired tags are processed by the  File Type Support Framework and the framework-based editor, this well-formedness is guaranteed to be preserved. This can simplify other tag processing modules such as the native file writer (see [Implementing the File Writer](implementing_the_file_writer.md)).
 
 **Outputting the start tag of a tag pair**: The properties factory provides a [CreateStartTagProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPropertiesFactory.yml#Sdl_FileTypeSupport_Framework_NativeApi_IPropertiesFactory_CreateStartTagProperties_System_String_) method that creates properties for a start tag that may appear inside localizable content and that has a corresponding end tag. When creating the tag property the tag content is passed to the Create() method as a parameter. The start tag property can then be output to the API using ```Output.InlineStartTag()```.
 
@@ -155,7 +155,7 @@ using Sdl.FileTypeSupport.Framework.Core.Utilities.Formatting;
 using Sdl.FileTypeSupport.Framework.NativeApi;
 using Sdl.FileTypeSupport.Framework.Formatting;
 
-namespace Sdl.Sdk.Snippets.Native
+namespace Sdk.Snippets.Native
 {
     public class SimpleTextParser : AbstractNativeFileParser, INativeContentCycleAware
     {

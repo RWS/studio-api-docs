@@ -10,9 +10,11 @@ Synchronization ensures that all the changes made by other users since the last 
 
 To synchronize a project use the [SynchronizeServerProjectData](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml#Sdl_ProjectAutomation_FileBased_FileBasedProject_SynchronizeServerProjectData) method on the [FileBasedProject](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml) object.
 
+# [C#](#tab/tabid-1)
 ```cs
 project.SynchronizeServerProjectData();
 ```
+****
 
 >[!NOTE]
 >
@@ -20,8 +22,6 @@ project.SynchronizeServerProjectData();
 
 See Also
 --
-
-
 [About Server Based Projects](about_server_based_projects.md)
 
 [Connecting a Project to a Project Server](connecting_a_project_to_a_project_server.md)

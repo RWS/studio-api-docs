@@ -83,7 +83,7 @@ using Sdl.FileTypeSupport.Framework.NativeApi;
 using Sdl.FileTypeSupport.Framework.Formatting;
 using Sdl.FileTypeSupport.Framework.Core.Utilities.Formatting;
 
-namespace Sdl.Sdk.Snippets.Native
+namespace Sdk.Snippets.Native
 {
     public class SimpleTextParser3 : AbstractNativeFileParser, INativeContentCycleAware
     {

@@ -22,15 +22,15 @@ To save a report to a file, you apply the [SaveTaskReportAs](../../api/projectau
 
 The example below demonstrates how you can generate a report in Microsoft Excel (e.g. for printing) with just two lines of code. First, we retrieve the id of the first report that is available for an analyze file task, then we apply the [SaveTaskReportAs](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml#Sdl_ProjectAutomation_FileBased_FileBasedProject_SaveTaskReportAs_System_Guid_System_String_Sdl_ProjectAutomation_Core_ReportFormat_) method to generate the Excel file
 
+# [C#](#tab/tabid-1)
 ```CS
 Guid reportId = analyzeTask.Reports[0].Id;
 project.SaveTaskReportAs(reportId, @"C:\ProjectFiles\Analysis_report.xls", ReportFormat.Excel);
 ```
+***
 
 See Also
 --
-
-
 [Running Tasks on the Project Files](running_tasks_on_project_files.md)
 
 [Generating the Task Report](generating_the_task_report.md)

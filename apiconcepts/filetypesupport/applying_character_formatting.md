@@ -6,7 +6,7 @@ In this chapter you will learn how to enrich the editor display in <Var:Produdct
 Apply Character Formatting
 --
 
-From the inline tags that our sample format is using it is easy to decide which type of character formatting to apply. Display formatting in an intermediary (SDL XLIFF) document is strictly speaking not necessary and has no impact on the actual BIL target file. It can be optionally applied for convenience reasons, at it usually helps translators to see the actual character formatting. It is also possible to hide inline tags, and just show the display formatting that they define. That way translators can apply the formatting to the corresponding strings in the target segments instead of transferring tags.
+From the inline tags that our sample format is using it is easy to decide which type of character formatting to apply. Display formatting in an intermediary (SDLXliff) document is strictly speaking not necessary and has no impact on the actual BIL target file. It can be optionally applied for convenience reasons, at it usually helps translators to see the actual character formatting. It is also possible to hide inline tags, and just show the display formatting that they define. That way translators can apply the formatting to the corresponding strings in the target segments instead of transferring tags.
 
 First, you need to add the following namespace to your parser class: using ```Sdl.FileTypeSupport.Framework.Formatting```.
 
@@ -80,11 +80,11 @@ private ITagPair CreateTagPair(XmlNode item)
 ```
 ***
 
-When you build your project at this point, the intermediary (SDL XLIFF) document should look as shown below:
+When you build your project at this point, the intermediary (SDLXliff) document should look as shown below:
 
 ![BilTagOff](images/BilTagOff.jpg)
 
-The following shows what the intermediary (SDL XLIFF) file looks like when the user decides to display inline tags at runtime:
+The following shows what the intermediary (SDLXliff) file looks like when the user decides to display inline tags at runtime:
 
 
 ![BilTagOn](images/BilTagOn.jpg)

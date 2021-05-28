@@ -142,7 +142,7 @@ Output.InlinePlaceholderTag(placeProperties);
 ```
 ***
 
-The SDL File Type Support Framework API will then handle the extraction of these localizable sub-segments into separate translation units that are displayed to the translator. Therefore, the output in the editor of <Var:ProductName> will look as shown below:
+The  File Type Support Framework API will then handle the extraction of these localizable sub-segments into separate translation units that are displayed to the translator. Therefore, the output in the editor of <Var:ProductName> will look as shown below:
 
 ![SubSegment](images/SubSegment.jpg)
 

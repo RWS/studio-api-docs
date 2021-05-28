@@ -80,7 +80,7 @@ if (paragraphUnit.Properties.Comments != null)
 ```
 ***
 
-Next, we collect the comments that the translator added in the intermediary (SDL XLIFF) file to the target segments. Note that we invoke the corresponding function from our ```BilTextExtractor``` class, which 'visits' the markup elements found within a segment.
+Next, we collect the comments that the translator added in the intermediary (SDLXliff) file to the target segments. Note that we invoke the corresponding function from our ```BilTextExtractor``` class, which 'visits' the markup elements found within a segment.
 
 # [C#](#tab/tabid-5)
 ```cs
@@ -175,7 +175,7 @@ using Sdl.FileTypeSupport.Framework.BilingualApi;
 using Sdl.FileTypeSupport.Framework.NativeApi;
 using Sdl.Core.Globalization;
 
-namespace Sdl.Sdk.FileTypeSupport.Samples.Bil
+namespace Sdk.FileTypeSupport.Samples.Bil
 {
     class BilWriter : AbstractBilingualFileTypeComponent, IBilingualWriter, INativeOutputSettingsAware
     {
@@ -371,7 +371,7 @@ using System.Linq;
 using System.Text;
 using Sdl.FileTypeSupport.Framework.BilingualApi;
 
-namespace Sdl.Sdk.FileTypeSupport.Samples.Bil
+namespace Sdk.FileTypeSupport.Samples.Bil
 {
     class BilTextExtractor : IMarkupDataVisitor
     {

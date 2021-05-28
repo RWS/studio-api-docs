@@ -34,7 +34,7 @@ class SettingsPage : AbstractFileTypeSettingsPage<SettingsUI, UserSettings>
 Declaring the Page as a Plug-In.
 --
 
-The **SDL Plugin Framework** requires all plug-in pages to be marked with a C# attribute. The plugin framework will then generate a plug-in definition for the assembly based on these attributes which can then be used by other applications.
+The **Plugin Framework** requires all plug-in pages to be marked with a C# attribute. The plugin framework will then generate a plug-in definition for the assembly based on these attributes which can then be used by other applications.
 
 As we are creating a Filter Settings Page we will use the ```FileTypeSettingsPage``` attribute. This attribute requires a unique ID, which will be used to identify this plug-in page at runtime, a name, and a description. If the page needs be localised into other languages, the name and description should be key mappings to the related **PluginResources.resx** file in your assembly.
 
@@ -98,7 +98,7 @@ All put together, your user interface controller class should now look as shown 
 ```cs
 using Sdl.FileTypeSupport.Framework.Core.Settings;
 
-namespace Sdl.Sdk.FileTypeSupport.Samples.SimpleText.WinUI
+namespace Sdk.FileTypeSupport.Samples.SimpleText.WinUI
 {
     /// <summary>
     /// This class controls the plug-in user interface. It controls what happens, for example,
@@ -116,7 +116,7 @@ namespace Sdl.Sdk.FileTypeSupport.Samples.SimpleText.WinUI
     {
         /// <summary>
         /// Triggered, when the user clicks the button Reset to Defaults button in 
-        /// SDL Trados Studio. Restores the default check box state, which should
+        /// Trados Studio. Restores the default check box state, which should
         /// be Checked (i.e. product code strings should be locked).
         /// </summary>
         #region "ResetToDefaults"

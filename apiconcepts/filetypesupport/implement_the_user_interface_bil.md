@@ -112,7 +112,7 @@ using System.Windows.Forms;
 using Sdl.FileTypeSupport.Framework.Core.Settings;
 
 
-namespace Sdl.Sdk.FileTypeSupport.Samples.WordArtVerifier
+namespace Sdk.FileTypeSupport.Samples.WordArtVerifier
 {
     /// <summary>
     /// Implements theuUser interface through which the settings of the verification plug-in 

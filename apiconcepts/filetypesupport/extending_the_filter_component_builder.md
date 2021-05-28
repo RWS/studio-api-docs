@@ -45,7 +45,7 @@ The next code shows part of the example (SimpleTextExtension) included with the 
 
 # [C#](#tab/tabid-2)
 ```cs
-namespace Sdl.Sdk.FileTypeSupport.Samples.SimpleTextExtension
+namespace Sdk.FileTypeSupport.Samples.SimpleTextExtension
 {
     using Sdl.Sdk.FileTypeSupport.Samples.SimpleText;
     using Sdl.FileTypeSupport.Framework.IntegrationApi;

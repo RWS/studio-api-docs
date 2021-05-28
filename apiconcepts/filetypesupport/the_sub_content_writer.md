@@ -9,7 +9,7 @@ using System.IO;
 using Sdl.FileTypeSupport.Framework.BilingualApi;
 using Sdl.FileTypeSupport.Framework.NativeApi;
 
-namespace Sdl.Sdk.Snippets.Native
+namespace Sdk.Snippets.Native
 {
     class SimpleSubContentTextWriter : AbstractNativeFileWriter, INativeContentCycleAware, ISubContentWriter
     {

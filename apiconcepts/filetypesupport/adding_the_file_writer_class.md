@@ -1,7 +1,7 @@
 Adding the File Writer Class
 ===
 
-In this chapter you will learn how to implement the file writer component, which generates the target BIL file from an intermediary (SDL XLIFF) document.
+In this chapter you will learn how to implement the file writer component, which generates the target BIL file from an intermediary (SDLXliff) document.
 
 Add the Writer Class
 --
@@ -88,7 +88,7 @@ public void Initialize(IDocumentProperties documentInfo)
 Create the Paragraph Units in the Output File
 --
 
-Add another (required) member of the [IBilingualWriter](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualWriter.yml) interface. This method is used to loop through the paragraph units of the intermediary (SDL XLIFF) file and output the unit elements to our target BIL file. We will leave this method empty for the moment and fill it with the required application logic later.
+Add another (required) member of the [IBilingualWriter](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualWriter.yml) interface. This method is used to loop through the paragraph units of the intermediary (SDLXliff) file and output the unit elements to our target BIL file. We will leave this method empty for the moment and fill it with the required application logic later.
 
 # [C#](#tab/tabid-5)
 ```cs
@@ -133,7 +133,7 @@ using System.Xml;
 using Sdl.FileTypeSupport.Framework.BilingualApi;
 using Sdl.FileTypeSupport.Framework.NativeApi;
 
-namespace Sdl.Sdk.Snippets.Bilingual
+namespace Sdk.Snippets.Bilingual
 {
     class BilWriter : AbstractBilingualFileTypeComponent, IBilingualWriter, INativeOutputSettingsAware
     {

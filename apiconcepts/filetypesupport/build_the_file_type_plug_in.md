@@ -28,7 +28,7 @@ Make sure that you place the **.sdlplugin* file into the sub-folder Packages and
 
 The above folder does not have to be the build output path, but it is convenient to build the project in this folder, as this will also create the **.sdlplugin* file where it needs to be. After creating the plug-in based on the (empty) template, you could already build the project. However, it will, of course, not offer any functionality.
 
-Upon start-up <Var:ProductName> will load the unpacked plug-in and show the following message, which you can confirm with **Yes**, so that the plug-in gets loaded. This message appears when loading plug-ins that have not been certified by SDL, which could potentially be unsafe. The message can be avoided by submitting your plug-in to SDL for certification.
+Upon start-up <Var:ProductName> will load the unpacked plug-in and show the following message, which you can confirm with **Yes**, so that the plug-in gets loaded. This message appears when loading plug-ins that have not been certified by RWS, which could potentially be unsafe. The message can be avoided by submitting your plug-in to RWS for certification.
 
 ![NativeFilterWarning](images/NativeFilterWarning.jpg)
 
@@ -56,7 +56,7 @@ Below you see what the manifest of our sample plug-in looks like:
   <Version>1.0</Version>
   <Description>Sdl.Sdk.FileTypeSupport.Samples.SimpleText</Description>
   <Author></Author>
-  <RequiredProduct name="SDLTradosStudio" minversion="9.1" />
+  <RequiredProduct name="SDLTradosStudio" minversion="16.0" />
 </PluginPackage>
 ```
 ***
@@ -66,7 +66,7 @@ The manifest contains the following information:
 * **Version**: the version of the plug-in package. This information is used to detect any package updates upon start-up of <Var:ProductName>, and is therefore important.
 * **Description**: descriptive information of the plug-in package.
 * **Author**: the name of the plug-in developer.
-* **RequiredProduct**: this string indicates which SDL product version is required to run the given plug-in. The information that you indicate here must include the minimum version, and can optionally include a maximum version.
+* **RequiredProduct**: this string indicates which RWS product version is required to run the given plug-in. The information that you indicate here must include the minimum version, and can optionally include a maximum version.
 
 Build and Debug Suggestions
 --
@@ -74,11 +74,11 @@ Build and Debug Suggestions
 Here are a couple of simple suggestions to help buld and debug your plug-in.
 
 * Change your solution and project so that it runs <Var:ProductName> by default.
-* Change your project so that it the output is directed to the <Var:ProductName> plug-in package directory - this will automatically deploy your plug-in. In Windows 7, the <Var:ProductName>plug-in package directory is stored in C:\Users\<UserName>\AppData\Roaming\SDL\SDL Trados Studio\10\Plugins\Packages.
+* Change your project so that it the output is directed to the <Var:ProductName> plug-in package directory - this will automatically deploy your plug-in. In Windows 7, the <Var:ProductName>plug-in package directory is stored in <Var:PluginPackedPath>.
 * Change your project so that it deletes the previous unpacked version of your plug-in - this will ensure that Studio uses the latest version of your plug-in. This can be done using a post-build event.
 
 ```txt
-rmdir /S /Q "C:\Users\<UserName>\AppData\Roaming\SDL\SDL Trados Studio\10\Plugins\Unpacked\Sdl.Sdk.FileTypeSupport.Samples.Bil"
+rmdir /S /Q "<Var:PluginUnpackedPath> \Sdl.Sdk.FileTypeSupport.Samples.Bil"
 ```
 
 See Also

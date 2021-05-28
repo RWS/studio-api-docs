@@ -171,7 +171,7 @@ using System.IO;
 using Sdl.FileTypeSupport.Framework.BilingualApi;
 using Sdl.FileTypeSupport.Framework.NativeApi;
 
-namespace Sdl.Sdk.FileTypeSupport.Samples.SimpleText.Preview
+namespace Sdk.FileTypeSupport.Samples.SimpleText.Preview
 {
     class InternalPreviewWriter : AbstractNativeFileWriter, INativeContentCycleAware
     {

@@ -10,32 +10,38 @@ The first step is decide whether you want to configure a field as a free text fi
 
 Start by adding a public function called ```AddFields```, which takes the file path and name as string parameter. This function can be called as shown below:
 
+# [C#](#tab/tabid-1)
 ```cs
 TMFieldGenerator objFieldGenerator = new TMFieldGenerator();
 objFieldGenerator.AddFields(_translationMemoryFilePath);
 ```
+***
 
 In the ```AddFields``` function start by opening the TM to which the fields should be added. Our first field should be called *Customer*, and should be of the type list. Create a list field object through the [FieldDefinition](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemory.FieldDefinitions.yml) class.
 
-Apply the **ValueType** property to define the field as a picklist that can hold multiple values. Finally, add two values, e.g. *Microsoft* and *SDL*:
+Apply the **ValueType** property to define the field as a picklist that can hold multiple values. Finally, add two values, e.g. *Microsoft* and *RWS*:
 
+# [C#](#tab/tabid-2)
 ```cs
 FileBasedTranslationMemory tm = new FileBasedTranslationMemory(tmPath);
 
 FieldDefinition listField = new FieldDefinition();
 listField.Name = "Customer";
 listField.ValueType = FieldValueType.MultiplePicklist;
-listField.PicklistItems.Add("SDL");
+listField.PicklistItems.Add("RWS");
 listField.PicklistItems.Add("Microsoft");
 ```
+***
 
 The second example should be a free text field, which we call *Project id*. Therefore, create a free text field object:
 
+# [C#](#tab/tabid-3)
 ```cs
 FieldDefinition textField = new FieldDefinition();
 textField.Name = "Project id";
 textField.ValueType = FieldValueType.MultipleString;
 ```
+***
 
 Note that picklist and text fields can allow for only a single value or for multiple values, e.g. if a translation unit can be associated with several customers or project ids. In the above example we define the fields as multiple.
 
@@ -44,8 +50,9 @@ Putting it All Together
 
 The complete class should now look as shown below:
 
+# [C#](#tab/tabid-4)
 ```cs
-namespace Sdl.SDK.LanguagePlatform.Samples.TmAutomation
+namespace SDK.LanguagePlatform.Samples.TmAutomation
 {
     using Sdl.LanguagePlatform.TranslationMemory;
     using Sdl.LanguagePlatform.TranslationMemoryApi;
@@ -61,7 +68,7 @@ namespace Sdl.SDK.LanguagePlatform.Samples.TmAutomation
             FieldDefinition listField = new FieldDefinition();
             listField.Name = "Customer";
             listField.ValueType = FieldValueType.MultiplePicklist;
-            listField.PicklistItems.Add("SDL");
+            listField.PicklistItems.Add("RWS");
             listField.PicklistItems.Add("Microsoft");
             #endregion
 
@@ -82,12 +89,10 @@ namespace Sdl.SDK.LanguagePlatform.Samples.TmAutomation
     }
 }
 ```
+***
 
 See Also
 --
-
-
-
 [Configuring Translation Memories](configuring_translation_memories.md)
 
 [Creating a File-based Translation Memory](creating_a_file_based_translation_memory.md)

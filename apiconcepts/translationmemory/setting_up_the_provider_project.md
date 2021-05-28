@@ -4,7 +4,7 @@ To implement a custom translation provider plug-in, create a new class library p
 
 Install the SDK on your Development Machine
 ----
-Before you start developing plug-ins for <Var:ProductName>, you should make sure that the SDL SDK is installed on your development PC. The SDK installer will add new templates to your <var:VisualStudioEdition> environment, as illustrated in the screenshot below. For the type of plug-in discussed in this chapter, we require the **Translation Provider Plug-in** type.
+Before you start developing plug-ins for <Var:ProductName>, you should make sure that the  SDK is installed on your development PC. The SDK installer will add new templates to your <var:VisualStudioEdition> environment, as illustrated in the screenshot below. For the type of plug-in discussed in this chapter, we require the **Translation Provider Plug-in** type.
 
 Please also refer to [Setting up a Development Machine](../../articles/gettingstarted/setting_up_a_developer_machine.md).
 

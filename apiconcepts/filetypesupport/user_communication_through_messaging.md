@@ -49,7 +49,7 @@ using Sdl.FileTypeSupport.Framework.NativeApi;
 using Sdl.Core.Globalization;
 using Sdl.Core.Settings;
 
-namespace Sdl.Sdk.FileTypeSupport.Samples.SimpleText
+namespace Sdk.FileTypeSupport.Samples.SimpleText
 {
     // the file sniffer component determines whether a given file
     // can be processed by the filter or not

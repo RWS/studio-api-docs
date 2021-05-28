@@ -6,7 +6,7 @@ How to create the Visual Studio Project
 ----------------------------------
 Assuming that you already installed the <Var:ProductName> SDK, open <var:VisualStudioEdition>. You will see the following options when you create a new project:
 <img style="display:block; " src="images/CustomBatchTemplate.jpg" />
-With the above templates you can set up the skeleton of an <Var:ProductName> plug-in project. Select **SDL Custom Batch Task (2021)*
+With the above templates you can set up the skeleton of an <Var:ProductName> plug-in project. Select **Custom Batch Task (2021)*
 
 The Plug-in Skeleton
 -------------------------------------
@@ -25,7 +25,7 @@ Give the batch task plug-in a new name, ID and description. Instead of doing it 
 <img style="display:block; " src="images/Resource.jpg" />
 
 > [!NOTE]
-> You also declare what kind of files the batch task works on here. Most batch tasks are used to process bilingual SDL XLIFF files, not native files such as DOCX or PPTX. This also applies to our sample implementation.
+> You also declare what kind of files the batch task works on here. Most batch tasks are used to process bilingual SDLXliff files, not native files such as DOCX or PPTX. This also applies to our sample implementation.
 
 
 In this class, you also reference the settings page that allows the user to configure the batch tasks settings via the plug-in UI:
@@ -35,7 +35,7 @@ In this class, you also reference the settings page that allows the user to conf
 
 The Plug-in Build Folder
 ---------------------------------------------
-Make sure that you sign your assembly. Then build the assembly. The project is automatically configured to build the plug-in file into the folder: <em> <var:PluginPackedPath> </em>. After you have built the plug-in, you should find the file *Custom Batch Task1.sdlplugin*. Now start <Var:ProductName>. Because the plug-in is not yet officially signed by SDL, you will see the following message after you start the application:
+Make sure that you sign your assembly. Then build the assembly. The project is automatically configured to build the plug-in file into the folder: <em> <var:PluginPackedPath> </em>. After you have built the plug-in, you should find the file *Custom Batch Task1.sdlplugin*. Now start <Var:ProductName>. Because the plug-in is not yet officially signed by RWS, you will see the following message after you start the application:
 <img style="display:block; " src="images/Plugin_NotSigned.jpg" />
 For the moment, ignore this message. Click **Yes** to make sure that <Var:ProductName> extracts the plug-in file. Once Studio is started, you should find the sub-folder *Custom Batch Task1* under <em> <var:PluginUnpackedPath> </em>. This sub-folder contains the unpacked plug-in assemblies.
 

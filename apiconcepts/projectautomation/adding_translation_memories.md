@@ -216,9 +216,9 @@ private void AddServerBasedTM(FileBasedProject project, Uri uri, string path, st
 ```
 ***
 
-Adding SDL BeGlobal Community Machine Translation Provider
+Adding  BeGlobal Community Machine Translation Provider
 --
-SDL BeGlobal Translation Provider is a free machine translation service provided by SDL for Studio customers. The URI should be in the form:
+ BeGlobal Translation Provider is a free machine translation service provided by RWS for Studio customers. The URI should be in the form:
 
 beglobalcommunity://
 
@@ -252,17 +252,17 @@ public void AddBeglobalCommunityMT(FileBasedProject project)
 >
 >Pre-translate does not use Machine Translation Providers by default. To use this provider in a pre-translate task remember to set the NoTranslationMemoryMatchFoundAction property to ApplyAutomatedTranslation see [Pre-translate Settings](pre_translate_settings.md)
 
-Adding SDL BeGlogal Enterprise Machine Translation Provider
+Adding  BeGlobal Enterprise Machine Translation Provider
 --
 
-SDL BeGlobal Enterprise Edition is a domain based machine translation provider used to provide high quality machine translations for specific application domains. The URI should be in the form:
+ BeGlobal Enterprise Edition is a domain based machine translation provider used to provide high quality machine translations for specific application domains. The URI should be in the form:
 
 languageweavermt.http[s]://[USERKEY:@]HOST:PORT?apimodel=[SOAP|REST]
 The credential should be your Beglobal API key.
 
 > [!NOTE]
 >
->To use this provider you must have a SDL BeGlobal Online account or a SDL BeGlobal server installed within your company.
+>To use this provider you must have a  BeGlobal Online account or a  BeGlobal server installed within your company.
 
 # [C#](#tab/tabid-9)
 ```CS

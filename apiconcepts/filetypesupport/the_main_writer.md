@@ -13,7 +13,7 @@ using Sdl.FileTypeSupport.Framework.NativeApi;
 using System.IO;
 using Sdl.FileTypeSupport.Framework.BilingualApi;
 
-namespace Sdl.Sdk.Snippets.Native
+namespace Sdk.Snippets.Native
 {
     public class MainWriter : AbstractNativeFileWriter, INativeContentCycleAware, ISubContentAware
     {

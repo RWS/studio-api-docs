@@ -24,14 +24,17 @@ Setting Passwords Programmatically
 
 Add a new class to your project, which you call ```TmProtector```. Add a public function called ```AssignPasswords``` to your newly-created class, which takes the file name and path as parameter. This function can be called as shown below:
 
+# [C#](#tab/tabid-1)
 ```cs
 TMProtector objProtect = new TMProtector();
 objProtect.AssignPasswords(_translationMemoryFilePath);
 ```
+***
 
 
 The API offers four different methods for setting passwords corresponding to the four access levels that are available for file-based TMs. When applying these methods you need to provide the password to set as string parameter. Note that when setting passwords, a specific order has to be observed. For example, a read-only password can only be set *after* a read/write password has been assigned. The function for setting the passwords can look as shown in the following example:
 
+# [C#](#tab/tabid-2)
 ```cs
 public void AssignPasswords(string tmPath)
 {
@@ -46,6 +49,7 @@ public void AssignPasswords(string tmPath)
     this.OpenProtectedTm(tmPath, "super");
 }
 ```
+***
 
 Note that the function for setting the passwords calls a separate helper function to open the password-protected TM.
 
@@ -54,6 +58,7 @@ Open a Password-protected TM
 
 Add the following function to your class, which opens the TM with the previously assigned administrator password. To open a password-protected TM, the password needs to be provided as a string parameter. Of course, you should catch any exception, e.g. in cases in which the wrong password was entered.
 
+# [C#](#tab/tabid-3)
 ```cs
 private void OpenProtectedTm(string tmPath, string password)
 {
@@ -67,14 +72,16 @@ private void OpenProtectedTm(string tmPath, string password)
     }
 }
 ```
+***
 
 Putting it All Together
 --
 
 The complete class should look as shown below:
 
+# [C#](#tab/tabid-4)
 ```cs
-namespace Sdl.SDK.LanguagePlatform.Samples.TmAutomation
+namespace SDK.LanguagePlatform.Samples.TmAutomation
 {
     using System;
     using System.Windows.Forms;
@@ -113,3 +120,4 @@ namespace Sdl.SDK.LanguagePlatform.Samples.TmAutomation
     }
 }
 ```
+***

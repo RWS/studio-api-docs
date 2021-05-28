@@ -1,7 +1,7 @@
 The Filter Component Builder
 ==
 
-This section contains some information on an example Filter Component Builder code. For a more complete overview, see the SDL File Type Support Framework administration documentation.
+This section contains some information on an example Filter Component Builder code. For a more complete overview, see the  File Type Support Framework administration documentation.
 
 The default File Type Manager implementation is a simple hardcoded one called PocoFilterManager. This implementation requires a filter to implement the [IFileTypeComponentBuilder](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilder.yml) interface. This includes the implementation of methods to generate objects that implement [IFileTypeInformation](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeInformation.yml), [INativeFileSniffer](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileSniffer.yml), [IFileExtractor](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileExtractor.yml), [IFileGenerator](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileGenerator.yml).
 
@@ -9,7 +9,7 @@ Below you can find an example of a Filter Component Builder class for the "Simpl
 
 This File Type Component Builder is for a filter that uses the classes ```SimpleTextSniffer```, ```SimpleTextParser``` and ```SimpleTextWriter``` defined in the assembly ```SimpleText```.
 
-As you may have noticed, the ```SimpleTextFilterComponentBuilder``` implementation of ```IFilterComponentBuilder``` references a lot of types that are defined in the ```Sdl.FileTypeSupport.Framework.Implementation``` assembly. This is where the main part of the SDL File Type Support Framework implementation resides.
+As you may have noticed, the ```SimpleTextFilterComponentBuilder``` implementation of ```IFilterComponentBuilder``` references a lot of types that are defined in the ```Sdl.FileTypeSupport.Framework.Implementation``` assembly. This is where the main part of the  File Type Support Framework implementation resides.
 
 # [C#](#tab/tabid-1)
 ```cs
@@ -19,7 +19,7 @@ using Sdl.FileTypeSupport.Framework;
 using Sdl.FileTypeSupport.Framework.IntegrationApi;
 using Sdl.FileTypeSupport.Framework.NativeApi;
 
-namespace Sdl.Sdk.Snippets.Native
+namespace Sdk.Snippets.Native
 {
     /// <summary>
     /// Define Simple Text filter component builder.

@@ -14,7 +14,7 @@ using System.IO;
 using Sdl.FileTypeSupport.Framework.BilingualApi;
 using Sdl.FileTypeSupport.Framework.NativeApi;
 
-namespace Sdl.Sdk.Snippets.Native
+namespace Sdk.Snippets.Native
 {
     class InternalPreviewWriter : AbstractNativeFileWriter, INativeContentCycleAware
     {
@@ -156,7 +156,7 @@ using System.IO;
 using Sdl.FileTypeSupport.Framework.BilingualApi;
 using Sdl.FileTypeSupport.Framework.NativeApi;
 
-namespace Sdl.Sdk.Snippets.Native
+namespace Sdk.Snippets.Native
 {
     class InternalPreviewWriter1 : AbstractNativeFileWriter, INativeContentCycleAware
     {

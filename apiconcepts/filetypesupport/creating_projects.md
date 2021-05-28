@@ -15,7 +15,7 @@ Project creation is fully wizard-based. The user can select, among other things,
 * Target language(s)
 * Translation memories and termbases
 
-The project files are processed in what is called a task sequence. A task sequence comprises multiple single tasks such as word count, file analysis, etc. The most important single task is probably the one that converts the native documents into the intermediary format (e.g. SDL XLIFF). This is a pre-requisite for any subsequent task, as files cannot be translated, analyzed, etc. in <Var:ProductName> without prior conversion to the intermediate format.
+The project files are processed in what is called a task sequence. A task sequence comprises multiple single tasks such as word count, file analysis, etc. The most important single task is probably the one that converts the native documents into the intermediary format (e.g. SDLXliff). This is a pre-requisite for any subsequent task, as files cannot be translated, analyzed, etc. in <Var:ProductName> without prior conversion to the intermediate format.
 
 <img style="display:block; " src="images/Project01.jpg"/>
 

@@ -34,11 +34,11 @@ Below you see an example of a custom variable list, which is defined in the lang
 
 See Also
 ----------
-[Creating a File-based Translation Memory]
+[Creating a File-based Translation Memory](creating_a_file_based_translation_memory.md)
 
-[Adding TM Fields]
+[Adding TM Fields](adding_tm_fields.md)
 
-[Adding Language Resources]
+[Adding Language Resources](adding_language_resources.md)
 
 [TM Fields Templates](tm_fields_templates.md)
 

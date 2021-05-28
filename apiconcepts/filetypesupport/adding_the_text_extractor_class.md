@@ -134,7 +134,7 @@ The complete text extractor class should now look as shown below:
 using System.Text;
 using Sdl.FileTypeSupport.Framework.BilingualApi;
 
-namespace Sdl.Sdk.Snippets.Bilingual
+namespace Sdk.Snippets.Bilingual
 {
     class BilTextExtractor : IMarkupDataVisitor
     {

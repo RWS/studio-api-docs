@@ -144,7 +144,7 @@ The complete class should now look as shown below:
 using Sdl.FileTypeSupport.Framework.Core.Settings;
 using Sdl.Core.Settings;
 
-namespace Sdl.Sdk.FileTypeSupport.Samples.SimpleText
+namespace Sdk.FileTypeSupport.Samples.SimpleText
 {
     /// <summary>
     /// This class is used to actually store the settings to the settings bundle, which

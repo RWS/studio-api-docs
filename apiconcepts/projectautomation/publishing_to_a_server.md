@@ -5,6 +5,7 @@ It's a simple task to publish a project. To do so you will need to enter the det
 
 You will need to change the details in the following line of code to your own server details
 
+# [C#](#tab/tabid-1)
 ```cs
 newProject.PublishProject(
     new Uri("ps.http://MyProjectServer:80"), 
@@ -14,6 +15,7 @@ newProject.PublishProject(
     "/MyOrganizationPath",
     null);
 ```
+***
 
 The following parameters are required in order
 * Uri of the server in the form "**protocol://address:portnumber**". The protocol will he either "**http**" or "**https**", the address will be the location of the server, and the port number will be the port you set project server up on (default: 80). For example **http://projectserver.mycompany.com:80**

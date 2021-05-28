@@ -11,7 +11,7 @@ When inline tags are shown, they have four possible display states that the user
 * No tag text: only a placeholder symbol is displayed
 * Partial tag text (default): the name of the tag is shown, e.g. *footnotereference*, which helps the user ascertain what the tag actually represents
 * Full tag text: shows the name of the tag and any attributes, e.g. *<footnotereference font='Arial'>*
-* Tag id: in an intermediary (SDL XLIFF) file each tag has a unique id, starting with 1. If the user chooses this option, the tag ids are displayed (i.e. from 1 to n).
+* Tag id: in an intermediary (SDLXliff) file each tag has a unique id, starting with 1. If the user chooses this option, the tag ids are displayed (i.e. from 1 to n).
 Example of an inline tag, which is a placeholder for a footnote reference. The tags that define character formatting are hidden, only the actual formatting is shown. The **footnotereference** tag is shown in the (default) partial tag text display mode.
 
 <img style="display:block; " src="images/Tag01.jpg"/>

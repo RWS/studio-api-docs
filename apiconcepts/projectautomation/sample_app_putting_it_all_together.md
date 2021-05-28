@@ -3,8 +3,9 @@ Putting it All Together
 
 For completeness, this page shows the full ```ProjectCreator``` class.
 
+# [C#](#tab/tabid-1)
 ```cs
-namespace Sdl.SDK.ProjectAutomation.Samples.BatchAnaylze
+namespace SDK.ProjectAutomation.Samples.BatchAnaylze
 {
     using System;
     using System.Globalization;
@@ -248,7 +249,7 @@ namespace Sdl.SDK.ProjectAutomation.Samples.BatchAnaylze
 
         #region "ConvertAndCopy"
         /// <summary>
-        /// Runs the two automatic tasks: Convert translatable files to a translatable format (i.e. SDL XLIFF)
+        /// Runs the two automatic tasks: Convert translatable files to a translatable format (i.e. SDLXliff)
         /// and creates target file copies.
         /// </summary> 
         private void ConvertFiles(FileBasedProject project)
@@ -281,7 +282,7 @@ namespace Sdl.SDK.ProjectAutomation.Samples.BatchAnaylze
         #region "RunFileAnalysis"
         #region "RunFileAnalysisFunction"
         /// <summary>
-        /// Runs the actual analyze files task on the SDL XLIFF target documents.
+        /// Runs the actual analyze files task on the SDLXliff target documents.
         /// </summary> 
         private void RunFileAnalysis(FileBasedProject project, string trgLocale)
         #endregion
@@ -422,3 +423,4 @@ namespace Sdl.SDK.ProjectAutomation.Samples.BatchAnaylze
     }
 }
 ```
+***

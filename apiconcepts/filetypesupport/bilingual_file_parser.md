@@ -28,11 +28,11 @@ The second property [Output](../../api/filetypesupport/Sdl.FileTypeSupport.Frame
 
 **IBilingualParser.DocumentProperties**
 
-The [DocumentProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualParser.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualParser_DocumentProperties) interface of type [IBilingualParser](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualParser.yml) is set by the SDL File Type Support Framework when calling a bilingual parser but you will need to define this property and a private member to store its value. This document properties interface is then later used for storing the source and target languages and then initialising the output stream of the bilingual content processes.
+The [DocumentProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualParser.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualParser_DocumentProperties) interface of type [IBilingualParser](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualParser.yml) is set by the File Type Support Framework when calling a bilingual parser but you will need to define this property and a private member to store its value. This document properties interface is then later used for storing the source and target languages and then initialising the output stream of the bilingual content processes.
 
 **IBilingualContentProcessor.Output**
 
-The [Output](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentProcessor.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentProcessor_Output) interface of type [IBilingualContentProcessor](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentProcessor.yml) is also initialised by the SDL File Type Support Framework and provides a coupling between the Bilingual Parser and all Bilingual Content Processors down the processing chain during the extract conversion phase from a bilingual file format to the default bilingual SDL XLIFF (*.xliff*) persistent file format. The [Output](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentProcessor.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentProcessor_Output) interface has several methods that are called throughout the file parsing operation.
+The [Output](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentProcessor.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentProcessor_Output) interface of type [IBilingualContentProcessor](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentProcessor.yml) is also initialised by the File Type Support Framework and provides a coupling between the Bilingual Parser and all Bilingual Content Processors down the processing chain during the extract conversion phase from a bilingual file format to the default bilingual SDLXliff (*.xliff*) persistent file format. The [Output](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentProcessor.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentProcessor_Output) interface has several methods that are called throughout the file parsing operation.
 
 **Output.Initialize()**
 
@@ -87,7 +87,7 @@ If deriving from the [INativeContentCycleAware](../../api/filetypesupport/Sdl.Fi
 
 **StartOfInput()**
 
-Called by the framework after component initialisation i.e. after [SetFileProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentHandler_SetFileProperties_Sdl_FileTypeSupport_Framework_BilingualApi_IFileProperties_) , but before any content is parsed and passed to any of the SDL File Type Support Framework components.
+Called by the framework after component initialisation i.e. after [SetFileProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentHandler_SetFileProperties_Sdl_FileTypeSupport_Framework_BilingualApi_IFileProperties_) , but before any content is parsed and passed to any of the File Type Support Framework components.
 
 **EndOfInput()**
 

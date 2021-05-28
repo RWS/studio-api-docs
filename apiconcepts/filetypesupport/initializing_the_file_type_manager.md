@@ -8,7 +8,7 @@ The [IFileTypeManager](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.I
 
 Initializing the Filter Manager
 ---
-The SDL File Type Support Framework is used in an application through the File Type Manager.
+The File Type Support Framework is used in an application through the File Type Manager.
 
 There are different ways for an application to host the File Type Manager. The most straightforward way is to simply create and initialize it expicitly with a list of File Type Component Builders and related settings. 
 

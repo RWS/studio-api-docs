@@ -8,6 +8,7 @@ Viewing Server Projects
 
 The following example shows how to view all the projects on the project server starting from a particular organization folder including all sub-folders.
 
+# [C#](#tab/tabid-1)
 ```cs
 Uri serverAddress = new Uri("http://myServerAddress:80");
 string organizationPath = "/LocationOnServerToStartListFrom";
@@ -15,8 +16,11 @@ string organizationPath = "/LocationOnServerToStartListFrom";
 ProjectServer server = new ProjectServer(serverAddress, false, "MyUser", "MyPassword");
 ServerProjectInfo[] projects = server.GetServerProjects(organizationPath, true, false);
 ```
+***
+
 This next example shows how to search for a particular product by name in a particular organization path. The result from the search is used to open the project and create a new workspace on the local machine.
 
+# [C#](#tab/tabid-2)
 ```cs
 string rootLocalProjectLocation = @"C:\Projects\";
 
@@ -32,18 +36,21 @@ string rootLocalProjectLocation = @"C:\Projects\";
      project = server.OpenProject(projectInfo.ProjectId, rootLocalProjectLocation + projectInfo.Name);
  }
 ```
+***
 
 Deleting server projects
 --
 
 The following example shows how to delete a project from the project server using the unique id for the project.
 
+# [C#](#tab/tabid-3)
 ```cs
 Uri serverAddress = new Uri("http://myServerAddress:80");
 
 ProjectServer server = new ProjectServer(serverAddress, false, "MyUser", "MyPassword");
 server.DeleteProject(projectId);
 ```
+***
 
 >[!NOTE]
 >
@@ -51,9 +58,6 @@ server.DeleteProject(projectId);
 
 See Also
 --
-
-
-
 [About Server Based Projects](about_server_based_projects.md)
 
 [Connecting a Project to a Project Server](connecting_a_project_to_a_project_server.md)

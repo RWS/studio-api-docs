@@ -18,4 +18,4 @@ Also, make sure that from this point forward your classes use the following name
 
 See Also
 -----
-[Required References and Namespaces]()
+[Required References and Namespaces](required_references_and_namespaces.md)

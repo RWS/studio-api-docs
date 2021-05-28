@@ -14,7 +14,7 @@ ServerDBServers dbServ = new ServerDBServers();
 dbServ.GetDBServers(tmServer);
 ```
 ****
-In the `GetDBServers` function the [GetDatabaseServers](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.yml#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationProviderServer_GetDatabaseServers_Sdl_LanguagePlatform_TranslationMemoryApi_DatabaseServerProperties_) method is applied to the server object. Then the function loops through the database servers that are registered for the given TM server. Although most setups involve only a single database server, it is conceivable that the SDL TM Server connects to several DB servers.
+In the `GetDBServers` function the [GetDatabaseServers](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.yml#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationProviderServer_GetDatabaseServers_Sdl_LanguagePlatform_TranslationMemoryApi_DatabaseServerProperties_) method is applied to the server object. Then the function loops through the database servers that are registered for the given TM server. Although most setups involve only a single database server, it is conceivable that the  TM Server connects to several DB servers.
 # [C#](#tab/tabid-2)
 ```cs
 public void GetDBServers(TranslationProviderServer tmServer)
@@ -43,7 +43,7 @@ Putting it All Together
 The complete class looks as shown below:
 # [C#](#tab/tabid-3)
 ```cs
-namespace Sdl.SDK.LanguagePlatform.Samples.TmAutomation
+namespace SDK.LanguagePlatform.Samples.TmAutomation
 {
     using System.Windows.Forms;
     using Sdl.LanguagePlatform.TranslationMemoryApi;

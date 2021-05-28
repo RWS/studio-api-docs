@@ -10,10 +10,12 @@ Create a Project Programmatically Based on a Template
 
 Start by implementing a function called ```CreateBasedOnTemplate```. Use the [ProjectTemplateReference](../../api/projectautomation/Sdl.ProjectAutomation.Core.ProjectTemplateReference.yml) class to create a project template object. For this, you just need to provide the full name and path of the **.sdltpl* project template file:
 
+# [C#](#tab/tabid-1)
 ```cs
 string templateFile = @"c:\temp\project_template.sdltpl";
 ProjectTemplateReference template = new ProjectTemplateReference(templateFile);
 ```
+***
 
 In the next step use the [FileBasedProject](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml) class to create the new project. As parameters, you need to provide the project information (which we will retrieve through a separate helper function) and the project template object. Finally, apply the  [Save](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml#Sdl_ProjectAutomation_FileBased_FileBasedProject_Save) method to persist the project in an **.sdlproj* file.
 While the project template contains settings such as the source / target languages, translation providers, task settings, etc., some variable options still need to be configured, i.e. the:
@@ -24,6 +26,7 @@ While the project template contains settings such as the source / target languag
 
 Below you see an example of how to configure the above settings:
 
+# [C#](#tab/tabid-2)
 ```cs
 ProjectInfo info = new ProjectInfo();
 
@@ -39,12 +42,14 @@ info.LocalProjectFolder = localProjectFolder;
 
 return info;
 ```
+***
 
 Putting it All Together
 --
 
 The two complete functions should now look as shown below:
 
+# [C#](#tab/tabid-3)
 ```cs
 public void CreateBasedOnTemplate()
 {
@@ -59,7 +64,9 @@ public void CreateBasedOnTemplate()
     #endregion
 }
 ```
+***
 
+# [C#](#tab/tabid-4)
 ```cs
 public ProjectInfo GetInfoForTemplateProject()
 {
@@ -80,12 +87,10 @@ public ProjectInfo GetInfoForTemplateProject()
     #endregion
 }
 ```
+***
 
 See Also
 --
-
-
-
 [Setting the Project Information](setting_the_project_information.md)
 
 [Configuring the Project Properties](configuring_the_project_properties.md)

@@ -15,7 +15,7 @@ The [BatchExported](../../api/translationmemory/Sdl.Core.TM.ImportExport.Exporte
 
 See Also
 ------------
-[Exporting to a TMX File]
+[Exporting to a TMX File](exporting_to_a_tmx_file.md)
 
 [Introduction](working_with_translation_memories.md)
 

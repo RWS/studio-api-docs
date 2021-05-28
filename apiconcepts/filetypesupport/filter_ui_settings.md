@@ -35,7 +35,7 @@ File type settings pages can be defined in the File Type Component Builder while
 ***
 
 
-The ID of the settings page is defined within the settings page class itself. The **SDL Plugin Framework** is used to locate the plug-in with this ID and display it to the user in the host application at runtime.
+The ID of the settings page is defined within the settings page class itself. The **Plugin Framework** is used to locate the plug-in with this ID and display it to the user in the host application at runtime.
 
 See Also
 --

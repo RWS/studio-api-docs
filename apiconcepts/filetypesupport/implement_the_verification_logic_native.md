@@ -160,12 +160,12 @@ using Sdl.FileTypeSupport.Framework.NativeApi;
 using Sdl.FileTypeSupport.Framework.IntegrationApi;
 
 
-namespace Sdl.Sdk.FileTypeSupport.Samples.XMLChecker
+namespace Sdk.FileTypeSupport.Samples.XMLChecker
 {
     /// <summary>
     /// This class implements the verification logic. Depending on whether the 
     /// verification plug-in is enabled or not, a verification will be performed
-    /// when the user of SDL Trados Studio presses F8 or invokes the menu command
+    /// when the user of Trados Studio presses F8 or invokes the menu command
     /// Tools -> Verify.
     /// This class is referenced in the file type definition.
     /// </summary>
@@ -216,7 +216,7 @@ namespace Sdl.Sdk.FileTypeSupport.Samples.XMLChecker
         /// the maximum length in characters. If the target segment text exceeds the
         /// length limit specified by the attribute, an error message will be reported.
         /// Any length limit violations will be reported through the message reporter,
-        /// which will fill the Messages window of SDL Trados Studio with the error
+        /// which will fill the Messages window of Trados Studio with the error
         /// messages that will be displayed to the end user.
         /// </summary>
         #region "verification logic"

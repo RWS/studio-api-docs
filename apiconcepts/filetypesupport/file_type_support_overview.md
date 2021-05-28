@@ -1,8 +1,8 @@
-The Trados File Type Support Framework 2 API (from now SDL File Type Support Framework), is one of the core parts of <var:ProductName>. The SDL File Type Support Framework allows developers to develop file type plug-ins that extract translatable text from various file formats such as MS Word Doc files, HTML, XML, Text etc. The translatable source and (optionally) target text can then be imported and converted into an intermediate file format that is designed to be compatible with the OASIS XLIFF format (with SDL extensions) - [SDL XLIFF](#sdl-xliff).
+The Trados File Type Support Framework 2 API (from now File Type Support Framework), is one of the core parts of <var:ProductName>. The File Type Support Framework allows developers to develop file type plug-ins that extract translatable text from various file formats such as MS Word Doc files, HTML, XML, Text etc. The translatable source and (optionally) target text can then be imported and converted into an intermediate file format that is designed to be compatible with the OASIS XLIFF format (with SDL extensions) - [SDLXliff](#sdlxliff).
 
 This data format contains both source and target text and any mark-up data or tags that the file filter has found. These tags can be either paired or placeholder tags, which can be moved deleted or cloned in the translation. They can also be structure tags that represent fixed non-translatable elements in the original file format, which must be preserved. Other applications such as the editor or the translation memory subsystems also use this framework to interact with the given file formats and can read and update these structures as required.
 
-The core APIs of the SDL File Type Support Framework consist of the following <Var:DotNetVersion> assemblies:
+The core APIs of the File Type Support Framework consist of the following <Var:DotNetVersion> assemblies:
 
 ![Implementation_Diagram__CoreModules](images/Implementation_Diagram__CoreModules.jpg)
 
@@ -11,7 +11,7 @@ Below you find a brief description of what each assembly contains:
 * [Sdl.FileTypeSupport.Framework](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.yml): contains basic data types that are shared between all the moduels, e.g. the ```FrameworkException``` base class, the ```Language``` and ```Codepage``` classes, etc.
 * [Sdl.FileTypeSupport.Framework.NativeApi](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.yml): contains all interfaces required to build file type plug-in components that convert native files to streams of localizable content such as tags and text, including components that work on such streams. It also contains some abstract base classes and helpers that can be used in an implementation.
 * [Sdl.FileTypeSupport.Framework.BilingualApi](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.yml): contains the interfaces for the bilingual object model and everything that is required to build components that operate on it. It also contains abstract base classes and helpers that can be useful in an implementation.
-* [Sdl.FileTypeSupport.Framework.IntegrationApi](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.yml): contains the interfaces with the functionality the SDL File Type Support Framework exposes to applications that integrate and use it.
+* [Sdl.FileTypeSupport.Framework.IntegrationApi](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.yml): contains the interfaces with the functionality the File Type Support Framework exposes to applications that integrate and use it.
 
 Native and Bilingual Content
 ---
@@ -48,13 +48,13 @@ At the time of writing, standard file type plug-ins for TTX, ITD and XLIFF are a
 
 We also use a default bilingual file format for serializing the entire bilingual content model during the localization process.
 
-SDL XLIFF
+SDLXliff
 ---
-This file format is fully based on and compliant with the OASIS XLIFF 1.2 standard. SDL XLIFF can store all metadata available in the bilingual content model of the SDL File Type Support Framework. Standard XLIFF constructs are used whenever possible, and valid XLIFF extension points are used when necessary to store the additional information.
+This file format is fully based on and compliant with the OASIS XLIFF 1.2 standard. SDLXliff can store all metadata available in the bilingual content model of the File Type Support Framework. Standard XLIFF constructs are used whenever possible, and valid XLIFF extension points are used when necessary to store the additional information.
 
 The SDL extensions to the XLIFF 1.2 schema are defined in a separate schema file, which is embedded as a resource in the assembly and used for validation of the XLIFF files when this option is enabled in the file type plug-in.
 
-The SDL XLIFF file type plug-in is defined in the assembly ```Sdl.FileTypeSupport.Bilingual.SdlXliff```. Note that this is treated like any other file type plug-in. Applications should not need to reference this assembly.
+The SDLXliff file type plug-in is defined in the assembly ```Sdl.FileTypeSupport.Bilingual.SdlXliff```. Note that this is treated like any other file type plug-in. Applications should not need to reference this assembly.
 
    
 

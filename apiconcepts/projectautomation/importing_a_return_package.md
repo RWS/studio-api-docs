@@ -1,7 +1,7 @@
 Importing a Return Package
 ==
 
-After the return package (see [Creating a Return Package](creating_a_return_package.md)) has been sent back to the project manager, e.g. via e-mail, he/she opens it in <Var:ProductName>. This basically means that the package content is extracted, and the translated, edited, or proofread bilingual (SDL XLIFF) document overwrite the previous (e.g. untranslated) files, thus updating the project on the project manager's side.
+After the return package (see [Creating a Return Package](creating_a_return_package.md)) has been sent back to the project manager, e.g. via e-mail, he/she opens it in <Var:ProductName>. This basically means that the package content is extracted, and the translated, edited, or proofread bilingual (SDLXliff) document overwrite the previous (e.g. untranslated) files, thus updating the project on the project manager's side.
 
 Import a Return Package Programmatically
 --
@@ -10,16 +10,19 @@ Implementing a function called ```OpenPackage```, which takes the project file n
 
 Within the function start by opening the project as shown below:
 
+# [C#](#tab/tabid-1)
 ```cs
 FileBasedProject project = new FileBasedProject(projectFile);
 ```
+***
 
 To import and extract the return package content into your project, apply the [ImportReturnPackage](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml#Sdl_ProjectAutomation_FileBased_FileBasedProject_ImportReturnPackage_System_String_) method to your project to create a [ReturnPackageImport](../../api/projectautomation/Sdl.ProjectAutomation.Core.ReturnPackageImport.yml) object. This method requires the full return package file name and path as parameter, as shown in the example function below:
 
-
+# [C#](#tab/tabid-2)
 ```cs
 ReturnPackageImport import = project.ImportReturnPackage(returnPackageFile);
 ```
+***
 
 >[!NOTE]
 >
@@ -42,6 +45,7 @@ Check the Import Status
 
 It may happen that the return extraction and import fails for some reason (e.g. a project file has accidentally been set to read-only and thus cannot be overwritten and updated by a file in the return package). This is why you should check for the import status, and output a message to the user if required. The following sample code leverages the [PackageStatus](../../api/projectautomation/Sdl.ProjectAutomation.Core.PackageStatus.yml) class to check the project package status. It throws an error message if in the end the package status is not [Completed](../../api/projectautomation/Sdl.ProjectAutomation.Core.PackageStatus.yml#fields):
 
+# [C#](#tab/tabid-3)
 ```cs
 bool packageIsImported = false;
 while (!packageIsImported)
@@ -70,6 +74,7 @@ if (import.Status != PackageStatus.Completed)
     throw new Exception("A problem occurred during package import.");
 }
 ```
+***
 
 
 Putting it All Together
@@ -77,6 +82,7 @@ Putting it All Together
 
 The complete function should now look as shown below:
 
+# [C#](#tab/tabid-4)
 ```cs
 public void OpenPackage(string projectFile, string returnPackageFile)
 {
@@ -123,11 +129,10 @@ public void OpenPackage(string projectFile, string returnPackageFile)
     #endregion
 }
 ```
+***
 
 See Also
 --
-
-
 [Creating a Return Package](creating_a_return_package.md)
 
 [About Packages](about_packages.md)

@@ -6,7 +6,7 @@ In this chapter you will learn how to implement the component used for generatin
 Add a File Writer Class
 --
 
-While the file parser component (see [Implementing the File Parser](implementing_the_file_parser.md) is used to convert the native source file into a bilingual intermediary (SDL XLIFF) format, the file writer does the exact opposite, i.e. it generates the target file in its native format. This is what happens when the user, for example, saves the current file as target or finalizes a project.
+While the file parser component (see [Implementing the File Parser](implementing_the_file_parser.md) is used to convert the native source file into a bilingual intermediary (SDLXliff) format, the file writer does the exact opposite, i.e. it generates the target file in its native format. This is what happens when the user, for example, saves the current file as target or finalizes a project.
 
 Start by adding a **SimpleTextWriter.cs** class to your project. The skeleton writer class looks very similar to the file parser class. Here too, you must reference the namespace ```System.IO```, as you need you can generate a target output file. Then add the namespace ```Sdl.FileTypeSupport.Framework.NativeApi```.
 
@@ -18,7 +18,7 @@ using System.IO;
 using Sdl.FileTypeSupport.Framework.BilingualApi;
 using Sdl.FileTypeSupport.Framework.NativeApi;
 
-namespace Sdl.Sdk.Snippets.Native
+namespace Sdk.Snippets.Native
 {
     class SimpleTextWriter : AbstractNativeFileWriter, INativeContentCycleAware
     {
@@ -64,7 +64,7 @@ public void StartOfInput()
 Output Text and Tags
 ===
 
-The text writer basically traverses the intermediary (SDL XLIFF) file and outputs the elements it encounters (e.g. text and inline tags) to the target output file. Override the methods provided by the abstract file writer class ([AbstractNativeFileWriter](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileWriter.yml)) to output these elements. The methods shown below output translatable text, structure tags, and inline start/end tags.
+The text writer basically traverses the intermediary (SDLXliff) file and outputs the elements it encounters (e.g. text and inline tags) to the target output file. Override the methods provided by the abstract file writer class ([AbstractNativeFileWriter](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileWriter.yml)) to output these elements. The methods shown below output translatable text, structure tags, and inline start/end tags.
 
 Through the method [SegmentEnd](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileWriter.yml#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileWriter_SegmentEnd) you determine what should be done after you have written a segment to the native output file. Our simple text format just requires a line break after each segment, which we output using ```WriteLine()```.
 
@@ -126,7 +126,7 @@ using System.IO;
 using Sdl.FileTypeSupport.Framework.BilingualApi;
 using Sdl.FileTypeSupport.Framework.NativeApi;
 
-namespace Sdl.Sdk.FileTypeSupport.Samples.SimpleText
+namespace Sdk.FileTypeSupport.Samples.SimpleText
 {
     class SimpleTextWriter : AbstractNativeFileWriter, INativeContentCycleAware
     {

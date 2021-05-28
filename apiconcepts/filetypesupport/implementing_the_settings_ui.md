@@ -97,7 +97,7 @@ using System.Text;
 using System.Windows.Forms;
 using Sdl.FileTypeSupport.Framework.Core.Settings;
 
-namespace Sdl.Sdk.FileTypeSupport.Samples.SimpleText.WinUI
+namespace Sdk.FileTypeSupport.Samples.SimpleText.WinUI
 {
     /// <summary>
     /// Implements the user interface for the file type definition.

@@ -101,7 +101,7 @@ public void Initialize(IDocumentProperties documentInfo)
 Add the File and Process Complete Members
 --
 
-In a similar manner, the following members need to be added as per the [IBilingualVerifier](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualVerifier.yml) interface, although they are not actually required for the functionality of our plug-in. You may wonder why there is a ```FileComplete``` and a ```Complete``` method, which both seem to serve the same purpose. The reason is that <Var:ProductName> allows you to merge several documents into one bilingual (SDL XLIFF) master file (see [Merging files](merging_files.md)). You could use the ```FileComlete``` to carry out an action after the verification of each of the single (merged) files has been completed. You can then call ```Complete``` when the verification process for the entire bilingual document has finished.
+In a similar manner, the following members need to be added as per the [IBilingualVerifier](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualVerifier.yml) interface, although they are not actually required for the functionality of our plug-in. You may wonder why there is a ```FileComplete``` and a ```Complete``` method, which both seem to serve the same purpose. The reason is that <Var:ProductName> allows you to merge several documents into one bilingual (SDLXliff) master file (see [Merging files](merging_files.md)). You could use the ```FileComlete``` to carry out an action after the verification of each of the single (merged) files has been completed. You can then call ```Complete``` when the verification process for the entire bilingual document has finished.
 
 # [C#](#tab/tabid-6)
 ```cs
@@ -138,7 +138,7 @@ public void SetFileProperties(IFileProperties fileInfo)
 Traverse the Paragraph Units
 --
 
-The ```ProcessParagraphUnit()``` method is used to loop through the paragraph units in the intermediary (SDL XLIFF) file. This is where we determine whether the actual verification should be applied to a paragraph unit or not. Remember that the verification should only be applied to segments from WordArt objects.
+The ```ProcessParagraphUnit()``` method is used to loop through the paragraph units in the intermediary (SDLXliff) file. This is where we determine whether the actual verification should be applied to a paragraph unit or not. Remember that the verification should only be applied to segments from WordArt objects.
 
 If the ```CheckWordArt``` property (which is set by the user through the UI) is not True, the verification should not be carried out. Otherwise, the method traverses the segment pairs of the current paragraph unit.
 
@@ -236,7 +236,7 @@ using Sdl.FileTypeSupport.Framework.BilingualApi;
 using Sdl.FileTypeSupport.Framework.IntegrationApi;
 
 
-namespace Sdl.Sdk.FileTypeSupport.Samples.WordArtVerifier
+namespace Sdk.FileTypeSupport.Samples.WordArtVerifier
 {
     class VerifierMain : IBilingualVerifier, ISettingsAware
     {
@@ -276,7 +276,7 @@ namespace Sdl.Sdk.FileTypeSupport.Samples.WordArtVerifier
         #region "IBilingualFilterComponent Members"
         /// <summary>
         /// Provides access to the message reporter, which is responsible for 
-        /// outputting any messages in the user interface of SDL Trados Studio
+        /// outputting any messages in the user interface of Trados Studio
         /// /// </summary>
         #region "messagereporter"
         public IBilingualContentMessageReporter MessageReporter
@@ -380,7 +380,7 @@ namespace Sdl.Sdk.FileTypeSupport.Samples.WordArtVerifier
         /// Helper function that counts the words in the current target segment.
         /// If the word count (i.e. number of spaces + 1) exceeds the maximum count
         /// that was set through the properties, a message should be added to the 
-        /// Messages window of SDL Trados Studio.
+        /// Messages window of Trados Studio.
         /// </summary>
         /// <param name="targetSegment"></param>
         #region output message

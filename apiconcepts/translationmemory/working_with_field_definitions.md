@@ -25,7 +25,7 @@ Any changes made to the field definition collection are only actually persisted 
 
 See Also
 ---------
-[Adding TM Fields]()
+[Adding TM Fields](adding_tm_fields.md)
 
 [Working with File-based Translation Memories](working_with_file_based_translation_memories.md)
 

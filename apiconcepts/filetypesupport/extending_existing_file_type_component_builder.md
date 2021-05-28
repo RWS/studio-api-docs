@@ -81,7 +81,7 @@ using System.Collections.Generic;
 using Sdl.FileTypeSupport.Framework.IntegrationApi;
 using Sdl.FileTypeSupport.Native.Xml;
 
-namespace Sdl.Sdk.FileTypeSupport.Samples.XMLChecker
+namespace Sdk.FileTypeSupport.Samples.XMLChecker
 {
     [FileTypeComponentBuilderExtension(
         Id = "XML_FilterComponentBuilderExtension_Verifier_Id",

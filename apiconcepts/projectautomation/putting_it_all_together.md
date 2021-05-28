@@ -8,6 +8,7 @@ The following example shows the following steps
 * Running batch tasks.
 * Uploading the results back to the server and checking them in.
 
+# [C#](#tab/tabid-1)
 ```cs
 void ServerPuttingItAllTogether()
 {
@@ -108,11 +109,10 @@ void ServerPuttingItAllTogether()
     }
 }
 ```
+***
 
 See Also
 --
-
-
 [About Server Based Projects](about_server_based_projects.md)
 
 [Connecting a Project to a Project Server](connecting_a_project_to_a_project_server.md)

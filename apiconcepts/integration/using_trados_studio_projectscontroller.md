@@ -28,7 +28,7 @@ using Sdl.TranslationStudioAutomation.IntegrationApi;
 using Sdl.TranslationStudioAutomation.IntegrationApi.Actions;
 using Sdl.Desktop.IntegrationApi;
 
-namespace Sdl.ProjectsOperations.Sample
+namespace ProjectsOperations.Sample
 {
     public partial class MyProjectsViewPartControl : UserControl
     {
@@ -197,7 +197,7 @@ using Sdl.Desktop.IntegrationApi;
 using Sdl.Desktop.IntegrationApi.Extensions;
 using Sdl.TranslationStudioAutomation.IntegrationApi;
 
-namespace Sdl.ProjectsOperations.Sample
+namespace ProjectsOperations.Sample
 {
     [ViewPart(
         Id = "MyProjectsViewPartSample", 

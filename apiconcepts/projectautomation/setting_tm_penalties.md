@@ -11,16 +11,16 @@ The sample code below highlights some of the properties that can be used to conf
 
 At the same time, for example, we increase the [MultipleTranslationsPenalty](../../api/projectautomation/Sdl.ProjectAutomation.Settings.TranslationMemorySettings.yml#Sdl_ProjectAutomation_Settings_TranslationMemorySettings_MultipleTranslationsPenalty) from the default value 1 to 2. This common penalty is applied when more than one exact match is found for a segment. This can happen when the TM contains different translations for the same source segment, which may be necessary as different translations can apply in different contexts. To alert translators to the fact that the TM contains several possible translations and that they need to check which one applies in the current context, a penalty is applied.
 
+# [C#](#tab/tabid-1)
 ```CS
 tmSettings.MissingFormattingPenalty.Value = 0;
 tmSettings.DifferentFormattingPenalty.Value = 0;
 tmSettings.MultipleTranslationsPenalty.Value = 2;
 ```
+***
+
 See Also
 --
-
-
-
 [Translation Memory Search Settings](translation_memory_search_settings.md)
 
 [Translation Memory Fields Update](translation_memory_field_update.md)

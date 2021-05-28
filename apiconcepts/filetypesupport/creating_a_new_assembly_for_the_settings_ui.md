@@ -30,7 +30,7 @@ Now add the following libraries as references to the new UI project:
 * **Sdl.Core.Settings.dll**
 * **Sdl.FileTypeSupport.Framework.Core.Settings.dll**
 
-Set the output path for building your project to the installation folder of <Var:ProductName>, e.g. *C:\Program Files\SDL\SDL Trados Studio\Studio5*.
+Set the output path for building your project to the installation folder of <Var:ProductName>, e.g. *<Var:InstallationFolder>*.
 
 See Also
 --

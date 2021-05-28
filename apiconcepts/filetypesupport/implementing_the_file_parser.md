@@ -30,7 +30,7 @@ For more information and processing requirements of this format, please refer ba
 Start by adding a class called e.g. **SimpleTextParser.cs** to your project. Since the parser needs to read text files for processing, add the ```System.IO``` namespace to the class. It is recommended that you also add the ```System.Drawing``` namespace. This makes it easier to select colour values, which will be useful for highlighting context information later. Also, add the namespace ```Sdl.FileTypeSupport.Framework.NativeApi``` for processing native formats. Your file parser class needs to be derived from [AbstractNativeFileParser](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileParser.yml) and implement the interfaces [INativeContentCycleAware](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.yml). Also, if you have parser specific settings which you need to apply, you also need to implement the [InitializeSettings](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.ISettingsAware.yml#Sdl_FileTypeSupport_Framework_IntegrationApi_ISettingsAware_InitializeSettings_Sdl_Core_Settings_ISettingsBundle_System_String_) method of the [ISettingsAware](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.ISettingsAware.yml) interface. The class needs to contain the following members of the [INativeContentCycleAware](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.yml) interface:
 
 1. [SetFileProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.yml#Sdl_FileTypeSupport_Framework_NativeApi_INativeContentCycleAware_SetFileProperties_Sdl_FileTypeSupport_Framework_BilingualApi_IFileProperties_): Retrieves important information on the input file such as file name, . path, and encoding.
-2. [StartOfInput](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.yml#Sdl_FileTypeSupport_Framework_NativeApi_INativeContentCycleAware_StartOfInput): This method is triggered when the parser starts to read the native input file. You could use this method, for example, to set the progress indicator to the beginning, i.e. 0%. As native input files can be complex and comprehensive, SDL Trados Studio 2017 displays a progress bar upon opening a file. The progress of this indicator can be set programmatically.
+2. [StartOfInput](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.yml#Sdl_FileTypeSupport_Framework_NativeApi_INativeContentCycleAware_StartOfInput): This method is triggered when the parser starts to read the native input file. You could use this method, for example, to set the progress indicator to the beginning, i.e. 0%. As native input files can be complex and comprehensive, <Var:ProductName> displays a progress bar upon opening a file. The progress of this indicator can be set programmatically.
 3. [EndOfInput](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.yml#Sdl_FileTypeSupport_Framework_NativeApi_INativeContentCycleAware_EndOfInput): This method is triggered when the parser has reached the end of the native input file. You could use this method, for example, to set a progress indicator to 100%.
 The minimum amount of code to build a project with a native file parser looks as shown below:
 
@@ -39,7 +39,7 @@ The minimum amount of code to build a project with a native file parser looks as
 using Sdl.FileTypeSupport.Framework.BilingualApi;
 using Sdl.FileTypeSupport.Framework.NativeApi;
 
-namespace Sdl.Sdk.Snippets.Native
+namespace Sdk.Snippets.Native
 {
     public class SimpleTextParser1 : AbstractNativeFileParser, INativeContentCycleAware
     {
@@ -122,7 +122,7 @@ private void ProcessLine(string sLine)
 ***
 
 The ```ProcessLine()``` helper function works as follows: If a line starts with an opening bracket and ends with a closing bracket, we call separate helper functions called ```WriteStructureTag()``` and ```WriteContext```, which we still need to implement.
-The ```WriteStructureTag()``` helper is used to write any non-translatable information into a structure tag. The non-translatable text (i.e. the strings enclosed in [*brackets*]) will thus be physically present in the bilingual SDL XLIFF file, but they will not be exposed to the user. You need to include the non-translatable information in the SDL XLIFF file, so that the corresponding strings can be written back to the native target file later (generation).
+The ```WriteStructureTag()``` helper is used to write any non-translatable information into a structure tag. The non-translatable text (i.e. the strings enclosed in [*brackets*]) will thus be physically present in the bilingual SDLXliff file, but they will not be exposed to the user. You need to include the non-translatable information in the SDLXliff file, so that the corresponding strings can be written back to the native target file later (generation).
 
 Since users cannot see the structure tag content in the editor of <Var:ProductName>, it is recommended (though not required) that you add some context information, which is then shown in the document structure column on the right-hand side of the editor. You can have your file type plug-in display a short descriptive code. By moving the mouse over the corresponding code or by double-clicking the user can display more detailed information, which can sometimes be useful for the translation process. This is what is actually done through a separate ```WriteContext()``` helper function, which we will implement later.
 
@@ -146,7 +146,7 @@ private void WriteText(string TextContent)
 
 **Output Structure Tags**
 
-In the same way the ```WriteStructureTag()``` helper function uses the [CreateStructureTagProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPropertiesFactory.yml#Sdl_FileTypeSupport_Framework_NativeApi_IPropertiesFactory_CreateStructureTagProperties_System_String_) method of the properties factory to output the non-translatable lines as structure tags to the intermediate (SDL XLIFF) file. When creating the tag property the tag content is passed to the ```Create()``` method as a parameter. The tag property can then be output to the API using the method ```Output.StructureTag()```.
+In the same way the ```WriteStructureTag()``` helper function uses the [CreateStructureTagProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPropertiesFactory.yml#Sdl_FileTypeSupport_Framework_NativeApi_IPropertiesFactory_CreateStructureTagProperties_System_String_) method of the properties factory to output the non-translatable lines as structure tags to the intermediate (SDLXliff) file. When creating the tag property the tag content is passed to the ```Create()``` method as a parameter. The tag property can then be output to the API using the method ```Output.StructureTag()```.
 
 # [C#](#tab/tabid-7)
 ```cs
@@ -192,7 +192,7 @@ Once you have implemented these functions and built the solution, you can open a
 
 Note that the inline formatting tags are still exposed as normal, translatable text, which should, of course, not be the case. The next chapter (see [Processing Inline Formatting](processing_inline_formatting.md)) covers the topic of how to enhance the file type plug-in to properly mark up these elements as inline tags and apply the correct formatting to the strings that they enclose.
 
-Also note that the SDL File Type Support Framework has automatically taken care of the segmentation, i.e. the individual sentences appear in separate cells within the editor. This relieves you of implementing a segmentation logic yourself.
+Also note that the File Type Support Framework has automatically taken care of the segmentation, i.e. the individual sentences appear in separate cells within the editor. This relieves you of implementing a segmentation logic yourself.
 
 Below is an example of what the user sees after double-clicking the context display codes.
 

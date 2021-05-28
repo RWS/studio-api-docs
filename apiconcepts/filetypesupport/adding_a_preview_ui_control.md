@@ -23,7 +23,7 @@ using System.Security.Permissions;
 using Sdl.FileTypeSupport.Framework.IntegrationApi;
 using Sdl.FileTypeSupport.Framework.NativeApi;
 
-namespace Sdl.Sdk.FileTypeSupport.Samples.SimpleText.Preview
+namespace Sdk.FileTypeSupport.Samples.SimpleText.Preview
 {
     [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
     [System.Runtime.InteropServices.ComVisibleAttribute(true)]
@@ -139,7 +139,7 @@ namespace Sdl.Sdk.FileTypeSupport.Samples.SimpleText.Preview
 
 
         /// <summary>
-        /// called when segment is confirmed and SDL Trados Studio jumps into next segment
+        /// called when segment is confirmed and Trados Studio jumps into next segment
         /// </summary>
         public void JumpToActiveElement()
         {

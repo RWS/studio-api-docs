@@ -148,7 +148,7 @@ using Sdl.Core.Settings;
 using Sdl.FileTypeSupport.Framework.Core.Settings;
 using System.Windows.Forms;
 
-namespace Sdl.Sdk.FileTypeSupport.Samples.XMLChecker
+namespace Sdk.FileTypeSupport.Samples.XMLChecker
 {
     /// <summary>
     /// This class is used to actually store the settings to the settings bundle, which

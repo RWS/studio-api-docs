@@ -5,7 +5,7 @@ using Sdl.Desktop.IntegrationApi.Extensions;
 using Sdl.TranslationStudioAutomation.IntegrationApi.Presentation;
 using Sdl.TranslationStudioAutomation.IntegrationApi.Presentation.DefaultLocations;
 
-namespace Sdl.View.Sample
+namespace View.Sample
 {
     [View(
         Id = "MyView",

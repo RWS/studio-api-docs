@@ -1,6 +1,6 @@
 Connecting to a TM Server
 =====
-In this chapter you will learn how to establish a connection to an SDL TM Server programmatically.
+In this chapter you will learn how to establish a connection to an  TM Server programmatically.
 
 Add a New Class
 ------
@@ -29,7 +29,7 @@ Below you see the logon screen of the TM Server manager, which reflects the vari
 
 <img style="display:block; " src="images/Logon.jpg"/>
 
-Last, create a function that returns the SDL TM Server URI string. The example below connects to an SDL TM test server:
+Last, create a function that returns the  TM Server URI string. The example below connects to an  TM test server:
 
 # [C#](#tab/tabid-2)
 ```cs

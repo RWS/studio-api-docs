@@ -53,8 +53,8 @@ Translation Providers
 ----
 Every language direction has the ability to contain a list of translation providers. A translation provider is an abstract concept of an engine or data source that can provide translations or translation suggestions for a segment and optionally has concordance search capabilities. The following types of translation providers are currently supported:
 
-* Translation Memory (file- or server-based): the SDL translation memory engine.
-* Automated Translation Server: provides automated or machine translation functionality, based on SDL's ETS engine, Google Translate, etc.
+* Translation Memory (file- or server-based): the RWS translation memory engine.
+* Automated Translation Server: provides automated or machine translation functionality, based on RWS's ETS engine, Google Translate, etc.
 * Any other custom-developed translation provider plug-in, e.g. a plug-in that retrieves translation solutions from a tab-delimited list
 Note that the translation provider mechanism is pluggable, which means third-parties can develop support for additional translation provider types, such as for instance the Google machine translation engine, or a third-party translation memory implementation. How to develop a translation provider plug-in is outside the scope of this help system. 
 
@@ -94,7 +94,7 @@ Termbases
 -----
 The project can also optionally contain references to one or more termbases that should be used during translation to identify and translate well-known terminology. One of the termbases in the list should be marked as the default termbase. The default termbase is always to termbase that will be searched for matches first. Part of the termbase configuration is also a mapping from project language to termbase indexes, to make sure that the appropriate indexes are used for searching for terminology in the various project languages. For every termbase, a filter can be specified as well; this determines the content of the termbase that should searched within the context of this project.
 
-Termbases can either be file-based or server-based. SDL MultiTerm imposes the limitation that when links to server-based termbases are included in a project, they all have to reside on the same termbase server, since it cannot perform cross-server termbase searches.
+Termbases can either be file-based or server-based.  MultiTerm imposes the limitation that when links to server-based termbases are included in a project, they all have to reside on the same termbase server, since it cannot perform cross-server termbase searches.
 
 Analysis Bands
 -----
@@ -127,16 +127,16 @@ The screenshot above illustrates how main translation memories are selected in t
 
 See Also 
 ----------
-[Setting the Project Information]
+[Setting the Project Information](setting_the_project_information.md)
 
-[Adding Translation Memories]
+[Adding Translation Memories](adding_translation_memories.md)
 
-[Adding Termbases]
+[Adding Termbases](adding_termbases.md)
 
-[Automatic Tasks and Tasks Settings]
+[Automatic Tasks and Tasks Settings](automatic_tasks_and_task_settings.md)
 
-[Creating Projects based on Templates]
+[Creating Projects based on Templates](creating_proj_based_on_templates.md)
 
-[Configuering the Project Properties]
+[Configuring the Project Properties](configuring_the_project_properties.md)
 
-[Adding the TM to the Project]
+[Adding the TM to the Project](adding_tm_to_the_project.md)

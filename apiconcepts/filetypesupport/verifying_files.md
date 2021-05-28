@@ -24,4 +24,4 @@ See Also
 ------
 [What is the Verification Framework?](what_is_the_verification_framework.md)
 
-[User Communication Through Messaging]()
+[User Communication Through Messaging](user_communication_through_messaging.md)

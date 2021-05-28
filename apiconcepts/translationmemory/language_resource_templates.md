@@ -115,8 +115,8 @@ Let us assume that as language resources bundles you would like to add a variabl
 # [C#](#tab/tabid-9)
 ```cs
 LanguageResourceBundle variables = new LanguageResourceBundle(CultureInfo.GetCultureInfo("en-US"));
-variables.Variables.Add("SDL Trados Studio 2009");
-variables.Variables.Add("SDL MultiTerm 2009");
+variables.Variables.Add("Trados Studio);
+variables.Variables.Add("MultiTerm");
 ```
 ****
 Similarly, you create the resource bundle object for the abbreviation list. The sample code below creates the abbreviation list object and adds two abbreviations:
@@ -166,8 +166,8 @@ public void CreateTemplate(TranslationProviderServer tmServer)
 
     #region "variables"
     LanguageResourceBundle variables = new LanguageResourceBundle(CultureInfo.GetCultureInfo("en-US"));
-    variables.Variables.Add("SDL Trados Studio 2009");
-    variables.Variables.Add("SDL MultiTerm 2009");
+    variables.Variables.Add("Trados Studio");
+    variables.Variables.Add("MultiTerm");
     #endregion
 
     #region "abbreviations"
@@ -197,7 +197,7 @@ Putting it All Together
 The complete class should look as shown below:
 # [C#](#tab/tabid-15)
 ```cs
-namespace Sdl.SDK.LanguagePlatform.Samples.TmAutomation
+namespace SDK.LanguagePlatform.Samples.TmAutomation
 {
     using System.Globalization;
     using System.Windows.Forms;
@@ -257,8 +257,8 @@ namespace Sdl.SDK.LanguagePlatform.Samples.TmAutomation
 
             #region "variables"
             LanguageResourceBundle variables = new LanguageResourceBundle(CultureInfo.GetCultureInfo("en-US"));
-            variables.Variables.Add("SDL Trados Studio 2009");
-            variables.Variables.Add("SDL MultiTerm 2009");
+            variables.Variables.Add("Trados Studio");
+            variables.Variables.Add("MultiTerm");
             #endregion
 
             #region "abbreviations"
@@ -291,5 +291,5 @@ See Also
 -----------
 [Configuring Translation Memories](configuring_translation_memories.md)
 
-[Adding Language Resources]
+[Adding Language Resources](adding_language_resources.md)
 

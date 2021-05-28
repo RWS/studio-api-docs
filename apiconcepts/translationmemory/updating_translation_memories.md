@@ -11,4 +11,4 @@ While a translator is translating the following update scenarios will apply:
 
 See Also
 --------
-[Updating a Translation Memory]()
+[Updating a Translation Memory](updating_a_translation_memory.md)

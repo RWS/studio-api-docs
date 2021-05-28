@@ -92,7 +92,7 @@ using System.Text;
 using System.Windows.Forms;
 using Sdl.FileTypeSupport.Framework.Core.Settings;
 
-namespace Sdl.Sdk.FileTypeSupport.Samples.XMLChecker
+namespace Sdk.FileTypeSupport.Samples.XMLChecker
 {
     /// <summary>
     /// Implements the user interface through which the verification plug-in can be enabled or disabled.

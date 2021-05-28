@@ -15,9 +15,11 @@ Now it is time to implement the verification logic in the main verification clas
   
 This class needs to be preceded by the following declaration, which makes it an extension class, which is referenced in the plug-in manifest (see also [Create a New Project](create_a_new_project.md)).
 
+# [C#](#tab/tabid-1)
 ```cs
 [GlobalVerifier("Identical Segments Verifier", "Plugin_Name", "Plugin_Description")]
 ```
+***
 
 This line is what makes the plug-in be listed under Verification in the Options or in the Project (Template) Settings dialog box of <Var:ProductName>.
 This class needs to implement the interfaces listed below:
@@ -28,15 +30,18 @@ This class needs to implement the interfaces listed below:
   
 Moreover, add a private member to the class, which you call e.g. `_verificationSettings`. This object is derived from the `IdenticalVerifierSettings` class (see [Retrieve the Settings Values](retrieve_the_settings_values.md)) and it is used to access the plug-in settings, which influence how the actual verification is executed:
 
+# [C#](#tab/tabid-2)
 ```cs
 private ISharedObjects _sharedObjects;
 private IdenticalVerifierSettings _verificationSettings;
 ```
+***
 
 Add the Plug-in Name, Icon and Description
 ----
 Add the following members to implement the plug-in icon, name, and description. Note that these elements are drawn from the resources file (see [The Resources File](the_resources_file.md)). This controls what end users will see in the **Options** dialog box of <Var:ProductName> under **Verification** in terms of strings and icons.
 
+# [C#](#tab/tabid-3)
 ```cs
 public string Description
 {
@@ -53,10 +58,13 @@ public string Name
     get { return PluginResources.Plugin_Name; }
 }
 ```
+***
+
 Retrieve the Verifier Settings
 -----
 In the next step, add the following internal member. This member is used to get a handle on the settings bundle used for our implementation:
 
+# [C#](#tab/tabid-4)
 ```cs
 internal IdenticalVerifierSettings VerificationSettings
 {
@@ -74,11 +82,13 @@ internal IdenticalVerifierSettings VerificationSettings
     }
 }
 ```
+***
 
 Add the Item Factory Member
 -----
 The item factory allows you to create, for example, tag pairs and placeholders. It is actually *not* required for the functionality of our verifier plug-in, however, it has to be present in our class according to the [IBilingualVerifier](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualVerifier.yml) interface.
 
+# [C#](#tab/tabid-5)
 ```cs
 public IDocumentItemFactory ItemFactory
 {
@@ -86,6 +96,7 @@ public IDocumentItemFactory ItemFactory
     set;
 }
 ```
+***
 
 Add the Message Reporter Member
 -----
@@ -99,6 +110,7 @@ Add Further Members of [IBilingualContentHandler](../../api/filetypesupport/Sdl.
 -----
 The [IBilingualVerifier](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualVerifier.yml) interface requires you to add a number of further members, which are actually not required for the functionality of our particular sample plug-in. You can therefore leave these methods empty.
 
+# [C#](#tab/tabid-6)
 ```cs
 public void Complete()
 {
@@ -120,6 +132,7 @@ public void Initialize(IDocumentProperties documentInfo)
     // Not required for this implementation.
 }
 ```
+***
 
 > [!NOTE]
 > An intermediary (XLIFF) document to verify might contain a number of individual documents, as <Var:ProductName> allows you to merge several native files into one intermediary master document. Through the `FileComplete` method you can determine what should happen after a particular file has been verified. With `Complete` you can determine what should happen after the entire (merged) document has been verified.
@@ -130,6 +143,7 @@ Process the Paragraph Units
 -----
 The plug-in loops through all the paragraph units in a given bilingual document. In our implementation, we should use the **ProcessParagraphUnit** method to determine whether the plug-in is enabled or not in the first place. Remember that users can enable or disable global verifier plugs-ins through a checkbox next to the plug-in name. If the plug-in is not enabled, then nothing happens. If the plug-in is active, a separate helper function (which we will implement later) is called to carry out the actual verification.
 
+# [C#](#tab/tabid-7)
 ```cs
 public void ProcessParagraphUnit(IParagraphUnit paragraphUnit)
 {
@@ -137,11 +151,13 @@ public void ProcessParagraphUnit(IParagraphUnit paragraphUnit)
     CheckParagraphUnit(paragraphUnit);
 }
 ```
+***
 
 Implement the Actual Verification Logic
 ------
 The verification logic is contained in a separate helper function that works as follows: this function determines the context information (if any) of the current paragraph unit and then loops through the unit's segment pairs. It then determines whether the context fits the context that has been specified through the user interface. If this is the case, the method compares the source and the target segment. If the segments are not identical, a message will be generated.
 
+# [C#](#tab/tabid-8)
 ```cs
 private void CheckParagraphUnit(IParagraphUnit paragraphUnit)
 {
@@ -167,6 +183,7 @@ private void CheckParagraphUnit(IParagraphUnit paragraphUnit)
     }
 }
 ```
+***
 
 The **ReportMessage** method has the following parameters:
 
@@ -180,6 +197,7 @@ Putting it All Together
 
 The complete main verification class will look as shown below:
 
+# [C#](#tab/tabid-9)
 ```cs
 using System;
 using System.Collections.Generic;
@@ -191,7 +209,7 @@ using Sdl.FileTypeSupport.Framework.NativeApi;
 
 using Sdl.Verification.Api;
 
-namespace Sdl.Verification.Sdk.IdenticalCheck
+namespace Verification.Sdk.IdenticalCheck
 {
     /// <summary>
     /// Required annotation for declaring the extension class.
@@ -240,7 +258,7 @@ namespace Sdl.Verification.Sdk.IdenticalCheck
         #region Members of IGlobalVerifier
         /// <summary>
         /// The following members set some general properties of the verification plug-in,
-        /// e.g. the plug-in name and the icon that are displayed in the user interface of SDL <Var:ProductName>. 
+        /// e.g. the plug-in name and the icon that are displayed in the user interface of <Var:ProductName>. 
         /// </summary>
         #region "DescriptionNameIcon"
         public string Description
@@ -376,6 +394,7 @@ namespace Sdl.Verification.Sdk.IdenticalCheck
     }
 }
 ```
+***
 
 Ignoring Track Changes
 -----
@@ -383,7 +402,7 @@ Verifiers should ignore any segments that have track changes. If a user has pend
 
 The example given above does not ignore track changes but any production verifiers should do so. Usually, a verifier would implement a [IMarkupDataVisitor](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IMarkupDataVisitor.yml) to extract the relevant information from the segment. If this visitor visits a revision marker then that segment has track changes and should be ignored. Below is an example of a [IMarkupDataVisitor](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IMarkupDataVisitor.yml) that determines whether a segment has track changes. If it visits a revision marker then it sets the property **HasRevisions**.
 
-
+# [C#](#tab/tabid-10)
 ```cs
 using System;
 using System.Collections.Generic;
@@ -391,7 +410,7 @@ using System.Linq;
 using System.Text;
 using Sdl.FileTypeSupport.Framework.BilingualApi;
 
-namespace Sdl.Verification.QAChecker
+namespace Verification.QAChecker
 {
     class SegmentVisitor : IMarkupDataVisitor
     {
@@ -457,5 +476,6 @@ namespace Sdl.Verification.QAChecker
     }
 }
 ```
+***
 
 All verifiers should ignore any segments that have track changes apart from the **Document Verifier**. For each segment with track changes, the **Document Verifier** generates a warning message "Segment X could not be verified because it contains track changes" so that the user is aware of any segments that have not been verified.

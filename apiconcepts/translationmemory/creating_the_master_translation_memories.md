@@ -90,14 +90,14 @@ private BuiltinRecognizers GetRecognizers()
 ```
 ***
 
-For more information, on these settings and on TM creation see also [Creating a File-based Translation Memory]().
+For more information, on these settings and on TM creation see also [Creating a File-based Translation Memory](creating_a_file_based_translation_memory.md).
 
 Putting it All Together
 ----
 The complete class should look as shown below:
 # [C#](#tab/tabid-4)
 ```cs
-namespace Sdl.SDK.LanguagePlatform.Samples.BatchImporter
+namespace SDK.LanguagePlatform.Samples.BatchImporter
 {
     using System.Globalization;
     using Sdl.LanguagePlatform.Core.Tokenization;
@@ -191,4 +191,4 @@ See Also
 -------------
 [Creating the Log File](creating_a_log_file.md)
 
-[Creating a File-based Translation Memory]()
+[Creating a File-based Translation Memory](creating_a_file_based_translation_memory.md)

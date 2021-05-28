@@ -14,7 +14,7 @@ using System.Linq;
 using System.Text;
 using Sdl.LanguagePlatform.Core;
 
-namespace Sdl.Sdk.LanguagePlatform.Samples.ListProvider
+namespace Sdk.LanguagePlatform.Samples.ListProvider
 {
     class ListTranslationProviderElementVisitor : ISegmentElementVisitor
     {

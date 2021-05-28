@@ -21,7 +21,7 @@ The manifest contains the following information:
 * **Version**: the version of the plug-in package. This information used to detect any package updates upon start-up of <Var:ProductName>, and is therefore important.
 * **Description**: descriptive information of the plug-in package.
 * **Author**: the name of the plug-in developer.
-* **RequiredProduct**: this string indicates which SDL product version is required to run the given plug-in. The information that you indicate here must include the minimum version, and can optionally include a maximum version.
+* **RequiredProduct**: this string indicates which product version is required to run the given plug-in. The information that you indicate here must include the minimum version, and can optionally include a maximum version.
 
 See Also
 --------

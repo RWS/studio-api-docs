@@ -27,7 +27,7 @@ using Sdl.Core.Settings;
 using Sdl.FileTypeSupport.Framework.NativeApi;
 using Sdl.Core.Globalization;
 
-namespace Sdl.Sdk.Snippets.Native
+namespace Sdk.Snippets.Native
 {
     class SimpleTextSniffer1 : INativeFileSniffer
     {
@@ -52,7 +52,7 @@ using Sdl.Core.Settings;
 using Sdl.FileTypeSupport.Framework.NativeApi;
 using Sdl.Core.Globalization;
 
-namespace Sdl.Sdk.Snippets.Native
+namespace Sdk.Snippets.Native
 {
     // the file sniffer component determines whether a given file
     // can be processed by the filter or not

@@ -16,12 +16,15 @@ In order to set the TM fields to use for a project you require the functionality
 
 You can configure the fields that should be used and updated in your project through the [ProjectSettings](../../api/projectautomation/Sdl.ProjectAutomation.Settings.TranslationMemorySettings.yml#Sdl_ProjectAutomation_Settings_TranslationMemorySettings_ProjectSettings) property, whose value has to be set to the collection of field values, e.g.:
 
+# [C#](#tab/tabid-1)
 ```cs
 tmSettings.ProjectSettings.Value = fvCollection;
 ```
+***
 
 The actual project fields values need to be generated through the functionality offered by the TM API. In the example below you see how to use the ```FieldValues``` class of the TM API to generate the field value collection to use for your project. In the example below the project should be configured to apply the value *Type = Technical documentation*.
 
+# [C#](#tab/tabid-2)
 ```cs
 FieldValues fieldValuesCollection = new FieldValues();
 FileBasedTranslationMemory tm = new FileBasedTranslationMemory(@"c:\ProjectFiles\Tms\General En-De.sdltm");
@@ -31,12 +34,14 @@ fv.Name = "Technical documentation";
 fieldValuesCollection.Add(fv);
 tmSettings.ProjectSettings.Value = fieldValuesCollection;
 ```
+***
 
 Retrieving Fields from the TM Setup
 --
 
 In the example above we simply hard-coded the field name and value to apply to the project. In your implementation, however, you might need to retrieve the available TM fields (if any) from the setup of a selected TM. Fields can be, for example, simple text fields, picklist fields that allow only one or multiple values, etc. The sample code below outlines how to use the TM API functionality to open a file TM (* *.sdltm*) and retrieve the field names and values. After opening the TM, the code loops through all available fields and adds their names to a string variable. If a field is found to be a single or multiple value picklist, the values, too are read and appended to the string variable. You might require such a logic to fill, e.g. a combo list with the names of available fields and values, so that they can be selected by the user at runtime. This functionality may also be relevant for setting project filters (see next chapter, [Translation Memory Filter Settings](translation_memory_filter_settings.md)).
 
+# [C#](#tab/tabid-3)
 ```cs
 private void GetTmSetup()
 {
@@ -58,12 +63,10 @@ private void GetTmSetup()
     }
 }
 ```
+***
 
 See Also
 --
-
-
-
 [Translation Memory Search Settings](translation_memory_search_settings.md)
 
 [Setting TM Penalties](setting_tm_penalties.md)

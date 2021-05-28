@@ -30,13 +30,15 @@ Defining Filter Penalties
 
 When defining filter penalties apply the [Filters](../../api/projectautomation/Sdl.ProjectAutomation.Settings.TranslationMemorySettings.yml#Sdl_ProjectAutomation_Settings_TranslationMemorySettings_Filters) to the [TranslationMemorySettings](../../api/projectautomation/Sdl.ProjectAutomation.Settings.TranslationMemorySettings.yml) object and set the value to the penalty filters that should be used in the project, i.e.
 
+# [C#](#tab/tabid-1)
 ```cs
 tmSettings.Filters.Value = filterList;
 ```
+***
 
 The sample code below outlines how to create a single filter expression, i.e.* Type = Technical documentation*. This filter expression (which applies a penalty of 1%) is then set to a filter list, which is then used to configure the filter project settings:
 
-
+# [C#](#tab/tabid-2)
 ```cs
 PicklistItem fieldName = new PicklistItem("Type");
 MultiplePicklistFieldValue fieldValue = new MultiplePicklistFieldValue("Technical documentation");
@@ -49,12 +51,14 @@ filterList.Add(updateFilter);
 
 tmSettings.Filters.Value = filterList;
 ```
+***
 
 Defining Hard Filters
 --
 
 Defining a hard filter for a project is somewhat easier, as you have to set the [HardFilter](../../api/projectautomation/Sdl.ProjectAutomation.Settings.TranslationMemorySettings.yml#Sdl_ProjectAutomation_Settings_TranslationMemorySettings_HardFilter) property of your [TranslationMemorySettings](../../api/projectautomation/Sdl.ProjectAutomation.Settings.TranslationMemorySettings.yml object to only one filter expression. The example below outlines how to create the same filter expression as above (i.e. *Type = Technical documentation*), but this time use it as a hard filter:
 
+# [C#](#tab/tabid-3)
 ```cs
 PicklistItem hardFilterFieldName = new PicklistItem("Type");
 MultiplePicklistFieldValue hardFilterFieldValue = new MultiplePicklistFieldValue("Technical documentation");
@@ -62,12 +66,10 @@ hardFilterFieldValue.Add(hardFilterFieldName);
 AtomicExpression hardFilterExpression = new AtomicExpression(hardFilterFieldValue, AtomicExpression.Operator.Equal);
 tmSettings.HardFilter.Value = hardFilterExpression;
 ```
+***
 
 See Also
 --
-
-
-
 [Translation Memory Search Settings](translation_memory_search_settings.md)
 
 [Setting TM Penalties](setting_tm_penalties.md)

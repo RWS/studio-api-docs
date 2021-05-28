@@ -299,7 +299,7 @@ using Sdl.FileTypeSupport.Framework;
 using Sdl.FileTypeSupport.Framework.IntegrationApi;
 using Sdl.FileTypeSupport.Framework.NativeApi;
 
-namespace Sdl.Sdk.FileTypeSupport.Samples.SimpleText.Preview
+namespace Sdk.FileTypeSupport.Samples.SimpleText.Preview
 {
     class InternalPreviewController : ISingleFilePreviewControl, INavigablePreview, IPreviewUpdatedViaRefresh, IDisposable
     {

@@ -5,7 +5,7 @@ using System.Drawing;
 
 using Sdl.Core.PluginFramework;
 
-namespace Sdl.TranslationStudio.Sdk.Documentation.Samples
+namespace TranslationStudio.Sdk.Documentation.Samples
 {
     public class AdvancedPluginFramework
     {

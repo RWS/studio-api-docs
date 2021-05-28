@@ -13,7 +13,7 @@ using Sdl.FileTypeSupport.Framework.Core.Utilities.Formatting;
 using Sdl.FileTypeSupport.Framework.NativeApi;
 using Sdl.FileTypeSupport.Framework.Formatting;
 
-namespace Sdl.Sdk.Snippets.Native
+namespace Sdk.Snippets.Native
 {
     public class SimpleSubContentTextParser : AbstractNativeFileParser, INativeContentCycleAware, ISubContentParser
     {

@@ -24,11 +24,8 @@ In addition you also require the following references from the Translation Memor
 
 Note that we require the functionality of the Translation Memory API to access information on the selected TM, i.e. the source / target language combination. Note that this is a case in point of how the Project Automation API and the Translation Memory API are sometimes required to be leveraged both to implement the functionality of your applications.
 
-Make sure to set the project build output location to the <Var:ProductName> installation folder, e.g. *C:\Program Files\SDL\ <Var:ProductName> \ <Var:ProductVersion>*. **Important note**: Set the platform target of your projects to x86.
+Make sure to set the project build output location to the <Var:ProductName> installation folder, e.g. *<Var:InstallationFolder>*. **Important note**: Set the platform target of your projects to x86.
 
 See Also
 --
-
-
-
 [Required References and Namespaces](required_references_and_namespaces.md)

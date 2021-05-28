@@ -10,12 +10,12 @@ When accessing a file-based TM users open an *.sdltm file, which is based on SQL
 
 Server-based TMs
 ----
-Server TMs are physically stored in a database system such as Microsoft SQL Server. The SDL TM Server middleware negotiates the access between the client application and the server-based TMs. The TM Server software can be installed on the same machine as the database system or on a separate server computer. Server-based TMs can be accessed in a LAN through TCP or through the Web using HTTP. A user who wants to access a TM Server requires the server address, the server instance name, the port, and user name with password.
+Server TMs are physically stored in a database system such as Microsoft SQL Server. The TM Server middleware negotiates the access between the client application and the server-based TMs. The TM Server software can be installed on the same machine as the database system or on a separate server computer. Server-based TMs can be accessed in a LAN through TCP or through the Web using HTTP. A user who wants to access a TM Server requires the server address, the server instance name, the port, and user name with password.
 
 <img style="display:block; " src="images/ServerTM.jpg"/>
 
 See Also
 -----
-[Setting Translation Memory Access Rights]()
+[Setting Translation Memory Access Rights](setting_translation_memory_access_rights.md)
 
 [Connecting to TM Server](connecting_to_tm_server.md)

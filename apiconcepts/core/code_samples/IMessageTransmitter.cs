@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Sdl.TranslationStudio.Sdk.Documentation.Samples
+namespace TranslationStudio.Sdk.Documentation.Samples
 {
     #region IMessageTransmitter
 

@@ -19,7 +19,7 @@ Click or drag to resize
 Loading and Saving the Settings
 In this chapter we will learn how to implement the class that is actually responsible for physically storing the settings and for loading the plug-in settings into the plug-in UI. The physical storing occurs in an *.sdlproj or in an *.sdltpl file, which are both XML compliant.
 
-*.sdlproj files are automatically created for each document that is opened for translation/editing in SDL Trados Studio 2017 or for each project that is created in the application. These files contain project-specific information such as the translation memories/termbases used for a project as well as any project-specific settings, which can also include plug-in settings. An *.sdltpl file is a project template, which users can create to streamline project creation.
+*.sdlproj files are automatically created for each document that is opened for translation/editing in <Var:ProductName> or for each project that is created in the application. These files contain project-specific information such as the translation memories/termbases used for a project as well as any project-specific settings, which can also include plug-in settings. An *.sdltpl file is a project template, which users can create to streamline project creation.
 
 The settings bundle stored in an *.sdlproj file as used by our implementation would look, for example, as shown below:
 
@@ -180,7 +180,7 @@ using Sdl.Core.Settings;
 using Sdl.FileTypeSupport.Framework.Core.Settings;
 using System.Windows.Forms;
 
-namespace Sdl.Sdk.FileTypeSupport.Samples.WordArtVerifier
+namespace Sdk.FileTypeSupport.Samples.WordArtVerifier
 {
     /// <summary>
     /// This class is used to actually store the settings to the settings bundle, which

@@ -14,7 +14,7 @@ using Sdl.FileTypeSupport.Framework;
 using Sdl.Core.Globalization;
 using Sdl.FileTypeSupport.Framework.NativeApi;
 
-namespace Sdl.Sdk.Snippets.Native
+namespace Sdk.Snippets.Native
 {
     [FileTypeComponentBuilderAttribute(Id = "SimpleText_SubContentComponentBuilder_Id",
                                        Name = "SimpleText_FilterComponentBuilderExtension_Name",

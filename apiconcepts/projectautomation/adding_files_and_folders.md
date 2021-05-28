@@ -104,7 +104,7 @@ After adding the source files as outlined above the project folder should now al
 
 ![FoldersAfterAddingsFiles](images/FoldersAfterAddingsFiles.jpg)
 
-If you were to open the programmatically created * *.sdlproj* file in SDL Trados Studio 2017, and switched to the **Files** view, you would see the documents listed as shown below. Note that in the column **Usage** the first two files are marked as *Reference*, as you changed the role of the first two project files:
+If you were to open the programmatically created * *.sdlproj* file in <Var:ProductName>, and switched to the **Files** view, you would see the documents listed as shown below. Note that in the column **Usage** the first two files are marked as *Reference*, as you changed the role of the first two project files:
 
 ![FilesAddedAsReference](images/FilesAddedAsReference.jpg)
 

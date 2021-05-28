@@ -16,14 +16,17 @@ Add a New Class
 
 In the following you will learn how to retrieve the system information of a TU programmatically. Start by adding a new class called ```TuSystemInfo```. Implement a public function called ```GetInfo``` to your class, which uses the TM file name and path as string parameter. First, you open the TM and retrieve a particular TU by searching a segment as demonstrated below:
 
+# [C#](#tab/tabid-1)
 ```cs
 FileBasedTranslationMemory tm = new FileBasedTranslationMemory(tmPath);
 
 SearchResults results = tm.LanguageDirection.SearchText(this.GetSearchSettings(), "A dialog box will open.");
 ```
+***
 
 Then you create a TU object based on the search result, from which you derive a system info object through which you compile the TU system information output string:
 
+# [C#](#tab/tabid-2)
 ```cs
 string tuInfo = string.Empty;
 foreach (SearchResult item in results)
@@ -46,14 +49,16 @@ foreach (SearchResult item in results)
 
 MessageBox.Show(tuInfo, "TU Information");
 ```
+***
 
 Putting it All Together
 --
 
 The complete class should now look as shown below:
 
+# [C#](#tab/tabid-3)
 ```cs
-namespace Sdl.SDK.LanguagePlatform.Samples.TmAutomation
+namespace SDK.LanguagePlatform.Samples.TmAutomation
 {
     using System.Windows.Forms;
     using Sdl.LanguagePlatform.TranslationMemory;
@@ -106,3 +111,4 @@ namespace Sdl.SDK.LanguagePlatform.Samples.TmAutomation
     }
 }
 ```
+***

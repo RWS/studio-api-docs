@@ -9,7 +9,7 @@ Before you start developing plug-ins for <Var:ProductName>, you should make sure
 
 <img style="display:block; " src="images/PlugInTemplate.jpg"/>
 
-By default, when you create a project based on this template, the project name will be e.g. **SDL Trados Studio1**. Change the project name to **Sdl.Verification.Sdk.IdenticalCheck** for our sample implementation.
+By default, when you create a project based on this template, the project name will be e.g. **Trados Studio1**. Change the project name to **Sdl.Verification.Sdk.IdenticalCheck** for our sample implementation.
 
 Add the Required References
 -----
