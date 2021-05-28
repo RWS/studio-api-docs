@@ -18,6 +18,6 @@ Maintaining a TM can involve, among others, the following typical tasks:
 
 See Also
 ----------
-[Tuning and Maintaining a Translation Memory]()
+[Tuning and Maintaining a Translation Memory](tuning_and_maintaining_a_translation_memory.md)
 
-[Looping through Translation Memories]()
+[Looping through Translation Memories](looping_through_translation_memories.md)

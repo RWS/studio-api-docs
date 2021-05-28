@@ -51,12 +51,12 @@ Extensions have been added to the FileBasedProject class to allow the class to w
 
 See Also
 --------
-[Connecting a Project to a Project Server]
+[Connecting a Project to a Project Server](connecting_a_project_to_a_project_server.md)
 
-[Viewing and Deleting Published Projects]
+[Viewing and Deleting Published Projects](viewing_and_deleting_published_projects.md)
 
-[Checking Files In and Out]
+[Checking Files In and Out](checking_files_in_and_out.md)
 
-[Downloading and Uploading Files]
+[Downloading and Uploading Files](checking_files_in_and_out.md)
 
-[Putting it All Together]
+[Putting it All Together](putting_it_all_together.md)

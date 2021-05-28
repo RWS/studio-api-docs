@@ -13,6 +13,7 @@ After implementing the user interface, you need to add a separate class for retr
 
 Our sample application only has one setting, i.e. a (display code) string value that defines which context should be relevant for the verification, e.g. **H** for **Heading**. This setting will be implemented as a string property, which we will call, for example `CheckContext`:
 
+# [C#](#tab/tabid-1)
 ```cs
 // Define the setting constant.
 private const string CheckContext_Setting = "CheckContext";
@@ -23,10 +24,12 @@ public Setting<string> CheckContext
     get { return GetSetting<string>(CheckContext_Setting); }
 }
 ```
+***
 
 
 We will also implement a method for setting the default value. Let's assume that headings are likely to stay unchanged in the target language. Therefore it makes sense to apply the verification by default to segment pairs whose context has the context display code **H**:
 
+# [C#](#tab/tabid-2)
 ```cs
 protected override object GetDefaultValue(string settingId)
 {
@@ -39,9 +42,11 @@ protected override object GetDefaultValue(string settingId)
     }
 }
 ```
+***
 
 The plug-in settings are physically stored in the project files (* .*sdlproj*) or project template files (* .*sdltpl*). The settings group in the (XML-compliant) project (template) file can look as shown below. As you can see, the setting id corresponds to the name of the property that we have implemented in this class.
 
+# [Xml](#tab/tabid-3)
 ```xml
 <SettingsGroup Id="Identical Verifier">
     <Setting Id="Enabled">True</Setting>
@@ -50,6 +55,7 @@ The plug-in settings are physically stored in the project files (* .*sdlproj*) o
     <Setting Id="CheckContext">H</Setting>
   </SettingsGroup>
 ```
+***
 
 Note that the **Enabled** property does not need to be implemented by your plug-in. The plug-in framework provides the mechanism for enabling/disabling global verifier plug-ins through the user interface of <Var:ProductName>.
 
@@ -57,10 +63,11 @@ Putting it All Together
 ----
 The complete class that is used for retrieving the settings value should look as shown below:
 
+# [C#](#tab/tabid-4)
 ```cs
 using Sdl.Core.Settings;
 
-namespace Sdl.Verification.Sdk.IdenticalCheck
+namespace Verification.Sdk.IdenticalCheck
 {
     /// <summary>
     /// This class is used for reading and writing the plug-in setting(s) value(s).
@@ -102,3 +109,4 @@ namespace Sdl.Verification.Sdk.IdenticalCheck
     }
 }
 ```
+***

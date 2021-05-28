@@ -39,7 +39,7 @@ using Sdl.FileTypeSupport.Framework.NativeApi;
 using Sdl.TranslationStudio.Plugins.AdvancedDisplayFilter.Models;
 using Sdl.TranslationStudioAutomation.IntegrationApi;
 
-namespace Sdl.TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
+namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
 {
     public partial class DisplayFilterControl : UserControl
     {
@@ -1375,7 +1375,7 @@ using Sdl.Desktop.IntegrationApi;
 using Sdl.TranslationStudioAutomation.IntegrationApi;
 using Sdl.Desktop.IntegrationApi.Extensions;
 
-namespace Sdl.Community.AdvancedDisplayFilter.Controls
+namespace Community.AdvancedDisplayFilter.Controls
 {
     [ViewPart(
     Id = "CommunityAdvancedDisplayFilterViewPart",

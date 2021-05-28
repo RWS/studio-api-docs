@@ -24,7 +24,7 @@ Server-based translation memories support scheduling an import, which means the 
 
 See Also
 -------
-[Importing a TMX File]()
+[Importing a TMX File](importing_a_tmx_file.md)
 
 [Introduction](working_with_translation_memories.md)
 

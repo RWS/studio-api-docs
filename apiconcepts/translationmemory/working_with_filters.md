@@ -20,6 +20,6 @@ The field values ([FieldValue](../../api/translationmemory/Sdl.LanguagePlatform.
 
 See Also
 -------
-[Exporting to a TMX File]()
+[Exporting to a TMX File](exporting_to_a_tmx_file.md)
 
-[Doing Translation Memory Lookups]()
+[Doing Translation Memory Lookups](doing_translation_memory_lookups.md)

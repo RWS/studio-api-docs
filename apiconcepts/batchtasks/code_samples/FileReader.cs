@@ -9,17 +9,17 @@ using Sdl.FileTypeSupport.Framework.BilingualApi;
 using Sdl.FileTypeSupport.Framework.NativeApi;
 using System.Windows.Forms;
 
-namespace SDL_Sample_Custom_Batch_Task
+namespace Sample_Custom_Batch_Task
 {
     #region "Class"
     // This class performs the actual work, it needs to inherit from the 
-    // AbstractBilingualContentProcessor class to process bilingual SDL XLIFF files
+    // AbstractBilingualContentProcessor class to process bilingual SDLXliff files
     public class FileReader : AbstractBilingualContentProcessor
     #endregion
     {
         #region "Variables"
         // Variables to retrieve the task settings
-        // as well as the SDL XLIFF file patch to process and
+        // as well as the SDLXliff file patch to process and
         // the path of the TXT file that contains the exported content
         private readonly MyCustomBatchTaskSettings _taskSettings;
         private readonly string _inputFilePath;

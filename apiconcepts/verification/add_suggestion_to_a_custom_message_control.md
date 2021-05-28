@@ -27,6 +27,7 @@ The 'IdenticalVerifierMessageUI' custom user control should implement [ISuggesti
 2. Make the class implement [ISuggestionProvider](../../api/verification/Sdl.Verification.Api.ISuggestionProvider.yml) - use Visual Studio to add empty implementations.
 3. Make `HasSuggestion` always return true because there is always a suggestion - replacing the contents of the target segment with the source segment.
 
+# [C#](#tab/tabid-1)
 ```cs
 public Suggestion GetSuggestion()
 {
@@ -40,12 +41,14 @@ public bool HasSuggestion()
 
 public event EventHandler SuggestionChanged;
 ```
+***
 
 The `IdenticalVerifierMessageUI` custom user control needs the source segment to be able to suggest replacing the contents of the target segment with the source segment.
 
 1. Add a using reference to `Sdl.FileTypeSupport.Framework.BilingualApi`.
 2. Use property `ReplaceDocumentSegment` of `IdenticalVerifierMessageData` class to create new Suggestion.
 
+# [C#](#tab/tabid-2)
 ```cs
 public IdenticalVerifierMessageUI(MessageEventArgs messageEventArgs, ISegment originalSegment)
 {
@@ -64,6 +67,7 @@ public IdenticalVerifierMessageUI(MessageEventArgs messageEventArgs, ISegment or
     panel_Original.Controls.Add(_originalSegment);
 }
 ```
+***
 
 A suggestion is always a replacement where the target contents from one location upto another location is replaced by the new markup. If the new markup is null then the suggestion effectively deletes the contents from one location upto another location. Always set the new markup to null to delete content and do not use empty text markup.
 
@@ -73,6 +77,7 @@ The `IdenticalVerifierMessageUI` constructor now has the from and upto locations
 2. Create the _suggestion from the messageEventArgsFromLocation and UptoLocation and from the messageData.ReplacementSuggestion.
 3. Change the GetSuggestion method to return this suggestion.
 
+# [C#](#tab/tabid-3)
 ```cs
 using System;
 using System.Windows.Forms;
@@ -82,7 +87,7 @@ using Sdl.FileTypeSupport.Framework.BilingualApi;
 using Sdl.FileTypeSupport.Framework.IntegrationApi;
 using Sdl.Verification.Api;
 
-namespace Sdl.Verification.Sdk.IdenticalCheck.Extended.MessageUI
+namespace Verification.Sdk.IdenticalCheck.Extended.MessageUI
 {
     public partial class IdenticalVerifierMessageUI : UserControl, ISuggestionProvider
     {
@@ -135,6 +140,7 @@ namespace Sdl.Verification.Sdk.IdenticalCheck.Extended.MessageUI
     }
 }
 ```
+***
 
 Summary
 ====

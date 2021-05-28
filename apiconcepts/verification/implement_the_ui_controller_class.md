@@ -34,6 +34,7 @@ Start by adding the following private members, which are derived from the actual
 
 In the next step, add the following member, which is used to get a handle on the plug-in user interface (i.e. the control).
 
+# [C#](#tab/tabid-4)
 ```cs
 public override object GetControl()
 {
@@ -47,6 +48,7 @@ public override object GetControl()
     return _Control;
 }
 ```
+***
 
 Add the Functionality to Control the UI
 ------
@@ -61,6 +63,7 @@ Now you need to add a number of members that control the user interface. These m
 
 Below you see examples of the members for controlling the user interface. The following member controls what happens when the user clicks the **Reset to Defaults** button, which is provided by the framework:
 
+# [C#](#tab/tabid-5)
 ```cs
 public override void ResetToDefaults()
 {
@@ -68,44 +71,52 @@ public override void ResetToDefaults()
     _Control.ContextToCheck = _ControlSettings.CheckContext;
 }
 ```
+***
 
 The following member controls what happens when the user clicks the **OK** button, thereby committing the settings that were configured on the plug-in settings page:
 
+# [C#](#tab/tabid-6)
 ```cs
 public override void Save()
 {
     _ControlSettings.CheckContext.Value = _Control.ContextToCheck;
 }
 ```
+***
 
 The member below is used to control what happens when the user clicks **Cancel**, thereby not saving the settings:
 
+# [C#](#tab/tabid-7)
 ```cs
 public override void Cancel()
 {
     _ControlSettings.CancelEdit();
 }
 ```
+***
 
 Another required member of the abstract settings page base class is used to properly dispose of the user control:
 
+# [C#](#tab/tabid-8)
 ```cs
 public override void Dispose()
 {
     _Control.Dispose();
 }
 ```
+***
 
 Putting it All Together
 -----
 The complete class for controlling the settings page should now as shown below:
 
+# [C#](#tab/tabid-9)
 ```cs
 using Sdl.Core.Settings;
 
 using Sdl.Verification.Api;
 
-namespace Sdl.Verification.Sdk.IdenticalCheck
+namespace Verification.Sdk.IdenticalCheck
 {
     /// <summary>
     /// This is the extension class that displays and controls the plug-in user interface,
@@ -208,3 +219,4 @@ namespace Sdl.Verification.Sdk.IdenticalCheck
     }
 }
 ```
+***

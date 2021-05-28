@@ -31,11 +31,12 @@ A custom message class also needs to inherit from [Sdl.FileTypeSupport.Framework
 3. Change the constructor so that it sets the `MessageType` to "Sdl.Verification.Sdk.IdenticalCheck.Extended, Error_NotIdentical".
 The complete message class should look as following:
 
+# [C#](#tab/tabid-1)
 ```cs
 using Sdl.FileTypeSupport.Framework.BilingualApi;
 using Sdl.FileTypeSupport.Framework.IntegrationApi;
 
-namespace Sdl.Verification.Sdk.IdenticalCheck.Extended.MessageUI
+namespace Verification.Sdk.IdenticalCheck.Extended.MessageUI
 {
     public class IdenticalVerifierMessageData : ExtendedMessageEventData
     {
@@ -68,6 +69,7 @@ namespace Sdl.Verification.Sdk.IdenticalCheck.Extended.MessageUI
     }
 }
 ```
+***
 
 Adding the custom message data object to the verification message
 -----
@@ -77,16 +79,19 @@ In the `IdenticalCheck global verifier`, `IdenticalVerifierMain.CheckParagraphUn
 
 In `IdenticalVerifierMain.CheckParagraphUnit`, add the following before the line that begins `MessageReporter.ReportMessage`:
 
+# [C#](#tab/tabid-2)
 ```cs
 string context = paragraphUnit.Properties.Contexts.Contexts[0].DisplayCode;
 IdenticalVerifierMessageData extendedData = new IdenticalVerifierMessageData(completeTextTarget +
     " - must be identical to source because the paragraph has context " + context + ".", segmentPair.Source);
 ```
+***
 
 After creating the custom or extended data object, this needs to be passed to the message reporter. Only some message reporters can handle custom or extended data and these extended message reporters implement the [IBilingualContentMessageReporterWithExtendedData](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentMessageReporterWithExtendedData.yml) interface and contains just one `ReportMessage` method that includes the extended data as an argument. So the message reporter needs to be cast to an extended message reporter before it can be used to pass the extended data.
 
 In `IdenticalVerifierMain.CheckParagraphUnit`, replace the call to `MessageReporter.ReportMessage` with the following:
 
+# [C#](#tab/tabid-3)
 ```cs
 IBilingualContentMessageReporterWithExtendedData extendedMessageReporter = (IBilingualContentMessageReporterWithExtendedData)MessageReporter;
 extendedMessageReporter.ReportMessage(this, PluginResources.Plugin_Name,
@@ -95,9 +100,11 @@ extendedMessageReporter.ReportMessage(this, PluginResources.Plugin_Name,
     new TextLocation(new Location(segmentPair.Target, false), segmentPair.Target.ToString().Length - 1),
     extendedData);
 ```
+***
 
 Since only some message reporters can handle custom or extended data and implement [IBilingualContentMessageReporterWithExtendedData](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentMessageReporterWithExtendedData.yml), then code should be added to guard against this possibility. In the following code, the message reporter is checked to see whether it implements [IBilingualContentMessageReporterWithExtendedData](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentMessageReporterWithExtendedData.yml) if so then the extended data is passed to `ReportMessage` and if not then the extended data is not passed to `ReportMessage`.
 
+# [C#](#tab/tabid-4)
 ```cs
 if (MessageReporter is IBilingualContentMessageReporterWithExtendedData)
 {
@@ -127,6 +134,7 @@ else
     #endregion
 }
 ```
+***
 
 
 Creating a custom message control
@@ -149,12 +157,14 @@ The `messageEventArgs` contains all the information about the verification messa
 
 Add the following code to the constructor to retrieve and set the data required in the custom UI control and the private Suggestion field which will be used to replace target segment content.
 
+# [C#](#tab/tabid-5)
 ```cs
 IdenticalVerifierMessageData messageData = (IdenticalVerifierMessageData)messageEventArgs.ExtendedData;
 this.tb_ErrorDetails.Text = messageData.ErrorDetails;
 _suggestion = new Suggestion(messageEventArgs.FromLocation, messageEventArgs.UptoLocation, 
     messageData.ReplacementSuggestion.Clone() as IAbstractMarkupData);
 ```
+***
 
 Now we need a controls which are able to display our target segment. The [Sdl.DesktopEditor.BasicControls.BasicSegmentEditControl](../../api/integration/Sdl.DesktopEditor.BasicControls.BasicSegmentEditControl.yml) is a simplified control for basic displaying and editing of a bilingual content. In our custom UI we will initialize the control and then add the control to the panel we created earlier. The `BasicSegmentEditControl` can be set as read only - for read/write you would need to add events to handle changes done by the translator manually.
 
@@ -175,6 +185,7 @@ In the `IdenticalCheck` global verifier, a custom message plug-in needs to be de
 
 Replace `IdenticalVerifierMessagePlugIn.SupportsMessage` method with the following code.
 
+# [C#](#tab/tabid-6)
 ```cs
 public bool SupportsMessage(MessageEventArgs messageEventArgs)
 {
@@ -182,11 +193,13 @@ public bool SupportsMessage(MessageEventArgs messageEventArgs)
            messageEventArgs.ExtendedData.GetType().Equals(typeof(IdenticalVerifierMessageData));
 }
 ```
+***
 
 `IdenticalVerifierMessagePlugIn` needs to implement the `CreateMessageControl` method. There are five arguments that provide a variety of information that the plug-in and the control can use but we are only concerned here with the verification message represented by the `messageEventArgs` argument. This verification message can be used to create our custom message control `IdenticalVerifierMessageUI`.
 
 Replace `IdenticalVerifierMessagePlugIn.CreateMessageControl` method with the following code.
 
+# [C#](#tab/tabid-7)
 ```cs
 public UserControl CreateMessageControl(IMessageControlContainer messageControlContainer, MessageEventArgs messageEventArgs, 
     IBilingualDocument bilingualDocument, ISegment sourceSegment, ISegment targetSegment)
@@ -199,9 +212,11 @@ public UserControl CreateMessageControl(IMessageControlContainer messageControlC
     return new IdenticalVerifierMessageUI(messageEventArgs, targetSegment);
 }
 ```
+***
 
 The entire `IdenticalVerifierMessagePlugIn` class should look as following:
 
+# [C#](#tab/tabid-8)
 ```cs
 using System;
 using System.Windows.Forms;
@@ -211,7 +226,7 @@ using Sdl.FileTypeSupport.Framework.BilingualApi;
 using Sdl.FileTypeSupport.Framework.IntegrationApi;
 using Sdl.Verification.Api;
 
-namespace Sdl.Verification.Sdk.IdenticalCheck.Extended.MessageUI
+namespace Verification.Sdk.IdenticalCheck.Extended.MessageUI
 {
     [MessageControlPlugIn]
     public class IdenticalVerifierMessagePlugIn : IMessageControlPlugIn
@@ -239,6 +254,7 @@ namespace Sdl.Verification.Sdk.IdenticalCheck.Extended.MessageUI
     }
 }
 ```
+***
 
 Summary
 -----

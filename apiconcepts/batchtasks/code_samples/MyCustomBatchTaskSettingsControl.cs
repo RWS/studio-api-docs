@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using Sdl.Desktop.IntegrationApi;
 
-namespace SDL_Sample_Custom_Batch_Task
+namespace Sample_Custom_Batch_Task
 {
     #region "ClassDeclaration"
     // The visible UI control needs to implement the following interfaces:

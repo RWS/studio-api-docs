@@ -346,7 +346,7 @@ tu.TargetSegment = translation;
 Next, we set some properties for the TU:
 
 * The match value, which should be 100, but which might be reduced through a penalty to 99% in order to alert the user to the fact that tags/inline formatting information is missing.
-* The [TranslationUnitOrigin](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemory.TranslationUnitOrigin.yml), which indicates that the translation came from. TU origins could be, for example, translation memories, machine translation providers, Context TM, or an alignment of existing documents. A delimited list is similar in nature to a very rudimentary translation memory, therefore we chose **TM** as the TU origin value. Note that information such as the name of the provider and the TU origin is stored in the SDL XLIFF document as illustrated in the screenshot below. The user can make such information visible in a tooltip.
+* The [TranslationUnitOrigin](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemory.TranslationUnitOrigin.yml), which indicates that the translation came from. TU origins could be, for example, translation memories, machine translation providers, Context TM, or an alignment of existing documents. A delimited list is similar in nature to a very rudimentary translation memory, therefore we chose **TM** as the TU origin value. Note that information such as the name of the provider and the TU origin is stored in the SDLXliff document as illustrated in the screenshot below. The user can make such information visible in a tooltip.
 
 
 <img style="display:block; " src="images/TuInfoTooltip.jpg"/>
@@ -420,4 +420,4 @@ See Also
 ---
 [Implementing the Element Visitor](implementing_the_element_visitor.md)
 [Performing Translation Memory Lookups](performing_translation_memory_lookups.md)
-[Doing Translation Memory Lookups]()
+[Doing Translation Memory Lookups](doing_translation_memory_lookups.md)

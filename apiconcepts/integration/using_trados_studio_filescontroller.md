@@ -22,7 +22,7 @@ using System.Windows.Forms;
 using Sdl.ProjectAutomation.Core;
 using Sdl.TranslationStudioAutomation.IntegrationApi;
 
-namespace Sdl.FilesOperations.Sample
+namespace FilesOperations.Sample
 {
     public partial class MyFilesViewPartControl : UserControl
     {
@@ -117,7 +117,7 @@ using Sdl.Desktop.IntegrationApi;
 using Sdl.Desktop.IntegrationApi.Extensions;
 using Sdl.TranslationStudioAutomation.IntegrationApi;
 
-namespace Sdl.FilesOperations.Sample
+namespace FilesOperations.Sample
 {
     [ViewPart(
         Id = "MyFilesViewPart", 

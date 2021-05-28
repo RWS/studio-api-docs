@@ -81,7 +81,7 @@ using Sdl.Desktop.IntegrationApi;
 using Sdl.Desktop.IntegrationApi.Extensions;
 using Sdl.TranslationStudioAutomation.IntegrationApi;
 
-namespace Sdl.EditorOperations.Sample
+namespace EditorOperations.Sample
 {
     [ViewPart(
         Id = "MyEditorViewPart", 

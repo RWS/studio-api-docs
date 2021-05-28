@@ -16,7 +16,7 @@ using Sdl.Desktop.IntegrationApi;
 using Sdl.Desktop.IntegrationApi.Extensions;
 using Sdl.TranslationStudioAutomation.IntegrationApi;
 
-namespace Sdl.StudioInitializer.Sample
+namespace StudioInitializer.Sample
 {    
     /// <summary>
     /// Implements an application initializer which will keep track of the application startup and closing time.    

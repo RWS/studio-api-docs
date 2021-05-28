@@ -6,7 +6,7 @@ How to create the Visual Studio Project
 ----------------------------------
 Assuming that you already installed the <Var:ProductName> SDK, open <var:VisualStudioEdition>. You will see the following options when you create a new project:
 <img style="display:block; " src="images/CustomBatchTemplate.jpg" />
-With the above templates you can set up the skeleton of a <Var:ProductName> plug-in project. Select **SDL Terminology Provider (2021)**.
+With the above templates you can set up the skeleton of a <Var:ProductName> plug-in project. Select ** Terminology Provider (2021)**.
 
 The Plug-in Skeleton
 -------------------------------------
@@ -31,9 +31,9 @@ Make sure the resource file access modifier is set to *public* and that you trea
 Open the **MyTerminologyProviderWinFormsUI.cs** class. This class controls how the plug-in manifests in the <Var:ProductName> UI. Change the **TypeName** and **TypeDescription** members as shown below.
 
 
-How to build and load the plugin in SDL Studio
+How to build and load the plugin in <Var:ProductName>
 ---------------------------------------------
-Build the assembly. The project is automatically configured to build the plug-in file into the *<var:PluginPackedPath>* folder. After you have built the plug-in, you should find the Terminology Provider1.sdlplugin file in the folder. Start <Var:ProductName>. As the plug-in is not yet officially signed by SDL, you will see the following message when starting the application:
+Build the assembly. The project is automatically configured to build the plug-in file into the *<var:PluginPackedPath>* folder. After you have built the plug-in, you should find the Terminology Provider1.sdlplugin file in the folder. Start <Var:ProductName>. As the plug-in is not yet officially signed by RWS, you will see the following message when starting the application:
 <img style="display:block; " src="images/Plugin_NotSigned.jpg" />
 For the moment, ignore this message and click **Yes** to make sure that <Var:ProductName> extracts the plug-in file. Once <Var:ProductName> is started, you should find the sub-folder *Terminology Provider1* under <em> <var:PluginUnpackedPath> </em>. This sub-folder contains the unpacked plug-in assemblies.
 

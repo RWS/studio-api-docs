@@ -36,7 +36,7 @@ public void GetDBContainers(TranslationProviderServer tmServer)
 ****
 
 Among the properties you can retrieve are the physical [DatabaseName](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryContainer.yml#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationMemoryContainer_DatabaseName) as well as the friendly [Name](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryContainer.yml#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationMemoryContainer_Name) assigned by the user during creation of the container database. Apart from that you can also retrieve, for example, the optional container description and the name of the database server on which the container is stored.
-Below you see an example of a container information box in SDL TM Server Manager:
+Below you see an example of a container information box in  TM Server Manager:
 
 <img style="display:block; " src="images/ContainerInfo.jpg"/>
 
@@ -46,7 +46,7 @@ The complete class looks as shown below:
 
 # [C#](#tab/tabid-3)
 ```cs
-namespace Sdl.SDK.LanguagePlatform.Samples.TmAutomation
+namespace SDK.LanguagePlatform.Samples.TmAutomation
 {
     using System.Windows.Forms;
     using Sdl.LanguagePlatform.TranslationMemoryApi;

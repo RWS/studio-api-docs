@@ -176,7 +176,7 @@ private SearchSettings GetSearchSettings(bool target)
 ```
 ***
 
-See also [Doing Translation Memory Lookups]() for more information on the available search settings.
+See also [Doing Translation Memory Lookups](doing_translation_memory_lookups.md) for more information on the available search settings.
 
 Putting it All Together
 -----
@@ -194,7 +194,7 @@ using Sdl.LanguagePlatform.Core.Tokenization;
 using Sdl.LanguagePlatform.Core;
 
 
-namespace Sdl.SDK.LanguagePlatform.Samples.TmLookup
+namespace SDK.LanguagePlatform.Samples.TmLookup
 {
     class Search
     {

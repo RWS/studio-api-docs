@@ -204,7 +204,7 @@ Putting it All Together
 The complete class should look as shown below:
 # [C#](#tab/tabid-15)
 ```cs
-namespace Sdl.SDK.LanguagePlatform.Samples.TmAutomation
+namespace SDK.LanguagePlatform.Samples.TmAutomation
 {
     using System.Text;
     using System.Windows.Forms;
@@ -305,4 +305,4 @@ See Also
 -------
 [Configuring Translation Memories](configuring_translation_memories.md)
 
-[Adding TM Fields]()
+[Adding TM Fields](adding_tm_fields.md)

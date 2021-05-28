@@ -1,7 +1,7 @@
 using Sdl.FileTypeSupport.Framework.BilingualApi;
 using Sdl.FileTypeSupport.Framework.NativeApi;
 
-namespace Sdl.Verification.TermVerifier
+namespace Verification.TermVerifier
 {
     class TermVerifierMessageService
     {

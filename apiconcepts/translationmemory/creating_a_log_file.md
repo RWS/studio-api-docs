@@ -39,7 +39,7 @@ Putting it All Together
 The complete class should look as shown below:
 # [C#](#tab/tabid-4)
 ```cs
-namespace Sdl.SDK.LanguagePlatform.Samples.BatchImporter
+namespace SDK.LanguagePlatform.Samples.BatchImporter
 {
     using System.IO;
     using Sdl.LanguagePlatform.TranslationMemoryApi;
@@ -84,4 +84,4 @@ namespace Sdl.SDK.LanguagePlatform.Samples.BatchImporter
 
 See Also
 ---------
-[Setting and Retrieving TM Properties]()
+[Setting and Retrieving TM Properties](setting_and_retrieving_tm_properties.md)

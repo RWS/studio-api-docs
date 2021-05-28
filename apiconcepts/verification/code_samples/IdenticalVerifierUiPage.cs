@@ -2,7 +2,7 @@ using Sdl.Core.Settings;
 
 using Sdl.Verification.Api;
 
-namespace Sdl.Verification.Sdk.IdenticalCheck
+namespace Verification.Sdk.IdenticalCheck
 {
     [GlobalVerifierSettingsPage(
     Id = "Identical Settings Definition ID",

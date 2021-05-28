@@ -5,7 +5,7 @@ using System.Text;
 using Sdl.Desktop.IntegrationApi;
 using Sdl.Desktop.IntegrationApi.Extensions;
 
-namespace Sdl.ViewParts.Sample
+namespace ViewParts.Sample
 {
     [ViewPart(
         Id = "MyCustomViewPart3",

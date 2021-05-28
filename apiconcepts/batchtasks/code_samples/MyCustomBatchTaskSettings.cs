@@ -1,6 +1,6 @@
 ﻿using Sdl.Core.Settings;
 
-namespace SDL_Sample_Custom_Batch_Task
+namespace Sample_Custom_Batch_Task
 {
     #region "Class"
     // The settings class needs to implement the SettingsGroup interface

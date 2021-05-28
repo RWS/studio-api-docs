@@ -22,6 +22,7 @@ To fulfil this requirement you need to extend the plug-in, so that either the pl
 
 This class will be responsible for generating the plain text content from the segment pairs. In this class, reference the namespace **Sdl.FileTypeSupport.Framework.BilingualApi** and have it implement the [IMarkupDataVisitor](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IMarkupDataVisitor.yml) interface. The skeleton class should look as shown below:
 
+# [C#](#tab/tabid-1)
 ```cs
 using System;
 using System.Collections.Generic;
@@ -30,16 +31,18 @@ using System.Text;
 
 using Sdl.FileTypeSupport.Framework.BilingualApi;
 
-namespace Sdl.Verification.Sdk.IdenticalCheck.Extended
+namespace Verification.Sdk.IdenticalCheck.Extended
 {
     class TextGenerator : IMarkupDataVisitor
     {
     }
 }
 ```
+***
 
 Continue by adding two new members to the class: a string builder for retrieving the plain text and a boolean setting to determine whether to include tag text or not:
 
+# [C#](#tab/tabid-2)
 ```cs
 internal StringBuilder PlainText
 {
@@ -51,9 +54,11 @@ internal bool IncludeTagText
     get; set;
 }
 ```
+***
 
 Now add a string method for retrieving the plain segment text. This method takes a segment object and a boolean parameter that determines whether tag text (if any) should be included when building the string or not.
 
+# [C#](#tab/tabid-3)
 ```cs
 // Returns the plain text representation of a segment. 
 // If the includeTagText parameter is true, the returned string will 
@@ -66,8 +71,11 @@ public string GetPlainText(ISegment segment, bool includeTagText)
     return PlainText.ToString();
 }
 ```
+***
+
 Note that a segment is basically a container that can have different types of sub-items (e.g. tag pairs, standalone tags, etc.). Add a method for iterating through the sub-items of the segment object:
 
+# [C#](#tab/tabid-4)
 ```cs
 // Iterates all sub items of segment container (IMarkupDataContainer)
 private void VisitChildren(IAbstractMarkupDataContainer container)
@@ -78,9 +86,11 @@ private void VisitChildren(IAbstractMarkupDataContainer container)
     }
 }
 ```
+***
 
 Last, you need to add a number of class members, each of which processes a particular type of sub-item. Not all of these members might be required for the functionality of your plug-in. For example, in our simple implementation we do not need to consider revision markers, comments, etc. However, all of these members need to be present according to the [IMarkupDataVisitor](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IMarkupDataVisitor.yml) interface. Actually, we are mainly interested in opening and closing tags, as well as standalone placeholder tags. Depending on whether the value of the `IncludeTagText` boolean property is True or False, we append the corresponding tag text to the segment text (which should be checked) or not.
 
+# [C#](#tab/tabid-5)
 ```cs
 public void VisitCommentMarker(ICommentMarker commentMarker)
 {
@@ -145,17 +155,19 @@ public void VisitText(IText text)
     PlainText.Append(text.Properties.Text);
 }
 ```
+***
 
 The Complete Text Extractor Class
 ----
 The complete TextGenerator class should now look as shown below:
 
+# [C#](#tab/tabid-6)
 ```cs
 using System.Text;
 
 using Sdl.FileTypeSupport.Framework.BilingualApi;
 
-namespace Sdl.Verification.Sdk.IdenticalCheck.Extended
+namespace Verification.Sdk.IdenticalCheck.Extended
 {
     /// <summary>
     /// This class is used to traverse all elements that can occur inside a segment, e.g.
@@ -271,11 +283,13 @@ namespace Sdl.Verification.Sdk.IdenticalCheck.Extended
     }
  }
  ```
+ ***
 
 Add a New Control to the Plug-in User Interface
 ------
 Of course, the new setting needs to be reflected on the plug-in settings page. For this reason, add a check box control named **cb_ConsiderTags**. Then switch to the code view of the control, and add the following boolean `ConsiderTags` property as the programmatic representation of the control element:
 
+# [C#](#tab/tabid-7)
 ```cs
 public bool ConsiderTags
 {
@@ -290,11 +304,13 @@ public bool ConsiderTags
 
 }
 ```
+***
 
 Enhance the Settings Class
 ------
 In the next step you need to make certain that your `IdenticalVerifierSettings` class includes the boolean `ConsiderTags` setting:
 
+# [C#](#tab/tabid-8)
 ```cs
 // Define the setting constant.
 private const string CheckContext_Setting = "CheckContext";
@@ -311,6 +327,9 @@ public Setting<bool> ConsiderTags
     get { return GetSetting<bool>(ConsiderTags_Setting); }
 }
 ```
+***
+
+# [C#](#tab/tabid-9)
 ```cs
 protected override object GetDefaultValue(string settingId)
 {
@@ -325,11 +344,13 @@ protected override object GetDefaultValue(string settingId)
     }
 }
 ```
+***
 
 Enhance the Settings Page Controller Class
 -----
 The following members of the `IdenticalVerifierUIPage` class also need to include the new setting for loading, saving, and resetting the values:
 
+# [C#](#tab/tabid-10)
 ```cs
 public override void OnActivate()
 {
@@ -337,6 +358,9 @@ public override void OnActivate()
     _Control.ConsiderTags = _ControlSettings.ConsiderTags;
 }
 ```
+***
+
+# [C#](#tab/tabid-11)
 ```cs
 public override void Save()
 {
@@ -344,7 +368,9 @@ public override void Save()
     _ControlSettings.ConsiderTags.Value = _Control.ConsiderTags;
 }
 ```
+***
 
+# [C#](#tab/tabid-12)
 ```cs
 public override void ResetToDefaults()
 {
@@ -353,6 +379,7 @@ public override void ResetToDefaults()
     _Control.ConsiderTags = _ControlSettings.ConsiderTags;
 }
 ```
+***
 
 Modify the Main Verifier Class
 -----
@@ -360,6 +387,7 @@ After implementing the `TextGenerator` class, we need to make a small change to 
 
 First, add the following members to the `IdenticalVerifierMain` class, which is derived from the `TextGenerator`:
 
+# [C#](#tab/tabid-13)
 ```cs
 private TextGenerator _textGeneratorProcessor;
 
@@ -375,18 +403,22 @@ public TextGenerator TextGeneratorProcessor
     }
 }
 ```
+***
 
 We will call on this member from the `CheckParagraphUnit()` method to extract the segment text with or without tag text.
 Now change the verification logic in the `CheckParagraphUnit()` method by making the following addition:
 
+# [C#](#tab/tabid-14)
 ```cs
 completeTextTarget += TextGeneratorProcessor.GetPlainText(segmentPair.Target, VerificationSettings.ConsiderTags.Value);
 ```
+***
 
 As you can see, the `GetPlainText()` helper function of the TextGenerator is called to retrieve the plain text without tags. However, by setting the boolean parameter (`includeTagText`) to True, you can retrieve the text with tag text. Of course, it makes sense to implement a setting on the user interface (e.g. a checkbox), which allows the users to make that decision at runtime. We will not cover this in this programming guide. However, the **Sdl.Verification.Sdk.IdenticalCheck.Extended** project, which is included in this SDK, contains the full code for the enhancement that is covered in this chapter (i.e. including the enhancements to the user interface).
 
 The fully enhanced and modified `CheckParagraphUnit()` function should look as shown below:
 
+# [C#](#tab/tabid-15)
 ```cs
 private void CheckParagraphUnit(IParagraphUnit paragraphUnit)
 {
@@ -445,3 +477,4 @@ private void CheckParagraphUnit(IParagraphUnit paragraphUnit)
     }
 }
 ```
+***

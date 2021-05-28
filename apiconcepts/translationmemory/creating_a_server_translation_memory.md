@@ -41,7 +41,7 @@ After you have made certain that a TM with that name does not exist yet, use the
 ServerBasedTranslationMemory newTM = new ServerBasedTranslationMemory(tmServer);
 newTM.Name = tmName;
 newTM.Description = "Programmatically created sample TM";
-newTM.Copyright = "(c) 2010 SDL International";
+newTM.Copyright = "(c) 2021 RWS Group";
 ```
 ****
 Select the Container
@@ -166,7 +166,7 @@ Putting it All Together
 The complete class should now look as shown below:
 # [C#](#tab/tabid-9)
 ```cs
-namespace Sdl.SDK.LanguagePlatform.Samples.TmAutomation
+namespace SDK.LanguagePlatform.Samples.TmAutomation
 {
     using System;
     using System.Globalization;
@@ -191,7 +191,7 @@ namespace Sdl.SDK.LanguagePlatform.Samples.TmAutomation
             ServerBasedTranslationMemory newTM = new ServerBasedTranslationMemory(tmServer);
             newTM.Name = tmName;
             newTM.Description = "Programmatically created sample TM";
-            newTM.Copyright = "(c) 2010 SDL International";
+            newTM.Copyright = "(c) 2021 RWS Group";
             #endregion
 
             string containerPath = organizationPath;
@@ -290,7 +290,7 @@ See Also
 
 [Creating a Container Database](creating_a_container_database.md)
 
-[Creating a File-based Translation Memory]()
+[Creating a File-based Translation Memory](creating_a_file_based_translation_memory.md)
 
 [Configuring Translation Memories](configuring_translation_memories.md)
 
@@ -298,6 +298,6 @@ See Also
 
 [Language Resource Templates](language_resource_templates.md)
 
-[Adding TM Fields]()
+[Adding TM Fields](adding_tm_fields.md)
 
-[Adding Language Resources]()
+[Adding Language Resources](adding_language_resources.md)

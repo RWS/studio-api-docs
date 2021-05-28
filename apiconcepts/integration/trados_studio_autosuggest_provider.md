@@ -26,7 +26,7 @@ using Sdl.FileTypeSupport.Framework.BilingualApi;
 using Sdl.TranslationStudioAutomation.IntegrationApi.AutoSuggest;
 using Sdl.TranslationStudioAutomation.IntegrationApi.Extensions;
 
-namespace Sdl.AutoSuggest.Sample
+namespace AutoSuggest.Sample
 {
     [AutoSuggestProvider(Id = "SourceCopyAutoSuggestProvider", Name = "AutoSuggest provider for copying the source words")]
     public class SourceCopyAutoSuggestProvider : AbstractAutoSuggestProvider

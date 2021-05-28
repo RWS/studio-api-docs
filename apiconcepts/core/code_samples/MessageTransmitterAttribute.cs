@@ -4,7 +4,7 @@ using System.Text;
 
 using Sdl.Core.PluginFramework;
 
-namespace Sdl.TranslationStudio.Sdk.Documentation.Samples
+namespace TranslationStudio.Sdk.Documentation.Samples
 {
     #region MessageTransmitterAttribute
 

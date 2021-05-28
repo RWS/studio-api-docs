@@ -20,3 +20,17 @@ For information on how to add UI items inside a ribbon group, read about the act
 > [!NOTE]
 > 
 > If there are no UI elements added inside the ribbon group, it will not be visible.
+
+
+See Also
+--
+
+**Reference**
+
+[AbstractViewPartController](../../api/integration/Sdl.Desktop.IntegrationApi.AbstractViewPartController.yml)
+
+[ViewPartAttribute](../../api/integration/Sdl.Desktop.IntegrationApi.Extensions.ViewPartAttribute.yml)
+
+[ViewPartLayoutAttribute](../../api/integration/Sdl.Desktop.IntegrationApi.Extensions.ViewPartLayoutAttribute.yml)
+
+[TranslationStudioDefaultRibbonTabs](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Presentation.DefaultLocations.TranslationStudioDefaultRibbonTabs.yml)

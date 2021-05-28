@@ -120,7 +120,7 @@ private void GetImportSettings(ImportSettings importSettings)
 ```
 ***
 
-For more information on the import functionality and possible settings, please refer to [Importing a TMX File]().
+For more information on the import functionality and possible settings, please refer to [Importing a TMX File](importing_a_tmx_file.md).
 
 Putting it All Together
 -----
@@ -128,7 +128,7 @@ Putting it All Together
 The complete class should look as shown below:
 # [C#](#tab/tabid-7)
 ```cs
-namespace Sdl.SDK.LanguagePlatform.Samples.BatchImporter
+namespace SDK.LanguagePlatform.Samples.BatchImporter
 {
     using System;
     using System.Xml;

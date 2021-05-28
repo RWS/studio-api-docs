@@ -10,12 +10,12 @@ using Sdl.Core.Globalization;
 using Sdl.FileTypeSupport.Framework.BilingualApi;
 using System.Windows.Forms;
 
-namespace SDL_Sample_Custom_Batch_Task
+namespace Sample_Custom_Batch_Task
 {
     #region "PluginDeclaration"
     // Plug-in is declared to Studio with is, name and description
     // Furthermore, you declare the type of file that is processed with this plug-in
-    // This sample plug-in works on bilingual SDL XLIFF files, i.e. not on native source files
+    // This sample plug-in works on bilingual SDLXliff files, i.e. not on native source files
     [AutomaticTask("My_Custom_Batch_Task_ID", "My_Custom_Batch_Task_Name", "My_Custom_Batch_Task_Description",
         GeneratedFileType = AutomaticTaskFileType.BilingualSource)]
     #endregion
@@ -53,7 +53,7 @@ namespace SDL_Sample_Custom_Batch_Task
         #region "Converter"
         // Here we continue constructing the report string.
         // Also we trigger the actual task by creating a FileReader object
-        // to which we pass the settings and the SDL XLIFF file name
+        // to which we pass the settings and the SDLXliff file name
         protected override void ConfigureConverter(ProjectFile projectFile, IMultiFileConverter multiFileConverter)
         {
             // We output each file name in the report

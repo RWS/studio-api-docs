@@ -96,7 +96,7 @@ public bool SupportsLanguageDirection(LanguagePair languageDirection)
     // This implementation will not be case-sensitive, therefore
     // we use the ToLower() method when comparing the language direction
     // of the delimited file to the language direction that was
-    // selected in SDL Trados Studio.
+    // selected in Trados Studio.
     #region "CompareLanguages"
     if (langs[0].ToLower() == languageDirection.SourceCultureName.ToLower()
         && langs[1].ToLower() == languageDirection.TargetCultureName.ToLower())

@@ -22,7 +22,7 @@ In order to access a password-protected translation memory, call the Unlock meth
 
 See Also
 -----------
-[Creating a File-based Translation Memory]()
+[Creating a File-based Translation Memory](creating_a_file_based_translation_memory.md)
 
 [Working with Field Definitions](working_with_field_definitions.md)
 

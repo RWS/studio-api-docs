@@ -14,11 +14,13 @@ For information on how to create and integrate views and viewparts, see the topi
 
 Below is a sample on how you can obtain the view or viewpart controllers of the <Var:ProductName> application.
 
+# [C#](#tab/tabid-1)
 ```cs
 private EditorController GetEditorController()
 {
     return SdlTradosStudio.Application.GetController<EditorController>();
 }
 ```
+***
 
 The next topics are discussing in-depth about each of the <Var:ProductName> controllers.

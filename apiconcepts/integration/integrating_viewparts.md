@@ -29,7 +29,7 @@ Define other viewparts and order their relevance by setting the `ZIndex` propert
 
 > [!NOTE]
 > 
-> The ZIndex ordering is performed only for the intergrated viewparts and displayed only after SDL viewparts and acts as importance from left to right or top to bottom. The highest ZIndex value is in the left or top and the lowest value is in the right or bottom.
+> The ZIndex ordering is performed only for the intergrated viewparts and displayed only after <Var:ProductName> viewparts and acts as importance from left to right or top to bottom. The highest ZIndex value is in the left or top and the lowest value is in the right or bottom.
 
 # [C#](#tab/tabid-3)
 [!code-csharp[MyCustomViewPart1](code_samples/MyCustomViewPart1.cs#L1-L30)]
@@ -51,3 +51,14 @@ The following example demonstrates how to create a viewpart and integrate it int
 # [C#](#tab/tabid-5)
 [!code-csharp[MyProjectViewPart](code_samples/MyProjectViewPart.cs#L1-L44)]
 ***
+
+See Also
+--
+
+**Reference**
+
+[AbstractViewPartController](../../api/integration/Sdl.Desktop.IntegrationApi.AbstractViewPartController.yml)
+
+[ViewPartAttribute](../../api/integration/Sdl.Desktop.IntegrationApi.Extensions.ViewPartAttribute.yml)
+
+[ViewPartLayoutAttribute](../../api/integration/Sdl.Desktop.IntegrationApi.Extensions.ViewPartLayoutAttribute.yml)

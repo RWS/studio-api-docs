@@ -122,7 +122,7 @@ using System.Text;
 using Sdl.LanguagePlatform.TranslationMemoryApi;
 using System.Windows.Forms;
 
-namespace Sdl.Sdk.LanguagePlatform.Samples.ListProvider
+namespace Sdk.LanguagePlatform.Samples.ListProvider
 {
     /// <summary>
     /// This class is used to hold the provider plug-in settings. 

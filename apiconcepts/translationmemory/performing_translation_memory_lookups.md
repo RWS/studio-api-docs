@@ -33,6 +33,6 @@ The concordance search is used to look up single words or multi-word expressions
 
 See Also
 -----
-[Doing Translation Memory Lookups]()
+[Doing Translation Memory Lookups](doing_translation_memory_lookups.md)
 
 [Introduction the TM Lookup Tool](introduction_to_the_tm_lookup_tool.md)

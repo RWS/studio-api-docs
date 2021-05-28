@@ -4,7 +4,7 @@ The section describes how plug-in projects are built and how the plug-in manifes
 
 Plug-in Manifest Generator
 ----
-When creating a plug-in project using the SDL Plug-in project template, the project file will contain the following piece of custom content:
+When creating a plug-in project using the Plug-in project template, the project file will contain the following piece of custom content:
 
 ```xml
 <Import Project="$(MSBuildBinPath)\Sdl.Core.PluginFramework.Build.targets" />
