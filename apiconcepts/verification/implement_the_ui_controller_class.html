@@ -115,7 +115,7 @@ The skeleton for your new class should look as shown below:</li>
 
 using Sdl.Verification.Api;
 
-namespace Sdl.Verification.Sdk.IdenticalCheck
+namespace Verification.Sdk.IdenticalCheck
 {
     [GlobalVerifierSettingsPage(
     Id = &quot;Identical Settings Definition ID&quot;,
@@ -144,6 +144,13 @@ private IdenticalVerifierSettings _ControlSettings;
 </code></pre></section>
 </div>
 <p>In the next step, add the following member, which is used to get a handle on the plug-in user interface (i.e. the control).</p>
+<div class="tabGroup" id="tabgroup_Eiz4wnHK9c-3">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_Eiz4wnHK9c-3_tabid-4" role="tab" aria-controls="tabpanel_Eiz4wnHK9c-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_Eiz4wnHK9c-3_tabid-4" role="tabpanel" data-tab="tabid-4">
 <pre><code class="lang-cs">public override object GetControl()
 {
     _ControlSettings = ((ISettingsBundle)DataSource).GetSettingsGroup&lt;IdenticalVerifierSettings&gt;();
@@ -155,7 +162,9 @@ private IdenticalVerifierSettings _ControlSettings;
 
     return _Control;
 }
-</code></pre><h2 id="add-the-functionality-to-control-the-ui">Add the Functionality to Control the UI</h2>
+</code></pre></section>
+</div>
+<h2 id="add-the-functionality-to-control-the-ui">Add the Functionality to Control the UI</h2>
 <p>Now you need to add a number of members that control the user interface. These methods are implemented to do the following:</p>
 <ul>
 <li>initialize the user interface</li>
@@ -165,33 +174,76 @@ private IdenticalVerifierSettings _ControlSettings;
 <li>moves away from the settings page, thus cancelling the settings page operation</li>
 </ul>
 <p>Below you see examples of the members for controlling the user interface. The following member controls what happens when the user clicks the <strong>Reset to Defaults</strong> button, which is provided by the framework:</p>
+<div class="tabGroup" id="tabgroup_Eiz4wnHK9c-4">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_Eiz4wnHK9c-4_tabid-5" role="tab" aria-controls="tabpanel_Eiz4wnHK9c-4_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_Eiz4wnHK9c-4_tabid-5" role="tabpanel" data-tab="tabid-5">
 <pre><code class="lang-cs">public override void ResetToDefaults()
 {
     _ControlSettings.CheckContext.Reset();
     _Control.ContextToCheck = _ControlSettings.CheckContext;
 }
-</code></pre><p>The following member controls what happens when the user clicks the <strong>OK</strong> button, thereby committing the settings that were configured on the plug-in settings page:</p>
+</code></pre></section>
+</div>
+<p>The following member controls what happens when the user clicks the <strong>OK</strong> button, thereby committing the settings that were configured on the plug-in settings page:</p>
+<div class="tabGroup" id="tabgroup_Eiz4wnHK9c-5">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_Eiz4wnHK9c-5_tabid-6" role="tab" aria-controls="tabpanel_Eiz4wnHK9c-5_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_Eiz4wnHK9c-5_tabid-6" role="tabpanel" data-tab="tabid-6">
 <pre><code class="lang-cs">public override void Save()
 {
     _ControlSettings.CheckContext.Value = _Control.ContextToCheck;
 }
-</code></pre><p>The member below is used to control what happens when the user clicks <strong>Cancel</strong>, thereby not saving the settings:</p>
+</code></pre></section>
+</div>
+<p>The member below is used to control what happens when the user clicks <strong>Cancel</strong>, thereby not saving the settings:</p>
+<div class="tabGroup" id="tabgroup_Eiz4wnHK9c-6">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_Eiz4wnHK9c-6_tabid-7" role="tab" aria-controls="tabpanel_Eiz4wnHK9c-6_tabid-7" data-tab="tabid-7" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_Eiz4wnHK9c-6_tabid-7" role="tabpanel" data-tab="tabid-7">
 <pre><code class="lang-cs">public override void Cancel()
 {
     _ControlSettings.CancelEdit();
 }
-</code></pre><p>Another required member of the abstract settings page base class is used to properly dispose of the user control:</p>
+</code></pre></section>
+</div>
+<p>Another required member of the abstract settings page base class is used to properly dispose of the user control:</p>
+<div class="tabGroup" id="tabgroup_Eiz4wnHK9c-7">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_Eiz4wnHK9c-7_tabid-8" role="tab" aria-controls="tabpanel_Eiz4wnHK9c-7_tabid-8" data-tab="tabid-8" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_Eiz4wnHK9c-7_tabid-8" role="tabpanel" data-tab="tabid-8">
 <pre><code class="lang-cs">public override void Dispose()
 {
     _Control.Dispose();
 }
-</code></pre><h2 id="putting-it-all-together">Putting it All Together</h2>
+</code></pre></section>
+</div>
+<h2 id="putting-it-all-together">Putting it All Together</h2>
 <p>The complete class for controlling the settings page should now as shown below:</p>
+<div class="tabGroup" id="tabgroup_Eiz4wnHK9c-8">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_Eiz4wnHK9c-8_tabid-9" role="tab" aria-controls="tabpanel_Eiz4wnHK9c-8_tabid-9" data-tab="tabid-9" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_Eiz4wnHK9c-8_tabid-9" role="tabpanel" data-tab="tabid-9">
 <pre><code class="lang-cs">using Sdl.Core.Settings;
 
 using Sdl.Verification.Api;
 
-namespace Sdl.Verification.Sdk.IdenticalCheck
+namespace Verification.Sdk.IdenticalCheck
 {
     /// &lt;summary&gt;
     /// This is the extension class that displays and controls the plug-in user interface,
@@ -293,7 +345,9 @@ namespace Sdl.Verification.Sdk.IdenticalCheck
         #endregion
     }
 }
-</code></pre></article>
+</code></pre></section>
+</div>
+</article>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">
@@ -301,7 +355,7 @@ namespace Sdl.Verification.Sdk.IdenticalCheck
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/sdl/studio-api-docs/blob/main/apiconcepts/verification/implement_the_ui_controller_class.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/sdl/studio-api-docs/blob/536526bdc8961482ec547a9df3ff9a2a82f5f0ee/apiconcepts/verification/implement_the_ui_controller_class.md/#L1" class="contribution-link">Improve this Doc</a>
                   </li>
                 </ul>
               </div>

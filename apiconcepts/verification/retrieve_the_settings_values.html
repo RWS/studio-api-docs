@@ -90,7 +90,7 @@
 </ul>
 <section id="tabpanel_DpHR6qCnEe_tabid-1" role="tabpanel" data-tab="tabid-1">
 <pre><code class="lang-csharp" name="Settings">using Sdl.Core.Settings;
-namespace Sdl.Verification.Sdk.IdenticalCheck
+namespace Verification.Sdk.IdenticalCheck
 {
     class IdenticalVerifierSettings : SettingsGroup
     {
@@ -99,6 +99,13 @@ namespace Sdl.Verification.Sdk.IdenticalCheck
 </code></pre></section>
 </div>
 <p>Our sample application only has one setting, i.e. a (display code) string value that defines which context should be relevant for the verification, e.g. <strong>H</strong> for <strong>Heading</strong>. This setting will be implemented as a string property, which we will call, for example <code>CheckContext</code>:</p>
+<div class="tabGroup" id="tabgroup_DpHR6qCnEe-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_DpHR6qCnEe-1_tabid-1" role="tab" aria-controls="tabpanel_DpHR6qCnEe-1_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_DpHR6qCnEe-1_tabid-1" role="tabpanel" data-tab="tabid-1">
 <pre><code class="lang-cs">// Define the setting constant.
 private const string CheckContext_Setting = &quot;CheckContext&quot;;
 
@@ -107,7 +114,16 @@ public Setting&lt;string&gt; CheckContext
 {
     get { return GetSetting&lt;string&gt;(CheckContext_Setting); }
 }
-</code></pre><p>We will also implement a method for setting the default value. Let&#39;s assume that headings are likely to stay unchanged in the target language. Therefore it makes sense to apply the verification by default to segment pairs whose context has the context display code <strong>H</strong>:</p>
+</code></pre></section>
+</div>
+<p>We will also implement a method for setting the default value. Let&#39;s assume that headings are likely to stay unchanged in the target language. Therefore it makes sense to apply the verification by default to segment pairs whose context has the context display code <strong>H</strong>:</p>
+<div class="tabGroup" id="tabgroup_DpHR6qCnEe-2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_DpHR6qCnEe-2_tabid-2" role="tab" aria-controls="tabpanel_DpHR6qCnEe-2_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_DpHR6qCnEe-2_tabid-2" role="tabpanel" data-tab="tabid-2">
 <pre><code class="lang-cs">protected override object GetDefaultValue(string settingId)
 {
     switch (settingId)
@@ -118,19 +134,37 @@ public Setting&lt;string&gt; CheckContext
             return base.GetDefaultValue(settingId);
     }
 }
-</code></pre><p>The plug-in settings are physically stored in the project files (* .<em>sdlproj</em>) or project template files (* .<em>sdltpl</em>). The settings group in the (XML-compliant) project (template) file can look as shown below. As you can see, the setting id corresponds to the name of the property that we have implemented in this class.</p>
+</code></pre></section>
+</div>
+<p>The plug-in settings are physically stored in the project files (* .<em>sdlproj</em>) or project template files (* .<em>sdltpl</em>). The settings group in the (XML-compliant) project (template) file can look as shown below. As you can see, the setting id corresponds to the name of the property that we have implemented in this class.</p>
+<div class="tabGroup" id="tabgroup_DpHR6qCnEe-3">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_DpHR6qCnEe-3_tabid-3" role="tab" aria-controls="tabpanel_DpHR6qCnEe-3_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">Xml</a>
+</li>
+</ul>
+<section id="tabpanel_DpHR6qCnEe-3_tabid-3" role="tabpanel" data-tab="tabid-3">
 <pre><code class="lang-xml">&lt;SettingsGroup Id=&quot;Identical Verifier&quot;&gt;
     &lt;Setting Id=&quot;Enabled&quot;&gt;True&lt;/Setting&gt;
   &lt;/SettingsGroup&gt;
   &lt;SettingsGroup Id=&quot;IdenticalVerifierSettings&quot;&gt;
     &lt;Setting Id=&quot;CheckContext&quot;&gt;H&lt;/Setting&gt;
   &lt;/SettingsGroup&gt;
-</code></pre><p>Note that the <strong>Enabled</strong> property does not need to be implemented by your plug-in. The plug-in framework provides the mechanism for enabling/disabling global verifier plug-ins through the user interface of Trados Studio.</p>
+</code></pre></section>
+</div>
+<p>Note that the <strong>Enabled</strong> property does not need to be implemented by your plug-in. The plug-in framework provides the mechanism for enabling/disabling global verifier plug-ins through the user interface of Trados Studio.</p>
 <h2 id="putting-it-all-together">Putting it All Together</h2>
 <p>The complete class that is used for retrieving the settings value should look as shown below:</p>
+<div class="tabGroup" id="tabgroup_DpHR6qCnEe-4">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_DpHR6qCnEe-4_tabid-4" role="tab" aria-controls="tabpanel_DpHR6qCnEe-4_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_DpHR6qCnEe-4_tabid-4" role="tabpanel" data-tab="tabid-4">
 <pre><code class="lang-cs">using Sdl.Core.Settings;
 
-namespace Sdl.Verification.Sdk.IdenticalCheck
+namespace Verification.Sdk.IdenticalCheck
 {
     /// &lt;summary&gt;
     /// This class is used for reading and writing the plug-in setting(s) value(s).
@@ -171,7 +205,9 @@ namespace Sdl.Verification.Sdk.IdenticalCheck
         #endregion
     }
 }
-</code></pre></article>
+</code></pre></section>
+</div>
+</article>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">
@@ -179,7 +215,7 @@ namespace Sdl.Verification.Sdk.IdenticalCheck
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/sdl/studio-api-docs/blob/main/apiconcepts/verification/retrieve_the_settings_values.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/sdl/studio-api-docs/blob/536526bdc8961482ec547a9df3ff9a2a82f5f0ee/apiconcepts/verification/retrieve_the_settings_values.md/#L1" class="contribution-link">Improve this Doc</a>
                   </li>
                 </ul>
               </div>

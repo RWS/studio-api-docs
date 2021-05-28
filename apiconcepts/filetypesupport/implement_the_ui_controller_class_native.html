@@ -1,0 +1,254 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Implement the UI Controller Class </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Implement the UI Controller Class ">
+    <meta name="generator" content="docfx 2.57.2.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="implement-the-ui-controller-class">Implement the UI Controller Class</h1>
+
+<p>In this chapter you will learn how to implement a class that controls the actual plug-in user interface.</p>
+<p>When implementing control for the plug-in user interface, you need to cover the following scenarios:</p>
+<ul>
+<li>The user clicks the <strong>Reset to Defaults</strong> button, thereby restoring all control elements to their intended default settings.</li>
+<li>The user clicks <strong>OK</strong>, thereby applying (saving) the settings.</li>
+<li>After changing the control element settings, the user goes to another settings page, which should also save any changes to the form control elements.</li>
+<li>The user clicks the <strong>Cancel</strong> button, any changes to the control settings should be discarded.</li>
+</ul>
+<p>A settings page does not implement its own <strong>OK</strong>, <strong>Cancel</strong>, <strong>Reset</strong> buttons, but will rely on the control elements that are provided by the dialog box of the framework, which is made possible through this class.
+Below you see an example of a settings page as it is implemented for one of the default file types in Trados Studio:</p>
+<p><img src="images/SampleSettingsPage.jpg" alt="SampleSettingsPage"></p>
+<h2 id="implement-the-settings-page-class">Implement the Settings Page Class</h2>
+<p>Add a class called e.g. <strong>SettingsPage.cs</strong> to your project. This is one of the classes that is referenced from the new File Type Component Builder that will be covered in a later chapter (see <a href="extending_existing_file_type_component_builder.html">Extending existing File Type Component Builder</a>), i.e. it is not the UI class itself that is referenced in the File Type Component Builder. Without this reference, the plug-in UI would not be recognized and displayed by Trados Studio.</p>
+<p>This class acts as an intermediary between the plug-in UI (see <a href="implement_the_user_interface_native.html">Implement the User Interface</a>) and the class that is used to store and retrieve the settings to/from the settings bundle (see <a href="loading_and_saving_the_settings_native.html">Loading and Saving the Settings</a>).</p>
+<p>This class needs to use the following namespaces:</p>
+<ul>
+<li><strong>Sdl.FileTypeSupport.Framework.Core.Settings</strong></li>
+<li><strong>Sdl.Core.Settings</strong></li>
+<li><strong>Sdl.Core.PluginFramework</strong></li>
+</ul>
+<p>Moreover, this component needs to be derived from the <code>AbstractFilterDefinitionSettingsPage</code> base class, which provides the methods for setting the plug-in UI according to the values of the settings bundle.
+First, create two objects based on the <code>VerifierSettings</code> class and on the user interface (i.e. <code>SettingsUI</code>) as shown below:</p>
+<div class="tabGroup" id="tabgroup_YpLg66k199">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_YpLg66k199_tabid-1" role="tab" aria-controls="tabpanel_YpLg66k199_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_YpLg66k199_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-cs">[FileTypeSettingsPage(Id=&quot;XMLVerifier_Settings&quot;, Name=&quot;Settings_Name&quot;, Description=&quot;Settings_Description&quot;)]
+class SettingsPage : AbstractFileTypeSettingsPage&lt;SettingsUI, VerifierSettings&gt;
+</code></pre></section>
+</div>
+<h2 id="reset-to-the-default-settings">Reset to the Default Settings</h2>
+<p>Another method provided by the base class is <code>ResetToDefaults</code>. It is triggered when the user clicks the button <strong>Reset to Defaults</strong> in the user interface.</p>
+<p><img src="images/reset_to_defaults.jpg" alt="reset_to_defaults"></p>
+<p>In our implementation we override this method as shown in the example below. We call the <code>ResetToDefaults</code> method of the <code>VerifierSettings</code> class, and then update the user interface accordingly.</p>
+<div class="tabGroup" id="tabgroup_YpLg66k199-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_YpLg66k199-1_tabid-2" role="tab" aria-controls="tabpanel_YpLg66k199-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_YpLg66k199-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<pre><code class="lang-cs">public override void ResetToDefaults()
+{
+    base.ResetToDefaults();
+    Control.UpdateControl();
+}
+</code></pre></section>
+</div>
+<h2 id="refresh-the-settings">Refresh the Settings</h2>
+<p>When the user moves back to the settings page of our plug-in, we need to make certain that the plug-in UI is displayed with the most up-to-date settings from the settings bundle. This is done through the <code>ReloadSettings</code> method, which we override as shown below. Here, we call the base class which will populate the <code>VerificationSettings</code> for us.</p>
+<div class="tabGroup" id="tabgroup_YpLg66k199-2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_YpLg66k199-2_tabid-3" role="tab" aria-controls="tabpanel_YpLg66k199-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_YpLg66k199-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<pre><code class="lang-cs">public override void Refresh()
+{
+    base.Refresh();
+    Control.UpdateControl();
+}
+</code></pre></section>
+</div>
+<h2 id="putting-it-all-together">Putting it all Together</h2>
+<p>All put together your <code>SettingsPage</code> class should now look like as shown below:</p>
+<div class="tabGroup" id="tabgroup_YpLg66k199-3">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_YpLg66k199-3_tabid-4" role="tab" aria-controls="tabpanel_YpLg66k199-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_YpLg66k199-3_tabid-4" role="tabpanel" data-tab="tabid-4">
+<pre><code class="lang-cs">using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Sdl.Core.Settings;
+using Sdl.FileTypeSupport.Framework.Core.Settings;
+
+
+namespace Sdk.FileTypeSupport.Samples.XMLChecker
+{
+    /// &lt;summary&gt;
+    /// This class controls the plug-in user interface. It controls what happens, for example,
+    /// when the user clicks the button in the user interface for resetting the control elements
+    /// to their default values. This class is referenced in the file type definition. Without
+    /// this reference in the FILETPYE file, the plug-in user interface would not be available
+    /// to the end user.
+    /// &lt;/summary&gt;
+    #region &quot;ClassDeclaration&quot;
+    [FileTypeSettingsPage(Id=&quot;XMLVerifier_Settings&quot;, Name=&quot;Settings_Name&quot;, Description=&quot;Settings_Description&quot;)]
+    class SettingsPage : AbstractFileTypeSettingsPage&lt;SettingsUI, VerifierSettings&gt;
+    #endregion
+    {
+        /// &lt;summary&gt;
+        /// Triggered, when the user clicks the button Reset to Defaults button in 
+        /// Trados Studio. Restores the default check box state, which should
+        /// be Checked (i.e. verification function enabled).
+        /// &lt;/summary&gt;
+        #region &quot;ResetToDefaults&quot;
+        public override void ResetToDefaults()
+        {
+            base.ResetToDefaults();
+            Control.UpdateControl();
+        }
+        #endregion
+
+        /// &lt;summary&gt;
+        /// Triggered when the user raises the plug-in UI, whose controls (in this case the check box)
+        /// will then be set according to the values stored in the settings bundle.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;settingsBundle&quot;&gt;&lt;/param&gt;
+        #region &quot;ReloadSettings&quot;
+        public override void Refresh()
+        {
+            base.Refresh();
+            Control.UpdateControl();
+        }
+        #endregion
+    }
+}
+</code></pre></section>
+</div>
+<h2 id="see-also">See Also</h2>
+<p><a href="implement_the_user_interface_native.html">Implement the User Interface</a></p>
+<p><a href="extending_existing_file_type_component_builder.html">Extending existing File Type Component Builder</a></p>
+<p><a href="loading_and_saving_the_settings_native.html">Loading and Saving the Settings</a></p>
+<div class="NOTE"><h5>Note</h5><p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+</div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/sdl/studio-api-docs/blob/536526bdc8961482ec547a9df3ff9a2a82f5f0ee/apiconcepts/filetypesupport/implement_the_ui_controller_class_native.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

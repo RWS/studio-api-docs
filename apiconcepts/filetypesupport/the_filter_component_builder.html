@@ -1,0 +1,414 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>The Filter Component Builder </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="The Filter Component Builder ">
+    <meta name="generator" content="docfx 2.57.2.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="the-filter-component-builder">The Filter Component Builder</h1>
+
+<p>This section contains some information on an example Filter Component Builder code. For a more complete overview, see the  File Type Support Framework administration documentation.</p>
+<p>The default File Type Manager implementation is a simple hardcoded one called PocoFilterManager. This implementation requires a filter to implement the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilder.html">IFileTypeComponentBuilder</a> interface. This includes the implementation of methods to generate objects that implement <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeInformation.html">IFileTypeInformation</a>, <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileSniffer.html">INativeFileSniffer</a>, <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileExtractor.html">IFileExtractor</a>, <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileGenerator.html">IFileGenerator</a>.</p>
+<p>Below you can find an example of a Filter Component Builder class for the &quot;SimpleText&quot; filter . You can take this example and use it as a template, into which you insert your own component information.</p>
+<p>This File Type Component Builder is for a filter that uses the classes <code>SimpleTextSniffer</code>, <code>SimpleTextParser</code> and <code>SimpleTextWriter</code> defined in the assembly <code>SimpleText</code>.</p>
+<p>As you may have noticed, the <code>SimpleTextFilterComponentBuilder</code> implementation of <code>IFilterComponentBuilder</code> references a lot of types that are defined in the <code>Sdl.FileTypeSupport.Framework.Implementation</code> assembly. This is where the main part of the  File Type Support Framework implementation resides.</p>
+<div class="tabGroup" id="tabgroup_z7V5a39cCs">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_z7V5a39cCs_tabid-1" role="tab" aria-controls="tabpanel_z7V5a39cCs_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_z7V5a39cCs_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-cs">using System;
+using Sdl.Core.Globalization;
+using Sdl.FileTypeSupport.Framework;
+using Sdl.FileTypeSupport.Framework.IntegrationApi;
+using Sdl.FileTypeSupport.Framework.NativeApi;
+
+namespace Sdk.Snippets.Native
+{
+    /// &lt;summary&gt;
+    /// Define Simple Text filter component builder.
+    /// &lt;/summary&gt; 
+    [FileTypeComponentBuilderAttribute(Id = &quot;SimpleText_FilterComponentBuilderExtension_Id&quot;,
+                                       Name = &quot;SimpleText_FilterComponentBuilderExtension_Name&quot;,
+                                       Description = &quot;SimpleText_FilterComponentBuilderExtension_Description&quot;)]
+    public class SimpleTextFilterComponentBuilder : IFileTypeComponentBuilder
+    {
+        /// &lt;summary&gt;
+        /// Gets or sets file type manager
+        /// &lt;/summary&gt;
+        public IFileTypeManager FileTypeManager { get; set; }
+
+        /// &lt;summary&gt;
+        /// Gets or sets Filter Definition
+        /// &lt;/summary&gt;
+        public IFileTypeDefinition FileTypeDefinition { get; set; }
+
+        /// &lt;summary&gt;
+        /// Returns a file type information object.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;name&quot;&gt;The &lt;see cref=&quot;IFileTypeDefinition&quot;/&gt; will pass &quot;&quot; as the name for this parameter&lt;/param&gt;
+        /// &lt;returns&gt;an SimpleText file type information object&lt;/returns&gt;
+        public virtual IFileTypeInformation BuildFileTypeInformation(string name)
+        {
+            var info = this.FileTypeManager.BuildFileTypeInformation();
+
+            info.FileTypeDefinitionId = new FileTypeDefinitionId(&quot;Simple Text Filter 1.0.0.0&quot;);
+            info.FileTypeName = new LocalizableString(&quot;Simple text files&quot;);
+            info.FileTypeDocumentName = new LocalizableString(&quot;Test text files&quot;);
+            info.FileTypeDocumentsName = new LocalizableString(&quot;Simple text files&quot;);
+            info.Description = new LocalizableString(&quot;This sample filter is used to process simple text files.&quot;);
+            info.FileDialogWildcardExpression = &quot;*.text&quot;;
+            info.DefaultFileExtension = &quot;text&quot;;
+            info.Icon = new IconDescriptor(&quot;assembly://Sdl.Sdk.FileTypeSupport.Samples.SimpleText/Sdl.Sdk.FileTypeSupport.Samples.SimpleText.SimpleText.ico&quot;);
+
+            info.WinFormSettingsPageIds = new string[]
+            {
+                &quot;SimpleText_Settings&quot;,
+                &quot;QuickInserts_Settings&quot;,
+            };
+
+            return info;
+        }
+
+        /// &lt;summary&gt;
+        /// Gets the file sniffer for this component.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;name&quot;&gt;not used here&lt;/param&gt;
+        /// &lt;returns&gt;An Simple Text Native Filter Sniffer&lt;/returns&gt;
+        public virtual INativeFileSniffer BuildFileSniffer(string name)
+        {
+            return new SimpleTextSniffer();
+        }
+
+        /// &lt;summary&gt;
+        /// Gets the file extractor for this component.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;name&quot;&gt;not used here&lt;/param&gt;
+        /// &lt;returns&gt;a FileExtractor containing an Simple Text Parser&lt;/returns&gt;
+        public virtual IFileExtractor BuildFileExtractor(string name)
+        {
+            var parser = new SimpleTextParser();
+            var extractor = this.FileTypeManager.BuildFileExtractor(this.FileTypeManager.BuildNativeExtractor(parser), this);
+            return extractor;
+        }
+
+        /// &lt;summary&gt;
+        /// Gets the file generator for this component.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;name&quot;&gt;not used herer&lt;/param&gt;
+        /// &lt;returns&gt;&lt;c&gt;Null&lt;/c&gt; if no file generator is defined&lt;/returns&gt;
+        public virtual IFileGenerator BuildFileGenerator(string name)
+        {
+            return this.FileTypeManager.BuildFileGenerator(this.FileTypeManager.BuildNativeGenerator(new SimpleTextWriter()));
+        }
+
+        /// &lt;summary&gt;
+        /// Gets the different sets of previews supported for this component.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;name&quot;&gt;not used here&lt;/param&gt;
+        /// &lt;returns&gt;not implemented&lt;/returns&gt;
+        public virtual IPreviewSetsFactory BuildPreviewSetsFactory(string name)
+        {
+            IPreviewSetsFactory previewFactory = FileTypeManager.BuildPreviewSetsFactory();
+
+            //preview in external application
+            IPreviewSet previewSet = previewFactory.CreatePreviewSet();
+            previewSet.Id = new PreviewSetId(&quot;ExternalPreview&quot;);
+            previewSet.Name = new LocalizableString(&quot;assembly://Sdl.Sdk.FileTypeSupport.Samples.SimpleText/Sdl.Sdk.FileTypeSupport.Samples.SimpleText.Properties.Resources/ExternalPreview_Name&quot;);
+
+            IApplicationPreviewType sourceAppPreviewType = previewFactory.CreatePreviewType&lt;IApplicationPreviewType&gt;() as IApplicationPreviewType;
+
+            if (sourceAppPreviewType != null)
+            {
+                sourceAppPreviewType.SingleFilePreviewApplicationId = new PreviewApplicationId(&quot;ExternalPreview&quot;);
+                previewSet.Source = sourceAppPreviewType;
+            }
+
+            IApplicationPreviewType targetAppPreviewType = previewFactory.CreatePreviewType&lt;IApplicationPreviewType&gt;() as IApplicationPreviewType;
+            if (targetAppPreviewType != null)
+            {
+                targetAppPreviewType.SingleFilePreviewApplicationId = new PreviewApplicationId(&quot;ExternalPreview&quot;);
+                previewSet.Target = targetAppPreviewType;
+            }
+
+            previewFactory.GetPreviewSets(null).Add(previewSet);
+
+            //internal static preview
+            IPreviewSet internalPreviewSet = previewFactory.CreatePreviewSet();
+            internalPreviewSet.Id = new PreviewSetId(&quot;InternalStaticPreview&quot;);
+            internalPreviewSet.Name = new LocalizableString(&quot;assembly://Sdl.Sdk.FileTypeSupport.Samples.SimpleText/Sdl.Sdk.FileTypeSupport.Samples.SimpleText.Properties.Resources/InternalStaticPreview_Name&quot;);
+
+            IControlPreviewType sourceCtrlPreviewType = previewFactory.CreatePreviewType&lt;IControlPreviewType&gt;() as IControlPreviewType;
+            if (sourceCtrlPreviewType != null)
+            {
+                sourceCtrlPreviewType.TargetGeneratorId = new GeneratorId(&quot;InternalPreview&quot;);
+                internalPreviewSet.Source = sourceCtrlPreviewType;
+            }
+
+            IControlPreviewType targetCtrlPreviewType = previewFactory.CreatePreviewType&lt;IControlPreviewType&gt;() as IControlPreviewType;
+            if (targetCtrlPreviewType != null)
+            {
+                targetCtrlPreviewType.TargetGeneratorId = new GeneratorId(&quot;InternalPreview&quot;);
+                internalPreviewSet.Target = targetCtrlPreviewType;
+            }
+            previewFactory.GetPreviewSets(null).Add(internalPreviewSet);
+
+            //source and target real-time navigable HTML browser control preview
+            IPreviewSet internalHtmlPreviewSet = previewFactory.CreatePreviewSet();
+            internalHtmlPreviewSet.Id = new PreviewSetId(&quot;InternalRealTimeNavigableHtmlPreview&quot;);
+            internalHtmlPreviewSet.Name = new LocalizableString(&quot;assembly://Sdl.Sdk.FileTypeSupport.Samples.SimpleText/Sdl.Sdk.FileTypeSupport.Samples.SimpleText.Properties.Resources/InternalRealTimeNavigablePreview_Name&quot;);
+
+            IControlPreviewType sourceInternalHtmlCtrlPreviewType = previewFactory.CreatePreviewType&lt;IControlPreviewType&gt;() as IControlPreviewType;
+            if (sourceInternalHtmlCtrlPreviewType != null)
+            {
+                sourceInternalHtmlCtrlPreviewType.TargetGeneratorId = new GeneratorId(&quot;InternalPreview&quot;);
+                sourceInternalHtmlCtrlPreviewType.SingleFilePreviewControlId = new PreviewControlId(&quot;InternalRealtimeNavigableBrowser&quot;);
+                internalHtmlPreviewSet.Source = sourceInternalHtmlCtrlPreviewType;
+            }
+
+            IControlPreviewType targetInternalHtmlCtrlPreviewType = previewFactory.CreatePreviewType&lt;IControlPreviewType&gt;() as IControlPreviewType;
+            if (targetInternalHtmlCtrlPreviewType != null)
+            {
+                targetInternalHtmlCtrlPreviewType.TargetGeneratorId = new GeneratorId(&quot;InternalPreview&quot;);
+                targetInternalHtmlCtrlPreviewType.SingleFilePreviewControlId =
+                    new PreviewControlId(&quot;InternalRealtimeNavigableBrowser&quot;);
+                internalHtmlPreviewSet.Target = targetCtrlPreviewType;
+            }
+            previewFactory.GetPreviewSets(null).Add(internalHtmlPreviewSet);
+
+            return previewFactory;
+        }
+
+        /// &lt;summary&gt;
+        /// Creates a new instance of the preview control with the specified name.
+        /// &lt;/summary&gt;
+        /// &lt;remarks&gt;
+        /// &lt;para&gt;
+        /// Should only be called from the main thread, as controls must always be
+        /// instantiated on the same thread as the application message pump.
+        /// &lt;/para&gt;
+        /// &lt;/remarks&gt;
+        /// &lt;param name=&quot;name&quot;&gt;not used here&lt;/param&gt;
+        /// &lt;returns&gt;not implemented&lt;/returns&gt;
+        public virtual IAbstractPreviewControl BuildPreviewControl(string name)
+        {
+            if (name == &quot;PreviewControl_InternalStaticPreviewControl&quot;)
+            {
+                return new InternalPreviewController();
+            }
+            else if (name == &quot;PreviewControl_InternalRealtimeNavigableBrowser&quot;)
+            {
+                //return GenericInternalWebBrowserPreviewControl();
+                throw new NotImplementedException();
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// &lt;summary&gt;
+        /// Gets the QuickTags object for this component.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;name&quot;&gt;not used here&lt;/param&gt;
+        /// &lt;returns&gt;a Quick tags factory&lt;/returns&gt;
+        public virtual IQuickTagsFactory BuildQuickTagsFactory(string name)
+        {
+            IQuickTagsFactory quickTags = FileTypeManager.BuildQuickTagsFactory();
+            quickTags.GetQuickTags(null).SetStandardQuickTags(QuickInsertBuilder.BuildStandardQuickTags());
+            return quickTags;
+        }
+
+        /// &lt;summary&gt;
+        /// Gets the verifier list of this component.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;name&quot;&gt;not used here&lt;/param&gt;
+        /// &lt;returns&gt;a verifier collection&lt;/returns&gt;
+        /// &lt;remarks&gt; The verifier list is an optional component for a file type.&lt;/remarks&gt;
+        public virtual IVerifierCollection BuildVerifierCollection(string name)
+        {
+            return null;
+        }
+
+        /// &lt;summary&gt;
+        /// Gets a native or bilingual document generator of the type
+        /// defined for the specified name.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;name&quot;&gt;Abstract generator name&lt;/param&gt;
+        /// &lt;returns&gt;not generator for default preview&lt;/returns&gt;
+        public virtual IAbstractGenerator BuildAbstractGenerator(string name)
+        {
+            if (name == &quot;Generator_DefaultPreview&quot;)
+            {
+                return FileTypeManager.BuildFileGenerator(FileTypeManager.BuildNativeGenerator(new SimpleTextWriter()));
+            }
+            if (name == &quot;Generator_InternalPreview&quot;)
+            {
+                INativeGenerator nativeGenerator = FileTypeManager.BuildNativeGenerator(new InternalPreviewWriter());
+                IFileGenerator fileGenerator = FileTypeManager.BuildFileGenerator(nativeGenerator);
+                return fileGenerator;
+            }
+
+            return null;
+        }
+
+        /// &lt;summary&gt;
+        /// The the additional generator information for this file type
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;name&quot;&gt;not used here&lt;/param&gt;
+        /// &lt;returns&gt;not implemented&lt;/returns&gt;
+        public virtual IAdditionalGeneratorsInfo BuildAdditionalGeneratorsInfo(string name)
+        {
+            return null;
+        }
+
+        /// &lt;summary&gt;
+        /// Gets the bilingual writer components for this component (if any).
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;name&quot;&gt;not used here&lt;/param&gt;
+        /// &lt;returns&gt;&lt;c&gt;null&lt;/c&gt; if no bilingual generator is defined&lt;/returns&gt;
+        public virtual IBilingualDocumentGenerator BuildBilingualGenerator(string name)
+        {
+            return null;
+        }
+
+        /// &lt;summary&gt;
+        /// Creates a new instance of the preview application with the specified name.
+        /// Right now only allows to build expternal preview application.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;name&quot;&gt;Preview application name&lt;/param&gt;
+        /// &lt;returns&gt;External preview application&lt;/returns&gt;
+        public virtual IAbstractPreviewApplication BuildPreviewApplication(string name)
+        {
+            if (name == &quot;PreviewApplication_ExternalPreview&quot;)
+            {
+               // GenericExteralPreviewApplication genericExteralPreviewApplication = new GenericExteralPreviewApplication();
+               // genericExteralPreviewApplication.ApplicationPath = @&quot;c:\Windows\System32\notepad.exe&quot;;
+               // return genericExteralPreviewApplication;
+                throw new NotImplementedException();
+            }
+            else
+            {
+                return null;
+            }
+        }
+    }
+}
+</code></pre></section>
+</div>
+<div class="NOTE"><h5>Note</h5><p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+</div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/sdl/studio-api-docs/blob/536526bdc8961482ec547a9df3ff9a2a82f5f0ee/apiconcepts/filetypesupport/the_filter_component_builder.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

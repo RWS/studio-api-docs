@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Native and Bilingual Content </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Native and Bilingual Content ">
+    <meta name="generator" content="docfx 2.57.2.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+
+<p>The Trados File Type Support Framework 2 API (from now File Type Support Framework), is one of the core parts of Trados Studio. The File Type Support Framework allows developers to develop file type plug-ins that extract translatable text from various file formats such as MS Word Doc files, HTML, XML, Text etc. The translatable source and (optionally) target text can then be imported and converted into an intermediate file format that is designed to be compatible with the OASIS XLIFF format (with SDL extensions) - <a href="#sdlxliff">SDLXliff</a>.</p>
+<p>This data format contains both source and target text and any mark-up data or tags that the file filter has found. These tags can be either paired or placeholder tags, which can be moved deleted or cloned in the translation. They can also be structure tags that represent fixed non-translatable elements in the original file format, which must be preserved. Other applications such as the editor or the translation memory subsystems also use this framework to interact with the given file formats and can read and update these structures as required.</p>
+<p>The core APIs of the File Type Support Framework consist of the following .Net 4.8 assemblies:</p>
+<p><img src="images/Implementation_Diagram__CoreModules.jpg" alt="Implementation_Diagram__CoreModules"></p>
+<p>Below you find a brief description of what each assembly contains:</p>
+<ul>
+<li><a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.html">Sdl.FileTypeSupport.Framework</a>: contains basic data types that are shared between all the moduels, e.g. the <code>FrameworkException</code> base class, the <code>Language</code> and <code>Codepage</code> classes, etc.</li>
+<li><a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.html">Sdl.FileTypeSupport.Framework.NativeApi</a>: contains all interfaces required to build file type plug-in components that convert native files to streams of localizable content such as tags and text, including components that work on such streams. It also contains some abstract base classes and helpers that can be used in an implementation.</li>
+<li><a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.html">Sdl.FileTypeSupport.Framework.BilingualApi</a>: contains the interfaces for the bilingual object model and everything that is required to build components that operate on it. It also contains abstract base classes and helpers that can be useful in an implementation.</li>
+<li><a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.html">Sdl.FileTypeSupport.Framework.IntegrationApi</a>: contains the interfaces with the functionality the File Type Support Framework exposes to applications that integrate and use it.</li>
+</ul>
+<h2 id="native-and-bilingual-content">Native and Bilingual Content</h2>
+<p>Filtered content can be processed in two different ways, depending on the phase of the conversion process:</p>
+<ul>
+<li>As a stream of monolingual &#39;native&#39; content items such as tags and text.</li>
+<li>As bilingual (source and target language) content in an object model, delivered as a stream of &#39;paragraph units&#39;.
+The native components are used to read and write content in a single (source or target) language from/to the original (&#39;native&#39;) file type and to perform associated pre- and post processing tasks.</li>
+</ul>
+<p>The bilingual content model is used for all processing of data during the localization phase. In the bilingual content localization-specific information such as segment boundaries, word counts and TM matches can be directly associated with the content.</p>
+<p>The transition between native and bilingual content processing is handled by specific converters. The conversion from native to bilingual content involves building source language paragraph units from the stream of content. The conversion from bilingual to native involves converting the source or target language annotated data into a stream of content.</p>
+<h2 id="file-type-plug-in">File Type Plug-in</h2>
+<p>A file type plug-in is a set of components that together perform operations on native documents. Which components are used for what task and how they are connected to perform different tasks is defined in a <strong>File Type Component Builder</strong>.</p>
+<p>A file type plug-in is used to perform the following actions:</p>
+<ul>
+<li>Reading the native file content and converting it into the source language representation of a bilingual content model, which can then be processed for translation (extraction).</li>
+<li>Converting back the source or target language of a bilingual content model into the source or target language version of the original (native) file type (generation).</li>
+</ul>
+<p>These two types of processing can be combined as part of performing conversions to and from the original file type. The File Type Component Builder specifies which native and bilingual processing components should be applied during conversion. When reading a file in native format the native processing components are applied to the content stream before the bilingual components. When converting back from the bilingual representation into the native format the order is reversed, i.e. bilingual components are applied to the content stream before the native components.</p>
+<h2 id="bilingual-file-formats">Bilingual File Formats</h2>
+<p>The framework can also be used for reading and writing data stored in bilingual formats. Bilingual file types can be treated like any other file type by the framework, they simply process data directly in the bilingual content model.</p>
+<p>The ability to write file type plug-ins for bilingual file formats means that you can support file types such as partially translated TTX, ITD, BIF, Workbench RTF, generic XLIFF or any types of &#39;home grown&#39; file formats used for storing multilingual content.</p>
+<p>At the time of writing, standard file type plug-ins for TTX, ITD and XLIFF are available.</p>
+<p>We also use a default bilingual file format for serializing the entire bilingual content model during the localization process.</p>
+<h2 id="sdlxliff">SDLXliff</h2>
+<p>This file format is fully based on and compliant with the OASIS XLIFF 1.2 standard. SDLXliff can store all metadata available in the bilingual content model of the File Type Support Framework. Standard XLIFF constructs are used whenever possible, and valid XLIFF extension points are used when necessary to store the additional information.</p>
+<p>The SDL extensions to the XLIFF 1.2 schema are defined in a separate schema file, which is embedded as a resource in the assembly and used for validation of the XLIFF files when this option is enabled in the file type plug-in.</p>
+<p>The SDLXliff file type plug-in is defined in the assembly <code>Sdl.FileTypeSupport.Bilingual.SdlXliff</code>. Note that this is treated like any other file type plug-in. Applications should not need to reference this assembly.</p>
+<div class="NOTE"><h5>Note</h5><p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+</div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/sdl/studio-api-docs/blob/536526bdc8961482ec547a9df3ff9a2a82f5f0ee/apiconcepts/filetypesupport/file_type_support_overview.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

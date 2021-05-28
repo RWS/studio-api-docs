@@ -95,6 +95,13 @@
 <li>Make the class implement <a href="../../api/verification/Sdl.Verification.Api.ISuggestionProvider.html">ISuggestionProvider</a> - use Visual Studio to add empty implementations.</li>
 <li>Make <code>HasSuggestion</code> always return true because there is always a suggestion - replacing the contents of the target segment with the source segment.</li>
 </ol>
+<div class="tabGroup" id="tabgroup_QU57YQOtJv">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_QU57YQOtJv_tabid-1" role="tab" aria-controls="tabpanel_QU57YQOtJv_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_QU57YQOtJv_tabid-1" role="tabpanel" data-tab="tabid-1">
 <pre><code class="lang-cs">public Suggestion GetSuggestion()
 {
     return _suggestion;
@@ -106,11 +113,20 @@ public bool HasSuggestion()
 }
 
 public event EventHandler SuggestionChanged;
-</code></pre><p>The <code>IdenticalVerifierMessageUI</code> custom user control needs the source segment to be able to suggest replacing the contents of the target segment with the source segment.</p>
+</code></pre></section>
+</div>
+<p>The <code>IdenticalVerifierMessageUI</code> custom user control needs the source segment to be able to suggest replacing the contents of the target segment with the source segment.</p>
 <ol>
 <li>Add a using reference to <code>Sdl.FileTypeSupport.Framework.BilingualApi</code>.</li>
 <li>Use property <code>ReplaceDocumentSegment</code> of <code>IdenticalVerifierMessageData</code> class to create new Suggestion.</li>
 </ol>
+<div class="tabGroup" id="tabgroup_QU57YQOtJv-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_QU57YQOtJv-1_tabid-2" role="tab" aria-controls="tabpanel_QU57YQOtJv-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_QU57YQOtJv-1_tabid-2" role="tabpanel" data-tab="tabid-2">
 <pre><code class="lang-cs">public IdenticalVerifierMessageUI(MessageEventArgs messageEventArgs, ISegment originalSegment)
 {
     InitializeComponent();
@@ -127,13 +143,22 @@ public event EventHandler SuggestionChanged;
     _originalSegment.ReplaceDocumentSegment(originalSegment.Clone() as ISegment);
     panel_Original.Controls.Add(_originalSegment);
 }
-</code></pre><p>A suggestion is always a replacement where the target contents from one location upto another location is replaced by the new markup. If the new markup is null then the suggestion effectively deletes the contents from one location upto another location. Always set the new markup to null to delete content and do not use empty text markup.</p>
+</code></pre></section>
+</div>
+<p>A suggestion is always a replacement where the target contents from one location upto another location is replaced by the new markup. If the new markup is null then the suggestion effectively deletes the contents from one location upto another location. Always set the new markup to null to delete content and do not use empty text markup.</p>
 <p>The <code>IdenticalVerifierMessageUI</code> constructor now has the from and upto locations from the verification message (messageEventArgs) and the new markup from the source segment (messageData.ReplacementSuggestion). All that remains is for <code>IdenticalVerifierMessageUI</code> constructor to create the Suggestion and store it in a member variable for the GetSuggestion method.</p>
 <ol>
 <li>Add a private member variable called _suggestion of type <a href="../../api/verification/Sdl.Verification.Api.Suggestion.html">Suggestion</a>.</li>
 <li>Create the _suggestion from the messageEventArgsFromLocation and UptoLocation and from the messageData.ReplacementSuggestion.</li>
 <li>Change the GetSuggestion method to return this suggestion.</li>
 </ol>
+<div class="tabGroup" id="tabgroup_QU57YQOtJv-2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_QU57YQOtJv-2_tabid-3" role="tab" aria-controls="tabpanel_QU57YQOtJv-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_QU57YQOtJv-2_tabid-3" role="tabpanel" data-tab="tabid-3">
 <pre><code class="lang-cs">using System;
 using System.Windows.Forms;
 
@@ -142,7 +167,7 @@ using Sdl.FileTypeSupport.Framework.BilingualApi;
 using Sdl.FileTypeSupport.Framework.IntegrationApi;
 using Sdl.Verification.Api;
 
-namespace Sdl.Verification.Sdk.IdenticalCheck.Extended.MessageUI
+namespace Verification.Sdk.IdenticalCheck.Extended.MessageUI
 {
     public partial class IdenticalVerifierMessageUI : UserControl, ISuggestionProvider
     {
@@ -194,7 +219,9 @@ namespace Sdl.Verification.Sdk.IdenticalCheck.Extended.MessageUI
         #endregion
     }
 }
-</code></pre><h1 id="summary">Summary</h1>
+</code></pre></section>
+</div>
+<h1 id="summary">Summary</h1>
 <p>That completes the work necessary to allow the <code>IdenticalVerifierMessageUI</code>custom message control to provide a suggestion for verification messages produced by the IdenticalCheck global verifier. If the user views a verification message produced by the IdenticalCheck global verifier then the Change button will be enabled and clicking on the Change button will apply the suggestion where the contents of the target segment is replaced with the contents of the source segment as described in the <a href="overview.html">Overview</a>.</p>
 <p>In this simple example, the <code>SuggestionChanged</code> event was not used. In complex custom message controls, there may be more than one reasonable suggestion that the user could choose from. These suggestions could be represented in a control like a combo-box or a list box where the user can select a suggestion. As the user selects a suggestion, selects a different suggestion, or &quot;unselects&quot; a suggestion the <code>SuggestionChanged</code> event should be fired. This event is listened to by the verification form that updates whether the Change button is enabled or not.</p>
 </article>
@@ -205,7 +232,7 @@ namespace Sdl.Verification.Sdk.IdenticalCheck.Extended.MessageUI
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/sdl/studio-api-docs/blob/main/apiconcepts/verification/add_suggestion_to_a_custom_message_control.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/sdl/studio-api-docs/blob/536526bdc8961482ec547a9df3ff9a2a82f5f0ee/apiconcepts/verification/add_suggestion_to_a_custom_message_control.md/#L1" class="contribution-link">Improve this Doc</a>
                   </li>
                 </ul>
               </div>

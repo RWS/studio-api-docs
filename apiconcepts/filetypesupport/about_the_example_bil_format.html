@@ -1,0 +1,247 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>About the Example BIL Format </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="About the Example BIL Format ">
+    <meta name="generator" content="docfx 2.57.2.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="about-the-example-bil-format">About the Example BIL Format</h1>
+
+<p>In order to demonstrate the main features that can be used when developing a bilingual file type plug-in, we have created an example format with the extension <em>*.bil</em> (from now on BIL). This file type is not used in any 3rd party application. It is a fictitious document format, which was created only for this SDK sample project.</p>
+<h2 id="format-description">Format Description</h2>
+<p>BIL is custom a XML based format which looks as shown below:</p>
+<div class="tabGroup" id="tabgroup_26VSu8fZxL">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_26VSu8fZxL_tabid-1" role="tab" aria-controls="tabpanel_26VSu8fZxL_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">Xml</a>
+</li>
+</ul>
+<section id="tabpanel_26VSu8fZxL_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-xml">&lt;bilingualdocument source-language=&quot;en-US&quot; target-language=&quot;de-DE&quot;&gt;
+  &lt;unit id=&quot;1&quot; status=&quot;exact&quot;&gt;
+    &lt;source&gt;
+      &lt;seg id=&quot;1&quot;&gt;
+        &lt;b&gt;Features&lt;/b&gt;
+      &lt;/seg&gt;
+    &lt;/source&gt;
+    &lt;target&gt;
+      &lt;seg id=&quot;1&quot;&gt;
+        &lt;b&gt;Leistungsmerkmale&lt;/b&gt;
+      &lt;/seg&gt;
+    &lt;/target&gt;
+   &lt;comment id=&quot;1&quot;&gt;This segment was translated using web translator.&lt;/comment&gt;
+    &lt;type spec=&quot;Heading&quot;/&gt;
+&lt;/bilingualdocument&gt;
+</code></pre></section>
+</div>
+<p>The BIL format contains the following elements:</p>
+<ul>
+<li><code>bilingualdocument</code>: The root element, in which the source and the target languages are specified within element attributes.</li>
+<li><code>unit</code>: Acts as the container for the source and the target content. Each unit element is identified by the unique value of the id attribute. Also the unit element contains a status attribute, which defines whether the current unit is, for example, new or an exact match.</li>
+<li><code>source</code>: Contains one seg element, which stores the actual source segment content.</li>
+<li><code>target</code>: Can contain a seg element for storing the target content. The target element can be empty if no target segment is available.</li>
+<li><code>seg</code>: Encloses the actual source or target content. Segment content may be enclosed in inline tags such as <em>&lt; b &gt;</em>, <em>&lt; i &gt;</em>, etc.</li>
+<li><code>type</code>: Contains additional information on the type of unit, e.g. heading, paragraph, footnote, etc.</li>
+<li><code>comment</code>: contains a comment related to a unit (if applicable). To keep this example as simple as possible, let us assume that a unit can only have one comment.</li>
+</ul>
+<h2 id="what-the-sample-file-type-plug-in-must-do">What the Sample File Type Plug-in Must Do</h2>
+<p>Your file type plug-in needs to fulfill the following requirements:</p>
+<ul>
+<li>Generate an SDLXliff file from a given BIL document</li>
+<li>Traverse the BIL file and extract all units; each unit shall represent a paragraph in the translation editor of Trados Studio</li>
+<li>Expose all source segments for translation</li>
+<li>Expose all target segments (if available)</li>
+<li>Markup inline tags such as <em>&lt; b&gt;</em> as tag pairs within the segments and apply the appropriate display formatting</li>
+<li>Generate (untranslatable) contexts from the type attribute values (e.g. heading)</li>
+<li>Map the BIL unit status values to the appropriate confirmation levels found in the intermediary format used by Trados Studio (i.e. SDLXliff), e.g. translated, draft, approved, etc.</li>
+<li>Back conversion, i.e. writing back the content from the intermediary document (SDLXliff)into a target BIL file</li>
+</ul>
+<p>When developing the sample file type plug-in we fill primarily focus on extraction (file parser) and generation (file writer) as well as ways of mapping BIL features to SDLXliff features. We will not implement additional functionality such as QuickInsert, user-configurable settings, or document preview, as this is already covered in the chapter on developing a native file type plug-in.</p>
+<p>Example Document
+Below you see an example of a more comprehensive document, which you can use for testing your BIL file type plug-in:</p>
+<div class="tabGroup" id="tabgroup_26VSu8fZxL-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_26VSu8fZxL-1_tabid-2" role="tab" aria-controls="tabpanel_26VSu8fZxL-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">Xml</a>
+</li>
+</ul>
+<section id="tabpanel_26VSu8fZxL-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<pre><code class="lang-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;bilingualdocument source-language=&quot;en-US&quot; target-language=&quot;de-DE&quot;&gt;
+  &lt;unit id=&quot;1&quot; status=&quot;exact&quot;&gt;
+    &lt;source&gt;
+      &lt;seg&gt;
+        &lt;b&gt;Features&lt;/b&gt;
+      &lt;/seg&gt;
+    &lt;/source&gt;
+    &lt;target&gt;
+      &lt;seg&gt;
+        &lt;b&gt;Leistungsmerkmale&lt;/b&gt;
+      &lt;/seg&gt;
+    &lt;/target&gt;
+   &lt;comment id=&quot;1&quot;&gt;This segment was translated using web translator.&lt;/comment&gt;
+    &lt;type spec=&quot;Heading&quot;/&gt;
+  &lt;/unit&gt;
+  &lt;unit id=&quot;2&quot; status=&quot;fuzzy&quot;&gt;
+    &lt;source&gt;
+      &lt;seg&gt;
+        &lt;b&gt;The future of translation technology is here!&lt;/b&gt;
+      &lt;/seg&gt;
+    &lt;/source&gt;
+    &lt;target&gt;
+      &lt;seg&gt;
+        &lt;b&gt;Die Zukunft der Übersetzungstechnologie hat begonnen!&lt;/b&gt;
+      &lt;/seg&gt;
+    &lt;/target&gt;
+    &lt;comment id=&quot;1&quot;&gt;This segment was translated using web translator.&lt;/comment&gt;
+  &lt;/unit&gt;
+  &lt;unit id=&quot;3&quot; status=&quot;new&quot;&gt;
+    &lt;source&gt;
+      &lt;seg&gt;
+        &lt;b&gt;The largest translation supply chain in the world&lt;/b&gt;
+      &lt;/seg&gt;
+    &lt;/source&gt;
+    &lt;target&gt;&lt;/target&gt;
+    &lt;type spec=&quot;Heading&quot;/&gt;
+  &lt;/unit&gt;
+  &lt;unit id=&quot;4&quot; status=&quot;new&quot;&gt;
+    &lt;source&gt;
+      &lt;seg&gt;&lt;i&gt;Trados Studio&lt;/i&gt; is the world’s most popular translation software with over 170,000 users.&lt;/seg&gt;
+    &lt;/source&gt;
+    &lt;target&gt;&lt;/target&gt;
+&lt;type spec=&quot;Box&quot;/&gt;
+  &lt;/unit&gt;
+  &lt;unit id=&quot;5&quot; status=&quot;new&quot;&gt;
+    &lt;source&gt;
+      &lt;seg&gt;
+        &lt;b&gt;Dedicated translation environment to handle almost any file type&lt;/b&gt;
+      &lt;/seg&gt;
+    &lt;/source&gt;
+    &lt;target&gt;&lt;/target&gt;
+    &lt;type spec=&quot;Heading&quot;/&gt;
+  &lt;/unit&gt;
+  &lt;unit id=&quot;6&quot; status=&quot;new&quot;&gt;
+    &lt;source&gt;
+      &lt;seg&gt;&lt;b&gt;Easily open&lt;/b&gt; and start working on the widest range of file formats, from the latest Microsoft Office files to XML, from HTML to InDesign.&lt;/seg&gt;
+    &lt;/source&gt;
+    &lt;target&gt;&lt;/target&gt;
+  &lt;type spec=&quot;Box&quot;/&gt;
+&lt;comment id=&quot;1&quot;&gt;This is the original comment&lt;/comment&gt;
+  &lt;/unit&gt;
+&lt;/bilingualdocument&gt;
+</code></pre></section>
+</div>
+<div class="NOTE"><h5>Note</h5><p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+</div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/sdl/studio-api-docs/blob/536526bdc8961482ec547a9df3ff9a2a82f5f0ee/apiconcepts/filetypesupport/about_the_example_bil_format.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

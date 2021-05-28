@@ -1,0 +1,164 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>The File Writer </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="The File Writer ">
+    <meta name="generator" content="docfx 2.57.2.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="the-file-writer">The File Writer</h1>
+
+<p>The last step in the localization workflow is the generation of the (translated) target file in the original document format. In one of the examples provided in this SDK we need to write all translated segments from a bilingual SDLXliff document to a (native)SubRip file. This task is performed by a Native API Writer.</p>
+<p>When implementing a Native API file writer you must derive your writer class from the interfaces <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileTypeComponent.html">INativeFileTypeComponent</a> and <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileWriter.html">INativeFileWriter</a>. These interfaces provide a way of connecting to the  File Type Support Framework and allowing it to initialize the writer with the objects it needs to interact with the  File Type Support Framework. A writer will also normally derive from the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeOutputSettingsAware.html">INativeOutputSettingsAware</a>, <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.html">INativeContentCycleAware</a> and <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.ISettingsAware.html">ISettingsAware</a> interfaces, which provide the writer with additional information such as the target file path name, the target language and the preferred encoding of the target file and also allow any required settings to be populated.</p>
+<p>However, the simplest way to implement a native writer is to merely derive it from the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileWriter.html">AbstractNativeFileWriter</a> class and the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.html">INativeContentCycleAware</a> interfaces, and use the helper functions of the <code>AbstractNativeFileWriter</code> class.</p>
+<p>The <code>AbstractNativeFileWriter</code> base class provides an implementation of the <code>INativeFilterComponent</code>, <code>IAbstractNativeContentHandler</code> and <code>INativeOutputSettingsAware</code> interfaces leaving only the INativeContentCycleAware interface to be implemented by the derived class. If this <code>AbstractNativeFileWriter</code> class is used as a base class, in its implementations of <code>IAbstractNativeContentHandler</code> it provides some default (empty) implementations of the interface methods. These public virtual methods can be overwritten in the derived class if an implementation is required for a particular native writer.</p>
+<p>You may have noticed that the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IAbstractNativeContentHandler.html">IAbstractNativeContentHandler</a> interface, from which the Native API writer is derived, is the same interface that is used for the <code>Output</code> property of the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileParser.html">AbstractNativeFileParser</a> base parser class. The reason for this is that all text, tags and other mark-up items that are written during the parsing phase are re-used when the translated output file is being creating, with the mark-up order and translated text content determined by the translation process. However, the translated document will only contain tags that were created during the parsing phase. The Native API writer can rely on the tag content of each tag to be the same as it was when it was written by the parser with the exception of any manually-added mark-up items in a framework-based editor. If a filter allows for manually created mark-up such as <strong>Bold</strong>, <em>Italic</em> or <u>Underline</u> formatting added by the user during translation, then this will be defined in the File Type Component Builder. The only other exception to this is when the parser class has created a tag with localizable content in it. If this is the case, then the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IAbstractTagProperties.html#Sdl_FileTypeSupport_Framework_NativeApi_IAbstractTagProperties_LocalizableContent">LocalizableContent</a> property of the tag properties must be examined to retrieve the text for the localizable sub-segments.</p>
+<p>The <code>AbstractNativeFileWriter</code> base class provides some default virtual implementations of the <code>IAbstractNativeContentHandler</code> interface methods that represent tags, text and futher mark-up item in the translated document. Therefore, in your derived Native API writer class, you only need to implement the overridable methods for the text or mark-up that is applicable to your document type. A list of overridable methods is provided below. If however, you are not deriving from <code>AbstractNativeFileWriter</code>, you will need to implement all of the following methods, even if the method content is empty.</p>
+<ul>
+<li><a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IAbstractNativeContentHandler.html#Sdl_FileTypeSupport_Framework_NativeApi_IAbstractNativeContentHandler_StructureTag_Sdl_FileTypeSupport_Framework_NativeApi_IStructureTagProperties_">StructureTag</a>: This method is called on the Native API writer class when structure tag information is being sent to the writer class. Your implementation (if any) will need to interpret the <code>IStructureTagProperties.TagContent</code> string that was set by the parser. A simple, text- based file format parsers may only need to write the tag content to the output file.</li>
+<li><a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IAbstractNativeContentHandler.html#Sdl_FileTypeSupport_Framework_NativeApi_IAbstractNativeContentHandler_InlineStartTag_Sdl_FileTypeSupport_Framework_NativeApi_IStartTagProperties_">InlineStartTag</a>: This method is called by the framework when paired start tag information is being sent to the writer. Again, a simple implementation may only need to write the tag content to the output file.</li>
+<li><a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IAbstractNativeContentHandler.html#Sdl_FileTypeSupport_Framework_NativeApi_IAbstractNativeContentHandler_InlineEndTag_Sdl_FileTypeSupport_Framework_NativeApi_IEndTagProperties_">InlineEndTag</a>: This method is called by the framework when the end tag of a pair of tags is being sent to the writer. The framework guarantees that all tag pairs will remain well formed during the translation process.</li>
+<li><a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IAbstractNativeContentHandler.html#Sdl_FileTypeSupport_Framework_NativeApi_IAbstractNativeContentHandler_InlinePlaceholderTag_Sdl_FileTypeSupport_Framework_NativeApi_IPlaceholderTagProperties_">InlinePlaceholderTag</a>: This method is called by the framework when single placeholder tag information is being sent to the writer.
+Text: This method is called by the framework to tell the writer class to write text in human readable form to the output file. This will usually be the translated text, but it could also be the source text when previewing the source document.</li>
+<li><a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IAbstractNativeContentHandler.html#Sdl_FileTypeSupport_Framework_NativeApi_IAbstractNativeContentHandler_CustomInfo_Sdl_FileTypeSupport_Framework_NativeApi_ICustomInfoProperties_">CustomInfo</a>: This method is for sending temporary custom information that can be used for communication between native content processing components.</li>
+<li><a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IAbstractNativeContentHandler.html#Sdl_FileTypeSupport_Framework_NativeApi_IAbstractNativeContentHandler_ChangeContext_Sdl_FileTypeSupport_Framework_NativeApi_IContextProperties_">ChangeContext</a>: This method is normally invoked on the Output property of the Native API parser, and is not expected to be used by the writer. However, it still needs to be defined, as it is part of the common <code>IAbstractNativeContentHandler</code> interface used by both the parser and writer.</li>
+<li><a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileWriter.html#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileWriter_Dispose">Dispose</a> method: This method is implemented in <code>AbstractNativeFileWriter</code> and can be overridden by subclasses. This method is explicitly called after an unhandled exception is thrown in the Filter Framework. This is the last chance for the filter to release acquired resources (managed and unmanged). This can happen when: - Acquire resources in StartOfInput() and release them in EndOfInput() - Acquire resources in BeforeParsing() and release them in AfterParsing() - Acquire resources in SetFileProperties() and release them in FileComplete() - or other similar situations.</li>
+</ul>
+<p>The <code>AbstractNativeFileWriter</code> interface contains two further methods that need to be implemented in any writer class. These are outlined below:</p>
+<ul>
+<li><a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.html#Sdl_FileTypeSupport_Framework_NativeApi_INativeContentCycleAware_SetFileProperties_Sdl_FileTypeSupport_Framework_BilingualApi_IFileProperties_">SetFileProperties</a>: This method receives a IPersistentFileConversionProperties object.
+<a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.html#Sdl_FileTypeSupport_Framework_NativeApi_INativeContentCycleAware_StartOfInput">StartOfInput</a>: This method is called by the framework after component initialization (i.e. after * SetFileProperties(), but before any content is parsed and passed to any of the filter components.</li>
+<li><a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.html#Sdl_FileTypeSupport_Framework_NativeApi_INativeContentCycleAware_EndOfInput">EndOfInput</a>: This method is called by the framework after processing of the native (monolingual) content has finished.</li>
+</ul>
+<p>The <code>ISettingsAware</code> interface contains one method that needs to be implemented in any writer class, which requires access to any settings the writer may need. This is shown below:</p>
+<ul>
+<li><a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.ISettingsAware.html#Sdl_FileTypeSupport_Framework_IntegrationApi_ISettingsAware_InitializeSettings_Sdl_Core_Settings_ISettingsBundle_System_String_">InitializeSettings</a> method: Passes in an ISettingsBundle object and a configurationId FileTypeConfigurationId. These can be used to populate the required settings object used by the writer, e.g.:</li>
+</ul>
+<div class="tabGroup" id="tabgroup_u+1AoLrPXG">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_u+1AoLrPXG_tabid-1" role="tab" aria-controls="tabpanel_u+1AoLrPXG_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_u+1AoLrPXG_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-cs">public void InitializeSettings(Sdl.Core.Settings.ISettingsBundle settingsBundle, string configurationId)
+{
+    UserSettings _userSettings = new UserSettings();
+    _userSettings.PopulateFromSettingsBundle(settingsBundle, configurationId);
+    WriteUtf8Bom = _userSettings.WriteUtf8Bom;
+}
+</code></pre></section>
+</div>
+<div class="NOTE"><h5>Note</h5><p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+</div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/sdl/studio-api-docs/blob/536526bdc8961482ec547a9df3ff9a2a82f5f0ee/apiconcepts/filetypesupport/the_file_writer.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>
