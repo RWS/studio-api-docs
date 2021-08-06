@@ -8,7 +8,7 @@ This chapter contains an example of how to add reports to a project programmatic
 Getting the Reports list
 --
 
-To enumerate the reports associated to a project, you need to create a ```ProjectReportsOperation``` object based on the current project and call ```GetProjectReports``` method.
+To enumerate the reports associated to a project, you need to create a [ProjectReportsOperation](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.Reports.Operations.ProjectReportsOperations.yml) object based on the current project and call [GetProjectReports](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.Reports.Operations.ProjectReportsOperations.yml#Sdl_ProjectAutomation_FileBased_Reports_Operations_ProjectReportsOperations_GetProjectReports) method.
 
 # [C#](#tab/tabid-1)
 ```CS
@@ -22,7 +22,7 @@ The report object is used to handle the reports. It contains the report Id, the 
 Get the Report definition
 --
 
-To get the report definition, you need to create a ```ProjectReportsOperation``` object based on the current project and call ```GetReportDefinition``` method. This method takes as input parameters the task template Id.
+To get the report definition, you need to create a [ProjectReportsOperation](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.Reports.Operations.ProjectReportsOperations.yml) object based on the current project and call [GetReportDefinition](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.Reports.Operations.ProjectReportsOperations.yml#Sdl_ProjectAutomation_FileBased_Reports_Operations_ProjectReportsOperations_GetReportDefinition_System_String_) method. This method takes as input parameters the task template Id.
 
 # [C#](#tab/tabid-2)
 ```CS
@@ -36,7 +36,7 @@ The report definition contains the task template id, the report Uri, the assembl
 Adding a Report
 --
 
-To add a report to a project, you need to create a ```ProjectReportsOperation``` object based on the current project and call ```AddReport``` method. This method takes as input parameters the task template Id, the report name, description language and content.
+To add a report to a project, you need to create a [ProjectReportsOperation](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.Reports.Operations.ProjectReportsOperations.yml) object based on the current project and call [AddReport](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.Reports.Operations.ProjectReportsOperations.yml#Sdl_ProjectAutomation_FileBased_Reports_Operations_ProjectReportsOperations_AddReport_System_String_System_String_System_String_System_String_System_String_) method. This method takes as input parameters the task template Id, the report name, description language and content.
 
 # [C#](#tab/tabid-3)
 ```CS
@@ -51,7 +51,7 @@ The method will throw an exception if the task template Id does not exists or th
 Updating a Report
 --
 
-To update a report to a project, you need to create a ```ProjectReportsOperation``` object based on the current project and call ```UpdateReport``` method. This method takes as input parameters the task template, the report name, description and content.
+To update a report to a project, you need to create a [ProjectReportsOperation](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.Reports.Operations.ProjectReportsOperations.yml) object based on the current project and call [UpdateReport](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.Reports.Operations.ProjectReportsOperations.yml#Sdl_ProjectAutomation_FileBased_Reports_Operations_ProjectReportsOperations_UpdateReport_System_Guid_System_String_System_String_System_String_) method. This method takes as input parameters the task template, the report name, description and content.
 
 # [C#](#tab/tabid-4)
 ```CS
@@ -64,7 +64,7 @@ The method will throw an exception if the report Id does not exists or the conte
 Deleting Reports
 --
 
-To delete one or more reports from a project, you need to create a ```ProjectReportsOperation``` object based on the current project and call ```RemoveReports``` method. This method takes as input parameters the list with report Ids to be deleted.
+To delete one or more reports from a project, you need to create a [ProjectReportsOperation](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.Reports.Operations.ProjectReportsOperations.yml) object based on the current project and call [RemoveReports](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.Reports.Operations.ProjectReportsOperations.yml#Sdl_ProjectAutomation_FileBased_Reports_Operations_ProjectReportsOperations_RemoveReports_System_Collections_Generic_List_System_Guid__) method. This method takes as input parameters the list with report Ids to be deleted.
 
 # [C#](#tab/tabid-5)
 ```CS
@@ -75,7 +75,7 @@ new ProjectReportsOperations(fileBasedProject).RemoveReports(reports.Select(r =>
 Get the Report Rendering Supported File Formats
 --
 
-To get the supported file formats for rendering a report, you need to create a ```ProjectReportsOperation``` object based on the current project and call ```GetReportRenderingSupportedFileFormats``` method. This method takes as input parameter the report Id.
+To get the supported file formats for rendering a report, you need to create a [ProjectReportsOperation](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.Reports.Operations.ProjectReportsOperations.yml) object based on the current project and call [GetReportRenderingSupportedFileFormats](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.Reports.Operations.ProjectReportsOperations.yml#Sdl_ProjectAutomation_FileBased_Reports_Operations_ProjectReportsOperations_GetReportRenderingSupportedFileFormats_System_Guid_) method. This method takes as input parameter the report Id.
 
 # [C#](#tab/tabid-6)
 ```CS
@@ -89,7 +89,7 @@ The method will throw an exception if the task template Id does not exists.
 Get the Report Rendering
 --
 
-To render a report, you need to create a ```ProjectReportsOperation``` object based on the current project and call one of the 2 ```GetReportRendering``` overloaded methods. 
+To render a report, you need to create a [ProjectReportsOperation](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.Reports.Operations.ProjectReportsOperations.yml) object based on the current project and call one of the 2 [GetReportRendering](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.Reports.Operations.ProjectReportsOperations.yml#Sdl_ProjectAutomation_FileBased_Reports_Operations_ProjectReportsOperations_GetReportRendering_System_Guid_System_String_) overloaded methods. 
 The first method takes as input parameters the report Id and the output file format.
 
 # [C#](#tab/tabid-7)
