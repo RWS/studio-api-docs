@@ -31,7 +31,7 @@ var reportDefinition = new ProjectReportsOperations(fileBasedProject).GetReportD
 ***
 
 The method returns the report definition object.
-The report definition contains the task template id, the report Uri, Assembly and the report data. 
+The report definition contains the task template id, the report Uri, the assembly and the report data. 
 
 Adding a Report
 --
