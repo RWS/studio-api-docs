@@ -1,4 +1,19 @@
 /* Copyright (c) Microsoft Corporation. All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information. */
+/* COLOR VARIABLES*/
+:root {
+  --header-bg-color: #fff;
+  --header-ft-color: #979FB2;
+  --input-text: #758099;
+  --highlight-light: #008080;
+  --highlight-dark: #006666;
+  --accent-dim: #E6E8ED;
+  --accent-super-dim: #F4F5F7;
+  --font-color: #282C36;
+  --card-box-shadow: 0 1px 2px 0 rgba(61, 65, 68, 0.06), 0 1px 3px 1px rgba(61, 65, 68, 0.16);
+  --search-box-shadow: 0 1px 2px 0 rgba(41, 45, 48, 0.36), 0 1px 3px 1px rgba(41, 45, 48, 0.46);
+  --transition: 350ms;
+}
+
 html,
 body {
   font-family: 'Segoe UI', Tahoma, Helvetica, sans-serif;
@@ -7,7 +22,7 @@ body {
 
 button,
 a {
-  color: #337ab7;
+  color: var(--highlight-light);
   cursor: pointer;
 }
 
@@ -15,7 +30,7 @@ button:hover,
 button:focus,
 a:hover,
 a:focus {
-  color: #23527c;
+  color: var(--highlight-dark);
   text-decoration: none;
 }
 
@@ -198,8 +213,10 @@ header {
 }
 
 header .navbar {
-  border-width: 0 0 1px;
+  border-width: 0 0 1px 0;
   border-radius: 0;
+  border-color: var(--accent-dim);
+  border-style: solid;
 }
 
 .navbar-brand {
@@ -213,6 +230,17 @@ header .navbar {
 
 .subnav {
   min-height: 40px;
+}
+
+.subnav .container .breadcrumb-container {
+  margin-left: 280px;
+  padding: 0 15px;
+}
+
+@media only screen and (max-width: 768px) {
+  .subnav .container .breadcrumb-container {
+    margin-left: 0;
+  }
 }
 
 .inheritance h5,
@@ -250,10 +278,18 @@ article section {
   padding: 10px 0;
   background-color: inherit;
   white-space: nowrap;
+  font-size: .8125rem;
 }
 
 .breadcrumb>li+li:before {
-  content: "\00a0/";
+  content: "›";
+  font-size: 1.2rem;
+  line-height: 1rem;
+  color: var(--highlight-light);
+}
+
+.breadcrumb>li+li:hover:before {
+  color: var(--highlight-dark);
 }
 
 #autocollapse.collapsed .navbar-header {
@@ -312,6 +348,10 @@ article section {
 
 #autocollapse .navbar-brand {
   margin-left: 0;
+}
+
+#autocollapse .navbar-brand svg {
+  max-height: 50px;
 }
 
 .collapse.in,
@@ -501,7 +541,7 @@ article section {
 .sidenav,
 .fixed_header,
 .toc {
-  background-color: #f1f1f1;
+  background-color: var(----accent-super-dim);
 }
 
 .sidetoc {
@@ -511,7 +551,7 @@ article section {
   bottom: 0;
   overflow-x: hidden;
   overflow-y: auto;
-  background-color: #f1f1f1;
+  background-color: var(----accent-super-dim);
   border-left: 1px solid #e7e7e7;
   border-right: 1px solid #e7e7e7;
   z-index: 1;
@@ -522,7 +562,7 @@ article section {
 }
 
 body .toc {
-  background-color: #f1f1f1;
+  background-color: var(----accent-super-dim);
   overflow-x: hidden;
 }
 
@@ -554,7 +594,7 @@ body .toc {
 
 .expand-stub {
   position: absolute;
-  left: -10px;
+  right: -10px;
 }
 
 .toc .nav>li>a.sidetoc-expand {
@@ -594,12 +634,20 @@ body .toc {
 .toc .nav>li.in>.expand-stub::before,
 .toc .nav>li.in.active>.expand-stub::before,
 .toc .nav>li.filtered>.expand-stub::before {
-  content: "-";
+  transform: rotate(90deg);
 }
 
 .toc .nav>li>.expand-stub::before,
 .toc .nav>li.active>.expand-stub::before {
-  content: "+";
+  color: var(--highlight-light);
+  display: inline-block;
+  height: 1rem;
+  overflow: hidden;
+  content: "›";
+  font-size: 2rem;
+  line-height: 1rem;
+  transform: rotate(0deg);
+  transition: 350ms ease-out;
 }
 
 .toc .nav>li.filtered>ul,
@@ -638,7 +686,7 @@ body .toc {
   position: fixed;
   top: 90px;
   width: 260px;
-  background-color: #f1f1f1;
+  background-color: var(----accent-super-dim);
   padding: 15px;
   border-left: 1px solid #e7e7e7;
   border-right: 1px solid #e7e7e7;
@@ -648,15 +696,19 @@ body .toc {
 .toc-filter {
   border-radius: 5px;
   background: #fff;
-  color: #666666;
+  color: var(--input-text);
   padding: 5px;
   position: relative;
   margin: 0 5px 0 5px;
 }
 
+.toc-filter:hover {
+  background-color: var(--accent-dim);
+}
+
 .toc-filter>input {
   border: 0;
-  color: #666666;
+  color: var(--input-text);
   padding-left: 20px;
   padding-right: 20px;
   width: 100%;
@@ -698,6 +750,8 @@ body .toc {
 
 .article img {
   max-width: 100%;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
 .sideaffix {
