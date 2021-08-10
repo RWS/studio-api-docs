@@ -3,7 +3,7 @@
 Creating a <Var:ProductName> command line argument processor
 ---
 
-In order to create a <Var:ProductName> command line processor, a third-party developer will require the following steps:
+To create a <Var:ProductName> command line processor as a third-party developer :
 
 * implement the [IExternalCommandLineProcessor](../../api/integration/Sdl.Desktop.IntegrationApi.Extensions.CommandLine.IExternalCommandLineProcessor.yml) or [IExternalWindowAwareCommandLineProcessor](../../api/integration/Sdl.Desktop.IntegrationApi.Extensions.CommandLine.IExternalWindowAwareCommandLineProcessor.yml) depending if you want to run the command line processor before or after the main screen is shown. 
 
@@ -17,9 +17,9 @@ The following example demonstrates how to implement a custom command line proces
 
 The plugin implements the required interfaces mentioned above.
 
-* **TaskName** to return the name of the command processing unit
-* **TaskDescription** description of what that processing will do 
-* **SupportedArguments** supported arguments
+* **TaskName** returns the name of the command processing unit
+* **TaskDescription** describes what that processing will do 
+* **SupportedArguments** lists supported arguments
 
 # [C#](#tab/tabid-1)
 ****
