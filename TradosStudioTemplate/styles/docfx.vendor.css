@@ -3327,10 +3327,10 @@ output {
   padding: 6px 12px;
   background-color: #fff;
   background-image: none;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--accent-dim);
+  border-radius: 5px;
   -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
   -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
   transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
@@ -3339,23 +3339,24 @@ output {
 }
 
 .form-control:focus {
-  border-color: #66afe9;
+  border-color: var(--header-ft-color);
   outline: 0;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6)
 }
 
 .form-control::-moz-placeholder {
-  color: #999;
+  color: var(--header-ft-color);
+  font-style: italic;
   opacity: 1
 }
 
 .form-control:-ms-input-placeholder {
-  color: #999
+  color: var(--header-ft-color);
+  font-style: italic;
 }
 
 .form-control::-webkit-input-placeholder {
-  color: #999
+  color: var(--header-ft-color);
+  font-style: italic;
 }
 
 .has-success .checkbox,
@@ -3828,12 +3829,14 @@ textarea.input-lg {
   -ms-touch-action: manipulation;
   touch-action: manipulation;
   cursor: pointer;
+  color: var(--highlight-light);
   background-image: none;
-  border: 1px solid transparent;
+  border: 1px solid var(--highlight-light);
+  background-color: #fff;
   padding: 6px 12px;
   font-size: 14px;
   line-height: 1.42857143;
-  border-radius: 4px;
+  border-radius: 5px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -3842,18 +3845,21 @@ textarea.input-lg {
 
 .btn.active.focus,
 .btn.active:focus,
-.btn.focus,
 .btn:active.focus,
-.btn:active:focus,
-.btn:focus {
-  outline: -webkit-focus-ring-color auto 5px;
-  outline-offset: -2px
+.btn:active:focus {
+  background-image: none;
+  outline: 0;
+  color: #fff;
+  background-color: var(--highlight-light);
+  -webkit-box-shadow: none;
+  box-shadow: none;
 }
 
 .btn.focus,
 .btn:focus,
 .btn:hover {
-  color: #333;
+  color: var(--highlight-dark);
+  border-color: var(--highlight-dark);
   text-decoration: none
 }
 
@@ -3861,8 +3867,29 @@ textarea.input-lg {
 .btn:active {
   background-image: none;
   outline: 0;
-  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
-  box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125)
+  color: #fff;
+  background-color: var(--highlight-dark);
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.btn.collapse {
+  background-image: none;
+  outline: 0;
+  color: var(--highlight-light);
+  background-color: #fff;
+  border-color: var(--highlight-light);
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.btn.collapse[aria-expanded="true"] {
+  background-image: none;
+  outline: 0;
+  color: #fff;
+  background-color: var(--highlight-light);
+  -webkit-box-shadow: none;
+  box-shadow: none;
 }
 
 .btn.disabled,
@@ -5241,9 +5268,9 @@ textarea.input-group-sm>.input-group-btn>.btn {
   margin-right: 15px;
   margin-top: 8px;
   margin-bottom: 8px;
-  background-color: transparent;
+  background-color: var(--accent-dim);
   background-image: none;
-  border: 1px solid transparent;
+  border: 1px solid var(--accent-dim);
   border-radius: 4px
 }
 
@@ -5674,16 +5701,41 @@ fieldset[disabled] .navbar-default .btn-link:hover {
 }
 
 .navbar-inverse .navbar-toggle {
-  border-color: #333
+  border-color: transparent;
+  background-color: transparent
 }
 
+.navbar-inverse .navbar-toggle.collapsed:focus {
+  border-color: transparent;
+  background-color: transparent
+}
+
+.navbar-inverse .navbar-toggle[aria-expanded="true"],
 .navbar-inverse .navbar-toggle:focus,
 .navbar-inverse .navbar-toggle:hover {
-  background-color: #333
+  background-color: var(--accent-super-dim);
 }
 
 .navbar-inverse .navbar-toggle .icon-bar {
-  background-color: #fff
+  position: relative;
+  top: 0px;
+  background-color: var(--font-color);
+  opacity: 1;
+  transition: 350ms ease-out;
+}
+
+.navbar-inverse .navbar-toggle[aria-expanded="true"] .icon-bar:nth-of-type(2) {
+  transform: rotate(+45deg);
+  top: +6px;
+}
+
+.navbar-inverse .navbar-toggle[aria-expanded="true"] .icon-bar:nth-of-type(3) {
+  opacity: 0;
+}
+
+.navbar-inverse .navbar-toggle[aria-expanded="true"] .icon-bar:nth-of-type(4) {
+  transform: rotate(-45deg);
+  top: -6px;
 }
 
 .navbar-inverse .navbar-collapse,

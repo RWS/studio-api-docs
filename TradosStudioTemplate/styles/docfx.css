@@ -334,6 +334,7 @@ article section {
 }
 
 #autocollapse .form-group {
+  position: relative;
   width: 100%;
 }
 
@@ -356,7 +357,15 @@ article section {
 
 .collapse.in,
 .collapsing {
-  text-align: center;
+  text-align: left;
+}
+
+@media (min-width:768px) {
+
+  .collapse.in,
+  .collapsing {
+    text-align: left;
+  }
 }
 
 .collapsing .navbar-form {
@@ -588,13 +597,13 @@ body .toc {
 }
 
 .toc {
-  margin: 0px 0 0 10px;
-  padding: 0 10px;
+  margin: 0;
+  padding: 0;
 }
 
 .expand-stub {
   position: absolute;
-  right: -10px;
+  right: -1.5rem;
 }
 
 .toc .nav>li>a.sidetoc-expand {
@@ -640,12 +649,15 @@ body .toc {
 .toc .nav>li>.expand-stub::before,
 .toc .nav>li.active>.expand-stub::before {
   color: var(--highlight-light);
+  color: var(--font-color);
   display: inline-block;
-  height: 1rem;
+  height: .9rem;
+  width: 1.2rem;
+  text-align: center;
   overflow: hidden;
   content: "›";
-  font-size: 2rem;
-  line-height: 1rem;
+  font-size: 1.5rem;
+  line-height: .9rem;
   transform: rotate(0deg);
   transition: 350ms ease-out;
 }
@@ -661,20 +673,88 @@ body .toc {
 
 .toc ul {
   font-size: 12px;
-  margin: 0 0 0 3px;
+  margin: 0 auto 0 5%;
+  max-width: 80%;
+  width: auto;
+  min-width: 232px;
+}
+
+@media (min-width:768px) {
+  .toc>ul {
+    min-width: unset;
+    width: 80%;
+    max-width: unset;
+  }
 }
 
 .toc .level1>li {
   font-weight: bold;
   margin-top: 10px;
+  padding-bottom: 5px;
   position: relative;
   font-size: 16px;
+  border-bottom: 1px solid var(--accent-dim);
 }
 
-.toc .level2 {
+
+.toc .level1 ul {
+  position: relative;
   font-weight: normal;
-  margin: 5px 0 0 15px;
+  margin: 0 0 0 auto;
+  max-width: unset;
+  width: 95%;
+  min-width: unset;
   font-size: 14px;
+}
+
+@media (min-width:768px) {
+  .toc ul {
+    margin: 5px 0 0 0;
+  }
+
+  .toc .level1 ul {
+    width: 90%;
+    min-width: unset;
+  }
+
+  .toc .level1>li {
+    border-bottom: unset;
+  }
+}
+
+.toc .level2 li {
+  position: relative;
+  padding: .35rem 0;
+}
+
+.toc .level2 li:before {
+  content: " ";
+  position: absolute;
+  display: block;
+  left: -8px;
+  height: 100%;
+  width: 1px;
+  background-color: var(--accent-dim);
+}
+
+.toc .level2 li:last-of-type:before {
+  height: 11px;
+}
+
+.toc .level2 li:after {
+  content: " ";
+  position: absolute;
+  left: -5px;
+  top: 16px;
+  height: 1px;
+  width: .5rem;
+  background-color: var(--accent-dim);
+}
+
+@media (min-width:768px) {
+  .toc .level2 li:after {
+    left: -8px;
+  }
 }
 
 .toc-toggle {
@@ -686,11 +766,16 @@ body .toc {
   position: fixed;
   top: 90px;
   width: 260px;
-  background-color: var(----accent-super-dim);
   padding: 15px;
   border-left: 1px solid #e7e7e7;
   border-right: 1px solid #e7e7e7;
   z-index: 1;
+}
+
+@media (min-width:768px) {
+  .sidefilter {
+    padding: 15px 2rem 15px 0;
+  }
 }
 
 .toc-filter {
@@ -702,15 +787,10 @@ body .toc {
   margin: 0 5px 0 5px;
 }
 
-.toc-filter:hover {
-  background-color: var(--accent-dim);
-}
-
 .toc-filter>input {
-  border: 0;
   color: var(--input-text);
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 2.3rem;
+  padding-right: 1rem;
   width: 100%;
 }
 
@@ -720,14 +800,16 @@ body .toc {
 
 .toc-filter>.filter-icon {
   position: absolute;
-  top: 10px;
-  left: 5px;
 }
 
 .toc-filter>.clear-icon {
   position: absolute;
-  top: 10px;
-  right: 5px;
+  text-align: center;
+  height: 1rem;
+  width: 1.5rem;
+  top: .9rem;
+  right: 1.2rem;
+  background-color: #fff;
 }
 
 .article {
@@ -811,17 +893,22 @@ body .toc {
 
 .affix ul>li>a:hover {
   background: none;
-  color: #666666;
+  color: var(--highlight-light);
 }
 
 .affix ul>li.active>a,
 .affix ul>li.active>a:before {
-  color: #337ab7;
+  font-weight: 500;
+  color: var(--highlight-light);
+}
+
+.affix ul>li.active>a:hover {
+  color: var(--highlight-dark);
 }
 
 .affix ul>li>a {
   padding: 5px 12px;
-  color: #666666;
+  color: var(--font-color);
 }
 
 .affix>ul>li.active:last-child {
@@ -974,7 +1061,6 @@ footer {
     border: none;
   }
 
-  .toc .nav>li,
   .toc .nav>li>a {
     display: inline-block;
   }
@@ -982,7 +1068,7 @@ footer {
   .toc li:after {
     margin-left: -3px;
     margin-right: 5px;
-    content: ", ";
+    content: " ";
     color: #666666;
   }
 
