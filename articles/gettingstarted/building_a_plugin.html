@@ -8,7 +8,7 @@
     <title>Building a plug-in </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Building a plug-in ">
-    <meta name="generator" content="docfx 2.58.0.0">
+    <meta name="generator" content="docfx 2.58.2.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
@@ -108,7 +108,10 @@
   &lt;PlugInName&gt;TradosStudioTranslationProviderExample&lt;/PlugInName&gt;
   &lt;Version&gt;1.0.0.0&lt;/Version&gt;
   &lt;Description&gt;Plugin description&lt;/Description&gt;
-  &lt;Author&gt;&lt;/Author&gt;
+  &lt;Author&gt;Name of the author&lt;/Author&gt;
+  &lt;Include&gt;
+    &lt;File&gt;ThirdPartyLibrary.dll&lt;/File&gt;
+  &lt;/Include&gt;
   &lt;RequiredProduct name=&quot;SDLTradosStudio&quot; minversion=&quot;16.0&quot; /&gt;
 &lt;/PluginPackage&gt;
 </code></pre><p>The plug-in package manifest defines some pieces of essential information:</p>
@@ -117,7 +120,8 @@
 <li><strong>Version</strong>: the version of the plug-in package. This is important, as it will be used to detect updated packages. For more information, see <a href="plugin_deployment.html">Plug-in deployment</a>.</li>
 <li><strong>Description</strong>: description of the plug-in package.</li>
 <li><strong>Author</strong>: the name of the plug-in author</li>
-<li><strong>RequiredProduct</strong>: this indicates which product this plug-in supports. This must include the minimum version and can optionally include a maximum version.</li>
+<li><strong>RequiredProduct</strong>: this indicates which product this plug-in supports. This must include the minimum version and can optionally include a maximum version. <br>
+If the minimum version is set to <em>16.1</em> that means the plugin can be installed only in Trados Studio SR1 and above.</li>
 <li><strong>Include</strong>: a list of additional files to be included into the plugin package.</li>
 </ul>
 <p>Now build the project and have a look in the project output folder. Notice the following:</p>
@@ -128,8 +132,10 @@
 <li>The neutral plug-in resources file <code>MyPlugin.plugin.resources</code>, which contains all the localizable strings and images referred to within the plug-in manifest. This was compiled from <code>PluginResources.resx</code>.</li>
 </ul>
 </li>
-<li>The plug-in package, <code>MyPlugin.sdlplugin</code> which contains all of the above, together with the plug-in package manifest.</li>
+<li>The plug-in package, <code>MyPlugin.sdlplugin</code> which contains all of the above, together with the plug-in package manifest. <br></li>
 </ul>
+<p>After all the relevant information was added, build the project. Plugin can be found at the following local path <em>%AppData%\Roaming\SDL\SDL Trados Studio\16\Plugins\Packages\</em> if the default path wasn&#39;t changed. <br></p>
+<p>If in the console following error appears: <code>Error 1 Failed to locate ResGen.exe and unable to compile plug-in resource file...</code> please make sure you have installed <a href="https://dotnet.microsoft.com/download/dotnet-framework/net462">.Net Framework 4.6.2</a>. </p>
 <p>Now, we are ready to deploy the plug-in package in Trados Studio. See <a href="plugin_deployment.html">Plug-in deployment</a>.</p>
 </article>
           </div>
@@ -139,7 +145,7 @@
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/RWS/studio-api-docs/blob/main/articles/gettingstarted/building_a_plugin.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/ef52247cbfb03aa8d28e4ba913f89bea6193db3d/articles/gettingstarted/building_a_plugin.md/#L1" class="contribution-link">Improve this Doc</a>
                   </li>
                 </ul>
               </div>
