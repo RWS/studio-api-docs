@@ -38,7 +38,7 @@ The plug-in package manifest defines some pieces of essential information:
 * **Description**: description of the plug-in package.
 * **Author**: the name of the plug-in author
 * **RequiredProduct**: this indicates which product this plug-in supports. This must include the minimum version and can optionally include a maximum version. <br>
-If the minimum version is set to *16.1* that means the plugin can be installed only in <Var:ProductName> SR1 and above.
+If the minimum version is set to *<var:VersionNumber>.1* that means the plugin can be installed only in <Var:ProductName> SR1 and above.
 * **Include**: a list of additional files to be included into the plugin package.
 
 Now build the project and have a look in the project output folder. Notice the following:
