@@ -1,0 +1,347 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>How to implement the Studio Useful Tips service </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="How to implement the Studio Useful Tips service ">
+    <meta name="generator" content="docfx 2.58.2.0">
+    
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+    
+    <meta property="docfx:rel" content="../../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="how-to-implement-the-studio-useful-tips-service">How to implement the Studio Useful Tips service</h1>
+
+<p>The <code>RwsAppStore.UsefulTips.Service</code> is a service provider for updating the Useful Tips that are displayed in Trados Studio 2019+.</p>
+<hr>
+<h2 id="add-the-studio-useful-tips-service-to-your-project">Add the Studio Useful Tips service to your project</h2>
+<p>You can add the nuget package to your project via the package manager user interface or console.</p>
+<h3 id="package-manager-ui">Package Manager UI</h3>
+<ul>
+<li>In Solution Explorer, right-click References and choose Manage NuGet Packages.</li>
+<li>Choose nuget.org as the Package source.</li>
+<li>Search for <code>RwsAppStore.UsefulTips.Service</code> from the Browse tab.</li>
+<li>Choose the package from the list and select Install.</li>
+<li>Accept any license prompts.
+<img style="display:block; " src="images/InstallFromNuget.png"></li>
+</ul>
+<h3 id="package-manager-console">Package Manager Console</h3>
+<ul>
+<li>Alternatively, select the Tools &gt; NuGet Package Manager &gt; Package Manager Console menu command.</li>
+<li>From the Package Manager Console, enter the command:
+<code>Install-Package RwsAppStore.UsefulTips.Service -Version 2.1.9.5</code></li>
+</ul>
+<hr>
+<h2 id="remarks">Remarks</h2>
+<p>When adding tips, the Useful Tips service first checks if they already exist in the Useful Tips collection from Studio and then attempts to add only those that are identified as new.<br>Depending on whether or not Studio was launched as administrator, the user may receive a message from the service indicating a requirement to elevate the user rights prior to updating the Useful Tips collection in Studio with the new tips from the plugin.  </p>
+<div class="NOTE"><h5>Note</h5><p>It is required to elevate the user rights to administrator, as the locale tip files that manage the Useful Tips collection in Studio reside in the Trados Studio 2019+ installation directory.<br>Only a user with administrator access rights can modify files from the installation direcotry.</p>
+</div>
+<h3 id="updatehistory">UpdateHistory</h3>
+<p>The Useful Tips service records all attempts made to add new tips to the Useful Tips collection in Studio.<br>This is necessary in cases where the user opted-out when responding to the message asking if they would like to proceed and update Useful Tips collection in Studio; in this case, the decision from the user will be persisted and no further attempt is made to add those tips to Studio.</p>
+<p><strong>Q:</strong> Where can I locate the <em>UpdateHistory.xml</em> and <em>Settings.xml</em> files of the Useful Tips service?<br><strong>A:</strong> They are both located in the users roaming directory:<br><code>C:\Users\[username]\AppData\Roaming\RWS Community\UsefulTipsService\Settings</code>  </p>
+<div class="NOTE"><h5>Note</h5><p>Replace <strong>[username]</strong> with your OS login account name  </p>
+</div>
+<p><strong>Q:</strong> How can the user add tips from the plugin to the Useful Tips collection in Studio if they previously opted-out to adding them?<br><strong>A:</strong> The decision taken by the user to add tips from the plugin to the Useful Tips collection in Studio is persisted in the <em>UpdateHistory.xml</em> file.  You can simply delete the <em>UpdateHistory.xml</em> file, or change the <strong>UpdateAttempts</strong> property value for each record to be less than the <strong>MaxUpdateAttempts</strong> value managed in the <em>Settings.xml</em>  </p>
+<hr>
+<h2 id="sample-implementation">Sample Implementation</h2>
+<p>The following example creates an instance of the TipsProvider and adds a new Tip for a single language (i.e. en).</p>
+<pre><code class="lang-cs">namespace RwsAppStore.Example.Services
+{
+    public class UsefulTipsService
+    {
+        public void AddUsefulTips()
+        {
+            var tipsProvider = new TipsProvider();
+            tipsProvider.AddTips(GetTipContexts(), null);
+        }
+
+        private static List&lt;TipContext&gt; GetTipContexts()
+        {
+            var tipContexts = new List&lt;TipContext&gt;
+            {
+                new TipContext
+                {
+                    LanguageId = &quot;en&quot;,
+                    Tips = new List&lt;Tip&gt;
+                    {
+                        new Tip
+                        {
+                            Category = &quot;[the plugin name]&quot;,
+                            Context = &quot;[the Id associated wth the plugin View]&quot;,
+                            Content = &quot;[full path to the Markdown File]&quot;,
+                            Title = &quot;My Tip&quot;,
+                            Description = &quot;This is an awesome Tip&quot;,
+                            DescriptionImage = &quot;[full path to the image file]&quot;
+                        }
+                    }
+                }
+            };
+            return tipContexts;
+        }
+    }
+}
+</code></pre><h2 id="api">API</h2>
+<pre><code class="lang-cs">/// &lt;summary&gt;
+/// Add Tips to the &#39;Useful Tips&#39; collection in Trados Studio 2019+
+/// &lt;/summary&gt;
+/// &lt;param name=&quot;tipContexts&quot;&gt;A list of Tips that you would like to add to the 
+/// &#39;Useful Tips&#39; 
+/// collection in Trados Studio 2019+&lt;/param&gt;
+/// &lt;param name=&quot;applicationName&quot;&gt;The name of the application; can be null
+/// &lt;/param&gt;
+/// &lt;param name=&quot;runasAdmin&quot;&gt;
+/// Elevate the user rights to admin; default: true.  If the app environment
+/// is not running with Admin rights, then the user will receive a message from
+/// the User Account Control (UAC) in Windows&lt;/param&gt;
+/// &lt;returns&gt;The number of Tips added to &#39;Useful Tips&#39; collection in Trados 
+/// Studio 2019+&lt;/returns&gt;
+public int AddTips(List&lt;TipContext&gt; tipContexts, string applicationName, 
+ bool runasAdmin = true)
+
+/// &lt;summary&gt;
+/// Remove Tips from the &#39;Useful Tips&#39; collection in Trados Studio 2019+
+/// &lt;/summary&gt;
+/// &lt;param name=&quot;tipContexts&quot;&gt;A list of Tips that you would like to remove from
+/// the &#39;Useful Tips&#39; collection.&lt;/param&gt;
+/// &lt;param name=&quot;applicationName&quot;&gt;The name of the application; can be null
+/// &lt;/param&gt;
+/// &lt;param name=&quot;runasAdmin&quot;&gt;
+/// Elevate the user rights to admin; default: true.  If the app environment
+/// is not running with Admin rights, then the user will receive a message from
+/// the User Account Control (UAC) in Windows&lt;/param&gt;
+/// &lt;returns&gt;The number of Tips removed from the collection&lt;/returns&gt;
+public int RemoveTips(List&lt;TipContext&gt; tipContexts, string applicationName, 
+ bool runasAdmin = true)
+
+/// &lt;summary&gt;
+/// Get all Tips from the &#39;Useful Tips&#39; collection in Trados Studio 2019+
+/// &lt;/summary&gt;
+/// &lt;returns&gt;A list of Tips&lt;/returns&gt;
+public List&lt;TipContext&gt; GetAllTips()
+
+/// &lt;summary&gt;
+/// Read the Tip Contexts from the import file; required in the transaction when 
+/// reading in the Tips with elevated access rights via UAC.
+/// &lt;/summary&gt;
+/// &lt;param name=&quot;filePath&quot;&gt;full path to the Tips import file&lt;/param&gt;
+/// &lt;returns&gt;A list of Tips&lt;/returns&gt;
+public List&lt;TipContext&gt; ReadTipContextsImportFile(string filePath)
+
+/// &lt;summary&gt;
+/// Read the tips the import file
+/// &lt;/summary&gt;
+/// &lt;param name=&quot;filePath&quot;&gt;full path to the Tips import file&lt;/param&gt;
+/// &lt;returns&gt;A list of Tips&lt;/returns&gt;
+public List&lt;Tip&gt; ReadTipsImportFile(string filePath)
+
+/// &lt;summary&gt;
+/// Creates an Tips import file, required during the transaction when reading
+/// in Tips with elevated access rights via UAC to update the &#39;Tips.xml&#39; file
+/// in the Trados Studio 2019+ installation directory.
+/// &lt;/summary&gt;
+/// &lt;param name=&quot;filePath&quot;&gt;full path to the Tips import file&lt;/param&gt;
+/// &lt;param name=&quot;tips&quot;&gt;A list of Tips used to import to the &#39;Useful Tips&#39; 
+/// collection&lt;/param&gt;
+/// &lt;returns&gt;True if the file was created successfully&lt;/returns&gt;
+public bool CreateTipContextsImportFile(string filePath, List&lt;TipContext&gt; tips)
+
+/// &lt;summary&gt;
+/// Create a Tips import file
+/// &lt;/summary&gt;
+/// &lt;param name=&quot;filePath&quot;&gt;full path to the Tips import file&lt;/param&gt;
+/// &lt;param name=&quot;tips&quot;&gt;A list of Tips used to import to the &#39;Useful Tips&#39; 
+/// collection&lt;/param&gt;
+/// &lt;returns&gt;Returns true if successful&lt;/returns&gt;
+public bool CreateTipsImportFile(string filePath, List&lt;Tip&gt; tips)
+</code></pre><pre><code class="lang-cs">/// &lt;summary&gt;
+/// The supported UI languages for Trados Studio 2019+
+///supported values [de, en, es, fr, it, ja, ko, ru, zh]&lt;/summary&gt;
+public List&lt;string&gt; SupportedLanguages
+</code></pre><h3 id="models">Models</h3>
+<pre><code class="lang-cs">public class TipContext
+{
+    /// &lt;summary&gt;
+    /// The UI language Id supported by Trados Studio; 
+    /// supported values [de, en, es, fr, it, ja, ko, ru, zh]
+    /// &lt;/summary&gt;
+    public string LanguageId { get; set; }
+
+    /// &lt;summary&gt;
+    /// Tips available in the current language context
+    /// &lt;/summary&gt;
+    public List&lt;Tip&gt; Tips { get; set; }
+}
+</code></pre><pre><code class="lang-cs">public class Tip
+{
+    /// &lt;summary&gt;
+    /// The unique Id that identifies the tip in the collection.
+    /// If an Id is provided then the service will first confirm if  
+    /// it is unique in the &#39;Useful Tips&#39; collection; if not a new 
+    /// unique Id will be provided automatically.
+    /// &lt;/summary&gt;
+    public string Id { get; set; }
+
+    /// &lt;summary&gt;
+    /// The title displayed in the &#39;Useful Tips&#39; view part
+    /// &lt;/summary&gt;
+    public string Title { get; set; }
+
+    /// &lt;summary&gt;
+    /// The description displayed in the &#39;Useful Tips&#39; view
+    /// &lt;/summary&gt;
+    public string Description { get; set; }
+
+    /// &lt;summary&gt;
+    /// Full path to the description image that is displayed in the 
+    /// &#39;Useful Tips&#39; view part
+    /// &lt;/summary&gt;
+    public string DescriptionImage { get; set; }
+
+    /// &lt;summary&gt;
+    /// The link text displayed in the &#39;Useful Tips&#39; view part
+    /// &lt;/summary&gt;
+    public string LinkText { get; set; }
+
+    /// &lt;summary&gt;
+    /// The view or view part Id; this ensure that the tip is only 
+    /// visible in that context
+    /// &lt;/summary&gt;
+    public string Context { get; set; }
+
+    /// &lt;summary&gt;
+    /// The category used to group the Tips; recommend to use the 
+    /// plugin name or view name
+    /// &lt;/summary&gt;
+    public string Category { get; set; }
+
+    /// &lt;summary&gt;
+    /// Full path to the icon
+    /// &lt;/summary&gt;
+    public string Icon { get; set; }        
+
+    /// &lt;summary&gt;
+    /// Full path to the Markdown file that is loaded when the user 
+    //// clicks on the &#39;Link Text&#39; link
+    /// &lt;/summary&gt;
+    public string Content { get; set; }
+
+    /// &lt;summary&gt;
+    /// Identify whether the Tip should be recognized as a new Tip
+    /// &lt;/summary&gt;
+    public bool IsNew { get; set; }
+
+    /// &lt;summary&gt;
+    /// Display the Tip on the welcome wizard
+    /// &lt;/summary&gt;
+    public bool ShowOnWelcomeWizard { get; set; }
+}
+</code></pre></article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/f2bb38d88d516113e785866cbb849264090ca3f2/articles/hints_tips/UsefulTips/UsefulTipsApiArticle.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>
