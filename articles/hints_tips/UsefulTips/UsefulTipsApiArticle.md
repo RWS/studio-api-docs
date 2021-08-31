@@ -8,16 +8,16 @@ The `RwsAppStore.UsefulTips.Service` is a service provider for updating the Usef
 You can add the nuget package to your project via the package manager user interface or console.
 
 ### Package Manager UI
-* In Solution Explorer, right-click References and choose Manage NuGet Packages.
-* Select nuget.org as the Package source.
-* Search for `RwsAppStore.UsefulTips.Service` from the Browse tab.
-* Select the package from the list and click Install.
+* In **Solution Explorer**, right-click **References** and choose **Manage NuGet Packages**.
+* Select nuget.org as the **Package source**.
+* Search for `RwsAppStore.UsefulTips.Service` from the **Browse** tab.
+* Select the package from the list and click **Install**.
 * Accept any license prompts to finnish the installation.
 <img style="display:block; " src="images/InstallFromNuget.png" />
 
 ### Package Manager Console 
-* Alternatively, go to Tools > NuGet Package Manager > Package Manager Console.
-* In the Package Manager Console, enter the command:
+* Alternatively, go to **Tools** > **NuGet Package Manager** > **Package Manager Console**.
+* In the **Package Manager Console**, enter the command:
 `Install-Package RwsAppStore.UsefulTips.Service -Version 2.1.9.5`
 
 ***
