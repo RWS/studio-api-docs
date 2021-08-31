@@ -82,7 +82,7 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="how-to-implement-the-studio-useful-tips-service">How to implement the Studio Useful Tips service</h1>
 
-<p>The <code>RwsAppStore.UsefulTips.Service</code> is a service provider for updating the Useful Tips that are displayed in Trados Studio 2019+.</p>
+<p>The <code>RwsAppStore.UsefulTips.Service</code> is a service provider for updating the Useful Tips that are displayed in Trados Studio.</p>
 <hr>
 <h2 id="add-the-studio-useful-tips-service-to-your-project">Add the Studio Useful Tips service to your project</h2>
 <p>You can add the nuget package to your project via the package manager user interface or console.</p>
@@ -104,11 +104,11 @@
 <hr>
 <h2 id="remarks">Remarks</h2>
 <p>When adding tips, the Useful Tips service first checks if they already exist in the Useful Tips collection from Studio and then attempts to add only those that are identified as new.<br>Depending on whether or not Studio was launched as administrator, the user may receive a message from the service indicating a requirement to elevate the user rights prior to updating the Useful Tips collection in Studio with the new tips from the plugin.  </p>
-<div class="NOTE"><h5>Note</h5><p>It is required to elevate the user rights to administrator, as the locale tip files that manage the Useful Tips collection in Studio reside in the Trados Studio 2019+ installation directory.<br>Only a user with administrator access rights can modify files from the installation direcotry.</p>
+<div class="NOTE"><h5>Note</h5><p>It is required to elevate the user rights to administrator, as the locale tip files that manage the Useful Tips collection in Studio reside in the Trados Studio installation directory.<br>Only a user with administrator access rights can modify files from the installation direcotry.  </p>
 </div>
-<h3 id="updatehistory">UpdateHistory</h3>
+<h3 id="update-history">Update History</h3>
 <p>The Useful Tips service records all attempts made to add new tips to the Useful Tips collection in Studio.<br>This is necessary in cases where the user opted-out when responding to the message asking if they would like to proceed and update Useful Tips collection in Studio; in this case, the decision from the user will be persisted and no further attempt is made to add those tips to Studio.</p>
-<p><strong>Q:</strong> Where can I locate the <em>UpdateHistory.xml</em> and <em>Settings.xml</em> files of the Useful Tips service?<br><strong>A:</strong> They are both located in the users roaming directory:<br><code>C:\Users\[username]\AppData\Roaming\RWS Community\UsefulTipsService\Settings</code>  </p>
+<p><strong>Q:</strong> Where can I locate the <em>UpdateHistory.xml</em> and <em>Settings.xml</em> files of the Useful Tips service?<br><strong>A:</strong> They are both located in the users roaming directory:<br><em>C:\Users\<strong>[username]</strong>\AppData\Roaming\RWS Community\UsefulTipsService\Settings</em></p>
 <div class="NOTE"><h5>Note</h5><p>Replace <strong>[username]</strong> with your OS login account name  </p>
 </div>
 <p><strong>Q:</strong> How can the user add tips from the plugin to the Useful Tips collection in Studio if they previously opted-out to adding them?<br><strong>A:</strong> The decision taken by the user to add tips from the plugin to the Useful Tips collection in Studio is persisted in the <em>UpdateHistory.xml</em> file.  You can simply delete the <em>UpdateHistory.xml</em> file, or change the <strong>UpdateAttempts</strong> property value for each record to be less than the <strong>MaxUpdateAttempts</strong> value managed in the <em>Settings.xml</em>  </p>
@@ -152,24 +152,24 @@
 }
 </code></pre><h2 id="api">API</h2>
 <pre><code class="lang-cs">/// &lt;summary&gt;
-/// Add Tips to the &#39;Useful Tips&#39; collection in Trados Studio 2019+
+/// Add Tips to the &#39;Useful Tips&#39; collection in Trados Studio
 /// &lt;/summary&gt;
 /// &lt;param name=&quot;tipContexts&quot;&gt;A list of Tips that you would like to add to the 
 /// &#39;Useful Tips&#39; 
-/// collection in Trados Studio 2019+&lt;/param&gt;
+/// collection in Trados Studio&lt;/param&gt;
 /// &lt;param name=&quot;applicationName&quot;&gt;The name of the application; can be null
 /// &lt;/param&gt;
 /// &lt;param name=&quot;runasAdmin&quot;&gt;
 /// Elevate the user rights to admin; default: true.  If the app environment
 /// is not running with Admin rights, then the user will receive a message from
 /// the User Account Control (UAC) in Windows&lt;/param&gt;
-/// &lt;returns&gt;The number of Tips added to &#39;Useful Tips&#39; collection in Trados 
-/// Studio 2019+&lt;/returns&gt;
+/// &lt;returns&gt;The number of Tips added to &#39;Useful Tips&#39; collection in Trados
+/// Studio&lt;/returns&gt;
 public int AddTips(List&lt;TipContext&gt; tipContexts, string applicationName, 
  bool runasAdmin = true)
 
 /// &lt;summary&gt;
-/// Remove Tips from the &#39;Useful Tips&#39; collection in Trados Studio 2019+
+/// Remove Tips from the &#39;Useful Tips&#39; collection in Trados Studio
 /// &lt;/summary&gt;
 /// &lt;param name=&quot;tipContexts&quot;&gt;A list of Tips that you would like to remove from
 /// the &#39;Useful Tips&#39; collection.&lt;/param&gt;
@@ -184,7 +184,7 @@ public int RemoveTips(List&lt;TipContext&gt; tipContexts, string applicationName
  bool runasAdmin = true)
 
 /// &lt;summary&gt;
-/// Get all Tips from the &#39;Useful Tips&#39; collection in Trados Studio 2019+
+/// Get all Tips from the &#39;Useful Tips&#39; collection in Trados Studio
 /// &lt;/summary&gt;
 /// &lt;returns&gt;A list of Tips&lt;/returns&gt;
 public List&lt;TipContext&gt; GetAllTips()
@@ -207,7 +207,7 @@ public List&lt;Tip&gt; ReadTipsImportFile(string filePath)
 /// &lt;summary&gt;
 /// Creates an Tips import file, required during the transaction when reading
 /// in Tips with elevated access rights via UAC to update the &#39;Tips.xml&#39; file
-/// in the Trados Studio 2019+ installation directory.
+/// in the Trados Studio installation directory.
 /// &lt;/summary&gt;
 /// &lt;param name=&quot;filePath&quot;&gt;full path to the Tips import file&lt;/param&gt;
 /// &lt;param name=&quot;tips&quot;&gt;A list of Tips used to import to the &#39;Useful Tips&#39; 
@@ -224,8 +224,8 @@ public bool CreateTipContextsImportFile(string filePath, List&lt;TipContext&gt; 
 /// &lt;returns&gt;Returns true if successful&lt;/returns&gt;
 public bool CreateTipsImportFile(string filePath, List&lt;Tip&gt; tips)
 </code></pre><pre><code class="lang-cs">/// &lt;summary&gt;
-/// The supported UI languages for Trados Studio 2019+
-///supported values [de, en, es, fr, it, ja, ko, ru, zh]&lt;/summary&gt;
+/// The supported UI languages for Trados Studio
+/// supported values [de, en, es, fr, it, ja, ko, ru, zh]&lt;/summary&gt;
 public List&lt;string&gt; SupportedLanguages
 </code></pre><h3 id="models">Models</h3>
 <pre><code class="lang-cs">public class TipContext
@@ -313,7 +313,7 @@ public List&lt;string&gt; SupportedLanguages
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/RWS/studio-api-docs/blob/f2bb38d88d516113e785866cbb849264090ca3f2/articles/hints_tips/UsefulTips/UsefulTipsApiArticle.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/0b7c9f460e033733af66a79f252dd6ac8e45c896/articles/hints_tips/UsefulTips/UsefulTipsApiArticle.md/#L1" class="contribution-link">Improve this Doc</a>
                   </li>
                 </ul>
               </div>
