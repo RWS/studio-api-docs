@@ -8,31 +8,32 @@ The `RwsAppStore.UsefulTips.Service` is a service provider for updating the Usef
 You can add the nuget package to your project via the package manager user interface or console.
 
 ### Package Manager UI
-* In Solution Explorer, right-click References and choose Manage NuGet Packages.
-* Choose nuget.org as the Package source.
-* Search for `RwsAppStore.UsefulTips.Service` from the Browse tab.
-* Choose the package from the list and select Install.
-* Accept any license prompts.
+* In **Solution Explorer**, right-click **References** and choose **Manage NuGet Packages**.
+* Select nuget.org as the **Package source**.
+* Search for `RwsAppStore.UsefulTips.Service` from the **Browse** tab.
+* Select the package from the list and click **Install**.
+* Accept any license prompts to finnish the installation.
 <img style="display:block; " src="images/InstallFromNuget.png" />
 
 ### Package Manager Console 
-* Alternatively, select the Tools > NuGet Package Manager > Package Manager Console menu command.
-* From the Package Manager Console, enter the command:
+* Alternatively, go to **Tools** > **NuGet Package Manager** > **Package Manager Console**.
+* In the **Package Manager Console**, enter the command:
 `Install-Package RwsAppStore.UsefulTips.Service -Version 2.1.9.5`
 
 ***
   
 ## Remarks
-When adding tips, the Useful Tips service first checks if they already exist in the Useful Tips collection from Studio and then attempts to add only those that are identified as new.  
-Depending on whether or not Studio was launched as administrator, the user may receive a message from the service indicating a requirement to elevate the user rights prior to updating the Useful Tips collection in Studio with the new tips from the plugin.  
+
+The Useful Tips service first checks for already existing tips before adding new ones. If tips exist in the Useful Tips collection, only those identified as new are added.  
+If Trados Studio was not launched as administrator, the user may receive a message from the service asking to elevate the user rights before updating the Useful Tips collection in Trados Studio with the new tips from the plugin.
 > [!Note]
-> It is required to elevate the user rights to administrator, as the locale tip files that manage the Useful Tips collection in Studio reside in the <var:ProductName> installation directory.  
+> Administrator rights are required, as the local tip files that manage the Useful Tips collection in Trados Studio reside in the <var:ProductName> installation directory.
 > Only a user with administrator access rights can modify files from the installation direcotry.  
 
 ### Update History
 
-The Useful Tips service records all attempts made to add new tips to the Useful Tips collection in Studio.  
-This is necessary in cases where the user opted-out when responding to the message asking if they would like to proceed and update Useful Tips collection in Studio; in this case, the decision from the user will be persisted and no further attempt is made to add those tips to Studio.
+The Useful Tips service records all attempts made to add new tips to the Useful Tips collection in Trados Studio.  
+This is necessary if the user did not update the Useful Tips collection when prompted in Trados Studio; in this case, the decision from the user will be persisted and no further attempt is made to add those tips to Studio.
 
 **Q:** Where can I locate the _UpdateHistory.xml_ and _Settings.xml_ files of the Useful Tips service?  
 **A:** They are both located in the users roaming directory:   
@@ -40,8 +41,8 @@ _C:\Users\\**[username]**\AppData\Roaming\RWS Community\UsefulTipsService\Settin
 > [!NOTE]
 > Replace **[username]** with your OS login account name  
 
-**Q:** How can the user add tips from the plugin to the Useful Tips collection in Studio if they previously opted-out to adding them?  
-**A:** The decision taken by the user to add tips from the plugin to the Useful Tips collection in Studio is persisted in the _UpdateHistory.xml_ file.  You can simply delete the _UpdateHistory.xml_ file, or change the **UpdateAttempts** property value for each record to be less than the **MaxUpdateAttempts** value managed in the _Settings.xml_  
+**Q:** How can the user add tips from the plugin to the Useful Tips collection in Trados Studio if they previously opted-out to adding them?  
+**A:** The decision taken by the user to add tips from the plugin to the Useful Tips collection in Trados Studio is persisted in the _UpdateHistory.xml_ file. You can simply delete the _UpdateHistory.xml_ file, or change the **UpdateAttempts** property value for each record to be less than the **MaxUpdateAttempts** value managed in the _Settings.xml_  
 
 ***
 
