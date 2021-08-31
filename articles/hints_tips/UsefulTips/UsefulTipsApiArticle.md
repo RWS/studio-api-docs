@@ -1,6 +1,6 @@
 # How to implement the Studio Useful Tips service
 
-The `RwsAppStore.UsefulTips.Service` is a service provider for updating the Useful Tips that are displayed in Trados Studio 2019+.
+The `RwsAppStore.UsefulTips.Service` is a service provider for updating the Useful Tips that are displayed in <var:ProductName>.
 
 ***
 
@@ -23,21 +23,20 @@ You can add the nuget package to your project via the package manager user inter
 ***
   
 ## Remarks
-
 When adding tips, the Useful Tips service first checks if they already exist in the Useful Tips collection from Studio and then attempts to add only those that are identified as new.  
 Depending on whether or not Studio was launched as administrator, the user may receive a message from the service indicating a requirement to elevate the user rights prior to updating the Useful Tips collection in Studio with the new tips from the plugin.  
 > [!Note]
-> It is required to elevate the user rights to administrator, as the locale tip files that manage the Useful Tips collection in Studio reside in the Trados Studio 2019+ installation directory.  
-> Only a user with administrator access rights can modify files from the installation direcotry.
+> It is required to elevate the user rights to administrator, as the locale tip files that manage the Useful Tips collection in Studio reside in the <var:ProductName> installation directory.  
+> Only a user with administrator access rights can modify files from the installation direcotry.  
 
-### UpdateHistory
+### Update History
 
 The Useful Tips service records all attempts made to add new tips to the Useful Tips collection in Studio.  
 This is necessary in cases where the user opted-out when responding to the message asking if they would like to proceed and update Useful Tips collection in Studio; in this case, the decision from the user will be persisted and no further attempt is made to add those tips to Studio.
 
 **Q:** Where can I locate the _UpdateHistory.xml_ and _Settings.xml_ files of the Useful Tips service?  
-**A:** They are both located in the users roaming directory:  
-`C:\Users\[username]\AppData\Roaming\RWS Community\UsefulTipsService\Settings`  
+**A:** They are both located in the users roaming directory:   
+_C:\Users\\**[username]**\AppData\Roaming\RWS Community\UsefulTipsService\Settings_
 > [!NOTE]
 > Replace **[username]** with your OS login account name  
 
@@ -90,24 +89,24 @@ namespace RwsAppStore.Example.Services
 ## API
 ```cs
 /// <summary>
-/// Add Tips to the 'Useful Tips' collection in Trados Studio 2019+
+/// Add Tips to the 'Useful Tips' collection in Trados Studio
 /// </summary>
 /// <param name="tipContexts">A list of Tips that you would like to add to the 
 /// 'Useful Tips' 
-/// collection in Trados Studio 2019+</param>
+/// collection in Trados Studio</param>
 /// <param name="applicationName">The name of the application; can be null
 /// </param>
 /// <param name="runasAdmin">
 /// Elevate the user rights to admin; default: true.  If the app environment
 /// is not running with Admin rights, then the user will receive a message from
 /// the User Account Control (UAC) in Windows</param>
-/// <returns>The number of Tips added to 'Useful Tips' collection in Trados 
-/// Studio 2019+</returns>
+/// <returns>The number of Tips added to 'Useful Tips' collection in Trados
+/// Studio</returns>
 public int AddTips(List<TipContext> tipContexts, string applicationName, 
  bool runasAdmin = true)
 
 /// <summary>
-/// Remove Tips from the 'Useful Tips' collection in Trados Studio 2019+
+/// Remove Tips from the 'Useful Tips' collection in Trados Studio
 /// </summary>
 /// <param name="tipContexts">A list of Tips that you would like to remove from
 /// the 'Useful Tips' collection.</param>
@@ -122,7 +121,7 @@ public int RemoveTips(List<TipContext> tipContexts, string applicationName,
  bool runasAdmin = true)
 
 /// <summary>
-/// Get all Tips from the 'Useful Tips' collection in Trados Studio 2019+
+/// Get all Tips from the 'Useful Tips' collection in Trados Studio
 /// </summary>
 /// <returns>A list of Tips</returns>
 public List<TipContext> GetAllTips()
@@ -145,7 +144,7 @@ public List<Tip> ReadTipsImportFile(string filePath)
 /// <summary>
 /// Creates an Tips import file, required during the transaction when reading
 /// in Tips with elevated access rights via UAC to update the 'Tips.xml' file
-/// in the Trados Studio 2019+ installation directory.
+/// in the Trados Studio installation directory.
 /// </summary>
 /// <param name="filePath">full path to the Tips import file</param>
 /// <param name="tips">A list of Tips used to import to the 'Useful Tips' 
@@ -164,8 +163,8 @@ public bool CreateTipsImportFile(string filePath, List<Tip> tips)
 ```
 ```cs
 /// <summary>
-/// The supported UI languages for Trados Studio 2019+
-///supported values [de, en, es, fr, it, ja, ko, ru, zh]</summary>
+/// The supported UI languages for Trados Studio
+/// supported values [de, en, es, fr, it, ja, ko, ru, zh]</summary>
 public List<string> SupportedLanguages
 ```
 ### Models
