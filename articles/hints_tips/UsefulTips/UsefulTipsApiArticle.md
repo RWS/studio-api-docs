@@ -200,7 +200,7 @@ string tradosStudioVersion)
 /// <param name="applicationName">The application name</param>
 /// <param name="tradosStudioVersion">The version of Trados Studio</param>
 /// <param name="hideInstallTipsMessage">The boolean value for 
-/// <param name="hideInstallTipsMessage"></param></param>
+/// <paramref name="hideInstallTipsMessage"/></param>
 public void SetHideInstallTipsMessage(string applicationName, 
 string tradosStudioVersion, bool hideInstallTipsMessage)
 ```
