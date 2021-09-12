@@ -17,30 +17,53 @@ You can add the nuget package to your project via the package manager user inter
 ### Package Manager Console 
 * Alternatively, go to **Tools** > **NuGet Package Manager** > **Package Manager Console**.
 * In the **Package Manager Console**, enter the command:
-`Install-Package RwsAppStore.UsefulTips.Service -Version 2.1.9.5`
+`Install-Package RwsAppStore.UsefulTips.Service -Version 3.0.0.4`
 
 ***
   
 ## Remarks
-The Useful Tips service first checks for already existing tips before adding new ones. If tips exist in the Useful Tips collection, only those identified as new are added.  
+The Useful Tips service first checks for already existing tips before attempting to add new ones. If tips exist in the Useful Tips collection, only those identified as new are added.  
 If Trados Studio was not launched as administrator, the user may receive a message from the service asking to elevate the user rights before updating the Useful Tips collection in Trados Studio with the new tips from the plugin.
 > [!Note]
 > Administrator rights are required, as the local tip files that manage the Useful Tips collection in Trados Studio reside in the <var:ProductName> installation directory.
 > Only a user with administrator access rights can modify files from the installation directory.  
 
-### Update History
-The Useful Tips service records all attempts made to add new tips to the Useful Tips collection in Trados Studio.  
-This is necessary if the user did not update the Useful Tips collection when prompted in Trados Studio; in this case, the decision from the user will be persisted and no further attempt is made to add those tips to Studio.
 
-**Q:** Where can I locate the _UpdateHistory.xml_ and _Settings.xml_ files of the Useful Tips service?  
-**A:** They are both located in the users roaming directory:   
+### Settings
+The Useful Tips service enables the user to hide the message that is displayed when new Tips are available for installation, by selecting the option '**Don't show this message again**'.  
+This is necessary if the user did not update the Useful Tips collection when prompted in Trados Studio; in this case, the decision from the user will be persisted and no further attempt is made to add those tips for that version of Trados Studio.
+<img style="display:block; " src="images/PromptInstallUsefulTipsMessage.png" />
+
+**Q:** Where can I locate the _Settings.xml_ files of the Useful Tips service?  
+**A:** The settings file is located in the users roaming directory:   
 _C:\Users\\**[username]**\AppData\Roaming\RWS Community\UsefulTipsService\Settings_
 > [!NOTE]
 > Replace **[username]** with your OS login account name  
 
 **Q:** How can the user add tips from the plugin to the Useful Tips collection in Trados Studio if they previously opted-out to adding them?  
-**A:** The decision taken by the user to add tips from the plugin to the Useful Tips collection in Trados Studio is persisted in the _UpdateHistory.xml_ file. You can simply delete the _UpdateHistory.xml_ file, or change the **UpdateAttempts** property value for each record to be less than the **MaxUpdateAttempts** value managed in the _Settings.xml_.  
-Alternatively, update the **MaxUpdateAttempts** value to exceed that of the **UpdateAttempts**.
+**A:** The decision taken by the user to prevent the prompt message to update the Useful Tips collection in Trados Studio from being displayed is persisted in the _Settings.xml_ file. To manually update this setting, simply open the _Settings.xml_ file in a text editor, search for the entry associated with the application and change the boolean value associated with **HideInstallTipsMessage** property 'false'.
+
+~~~xml
+<Settings>
+  <Records>
+    <Record>
+      <ApplicationName>Application Name 1</ApplicationName>
+      <TradosStudioVersion>16</TradosStudioVersion>
+      <HideInstallTipsMessage>false</HideInstallTipsMessage>
+    </Record>
+    <Record>
+      <ApplicationName>Application Name 2</ApplicationName>
+      <TradosStudioVersion>15</TradosStudioVersion>
+      <HideInstallTipsMessage>true</HideInstallTipsMessage>
+    </Record>	
+    <Record>
+      <ApplicationName>Application Name 2</ApplicationName>
+      <TradosStudioVersion>16</TradosStudioVersion>
+      <HideInstallTipsMessage>false</HideInstallTipsMessage>
+    </Record>
+  </Records>
+</Settings>
+~~~
 
 ***
 
@@ -90,29 +113,27 @@ namespace RwsAppStore.Example.Services
 /// Add Tips to the 'Useful Tips' collection in Trados Studio
 /// </summary>
 /// <param name="tipContexts">A list of Tips that you would like to add to the 
-/// 'Useful Tips' 
-/// collection in Trados Studio</param>
-/// <param name="applicationName">The name of the application; can be null
-/// </param>
+/// 'Useful Tips' collection in Trados Studio</param>
+/// <param name="applicationName">The name of the application</param>
+/// <param name="tradosStudioVersion">The version of Trados Studio</param>
 /// <param name="runasAdmin">
-/// Elevate the user rights to admin; default: true.  If the app environment
-/// is not running with Admin rights, then the user will receive a message from
+/// Elevate the user rights to admin; default: true.  If the app environment 
+/// is not running with Admin rights, then the user will receive a message from 
 /// the User Account Control (UAC) in Windows</param>
-/// <returns>The number of Tips added to 'Useful Tips' collection in Trados
-/// Studio</returns>
+/// <returns>The number of Tips added to 'Useful Tips' collection in 
+/// Trados Studio</returns>
 public int AddTips(List<TipContext> tipContexts, string applicationName, 
- bool runasAdmin = true)
+string tradosStudioVersion, bool runasAdmin = true)
 
 /// <summary>
 /// Remove Tips from the 'Useful Tips' collection in Trados Studio
 /// </summary>
-/// <param name="tipContexts">A list of Tips that you would like to remove from
+/// <param name="tipContexts">A list of Tips that you would like to remove from 
 /// the 'Useful Tips' collection.</param>
-/// <param name="applicationName">The name of the application; can be null
-/// </param>
+/// <param name="applicationName">The name of the application</param>
 /// <param name="runasAdmin">
-/// Elevate the user rights to admin; default: true.  If the app environment
-/// is not running with Admin rights, then the user will receive a message from
+/// Elevate the user rights to admin; default: true.  If the app environment 
+/// is not running with Admin rights, then the user will receive a message from 
 /// the User Account Control (UAC) in Windows</param>
 /// <returns>The number of Tips removed from the collection</returns>
 public int RemoveTips(List<TipContext> tipContexts, string applicationName, 
@@ -164,6 +185,24 @@ public bool CreateTipsImportFile(string filePath, List<Tip> tips)
 /// The supported UI languages for Trados Studio
 /// supported values [de, en, es, fr, it, ja, ko, ru, zh]</summary>
 public List<string> SupportedLanguages
+
+/// <summary>
+/// Get the 'HideInstallTipsMessage' value for the application 
+/// </summary>
+/// <param name="applicationName">The application name</param>
+/// <param name="tradosStudioVersion">The version of Trados Studio</param>
+public bool GetHideInstallTipsMessage(string applicationName, 
+string tradosStudioVersion)
+
+/// <summary>
+/// Set the 'HideInstallTipsMessage' value for the application  
+/// </summary>
+/// <param name="applicationName">The application name</param>
+/// <param name="tradosStudioVersion">The version of Trados Studio</param>
+/// <param name="hideInstallTipsMessage">The boolean value for 
+/// <param name="hideInstallTipsMessage"></param></param>
+public void SetHideInstallTipsMessage(string applicationName, 
+string tradosStudioVersion, bool hideInstallTipsMessage)
 ```
 ### Models
 ```cs
