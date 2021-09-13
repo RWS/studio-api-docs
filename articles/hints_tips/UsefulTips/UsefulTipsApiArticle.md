@@ -115,7 +115,6 @@ namespace RwsAppStore.Example.Services
 /// <param name="tipContexts">A list of Tips that you would like to add to the 
 /// 'Useful Tips' collection in Trados Studio</param>
 /// <param name="applicationName">The name of the application</param>
-/// <param name="tradosStudioVersion">The version of Trados Studio</param>
 /// <param name="runasAdmin">
 /// Elevate the user rights to admin; default: true.  If the app environment 
 /// is not running with Admin rights, then the user will receive a message from 
@@ -123,7 +122,7 @@ namespace RwsAppStore.Example.Services
 /// <returns>The number of Tips added to 'Useful Tips' collection in 
 /// Trados Studio</returns>
 public int AddTips(List<TipContext> tipContexts, string applicationName, 
-string tradosStudioVersion, bool runasAdmin = true)
+bool runasAdmin = true)
 
 /// <summary>
 /// Remove Tips from the 'Useful Tips' collection in Trados Studio
@@ -190,7 +189,6 @@ public List<string> SupportedLanguages
 /// Get the 'HideInstallTipsMessage' value for the application 
 /// </summary>
 /// <param name="applicationName">The application name</param>
-/// <param name="tradosStudioVersion">The version of Trados Studio</param>
 public bool GetHideInstallTipsMessage(string applicationName, 
 string tradosStudioVersion)
 
@@ -198,11 +196,10 @@ string tradosStudioVersion)
 /// Set the 'HideInstallTipsMessage' value for the application  
 /// </summary>
 /// <param name="applicationName">The application name</param>
-/// <param name="tradosStudioVersion">The version of Trados Studio</param>
-/// <param name="hideInstallTipsMessage">The boolean value for 
-/// <paramref name="hideInstallTipsMessage"/></param>
+/// <param name="hideInstallTipsMessage">Set as 'true' to hide
+/// the prompt message</param>
 public void SetHideInstallTipsMessage(string applicationName, 
-string tradosStudioVersion, bool hideInstallTipsMessage)
+bool hideInstallTipsMessage)
 ```
 ### Models
 ```cs
