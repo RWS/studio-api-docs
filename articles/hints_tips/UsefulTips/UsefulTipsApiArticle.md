@@ -92,7 +92,7 @@ namespace RwsAppStore.Example.Services
                         new Tip
                         {
                             Category = "[the plugin name]",
-                            Context = "[the Id associated wth the plugin View]",
+                            Context = "[the Id of the plugin View]",
                             Content = "[full path to the Markdown File]",
                             Title = "My Tip",
                             Description = "This is an awesome Tip",
@@ -178,12 +178,6 @@ public bool CreateTipContextsImportFile(string filePath, List<TipContext> tips)
 /// collection</param>
 /// <returns>Returns true if successful</returns>
 public bool CreateTipsImportFile(string filePath, List<Tip> tips)
-```
-```cs
-/// <summary>
-/// The supported UI languages for Trados Studio
-/// supported values [de, en, es, fr, it, ja, ko, ru, zh]</summary>
-public List<string> SupportedLanguages
 
 /// <summary>
 /// Get the 'HideInstallTipsMessage' value for the application 
@@ -200,6 +194,12 @@ string tradosStudioVersion)
 /// the prompt message</param>
 public void SetHideInstallTipsMessage(string applicationName, 
 bool hideInstallTipsMessage)
+```
+```cs
+/// <summary>
+/// The supported UI languages for Trados Studio;
+/// supported values [de, en, es, fr, it, ja, ko, ru, zh]</summary>
+public List<string> SupportedLanguages
 ```
 ### Models
 ```cs
