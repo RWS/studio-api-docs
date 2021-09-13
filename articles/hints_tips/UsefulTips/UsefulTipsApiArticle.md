@@ -183,8 +183,7 @@ public bool CreateTipsImportFile(string filePath, List<Tip> tips)
 /// Get the 'HideInstallTipsMessage' value for the application 
 /// </summary>
 /// <param name="applicationName">The application name</param>
-public bool GetHideInstallTipsMessage(string applicationName, 
-string tradosStudioVersion)
+public bool GetHideInstallTipsMessage(string applicationName)
 
 /// <summary>
 /// Set the 'HideInstallTipsMessage' value for the application  
