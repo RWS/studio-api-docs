@@ -41,7 +41,7 @@ _C:\Users\\**[username]**\AppData\Roaming\RWS Community\UsefulTipsService\Settin
 > Replace **[username]** with your OS login account name  
 
 **Q:** How can the user add tips from the plugin to the Useful Tips collection in Trados Studio if they previously opted-out to adding them?  
-**A:** The decision taken by the user to prevent the prompt message from being displayed is persisted in the _Settings.xml_ file. To manually update this setting, simply open the _Settings.xml_ file in a text editor, search for the entry associated with the application and change the boolean value associated with the **HideInstallTipsMessage** property 'false'.
+**A:** The decision taken by the user to prevent the prompt message from being displayed is persisted in the _Settings.xml_ file. To manually update this setting, simply open the _Settings.xml_ file in a text editor, search for the entry associated with the application and change the boolean value associated with the **HideInstallTipsMessage** property to 'false'.
 
 ~~~xml
 <Settings>
