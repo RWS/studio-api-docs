@@ -17,7 +17,7 @@ You can add the nuget package to your project via the package manager user inter
 ### Package Manager Console 
 * Alternatively, go to **Tools** > **NuGet Package Manager** > **Package Manager Console**.
 * In the **Package Manager Console**, enter the command:
-`Install-Package RwsAppStore.UsefulTips.Service -Version 3.0.0.4`
+`Install-Package RwsAppStore.UsefulTips.Service -Version 3.0.0.8`
 
 ***
   
@@ -41,7 +41,7 @@ _C:\Users\\**[username]**\AppData\Roaming\RWS Community\UsefulTipsService\Settin
 > Replace **[username]** with your OS login account name  
 
 **Q:** How can the user add tips from the plugin to the Useful Tips collection in Trados Studio if they previously opted-out to adding them?  
-**A:** The decision taken by the user to prevent the prompt message from being displayed is persisted in the _Settings.xml_ file. To manually update this setting, simply open the _Settings.xml_ file in a text editor, search for the entry associated with the application and change the boolean value associated with the **HideInstallTipsMessage** property to 'false'.
+**A:** The decision taken by the user to prevent the prompt message from being displayed is persisted in the _Settings.xml_ file. To manually update this setting, simply open the _Settings.xml_ file in a text editor, search for the entry associated with the application and change the boolean value associated with the **HidePromptMessage** property to 'false'.
 
 ~~~xml
 <Settings>
@@ -49,17 +49,17 @@ _C:\Users\\**[username]**\AppData\Roaming\RWS Community\UsefulTipsService\Settin
     <Record>
       <ApplicationName>Application Name 1</ApplicationName>
       <TradosStudioVersion>16</TradosStudioVersion>
-      <HideInstallTipsMessage>false</HideInstallTipsMessage>
+      <HidePromptMessage>false</HidePromptMessage>
     </Record>
     <Record>
       <ApplicationName>Application Name 2</ApplicationName>
       <TradosStudioVersion>15</TradosStudioVersion>
-      <HideInstallTipsMessage>true</HideInstallTipsMessage>
+      <HidePromptMessage>true</HidePromptMessage>
     </Record>	
     <Record>
       <ApplicationName>Application Name 2</ApplicationName>
       <TradosStudioVersion>16</TradosStudioVersion>
-      <HideInstallTipsMessage>false</HideInstallTipsMessage>
+      <HidePromptMessage>false</HidePromptMessage>
     </Record>
   </Records>
 </Settings>
@@ -74,35 +74,52 @@ namespace RwsAppStore.Example.Services
 {
     public class UsefulTipsService
     {
-        public void AddUsefulTips()
-        {
-            var tipsProvider = new TipsProvider();
-            tipsProvider.AddTips(GetTipContexts(), null);
-        }
+		public void AddUsefulTips()
+		{
+			var pathInfo = new PathInfo("[Plugin Name]", "16");
+			var tipsProvider = new TipsProvider(pathInfo);
 
-        private static List<TipContext> GetTipContexts()
-        {
-            var tipContexts = new List<TipContext>
-            {
-                new TipContext
-                {
-                    LanguageId = "en",
-                    Tips = new List<Tip>
-                    {
-                        new Tip
-                        {
-                            Category = "[the plugin name]",
-                            Context = "[the Id of the plugin View]",
-                            Content = "[full path to the Markdown File]",
-                            Title = "My Tip",
-                            Description = "This is an awesome Tip",
-                            DescriptionImage = "[full path to the image file]"
-                        }
-                    }
-                }
-            };
-            return tipContexts;
-        }
+			var imported = tipsProvider.ImportTips(GetImportTips(), true);
+
+			Console.WriteLine($"Imported {imported} useful tips.");
+		}
+
+		private static ImportTips GetImportTips()
+		{
+			var tipLanguage = new TipLanguage
+			{
+				LanguageId = "en",
+				Tips = new List<Tip>
+				{
+					new Tip
+					{
+						Category = "[A category to group the tips]",
+						Context = "[The Id of the plugin View]",
+						Title = "My Tip",
+						Description = "This is an awesome Tip",
+						Icon = "[Relative path to the icon]",
+						DescriptionImage = "[Relative path to the image file]",
+						Content = "[Relative path to the markdown File]",
+					}
+				},
+				Resources = new List<ResourceFile>
+				{
+					new ResourceFile {FullPath = "[DescriptionImage Full Path]", 
+                        RelativePath = "[Relative Path]"},
+					new ResourceFile {FullPath = "[Content Full Path]", 
+                        RelativePath = "[Relative Path]"},
+					new ResourceFile {FullPath = "[Icon Full Path]", 
+                        RelativePath = "[Relative Path]"}
+				}
+			};
+
+			var importTips = new ImportTips
+			{
+				TipLanguages = new List<TipLanguage> { tipLanguage }
+			};
+
+			return importTips;
+		}
     }
 }
 ```
@@ -110,110 +127,82 @@ namespace RwsAppStore.Example.Services
 ## API
 ```cs
 /// <summary>
-/// Add Tips to the 'Useful Tips' collection in Trados Studio
+/// The supported UI languages for Trados Studio;
+/// supported values [de, en, es, fr, it, ja, ko, ru, zh]</summary>
+public List<string> SupportedLanguages {get;}
+
+/// <summary>
+/// Get or Set the 'HidePromptMessage' value for the plugin.
+/// Setting this value to false will prevent the user from receiving
+/// a prompt message to install the useful tips.
 /// </summary>
-/// <param name="tipContexts">A list of Tips that you would like to add to the 
-/// 'Useful Tips' collection in Trados Studio</param>
-/// <param name="applicationName">The name of the application</param>
+public bool HidePromptMessage { get; set;}
+
+/// <summary>
+/// Import Tips to the 'Useful Tips' collection in Trados Studio
+/// </summary>
+/// <param name="importTips">A list of Tips that you would like to  
+/// add to the 'Useful Tips' collection in Trados Studio</param>
+/// <param name="overwrite">Overwrite existing tips</param>
 /// <param name="runasAdmin">
-/// Elevate the user rights to admin; default: true.  If the app environment 
-/// is not running with Admin rights, then the user will receive a message from 
-/// the User Account Control (UAC) in Windows</param>
-/// <returns>The number of Tips added to 'Useful Tips' collection in 
-/// Trados Studio</returns>
-public int AddTips(List<TipContext> tipContexts, string applicationName, 
+/// Elevate the user rights to admin; default: true.  If the app 
+/// environment is not running with Admin rights, then the user will
+/// receive a message from the User Account Control (UAC) in Windows
+/// </param>
+/// <returns>The number of Tips added to 'Useful Tips' collection
+/// in Trados Studio</returns>
+public int ImportTips(ImportTips importTips, bool overwrite, 
 bool runasAdmin = true)
 
 /// <summary>
 /// Remove Tips from the 'Useful Tips' collection in Trados Studio
 /// </summary>
-/// <param name="tipContexts">A list of Tips that you would like to remove from 
-/// the 'Useful Tips' collection.</param>
-/// <param name="applicationName">The name of the application</param>
+/// <param name="removeTips">
+/// A list of Tips that you would like to remove from the 'Useful Tips'
+/// collection. </param>
 /// <param name="runasAdmin">
-/// Elevate the user rights to admin; default: true.  If the app environment 
-/// is not running with Admin rights, then the user will receive a message from 
-/// the User Account Control (UAC) in Windows</param>
+/// Elevate the user rights to admin; default: true.  If the app
+/// environment is not running with Admin rights, then the user will 
+/// receive a message from the User Account Control (UAC) in Windows
+/// </param>
 /// <returns>The number of Tips removed from the collection</returns>
-public int RemoveTips(List<TipContext> tipContexts, string applicationName, 
- bool runasAdmin = true)
+public int RemoveTips(RemoveTips removeTips, bool runasAdmin = true)
 
 /// <summary>
 /// Get all Tips from the 'Useful Tips' collection in Trados Studio
 /// </summary>
 /// <returns>A list of Tips</returns>
-public List<TipContext> GetAllTips()
-
-/// <summary>
-/// Read the Tip Contexts from the import file; required in the transaction when 
-/// reading in the Tips with elevated access rights via UAC.
-/// </summary>
-/// <param name="filePath">full path to the Tips import file</param>
-/// <returns>A list of Tips</returns>
-public List<TipContext> ReadTipContextsImportFile(string filePath)
-
-/// <summary>
-/// Read the tips the import file
-/// </summary>
-/// <param name="filePath">full path to the Tips import file</param>
-/// <returns>A list of Tips</returns>
-public List<Tip> ReadTipsImportFile(string filePath)
-
-/// <summary>
-/// Creates an Tips import file, required during the transaction when reading
-/// in Tips with elevated access rights via UAC to update the 'Tips.xml' file
-/// in the Trados Studio installation directory.
-/// </summary>
-/// <param name="filePath">full path to the Tips import file</param>
-/// <param name="tips">A list of Tips used to import to the 'Useful Tips' 
-/// collection</param>
-/// <returns>True if the file was created successfully</returns>
-public bool CreateTipContextsImportFile(string filePath, List<TipContext> tips)
-
-/// <summary>
-/// Create a Tips import file
-/// </summary>
-/// <param name="filePath">full path to the Tips import file</param>
-/// <param name="tips">A list of Tips used to import to the 'Useful Tips' 
-/// collection</param>
-/// <returns>Returns true if successful</returns>
-public bool CreateTipsImportFile(string filePath, List<Tip> tips)
-
-/// <summary>
-/// Get the 'HideInstallTipsMessage' value for the application 
-/// </summary>
-/// <param name="applicationName">The application name</param>
-public bool GetHideInstallTipsMessage(string applicationName)
-
-/// <summary>
-/// Set the 'HideInstallTipsMessage' value for the application  
-/// </summary>
-/// <param name="applicationName">The application name</param>
-/// <param name="hideInstallTipsMessage">Set as 'true' to hide
-/// the prompt message</param>
-public void SetHideInstallTipsMessage(string applicationName, 
-bool hideInstallTipsMessage)
-```
-```cs
-/// <summary>
-/// The supported UI languages for Trados Studio;
-/// supported values [de, en, es, fr, it, ja, ko, ru, zh]</summary>
-public List<string> SupportedLanguages
+public List<TipLanguage> GetStudioTips()
 ```
 ### Models
 ```cs
-public class TipContext
+public class TipLanguage
 {
-    /// <summary>
-    /// The UI language Id supported by Trados Studio; 
-    /// supported values [de, en, es, fr, it, ja, ko, ru, zh]
-    /// </summary>
-    public string LanguageId { get; set; }
+	/// <summary>
+	/// The UI language Id supported by Trados Studio;
+	/// supported values [de, en, es, fr, it, ja, ko, ru, zh]
+	/// </summary>
+	public string LanguageId { get; set; }
 
-    /// <summary>
-    /// Tips available in the current language context
-    /// </summary>
-    public List<Tip> Tips { get; set; }
+	/// <summary>
+	/// Tips available in the current language context
+	/// </summary>
+	public List<Tip> Tips { get; set; }
+
+	/// <summary>
+	/// The resource files that are referenced in the tips xml 
+	/// and content markup files
+	/// </summary>
+	public List<ResourceFile> Resources { get; set; }
+}
+```
+
+```cs
+public class ResourceFile
+{
+	public string FullPath { get; set; }
+		
+	public string RelativePath { get; set; }
 }
 ```
  
