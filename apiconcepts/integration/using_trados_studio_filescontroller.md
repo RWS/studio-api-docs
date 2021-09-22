@@ -19,12 +19,13 @@ Start by implementing the windows form user control that will fill the content o
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using Sdl.Desktop.IntegrationApi.Interfaces;
 using Sdl.ProjectAutomation.Core;
 using Sdl.TranslationStudioAutomation.IntegrationApi;
 
 namespace FilesOperations.Sample
 {
-    public partial class MyFilesViewPartControl : UserControl
+    public partial class MyFilesViewPartControl : UserControl, IUIControl
     {
         public MyFilesViewPartControl()
         {
@@ -115,6 +116,7 @@ using System;
 using System.Windows.Forms;
 using Sdl.Desktop.IntegrationApi;
 using Sdl.Desktop.IntegrationApi.Extensions;
+using Sdl.Desktop.IntegrationApi.Interfaces;
 using Sdl.TranslationStudioAutomation.IntegrationApi;
 
 namespace FilesOperations.Sample
@@ -127,7 +129,7 @@ namespace FilesOperations.Sample
     [ViewPartLayout(typeof(FilesController), Dock = DockType.Bottom)]
     class MyFilesViewPart : AbstractViewPartController
     {
-        protected override Control GetContentControl()
+        protected override IUIControl GetContentControl()
         {
             return _control.Value;
         }
