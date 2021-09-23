@@ -15,6 +15,6 @@ Apart from data and settings, the process followed during the execution of a loc
 
 Another important aspect of translation projects is their distributed nature. Frequently, the participants in a single localization project are spread across the globe and vary in size from large corporations, who produce content, over language service providers, who provide localization project management to freelance translators and reviewers. This aspect of localization projects is commonly referred to as the localization supply chain. The Project Automation API provides a way to deal with this, through the concept of packages: work (manual tasks) can be sent across the localization supply chain bundled into packages, containing for instance files to translate together with configuration and settings. These packages can be produced and opened by tools like <Var:ProductName>. For more information, see [About Packages](about_packages.md).
 
-<img style="display:block; " src="images/NewProject01.jpg"/>
+<img style="display:block; " src="images/NewProject03.jpg"/>
 
 In <Var:ProductName>, projects are either created by opening a single file or by running the **New Project** wizard as shown in the above screenshot.

@@ -104,7 +104,7 @@ namespace StudioIntegrationApiSample
 
         private string GetProjectFolderPath(string name)
         {
-            string rootFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Studio 2015\\Projects");
+            string rootFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Studio 2021\\Projects");
             string folder;
             int num = 1;
             do 
