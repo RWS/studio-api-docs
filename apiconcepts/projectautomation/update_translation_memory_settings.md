@@ -23,13 +23,13 @@ TranslationMemoryUpdateTaskSettings updateTmSettings = settings.GetSettingsGroup
 ```
 ***
 
-**Adding New Translation Units During the Update**
+**Translation Memory Import Options**
 
-Through the [AlwaysAddNewTranslation](../../api/projectautomation/Sdl.ProjectAutomation.Settings.TranslationMemoryUpdateTaskSettings.yml#Sdl_ProjectAutomation_Settings_TranslationMemoryUpdateTaskSettings_AlwaysAddNewTranslation) property you can determine what should happen when during the update procedure it is found that the translation for the same source segment differs between the TM and the bilingual (SDLXliff) document. By default, the translation from the bilingual document overwrites the translation stored in the TM. As it can be assumed that the bilingual document has gone through a review and approval process, the document can be reasonably considered to be of higher quality than the TM as it is before the update TM process. However, if you have reason to believe that both the translation from the TM and the one from the bilingual document are correct and valid, you may want *both* solutions to end up in the main TM. In this case you can set this property to True. However, note that the risk is that you might end up cluttering your TM with duplicate TUs (i.e. TUs that have the same source segment). This is why this setting is by default switched off.
+Through the [TmImportOptions](../../api/projectautomation/Sdl.ProjectAutomation.Settings.TranslationMemoryUpdateTaskSettings.yml#Sdl_ProjectAutomation_Settings_TranslationMemoryUpdateTaskSettings_TmImportOptions) property you can determine what should happen when during the update procedure it is found that the translation for the same source segment differs between the TM and the bilingual (SDLXliff) document. ``TmImportOption.MergeTranslation`` is the default and recommended option for updating TMs. Use this option to replace with the latest translation only TUs that have matching context. All the other TUs with the same source segment remain unchanged. This is the default and recommended option for updating TMs.
 
 # [C#](#tab/tabid-2)
 ```CS
-updateTmSettings.AlwaysAddNewTranslation.Value = true;
+updateTmSettings.TmImportOptions.Value = TmImportOption.MergeTranslation;
 ```
 ***
 
@@ -73,8 +73,8 @@ public void GetUpdateTmTaskSettings(FileBasedProject project)
     TranslationMemoryUpdateTaskSettings updateTmSettings = settings.GetSettingsGroup<TranslationMemoryUpdateTaskSettings>();
     #endregion
 
-    #region "NewTranslations"
-    updateTmSettings.AlwaysAddNewTranslation.Value = true;
+    #region "TargetSegmentsDiffer"
+    updateTmSettings.TmImportOptions.Value = TmImportOption.MergeTranslation;
     #endregion
 
     #region "Status"
@@ -104,8 +104,6 @@ See Also
 [Pre-translate Settings](pre_translate_settings.md)
 
 [Perfect Match](perfect_match.md)
-
-[Update Translation Memory Settings](update_translation_memory_settings.md)
 
 [Generating and Exporting Target Files](generating_and_exporting_target_files.md)
 

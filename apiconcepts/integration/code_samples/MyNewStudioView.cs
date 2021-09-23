@@ -2,6 +2,7 @@ using System;
 using System.Windows.Forms;
 using Sdl.Desktop.IntegrationApi;
 using Sdl.Desktop.IntegrationApi.Extensions;
+using Sdl.Desktop.IntegrationApi.Interfaces;
 using Sdl.TranslationStudioAutomation.IntegrationApi.Presentation;
 using Sdl.TranslationStudioAutomation.IntegrationApi.Presentation.DefaultLocations;
 
@@ -14,7 +15,7 @@ namespace View.Sample
         LocationByType = typeof(TranslationStudioDefaultViews.TradosStudioViewsLocation))]
     class MyNewStudioView : AbstractViewController
     {
-        protected override Control GetContentControl()
+        protected override IUIControl GetContentControl()
         {
             return _viewContent.Value;
         }

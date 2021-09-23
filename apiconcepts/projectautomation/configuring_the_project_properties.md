@@ -107,7 +107,7 @@ In the next step we set the project folder, which stores all the files and sub-f
 # [C#](#tab/tabid-7)
 ```cs
 string localProjectFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).ToString() +
-    Path.DirectorySeparatorChar + @"Studio 2011\Projects\" + info.Name;
+    Path.DirectorySeparatorChar + $@"{Versioning.Versions.StudioDocumentsFolderName}\Projects\" + info.Name;
 info.LocalProjectFolder = localProjectFolder;
 ```
 **
