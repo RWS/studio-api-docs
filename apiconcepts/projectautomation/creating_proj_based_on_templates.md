@@ -34,9 +34,9 @@ info.Name = "Project based on Template";
 info.DueDate = DateTime.Now.AddDays(3);
 string localProjectFolder = string.Format(
     CultureInfo.CurrentCulture,
-    "{0){1}Studio 2011{1}Projects{1}{2}",
+    "{0){1}{2}{1}Projects{1}{3}",
     Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).ToString(),
-    Path.DirectorySeparatorChar,
+    Path.DirectorySeparatorChar, Versioning.Versions.StudioDocumentsFolderName,
     info.Name);
 info.LocalProjectFolder = localProjectFolder;
 
@@ -77,9 +77,9 @@ public ProjectInfo GetInfoForTemplateProject()
     info.DueDate = DateTime.Now.AddDays(3);
     string localProjectFolder = string.Format(
         CultureInfo.CurrentCulture,
-        "{0){1}Studio 2011{1}Projects{1}{2}",
+        "{0){1}{2}{1}Projects{1}{3}",
         Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).ToString(),
-        Path.DirectorySeparatorChar,
+        Path.DirectorySeparatorChar, Versioning.Versions.StudioDocumentsFolderName,
         info.Name);
     info.LocalProjectFolder = localProjectFolder;
 
