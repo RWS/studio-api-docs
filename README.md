@@ -1,5 +1,7 @@
 # studio-api-docs
 
+Please do not merge this.
+
 ## What is it?
 
 This the main repository for the Trados Studio Public API documentation.
