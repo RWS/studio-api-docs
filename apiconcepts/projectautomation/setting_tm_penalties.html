@@ -87,6 +87,7 @@
 <p><img src="images/Penalties.jpg" alt="Penalties"></p>
 <p>The sample code below highlights some of the properties that can be used to configure the penalty values for your project. For example, here we set the penalties for missing or different formatting from the default 1 to 0. This can be done e.g. if the project involves files in which formatting is not important. In this case you can get a higher TM leverage by ignoring (i.e. by not penalizing) formatting differences.</p>
 <p>At the same time, for example, we increase the <a href="../../api/projectautomation/Sdl.ProjectAutomation.Settings.TranslationMemorySettings.html#Sdl_ProjectAutomation_Settings_TranslationMemorySettings_MultipleTranslationsPenalty">MultipleTranslationsPenalty</a> from the default value 1 to 2. This common penalty is applied when more than one exact match is found for a segment. This can happen when the TM contains different translations for the same source segment, which may be necessary as different translations can apply in different contexts. To alert translators to the fact that the TM contains several possible translations and that they need to check which one applies in the current context, a penalty is applied.</p>
+<p>Additionally we can set <a href="../../api/projectautomation/Sdl.ProjectAutomation.Settings.TranslationMemorySettings.html#Sdl_ProjectAutomation_Settings_TranslationMemorySettings_AutoLocalizationPenalty">AutoLocalizationPenalty</a> when auto localization took place to create a translation proposal, default being 0. TextReplacementPenalty is applied when variable auto-substitutions applied, or text placeholder values copied from the document tag into the translation proposal with default 0. The penalty for character-width difference can be enabled as well (in case of asian-source langauges), it&#39;s default value being 1.</p>
 <div class="tabGroup" id="tabgroup_CmqwurqD+k">
 <ul role="tablist">
 <li role="presentation">
@@ -97,6 +98,10 @@
 <pre><code class="lang-CS">tmSettings.MissingFormattingPenalty.Value = 0;
 tmSettings.DifferentFormattingPenalty.Value = 0;
 tmSettings.MultipleTranslationsPenalty.Value = 2;
+tmSettings.AutoLocalizationPenalty.Value = 1;
+tmSettings.TextReplacementPenalty.Value = 1;
+tmSettings.CharacterWidthDifferencePenaltyEnabled.Value = true;
+tmSettings.CharacterWidthDifferencePenalty.Value = 2;
 </code></pre></section>
 </div>
 <h2 id="see-also">See Also</h2>
