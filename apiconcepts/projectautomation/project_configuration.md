@@ -8,7 +8,7 @@ Some configuration is required in order to process a localization project. Vario
 
 The project configuration consists of the following:
 
-* [Project settings](#project-settings))
+* [Project settings](#project-settings)
 * [Language directions](#language-directions)
 * For every language direction:
     * [Translation providers](#translation-providers)
