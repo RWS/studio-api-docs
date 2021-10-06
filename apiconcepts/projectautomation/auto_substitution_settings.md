@@ -14,11 +14,10 @@ tmSettings.TimesAutoLocalizationEnabled.Value = true;
 ```
 ***
 
-The screenshot below shows the auto-substitution settings that can be enabled/disabled through the user interface of <Var:ProductName>:
-
-![AutoSubstitutionSwitches](images/AutoSubstitutionSwitches.jpg)
-
-Note that if you want to use this feature, however, you would still like to alert translators to the fact that numbers, dates, etc. have been localized automatically in a segment, you can apply a penalty as shown in the code example below:
+> [!NOTE]
+>
+>If you want to use this feature, however, you would still like to alert translators to the fact that numbers, dates, etc. have been localized
+>automatically in a segment, you can apply a penalty as shown in the code example below:
 
 # [C#](#tab/tabid-2)
 ```CS
@@ -40,6 +39,21 @@ Below you find an example of how to set the preferred short date pattern for you
 ```CS
 tmSettings.ShortDatePattern.Value = "dd.MM.yy";
 ```
+***
+
+The [MeasurementsFormattingMode](../../api/projectautomation/Sdl.ProjectAutomation.Settings.TranslationMemorySettings.yml#Sdl_ProjectAutomation_Settings_TranslationMemorySettings_MeasurementsFormattingMode) during auto-substitution, between the number and the measurement unit can also be specified. The default is [Auto_FromDocument](../../api/projectautomation/Sdl.ProjectAutomation.Settings.TranslationMemorySettings.yml#Sdl_ProjectAutomation_Settings_MeasurementsFormattingMode_Auto_FromDocument).
+
+The screenshot below ilustrates how this setting's options are presented through the user interface of <Var:ProductName>:
+
+![Measurements](images/Measurements.jpg)
+
+Below you find an example of how to set the spacing during auto-substitution:
+
+# [C#](#tab/tabid-4)
+```CS
+tmSettings.MeasurementsFormattingMode.Value = Settings.MeasurementsFormattingMode.Auto_FromMemory;
+```
+
 ***
 
 See Also
