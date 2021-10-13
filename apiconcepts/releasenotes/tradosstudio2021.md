@@ -322,7 +322,7 @@ public void Execute()
             new Language(CultureInfo.GetCultureInfo("fr-FR"))
         },
         // file path where you want to save the project
-        LocalProjectFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), @"Studio 2021\Projects\ProjectOriginIconSample"),
+        LocalProjectFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), $@"{Versioning.Versions.StudioDocumentsFolderName}\Projects\ProjectOriginIconSample"),
          
         // update with the needed ProjectOrigin which will be displayed at Project Type column, in Projects controller
         ProjectOrigin = "Star Transit",

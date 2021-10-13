@@ -41,11 +41,11 @@ info.Name = "My update project";
 info.DueDate = DateTime.Now.AddDays(3);
 
 string localProjectFolder = string.Format(
-    CultureInfo.CurrentCulture, 
-    "{0){1}Studio 2011{1}Projects{1}{2}",
-    Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).ToString(),
-    Path.DirectorySeparatorChar,
-    info.Name);
+        CultureInfo.CurrentCulture,
+        "{0){1}{2}{1}Projects{1}{3}",
+        Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).ToString(),
+        Path.DirectorySeparatorChar, Versioning.Versions.StudioDocumentsFolderName,
+        info.Name);
 info.LocalProjectFolder = localProjectFolder;
 
 return info;
@@ -88,10 +88,10 @@ public ProjectInfo GetUpdateProjectInfo()
     info.DueDate = DateTime.Now.AddDays(3);
 
     string localProjectFolder = string.Format(
-        CultureInfo.CurrentCulture, 
-        "{0){1}Studio 2011{1}Projects{1}{2}",
+        CultureInfo.CurrentCulture,
+        "{0){1}{2}{1}Projects{1}{3}",
         Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).ToString(),
-        Path.DirectorySeparatorChar,
+        Path.DirectorySeparatorChar, Versioning.Versions.StudioDocumentsFolderName,
         info.Name);
     info.LocalProjectFolder = localProjectFolder;
 

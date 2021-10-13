@@ -37,7 +37,8 @@ The plug-in package manifest defines some pieces of essential information:
 * **Version**: the version of the plug-in package. This is important, as it will be used to detect updated packages. For more information, see [Plug-in deployment](plugin_deployment.md).
 * **Description**: description of the plug-in package.
 * **Author**: the name of the plug-in author
-* **RequiredProduct**: this indicates which product this plug-in supports. This must include the minimum version and can optionally include a maximum version.
+* **RequiredProduct**: this indicates which product this plug-in supports. This must include the minimum version and can optionally include a maximum version. <br>
+If the minimum version is set to *<var:VersionNumber>.1* that means the plugin can be installed only in <Var:ProductName> SR1 and above.
 * **Include**: a list of additional files to be included into the plugin package.
 
 Now build the project and have a look in the project output folder. Notice the following:
@@ -46,6 +47,12 @@ Now build the project and have a look in the project output folder. Notice the f
 * A "Plugins" folder, which contains:
     * The plug-in manifest, `MyPlugin.plugin.xml`, which lists information about all the extension classes. the plug-in contains.
     * The neutral plug-in resources file `MyPlugin.plugin.resources`, which contains all the localizable strings and images referred to within the plug-in manifest. This was compiled from `PluginResources.resx`.
-* The plug-in package, `MyPlugin.sdlplugin` which contains all of the above, together with the plug-in package manifest.
+* The plug-in package, `MyPlugin.sdlplugin` which contains all of the above, together with the plug-in package manifest. </br>
+
+
+After all the relevant information was added, build the project. Plugin can be found at the following local path *<var:PluginPackedPath>* if the default path wasn't changed. </br>
+
+If in the console following error appears: `Error 1 Failed to locate ResGen.exe and unable to compile plug-in resource file...` please make sure you have installed [.Net Framework 4.6.2](https://dotnet.microsoft.com/download/dotnet-framework/net462). 
+
 
 Now, we are ready to deploy the plug-in package in <Var:ProductName>. See [Plug-in deployment](plugin_deployment.md).

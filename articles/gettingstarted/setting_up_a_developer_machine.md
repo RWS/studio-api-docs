@@ -22,7 +22,8 @@ Prerequisites
 >
 > For more informations regarding how to build and deploy a Studio plug-in see [Building a plug-in](building_a_plugin.md) and [Plug-in deployment](plugin_deployment.md)
 >
-> Sign and use Strong-Named Assemblies to enable the loading of your plug-ins inside <Var:ProductName>. For more information see [How to: Sign an Assembly with a Strong Name](https://docs.microsoft.com/en-us/dotnet/standard/assembly/sign-strong-name?redirectedfrom=MSDN)
+> Sign and use Strong-Named Assemblies to enable the loading of your plug-ins inside <Var:ProductName>. For more information see [How to: Sign an Assembly with a Strong Name](https://docs.microsoft.com/en-us/dotnet/standard/assembly/sign-strong-name?redirectedfrom=MSDN) </br>
+> If you don't have a key, you can download [SdlCommunity.snk](https://github.com/RWS/Sdl-Community) key from public AppStore repository.
 > 
 > Choosing a different build output path or not signing your assembly will prevent your plugin to be loaded.
 

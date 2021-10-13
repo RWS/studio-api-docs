@@ -76,12 +76,12 @@ High-level Package API
 
 When you have an existing Project API-based project, you can create packages from this project using the high-level package functionality integrated into the Project Automation API. The Project Automation API provides the following package-related functionality:
 
-1. To create a project package from a manual task in an existing project, see **CreateReturnPackage**.
-2. To import a project package into an existing system, see **ImportProjectPackage**.
-3. To create a return package from a number of task files in an existing project: see **CreateReturnPackage**.
-4. To import a return package into an existing system, see **ImportReturnPackage**.
-Each of the methods above returns an object that derives from IPackageOperation. This object represents the package operation and can be used to monitor that operation though events and to access the results when the operation is completed. After calling the above methods and attaching the relevant event handlers, call **Start** to start the operation.
-During package import operations, certain situations may result in callbacks being invoked to allow external control of the package import process. An example of such a situation is when the package contains files which are older than the files that already exist in the project. A callback allows the calling code to decide whether the file should be overwritten. When doing a package import through <Var:ProductName>, this results in the user being asked a question. The callback are accessed through the **IPackageImportEvents** interface.
+1. To create a project package from a manual task in an existing project, see [CreateProjectPackage](creating_a_project_package.md).
+2. To import a project package into an existing system, see [ImportProjectPackage](importing_a_return_package.md).
+3. To create a return package from a number of task files in an existing project: see [CreateReturnPackage](creating_a_return_package.md).
+4. To import a return package into an existing system, see [ImportReturnPackage](importing_a_return_package.md).
+Each of the methods above returns an object that derives from `IPackageOperation`. This object represents the package operation and can be used to monitor that operation though events and to access the results when the operation is completed. After calling the above methods and attaching the relevant event handlers, call **Start** to start the operation.
+During package import operations, certain situations may result in callbacks being invoked to allow external control of the package import process. An example of such a situation is when the package contains files which are older than the files that already exist in the project. A callback allows the calling code to decide whether the file should be overwritten. When doing a package import through <Var:ProductName>, this results in the user being asked a question. The callback are accessed through the `IPackageImportEvents` interface.
 
 Low-level Package API
 ----

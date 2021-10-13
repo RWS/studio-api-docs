@@ -11,11 +11,17 @@ The sample code below highlights some of the properties that can be used to conf
 
 At the same time, for example, we increase the [MultipleTranslationsPenalty](../../api/projectautomation/Sdl.ProjectAutomation.Settings.TranslationMemorySettings.yml#Sdl_ProjectAutomation_Settings_TranslationMemorySettings_MultipleTranslationsPenalty) from the default value 1 to 2. This common penalty is applied when more than one exact match is found for a segment. This can happen when the TM contains different translations for the same source segment, which may be necessary as different translations can apply in different contexts. To alert translators to the fact that the TM contains several possible translations and that they need to check which one applies in the current context, a penalty is applied.
 
+Additionally we can set [AutoLocalizationPenalty](../../api/projectautomation/Sdl.ProjectAutomation.Settings.TranslationMemorySettings.yml#Sdl_ProjectAutomation_Settings_TranslationMemorySettings_AutoLocalizationPenalty) when auto localization took place to create a translation proposal, default being 0. TextReplacementPenalty is applied when variable auto-substitutions applied, or text placeholder values copied from the document tag into the translation proposal with default 0. The penalty for character-width difference can be enabled as well (in case of asian-source langauges), it's default value being 1.
+
 # [C#](#tab/tabid-1)
 ```CS
 tmSettings.MissingFormattingPenalty.Value = 0;
 tmSettings.DifferentFormattingPenalty.Value = 0;
 tmSettings.MultipleTranslationsPenalty.Value = 2;
+tmSettings.AutoLocalizationPenalty.Value = 1;
+tmSettings.TextReplacementPenalty.Value = 1;
+tmSettings.CharacterWidthDifferencePenaltyEnabled.Value = true;
+tmSettings.CharacterWidthDifferencePenalty.Value = 2;
 ```
 ***
 

@@ -80,6 +80,7 @@ using System.Linq;
 using System.Text;
 using Sdl.Desktop.IntegrationApi;
 using Sdl.Desktop.IntegrationApi.Extensions;
+using Sdl.Desktop.IntegrationApi.Interfaces;
 using Sdl.TranslationStudioAutomation.IntegrationApi;
 using System.Web;
 
@@ -93,7 +94,7 @@ namespace StudioIntegrationApiSample
     [ViewPartLayout(Dock = DockType.Bottom, LocationByType = typeof(EditorController))]
     class WikipediaResultsViewPartController : AbstractViewPartController
     {
-        protected override System.Windows.Forms.Control GetContentControl()
+        protected override IUIControl GetContentControl()
         {
             return _control.Value;
         }
@@ -132,10 +133,11 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Sdl.Desktop.IntegrationApi.Interfaces;
 
 namespace StudioIntegrationApiSample
 {
-    public partial class WikipediaResultsViewPartControl : UserControl
+    public partial class WikipediaResultsViewPartControl : UserControl, IUIControl
     {
 
         public WikipediaResultsViewPartControl()

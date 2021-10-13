@@ -225,4 +225,4 @@ For situations where you would like to have the list of Trados Studio projects r
 ```
 
 
-With this we bring to an end our improvements for Studio 2019 SR2 public APIs. You can find more code examples on [GitHub](https://github.com/sdl/trados-studio-api-samples), and make sure to checkout our other article on the exposed WPF Styles (link to Andrea's article).
+With this we bring to an end our improvements for Studio 2019 SR2 public APIs. You can find more code examples on [GitHub](https://github.com/sdl/trados-studio-api-samples), and make sure to checkout our other article on the exposed [WPF Styles] (../Studio_Styles/StudioStyles.md).

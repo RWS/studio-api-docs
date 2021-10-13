@@ -27,10 +27,11 @@ using Sdl.ProjectAutomation.FileBased;
 using Sdl.TranslationStudioAutomation.IntegrationApi;
 using Sdl.TranslationStudioAutomation.IntegrationApi.Actions;
 using Sdl.Desktop.IntegrationApi;
+using Sdl.Desktop.IntegrationApi.Interfaces;
 
 namespace ProjectsOperations.Sample
 {
-    public partial class MyProjectsViewPartControl : UserControl
+    public partial class MyProjectsViewPartControl : UserControl, IUIControl
     {
         public MyProjectsViewPartControl()
         {
@@ -195,6 +196,7 @@ using System;
 using System.Windows.Forms;
 using Sdl.Desktop.IntegrationApi;
 using Sdl.Desktop.IntegrationApi.Extensions;
+using Sdl.Desktop.IntegrationApi.Interfaces;
 using Sdl.TranslationStudioAutomation.IntegrationApi;
 
 namespace ProjectsOperations.Sample
@@ -207,7 +209,7 @@ namespace ProjectsOperations.Sample
     [ViewPartLayout(typeof(ProjectsController), Dock = DockType.Bottom)]
     class MyEditorViewPart : AbstractViewPartController
     {
-        protected override Control GetContentControl()
+        protected override IUIControl GetContentControl()
         {
             return _control.Value;
         }

@@ -50,12 +50,12 @@ namespace StudioIntegrationApiSample
 
         private static string GetIncomingRequestsFolder()
         {
-            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Studio 2015\\IncomingRequests");
+            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), $@"{Versioning.Versions.StudioDocumentsFolderName}\IncomingRequests");
         }
 
         private static string GetAcceptedRequestsFolder()
         {
-            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Studio 2015\\AcceptedRequests");
+            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), $@"{Versioning.Versions.StudioDocumentsFolderName}\AcceptedRequests");
         }
 
         internal void RequestAccepted(ProjectRequest request)

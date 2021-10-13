@@ -146,7 +146,7 @@ namespace SDK.ProjectAutomation.Samples.BatchAnaylze
 
             #region "ProjectFolder"
             string localProjectFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).ToString() +
-                Path.DirectorySeparatorChar + @"Studio 2011\Projects\" + info.Name;
+                Path.DirectorySeparatorChar + $@"{Versioning.Versions.StudioDocumentsFolderName}\Projects\" + info.Name;
             info.LocalProjectFolder = localProjectFolder;
             #endregion
 

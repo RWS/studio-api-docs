@@ -8,7 +8,7 @@ Some configuration is required in order to process a localization project. Vario
 
 The project configuration consists of the following:
 
-* [Project settings](#project-settings))
+* [Project settings](#project-settings)
 * [Language directions](#language-directions)
 * For every language direction:
     * [Translation providers](#translation-providers)
@@ -32,8 +32,8 @@ By default, a number of settings groups are provided to configure some standard 
 
 * **Translation Memory Settings**: Settings applicable to all uses of translation memories within the project, for instance minimum match value and various translation memory match value penalties. See [TranslationMemorySettings](../../api/projectautomation/Sdl.ProjectAutomation.Settings.TranslationMemorySettings.yml).
 * **Analysis Task Settings**: Settings for the automatic Analysis task, which computes translation memory leverage analysis statistics. See [AnalysisTaskSettings](../../api/projectautomation/Sdl.ProjectAutomation.Settings.AnalysisTaskSettings.yml).
-* **Project Translation Memory Task Settings**: Settings for the automatic Create/Update Project Translation Memory task. See **ProjectTranslationMemoryTaskSettings**.
-* **Pre-translate Task Settings**: Settings for the automatic Pre-translate task, which applies translation memory matches to translatable files. See **TranslateTaskSettings**.
+* **Project Translation Memory Task Settings**: Settings for the automatic Create/Update Project Translation Memory task. See[ProjectTranslationMemoryTaskSettings](../../api/projectautomation/Sdl.ProjectAutomation.Settings.ProjectTranslationMemoryTaskSettings.yml).
+* **Pre-translate Task Settings**: Settings for the automatic Pre-translate task, which applies translation memory matches to translatable files. See [TranslateTaskSettings](../../api/projectautomation/Sdl.ProjectAutomation.Settings.TranslateTaskSettings.yml).
 * **Word Count Settings**: Settings for the word count task, which counts the total number of words in files. See [WordCountSettings](../../api/projectautomation/Sdl.ProjectAutomation.Settings.WordCountSettings.yml).
 * **Translation Count Settings**: Settings for the calculate translation progress task, which computes confirmation statistics. See [TranslationCountSettings](../../api/projectautomation/Sdl.ProjectAutomation.Settings.TranslationCountSettings.yml).
 * **Translation Memory Update Task Settings**: Settings for the update project and main translation memory tasks. See [TranslationMemoryUpdateTaskSettings](../../api/projectautomation/Sdl.ProjectAutomation.Settings.TranslationMemoryUpdateTaskSettings.yml).
@@ -41,7 +41,7 @@ By default, a number of settings groups are provided to configure some standard 
 
 The generic nature of the settings mechanism makes it a natural way for custom components or tasks to store custom project-level settings.
 
-Most of these settings can be overridden on a language direction level, that is if the particular settings makes sense in a target language context and if the particular components consuming the settings expect this to happen. See Language direction specific settings.
+Most of these settings can be overridden on a language direction level, that is if the particular settings makes sense in a target language context and if the particular components consuming the settings expect this to happen. See [Language direction specific settings](#language-directions).
 
 Language Directions
 -----
@@ -58,17 +58,17 @@ Every language direction has the ability to contain a list of translation provid
 * Any other custom-developed translation provider plug-in, e.g. a plug-in that retrieves translation solutions from a tab-delimited list
 Note that the translation provider mechanism is pluggable, which means third-parties can develop support for additional translation provider types, such as for instance the Google machine translation engine, or a third-party translation memory implementation. How to develop a translation provider plug-in is outside the scope of this help system. 
 
-Translation providers are used in various scenarios during the project lifetime, for instance during project preparation to analyze leverage and automatically apply translations to some or all segments in the project files. Translation providers are also used interactively while the user is manually translating documents, in order to give translation matches and provide concordance search functionality. Newly created translations can also be added to translation providers (mainly to translation memories), either automatically by the system or manually by the user. In order to make sure that only the relevant, reviewed translations end up in the translation memories, project translation memories are generally used. Project TMs serve as a working translation memories that exist only during the lifetime of the project. For more information on these topics, see About Project Translation Memories.
+Translation providers are used in various scenarios during the project lifetime, for instance during project preparation to analyze leverage and automatically apply translations to some or all segments in the project files. Translation providers are also used interactively while the user is manually translating documents, in order to give translation matches and provide concordance search functionality. Newly created translations can also be added to translation providers (mainly to translation memories), either automatically by the system or manually by the user. In order to make sure that only the relevant, reviewed translations end up in the translation memories, project translation memories are generally used. Project TMs serve as a working translation memories that exist only during the lifetime of the project. For more information on these topics, see [About Project Translation Memories](about_project_translation_memories.md).
 
 **AutoSuggest Dictionaries**
 
-Every language direction can also be associated with one or more AutoSuggest dictionaries. An AutoSuggest dictionary is a bilingual phrase dictionary, which is used by the <Var:ProductName> editing environment to provide translation suggestions for phrases or partial segments as the user types. AutoSuggest dictionaries are typically generated by performing statistical analysis of large translation memories. Currently, only file-based AutoSuggest dictionaries are support, but in the future one can imagine a server-based version becoming available.
+Every language direction can also be associated with one or more AutoSuggest dictionaries. An AutoSuggest dictionary is a bilingual phrase dictionary, which is used by the <Var:ProductName> editing environment to provide translation suggestions for phrases or partial segments as the user types. AutoSuggest dictionaries are typically generated by performing statistical analysis of large translation memories. Currently, only file-based AutoSuggest dictionaries are supported, but in the future one can imagine a server-based version becoming available.
 
 An AutoSuggest dictionary is represented by the `IAutoSuggestDictionary` interface in the object model.
 
 **Language-specific Settings**
 
-The user can override individual [project settings](#project-settings) for a specific language direction. For instance, if the project-level minimum translation memory match value is 80%, this can be overridden for a specific language direction to be 90%. All other language directions still inherit the project-level value. Also, all other settings for this language direction, except for the minimum match value, will still be inherited from the project settings.
+The user can override individual [Project settings](#project-settings) for a specific language direction. For instance, if the project-level minimum translation memory match value is 80%, this can be overridden for a specific language direction to be 90%. All other language directions still inherit the project-level value. Also, all other settings for this language direction, except for the minimum match value, will still be inherited from the project settings.
 
 File Type Configuration
 ------
@@ -92,7 +92,7 @@ For more information about language resources, please refer to the Translation M
 
 Termbases
 -----
-The project can also optionally contain references to one or more termbases that should be used during translation to identify and translate well-known terminology. One of the termbases in the list should be marked as the default termbase. The default termbase is always to termbase that will be searched for matches first. Part of the termbase configuration is also a mapping from project language to termbase indexes, to make sure that the appropriate indexes are used for searching for terminology in the various project languages. For every termbase, a filter can be specified as well; this determines the content of the termbase that should searched within the context of this project.
+The project can also optionally contain references to one or more termbases that should be used during translation to identify and translate well-known terminology. One of the termbases in the list should be marked as the default termbase. The default termbase is always the termbase that will be searched for matches first. Part of the termbase configuration is also a mapping from project language to termbase indexes, to make sure that the appropriate indexes are used for searching for terminology in the various project languages. For every termbase, a filter can be specified as well; this determines the content of the termbase that should searched within the context of this project.
 
 Termbases can either be file-based or server-based.  MultiTerm imposes the limitation that when links to server-based termbases are included in a project, they all have to reside on the same termbase server, since it cannot perform cross-server termbase searches.
 
