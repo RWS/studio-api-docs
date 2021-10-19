@@ -4,7 +4,7 @@ To start setting up your batch task plug-in project, you need to generate a plug
 
 How to create the Visual Studio Project
 ----------------------------------
-Assuming that you already installed the <Var:ProductName> SDK, open <var:VisualStudioEdition>. You will see the following options when you create a new project:
+Assuming that you already installed the Visual Studio extension <Var:ProductName> templates, open <var:VisualStudioEdition>. You will see the following options when you create a new project:
 <img style="display:block; " src="images/CustomBatchTemplate.jpg" />
 With the above templates you can set up the skeleton of an <Var:ProductName> plug-in project. Select **Custom Batch Task (2021)*
 
