@@ -1,4 +1,4 @@
-<Var:ProductNameWithEdition> Release Notes
+Trados Studio API Release Notes
 =============
 
 [API Changes for <Var:ProductNameWithEdition>](tradosstudio2021.md)
