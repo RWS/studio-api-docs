@@ -41,7 +41,7 @@ tmSettings.ShortDatePattern.Value = "dd.MM.yy";
 ```
 ***
 
-The [MeasurementsFormattingMode](../../api/projectautomation/Sdl.ProjectAutomation.Settings.TranslationMemorySettings.yml#Sdl_ProjectAutomation_Settings_TranslationMemorySettings_MeasurementsFormattingMode) during auto-substitution, between the number and the measurement unit can also be specified. The default is [Auto_FromDocument](../../api/projectautomation/Sdl.ProjectAutomation.Settings.TranslationMemorySettings.yml#Sdl_ProjectAutomation_Settings_MeasurementsFormattingMode_Auto_FromDocument).
+The [MeasurementsFormattingMode](../../api/projectautomation/Sdl.ProjectAutomation.Settings.TranslationMemorySettings.yml#Sdl_ProjectAutomation_Settings_TranslationMemorySettings_MeasurementsFormattingMode) during auto-substitution, between the number and the measurement unit can also be specified. The default is [Auto_FromDocument](../../api/projectautomation/Sdl.ProjectAutomation.Settings.TranslationMemorySettings.yml#Sdl_ProjectAutomation_Settings_TranslationMemorySettings_MeasurementsFormattingMode).
 
 The screenshot below ilustrates how this setting's options are presented through the user interface of <Var:ProductName>:
 

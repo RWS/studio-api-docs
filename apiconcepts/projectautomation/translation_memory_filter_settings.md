@@ -56,7 +56,7 @@ tmSettings.Filters.Value = filterList;
 Defining Hard Filters
 --
 
-Defining a hard filter for a project is somewhat easier, as you have to set the [HardFilter](../../api/projectautomation/Sdl.ProjectAutomation.Settings.TranslationMemorySettings.yml#Sdl_ProjectAutomation_Settings_TranslationMemorySettings_HardFilter) property of your [TranslationMemorySettings](../../api/projectautomation/Sdl.ProjectAutomation.Settings.TranslationMemorySettings) object to only one filter expression. The example below outlines how to create the same filter expression as above (i.e. *Type = Technical documentation*), but this time use it as a hard filter:
+Defining a hard filter for a project is somewhat easier, as you have to set the [HardFilter](../../api/projectautomation/Sdl.ProjectAutomation.Settings.TranslationMemorySettings.yml#Sdl_ProjectAutomation_Settings_TranslationMemorySettings_HardFilter) property of your [TranslationMemorySettings](../../api/projectautomation/Sdl.ProjectAutomation.Settings.TranslationMemorySettings.yml) object to only one filter expression. The example below outlines how to create the same filter expression as above (i.e. *Type = Technical documentation*), but this time use it as a hard filter:
 
 # [C#](#tab/tabid-3)
 ```cs

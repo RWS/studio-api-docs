@@ -38,7 +38,7 @@ System requirements for running <Var:ProductNameWithEdition>:
 * <Var:ProductNameWithEdition> requires Microsoft .Net Framework 4.8.
 * Additional details can be found on the [product release notes](https://docs.sdl.com/binary/813470/802652/sdl-trados-studio-2021-sr1/sdl-trados-studio-release-notes)
 
-System requirements for running SDL GroupShare (SDL TM Server, SDL Multiterm, SDL Project Server):
+System requirements for running SDL GroupShare ( TM Server,  Multiterm,  Project Server):
 ----
 
 * Windows Server 2019, with IIS 10 / Windows Server 2016, with IIS 10 / Windows Server 2012 R2, with IIS 8.5
