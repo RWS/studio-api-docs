@@ -276,14 +276,14 @@ items:
   summary: "\nThe ApiKey stored for LanguageCloud authentication. Returns an empty string if no ApiKey is present.\n"
   syntax:
     content: >-
-      [Obsolete]
+      [Obsolete("Use AccessToken instead")]
 
       public string ApiKey { get; }
     parameters: []
     return:
       type: System.String
     content.vb: >-
-      <Obsolete>
+      <Obsolete("Use AccessToken instead")>
 
       Public ReadOnly Property ApiKey As String
   overload: Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.ApiKey*
@@ -291,8 +291,10 @@ items:
   - Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.ApiKey
   attributes:
   - type: System.ObsoleteAttribute
-    ctor: System.ObsoleteAttribute.#ctor
-    arguments: []
+    ctor: System.ObsoleteAttribute.#ctor(System.String)
+    arguments:
+    - type: System.String
+      value: Use AccessToken instead
   modifiers.csharp:
   - public
   - get
