@@ -25,7 +25,6 @@ items:
   - Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedTranslationMemory.GetHashCode
   - Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedTranslationMemory.GetLanguageDirection(Sdl.LanguagePlatform.Core.LanguagePair)
   - Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedTranslationMemory.GetServerBasedTranslationMemoryPath(System.Uri)
-  - Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedTranslationMemory.GetServerVersion(System.Uri)
   - Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedTranslationMemory.GetTranslationUnitCount
   - Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedTranslationMemory.HasPermission(System.String)
   - Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedTranslationMemory.IsDirty
@@ -93,11 +92,11 @@ items:
   namespace: Sdl.LanguagePlatform.TranslationMemoryApi
   summary: "\nRepresents a <xref href=\"Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory\" data-throw-if-not-resolved=\"false\"></xref> which is hosted on a server, as opposed \nto a <xref href=\"Sdl.LanguagePlatform.TranslationMemoryApi.FileBasedTranslationMemory\" data-throw-if-not-resolved=\"false\"></xref>.\n"
   syntax:
-    content: 'public class ServerBasedTranslationMemory : RemoteTranslationMemory, ITranslationMemory2015, ITranslationMemory, ITranslationProvider, INotifyPropertyChanged, IEditableObject, IEquatable<ServerBasedTranslationMemory>, IPermissionCheck, IAdvancedContextTranslationMemory'
+    content: 'public class ServerBasedTranslationMemory : RemoteTranslationMemory, ITranslationMemory2015, ITranslationMemory, ITranslationProvider, ISupportPlaceables, INotifyPropertyChanged, IEditableObject, IEquatable<ServerBasedTranslationMemory>, IPermissionCheck, IAdvancedContextTranslationMemory'
     content.vb: >-
       Public Class ServerBasedTranslationMemory
           Inherits RemoteTranslationMemory
-          Implements ITranslationMemory2015, ITranslationMemory, ITranslationProvider, INotifyPropertyChanged, IEditableObject, IEquatable(Of ServerBasedTranslationMemory), IPermissionCheck, IAdvancedContextTranslationMemory
+          Implements ITranslationMemory2015, ITranslationMemory, ITranslationProvider, ISupportPlaceables, INotifyPropertyChanged, IEditableObject, IEquatable(Of ServerBasedTranslationMemory), IPermissionCheck, IAdvancedContextTranslationMemory
   inheritance:
   - System.Object
   - Sdl.LanguagePlatform.TranslationMemoryApi.RemoteTranslationMemory
@@ -105,6 +104,7 @@ items:
   - Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory2015
   - Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory
   - Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider
+  - Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables
   - System.ComponentModel.INotifyPropertyChanged
   - System.ComponentModel.IEditableObject
   - System.IEquatable{Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedTranslationMemory}
@@ -163,39 +163,6 @@ items:
       description: Whether <code data-dev-comment-type="paramref" class="paramref">uri</code> represents server-based translation memory
     content.vb: Public Shared Function IsServerBasedTranslationMemory(uri As Uri) As Boolean
   overload: Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedTranslationMemory.IsServerBasedTranslationMemory*
-  modifiers.csharp:
-  - public
-  - static
-  modifiers.vb:
-  - Public
-  - Shared
-- uid: Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedTranslationMemory.GetServerVersion(System.Uri)
-  commentId: M:Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedTranslationMemory.GetServerVersion(System.Uri)
-  id: GetServerVersion(System.Uri)
-  parent: Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedTranslationMemory
-  langs:
-  - csharp
-  - vb
-  name: GetServerVersion(Uri)
-  nameWithType: ServerBasedTranslationMemory.GetServerVersion(Uri)
-  fullName: Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedTranslationMemory.GetServerVersion(System.Uri)
-  type: Method
-  source:
-    path: Sdl.LanguagePlatform.TranslationMemoryApi
-    isExternal: true
-  assemblies:
-  - Sdl.LanguagePlatform.TranslationMemoryApi
-  namespace: Sdl.LanguagePlatform.TranslationMemoryApi
-  summary: "\nDetermines the TM Server version\n"
-  syntax:
-    content: public static ServerBasedTranslationMemoryVersion GetServerVersion(Uri uri)
-    parameters:
-    - id: uri
-      type: System.Uri
-    return:
-      type: Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedTranslationMemoryVersion
-    content.vb: Public Shared Function GetServerVersion(uri As Uri) As ServerBasedTranslationMemoryVersion
-  overload: Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedTranslationMemory.GetServerVersion*
   modifiers.csharp:
   - public
   - static
@@ -1112,7 +1079,7 @@ items:
   - Sdl.LanguagePlatform.TranslationMemoryApi
   namespace: Sdl.LanguagePlatform.TranslationMemoryApi
   summary: "\nGets or sets the <xref href=\"Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedLanguageResourcesTemplate\" data-throw-if-not-resolved=\"false\"></xref> object associated with this TM.\n"
-  remarks: "The template is a shared entity that defines the language resources that are \nassociated with one or more TMs. Modifying the template will therefore cause modifications to \nthe shared data and alter the language resources for all associated TMs.\n<p>\nIf you want to make language resource changes for this translation memory only, make those modifications through the <xref href=\"Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.LanguageResourceBundles\" data-throw-if-not-resolved=\"false\"></xref> property.\nBefore you can do that, set the <xref href=\"Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedTranslationMemory.LanguageResourcesTemplate\" data-throw-if-not-resolved=\"false\"></xref> property to null.\n</p>/// "
+  remarks: "The template is a shared entity that defines the language resources that are \nassociated with one or more TMs. Modifying the template will therefore cause modifications to \nthe shared data and alter the language resources for all associated TMs.\n<p>\nIf you want to make language resource changes for this translation memory only, make those modifications through the <see cref=\"!:ITranslationMemory.LanguageResourceBundles\"></see> property.\nBefore you can do that, set the <xref href=\"Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedTranslationMemory.LanguageResourcesTemplate\" data-throw-if-not-resolved=\"false\"></xref> property to null.\n</p>/// "
   syntax:
     content: public ServerBasedLanguageResourcesTemplate LanguageResourcesTemplate { get; set; }
     parameters: []
@@ -1248,7 +1215,7 @@ items:
     commentId: T:Sdl.LanguagePlatform.TranslationMemoryApi.ObjectDeletedException
     description: Thrown when this object has been deleted.
   implements:
-  - Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.LanguageResourceBundles
+  - Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables.LanguageResourceBundles
   modifiers.csharp:
   - public
   - get
@@ -2636,6 +2603,13 @@ references:
   name: ITranslationProvider
   nameWithType: ITranslationProvider
   fullName: Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider
+- uid: Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables
+  commentId: T:Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables
+  parent: Sdl.LanguagePlatform.TranslationMemoryApi
+  isExternal: true
+  name: ISupportPlaceables
+  nameWithType: ISupportPlaceables
+  fullName: Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables
 - uid: System.ComponentModel.INotifyPropertyChanged
   isExternal: true
   name: INotifyPropertyChanged
@@ -3116,19 +3090,6 @@ references:
   name: Boolean
   nameWithType: Boolean
   fullName: System.Boolean
-- uid: Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedTranslationMemory.GetServerVersion*
-  commentId: Overload:Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedTranslationMemory.GetServerVersion
-  isExternal: true
-  name: GetServerVersion
-  nameWithType: ServerBasedTranslationMemory.GetServerVersion
-  fullName: Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedTranslationMemory.GetServerVersion
-- uid: Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedTranslationMemoryVersion
-  commentId: T:Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedTranslationMemoryVersion
-  parent: Sdl.LanguagePlatform.TranslationMemoryApi
-  isExternal: true
-  name: ServerBasedTranslationMemoryVersion
-  nameWithType: ServerBasedTranslationMemoryVersion
-  fullName: Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedTranslationMemoryVersion
 - uid: Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedTranslationMemory.ServerSupportsTranslationAndAnalysisService*
   commentId: Overload:Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedTranslationMemory.ServerSupportsTranslationAndAnalysisService
   isExternal: true
@@ -4231,13 +4192,13 @@ references:
   name: LanguageResourceBundles
   nameWithType: ServerBasedTranslationMemory.LanguageResourceBundles
   fullName: Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedTranslationMemory.LanguageResourceBundles
-- uid: Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.LanguageResourceBundles
-  commentId: P:Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.LanguageResourceBundles
-  parent: Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory
+- uid: Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables.LanguageResourceBundles
+  commentId: P:Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables.LanguageResourceBundles
+  parent: Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables
   isExternal: true
   name: LanguageResourceBundles
-  nameWithType: ITranslationMemory.LanguageResourceBundles
-  fullName: Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.LanguageResourceBundles
+  nameWithType: ISupportPlaceables.LanguageResourceBundles
+  fullName: Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables.LanguageResourceBundles
 - uid: Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceBundleCollection
   commentId: T:Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceBundleCollection
   parent: Sdl.LanguagePlatform.TranslationMemoryApi
