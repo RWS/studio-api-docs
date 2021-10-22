@@ -19,8 +19,6 @@ items:
   - Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.GetLanguageDirection(Sdl.LanguagePlatform.Core.LanguagePair)
   - Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.GetTranslationUnitCount
   - Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.HasPermission(System.String)
-  - Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.LanguageResourceBundles
-  - Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.Recognizers
   - Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.RecomputeFuzzyIndexStatistics
   - Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.Save
   - Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.ShouldRecomputeFuzzyIndexStatistics
@@ -40,10 +38,11 @@ items:
   namespace: Sdl.LanguagePlatform.TranslationMemoryApi
   summary: "\nRepresents a translation memory.\n"
   syntax:
-    content: 'public interface ITranslationMemory : ITranslationProvider'
+    content: 'public interface ITranslationMemory : ITranslationProvider, ISupportPlaceables'
     content.vb: >-
       Public Interface ITranslationMemory
-          Inherits ITranslationProvider
+
+          Inherits ITranslationProvider, ISupportPlaceables
   inheritedMembers:
   - Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider.SupportsLanguageDirection(Sdl.LanguagePlatform.Core.LanguagePair)
   - Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider.RefreshStatusInfo
@@ -70,6 +69,8 @@ items:
   - Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider.SupportsWordCounts
   - Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider.TranslationMethod
   - Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider.IsReadOnly
+  - Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables.LanguageResourceBundles
+  - Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables.Recognizers
   modifiers.csharp:
   - public
   - interface
@@ -461,71 +462,6 @@ items:
   - get
   modifiers.vb:
   - ReadOnly
-- uid: Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.LanguageResourceBundles
-  commentId: P:Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.LanguageResourceBundles
-  id: LanguageResourceBundles
-  parent: Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory
-  langs:
-  - csharp
-  - vb
-  name: LanguageResourceBundles
-  nameWithType: ITranslationMemory.LanguageResourceBundles
-  fullName: Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.LanguageResourceBundles
-  type: Property
-  source:
-    path: Sdl.LanguagePlatform.TranslationMemoryApi
-    isExternal: true
-  assemblies:
-  - Sdl.LanguagePlatform.TranslationMemoryApi
-  namespace: Sdl.LanguagePlatform.TranslationMemoryApi
-  summary: "\nGets the language resources which are associated with this TM.\n"
-  remarks: >-
-    In case this is a server-based translation memory, which is associated with a language resources template (see <xref href="Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourcesTemplate" data-throw-if-not-resolved="false"></xref>),
-
-    this returns a read-only language resources collection identical to the template&apos;s language resources collection. In all other cases,
-
-    the language resources collection returned can be modified. Note that you have to call <xref href="Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.Save" data-throw-if-not-resolved="false"></xref> to persist any changes made to
-
-    language resources.
-  syntax:
-    content: LanguageResourceBundleCollection LanguageResourceBundles { get; }
-    parameters: []
-    return:
-      type: Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceBundleCollection
-    content.vb: ReadOnly Property LanguageResourceBundles As LanguageResourceBundleCollection
-  overload: Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.LanguageResourceBundles*
-  modifiers.csharp:
-  - get
-  modifiers.vb:
-  - ReadOnly
-- uid: Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.Recognizers
-  commentId: P:Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.Recognizers
-  id: Recognizers
-  parent: Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory
-  langs:
-  - csharp
-  - vb
-  name: Recognizers
-  nameWithType: ITranslationMemory.Recognizers
-  fullName: Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.Recognizers
-  type: Property
-  source:
-    path: Sdl.LanguagePlatform.TranslationMemoryApi
-    isExternal: true
-  assemblies:
-  - Sdl.LanguagePlatform.TranslationMemoryApi
-  namespace: Sdl.LanguagePlatform.TranslationMemoryApi
-  summary: "\nGets or sets the recognizers which are enabled for this TM. \n<remarks>Note that changing recognizers may require reindexing. In addition, in \nsome cases duplicate TUs may be in the TM if recognizers are enabled which have \nbeen disabled before.</remarks>\n"
-  syntax:
-    content: BuiltinRecognizers Recognizers { get; set; }
-    parameters: []
-    return:
-      type: Sdl.LanguagePlatform.Core.Tokenization.BuiltinRecognizers
-    content.vb: Property Recognizers As BuiltinRecognizers
-  overload: Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.Recognizers*
-  modifiers.csharp:
-  - get
-  - set
 - uid: Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.FuzzyIndexes
   commentId: P:Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.FuzzyIndexes
   id: FuzzyIndexes
@@ -938,6 +874,20 @@ references:
   name: IsReadOnly
   nameWithType: ITranslationProvider.IsReadOnly
   fullName: Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider.IsReadOnly
+- uid: Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables.LanguageResourceBundles
+  commentId: P:Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables.LanguageResourceBundles
+  parent: Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables
+  isExternal: true
+  name: LanguageResourceBundles
+  nameWithType: ISupportPlaceables.LanguageResourceBundles
+  fullName: Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables.LanguageResourceBundles
+- uid: Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables.Recognizers
+  commentId: P:Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables.Recognizers
+  parent: Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables
+  isExternal: true
+  name: Recognizers
+  nameWithType: ISupportPlaceables.Recognizers
+  fullName: Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables.Recognizers
 - uid: Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider
   commentId: T:Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider
   parent: Sdl.LanguagePlatform.TranslationMemoryApi
@@ -945,6 +895,13 @@ references:
   name: ITranslationProvider
   nameWithType: ITranslationProvider
   fullName: Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider
+- uid: Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables
+  commentId: T:Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables
+  parent: Sdl.LanguagePlatform.TranslationMemoryApi
+  isExternal: true
+  name: ISupportPlaceables
+  nameWithType: ISupportPlaceables
+  fullName: Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables
 - uid: Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.GetLanguageDirection*
   commentId: Overload:Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.GetLanguageDirection
   isExternal: true
@@ -1262,38 +1219,6 @@ references:
   name: FieldDefinitionCollection
   nameWithType: FieldDefinitionCollection
   fullName: Sdl.LanguagePlatform.TranslationMemoryApi.FieldDefinitionCollection
-- uid: Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.LanguageResourceBundles*
-  commentId: Overload:Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.LanguageResourceBundles
-  isExternal: true
-  name: LanguageResourceBundles
-  nameWithType: ITranslationMemory.LanguageResourceBundles
-  fullName: Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.LanguageResourceBundles
-- uid: Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceBundleCollection
-  commentId: T:Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceBundleCollection
-  parent: Sdl.LanguagePlatform.TranslationMemoryApi
-  isExternal: true
-  name: LanguageResourceBundleCollection
-  nameWithType: LanguageResourceBundleCollection
-  fullName: Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceBundleCollection
-- uid: Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.Recognizers*
-  commentId: Overload:Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.Recognizers
-  isExternal: true
-  name: Recognizers
-  nameWithType: ITranslationMemory.Recognizers
-  fullName: Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.Recognizers
-- uid: Sdl.LanguagePlatform.Core.Tokenization.BuiltinRecognizers
-  commentId: T:Sdl.LanguagePlatform.Core.Tokenization.BuiltinRecognizers
-  parent: Sdl.LanguagePlatform.Core.Tokenization
-  isExternal: true
-  name: BuiltinRecognizers
-  nameWithType: BuiltinRecognizers
-  fullName: Sdl.LanguagePlatform.Core.Tokenization.BuiltinRecognizers
-- uid: Sdl.LanguagePlatform.Core.Tokenization
-  commentId: N:Sdl.LanguagePlatform.Core.Tokenization
-  isExternal: true
-  name: Sdl.LanguagePlatform.Core.Tokenization
-  nameWithType: Sdl.LanguagePlatform.Core.Tokenization
-  fullName: Sdl.LanguagePlatform.Core.Tokenization
 - uid: Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.FuzzyIndexes*
   commentId: Overload:Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.FuzzyIndexes
   isExternal: true
