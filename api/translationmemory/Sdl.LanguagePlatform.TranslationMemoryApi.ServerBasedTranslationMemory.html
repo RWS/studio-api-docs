@@ -101,6 +101,7 @@ to a <a class="xref" href="Sdl.LanguagePlatform.TranslationMemoryApi.FileBasedTr
     <div><a class="xref" href="Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory2015.html">ITranslationMemory2015</a></div>
     <div><a class="xref" href="Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.html">ITranslationMemory</a></div>
     <div><a class="xref" href="Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider.html">ITranslationProvider</a></div>
+    <div><a class="xref" href="Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables.html">ISupportPlaceables</a></div>
     <div><span class="xref">System.ComponentModel.INotifyPropertyChanged</span></div>
     <div><span class="xref">System.ComponentModel.IEditableObject</span></div>
     <div><span class="xref">System.IEquatable</span>&lt;<a class="xref" href="Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedTranslationMemory.html">ServerBasedTranslationMemory</a>&gt;</div>
@@ -165,7 +166,7 @@ to a <a class="xref" href="Sdl.LanguagePlatform.TranslationMemoryApi.FileBasedTr
   <h6><strong>Assembly</strong>: Sdl.LanguagePlatform.TranslationMemoryApi.dll</h6>
   <h5 id="Sdl_LanguagePlatform_TranslationMemoryApi_ServerBasedTranslationMemory_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class ServerBasedTranslationMemory : RemoteTranslationMemory, ITranslationMemory2015, ITranslationMemory, ITranslationProvider, INotifyPropertyChanged, IEditableObject, IEquatable&lt;ServerBasedTranslationMemory&gt;, IPermissionCheck, IAdvancedContextTranslationMemory</code></pre>
+    <pre><code class="lang-csharp hljs">public class ServerBasedTranslationMemory : RemoteTranslationMemory, ITranslationMemory2015, ITranslationMemory, ITranslationProvider, ISupportPlaceables, INotifyPropertyChanged, IEditableObject, IEquatable&lt;ServerBasedTranslationMemory&gt;, IPermissionCheck, IAdvancedContextTranslationMemory</code></pre>
   </div>
   <h3 id="constructors">Constructors
   </h3>
@@ -885,7 +886,7 @@ language resources.</p>
 associated with one or more TMs. Modifying the template will therefore cause modifications to 
 the shared data and alter the language resources for all associated TMs.
 <p>
-If you want to make language resource changes for this translation memory only, make those modifications through the <a class="xref" href="Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.html#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationMemory_LanguageResourceBundles">LanguageResourceBundles</a> property.
+If you want to make language resource changes for this translation memory only, make those modifications through the <see cref="!:ITranslationMemory.LanguageResourceBundles"></see> property.
 Before you can do that, set the <a class="xref" href="Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedTranslationMemory.html#Sdl_LanguagePlatform_TranslationMemoryApi_ServerBasedTranslationMemory_LanguageResourcesTemplate">LanguageResourcesTemplate</a> property to null.
 </p>/// </p>
 </div>
@@ -2053,49 +2054,6 @@ Always returns <a class="xref" href="Sdl.LanguagePlatform.TranslationMemoryApi.T
   </table>
   
   
-  <a id="Sdl_LanguagePlatform_TranslationMemoryApi_ServerBasedTranslationMemory_GetServerVersion_" data-uid="Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedTranslationMemory.GetServerVersion*"></a>
-  <h4 id="Sdl_LanguagePlatform_TranslationMemoryApi_ServerBasedTranslationMemory_GetServerVersion_System_Uri_" data-uid="Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedTranslationMemory.GetServerVersion(System.Uri)">GetServerVersion(Uri)</h4>
-  <div class="markdown level1 summary"><p>Determines the TM Server version</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static ServerBasedTranslationMemoryVersion GetServerVersion(Uri uri)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Uri</span></td>
-        <td><span class="parametername">uri</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedTranslationMemoryVersion.html">ServerBasedTranslationMemoryVersion</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
   <a id="Sdl_LanguagePlatform_TranslationMemoryApi_ServerBasedTranslationMemory_GetTranslationUnitCount_" data-uid="Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedTranslationMemory.GetTranslationUnitCount*"></a>
   <h4 id="Sdl_LanguagePlatform_TranslationMemoryApi_ServerBasedTranslationMemory_GetTranslationUnitCount" data-uid="Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedTranslationMemory.GetTranslationUnitCount">GetTranslationUnitCount()</h4>
   <div class="markdown level1 summary"><p>Gets the total translation unit count for all language directions in this translation memory.</p>
@@ -2604,6 +2562,9 @@ index statistics (see <a class="xref" href="Sdl.LanguagePlatform.TranslationMemo
   </div>
   <div>
       <a class="xref" href="Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider.html">ITranslationProvider</a>
+  </div>
+  <div>
+      <a class="xref" href="Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables.html">ISupportPlaceables</a>
   </div>
   <div>
       <span class="xref">System.ComponentModel.INotifyPropertyChanged</span>
