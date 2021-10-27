@@ -1,0 +1,213 @@
+### YamlMime:ManagedReference
+items:
+- uid: Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler
+  commentId: T:Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler
+  id: IBilingualContentHandler
+  parent: Sdl.FileTypeSupport.Framework.BilingualApi
+  children:
+  - Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.Complete
+  - Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.FileComplete
+  - Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.Initialize(Sdl.FileTypeSupport.Framework.BilingualApi.IDocumentProperties)
+  - Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.ProcessParagraphUnit(Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit)
+  - Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.SetFileProperties(Sdl.FileTypeSupport.Framework.BilingualApi.IFileProperties)
+  langs:
+  - csharp
+  - vb
+  name: IBilingualContentHandler
+  nameWithType: IBilingualContentHandler
+  fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler
+  type: Interface
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core
+    isExternal: true
+  assemblies:
+  - Sdl.FileTypeSupport.Framework.Core
+  namespace: Sdl.FileTypeSupport.Framework.BilingualApi
+  summary: "\nThis interface is implemented by content processors\nthat work on the bilingual content model, for example <xref href=\"Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentProcessor\" data-throw-if-not-resolved=\"false\"></xref>\nand <xref href=\"Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualWriter\" data-throw-if-not-resolved=\"false\"></xref>.\n"
+  remarks: "\n<p>\nTo facilitate processing in a streaming manner without requiring\nthe entire document object in memory at any time the implementation\nwill be fed ParagraphUnits one by one through calls \nto <xref href=\"Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.ProcessParagraphUnit(Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit)\" data-throw-if-not-resolved=\"false\"></xref>.\n</p>\n<p>\nDocument and file properties are provided from the framework by calling \n<xref href=\"Sdl.FileTypeSupport.Framework.BilingualApi.IDocumentProperties\" data-throw-if-not-resolved=\"false\"></xref> and <xref href=\"Sdl.FileTypeSupport.Framework.BilingualApi.IFileProperties\" data-throw-if-not-resolved=\"false\"></xref> before processing\ncontent in the document / file.\n</p>\n<p>\nIf the component implements the <xref href=\"System.IDisposable\" data-throw-if-not-resolved=\"false\"></xref> interface, the Dispose() method\nwill be called by the framework for clean-up after parsing is finished.\n</p>\n"
+  syntax:
+    content: public interface IBilingualContentHandler
+    content.vb: Public Interface IBilingualContentHandler
+  modifiers.csharp:
+  - public
+  - interface
+  modifiers.vb:
+  - Public
+  - Interface
+- uid: Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.Initialize(Sdl.FileTypeSupport.Framework.BilingualApi.IDocumentProperties)
+  commentId: M:Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.Initialize(Sdl.FileTypeSupport.Framework.BilingualApi.IDocumentProperties)
+  id: Initialize(Sdl.FileTypeSupport.Framework.BilingualApi.IDocumentProperties)
+  parent: Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler
+  langs:
+  - csharp
+  - vb
+  name: Initialize(IDocumentProperties)
+  nameWithType: IBilingualContentHandler.Initialize(IDocumentProperties)
+  fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.Initialize(Sdl.FileTypeSupport.Framework.BilingualApi.IDocumentProperties)
+  type: Method
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core
+    isExternal: true
+  assemblies:
+  - Sdl.FileTypeSupport.Framework.Core
+  namespace: Sdl.FileTypeSupport.Framework.BilingualApi
+  summary: "\nThe framework will call this method to provide the implementation\nwith a reference to the document properties for the document being processed.\n\nThis method will always be called, and always before any other calls are made on this interface.\n\nThis or other content processor implementations may modify the document properties \nas part of the document processing. If you need to access the final version of the \ndocument properties, you should do so through the <xref href=\"Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.Complete\" data-throw-if-not-resolved=\"false\"></xref> method implementation.\n"
+  syntax:
+    content: void Initialize(IDocumentProperties documentInfo)
+    parameters:
+    - id: documentInfo
+      type: Sdl.FileTypeSupport.Framework.BilingualApi.IDocumentProperties
+    content.vb: Sub Initialize(documentInfo As IDocumentProperties)
+  overload: Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.Initialize*
+- uid: Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.Complete
+  commentId: M:Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.Complete
+  id: Complete
+  parent: Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler
+  langs:
+  - csharp
+  - vb
+  name: Complete()
+  nameWithType: IBilingualContentHandler.Complete()
+  fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.Complete()
+  type: Method
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core
+    isExternal: true
+  assemblies:
+  - Sdl.FileTypeSupport.Framework.Core
+  namespace: Sdl.FileTypeSupport.Framework.BilingualApi
+  summary: "\nCalled by the framework when all content has been processed.\n\nAt this point it is safe to assume that the document properties will not change any further.\n"
+  syntax:
+    content: void Complete()
+    content.vb: Sub Complete
+  overload: Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.Complete*
+- uid: Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.SetFileProperties(Sdl.FileTypeSupport.Framework.BilingualApi.IFileProperties)
+  commentId: M:Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.SetFileProperties(Sdl.FileTypeSupport.Framework.BilingualApi.IFileProperties)
+  id: SetFileProperties(Sdl.FileTypeSupport.Framework.BilingualApi.IFileProperties)
+  parent: Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler
+  langs:
+  - csharp
+  - vb
+  name: SetFileProperties(IFileProperties)
+  nameWithType: IBilingualContentHandler.SetFileProperties(IFileProperties)
+  fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.SetFileProperties(Sdl.FileTypeSupport.Framework.BilingualApi.IFileProperties)
+  type: Method
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core
+    isExternal: true
+  assemblies:
+  - Sdl.FileTypeSupport.Framework.Core
+  namespace: Sdl.FileTypeSupport.Framework.BilingualApi
+  summary: "\nThe framework will call this method to provide the implementation with\na reference to the properties for each file in the document\nbefore the ParagraphUnits of the file are processed.\n\nThis or other content processor implementations may modify the properties as part of the file processing.\nIf you need to access the final version of the file properties, you should do so through the <xref href=\"Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.FileComplete\" data-throw-if-not-resolved=\"false\"></xref> method\nimplementation.\n"
+  syntax:
+    content: void SetFileProperties(IFileProperties fileInfo)
+    parameters:
+    - id: fileInfo
+      type: Sdl.FileTypeSupport.Framework.BilingualApi.IFileProperties
+    content.vb: Sub SetFileProperties(fileInfo As IFileProperties)
+  overload: Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.SetFileProperties*
+- uid: Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.FileComplete
+  commentId: M:Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.FileComplete
+  id: FileComplete
+  parent: Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler
+  langs:
+  - csharp
+  - vb
+  name: FileComplete()
+  nameWithType: IBilingualContentHandler.FileComplete()
+  fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.FileComplete()
+  type: Method
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core
+    isExternal: true
+  assemblies:
+  - Sdl.FileTypeSupport.Framework.Core
+  namespace: Sdl.FileTypeSupport.Framework.BilingualApi
+  summary: "\nCalled by the framework after all trans units in a file have been processed by all components.\n\nAt this point it is safe to assume that the file properties will not change any further.\n"
+  syntax:
+    content: void FileComplete()
+    content.vb: Sub FileComplete
+  overload: Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.FileComplete*
+- uid: Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.ProcessParagraphUnit(Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit)
+  commentId: M:Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.ProcessParagraphUnit(Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit)
+  id: ProcessParagraphUnit(Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit)
+  parent: Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler
+  langs:
+  - csharp
+  - vb
+  name: ProcessParagraphUnit(IParagraphUnit)
+  nameWithType: IBilingualContentHandler.ProcessParagraphUnit(IParagraphUnit)
+  fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.ProcessParagraphUnit(Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit)
+  type: Method
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core
+    isExternal: true
+  assemblies:
+  - Sdl.FileTypeSupport.Framework.Core
+  namespace: Sdl.FileTypeSupport.Framework.BilingualApi
+  summary: "\nThe framework will call this method for each ParagraphUnit in the file.\n"
+  syntax:
+    content: void ProcessParagraphUnit(IParagraphUnit paragraphUnit)
+    parameters:
+    - id: paragraphUnit
+      type: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit
+    content.vb: Sub ProcessParagraphUnit(paragraphUnit As IParagraphUnit)
+  overload: Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.ProcessParagraphUnit*
+references:
+- uid: Sdl.FileTypeSupport.Framework.BilingualApi
+  commentId: N:Sdl.FileTypeSupport.Framework.BilingualApi
+  isExternal: true
+  name: Sdl.FileTypeSupport.Framework.BilingualApi
+  nameWithType: Sdl.FileTypeSupport.Framework.BilingualApi
+  fullName: Sdl.FileTypeSupport.Framework.BilingualApi
+- uid: Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.Initialize*
+  commentId: Overload:Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.Initialize
+  isExternal: true
+  name: Initialize
+  nameWithType: IBilingualContentHandler.Initialize
+  fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.Initialize
+- uid: Sdl.FileTypeSupport.Framework.BilingualApi.IDocumentProperties
+  commentId: T:Sdl.FileTypeSupport.Framework.BilingualApi.IDocumentProperties
+  parent: Sdl.FileTypeSupport.Framework.BilingualApi
+  isExternal: true
+  name: IDocumentProperties
+  nameWithType: IDocumentProperties
+  fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IDocumentProperties
+- uid: Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.Complete*
+  commentId: Overload:Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.Complete
+  isExternal: true
+  name: Complete
+  nameWithType: IBilingualContentHandler.Complete
+  fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.Complete
+- uid: Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.SetFileProperties*
+  commentId: Overload:Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.SetFileProperties
+  isExternal: true
+  name: SetFileProperties
+  nameWithType: IBilingualContentHandler.SetFileProperties
+  fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.SetFileProperties
+- uid: Sdl.FileTypeSupport.Framework.BilingualApi.IFileProperties
+  commentId: T:Sdl.FileTypeSupport.Framework.BilingualApi.IFileProperties
+  parent: Sdl.FileTypeSupport.Framework.BilingualApi
+  isExternal: true
+  name: IFileProperties
+  nameWithType: IFileProperties
+  fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IFileProperties
+- uid: Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.FileComplete*
+  commentId: Overload:Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.FileComplete
+  isExternal: true
+  name: FileComplete
+  nameWithType: IBilingualContentHandler.FileComplete
+  fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.FileComplete
+- uid: Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.ProcessParagraphUnit*
+  commentId: Overload:Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.ProcessParagraphUnit
+  isExternal: true
+  name: ProcessParagraphUnit
+  nameWithType: IBilingualContentHandler.ProcessParagraphUnit
+  fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.ProcessParagraphUnit
+- uid: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit
+  commentId: T:Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit
+  parent: Sdl.FileTypeSupport.Framework.BilingualApi
+  isExternal: true
+  name: IParagraphUnit
+  nameWithType: IParagraphUnit
+  fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit
