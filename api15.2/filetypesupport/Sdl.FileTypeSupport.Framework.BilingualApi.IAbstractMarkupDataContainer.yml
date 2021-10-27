@@ -1,0 +1,2019 @@
+### YamlMime:ManagedReference
+items:
+- uid: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer
+  commentId: T:Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer
+  id: IAbstractMarkupDataContainer
+  parent: Sdl.FileTypeSupport.Framework.BilingualApi
+  children:
+  - Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.AllSubItems
+  - Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.CanBeSplit
+  - Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.Find(Sdl.FileTypeSupport.Framework.BilingualApi.Location,System.Predicate{Sdl.FileTypeSupport.Framework.BilingualApi.Location})
+  - Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.Find(System.Predicate{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData})
+  - Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.Find(System.Predicate{Sdl.FileTypeSupport.Framework.BilingualApi.Location})
+  - Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.ForEachSubItem(System.Action{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData})
+  - Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.GetLocationsFrom(Sdl.FileTypeSupport.Framework.BilingualApi.Location)
+  - Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.Locations
+  - Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.MoveAllItemsTo(Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer)
+  - Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.MoveAllItemsTo(Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer,System.Int32)
+  - Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.MoveItemsTo(Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer,System.Int32,System.Int32)
+  - Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.MoveItemsTo(Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer,System.Int32,System.Int32,System.Int32)
+  - Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.Split(System.Int32)
+  langs:
+  - csharp
+  - vb
+  name: IAbstractMarkupDataContainer
+  nameWithType: IAbstractMarkupDataContainer
+  fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer
+  type: Interface
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core
+    isExternal: true
+  assemblies:
+  - Sdl.FileTypeSupport.Framework.Core
+  namespace: Sdl.FileTypeSupport.Framework.BilingualApi
+  summary: "\nAbstract interface implemented by containers that hold data items representing localizable content.\nFor example, the <xref href=\"Sdl.FileTypeSupport.Framework.BilingualApi.IParagraph\" data-throw-if-not-resolved=\"false\"></xref>, <xref href=\"Sdl.FileTypeSupport.Framework.BilingualApi.ISegment\" data-throw-if-not-resolved=\"false\"></xref>, <xref href=\"Sdl.FileTypeSupport.Framework.BilingualApi.ITagPair\" data-throw-if-not-resolved=\"false\"></xref>, and <xref href=\"Sdl.FileTypeSupport.Framework.BilingualApi.IOtherMarker\" data-throw-if-not-resolved=\"false\"></xref> interfaces are \nderived from this interface.\n"
+  remarks: "\n<p>\nAdding or inserting an item into the container automatically sets the <xref href=\"Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData.Parent\" data-throw-if-not-resolved=\"false\"></xref>\nproperty of the item. Removing an item from a container automatically sets the parent property to <code>null</code>.\n</p>\n<p>\nAn item can never appear in more than one container at the same time. Attempting to add an item to\na container if it is already in another container causes an exception.\n</p>\n<p>\nIf you want an equivalent item to appear in two containers, you can clone it, and insert the clone \ninto the second container. The cloned item will then reference the same properties object(s).\n</p>\n<p>\nImplementations of this interface may or may not be <xref href=\"Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData\" data-throw-if-not-resolved=\"false\"></xref>. <xref href=\"Sdl.FileTypeSupport.Framework.BilingualApi.ITagPair\" data-throw-if-not-resolved=\"false\"></xref> is\nan example of a container that is also a markup data item, and can therefore appear inside other containers.\n<xref href=\"Sdl.FileTypeSupport.Framework.BilingualApi.IParagraph\" data-throw-if-not-resolved=\"false\"></xref> is an example of a container that is NOT a markup data item.\n</p>\n<example>\n<p>\nThe following example demonstrates how to retrieve the parent container for a container node if it is a markup data item.\n</p>\n<pre><code>IAbstractMarkupData GetParent(IAbstractMarkupDataContainer container)\n{\n	IAbstractMarkupData item = container as IAbstractMarkupData;\n	if (item != null)\n	{\n		return item.Parent;\n	}\n	// container is not a markup data item\n	return null;\n}</code></pre>\n</example>\n<p>\nDuring content manipulation it is sometimes necessary to split a container into two parts,\nwith the first part containing some of the items, the second containing others, and both containers\nreferencing the same properties objects. The easiest way to accomplish this is to call <xref href=\"Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.Split(System.Int32)\" data-throw-if-not-resolved=\"false\"></xref>.\n</p>\n<p>\nNote that not all containers can be split (for example, <xref href=\"Sdl.FileTypeSupport.Framework.BilingualApi.IParagraph\" data-throw-if-not-resolved=\"false\"></xref> cannot be split). Before calling\n<xref href=\"Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.Split(System.Int32)\" data-throw-if-not-resolved=\"false\"></xref> you should therefore check the <xref href=\"Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.CanBeSplit\" data-throw-if-not-resolved=\"false\"></xref> property.\n</p>\n<p>\nAnother common operation is to move items into a different container. The easiest way to do that is\nto use one of the overloads of <code>MoveAllItemsTo()</code> or <code>MoveItemsTo()</code>.\n</p>\n<p>\nIt is sometimes necessary to reference locations inside a container. This can be done using the \n<xref href=\"Sdl.FileTypeSupport.Framework.BilingualApi.Location\" data-throw-if-not-resolved=\"false\"></xref> class. You can iterate over all possible locations in a container (including\nlocations in nested containers) using the <xref href=\"Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.Locations\" data-throw-if-not-resolved=\"false\"></xref> iterator.\n</p>\n"
+  syntax:
+    content: 'public interface IAbstractMarkupDataContainer : IList<IAbstractMarkupData>, ICollection<IAbstractMarkupData>, IEnumerable<IAbstractMarkupData>, IEnumerable, ISupportsUniqueId'
+    content.vb: >-
+      Public Interface IAbstractMarkupDataContainer
+
+          Inherits IList(Of IAbstractMarkupData), ICollection(Of IAbstractMarkupData), IEnumerable(Of IAbstractMarkupData), IEnumerable, ISupportsUniqueId
+  inheritedMembers:
+  - System.Collections.Generic.IList{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}.IndexOf(Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData)
+  - System.Collections.Generic.IList{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}.Insert(System.Int32,Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData)
+  - System.Collections.Generic.IList{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}.RemoveAt(System.Int32)
+  - System.Collections.Generic.IList{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}.Item(System.Int32)
+  - System.Collections.Generic.ICollection{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}.Add(Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData)
+  - System.Collections.Generic.ICollection{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}.Clear
+  - System.Collections.Generic.ICollection{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}.Contains(Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData)
+  - System.Collections.Generic.ICollection{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}.CopyTo(Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData[],System.Int32)
+  - System.Collections.Generic.ICollection{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}.Remove(Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData)
+  - System.Collections.Generic.ICollection{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}.Count
+  - System.Collections.Generic.ICollection{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}.IsReadOnly
+  - System.Collections.Generic.IEnumerable{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}.GetEnumerator
+  - Sdl.FileTypeSupport.Framework.NativeApi.ISupportsUniqueId.UniqueId
+  modifiers.csharp:
+  - public
+  - interface
+  modifiers.vb:
+  - Public
+  - Interface
+- uid: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.Split(System.Int32)
+  commentId: M:Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.Split(System.Int32)
+  id: Split(System.Int32)
+  parent: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer
+  langs:
+  - csharp
+  - vb
+  name: Split(Int32)
+  nameWithType: IAbstractMarkupDataContainer.Split(Int32)
+  fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.Split(System.Int32)
+  type: Method
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core
+    isExternal: true
+  assemblies:
+  - Sdl.FileTypeSupport.Framework.Core
+  namespace: Sdl.FileTypeSupport.Framework.BilingualApi
+  summary: "\nSplits this container in two. After the split, this object will hold\nall items with index lower than the splitBeforeItemIndex parameter.\nThe returned object is a clone of this object, which contains all other items.\n"
+  remarks: "\n<p>\nNote that if this item is a markup data item that is part of a parent container\nit will remain in that container. The returned item is not automatically inserted\ninto the parent container. If you need it to be there, you must insert it manually.\n</p>\n"
+  syntax:
+    content: IAbstractMarkupDataContainer Split(int splitBeforeItemIndex)
+    parameters:
+    - id: splitBeforeItemIndex
+      type: System.Int32
+    return:
+      type: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer
+    content.vb: Function Split(splitBeforeItemIndex As Integer) As IAbstractMarkupDataContainer
+  overload: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.Split*
+  exceptions:
+  - type: Sdl.FileTypeSupport.Framework.BilingualApi.NotSplittableException
+    commentId: T:Sdl.FileTypeSupport.Framework.BilingualApi.NotSplittableException
+    description: Thrown if the collection cannot be split at the specified location.
+- uid: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.MoveAllItemsTo(Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer)
+  commentId: M:Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.MoveAllItemsTo(Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer)
+  id: MoveAllItemsTo(Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer)
+  parent: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer
+  langs:
+  - csharp
+  - vb
+  name: MoveAllItemsTo(IAbstractMarkupDataContainer)
+  nameWithType: IAbstractMarkupDataContainer.MoveAllItemsTo(IAbstractMarkupDataContainer)
+  fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.MoveAllItemsTo(Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer)
+  type: Method
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core
+    isExternal: true
+  assemblies:
+  - Sdl.FileTypeSupport.Framework.Core
+  namespace: Sdl.FileTypeSupport.Framework.BilingualApi
+  summary: "\nMoves all items from this container into another one.\n"
+  remarks: "\nThe items are added at the end of the other container, while the order is preserved.\n"
+  syntax:
+    content: void MoveAllItemsTo(IAbstractMarkupDataContainer destinationContainer)
+    parameters:
+    - id: destinationContainer
+      type: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer
+      description: "The container that will receive all \nitems from this container."
+    content.vb: Sub MoveAllItemsTo(destinationContainer As IAbstractMarkupDataContainer)
+  overload: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.MoveAllItemsTo*
+- uid: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.MoveAllItemsTo(Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer,System.Int32)
+  commentId: M:Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.MoveAllItemsTo(Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer,System.Int32)
+  id: MoveAllItemsTo(Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer,System.Int32)
+  parent: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer
+  langs:
+  - csharp
+  - vb
+  name: MoveAllItemsTo(IAbstractMarkupDataContainer, Int32)
+  nameWithType: IAbstractMarkupDataContainer.MoveAllItemsTo(IAbstractMarkupDataContainer, Int32)
+  fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.MoveAllItemsTo(Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer, System.Int32)
+  type: Method
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core
+    isExternal: true
+  assemblies:
+  - Sdl.FileTypeSupport.Framework.Core
+  namespace: Sdl.FileTypeSupport.Framework.BilingualApi
+  summary: "\nMoves all items from this container to a specific location in another container.\n"
+  remarks: "\nThe order of the moved items is preserved.\n"
+  syntax:
+    content: void MoveAllItemsTo(IAbstractMarkupDataContainer destinationContainer, int insertAtIndex)
+    parameters:
+    - id: destinationContainer
+      type: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer
+      description: The container that will receive all items from this container
+    - id: insertAtIndex
+      type: System.Int32
+      description: "The index in the destination container where items should be inserted. \nMust be less than or equal to the number of items in the destination container."
+    content.vb: Sub MoveAllItemsTo(destinationContainer As IAbstractMarkupDataContainer, insertAtIndex As Integer)
+  overload: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.MoveAllItemsTo*
+- uid: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.MoveItemsTo(Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer,System.Int32,System.Int32)
+  commentId: M:Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.MoveItemsTo(Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer,System.Int32,System.Int32)
+  id: MoveItemsTo(Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer,System.Int32,System.Int32)
+  parent: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer
+  langs:
+  - csharp
+  - vb
+  name: MoveItemsTo(IAbstractMarkupDataContainer, Int32, Int32)
+  nameWithType: IAbstractMarkupDataContainer.MoveItemsTo(IAbstractMarkupDataContainer, Int32, Int32)
+  fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.MoveItemsTo(Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer, System.Int32, System.Int32)
+  type: Method
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core
+    isExternal: true
+  assemblies:
+  - Sdl.FileTypeSupport.Framework.Core
+  namespace: Sdl.FileTypeSupport.Framework.BilingualApi
+  summary: "\nMoves a number of items from this container into another one.\n"
+  remarks: "\nThe items are added to the end of the container, while the order is preserved.\n"
+  syntax:
+    content: void MoveItemsTo(IAbstractMarkupDataContainer destinationContainer, int startIndex, int count)
+    parameters:
+    - id: destinationContainer
+      type: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer
+      description: The container into which the items will be moved
+    - id: startIndex
+      type: System.Int32
+      description: Index of the first item in this container to be moved
+    - id: count
+      type: System.Int32
+      description: Number of items to be moved
+    content.vb: Sub MoveItemsTo(destinationContainer As IAbstractMarkupDataContainer, startIndex As Integer, count As Integer)
+  overload: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.MoveItemsTo*
+- uid: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.MoveItemsTo(Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer,System.Int32,System.Int32,System.Int32)
+  commentId: M:Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.MoveItemsTo(Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer,System.Int32,System.Int32,System.Int32)
+  id: MoveItemsTo(Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer,System.Int32,System.Int32,System.Int32)
+  parent: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer
+  langs:
+  - csharp
+  - vb
+  name: MoveItemsTo(IAbstractMarkupDataContainer, Int32, Int32, Int32)
+  nameWithType: IAbstractMarkupDataContainer.MoveItemsTo(IAbstractMarkupDataContainer, Int32, Int32, Int32)
+  fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.MoveItemsTo(Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer, System.Int32, System.Int32, System.Int32)
+  type: Method
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core
+    isExternal: true
+  assemblies:
+  - Sdl.FileTypeSupport.Framework.Core
+  namespace: Sdl.FileTypeSupport.Framework.BilingualApi
+  summary: "\nMoves a number of items from this container into a specific location in another one.\n"
+  remarks: "\nThe order of the moved items is preserved.\n"
+  syntax:
+    content: void MoveItemsTo(IAbstractMarkupDataContainer destinationContainer, int destinationIndex, int startIndex, int count)
+    parameters:
+    - id: destinationContainer
+      type: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer
+      description: The container into which the items will be moved
+    - id: destinationIndex
+      type: System.Int32
+      description: The location where the items should be inserted in the destination container
+    - id: startIndex
+      type: System.Int32
+      description: Index of the first item in this container to be moved.
+    - id: count
+      type: System.Int32
+      description: Number of items to be moved
+    content.vb: Sub MoveItemsTo(destinationContainer As IAbstractMarkupDataContainer, destinationIndex As Integer, startIndex As Integer, count As Integer)
+  overload: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.MoveItemsTo*
+- uid: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.GetLocationsFrom(Sdl.FileTypeSupport.Framework.BilingualApi.Location)
+  commentId: M:Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.GetLocationsFrom(Sdl.FileTypeSupport.Framework.BilingualApi.Location)
+  id: GetLocationsFrom(Sdl.FileTypeSupport.Framework.BilingualApi.Location)
+  parent: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer
+  langs:
+  - csharp
+  - vb
+  name: GetLocationsFrom(Location)
+  nameWithType: IAbstractMarkupDataContainer.GetLocationsFrom(Location)
+  fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.GetLocationsFrom(Sdl.FileTypeSupport.Framework.BilingualApi.Location)
+  type: Method
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core
+    isExternal: true
+  assemblies:
+  - Sdl.FileTypeSupport.Framework.Core
+  namespace: Sdl.FileTypeSupport.Framework.BilingualApi
+  summary: "\nEnumerator for locations starting from a specific location\n"
+  syntax:
+    content: IEnumerable<Location> GetLocationsFrom(Location startingFrom)
+    parameters:
+    - id: startingFrom
+      type: Sdl.FileTypeSupport.Framework.BilingualApi.Location
+      description: Must be a location inside this collection
+    return:
+      type: System.Collections.Generic.IEnumerable{Sdl.FileTypeSupport.Framework.BilingualApi.Location}
+      description: Iterator that can be used to iterate over the remainder of the collection
+    content.vb: Function GetLocationsFrom(startingFrom As Location) As IEnumerable(Of Location)
+  overload: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.GetLocationsFrom*
+- uid: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.Find(System.Predicate{Sdl.FileTypeSupport.Framework.BilingualApi.Location})
+  commentId: M:Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.Find(System.Predicate{Sdl.FileTypeSupport.Framework.BilingualApi.Location})
+  id: Find(System.Predicate{Sdl.FileTypeSupport.Framework.BilingualApi.Location})
+  parent: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer
+  langs:
+  - csharp
+  - vb
+  name: Find(Predicate<Location>)
+  nameWithType: IAbstractMarkupDataContainer.Find(Predicate<Location>)
+  fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.Find(System.Predicate<Sdl.FileTypeSupport.Framework.BilingualApi.Location>)
+  type: Method
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core
+    isExternal: true
+  assemblies:
+  - Sdl.FileTypeSupport.Framework.Core
+  namespace: Sdl.FileTypeSupport.Framework.BilingualApi
+  summary: "\nReturns the first location that matches the specified predecate.\nThe iteration is performed over all locations in this collection and all sub-collections until\nthe element is located.\n"
+  example:
+  - "\nThis example shows how this can be used to find the location of an equivalent item inside a paragraph.\n<pre><code>Location GetEquivalentItemLocation(IAbstractMarkupData equalItem, IParagraph para)\n{\n  return para.Find( \n    delegate(Location location)\n    {\n      return equalItem.Equals(location.ItemAtLocation);\n    });\n}</code></pre>\n"
+  syntax:
+    content: Location Find(Predicate<Location> match)
+    parameters:
+    - id: match
+      type: System.Predicate{Sdl.FileTypeSupport.Framework.BilingualApi.Location}
+      description: Delegate that returns true when a matching location has been found
+    return:
+      type: Sdl.FileTypeSupport.Framework.BilingualApi.Location
+      description: >-
+        The first location that matches the specified predicate
+
+        <p>If no corresponding location is found, <code>null</code> is returned.</p>
+    content.vb: Function Find(match As Predicate(Of Location)) As Location
+  overload: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.Find*
+  nameWithType.vb: IAbstractMarkupDataContainer.Find(Predicate(Of Location))
+  fullName.vb: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.Find(System.Predicate(Of Sdl.FileTypeSupport.Framework.BilingualApi.Location))
+  name.vb: Find(Predicate(Of Location))
+- uid: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.Find(System.Predicate{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData})
+  commentId: M:Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.Find(System.Predicate{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData})
+  id: Find(System.Predicate{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData})
+  parent: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer
+  langs:
+  - csharp
+  - vb
+  name: Find(Predicate<IAbstractMarkupData>)
+  nameWithType: IAbstractMarkupDataContainer.Find(Predicate<IAbstractMarkupData>)
+  fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.Find(System.Predicate<Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData>)
+  type: Method
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core
+    isExternal: true
+  assemblies:
+  - Sdl.FileTypeSupport.Framework.Core
+  namespace: Sdl.FileTypeSupport.Framework.BilingualApi
+  summary: "\nReturns the first item that matches the specified predecate.\n<p>\nThe iteration is performed over all items and sub-items in this collection and all sub-collections until\nthe item is located.\n</p>\n"
+  example:
+  - "\nThe following example shows how this can be used (with an anonymous method) to find the an equivalent item inside a paragraph.\n<pre><code>IAbstractMarkupData GetEquivalentItem(IAbstractMarkupData equalItem, IParagraph para)\n{\n  return para.Find( \n    delegate(IAbstractMarkupData item)\n    {\n      return equalItem.Equals(item);\n    });\n}</code></pre>\n"
+  syntax:
+    content: IAbstractMarkupData Find(Predicate<IAbstractMarkupData> match)
+    parameters:
+    - id: match
+      type: System.Predicate{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}
+      description: Delegate that returns true when a matching item has been found
+    return:
+      type: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData
+      description: >-
+        The first item that matches the specified predicate
+
+        <p>If no corresponding item is found, <code>null</code> is returned.</p>
+    content.vb: Function Find(match As Predicate(Of IAbstractMarkupData)) As IAbstractMarkupData
+  overload: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.Find*
+  nameWithType.vb: IAbstractMarkupDataContainer.Find(Predicate(Of IAbstractMarkupData))
+  fullName.vb: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.Find(System.Predicate(Of Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData))
+  name.vb: Find(Predicate(Of IAbstractMarkupData))
+- uid: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.Find(Sdl.FileTypeSupport.Framework.BilingualApi.Location,System.Predicate{Sdl.FileTypeSupport.Framework.BilingualApi.Location})
+  commentId: M:Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.Find(Sdl.FileTypeSupport.Framework.BilingualApi.Location,System.Predicate{Sdl.FileTypeSupport.Framework.BilingualApi.Location})
+  id: Find(Sdl.FileTypeSupport.Framework.BilingualApi.Location,System.Predicate{Sdl.FileTypeSupport.Framework.BilingualApi.Location})
+  parent: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer
+  langs:
+  - csharp
+  - vb
+  name: Find(Location, Predicate<Location>)
+  nameWithType: IAbstractMarkupDataContainer.Find(Location, Predicate<Location>)
+  fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.Find(Sdl.FileTypeSupport.Framework.BilingualApi.Location, System.Predicate<Sdl.FileTypeSupport.Framework.BilingualApi.Location>)
+  type: Method
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core
+    isExternal: true
+  assemblies:
+  - Sdl.FileTypeSupport.Framework.Core
+  namespace: Sdl.FileTypeSupport.Framework.BilingualApi
+  summary: "\nReturns the first location that matches the specified predecate, starting\nat a specific location.\n"
+  syntax:
+    content: Location Find(Location startAt, Predicate<Location> match)
+    parameters:
+    - id: startAt
+      type: Sdl.FileTypeSupport.Framework.BilingualApi.Location
+      description: >-
+        The location at which the search is started. This must NOT be <code>null</code>.
+
+        <p>If the predicate matches
+
+        this location, it will be returned.</p>
+
+        <p>If no corresponding location is found, <code>null</code> is returned.</p>
+    - id: match
+      type: System.Predicate{Sdl.FileTypeSupport.Framework.BilingualApi.Location}
+      description: The predicate to evaluate for each location.
+    return:
+      type: Sdl.FileTypeSupport.Framework.BilingualApi.Location
+    content.vb: Function Find(startAt As Location, match As Predicate(Of Location)) As Location
+  overload: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.Find*
+  nameWithType.vb: IAbstractMarkupDataContainer.Find(Location, Predicate(Of Location))
+  fullName.vb: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.Find(Sdl.FileTypeSupport.Framework.BilingualApi.Location, System.Predicate(Of Sdl.FileTypeSupport.Framework.BilingualApi.Location))
+  name.vb: Find(Location, Predicate(Of Location))
+- uid: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.ForEachSubItem(System.Action{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData})
+  commentId: M:Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.ForEachSubItem(System.Action{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData})
+  id: ForEachSubItem(System.Action{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData})
+  parent: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer
+  langs:
+  - csharp
+  - vb
+  name: ForEachSubItem(Action<IAbstractMarkupData>)
+  nameWithType: IAbstractMarkupDataContainer.ForEachSubItem(Action<IAbstractMarkupData>)
+  fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.ForEachSubItem(System.Action<Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData>)
+  type: Method
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core
+    isExternal: true
+  assemblies:
+  - Sdl.FileTypeSupport.Framework.Core
+  namespace: Sdl.FileTypeSupport.Framework.BilingualApi
+  summary: "\nExecute the specified action on each item and (recursively) each sub-item in this container.\n"
+  remarks: "\n<p>\nThe action is executed on the container nodes themselves before it is executed\non the content items of the containers.\n</p>\n"
+  syntax:
+    content: void ForEachSubItem(Action<IAbstractMarkupData> action)
+    parameters:
+    - id: action
+      type: System.Action{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}
+    content.vb: Sub ForEachSubItem(action As Action(Of IAbstractMarkupData))
+  overload: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.ForEachSubItem*
+  nameWithType.vb: IAbstractMarkupDataContainer.ForEachSubItem(Action(Of IAbstractMarkupData))
+  fullName.vb: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.ForEachSubItem(System.Action(Of Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData))
+  name.vb: ForEachSubItem(Action(Of IAbstractMarkupData))
+- uid: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.AllSubItems
+  commentId: P:Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.AllSubItems
+  id: AllSubItems
+  parent: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer
+  langs:
+  - csharp
+  - vb
+  name: AllSubItems
+  nameWithType: IAbstractMarkupDataContainer.AllSubItems
+  fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.AllSubItems
+  type: Property
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core
+    isExternal: true
+  assemblies:
+  - Sdl.FileTypeSupport.Framework.Core
+  namespace: Sdl.FileTypeSupport.Framework.BilingualApi
+  summary: "\nAn iterator that can be used to iterate over all child items - including sub-items - in the container.\n"
+  remarks: "\n<p>\nContainer items inside the container are encountered before the  actual items that they contain. Note that there is\nno need for the caller to loop through the content of container nodes, as these will also be automatically\nretrieved through this iterator.\n</p>\n"
+  syntax:
+    content: IEnumerable<IAbstractMarkupData> AllSubItems { get; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.IEnumerable{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}
+    content.vb: ReadOnly Property AllSubItems As IEnumerable(Of IAbstractMarkupData)
+  overload: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.AllSubItems*
+  modifiers.csharp:
+  - get
+  modifiers.vb:
+  - ReadOnly
+- uid: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.CanBeSplit
+  commentId: P:Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.CanBeSplit
+  id: CanBeSplit
+  parent: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer
+  langs:
+  - csharp
+  - vb
+  name: CanBeSplit
+  nameWithType: IAbstractMarkupDataContainer.CanBeSplit
+  fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.CanBeSplit
+  type: Property
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core
+    isExternal: true
+  assemblies:
+  - Sdl.FileTypeSupport.Framework.Core
+  namespace: Sdl.FileTypeSupport.Framework.BilingualApi
+  summary: "\nIndicates whether it is possible to split this container into different\nparts by calling the <xref href=\"Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.Split(System.Int32)\" data-throw-if-not-resolved=\"false\"></xref> method.\n"
+  syntax:
+    content: bool CanBeSplit { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: ReadOnly Property CanBeSplit As Boolean
+  overload: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.CanBeSplit*
+  modifiers.csharp:
+  - get
+  modifiers.vb:
+  - ReadOnly
+- uid: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.Locations
+  commentId: P:Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.Locations
+  id: Locations
+  parent: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer
+  langs:
+  - csharp
+  - vb
+  name: Locations
+  nameWithType: IAbstractMarkupDataContainer.Locations
+  fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.Locations
+  type: Property
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core
+    isExternal: true
+  assemblies:
+  - Sdl.FileTypeSupport.Framework.Core
+  namespace: Sdl.FileTypeSupport.Framework.BilingualApi
+  summary: "\nIterator for all possible locations in the collection and its sub-collections\n"
+  example:
+  - "\nBelow you find an example of how you can use this iterator:\n<pre><code>void ProcessAllText(IAbstractMarkupDataContainer container)\n{\n  foreach (Location location in container.Locations)\n  {\n    IText text = location.ItemAtLocation as IText;\n    if (text != null)\n    {\n      ProcessText(text);\n    }\n  }\n}</code></pre>\n"
+  syntax:
+    content: IEnumerable<Location> Locations { get; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.IEnumerable{Sdl.FileTypeSupport.Framework.BilingualApi.Location}
+    content.vb: ReadOnly Property Locations As IEnumerable(Of Location)
+  overload: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.Locations*
+  modifiers.csharp:
+  - get
+  modifiers.vb:
+  - ReadOnly
+references:
+- uid: Sdl.FileTypeSupport.Framework.BilingualApi
+  commentId: N:Sdl.FileTypeSupport.Framework.BilingualApi
+  isExternal: true
+  name: Sdl.FileTypeSupport.Framework.BilingualApi
+  nameWithType: Sdl.FileTypeSupport.Framework.BilingualApi
+  fullName: Sdl.FileTypeSupport.Framework.BilingualApi
+- uid: System.Collections.Generic.IList{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}.IndexOf(Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData)
+  commentId: M:System.Collections.Generic.IList{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}.IndexOf(Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData)
+  parent: System.Collections.Generic.IList{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}
+  definition: System.Collections.Generic.IList`1.IndexOf(`0)
+  name: IndexOf(IAbstractMarkupData)
+  nameWithType: IList<IAbstractMarkupData>.IndexOf(IAbstractMarkupData)
+  fullName: System.Collections.Generic.IList<Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData>.IndexOf(Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData)
+  nameWithType.vb: IList(Of IAbstractMarkupData).IndexOf(IAbstractMarkupData)
+  fullName.vb: System.Collections.Generic.IList(Of Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData).IndexOf(Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData)
+  spec.csharp:
+  - uid: System.Collections.Generic.IList`1.IndexOf(`0)
+    name: IndexOf
+    nameWithType: IList<IAbstractMarkupData>.IndexOf
+    fullName: System.Collections.Generic.IList<Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData>.IndexOf
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData
+    name: IAbstractMarkupData
+    nameWithType: IAbstractMarkupData
+    fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Collections.Generic.IList`1.IndexOf(`0)
+    name: IndexOf
+    nameWithType: IList(Of IAbstractMarkupData).IndexOf
+    fullName: System.Collections.Generic.IList(Of Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData).IndexOf
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData
+    name: IAbstractMarkupData
+    nameWithType: IAbstractMarkupData
+    fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.IList{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}.Insert(System.Int32,Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData)
+  commentId: M:System.Collections.Generic.IList{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}.Insert(System.Int32,Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData)
+  parent: System.Collections.Generic.IList{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}
+  definition: System.Collections.Generic.IList`1.Insert(System.Int32,`0)
+  name: Insert(Int32, IAbstractMarkupData)
+  nameWithType: IList<IAbstractMarkupData>.Insert(Int32, IAbstractMarkupData)
+  fullName: System.Collections.Generic.IList<Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData>.Insert(System.Int32, Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData)
+  nameWithType.vb: IList(Of IAbstractMarkupData).Insert(Int32, IAbstractMarkupData)
+  fullName.vb: System.Collections.Generic.IList(Of Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData).Insert(System.Int32, Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData)
+  spec.csharp:
+  - uid: System.Collections.Generic.IList`1.Insert(System.Int32,`0)
+    name: Insert
+    nameWithType: IList<IAbstractMarkupData>.Insert
+    fullName: System.Collections.Generic.IList<Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData>.Insert
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData
+    name: IAbstractMarkupData
+    nameWithType: IAbstractMarkupData
+    fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Collections.Generic.IList`1.Insert(System.Int32,`0)
+    name: Insert
+    nameWithType: IList(Of IAbstractMarkupData).Insert
+    fullName: System.Collections.Generic.IList(Of Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData).Insert
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData
+    name: IAbstractMarkupData
+    nameWithType: IAbstractMarkupData
+    fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.IList{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}.RemoveAt(System.Int32)
+  commentId: M:System.Collections.Generic.IList{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}.RemoveAt(System.Int32)
+  parent: System.Collections.Generic.IList{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}
+  definition: System.Collections.Generic.IList`1.RemoveAt(System.Int32)
+  name: RemoveAt(Int32)
+  nameWithType: IList<IAbstractMarkupData>.RemoveAt(Int32)
+  fullName: System.Collections.Generic.IList<Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData>.RemoveAt(System.Int32)
+  nameWithType.vb: IList(Of IAbstractMarkupData).RemoveAt(Int32)
+  fullName.vb: System.Collections.Generic.IList(Of Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData).RemoveAt(System.Int32)
+  spec.csharp:
+  - uid: System.Collections.Generic.IList`1.RemoveAt(System.Int32)
+    name: RemoveAt
+    nameWithType: IList<IAbstractMarkupData>.RemoveAt
+    fullName: System.Collections.Generic.IList<Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData>.RemoveAt
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Collections.Generic.IList`1.RemoveAt(System.Int32)
+    name: RemoveAt
+    nameWithType: IList(Of IAbstractMarkupData).RemoveAt
+    fullName: System.Collections.Generic.IList(Of Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData).RemoveAt
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.IList{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}.Item(System.Int32)
+  commentId: P:System.Collections.Generic.IList{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}.Item(System.Int32)
+  parent: System.Collections.Generic.IList{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}
+  definition: System.Collections.Generic.IList`1.Item(System.Int32)
+  name: Item[Int32]
+  nameWithType: IList<IAbstractMarkupData>.Item[Int32]
+  fullName: System.Collections.Generic.IList<Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData>.Item[System.Int32]
+  nameWithType.vb: IList(Of IAbstractMarkupData).Item(Int32)
+  fullName.vb: System.Collections.Generic.IList(Of Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData).Item(System.Int32)
+  name.vb: Item(Int32)
+  spec.csharp:
+  - uid: System.Collections.Generic.IList`1.Item(System.Int32)
+    name: Item
+    nameWithType: IList<IAbstractMarkupData>.Item
+    fullName: System.Collections.Generic.IList<Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData>.Item
+    isExternal: true
+  - name: '['
+    nameWithType: '['
+    fullName: '['
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: ']'
+    nameWithType: ']'
+    fullName: ']'
+  spec.vb:
+  - uid: System.Collections.Generic.IList`1.Item(System.Int32)
+    name: Item
+    nameWithType: IList(Of IAbstractMarkupData).Item
+    fullName: System.Collections.Generic.IList(Of Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData).Item
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.ICollection{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}.Add(Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData)
+  commentId: M:System.Collections.Generic.ICollection{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}.Add(Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData)
+  parent: System.Collections.Generic.ICollection{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}
+  definition: System.Collections.Generic.ICollection`1.Add(`0)
+  name: Add(IAbstractMarkupData)
+  nameWithType: ICollection<IAbstractMarkupData>.Add(IAbstractMarkupData)
+  fullName: System.Collections.Generic.ICollection<Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData>.Add(Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData)
+  nameWithType.vb: ICollection(Of IAbstractMarkupData).Add(IAbstractMarkupData)
+  fullName.vb: System.Collections.Generic.ICollection(Of Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData).Add(Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData)
+  spec.csharp:
+  - uid: System.Collections.Generic.ICollection`1.Add(`0)
+    name: Add
+    nameWithType: ICollection<IAbstractMarkupData>.Add
+    fullName: System.Collections.Generic.ICollection<Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData>.Add
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData
+    name: IAbstractMarkupData
+    nameWithType: IAbstractMarkupData
+    fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Collections.Generic.ICollection`1.Add(`0)
+    name: Add
+    nameWithType: ICollection(Of IAbstractMarkupData).Add
+    fullName: System.Collections.Generic.ICollection(Of Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData).Add
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData
+    name: IAbstractMarkupData
+    nameWithType: IAbstractMarkupData
+    fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.ICollection{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}.Clear
+  commentId: M:System.Collections.Generic.ICollection{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}.Clear
+  parent: System.Collections.Generic.ICollection{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}
+  definition: System.Collections.Generic.ICollection`1.Clear
+  name: Clear()
+  nameWithType: ICollection<IAbstractMarkupData>.Clear()
+  fullName: System.Collections.Generic.ICollection<Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData>.Clear()
+  nameWithType.vb: ICollection(Of IAbstractMarkupData).Clear()
+  fullName.vb: System.Collections.Generic.ICollection(Of Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData).Clear()
+  spec.csharp:
+  - uid: System.Collections.Generic.ICollection`1.Clear
+    name: Clear
+    nameWithType: ICollection<IAbstractMarkupData>.Clear
+    fullName: System.Collections.Generic.ICollection<Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData>.Clear
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Collections.Generic.ICollection`1.Clear
+    name: Clear
+    nameWithType: ICollection(Of IAbstractMarkupData).Clear
+    fullName: System.Collections.Generic.ICollection(Of Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData).Clear
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.ICollection{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}.Contains(Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData)
+  commentId: M:System.Collections.Generic.ICollection{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}.Contains(Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData)
+  parent: System.Collections.Generic.ICollection{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}
+  definition: System.Collections.Generic.ICollection`1.Contains(`0)
+  name: Contains(IAbstractMarkupData)
+  nameWithType: ICollection<IAbstractMarkupData>.Contains(IAbstractMarkupData)
+  fullName: System.Collections.Generic.ICollection<Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData>.Contains(Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData)
+  nameWithType.vb: ICollection(Of IAbstractMarkupData).Contains(IAbstractMarkupData)
+  fullName.vb: System.Collections.Generic.ICollection(Of Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData).Contains(Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData)
+  spec.csharp:
+  - uid: System.Collections.Generic.ICollection`1.Contains(`0)
+    name: Contains
+    nameWithType: ICollection<IAbstractMarkupData>.Contains
+    fullName: System.Collections.Generic.ICollection<Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData>.Contains
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData
+    name: IAbstractMarkupData
+    nameWithType: IAbstractMarkupData
+    fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Collections.Generic.ICollection`1.Contains(`0)
+    name: Contains
+    nameWithType: ICollection(Of IAbstractMarkupData).Contains
+    fullName: System.Collections.Generic.ICollection(Of Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData).Contains
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData
+    name: IAbstractMarkupData
+    nameWithType: IAbstractMarkupData
+    fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.ICollection{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}.CopyTo(Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData[],System.Int32)
+  commentId: M:System.Collections.Generic.ICollection{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}.CopyTo(Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData[],System.Int32)
+  parent: System.Collections.Generic.ICollection{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}
+  definition: System.Collections.Generic.ICollection`1.CopyTo(`0[],System.Int32)
+  name: CopyTo(IAbstractMarkupData[], Int32)
+  nameWithType: ICollection<IAbstractMarkupData>.CopyTo(IAbstractMarkupData[], Int32)
+  fullName: System.Collections.Generic.ICollection<Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData>.CopyTo(Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData[], System.Int32)
+  nameWithType.vb: ICollection(Of IAbstractMarkupData).CopyTo(IAbstractMarkupData(), Int32)
+  fullName.vb: System.Collections.Generic.ICollection(Of Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData).CopyTo(Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData(), System.Int32)
+  name.vb: CopyTo(IAbstractMarkupData(), Int32)
+  spec.csharp:
+  - uid: System.Collections.Generic.ICollection`1.CopyTo(`0[],System.Int32)
+    name: CopyTo
+    nameWithType: ICollection<IAbstractMarkupData>.CopyTo
+    fullName: System.Collections.Generic.ICollection<Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData>.CopyTo
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData
+    name: IAbstractMarkupData
+    nameWithType: IAbstractMarkupData
+    fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData
+    isExternal: true
+  - name: '[]'
+    nameWithType: '[]'
+    fullName: '[]'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Collections.Generic.ICollection`1.CopyTo(`0[],System.Int32)
+    name: CopyTo
+    nameWithType: ICollection(Of IAbstractMarkupData).CopyTo
+    fullName: System.Collections.Generic.ICollection(Of Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData).CopyTo
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData
+    name: IAbstractMarkupData
+    nameWithType: IAbstractMarkupData
+    fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData
+    isExternal: true
+  - name: ()
+    nameWithType: ()
+    fullName: ()
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.ICollection{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}.Remove(Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData)
+  commentId: M:System.Collections.Generic.ICollection{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}.Remove(Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData)
+  parent: System.Collections.Generic.ICollection{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}
+  definition: System.Collections.Generic.ICollection`1.Remove(`0)
+  name: Remove(IAbstractMarkupData)
+  nameWithType: ICollection<IAbstractMarkupData>.Remove(IAbstractMarkupData)
+  fullName: System.Collections.Generic.ICollection<Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData>.Remove(Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData)
+  nameWithType.vb: ICollection(Of IAbstractMarkupData).Remove(IAbstractMarkupData)
+  fullName.vb: System.Collections.Generic.ICollection(Of Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData).Remove(Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData)
+  spec.csharp:
+  - uid: System.Collections.Generic.ICollection`1.Remove(`0)
+    name: Remove
+    nameWithType: ICollection<IAbstractMarkupData>.Remove
+    fullName: System.Collections.Generic.ICollection<Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData>.Remove
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData
+    name: IAbstractMarkupData
+    nameWithType: IAbstractMarkupData
+    fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Collections.Generic.ICollection`1.Remove(`0)
+    name: Remove
+    nameWithType: ICollection(Of IAbstractMarkupData).Remove
+    fullName: System.Collections.Generic.ICollection(Of Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData).Remove
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData
+    name: IAbstractMarkupData
+    nameWithType: IAbstractMarkupData
+    fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.ICollection{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}.Count
+  commentId: P:System.Collections.Generic.ICollection{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}.Count
+  parent: System.Collections.Generic.ICollection{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}
+  definition: System.Collections.Generic.ICollection`1.Count
+  name: Count
+  nameWithType: ICollection<IAbstractMarkupData>.Count
+  fullName: System.Collections.Generic.ICollection<Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData>.Count
+  nameWithType.vb: ICollection(Of IAbstractMarkupData).Count
+  fullName.vb: System.Collections.Generic.ICollection(Of Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData).Count
+- uid: System.Collections.Generic.ICollection{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}.IsReadOnly
+  commentId: P:System.Collections.Generic.ICollection{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}.IsReadOnly
+  parent: System.Collections.Generic.ICollection{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}
+  definition: System.Collections.Generic.ICollection`1.IsReadOnly
+  name: IsReadOnly
+  nameWithType: ICollection<IAbstractMarkupData>.IsReadOnly
+  fullName: System.Collections.Generic.ICollection<Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData>.IsReadOnly
+  nameWithType.vb: ICollection(Of IAbstractMarkupData).IsReadOnly
+  fullName.vb: System.Collections.Generic.ICollection(Of Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData).IsReadOnly
+- uid: System.Collections.Generic.IEnumerable{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}.GetEnumerator
+  commentId: M:System.Collections.Generic.IEnumerable{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}.GetEnumerator
+  parent: System.Collections.Generic.IEnumerable{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}
+  definition: System.Collections.Generic.IEnumerable`1.GetEnumerator
+  name: GetEnumerator()
+  nameWithType: IEnumerable<IAbstractMarkupData>.GetEnumerator()
+  fullName: System.Collections.Generic.IEnumerable<Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData>.GetEnumerator()
+  nameWithType.vb: IEnumerable(Of IAbstractMarkupData).GetEnumerator()
+  fullName.vb: System.Collections.Generic.IEnumerable(Of Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData).GetEnumerator()
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1.GetEnumerator
+    name: GetEnumerator
+    nameWithType: IEnumerable<IAbstractMarkupData>.GetEnumerator
+    fullName: System.Collections.Generic.IEnumerable<Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData>.GetEnumerator
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1.GetEnumerator
+    name: GetEnumerator
+    nameWithType: IEnumerable(Of IAbstractMarkupData).GetEnumerator
+    fullName: System.Collections.Generic.IEnumerable(Of Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData).GetEnumerator
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Sdl.FileTypeSupport.Framework.NativeApi.ISupportsUniqueId.UniqueId
+  commentId: P:Sdl.FileTypeSupport.Framework.NativeApi.ISupportsUniqueId.UniqueId
+  parent: Sdl.FileTypeSupport.Framework.NativeApi.ISupportsUniqueId
+  isExternal: true
+  name: UniqueId
+  nameWithType: ISupportsUniqueId.UniqueId
+  fullName: Sdl.FileTypeSupport.Framework.NativeApi.ISupportsUniqueId.UniqueId
+- uid: System.Collections.Generic.IList`1.IndexOf(`0)
+  commentId: M:System.Collections.Generic.IList`1.IndexOf(`0)
+  isExternal: true
+  name: IndexOf(T)
+  nameWithType: IList<T>.IndexOf(T)
+  fullName: System.Collections.Generic.IList<T>.IndexOf(T)
+  nameWithType.vb: IList(Of T).IndexOf(T)
+  fullName.vb: System.Collections.Generic.IList(Of T).IndexOf(T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IList`1.IndexOf(`0)
+    name: IndexOf
+    nameWithType: IList<T>.IndexOf
+    fullName: System.Collections.Generic.IList<T>.IndexOf
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Collections.Generic.IList`1.IndexOf(`0)
+    name: IndexOf
+    nameWithType: IList(Of T).IndexOf
+    fullName: System.Collections.Generic.IList(Of T).IndexOf
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.IList{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}
+  commentId: T:System.Collections.Generic.IList{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IList`1
+  name: IList<IAbstractMarkupData>
+  nameWithType: IList<IAbstractMarkupData>
+  fullName: System.Collections.Generic.IList<Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData>
+  nameWithType.vb: IList(Of IAbstractMarkupData)
+  fullName.vb: System.Collections.Generic.IList(Of Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData)
+  name.vb: IList(Of IAbstractMarkupData)
+  spec.csharp:
+  - uid: System.Collections.Generic.IList`1
+    name: IList
+    nameWithType: IList
+    fullName: System.Collections.Generic.IList
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData
+    name: IAbstractMarkupData
+    nameWithType: IAbstractMarkupData
+    fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IList`1
+    name: IList
+    nameWithType: IList
+    fullName: System.Collections.Generic.IList
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData
+    name: IAbstractMarkupData
+    nameWithType: IAbstractMarkupData
+    fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.IList`1.Insert(System.Int32,`0)
+  commentId: M:System.Collections.Generic.IList`1.Insert(System.Int32,`0)
+  isExternal: true
+  name: Insert(Int32, T)
+  nameWithType: IList<T>.Insert(Int32, T)
+  fullName: System.Collections.Generic.IList<T>.Insert(System.Int32, T)
+  nameWithType.vb: IList(Of T).Insert(Int32, T)
+  fullName.vb: System.Collections.Generic.IList(Of T).Insert(System.Int32, T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IList`1.Insert(System.Int32,`0)
+    name: Insert
+    nameWithType: IList<T>.Insert
+    fullName: System.Collections.Generic.IList<T>.Insert
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Collections.Generic.IList`1.Insert(System.Int32,`0)
+    name: Insert
+    nameWithType: IList(Of T).Insert
+    fullName: System.Collections.Generic.IList(Of T).Insert
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.IList`1.RemoveAt(System.Int32)
+  commentId: M:System.Collections.Generic.IList`1.RemoveAt(System.Int32)
+  isExternal: true
+  name: RemoveAt(Int32)
+  nameWithType: IList<T>.RemoveAt(Int32)
+  fullName: System.Collections.Generic.IList<T>.RemoveAt(System.Int32)
+  nameWithType.vb: IList(Of T).RemoveAt(Int32)
+  fullName.vb: System.Collections.Generic.IList(Of T).RemoveAt(System.Int32)
+  spec.csharp:
+  - uid: System.Collections.Generic.IList`1.RemoveAt(System.Int32)
+    name: RemoveAt
+    nameWithType: IList<T>.RemoveAt
+    fullName: System.Collections.Generic.IList<T>.RemoveAt
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Collections.Generic.IList`1.RemoveAt(System.Int32)
+    name: RemoveAt
+    nameWithType: IList(Of T).RemoveAt
+    fullName: System.Collections.Generic.IList(Of T).RemoveAt
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.IList`1.Item(System.Int32)
+  commentId: P:System.Collections.Generic.IList`1.Item(System.Int32)
+  isExternal: true
+  name: Item[Int32]
+  nameWithType: IList<T>.Item[Int32]
+  fullName: System.Collections.Generic.IList<T>.Item[System.Int32]
+  nameWithType.vb: IList(Of T).Item(Int32)
+  fullName.vb: System.Collections.Generic.IList(Of T).Item(System.Int32)
+  name.vb: Item(Int32)
+  spec.csharp:
+  - uid: System.Collections.Generic.IList`1.Item(System.Int32)
+    name: Item
+    nameWithType: IList<T>.Item
+    fullName: System.Collections.Generic.IList<T>.Item
+    isExternal: true
+  - name: '['
+    nameWithType: '['
+    fullName: '['
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: ']'
+    nameWithType: ']'
+    fullName: ']'
+  spec.vb:
+  - uid: System.Collections.Generic.IList`1.Item(System.Int32)
+    name: Item
+    nameWithType: IList(Of T).Item
+    fullName: System.Collections.Generic.IList(Of T).Item
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.ICollection`1.Add(`0)
+  commentId: M:System.Collections.Generic.ICollection`1.Add(`0)
+  isExternal: true
+  name: Add(T)
+  nameWithType: ICollection<T>.Add(T)
+  fullName: System.Collections.Generic.ICollection<T>.Add(T)
+  nameWithType.vb: ICollection(Of T).Add(T)
+  fullName.vb: System.Collections.Generic.ICollection(Of T).Add(T)
+  spec.csharp:
+  - uid: System.Collections.Generic.ICollection`1.Add(`0)
+    name: Add
+    nameWithType: ICollection<T>.Add
+    fullName: System.Collections.Generic.ICollection<T>.Add
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Collections.Generic.ICollection`1.Add(`0)
+    name: Add
+    nameWithType: ICollection(Of T).Add
+    fullName: System.Collections.Generic.ICollection(Of T).Add
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.ICollection{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}
+  commentId: T:System.Collections.Generic.ICollection{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.ICollection`1
+  name: ICollection<IAbstractMarkupData>
+  nameWithType: ICollection<IAbstractMarkupData>
+  fullName: System.Collections.Generic.ICollection<Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData>
+  nameWithType.vb: ICollection(Of IAbstractMarkupData)
+  fullName.vb: System.Collections.Generic.ICollection(Of Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData)
+  name.vb: ICollection(Of IAbstractMarkupData)
+  spec.csharp:
+  - uid: System.Collections.Generic.ICollection`1
+    name: ICollection
+    nameWithType: ICollection
+    fullName: System.Collections.Generic.ICollection
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData
+    name: IAbstractMarkupData
+    nameWithType: IAbstractMarkupData
+    fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.ICollection`1
+    name: ICollection
+    nameWithType: ICollection
+    fullName: System.Collections.Generic.ICollection
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData
+    name: IAbstractMarkupData
+    nameWithType: IAbstractMarkupData
+    fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.ICollection`1.Clear
+  commentId: M:System.Collections.Generic.ICollection`1.Clear
+  isExternal: true
+  name: Clear()
+  nameWithType: ICollection<T>.Clear()
+  fullName: System.Collections.Generic.ICollection<T>.Clear()
+  nameWithType.vb: ICollection(Of T).Clear()
+  fullName.vb: System.Collections.Generic.ICollection(Of T).Clear()
+  spec.csharp:
+  - uid: System.Collections.Generic.ICollection`1.Clear
+    name: Clear
+    nameWithType: ICollection<T>.Clear
+    fullName: System.Collections.Generic.ICollection<T>.Clear
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Collections.Generic.ICollection`1.Clear
+    name: Clear
+    nameWithType: ICollection(Of T).Clear
+    fullName: System.Collections.Generic.ICollection(Of T).Clear
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.ICollection`1.Contains(`0)
+  commentId: M:System.Collections.Generic.ICollection`1.Contains(`0)
+  isExternal: true
+  name: Contains(T)
+  nameWithType: ICollection<T>.Contains(T)
+  fullName: System.Collections.Generic.ICollection<T>.Contains(T)
+  nameWithType.vb: ICollection(Of T).Contains(T)
+  fullName.vb: System.Collections.Generic.ICollection(Of T).Contains(T)
+  spec.csharp:
+  - uid: System.Collections.Generic.ICollection`1.Contains(`0)
+    name: Contains
+    nameWithType: ICollection<T>.Contains
+    fullName: System.Collections.Generic.ICollection<T>.Contains
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Collections.Generic.ICollection`1.Contains(`0)
+    name: Contains
+    nameWithType: ICollection(Of T).Contains
+    fullName: System.Collections.Generic.ICollection(Of T).Contains
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.ICollection`1.CopyTo(`0[],System.Int32)
+  commentId: M:System.Collections.Generic.ICollection`1.CopyTo(`0[],System.Int32)
+  isExternal: true
+  name: CopyTo(T[], Int32)
+  nameWithType: ICollection<T>.CopyTo(T[], Int32)
+  fullName: System.Collections.Generic.ICollection<T>.CopyTo(T[], System.Int32)
+  nameWithType.vb: ICollection(Of T).CopyTo(T(), Int32)
+  fullName.vb: System.Collections.Generic.ICollection(Of T).CopyTo(T(), System.Int32)
+  name.vb: CopyTo(T(), Int32)
+  spec.csharp:
+  - uid: System.Collections.Generic.ICollection`1.CopyTo(`0[],System.Int32)
+    name: CopyTo
+    nameWithType: ICollection<T>.CopyTo
+    fullName: System.Collections.Generic.ICollection<T>.CopyTo
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '[]'
+    nameWithType: '[]'
+    fullName: '[]'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Collections.Generic.ICollection`1.CopyTo(`0[],System.Int32)
+    name: CopyTo
+    nameWithType: ICollection(Of T).CopyTo
+    fullName: System.Collections.Generic.ICollection(Of T).CopyTo
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ()
+    nameWithType: ()
+    fullName: ()
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.ICollection`1.Remove(`0)
+  commentId: M:System.Collections.Generic.ICollection`1.Remove(`0)
+  isExternal: true
+  name: Remove(T)
+  nameWithType: ICollection<T>.Remove(T)
+  fullName: System.Collections.Generic.ICollection<T>.Remove(T)
+  nameWithType.vb: ICollection(Of T).Remove(T)
+  fullName.vb: System.Collections.Generic.ICollection(Of T).Remove(T)
+  spec.csharp:
+  - uid: System.Collections.Generic.ICollection`1.Remove(`0)
+    name: Remove
+    nameWithType: ICollection<T>.Remove
+    fullName: System.Collections.Generic.ICollection<T>.Remove
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Collections.Generic.ICollection`1.Remove(`0)
+    name: Remove
+    nameWithType: ICollection(Of T).Remove
+    fullName: System.Collections.Generic.ICollection(Of T).Remove
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.ICollection`1.Count
+  commentId: P:System.Collections.Generic.ICollection`1.Count
+  isExternal: true
+  name: Count
+  nameWithType: ICollection<T>.Count
+  fullName: System.Collections.Generic.ICollection<T>.Count
+  nameWithType.vb: ICollection(Of T).Count
+  fullName.vb: System.Collections.Generic.ICollection(Of T).Count
+- uid: System.Collections.Generic.ICollection`1.IsReadOnly
+  commentId: P:System.Collections.Generic.ICollection`1.IsReadOnly
+  isExternal: true
+  name: IsReadOnly
+  nameWithType: ICollection<T>.IsReadOnly
+  fullName: System.Collections.Generic.ICollection<T>.IsReadOnly
+  nameWithType.vb: ICollection(Of T).IsReadOnly
+  fullName.vb: System.Collections.Generic.ICollection(Of T).IsReadOnly
+- uid: System.Collections.Generic.IEnumerable`1.GetEnumerator
+  commentId: M:System.Collections.Generic.IEnumerable`1.GetEnumerator
+  isExternal: true
+  name: GetEnumerator()
+  nameWithType: IEnumerable<T>.GetEnumerator()
+  fullName: System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+  nameWithType.vb: IEnumerable(Of T).GetEnumerator()
+  fullName.vb: System.Collections.Generic.IEnumerable(Of T).GetEnumerator()
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1.GetEnumerator
+    name: GetEnumerator
+    nameWithType: IEnumerable<T>.GetEnumerator
+    fullName: System.Collections.Generic.IEnumerable<T>.GetEnumerator
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1.GetEnumerator
+    name: GetEnumerator
+    nameWithType: IEnumerable(Of T).GetEnumerator
+    fullName: System.Collections.Generic.IEnumerable(Of T).GetEnumerator
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.IEnumerable{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}
+  commentId: T:System.Collections.Generic.IEnumerable{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerable`1
+  name: IEnumerable<IAbstractMarkupData>
+  nameWithType: IEnumerable<IAbstractMarkupData>
+  fullName: System.Collections.Generic.IEnumerable<Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData>
+  nameWithType.vb: IEnumerable(Of IAbstractMarkupData)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData)
+  name.vb: IEnumerable(Of IAbstractMarkupData)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData
+    name: IAbstractMarkupData
+    nameWithType: IAbstractMarkupData
+    fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData
+    name: IAbstractMarkupData
+    nameWithType: IAbstractMarkupData
+    fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Sdl.FileTypeSupport.Framework.NativeApi.ISupportsUniqueId
+  commentId: T:Sdl.FileTypeSupport.Framework.NativeApi.ISupportsUniqueId
+  parent: Sdl.FileTypeSupport.Framework.NativeApi
+  isExternal: true
+  name: ISupportsUniqueId
+  nameWithType: ISupportsUniqueId
+  fullName: Sdl.FileTypeSupport.Framework.NativeApi.ISupportsUniqueId
+- uid: System.Collections.Generic.IList`1
+  commentId: T:System.Collections.Generic.IList`1
+  isExternal: true
+  name: IList<T>
+  nameWithType: IList<T>
+  fullName: System.Collections.Generic.IList<T>
+  nameWithType.vb: IList(Of T)
+  fullName.vb: System.Collections.Generic.IList(Of T)
+  name.vb: IList(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IList`1
+    name: IList
+    nameWithType: IList
+    fullName: System.Collections.Generic.IList
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IList`1
+    name: IList
+    nameWithType: IList
+    fullName: System.Collections.Generic.IList
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+- uid: System.Collections.Generic.ICollection`1
+  commentId: T:System.Collections.Generic.ICollection`1
+  isExternal: true
+  name: ICollection<T>
+  nameWithType: ICollection<T>
+  fullName: System.Collections.Generic.ICollection<T>
+  nameWithType.vb: ICollection(Of T)
+  fullName.vb: System.Collections.Generic.ICollection(Of T)
+  name.vb: ICollection(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.ICollection`1
+    name: ICollection
+    nameWithType: ICollection
+    fullName: System.Collections.Generic.ICollection
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.ICollection`1
+    name: ICollection
+    nameWithType: ICollection
+    fullName: System.Collections.Generic.ICollection
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.IEnumerable`1
+  commentId: T:System.Collections.Generic.IEnumerable`1
+  isExternal: true
+  name: IEnumerable<T>
+  nameWithType: IEnumerable<T>
+  fullName: System.Collections.Generic.IEnumerable<T>
+  nameWithType.vb: IEnumerable(Of T)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of T)
+  name.vb: IEnumerable(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Sdl.FileTypeSupport.Framework.NativeApi
+  commentId: N:Sdl.FileTypeSupport.Framework.NativeApi
+  isExternal: true
+  name: Sdl.FileTypeSupport.Framework.NativeApi
+  nameWithType: Sdl.FileTypeSupport.Framework.NativeApi
+  fullName: Sdl.FileTypeSupport.Framework.NativeApi
+- uid: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.Split*
+  commentId: Overload:Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.Split
+  isExternal: true
+  name: Split
+  nameWithType: IAbstractMarkupDataContainer.Split
+  fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.Split
+- uid: Sdl.FileTypeSupport.Framework.BilingualApi.NotSplittableException
+  commentId: T:Sdl.FileTypeSupport.Framework.BilingualApi.NotSplittableException
+  isExternal: true
+  name: NotSplittableException
+  nameWithType: NotSplittableException
+  fullName: Sdl.FileTypeSupport.Framework.BilingualApi.NotSplittableException
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  name: Int32
+  nameWithType: Int32
+  fullName: System.Int32
+- uid: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer
+  commentId: T:Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer
+  parent: Sdl.FileTypeSupport.Framework.BilingualApi
+  isExternal: true
+  name: IAbstractMarkupDataContainer
+  nameWithType: IAbstractMarkupDataContainer
+  fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.MoveAllItemsTo*
+  commentId: Overload:Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.MoveAllItemsTo
+  isExternal: true
+  name: MoveAllItemsTo
+  nameWithType: IAbstractMarkupDataContainer.MoveAllItemsTo
+  fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.MoveAllItemsTo
+- uid: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.MoveItemsTo*
+  commentId: Overload:Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.MoveItemsTo
+  isExternal: true
+  name: MoveItemsTo
+  nameWithType: IAbstractMarkupDataContainer.MoveItemsTo
+  fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.MoveItemsTo
+- uid: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.GetLocationsFrom*
+  commentId: Overload:Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.GetLocationsFrom
+  isExternal: true
+  name: GetLocationsFrom
+  nameWithType: IAbstractMarkupDataContainer.GetLocationsFrom
+  fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.GetLocationsFrom
+- uid: Sdl.FileTypeSupport.Framework.BilingualApi.Location
+  commentId: T:Sdl.FileTypeSupport.Framework.BilingualApi.Location
+  parent: Sdl.FileTypeSupport.Framework.BilingualApi
+  isExternal: true
+  name: Location
+  nameWithType: Location
+  fullName: Sdl.FileTypeSupport.Framework.BilingualApi.Location
+- uid: System.Collections.Generic.IEnumerable{Sdl.FileTypeSupport.Framework.BilingualApi.Location}
+  commentId: T:System.Collections.Generic.IEnumerable{Sdl.FileTypeSupport.Framework.BilingualApi.Location}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerable`1
+  name: IEnumerable<Location>
+  nameWithType: IEnumerable<Location>
+  fullName: System.Collections.Generic.IEnumerable<Sdl.FileTypeSupport.Framework.BilingualApi.Location>
+  nameWithType.vb: IEnumerable(Of Location)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of Sdl.FileTypeSupport.Framework.BilingualApi.Location)
+  name.vb: IEnumerable(Of Location)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Sdl.FileTypeSupport.Framework.BilingualApi.Location
+    name: Location
+    nameWithType: Location
+    fullName: Sdl.FileTypeSupport.Framework.BilingualApi.Location
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Sdl.FileTypeSupport.Framework.BilingualApi.Location
+    name: Location
+    nameWithType: Location
+    fullName: Sdl.FileTypeSupport.Framework.BilingualApi.Location
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.Find*
+  commentId: Overload:Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.Find
+  isExternal: true
+  name: Find
+  nameWithType: IAbstractMarkupDataContainer.Find
+  fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.Find
+- uid: System.Predicate{Sdl.FileTypeSupport.Framework.BilingualApi.Location}
+  commentId: T:System.Predicate{Sdl.FileTypeSupport.Framework.BilingualApi.Location}
+  parent: System
+  definition: System.Predicate`1
+  name: Predicate<Location>
+  nameWithType: Predicate<Location>
+  fullName: System.Predicate<Sdl.FileTypeSupport.Framework.BilingualApi.Location>
+  nameWithType.vb: Predicate(Of Location)
+  fullName.vb: System.Predicate(Of Sdl.FileTypeSupport.Framework.BilingualApi.Location)
+  name.vb: Predicate(Of Location)
+  spec.csharp:
+  - uid: System.Predicate`1
+    name: Predicate
+    nameWithType: Predicate
+    fullName: System.Predicate
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Sdl.FileTypeSupport.Framework.BilingualApi.Location
+    name: Location
+    nameWithType: Location
+    fullName: Sdl.FileTypeSupport.Framework.BilingualApi.Location
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Predicate`1
+    name: Predicate
+    nameWithType: Predicate
+    fullName: System.Predicate
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Sdl.FileTypeSupport.Framework.BilingualApi.Location
+    name: Location
+    nameWithType: Location
+    fullName: Sdl.FileTypeSupport.Framework.BilingualApi.Location
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Predicate`1
+  commentId: T:System.Predicate`1
+  isExternal: true
+  name: Predicate<T>
+  nameWithType: Predicate<T>
+  fullName: System.Predicate<T>
+  nameWithType.vb: Predicate(Of T)
+  fullName.vb: System.Predicate(Of T)
+  name.vb: Predicate(Of T)
+  spec.csharp:
+  - uid: System.Predicate`1
+    name: Predicate
+    nameWithType: Predicate
+    fullName: System.Predicate
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Predicate`1
+    name: Predicate
+    nameWithType: Predicate
+    fullName: System.Predicate
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Predicate{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}
+  commentId: T:System.Predicate{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}
+  parent: System
+  definition: System.Predicate`1
+  name: Predicate<IAbstractMarkupData>
+  nameWithType: Predicate<IAbstractMarkupData>
+  fullName: System.Predicate<Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData>
+  nameWithType.vb: Predicate(Of IAbstractMarkupData)
+  fullName.vb: System.Predicate(Of Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData)
+  name.vb: Predicate(Of IAbstractMarkupData)
+  spec.csharp:
+  - uid: System.Predicate`1
+    name: Predicate
+    nameWithType: Predicate
+    fullName: System.Predicate
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData
+    name: IAbstractMarkupData
+    nameWithType: IAbstractMarkupData
+    fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Predicate`1
+    name: Predicate
+    nameWithType: Predicate
+    fullName: System.Predicate
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData
+    name: IAbstractMarkupData
+    nameWithType: IAbstractMarkupData
+    fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData
+  commentId: T:Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData
+  parent: Sdl.FileTypeSupport.Framework.BilingualApi
+  isExternal: true
+  name: IAbstractMarkupData
+  nameWithType: IAbstractMarkupData
+  fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData
+- uid: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.ForEachSubItem*
+  commentId: Overload:Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.ForEachSubItem
+  isExternal: true
+  name: ForEachSubItem
+  nameWithType: IAbstractMarkupDataContainer.ForEachSubItem
+  fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.ForEachSubItem
+- uid: System.Action{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}
+  commentId: T:System.Action{Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData}
+  parent: System
+  definition: System.Action`1
+  name: Action<IAbstractMarkupData>
+  nameWithType: Action<IAbstractMarkupData>
+  fullName: System.Action<Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData>
+  nameWithType.vb: Action(Of IAbstractMarkupData)
+  fullName.vb: System.Action(Of Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData)
+  name.vb: Action(Of IAbstractMarkupData)
+  spec.csharp:
+  - uid: System.Action`1
+    name: Action
+    nameWithType: Action
+    fullName: System.Action
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData
+    name: IAbstractMarkupData
+    nameWithType: IAbstractMarkupData
+    fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Action`1
+    name: Action
+    nameWithType: Action
+    fullName: System.Action
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData
+    name: IAbstractMarkupData
+    nameWithType: IAbstractMarkupData
+    fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Action`1
+  commentId: T:System.Action`1
+  isExternal: true
+  name: Action<T>
+  nameWithType: Action<T>
+  fullName: System.Action<T>
+  nameWithType.vb: Action(Of T)
+  fullName.vb: System.Action(Of T)
+  name.vb: Action(Of T)
+  spec.csharp:
+  - uid: System.Action`1
+    name: Action
+    nameWithType: Action
+    fullName: System.Action
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Action`1
+    name: Action
+    nameWithType: Action
+    fullName: System.Action
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.AllSubItems*
+  commentId: Overload:Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.AllSubItems
+  isExternal: true
+  name: AllSubItems
+  nameWithType: IAbstractMarkupDataContainer.AllSubItems
+  fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.AllSubItems
+- uid: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.CanBeSplit*
+  commentId: Overload:Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.CanBeSplit
+  isExternal: true
+  name: CanBeSplit
+  nameWithType: IAbstractMarkupDataContainer.CanBeSplit
+  fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.CanBeSplit
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  name: Boolean
+  nameWithType: Boolean
+  fullName: System.Boolean
+- uid: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.Locations*
+  commentId: Overload:Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.Locations
+  isExternal: true
+  name: Locations
+  nameWithType: IAbstractMarkupDataContainer.Locations
+  fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.Locations

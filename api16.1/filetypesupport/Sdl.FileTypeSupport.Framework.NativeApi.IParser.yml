@@ -1,0 +1,232 @@
+### YamlMime:ManagedReference
+items:
+- uid: Sdl.FileTypeSupport.Framework.NativeApi.IParser
+  commentId: T:Sdl.FileTypeSupport.Framework.NativeApi.IParser
+  id: IParser
+  parent: Sdl.FileTypeSupport.Framework.NativeApi
+  children:
+  - Sdl.FileTypeSupport.Framework.NativeApi.IParser.ParseNext
+  - Sdl.FileTypeSupport.Framework.NativeApi.IParser.Progress
+  langs:
+  - csharp
+  - vb
+  name: IParser
+  nameWithType: IParser
+  fullName: Sdl.FileTypeSupport.Framework.NativeApi.IParser
+  type: Interface
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core
+    isExternal: true
+  assemblies:
+  - Sdl.FileTypeSupport.Framework.Core
+  namespace: Sdl.FileTypeSupport.Framework.NativeApi
+  summary: "\nInterface implemented by parsers.\nAbstracting this functionality into a separate interface allows you to drive parsing for native and bilingual content in the same way.\n"
+  syntax:
+    content: 'public interface IParser : IDisposable'
+    content.vb: >-
+      Public Interface IParser
+          Inherits IDisposable
+  inheritedMembers:
+  - System.IDisposable.Dispose
+  modifiers.csharp:
+  - public
+  - interface
+  modifiers.vb:
+  - Public
+  - Interface
+- uid: Sdl.FileTypeSupport.Framework.NativeApi.IParser.ParseNext
+  commentId: M:Sdl.FileTypeSupport.Framework.NativeApi.IParser.ParseNext
+  id: ParseNext
+  parent: Sdl.FileTypeSupport.Framework.NativeApi.IParser
+  langs:
+  - csharp
+  - vb
+  name: ParseNext()
+  nameWithType: IParser.ParseNext()
+  fullName: Sdl.FileTypeSupport.Framework.NativeApi.IParser.ParseNext()
+  type: Method
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core
+    isExternal: true
+  assemblies:
+  - Sdl.FileTypeSupport.Framework.Core
+  namespace: Sdl.FileTypeSupport.Framework.NativeApi
+  summary: "\nThis method is called repeatedly by the framework to process the next chunk of input.\n\nThe implementation should parse a suitable (preferably not too large) chunk of the input,\nand return a boolean value that indicates whether there is more work to be done before this file is \ncompletely parsed.\n"
+  syntax:
+    content: bool ParseNext()
+    return:
+      type: System.Boolean
+      description: <code>true</code> if there is more content to be parsed, and <code>false</code> if parsing is complete.
+    content.vb: Function ParseNext As Boolean
+  overload: Sdl.FileTypeSupport.Framework.NativeApi.IParser.ParseNext*
+- uid: Sdl.FileTypeSupport.Framework.NativeApi.IParser.Progress
+  commentId: E:Sdl.FileTypeSupport.Framework.NativeApi.IParser.Progress
+  id: Progress
+  parent: Sdl.FileTypeSupport.Framework.NativeApi.IParser
+  langs:
+  - csharp
+  - vb
+  name: Progress
+  nameWithType: IParser.Progress
+  fullName: Sdl.FileTypeSupport.Framework.NativeApi.IParser.Progress
+  type: Event
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core
+    isExternal: true
+  assemblies:
+  - Sdl.FileTypeSupport.Framework.Core
+  namespace: Sdl.FileTypeSupport.Framework.NativeApi
+  summary: "\nThe parser fires this event at regular intervals\nin order to report the progress so that interested parties can ascertain whether\nthe parsing process is indeed in progress and has not hung. That way users\nget an idea about how fast the parsing job is progressing.\n\nFramework consumers should typically not connect directly to \nthis event, but rather connect to the corresponding event on the \n<code>IFileConverter</code> instance.\n"
+  remarks: "\nProgress is reported in integer percentage values. It is not\nan error when a parser reports the same percentage number\nin subsequent events. This just indicates to the listeners\nthat the progress is slow but the component is still working on it.\n\nIt is unusual (but not unthinkable) that a percentage value\ncan decrease. This could happen if the parser gets a better estimate\nof the job size (e.g. when it needs to parse dependency \nfiles, too).\n\nIt is customary for a parser to fire this event with a percentage value of 0\nwhen parsing is about to begin and with a percentage value of 100 when parsing\nis finished.\n"
+  syntax:
+    content: event EventHandler<ProgressEventArgs> Progress
+    return:
+      type: System.EventHandler{Sdl.FileTypeSupport.Framework.NativeApi.ProgressEventArgs}
+    content.vb: Event Progress As EventHandler(Of ProgressEventArgs)
+references:
+- uid: Sdl.FileTypeSupport.Framework.NativeApi
+  commentId: N:Sdl.FileTypeSupport.Framework.NativeApi
+  isExternal: true
+  name: Sdl.FileTypeSupport.Framework.NativeApi
+  nameWithType: Sdl.FileTypeSupport.Framework.NativeApi
+  fullName: Sdl.FileTypeSupport.Framework.NativeApi
+- uid: System.IDisposable.Dispose
+  commentId: M:System.IDisposable.Dispose
+  parent: System.IDisposable
+  isExternal: true
+  name: Dispose()
+  nameWithType: IDisposable.Dispose()
+  fullName: System.IDisposable.Dispose()
+  spec.csharp:
+  - uid: System.IDisposable.Dispose
+    name: Dispose
+    nameWithType: IDisposable.Dispose
+    fullName: System.IDisposable.Dispose
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.IDisposable.Dispose
+    name: Dispose
+    nameWithType: IDisposable.Dispose
+    fullName: System.IDisposable.Dispose
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.IDisposable
+  commentId: T:System.IDisposable
+  parent: System
+  isExternal: true
+  name: IDisposable
+  nameWithType: IDisposable
+  fullName: System.IDisposable
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Sdl.FileTypeSupport.Framework.NativeApi.IParser.ParseNext*
+  commentId: Overload:Sdl.FileTypeSupport.Framework.NativeApi.IParser.ParseNext
+  isExternal: true
+  name: ParseNext
+  nameWithType: IParser.ParseNext
+  fullName: Sdl.FileTypeSupport.Framework.NativeApi.IParser.ParseNext
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  name: Boolean
+  nameWithType: Boolean
+  fullName: System.Boolean
+- uid: System.EventHandler{Sdl.FileTypeSupport.Framework.NativeApi.ProgressEventArgs}
+  commentId: T:System.EventHandler{Sdl.FileTypeSupport.Framework.NativeApi.ProgressEventArgs}
+  parent: System
+  definition: System.EventHandler`1
+  name: EventHandler<ProgressEventArgs>
+  nameWithType: EventHandler<ProgressEventArgs>
+  fullName: System.EventHandler<Sdl.FileTypeSupport.Framework.NativeApi.ProgressEventArgs>
+  nameWithType.vb: EventHandler(Of ProgressEventArgs)
+  fullName.vb: System.EventHandler(Of Sdl.FileTypeSupport.Framework.NativeApi.ProgressEventArgs)
+  name.vb: EventHandler(Of ProgressEventArgs)
+  spec.csharp:
+  - uid: System.EventHandler`1
+    name: EventHandler
+    nameWithType: EventHandler
+    fullName: System.EventHandler
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Sdl.FileTypeSupport.Framework.NativeApi.ProgressEventArgs
+    name: ProgressEventArgs
+    nameWithType: ProgressEventArgs
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.ProgressEventArgs
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.EventHandler`1
+    name: EventHandler
+    nameWithType: EventHandler
+    fullName: System.EventHandler
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Sdl.FileTypeSupport.Framework.NativeApi.ProgressEventArgs
+    name: ProgressEventArgs
+    nameWithType: ProgressEventArgs
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.ProgressEventArgs
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.EventHandler`1
+  commentId: T:System.EventHandler`1
+  isExternal: true
+  name: EventHandler<TEventArgs>
+  nameWithType: EventHandler<TEventArgs>
+  fullName: System.EventHandler<TEventArgs>
+  nameWithType.vb: EventHandler(Of TEventArgs)
+  fullName.vb: System.EventHandler(Of TEventArgs)
+  name.vb: EventHandler(Of TEventArgs)
+  spec.csharp:
+  - uid: System.EventHandler`1
+    name: EventHandler
+    nameWithType: EventHandler
+    fullName: System.EventHandler
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TEventArgs
+    nameWithType: TEventArgs
+    fullName: TEventArgs
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.EventHandler`1
+    name: EventHandler
+    nameWithType: EventHandler
+    fullName: System.EventHandler
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TEventArgs
+    nameWithType: TEventArgs
+    fullName: TEventArgs
+  - name: )
+    nameWithType: )
+    fullName: )

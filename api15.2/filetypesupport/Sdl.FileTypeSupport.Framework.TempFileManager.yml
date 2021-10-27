@@ -1,0 +1,1010 @@
+### YamlMime:ManagedReference
+items:
+- uid: Sdl.FileTypeSupport.Framework.TempFileManager
+  commentId: T:Sdl.FileTypeSupport.Framework.TempFileManager
+  id: TempFileManager
+  parent: Sdl.FileTypeSupport.Framework
+  children:
+  - Sdl.FileTypeSupport.Framework.TempFileManager.#ctor
+  - Sdl.FileTypeSupport.Framework.TempFileManager.#ctor(System.String)
+  - Sdl.FileTypeSupport.Framework.TempFileManager.#ctor(System.String,System.Boolean)
+  - Sdl.FileTypeSupport.Framework.TempFileManager.AutoDeleteNonLockedFiles
+  - Sdl.FileTypeSupport.Framework.TempFileManager.CancelDelete
+  - Sdl.FileTypeSupport.Framework.TempFileManager.Deleted
+  - Sdl.FileTypeSupport.Framework.TempFileManager.DeleteDirectoryIfEmpty
+  - Sdl.FileTypeSupport.Framework.TempFileManager.Dispose
+  - Sdl.FileTypeSupport.Framework.TempFileManager.Dispose(System.Boolean)
+  - Sdl.FileTypeSupport.Framework.TempFileManager.FilePath
+  - Sdl.FileTypeSupport.Framework.TempFileManager.FileProcess
+  - Sdl.FileTypeSupport.Framework.TempFileManager.Finalize
+  - Sdl.FileTypeSupport.Framework.TempFileManager.Locked
+  - Sdl.FileTypeSupport.Framework.TempFileManager.LockedFileStream
+  - Sdl.FileTypeSupport.Framework.TempFileManager.ReadOnly
+  - Sdl.FileTypeSupport.Framework.TempFileManager.TakeOverManagedFile(Sdl.FileTypeSupport.Framework.TempFileManager@,Sdl.FileTypeSupport.Framework.TempFileManager)
+  langs:
+  - csharp
+  - vb
+  name: TempFileManager
+  nameWithType: TempFileManager
+  fullName: Sdl.FileTypeSupport.Framework.TempFileManager
+  type: Class
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core
+    isExternal: true
+  assemblies:
+  - Sdl.FileTypeSupport.Framework.Core
+  namespace: Sdl.FileTypeSupport.Framework
+  summary: "\nCreates and manages a tempoary file ensuring that it is deleted when no longer required.\n"
+  remarks: "\n<p>The temp file&apos;s file system readonly flag can also be set using <xref href=\"Sdl.FileTypeSupport.Framework.TempFileManager.ReadOnly\" data-throw-if-not-resolved=\"false\"></xref> and also \nthe file can be locked using <xref href=\"Sdl.FileTypeSupport.Framework.TempFileManager.Locked\" data-throw-if-not-resolved=\"false\"></xref> to prevent it being deleted by\nthe user or any disk space management software.\n</p>\n<p>This class uses the <xref href=\"Sdl.FileTypeSupport.Framework.FileJanitor\" data-throw-if-not-resolved=\"false\"></xref> class so it\nprovides a convenient way to create and manage session-scope temporary files. Make sure that\nall objects needing access to the temp file have access to a corresponding TempFileManager object, \nthat way when it is no longer referenced by any live objects and it gets garbage collected\nthe temporary file is deleted.\n</p>\n<p>\nThe class also implements the <code>IDisposable</code> interface, and deletes the\nFileJanitor managed file in the <code>Dispose()</code> implementation.\n</p>\n<p>\nIf the file for some reason cannot be deleted no error is raised.\n</p>\n<p>\nNote that the .NET Framework does not guarantee that finalizers will be called,\nso there is always a possibility that the file does not get deleted.\n</p>\n<p>\nThe TempFileManager class also has a static method AutoDeleteNonLockedFiles() that can be called\nduring applicaiton startup to delete any temp files that may not have been deleted previously.\n</p>\n"
+  syntax:
+    content: 'public class TempFileManager : IDisposable'
+    content.vb: >-
+      Public Class TempFileManager
+
+          Implements IDisposable
+  inheritance:
+  - System.Object
+  implements:
+  - System.IDisposable
+  inheritedMembers:
+  - System.Object.ToString
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: Sdl.FileTypeSupport.Framework.TempFileManager.#ctor
+  commentId: M:Sdl.FileTypeSupport.Framework.TempFileManager.#ctor
+  id: '#ctor'
+  parent: Sdl.FileTypeSupport.Framework.TempFileManager
+  langs:
+  - csharp
+  - vb
+  name: TempFileManager()
+  nameWithType: TempFileManager.TempFileManager()
+  fullName: Sdl.FileTypeSupport.Framework.TempFileManager.TempFileManager()
+  type: Constructor
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core
+    isExternal: true
+  assemblies:
+  - Sdl.FileTypeSupport.Framework.Core
+  namespace: Sdl.FileTypeSupport.Framework
+  summary: "\nCreates a temp file with a random name and manages it.\nSee <xref href=\"Sdl.FileTypeSupport.Framework.TempFileManager.%23ctor(System.String%2cSystem.Boolean)\" data-throw-if-not-resolved=\"false\"></xref> for more details.\n"
+  syntax:
+    content: public TempFileManager()
+    content.vb: Public Sub New
+  overload: Sdl.FileTypeSupport.Framework.TempFileManager.#ctor*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Sdl.FileTypeSupport.Framework.TempFileManager.#ctor(System.String)
+  commentId: M:Sdl.FileTypeSupport.Framework.TempFileManager.#ctor(System.String)
+  id: '#ctor(System.String)'
+  parent: Sdl.FileTypeSupport.Framework.TempFileManager
+  langs:
+  - csharp
+  - vb
+  name: TempFileManager(String)
+  nameWithType: TempFileManager.TempFileManager(String)
+  fullName: Sdl.FileTypeSupport.Framework.TempFileManager.TempFileManager(System.String)
+  type: Constructor
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core
+    isExternal: true
+  assemblies:
+  - Sdl.FileTypeSupport.Framework.Core
+  namespace: Sdl.FileTypeSupport.Framework
+  summary: "\nCreates the named temp file in a random temp directory or named sub-directory and manages it.\nSee <xref href=\"Sdl.FileTypeSupport.Framework.TempFileManager.%23ctor(System.String%2cSystem.Boolean)\" data-throw-if-not-resolved=\"false\"></xref> for more details.\n"
+  syntax:
+    content: public TempFileManager(string filePath)
+    parameters:
+    - id: filePath
+      type: System.String
+      description: A temp filename to create or empty for a random filename to be generated.
+    content.vb: Public Sub New(filePath As String)
+  overload: Sdl.FileTypeSupport.Framework.TempFileManager.#ctor*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Sdl.FileTypeSupport.Framework.TempFileManager.#ctor(System.String,System.Boolean)
+  commentId: M:Sdl.FileTypeSupport.Framework.TempFileManager.#ctor(System.String,System.Boolean)
+  id: '#ctor(System.String,System.Boolean)'
+  parent: Sdl.FileTypeSupport.Framework.TempFileManager
+  langs:
+  - csharp
+  - vb
+  name: TempFileManager(String, Boolean)
+  nameWithType: TempFileManager.TempFileManager(String, Boolean)
+  fullName: Sdl.FileTypeSupport.Framework.TempFileManager.TempFileManager(System.String, System.Boolean)
+  type: Constructor
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core
+    isExternal: true
+  assemblies:
+  - Sdl.FileTypeSupport.Framework.Core
+  namespace: Sdl.FileTypeSupport.Framework
+  summary: "\nCreates a temp file and manages it.\n"
+  remarks: "\n<p>If an empty file name is given then a random temp file is created.\nIf only a file name is given then a temp folder is created and a file with the file name is created.\nIf a full or partial path is given the then a temp folder with the last folder name in the path is created\nand a file with the file name is created within it.\n</p>\n"
+  syntax:
+    content: public TempFileManager(string filePath, bool lockFile)
+    parameters:
+    - id: filePath
+      type: System.String
+      description: A temp filename to create or empty for a random filename to be generated.
+    - id: lockFile
+      type: System.Boolean
+      description: >
+        If set to <code>true</code> the file is created in this constructor and locked with a read write stream
+
+        available through <xref href="Sdl.FileTypeSupport.Framework.TempFileManager.LockedFileStream" data-throw-if-not-resolved="false"></xref>.
+    content.vb: Public Sub New(filePath As String, lockFile As Boolean)
+  overload: Sdl.FileTypeSupport.Framework.TempFileManager.#ctor*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Sdl.FileTypeSupport.Framework.TempFileManager.Finalize
+  commentId: M:Sdl.FileTypeSupport.Framework.TempFileManager.Finalize
+  id: Finalize
+  parent: Sdl.FileTypeSupport.Framework.TempFileManager
+  langs:
+  - csharp
+  - vb
+  name: Finalize()
+  nameWithType: TempFileManager.Finalize()
+  fullName: Sdl.FileTypeSupport.Framework.TempFileManager.Finalize()
+  type: Method
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core
+    isExternal: true
+  assemblies:
+  - Sdl.FileTypeSupport.Framework.Core
+  namespace: Sdl.FileTypeSupport.Framework
+  summary: "\nDeletes the file, if possible.\n"
+  syntax:
+    content: protected void Finalize()
+    content.vb: Protected Sub Finalize
+  overload: Sdl.FileTypeSupport.Framework.TempFileManager.Finalize*
+  modifiers.csharp:
+  - protected
+  modifiers.vb:
+  - Protected
+- uid: Sdl.FileTypeSupport.Framework.TempFileManager.Dispose(System.Boolean)
+  commentId: M:Sdl.FileTypeSupport.Framework.TempFileManager.Dispose(System.Boolean)
+  id: Dispose(System.Boolean)
+  parent: Sdl.FileTypeSupport.Framework.TempFileManager
+  langs:
+  - csharp
+  - vb
+  name: Dispose(Boolean)
+  nameWithType: TempFileManager.Dispose(Boolean)
+  fullName: Sdl.FileTypeSupport.Framework.TempFileManager.Dispose(System.Boolean)
+  type: Method
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core
+    isExternal: true
+  assemblies:
+  - Sdl.FileTypeSupport.Framework.Core
+  namespace: Sdl.FileTypeSupport.Framework
+  summary: "\nImplementation of the recommended dispose protocol. Deletes the file if possible.\n"
+  syntax:
+    content: protected virtual void Dispose(bool disposing)
+    parameters:
+    - id: disposing
+      type: System.Boolean
+      description: true if this method is called from IDisposable.Dispose() and false if called from Finalizer
+    content.vb: Protected Overridable Sub Dispose(disposing As Boolean)
+  overload: Sdl.FileTypeSupport.Framework.TempFileManager.Dispose*
+  modifiers.csharp:
+  - protected
+  - virtual
+  modifiers.vb:
+  - Protected
+  - Overridable
+- uid: Sdl.FileTypeSupport.Framework.TempFileManager.TakeOverManagedFile(Sdl.FileTypeSupport.Framework.TempFileManager@,Sdl.FileTypeSupport.Framework.TempFileManager)
+  commentId: M:Sdl.FileTypeSupport.Framework.TempFileManager.TakeOverManagedFile(Sdl.FileTypeSupport.Framework.TempFileManager@,Sdl.FileTypeSupport.Framework.TempFileManager)
+  id: TakeOverManagedFile(Sdl.FileTypeSupport.Framework.TempFileManager@,Sdl.FileTypeSupport.Framework.TempFileManager)
+  parent: Sdl.FileTypeSupport.Framework.TempFileManager
+  langs:
+  - csharp
+  - vb
+  name: TakeOverManagedFile(ref TempFileManager, TempFileManager)
+  nameWithType: TempFileManager.TakeOverManagedFile(ref TempFileManager, TempFileManager)
+  fullName: Sdl.FileTypeSupport.Framework.TempFileManager.TakeOverManagedFile(ref Sdl.FileTypeSupport.Framework.TempFileManager, Sdl.FileTypeSupport.Framework.TempFileManager)
+  type: Method
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core
+    isExternal: true
+  assemblies:
+  - Sdl.FileTypeSupport.Framework.Core
+  namespace: Sdl.FileTypeSupport.Framework
+  summary: "\nThis method handles the logic of handing over the management \nof a TempFileManager managed file to a new managed file\n"
+  syntax:
+    content: public static void TakeOverManagedFile(ref TempFileManager managedFile, TempFileManager value)
+    parameters:
+    - id: managedFile
+      type: Sdl.FileTypeSupport.Framework.TempFileManager
+    - id: value
+      type: Sdl.FileTypeSupport.Framework.TempFileManager
+    content.vb: Public Shared Sub TakeOverManagedFile(ByRef managedFile As TempFileManager, value As TempFileManager)
+  overload: Sdl.FileTypeSupport.Framework.TempFileManager.TakeOverManagedFile*
+  nameWithType.vb: TempFileManager.TakeOverManagedFile(ByRef TempFileManager, TempFileManager)
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+  fullName.vb: Sdl.FileTypeSupport.Framework.TempFileManager.TakeOverManagedFile(ByRef Sdl.FileTypeSupport.Framework.TempFileManager, Sdl.FileTypeSupport.Framework.TempFileManager)
+  name.vb: TakeOverManagedFile(ByRef TempFileManager, TempFileManager)
+- uid: Sdl.FileTypeSupport.Framework.TempFileManager.AutoDeleteNonLockedFiles
+  commentId: M:Sdl.FileTypeSupport.Framework.TempFileManager.AutoDeleteNonLockedFiles
+  id: AutoDeleteNonLockedFiles
+  parent: Sdl.FileTypeSupport.Framework.TempFileManager
+  langs:
+  - csharp
+  - vb
+  name: AutoDeleteNonLockedFiles()
+  nameWithType: TempFileManager.AutoDeleteNonLockedFiles()
+  fullName: Sdl.FileTypeSupport.Framework.TempFileManager.AutoDeleteNonLockedFiles()
+  type: Method
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core
+    isExternal: true
+  assemblies:
+  - Sdl.FileTypeSupport.Framework.Core
+  namespace: Sdl.FileTypeSupport.Framework
+  summary: "\nDeletes all <xref href=\"Sdl.FileTypeSupport.Framework.TempFileManager\" data-throw-if-not-resolved=\"false\"></xref> managed tempoary files and tempoary folders that could not be deleted previously.\n"
+  remarks: "\n<p>This public static method is designed to be called when the using applicatin starts up so that\nall tempoary files that have been created by a previous invocation of the applicaion that could\nnot be automatically delted can be deleted when the using application restarts.\n</p>\n<p>This also employs a locking mechanism so that if two instances of the application are launched\nonly the first instance will delete temp files that were left from a previous instance of the applicaiton.\n</p>\n"
+  syntax:
+    content: public static void AutoDeleteNonLockedFiles()
+    content.vb: Public Shared Sub AutoDeleteNonLockedFiles
+  overload: Sdl.FileTypeSupport.Framework.TempFileManager.AutoDeleteNonLockedFiles*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: Sdl.FileTypeSupport.Framework.TempFileManager.Dispose
+  commentId: M:Sdl.FileTypeSupport.Framework.TempFileManager.Dispose
+  id: Dispose
+  parent: Sdl.FileTypeSupport.Framework.TempFileManager
+  langs:
+  - csharp
+  - vb
+  name: Dispose()
+  nameWithType: TempFileManager.Dispose()
+  fullName: Sdl.FileTypeSupport.Framework.TempFileManager.Dispose()
+  type: Method
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core
+    isExternal: true
+  assemblies:
+  - Sdl.FileTypeSupport.Framework.Core
+  namespace: Sdl.FileTypeSupport.Framework
+  summary: "\nDeletes the file, if it exists.\n"
+  syntax:
+    content: public void Dispose()
+    content.vb: Public Sub Dispose
+  overload: Sdl.FileTypeSupport.Framework.TempFileManager.Dispose*
+  implements:
+  - System.IDisposable.Dispose
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Sdl.FileTypeSupport.Framework.TempFileManager.FilePath
+  commentId: P:Sdl.FileTypeSupport.Framework.TempFileManager.FilePath
+  id: FilePath
+  parent: Sdl.FileTypeSupport.Framework.TempFileManager
+  langs:
+  - csharp
+  - vb
+  name: FilePath
+  nameWithType: TempFileManager.FilePath
+  fullName: Sdl.FileTypeSupport.Framework.TempFileManager.FilePath
+  type: Property
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core
+    isExternal: true
+  assemblies:
+  - Sdl.FileTypeSupport.Framework.Core
+  namespace: Sdl.FileTypeSupport.Framework
+  summary: "\nFull path to the file to be deleted.\n"
+  syntax:
+    content: public string FilePath { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public ReadOnly Property FilePath As String
+  overload: Sdl.FileTypeSupport.Framework.TempFileManager.FilePath*
+  modifiers.csharp:
+  - public
+  - get
+  modifiers.vb:
+  - Public
+  - ReadOnly
+- uid: Sdl.FileTypeSupport.Framework.TempFileManager.DeleteDirectoryIfEmpty
+  commentId: P:Sdl.FileTypeSupport.Framework.TempFileManager.DeleteDirectoryIfEmpty
+  id: DeleteDirectoryIfEmpty
+  parent: Sdl.FileTypeSupport.Framework.TempFileManager
+  langs:
+  - csharp
+  - vb
+  name: DeleteDirectoryIfEmpty
+  nameWithType: TempFileManager.DeleteDirectoryIfEmpty
+  fullName: Sdl.FileTypeSupport.Framework.TempFileManager.DeleteDirectoryIfEmpty
+  type: Property
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core
+    isExternal: true
+  assemblies:
+  - Sdl.FileTypeSupport.Framework.Core
+  namespace: Sdl.FileTypeSupport.Framework
+  summary: "\nIf <code>true</code> a check will be made after the file\nhas been deleted, and if no other files exist in the\nsame directory that directory will also be deleted.\n"
+  syntax:
+    content: public bool DeleteDirectoryIfEmpty { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property DeleteDirectoryIfEmpty As Boolean
+  overload: Sdl.FileTypeSupport.Framework.TempFileManager.DeleteDirectoryIfEmpty*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Sdl.FileTypeSupport.Framework.TempFileManager.Locked
+  commentId: P:Sdl.FileTypeSupport.Framework.TempFileManager.Locked
+  id: Locked
+  parent: Sdl.FileTypeSupport.Framework.TempFileManager
+  langs:
+  - csharp
+  - vb
+  name: Locked
+  nameWithType: TempFileManager.Locked
+  fullName: Sdl.FileTypeSupport.Framework.TempFileManager.Locked
+  type: Property
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core
+    isExternal: true
+  assemblies:
+  - Sdl.FileTypeSupport.Framework.Core
+  namespace: Sdl.FileTypeSupport.Framework
+  summary: "\nSet to create (if it does not exist) and then to lock the temp file.\nThe locked <xref href=\"System.IO.FileStream\" data-throw-if-not-resolved=\"false\"></xref> is available from <xref href=\"Sdl.FileTypeSupport.Framework.TempFileManager.LockedFileStream\" data-throw-if-not-resolved=\"false\"></xref>.\n"
+  syntax:
+    content: public bool Locked { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property Locked As Boolean
+  overload: Sdl.FileTypeSupport.Framework.TempFileManager.Locked*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Sdl.FileTypeSupport.Framework.TempFileManager.ReadOnly
+  commentId: P:Sdl.FileTypeSupport.Framework.TempFileManager.ReadOnly
+  id: ReadOnly
+  parent: Sdl.FileTypeSupport.Framework.TempFileManager
+  langs:
+  - csharp
+  - vb
+  name: ReadOnly
+  nameWithType: TempFileManager.ReadOnly
+  fullName: Sdl.FileTypeSupport.Framework.TempFileManager.ReadOnly
+  type: Property
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core
+    isExternal: true
+  assemblies:
+  - Sdl.FileTypeSupport.Framework.Core
+  namespace: Sdl.FileTypeSupport.Framework
+  summary: "\nIf set to <code>true</code> the managed temp file&apos;s readonly file system flag is set.\n"
+  remarks: "\nThe file must exist or be subsequently locked by setting <xref href=\"Sdl.FileTypeSupport.Framework.TempFileManager.Locked\" data-throw-if-not-resolved=\"false\"></xref> for this property to have any effect.\n"
+  syntax:
+    content: public bool ReadOnly { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property ReadOnly As Boolean
+  overload: Sdl.FileTypeSupport.Framework.TempFileManager.ReadOnly*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Sdl.FileTypeSupport.Framework.TempFileManager.LockedFileStream
+  commentId: P:Sdl.FileTypeSupport.Framework.TempFileManager.LockedFileStream
+  id: LockedFileStream
+  parent: Sdl.FileTypeSupport.Framework.TempFileManager
+  langs:
+  - csharp
+  - vb
+  name: LockedFileStream
+  nameWithType: TempFileManager.LockedFileStream
+  fullName: Sdl.FileTypeSupport.Framework.TempFileManager.LockedFileStream
+  type: Property
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core
+    isExternal: true
+  assemblies:
+  - Sdl.FileTypeSupport.Framework.Core
+  namespace: Sdl.FileTypeSupport.Framework
+  summary: "\nReturns the locked <xref href=\"System.IO.FileStream\" data-throw-if-not-resolved=\"false\"></xref> instace if the temp file was previously locked by setting\n<xref href=\"Sdl.FileTypeSupport.Framework.TempFileManager.Locked\" data-throw-if-not-resolved=\"false\"></xref>.\n"
+  remarks: The <xref href="System.IO.FileStream" data-throw-if-not-resolved="false"></xref> is opened for read/write access and share read access.
+  syntax:
+    content: public FileStream LockedFileStream { get; set; }
+    parameters: []
+    return:
+      type: System.IO.FileStream
+    content.vb: Public Property LockedFileStream As FileStream
+  overload: Sdl.FileTypeSupport.Framework.TempFileManager.LockedFileStream*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Sdl.FileTypeSupport.Framework.TempFileManager.FileProcess
+  commentId: P:Sdl.FileTypeSupport.Framework.TempFileManager.FileProcess
+  id: FileProcess
+  parent: Sdl.FileTypeSupport.Framework.TempFileManager
+  langs:
+  - csharp
+  - vb
+  name: FileProcess
+  nameWithType: TempFileManager.FileProcess
+  fullName: Sdl.FileTypeSupport.Framework.TempFileManager.FileProcess
+  type: Property
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core
+    isExternal: true
+  assemblies:
+  - Sdl.FileTypeSupport.Framework.Core
+  namespace: Sdl.FileTypeSupport.Framework
+  summary: "\nCan be set to a running process&apos; <xref href=\"System.Diagnostics.Process\" data-throw-if-not-resolved=\"false\"></xref> instance so that the managed temp file is\ndeleted when the process exits.\n"
+  syntax:
+    content: public Process FileProcess { get; set; }
+    parameters: []
+    return:
+      type: System.Diagnostics.Process
+    content.vb: Public Property FileProcess As Process
+  overload: Sdl.FileTypeSupport.Framework.TempFileManager.FileProcess*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Sdl.FileTypeSupport.Framework.TempFileManager.CancelDelete
+  commentId: P:Sdl.FileTypeSupport.Framework.TempFileManager.CancelDelete
+  id: CancelDelete
+  parent: Sdl.FileTypeSupport.Framework.TempFileManager
+  langs:
+  - csharp
+  - vb
+  name: CancelDelete
+  nameWithType: TempFileManager.CancelDelete
+  fullName: Sdl.FileTypeSupport.Framework.TempFileManager.CancelDelete
+  type: Property
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core
+    isExternal: true
+  assemblies:
+  - Sdl.FileTypeSupport.Framework.Core
+  namespace: Sdl.FileTypeSupport.Framework
+  summary: "\nIf <code>true</code> then this managed file is not deleted when this instance is disposed.\n"
+  syntax:
+    content: public bool CancelDelete { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property CancelDelete As Boolean
+  overload: Sdl.FileTypeSupport.Framework.TempFileManager.CancelDelete*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Sdl.FileTypeSupport.Framework.TempFileManager.Deleted
+  commentId: P:Sdl.FileTypeSupport.Framework.TempFileManager.Deleted
+  id: Deleted
+  parent: Sdl.FileTypeSupport.Framework.TempFileManager
+  langs:
+  - csharp
+  - vb
+  name: Deleted
+  nameWithType: TempFileManager.Deleted
+  fullName: Sdl.FileTypeSupport.Framework.TempFileManager.Deleted
+  type: Property
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core
+    isExternal: true
+  assemblies:
+  - Sdl.FileTypeSupport.Framework.Core
+  namespace: Sdl.FileTypeSupport.Framework
+  summary: "\nIf <code>true</code> then this managed file was sucessfully deleted.\n"
+  syntax:
+    content: public bool Deleted { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public ReadOnly Property Deleted As Boolean
+  overload: Sdl.FileTypeSupport.Framework.TempFileManager.Deleted*
+  modifiers.csharp:
+  - public
+  - get
+  modifiers.vb:
+  - Public
+  - ReadOnly
+references:
+- uid: Sdl.FileTypeSupport.Framework
+  commentId: N:Sdl.FileTypeSupport.Framework
+  isExternal: true
+  name: Sdl.FileTypeSupport.Framework
+  nameWithType: Sdl.FileTypeSupport.Framework
+  fullName: Sdl.FileTypeSupport.Framework
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System.IDisposable
+  commentId: T:System.IDisposable
+  parent: System
+  isExternal: true
+  name: IDisposable
+  nameWithType: IDisposable
+  fullName: System.IDisposable
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  name: ToString()
+  nameWithType: Object.ToString()
+  fullName: System.Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object)
+  nameWithType: Object.Equals(Object)
+  fullName: System.Object.Equals(System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object, Object)
+  nameWithType: Object.Equals(Object, Object)
+  fullName: System.Object.Equals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: ReferenceEquals(Object, Object)
+  nameWithType: Object.ReferenceEquals(Object, Object)
+  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  name: GetHashCode()
+  nameWithType: Object.GetHashCode()
+  fullName: System.Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  name: GetType()
+  nameWithType: Object.GetType()
+  fullName: System.Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  name: MemberwiseClone()
+  nameWithType: Object.MemberwiseClone()
+  fullName: System.Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Sdl.FileTypeSupport.Framework.TempFileManager.#ctor*
+  commentId: Overload:Sdl.FileTypeSupport.Framework.TempFileManager.#ctor
+  isExternal: true
+  name: TempFileManager
+  nameWithType: TempFileManager.TempFileManager
+  fullName: Sdl.FileTypeSupport.Framework.TempFileManager.TempFileManager
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  name: Boolean
+  nameWithType: Boolean
+  fullName: System.Boolean
+- uid: Sdl.FileTypeSupport.Framework.TempFileManager.Finalize*
+  commentId: Overload:Sdl.FileTypeSupport.Framework.TempFileManager.Finalize
+  isExternal: true
+  name: Finalize
+  nameWithType: TempFileManager.Finalize
+  fullName: Sdl.FileTypeSupport.Framework.TempFileManager.Finalize
+- uid: Sdl.FileTypeSupport.Framework.TempFileManager.Dispose*
+  commentId: Overload:Sdl.FileTypeSupport.Framework.TempFileManager.Dispose
+  isExternal: true
+  name: Dispose
+  nameWithType: TempFileManager.Dispose
+  fullName: Sdl.FileTypeSupport.Framework.TempFileManager.Dispose
+- uid: Sdl.FileTypeSupport.Framework.TempFileManager.TakeOverManagedFile*
+  commentId: Overload:Sdl.FileTypeSupport.Framework.TempFileManager.TakeOverManagedFile
+  isExternal: true
+  name: TakeOverManagedFile
+  nameWithType: TempFileManager.TakeOverManagedFile
+  fullName: Sdl.FileTypeSupport.Framework.TempFileManager.TakeOverManagedFile
+- uid: Sdl.FileTypeSupport.Framework.TempFileManager
+  commentId: T:Sdl.FileTypeSupport.Framework.TempFileManager
+  parent: Sdl.FileTypeSupport.Framework
+  isExternal: true
+  name: TempFileManager
+  nameWithType: TempFileManager
+  fullName: Sdl.FileTypeSupport.Framework.TempFileManager
+- uid: Sdl.FileTypeSupport.Framework.TempFileManager.AutoDeleteNonLockedFiles*
+  commentId: Overload:Sdl.FileTypeSupport.Framework.TempFileManager.AutoDeleteNonLockedFiles
+  isExternal: true
+  name: AutoDeleteNonLockedFiles
+  nameWithType: TempFileManager.AutoDeleteNonLockedFiles
+  fullName: Sdl.FileTypeSupport.Framework.TempFileManager.AutoDeleteNonLockedFiles
+- uid: System.IDisposable.Dispose
+  commentId: M:System.IDisposable.Dispose
+  parent: System.IDisposable
+  isExternal: true
+  name: Dispose()
+  nameWithType: IDisposable.Dispose()
+  fullName: System.IDisposable.Dispose()
+  spec.csharp:
+  - uid: System.IDisposable.Dispose
+    name: Dispose
+    nameWithType: IDisposable.Dispose
+    fullName: System.IDisposable.Dispose
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.IDisposable.Dispose
+    name: Dispose
+    nameWithType: IDisposable.Dispose
+    fullName: System.IDisposable.Dispose
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Sdl.FileTypeSupport.Framework.TempFileManager.FilePath*
+  commentId: Overload:Sdl.FileTypeSupport.Framework.TempFileManager.FilePath
+  isExternal: true
+  name: FilePath
+  nameWithType: TempFileManager.FilePath
+  fullName: Sdl.FileTypeSupport.Framework.TempFileManager.FilePath
+- uid: Sdl.FileTypeSupport.Framework.TempFileManager.DeleteDirectoryIfEmpty*
+  commentId: Overload:Sdl.FileTypeSupport.Framework.TempFileManager.DeleteDirectoryIfEmpty
+  isExternal: true
+  name: DeleteDirectoryIfEmpty
+  nameWithType: TempFileManager.DeleteDirectoryIfEmpty
+  fullName: Sdl.FileTypeSupport.Framework.TempFileManager.DeleteDirectoryIfEmpty
+- uid: Sdl.FileTypeSupport.Framework.TempFileManager.Locked*
+  commentId: Overload:Sdl.FileTypeSupport.Framework.TempFileManager.Locked
+  isExternal: true
+  name: Locked
+  nameWithType: TempFileManager.Locked
+  fullName: Sdl.FileTypeSupport.Framework.TempFileManager.Locked
+- uid: Sdl.FileTypeSupport.Framework.TempFileManager.ReadOnly*
+  commentId: Overload:Sdl.FileTypeSupport.Framework.TempFileManager.ReadOnly
+  isExternal: true
+  name: ReadOnly
+  nameWithType: TempFileManager.ReadOnly
+  fullName: Sdl.FileTypeSupport.Framework.TempFileManager.ReadOnly
+- uid: Sdl.FileTypeSupport.Framework.TempFileManager.LockedFileStream*
+  commentId: Overload:Sdl.FileTypeSupport.Framework.TempFileManager.LockedFileStream
+  isExternal: true
+  name: LockedFileStream
+  nameWithType: TempFileManager.LockedFileStream
+  fullName: Sdl.FileTypeSupport.Framework.TempFileManager.LockedFileStream
+- uid: System.IO.FileStream
+  commentId: T:System.IO.FileStream
+  parent: System.IO
+  isExternal: true
+  name: FileStream
+  nameWithType: FileStream
+  fullName: System.IO.FileStream
+- uid: System.IO
+  commentId: N:System.IO
+  isExternal: true
+  name: System.IO
+  nameWithType: System.IO
+  fullName: System.IO
+- uid: Sdl.FileTypeSupport.Framework.TempFileManager.FileProcess*
+  commentId: Overload:Sdl.FileTypeSupport.Framework.TempFileManager.FileProcess
+  isExternal: true
+  name: FileProcess
+  nameWithType: TempFileManager.FileProcess
+  fullName: Sdl.FileTypeSupport.Framework.TempFileManager.FileProcess
+- uid: System.Diagnostics.Process
+  isExternal: true
+  name: Process
+  nameWithType: Process
+  fullName: System.Diagnostics.Process
+- uid: Sdl.FileTypeSupport.Framework.TempFileManager.CancelDelete*
+  commentId: Overload:Sdl.FileTypeSupport.Framework.TempFileManager.CancelDelete
+  isExternal: true
+  name: CancelDelete
+  nameWithType: TempFileManager.CancelDelete
+  fullName: Sdl.FileTypeSupport.Framework.TempFileManager.CancelDelete
+- uid: Sdl.FileTypeSupport.Framework.TempFileManager.Deleted*
+  commentId: Overload:Sdl.FileTypeSupport.Framework.TempFileManager.Deleted
+  isExternal: true
+  name: Deleted
+  nameWithType: TempFileManager.Deleted
+  fullName: Sdl.FileTypeSupport.Framework.TempFileManager.Deleted
