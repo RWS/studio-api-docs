@@ -1,6 +1,6 @@
 Object Registry
 =====
-This sections explains a coupld of utility classes that can be used by host applications.
+This sections explains a couple of utility classes that can be used by host applications.
 
 
 Object Registry
