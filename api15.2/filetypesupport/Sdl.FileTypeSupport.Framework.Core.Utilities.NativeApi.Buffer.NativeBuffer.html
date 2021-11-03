@@ -1,0 +1,1002 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class NativeBuffer
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class NativeBuffer
+   ">
+    <meta name="generator" content="docfx 2.58.5.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer">
+  
+  
+  <h1 id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer" class="text-break">Class NativeBuffer
+  </h1>
+  <div class="markdown level0 summary"><p>A buffer for calls to INativeExtractionContentHandler and INativeGenerationContentHandler</p>
+<p>Set the <a class="xref" href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.html#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_Output">Output</a> property on the buffer to the correct derived type.
+Strongly typed properties <a class="xref" href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.html#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_ExtractionOutput">ExtractionOutput</a> and <a class="xref" href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.html#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_GenerationOutput">GenerationOutput</a>
+Both map to the same <a class="xref" href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.html#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_Output">Output</a> instance, and can be used equivocally.</p>
+<p>Start buffering calls by calling <a class="xref" href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.html#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_Hold">Hold()</a>, and stops buffering
+by calling <a class="xref" href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.html#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_Release">Release()</a>. When Release is called, any calls that are
+in the buffer will be invoked on the <a class="xref" href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeExtractionContentProcessor.html#Sdl_FileTypeSupport_Framework_NativeApi_INativeExtractionContentProcessor_Output">Output</a>,
+or <a class="xref" href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeGenerationContentProcessor.html#Sdl_FileTypeSupport_Framework_NativeApi_INativeGenerationContentProcessor_Output">Output</a>. </p>
+<p>If Release is called after EndOfInput is received and there is content left in the 
+buffer, an exception is thrown, since the output should not be generated after EndOfInput.
+It is the buffer user&apos;s responsibility to ensure that the buffer is emptied before
+end of input is called for the parser components following it.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><span class="xref">NativeBuffer</span></div>
+  </div>
+  <div classs="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeExtractionContentProcessor.html">INativeExtractionContentProcessor</a></div>
+    <div><a class="xref" href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeExtractionContentHandler.html">INativeExtractionContentHandler</a></div>
+    <div><a class="xref" href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeGenerationContentProcessor.html">INativeGenerationContentProcessor</a></div>
+    <div><a class="xref" href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeGenerationContentHandler.html">INativeGenerationContentHandler</a></div>
+    <div><a class="xref" href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IAbstractNativeContentHandler.html">IAbstractNativeContentHandler</a></div>
+    <div><a class="xref" href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.html">INativeContentCycleAware</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">System.Object.ToString()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.html">Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer</a></h6>
+  <h6><strong>Assembly</strong>: Sdl.FileTypeSupport.Framework.Core.Utilities.dll</h6>
+  <h5 id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class NativeBuffer : INativeExtractionContentProcessor, INativeExtractionContentHandler, INativeGenerationContentProcessor, INativeGenerationContentHandler, IAbstractNativeContentHandler, INativeContentCycleAware</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer__ctor_" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.#ctor*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer__ctor" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.#ctor">NativeBuffer()</h4>
+  <div class="markdown level1 summary"><p>Default constructor, creates an empty buffer where <a class="xref" href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.html#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_IsHolding">IsHolding</a> is false.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public NativeBuffer()</code></pre>
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_BufferedCalls_" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.BufferedCalls*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_BufferedCalls" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.BufferedCalls">BufferedCalls</h4>
+  <div class="markdown level1 summary"><p>Provides access to the calls currently in the buffer.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public List&lt;AbstractContentItem&gt; BufferedCalls { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.List</span>&lt;<a class="xref" href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.AbstractContentItem.html">AbstractContentItem</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_ExtractionOutput_" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.ExtractionOutput*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_ExtractionOutput" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.ExtractionOutput">ExtractionOutput</h4>
+  <div class="markdown level1 summary"><p>Strongly typed output content handler that can be used
+when the buffer is used for extraction.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual INativeExtractionContentHandler ExtractionOutput { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeExtractionContentHandler.html">INativeExtractionContentHandler</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_ExtractionOutput_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Accesses the very same object instance as the <a class="xref" href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.html#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_Output">Output</a>
+and the <a class="xref" href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.html#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_GenerationOutput">GenerationOutput</a> properties.</p>
+</div>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_GenerationOutput_" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.GenerationOutput*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_GenerationOutput" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.GenerationOutput">GenerationOutput</h4>
+  <div class="markdown level1 summary"><p>Strongly typed output content handler that can be used
+when the buffer is used for generation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual INativeGenerationContentHandler GenerationOutput { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeGenerationContentHandler.html">INativeGenerationContentHandler</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_GenerationOutput_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Accesses the very same object instance as the <a class="xref" href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.html#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_Output">Output</a>
+and the <a class="xref" href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.html#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_GenerationOutput">GenerationOutput</a> properties.</p>
+</div>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_IsEndOfInput_" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.IsEndOfInput*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_IsEndOfInput" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.IsEndOfInput">IsEndOfInput</h4>
+  <div class="markdown level1 summary"><p>True, if EndOfInput has been reached. After that, Release() is no longer
+permitted if the buffer contains any content.</p>
+<p>This property can be set to override this behaviour, but that is an 
+advanced option that should only be exercised if no other option is available.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual bool IsEndOfInput { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_IsHolding_" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.IsHolding*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_IsHolding" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.IsHolding">IsHolding</h4>
+  <div class="markdown level1 summary"><p>Indicates whether the buffer is actively buffering calls.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsHolding { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_LastBufferedCall_" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.LastBufferedCall*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_LastBufferedCall" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.LastBufferedCall">LastBufferedCall</h4>
+  <div class="markdown level1 summary"><p>Provides easy access to the most recent of the calls in the buffer.</p>
+<p>If no calls are in the buffer, this property returns null.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public AbstractContentItem LastBufferedCall { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.AbstractContentItem.html">AbstractContentItem</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_Output_" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.Output*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_Output" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.Output">Output</h4>
+  <div class="markdown level1 summary"><p>Agnostic access to the output handler. Accesses the
+very same object instance as the <a class="xref" href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.html#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_ExtractionOutput">ExtractionOutput</a>
+and the <a class="xref" href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.html#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_GenerationOutput">GenerationOutput</a> properties.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual IAbstractNativeContentHandler Output { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IAbstractNativeContentHandler.html">IAbstractNativeContentHandler</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_ChangeContext_" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.ChangeContext*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_ChangeContext_Sdl_FileTypeSupport_Framework_NativeApi_IContextProperties_" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.ChangeContext(Sdl.FileTypeSupport.Framework.NativeApi.IContextProperties)">ChangeContext(IContextProperties)</h4>
+  <div class="markdown level1 summary"><p>Adds content to buffer if holding, otherwise output directly.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void ChangeContext(IContextProperties contexts)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IContextProperties.html">IContextProperties</a></td>
+        <td><span class="parametername">contexts</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_CommentEnd_" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.CommentEnd*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_CommentEnd" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.CommentEnd">CommentEnd()</h4>
+  <div class="markdown level1 summary"><p>Adds to buffer if holding, otherwise output directly.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void CommentEnd()</code></pre>
+  </div>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_CommentStart_" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.CommentStart*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_CommentStart_Sdl_FileTypeSupport_Framework_NativeApi_ICommentProperties_" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.CommentStart(Sdl.FileTypeSupport.Framework.NativeApi.ICommentProperties)">CommentStart(ICommentProperties)</h4>
+  <div class="markdown level1 summary"><p>Adds to buffer if holding, otherwise output directly.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void CommentStart(ICommentProperties commentInfo)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ICommentProperties.html">ICommentProperties</a></td>
+        <td><span class="parametername">commentInfo</span></td>
+        <td><p>The comment properties.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_CustomInfo_" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.CustomInfo*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_CustomInfo_Sdl_FileTypeSupport_Framework_NativeApi_ICustomInfoProperties_" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.CustomInfo(Sdl.FileTypeSupport.Framework.NativeApi.ICustomInfoProperties)">CustomInfo(ICustomInfoProperties)</h4>
+  <div class="markdown level1 summary"><p>Adds content to buffer if holding, otherwise output directly.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void CustomInfo(ICustomInfoProperties info)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ICustomInfoProperties.html">ICustomInfoProperties</a></td>
+        <td><span class="parametername">info</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_EndOfInput_" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.EndOfInput*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_EndOfInput" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.EndOfInput">EndOfInput()</h4>
+  <div class="markdown level1 summary"><p>Sets the end of input flag.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void EndOfInput()</code></pre>
+  </div>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_Hold_" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.Hold*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_Hold" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.Hold">Hold()</h4>
+  <div class="markdown level1 summary"><p>Call this to start buffering calls.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void Hold()</code></pre>
+  </div>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_InlineEndTag_" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.InlineEndTag*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_InlineEndTag_Sdl_FileTypeSupport_Framework_NativeApi_IEndTagProperties_" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.InlineEndTag(Sdl.FileTypeSupport.Framework.NativeApi.IEndTagProperties)">InlineEndTag(IEndTagProperties)</h4>
+  <div class="markdown level1 summary"><p>Adds content to buffer if holding, otherwise output directly.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void InlineEndTag(IEndTagProperties tagInfo)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IEndTagProperties.html">IEndTagProperties</a></td>
+        <td><span class="parametername">tagInfo</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_InlinePlaceholderTag_" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.InlinePlaceholderTag*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_InlinePlaceholderTag_Sdl_FileTypeSupport_Framework_NativeApi_IPlaceholderTagProperties_" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.InlinePlaceholderTag(Sdl.FileTypeSupport.Framework.NativeApi.IPlaceholderTagProperties)">InlinePlaceholderTag(IPlaceholderTagProperties)</h4>
+  <div class="markdown level1 summary"><p>Adds content to buffer if holding, otherwise output directly.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void InlinePlaceholderTag(IPlaceholderTagProperties tagInfo)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPlaceholderTagProperties.html">IPlaceholderTagProperties</a></td>
+        <td><span class="parametername">tagInfo</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_InlineStartTag_" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.InlineStartTag*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_InlineStartTag_Sdl_FileTypeSupport_Framework_NativeApi_IStartTagProperties_" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.InlineStartTag(Sdl.FileTypeSupport.Framework.NativeApi.IStartTagProperties)">InlineStartTag(IStartTagProperties)</h4>
+  <div class="markdown level1 summary"><p>Adds content to buffer if holding, otherwise output directly.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void InlineStartTag(IStartTagProperties tagInfo)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IStartTagProperties.html">IStartTagProperties</a></td>
+        <td><span class="parametername">tagInfo</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_LocationMark_" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.LocationMark*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_LocationMark_Sdl_FileTypeSupport_Framework_NativeApi_LocationMarkerId_" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.LocationMark(Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId)">LocationMark(LocationMarkerId)</h4>
+  <div class="markdown level1 summary"><p>Add to buffer if holding, otherwise output directly.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void LocationMark(LocationMarkerId markerId)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId.html">LocationMarkerId</a></td>
+        <td><span class="parametername">markerId</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_LockedContentEnd_" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.LockedContentEnd*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_LockedContentEnd" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.LockedContentEnd">LockedContentEnd()</h4>
+  <div class="markdown level1 summary"><p>Adds to buffer if holding, otherwise output directly.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void LockedContentEnd()</code></pre>
+  </div>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_LockedContentStart_" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.LockedContentStart*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_LockedContentStart_Sdl_FileTypeSupport_Framework_NativeApi_ILockedContentProperties_" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.LockedContentStart(Sdl.FileTypeSupport.Framework.NativeApi.ILockedContentProperties)">LockedContentStart(ILockedContentProperties)</h4>
+  <div class="markdown level1 summary"><p>Adds content to buffer if holding, otherwise output directly.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void LockedContentStart(ILockedContentProperties lockedContentInfo)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ILockedContentProperties.html">ILockedContentProperties</a></td>
+        <td><span class="parametername">lockedContentInfo</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_ParagraphComments_" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.ParagraphComments*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_ParagraphComments_Sdl_FileTypeSupport_Framework_NativeApi_ICommentProperties_" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.ParagraphComments(Sdl.FileTypeSupport.Framework.NativeApi.ICommentProperties)">ParagraphComments(ICommentProperties)</h4>
+  <div class="markdown level1 summary"><p>Adds to buffer if holding, otherwise output directly.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void ParagraphComments(ICommentProperties commentInfo)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ICommentProperties.html">ICommentProperties</a></td>
+        <td><span class="parametername">commentInfo</span></td>
+        <td><p>The commnet properties.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_ParagraphUnitEnd_" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.ParagraphUnitEnd*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_ParagraphUnitEnd" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.ParagraphUnitEnd">ParagraphUnitEnd()</h4>
+  <div class="markdown level1 summary"><p>Adds to buffer if holding, otherwise output directly.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void ParagraphUnitEnd()</code></pre>
+  </div>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_ParagraphUnitStart_" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.ParagraphUnitStart*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_ParagraphUnitStart_Sdl_FileTypeSupport_Framework_NativeApi_IParagraphUnitProperties_" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.ParagraphUnitStart(Sdl.FileTypeSupport.Framework.NativeApi.IParagraphUnitProperties)">ParagraphUnitStart(IParagraphUnitProperties)</h4>
+  <div class="markdown level1 summary"><p>Adds to buffer if holding, otherwise output directly.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void ParagraphUnitStart(IParagraphUnitProperties properties)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IParagraphUnitProperties.html">IParagraphUnitProperties</a></td>
+        <td><span class="parametername">properties</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_Release_" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.Release*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_Release" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.Release">Release()</h4>
+  <div class="markdown level1 summary"><p>Releases the buffer content to the Output and turns off buffering.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void Release()</code></pre>
+  </div>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.FileTypeSupportException.html">FileTypeSupportException</a></td>
+        <td><p>thrown, if there is content in the buffer, but EndOfInput has been called.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_RevisionEnd_" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.RevisionEnd*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_RevisionEnd" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.RevisionEnd">RevisionEnd()</h4>
+  <div class="markdown level1 summary"><p>Adds to buffer if holding, otherwise output directly.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void RevisionEnd()</code></pre>
+  </div>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_RevisionStart_" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.RevisionStart*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_RevisionStart_Sdl_FileTypeSupport_Framework_BilingualApi_IRevisionProperties_" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.RevisionStart(Sdl.FileTypeSupport.Framework.BilingualApi.IRevisionProperties)">RevisionStart(IRevisionProperties)</h4>
+  <div class="markdown level1 summary"><p>Adds to buffer if holding, otherwise output directly.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void RevisionStart(IRevisionProperties revisionInfo)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IRevisionProperties.html">IRevisionProperties</a></td>
+        <td><span class="parametername">revisionInfo</span></td>
+        <td><p>The revision properties.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_SegmentEnd_" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.SegmentEnd*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_SegmentEnd" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.SegmentEnd">SegmentEnd()</h4>
+  <div class="markdown level1 summary"><p>Adds to buffer if holding, otherwise output directly.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void SegmentEnd()</code></pre>
+  </div>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_SegmentStart_" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.SegmentStart*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_SegmentStart_Sdl_FileTypeSupport_Framework_NativeApi_ISegmentPairProperties_" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.SegmentStart(Sdl.FileTypeSupport.Framework.NativeApi.ISegmentPairProperties)">SegmentStart(ISegmentPairProperties)</h4>
+  <div class="markdown level1 summary"><p>Adds to buffer if holding, otherwise output directly.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void SegmentStart(ISegmentPairProperties properties)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ISegmentPairProperties.html">ISegmentPairProperties</a></td>
+        <td><span class="parametername">properties</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_SetFileProperties_" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.SetFileProperties*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_SetFileProperties_Sdl_FileTypeSupport_Framework_BilingualApi_IFileProperties_" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.SetFileProperties(Sdl.FileTypeSupport.Framework.BilingualApi.IFileProperties)">SetFileProperties(IFileProperties)</h4>
+  <div class="markdown level1 summary"><p>Default implementation, does nothing</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void SetFileProperties(IFileProperties properties)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IFileProperties.html">IFileProperties</a></td>
+        <td><span class="parametername">properties</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_StartOfInput_" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.StartOfInput*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_StartOfInput" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.StartOfInput">StartOfInput()</h4>
+  <div class="markdown level1 summary"><p>Default implementation, does nothing</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void StartOfInput()</code></pre>
+  </div>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_StructureTag_" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.StructureTag*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_StructureTag_Sdl_FileTypeSupport_Framework_NativeApi_IStructureTagProperties_" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.StructureTag(Sdl.FileTypeSupport.Framework.NativeApi.IStructureTagProperties)">StructureTag(IStructureTagProperties)</h4>
+  <div class="markdown level1 summary"><p>Adds content to buffer if holding, otherwise output directly.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void StructureTag(IStructureTagProperties tagInfo)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IStructureTagProperties.html">IStructureTagProperties</a></td>
+        <td><span class="parametername">tagInfo</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_Text_" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.Text*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_Text_Sdl_FileTypeSupport_Framework_NativeApi_ITextProperties_" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.Text(Sdl.FileTypeSupport.Framework.NativeApi.ITextProperties)">Text(ITextProperties)</h4>
+  <div class="markdown level1 summary"><p>Adds content to buffer if holding, otherwise output directly.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void Text(ITextProperties textInfo)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ITextProperties.html">ITextProperties</a></td>
+        <td><span class="parametername">textInfo</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="eii">Explicit Interface Implementations
+  </h3>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_Sdl_FileTypeSupport_Framework_NativeApi_INativeExtractionContentProcessor_Output_" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.Sdl#FileTypeSupport#Framework#NativeApi#INativeExtractionContentProcessor#Output*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_Sdl_FileTypeSupport_Framework_NativeApi_INativeExtractionContentProcessor_Output" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.Sdl#FileTypeSupport#Framework#NativeApi#INativeExtractionContentProcessor#Output">INativeExtractionContentProcessor.Output</h4>
+  <div class="markdown level1 summary"><p>Redirected to <a class="xref" href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.html#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_ExtractionOutput">ExtractionOutput</a></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">INativeExtractionContentHandler INativeExtractionContentProcessor.Output { get; set; }</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeExtractionContentHandler.html">INativeExtractionContentHandler</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_Sdl_FileTypeSupport_Framework_NativeApi_INativeGenerationContentProcessor_Output_" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.Sdl#FileTypeSupport#Framework#NativeApi#INativeGenerationContentProcessor#Output*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_Sdl_FileTypeSupport_Framework_NativeApi_INativeGenerationContentProcessor_Output" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.Sdl#FileTypeSupport#Framework#NativeApi#INativeGenerationContentProcessor#Output">INativeGenerationContentProcessor.Output</h4>
+  <div class="markdown level1 summary"><p>Redirected to <a class="xref" href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.Buffer.NativeBuffer.html#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_Buffer_NativeBuffer_GenerationOutput">GenerationOutput</a></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">INativeGenerationContentHandler INativeGenerationContentProcessor.Output { get; set; }</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeGenerationContentHandler.html">INativeGenerationContentHandler</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeExtractionContentProcessor.html">INativeExtractionContentProcessor</a>
+  </div>
+  <div>
+      <a class="xref" href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeExtractionContentHandler.html">INativeExtractionContentHandler</a>
+  </div>
+  <div>
+      <a class="xref" href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeGenerationContentProcessor.html">INativeGenerationContentProcessor</a>
+  </div>
+  <div>
+      <a class="xref" href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeGenerationContentHandler.html">INativeGenerationContentHandler</a>
+  </div>
+  <div>
+      <a class="xref" href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IAbstractNativeContentHandler.html">IAbstractNativeContentHandler</a>
+  </div>
+  <div>
+      <a class="xref" href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.html">INativeContentCycleAware</a>
+  </div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>
