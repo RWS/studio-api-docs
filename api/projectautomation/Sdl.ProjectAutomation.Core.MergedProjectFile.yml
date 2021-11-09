@@ -21,8 +21,6 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nRepresents a merged translatable file, which consists of a number of child translatable files.\nThis allows manipulating the content of all the child files within one physical SDLXLIFF file.\n"
-  remarks: "\n<p>\nTo create a merged file, first add all the individual files to the project and subsequently\ncall <xref href=\"Sdl.ProjectAutomation.Core.IProject.CreateMergedProjectFile(System.String%2cSystem.String%2cSystem.Guid%5b%5d)\" data-throw-if-not-resolved=\"false\"></xref> to create the merged file object. \ninitially, the merge state (<xref href=\"Sdl.ProjectAutomation.Core.MergedProjectFile.MergeState\" data-throw-if-not-resolved=\"false\"></xref>) of the file is <xref href=\"Sdl.ProjectAutomation.Core.MergeState.NotMerged\" data-throw-if-not-resolved=\"false\"></xref>,\nwhich indicates that the merged SDLXLIFF file has not actually been created yet. In order to do this, you need to run a \n&quot;Convert to Bilingual&quot; task after which the merge state changes to <xref href=\"Sdl.ProjectAutomation.Core.MergeState.Merged\" data-throw-if-not-resolved=\"false\"></xref>.\n</p>\n<p>  \nA merged project file with merge state <xref href=\"Sdl.ProjectAutomation.Core.MergeState.Merged\" data-throw-if-not-resolved=\"false\"></xref> \ncan be used for all operations any other translatable project file can be used. The operation will then be performed on\nthe merged SDLXLIFF file.\n</p>\n<p>\nThe Generate Target Translation task (<xref href=\"Sdl.ProjectAutomation.Core.AutomaticTaskTemplateIds.GenerateTargetTranslations\" data-throw-if-not-resolved=\"false\"></xref>) will effectively &quot;split&quot;\nthe merged file again and produce all the native target language files. After this has happened, the merge state of the merged file\nchanges to <xref href=\"Sdl.ProjectAutomation.Core.MergeState.Split\" data-throw-if-not-resolved=\"false\"></xref>. After this point, no operations can be performed on the merged file anymore.\n</p>\n"
   syntax:
     content: 'public class MergedProjectFile : ProjectFile'
     content.vb: >-
@@ -54,10 +52,6 @@ items:
   - Sdl.ProjectAutomation.Core.ProjectFile.IsCheckedOutToAnotherUser
   - Sdl.ProjectAutomation.Core.ProjectFile.LatestServerVersion
   - Sdl.ProjectAutomation.Core.ProjectFile.CurrentServerVersion
-  - Sdl.ProjectAutomation.Core.ProjectFile.LastModified
-  - Sdl.ProjectAutomation.Core.ProjectFile.Size
-  - Sdl.ProjectAutomation.Core.ProjectFile.PathInProject
-  - Sdl.ProjectAutomation.Core.ProjectFile.OriginalName
   - System.Object.ToString
   - System.Object.Equals(System.Object)
   - System.Object.Equals(System.Object,System.Object)
@@ -88,7 +82,6 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nDefault constructor.\n"
   syntax:
     content: public MergedProjectFile()
     content.vb: Public Sub New
@@ -114,7 +107,6 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nGets the translatable files this merged file consists of.\n"
   syntax:
     content: public ProjectFile[] ChildFiles { get; }
     parameters: []
@@ -145,7 +137,6 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nGets the current merge state of the file.\n"
   syntax:
     content: public MergeState MergeState { get; }
     parameters: []
@@ -334,34 +325,6 @@ references:
   name: CurrentServerVersion
   nameWithType: ProjectFile.CurrentServerVersion
   fullName: Sdl.ProjectAutomation.Core.ProjectFile.CurrentServerVersion
-- uid: Sdl.ProjectAutomation.Core.ProjectFile.LastModified
-  commentId: P:Sdl.ProjectAutomation.Core.ProjectFile.LastModified
-  parent: Sdl.ProjectAutomation.Core.ProjectFile
-  isExternal: true
-  name: LastModified
-  nameWithType: ProjectFile.LastModified
-  fullName: Sdl.ProjectAutomation.Core.ProjectFile.LastModified
-- uid: Sdl.ProjectAutomation.Core.ProjectFile.Size
-  commentId: P:Sdl.ProjectAutomation.Core.ProjectFile.Size
-  parent: Sdl.ProjectAutomation.Core.ProjectFile
-  isExternal: true
-  name: Size
-  nameWithType: ProjectFile.Size
-  fullName: Sdl.ProjectAutomation.Core.ProjectFile.Size
-- uid: Sdl.ProjectAutomation.Core.ProjectFile.PathInProject
-  commentId: P:Sdl.ProjectAutomation.Core.ProjectFile.PathInProject
-  parent: Sdl.ProjectAutomation.Core.ProjectFile
-  isExternal: true
-  name: PathInProject
-  nameWithType: ProjectFile.PathInProject
-  fullName: Sdl.ProjectAutomation.Core.ProjectFile.PathInProject
-- uid: Sdl.ProjectAutomation.Core.ProjectFile.OriginalName
-  commentId: P:Sdl.ProjectAutomation.Core.ProjectFile.OriginalName
-  parent: Sdl.ProjectAutomation.Core.ProjectFile
-  isExternal: true
-  name: OriginalName
-  nameWithType: ProjectFile.OriginalName
-  fullName: Sdl.ProjectAutomation.Core.ProjectFile.OriginalName
 - uid: System.Object.ToString
   commentId: M:System.Object.ToString
   parent: System.Object

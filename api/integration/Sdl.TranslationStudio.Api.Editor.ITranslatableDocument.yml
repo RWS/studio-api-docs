@@ -14,6 +14,7 @@ items:
   - Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.AfterSegmentSplitOrMerged
   - Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.ApplySegmentTranslation(Sdl.DesktopEditor.EditorApi.ISegmentContainerNode,Sdl.LanguagePlatform.TranslationMemory.SearchResult)
   - Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.ApplySegmentTranslationFromTrackChangeRejected(Sdl.DesktopEditor.EditorApi.ISegmentContainerNode,Sdl.LanguagePlatform.TranslationMemory.SearchResult,System.Boolean)
+  - Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.AutoCorrect(Sdl.DesktopEditor.EditorApi.ISegmentContainerNode,Sdl.DesktopEditor.EditorApi.IContentSelection,System.Windows.Forms.KeyEventArgs)
   - Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.AutoTranslatingStateChanged
   - Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.BeforeSegmentsMerged
   - Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.BeforeSegmentSplit
@@ -26,7 +27,6 @@ items:
   - Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.ClearUnconfirmedTargetSegments
   - Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.CommentActivated
   - Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.CommentAdded
-  - Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.CommentChanged
   - Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.CommentDeleted
   - Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.Comments
   - Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.CompleteWorflowStage
@@ -51,7 +51,6 @@ items:
   - Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.GetTranslatableFilename(Sdl.DesktopEditor.EditorApi.IAbstractContainerNode)
   - Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.GoToSegment(Sdl.TranslationStudio.Api.Editor.IGoToPredicate,System.Boolean)
   - Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.HandleChangedSettings
-  - Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.InsertTagRepairedTarget(Sdl.DesktopEditor.EditorApi.ISegmentContainerNode,Sdl.LanguagePlatform.Core.Segment)
   - Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.InsertTermText(Sdl.MultiTerm.Client.TerminologySearch.ITermHit)
   - Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.IsSegmentConfirmed(Sdl.DesktopEditor.EditorApi.ISegmentContainerNode)
   - Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.IsSegmentInActiveNavigationFilter(Sdl.DesktopEditor.EditorApi.ISegmentContainerNode)
@@ -120,7 +119,6 @@ items:
   - Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.UpdateSegmentRangeToTranslationMemory(Sdl.DesktopEditor.EditorApi.ContentRange)
   - Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.UpdateSegmentToTranslationMemory(Sdl.DesktopEditor.EditorApi.ISegmentContainerNode,Sdl.LanguagePlatform.TranslationMemory.TranslationUnit)
   - Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.UpdateSegmentToTranslationMemory(Sdl.DesktopEditor.EditorApi.ISegmentContainerNode,System.Boolean)
-  - Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.UpdateTitleAndDescription
   - Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.UpdateTranslationOriginProperties(Sdl.DesktopEditor.EditorApi.ISegmentContainerNode,System.Int32,Sdl.ProjectApi.Helpers.ProjectCascade,Sdl.LanguagePlatform.TranslationMemory.Action)
   - Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.VerificationCompleted
   - Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.VerifySegment(Sdl.DesktopEditor.EditorApi.ISegmentContainerNode,Sdl.DesktopEditor.EditorApi.IParagraphUnitContainerNode,Sdl.DesktopEditor.EditorApi.IFileContainerNode)
@@ -404,7 +402,7 @@ items:
     parameters:
     - id: range
       type: Sdl.DesktopEditor.EditorApi.ContentRange
-      description: The range to add the  comments to.
+      description: The range to add the comments to.
     - id: newComment
       type: Sdl.FileTypeSupport.Framework.NativeApi.ICommentProperties
       description: The comments to add to the range.
@@ -1936,16 +1934,16 @@ items:
     content: void HandleChangedSettings()
     content.vb: Sub HandleChangedSettings
   overload: Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.HandleChangedSettings*
-- uid: Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.UpdateTitleAndDescription
-  commentId: M:Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.UpdateTitleAndDescription
-  id: UpdateTitleAndDescription
+- uid: Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.AutoCorrect(Sdl.DesktopEditor.EditorApi.ISegmentContainerNode,Sdl.DesktopEditor.EditorApi.IContentSelection,System.Windows.Forms.KeyEventArgs)
+  commentId: M:Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.AutoCorrect(Sdl.DesktopEditor.EditorApi.ISegmentContainerNode,Sdl.DesktopEditor.EditorApi.IContentSelection,System.Windows.Forms.KeyEventArgs)
+  id: AutoCorrect(Sdl.DesktopEditor.EditorApi.ISegmentContainerNode,Sdl.DesktopEditor.EditorApi.IContentSelection,System.Windows.Forms.KeyEventArgs)
   parent: Sdl.TranslationStudio.Api.Editor.ITranslatableDocument
   langs:
   - csharp
   - vb
-  name: UpdateTitleAndDescription()
-  nameWithType: ITranslatableDocument.UpdateTitleAndDescription()
-  fullName: Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.UpdateTitleAndDescription()
+  name: AutoCorrect(ISegmentContainerNode, IContentSelection, KeyEventArgs)
+  nameWithType: ITranslatableDocument.AutoCorrect(ISegmentContainerNode, IContentSelection, KeyEventArgs)
+  fullName: Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.AutoCorrect(Sdl.DesktopEditor.EditorApi.ISegmentContainerNode, Sdl.DesktopEditor.EditorApi.IContentSelection, System.Windows.Forms.KeyEventArgs)
   type: Method
   source:
     path: Sdl.TranslationStudio.Api
@@ -1953,37 +1951,18 @@ items:
   assemblies:
   - Sdl.TranslationStudio.Api
   namespace: Sdl.TranslationStudio.Api.Editor
-  summary: "\nActions to be performed when you update title and description\n"
+  summary: "\nApplies auto correct on a segment.\n"
   syntax:
-    content: void UpdateTitleAndDescription()
-    content.vb: Sub UpdateTitleAndDescription
-  overload: Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.UpdateTitleAndDescription*
-- uid: Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.InsertTagRepairedTarget(Sdl.DesktopEditor.EditorApi.ISegmentContainerNode,Sdl.LanguagePlatform.Core.Segment)
-  commentId: M:Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.InsertTagRepairedTarget(Sdl.DesktopEditor.EditorApi.ISegmentContainerNode,Sdl.LanguagePlatform.Core.Segment)
-  id: InsertTagRepairedTarget(Sdl.DesktopEditor.EditorApi.ISegmentContainerNode,Sdl.LanguagePlatform.Core.Segment)
-  parent: Sdl.TranslationStudio.Api.Editor.ITranslatableDocument
-  langs:
-  - csharp
-  - vb
-  name: InsertTagRepairedTarget(ISegmentContainerNode, Segment)
-  nameWithType: ITranslatableDocument.InsertTagRepairedTarget(ISegmentContainerNode, Segment)
-  fullName: Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.InsertTagRepairedTarget(Sdl.DesktopEditor.EditorApi.ISegmentContainerNode, Sdl.LanguagePlatform.Core.Segment)
-  type: Method
-  source:
-    path: Sdl.TranslationStudio.Api
-    isExternal: true
-  assemblies:
-  - Sdl.TranslationStudio.Api
-  namespace: Sdl.TranslationStudio.Api.Editor
-  syntax:
-    content: void InsertTagRepairedTarget(ISegmentContainerNode segmentNode, Segment segment)
+    content: void AutoCorrect(ISegmentContainerNode segmentNode, IContentSelection selection, KeyEventArgs key)
     parameters:
     - id: segmentNode
       type: Sdl.DesktopEditor.EditorApi.ISegmentContainerNode
-    - id: segment
-      type: Sdl.LanguagePlatform.Core.Segment
-    content.vb: Sub InsertTagRepairedTarget(segmentNode As ISegmentContainerNode, segment As Segment)
-  overload: Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.InsertTagRepairedTarget*
+    - id: selection
+      type: Sdl.DesktopEditor.EditorApi.IContentSelection
+    - id: key
+      type: System.Windows.Forms.KeyEventArgs
+    content.vb: Sub AutoCorrect(segmentNode As ISegmentContainerNode, selection As IContentSelection, key As KeyEventArgs)
+  overload: Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.AutoCorrect*
 - uid: Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.NativeBilingualDocument
   commentId: P:Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.NativeBilingualDocument
   id: NativeBilingualDocument
@@ -2839,29 +2818,6 @@ items:
     return:
       type: System.EventHandler{Sdl.TranslationStudio.Api.Implementation.Editor.EventArgs.CommentNodeEventArgs}
     content.vb: Event CommentDeleted As EventHandler(Of CommentNodeEventArgs)
-- uid: Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.CommentChanged
-  commentId: E:Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.CommentChanged
-  id: CommentChanged
-  parent: Sdl.TranslationStudio.Api.Editor.ITranslatableDocument
-  langs:
-  - csharp
-  - vb
-  name: CommentChanged
-  nameWithType: ITranslatableDocument.CommentChanged
-  fullName: Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.CommentChanged
-  type: Event
-  source:
-    path: Sdl.TranslationStudio.Api
-    isExternal: true
-  assemblies:
-  - Sdl.TranslationStudio.Api
-  namespace: Sdl.TranslationStudio.Api.Editor
-  summary: "\nRaised when a comment is changed.\n"
-  syntax:
-    content: event EventHandler<CommentNodeEventArgs> CommentChanged
-    return:
-      type: System.EventHandler{Sdl.TranslationStudio.Api.Implementation.Editor.EventArgs.CommentNodeEventArgs}
-    content.vb: Event CommentChanged As EventHandler(Of CommentNodeEventArgs)
 - uid: Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.TQAAdded
   commentId: E:Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.TQAAdded
   id: TQAAdded
@@ -5078,23 +5034,25 @@ references:
   name: HandleChangedSettings
   nameWithType: ITranslatableDocument.HandleChangedSettings
   fullName: Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.HandleChangedSettings
-- uid: Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.UpdateTitleAndDescription*
-  commentId: Overload:Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.UpdateTitleAndDescription
+- uid: Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.AutoCorrect*
+  commentId: Overload:Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.AutoCorrect
   isExternal: true
-  name: UpdateTitleAndDescription
-  nameWithType: ITranslatableDocument.UpdateTitleAndDescription
-  fullName: Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.UpdateTitleAndDescription
-- uid: Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.InsertTagRepairedTarget*
-  commentId: Overload:Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.InsertTagRepairedTarget
+  name: AutoCorrect
+  nameWithType: ITranslatableDocument.AutoCorrect
+  fullName: Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.AutoCorrect
+- uid: Sdl.DesktopEditor.EditorApi.IContentSelection
+  commentId: T:Sdl.DesktopEditor.EditorApi.IContentSelection
+  parent: Sdl.DesktopEditor.EditorApi
   isExternal: true
-  name: InsertTagRepairedTarget
-  nameWithType: ITranslatableDocument.InsertTagRepairedTarget
-  fullName: Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.InsertTagRepairedTarget
-- uid: Sdl.LanguagePlatform.Core.Segment
+  name: IContentSelection
+  nameWithType: IContentSelection
+  fullName: Sdl.DesktopEditor.EditorApi.IContentSelection
+- uid: System.Windows.Forms.KeyEventArgs
+  commentId: '!:System.Windows.Forms.KeyEventArgs'
   isExternal: true
-  name: Segment
-  nameWithType: Segment
-  fullName: Sdl.LanguagePlatform.Core.Segment
+  name: KeyEventArgs
+  nameWithType: KeyEventArgs
+  fullName: System.Windows.Forms.KeyEventArgs
 - uid: Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.NativeBilingualDocument*
   commentId: Overload:Sdl.TranslationStudio.Api.Editor.ITranslatableDocument.NativeBilingualDocument
   isExternal: true

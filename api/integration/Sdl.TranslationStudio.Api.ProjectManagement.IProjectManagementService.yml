@@ -23,15 +23,14 @@ items:
   - Sdl.TranslationStudio.Api.ProjectManagement.IProjectManagementService.Projects
   - Sdl.TranslationStudio.Api.ProjectManagement.IProjectManagementService.ProjectsCache
   - Sdl.TranslationStudio.Api.ProjectManagement.IProjectManagementService.ProjectsChanged
-  - Sdl.TranslationStudio.Api.ProjectManagement.IProjectManagementService.ProjectsCurrentlyDownloading
   - Sdl.TranslationStudio.Api.ProjectManagement.IProjectManagementService.ProjectSettingsDialogBuilder
   - Sdl.TranslationStudio.Api.ProjectManagement.IProjectManagementService.ProjectsProvider
   - Sdl.TranslationStudio.Api.ProjectManagement.IProjectManagementService.RecentProjects
   - Sdl.TranslationStudio.Api.ProjectManagement.IProjectManagementService.RecentTasks
   - Sdl.TranslationStudio.Api.ProjectManagement.IProjectManagementService.RecentTasksChanged
-  - Sdl.TranslationStudio.Api.ProjectManagement.IProjectManagementService.RefreshLanguageCloudProjects(System.Boolean)
   - Sdl.TranslationStudio.Api.ProjectManagement.IProjectManagementService.RefreshProjects
   - Sdl.TranslationStudio.Api.ProjectManagement.IProjectManagementService.SaveChanges
+  - Sdl.TranslationStudio.Api.ProjectManagement.IProjectManagementService.ShowCustomersDialog(System.Windows.Forms.IWin32Window)
   - Sdl.TranslationStudio.Api.ProjectManagement.IProjectManagementService.ShowManageProjectTemplatesDialog
   - Sdl.TranslationStudio.Api.ProjectManagement.IProjectManagementService.ShowManageTaskSequencesDialog
   - Sdl.TranslationStudio.Api.ProjectManagement.IProjectManagementService.ShowManageUsersDialog(System.Windows.Forms.IWin32Window,Sdl.ProjectApi.IUser@)
@@ -211,7 +210,7 @@ items:
   assemblies:
   - Sdl.TranslationStudio.Api
   namespace: Sdl.TranslationStudio.Api.ProjectManagement
-  summary: "\nShows the new project wizard. This method returns right after the wizard is shown, because it will be shown as a\nnon-modal dialog.\n"
+  summary: "\nShows the new project wizard. This method returns right after the wizard is shown, because it will be shown as a \nnon-modal dialog.\n"
   syntax:
     content: IWizard<IProjectWizardData> ShowProjectWizard(IProjectWizardData wizardData = null)
     parameters:
@@ -247,6 +246,33 @@ items:
       type: Sdl.TranslationStudio.Api.ProjectManagement.IProjectWizardData
     content.vb: Function CreateNewProjectWizardData As IProjectWizardData
   overload: Sdl.TranslationStudio.Api.ProjectManagement.IProjectManagementService.CreateNewProjectWizardData*
+- uid: Sdl.TranslationStudio.Api.ProjectManagement.IProjectManagementService.ShowCustomersDialog(System.Windows.Forms.IWin32Window)
+  commentId: M:Sdl.TranslationStudio.Api.ProjectManagement.IProjectManagementService.ShowCustomersDialog(System.Windows.Forms.IWin32Window)
+  id: ShowCustomersDialog(System.Windows.Forms.IWin32Window)
+  parent: Sdl.TranslationStudio.Api.ProjectManagement.IProjectManagementService
+  langs:
+  - csharp
+  - vb
+  name: ShowCustomersDialog(IWin32Window)
+  nameWithType: IProjectManagementService.ShowCustomersDialog(IWin32Window)
+  fullName: Sdl.TranslationStudio.Api.ProjectManagement.IProjectManagementService.ShowCustomersDialog(System.Windows.Forms.IWin32Window)
+  type: Method
+  source:
+    path: Sdl.TranslationStudio.Api
+    isExternal: true
+  assemblies:
+  - Sdl.TranslationStudio.Api
+  namespace: Sdl.TranslationStudio.Api.ProjectManagement
+  summary: "\nShows the Customers dialog.\n"
+  syntax:
+    content: bool ShowCustomersDialog(IWin32Window owner)
+    parameters:
+    - id: owner
+      type: System.Windows.Forms.IWin32Window
+    return:
+      type: System.Boolean
+    content.vb: Function ShowCustomersDialog(owner As IWin32Window) As Boolean
+  overload: Sdl.TranslationStudio.Api.ProjectManagement.IProjectManagementService.ShowCustomersDialog*
 - uid: Sdl.TranslationStudio.Api.ProjectManagement.IProjectManagementService.SaveChanges
   commentId: M:Sdl.TranslationStudio.Api.ProjectManagement.IProjectManagementService.SaveChanges
   id: SaveChanges
@@ -452,30 +478,6 @@ items:
       type: System.String
     content.vb: Sub SwitchToLanguageCloudApplicationMenu(languageCloudApplicationMenu As String)
   overload: Sdl.TranslationStudio.Api.ProjectManagement.IProjectManagementService.SwitchToLanguageCloudApplicationMenu*
-- uid: Sdl.TranslationStudio.Api.ProjectManagement.IProjectManagementService.RefreshLanguageCloudProjects(System.Boolean)
-  commentId: M:Sdl.TranslationStudio.Api.ProjectManagement.IProjectManagementService.RefreshLanguageCloudProjects(System.Boolean)
-  id: RefreshLanguageCloudProjects(System.Boolean)
-  parent: Sdl.TranslationStudio.Api.ProjectManagement.IProjectManagementService
-  langs:
-  - csharp
-  - vb
-  name: RefreshLanguageCloudProjects(Boolean)
-  nameWithType: IProjectManagementService.RefreshLanguageCloudProjects(Boolean)
-  fullName: Sdl.TranslationStudio.Api.ProjectManagement.IProjectManagementService.RefreshLanguageCloudProjects(System.Boolean)
-  type: Method
-  source:
-    path: Sdl.TranslationStudio.Api
-    isExternal: true
-  assemblies:
-  - Sdl.TranslationStudio.Api
-  namespace: Sdl.TranslationStudio.Api.ProjectManagement
-  syntax:
-    content: void RefreshLanguageCloudProjects(bool isExplicit)
-    parameters:
-    - id: isExplicit
-      type: System.Boolean
-    content.vb: Sub RefreshLanguageCloudProjects(isExplicit As Boolean)
-  overload: Sdl.TranslationStudio.Api.ProjectManagement.IProjectManagementService.RefreshLanguageCloudProjects*
 - uid: Sdl.TranslationStudio.Api.ProjectManagement.IProjectManagementService.Application
   commentId: P:Sdl.TranslationStudio.Api.ProjectManagement.IProjectManagementService.Application
   id: Application
@@ -783,33 +785,6 @@ items:
   - get
   modifiers.vb:
   - ReadOnly
-- uid: Sdl.TranslationStudio.Api.ProjectManagement.IProjectManagementService.ProjectsCurrentlyDownloading
-  commentId: P:Sdl.TranslationStudio.Api.ProjectManagement.IProjectManagementService.ProjectsCurrentlyDownloading
-  id: ProjectsCurrentlyDownloading
-  parent: Sdl.TranslationStudio.Api.ProjectManagement.IProjectManagementService
-  langs:
-  - csharp
-  - vb
-  name: ProjectsCurrentlyDownloading
-  nameWithType: IProjectManagementService.ProjectsCurrentlyDownloading
-  fullName: Sdl.TranslationStudio.Api.ProjectManagement.IProjectManagementService.ProjectsCurrentlyDownloading
-  type: Property
-  source:
-    path: Sdl.TranslationStudio.Api
-    isExternal: true
-  assemblies:
-  - Sdl.TranslationStudio.Api
-  namespace: Sdl.TranslationStudio.Api.ProjectManagement
-  syntax:
-    content: ConcurrentDictionary<string, IProject> ProjectsCurrentlyDownloading { get; set; }
-    parameters: []
-    return:
-      type: System.Collections.Concurrent.ConcurrentDictionary{System.String,Sdl.ProjectApi.IProject}
-    content.vb: Property ProjectsCurrentlyDownloading As ConcurrentDictionary(Of String, IProject)
-  overload: Sdl.TranslationStudio.Api.ProjectManagement.IProjectManagementService.ProjectsCurrentlyDownloading*
-  modifiers.csharp:
-  - get
-  - set
 - uid: Sdl.TranslationStudio.Api.ProjectManagement.IProjectManagementService.CurrentProjectChanging
   commentId: E:Sdl.TranslationStudio.Api.ProjectManagement.IProjectManagementService.CurrentProjectChanging
   id: CurrentProjectChanging
@@ -1330,6 +1305,17 @@ references:
   name: CreateNewProjectWizardData
   nameWithType: IProjectManagementService.CreateNewProjectWizardData
   fullName: Sdl.TranslationStudio.Api.ProjectManagement.IProjectManagementService.CreateNewProjectWizardData
+- uid: Sdl.TranslationStudio.Api.ProjectManagement.IProjectManagementService.ShowCustomersDialog*
+  commentId: Overload:Sdl.TranslationStudio.Api.ProjectManagement.IProjectManagementService.ShowCustomersDialog
+  isExternal: true
+  name: ShowCustomersDialog
+  nameWithType: IProjectManagementService.ShowCustomersDialog
+  fullName: Sdl.TranslationStudio.Api.ProjectManagement.IProjectManagementService.ShowCustomersDialog
+- uid: System.Windows.Forms.IWin32Window
+  isExternal: true
+  name: IWin32Window
+  nameWithType: IWin32Window
+  fullName: System.Windows.Forms.IWin32Window
 - uid: Sdl.TranslationStudio.Api.ProjectManagement.IProjectManagementService.SaveChanges*
   commentId: Overload:Sdl.TranslationStudio.Api.ProjectManagement.IProjectManagementService.SaveChanges
   isExternal: true
@@ -1431,11 +1417,6 @@ references:
   name: ShowManageUsersDialog
   nameWithType: IProjectManagementService.ShowManageUsersDialog
   fullName: Sdl.TranslationStudio.Api.ProjectManagement.IProjectManagementService.ShowManageUsersDialog
-- uid: System.Windows.Forms.IWin32Window
-  isExternal: true
-  name: IWin32Window
-  nameWithType: IWin32Window
-  fullName: System.Windows.Forms.IWin32Window
 - uid: Sdl.ProjectApi.IUser
   isExternal: true
   name: IUser
@@ -1499,12 +1480,6 @@ references:
   name: SwitchToLanguageCloudApplicationMenu
   nameWithType: IProjectManagementService.SwitchToLanguageCloudApplicationMenu
   fullName: Sdl.TranslationStudio.Api.ProjectManagement.IProjectManagementService.SwitchToLanguageCloudApplicationMenu
-- uid: Sdl.TranslationStudio.Api.ProjectManagement.IProjectManagementService.RefreshLanguageCloudProjects*
-  commentId: Overload:Sdl.TranslationStudio.Api.ProjectManagement.IProjectManagementService.RefreshLanguageCloudProjects
-  isExternal: true
-  name: RefreshLanguageCloudProjects
-  nameWithType: IProjectManagementService.RefreshLanguageCloudProjects
-  fullName: Sdl.TranslationStudio.Api.ProjectManagement.IProjectManagementService.RefreshLanguageCloudProjects
 - uid: Sdl.TranslationStudio.Api.ProjectManagement.IProjectManagementService.Application*
   commentId: Overload:Sdl.TranslationStudio.Api.ProjectManagement.IProjectManagementService.Application
   isExternal: true
@@ -1660,129 +1635,6 @@ references:
   name: IProjectSettingsDialogBuilder
   nameWithType: IProjectSettingsDialogBuilder
   fullName: Sdl.TranslationStudio.Api.ProjectManagement.IProjectSettingsDialogBuilder
-- uid: Sdl.TranslationStudio.Api.ProjectManagement.IProjectManagementService.ProjectsCurrentlyDownloading*
-  commentId: Overload:Sdl.TranslationStudio.Api.ProjectManagement.IProjectManagementService.ProjectsCurrentlyDownloading
-  isExternal: true
-  name: ProjectsCurrentlyDownloading
-  nameWithType: IProjectManagementService.ProjectsCurrentlyDownloading
-  fullName: Sdl.TranslationStudio.Api.ProjectManagement.IProjectManagementService.ProjectsCurrentlyDownloading
-- uid: System.Collections.Concurrent.ConcurrentDictionary{System.String,Sdl.ProjectApi.IProject}
-  commentId: T:System.Collections.Concurrent.ConcurrentDictionary{System.String,Sdl.ProjectApi.IProject}
-  parent: System.Collections.Concurrent
-  definition: System.Collections.Concurrent.ConcurrentDictionary`2
-  name: ConcurrentDictionary<String, IProject>
-  nameWithType: ConcurrentDictionary<String, IProject>
-  fullName: System.Collections.Concurrent.ConcurrentDictionary<System.String, Sdl.ProjectApi.IProject>
-  nameWithType.vb: ConcurrentDictionary(Of String, IProject)
-  fullName.vb: System.Collections.Concurrent.ConcurrentDictionary(Of System.String, Sdl.ProjectApi.IProject)
-  name.vb: ConcurrentDictionary(Of String, IProject)
-  spec.csharp:
-  - uid: System.Collections.Concurrent.ConcurrentDictionary`2
-    name: ConcurrentDictionary
-    nameWithType: ConcurrentDictionary
-    fullName: System.Collections.Concurrent.ConcurrentDictionary
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
-  - uid: System.String
-    name: String
-    nameWithType: String
-    fullName: System.String
-    isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: Sdl.ProjectApi.IProject
-    name: IProject
-    nameWithType: IProject
-    fullName: Sdl.ProjectApi.IProject
-    isExternal: true
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  spec.vb:
-  - uid: System.Collections.Concurrent.ConcurrentDictionary`2
-    name: ConcurrentDictionary
-    nameWithType: ConcurrentDictionary
-    fullName: System.Collections.Concurrent.ConcurrentDictionary
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - uid: System.String
-    name: String
-    nameWithType: String
-    fullName: System.String
-    isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: Sdl.ProjectApi.IProject
-    name: IProject
-    nameWithType: IProject
-    fullName: Sdl.ProjectApi.IProject
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Collections.Concurrent.ConcurrentDictionary`2
-  commentId: T:System.Collections.Concurrent.ConcurrentDictionary`2
-  isExternal: true
-  name: ConcurrentDictionary<TKey, TValue>
-  nameWithType: ConcurrentDictionary<TKey, TValue>
-  fullName: System.Collections.Concurrent.ConcurrentDictionary<TKey, TValue>
-  nameWithType.vb: ConcurrentDictionary(Of TKey, TValue)
-  fullName.vb: System.Collections.Concurrent.ConcurrentDictionary(Of TKey, TValue)
-  name.vb: ConcurrentDictionary(Of TKey, TValue)
-  spec.csharp:
-  - uid: System.Collections.Concurrent.ConcurrentDictionary`2
-    name: ConcurrentDictionary
-    nameWithType: ConcurrentDictionary
-    fullName: System.Collections.Concurrent.ConcurrentDictionary
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
-  - name: TKey
-    nameWithType: TKey
-    fullName: TKey
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - name: TValue
-    nameWithType: TValue
-    fullName: TValue
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  spec.vb:
-  - uid: System.Collections.Concurrent.ConcurrentDictionary`2
-    name: ConcurrentDictionary
-    nameWithType: ConcurrentDictionary
-    fullName: System.Collections.Concurrent.ConcurrentDictionary
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - name: TKey
-    nameWithType: TKey
-    fullName: TKey
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - name: TValue
-    nameWithType: TValue
-    fullName: TValue
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Collections.Concurrent
-  commentId: N:System.Collections.Concurrent
-  isExternal: true
-  name: System.Collections.Concurrent
-  nameWithType: System.Collections.Concurrent
-  fullName: System.Collections.Concurrent
 - uid: System.EventHandler{Sdl.TranslationStudio.Api.ProjectManagement.ProjectCancelEventArgs}
   commentId: T:System.EventHandler{Sdl.TranslationStudio.Api.ProjectManagement.ProjectCancelEventArgs}
   parent: System

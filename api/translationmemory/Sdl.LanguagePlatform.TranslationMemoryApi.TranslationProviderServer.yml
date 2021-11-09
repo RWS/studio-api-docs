@@ -5,6 +5,7 @@ items:
   id: TranslationProviderServer
   parent: Sdl.LanguagePlatform.TranslationMemoryApi
   children:
+  - Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.#ctor
   - Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.#ctor(System.Uri,System.Boolean,System.String,System.String)
   - Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.#ctor(System.Uri,System.String,System.String,System.DateTime)
   - Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.DeleteBackgroundTask(System.Guid)
@@ -26,6 +27,7 @@ items:
   - Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.GetLicensingStatusInformation
   - Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.GetScheduledTranslationMemoryExport(System.Guid)
   - Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.GetScheduledTranslationMemoryImport(System.Guid)
+  - Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.GetServerVersion
   - Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.GetTranslationMemories(Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryProperties)
   - Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.GetTranslationMemoriesByQuery(Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryQuery)
   - Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.GetTranslationMemoriesQueryFilters
@@ -34,7 +36,6 @@ items:
   - Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.GetTranslationMemorySummary(System.String,Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryProperties)
   - Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.IsTranslationAndAnalysisServiceSupported
   - Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.IsTranslationMemoryLocationSupported
-  - Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.Release
   - Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.Uri
   langs:
   - csharp
@@ -69,6 +70,37 @@ items:
   modifiers.vb:
   - Public
   - Class
+- uid: Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.#ctor
+  commentId: M:Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.#ctor
+  id: '#ctor'
+  parent: Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer
+  langs:
+  - csharp
+  - vb
+  name: TranslationProviderServer()
+  nameWithType: TranslationProviderServer.TranslationProviderServer()
+  fullName: Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.TranslationProviderServer()
+  type: Constructor
+  source:
+    path: Sdl.LanguagePlatform.TranslationMemoryApi
+    isExternal: true
+  assemblies:
+  - Sdl.LanguagePlatform.TranslationMemoryApi
+  namespace: Sdl.LanguagePlatform.TranslationMemoryApi
+  summary: "\nInitializes a new instance of the <xref href=\"Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer\" data-throw-if-not-resolved=\"false\"></xref> class.\n"
+  remarks: This is for in-line server side usage and assumes thet the SDL identity has been propagated to the calling Thread.
+  syntax:
+    content: public TranslationProviderServer()
+    content.vb: Public Sub New
+  overload: Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.#ctor*
+  exceptions:
+  - type: System.Security.SecurityException
+    commentId: T:System.Security.SecurityException
+    description: Thrown if the current thread&apos;s principal is invalid.
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
 - uid: Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.#ctor(System.Uri,System.Boolean,System.String,System.String)
   commentId: M:Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.#ctor(System.Uri,System.Boolean,System.String,System.String)
   id: '#ctor(System.Uri,System.Boolean,System.String,System.String)'
@@ -1054,16 +1086,16 @@ items:
   - Public
   fullName.vb: Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.DeleteBackgroundTasks(System.Collections.Generic.ICollection(Of System.Guid))
   name.vb: DeleteBackgroundTasks(ICollection(Of Guid))
-- uid: Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.Release
-  commentId: M:Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.Release
-  id: Release
+- uid: Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.GetServerVersion
+  commentId: M:Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.GetServerVersion
+  id: GetServerVersion
   parent: Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer
   langs:
   - csharp
   - vb
-  name: Release()
-  nameWithType: TranslationProviderServer.Release()
-  fullName: Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.Release()
+  name: GetServerVersion()
+  nameWithType: TranslationProviderServer.GetServerVersion()
+  fullName: Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.GetServerVersion()
   type: Method
   source:
     path: Sdl.LanguagePlatform.TranslationMemoryApi
@@ -1071,11 +1103,13 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemoryApi
   namespace: Sdl.LanguagePlatform.TranslationMemoryApi
-  summary: "\nCalls endpoint to release Translation Provider CALs\n"
+  summary: "\nReturns the version of the server.\n"
   syntax:
-    content: public void Release()
-    content.vb: Public Sub Release
-  overload: Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.Release*
+    content: public ServerBasedTranslationMemoryVersion GetServerVersion()
+    return:
+      type: Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedTranslationMemoryVersion
+    content.vb: Public Function GetServerVersion As ServerBasedTranslationMemoryVersion
+  overload: Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.GetServerVersion*
   modifiers.csharp:
   - public
   modifiers.vb:
@@ -1478,6 +1512,9 @@ references:
   name: TranslationProviderServer
   nameWithType: TranslationProviderServer.TranslationProviderServer
   fullName: Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.TranslationProviderServer
+- uid: System.Security.SecurityException
+  commentId: T:System.Security.SecurityException
+  isExternal: true
 - uid: System.Uri
   isExternal: true
   name: Uri
@@ -2114,12 +2151,19 @@ references:
   name: System.Collections.Generic
   nameWithType: System.Collections.Generic
   fullName: System.Collections.Generic
-- uid: Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.Release*
-  commentId: Overload:Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.Release
+- uid: Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.GetServerVersion*
+  commentId: Overload:Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.GetServerVersion
   isExternal: true
-  name: Release
-  nameWithType: TranslationProviderServer.Release
-  fullName: Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.Release
+  name: GetServerVersion
+  nameWithType: TranslationProviderServer.GetServerVersion
+  fullName: Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.GetServerVersion
+- uid: Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedTranslationMemoryVersion
+  commentId: T:Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedTranslationMemoryVersion
+  parent: Sdl.LanguagePlatform.TranslationMemoryApi
+  isExternal: true
+  name: ServerBasedTranslationMemoryVersion
+  nameWithType: ServerBasedTranslationMemoryVersion
+  fullName: Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedTranslationMemoryVersion
 - uid: Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.Uri*
   commentId: Overload:Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.Uri
   isExternal: true

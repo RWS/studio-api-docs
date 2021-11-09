@@ -45,7 +45,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\nA <xref href=\"Sdl.LanguagePlatform.Core.Tokenization.Token\" data-throw-if-not-resolved=\"false\"></xref> which represents a numeric value.\n"
   syntax:
     content: 'public class NumberToken : Token, ILocalizableToken'
     content.vb: >-
@@ -101,25 +100,19 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\nInitializes a new instance with the specified values.\n"
   syntax:
     content: public NumberToken(string text, string sign, string decimalPart, string fractionalPart, NumberFormatInfo format)
     parameters:
     - id: text
       type: System.String
-      description: The token text
     - id: sign
       type: System.String
-      description: The sign of the numeric value
     - id: decimalPart
       type: System.String
-      description: The decimal part of the numeric value
     - id: fractionalPart
       type: System.String
-      description: The fractional part of the numeric value
     - id: format
       type: System.Globalization.NumberFormatInfo
-      description: "The number format of the token&apos;s culture, used to determine \nwhether default or alternate separators were used"
     content.vb: Public Sub New(text As String, sign As String, decimalPart As String, fractionalPart As String, format As NumberFormatInfo)
   overload: Sdl.LanguagePlatform.Core.Tokenization.NumberToken.#ctor*
   modifiers.csharp:
@@ -143,37 +136,27 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\nInitializes a new instance with the specified values.\n"
   syntax:
     content: public NumberToken(string text, NumericSeparator groupSeparator, NumericSeparator decimalSeparator, char alternateGroupSeparator, char alternateDecimalSeparator, Sign sign, string rawSign, string rawDecimalDigits, string rawFractionalDigits)
     parameters:
     - id: text
       type: System.String
-      description: The text of the token, as it appeared in the input
     - id: groupSeparator
       type: Sdl.LanguagePlatform.Core.Tokenization.NumericSeparator
-      description: The type of group separator used
     - id: decimalSeparator
       type: Sdl.LanguagePlatform.Core.Tokenization.NumericSeparator
-      description: The type of decimal separator used
     - id: alternateGroupSeparator
       type: System.Char
-      description: The character of an alternative group separator, if used
     - id: alternateDecimalSeparator
       type: System.Char
-      description: The character of an alternative decimal separator, if used
     - id: sign
       type: Sdl.LanguagePlatform.Core.Tokenization.Sign
-      description: The type of sign used
     - id: rawSign
       type: System.String
-      description: The &quot;raw text&quot; of the sign
     - id: rawDecimalDigits
       type: System.String
-      description: The &quot;raw decimal digits&quot;, without separators, between 0-9
     - id: rawFractionalDigits
       type: System.String
-      description: The &quot;raw fractional digits&quot;, without separators, between 0-9
     content.vb: Public Sub New(text As String, groupSeparator As NumericSeparator, decimalSeparator As NumericSeparator, alternateGroupSeparator As Char, alternateDecimalSeparator As Char, sign As Sign, rawSign As String, rawDecimalDigits As String, rawFractionalDigits As String)
   overload: Sdl.LanguagePlatform.Core.Tokenization.NumberToken.#ctor*
   modifiers.csharp:
@@ -197,13 +180,11 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\nInitializes a new instance with the values of another instance, creating a deep copy.\n"
   syntax:
     content: public NumberToken(NumberToken other)
     parameters:
     - id: other
       type: Sdl.LanguagePlatform.Core.Tokenization.NumberToken
-      description: The instance to copy
     content.vb: Public Sub New(other As NumberToken)
   overload: Sdl.LanguagePlatform.Core.Tokenization.NumberToken.#ctor*
   modifiers.csharp:
@@ -227,22 +208,15 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\nOverwrites the current token&apos;s value with the value from <code data-dev-comment-type=\"paramref\" class=\"paramref\">blueprint</code>, which\nalso must be a <xref href=\"Sdl.LanguagePlatform.Core.Tokenization.DateTimeToken\" data-throw-if-not-resolved=\"false\"></xref>. Note that only the value and the type are\noverwritten, not the textual representation. \n"
   syntax:
     content: public virtual bool SetValue(Token blueprint, bool keepNumericSeparators)
     parameters:
     - id: blueprint
       type: Sdl.LanguagePlatform.Core.Tokenization.Token
-      description: The token to take the value from
     - id: keepNumericSeparators
       type: System.Boolean
-      description: >-
-        Applicable to numeric (number and measurement) tokens only: if true, do not
-
-        override the original group and decimal separators.
     return:
       type: System.Boolean
-      description: A flag indicating whether the token&apos;s value or type were changed.
     content.vb: Public Overridable Function SetValue(blueprint As Token, keepNumericSeparators As Boolean) As Boolean
   overload: Sdl.LanguagePlatform.Core.Tokenization.NumberToken.SetValue*
   implements:
@@ -270,22 +244,17 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\nOverwrites the current token values with the specified values.\n"
   syntax:
     content: public virtual void SetValue(string sign, string decimalPart, string fractionalPart, NumberFormatInfo format)
     parameters:
     - id: sign
       type: System.String
-      description: The sign of the numeric value
     - id: decimalPart
       type: System.String
-      description: The decimal part of the numeric value
     - id: fractionalPart
       type: System.String
-      description: The fractional part of the numeric value
     - id: format
       type: System.Globalization.NumberFormatInfo
-      description: "The number format of the token&apos;s culture, used to determine \nwhether default or alternate separators were used"
     content.vb: Public Overridable Sub SetValue(sign As String, decimalPart As String, fractionalPart As String, format As NumberFormatInfo)
   overload: Sdl.LanguagePlatform.Core.Tokenization.NumberToken.SetValue*
   modifiers.csharp:
@@ -311,12 +280,10 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\nSee <xref href=\"Sdl.LanguagePlatform.Core.SegmentElement.Duplicate\" data-throw-if-not-resolved=\"false\"></xref>\n"
   syntax:
     content: public override SegmentElement Duplicate()
     return:
       type: Sdl.LanguagePlatform.Core.SegmentElement
-      description: A new instance that is a deep copy of this instance.
     content.vb: Public Overrides Function Duplicate As SegmentElement
   overridden: Sdl.LanguagePlatform.Core.SegmentElement.Duplicate
   overload: Sdl.LanguagePlatform.Core.Tokenization.NumberToken.Duplicate*
@@ -343,19 +310,15 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\nAuto-localizes the token according to the settings of the specified target culture \nand the provided auto-localization settings. The text of the token will be changed, \nbut not the values.\n<p>\nFor some token types, special <xref href=\"Sdl.LanguagePlatform.Core.Tokenization.AutoLocalizationSettings\" data-throw-if-not-resolved=\"false\"></xref> will be used, if provided.\n</p>\n"
   syntax:
     content: public virtual bool Localize(CultureInfo culture, AutoLocalizationSettings autoLocalizationSettings)
     parameters:
     - id: culture
       type: System.Globalization.CultureInfo
-      description: The target culture
     - id: autoLocalizationSettings
       type: Sdl.LanguagePlatform.Core.Tokenization.AutoLocalizationSettings
-      description: "Contains the <xref href=\"Sdl.LanguagePlatform.Core.Tokenization.AutoLocalizationSettings\" data-throw-if-not-resolved=\"false\"></xref> to use for some token types. May be null, \nin which case default settings will be used."
     return:
       type: System.Boolean
-      description: <code>true</code> if the token text has been changed, and <code>false</code> otherwise
     content.vb: Public Overridable Function Localize(culture As CultureInfo, autoLocalizationSettings As AutoLocalizationSettings) As Boolean
   overload: Sdl.LanguagePlatform.Core.Tokenization.NumberToken.Localize*
   implements:
@@ -383,28 +346,19 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\nAuto-localizes the token according to the settings of the specified target culture \nand the provided auto-localization settings. The text of the token will be changed, \nbut not the values.\n<p>\nFor some token types, special <xref href=\"Sdl.LanguagePlatform.Core.Tokenization.AutoLocalizationSettings\" data-throw-if-not-resolved=\"false\"></xref> will be used, if provided.\n</p>\n"
   syntax:
     content: public virtual bool Localize(CultureInfo culture, AutoLocalizationSettings autoLocalizationSettings, ILocalizableToken originalMemoryToken, bool adjustCasing)
     parameters:
     - id: culture
       type: System.Globalization.CultureInfo
-      description: The target culture
     - id: autoLocalizationSettings
       type: Sdl.LanguagePlatform.Core.Tokenization.AutoLocalizationSettings
-      description: "Contains the <xref href=\"Sdl.LanguagePlatform.Core.Tokenization.AutoLocalizationSettings\" data-throw-if-not-resolved=\"false\"></xref> to use for some token types. May be null, \nin which case default settings will be used."
     - id: originalMemoryToken
       type: Sdl.LanguagePlatform.Core.Tokenization.ILocalizableToken
-      description: "The original memory token. Some auto-localization settings will \nbe derived from the token, if provided."
     - id: adjustCasing
       type: System.Boolean
-      description: >-
-        If true, it is assumed that the token is in segment-initial position. Then, casing
-
-        will be adjusted if the original memory token is supplied as well.
     return:
       type: System.Boolean
-      description: <code>true</code> if the token text has been changed, and <code>false</code> otherwise
     content.vb: Public Overridable Function Localize(culture As CultureInfo, autoLocalizationSettings As AutoLocalizationSettings, originalMemoryToken As ILocalizableToken, adjustCasing As Boolean) As Boolean
   overload: Sdl.LanguagePlatform.Core.Tokenization.NumberToken.Localize*
   implements:
@@ -432,7 +386,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\nFormat the number according to the provided culture, applying overrides for\nseparators as appropriate. This method uses a proprietary implementation for\nthe formatting and does not use the default .Net formatting methods.\n"
   syntax:
     content: public string FormatNumber(CultureInfo culture)
     parameters:
@@ -463,7 +416,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\nFormat the number according to the provided number format information, applying overrides for\nseparators as appropriate. This method uses a proprietary implementation for\nthe formatting and does not use the default .Net formatting methods.\n"
   syntax:
     content: public string FormatNumber(NumberFormatInfo nfi)
     parameters:
@@ -494,16 +446,13 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\n<xref href=\"Sdl.LanguagePlatform.Core.SegmentElement.GetSimilarity(Sdl.LanguagePlatform.Core.SegmentElement)\" data-throw-if-not-resolved=\"false\"></xref>\n"
   syntax:
     content: public override SegmentElement.Similarity GetSimilarity(SegmentElement other)
     parameters:
     - id: other
       type: Sdl.LanguagePlatform.Core.SegmentElement
-      description: The other instance.
     return:
       type: Sdl.LanguagePlatform.Core.SegmentElement.Similarity
-      description: A value indicating the degree of similarity to the provided segment element.
     content.vb: Public Overrides Function GetSimilarity(other As SegmentElement) As SegmentElement.Similarity
   overridden: Sdl.LanguagePlatform.Core.SegmentElement.GetSimilarity(Sdl.LanguagePlatform.Core.SegmentElement)
   overload: Sdl.LanguagePlatform.Core.Tokenization.NumberToken.GetSimilarity*
@@ -530,19 +479,13 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\n<xref href=\"System.Object.Equals(object)\" data-throw-if-not-resolved=\"false\"></xref>\n"
   syntax:
     content: public override bool Equals(object obj)
     parameters:
     - id: obj
       type: System.Object
-      description: The object to compare with the current object.
     return:
       type: System.Boolean
-      description: >
-        true if the specified object is equal to the current object;
-
-        otherwise, false.
     content.vb: Public Overrides Function Equals(obj As Object) As Boolean
   overridden: Sdl.LanguagePlatform.Core.Tokenization.Token.Equals(System.Object)
   overload: Sdl.LanguagePlatform.Core.Tokenization.NumberToken.Equals*
@@ -569,7 +512,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\n<xref href=\"System.Object.GetHashCode(object)\" data-throw-if-not-resolved=\"false\"></xref>\n"
   syntax:
     content: public override int GetHashCode()
     return:
@@ -600,7 +542,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\n<xref href=\"Sdl.LanguagePlatform.Core.Tokenization.Token.Type\" data-throw-if-not-resolved=\"false\"></xref>\n"
   syntax:
     content: protected override TokenType GetTokenType()
     return:
@@ -631,13 +572,11 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\nVisitor pattern implementation. Calls <xref href=\"Sdl.LanguagePlatform.Core.ISegmentElementVisitor.VisitNumberToken(Sdl.LanguagePlatform.Core.Tokenization.NumberToken)\" data-throw-if-not-resolved=\"false\"></xref>.\n"
   syntax:
     content: public override void AcceptSegmentElementVisitor(ISegmentElementVisitor visitor)
     parameters:
     - id: visitor
       type: Sdl.LanguagePlatform.Core.ISegmentElementVisitor
-      description: The visitor instance
     content.vb: Public Overrides Sub AcceptSegmentElementVisitor(visitor As ISegmentElementVisitor)
   overridden: Sdl.LanguagePlatform.Core.SegmentElement.AcceptSegmentElementVisitor(Sdl.LanguagePlatform.Core.ISegmentElementVisitor)
   overload: Sdl.LanguagePlatform.Core.Tokenization.NumberToken.AcceptSegmentElementVisitor*
@@ -664,7 +603,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\nGets or sets the numeric value. Do not use the setter, it is for internal purposes only.\n"
   syntax:
     content: public double Value { get; set; }
     parameters: []
@@ -695,7 +633,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\nGets or sets the flag whether the numeric value is valid or not. Do not use the setter, it is for internal purposes only.\n"
   syntax:
     content: public bool ValueValid { get; set; }
     parameters: []
@@ -726,7 +663,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\nGets or sets the sign.\n"
   syntax:
     content: public Sign Sign { get; set; }
     parameters: []
@@ -757,7 +693,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\nGets or sets the &quot;raw&quot; sign, i.e. the textual representation of the sign\n"
   syntax:
     content: public string RawSign { get; set; }
     parameters: []
@@ -788,7 +723,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\nGets or sets the decimal separator\n"
   syntax:
     content: public NumericSeparator DecimalSeparator { get; set; }
     parameters: []
@@ -819,7 +753,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\nGets or sets the group separator\n"
   syntax:
     content: public NumericSeparator GroupSeparator { get; set; }
     parameters: []
@@ -850,7 +783,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\nGets or sets an alternate group separator, which is a single char if an alternate\nseparator is used, or the null character if no alternate separator is used.\n"
   syntax:
     content: public char AlternateGroupSeparator { get; set; }
     parameters: []
@@ -881,7 +813,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\nGets or sets an alternate decimal separator, which is a single char if an alternate\nseparator is used, or the null character if no alternate separator is used.\n"
   syntax:
     content: public char AlternateDecimalSeparator { get; set; }
     parameters: []
@@ -912,7 +843,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\nGets or sets the raw fractional digits, which are a sequence of digits without \nseparators or signs.\n"
   syntax:
     content: public string RawFractionalDigits { get; set; }
     parameters: []
@@ -943,7 +873,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\nGets or sets the raw decimal digits, which are a sequence of digits without \nseparators or signs.\n"
   syntax:
     content: public string RawDecimalDigits { get; set; }
     parameters: []
@@ -974,7 +903,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\n<xref href=\"Sdl.LanguagePlatform.Core.Tokenization.Token.IsPlaceable\" data-throw-if-not-resolved=\"false\"></xref>. Always <code>true</code> for this class.\n"
   syntax:
     content: public override bool IsPlaceable { get; }
     parameters: []
@@ -1008,7 +936,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\n<xref href=\"Sdl.LanguagePlatform.Core.Tokenization.Token.IsSubstitutable\" data-throw-if-not-resolved=\"false\"></xref>. Always <code>true</code> for this class.\n"
   syntax:
     content: public override bool IsSubstitutable { get; }
     parameters: []

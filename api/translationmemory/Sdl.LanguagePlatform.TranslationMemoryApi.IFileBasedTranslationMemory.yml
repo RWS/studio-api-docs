@@ -5,7 +5,6 @@ items:
   id: IFileBasedTranslationMemory
   parent: Sdl.LanguagePlatform.TranslationMemoryApi
   children:
-  - Sdl.LanguagePlatform.TranslationMemoryApi.IFileBasedTranslationMemory.AlignTranslationUnits(Sdl.LanguagePlatform.TranslationMemory.TranslationUnit[])
   - Sdl.LanguagePlatform.TranslationMemoryApi.IFileBasedTranslationMemory.BuildModel
   - Sdl.LanguagePlatform.TranslationMemoryApi.IFileBasedTranslationMemory.CanBuildModel
   - Sdl.LanguagePlatform.TranslationMemoryApi.IFileBasedTranslationMemory.ClearModel
@@ -29,10 +28,10 @@ items:
   namespace: Sdl.LanguagePlatform.TranslationMemoryApi
   summary: "\nRepresents an file based Translation Memory\n"
   syntax:
-    content: 'public interface IFileBasedTranslationMemory : IAlignableTranslationMemory, ITranslationMemory2015, ITranslationMemory, ITranslationProvider, ISupportPlaceables, IReindexableTranslationMemory, ILocalTranslationMemory, IAdvancedContextTranslationMemory'
+    content: 'public interface IFileBasedTranslationMemory : IAlignableTranslationMemory, ITranslationMemory2015, ITranslationMemory, ITranslationProvider, IReindexableTranslationMemory, ILocalTranslationMemory, IAdvancedContextTranslationMemory'
     content.vb: >-
       Public Interface IFileBasedTranslationMemory
-          Inherits IAlignableTranslationMemory, ITranslationMemory2015, ITranslationMemory, ITranslationProvider, ISupportPlaceables, IReindexableTranslationMemory, ILocalTranslationMemory, IAdvancedContextTranslationMemory
+          Inherits IAlignableTranslationMemory, ITranslationMemory2015, ITranslationMemory, ITranslationProvider, IReindexableTranslationMemory, ILocalTranslationMemory, IAdvancedContextTranslationMemory
   inheritedMembers:
   - Sdl.LanguagePlatform.TranslationMemoryApi.IAlignableTranslationMemory.MeasureModelFitness(Sdl.LanguagePlatform.TranslationMemory.RegularIterator@,System.Boolean)
   - Sdl.LanguagePlatform.TranslationMemoryApi.IAlignableTranslationMemory.ClearAlignmentData
@@ -59,6 +58,8 @@ items:
   - Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.CreationUserName
   - Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.ExpirationDate
   - Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.FieldDefinitions
+  - Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.LanguageResourceBundles
+  - Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.Recognizers
   - Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.FuzzyIndexes
   - Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.FuzzyIndexTuningSettings
   - Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.FuzzyIndexStatisticsRecomputedAt
@@ -88,8 +89,6 @@ items:
   - Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider.SupportsWordCounts
   - Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider.TranslationMethod
   - Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider.IsReadOnly
-  - Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables.LanguageResourceBundles
-  - Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables.Recognizers
   - Sdl.LanguagePlatform.TranslationMemoryApi.IReindexableTranslationMemory.SelectiveReindexTranslationUnits(System.Threading.CancellationToken,System.IProgress{System.Int32})
   - Sdl.LanguagePlatform.TranslationMemoryApi.IReindexableTranslationMemory.ReindexRequired
   - Sdl.LanguagePlatform.TranslationMemoryApi.IReindexableTranslationMemory.TuCountForReindex
@@ -178,38 +177,6 @@ items:
   nameWithType.vb: IFileBasedTranslationMemory.Save(IProgress(Of TranslationMemoryProgress), CancellationToken)
   fullName.vb: Sdl.LanguagePlatform.TranslationMemoryApi.IFileBasedTranslationMemory.Save(System.IProgress(Of Sdl.LanguagePlatform.TranslationMemory.TranslationMemoryProgress), System.Threading.CancellationToken)
   name.vb: Save(IProgress(Of TranslationMemoryProgress), CancellationToken)
-- uid: Sdl.LanguagePlatform.TranslationMemoryApi.IFileBasedTranslationMemory.AlignTranslationUnits(Sdl.LanguagePlatform.TranslationMemory.TranslationUnit[])
-  commentId: M:Sdl.LanguagePlatform.TranslationMemoryApi.IFileBasedTranslationMemory.AlignTranslationUnits(Sdl.LanguagePlatform.TranslationMemory.TranslationUnit[])
-  id: AlignTranslationUnits(Sdl.LanguagePlatform.TranslationMemory.TranslationUnit[])
-  parent: Sdl.LanguagePlatform.TranslationMemoryApi.IFileBasedTranslationMemory
-  langs:
-  - csharp
-  - vb
-  name: AlignTranslationUnits(TranslationUnit[])
-  nameWithType: IFileBasedTranslationMemory.AlignTranslationUnits(TranslationUnit[])
-  fullName: Sdl.LanguagePlatform.TranslationMemoryApi.IFileBasedTranslationMemory.AlignTranslationUnits(Sdl.LanguagePlatform.TranslationMemory.TranslationUnit[])
-  type: Method
-  source:
-    path: Sdl.LanguagePlatform.TranslationMemoryApi
-    isExternal: true
-  assemblies:
-  - Sdl.LanguagePlatform.TranslationMemoryApi
-  namespace: Sdl.LanguagePlatform.TranslationMemoryApi
-  summary: "\nAttempt to performs fine-grained alignment on a list of translation units as if they were part of the translation memory.\n"
-  syntax:
-    content: AlignResult[] AlignTranslationUnits(TranslationUnit[] tus)
-    parameters:
-    - id: tus
-      type: Sdl.LanguagePlatform.TranslationMemory.TranslationUnit[]
-      description: Array of Translation Units
-    return:
-      type: Sdl.Core.FineGrainedAlignment.AlignResult[]
-      description: Array of AlignResult enums reflecting the result of each alignment attempt.
-    content.vb: Function AlignTranslationUnits(tus As TranslationUnit()) As AlignResult()
-  overload: Sdl.LanguagePlatform.TranslationMemoryApi.IFileBasedTranslationMemory.AlignTranslationUnits*
-  nameWithType.vb: IFileBasedTranslationMemory.AlignTranslationUnits(TranslationUnit())
-  fullName.vb: Sdl.LanguagePlatform.TranslationMemoryApi.IFileBasedTranslationMemory.AlignTranslationUnits(Sdl.LanguagePlatform.TranslationMemory.TranslationUnit())
-  name.vb: AlignTranslationUnits(TranslationUnit())
 - uid: Sdl.LanguagePlatform.TranslationMemoryApi.IFileBasedTranslationMemory.CanBuildModel
   commentId: P:Sdl.LanguagePlatform.TranslationMemoryApi.IFileBasedTranslationMemory.CanBuildModel
   id: CanBuildModel
@@ -965,6 +932,20 @@ references:
   name: FieldDefinitions
   nameWithType: ITranslationMemory.FieldDefinitions
   fullName: Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.FieldDefinitions
+- uid: Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.LanguageResourceBundles
+  commentId: P:Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.LanguageResourceBundles
+  parent: Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory
+  isExternal: true
+  name: LanguageResourceBundles
+  nameWithType: ITranslationMemory.LanguageResourceBundles
+  fullName: Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.LanguageResourceBundles
+- uid: Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.Recognizers
+  commentId: P:Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.Recognizers
+  parent: Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory
+  isExternal: true
+  name: Recognizers
+  nameWithType: ITranslationMemory.Recognizers
+  fullName: Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.Recognizers
 - uid: Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.FuzzyIndexes
   commentId: P:Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.FuzzyIndexes
   parent: Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory
@@ -1284,20 +1265,6 @@ references:
   name: IsReadOnly
   nameWithType: ITranslationProvider.IsReadOnly
   fullName: Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider.IsReadOnly
-- uid: Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables.LanguageResourceBundles
-  commentId: P:Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables.LanguageResourceBundles
-  parent: Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables
-  isExternal: true
-  name: LanguageResourceBundles
-  nameWithType: ISupportPlaceables.LanguageResourceBundles
-  fullName: Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables.LanguageResourceBundles
-- uid: Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables.Recognizers
-  commentId: P:Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables.Recognizers
-  parent: Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables
-  isExternal: true
-  name: Recognizers
-  nameWithType: ISupportPlaceables.Recognizers
-  fullName: Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables.Recognizers
 - uid: Sdl.LanguagePlatform.TranslationMemoryApi.IReindexableTranslationMemory.SelectiveReindexTranslationUnits(System.Threading.CancellationToken,System.IProgress{System.Int32})
   commentId: M:Sdl.LanguagePlatform.TranslationMemoryApi.IReindexableTranslationMemory.SelectiveReindexTranslationUnits(System.Threading.CancellationToken,System.IProgress{System.Int32})
   parent: Sdl.LanguagePlatform.TranslationMemoryApi.IReindexableTranslationMemory
@@ -1457,13 +1424,6 @@ references:
   name: ITranslationProvider
   nameWithType: ITranslationProvider
   fullName: Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider
-- uid: Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables
-  commentId: T:Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables
-  parent: Sdl.LanguagePlatform.TranslationMemoryApi
-  isExternal: true
-  name: ISupportPlaceables
-  nameWithType: ISupportPlaceables
-  fullName: Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables
 - uid: Sdl.LanguagePlatform.TranslationMemoryApi.IReindexableTranslationMemory
   commentId: T:Sdl.LanguagePlatform.TranslationMemoryApi.IReindexableTranslationMemory
   parent: Sdl.LanguagePlatform.TranslationMemoryApi
@@ -1605,64 +1565,6 @@ references:
   name: System.Threading
   nameWithType: System.Threading
   fullName: System.Threading
-- uid: Sdl.LanguagePlatform.TranslationMemoryApi.IFileBasedTranslationMemory.AlignTranslationUnits*
-  commentId: Overload:Sdl.LanguagePlatform.TranslationMemoryApi.IFileBasedTranslationMemory.AlignTranslationUnits
-  isExternal: true
-  name: AlignTranslationUnits
-  nameWithType: IFileBasedTranslationMemory.AlignTranslationUnits
-  fullName: Sdl.LanguagePlatform.TranslationMemoryApi.IFileBasedTranslationMemory.AlignTranslationUnits
-- uid: Sdl.LanguagePlatform.TranslationMemory.TranslationUnit[]
-  isExternal: true
-  name: TranslationUnit[]
-  nameWithType: TranslationUnit[]
-  fullName: Sdl.LanguagePlatform.TranslationMemory.TranslationUnit[]
-  nameWithType.vb: TranslationUnit()
-  fullName.vb: Sdl.LanguagePlatform.TranslationMemory.TranslationUnit()
-  name.vb: TranslationUnit()
-  spec.csharp:
-  - uid: Sdl.LanguagePlatform.TranslationMemory.TranslationUnit
-    name: TranslationUnit
-    nameWithType: TranslationUnit
-    fullName: Sdl.LanguagePlatform.TranslationMemory.TranslationUnit
-    isExternal: true
-  - name: '[]'
-    nameWithType: '[]'
-    fullName: '[]'
-  spec.vb:
-  - uid: Sdl.LanguagePlatform.TranslationMemory.TranslationUnit
-    name: TranslationUnit
-    nameWithType: TranslationUnit
-    fullName: Sdl.LanguagePlatform.TranslationMemory.TranslationUnit
-    isExternal: true
-  - name: ()
-    nameWithType: ()
-    fullName: ()
-- uid: Sdl.Core.FineGrainedAlignment.AlignResult[]
-  isExternal: true
-  name: AlignResult[]
-  nameWithType: AlignResult[]
-  fullName: Sdl.Core.FineGrainedAlignment.AlignResult[]
-  nameWithType.vb: AlignResult()
-  fullName.vb: Sdl.Core.FineGrainedAlignment.AlignResult()
-  name.vb: AlignResult()
-  spec.csharp:
-  - uid: Sdl.Core.FineGrainedAlignment.AlignResult
-    name: AlignResult
-    nameWithType: AlignResult
-    fullName: Sdl.Core.FineGrainedAlignment.AlignResult
-    isExternal: true
-  - name: '[]'
-    nameWithType: '[]'
-    fullName: '[]'
-  spec.vb:
-  - uid: Sdl.Core.FineGrainedAlignment.AlignResult
-    name: AlignResult
-    nameWithType: AlignResult
-    fullName: Sdl.Core.FineGrainedAlignment.AlignResult
-    isExternal: true
-  - name: ()
-    nameWithType: ()
-    fullName: ()
 - uid: Sdl.LanguagePlatform.TranslationMemoryApi.IFileBasedTranslationMemory.CanBuildModel*
   commentId: Overload:Sdl.LanguagePlatform.TranslationMemoryApi.IFileBasedTranslationMemory.CanBuildModel
   isExternal: true

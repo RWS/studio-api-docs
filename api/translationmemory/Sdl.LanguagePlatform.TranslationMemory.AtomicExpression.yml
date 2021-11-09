@@ -24,7 +24,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nRepresents an atomic expression, where a field must be in a specified relationship to a value.\n<remarks>The operands should be initialized before the operator, so that the class can ensure type compatibility.</remarks>\n"
   syntax:
     content: 'public class AtomicExpression : FilterExpression'
     content.vb: >-
@@ -63,16 +62,13 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nInitializes a new instance of the AtomicExpression class with the given field, value and operator.\n<remarks>Throws an error if the field type is not compatible with the operator.</remarks>\n"
   syntax:
     content: public AtomicExpression(FieldValue value, AtomicExpression.Operator op)
     parameters:
     - id: value
       type: Sdl.LanguagePlatform.TranslationMemory.FieldValue
-      description: The field value containing both the field name and the value to use for comparison.
     - id: op
       type: Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.Operator
-      description: The operator.
     content.vb: Public Sub New(value As FieldValue, op As AtomicExpression.Operator)
   overload: Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.#ctor*
   modifiers.csharp:
@@ -96,12 +92,10 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\n<xref href=\"System.Object.ToString\" data-throw-if-not-resolved=\"false\"></xref>\n"
   syntax:
     content: public override string ToString()
     return:
       type: System.String
-      description: A string representation of the object, for display purposes.
     content.vb: Public Overrides Function ToString As String
   overridden: System.Object.ToString
   overload: Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.ToString*
@@ -128,27 +122,15 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nSee <xref href=\"Sdl.LanguagePlatform.TranslationMemory.FilterExpression.Validate(Sdl.LanguagePlatform.TranslationMemory.IFieldDefinitions%2cSystem.Boolean)\" data-throw-if-not-resolved=\"false\"></xref>\n"
   syntax:
     content: public override bool Validate(IFieldDefinitions fields, bool throwIfInvalid)
     parameters:
     - id: fields
       type: Sdl.LanguagePlatform.TranslationMemory.IFieldDefinitions
-      description: The field definitions to validate against.
     - id: throwIfInvalid
       type: System.Boolean
-      description: >-
-        If true, an exception will be thrown if invalid field names
-
-        are encountered. If false, the return value will be set to false without an exception
-
-        being thrown.
     return:
       type: System.Boolean
-      description: >-
-        true if the filter expression is valid, given the provided field definitions. false
-
-        otherwise.
     content.vb: Public Overrides Function Validate(fields As IFieldDefinitions, throwIfInvalid As Boolean) As Boolean
   overridden: Sdl.LanguagePlatform.TranslationMemory.FilterExpression.Validate(Sdl.LanguagePlatform.TranslationMemory.IFieldDefinitions,System.Boolean)
   overload: Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.Validate*
@@ -175,16 +157,13 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nSee <xref href=\"Sdl.LanguagePlatform.TranslationMemory.FilterExpression.Evaluate(Sdl.LanguagePlatform.TranslationMemory.ITypedKeyValueContainer)\" data-throw-if-not-resolved=\"false\"></xref>\n"
   syntax:
     content: public override bool Evaluate(ITypedKeyValueContainer values)
     parameters:
     - id: values
       type: Sdl.LanguagePlatform.TranslationMemory.ITypedKeyValueContainer
-      description: A set of field values.
     return:
       type: System.Boolean
-      description: true if the field values satisfy the expression, false otherwise.
     content.vb: Public Overrides Function Evaluate(values As ITypedKeyValueContainer) As Boolean
   overridden: Sdl.LanguagePlatform.TranslationMemory.FilterExpression.Evaluate(Sdl.LanguagePlatform.TranslationMemory.ITypedKeyValueContainer)
   overload: Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.Evaluate*
@@ -211,7 +190,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nGets or sets the Value for this atomic expression.\n<remarks>This property contains both the left and right operands. The Name property of the field represents the left operand\nand the Value property represents the right operand.\n<p>This property should be set before the operator Op property.</p></remarks>\n"
   syntax:
     content: public FieldValue Value { get; set; }
     parameters: []
@@ -242,7 +220,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nGets or sets the operator for this atomic expression.\n<remarks> Throws an error if the field type is not compatible with a specific operator.\n<p>See description of enum Operator values for a list of compatible types and operators.</p></remarks>\n"
   syntax:
     content: public AtomicExpression.Operator Op { get; set; }
     parameters: []

@@ -39,7 +39,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core
-  summary: "\nA searchable word list with index.\n"
   syntax:
     content: 'public class Wordlist : ICloneable'
     content.vb: >-
@@ -80,7 +79,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core
-  summary: "\nInitializes a new instance of the Wordlist class with an empty wordlist.\n"
   syntax:
     content: public Wordlist()
     content.vb: Public Sub New
@@ -106,7 +104,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core
-  summary: "\nInitializes a new instance of the Wordlist class with an empty wordlist.\n"
   syntax:
     content: public Wordlist(SearchOption flags)
     parameters:
@@ -135,7 +132,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core
-  summary: "\nCreates a new instance and deep-copies the other instance.\n"
   syntax:
     content: public Wordlist(Wordlist other)
     parameters:
@@ -164,16 +160,13 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core
-  summary: "\nDetermines whether this wordlist contains the specified string.\n"
   syntax:
     content: public bool Contains(string s)
     parameters:
     - id: s
       type: System.String
-      description: The string to search for.
     return:
       type: System.Boolean
-      description: true if s is part of this wordlist, otherwise false.
     content.vb: Public Function Contains(s As String) As Boolean
   overload: Sdl.LanguagePlatform.Core.Wordlist.Contains*
   modifiers.csharp:
@@ -197,7 +190,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core
-  summary: "\nRemoves all words from the list, but keeps the flags.\n"
   syntax:
     content: public void Clear()
     content.vb: Public Sub Clear
@@ -223,13 +215,11 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core
-  summary: "\nMerges the contents of another instance into this word list. Note that conflicting\nflags and search options are ignored.\n"
   syntax:
     content: public void Merge(Wordlist other)
     parameters:
     - id: other
       type: Sdl.LanguagePlatform.Core.Wordlist
-      description: The instance to merge into this instance.
     content.vb: Public Sub Merge(other As Wordlist)
   overload: Sdl.LanguagePlatform.Core.Wordlist.Merge*
   modifiers.csharp:
@@ -253,16 +243,13 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core
-  summary: "\nCreates a new word list and merges all specified wordLists into the new one. \n"
   syntax:
     content: public static Wordlist Merge(IEnumerable<Wordlist> wordLists)
     parameters:
     - id: wordLists
       type: System.Collections.Generic.IEnumerable{Sdl.LanguagePlatform.Core.Wordlist}
-      description: The word lists to merge.
     return:
       type: Sdl.LanguagePlatform.Core.Wordlist
-      description: The result of the merge, or null if all specified word lists are null.
     content.vb: Public Shared Function Merge(wordLists As IEnumerable(Of Wordlist)) As Wordlist
   overload: Sdl.LanguagePlatform.Core.Wordlist.Merge*
   nameWithType.vb: Wordlist.Merge(IEnumerable(Of Wordlist))
@@ -291,7 +278,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core
-  summary: "\nComputes a <xref href=\"System.Text.RegularExpressions.Regex\" data-throw-if-not-resolved=\"false\"></xref> \nwhich matches the words in the list. The expression is not anchored.\n<p>\nNOTE: if the word list is case insensitive, the regular expression will include the \ncorresponding option &quot;(?i-:)&quot;. \n</p>\n"
   syntax:
     content: public string GetRegularExpression(out CharacterSet first)
     parameters:
@@ -325,7 +311,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core
-  summary: "\nAdds a new string to this wordlist if it isn&apos;t already there.\n"
   syntax:
     content: public bool Add(string s)
     parameters:
@@ -333,7 +318,6 @@ items:
       type: System.String
     return:
       type: System.Boolean
-      description: true iff the word was added
     content.vb: Public Function Add(s As String) As Boolean
   overload: Sdl.LanguagePlatform.Core.Wordlist.Add*
   modifiers.csharp:
@@ -357,7 +341,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core
-  summary: "\nRemoves <code data-dev-comment-type=\"paramref\" class=\"paramref\">s</code> from the list.\n"
   syntax:
     content: public bool Remove(string s)
     parameters:
@@ -365,7 +348,6 @@ items:
       type: System.String
     return:
       type: System.Boolean
-      description: true iff the word was removed
     content.vb: Public Function Remove(s As String) As Boolean
   overload: Sdl.LanguagePlatform.Core.Wordlist.Remove*
   modifiers.csharp:
@@ -389,7 +371,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core
-  summary: "\nSaves the word list in textual format to the specified stream.\n"
   syntax:
     content: public void Save(TextWriter writer)
     parameters:
@@ -418,19 +399,15 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core
-  summary: "\nLoads a word list from the specified input file, removes all duplicates, and writes the result\nto the output file. The two file names should not be the same. Only used internally.\n"
   syntax:
     content: public static void CleanupList(string inputFileName, string outputFileName, bool ignoreComments = true)
     parameters:
     - id: inputFileName
       type: System.String
-      description: The input file name
     - id: outputFileName
       type: System.String
-      description: The output file name
     - id: ignoreComments
       type: System.Boolean
-      description: Ignore comments flag, if not set it is true
     content.vb: Public Shared Sub CleanupList(inputFileName As String, outputFileName As String, ignoreComments As Boolean = True)
   overload: Sdl.LanguagePlatform.Core.Wordlist.CleanupList*
   modifiers.csharp:
@@ -456,16 +433,13 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core
-  summary: "\nAdds new words to this wordlist from a stream. A UTF8 data encoding is assumed, but byte order\nmarks will be honored.\n"
   syntax:
     content: public void Load(string filename, bool ignoreComments = true)
     parameters:
     - id: filename
       type: System.String
-      description: The name of the file to load
     - id: ignoreComments
       type: System.Boolean
-      description: Ignore comments flag, if not set it is true
     content.vb: Public Sub Load(filename As String, ignoreComments As Boolean = True)
   overload: Sdl.LanguagePlatform.Core.Wordlist.Load*
   modifiers.csharp:
@@ -489,16 +463,13 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core
-  summary: "\nAdds new words to this wordlist from a stream. A UTF8 data encoding is assumed, but byte order\nmarks will be honored.\n"
   syntax:
     content: public void Load(Stream stream, bool ignoreComments = true)
     parameters:
     - id: stream
       type: System.IO.Stream
-      description: The stream.
     - id: ignoreComments
       type: System.Boolean
-      description: Ignore comments flag, if not set it is true
     content.vb: Public Sub Load(stream As Stream, ignoreComments As Boolean = True)
   overload: Sdl.LanguagePlatform.Core.Wordlist.Load*
   modifiers.csharp:
@@ -522,7 +493,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core
-  summary: "\nRead the word list from an array of bytes. A UTF8 encoding is assumed, but byte order\nmarks will be honored.\n"
   syntax:
     content: public void Load(byte[] data, bool ignoreComments = true)
     parameters:
@@ -530,7 +500,6 @@ items:
       type: System.Byte[]
     - id: ignoreComments
       type: System.Boolean
-      description: Ignore comments flag, if not set it is true
     content.vb: Public Sub Load(data As Byte(), ignoreComments As Boolean = True)
   overload: Sdl.LanguagePlatform.Core.Wordlist.Load*
   nameWithType.vb: Wordlist.Load(Byte(), Boolean)
@@ -557,12 +526,10 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core
-  summary: "\nReturns the contents of the word list as an array of bytes. The data is UTF8-encoded. Note\nthat search flags (such as case invariance) are not preserved.\n"
   syntax:
     content: public byte[] GetBytes()
     return:
       type: System.Byte[]
-      description: An array of bytes which represents the word list.
     content.vb: Public Function GetBytes As Byte()
   overload: Sdl.LanguagePlatform.Core.Wordlist.GetBytes*
   modifiers.csharp:
@@ -586,12 +553,10 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core
-  summary: "\n<xref href=\"System.ICloneable.Clone\" data-throw-if-not-resolved=\"false\"></xref>\n"
   syntax:
     content: public object Clone()
     return:
       type: System.Object
-      description: A new object that is a deep copy of this instance.
     content.vb: Public Function Clone As Object
   overload: Sdl.LanguagePlatform.Core.Wordlist.Clone*
   implements:
@@ -617,7 +582,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core
-  summary: "\n\n"
   syntax:
     content: public int Version { get; }
     parameters: []
@@ -648,7 +612,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core
-  summary: "\nGets the search flags.\n"
   syntax:
     content: public SearchOption Flags { get; }
     parameters: []
@@ -679,7 +642,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core
-  summary: "\nGets the list of words.\n"
   syntax:
     content: public IEnumerable<string> Items { get; }
     parameters: []
@@ -710,7 +672,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core
-  summary: "\nReturns the number of words in the word list.\n"
   syntax:
     content: public int Count { get; }
     parameters: []

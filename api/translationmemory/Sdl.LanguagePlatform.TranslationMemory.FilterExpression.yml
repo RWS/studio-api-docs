@@ -21,7 +21,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nBase class for filter expressions.\n<remarks>Expressions can be atomic or composed.</remarks>\n"
   syntax:
     content: public abstract class FilterExpression
     content.vb: Public MustInherit Class FilterExpression
@@ -63,16 +62,13 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nEvaluates a filter expression for a given a set of field values.\n"
   syntax:
     content: public abstract bool Evaluate(ITypedKeyValueContainer values)
     parameters:
     - id: values
       type: Sdl.LanguagePlatform.TranslationMemory.ITypedKeyValueContainer
-      description: A set of field values.
     return:
       type: System.Boolean
-      description: true if the field values satisfy the expression, false otherwise.
     content.vb: Public MustOverride Function Evaluate(values As ITypedKeyValueContainer) As Boolean
   overload: Sdl.LanguagePlatform.TranslationMemory.FilterExpression.Evaluate*
   modifiers.csharp:
@@ -98,27 +94,15 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nValidates the filter expression against the provided field definitions.\n"
   syntax:
     content: public abstract bool Validate(IFieldDefinitions fields, bool throwIfInvalid)
     parameters:
     - id: fields
       type: Sdl.LanguagePlatform.TranslationMemory.IFieldDefinitions
-      description: The field definitions to validate against.
     - id: throwIfInvalid
       type: System.Boolean
-      description: >-
-        If true, an exception will be thrown if invalid field names
-
-        are encountered. If false, the return value will be set to false without an exception
-
-        being thrown.
     return:
       type: System.Boolean
-      description: >-
-        true if the filter expression is valid, given the provided field definitions. false
-
-        otherwise.
     content.vb: Public MustOverride Function Validate(fields As IFieldDefinitions, throwIfInvalid As Boolean) As Boolean
   overload: Sdl.LanguagePlatform.TranslationMemory.FilterExpression.Validate*
   modifiers.csharp:

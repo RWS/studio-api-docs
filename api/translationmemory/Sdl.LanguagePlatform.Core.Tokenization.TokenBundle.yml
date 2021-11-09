@@ -35,7 +35,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\nA special <xref href=\"Sdl.LanguagePlatform.Core.Tokenization.Token\" data-throw-if-not-resolved=\"false\"></xref> which represents a set of alternatives (i.e. an ambiguous\nanalysis) of other tokens which cover the exactly same input span. \n"
   syntax:
     content: 'public class TokenBundle : Token, IEnumerable<PrioritizedToken>, IEnumerable'
     content.vb: >-
@@ -92,16 +91,13 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\nInitializes a new instance with the specified values.\n"
   syntax:
     content: public TokenBundle(Token t, int priority)
     parameters:
     - id: t
       type: Sdl.LanguagePlatform.Core.Tokenization.Token
-      description: "The first token in the set of alternatives (must not be null). It \nis also used to set the <xref href=\"Sdl.LanguagePlatform.Core.Tokenization.Token.Text\" data-throw-if-not-resolved=\"false\"></xref> of the bundle."
     - id: priority
       type: System.Int32
-      description: The priority to assign to the first token in the bundle
     content.vb: Public Sub New(t As Token, priority As Integer)
   overload: Sdl.LanguagePlatform.Core.Tokenization.TokenBundle.#ctor*
   modifiers.csharp:
@@ -125,13 +121,11 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\nInitializes a new instance with a list of prioritized tokens.\n"
   syntax:
     content: public TokenBundle(IList<PrioritizedToken> items)
     parameters:
     - id: items
       type: System.Collections.Generic.IList{Sdl.LanguagePlatform.Core.Tokenization.PrioritizedToken}
-      description: The items to add to the list of alternatives. Only a shallow copy is made.
     content.vb: Public Sub New(items As IList(Of PrioritizedToken))
   overload: Sdl.LanguagePlatform.Core.Tokenization.TokenBundle.#ctor*
   nameWithType.vb: TokenBundle.TokenBundle(IList(Of PrioritizedToken))
@@ -158,16 +152,13 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\nAdds a new token to the set of alternatives. Potential duplicates are kept.\n"
   syntax:
     content: public void Add(Token t, int priority)
     parameters:
     - id: t
       type: Sdl.LanguagePlatform.Core.Tokenization.Token
-      description: The token
     - id: priority
       type: System.Int32
-      description: The priority assigned to the token
     content.vb: Public Sub Add(t As Token, priority As Integer)
   overload: Sdl.LanguagePlatform.Core.Tokenization.TokenBundle.Add*
   modifiers.csharp:
@@ -191,19 +182,15 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\nAdds a new token to the set of alternatives.\n"
   syntax:
     content: public void Add(Token t, int priority, bool keepDuplicates)
     parameters:
     - id: t
       type: Sdl.LanguagePlatform.Core.Tokenization.Token
-      description: The token
     - id: priority
       type: System.Int32
-      description: The priority assigned to the token
     - id: keepDuplicates
       type: System.Boolean
-      description: "If <code>true</code>, the token will always be added. If <code>false</code>, \nand the collection contains a token which Equals <code data-dev-comment-type=\"paramref\" class=\"paramref\">t</code>, only the one with the \nhigher priority will be kept."
     content.vb: Public Sub Add(t As Token, priority As Integer, keepDuplicates As Boolean)
   overload: Sdl.LanguagePlatform.Core.Tokenization.TokenBundle.Add*
   modifiers.csharp:
@@ -227,12 +214,10 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\nGets an enumerator to iterate through the list of alternatives.\n"
   syntax:
     content: public IEnumerator<PrioritizedToken> GetEnumerator()
     return:
       type: System.Collections.Generic.IEnumerator{Sdl.LanguagePlatform.Core.Tokenization.PrioritizedToken}
-      description: An enumerator
     content.vb: Public Function GetEnumerator As IEnumerator(Of PrioritizedToken)
   overload: Sdl.LanguagePlatform.Core.Tokenization.TokenBundle.GetEnumerator*
   implements:
@@ -259,12 +244,10 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\nGets an enumerator to iterate through the list of alternatives.\n"
   syntax:
     content: IEnumerator IEnumerable.GetEnumerator()
     return:
       type: System.Collections.IEnumerator
-      description: An enumerator
     content.vb: Function System.Collections.IEnumerable.GetEnumerator As IEnumerator Implements IEnumerable.GetEnumerator
   overload: Sdl.LanguagePlatform.Core.Tokenization.TokenBundle.System#Collections#IEnumerable#GetEnumerator*
   implements:
@@ -288,12 +271,10 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\nObtains the token with the highest priority in the set of alternatives. If two tokens\nhave the same priority, the first one will be the winner.\n"
   syntax:
     content: public Token GetBest()
     return:
       type: Sdl.LanguagePlatform.Core.Tokenization.Token
-      description: The token with the highest priority in the set of alternatives.
     content.vb: Public Function GetBest As Token
   overload: Sdl.LanguagePlatform.Core.Tokenization.TokenBundle.GetBest*
   modifiers.csharp:
@@ -317,7 +298,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\nSorts the set of alternatives by decreasing priority.\n"
   syntax:
     content: public void SortByDecreasingPriority()
     content.vb: Public Sub SortByDecreasingPriority
@@ -343,16 +323,13 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\nDetermines whether the specified token is contained in the set of alternatives.\n"
   syntax:
     content: public bool Contains(Token t)
     parameters:
     - id: t
       type: Sdl.LanguagePlatform.Core.Tokenization.Token
-      description: The token to search
     return:
       type: System.Boolean
-      description: <code>true</code> if the token is equal to one of the alternatives, and <code>false</code> otherwise
     content.vb: Public Function Contains(t As Token) As Boolean
   overload: Sdl.LanguagePlatform.Core.Tokenization.TokenBundle.Contains*
   modifiers.csharp:
@@ -376,7 +353,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\n<xref href=\"Sdl.LanguagePlatform.Core.Tokenization.Token.Type\" data-throw-if-not-resolved=\"false\"></xref>. Returns the token type of the first alternative in the collection. \nHowever, be aware that the alternatives may represent different token types.\n"
   syntax:
     content: protected override TokenType GetTokenType()
     return:
@@ -407,13 +383,11 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\nInvalid for this class. Will throw a <xref href=\"System.InvalidOperationException\" data-throw-if-not-resolved=\"false\"></xref>\n"
   syntax:
     content: public override void AcceptSegmentElementVisitor(ISegmentElementVisitor visitor)
     parameters:
     - id: visitor
       type: Sdl.LanguagePlatform.Core.ISegmentElementVisitor
-      description: (ignored)
     content.vb: Public Overrides Sub AcceptSegmentElementVisitor(visitor As ISegmentElementVisitor)
   overridden: Sdl.LanguagePlatform.Core.SegmentElement.AcceptSegmentElementVisitor(Sdl.LanguagePlatform.Core.ISegmentElementVisitor)
   overload: Sdl.LanguagePlatform.Core.Tokenization.TokenBundle.AcceptSegmentElementVisitor*
@@ -440,7 +414,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\nInvalid for this class. Will throw a <xref href=\"System.InvalidOperationException\" data-throw-if-not-resolved=\"false\"></xref>\n"
   syntax:
     content: public override SegmentElement Duplicate()
     return:
@@ -471,16 +444,13 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\n<xref href=\"Sdl.LanguagePlatform.Core.SegmentElement.GetSimilarity(Sdl.LanguagePlatform.Core.SegmentElement)\" data-throw-if-not-resolved=\"false\"></xref>. Returns the highest similarity to any\nof the alternatives.\n"
   syntax:
     content: public override SegmentElement.Similarity GetSimilarity(SegmentElement other)
     parameters:
     - id: other
       type: Sdl.LanguagePlatform.Core.SegmentElement
-      description: The other instance.
     return:
       type: Sdl.LanguagePlatform.Core.SegmentElement.Similarity
-      description: A value indicating the degree of similarity to the provided segment element.
     content.vb: Public Overrides Function GetSimilarity(other As SegmentElement) As SegmentElement.Similarity
   overridden: Sdl.LanguagePlatform.Core.SegmentElement.GetSimilarity(Sdl.LanguagePlatform.Core.SegmentElement)
   overload: Sdl.LanguagePlatform.Core.Tokenization.TokenBundle.GetSimilarity*
@@ -507,7 +477,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\nGets the number of elements in the collection.\n"
   syntax:
     content: public int Count { get; }
     parameters: []
@@ -538,16 +507,13 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\nGets the prioritized token at the specified index position. If the index position\nis invalid, an exception is thrown.\n"
   syntax:
     content: public PrioritizedToken this[int index] { get; }
     parameters:
     - id: index
       type: System.Int32
-      description: The index
     return:
       type: Sdl.LanguagePlatform.Core.Tokenization.PrioritizedToken
-      description: The prioritized token at the index position
     content.vb: Public ReadOnly Property Item(index As Integer) As PrioritizedToken
   overload: Sdl.LanguagePlatform.Core.Tokenization.TokenBundle.Item*
   nameWithType.vb: TokenBundle.Item(Int32)
@@ -576,7 +542,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\n<xref href=\"Sdl.LanguagePlatform.Core.Tokenization.Token.IsPlaceable\" data-throw-if-not-resolved=\"false\"></xref>. Is <code>true</code> if any of the alternatives\nis a placeable token.\n"
   syntax:
     content: public override bool IsPlaceable { get; }
     parameters: []
@@ -610,7 +575,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\n<xref href=\"Sdl.LanguagePlatform.Core.Tokenization.Token.IsSubstitutable\" data-throw-if-not-resolved=\"false\"></xref>. Is <code>true</code> if any of the alternatives\nis a substitutable token.\n"
   syntax:
     content: public override bool IsSubstitutable { get; }
     parameters: []

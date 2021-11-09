@@ -39,7 +39,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core
-  summary: "\nUtilities related to <xref href=\"System.Globalization.CultureInfo\" data-throw-if-not-resolved=\"false\"></xref> objects.\n"
   syntax:
     content: public static class CultureInfoExtensions
     content.vb: Public Module CultureInfoExtensions
@@ -77,16 +76,13 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core
-  summary: "\nReturns the culture which corresponds to the specified LCID. If the LCID is unknown or\ninvalid, an exception is thrown. Note that this will also be the case for custom cultures,\nwhich seem to always get the same LCID (4096).\n"
   syntax:
     content: public static CultureInfo GetCultureInfo(int lcid)
     parameters:
     - id: lcid
       type: System.Int32
-      description: The locale identifier (lcid)
     return:
       type: System.Globalization.CultureInfo
-      description: A CultureInfo object, or throws for unknown LCIDs.
     content.vb: Public Shared Function GetCultureInfo(lcid As Integer) As CultureInfo
   overload: Sdl.LanguagePlatform.Core.CultureInfoExtensions.GetCultureInfo*
   modifiers.csharp:
@@ -112,7 +108,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core
-  summary: "\nAssumes the passed culture code is a legacy code and returns the mapped\nequivalent. null is returned if no mapping exists (which means that the\ncode is not a legacy code or no mapping is required or yet specified).\n"
   syntax:
     content: public static string GetMappedCultureCodeForLegacyCode(string legacyCode)
     parameters:
@@ -145,19 +140,15 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core
-  summary: "\nReturns the culture which corresponds to the specified locale, which may be a legacy LCID \nused internally by SDLX or Trados Translator&apos;s Workbench.\n"
   syntax:
     content: public static CultureInfo GetCultureInfo(int lcid, bool returnNullForUnknowns)
     parameters:
     - id: lcid
       type: System.Int32
-      description: The locale identifier (lcid)
     - id: returnNullForUnknowns
       type: System.Boolean
-      description: "If true, null is returned for unknown languages. Otherwise, an exception\nis thrown. This will also be the case if the lcid represets a custom culture (in most cases, \nthe lcid will be 4096 in this case)."
     return:
       type: System.Globalization.CultureInfo
-      description: A <xref href="System.Globalization.CultureInfo" data-throw-if-not-resolved="false"></xref> object, or null if <code data-dev-comment-type="paramref" class="paramref">returnNullForUnknowns</code> is true.
     content.vb: Public Shared Function GetCultureInfo(lcid As Integer, returnNullForUnknowns As Boolean) As CultureInfo
   overload: Sdl.LanguagePlatform.Core.CultureInfoExtensions.GetCultureInfo*
   modifiers.csharp:
@@ -183,20 +174,13 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core
-  summary: "\nSimilar to <xref href=\"System.Globalization.CultureInfo.GetCultureInfo(System.String)\" data-throw-if-not-resolved=\"false\"></xref>, but \ncovers culture names (&lt;language-code>-&lt;region-code>) which are used\nby SDLX and Trados Translator&apos;s Workbench, but have a different code in .Net. \n<p>Use this method to transparently map language codes (current and legacy ones)\nto cultures, for example when processing TTX, ITD, or TMX.</p>\n"
-  remarks: "To avoid an exception to be thrown, and to get <code>null</code> for unknown \nculture codes, use <xref href=\"Sdl.LanguagePlatform.Core.CultureInfoExtensions.GetCultureInfo(System.String%2cSystem.Boolean)\" data-throw-if-not-resolved=\"false\"></xref>."
   syntax:
     content: public static CultureInfo GetCultureInfo(string name)
     parameters:
     - id: name
       type: System.String
-      description: The culture code
     return:
       type: System.Globalization.CultureInfo
-      description: >
-        A CultureInfo object, using appropriate fallbacks for backwards compatibility. Throws
-
-        an exeption if neither the fallback heuristics nor .Net can resolve the culture name.
     content.vb: Public Shared Function GetCultureInfo(name As String) As CultureInfo
   overload: Sdl.LanguagePlatform.Core.CultureInfoExtensions.GetCultureInfo*
   modifiers.csharp:
@@ -222,22 +206,15 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core
-  summary: "\nSimilar to <xref href=\"System.Globalization.CultureInfo.GetCultureInfo(System.String)\" data-throw-if-not-resolved=\"false\"></xref>, but \ncovers culture names (&lt;language-code>-&lt;region-code>) which are used\nby SDLX and Trados Translator&apos;s Workbench, but have a different code in .Net. \n<p>Use this method to transparently map language codes (current and legacy ones)\nto cultures, for example when processing TTX, ITD, or TMX.</p>\n"
   syntax:
     content: public static CultureInfo GetCultureInfo(string name, bool returnNullForUnknowns)
     parameters:
     - id: name
       type: System.String
-      description: The culture code
     - id: returnNullForUnknowns
       type: System.Boolean
-      description: >-
-        If true, null is returned for unknown culture codes. If false, an exception is thrown if
-
-        the culture code cannot be resolved.
     return:
       type: System.Globalization.CultureInfo
-      description: "A CultureInfo object, using appropriate fallbacks for backwards compatibility, or \nnull if the culture code cannot be resolved and <code data-dev-comment-type=\"paramref\" class=\"paramref\">returnNullForUnknowns</code> is <code>true</code>.\n"
     content.vb: Public Shared Function GetCultureInfo(name As String, returnNullForUnknowns As Boolean) As CultureInfo
   overload: Sdl.LanguagePlatform.Core.CultureInfoExtensions.GetCultureInfo*
   modifiers.csharp:
@@ -263,16 +240,13 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core
-  summary: "\nDetermines whether the specified culture info is any of the romance languages: French, Spanish, Portuguese, \nItalian, Romanian, Galician or Catalan.\n"
   syntax:
     content: public static bool IsRomanceLanguage(CultureInfo culture)
     parameters:
     - id: culture
       type: System.Globalization.CultureInfo
-      description: The culture info.
     return:
       type: System.Boolean
-      description: true if culture is any of the romance languages, otherwise false.
     content.vb: Public Shared Function IsRomanceLanguage(culture As CultureInfo) As Boolean
   overload: Sdl.LanguagePlatform.Core.CultureInfoExtensions.IsRomanceLanguage*
   modifiers.csharp:
@@ -298,16 +272,13 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core
-  summary: "\nDetermines whether the specified culture uses blanks as word separators. This is \ntrue for all cultures except those based on Japanese, Thai, or Chinese.\n"
   syntax:
     content: public static bool UseBlankAsWordSeparator(CultureInfo culture)
     parameters:
     - id: culture
       type: System.Globalization.CultureInfo
-      description: The culture to test.
     return:
       type: System.Boolean
-      description: true iff the language associated with the culture uses blanks as word separators.
     content.vb: Public Shared Function UseBlankAsWordSeparator(culture As CultureInfo) As Boolean
   overload: Sdl.LanguagePlatform.Core.CultureInfoExtensions.UseBlankAsWordSeparator*
   modifiers.csharp:
@@ -333,16 +304,13 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core
-  summary: "\nDetermines whether the specified culture uses blanks as sentence separators. This is \ncurrently only true for Thai.\n"
   syntax:
     content: public static bool UseBlankAsSentenceSeparator(CultureInfo culture)
     parameters:
     - id: culture
       type: System.Globalization.CultureInfo
-      description: The culture to test.
     return:
       type: System.Boolean
-      description: true iff the language associated with the culture uses blanks as sentence separators.
     content.vb: Public Shared Function UseBlankAsSentenceSeparator(culture As CultureInfo) As Boolean
   overload: Sdl.LanguagePlatform.Core.CultureInfoExtensions.UseBlankAsSentenceSeparator*
   modifiers.csharp:
@@ -368,16 +336,13 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core
-  summary: "\nHeuristically computes and returns the region-specified (&quot;default&quot;) culture for a given\nlanguage. If the input culture is not neutral (i.e. it is region-specific), it is returned. \nOtherwise the method will find the region-qualified culture which most likely represents \nthe culture&apos;s default/major region.\n"
   syntax:
     content: public static CultureInfo GetRegionQualifiedCulture(CultureInfo culture)
     parameters:
     - id: culture
       type: System.Globalization.CultureInfo
-      description: The input culture
     return:
       type: System.Globalization.CultureInfo
-      description: The input parameter, if it&apos;s a region-qualified/non-neutral culture, or the default region-qualified culture otheriwise.
     content.vb: Public Shared Function GetRegionQualifiedCulture(culture As CultureInfo) As CultureInfo
   overload: Sdl.LanguagePlatform.Core.CultureInfoExtensions.GetRegionQualifiedCulture*
   modifiers.csharp:
@@ -403,7 +368,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core
-  summary: "\nHeuristically computes and returns the region-specified (&quot;default&quot;) culture code for a given\nlanguage code. If the input culture is not neutral or does not have a region-qualified \nequivalent, null is returned.\n"
   syntax:
     content: public static string GetRegionQualifiedCulture(string cultureCode)
     parameters:
@@ -436,22 +400,13 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core
-  summary: "\nComputes and returns the region-neutral parent culture of the input culture. If the input\nculture is already neutral, it is returned. Otherwise, the parent culture hierarchy is \ntraversed until a region-neutral culture is found.\n"
-  remarks: >-
-    A region-neutral culture is not necessarily one &quot;without dashes&quot;. For example,
-
-    the region-neutral parent culture of <code>zh-CN</code> (Chinese, PRC) is <code>zh-CHS</code> or <code>zh-Hans</code> (Simplified
-
-    Chinese). The exact result may depend on the operating system version and the .Net version.
   syntax:
     content: public static CultureInfo GetRegionNeutralCulture(CultureInfo culture)
     parameters:
     - id: culture
       type: System.Globalization.CultureInfo
-      description: The input culture
     return:
       type: System.Globalization.CultureInfo
-      description: The region-neutral parent culture of the input culture
     content.vb: Public Shared Function GetRegionNeutralCulture(culture As CultureInfo) As CultureInfo
   overload: Sdl.LanguagePlatform.Core.CultureInfoExtensions.GetRegionNeutralCulture*
   modifiers.csharp:
@@ -477,7 +432,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core
-  summary: "\nChecks whether two cultures (languages) are compatible. Two cultures are \ncompatible if they denote the same language which means they have to be identical or \ntheir closest region-neutral parents are identical.\n"
   syntax:
     content: public static bool AreCompatible(CultureInfo c1, CultureInfo c2)
     parameters:
@@ -512,16 +466,13 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core
-  summary: "\nDetermines whether the specified culture uses clitics (English and the romance languages).\n"
   syntax:
     content: public static bool UsesClitics(CultureInfo culture)
     parameters:
     - id: culture
       type: System.Globalization.CultureInfo
-      description: The culture.
     return:
       type: System.Boolean
-      description: true if culture contains clitics, otherwise false.
     content.vb: Public Shared Function UsesClitics(culture As CultureInfo) As Boolean
   overload: Sdl.LanguagePlatform.Core.CultureInfoExtensions.UsesClitics*
   modifiers.csharp:
@@ -547,7 +498,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core
-  summary: "\nReturns the <xref href=\"Sdl.LanguagePlatform.Core.CultureInfoExtensions.LanguageGroupID\" data-throw-if-not-resolved=\"false\"></xref> associated with the specified culture.\n"
   syntax:
     content: public static CultureInfoExtensions.LanguageGroupID GetLanguageGroupID(CultureInfo culture)
     parameters:
@@ -580,19 +530,13 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core
-  summary: "\nReturns the name of the language group for the specified culture as a string.\n"
   syntax:
     content: public static string GetLanguageGroupName(CultureInfo culture)
     parameters:
     - id: culture
       type: System.Globalization.CultureInfo
-      description: The culture (may not be null)
     return:
       type: System.String
-      description: >-
-        The name of the language group the culture belongs to, or <code>null</code> if
-
-        the group is unknown.
     content.vb: Public Shared Function GetLanguageGroupName(culture As CultureInfo) As String
   overload: Sdl.LanguagePlatform.Core.CultureInfoExtensions.GetLanguageGroupName*
   modifiers.csharp:
@@ -618,7 +562,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core
-  summary: "\nReturns a case-sensitive string hash set containing the leading separable clitics for the provided\nculture, or <code>null</code> if none are defined.\n"
   syntax:
     content: public static HashSet<string> GetLeadingClitics(CultureInfo culture)
     parameters:
@@ -651,7 +594,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core
-  summary: "\nReturns a case-sensitive string hash set containing the trailing separable clitics for the provided\nculture, or <code>null</code> if none are defined.\n"
   syntax:
     content: public static HashSet<string> GetTrailingClitics(CultureInfo culture)
     parameters:
@@ -684,16 +626,13 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core
-  summary: "\nDetermines whether the specified culture uses the standard default digits.\n"
   syntax:
     content: public static bool UsesDefaultDigits(CultureInfo culture)
     parameters:
     - id: culture
       type: System.Globalization.CultureInfo
-      description: The culture, which must not be null or a neutral culture
     return:
       type: System.Boolean
-      description: <code>true</code> if the culture uses the default digits (0-9), and <code>false</code> otherwise.
     content.vb: Public Shared Function UsesDefaultDigits(culture As CultureInfo) As Boolean
   overload: Sdl.LanguagePlatform.Core.CultureInfoExtensions.UsesDefaultDigits*
   modifiers.csharp:
@@ -719,16 +658,13 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core
-  summary: "\nDetermines whether the provided culture uses standard three-digit grouping for number\nformatting. \n"
   syntax:
     content: public static bool UsesStandardNumberGrouping(CultureInfo culture)
     parameters:
     - id: culture
       type: System.Globalization.CultureInfo
-      description: The culture, which must not be null or a neutral culture
     return:
       type: System.Boolean
-      description: true if the culture uses standard three-digit grouping, and false otherwise
     content.vb: Public Shared Function UsesStandardNumberGrouping(culture As CultureInfo) As Boolean
   overload: Sdl.LanguagePlatform.Core.CultureInfoExtensions.UsesStandardNumberGrouping*
   modifiers.csharp:
@@ -754,7 +690,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core
-  summary: "\nreturns true for CJK cultures\n"
   syntax:
     content: public static bool UseFullWidth(CultureInfo culture)
     parameters:
@@ -787,7 +722,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core
-  summary: "\nGets a mapping from legacy language codes to .Net language codes. The mapping maps from\nlegacy language codes as they are used by SDLX and Trados Translator&apos;s Workbench and\nrelated applications to the closest language code used by .Net. \n<p>This is an internal data structure which should not be directly used and \nnot be modified. To look up a legacy code,\nuse <xref href=\"Sdl.LanguagePlatform.Core.CultureInfoExtensions.GetMappedCultureCodeForLegacyCode(System.String)\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
   syntax:
     content: public static Dictionary<string, string> LegacyLanguageCodeMapping { get; }
     parameters: []

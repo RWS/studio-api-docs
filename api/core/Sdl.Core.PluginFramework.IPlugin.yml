@@ -31,7 +31,6 @@ items:
   assemblies:
   - Sdl.Core.PluginFramework
   namespace: Sdl.Core.PluginFramework
-  summary: "\nRepresents a plug-in, which provides a number of extensions.\n"
   syntax:
     content: public interface IPlugin
     content.vb: Public Interface IPlugin
@@ -58,16 +57,13 @@ items:
   assemblies:
   - Sdl.Core.PluginFramework
   namespace: Sdl.Core.PluginFramework
-  summary: "\nEnables or disables the plug-in.\n"
   syntax:
     content: bool SetEnabled(bool enabled)
     parameters:
     - id: enabled
       type: System.Boolean
-      description: True to enable the plug-in.
     return:
       type: System.Boolean
-      description: True if disabling the plug-in does not require restarting the application, false otherwise.
     content.vb: Function SetEnabled(enabled As Boolean) As Boolean
   overload: Sdl.Core.PluginFramework.IPlugin.SetEnabled*
 - uid: Sdl.Core.PluginFramework.IPlugin.GetPluginResource``1(System.String)
@@ -87,8 +83,6 @@ items:
   assemblies:
   - Sdl.Core.PluginFramework
   namespace: Sdl.Core.PluginFramework
-  summary: "\nRetrieves a resource of a specific type from the plug-ins resource file.\n"
-  remarks: "The plug-in resource file is a .Net resource file, with extension &quot;.plugin.resources&quot;. \nFor instance, when the plug-in manifest XML file is called &quot;Myplugin.plugin.xml&quot;, the plug-in resource file should be called &quot;MyPlugin.plugin.resources&quot;.\nLocalized resources are supported by deploying additional resource files, following the naming convention &quot;MyPlugin.plugin.LANGUAGECODE.resources&quot;."
   syntax:
     content: >-
       T GetPluginResource<T>(string resourceName)
@@ -96,19 +90,12 @@ items:
     parameters:
     - id: resourceName
       type: System.String
-      description: The name of the resource in the resource file.
     typeParameters:
     - id: T
-      description: The type of the resource.
     return:
       type: '{T}'
-      description: The resource with the specified name, or null if the resource does not exist.
     content.vb: Function GetPluginResource(Of T As Class)(resourceName As String) As T
   overload: Sdl.Core.PluginFramework.IPlugin.GetPluginResource*
-  exceptions:
-  - type: System.InvalidCastException
-    commentId: T:System.InvalidCastException
-    description: Thrown when the resource with the specified name is not of the required type.
   nameWithType.vb: IPlugin.GetPluginResource(Of T)(String)
   fullName.vb: Sdl.Core.PluginFramework.IPlugin.GetPluginResource(Of T)(System.String)
   name.vb: GetPluginResource(Of T)(String)
@@ -129,7 +116,6 @@ items:
   assemblies:
   - Sdl.Core.PluginFramework
   namespace: Sdl.Core.PluginFramework
-  summary: "\nValidates this plug-in.\n"
   syntax:
     content: void Validate()
     content.vb: Sub Validate
@@ -151,7 +137,6 @@ items:
   assemblies:
   - Sdl.Core.PluginFramework
   namespace: Sdl.Core.PluginFramework
-  summary: "\nReturns the unique id of the plug-in.\n"
   syntax:
     content: PluginId Id { get; }
     parameters: []
@@ -180,7 +165,6 @@ items:
   assemblies:
   - Sdl.Core.PluginFramework
   namespace: Sdl.Core.PluginFramework
-  summary: "\nGets the version of the plug-in.\n"
   syntax:
     content: string Version { get; }
     parameters: []
@@ -209,7 +193,6 @@ items:
   assemblies:
   - Sdl.Core.PluginFramework
   namespace: Sdl.Core.PluginFramework
-  summary: "\nReturns the friendly name of the plug-in.\n"
   syntax:
     content: string Name { get; }
     parameters: []
@@ -238,7 +221,6 @@ items:
   assemblies:
   - Sdl.Core.PluginFramework
   namespace: Sdl.Core.PluginFramework
-  summary: "\nReturns the descriptor through which this plug-in manifest was loaded.\n"
   syntax:
     content: IPluginDescriptor Descriptor { get; }
     parameters: []
@@ -267,7 +249,6 @@ items:
   assemblies:
   - Sdl.Core.PluginFramework
   namespace: Sdl.Core.PluginFramework
-  summary: "\nTrue if the plug-in is enabled.\n"
   syntax:
     content: bool Enabled { get; }
     parameters: []
@@ -296,7 +277,6 @@ items:
   assemblies:
   - Sdl.Core.PluginFramework
   namespace: Sdl.Core.PluginFramework
-  summary: "\nReturns whether this plugin can be enabled. This uses the <xref href=\"Sdl.Core.PluginFramework.IPluginRegistry.PluginStateHandler\" data-throw-if-not-resolved=\"false\"></xref> to determine this and returns true\nif no such handler is specified.\n"
   syntax:
     content: bool CanEnable { get; }
     parameters: []
@@ -325,7 +305,6 @@ items:
   assemblies:
   - Sdl.Core.PluginFramework
   namespace: Sdl.Core.PluginFramework
-  summary: "\nReturns whether this plugin can be disabled. This uses the <xref href=\"Sdl.Core.PluginFramework.IPluginRegistry.PluginStateHandler\" data-throw-if-not-resolved=\"false\"></xref> to determine this and returns true\nif no such handler is specified.\n"
   syntax:
     content: bool CanDisable { get; }
     parameters: []
@@ -354,7 +333,6 @@ items:
   assemblies:
   - Sdl.Core.PluginFramework
   namespace: Sdl.Core.PluginFramework
-  summary: "\nTrue if the plug-in can be enabled or disabled without having to restart the application.\n"
   syntax:
     content: bool IsDynamic { get; }
     parameters: []
@@ -383,7 +361,6 @@ items:
   assemblies:
   - Sdl.Core.PluginFramework
   namespace: Sdl.Core.PluginFramework
-  summary: "\nReturns the collection of extensions this plug-in provides.\n"
   syntax:
     content: ExtensionCollection Extensions { get; }
     parameters: []
@@ -412,8 +389,6 @@ items:
   assemblies:
   - Sdl.Core.PluginFramework
   namespace: Sdl.Core.PluginFramework
-  summary: "\nGets the status of this plug-in. \n"
-  remarks: "Only plug-ins with status <xref href=\"Sdl.Core.PluginFramework.PluginStatus.Initialized\" data-throw-if-not-resolved=\"false\"></xref>\nare fully functional and can instantiate their extensions. Plug-ins that have not been initialized must be initialized before use \nby using <xref href=\"Sdl.Core.PluginFramework.IPluginInitializer\" data-throw-if-not-resolved=\"false\"></xref>."
   syntax:
     content: PluginStatus Status { get; }
     parameters: []
@@ -457,9 +432,6 @@ references:
   name: GetPluginResource
   nameWithType: IPlugin.GetPluginResource
   fullName: Sdl.Core.PluginFramework.IPlugin.GetPluginResource
-- uid: System.InvalidCastException
-  commentId: T:System.InvalidCastException
-  isExternal: true
 - uid: System.String
   commentId: T:System.String
   parent: System

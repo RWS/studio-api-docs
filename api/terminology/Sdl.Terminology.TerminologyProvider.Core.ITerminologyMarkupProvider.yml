@@ -19,7 +19,6 @@ items:
   assemblies:
   - Sdl.Terminology.TerminologyProvider.Core
   namespace: Sdl.Terminology.TerminologyProvider.Core
-  summary: "\nTerminology providers that provide markup information with the search results when performing term recognition need to implement this interface.\n"
   syntax:
     content: 'public interface ITerminologyMarkupProvider : IConnectionAwareTerminologyProvider, ITerminologyProvider, IDisposable'
     content.vb: >-
@@ -64,31 +63,23 @@ items:
   assemblies:
   - Sdl.Terminology.TerminologyProvider.Core
   namespace: Sdl.Terminology.TerminologyProvider.Core
-  summary: "\nPerforms a term recognition over the current terminology provider\n"
   syntax:
     content: IList<ISearchMarkupResult> SearchAndMarkup(string text, ILanguage source, ILanguage destination, int maxResultsCount, SearchMode mode, bool targetRequired)
     parameters:
     - id: text
       type: System.String
-      description: The text to search for
     - id: source
       type: Sdl.Terminology.TerminologyProvider.Core.ILanguage
-      description: Source language
     - id: destination
       type: Sdl.Terminology.TerminologyProvider.Core.ILanguage
-      description: Destination language
     - id: maxResultsCount
       type: System.Int32
-      description: Maximum number of result to return
     - id: mode
       type: Sdl.Terminology.TerminologyProvider.Core.SearchMode
-      description: 'search mode: normal, fuzzy, full text'
     - id: targetRequired
       type: System.Boolean
-      description: True to return only term with target language term definition
     return:
       type: System.Collections.Generic.IList{Sdl.Terminology.TerminologyProvider.Core.ISearchMarkupResult}
-      description: The list of found terms together with markup information
     content.vb: Function SearchAndMarkup(text As String, source As ILanguage, destination As ILanguage, maxResultsCount As Integer, mode As SearchMode, targetRequired As Boolean) As IList(Of ISearchMarkupResult)
   overload: Sdl.Terminology.TerminologyProvider.Core.ITerminologyMarkupProvider.SearchAndMarkup*
 references:

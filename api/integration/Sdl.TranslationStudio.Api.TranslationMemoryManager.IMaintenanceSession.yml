@@ -26,7 +26,6 @@ items:
   - Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.DeleteSelectedRows
   - Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.DiscardChangesToActiveTranslationUnit
   - Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.DiscardChangesToSelectedRows
-  - Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.GetActivePageTranslationUnits
   - Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.GetControl
   - Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.HasFilterApplied
   - Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.HasPendingChanges
@@ -58,12 +57,8 @@ items:
   - Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.SelectedRows
   - Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.SelectedRowsChanged
   - Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.SelectedRowsHavePendingChanges
-  - Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.SelectRow(System.Int32)
   - Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.Service
-  - Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.SetActiveTranslationUnitSource(System.String)
-  - Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.SetActiveTranslationUnitTarget(System.String)
   - Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.TmLanguageDirectionManagementObject
-  - Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.TranslationUnitsMarkedForDeletion
   - Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.UndoBuffer
   langs:
   - csharp
@@ -107,10 +102,10 @@ items:
   - Sdl.TranslationStudio.Api
   namespace: Sdl.TranslationStudio.Api.TranslationMemoryManager
   syntax:
-    content: IInternalUIControl GetControl()
+    content: Control GetControl()
     return:
-      type: Sdl.Desktop.Platform.IInternalUIControl
-    content.vb: Function GetControl As IInternalUIControl
+      type: System.Windows.Forms.Control
+    content.vb: Function GetControl As Control
   overload: Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.GetControl*
 - uid: Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.OnActivate
   commentId: M:Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.OnActivate
@@ -268,29 +263,6 @@ items:
     content: void Paste()
     content.vb: Sub Paste
   overload: Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.Paste*
-- uid: Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.GetActivePageTranslationUnits
-  commentId: M:Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.GetActivePageTranslationUnits
-  id: GetActivePageTranslationUnits
-  parent: Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession
-  langs:
-  - csharp
-  - vb
-  name: GetActivePageTranslationUnits()
-  nameWithType: IMaintenanceSession.GetActivePageTranslationUnits()
-  fullName: Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.GetActivePageTranslationUnits()
-  type: Method
-  source:
-    path: Sdl.TranslationStudio.Api
-    isExternal: true
-  assemblies:
-  - Sdl.TranslationStudio.Api
-  namespace: Sdl.TranslationStudio.Api.TranslationMemoryManager
-  syntax:
-    content: List<TranslationUnit> GetActivePageTranslationUnits()
-    return:
-      type: System.Collections.Generic.List{Sdl.LanguagePlatform.TranslationMemory.TranslationUnit}
-    content.vb: Function GetActivePageTranslationUnits As List(Of TranslationUnit)
-  overload: Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.GetActivePageTranslationUnits*
 - uid: Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.HasSelectedRows
   commentId: M:Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.HasSelectedRows
   id: HasSelectedRows
@@ -518,30 +490,6 @@ items:
       type: System.Int32
     content.vb: Sub SearchCertainPage(position As Integer)
   overload: Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.SearchCertainPage*
-- uid: Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.SelectRow(System.Int32)
-  commentId: M:Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.SelectRow(System.Int32)
-  id: SelectRow(System.Int32)
-  parent: Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession
-  langs:
-  - csharp
-  - vb
-  name: SelectRow(Int32)
-  nameWithType: IMaintenanceSession.SelectRow(Int32)
-  fullName: Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.SelectRow(System.Int32)
-  type: Method
-  source:
-    path: Sdl.TranslationStudio.Api
-    isExternal: true
-  assemblies:
-  - Sdl.TranslationStudio.Api
-  namespace: Sdl.TranslationStudio.Api.TranslationMemoryManager
-  syntax:
-    content: void SelectRow(int rowindex)
-    parameters:
-    - id: rowindex
-      type: System.Int32
-    content.vb: Sub SelectRow(rowindex As Integer)
-  overload: Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.SelectRow*
 - uid: Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.Refresh
   commentId: M:Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.Refresh
   id: Refresh
@@ -745,56 +693,6 @@ items:
       type: Sdl.TranslationStudio.Api.Common.TranslationUnitUniqueIdentifier
     content.vb: Sub RemovePendingIfUnchanged(translationUnitId As TranslationUnitUniqueIdentifier)
   overload: Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.RemovePendingIfUnchanged*
-- uid: Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.SetActiveTranslationUnitSource(System.String)
-  commentId: M:Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.SetActiveTranslationUnitSource(System.String)
-  id: SetActiveTranslationUnitSource(System.String)
-  parent: Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession
-  langs:
-  - csharp
-  - vb
-  name: SetActiveTranslationUnitSource(String)
-  nameWithType: IMaintenanceSession.SetActiveTranslationUnitSource(String)
-  fullName: Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.SetActiveTranslationUnitSource(System.String)
-  type: Method
-  source:
-    path: Sdl.TranslationStudio.Api
-    isExternal: true
-  assemblies:
-  - Sdl.TranslationStudio.Api
-  namespace: Sdl.TranslationStudio.Api.TranslationMemoryManager
-  summary: "\nSets the source content for the active translation unit.\n"
-  syntax:
-    content: void SetActiveTranslationUnitSource(string newText)
-    parameters:
-    - id: newText
-      type: System.String
-    content.vb: Sub SetActiveTranslationUnitSource(newText As String)
-  overload: Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.SetActiveTranslationUnitSource*
-- uid: Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.SetActiveTranslationUnitTarget(System.String)
-  commentId: M:Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.SetActiveTranslationUnitTarget(System.String)
-  id: SetActiveTranslationUnitTarget(System.String)
-  parent: Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession
-  langs:
-  - csharp
-  - vb
-  name: SetActiveTranslationUnitTarget(String)
-  nameWithType: IMaintenanceSession.SetActiveTranslationUnitTarget(String)
-  fullName: Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.SetActiveTranslationUnitTarget(System.String)
-  type: Method
-  source:
-    path: Sdl.TranslationStudio.Api
-    isExternal: true
-  assemblies:
-  - Sdl.TranslationStudio.Api
-  namespace: Sdl.TranslationStudio.Api.TranslationMemoryManager
-  summary: "\nSets the target content for the active translation unit.\n"
-  syntax:
-    content: void SetActiveTranslationUnitTarget(string newText)
-    parameters:
-    - id: newText
-      type: System.String
-    content.vb: Sub SetActiveTranslationUnitTarget(newText As String)
-  overload: Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.SetActiveTranslationUnitTarget*
 - uid: Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.Service
   commentId: P:Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.Service
   id: Service
@@ -987,34 +885,6 @@ items:
       type: Sdl.LanguagePlatform.TranslationMemory.TranslationUnit
     content.vb: ReadOnly Property ActiveTranslationUnit As TranslationUnit
   overload: Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.ActiveTranslationUnit*
-  modifiers.csharp:
-  - get
-  modifiers.vb:
-  - ReadOnly
-- uid: Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.TranslationUnitsMarkedForDeletion
-  commentId: P:Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.TranslationUnitsMarkedForDeletion
-  id: TranslationUnitsMarkedForDeletion
-  parent: Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession
-  langs:
-  - csharp
-  - vb
-  name: TranslationUnitsMarkedForDeletion
-  nameWithType: IMaintenanceSession.TranslationUnitsMarkedForDeletion
-  fullName: Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.TranslationUnitsMarkedForDeletion
-  type: Property
-  source:
-    path: Sdl.TranslationStudio.Api
-    isExternal: true
-  assemblies:
-  - Sdl.TranslationStudio.Api
-  namespace: Sdl.TranslationStudio.Api.TranslationMemoryManager
-  syntax:
-    content: List<TranslationUnit> TranslationUnitsMarkedForDeletion { get; }
-    parameters: []
-    return:
-      type: System.Collections.Generic.List{Sdl.LanguagePlatform.TranslationMemory.TranslationUnit}
-    content.vb: ReadOnly Property TranslationUnitsMarkedForDeletion As List(Of TranslationUnit)
-  overload: Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.TranslationUnitsMarkedForDeletion*
   modifiers.csharp:
   - get
   modifiers.vb:
@@ -1731,11 +1601,11 @@ references:
   name: GetControl
   nameWithType: IMaintenanceSession.GetControl
   fullName: Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.GetControl
-- uid: Sdl.Desktop.Platform.IInternalUIControl
+- uid: System.Windows.Forms.Control
   isExternal: true
-  name: IInternalUIControl
-  nameWithType: IInternalUIControl
-  fullName: Sdl.Desktop.Platform.IInternalUIControl
+  name: Control
+  nameWithType: Control
+  fullName: System.Windows.Forms.Control
 - uid: Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.OnActivate*
   commentId: Overload:Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.OnActivate
   isExternal: true
@@ -1785,101 +1655,6 @@ references:
   name: Paste
   nameWithType: IMaintenanceSession.Paste
   fullName: Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.Paste
-- uid: Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.GetActivePageTranslationUnits*
-  commentId: Overload:Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.GetActivePageTranslationUnits
-  isExternal: true
-  name: GetActivePageTranslationUnits
-  nameWithType: IMaintenanceSession.GetActivePageTranslationUnits
-  fullName: Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.GetActivePageTranslationUnits
-- uid: System.Collections.Generic.List{Sdl.LanguagePlatform.TranslationMemory.TranslationUnit}
-  commentId: T:System.Collections.Generic.List{Sdl.LanguagePlatform.TranslationMemory.TranslationUnit}
-  parent: System.Collections.Generic
-  definition: System.Collections.Generic.List`1
-  name: List<TranslationUnit>
-  nameWithType: List<TranslationUnit>
-  fullName: System.Collections.Generic.List<Sdl.LanguagePlatform.TranslationMemory.TranslationUnit>
-  nameWithType.vb: List(Of TranslationUnit)
-  fullName.vb: System.Collections.Generic.List(Of Sdl.LanguagePlatform.TranslationMemory.TranslationUnit)
-  name.vb: List(Of TranslationUnit)
-  spec.csharp:
-  - uid: System.Collections.Generic.List`1
-    name: List
-    nameWithType: List
-    fullName: System.Collections.Generic.List
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
-  - uid: Sdl.LanguagePlatform.TranslationMemory.TranslationUnit
-    name: TranslationUnit
-    nameWithType: TranslationUnit
-    fullName: Sdl.LanguagePlatform.TranslationMemory.TranslationUnit
-    isExternal: true
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  spec.vb:
-  - uid: System.Collections.Generic.List`1
-    name: List
-    nameWithType: List
-    fullName: System.Collections.Generic.List
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - uid: Sdl.LanguagePlatform.TranslationMemory.TranslationUnit
-    name: TranslationUnit
-    nameWithType: TranslationUnit
-    fullName: Sdl.LanguagePlatform.TranslationMemory.TranslationUnit
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Collections.Generic.List`1
-  commentId: T:System.Collections.Generic.List`1
-  isExternal: true
-  name: List<T>
-  nameWithType: List<T>
-  fullName: System.Collections.Generic.List<T>
-  nameWithType.vb: List(Of T)
-  fullName.vb: System.Collections.Generic.List(Of T)
-  name.vb: List(Of T)
-  spec.csharp:
-  - uid: System.Collections.Generic.List`1
-    name: List
-    nameWithType: List
-    fullName: System.Collections.Generic.List
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
-  - name: T
-    nameWithType: T
-    fullName: T
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  spec.vb:
-  - uid: System.Collections.Generic.List`1
-    name: List
-    nameWithType: List
-    fullName: System.Collections.Generic.List
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - name: T
-    nameWithType: T
-    fullName: T
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Collections.Generic
-  commentId: N:System.Collections.Generic
-  isExternal: true
-  name: System.Collections.Generic
-  nameWithType: System.Collections.Generic
-  fullName: System.Collections.Generic
 - uid: Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.HasSelectedRows*
   commentId: Overload:Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.HasSelectedRows
   isExternal: true
@@ -1923,12 +1698,6 @@ references:
   name: Int32
   nameWithType: Int32
   fullName: System.Int32
-- uid: Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.SelectRow*
-  commentId: Overload:Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.SelectRow
-  isExternal: true
-  name: SelectRow
-  nameWithType: IMaintenanceSession.SelectRow
-  fullName: Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.SelectRow
 - uid: Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.Refresh*
   commentId: Overload:Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.Refresh
   isExternal: true
@@ -2008,25 +1777,6 @@ references:
   name: RemovePendingIfUnchanged
   nameWithType: IMaintenanceSession.RemovePendingIfUnchanged
   fullName: Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.RemovePendingIfUnchanged
-- uid: Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.SetActiveTranslationUnitSource*
-  commentId: Overload:Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.SetActiveTranslationUnitSource
-  isExternal: true
-  name: SetActiveTranslationUnitSource
-  nameWithType: IMaintenanceSession.SetActiveTranslationUnitSource
-  fullName: Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.SetActiveTranslationUnitSource
-- uid: System.String
-  commentId: T:System.String
-  parent: System
-  isExternal: true
-  name: String
-  nameWithType: String
-  fullName: System.String
-- uid: Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.SetActiveTranslationUnitTarget*
-  commentId: Overload:Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.SetActiveTranslationUnitTarget
-  isExternal: true
-  name: SetActiveTranslationUnitTarget
-  nameWithType: IMaintenanceSession.SetActiveTranslationUnitTarget
-  fullName: Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.SetActiveTranslationUnitTarget
 - uid: Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.Service*
   commentId: Overload:Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.Service
   isExternal: true
@@ -2088,12 +1838,6 @@ references:
   name: TranslationUnit
   nameWithType: TranslationUnit
   fullName: Sdl.LanguagePlatform.TranslationMemory.TranslationUnit
-- uid: Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.TranslationUnitsMarkedForDeletion*
-  commentId: Overload:Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.TranslationUnitsMarkedForDeletion
-  isExternal: true
-  name: TranslationUnitsMarkedForDeletion
-  nameWithType: IMaintenanceSession.TranslationUnitsMarkedForDeletion
-  fullName: Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.TranslationUnitsMarkedForDeletion
 - uid: Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.SelectedRows*
   commentId: Overload:Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.SelectedRows
   isExternal: true
@@ -2183,6 +1927,12 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
 - uid: Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.ActiveTranslationUnitUniqueIdentifier*
   commentId: Overload:Sdl.TranslationStudio.Api.TranslationMemoryManager.IMaintenanceSession.ActiveTranslationUnitUniqueIdentifier
   isExternal: true

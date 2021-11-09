@@ -21,7 +21,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nProvides methods to compute placeables and their alignments from two segments, \nor from a translation unit.\n"
   syntax:
     content: public static class PlaceableComputer
     content.vb: Public Module PlaceableComputer
@@ -59,16 +58,13 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nComputes the list of placeables and their alignment, given the provided \ntranslation unit.\n"
   syntax:
     content: public static List<Placeable> ComputePlaceables(TranslationUnit tu)
     parameters:
     - id: tu
       type: Sdl.LanguagePlatform.TranslationMemory.TranslationUnit
-      description: The translation unit to compute the placeables for
     return:
       type: System.Collections.Generic.List{Sdl.LanguagePlatform.TranslationMemory.Placeable}
-      description: A list of placeables
     content.vb: Public Shared Function ComputePlaceables(tu As TranslationUnit) As List(Of Placeable)
   overload: Sdl.LanguagePlatform.TranslationMemory.PlaceableComputer.ComputePlaceables*
   modifiers.csharp:
@@ -94,19 +90,15 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nComputes the list of placeables and their alignment, given the provided \nsegments.\n"
   syntax:
     content: public static List<Placeable> ComputePlaceables(Segment srcSegment, Segment trgSegment)
     parameters:
     - id: srcSegment
       type: Sdl.LanguagePlatform.Core.Segment
-      description: The source segment
     - id: trgSegment
       type: Sdl.LanguagePlatform.Core.Segment
-      description: The target segment
     return:
       type: System.Collections.Generic.List{Sdl.LanguagePlatform.TranslationMemory.Placeable}
-      description: A list of placeables
     content.vb: Public Shared Function ComputePlaceables(srcSegment As Segment, trgSegment As Segment) As List(Of Placeable)
   overload: Sdl.LanguagePlatform.TranslationMemory.PlaceableComputer.ComputePlaceables*
   modifiers.csharp:
@@ -132,22 +124,17 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nUses placeable information, computed for a given source and target segment, to add alignment entries to alignment data\n"
   syntax:
     content: public static void ConvertPlaceablesToAlignments(List<Placeable> placeables, LiftAlignedSpanPairSet alignmentData, List<Token> sourceTokens, List<Token> targetTokens)
     parameters:
     - id: placeables
       type: System.Collections.Generic.List{Sdl.LanguagePlatform.TranslationMemory.Placeable}
-      description: Previously-computed placeables
     - id: alignmentData
       type: Sdl.Core.FineGrainedAlignment.Core.LiftAlignedSpanPairSet
-      description: Object in which to store the alignments
     - id: sourceTokens
       type: System.Collections.Generic.List{Sdl.LanguagePlatform.Core.Tokenization.Token}
-      description: List of tokens in the source segment
     - id: targetTokens
       type: System.Collections.Generic.List{Sdl.LanguagePlatform.Core.Tokenization.Token}
-      description: List of tokens in the target segment
     content.vb: Public Shared Sub ConvertPlaceablesToAlignments(placeables As List(Of Placeable), alignmentData As LiftAlignedSpanPairSet, sourceTokens As List(Of Token), targetTokens As List(Of Token))
   overload: Sdl.LanguagePlatform.TranslationMemory.PlaceableComputer.ConvertPlaceablesToAlignments*
   nameWithType.vb: PlaceableComputer.ConvertPlaceablesToAlignments(List(Of Placeable), LiftAlignedSpanPairSet, List(Of Token), List(Of Token))

@@ -24,7 +24,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core
-  summary: "\nBase abstract class representing a segment element. A <xref href=\"Sdl.LanguagePlatform.Core.Segment\" data-throw-if-not-resolved=\"false\"></xref> consists of a\nsequence of segment elements.\n"
   syntax:
     content: public abstract class SegmentElement
     content.vb: Public MustInherit Class SegmentElement
@@ -67,12 +66,10 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core
-  summary: "\nCreates a new instance that is a deep copy of this instance.\n"
   syntax:
     content: public abstract SegmentElement Duplicate()
     return:
       type: Sdl.LanguagePlatform.Core.SegmentElement
-      description: A new instance that is a deep copy of this instance.
     content.vb: Public MustOverride Function Duplicate As SegmentElement
   overload: Sdl.LanguagePlatform.Core.SegmentElement.Duplicate*
   modifiers.csharp:
@@ -98,16 +95,13 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core
-  summary: "\nComputes the degree of similarity to another instance.\n"
   syntax:
     content: public abstract SegmentElement.Similarity GetSimilarity(SegmentElement other)
     parameters:
     - id: other
       type: Sdl.LanguagePlatform.Core.SegmentElement
-      description: The other instance.
     return:
       type: Sdl.LanguagePlatform.Core.SegmentElement.Similarity
-      description: A value indicating the degree of similarity to the provided segment element.
     content.vb: Public MustOverride Function GetSimilarity(other As SegmentElement) As SegmentElement.Similarity
   overload: Sdl.LanguagePlatform.Core.SegmentElement.GetSimilarity*
   modifiers.csharp:
@@ -133,16 +127,13 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core
-  summary: "\nComputes the degree of similarity to another instance, with the option of \nmore flexible type compatibility (e.g. treat &apos;cm&apos; and &apos;ft&apos; as same type, because both measure length)\n"
   syntax:
     content: public virtual SegmentElement.Similarity GetSimilarity(SegmentElement other, bool allowCompatibility)
     parameters:
     - id: other
       type: Sdl.LanguagePlatform.Core.SegmentElement
-      description: The other instance.
     - id: allowCompatibility
       type: System.Boolean
-      description: If True, more flexible type compatibility will be used if available for the comparison
     return:
       type: Sdl.LanguagePlatform.Core.SegmentElement.Similarity
     content.vb: Public Overridable Function GetSimilarity(other As SegmentElement, allowCompatibility As Boolean) As SegmentElement.Similarity
@@ -170,13 +161,11 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core
-  summary: "\nVisitor pattern implementation. Derived classes should call back on the\nappropriate method on the visitor.\n"
   syntax:
     content: public abstract void AcceptSegmentElementVisitor(ISegmentElementVisitor visitor)
     parameters:
     - id: visitor
       type: Sdl.LanguagePlatform.Core.ISegmentElementVisitor
-      description: The visitor instance (must not be <code>null</code>)
     content.vb: Public MustOverride Sub AcceptSegmentElementVisitor(visitor As ISegmentElementVisitor)
   overload: Sdl.LanguagePlatform.Core.SegmentElement.AcceptSegmentElementVisitor*
   modifiers.csharp:
@@ -202,12 +191,10 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core
-  summary: "\nReturns a hash code which does not depend on tag anchors in the segment. This \ncan be used for translation tracking in bilingual scenarios.\n"
   syntax:
     content: public abstract int GetWeakHashCode()
     return:
       type: System.Int32
-      description: A hash code which is independent of tag anchors.
     content.vb: Public MustOverride Function GetWeakHashCode As Integer
   overload: Sdl.LanguagePlatform.Core.SegmentElement.GetWeakHashCode*
   modifiers.csharp:

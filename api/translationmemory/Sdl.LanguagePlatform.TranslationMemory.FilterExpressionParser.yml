@@ -21,7 +21,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nProvides a parser that can read a filter expression from a string and create an equivalent FilterExpression object.\n<p>The returned object can be serialized back into an equivalent string, which may not look exactly like the original input. \nThat is because the parser normalizes the input, by surrounding field names and values with double quotes and by adding brackets.</p>\n<p>Field names are case insensitive and so are string values.</p>\n<p>Picklist values are case sensitive and the parser will throw an error if the expression contains a value not defined by the \nspecified field.</p>\n"
   syntax:
     content: public class FilterExpressionParser
     content.vb: Public Class FilterExpressionParser
@@ -58,22 +57,15 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nParses the provided <code data-dev-comment-type=\"paramref\" class=\"paramref\">expression</code>, using the provided field declarations, \nand returns a <xref href=\"Sdl.LanguagePlatform.TranslationMemory.FilterExpression\" data-throw-if-not-resolved=\"false\"></xref> which corresponds to the expression.\n"
   syntax:
     content: public static FilterExpression Parse(string expression, IFieldDefinitions fieldDeclarations)
     parameters:
     - id: expression
       type: System.String
-      description: The expression
     - id: fieldDeclarations
       type: Sdl.LanguagePlatform.TranslationMemory.IFieldDefinitions
-      description: "The field declarations which are in effect, to \nresolve any field references"
     return:
       type: Sdl.LanguagePlatform.TranslationMemory.FilterExpression
-      description: >-
-        A filter expression. An exception is thrown if <code data-dev-comment-type="paramref" class="paramref">expression</code>
-
-        is invalid.
     content.vb: Public Shared Function Parse(expression As String, fieldDeclarations As IFieldDefinitions) As FilterExpression
   overload: Sdl.LanguagePlatform.TranslationMemory.FilterExpressionParser.Parse*
   modifiers.csharp:
@@ -99,13 +91,11 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nInitializes a new instance with a collection of field declarations.\n"
   syntax:
     content: public FilterExpressionParser(IFieldDefinitions fieldDeclarations)
     parameters:
     - id: fieldDeclarations
       type: Sdl.LanguagePlatform.TranslationMemory.IFieldDefinitions
-      description: The field declarations to use for parsing.
     content.vb: Public Sub New(fieldDeclarations As IFieldDefinitions)
   overload: Sdl.LanguagePlatform.TranslationMemory.FilterExpressionParser.#ctor*
   modifiers.csharp:
@@ -129,16 +119,13 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nParses a string expression and returns the equivalent <xref href=\"Sdl.LanguagePlatform.TranslationMemory.FilterExpression\" data-throw-if-not-resolved=\"false\"></xref> object.\n"
   syntax:
     content: public FilterExpression Parse(string s)
     parameters:
     - id: s
       type: System.String
-      description: The input string.
     return:
       type: Sdl.LanguagePlatform.TranslationMemory.FilterExpression
-      description: "The equivalent filter expression. If the string does not represent a valid \nexpression, an exception is thrown."
     content.vb: Public Function Parse(s As String) As FilterExpression
   overload: Sdl.LanguagePlatform.TranslationMemory.FilterExpressionParser.Parse*
   modifiers.csharp:

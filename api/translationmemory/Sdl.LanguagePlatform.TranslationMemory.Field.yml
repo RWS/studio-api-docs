@@ -42,7 +42,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nRepresents a field declaration.\n"
   syntax:
     content: 'public class Field : PersistentObject, ICloneable, IField'
     content.vb: >-
@@ -87,7 +86,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nThe name for the structure context field name.\n"
   syntax:
     content: public static readonly string StructureContextFieldName
     return:
@@ -118,7 +116,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nA pseudo-name for the text context field. Since text context values are directly\nstored at the TU, and not represented as field values, this pseudo field name is only\nrelevant for edit scripts.\n"
   syntax:
     content: public static readonly string TextContextFieldName
     return:
@@ -149,7 +146,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nInitializes a new instance with default values.\n"
   syntax:
     content: public Field()
     content.vb: Public Sub New
@@ -175,13 +171,11 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nInitializes a new instance with the values of another instance, creating a deep copy.\n"
   syntax:
     content: public Field(Field other)
     parameters:
     - id: other
       type: Sdl.LanguagePlatform.TranslationMemory.Field
-      description: The other instance
     content.vb: Public Sub New(other As Field)
   overload: Sdl.LanguagePlatform.TranslationMemory.Field.#ctor*
   modifiers.csharp:
@@ -205,16 +199,13 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nInitializes a new instance, with the specified name and type.\n"
   syntax:
     content: public Field(string name, FieldValueType valueType)
     parameters:
     - id: name
       type: System.String
-      description: The field name.
     - id: valueType
       type: Sdl.LanguagePlatform.TranslationMemory.FieldValueType
-      description: The field type.
     content.vb: Public Sub New(name As String, valueType As FieldValueType)
   overload: Sdl.LanguagePlatform.TranslationMemory.Field.#ctor*
   modifiers.csharp:
@@ -238,13 +229,11 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nChecks the given name and throws an exception if the name is not valid.\n"
   syntax:
     content: protected virtual void CheckName(string name)
     parameters:
     - id: name
       type: System.String
-      description: name
     content.vb: Protected Overridable Sub CheckName(name As String)
   overload: Sdl.LanguagePlatform.TranslationMemory.Field.CheckName*
   modifiers.csharp:
@@ -270,16 +259,13 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nRemoves those characters from an input string which are not allowed in field names, \nand returns the form that will be accepted as a field name identifier. This method\nshould only be used when fields are automatically added by some process (e.g. by \nimporting a TMX file) and that process should be robust and continue despite invalid\nfield names.\n"
   syntax:
     content: public static string RemoveIllegalChars(string val)
     parameters:
     - id: val
       type: System.String
-      description: The input string.
     return:
       type: System.String
-      description: The string after the illegal characters have been removed.
     content.vb: Public Shared Function RemoveIllegalChars(val As String) As String
   overload: Sdl.LanguagePlatform.TranslationMemory.Field.RemoveIllegalChars*
   modifiers.csharp:
@@ -305,16 +291,13 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nDetermines whether a specified string can be used as a field name.\n<p>All field names are valid if they don&apos;t start or end with whitespace.</p>\n"
   syntax:
     content: public static bool IsValidName(string val)
     parameters:
     - id: val
       type: System.String
-      description: The string.
     return:
       type: System.Boolean
-      description: true if the string is a legal identifier, false otherwise.
     content.vb: Public Shared Function IsValidName(val As String) As Boolean
   overload: Sdl.LanguagePlatform.TranslationMemory.Field.IsValidName*
   modifiers.csharp:
@@ -340,19 +323,13 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nLooks up a special field by its name. Special fields are fields with a predefined\nname, which may be &quot;virtual&quot; fields (those computed from data at runtime) or \n&quot;physical&quot; fields (which have an actual value in the data storage). Special field\nnames should not be used for user-defined fields. Note that special fields are a \nsuperset of system fields (i.e. not all special fields are system fields).\n"
   syntax:
     content: public static Field LookupSpecialField(string name)
     parameters:
     - id: name
       type: System.String
-      description: The field name
     return:
       type: Sdl.LanguagePlatform.TranslationMemory.Field
-      description: >-
-        The special (predefined) field, or <code>null</code> if no such special field
-
-        exists.
     content.vb: Public Shared Function LookupSpecialField(name As String) As Field
   overload: Sdl.LanguagePlatform.TranslationMemory.Field.LookupSpecialField*
   modifiers.csharp:
@@ -378,18 +355,13 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nDetermines whether the specified name is reserved for a system (predefined) field.\n"
   syntax:
     content: public static bool IsSystemFieldName(string name)
     parameters:
     - id: name
       type: System.String
-      description: The field name to check
     return:
       type: System.Boolean
-      description: >-
-        <code>true</code> if the field name is a reserved system field name, and <code>false</code>
-                    otherwise
     content.vb: Public Shared Function IsSystemFieldName(name As String) As Boolean
   overload: Sdl.LanguagePlatform.TranslationMemory.Field.IsSystemFieldName*
   modifiers.csharp:
@@ -415,16 +387,13 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nDetermines whether the name is reserved for a pseudo (non-physical) field.\n"
   syntax:
     content: public static bool IsPseudoFieldName(string name)
     parameters:
     - id: name
       type: System.String
-      description: The field name to check
     return:
       type: System.Boolean
-      description: "<code>true</code> if the name is reserved for a pseudo (non-physical) field, \n            and <code>false</code> otherwise."
     content.vb: Public Shared Function IsPseudoFieldName(name As String) As Boolean
   overload: Sdl.LanguagePlatform.TranslationMemory.Field.IsPseudoFieldName*
   modifiers.csharp:
@@ -450,16 +419,13 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nDetermines whether the name is reserved for system purposes.\n"
   syntax:
     content: public static bool IsReservedName(string name)
     parameters:
     - id: name
       type: System.String
-      description: The field name to check
     return:
       type: System.Boolean
-      description: "<code>true</code> if the name is reserved (for a system field, pseudo field, or other field type), \n            and <code>false</code> otherwise.\n"
     content.vb: Public Shared Function IsReservedName(name As String) As Boolean
   overload: Sdl.LanguagePlatform.TranslationMemory.Field.IsReservedName*
   modifiers.csharp:
@@ -485,19 +451,13 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nDetermine the field type, given the field name.\n"
   syntax:
     content: public static FieldType GetFieldType(string name)
     parameters:
     - id: name
       type: System.String
-      description: The field name to determine the field type for
     return:
       type: Sdl.LanguagePlatform.TranslationMemory.FieldType
-      description: >-
-        The field type, if it can be determined, or <xref href="FieldType.User" data-throw-if-not-resolved="false"></xref> if
-
-        the field name is not reserved for system prposes.
     content.vb: Public Shared Function GetFieldType(name As String) As FieldType
   overload: Sdl.LanguagePlatform.TranslationMemory.Field.GetFieldType*
   modifiers.csharp:
@@ -523,16 +483,13 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nDetermines whether this instance of Field and a specified object, which must also be a Field object,\nrepresent the same field declaration including the picklist according to type.\n"
   syntax:
     content: public override bool Equals(object obj)
     parameters:
     - id: obj
       type: System.Object
-      description: The other object.
     return:
       type: System.Boolean
-      description: true if obj represents the same field declaration as this instance; false otherwise.
     content.vb: Public Overrides Function Equals(obj As Object) As Boolean
   overridden: System.Object.Equals(System.Object)
   overload: Sdl.LanguagePlatform.TranslationMemory.Field.Equals*
@@ -559,7 +516,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\n<xref href=\"System.Object.GetHashCode(object)\" data-throw-if-not-resolved=\"false\"></xref>\n"
   syntax:
     content: public override int GetHashCode()
     return:
@@ -590,16 +546,13 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nDetermines whether this instance of Field and a specified object, which must also be a Field object,\nrepresent the same field declaration, not considering the picklist.\n"
   syntax:
     content: public bool EqualsDeclaration(Field other)
     parameters:
     - id: other
       type: Sdl.LanguagePlatform.TranslationMemory.Field
-      description: The other object.
     return:
       type: System.Boolean
-      description: true if other represents the same declaration but might have a different picklist; false otherwise.
     content.vb: Public Function EqualsDeclaration(other As Field) As Boolean
   overload: Sdl.LanguagePlatform.TranslationMemory.Field.EqualsDeclaration*
   modifiers.csharp:
@@ -623,15 +576,10 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nCreates a FieldValue instance, with the same name and type as this field declaration.\n"
   syntax:
     content: public FieldValue CreateValue()
     return:
       type: Sdl.LanguagePlatform.TranslationMemory.FieldValue
-      description: >-
-        A <xref href="Sdl.LanguagePlatform.TranslationMemory.FieldValue" data-throw-if-not-resolved="false"></xref> instance which is compatible with this field
-
-        declaration.
     content.vb: Public Function CreateValue As FieldValue
   overload: Sdl.LanguagePlatform.TranslationMemory.Field.CreateValue*
   modifiers.csharp:
@@ -655,12 +603,10 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\n<xref href=\"System.ICloneable.Clone\" data-throw-if-not-resolved=\"false\"></xref>\n"
   syntax:
     content: public virtual object Clone()
     return:
       type: System.Object
-      description: A new object that is a deep copy of this instance.
     content.vb: Public Overridable Function Clone As Object
   overload: Sdl.LanguagePlatform.TranslationMemory.Field.Clone*
   implements:
@@ -688,12 +634,10 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nCreates a new instance that is a deep copy of this instance.\n"
   syntax:
     content: public virtual Field Duplicate()
     return:
       type: Sdl.LanguagePlatform.TranslationMemory.Field
-      description: A new instance that is a deep copy of this instance.
     content.vb: Public Overridable Function Duplicate As Field
   overload: Sdl.LanguagePlatform.TranslationMemory.Field.Duplicate*
   modifiers.csharp:
@@ -719,7 +663,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nGets or sets the field value type\n"
   syntax:
     content: public FieldValueType ValueType { get; set; }
     parameters: []
@@ -752,7 +695,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nThe names of all picklist items for this Field. This collection will be empty if this field is not a \n<xref href=\"Sdl.LanguagePlatform.TranslationMemory.FieldValueType.SinglePicklist\" data-throw-if-not-resolved=\"false\"></xref> or <xref href=\"Sdl.LanguagePlatform.TranslationMemory.FieldValueType.MultiplePicklist\" data-throw-if-not-resolved=\"false\"></xref>.\n"
   syntax:
     content: public virtual IList<string> PicklistItemNames { get; }
     parameters: []
@@ -787,7 +729,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nGets or sets the field name.\n<p>See <xref href=\"Sdl.LanguagePlatform.TranslationMemory.Field.IsValidName(System.String)\" data-throw-if-not-resolved=\"false\"></xref> for a detailed description of accepted identifiers.</p>\n"
   syntax:
     content: public string Name { get; set; }
     parameters: []
@@ -820,7 +761,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nGets the type of the field, i.e. whether it is a system or user-defined field.\n"
   syntax:
     content: public FieldType FieldType { get; set; }
     parameters: []
@@ -851,7 +791,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nGets a flag which indicates that this field is a system field. System fields cannot \nbe changed or deleted by the user. Setting this flag from user-code has no effect.\n"
   syntax:
     content: public bool IsSystemField { get; }
     parameters: []

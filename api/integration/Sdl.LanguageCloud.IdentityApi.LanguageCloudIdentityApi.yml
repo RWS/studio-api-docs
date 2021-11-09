@@ -10,12 +10,12 @@ items:
   - Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.ActiveTenantId
   - Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.ActiveUserId
   - Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.ApiKey
-  - Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.BaseUrl
   - Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.EnsureValidConnection
   - Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.Instance
   - Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.LanguageCloudCredential
   - Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.LoginStatusChanged
   - Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.Logout
+  - Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.SessionId
   - Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.StudioApplicationKey
   - Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.StudioClientId
   - Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.TryLogin(System.String@,System.Boolean)
@@ -32,16 +32,11 @@ items:
   assemblies:
   - Sdl.LanguageCloud.IdentityApi
   namespace: Sdl.LanguageCloud.IdentityApi
-  summary: "\nSingleton implementation that provides LanguageCloud Identity access.\n"
   syntax:
-    content: 'public class LanguageCloudIdentityApi : ILanguageCloudIdentityApi'
-    content.vb: >-
-      Public Class LanguageCloudIdentityApi
-          Implements ILanguageCloudIdentityApi
+    content: public class LanguageCloudIdentityApi
+    content.vb: Public Class LanguageCloudIdentityApi
   inheritance:
   - System.Object
-  implements:
-  - Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi
   inheritedMembers:
   - System.Object.ToString
   - System.Object.Equals(System.Object)
@@ -58,6 +53,32 @@ items:
   modifiers.vb:
   - Public
   - Class
+- uid: Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.LoginStatusChanged
+  commentId: F:Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.LoginStatusChanged
+  id: LoginStatusChanged
+  parent: Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi
+  langs:
+  - csharp
+  - vb
+  name: LoginStatusChanged
+  nameWithType: LanguageCloudIdentityApi.LoginStatusChanged
+  fullName: Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.LoginStatusChanged
+  type: Field
+  source:
+    path: Sdl.LanguageCloud.IdentityApi
+    isExternal: true
+  assemblies:
+  - Sdl.LanguageCloud.IdentityApi
+  namespace: Sdl.LanguageCloud.IdentityApi
+  syntax:
+    content: public EventHandler LoginStatusChanged
+    return:
+      type: System.EventHandler
+    content.vb: Public LoginStatusChanged As EventHandler
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
 - uid: Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.TryLogin(System.String@,System.Boolean)
   commentId: M:Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.TryLogin(System.String@,System.Boolean)
   id: TryLogin(System.String@,System.Boolean)
@@ -75,23 +96,17 @@ items:
   assemblies:
   - Sdl.LanguageCloud.IdentityApi
   namespace: Sdl.LanguageCloud.IdentityApi
-  summary: "\nLogin to LanguageCloud using the credentials stored in memory or provided through the Login dialog. Returns a bool value representing the success or failure of the login operation.\n"
   syntax:
     content: public bool TryLogin(out string errorMessage, bool showLoginDialog = true)
     parameters:
     - id: errorMessage
       type: System.String
-      description: 'A string containing an error message if the login failed. '
     - id: showLoginDialog
       type: System.Boolean
-      description: Optional parameter that specifies if the Studio dialog for Login should be displayed.
     return:
       type: System.Boolean
-      description: True if login succeeded. False if login failed
     content.vb: Public Function TryLogin(ByRef errorMessage As String, showLoginDialog As Boolean = True) As Boolean
   overload: Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.TryLogin*
-  implements:
-  - Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.TryLogin(System.String@,System.Boolean)
   nameWithType.vb: LanguageCloudIdentityApi.TryLogin(ByRef String, Boolean)
   modifiers.csharp:
   - public
@@ -116,16 +131,12 @@ items:
   assemblies:
   - Sdl.LanguageCloud.IdentityApi
   namespace: Sdl.LanguageCloud.IdentityApi
-  summary: "\nLogout from LanguageCloud and clear any credentials stored in memory. Returns a bool value representing the success or failure of the logout operation.\n"
   syntax:
     content: public bool Logout()
     return:
       type: System.Boolean
-      description: True if logout succeeded. False if logout failed
     content.vb: Public Function Logout As Boolean
   overload: Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.Logout*
-  implements:
-  - Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.Logout
   modifiers.csharp:
   - public
   modifiers.vb:
@@ -151,8 +162,6 @@ items:
     content: public void EnsureValidConnection()
     content.vb: Public Sub EnsureValidConnection
   overload: Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.EnsureValidConnection*
-  implements:
-  - Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.EnsureValidConnection
   modifiers.csharp:
   - public
   modifiers.vb:
@@ -174,13 +183,12 @@ items:
   assemblies:
   - Sdl.LanguageCloud.IdentityApi
   namespace: Sdl.LanguageCloud.IdentityApi
-  summary: "\nSingleton instance\n"
   syntax:
-    content: public static ILanguageCloudIdentityApi Instance { get; }
+    content: public static LanguageCloudIdentityApi Instance { get; }
     parameters: []
     return:
-      type: Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi
-    content.vb: Public Shared ReadOnly Property Instance As ILanguageCloudIdentityApi
+      type: Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi
+    content.vb: Public Shared ReadOnly Property Instance As LanguageCloudIdentityApi
   overload: Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.Instance*
   modifiers.csharp:
   - public
@@ -207,7 +215,6 @@ items:
   assemblies:
   - Sdl.LanguageCloud.IdentityApi
   namespace: Sdl.LanguageCloud.IdentityApi
-  summary: "\nThe key used for identifying calls made from Trados Studio.\n"
   syntax:
     content: public string StudioApplicationKey { get; }
     parameters: []
@@ -215,8 +222,6 @@ items:
       type: System.String
     content.vb: Public ReadOnly Property StudioApplicationKey As String
   overload: Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.StudioApplicationKey*
-  implements:
-  - Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.StudioApplicationKey
   modifiers.csharp:
   - public
   - get
@@ -240,7 +245,6 @@ items:
   assemblies:
   - Sdl.LanguageCloud.IdentityApi
   namespace: Sdl.LanguageCloud.IdentityApi
-  summary: "\nThe key used for identifying login calls made from Trados Studio.\n"
   syntax:
     content: public string StudioClientId { get; }
     parameters: []
@@ -248,8 +252,6 @@ items:
       type: System.String
     content.vb: Public ReadOnly Property StudioClientId As String
   overload: Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.StudioClientId*
-  implements:
-  - Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.StudioClientId
   modifiers.csharp:
   - public
   - get
@@ -273,28 +275,13 @@ items:
   assemblies:
   - Sdl.LanguageCloud.IdentityApi
   namespace: Sdl.LanguageCloud.IdentityApi
-  summary: "\nThe ApiKey stored for LanguageCloud authentication. Returns an empty string if no ApiKey is present.\n"
   syntax:
-    content: >-
-      [Obsolete("Use AccessToken instead")]
-
-      public string ApiKey { get; }
+    content: public string ApiKey { get; }
     parameters: []
     return:
       type: System.String
-    content.vb: >-
-      <Obsolete("Use AccessToken instead")>
-
-      Public ReadOnly Property ApiKey As String
+    content.vb: Public ReadOnly Property ApiKey As String
   overload: Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.ApiKey*
-  implements:
-  - Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.ApiKey
-  attributes:
-  - type: System.ObsoleteAttribute
-    ctor: System.ObsoleteAttribute.#ctor(System.String)
-    arguments:
-    - type: System.String
-      value: Use AccessToken instead
   modifiers.csharp:
   - public
   - get
@@ -325,8 +312,6 @@ items:
       type: System.String
     content.vb: Public ReadOnly Property AccessToken As String
   overload: Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.AccessToken*
-  implements:
-  - Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.AccessToken
   modifiers.csharp:
   - public
   - get
@@ -357,8 +342,6 @@ items:
       type: System.String
     content.vb: Public ReadOnly Property ActiveAccountId As String
   overload: Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.ActiveAccountId*
-  implements:
-  - Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.ActiveAccountId
   modifiers.csharp:
   - public
   - get
@@ -389,8 +372,6 @@ items:
       type: System.String
     content.vb: Public ReadOnly Property ActiveTenantId As String
   overload: Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.ActiveTenantId*
-  implements:
-  - Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.ActiveTenantId
   modifiers.csharp:
   - public
   - get
@@ -421,24 +402,22 @@ items:
       type: System.String
     content.vb: Public ReadOnly Property ActiveUserId As String
   overload: Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.ActiveUserId*
-  implements:
-  - Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.ActiveUserId
   modifiers.csharp:
   - public
   - get
   modifiers.vb:
   - Public
   - ReadOnly
-- uid: Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.BaseUrl
-  commentId: P:Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.BaseUrl
-  id: BaseUrl
+- uid: Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.SessionId
+  commentId: P:Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.SessionId
+  id: SessionId
   parent: Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi
   langs:
   - csharp
   - vb
-  name: BaseUrl
-  nameWithType: LanguageCloudIdentityApi.BaseUrl
-  fullName: Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.BaseUrl
+  name: SessionId
+  nameWithType: LanguageCloudIdentityApi.SessionId
+  fullName: Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.SessionId
   type: Property
   source:
     path: Sdl.LanguageCloud.IdentityApi
@@ -447,14 +426,24 @@ items:
   - Sdl.LanguageCloud.IdentityApi
   namespace: Sdl.LanguageCloud.IdentityApi
   syntax:
-    content: public string BaseUrl { get; }
+    content: >-
+      [Obsolete("Use AccessToken instead. Soon to be removed")]
+
+      public string SessionId { get; }
     parameters: []
     return:
       type: System.String
-    content.vb: Public ReadOnly Property BaseUrl As String
-  overload: Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.BaseUrl*
-  implements:
-  - Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.BaseUrl
+    content.vb: >-
+      <Obsolete("Use AccessToken instead. Soon to be removed")>
+
+      Public ReadOnly Property SessionId As String
+  overload: Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.SessionId*
+  attributes:
+  - type: System.ObsoleteAttribute
+    ctor: System.ObsoleteAttribute.#ctor(System.String)
+    arguments:
+    - type: System.String
+      value: Use AccessToken instead. Soon to be removed
   modifiers.csharp:
   - public
   - get
@@ -478,7 +467,6 @@ items:
   assemblies:
   - Sdl.LanguageCloud.IdentityApi
   namespace: Sdl.LanguageCloud.IdentityApi
-  summary: "\nAccess to information about the LanguageCloud credential in use.\n"
   syntax:
     content: public LanguageCloudCredentialInfo LanguageCloudCredential { get; }
     parameters: []
@@ -486,43 +474,12 @@ items:
       type: Sdl.LanguageCloud.IdentityApi.LanguageCloudCredentialInfo
     content.vb: Public ReadOnly Property LanguageCloudCredential As LanguageCloudCredentialInfo
   overload: Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.LanguageCloudCredential*
-  implements:
-  - Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.LanguageCloudCredential
   modifiers.csharp:
   - public
   - get
   modifiers.vb:
   - Public
   - ReadOnly
-- uid: Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.LoginStatusChanged
-  commentId: E:Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.LoginStatusChanged
-  id: LoginStatusChanged
-  parent: Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi
-  langs:
-  - csharp
-  - vb
-  name: LoginStatusChanged
-  nameWithType: LanguageCloudIdentityApi.LoginStatusChanged
-  fullName: Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.LoginStatusChanged
-  type: Event
-  source:
-    path: Sdl.LanguageCloud.IdentityApi
-    isExternal: true
-  assemblies:
-  - Sdl.LanguageCloud.IdentityApi
-  namespace: Sdl.LanguageCloud.IdentityApi
-  summary: "\nRaised when login, logout or switch account actions occur.\n"
-  syntax:
-    content: public event EventHandler LoginStatusChanged
-    return:
-      type: System.EventHandler
-    content.vb: Public Event LoginStatusChanged As EventHandler
-  implements:
-  - Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.LoginStatusChanged
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
 references:
 - uid: Sdl.LanguageCloud.IdentityApi
   commentId: N:Sdl.LanguageCloud.IdentityApi
@@ -537,13 +494,6 @@ references:
   name: Object
   nameWithType: Object
   fullName: System.Object
-- uid: Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi
-  commentId: T:Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi
-  parent: Sdl.LanguageCloud.IdentityApi
-  isExternal: true
-  name: ILanguageCloudIdentityApi
-  nameWithType: ILanguageCloudIdentityApi
-  fullName: Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi
 - uid: System.Object.ToString
   commentId: M:System.Object.ToString
   parent: System.Object
@@ -989,69 +939,19 @@ references:
   name: Sdl.Desktop.Platform.Controls.Controls
   nameWithType: Sdl.Desktop.Platform.Controls.Controls
   fullName: Sdl.Desktop.Platform.Controls.Controls
+- uid: System.EventHandler
+  commentId: T:System.EventHandler
+  parent: System
+  isExternal: true
+  name: EventHandler
+  nameWithType: EventHandler
+  fullName: System.EventHandler
 - uid: Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.TryLogin*
   commentId: Overload:Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.TryLogin
   isExternal: true
   name: TryLogin
   nameWithType: LanguageCloudIdentityApi.TryLogin
   fullName: Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.TryLogin
-- uid: Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.TryLogin(System.String@,System.Boolean)
-  commentId: M:Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.TryLogin(System.String@,System.Boolean)
-  parent: Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi
-  isExternal: true
-  name: TryLogin(String, Boolean)
-  nameWithType: ILanguageCloudIdentityApi.TryLogin(String, Boolean)
-  fullName: Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.TryLogin(System.String, System.Boolean)
-  spec.csharp:
-  - uid: Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.TryLogin(System.String@,System.Boolean)
-    name: TryLogin
-    nameWithType: ILanguageCloudIdentityApi.TryLogin
-    fullName: Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.TryLogin
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: System.String
-    name: String
-    nameWithType: String
-    fullName: System.String
-    isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: System.Boolean
-    name: Boolean
-    nameWithType: Boolean
-    fullName: System.Boolean
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.TryLogin(System.String@,System.Boolean)
-    name: TryLogin
-    nameWithType: ILanguageCloudIdentityApi.TryLogin
-    fullName: Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.TryLogin
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: System.String
-    name: String
-    nameWithType: String
-    fullName: System.String
-    isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: System.Boolean
-    name: Boolean
-    nameWithType: Boolean
-    fullName: System.Boolean
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.String
   commentId: T:System.String
   parent: System
@@ -1072,197 +972,79 @@ references:
   name: Logout
   nameWithType: LanguageCloudIdentityApi.Logout
   fullName: Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.Logout
-- uid: Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.Logout
-  commentId: M:Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.Logout
-  parent: Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi
-  isExternal: true
-  name: Logout()
-  nameWithType: ILanguageCloudIdentityApi.Logout()
-  fullName: Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.Logout()
-  spec.csharp:
-  - uid: Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.Logout
-    name: Logout
-    nameWithType: ILanguageCloudIdentityApi.Logout
-    fullName: Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.Logout
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.Logout
-    name: Logout
-    nameWithType: ILanguageCloudIdentityApi.Logout
-    fullName: Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.Logout
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
 - uid: Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.EnsureValidConnection*
   commentId: Overload:Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.EnsureValidConnection
   isExternal: true
   name: EnsureValidConnection
   nameWithType: LanguageCloudIdentityApi.EnsureValidConnection
   fullName: Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.EnsureValidConnection
-- uid: Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.EnsureValidConnection
-  commentId: M:Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.EnsureValidConnection
-  parent: Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi
-  isExternal: true
-  name: EnsureValidConnection()
-  nameWithType: ILanguageCloudIdentityApi.EnsureValidConnection()
-  fullName: Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.EnsureValidConnection()
-  spec.csharp:
-  - uid: Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.EnsureValidConnection
-    name: EnsureValidConnection
-    nameWithType: ILanguageCloudIdentityApi.EnsureValidConnection
-    fullName: Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.EnsureValidConnection
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.EnsureValidConnection
-    name: EnsureValidConnection
-    nameWithType: ILanguageCloudIdentityApi.EnsureValidConnection
-    fullName: Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.EnsureValidConnection
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
 - uid: Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.Instance*
   commentId: Overload:Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.Instance
   isExternal: true
   name: Instance
   nameWithType: LanguageCloudIdentityApi.Instance
   fullName: Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.Instance
+- uid: Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi
+  commentId: T:Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi
+  parent: Sdl.LanguageCloud.IdentityApi
+  isExternal: true
+  name: LanguageCloudIdentityApi
+  nameWithType: LanguageCloudIdentityApi
+  fullName: Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi
 - uid: Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.StudioApplicationKey*
   commentId: Overload:Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.StudioApplicationKey
   isExternal: true
   name: StudioApplicationKey
   nameWithType: LanguageCloudIdentityApi.StudioApplicationKey
   fullName: Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.StudioApplicationKey
-- uid: Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.StudioApplicationKey
-  commentId: P:Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.StudioApplicationKey
-  parent: Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi
-  isExternal: true
-  name: StudioApplicationKey
-  nameWithType: ILanguageCloudIdentityApi.StudioApplicationKey
-  fullName: Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.StudioApplicationKey
 - uid: Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.StudioClientId*
   commentId: Overload:Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.StudioClientId
   isExternal: true
   name: StudioClientId
   nameWithType: LanguageCloudIdentityApi.StudioClientId
   fullName: Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.StudioClientId
-- uid: Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.StudioClientId
-  commentId: P:Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.StudioClientId
-  parent: Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi
-  isExternal: true
-  name: StudioClientId
-  nameWithType: ILanguageCloudIdentityApi.StudioClientId
-  fullName: Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.StudioClientId
 - uid: Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.ApiKey*
   commentId: Overload:Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.ApiKey
   isExternal: true
   name: ApiKey
   nameWithType: LanguageCloudIdentityApi.ApiKey
   fullName: Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.ApiKey
-- uid: Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.ApiKey
-  commentId: P:Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.ApiKey
-  parent: Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi
-  isExternal: true
-  name: ApiKey
-  nameWithType: ILanguageCloudIdentityApi.ApiKey
-  fullName: Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.ApiKey
 - uid: Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.AccessToken*
   commentId: Overload:Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.AccessToken
   isExternal: true
   name: AccessToken
   nameWithType: LanguageCloudIdentityApi.AccessToken
   fullName: Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.AccessToken
-- uid: Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.AccessToken
-  commentId: P:Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.AccessToken
-  parent: Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi
-  isExternal: true
-  name: AccessToken
-  nameWithType: ILanguageCloudIdentityApi.AccessToken
-  fullName: Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.AccessToken
 - uid: Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.ActiveAccountId*
   commentId: Overload:Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.ActiveAccountId
   isExternal: true
   name: ActiveAccountId
   nameWithType: LanguageCloudIdentityApi.ActiveAccountId
   fullName: Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.ActiveAccountId
-- uid: Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.ActiveAccountId
-  commentId: P:Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.ActiveAccountId
-  parent: Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi
-  isExternal: true
-  name: ActiveAccountId
-  nameWithType: ILanguageCloudIdentityApi.ActiveAccountId
-  fullName: Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.ActiveAccountId
 - uid: Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.ActiveTenantId*
   commentId: Overload:Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.ActiveTenantId
   isExternal: true
   name: ActiveTenantId
   nameWithType: LanguageCloudIdentityApi.ActiveTenantId
   fullName: Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.ActiveTenantId
-- uid: Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.ActiveTenantId
-  commentId: P:Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.ActiveTenantId
-  parent: Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi
-  isExternal: true
-  name: ActiveTenantId
-  nameWithType: ILanguageCloudIdentityApi.ActiveTenantId
-  fullName: Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.ActiveTenantId
 - uid: Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.ActiveUserId*
   commentId: Overload:Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.ActiveUserId
   isExternal: true
   name: ActiveUserId
   nameWithType: LanguageCloudIdentityApi.ActiveUserId
   fullName: Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.ActiveUserId
-- uid: Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.ActiveUserId
-  commentId: P:Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.ActiveUserId
-  parent: Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi
+- uid: Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.SessionId*
+  commentId: Overload:Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.SessionId
   isExternal: true
-  name: ActiveUserId
-  nameWithType: ILanguageCloudIdentityApi.ActiveUserId
-  fullName: Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.ActiveUserId
-- uid: Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.BaseUrl*
-  commentId: Overload:Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.BaseUrl
-  isExternal: true
-  name: BaseUrl
-  nameWithType: LanguageCloudIdentityApi.BaseUrl
-  fullName: Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.BaseUrl
-- uid: Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.BaseUrl
-  commentId: P:Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.BaseUrl
-  parent: Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi
-  isExternal: true
-  name: BaseUrl
-  nameWithType: ILanguageCloudIdentityApi.BaseUrl
-  fullName: Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.BaseUrl
+  name: SessionId
+  nameWithType: LanguageCloudIdentityApi.SessionId
+  fullName: Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.SessionId
 - uid: Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.LanguageCloudCredential*
   commentId: Overload:Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.LanguageCloudCredential
   isExternal: true
   name: LanguageCloudCredential
   nameWithType: LanguageCloudIdentityApi.LanguageCloudCredential
   fullName: Sdl.LanguageCloud.IdentityApi.LanguageCloudIdentityApi.LanguageCloudCredential
-- uid: Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.LanguageCloudCredential
-  commentId: P:Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.LanguageCloudCredential
-  parent: Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi
-  isExternal: true
-  name: LanguageCloudCredential
-  nameWithType: ILanguageCloudIdentityApi.LanguageCloudCredential
-  fullName: Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.LanguageCloudCredential
 - uid: Sdl.LanguageCloud.IdentityApi.LanguageCloudCredentialInfo
   commentId: T:Sdl.LanguageCloud.IdentityApi.LanguageCloudCredentialInfo
   parent: Sdl.LanguageCloud.IdentityApi
@@ -1270,17 +1052,3 @@ references:
   name: LanguageCloudCredentialInfo
   nameWithType: LanguageCloudCredentialInfo
   fullName: Sdl.LanguageCloud.IdentityApi.LanguageCloudCredentialInfo
-- uid: Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.LoginStatusChanged
-  commentId: E:Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.LoginStatusChanged
-  parent: Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi
-  isExternal: true
-  name: LoginStatusChanged
-  nameWithType: ILanguageCloudIdentityApi.LoginStatusChanged
-  fullName: Sdl.LanguageCloud.IdentityApi.ILanguageCloudIdentityApi.LoginStatusChanged
-- uid: System.EventHandler
-  commentId: T:System.EventHandler
-  parent: System
-  isExternal: true
-  name: EventHandler
-  nameWithType: EventHandler
-  fullName: System.EventHandler

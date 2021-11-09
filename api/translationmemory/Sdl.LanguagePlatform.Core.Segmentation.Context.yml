@@ -30,7 +30,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Segmentation
-  summary: "\nDescribes the context of a pre-break or post-break segmentation rule. The context\nencapsulates a regular expression pattern as well as match flags.\n"
   syntax:
     content: 'public class Context : ICloneable'
     content.vb: >-
@@ -70,7 +69,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Segmentation
-  summary: "\nInitializes a new instance with default values.\n"
   syntax:
     content: public Context()
     content.vb: Public Sub New
@@ -96,13 +94,11 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Segmentation
-  summary: "\nInitializes a new instance with the specified values.\n"
   syntax:
     content: public Context(string pattern)
     parameters:
     - id: pattern
       type: System.String
-      description: The regular expression pattern to initialize the context with.
     content.vb: Public Sub New(pattern As String)
   overload: Sdl.LanguagePlatform.Core.Segmentation.Context.#ctor*
   modifiers.csharp:
@@ -126,13 +122,11 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Segmentation
-  summary: "\nInitializes a new instance with the values of another instance, creating a deep copy.\n"
   syntax:
     content: public Context(Context other)
     parameters:
     - id: other
       type: Sdl.LanguagePlatform.Core.Segmentation.Context
-      description: The other instance
     content.vb: Public Sub New(other As Context)
   overload: Sdl.LanguagePlatform.Core.Segmentation.Context.#ctor*
   modifiers.csharp:
@@ -156,22 +150,15 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Segmentation
-  summary: "\nInitializes a new instance with the specified values.\n"
   syntax:
     content: public Context(string pattern, bool caseInsensitive, bool matchesInputBoundary)
     parameters:
     - id: pattern
       type: System.String
-      description: The regular expression pattern
     - id: caseInsensitive
       type: System.Boolean
-      description: Whether or not to apply case-insensitive matching
     - id: matchesInputBoundary
       type: System.Boolean
-      description: >-
-        Whether or not the context will match at the input
-
-        boundary (beginning or end of string/file)
     content.vb: Public Sub New(pattern As String, caseInsensitive As Boolean, matchesInputBoundary As Boolean)
   overload: Sdl.LanguagePlatform.Core.Segmentation.Context.#ctor*
   modifiers.csharp:
@@ -195,28 +182,19 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Segmentation
-  summary: "\nTests whether the context matches at the specified position. A pre-break context\nmust match up to the position (not including), and a post-break context must match from that \nposition onwards. If true, a match is postulated directly before position.\n"
   syntax:
     content: public bool MatchesAt(string s, int position, bool assumeEof, bool followedByWordBreak)
     parameters:
     - id: s
       type: System.String
-      description: The input string to test
     - id: position
       type: System.Int32
-      description: The position in the input to test for a match
     - id: assumeEof
       type: System.Boolean
-      description: "If true, it is assumed that the end of input has been reached, and \nend-of-input constraints will match. If false, any end-of-input constraints will not match.\n"
     - id: followedByWordBreak
       type: System.Boolean
-      description: >-
-        If true, any end-of-word constraints will match. If false,
-
-        no end-of-word constraints will match.
     return:
       type: System.Boolean
-      description: true iff the context at the specified position.
     content.vb: Public Function MatchesAt(s As String, position As Integer, assumeEof As Boolean, followedByWordBreak As Boolean) As Boolean
   overload: Sdl.LanguagePlatform.Core.Segmentation.Context.MatchesAt*
   modifiers.csharp:
@@ -240,20 +218,15 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Segmentation
-  summary: "\nMatchesUpto tests whether the context matches the input up to, but not including, \nthe specified position (which may be >= the string&apos;s length).\n"
   syntax:
     content: public bool MatchesUpto(string s, int position)
     parameters:
     - id: s
       type: System.String
-      description: The string to test for a match
     - id: position
       type: System.Int32
-      description: >
-        The position upto which to test for a match (non-inclusive).
     return:
       type: System.Boolean
-      description: "true iff the context matches the input string up to (not including) \nthe specified position.\n"
     content.vb: Public Function MatchesUpto(s As String, position As Integer) As Boolean
   overload: Sdl.LanguagePlatform.Core.Segmentation.Context.MatchesUpto*
   modifiers.csharp:
@@ -277,22 +250,15 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Segmentation
-  summary: "\nComputes and returns all matches of the context in the specified input string.\n"
   syntax:
     content: public List<Match> FindAllMatches(string s, int startOffset)
     parameters:
     - id: s
       type: System.String
-      description: The input string
     - id: startOffset
       type: System.Int32
-      description: The zero-based start index where to start the match process.
     return:
       type: System.Collections.Generic.List{Sdl.LanguagePlatform.Core.Tokenization.Match}
-      description: >-
-        A list of matches where the context matches the input string, or <code>null</code>
-
-        if no matches can be found.
     content.vb: Public Function FindAllMatches(s As String, startOffset As Integer) As List(Of Match)
   overload: Sdl.LanguagePlatform.Core.Segmentation.Context.FindAllMatches*
   modifiers.csharp:
@@ -316,12 +282,10 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Segmentation
-  summary: "\n<xref href=\"System.Object.ToString\" data-throw-if-not-resolved=\"false\"></xref>\n"
   syntax:
     content: public override string ToString()
     return:
       type: System.String
-      description: A string representation of the object, for display purposes.
     content.vb: Public Overrides Function ToString As String
   overridden: System.Object.ToString
   overload: Sdl.LanguagePlatform.Core.Segmentation.Context.ToString*
@@ -348,12 +312,10 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Segmentation
-  summary: "\n<xref href=\"System.ICloneable.Clone\" data-throw-if-not-resolved=\"false\"></xref>\n"
   syntax:
     content: public object Clone()
     return:
       type: System.Object
-      description: A new object that is a deep copy of this instance.
     content.vb: Public Function Clone As Object
   overload: Sdl.LanguagePlatform.Core.Segmentation.Context.Clone*
   implements:
@@ -379,7 +341,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Segmentation
-  summary: "\nIf CaseInsensitiveMatching is true, all matching will be performed in a case-insensitive\nmanner, provided that the used contexts support this. The default should be false.\n"
   syntax:
     content: public bool CaseInsensitiveMatching { get; set; }
     parameters: []
@@ -410,7 +371,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Segmentation
-  summary: "\nIf MatchesInputBoundary is true, MatchesFrom() will return true if the specified position\nis beyond the input&apos;s length. \n"
   syntax:
     content: public bool MatchesAtInputBoundary { get; set; }
     parameters: []
@@ -441,7 +401,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Segmentation
-  summary: "\nGets or sets the regular expression pattern.\n"
   syntax:
     content: public string Pattern { get; set; }
     parameters: []

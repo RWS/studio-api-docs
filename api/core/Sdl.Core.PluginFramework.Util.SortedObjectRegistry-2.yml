@@ -20,14 +20,11 @@ items:
   assemblies:
   - Sdl.Core.PluginFramework
   namespace: Sdl.Core.PluginFramework.Util
-  summary: "\nHelper class for implementers of extension points, which allows easy instantiation of all extensions\nregistered with a sortable extension point (<xref href=\"Sdl.Core.PluginFramework.Util.SortableExtensionAttribute\" data-throw-if-not-resolved=\"false\"></xref>) identified by a specific type of extension attribute.\n"
   syntax:
     content: 'public class SortedObjectRegistry<TSortableExtensionAttribute, TExtensionType> : ObjectRegistry<TSortableExtensionAttribute, TExtensionType> where TSortableExtensionAttribute : SortableExtensionAttribute where TExtensionType : class'
     typeParameters:
     - id: TSortableExtensionAttribute
-      description: The type of sortable extension attribute, identifying the extension point.
     - id: TExtensionType
-      description: The type of the extension implementation classes for the extension point.
     content.vb: >-
       Public Class SortedObjectRegistry(Of TSortableExtensionAttribute As SortableExtensionAttribute, TExtensionType As Class)
           Inherits ObjectRegistry(Of TSortableExtensionAttribute, TExtensionType)
@@ -37,6 +34,13 @@ items:
   inheritedMembers:
   - Sdl.Core.PluginFramework.ObjectRegistry{{TSortableExtensionAttribute},{TExtensionType}}.CreateObjects
   - Sdl.Core.PluginFramework.ObjectRegistry{{TSortableExtensionAttribute},{TExtensionType}}.ExtensionPoint
+  - System.Object.ToString
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
   nameWithType.vb: SortedObjectRegistry(Of TSortableExtensionAttribute, TExtensionType)
   modifiers.csharp:
   - public
@@ -63,13 +67,11 @@ items:
   assemblies:
   - Sdl.Core.PluginFramework
   namespace: Sdl.Core.PluginFramework.Util
-  summary: "\nConstructor.\n"
   syntax:
     content: public SortedObjectRegistry(IPluginRegistry pluginRegistry)
     parameters:
     - id: pluginRegistry
       type: Sdl.Core.PluginFramework.IPluginRegistry
-      description: The plug-in registry from which to retrieve the extensions.
     content.vb: Public Sub New(pluginRegistry As IPluginRegistry)
   overload: Sdl.Core.PluginFramework.Util.SortedObjectRegistry`2.#ctor*
   nameWithType.vb: SortedObjectRegistry(Of TSortableExtensionAttribute, TExtensionType).SortedObjectRegistry(IPluginRegistry)
@@ -95,22 +97,13 @@ items:
   assemblies:
   - Sdl.Core.PluginFramework
   namespace: Sdl.Core.PluginFramework.Util
-  summary: "\nCreates an instance of all the objects registered with the extension point, sorts them, and returns them as an array.\n"
   syntax:
     content: public override TExtensionType[] CreateObjects()
     return:
       type: '{TExtensionType}[]'
-      description: >-
-        An array, containing a new instance of every object registered with the extension point, sorted according to the <xref href="Sdl.Core.PluginFramework.Util.SortableExtensionAttribute.InsertBefore" data-throw-if-not-resolved="false"></xref>
-
-        and <xref href="Sdl.Core.PluginFramework.Util.SortableExtensionAttribute.InsertAfter" data-throw-if-not-resolved="false"></xref> properties.
     content.vb: Public Overrides Function CreateObjects As TExtensionType()
   overridden: Sdl.Core.PluginFramework.ObjectRegistry{{TSortableExtensionAttribute},{TExtensionType}}.CreateObjects
   overload: Sdl.Core.PluginFramework.Util.SortedObjectRegistry`2.CreateObjects*
-  exceptions:
-  - type: System.InvalidCastException
-    commentId: T:System.InvalidCastException
-    description: Thrown when any of the created objects cannot be cast to the required type.
   nameWithType.vb: SortedObjectRegistry(Of TSortableExtensionAttribute, TExtensionType).CreateObjects()
   modifiers.csharp:
   - public
@@ -227,6 +220,285 @@ references:
   fullName: Sdl.Core.PluginFramework.ObjectRegistry<TSortableExtensionAttribute, TExtensionType>.ExtensionPoint
   nameWithType.vb: ObjectRegistry(Of TSortableExtensionAttribute, TExtensionType).ExtensionPoint
   fullName.vb: Sdl.Core.PluginFramework.ObjectRegistry(Of TSortableExtensionAttribute, TExtensionType).ExtensionPoint
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  name: ToString()
+  nameWithType: Object.ToString()
+  fullName: System.Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object)
+  nameWithType: Object.Equals(Object)
+  fullName: System.Object.Equals(System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object, Object)
+  nameWithType: Object.Equals(Object, Object)
+  fullName: System.Object.Equals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: ReferenceEquals(Object, Object)
+  nameWithType: Object.ReferenceEquals(Object, Object)
+  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  name: GetHashCode()
+  nameWithType: Object.GetHashCode()
+  fullName: System.Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  name: GetType()
+  nameWithType: Object.GetType()
+  fullName: System.Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  name: MemberwiseClone()
+  nameWithType: Object.MemberwiseClone()
+  fullName: System.Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
 - uid: System
   commentId: N:System
   isExternal: true
@@ -353,9 +625,6 @@ references:
   fullName: Sdl.Core.PluginFramework.Util.SortedObjectRegistry<TSortableExtensionAttribute, TExtensionType>.CreateObjects
   nameWithType.vb: SortedObjectRegistry(Of TSortableExtensionAttribute, TExtensionType).CreateObjects
   fullName.vb: Sdl.Core.PluginFramework.Util.SortedObjectRegistry(Of TSortableExtensionAttribute, TExtensionType).CreateObjects
-- uid: System.InvalidCastException
-  commentId: T:System.InvalidCastException
-  isExternal: true
 - uid: '{TExtensionType}[]'
   isExternal: true
   name: TExtensionType[]

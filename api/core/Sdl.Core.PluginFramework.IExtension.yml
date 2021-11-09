@@ -29,7 +29,6 @@ items:
   assemblies:
   - Sdl.Core.PluginFramework
   namespace: Sdl.Core.PluginFramework
-  summary: "\nRepresents an extension registered with a particular extension point within a particular plug-in.\n"
   syntax:
     content: public interface IExtension
     content.vb: Public Interface IExtension
@@ -56,16 +55,13 @@ items:
   assemblies:
   - Sdl.Core.PluginFramework
   namespace: Sdl.Core.PluginFramework
-  summary: "\nEnables or disables this extension.\n"
   syntax:
     content: bool SetEnabled(bool enabled)
     parameters:
     - id: enabled
       type: System.Boolean
-      description: True to enable the extension.
     return:
       type: System.Boolean
-      description: True if disabling the extension does not require restarting the application, false otherwise.
     content.vb: Function SetEnabled(enabled As Boolean) As Boolean
   overload: Sdl.Core.PluginFramework.IExtension.SetEnabled*
 - uid: Sdl.Core.PluginFramework.IExtension.CreateInstance
@@ -85,12 +81,10 @@ items:
   assemblies:
   - Sdl.Core.PluginFramework
   namespace: Sdl.Core.PluginFramework
-  summary: "\nCreates a new instance of the extension implementation type.\n"
   syntax:
     content: object CreateInstance()
     return:
       type: System.Object
-      description: The newly created instance.
     content.vb: Function CreateInstance As Object
   overload: Sdl.Core.PluginFramework.IExtension.CreateInstance*
 - uid: Sdl.Core.PluginFramework.IExtension.GetAuxiliaryExtensionAttributes``1
@@ -110,17 +104,14 @@ items:
   assemblies:
   - Sdl.Core.PluginFramework
   namespace: Sdl.Core.PluginFramework
-  summary: "\nGets the auxiliary extension attributes of the specified type.\n"
   syntax:
     content: >-
       T[] GetAuxiliaryExtensionAttributes<T>()
           where T : AuxiliaryExtensionAttribute
     typeParameters:
     - id: T
-      description: The type of auxiliary extension attributes to return.
     return:
       type: '{T}[]'
-      description: The auxiliary extension attributes of the requested type.
     content.vb: Function GetAuxiliaryExtensionAttributes(Of T As AuxiliaryExtensionAttribute) As T()
   overload: Sdl.Core.PluginFramework.IExtension.GetAuxiliaryExtensionAttributes*
   nameWithType.vb: IExtension.GetAuxiliaryExtensionAttributes(Of T)()
@@ -143,7 +134,6 @@ items:
   assemblies:
   - Sdl.Core.PluginFramework
   namespace: Sdl.Core.PluginFramework
-  summary: "\nValidates this extension.\n"
   syntax:
     content: void Validate()
     content.vb: Sub Validate
@@ -165,7 +155,6 @@ items:
   assemblies:
   - Sdl.Core.PluginFramework
   namespace: Sdl.Core.PluginFramework
-  summary: "\nGets the plug-in providing this extension.\n"
   syntax:
     content: IPlugin Plugin { get; }
     parameters: []
@@ -194,7 +183,6 @@ items:
   assemblies:
   - Sdl.Core.PluginFramework
   namespace: Sdl.Core.PluginFramework
-  summary: "\nTrue when this extension is currently enabled.\n"
   syntax:
     content: bool Enabled { get; }
     parameters: []
@@ -223,7 +211,6 @@ items:
   assemblies:
   - Sdl.Core.PluginFramework
   namespace: Sdl.Core.PluginFramework
-  summary: "\nThe extension point to which this extension contributes.\n"
   syntax:
     content: IExtensionPoint ExtensionPoint { get; }
     parameters: []
@@ -252,7 +239,6 @@ items:
   assemblies:
   - Sdl.Core.PluginFramework
   namespace: Sdl.Core.PluginFramework
-  summary: "\nGets the extension attribute that represents this extension.\n"
   syntax:
     content: ExtensionAttribute ExtensionAttribute { get; }
     parameters: []
@@ -281,7 +267,6 @@ items:
   assemblies:
   - Sdl.Core.PluginFramework
   namespace: Sdl.Core.PluginFramework
-  summary: "\nGets the extension implementation type.\n"
   syntax:
     content: Type ExtensionType { get; }
     parameters: []
@@ -310,7 +295,6 @@ items:
   assemblies:
   - Sdl.Core.PluginFramework
   namespace: Sdl.Core.PluginFramework
-  summary: "\nReturns the read-only collection of auxiliary extension attributes, specifying more information about this extension.\n"
   syntax:
     content: AuxiliaryExtensionAttributeCollection AuxiliaryExtensionAttributes { get; }
     parameters: []
@@ -339,7 +323,6 @@ items:
   assemblies:
   - Sdl.Core.PluginFramework
   namespace: Sdl.Core.PluginFramework
-  summary: "\nRaised when the <xref href=\"Sdl.Core.PluginFramework.IExtension.Enabled\" data-throw-if-not-resolved=\"false\"></xref> property changes.\n"
   syntax:
     content: event EventHandler<ExtensionEventArgs> EnabledChanged
     return:
@@ -490,7 +473,8 @@ references:
   nameWithType: AuxiliaryExtensionAttributeCollection
   fullName: Sdl.Core.PluginFramework.AuxiliaryExtensionAttributeCollection
 - uid: System.EventHandler{Sdl.Core.PluginFramework.ExtensionEventArgs}
-  commentId: '!:System.EventHandler{Sdl.Core.PluginFramework.ExtensionEventArgs}'
+  commentId: T:System.EventHandler{Sdl.Core.PluginFramework.ExtensionEventArgs}
+  parent: System
   definition: System.EventHandler`1
   name: EventHandler<ExtensionEventArgs>
   nameWithType: EventHandler<ExtensionEventArgs>
@@ -535,12 +519,12 @@ references:
 - uid: System.EventHandler`1
   commentId: T:System.EventHandler`1
   isExternal: true
-  name: EventHandler<>
-  nameWithType: EventHandler<>
-  fullName: System.EventHandler<>
-  nameWithType.vb: EventHandler(Of )
-  fullName.vb: System.EventHandler(Of )
-  name.vb: EventHandler(Of )
+  name: EventHandler<TEventArgs>
+  nameWithType: EventHandler<TEventArgs>
+  fullName: System.EventHandler<TEventArgs>
+  nameWithType.vb: EventHandler(Of TEventArgs)
+  fullName.vb: System.EventHandler(Of TEventArgs)
+  name.vb: EventHandler(Of TEventArgs)
   spec.csharp:
   - uid: System.EventHandler`1
     name: EventHandler
@@ -550,9 +534,9 @@ references:
   - name: <
     nameWithType: <
     fullName: <
-  - name: ''
-    nameWithType: ''
-    fullName: ''
+  - name: TEventArgs
+    nameWithType: TEventArgs
+    fullName: TEventArgs
   - name: '>'
     nameWithType: '>'
     fullName: '>'
@@ -565,9 +549,9 @@ references:
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - name: ''
-    nameWithType: ''
-    fullName: ''
+  - name: TEventArgs
+    nameWithType: TEventArgs
+    fullName: TEventArgs
   - name: )
     nameWithType: )
     fullName: )

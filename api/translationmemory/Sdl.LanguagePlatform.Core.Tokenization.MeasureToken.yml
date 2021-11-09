@@ -39,7 +39,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\nA <xref href=\"Sdl.LanguagePlatform.Core.Tokenization.Token\" data-throw-if-not-resolved=\"false\"></xref> which represents a measurement, which consists of a numeric\nvalue and a unit.\n"
   syntax:
     content: 'public class MeasureToken : NumberToken, ILocalizableToken'
     content.vb: >-
@@ -106,37 +105,25 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\nInitializes a new instance with the specified values.\n"
   syntax:
     content: public MeasureToken(string text, string sign, string decimalPart, string fractionalPart, Unit unit, string unitString, char unitSeparator, NumberFormatInfo format)
     parameters:
     - id: text
       type: System.String
-      description: The token text to assign to the token
     - id: sign
       type: System.String
-      description: The sign of the numeric value
     - id: decimalPart
       type: System.String
-      description: The decimal part of the numeric value
     - id: fractionalPart
       type: System.String
-      description: The fractional part of the numeric value
     - id: unit
       type: Sdl.LanguagePlatform.Core.Tokenization.Unit
-      description: The unit of the measurement
     - id: unitString
       type: System.String
-      description: The textual unit of the measurement
     - id: unitSeparator
       type: System.Char
-      description: The unit separator used between the numeric part and the unit
     - id: format
       type: System.Globalization.NumberFormatInfo
-      description: >-
-        The token&apos;s culture default number format info, to determine
-
-        whether primary or alternate separators are used
     content.vb: Public Sub New(text As String, sign As String, decimalPart As String, fractionalPart As String, unit As Unit, unitString As String, unitSeparator As Char, format As NumberFormatInfo)
   overload: Sdl.LanguagePlatform.Core.Tokenization.MeasureToken.#ctor*
   modifiers.csharp:
@@ -160,7 +147,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\nInitializes a new instance with the specified values. This constructor is for internal\npurposes only and should not be used directly.\n"
   syntax:
     content: public MeasureToken(string text, NumberToken numericPart, Unit unit, string unitString, char unitSeparator)
     parameters:
@@ -235,13 +221,11 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\nInitializes a new instance with the values of another instance, creating a deep copy.\n"
   syntax:
     content: public MeasureToken(MeasureToken other)
     parameters:
     - id: other
       type: Sdl.LanguagePlatform.Core.Tokenization.MeasureToken
-      description: The instance to create a copy of
     content.vb: Public Sub New(other As MeasureToken)
   overload: Sdl.LanguagePlatform.Core.Tokenization.MeasureToken.#ctor*
   modifiers.csharp:
@@ -265,22 +249,15 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\nOverwrites the current token&apos;s value with the value from <code data-dev-comment-type=\"paramref\" class=\"paramref\">blueprint</code>, which\nalso must be a <xref href=\"Sdl.LanguagePlatform.Core.Tokenization.DateTimeToken\" data-throw-if-not-resolved=\"false\"></xref>. Note that only the value and the type are\noverwritten, not the textual representation. \n"
   syntax:
     content: public override bool SetValue(Token blueprint, bool keepNumericSeparators)
     parameters:
     - id: blueprint
       type: Sdl.LanguagePlatform.Core.Tokenization.Token
-      description: The token to take the value from
     - id: keepNumericSeparators
       type: System.Boolean
-      description: >-
-        Applicable to numeric (number and measurement) tokens only: if true, do not
-
-        override the original group and decimal separators.
     return:
       type: System.Boolean
-      description: A flag indicating whether the token&apos;s value or type were changed.
     content.vb: Public Overrides Function SetValue(blueprint As Token, keepNumericSeparators As Boolean) As Boolean
   overridden: Sdl.LanguagePlatform.Core.Tokenization.NumberToken.SetValue(Sdl.LanguagePlatform.Core.Tokenization.Token,System.Boolean)
   overload: Sdl.LanguagePlatform.Core.Tokenization.MeasureToken.SetValue*
@@ -307,12 +284,10 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\nSee <xref href=\"Sdl.LanguagePlatform.Core.SegmentElement.Duplicate\" data-throw-if-not-resolved=\"false\"></xref>\n"
   syntax:
     content: public override SegmentElement Duplicate()
     return:
       type: Sdl.LanguagePlatform.Core.SegmentElement
-      description: A new instance that is a deep copy of this instance.
     content.vb: Public Overrides Function Duplicate As SegmentElement
   overridden: Sdl.LanguagePlatform.Core.Tokenization.NumberToken.Duplicate
   overload: Sdl.LanguagePlatform.Core.Tokenization.MeasureToken.Duplicate*
@@ -339,18 +314,15 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\n<xref href=\"Sdl.LanguagePlatform.Core.SegmentElement.GetSimilarity(Sdl.LanguagePlatform.Core.SegmentElement)\" data-throw-if-not-resolved=\"false\"></xref>\n"
   syntax:
     content: public override SegmentElement.Similarity GetSimilarity(SegmentElement other, bool allowCompatibility)
     parameters:
     - id: other
       type: Sdl.LanguagePlatform.Core.SegmentElement
-      description: The other instance.
     - id: allowCompatibility
       type: System.Boolean
     return:
       type: Sdl.LanguagePlatform.Core.SegmentElement.Similarity
-      description: A value indicating the degree of similarity to the provided segment element.
     content.vb: Public Overrides Function GetSimilarity(other As SegmentElement, allowCompatibility As Boolean) As SegmentElement.Similarity
   overridden: Sdl.LanguagePlatform.Core.SegmentElement.GetSimilarity(Sdl.LanguagePlatform.Core.SegmentElement,System.Boolean)
   overload: Sdl.LanguagePlatform.Core.Tokenization.MeasureToken.GetSimilarity*
@@ -410,7 +382,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\n<xref href=\"System.Object.Equals(object)\" data-throw-if-not-resolved=\"false\"></xref>\n"
   syntax:
     content: public override bool Equals(object obj)
     parameters:
@@ -444,7 +415,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\n<xref href=\"System.Object.GetHashCode()\" data-throw-if-not-resolved=\"false\"></xref>\n"
   syntax:
     content: public override int GetHashCode()
     return:
@@ -475,7 +445,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\n<xref href=\"Sdl.LanguagePlatform.Core.Tokenization.Token.Type\" data-throw-if-not-resolved=\"false\"></xref>\n"
   syntax:
     content: protected override TokenType GetTokenType()
     return:
@@ -506,19 +475,15 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\nAuto-localizes the token according to the settings of the specified target culture \nand the provided auto-localization settings. The text of the token will be changed, \nbut not the values.\n<p>\nFor some token types, special <xref href=\"Sdl.LanguagePlatform.Core.Tokenization.AutoLocalizationSettings\" data-throw-if-not-resolved=\"false\"></xref> will be used, if provided.\n</p>\n"
   syntax:
     content: public override bool Localize(CultureInfo culture, AutoLocalizationSettings autoLocalizationSettings)
     parameters:
     - id: culture
       type: System.Globalization.CultureInfo
-      description: The target culture
     - id: autoLocalizationSettings
       type: Sdl.LanguagePlatform.Core.Tokenization.AutoLocalizationSettings
-      description: "Contains the <xref href=\"Sdl.LanguagePlatform.Core.Tokenization.AutoLocalizationSettings\" data-throw-if-not-resolved=\"false\"></xref> to use for some token types. May be null, \nin which case default settings will be used."
     return:
       type: System.Boolean
-      description: <code>true</code> if the token text has been changed, and <code>false</code> otherwise
     content.vb: Public Overrides Function Localize(culture As CultureInfo, autoLocalizationSettings As AutoLocalizationSettings) As Boolean
   overridden: Sdl.LanguagePlatform.Core.Tokenization.NumberToken.Localize(System.Globalization.CultureInfo,Sdl.LanguagePlatform.Core.Tokenization.AutoLocalizationSettings)
   overload: Sdl.LanguagePlatform.Core.Tokenization.MeasureToken.Localize*
@@ -545,28 +510,19 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\nAuto-localizes the token according to the settings of the specified target culture \nand the provided auto-localization settings. The text of the token will be changed, \nbut not the values.\n<p>\nFor some token types, special <xref href=\"Sdl.LanguagePlatform.Core.Tokenization.AutoLocalizationSettings\" data-throw-if-not-resolved=\"false\"></xref> will be used, if provided.\n</p>\n"
   syntax:
     content: public override bool Localize(CultureInfo culture, AutoLocalizationSettings autoLocalizationSettings, ILocalizableToken originalMemoryToken, bool adjustCasing)
     parameters:
     - id: culture
       type: System.Globalization.CultureInfo
-      description: The target culture
     - id: autoLocalizationSettings
       type: Sdl.LanguagePlatform.Core.Tokenization.AutoLocalizationSettings
-      description: "Contains the <xref href=\"Sdl.LanguagePlatform.Core.Tokenization.AutoLocalizationSettings\" data-throw-if-not-resolved=\"false\"></xref> to use for some token types. May be null, \nin which case default settings will be used."
     - id: originalMemoryToken
       type: Sdl.LanguagePlatform.Core.Tokenization.ILocalizableToken
-      description: "The original memory token. Some auto-localization settings will \nbe derived from the token, if provided."
     - id: adjustCasing
       type: System.Boolean
-      description: >-
-        If true, it is assumed that the token is in segment-initial position. Then, casing
-
-        will be adjusted if the original memory token is supplied as well.
     return:
       type: System.Boolean
-      description: <code>true</code> if the token text has been changed, and <code>false</code> otherwise
     content.vb: Public Overrides Function Localize(culture As CultureInfo, autoLocalizationSettings As AutoLocalizationSettings, originalMemoryToken As ILocalizableToken, adjustCasing As Boolean) As Boolean
   overridden: Sdl.LanguagePlatform.Core.Tokenization.NumberToken.Localize(System.Globalization.CultureInfo,Sdl.LanguagePlatform.Core.Tokenization.AutoLocalizationSettings,Sdl.LanguagePlatform.Core.Tokenization.ILocalizableToken,System.Boolean)
   overload: Sdl.LanguagePlatform.Core.Tokenization.MeasureToken.Localize*
@@ -593,13 +549,11 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\nVisitor pattern implementation. Calls <xref href=\"Sdl.LanguagePlatform.Core.ISegmentElementVisitor.VisitMeasureToken(Sdl.LanguagePlatform.Core.Tokenization.MeasureToken)\" data-throw-if-not-resolved=\"false\"></xref>.\n"
   syntax:
     content: public override void AcceptSegmentElementVisitor(ISegmentElementVisitor visitor)
     parameters:
     - id: visitor
       type: Sdl.LanguagePlatform.Core.ISegmentElementVisitor
-      description: The visitor instance
     content.vb: Public Overrides Sub AcceptSegmentElementVisitor(visitor As ISegmentElementVisitor)
   overridden: Sdl.LanguagePlatform.Core.Tokenization.NumberToken.AcceptSegmentElementVisitor(Sdl.LanguagePlatform.Core.ISegmentElementVisitor)
   overload: Sdl.LanguagePlatform.Core.Tokenization.MeasureToken.AcceptSegmentElementVisitor*
@@ -626,7 +580,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\nGets or sets the CustomCategory for this value, if available (see <xref href=\"Sdl.LanguagePlatform.Core.Tokenization.CustomUnitDefinition\" data-throw-if-not-resolved=\"false\"></xref>)\n"
   syntax:
     content: public string CustomCategory { get; set; }
     parameters: []
@@ -657,7 +610,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\nGets or sets the unit.\n"
   syntax:
     content: public Unit Unit { get; set; }
     parameters: []
@@ -688,7 +640,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\nGets or sets the unit separator.\n"
   syntax:
     content: public char UnitSeparator { get; set; }
     parameters: []
@@ -719,7 +670,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\nGets or sets the unit string, in case the unit is unknown.\n"
   syntax:
     content: public string UnitString { get; set; }
     parameters: []
@@ -750,7 +700,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\n<xref href=\"Sdl.LanguagePlatform.Core.Tokenization.Token.IsPlaceable\" data-throw-if-not-resolved=\"false\"></xref>. Always <code>true</code> for this class.\n"
   syntax:
     content: public override bool IsPlaceable { get; }
     parameters: []
@@ -784,7 +733,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\n<xref href=\"Sdl.LanguagePlatform.Core.Tokenization.Token.IsSubstitutable\" data-throw-if-not-resolved=\"false\"></xref>. Always <code>true</code> for this class.\n"
   syntax:
     content: public override bool IsSubstitutable { get; }
     parameters: []
@@ -818,7 +766,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\nGets a boolean value which indicates whether this measurement is valid. A measurement\nis valid if either the unit is not the default unit (<xref href=\"Unit.NoUnit\" data-throw-if-not-resolved=\"false\"></xref>) or\nthe <xref href=\"Sdl.LanguagePlatform.Core.Tokenization.MeasureToken.UnitString\" data-throw-if-not-resolved=\"false\"></xref> is set. In most cases, both are set by the tokenizer.\n"
   syntax:
     content: public bool IsValid { get; }
     parameters: []

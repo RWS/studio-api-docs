@@ -30,7 +30,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nRepresents a field value, which is a combination of a field name, a field value type,\nand the actual field values. This class is abstract.\n"
   syntax:
     content: public abstract class FieldValue
     content.vb: Public MustInherit Class FieldValue
@@ -76,7 +75,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nInitializes a new instance with default values. Required for serialization.\n"
   syntax:
     content: public FieldValue()
     content.vb: Public Sub New
@@ -102,13 +100,11 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nInitializes a new instance with the specified field name.\n"
   syntax:
     content: public FieldValue(string name)
     parameters:
     - id: name
       type: System.String
-      description: The field name.
     content.vb: Public Sub New(name As String)
   overload: Sdl.LanguagePlatform.TranslationMemory.FieldValue.#ctor*
   modifiers.csharp:
@@ -132,16 +128,13 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nMerges this instance with another field value, which must be of the same\ntype.\n"
   syntax:
     content: public abstract bool Merge(FieldValue rhs)
     parameters:
     - id: rhs
       type: Sdl.LanguagePlatform.TranslationMemory.FieldValue
-      description: The object to merge with.
     return:
       type: System.Boolean
-      description: <code>true</code> if this instance was changed, <code>false</code> otherwise.
     content.vb: Public MustOverride Function Merge(rhs As FieldValue) As Boolean
   overload: Sdl.LanguagePlatform.TranslationMemory.FieldValue.Merge*
   modifiers.csharp:
@@ -167,16 +160,13 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nAdds another field value to the current value. The other value must be of the same type.\n"
   syntax:
     content: public abstract bool Add(FieldValue rhs)
     parameters:
     - id: rhs
       type: Sdl.LanguagePlatform.TranslationMemory.FieldValue
-      description: The field value to add.
     return:
       type: System.Boolean
-      description: <code>true</code>
     content.vb: Public MustOverride Function Add(rhs As FieldValue) As Boolean
   overload: Sdl.LanguagePlatform.TranslationMemory.FieldValue.Add*
   modifiers.csharp:
@@ -202,16 +192,13 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nSubstracts a field value from this instance&apos;s field value. Both field values must be of the same type.\n"
   syntax:
     content: public abstract bool Substract(FieldValue rhs)
     parameters:
     - id: rhs
       type: Sdl.LanguagePlatform.TranslationMemory.FieldValue
-      description: The field value to substract.
     return:
       type: System.Boolean
-      description: <code>true</code> if this instance was changed, <code>false</code> otherwise.
     content.vb: Public MustOverride Function Substract(rhs As FieldValue) As Boolean
   overload: Sdl.LanguagePlatform.TranslationMemory.FieldValue.Substract*
   modifiers.csharp:
@@ -237,12 +224,10 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nCreates a new instance that is a deep copy of this instance.\n"
   syntax:
     content: public abstract FieldValue Duplicate()
     return:
       type: Sdl.LanguagePlatform.TranslationMemory.FieldValue
-      description: A new instance that is a deep copy of this instance.
     content.vb: Public MustOverride Function Duplicate As FieldValue
   overload: Sdl.LanguagePlatform.TranslationMemory.FieldValue.Duplicate*
   modifiers.csharp:
@@ -268,13 +253,11 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nInitializes this instance from a string (deserialization).\n"
   syntax:
     content: public abstract void Parse(string s)
     parameters:
     - id: s
       type: System.String
-      description: The string that contains the serialized form.
     content.vb: Public MustOverride Sub Parse(s As String)
   overload: Sdl.LanguagePlatform.TranslationMemory.FieldValue.Parse*
   modifiers.csharp:
@@ -300,16 +283,13 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nAdds another string to this instance&apos;s value list, if this instance is of any of the multiple valued types.\n"
   syntax:
     content: public abstract bool Add(string s)
     parameters:
     - id: s
       type: System.String
-      description: The new value to be added.
     return:
       type: System.Boolean
-      description: <code>true</code> if this instance was changed, <code>false</code> otherwise.
     content.vb: Public MustOverride Function Add(s As String) As Boolean
   overload: Sdl.LanguagePlatform.TranslationMemory.FieldValue.Add*
   modifiers.csharp:
@@ -335,7 +315,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nResets this instance to the default value.\n"
   syntax:
     content: public abstract void Clear()
     content.vb: Public MustOverride Sub Clear
@@ -363,12 +342,10 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nCompute a string which represents the field value without the field name in a way which \ncan be reversed through parsing. This should only be used internally by the field expression\nparser. UI-level presentation should use the field value&apos;s .ToString() method to get the \nfield value display string.\n"
   syntax:
     content: public abstract string GetValueString()
     return:
       type: System.String
-      description: "A serialized string representation of the field value, which is suitable for \npersisting, and can be parsed through <xref href=\"Sdl.LanguagePlatform.TranslationMemory.FieldValue.Parse(System.String)\" data-throw-if-not-resolved=\"false\"></xref>."
     content.vb: Public MustOverride Function GetValueString As String
   overload: Sdl.LanguagePlatform.TranslationMemory.FieldValue.GetValueString*
   modifiers.csharp:
@@ -394,7 +371,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nGets or sets the field name of this instance. If the vield name is not valid, \nan exception is thrown.\n"
   syntax:
     content: public string Name { get; set; }
     parameters: []
@@ -425,7 +401,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nGets the field value type.\n"
   syntax:
     content: public abstract FieldValueType ValueType { get; set; }
     parameters: []

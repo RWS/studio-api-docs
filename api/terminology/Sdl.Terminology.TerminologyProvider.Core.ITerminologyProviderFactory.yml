@@ -20,8 +20,6 @@ items:
   assemblies:
   - Sdl.Terminology.TerminologyProvider.Core
   namespace: Sdl.Terminology.TerminologyProvider.Core
-  summary: "\nThis interface defines a Terminology Provider Factory class that can be used as a plug-in based \non the Sdl.Core.PluginFramework Extensions API\n"
-  remarks: "\n<p>Implementations of this class should be marked up with a <xref href=\"Sdl.Terminology.TerminologyProvider.Core.TerminologyProviderFactoryAttribute\" data-throw-if-not-resolved=\"false\"></xref>\nextension attribute in order for the factory to be available.</p>\n"
   syntax:
     content: public interface ITerminologyProviderFactory
     content.vb: Public Interface ITerminologyProviderFactory
@@ -48,16 +46,13 @@ items:
   assemblies:
   - Sdl.Terminology.TerminologyProvider.Core
   namespace: Sdl.Terminology.TerminologyProvider.Core
-  summary: "\nReturns true if this factory supports the specified URI.\n"
   syntax:
     content: bool SupportsTerminologyProviderUri(Uri terminologyProviderUri)
     parameters:
     - id: terminologyProviderUri
       type: System.Uri
-      description: The Uri.
     return:
       type: System.Boolean
-      description: True if this factory supports the specified URI.
     content.vb: Function SupportsTerminologyProviderUri(terminologyProviderUri As Uri) As Boolean
   overload: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProviderFactory.SupportsTerminologyProviderUri*
 - uid: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProviderFactory.CreateTerminologyProvider(System.Uri,Sdl.Terminology.TerminologyProvider.Core.ITerminologyProviderCredentialStore)
@@ -77,28 +72,17 @@ items:
   assemblies:
   - Sdl.Terminology.TerminologyProvider.Core
   namespace: Sdl.Terminology.TerminologyProvider.Core
-  summary: "\nCreates an instance of the terminology provider defined by the specified URI.\n"
   syntax:
     content: ITerminologyProvider CreateTerminologyProvider(Uri terminologyProviderUri, ITerminologyProviderCredentialStore credentials)
     parameters:
     - id: terminologyProviderUri
       type: System.Uri
-      description: A URI that identifies the translation provider to create.
     - id: credentials
       type: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProviderCredentialStore
-      description: "A credential store object that can be used to retrieve credentials \nrequired for this terminology provider. "
     return:
       type: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider
-      description: A new terminology provider object, ready to be used.
     content.vb: Function CreateTerminologyProvider(terminologyProviderUri As Uri, credentials As ITerminologyProviderCredentialStore) As ITerminologyProvider
   overload: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProviderFactory.CreateTerminologyProvider*
-  exceptions:
-  - type: System.ArgumentNullException
-    commentId: T:System.ArgumentNullException
-    description: "Thrown if <code data-dev-comment-type=\"paramref\" class=\"paramref\">terminologyProviderUri</code> or <code data-dev-comment-type=\"paramref\" class=\"paramref\">credentials</code> \nis null."
-  - type: System.ArgumentException
-    commentId: T:System.ArgumentException
-    description: Thrown if <code data-dev-comment-type="paramref" class="paramref">terminologyProviderUri</code> is not supported by this factory.
 references:
 - uid: Sdl.Terminology.TerminologyProvider.Core
   commentId: N:Sdl.Terminology.TerminologyProvider.Core
@@ -136,16 +120,6 @@ references:
   name: CreateTerminologyProvider
   nameWithType: ITerminologyProviderFactory.CreateTerminologyProvider
   fullName: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProviderFactory.CreateTerminologyProvider
-- uid: System.ArgumentNullException
-  commentId: T:System.ArgumentNullException
-  isExternal: true
-- uid: System.ArgumentException
-  commentId: T:System.ArgumentException
-  parent: System
-  isExternal: true
-  name: ArgumentException
-  nameWithType: ArgumentException
-  fullName: System.ArgumentException
 - uid: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProviderCredentialStore
   commentId: T:Sdl.Terminology.TerminologyProvider.Core.ITerminologyProviderCredentialStore
   parent: Sdl.Terminology.TerminologyProvider.Core
