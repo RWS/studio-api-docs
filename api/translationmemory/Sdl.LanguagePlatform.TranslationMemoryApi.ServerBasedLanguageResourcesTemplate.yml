@@ -44,15 +44,14 @@ items:
   namespace: Sdl.LanguagePlatform.TranslationMemoryApi
   summary: "\nRepresents a <xref href=\"Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourcesTemplate\" data-throw-if-not-resolved=\"false\"></xref> which is stored on a server.\n"
   syntax:
-    content: 'public class ServerBasedLanguageResourcesTemplate : ILanguageResourcesTemplate, ISupportPlaceables, INotifyPropertyChanged, IEquatable<ServerBasedLanguageResourcesTemplate>, IEditableObject, IPermissionCheck'
+    content: 'public class ServerBasedLanguageResourcesTemplate : ILanguageResourcesTemplate, INotifyPropertyChanged, IEquatable<ServerBasedLanguageResourcesTemplate>, IEditableObject, IPermissionCheck'
     content.vb: >-
       Public Class ServerBasedLanguageResourcesTemplate
-          Implements ILanguageResourcesTemplate, ISupportPlaceables, INotifyPropertyChanged, IEquatable(Of ServerBasedLanguageResourcesTemplate), IEditableObject, IPermissionCheck
+          Implements ILanguageResourcesTemplate, INotifyPropertyChanged, IEquatable(Of ServerBasedLanguageResourcesTemplate), IEditableObject, IPermissionCheck
   inheritance:
   - System.Object
   implements:
   - Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourcesTemplate
-  - Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables
   - System.ComponentModel.INotifyPropertyChanged
   - System.IEquatable{Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedLanguageResourcesTemplate}
   - System.ComponentModel.IEditableObject
@@ -515,7 +514,7 @@ items:
     content.vb: Public ReadOnly Property LanguageResourceBundles As LanguageResourceBundleCollection
   overload: Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedLanguageResourcesTemplate.LanguageResourceBundles*
   implements:
-  - Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables.LanguageResourceBundles
+  - Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourcesTemplate.LanguageResourceBundles
   modifiers.csharp:
   - public
   - get
@@ -726,14 +725,14 @@ items:
   - Sdl.LanguagePlatform.TranslationMemoryApi
   namespace: Sdl.LanguagePlatform.TranslationMemoryApi
   syntax:
-    content: public BuiltinRecognizers Recognizers { get; set; }
+    content: public BuiltinRecognizers? Recognizers { get; set; }
     parameters: []
     return:
-      type: Sdl.LanguagePlatform.Core.Tokenization.BuiltinRecognizers
-    content.vb: Public Property Recognizers As BuiltinRecognizers
+      type: System.Nullable{Sdl.LanguagePlatform.Core.Tokenization.BuiltinRecognizers}
+    content.vb: Public Property Recognizers As BuiltinRecognizers?
   overload: Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedLanguageResourcesTemplate.Recognizers*
   implements:
-  - Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables.Recognizers
+  - Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourcesTemplate.Recognizers
   modifiers.csharp:
   - public
   - get
@@ -887,13 +886,6 @@ references:
   name: ILanguageResourcesTemplate
   nameWithType: ILanguageResourcesTemplate
   fullName: Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourcesTemplate
-- uid: Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables
-  commentId: T:Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables
-  parent: Sdl.LanguagePlatform.TranslationMemoryApi
-  isExternal: true
-  name: ISupportPlaceables
-  nameWithType: ISupportPlaceables
-  fullName: Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables
 - uid: System.ComponentModel.INotifyPropertyChanged
   isExternal: true
   name: INotifyPropertyChanged
@@ -1633,13 +1625,13 @@ references:
   name: LanguageResourceBundles
   nameWithType: ServerBasedLanguageResourcesTemplate.LanguageResourceBundles
   fullName: Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedLanguageResourcesTemplate.LanguageResourceBundles
-- uid: Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables.LanguageResourceBundles
-  commentId: P:Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables.LanguageResourceBundles
-  parent: Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables
+- uid: Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourcesTemplate.LanguageResourceBundles
+  commentId: P:Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourcesTemplate.LanguageResourceBundles
+  parent: Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourcesTemplate
   isExternal: true
   name: LanguageResourceBundles
-  nameWithType: ISupportPlaceables.LanguageResourceBundles
-  fullName: Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables.LanguageResourceBundles
+  nameWithType: ILanguageResourcesTemplate.LanguageResourceBundles
+  fullName: Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourcesTemplate.LanguageResourceBundles
 - uid: Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceBundleCollection
   commentId: T:Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceBundleCollection
   parent: Sdl.LanguagePlatform.TranslationMemoryApi
@@ -1722,26 +1714,96 @@ references:
   name: Recognizers
   nameWithType: ServerBasedLanguageResourcesTemplate.Recognizers
   fullName: Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedLanguageResourcesTemplate.Recognizers
-- uid: Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables.Recognizers
-  commentId: P:Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables.Recognizers
-  parent: Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables
+- uid: Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourcesTemplate.Recognizers
+  commentId: P:Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourcesTemplate.Recognizers
+  parent: Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourcesTemplate
   isExternal: true
   name: Recognizers
-  nameWithType: ISupportPlaceables.Recognizers
-  fullName: Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables.Recognizers
-- uid: Sdl.LanguagePlatform.Core.Tokenization.BuiltinRecognizers
-  commentId: T:Sdl.LanguagePlatform.Core.Tokenization.BuiltinRecognizers
-  parent: Sdl.LanguagePlatform.Core.Tokenization
+  nameWithType: ILanguageResourcesTemplate.Recognizers
+  fullName: Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourcesTemplate.Recognizers
+- uid: System.Nullable{Sdl.LanguagePlatform.Core.Tokenization.BuiltinRecognizers}
+  commentId: T:System.Nullable{Sdl.LanguagePlatform.Core.Tokenization.BuiltinRecognizers}
+  parent: System
+  definition: System.Nullable`1
+  name: Nullable<BuiltinRecognizers>
+  nameWithType: Nullable<BuiltinRecognizers>
+  fullName: System.Nullable<Sdl.LanguagePlatform.Core.Tokenization.BuiltinRecognizers>
+  nameWithType.vb: Nullable(Of BuiltinRecognizers)
+  fullName.vb: System.Nullable(Of Sdl.LanguagePlatform.Core.Tokenization.BuiltinRecognizers)
+  name.vb: Nullable(Of BuiltinRecognizers)
+  spec.csharp:
+  - uid: System.Nullable`1
+    name: Nullable
+    nameWithType: Nullable
+    fullName: System.Nullable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Sdl.LanguagePlatform.Core.Tokenization.BuiltinRecognizers
+    name: BuiltinRecognizers
+    nameWithType: BuiltinRecognizers
+    fullName: Sdl.LanguagePlatform.Core.Tokenization.BuiltinRecognizers
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Nullable`1
+    name: Nullable
+    nameWithType: Nullable
+    fullName: System.Nullable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Sdl.LanguagePlatform.Core.Tokenization.BuiltinRecognizers
+    name: BuiltinRecognizers
+    nameWithType: BuiltinRecognizers
+    fullName: Sdl.LanguagePlatform.Core.Tokenization.BuiltinRecognizers
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Nullable`1
+  commentId: T:System.Nullable`1
   isExternal: true
-  name: BuiltinRecognizers
-  nameWithType: BuiltinRecognizers
-  fullName: Sdl.LanguagePlatform.Core.Tokenization.BuiltinRecognizers
-- uid: Sdl.LanguagePlatform.Core.Tokenization
-  commentId: N:Sdl.LanguagePlatform.Core.Tokenization
-  isExternal: true
-  name: Sdl.LanguagePlatform.Core.Tokenization
-  nameWithType: Sdl.LanguagePlatform.Core.Tokenization
-  fullName: Sdl.LanguagePlatform.Core.Tokenization
+  name: Nullable<T>
+  nameWithType: Nullable<T>
+  fullName: System.Nullable<T>
+  nameWithType.vb: Nullable(Of T)
+  fullName.vb: System.Nullable(Of T)
+  name.vb: Nullable(Of T)
+  spec.csharp:
+  - uid: System.Nullable`1
+    name: Nullable
+    nameWithType: Nullable
+    fullName: System.Nullable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Nullable`1
+    name: Nullable
+    nameWithType: Nullable
+    fullName: System.Nullable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
 - uid: Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedLanguageResourcesTemplate.WordCountFlags*
   commentId: Overload:Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedLanguageResourcesTemplate.WordCountFlags
   isExternal: true
@@ -1796,45 +1858,6 @@ references:
     nameWithType: WordCountFlags
     fullName: Sdl.LanguagePlatform.TranslationMemory.WordCountFlags
     isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Nullable`1
-  commentId: T:System.Nullable`1
-  isExternal: true
-  name: Nullable<T>
-  nameWithType: Nullable<T>
-  fullName: System.Nullable<T>
-  nameWithType.vb: Nullable(Of T)
-  fullName.vb: System.Nullable(Of T)
-  name.vb: Nullable(Of T)
-  spec.csharp:
-  - uid: System.Nullable`1
-    name: Nullable
-    nameWithType: Nullable
-    fullName: System.Nullable
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
-  - name: T
-    nameWithType: T
-    fullName: T
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  spec.vb:
-  - uid: System.Nullable`1
-    name: Nullable
-    nameWithType: Nullable
-    fullName: System.Nullable
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - name: T
-    nameWithType: T
-    fullName: T
   - name: )
     nameWithType: )
     fullName: )
