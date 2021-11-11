@@ -18,9 +18,9 @@ mkdir $TEMP_REPO_DIR
 write-host "Cloning the repo $remote_repo with the gh-pages branch"
 git clone $remote_repo --branch gh-pages $TEMP_REPO_DIR
 
-write-host "Clear repo directory"
-Set-Location $TEMP_REPO_DIR
-git rm -r *
+#write-host "Clear repo directory"
+#Set-Location $TEMP_REPO_DIR
+#git rm -r *
 
 write-host "Copy documentation into the repo"
 Copy-Item "$SOURCE_DIR\_site\*" . -Recurse -force
@@ -30,4 +30,4 @@ git config --local user.email "github-actions[bot]@users.noreply.sdl.com"
 git config --local user.name "github-actions[bot]"
 git add . -A
 git commit -m "Update generated documentation"
-git push "$remote_repo" HEAD:gh-pages-v16.1
+git push "$remote_repo" HEAD:gh-pages-versions
