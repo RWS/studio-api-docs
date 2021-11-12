@@ -30,5 +30,5 @@ git config --local user.email "github-actions[bot]@users.noreply.sdl.com"
 git config --local user.name "github-actions[bot]"
 git add . -A
 git commit -m "Update generated documentation"
-git pull
-git push "$remote_repo" HEAD:gh-pages-vers_test
+
+git push --set-upstream origin gh-pages-vers_test
