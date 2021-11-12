@@ -30,4 +30,4 @@ git config --local user.email "github-actions[bot]@users.noreply.sdl.com"
 git config --local user.name "github-actions[bot]"
 git add . -A
 git commit -m "Update generated documentation"
-git push "$remote_repo" HEAD:gh-pages-versions
+git push "$remote_repo" HEAD:gh-pages-vers_test
