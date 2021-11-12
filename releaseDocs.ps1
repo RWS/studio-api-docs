@@ -16,8 +16,8 @@ Remove-Item $TEMP_REPO_DIR -Force -Recurse -ErrorAction Ignore
 mkdir $TEMP_REPO_DIR
 
 write-host "Cloning the repo $remote_repo with the gh-pages branch"
-git clone $remote_repo --branch gh-pages-vers_test $TEMP_REPO_DIR
-
+git clone $remote_repo --branch gh-pages $TEMP_REPO_DIR
+git checkout -b gh-pages-vers_test
 #write-host "Clear repo directory"
 #Set-Location $TEMP_REPO_DIR
 #git rm -r *
