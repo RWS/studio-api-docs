@@ -15,9 +15,9 @@ write-host "Removing temporary doc directory $TEMP_REPO_DIR"
 Remove-Item $TEMP_REPO_DIR -Force -Recurse -ErrorAction Ignore
 mkdir $TEMP_REPO_DIR
 
-write-host "Cloning the repo $remote_repo with the gh-pages branch"
-git clone $remote_repo --branch gh-pages $TEMP_REPO_DIR
-git checkout -b gh-pages-vers_test
+write-host "Cloning the repo $remote_repo with the gh-pages-vers_test branch"
+git clone $remote_repo --branch gh-pages-vers_test $TEMP_REPO_DIR
+
 #write-host "Clear repo directory"
 #Set-Location $TEMP_REPO_DIR
 #git rm -r *
@@ -31,4 +31,4 @@ git config --local user.name "github-actions[bot]"
 git add . -A
 git commit -m "Update generated documentation"
 
-git push --set-upstream origin gh-pages-vers_test
+git push "$remote_repo" HEAD:gh-pages-vers_test
