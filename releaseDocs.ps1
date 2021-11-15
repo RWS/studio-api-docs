@@ -23,7 +23,7 @@ git clone $remote_repo --branch gh-pages $TEMP_REPO_DIR
 #git rm -r *
 
 write-host "Copy documentation into the repo"
-md "15.2"
+mkdir "15.2"
 Copy-Item "$SOURCE_DIR\_site\15.2\*" .\15.2\ -Recurse -force
 
 write-host "Push the new docs to the remote branch"
@@ -31,4 +31,5 @@ git config --local user.email "github-actions[bot]@users.noreply.sdl.com"
 git config --local user.name "github-actions[bot]"
 git add .\15.2 -A
 git commit -m "Update generated documentation"
+git fetch
 git push "$remote_repo" HEAD:gh-pages
