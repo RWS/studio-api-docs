@@ -1,0 +1,525 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Interface IParagraphUnit
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Interface IParagraphUnit
+   ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit">
+  
+  
+  <h1 id="Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit" data-uid="Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit" class="text-break">Interface IParagraphUnit
+  </h1>
+  <div class="markdown level0 summary"><p>A continous unit of source language content within a single context,
+and (if applicable) the localized target language version of the content.
+This often corresponds to a paragraph of text in a native file. </p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">System.ICloneable.Clone()</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Sdl.FileTypeSupport.Framework.BilingualApi.html">Sdl.FileTypeSupport.Framework.BilingualApi</a></h6>
+  <h6><strong>Assembly</strong>: Sdl.FileTypeSupport.Framework.Core.dll</h6>
+  <h5 id="Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface IParagraphUnit : ICloneable</code></pre>
+  </div>
+  <h5 id="Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>
+There are two types of paragraph units: those that contain localizable content,
+and those that do not contain localizable content. The latter is referred to as a structure paragraph unit,
+and typically only contains structure tags and associated whitespace.
+The <a class="xref" href="Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.html#Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_IsStructure">IsStructure</a> property indicates whether this paragraph unit is a structure
+paragraph unit. Since the content of structure paragraph units is not localized,
+their <a class="xref" href="Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.html#Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_Target">Target</a> property is null.
+</p>
+<p>
+Paragraph units that are not structure paragraph units are referred to as localizable
+paragraph units. They normally have both <a class="xref" href="Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.html#Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_Source">Source</a> and <a class="xref" href="Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.html#Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_Target">Target</a>,
+and never contain structure tags.
+</p>
+<p>
+The <a class="xref" href="Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.html#Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_Properties">Properties</a> of the paragraph unit contains associated
+information, including contexts and the paragraph unit&apos;s unique id.
+</p>
+<p>
+The content in localizable paragraph units is typically divided into segments.
+A segment is usually a sentence. Segments exist in source and target language versions,
+and you can iterate over them using the <a class="xref" href="Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.html#Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_SegmentPairs">SegmentPairs</a> property.
+</p>
+<p>
+When processing content in a localizable paragraph, it is important to be aware of the fact that
+the segments do not represent all content of the paragraph. There may also be content between
+segments. Examples of such content include space characters (which separate sentences), 
+tags that appearr between sentences, etc. Content between segments can differ between the <a class="xref" href="Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.html#Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_Source">Source</a>
+and <a class="xref" href="Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.html#Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_Target">Target</a>.
+</p>
+<p>
+To iterate over content between segments you can use a <a class="xref" href="Sdl.FileTypeSupport.Framework.BilingualApi.Location.html">Location</a>. The <a class="xref" href="Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.html#Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_GetSourceSegmentLocation_Sdl_FileTypeSupport_Framework_NativeApi_SegmentId_">GetSourceSegmentLocation(SegmentId)</a>
+and <a class="xref" href="Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.html#Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_GetTargetSegmentLocation_Sdl_FileTypeSupport_Framework_NativeApi_SegmentId_">GetTargetSegmentLocation(SegmentId)</a> methods can be useful for this task.
+</p>
+<p>
+The <a class="xref" href="Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.html#Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_GetSourceSegment_Sdl_FileTypeSupport_Framework_NativeApi_SegmentId_">GetSourceSegment(SegmentId)</a> and <a class="xref" href="Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.html#Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_GetTargetSegment_Sdl_FileTypeSupport_Framework_NativeApi_SegmentId_">GetTargetSegment(SegmentId)</a> methods provide a convenient
+way of locating the corresponding source/target version for a segment.
+</p>
+</div>
+  <h3 id="properties">Properties
+  </h3>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_IsStructure_" data-uid="Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.IsStructure*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_IsStructure" data-uid="Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.IsStructure">IsStructure</h4>
+  <div class="markdown level1 summary"><p><code>true</code> if this is a structure ParagraphUnit, i.e. a paragraph unit that
+contains no localizable content (i.e. structure tags and whitespace only).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool IsStructure { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_Properties_" data-uid="Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.Properties*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_Properties" data-uid="Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.Properties">Properties</h4>
+  <div class="markdown level1 summary"><p>Information on this paragraph unit</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IParagraphUnitProperties Properties { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.NativeApi.IParagraphUnitProperties.html">IParagraphUnitProperties</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_SegmentPairs_" data-uid="Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.SegmentPairs*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_SegmentPairs" data-uid="Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.SegmentPairs">SegmentPairs</h4>
+  <div class="markdown level1 summary"><p>Iterator for easy access to the source and target segments in the ParagraphUnit</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IEnumerable&lt;ISegmentPair&gt; SegmentPairs { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<a class="xref" href="Sdl.FileTypeSupport.Framework.BilingualApi.ISegmentPair.html">ISegmentPair</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_Source_" data-uid="Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.Source*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_Source" data-uid="Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.Source">Source</h4>
+  <div class="markdown level1 summary"><p>Source language content of the ParagraphUnit</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IParagraph Source { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.BilingualApi.IParagraph.html">IParagraph</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_Target_" data-uid="Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.Target*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_Target" data-uid="Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.Target">Target</h4>
+  <div class="markdown level1 summary"><p>Target language content of the ParagraphUnit</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IParagraph Target { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.BilingualApi.IParagraph.html">IParagraph</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_GetSegmentPair_" data-uid="Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetSegmentPair*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_GetSegmentPair_Sdl_FileTypeSupport_Framework_NativeApi_SegmentId_" data-uid="Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetSegmentPair(Sdl.FileTypeSupport.Framework.NativeApi.SegmentId)">GetSegmentPair(SegmentId)</h4>
+  <div class="markdown level1 summary"><p>Get the source and target segment with a specified id.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">ISegmentPair GetSegmentPair(SegmentId id)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.NativeApi.SegmentId.html">SegmentId</a></td>
+        <td><span class="parametername">id</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.BilingualApi.ISegmentPair.html">ISegmentPair</a></td>
+        <td><p><code>Null</code> if no segments with that id exist in the source</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_GetSourceSegment_" data-uid="Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetSourceSegment*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_GetSourceSegment_Sdl_FileTypeSupport_Framework_NativeApi_SegmentId_" data-uid="Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetSourceSegment(Sdl.FileTypeSupport.Framework.NativeApi.SegmentId)">GetSourceSegment(SegmentId)</h4>
+  <div class="markdown level1 summary"><p>Returns the segment with the specified id if it exists in the source of this ParagraphUnit.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">ISegment GetSourceSegment(SegmentId id)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.NativeApi.SegmentId.html">SegmentId</a></td>
+        <td><span class="parametername">id</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.BilingualApi.ISegment.html">ISegment</a></td>
+        <td><p><code>Null</code> if no segment with that id exists in the source</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_GetSourceSegmentLocation_" data-uid="Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetSourceSegmentLocation*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_GetSourceSegmentLocation_Sdl_FileTypeSupport_Framework_NativeApi_SegmentId_" data-uid="Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetSourceSegmentLocation(Sdl.FileTypeSupport.Framework.NativeApi.SegmentId)">GetSourceSegmentLocation(SegmentId)</h4>
+  <div class="markdown level1 summary"><p>Locates the segment with the specified id inside the source.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Location GetSourceSegmentLocation(SegmentId id)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.NativeApi.SegmentId.html">SegmentId</a></td>
+        <td><span class="parametername">id</span></td>
+        <td><p>The segment id to search for.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.BilingualApi.Location.html">Location</a></td>
+        <td><p>Location of the start of the source segment inside the source paragraph, or null if it does not exist.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_GetTargetSegment_" data-uid="Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetTargetSegment*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_GetTargetSegment_Sdl_FileTypeSupport_Framework_NativeApi_SegmentId_" data-uid="Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetTargetSegment(Sdl.FileTypeSupport.Framework.NativeApi.SegmentId)">GetTargetSegment(SegmentId)</h4>
+  <div class="markdown level1 summary"><p>Returns the segment with the specified id if it exists in the target of this ParagraphUnit.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">ISegment GetTargetSegment(SegmentId id)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.NativeApi.SegmentId.html">SegmentId</a></td>
+        <td><span class="parametername">id</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.BilingualApi.ISegment.html">ISegment</a></td>
+        <td><p><code>Null</code> if no segment with that id exists in the target</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_GetTargetSegmentLocation_" data-uid="Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetTargetSegmentLocation*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_GetTargetSegmentLocation_Sdl_FileTypeSupport_Framework_NativeApi_SegmentId_" data-uid="Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetTargetSegmentLocation(Sdl.FileTypeSupport.Framework.NativeApi.SegmentId)">GetTargetSegmentLocation(SegmentId)</h4>
+  <div class="markdown level1 summary"><p>Locates the segment with the specified id inside the target.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Location GetTargetSegmentLocation(SegmentId id)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.NativeApi.SegmentId.html">SegmentId</a></td>
+        <td><span class="parametername">id</span></td>
+        <td><p>The segment id to search for.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.BilingualApi.Location.html">Location</a></td>
+        <td><p>Location of the start of the target segment inside the target paragraph, or null if it does not exist.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>
