@@ -16,7 +16,7 @@ git clone $remote_repo --branch gh-pages $TEMP_REPO_DIR
 Set-Location $TEMP_REPO_DIR
 write-host "Copy documentation into the repo"
 
-Copy-Item "$SOURCE_DIR\_site\15.2\*" .\ -Recurse -force
+Copy-Item "$SOURCE_DIR\_site\*" .\ -Recurse -force
 
 write-host "Push the new docs to the remote branch"
 git config --local user.email "github-actions[bot]@users.noreply.sdl.com"
