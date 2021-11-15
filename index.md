@@ -11,3 +11,7 @@ Read articles on how to get more out of <Var:ProductName>.
 
 ## [Code samples](https://github.com/RWS/trados-studio-api-samples)
 Find more of our code samples on [GitHub](https://github.com/RWS/trados-studio-api-samples).
+
+## [Api15.2](http://developers.rws.com/studio-api-docs/15.2/index.html)
+
+## [Api16.1](http://developers.rws.com/studio-api-docs/16.1/index.html)
