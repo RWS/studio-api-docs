@@ -1,0 +1,551 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Putting it All Together </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Putting it All Together ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="putting-it-all-together">Putting it All Together</h1>
+
+<p>For completeness, this page shows the full <code>ProjectCreator</code> class.</p>
+<div class="tabGroup" id="tabgroup_1RT+n2Leh9">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_1RT+n2Leh9_tabid-1" role="tab" aria-controls="tabpanel_1RT+n2Leh9_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_1RT+n2Leh9_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-cs">namespace SDK.ProjectAutomation.Samples.BatchAnaylze
+{
+    using System;
+    using System.Globalization;
+    using System.IO;
+    using Sdl.Core.Globalization;
+    using Sdl.Core.Settings;
+    using Sdl.LanguagePlatform.TranslationMemoryApi;
+    using Sdl.ProjectAutomation.Core;
+    using Sdl.ProjectAutomation.FileBased;
+    using Sdl.ProjectAutomation.Settings;
+
+    public class ProjectCreator
+    {
+
+        #region &quot;ReportId&quot;
+        private Guid reportId;
+        #endregion
+
+        #region &quot;Create&quot;
+        #region &quot;CreateMainFunction&quot;
+        /// &lt;summary&gt;
+        /// Creates the actual project that is used as a container for
+        /// the files to analyze. Triggers all subsequent helper function
+        /// in sequence, i.e. adding the source files, the TM, configuring
+        /// the task settings, and running the required tasks, 
+        /// if required publishing the result to a project server
+        /// &lt;/summary&gt; 
+        public void Create(
+            string docFolder,
+            string tmFile,
+            bool recursion,
+            bool reportCrossFileRepetitions,
+            bool reportInternalFuzzyMatchLeverage,
+            bool keepProjectFiles, 
+            bool publishToServer)
+        #endregion
+
+        {
+            #region &quot;RetrieveTmLanguages&quot;
+
+            FileBasedTranslationMemory fileTm = new FileBasedTranslationMemory(tmFile);
+            string srcLocale = fileTm.LanguageDirection.SourceLanguage.ToString();
+            string trgLocale = fileTm.LanguageDirection.TargetLanguage.ToString();
+
+            #endregion
+
+            #region &quot;newProject&quot;
+
+            FileBasedProject newProject = new FileBasedProject(this.GetProjectInfo(srcLocale, trgLocale));
+
+            #endregion
+
+            #region &quot;CallAddFiles&quot;
+
+            this.AddFiles(newProject, docFolder, recursion);
+
+            #endregion
+
+            if (publishToServer)
+            {
+                #region &quot;CallAddServerTm&quot;
+                this.AddServerTm(newProject, &quot;http://MyTMServerAddress&quot;,&quot;/MyOrganizationPath&quot;, tmFile, false, &quot;MyUserName&quot;, &quot;MyPassword&quot;);
+                #endregion
+            }   
+            else
+            {
+                #region &quot;CallAddTm&quot;
+                this.AddTm(newProject, tmFile);
+                #endregion
+            }
+
+
+            #region &quot;CallConvert&quot;
+            this.ConvertFiles(newProject);
+            #endregion
+
+            #region &quot;CallGetAnalyzeSettings&quot;
+            this.GetAnalyzeSettings(
+                newProject,
+                trgLocale,
+                reportCrossFileRepetitions,
+                reportInternalFuzzyMatchLeverage);
+            #endregion
+
+            #region &quot;CallRunFileAnalysis&quot;
+            this.RunFileAnalysis(newProject, trgLocale);
+            #endregion
+
+            #region &quot;GenerateReports&quot;
+            this.CreateReports(newProject, docFolder);
+            #endregion
+
+            #region &quot;Save&quot;
+            newProject.Save();
+            #endregion
+
+            #region &quot;PublishToServer&quot;
+
+            newProject.PublishProject(
+                new Uri(&quot;ps.http://MyProjectServer:80&quot;), 
+                false, 
+                &quot;MyUser&quot;, 
+                &quot;MyPassword&quot;,
+                &quot;/MyOrganizationPath&quot;,
+                null);
+            #endregion
+
+            #region &quot;CallDeleteProject&quot;
+            if (!keepProjectFiles)
+            {
+                newProject.Delete();
+            }
+            #endregion
+        }
+        #endregion
+
+        #region &quot;GetProjectInfo&quot;
+        #region &quot;GetProjectInfoFunction&quot;
+        /// &lt;summary&gt;
+        /// Configures the project information, i.e. the project location (folder), the project name,
+        /// and the source/target language.
+        /// &lt;/summary&gt; 
+        private ProjectInfo GetProjectInfo(string srcLocale, string trgLocale)
+        #endregion
+        {
+            #region &quot;ProjectInfo&quot;
+            ProjectInfo info = new ProjectInfo();
+            #endregion
+
+            #region &quot;ProjectName&quot;
+            string nameExt = DateTime.Now.ToString();
+            nameExt = nameExt.Replace(&#39;.&#39;, &#39;_&#39;);
+            nameExt = nameExt.Replace(&#39;:&#39;, &#39;_&#39;);
+            nameExt = nameExt.Replace(&#39;/&#39;, &#39;_&#39;);
+            nameExt = nameExt.Replace(&#39; &#39;, &#39;T&#39;);
+            info.Name = &quot;BatchAnalyzer_&quot; + nameExt;
+            #endregion
+
+            #region &quot;ProjectFolder&quot;
+            string localProjectFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).ToString() +
+                Path.DirectorySeparatorChar + $@&quot;{Versioning.Versions.StudioDocumentsFolderName}\Projects\&quot; + info.Name;
+            info.LocalProjectFolder = localProjectFolder;
+            #endregion
+
+            #region &quot;SetProjectSourceLanguage&quot;
+            Language srcLang = new Language(CultureInfo.GetCultureInfo(srcLocale));
+            info.SourceLanguage = srcLang;
+            #endregion
+
+            #region &quot;SetProjectTargetLanguage&quot;
+            Language[] trgLang = new Language[] { new Language(CultureInfo.GetCultureInfo(trgLocale)) };
+            info.TargetLanguages = trgLang;
+            #endregion
+
+            #region &quot;ReturnInfo&quot;
+            return info;
+            #endregion
+        }
+        #endregion
+
+        #region &quot;Addfolder&quot;
+        /// &lt;summary&gt;
+        /// Adds the files from the specified folder to the project and sets the file use, e.g. translatable or reference.            
+        /// &lt;/summary&gt; 
+        #region &quot;AddFilesFunction&quot;
+        private void AddFiles(FileBasedProject project, string folder, bool recursion)
+        #endregion
+        {
+            #region &quot;AddFolderWithFiles&quot;
+            project.AddFolderWithFiles(folder, recursion);
+            #endregion
+
+            #region &quot;GetSourceLanguageFiles&quot;
+            ProjectFile[] projectFiles = project.GetSourceLanguageFiles();
+
+            AutomaticTask scan = project.RunAutomaticTask(
+                projectFiles.GetIds(),
+                AutomaticTaskTemplateIds.Scan);
+            #endregion
+        }
+        #endregion
+
+        #region &quot;AddTm&quot;
+        /// &lt;summary&gt;
+        /// Adds the TM that should be used for the analysis. The project languages are
+        /// set according to the TM.
+        /// &lt;/summary&gt; 
+        #region &quot;AddTmFunction&quot;
+        private void AddTm(FileBasedProject project, string tmFilePath)
+        #endregion
+        {
+            #region &quot;TranslationProviderConfiguration&quot;
+            TranslationProviderConfiguration config = project.GetTranslationProviderConfiguration();
+            #endregion
+
+            #region &quot;TranslationProviderCascadeEntry&quot;
+            TranslationProviderCascadeEntry tm = new TranslationProviderCascadeEntry(
+                tmFilePath,
+                true,
+                true,
+                false);
+            config.Entries.Add(tm);
+
+            project.UpdateTranslationProviderConfiguration(config);
+            #endregion
+        }
+        #endregion
+
+        #region &quot;AddServerTm&quot;
+        #region &quot;AddServerTmFunction&quot;
+        /// &lt;summary&gt;
+        /// Add a server TM to be used for anaysis. The project languages are
+        /// set according to the TM.
+        /// &lt;/summary&gt;
+        private void AddServerTm(FileBasedProject project, string serverAddress, string organizationPath, string tmName, bool useWindowsSecurity, string username, string password)
+        #endregion
+        {
+            #region &quot;TranslationProviderConfiguration&quot;
+            Uri tmAddress = new Uri(String.Format(&quot;sdltm.{1}{2}/{3}&quot;, serverAddress, organizationPath, tmName));
+            TranslationProviderConfiguration config = project.GetTranslationProviderConfiguration();
+            #endregion
+
+            #region &quot;TranslationProviderCascadeEntryForServerTM&quot;
+            TranslationProviderCascadeEntry tm = new TranslationProviderCascadeEntry
+            (
+                  new TranslationProviderReference(tmAddress),
+                  true,
+                  false,
+                  false
+            );
+            config.Entries.Add(tm);
+            project.UpdateTranslationProviderConfiguration(config);
+            #endregion
+
+            #region &quot;CredentialsForServerTm&quot;
+            project.Credentials.AddCredential(new Uri(serverAddress), String.Format(&quot;user={0};password={1};type=CustomUser&quot;, username, password, useWindowsSecurity ? &quot;WindowsUser&quot; : &quot;CustomUser&quot;));
+            project.UpdateTranslationProviderConfiguration(config);
+            #endregion
+        }
+        #endregion
+
+        #region &quot;ConvertAndCopy&quot;
+        /// &lt;summary&gt;
+        /// Runs the two automatic tasks: Convert translatable files to a translatable format (i.e. SDLXliff)
+        /// and creates target file copies.
+        /// &lt;/summary&gt; 
+        private void ConvertFiles(FileBasedProject project)
+        {
+            #region &quot;GetFilesForProcessing&quot;
+            ProjectFile[] files = project.GetSourceLanguageFiles();
+            #endregion
+
+            #region &quot;RunConversion&quot;
+            for (int i = 0; i &lt; project.GetSourceLanguageFiles().Length; i++)
+            {
+                if (files[i].Role == FileRole.Translatable)
+                {
+                    Guid[] currentFileId = { files[i].Id };
+                    AutomaticTask convertTask = project.RunAutomaticTask(
+                        currentFileId,
+                        AutomaticTaskTemplateIds.ConvertToTranslatableFormat);
+
+                    #region &quot;CopyToTarget&quot;
+                    AutomaticTask copyTask = project.RunAutomaticTask(
+                        currentFileId,
+                        AutomaticTaskTemplateIds.CopyToTargetLanguages);
+                    #endregion
+                }
+            }
+            #endregion
+        }
+        #endregion
+
+        #region &quot;RunFileAnalysis&quot;
+        #region &quot;RunFileAnalysisFunction&quot;
+        /// &lt;summary&gt;
+        /// Runs the actual analyze files task on the SDLXliff target documents.
+        /// &lt;/summary&gt; 
+        private void RunFileAnalysis(FileBasedProject project, string trgLocale)
+        #endregion
+        {
+            #region &quot;GetTargetLanguageFiles&quot;
+            ProjectFile[] targetFiles = project.GetTargetLanguageFiles(new Language(CultureInfo.GetCultureInfo(trgLocale)));
+            #endregion
+
+            #region &quot;RunAnalysis&quot;
+            AutomaticTask analyzeTask = project.RunAutomaticTask(
+                targetFiles.GetIds(),
+                AutomaticTaskTemplateIds.AnalyzeFiles);
+            #endregion
+
+            #region &quot;SetTaskId&quot;
+            this.reportId = analyzeTask.Reports[0].Id;
+            #endregion
+        }
+        #endregion
+
+        #region &quot;GetAnalyzeSettings&quot;
+        #region &quot;GetAnalyzeSettingsFunction&quot;
+        /// &lt;summary&gt;
+        /// Configures the analyze task file settings, i.e. in our implementation
+        /// report cross-file repetitions and report the internal fuzzy match leverage.
+        /// &lt;/summary&gt; 
+        private void GetAnalyzeSettings(
+            FileBasedProject project,
+            string trgLocale,
+            bool reportCrossFileRepetitions,
+            bool reportInternalFuzzyMatchLeverage)
+        #endregion
+        {
+            #region &quot;trgLanguage&quot;
+            Language trgLanguage = new Language(CultureInfo.GetCultureInfo(trgLocale));
+            #endregion
+
+            #region &quot;ISettingsBundle&quot;
+            ISettingsBundle settings = project.GetSettings(trgLanguage);
+            AnalysisTaskSettings analyzeSettings = settings.GetSettingsGroup&lt;AnalysisTaskSettings&gt;();
+            #endregion
+
+            #region &quot;ConfigureSettings&quot;
+            analyzeSettings.ReportCrossFileRepetitions.Value = reportCrossFileRepetitions;
+            analyzeSettings.ReportInternalFuzzyMatchLeverage.Value = reportInternalFuzzyMatchLeverage;
+            #endregion
+
+            #region &quot;UpdateSettings&quot;
+            project.UpdateSettings(trgLanguage, settings);
+            #endregion
+        }
+        #endregion
+
+        #region &quot;CreateReports&quot;
+        /// &lt;summary&gt;
+        /// Retrieves the results of the analyze files tasks and generates a standard
+        /// report in Microsoft Excel format as well as a report in a custom XML format.
+        /// &lt;/summary&gt; 
+        private void CreateReports(FileBasedProject project, string path)
+        {
+            #region &quot;CreateStandardReport&quot;
+            project.SaveTaskReportAs(this.reportId, path + &quot;/AnalyzeTaskReport.xls&quot;, ReportFormat.Excel);
+            #endregion
+
+            #region &quot;Statistics&quot;
+            ProjectStatistics projectStats = project.GetProjectStatistics();
+            TargetLanguageStatistics[] targetStats = projectStats.TargetLanguageStatistics;
+            AnalysisStatistics analysisStats = targetStats[0].AnalysisStatistics;
+            #endregion
+
+            #region &quot;WriteData&quot;
+            string result = &quot;Analysis result for all files:\n\n&quot;;
+
+            result += &quot;\nPerfect matches\n&quot;;
+            result += &quot;Segments: &quot; + analysisStats.Perfect.Segments.ToString() + &quot;\n&quot;;
+            result += &quot;Words: &quot; + analysisStats.Perfect.Words.ToString() + &quot;\n&quot;;
+            result += &quot;Characters: &quot; + analysisStats.Perfect.Characters.ToString() + &quot;\n&quot;;
+            result += &quot;Tags: &quot; + analysisStats.Perfect.Tags.ToString() + &quot;\n&quot;;
+            result += &quot;Placeables: &quot; + analysisStats.Perfect.Placeables.ToString() + &quot;\n&quot;;
+
+            result += &quot;\nContext matches\n&quot;;
+            result += &quot;Segments: &quot; + analysisStats.InContextExact.Segments.ToString() + &quot;\n&quot;;
+            result += &quot;Words: &quot; + analysisStats.InContextExact.Words.ToString() + &quot;\n&quot;;
+            result += &quot;Characters: &quot; + analysisStats.InContextExact.Characters.ToString() + &quot;\n&quot;;
+            result += &quot;Tags: &quot; + analysisStats.InContextExact.Tags.ToString() + &quot;\n&quot;;
+            result += &quot;Placeables: &quot; + analysisStats.InContextExact.Placeables.ToString() + &quot;\n&quot;;
+
+            #region &quot;Exact&quot;
+            result += &quot;\nExact matches\n&quot;;
+            result += &quot;Segments: &quot; + analysisStats.Exact.Segments.ToString() + &quot;\n&quot;;
+            result += &quot;Words: &quot; + analysisStats.Exact.Words.ToString() + &quot;\n&quot;;
+            result += &quot;Characters: &quot; + analysisStats.Exact.Characters.ToString() + &quot;\n&quot;;
+            result += &quot;Tags: &quot; + analysisStats.Exact.Tags.ToString() + &quot;\n&quot;;
+            result += &quot;Placeables: &quot; + analysisStats.Exact.Placeables.ToString() + &quot;\n&quot;;
+            #endregion
+
+            #region &quot;Fuzzy&quot;
+            for (int i = 0; i &lt; analysisStats.Fuzzy.Length; i++)
+            {
+                string rangeMax = analysisStats.Fuzzy[i].Band.MaximumMatchValue.ToString();
+                string rangeMin = analysisStats.Fuzzy[i].Band.MinimumMatchValue.ToString();
+
+                result += &quot;\nFuzzy matches &quot; + rangeMax + &quot;% to &quot; + rangeMin + &quot;%\n&quot;;
+                result += &quot;Segments: &quot; + analysisStats.Fuzzy[i].Segments.ToString() + &quot;\n&quot;;
+                result += &quot;Words: &quot; + analysisStats.Fuzzy[i].Words.ToString() + &quot;\n&quot;;
+                result += &quot;Characters: &quot; + analysisStats.Fuzzy[i].Characters.ToString() + &quot;\n&quot;;
+                result += &quot;Tags: &quot; + analysisStats.Fuzzy[i].Tags.ToString() + &quot;\n&quot;;
+                result += &quot;Placeables: &quot; + analysisStats.Fuzzy[i].Placeables.ToString() + &quot;\n&quot;;
+            }
+            #endregion
+
+            result += &quot;\nRepetitions\n&quot;;
+            result += &quot;Segments: &quot; + analysisStats.Repetitions.Segments.ToString() + &quot;\n&quot;;
+            result += &quot;Words: &quot; + analysisStats.Repetitions.Words.ToString() + &quot;\n&quot;;
+            result += &quot;Characters: &quot; + analysisStats.Repetitions.Characters.ToString() + &quot;\n&quot;;
+            result += &quot;Tags: &quot; + analysisStats.Repetitions.Tags.ToString() + &quot;\n&quot;;
+            result += &quot;Placeables: &quot; + analysisStats.Repetitions.Placeables.ToString() + &quot;\n&quot;;
+
+            result += &quot;\nNew segments\n&quot;;
+            result += &quot;Segments: &quot; + analysisStats.New.Segments.ToString() + &quot;\n&quot;;
+            result += &quot;Words: &quot; + analysisStats.New.Words.ToString() + &quot;\n&quot;;
+            result += &quot;Characters: &quot; + analysisStats.New.Characters.ToString() + &quot;\n&quot;;
+            result += &quot;Tags: &quot; + analysisStats.New.Tags.ToString() + &quot;\n&quot;;
+            result += &quot;Placeables: &quot; + analysisStats.New.Placeables.ToString() + &quot;\n&quot;;
+
+            result += &quot;\nTotal\n&quot;;
+            result += &quot;Segments: &quot; + analysisStats.Total.Segments.ToString() + &quot;\n&quot;;
+            result += &quot;Words: &quot; + analysisStats.Total.Words.ToString() + &quot;\n&quot;;
+            result += &quot;Characters: &quot; + analysisStats.Total.Characters.ToString() + &quot;\n&quot;;
+            result += &quot;Tags: &quot; + analysisStats.Total.Tags.ToString() + &quot;\n&quot;;
+            result += &quot;Placeables: &quot; + analysisStats.Total.Placeables.ToString() + &quot;\n&quot;;
+
+            Console.Write(result);
+
+            #endregion
+        }
+        #endregion
+    }
+}
+</code></pre></section>
+</div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/16.1/apiconcepts/projectautomation/sample_app_putting_it_all_together.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

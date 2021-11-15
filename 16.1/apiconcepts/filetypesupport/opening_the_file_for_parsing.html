@@ -1,0 +1,299 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Opening the File for Parsing </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Opening the File for Parsing ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="opening-the-file-for-parsing">Opening the File for Parsing</h1>
+
+<p>In this step you will learn how to implement the class that extracts translatable text from a given bilingual source (BIL) file.</p>
+<h2 id="add-the-parser-class">Add the Parser Class</h2>
+<p>Start by adding a class called e.g. <strong>BilParser1.cs</strong> to your project. Your parser class needs to reference the following namespaces:</p>
+<ul>
+<li>Sdl.FileTypeSupport.Framework.BilingualApi</li>
+<li>Sdl.FileTypeSupport.Framework.NativeApi</li>
+</ul>
+<p>Bilingual files will often be XML-compliant, which makes parsing relatively easy, as you can leverage the standard XML DOM API. Therefore, you should also add the<code>System.Xml</code> namespace to your class.
+Then, your parser needs to be derived from the following class and interfaces:</p>
+<ul>
+<li><a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.AbstractBilingualFileTypeComponent.html">AbstractBilingualFileTypeComponent</a></li>
+<li><a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualParser.html">IBilingualParser</a></li>
+<li><a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.html">INativeContentCycleAware</a></li>
+</ul>
+<h2 id="open-and-close-the-input-file">Open and Close the Input File</h2>
+<p>First, add the following global class members:</p>
+<div class="tabGroup" id="tabgroup_L1Rb0dELHD">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_L1Rb0dELHD_tabid-1" role="tab" aria-controls="tabpanel_L1Rb0dELHD_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_L1Rb0dELHD_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-cs">private IPersistentFileConversionProperties _fileProperties;
+private XmlDocument _document;
+public event EventHandler&lt;ProgressEventArgs&gt; Progress;
+</code></pre></section>
+</div>
+<p>We require the <code>_fileProperties</code> object from which we can retrieve important information on a given input file, primarily the file path and name. We also require an XML document object (<code>_document</code>), which we can parse using the XML DOM API. It is recommended (but not required) that you implement a progress reporter event. Depending on the size of your input file, parsing may take time. Therefore it is useful to inform the end user of the file parsing progress by implementing a progress report mechanism.</p>
+<p>Now you need to add the following members of the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.html">INativeContentCycleAware</a>
+interface:</p>
+<div class="tabGroup" id="tabgroup_L1Rb0dELHD-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_L1Rb0dELHD-1_tabid-2" role="tab" aria-controls="tabpanel_L1Rb0dELHD-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_L1Rb0dELHD-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<pre><code class="lang-cs">public void SetFileProperties(IFileProperties properties)
+{
+    _fileProperties = properties.FileConversionProperties;
+
+    Output.Initialize(DocumentProperties);
+
+    IFileProperties fileInfo = ItemFactory.CreateFileProperties();
+    fileInfo.FileConversionProperties = _fileProperties;
+    Output.SetFileProperties(fileInfo);
+}
+</code></pre></section>
+</div>
+<p>The above member creates the object from which you can retrieve various items of information on the input file such as the file name, creation date, etc. It also initializes the <code>DocumentProperties</code> - used to create properties - and the output file properties. You may wonder why the parser initializes two distinct objects, i.e. a document and a file properties object. The reason for this is that the  File Type Support Framework allows you to merge several files (e.g. several <em>*.bil</em> documents) into a single SDLXliff file. In this case there would be a global document properties object for the SDLXliff master document and several file properties for the different files that have been merged into one intermediate (e.g. SDLXliff) file.
+Then, add the following member, which the input file into the XML DOM object. At the same time, you can use this member to set the progress reporter to 0%:</p>
+<div class="tabGroup" id="tabgroup_L1Rb0dELHD-2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_L1Rb0dELHD-2_tabid-3" role="tab" aria-controls="tabpanel_L1Rb0dELHD-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_L1Rb0dELHD-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<pre><code class="lang-cs">public void StartOfInput()
+{
+    OnProgress(0);
+    _document = new XmlDocument();
+    _document.Load(_fileProperties.OriginalFilePath);
+}
+</code></pre></section>
+</div>
+<p>The interface also requires you to add the following member, in which you implement the logic that should be applied when reaching the end of the input file. For example, you can set the XML DOM object to null and the progress reporter to 100%, as the file has been fully parsed. Since the plugin also uses an Output object, which is for example used by Studio to write .sdlxliff files, you also need to call the FileComplete and Complete functions of the writer, to properly finalize the created file.</p>
+<div class="tabGroup" id="tabgroup_L1Rb0dELHD-3">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_L1Rb0dELHD-3_tabid-4" role="tab" aria-controls="tabpanel_L1Rb0dELHD-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_L1Rb0dELHD-3_tabid-4" role="tabpanel" data-tab="tabid-4">
+<pre><code class="lang-cs">public void EndOfInput()
+{
+    // done with the file
+    Output.FileComplete();
+    // done with the document
+    Output.Complete();
+
+    OnProgress(100);
+    _document = null;
+}
+</code></pre></section>
+</div>
+<p>Next, add the following (optional) <code>OnProgress()</code> method, which takes a byte parameter to set the progress within the range of 0 and 100%:</p>
+<div class="tabGroup" id="tabgroup_L1Rb0dELHD-4">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_L1Rb0dELHD-4_tabid-5" role="tab" aria-controls="tabpanel_L1Rb0dELHD-4_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_L1Rb0dELHD-4_tabid-5" role="tabpanel" data-tab="tabid-5">
+<pre><code class="lang-cs">protected virtual void OnProgress(byte percent)
+{
+    if (Progress != null)
+    {
+        Progress(this, new ProgressEventArgs(percent));
+    }
+}
+</code></pre></section>
+</div>
+<h2 id="add-the-bilingual-parser-members">Add the Bilingual Parser Members</h2>
+<p>Add the following required members of the bilingual parser interface:</p>
+<div class="tabGroup" id="tabgroup_L1Rb0dELHD-5">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_L1Rb0dELHD-5_tabid-6" role="tab" aria-controls="tabpanel_L1Rb0dELHD-5_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_L1Rb0dELHD-5_tabid-6" role="tabpanel" data-tab="tabid-6">
+<pre><code class="lang-cs">public IDocumentProperties DocumentProperties
+{
+    get;
+    set;
+}
+
+public IBilingualContentHandler Output
+{
+    get;
+    set;
+}
+</code></pre></section>
+</div>
+<p>The document properties member provides access to important information on the bilingual (i.e. not the native) file, e.g. the source and target language, the source segment count, the path to which the document was last saved, etc.
+The output member handles the output to the bilingual document. Through this member you will later determine the paragraphs, segment pairs, etc. that are written to the bilingual file.</p>
+<h2 id="parse-the-file">Parse the File</h2>
+<p>Add the following member, which takes care of the actual file parsing operation. Note that no actual file content is parsed for the moment. We will implement the logic for parsing the file content later by adding helper functions to our parser component.</p>
+<div class="tabGroup" id="tabgroup_L1Rb0dELHD-6">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_L1Rb0dELHD-6_tabid-7" role="tab" aria-controls="tabpanel_L1Rb0dELHD-6_tabid-7" data-tab="tabid-7" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_L1Rb0dELHD-6_tabid-7" role="tabpanel" data-tab="tabid-7">
+<pre><code class="lang-cs">public bool ParseNext()
+{
+    return false;
+}
+</code></pre></section>
+</div>
+<p>At this point you could already build your project, however, your file type plug-in will only generate an empty bilingual document, which would look in Trados Studio as shown below:</p>
+<p><img src="images/EmptyBilFile.jpg" alt="EmptyBilFile"></p>
+<p>The resulting intermediary (SDLXliff) file would merely contain the basic header information that was retrieved from the document and file properties objects such as the original file name, the source/target language, the File Type Support Framework version, etc.</p>
+<h2 id="add-the-component-reference-to-the-component-builder">Add the Component Reference to the Component Builder</h2>
+<p>Do not forget to add the parser component to the File Type Component Builder by inserting the following code to your implementation of the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilder.html">IFileTypeComponentBuilder</a> interface. Remember that failure to do so will mean that this component will never be used by the file type plug-in, even if the parser has been implemented in the assembly.</p>
+<div class="tabGroup" id="tabgroup_L1Rb0dELHD-7">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_L1Rb0dELHD-7_tabid-8" role="tab" aria-controls="tabpanel_L1Rb0dELHD-7_tabid-8" data-tab="tabid-8" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_L1Rb0dELHD-7_tabid-8" role="tabpanel" data-tab="tabid-8">
+<pre><code class="lang-cs">public IFileExtractor BuildFileExtractor(string name)
+{
+    var parser = new BilParser();
+    var extractor = this.FileTypeManager.BuildFileExtractor(parser, this);
+    return extractor;
+}
+</code></pre><p>**</p>
+<h2 id="see-also">See Also</h2>
+<p><a href="outputting_segment_pairs.html">Outputting Segment Pairs</a></p>
+<p><a href="processing_inline_tags.html">Processing Inline Tags</a></p>
+<p><a href="applying_character_formatting.html">Applying Character Formatting</a></p>
+<p><a href="applying_the_segment_pair_confirmation_levels.html">Applying the Segment Pair Confirmation Levels</a></p>
+<p><a href="adding_context_information.html">Adding Context Information</a></p>
+<p><a href="extracting_comments.html">Extracting Comments</a></p>
+<p><a href="putting_it_all_together.html">Putting it all Together</a></p>
+<p><a href="merging_files.html">Merging files</a></p>
+<div class="NOTE"><h5>Note</h5><p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+</div>
+</section>
+</div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/16.1/apiconcepts/filetypesupport/opening_the_file_for_parsing.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

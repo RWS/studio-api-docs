@@ -1,0 +1,696 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Implementing filtering capabilities to your Display Filter </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Implementing filtering capabilities to your Display Filter ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="implementing-filtering-capabilities-to-your-display-filter">Implementing filtering capabilities to your Display Filter</h1>
+
+<p>Add the basic filtering functionality to your custom filter.</p>
+<p>To work with the Display Filter API, you need to create a class that implements the <a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.DisplayFilters.IDisplayFilter.html">IDisplayFilter</a> interface from the <a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.DisplayFilters.html">Sdl.TranslationStudioAutomation.IntegrationApi.DisplayFilters</a> namespace, which exposes one method called <a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.DisplayFilters.IDisplayFilter.html#Sdl_TranslationStudioAutomation_IntegrationApi_DisplayFilters_IDisplayFilter_EvaluateRow_Sdl_TranslationStudioAutomation_IntegrationApi_DisplayFilters_IDisplayFilterRowInfo_">EvaluateRow</a>. This method will then be called by the API for each row after the filter is applied on the document, passing in the <a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.DisplayFilters.IDisplayFilterRowInfo.html">IDisplayFilterRowInfo</a> model (which includes the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.ISegmentPair.html">ISegmentPair</a> and other relevant properties) that will permit the developer to assert whether or not the segments are visible in the editor.</p>
+<p>Create a new class called <code>FilterSettings</code>. This class will manage some basic settings that will persist on the document once the filter has been applied. Make reference to the following example:</p>
+<p>To recover the source and target content, we will need to create a class that implements the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IMarkupDataVisitor.html">IMarkupDataVisitor</a>. This interface is designed in such a way that you decide what properties from the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.ISegment.html">ISegment</a> are relevant and then process only those.</p>
+<p>For the purpose of this example, we will recover the content as plain text only, including tags and revisions. This should be sufficient in allowing us to apply a filter to the content.</p>
+<p>Create a new class called <code>ContentProcessor</code> with reference to the following code:</p>
+<div class="tabGroup" id="tabgroup_wbwsunMwqv">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_wbwsunMwqv_tabid-1" role="tab" aria-controls="tabpanel_wbwsunMwqv_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_wbwsunMwqv_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-cs">using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Sdl.FileTypeSupport.Framework.BilingualApi;
+using Sdl.FileTypeSupport.Framework.NativeApi;
+
+namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Content
+{
+    public class ContentProcessor : IMarkupDataVisitor
+    {
+
+        public ContentProcessor()
+        {
+            Initialize();
+        }
+
+        private void Initialize()
+        {
+            PlainText = new StringBuilder(&quot;&quot;);
+            Comments  = new List&lt;IComment&gt;();
+        }
+        public List&lt;IComment&gt; Comments { get; set; }
+        public StringBuilder PlainText { get; set; }
+
+        public bool IncludeTagContent { get; set; }
+
+        public bool IgnoreComments { get; set; }
+
+        public string GetPlainText(ISegment segment, bool includeTagContent)
+        {
+            IgnoreComments = true;
+            IncludeTagContent = includeTagContent;
+            Initialize(); 
+            VisitChildren(segment);
+            return PlainText.ToString();
+        }
+
+        public List&lt;IComment&gt; GetSegmentComments(ISegment segment)
+        {
+            IgnoreComments = false;
+            Initialize();
+            VisitChildren(segment);
+            return Comments;
+        }
+
+        public void ProcessSegment(ISegment segment)
+        {
+            Initialize();
+            VisitChildren(segment);
+        }
+
+        private void VisitChildren(IAbstractMarkupDataContainer container)
+        {
+            if (container == null)
+                return;
+            foreach (var item in container)
+            {
+                item.AcceptVisitor(this);
+            }
+        }
+
+        public void VisitCommentMarker(ICommentMarker commentMarker)
+        {
+            if (!IgnoreComments)
+            {
+                foreach (var commentProperty in commentMarker.Comments.Comments)
+                {
+                    Comments.Add(commentProperty);
+                }
+            }
+            VisitChildren(commentMarker);
+        }
+
+        public void VisitLocationMarker(ILocationMarker location)
+        {
+            // Not required for this implementation
+        }
+
+        public void VisitLockedContent(ILockedContent lockedContent)
+        {            
+            PlainText.Append(lockedContent.Content.ToString());
+        }
+
+        public void VisitOtherMarker(IOtherMarker marker)
+        {
+            VisitChildren(marker);
+        }
+
+        public void VisitPlaceholderTag(IPlaceholderTag tag)
+        {
+            if (IncludeTagContent)
+                PlainText.Append(&quot;&lt;&quot; + tag.Properties.TagContent + &quot;/&gt;&quot;);
+        }
+
+        public void VisitRevisionMarker(IRevisionMarker revisionMarker)
+        {
+            VisitChildren(revisionMarker);
+        }
+
+        public void VisitSegment(ISegment segment)
+        {
+            VisitChildren(segment);
+        }
+
+        public void VisitTagPair(ITagPair tagPair)
+        {
+            if (IncludeTagContent)
+                PlainText.Append(&quot;&lt;&quot; + tagPair.StartTagProperties.TagContent + &quot;&gt;&quot;);
+            VisitChildren(tagPair);
+            if (IncludeTagContent)
+                PlainText.Append(&quot;&lt;/&quot; + tagPair.EndTagProperties.TagContent + &quot;&gt;&quot;);
+        }
+
+        public void VisitText(IText text)
+        {
+            PlainText.Append(text.Properties.Text);
+        }
+    }
+}
+</code></pre></section>
+</div>
+<p>Next, create a new class called <code>DisplayFilter</code>. This will implement the <a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.DisplayFilters.IDisplayFilter.html">IDisplayFilter</a> interface so that we can evaluate each of the segments and decide whether or not they should be displayed in the Trados Studio Editor.</p>
+<p>It is good design to include a reference to <code>IFilterSetting</code> interface in this class as it will be persisted on the document once the filter has been applied. This is useful to understand the type of filter that is applied (if any), especially in the case when the user is moving between documents in the editor. It permits the developer to differentiate between the internal system filter provider and their own implementation or multiple implementations and then take the appropriate action based on that.</p>
+<p>This example demonstrates how to implement a few filters that are evaluated as the API is iterating over each of the segments after the filter has been applied on the document. Further on in the walkthrough we will discuss how to apply this implementation of the <a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.DisplayFilters.IDisplayFilter.html">IDisplayFilter</a> on the document itself.</p>
+<p>You will notice from the filter examples that we are using the <code>ContentProcessor</code> functionality that we created earlier to recover the plain text from both the source and target segments and then apply either a regular expression or normal search as criteria for the filter.</p>
+<div class="tabGroup" id="tabgroup_wbwsunMwqv-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_wbwsunMwqv-1_tabid-2" role="tab" aria-controls="tabpanel_wbwsunMwqv-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_wbwsunMwqv-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<pre><code class="lang-cs">using System;
+using System.Linq;
+using System.Text.RegularExpressions;
+using Sdl.FileTypeSupport.Framework.BilingualApi;
+using Sdl.TranslationStudio.Plugins.AdvancedDisplayFilter.Content;
+using Sdl.TranslationStudio.Plugins.AdvancedDisplayFilter.Controls;
+using Sdl.TranslationStudio.Plugins.AdvancedDisplayFilter.Models;
+using Sdl.TranslationStudioAutomation.IntegrationApi;
+using Sdl.TranslationStudioAutomation.IntegrationApi.DisplayFilters;
+
+namespace TranslationStudio.Plugins.AdvancedDisplayFilter.DisplayFilters
+{
+    public class DisplayFilter : IDisplayFilter
+    {
+        #region  |  Public  |
+
+        /// &lt;summary&gt;
+        /// Display filter settings
+        /// &lt;/summary&gt;
+        public IDisplayFilterSettings Settings { get; private set; }
+
+
+        #endregion
+        #region  |  Private  |
+
+        private ContentProcessor ContentProcessor { get; set; }
+
+        private Document ActiveDocument { get; set; }
+
+        #endregion
+        #region  |  Constructor  |
+        public DisplayFilter(IDisplayFilterSettings settings, Document document)
+        {
+            ContentProcessor = new ContentProcessor();
+            ActiveDocument = document;
+            Settings = settings;
+        }
+
+        #endregion
+
+
+        public bool EvaluateRow(DisplayFilterRowInfo rowInfo)
+        {
+            var success = !(!Settings.ShowAllContent &amp;&amp; !rowInfo.IsSegment);
+
+            if (rowInfo.IsSegment)
+            {
+                if (success &amp;&amp; Settings.SegmentReviewTypes != null &amp;&amp; Settings.SegmentReviewTypes.Any())
+                    success = IsSegmentReviewTypes(rowInfo);
+
+
+                if (success &amp;&amp; Settings.ConfirmationLevels != null &amp;&amp; Settings.ConfirmationLevels.Any())
+                    success = IsConfirmationLevelFound(rowInfo);
+
+
+                if (success &amp;&amp; Settings.OriginTypes != null &amp;&amp; Settings.OriginTypes.Any())
+                    success = IsOriginTypeFound(rowInfo);
+
+
+                if (success &amp;&amp; Settings.PreviousOriginTypes != null &amp;&amp; Settings.PreviousOriginTypes.Any())
+                    success = IsPreviousOriginTypeFound(rowInfo);
+
+
+                if (success &amp;&amp; Settings.RepetitionTypes != null &amp;&amp; Settings.RepetitionTypes.Any())
+                    success = IsRepetitionTypes(rowInfo);
+
+
+                if (success &amp;&amp; Settings.SegmentLockingTypes != null &amp;&amp; Settings.SegmentLockingTypes.Any())
+                    success = IsSegmentLockingTypes(rowInfo);
+
+
+                if (success &amp;&amp; Settings.SegmentContentTypes != null &amp;&amp; Settings.SegmentContentTypes.Any())
+                    success = IsSegmentContentTypes(rowInfo);
+
+
+                if (success &amp;&amp; Settings.SourceText.Trim() != string.Empty)
+                    success = IsTextFoundInSource(rowInfo);
+
+
+                if (success &amp;&amp; Settings.TargetText.Trim() != string.Empty)
+                    success = IsTextFoundInTarget(rowInfo);
+
+
+                if (success &amp;&amp; Settings.CommentText.Trim() != string.Empty)
+                    success = IsTextFoundInComment(rowInfo);
+
+
+                if (success &amp;&amp; Settings.CommentAuthor.Trim() != string.Empty)
+                    success = IsAuthorFoundInComment(rowInfo);
+
+
+                if (success &amp;&amp; Settings.CommentSeverity &gt; 0)
+                    success = IsSeverityFoundInComment(rowInfo);
+
+
+                if (success &amp;&amp; Settings.ContextInfoTypes.Any())
+                    success = IsContextInfoTypes(rowInfo);
+            }
+
+            return success;
+        }
+
+
+        #region  |  Helpers  |
+
+        private bool IsSegmentReviewTypes(DisplayFilterRowInfo rowInfo)
+        {
+            var success = SegmentWithTQAs(rowInfo)
+                || SegmentWithTrackedChanges(rowInfo)
+                || SegmentWithComments(rowInfo)
+                || SegmentWithMessages(rowInfo);
+
+            return success;
+        }
+        private bool SegmentWithTQAs(DisplayFilterRowInfo rowInfo)
+        {
+            var success = Settings.SegmentReviewTypes.ToList()
+                .Any(status =&gt; string.Compare(status, DisplayFilterSettings.SegmentReviewType.WithTQA.ToString()
+                    , StringComparison.OrdinalIgnoreCase) == 0);
+
+            if (success &amp;&amp; !rowInfo.ContainsTQAs)
+                success = false;
+
+            return success;
+        }
+        private bool SegmentWithTrackedChanges(DisplayFilterRowInfo rowInfo)
+        {
+            var success = Settings.SegmentReviewTypes.ToList()
+                .Any(status =&gt; string.Compare(status, DisplayFilterSettings.SegmentReviewType.WithTrackedChanges.ToString()
+                    , StringComparison.OrdinalIgnoreCase) == 0);
+
+            if (success &amp;&amp; !rowInfo.ContainsTrackChanges)
+                success = false;
+
+            return success;
+        }
+        private bool SegmentWithComments(DisplayFilterRowInfo rowInfo)
+        {
+            var success = Settings.SegmentReviewTypes.ToList()
+                .Any(status =&gt; string.Compare(status, DisplayFilterSettings.SegmentReviewType.WithComments.ToString()
+                    , StringComparison.OrdinalIgnoreCase) == 0);
+
+            // check if comments exist in the target segment
+            if (success &amp;&amp; !ContentProcessor.GetSegmentComments(rowInfo.SegmentPair.Target).Any())
+            {
+                // check if comments exit in the source segment
+                if (!ContentProcessor.GetSegmentComments(rowInfo.SegmentPair.Source).Any())
+                    success = false;
+            }
+
+            return success;
+        }
+        private bool SegmentWithMessages(DisplayFilterRowInfo rowInfo)
+        {
+            var success = Settings.SegmentReviewTypes.ToList()
+               .Any(status =&gt; string.Compare(status, DisplayFilterSettings.SegmentReviewType.WithFeedbackMessages.ToString()
+                   , StringComparison.OrdinalIgnoreCase) == 0);
+
+            if (success &amp;&amp; !rowInfo.ContainsFeedbackMessages)
+                success = false;
+
+            return success;
+        }
+
+        private bool IsSeverityFoundInComment(DisplayFilterRowInfo rowInfo)
+        {
+            var success = ContentProcessor.GetSegmentComments(rowInfo.SegmentPair.Target)
+                .Any(comment =&gt; Settings.CommentSeverity == (int)comment.Severity);
+            if (!success)
+                success = ContentProcessor.GetSegmentComments(rowInfo.SegmentPair.Source)
+                .Any(comment =&gt; Settings.CommentSeverity == (int)comment.Severity);
+
+            return success;
+        }
+        private bool IsAuthorFoundInComment(DisplayFilterRowInfo rowInfo)
+        {
+            var success = ContentProcessor.GetSegmentComments(rowInfo.SegmentPair.Target)
+                .Any(comment =&gt; StringMatch(Settings.CommentAuthor, comment.Author, false));
+            if (!success)
+                success = ContentProcessor.GetSegmentComments(rowInfo.SegmentPair.Source)
+                .Any(comment =&gt; StringMatch(Settings.CommentAuthor, comment.Author, false));
+
+            return success;
+        }
+        private bool IsTextFoundInComment(DisplayFilterRowInfo rowInfo)
+        {
+            var success = ContentProcessor.GetSegmentComments(rowInfo.SegmentPair.Target)
+                .Any(comment =&gt; StringMatch(Settings.CommentText, comment.Text, false));
+            if (!success)
+                success = ContentProcessor.GetSegmentComments(rowInfo.SegmentPair.Source)
+                .Any(comment =&gt; StringMatch(Settings.CommentText, comment.Text, false));
+
+            return success;
+        }
+
+        private bool IsConfirmationLevelFound(DisplayFilterRowInfo rowInfo)
+        {
+            var success = Settings.ConfirmationLevels.ToList().Any(status =&gt; string.Compare(status
+                , rowInfo.SegmentPair.Properties.ConfirmationLevel.ToString()
+                , StringComparison.OrdinalIgnoreCase) == 0);
+
+            return success;
+        }
+
+        private bool IsOriginTypeFound(DisplayFilterRowInfo rowInfo)
+        {
+            var success = false;
+
+            var translationType =
+                Helper.GetOriginType(rowInfo.SegmentPair.Properties.TranslationOrigin);
+
+            success = Settings.OriginTypes.ToList()
+                .Any(status =&gt; string.Compare(status, translationType.ToString()
+                    , StringComparison.OrdinalIgnoreCase) == 0);
+
+
+            return success;
+        }
+        private bool IsPreviousOriginTypeFound(DisplayFilterRowInfo rowInfo)
+        {
+            var success = false;
+
+            if (rowInfo.SegmentPair.Properties.TranslationOrigin.OriginBeforeAdaptation != null)
+            {
+                var previousTranslationType =
+                    Helper.GetOriginType(
+                        rowInfo.SegmentPair.Properties.TranslationOrigin.OriginBeforeAdaptation);
+                if (
+                    Settings.PreviousOriginTypes.ToList()
+                        .Any(status =&gt; string.Compare(status,
+                            previousTranslationType.ToString()
+                            , StringComparison.OrdinalIgnoreCase) == 0))
+                    success = true;
+            }
+
+            return success;
+        }
+
+
+        private bool IsRepetitionTypes(DisplayFilterRowInfo rowInfo)
+        {
+            var success = IsRepetitionsAll(rowInfo)
+                || IsRepetitionsFirstOccurrences(rowInfo)
+                || IsRepetitionsExcludingFirstOccurrences(rowInfo);
+
+            return success;
+        }
+        private bool IsRepetitionsAll(DisplayFilterRowInfo rowInfo)
+        {
+            var success = Settings.RepetitionTypes.ToList()
+                .Any(status =&gt; string.Compare(status, DisplayFilterSettings.RepetitionType.All.ToString()
+                    , StringComparison.OrdinalIgnoreCase) == 0);
+
+            if (success)
+                success = rowInfo.SegmentPair.Properties.TranslationOrigin.IsRepeated;
+
+            return success;
+        }
+        private bool IsRepetitionsFirstOccurrences(DisplayFilterRowInfo rowInfo)
+        {
+            var success = Settings.RepetitionTypes.ToList()
+                .Any(status =&gt; string.Compare(status, DisplayFilterSettings.RepetitionType.FirstOccurrences.ToString()
+                    , StringComparison.OrdinalIgnoreCase) == 0);
+
+            if (success)
+                success = rowInfo.RepetitionFirstOccurrence;
+
+            return success;
+        }
+        private bool IsRepetitionsExcludingFirstOccurrences(DisplayFilterRowInfo rowInfo)
+        {
+            var success = Settings.RepetitionTypes.ToList()
+                .Any(status =&gt; string.Compare(status, DisplayFilterSettings.RepetitionType.ExcludeFirstOccurrences.ToString()
+                    , StringComparison.OrdinalIgnoreCase) == 0);
+
+            if (success)
+                success = rowInfo.RepetitionExcludeFirstOccurrence;
+
+            return success;
+        }
+
+
+        private bool IsSegmentLockingTypes(DisplayFilterRowInfo rowInfo)
+        {
+            var success = IsSegmentLockingTypeLocked(rowInfo)
+                || IsSegmentLockingTypeUnLocked(rowInfo);
+
+            return success;
+        }
+        private bool IsSegmentLockingTypeLocked(DisplayFilterRowInfo rowInfo)
+        {
+            var success = Settings.SegmentLockingTypes.ToList()
+                .Any(status =&gt; string.Compare(status, DisplayFilterSettings.SegmentLockingType.Locked.ToString()
+                    , StringComparison.OrdinalIgnoreCase) == 0);
+
+            if (success)
+                success = rowInfo.SegmentPair.Properties.IsLocked;
+
+            return success;
+        }
+        private bool IsSegmentLockingTypeUnLocked(DisplayFilterRowInfo rowInfo)
+        {
+            var success = Settings.SegmentLockingTypes.ToList()
+                .Any(status =&gt; string.Compare(status, DisplayFilterSettings.SegmentLockingType.Unlocked.ToString()
+                    , StringComparison.OrdinalIgnoreCase) == 0);
+
+
+            if (success)
+                success = !rowInfo.SegmentPair.Properties.IsLocked;
+
+            return success;
+        }
+
+
+        private bool IsSegmentContentTypes(DisplayFilterRowInfo rowInfo)
+        {
+            var success = IsSegmentContentTypeNumbersOnly(rowInfo)
+                || IsSegmentContentTypeExcludingNumberOnly(rowInfo);
+
+            return success;
+        }
+        private bool IsSegmentContentTypeNumbersOnly(DisplayFilterRowInfo rowInfo)
+        {
+            var success = Settings.SegmentContentTypes.ToList()
+                .Any(status =&gt; string.Compare(status, DisplayFilterSettings.SegmentContentType.NumbersOnly.ToString()
+                    , StringComparison.OrdinalIgnoreCase) == 0);
+
+            if (success)
+            {
+                success = NumericValidationUtil.IsValidFloatingNumber(ContentProcessor
+                    .GetPlainText(rowInfo.SegmentPair.Source, false));
+                if (!success)
+                {
+                    var text = ContentProcessor.GetPlainText(rowInfo.SegmentPair.Target, false);
+                    success = NumericValidationUtil.IsValidFloatingNumber(text);
+                }
+            }
+
+            return success;
+        }
+        private bool IsSegmentContentTypeExcludingNumberOnly(DisplayFilterRowInfo rowInfo)
+        {
+            var success = Settings.SegmentContentTypes.ToList()
+                .Any(status =&gt; string.Compare(status, DisplayFilterSettings.SegmentContentType.ExcludeNumberOnly.ToString()
+                    , StringComparison.OrdinalIgnoreCase) == 0);
+
+            if (success)
+            {
+                success = NumericValidationUtil.IsValidFloatingNumber(ContentProcessor
+                    .GetPlainText(rowInfo.SegmentPair.Source, false));
+                if (success)
+                {
+                    var text = ContentProcessor.GetPlainText(rowInfo.SegmentPair.Target, false);
+                    success = string.IsNullOrEmpty(text) || NumericValidationUtil.IsValidFloatingNumber(text);
+                }
+                success = !success;
+            }
+
+            return success;
+        }
+
+
+
+
+        private bool IsTextFoundInSource(DisplayFilterRowInfo rowInfo)
+        {
+
+            var text = ContentProcessor.GetPlainText(rowInfo.SegmentPair.Source, true);
+
+            var success = Settings.IsRegularExpression
+                ? RegularExpressionMatch(Settings.SourceText, text, Settings.IsCaseSensitive)
+                : StringMatch(Settings.SourceText, text, Settings.IsCaseSensitive);
+
+            return success;
+        }
+        private bool IsTextFoundInTarget(DisplayFilterRowInfo rowInfo)
+        {
+            var text = ContentProcessor.GetPlainText(rowInfo.SegmentPair.Target, true);
+
+            var success = Settings.IsRegularExpression
+                ? RegularExpressionMatch(Settings.TargetText, text, Settings.IsCaseSensitive)
+                : StringMatch(Settings.TargetText, text, Settings.IsCaseSensitive);
+
+            return success;
+        }
+        private static bool RegularExpressionMatch(string searchFor, string searchIn, bool isCaseSensitive)
+        {
+            var regex = new Regex(searchFor,
+                RegexOptions.Singleline | (!isCaseSensitive ? RegexOptions.IgnoreCase : RegexOptions.None));
+            var match = regex.Match(searchIn);
+
+            return match.Success;
+        }
+        private static bool StringMatch(string searchFor, string searchIn, bool isCaseSensitive)
+        {
+            if (isCaseSensitive)
+                return searchIn.IndexOf(searchFor, StringComparison.Ordinal) &gt; -1 ? true : false;
+
+            return searchIn.IndexOf(searchFor, StringComparison.OrdinalIgnoreCase) &gt; -1 ? true : false;
+        }
+
+
+
+
+        private bool IsContextInfoTypes(DisplayFilterRowInfo rowInfo)
+        {
+            var success = false;
+
+            if (rowInfo.ContextInfo.Count &lt;= 0) return success;
+            if (rowInfo.ContextInfo.Any(contextInfo =&gt; Settings.ContextInfoTypes.Contains(contextInfo.ContextType)))
+            {
+                success = true;
+            }
+
+
+            return success;
+        }
+
+
+        #endregion
+
+    }
+}
+</code></pre></section>
+</div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/16.1/apiconcepts/integration/implementing_filtering_capabilities_to_your_display_filter.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

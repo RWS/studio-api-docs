@@ -1,0 +1,310 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Generating the Paragraph Units </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Generating the Paragraph Units ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="generating-the-paragraph-units">Generating the Paragraph Units</h1>
+
+<p>In this chapter you will learn to extend the writer class to output the actual paragraph units from the intermediary (SDLXliff) file to the target BIL document.</p>
+<h2 id="modify-the-function-for-processing-the-paragraph-units">Modify the Function for Processing the Paragraph Units</h2>
+<p>First, we will add the required application logic to the method <code>CreateParagraphUnit()</code>, which loops through the paragraph units in the intermediary document. The function is supposed to work like this: the id of the current paragraph unit is retrieved from the context metadata. Remember that we added the unit id as hidden meta information (see <a href="adding_context_information.html">Adding Context Information</a>). Using the id we will determine the corresponding <code>unit</code> in the original BIL document. We then call a separate helper function, which replaces the segments from the original BIL document with the paragraph unit content, and thus the segment pairs from the intermediary document.</p>
+<p>The method should look as shown below:</p>
+<div class="tabGroup" id="tabgroup_dhmA0kIEiT">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_dhmA0kIEiT_tabid-1" role="tab" aria-controls="tabpanel_dhmA0kIEiT_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_dhmA0kIEiT_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-cs">public void ProcessParagraphUnit(IParagraphUnit paragraphUnit)
+{
+    string unitId = paragraphUnit.Properties.Contexts.Contexts[1].GetMetaData(&quot;UnitID&quot;);
+    XmlNode xmlUnit = _targetFile.SelectSingleNode(&quot;//unit[@id=&#39;&quot; + unitId + &quot;&#39;]&quot;);
+
+    // call helper function to generate the paragraph unit
+    CreateParagraphUnit(paragraphUnit, xmlUnit);
+}
+</code></pre></section>
+</div>
+<p>Note that for this simple implementation we just assume that every paragraph unit in the intermediary document corresponds to a unit id from the original BIL file. In a &#39;real-life&#39; implementation you should, of course, make sure to catch cases in which a given id does not exist.</p>
+<h2 id="add-the-helper-function-to-generate-the-target-paragraph-units">Add the Helper Function to Generate the Target Paragraph Units</h2>
+<p>Now it is time to implement the helper function that generates the new BIL unit elements from the source target segments in the intermediary file. This function leverages the <code>BilTextExtractor</code> class, which we created previously (see <a href="adding_the_text_extractor_class.html">Adding the Text Extractor Class</a>). Therefore, you should declare a new global text extractor member derived from this class:</p>
+<div class="tabGroup" id="tabgroup_dhmA0kIEiT-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_dhmA0kIEiT-1_tabid-2" role="tab" aria-controls="tabpanel_dhmA0kIEiT-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_dhmA0kIEiT-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<pre><code class="lang-cs">private BilTextExtractor _textExtractor;
+</code></pre></section>
+</div>
+<p>Then you use the the <code>Initialize()</code> method to create a text extractor object:</p>
+<div class="tabGroup" id="tabgroup_dhmA0kIEiT-2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_dhmA0kIEiT-2_tabid-3" role="tab" aria-controls="tabpanel_dhmA0kIEiT-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_dhmA0kIEiT-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<pre><code class="lang-cs">public void Initialize(IDocumentProperties documentInfo)
+{
+    _textExtractor = new BilTextExtractor();
+}
+</code></pre></section>
+</div>
+<p>Now you can add the following helper function, which works as follows: the <code>source</code> and the <code>target</code> elements are taken from the current BIL <code>unit</code> element. Then, the function loops through the segment pairs of the current paragraph unit from the intermediary (SDLXliff) document. The text extractor object is used to retrieve the plain text and the tag pairs for each segment pair. The <code>source</code> and the <code>target</code> elements are then set to the strings that were retrieved through the text extractor object.</p>
+<div class="tabGroup" id="tabgroup_dhmA0kIEiT-3">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_dhmA0kIEiT-3_tabid-4" role="tab" aria-controls="tabpanel_dhmA0kIEiT-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_dhmA0kIEiT-3_tabid-4" role="tabpanel" data-tab="tabid-4">
+<pre><code class="lang-cs">private void CreateParagraphUnit(IParagraphUnit paragraphUnit, XmlNode xmlUnit)
+{
+    XmlNode source = xmlUnit.SelectSingleNode(&quot;source&quot;);
+    XmlNode target = xmlUnit.SelectSingleNode(&quot;target&quot;);
+
+    //iterate all segment pairs
+    foreach (ISegmentPair segmentPair in paragraphUnit.SegmentPairs)
+    {
+        source.InnerXml = _textExtractor.GetPlainText(segmentPair.Source);
+        target.InnerXml = _textExtractor.GetPlainText(segmentPair.Target);
+    }
+}
+</code></pre></section>
+</div>
+<p>Note that we loop through all segment pairs, although in our simplified implementation each unit can be assumed to contain only one segment pair. A paragraph unit in the intermediary (SDLXliff) document would contain several segment pairs if our fictitious BIL format allowed for more than <code>one seg</code> element within a <code>source</code> or <code>target</code> node.</p>
+<h2 id="putting-it-all-together">Putting it All Together</h2>
+<p>The enhanced writer class should now look as shown below:</p>
+<div class="tabGroup" id="tabgroup_dhmA0kIEiT-4">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_dhmA0kIEiT-4_tabid-5" role="tab" aria-controls="tabpanel_dhmA0kIEiT-4_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_dhmA0kIEiT-4_tabid-5" role="tabpanel" data-tab="tabid-5">
+<pre><code class="lang-cs">using System;
+using System.Xml;
+using Sdl.FileTypeSupport.Framework.BilingualApi;
+using Sdl.FileTypeSupport.Framework.NativeApi;
+
+namespace Sdk.Snippets.Bilingual
+{
+    class BilWriter2 : AbstractBilingualFileTypeComponent, IBilingualWriter, INativeOutputSettingsAware
+    {
+        #region &quot;global&quot;
+        private IPersistentFileConversionProperties _originalFileProperties;
+        private INativeOutputFileProperties _nativeFileProperties;
+        private XmlDocument _targetFile;
+        private BilTextExtractor _textExtractor;
+        #endregion
+
+        #region &quot;INativeOutputSettingsAware members&quot;
+        public void GetProposedOutputFileInfo(IPersistentFileConversionProperties fileProperties, IOutputFileInfo proposedFileInfo)
+        {
+            _originalFileProperties = fileProperties;
+        }
+
+        public void SetOutputProperties(INativeOutputFileProperties properties)
+        {
+            _nativeFileProperties = properties;
+        }
+        #endregion
+
+
+        #region &quot;IBilingualWriter members&quot;
+
+
+        #region &quot;load file&quot;
+        public void SetFileProperties(IFileProperties fileInfo)
+        {
+            _targetFile = new XmlDocument();
+            _targetFile.Load(_originalFileProperties.OriginalFilePath);
+        }
+
+        #region &quot;initialize&quot;
+        public void Initialize(IDocumentProperties documentInfo)
+        {
+            _textExtractor = new BilTextExtractor();
+        }
+        #endregion
+
+        #endregion
+
+        #region &quot;paragraphs&quot;
+        public void ProcessParagraphUnit(IParagraphUnit paragraphUnit)
+        {
+            string unitId = paragraphUnit.Properties.Contexts.Contexts[1].GetMetaData(&quot;UnitID&quot;);
+            XmlNode xmlUnit = _targetFile.SelectSingleNode(&quot;//unit[@id=&#39;&quot; + unitId + &quot;&#39;]&quot;);
+
+            // call helper function to generate the paragraph unit
+            CreateParagraphUnit(paragraphUnit, xmlUnit);
+        }
+        #endregion
+
+        #region &quot;create paragraph&quot;
+        private void CreateParagraphUnit(IParagraphUnit paragraphUnit, XmlNode xmlUnit)
+        {
+            XmlNode source = xmlUnit.SelectSingleNode(&quot;source&quot;);
+            XmlNode target = xmlUnit.SelectSingleNode(&quot;target&quot;);
+
+            //iterate all segment pairs
+            foreach (ISegmentPair segmentPair in paragraphUnit.SegmentPairs)
+            {
+                source.InnerXml = _textExtractor.GetPlainText(segmentPair.Source);
+                target.InnerXml = _textExtractor.GetPlainText(segmentPair.Target);
+            }
+        }
+        #endregion
+
+        #region &quot;save file and complete&quot;
+        public void FileComplete()
+        {
+            _targetFile.Save(_nativeFileProperties.OutputFilePath);
+            _targetFile = null;
+        }
+
+        public void Complete()
+        {
+
+        }
+        #endregion
+
+        #endregion
+
+        #region Implementation of IDisposable
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+    }
+}
+</code></pre></section>
+</div>
+<h2 id="see-also">See Also</h2>
+<p><a href="adding_the_file_writer_class.html">Adding the File Writer Class</a></p>
+<p><a href="adding_the_text_extractor_class.html">Adding the Text Extractor Class</a></p>
+<div class="NOTE"><h5>Note</h5><p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+</div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/16.1/apiconcepts/filetypesupport/generating_the_paragraph_units.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

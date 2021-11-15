@@ -1,0 +1,593 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Content Connector </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Content Connector ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="content-connector">Content Connector</h1>
+
+<p>The Content Connector sits at the heart of this extension. Its main classes are ContentConnector, ContentConnectorViewRibbonGroup, ContentConncetorViewController and ContentConnectorViewControl.</p>
+<h2 id="content-connector-1">Content Connector</h2>
+<p>The ContentConnector class simply reads the file names in the IncomingRequests folder and wraps them in a ProjectRequest object.</p>
+<div class="tabGroup" id="tabgroup_TP6M503AKq">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_TP6M503AKq_tabid-1" role="tab" aria-controls="tabpanel_TP6M503AKq_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_TP6M503AKq_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-cs">using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.IO;
+
+namespace StudioIntegrationApiSample
+{
+    class ContentConnector
+    {
+        public static readonly ContentConnector Instance = new ContentConnector();
+
+        private ContentConnector()
+        {
+        }
+
+        public List&lt;ProjectRequest&gt; ProjectRequests
+        {
+            get; private set;
+        }
+
+        public void Refresh()
+        {
+            ProjectRequests = new List&lt;ProjectRequest&gt;();
+
+            string dropFolder = GetIncomingRequestsFolder();
+
+            foreach (string directory in Directory.GetDirectories(dropFolder))
+            {
+                DirectoryInfo dirInfo = new DirectoryInfo(directory);
+                ProjectRequests.Add(new ProjectRequest
+                {
+                    Name = dirInfo.Name,
+                    Files = Directory.GetFiles(directory)
+                });
+            }
+        }
+
+        private static string GetIncomingRequestsFolder()
+        {
+            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), $@&quot;{Versioning.Versions.StudioDocumentsFolderName}\IncomingRequests&quot;);
+        }
+
+        private static string GetAcceptedRequestsFolder()
+        {
+            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), $@&quot;{Versioning.Versions.StudioDocumentsFolderName}\AcceptedRequests&quot;);
+        }
+
+        internal void RequestAccepted(ProjectRequest request)
+        {
+            Directory.CreateDirectory(GetAcceptedRequestsFolder());
+            Directory.Move(Path.Combine(GetIncomingRequestsFolder(), request.Name), Path.Combine(GetAcceptedRequestsFolder(), request.Name));
+        }
+    }
+}
+</code></pre></section>
+</div>
+<h2 id="content-connector-view-ribbon-group">Content Connector View Ribbon Group</h2>
+<p>This class illustrates how a CreateProjectAction is defined and how a custom RibbonGroup on the Add-Ins ribbon tab is created and also how the action is added to it.</p>
+<div class="tabGroup" id="tabgroup_TP6M503AKq-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_TP6M503AKq-1_tabid-2" role="tab" aria-controls="tabpanel_TP6M503AKq-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_TP6M503AKq-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<pre><code class="lang-cs">using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Sdl.Desktop.IntegrationApi.Extensions;
+using Sdl.Desktop.IntegrationApi;
+using Sdl.TranslationStudioAutomation.IntegrationApi.Presentation.DefaultLocations;
+
+namespace StudioIntegrationApiSample
+{
+    [RibbonGroup(&quot;ConnectorViewRibbonGroup&quot;, &quot;ConnectorViewRibbonGroup_Name&quot;)]
+    [RibbonGroupLayout(LocationByType = typeof(TranslationStudioDefaultRibbonTabs.HomeRibbonTabLocation))]    
+    class ContentConnectorViewRibbonGroup : AbstractRibbonGroup
+    {
+    }
+
+    [Action(&quot;CheckForProjectsAction&quot;, typeof(ContentConnectorViewController), Name = &quot;CheckForProjects_Name&quot;, Description = &quot;CheckForProjects_Description&quot;, Icon = &quot;CheckForProjects_Icon&quot;)]
+    [ActionLayout(typeof(ContentConnectorViewRibbonGroup), 2, DisplayType.Large)]
+    public class CheckForProjectsAction : AbstractViewControllerAction&lt;ContentConnectorViewController&gt;
+    {
+        protected override void Execute()
+        {
+            Controller.CheckForProjects();   
+        }
+    }
+
+    [Action(&quot;CreateProjectsAction&quot;, typeof(ContentConnectorViewController), Name = &quot;CreateProjects_Name&quot;, Description = &quot;CreateProjects_Description&quot;, Icon = &quot;CreateProjects_Icon&quot;)]
+    [ActionLayout(typeof(ContentConnectorViewRibbonGroup), 1, DisplayType.Large)]
+    public class CreateProjectsAction : AbstractViewControllerAction&lt;ContentConnectorViewController&gt;
+    {
+        public override void Initialize()
+        {
+            Controller.ProjectRequestsChanged += OnProjectRequestsChanged;
+        }
+
+        void OnProjectRequestsChanged(object sender, EventArgs e)
+        {
+            Enabled = Controller.ProjectRequests.Count &gt; 0;
+        }
+
+        protected override void Execute()
+        {
+            Controller.CreateProjects();
+        }
+    }
+
+}
+</code></pre></section>
+</div>
+<h2 id="content-connector-viewcontroller">Content Connector ViewController</h2>
+<p>The Trados Studio&gt; Integration API is built in accordance with the MVC pattern. The View Controller is used to add new views to Trados Studio&gt; - the code sample below illustrates how this is achieved using the View attribute. The controller is also responsible for providing the View UI element. Additionally this sample has a <code>CreateProjects()</code> method which the controller uses to create new projects from the files in the IncomingRequests folder.</p>
+<div class="tabGroup" id="tabgroup_TP6M503AKq-2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_TP6M503AKq-2_tabid-3" role="tab" aria-controls="tabpanel_TP6M503AKq-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_TP6M503AKq-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<pre><code class="lang-cs">using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Sdl.Desktop.IntegrationApi.Extensions;
+using Sdl.TranslationStudioAutomation.IntegrationApi.Presentation;
+using Sdl.Desktop.IntegrationApi;
+using System.ComponentModel;
+using Sdl.ProjectAutomation.Core;
+using Sdl.ProjectAutomation.FileBased;
+using Sdl.TranslationStudioAutomation.IntegrationApi;
+using System.Windows.Forms;
+using Sdl.TranslationStudioAutomation.IntegrationApi.Presentation.DefaultLocations;
+
+namespace StudioIntegrationApiSample
+{
+    [View(
+        Id = &quot;ContentConnectorView&quot;,
+        Name = &quot;Content Connector&quot;,
+        Description = &quot;Create projects from project request content&quot;,
+        Icon = &quot;CheckForProjects_Icon&quot;,
+        LocationByType = typeof(TranslationStudioDefaultViews.TradosStudioViewsLocation))]
+    public class ContentConnectorViewController : AbstractViewController, INotifyPropertyChanged
+    {
+        #region private fields
+        private readonly Lazy&lt;ContentConnectorViewControl&gt; _control = new Lazy&lt;ContentConnectorViewControl&gt;(() =&gt; new ContentConnectorViewControl());
+        private ProjectTemplateInfo _selectedProjectTemplate;
+        private List&lt;ProjectRequest&gt; _projectRequests;
+        private int _percentComplete;
+        #endregion private fields
+
+        public event EventHandler ProjectRequestsChanged;
+
+        public ContentConnectorViewController()
+        {
+            _projectRequests = new List&lt;ProjectRequest&gt;();
+        }
+
+        protected override void Initialize(IViewContext context)
+        {
+            ProjectsController = SdlTradosStudio.Application.GetController&lt;ProjectsController&gt;();
+            _control.Value.Controller = this;
+        }
+
+        protected override System.Windows.Forms.Control GetContentControl()
+        {
+            return _control.Value;
+        }
+
+        private ProjectsController ProjectsController
+        {
+            get;
+            set;
+        }
+
+        public IEnumerable&lt;ProjectTemplateInfo&gt; ProjectTemplates
+        {
+            get
+            {
+                return ProjectsController.GetProjectTemplates();
+            }
+        }
+
+        public ProjectTemplateInfo SelectedProjectTemplate
+        {
+            get
+            {
+                return _selectedProjectTemplate;
+            }
+            set
+            {
+                _selectedProjectTemplate = value;
+                OnPropertyChanged(&quot;SelectedProjectTemplate&quot;);
+            }
+        }
+
+        public List&lt;ProjectRequest&gt; ProjectRequests
+        {
+            get
+            {
+                return _projectRequests;
+            }
+            set
+            {
+                _projectRequests = value;
+                OnPropertyChanged(&quot;ProjectRequests&quot;);
+
+                OnProjectRequestsChanged();
+            }
+        }
+
+        public int PercentComplete 
+        {
+            get
+            {
+                return _percentComplete;
+            }
+            set
+            {
+                _percentComplete = value;
+                OnPropertyChanged(&quot;PercentComplete&quot;);
+            }
+        }
+
+        public List&lt;FileBasedProject&gt; Projects
+        {
+            get;
+            set;
+        }
+
+        public void CheckForProjects()
+        {
+            ContentConnector.Instance.Refresh();
+            ProjectRequests = ContentConnector.Instance.ProjectRequests;
+        }
+
+        public void CreateProjects()
+        {
+            _control.Value.ClearMessages();
+
+            ProjectCreator creator = null;
+            BackgroundWorker worker = new BackgroundWorker();
+            worker.WorkerReportsProgress = true;
+            worker.DoWork += (sender, e) =&gt;
+                {
+                    creator = new ProjectCreator(ProjectRequests, SelectedProjectTemplate);
+                    creator.ProgressChanged += (sender2, e2) =&gt; { worker.ReportProgress(e2.ProgressPercentage); };
+                    creator.MessageReported += (sender2, e2) =&gt; { ReportMessage(e2.Project, e2.Message); };
+                    creator.Execute();
+                };
+            worker.ProgressChanged += (sender, e) =&gt;
+                {
+                    PercentComplete = e.ProgressPercentage;
+                };
+            worker.RunWorkerCompleted += (sender, e) =&gt;
+                {
+                    if (e.Error != null)
+                    {
+                        MessageBox.Show(e.Error.ToString());
+                    }
+                    else
+                    {
+                        foreach (Tuple&lt;ProjectRequest, FileBasedProject&gt; request in creator.SuccessfulRequests)
+                        {
+                            // accept the request
+                            ContentConnector.Instance.RequestAccepted(request.Item1);
+
+                            // remove the request from the list of requests
+                            ProjectRequests.Remove(request.Item1);
+
+                            OnProjectRequestsChanged();
+                        }
+                    }
+                };
+            worker.RunWorkerAsync();
+        }
+
+        private void ReportMessage(FileBasedProject fileBasedProject, string message)
+        {
+            _control.Value.BeginInvoke(new Action(() =&gt; _control.Value.ReportMessage(fileBasedProject, message)));
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void OnPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        private void OnProjectRequestsChanged()
+        {
+            if (ProjectRequestsChanged != null)
+            {
+                ProjectRequestsChanged(this, EventArgs.Empty);
+            }
+        }
+    }
+}
+</code></pre></section>
+</div>
+<h2 id="content-connector-viewcontrol">Content Connector ViewControl</h2>
+<p>This class is responsible for rendering the UI and interacts with the controller described above for data retrieval.</p>
+<div class="tabGroup" id="tabgroup_TP6M503AKq-3">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_TP6M503AKq-3_tabid-4" role="tab" aria-controls="tabpanel_TP6M503AKq-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_TP6M503AKq-3_tabid-4" role="tabpanel" data-tab="tabid-4">
+<pre><code class="lang-cs">using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using System.IO;
+using Sdl.ProjectAutomation.Core;
+using Sdl.ProjectAutomation.FileBased;
+
+namespace StudioIntegrationApiSample
+{
+    public partial class ContentConnectorViewControl : UserControl
+    {
+        ContentConnectorViewController _controller;
+
+        public ContentConnectorViewControl()
+        {
+            InitializeComponent();
+
+            _projectsListBox.SelectedIndexChanged += new EventHandler(_projectsListBox_SelectedIndexChanged);
+        }
+
+        internal ContentConnectorViewController Controller
+        {
+            get
+            {
+                return _controller;
+            }
+            set
+            {
+                _controller = value;
+
+                if (_controller != null)
+                {
+                    _controller.ProjectRequestsChanged += new EventHandler(_controller_ProjectRequestsChanged);
+                }
+
+                _progressBar.DataBindings.Add(&quot;Value&quot;, _controller, &quot;PercentComplete&quot;);
+
+                LoadProjectTemplates();
+                LoadProjectRequests();
+            }
+        }
+
+        public void ClearMessages()
+        {
+            _resultsTextBox.Text = &quot;&quot;;
+        }
+
+        public void ReportMessage(FileBasedProject fileBasedProject, string message)
+        {
+
+            _resultsTextBox.AppendText(&quot;\r\n&quot; + message);
+        }
+
+        private void LoadProjectTemplates()
+        {
+            _projectTemplatesComboBox.Items.Clear();
+
+            if (_controller.ProjectRequests != null)
+            {
+                foreach (ProjectTemplateInfo projectTemplate in _controller.ProjectTemplates)
+                {
+                    _projectTemplatesComboBox.Items.Add(projectTemplate);
+                }
+
+                if (_projectTemplatesComboBox.Items.Count &gt; 0)
+                {
+                    _projectTemplatesComboBox.SelectedIndex = 0;
+                }
+            }
+        }
+
+
+
+        private void LoadProjectRequests()
+        {
+            _projectsListBox.Items.Clear();
+
+            if (_controller.ProjectRequests != null)
+            {
+                foreach (ProjectRequest projectRequest in _controller.ProjectRequests)
+                {
+                    _projectsListBox.Items.Add(projectRequest);
+                }
+
+                if (_projectsListBox.Items.Count &gt; 0)
+                {
+                    _projectsListBox.SelectedIndex = 0;
+                }
+            }
+
+            LoadFileList();
+        }
+
+        private void LoadFileList()
+        {
+            _filesListView.Items.Clear();
+
+            ProjectRequest selectedProject = _projectsListBox.SelectedItem as ProjectRequest;
+            if (selectedProject != null)
+            {
+                foreach (string file in selectedProject.Files)
+                {
+                    string fileName = Path.GetFileName(file);
+                    _filesListView.Items.Add(fileName);
+                }
+            }
+        }
+
+        void _controller_ProjectRequestsChanged(object sender, EventArgs e)
+        {
+            LoadProjectRequests();
+        }
+
+        void _projectsListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LoadFileList();
+        }
+
+
+
+        private void _projectTemplatesComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            _controller.SelectedProjectTemplate = _projectTemplatesComboBox.SelectedItem as ProjectTemplateInfo;
+        }
+
+
+    }
+}
+</code></pre></section>
+</div>
+<h2 id="see-also">See Also</h2>
+<p><a href="reference_sample.html">Reference Sample</a></p>
+<p><a href="project_creator.html">Project Creator</a></p>
+<p><a href="wikipedia_search.html">Wikipedia Search</a></p>
+<p><a href="integrating_actions.html">Integrating actions</a></p>
+<p><a href="integrating_ribbon_groups.html">Integrating ribbon groups</a></p>
+<p><a href="integrating_viewparts.html">Integrating viewparts</a></p>
+<p><a href="integrating_views.html">Integrating views</a></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/16.1/apiconcepts/integration/content_connector.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

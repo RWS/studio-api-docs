@@ -1,0 +1,163 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Modifying the File Type Component Builder </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Modifying the File Type Component Builder ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="modifying-the-file-type-component-builder">Modifying the File Type Component Builder</h1>
+
+<p>The real-time preview is dynamic, i.e. it interacts with the editor. When users select a segment in the real-time preview, the corresponding segment in the editor gets highlighted automatically. Also, when users confirm a segment in the editor of Trados Studio the real-time preview is updated accordingly. Like all other preview types, the real-time preview needs to be referenced in the File Type Component Builder.</p>
+<h2 id="add-the-real-time-preview-name-to-the-resources">Add the Real-Time Preview Name to the Resources</h2>
+<p>To implement the real-time preview we first need to make a few additions to the File Type Component Builder. In the first step, define the preview name in the resources file. This is the name that will be shown later in the combo box of the internal preview window of Trados Studio. Add the following entires to the resources file, which are going to be referenced in the File Type Component Builder later:</p>
+<p><img src="images/RealtimeStaticPreviewName.jpg" alt="RealtimeStaticPreviewName"></p>
+<p>Add the Internal Real-time Preview Set
+In the next step add the following preview set object node for the internal real-time preview into the File Type Component Builder (e.g. below the internal preview set, see chapter <a href="static_modifying_the_file_type_component_builder.html">Modifying the File Type Component Builder</a>). Note how the object references the preview name that you previously defined in the resources file. After adding the real-time preview set to the File Type Component Builder, the preview name will already be listed in the combo box of the preview window. However, of course, the real-time preview will not be functional yet. Note that we will make another addition to the File Type Component Builder later, when we reference the (yet-to-be-created) preview control (see chapter <a href="adding_a_preview_ui_control.html">Adding a Preview UI Control</a>)</p>
+<div class="tabGroup" id="tabgroup_6cBYRHNjoH">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_6cBYRHNjoH_tabid-1" role="tab" aria-controls="tabpanel_6cBYRHNjoH_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_6cBYRHNjoH_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-cs">IPreviewSet internalRealPreviewSet = previewFactory.CreatePreviewSet();
+internalRealPreviewSet.Id = new PreviewSetId(&quot;InternalRealTimePreview&quot;);
+internalRealPreviewSet.Name = new LocalizableString(Resources.InternalRealTimeNavigablePreview_Name);
+
+IControlPreviewType sourceControlPreviewType2 = previewFactory.CreatePreviewType&lt;IControlPreviewType&gt;() as IControlPreviewType;
+if (sourceControlPreviewType2 != null)
+{
+    sourceControlPreviewType2.SourceGeneratorId = new GeneratorId(&quot;RealTimePreview&quot;);
+    sourceControlPreviewType2.SingleFilePreviewControlId = new PreviewControlId(&quot;InternalNavigablePreview&quot;);
+    internalRealPreviewSet.Source = sourceControlPreviewType2;
+}
+
+IControlPreviewType targetControlPreviewType2 = previewFactory.CreatePreviewType&lt;IControlPreviewType&gt;() as IControlPreviewType;
+if (targetControlPreviewType2 != null)
+{
+    targetControlPreviewType2.TargetGeneratorId = new GeneratorId(&quot;RealTimePreview&quot;);
+    targetControlPreviewType2.SingleFilePreviewControlId = new PreviewControlId(&quot;InternalNavigablePreview&quot;);
+    internalRealPreviewSet.Target = targetControlPreviewType2;
+}
+previewFactory.GetPreviewSets(null).Add(internalRealPreviewSet);
+</code></pre></section>
+</div>
+<h2 id="see-also">See Also</h2>
+<p><a href="adding_a_preview_controller.html">Adding a Preview Controller</a></p>
+<div class="NOTE"><h5>Note</h5><p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+</div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/16.1/apiconcepts/filetypesupport/dynamic_modifying_the_file_type_component_builder.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

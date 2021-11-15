@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Building the Plug-in </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Building the Plug-in ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="building-the-plug-in">Building the Plug-in</h1>
+
+<p>At this point, it is already possible to build the project - although, of course, it will not provide any functionality. This chapter contains information on how the build and deployment process of the plug-in works and which requirements need to be fulfilled, so that your plug-in is going to be recognized by Trados Studio.</p>
+<p>Building the project will generate a <em>.sdlplugin</em> file, in our example <em>Sdl.Sdk.LanguagePlatform.Samples.ListProvider.csproj.sdlplugin</em>, which will be placed inside your build output path. The <em>.sdlplugin</em> file is technically speaking a ZIP archive that contains the required plug-in components such as the plug-in binary (<em>.dll itself), the resources file, the manifest etc. For our example, the **.sdlplugin</em> file will contain the following:</p>
+<ul>
+<li>The plug-in assembly, e.g. <strong>Sdl.Sdk.LanguagePlatform.Samples.ListProvider.dll</strong></li>
+<li>The plug-in manifest, e.g. <strong>Sdl.Sdk.LanguagePlatform.Samples.ListProvider.plugin.xml</strong>. The manifest lists information on any extension classes that the plug-in contains. It is this manifest, which will be created during the build process, that declares the assembly and the corresponding extension classes to Trados Studio. By deleting this manifest <em>*.xml</em> file you would actually deactivate the plug-in and &#39;hide&#39; it from the application.</li>
+<li>The plug-in resources file, e.g. <strong>Sdl.Sdk.LanguagePlatform.Samples.ListProvider.plugin.resources.</strong> This resources file contains all the localizable strings and images referred to within the plug-in manifest, and is compiled from <strong>PluginResources.resx</strong> (see also <a href="the_resources_file.html">The Resources File</a>).</li>
+</ul>
+<p><img style="display:block; " src="images/SdlpluginContent.jpg"></p>
+<p>In order for Trados Studio to pick up the plug-in package and to extract it, the following folders need to be available on your hard drive:</p>
+<p>**For Windows 10 / Windows 8.1 **:</p>
+<p>%AppData%\Roaming\SDL\SDL Trados Studio\16\Plugins\Packages\</p>
+<p>and</p>
+<p>%AppData%\Roaming\SDL\SDL Trados Studio\16\Plugins\Unpacked\</p>
+<p>Make sure that you place the <em>*.sdlplugin</em> file into the sub-folder Packages and launch Trados Studio. During startup of Trados Studio the content of the package will be automatically extracted to the <em>Unpacked</em> sub-folder, as illustrated below:</p>
+<p><img style="display:block; " src="images/PlugInUnpacked.jpg"></p>
+<p>Upon start-up Trados Studio will load the unpacked plug-in and show the following message, which you can confirm with <strong>Yes</strong>, so that the plug-in gets loaded. This message appears when loading plug-ins that have not been certified by RWS, which could potentially be unsafe. The message can be avoided by submitting your plug-in to RWS for certification.</p>
+<p><img style="display:block; " src="images/PluginUncertified.jpg"></p>
+<p>After loading the plug-in in Trados Studio, you can see the the plug-in by raising the corresponding dialog box through the menu command <strong>Tools -&gt; Plug-ins</strong>. The Plug-ins dialog box should list the name of your newly created plug-in:</p>
+<p><img style="display:block; " src="images/PluginLoaded.jpg"></p>
+<p>Also, when you open a document for translation, your plug-in should now be listed under the available translation providers:</p>
+<p><img style="display:block; " src="images/OpenDocumentWithPlugin.jpg"></p>
+<div class="NOTE"><h5>Note</h5><p>If a user clicks <strong>No</strong> when the plug-in security message is displayed during start-up of Trados Studio, the plug-in will not be shown in the application.</p>
+</div>
+<p>Please see also <a href="../../articles/gettingstarted/setting_up_a_developer_machine.html">Setting up a Development Machine</a>.</p>
+<h2 id="see-also">See Also</h2>
+<p><a href="the_plugin_manifest.html">The Plug-in Manifest</a></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/16.1/apiconcepts/translationmemory/building_the_plugin.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

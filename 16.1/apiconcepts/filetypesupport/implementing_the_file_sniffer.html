@@ -1,0 +1,201 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Implementing the File Sniffer </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Implementing the File Sniffer ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="implementing-the-file-sniffer">Implementing the File Sniffer</h1>
+
+<p>In this chapter you will learn how to implement the functionality required for determining whether a given file is valid and can therefore be processed by our sample file type plug-in.</p>
+<h2 id="determine-the-validation-criteria">Determine the Validation Criteria</h2>
+<p>For determining whether a given file can be processed by our file type plug-in or not, you can, of course, use the file extension, which is specified in the File Type Component Builder. However, this is not a very reliable criterion. Even if the file extension does match, the file might not be valid for some reason, and can therefore not be processed by the file type plug-in. Also, you need to consider that different file types might share the same extension.</p>
+<p>It is therefore important to identify one or more reliable criteria that clearly indicate whether a given file is valid or not. For this simple text file type plug-in, let us assume that a *.text file is valid if the first line starts with the string <code>[Version=n]</code>.</p>
+<p>If this is the case, the file should be considered valid. Otherwise, the file type plug-in should tell the user that the given file is not supported. It is recommended that you implement this validation functionality in a distinct file sniffer component.</p>
+<h2 id="implement-the-file-sniffer">Implement the File Sniffer</h2>
+<p>Add a new class called e.g. <strong>SimpleTextSniffer.cs</strong> to your project. This class needs to implement the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileSniffer.html">INativeFileSniffer</a> interface. Your file sniffer class needs to contain the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileSniffer.html#Sdl_FileTypeSupport_Framework_NativeApi_INativeFileSniffer_Sniff_System_String_Sdl_Core_Globalization_Language_Sdl_Core_Globalization_Codepage_Sdl_FileTypeSupport_Framework_NativeApi_INativeTextLocationMessageReporter_Sdl_Core_Settings_ISettingsGroup_">Sniff</a> method, which is part of the native file sniffer interface. This method returns a <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.SniffInfo.html">SniffInfo</a> object, which you can set to True or to False, depending on whether the file should be considered valid or not according to specific validation criteria.</p>
+<p>Remember, that if you have specific settings which need to be applied to the file sniffer, these can be populated using the <code>ISettingsGroup</code> which is passed in via the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileSniffer.html#Sdl_FileTypeSupport_Framework_NativeApi_INativeFileSniffer_Sniff_System_String_Sdl_Core_Globalization_Language_Sdl_Core_Globalization_Codepage_Sdl_FileTypeSupport_Framework_NativeApi_INativeTextLocationMessageReporter_Sdl_Core_Settings_ISettingsGroup_">Sniff</a> method. Please see <a href="the_file_sniffer.html">The File Sniffer</a> for more details.</p>
+<p>The minimum amount of code required to build a file sniffer component looks as shown below:</p>
+<div class="tabGroup" id="tabgroup_SC1mBmiUmx">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_SC1mBmiUmx_tabid-1" role="tab" aria-controls="tabpanel_SC1mBmiUmx_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_SC1mBmiUmx_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-cs">using Sdl.Core.Settings;
+using Sdl.FileTypeSupport.Framework.NativeApi;
+using Sdl.Core.Globalization;
+
+namespace Sdk.Snippets.Native
+{
+    class SimpleTextSniffer1 : INativeFileSniffer
+    {
+
+       public SniffInfo Sniff(string nativeFilePath, Language language, Codepage suggestedCodepage,
+           INativeTextLocationMessageReporter messageReporter, ISettingsGroup settingsGroup)
+        {
+            SniffInfo fileInfo = new SniffInfo();    
+            return fileInfo;
+        }
+    }
+}
+</code></pre></section>
+</div>
+<p>Now you can add the actual logic required to determine whether a file is supported or not. If the file is supported, set the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.SniffInfo.html#Sdl_FileTypeSupport_Framework_NativeApi_SniffInfo_IsSupported">IsSupported</a> property to True, otherwise to False. The complete file sniffer class looks as shown below:</p>
+<div class="tabGroup" id="tabgroup_SC1mBmiUmx-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_SC1mBmiUmx-1_tabid-2" role="tab" aria-controls="tabpanel_SC1mBmiUmx-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_SC1mBmiUmx-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<pre><code class="lang-cs">using System.IO;
+using Sdl.Core.Settings;
+using Sdl.FileTypeSupport.Framework.NativeApi;
+using Sdl.Core.Globalization;
+
+namespace Sdk.Snippets.Native
+{
+    // the file sniffer component determines whether a given file
+    // can be processed by the filter or not
+    class SimpleTextSniffer : INativeFileSniffer
+    {
+        public SniffInfo Sniff(string nativeFilePath, Language language, Codepage suggestedCodepage, INativeTextLocationMessageReporter messageReporter, ISettingsGroup settingsGroup)
+        {
+            SniffInfo fileInfo = new SniffInfo();
+
+            StreamReader _reader = new StreamReader(nativeFilePath);
+
+            if (_reader.ReadLine().StartsWith(&quot;[Version=&quot;))
+                fileInfo.IsSupported=true;
+            else
+                fileInfo.IsSupported=false;
+
+            return fileInfo;
+        }
+    }
+}
+</code></pre></section>
+</div>
+<h2 id="add-the-component-reference-to-the-file-type-definition">Add the Component Reference to the File Type Definition</h2>
+<p>Do not forget to reference the file sniffer component to the File Type Component Builder by implementing the BuildFileSniffer method in your implementation of <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilder.html">IFileTypeComponentBuilder</a>. Remember that failure to do so will mean that this component will never be used by the file type plug-in, even if the sniffer component has been added to the assembly.</p>
+<h2 id="see-also">See Also</h2>
+<p><a href="user_communication_through_messaging.html">User Communication Through Messaging</a></p>
+<div class="NOTE"><h5>Note</h5><p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+</div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/16.1/apiconcepts/filetypesupport/implementing_the_file_sniffer.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

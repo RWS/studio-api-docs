@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Working with File-based Translation Memories </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Working with File-based Translation Memories ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="working-with-file-based-translation-memories">Working with File-based Translation Memories</h1>
+
+<p>This section describes how to work with file-based translation memories.</p>
+<h2 id="file-based-translation-memories">File-based Translation Memories</h2>
+<p>A file-based translation memory is a translation memory (<a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.html">ITranslationMemory</a>) that is stored in a file with the &quot;.sdltm&quot; extension. It is designed for single-user access and supports only one language direction, which is defined when the translation memory is created and cannot be changed afterwards.</p>
+<p>File-based translation memories are represented by the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.FileBasedTranslationMemory.html">FileBasedTranslationMemory</a> class, which in turn inherits from <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.AbstractLocalTranslationMemory.html">AbstractLocalTranslationMemory</a>, the base class for file-based and in-memory translation memories (<a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.InMemoryTranslationMemory.html">InMemoryTranslationMemory</a>).</p>
+<p><img style="display:block; " src="images/FileBasedTranslationMemory.png"></p>
+<h2 id="password-protection">Password Protection</h2>
+<p>File-based translation memories support a password protection mechanism, which protects certain functionality using a password that is securely stored in the translation memory. In order to set a password for a certain access level, all the passwords for higher access levels need to be set first. If you decide to password protect a translation memory, you have to define passwords for all of the available access levels and everyone who tries to open the translation memory will be asked to provide a password (including the administrator). The following access levels can be protected by a password:</p>
+<ul>
+<li><strong>Administrator password</strong>: An administrator has complete access rights over the translation memory and its contents.</li>
+<li><strong>Maintenance password</strong>: A maintenance user can open the translation memory and view, edit and delete translation units and they can use the batch edit and delete tools to maintain translation units. However, they cannot perform imports and exports.</li>
+<li><strong>Translator password</strong>: A translator can open the translation memory in the Editor view and edit and delete individual translation units. They can also add new translation units to the translation memory.</li>
+<li><strong>Guest password</strong>: A user with guest access can open the translation memory and work with the translation memory contents. They cannot edit or delete translation units but they can add new units to the translation memory.
+In order to access a password-protected translation memory, call the Unlock method and pass the password that gives you the required access level.</li>
+</ul>
+<h2 id="see-also">See Also</h2>
+<p><a href="creating_a_file_based_translation_memory.html">Creating a File-based Translation Memory</a></p>
+<p><a href="working_with_field_definitions.html">Working with Field Definitions</a></p>
+<p><a href="working_with_language_resources.html">Working with Language Resources</a></p>
+<p><a href="importing_content_into_a_translation_memory.html">Importing Content into a Translation Memory</a></p>
+<p><a href="exporting_content_from_a_translation_memory.html">Exporting Content from a Translation Memory</a></p>
+<p><a href="performing_filebased_tm_lookups.html">Performing Translation Memory Lookups</a></p>
+<p><a href="working_with_server_based_translation_memories.html">Working with Server-based Translation Memories</a></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/16.1/apiconcepts/translationmemory/working_with_file_based_translation_memories.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

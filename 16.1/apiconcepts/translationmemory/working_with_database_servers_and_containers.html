@@ -1,0 +1,143 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Working with Database Servers and Containers </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Working with Database Servers and Containers ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="working-with-database-servers-and-containers">Working with Database Servers and Containers</h1>
+
+<p>This section describes how to work with database servers and translation memory containers.</p>
+<h2 id="overview">Overview</h2>
+<p>All server-based translation memories reside in a database that is typically seperate from the main TM server database. Such a database is called a translation memory container. TM Server supports spreading the server-based translation memories in the system across multiple translation memory containers.</p>
+<p>The API uses the following two classes to model these concepts:</p>
+<ul>
+<li><strong><a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.DatabaseServer.html">DatabaseServer</a></strong>: A database server that hosts one or more translation memory containers. In order to use a database server for hosting translation memory containers, it has to be registered with the system. See <a href="#registering-a-database-server">Registering a Database Server</a>.</li>
+<li><strong><a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryContainer.html">TranslationMemoryContainer</a></strong>: A translation memory container is a database that is hosted on one of teh registered database servers. Every container can host one or more server-based translation memories (<a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedTranslationMemory.html">ServerBasedTranslationMemory</a>). See <a href="#creating-a-translation-memory-container">Creating a Translation Memory Container</a>:</li>
+</ul>
+<p><img style="display:block; " src="images/DatabaseServerAndContainer.png"></p>
+<h2 id="registering-a-database-server">Registering a Database Server</h2>
+<p>In order to register a database server with TM Server, create a new <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.DatabaseServer.html">DatabaseServer</a> object. Set its <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.DatabaseServer.html#Sdl_LanguagePlatform_TranslationMemoryApi_DatabaseServer_Name">Name</a> property (=display name) and <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.DatabaseServer.html#Sdl_LanguagePlatform_TranslationMemoryApi_DatabaseServer_ServerName">ServerName</a> property (=actual IP address or DNS name of the database server). Choose which type of authentication will be used to access the database server by setting the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.DatabaseServer.html#Sdl_LanguagePlatform_TranslationMemoryApi_DatabaseServer_AuthenticationType">AuthenticationType</a> property. You can use either Windows authentication, which means the Windows account that is running the application server is used for accessing the database server; or Database authentication, which means you have to set the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.DatabaseServer.html#Sdl_LanguagePlatform_TranslationMemoryApi_DatabaseServer_UserName">UserName</a> and <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.DatabaseServer.html#Sdl_LanguagePlatform_TranslationMemoryApi_DatabaseServer_Password">Password</a> of the database account that should be used. Finally call <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.DatabaseServer.html#Sdl_LanguagePlatform_TranslationMemoryApi_DatabaseServer_Save">Save</a> to register the database server with the system.</p>
+<h2 id="creating-a-translation-memory-container">Creating a Translation Memory Container</h2>
+<p>In order to create a translation memory container, create a new <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryContainer.html">TranslationMemoryContainer</a> object. Set the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.DatabaseServer.html">DatabaseServer</a> on which the container database should be hosted, set its friendly name (<a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryContainer.html#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationMemoryContainer_Name">Name</a>) and the name of the actual database (<a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryContainer.html#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationMemoryContainer_DatabaseName">DatabaseName</a>). Finally call <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryContainer.html#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationMemoryContainer_Save">Save</a> to create the translation memory container.</p>
+<p>The <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryContainer.html#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationMemoryContainer_DatabaseName">DatabaseName</a> property can be one of the following:</p>
+<ul>
+<li>The name of a database that should be created: The application server will create the database. Make sure that account specified for communicating with the database server has enough permissions to create a new database.</li>
+<li>The name of an existing, empty database: The application server will create the necessary schema inside the existing database.</li>
+<li>The name of an existing translation memory container: for migration purposes, you can register an existing container database. The system will inspect the database and register all the translation memories present in it.</li>
+</ul>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/16.1/apiconcepts/translationmemory/working_with_database_servers_and_containers.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>
