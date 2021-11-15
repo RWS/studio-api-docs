@@ -23,4 +23,4 @@ git config --local user.email "github-actions[bot]@users.noreply.sdl.com"
 git config --local user.name "github-actions[bot]"
 git add .\15.2 -A
 git commit -m "Update generated documentation"
-git push "$remote_repo" HEAD:gh-pages --no-verify
+git push "$remote_repo" --no-verify
