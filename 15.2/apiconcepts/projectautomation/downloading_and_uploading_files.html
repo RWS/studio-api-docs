@@ -1,0 +1,264 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Downloading and Uploading Files </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Downloading and Uploading Files ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="downloading-and-uploading-files">Downloading and Uploading Files</h1>
+
+<p>Files must be copied to the local copy to be edited and copied back to the server so they are available to other users</p>
+<h2 id="get-the-latest-version-of-a-file-from-the-project-server">Get the latest version of a file from the project server</h2>
+<p>Use the <code>DownloadLatestVersion</code> method in a <a href="../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.html">FileBasedProject</a> to get the latest version of a file from the server and copy it to your local copy.</p>
+<div class="tabGroup" id="tabgroup_agWiRE5GYQ">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_agWiRE5GYQ_tabid-1" role="tab" aria-controls="tabpanel_agWiRE5GYQ_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_agWiRE5GYQ_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-cs">project.DownloadLatestServerVersion(fileId, (obj, evt) =&gt;
+    {
+        Console.WriteLine(&quot;{0}, {1} of {2} bytes transfered&quot;,evt.Filename, evt.FileBytesTransferred, evt.FileTotalBytes );
+
+        if (cancelledByUser)
+        {
+            evt.Cancel = true;
+        }
+    }, 
+    false);
+</code></pre></section>
+</div>
+<div class="NOTE"><h5>Note</h5><p>This method will only download the file to your local copy. It does not automatically check out the file for editing. You should check out the file before performing any editing task including batch processing.</p>
+</div>
+<div class="WARNING"><h5>Warning</h5><p>This method does not automatically create the directory structure for the file. If the file location is not already created, an exception will occur</p>
+</div>
+<p>The following example shows how to get all the latest files from the server only downloading files that are missing or out of date in the local workspace. There is also the option to overwrite local files that have been modified in the local workspace with the server version.</p>
+<div class="tabGroup" id="tabgroup_agWiRE5GYQ-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_agWiRE5GYQ-1_tabid-2" role="tab" aria-controls="tabpanel_agWiRE5GYQ-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_agWiRE5GYQ-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<pre><code class="lang-cs">void DownloadAllLatest(FileBasedProject project, Guid[] fileIds, bool overrideWorkspaceVersion)
+{
+    //Make sure we are syncronized with the server
+    project.SynchronizeServerProjectData();
+
+    foreach (Guid fileId in fileIds)
+    {
+        ProjectFile file = project.GetFile(fileId);
+
+        // We only need to download files that are missing from the workspace, out of date and 
+        //modified files if we have chosen to override the file with the server version
+        if (file.LocalFileState == LocalFileState.Missing
+            || (file.LocalFileState == LocalFileState.Modified &amp;&amp; overrideWorkspaceVersion)
+            || (file.LocalFileState == LocalFileState.OutOfDate)
+            )
+        {
+            //If the file directory does not exist in the local workspace then create it
+            string fileLocation = Path.GetDirectoryName(file.LocalFilePath);
+            if (!Directory.Exists(fileLocation))
+            {
+                Directory.CreateDirectory(fileLocation);
+            }
+
+            //Download the file passing in a null as the event handler therefore ignoring progress and cancelation.
+            project.DownloadLatestServerVersion(file.Id, null, false);
+        }
+    }
+}
+</code></pre></section>
+</div>
+<h2 id="list-all-versions-of-a-file-on-the-project-server">List all versions of a file on the project server</h2>
+<p>When a file is uploaded to the server a new version of the file is created. The server stores all these versions allowing you to examine and download previous versions.</p>
+<p>The following example writes all the versions of a file to the console.</p>
+<div class="tabGroup" id="tabgroup_agWiRE5GYQ-2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_agWiRE5GYQ-2_tabid-3" role="tab" aria-controls="tabpanel_agWiRE5GYQ-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_agWiRE5GYQ-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<pre><code class="lang-cs">private void ShowServerFileHistory(FileBasedProject project, Guid fileId)
+{
+    ProjectFileVersion[] fileVersions = project.GetProjectFileVersionHistory(fileId);
+
+    foreach (ProjectFileVersion fileVersion in fileVersions)
+    {
+        Console.WriteLine(&quot;Version {0}: {1}, Created By: {2}, Created At: {3}&quot;, 
+                          fileVersion.VersionNumber, 
+                          fileVersion.FileName , 
+                          fileVersion.CreatedBy,
+                          fileVersion.CreatedAt
+            );
+    }
+}
+</code></pre></section>
+</div>
+<h2 id="get-a-previous-version-of-a-file-from-the-project-server">Get a previous version of a file from the project server</h2>
+<p>Downloading a specific version of a file allows you to save a specific file version locally. You may want to download a specific version of a file so that you can compare it to a current version.</p>
+<p>When downloading a specific version you will be asked to provide the directory location to which you wish to download the file. This will usually be a different location to your current project. If you wish to replace your current workspace version with a previous version from the server you should check out the file from the server first so that conflicts do not occur.</p>
+<p>The following example shows how an anonymous delegate can be used to handle the progress and cancelation events.</p>
+<div class="tabGroup" id="tabgroup_agWiRE5GYQ-3">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_agWiRE5GYQ-3_tabid-4" role="tab" aria-controls="tabpanel_agWiRE5GYQ-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_agWiRE5GYQ-3_tabid-4" role="tabpanel" data-tab="tabid-4">
+<pre><code class="lang-cs">project.DownloadSpecificServerVersion(fileId, 1, @&quot;c:\files&quot;, (obj, evt) =&gt;
+ {
+     Console.WriteLine(&quot;{0}, {1} of {2} bytes transfered&quot;, evt.Filename, evt.FileBytesTransferred, evt.FileTotalBytes);
+
+     if (cancelledByUser)
+     {
+         evt.Cancel = true;
+     }
+ });
+</code></pre></section>
+</div>
+<h2 id="uploading-a-file-to-the-server">Uploading a file to the server</h2>
+<p>When you use the <a href="../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.html#Sdl_ProjectAutomation_FileBased_FileBasedProject_CheckinFiles_System_Guid___System_String_System_EventHandler_Sdl_ProjectAutomation_Core_ProgressEventArgs__">CheckinFiles</a> method this will automatically upload the files to the server. This method provides an event delegate so that you can report on the progress of the upload and cancel the upload if required.</p>
+<p>The following example shows how to upload files using a lambda expression to handle the progress and cancelation events.</p>
+<div class="tabGroup" id="tabgroup_agWiRE5GYQ-4">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_agWiRE5GYQ-4_tabid-5" role="tab" aria-controls="tabpanel_agWiRE5GYQ-4_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_agWiRE5GYQ-4_tabid-5" role="tabpanel" data-tab="tabid-5">
+<pre><code class="lang-cs">project.CheckinFiles(fileIds, &quot;This is where you add a check in comment&quot;,
+     (obj, evt) =&gt;
+     {
+         Console.WriteLine(evt.StatusMessage + &quot; &quot; + evt.PercentComplete + &quot;% complete&quot;);
+
+         if (cancelledByUser)
+         {
+             evt.Cancel = true;
+         }
+     });
+</code></pre></section>
+</div>
+<h2 id="see-also">See Also</h2>
+<p><a href="about_server_based_projects.html">About Server Based Projects</a></p>
+<p><a href="connecting_a_project_to_a_project_server.html">Connecting a Project to a Project Server</a></p>
+<p><a href="viewing_and_deleting_published_projects.html">Viewing and Deleting Published Projects</a></p>
+<p><a href="checking_files_in_and_out.html">Checking Files In and Out</a></p>
+<p><a href="putting_it_all_together.html">Putting it All Together</a></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/15.2/apiconcepts/projectautomation/downloading_and_uploading_files.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

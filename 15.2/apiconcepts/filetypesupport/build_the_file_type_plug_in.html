@@ -1,0 +1,190 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Build the File Type Plug-in </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Build the File Type Plug-in ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="build-the-file-type-plug-in">Build the File Type Plug-in</h1>
+
+<p>This chapter contains important information on building your file type plug-in and on the plug-in package file, which is created during the building process.</p>
+<h2 id="the-plug-in-package">The Plug-in Package</h2>
+<p>Building the project will generate a <em>*.sdlplugin</em> file, in our example Sdl.Sdk.FileTypeSupport.Samples.SimpleText.sdlplugin, which will be placed inside your build output path. The <em>*.sdlplugin</em> file is technically speaking a ZIP archive that contains the required plug-in components such as the plug-in binary (<em>.dll itself), the resources file, the manifest etc. For our example, the **.sdlplugin</em> file will contain the following:</p>
+<ul>
+<li>The plug-in assembly, e.g. <strong>Sdl.Sdk.FileTypeSupport.Samples.SimpleText.dll</strong></li>
+<li>The plug-in manifest, e.g. <strong>Sdl.Sdk.FileTypeSupport.Samples.SimpleText.plugin.xml</strong>. The manifest lists information on any extension classes that the plug-in contains. It is this manifest that will be created during the build process. It declares the assembly and the corresponding extension classes to Trados Studio. By deleting this manifest <em>*.xml</em> file you would actually deactivate the plug-in and &#39;hide&#39; it from the application.</li>
+<li>The plug-in resources file, e.g. <strong>Sdl.Sdk.FileTypeSupport.Samples.SimpleText.plugin.resources</strong>. This resources file contains all the localizable strings and images referred to within the plug-in manifest, and is compiled from <strong>PluginResources.resx</strong> (see also The <a href="the_resources_file.html">Resources File</a>).</li>
+</ul>
+<h2 id="the-plug-in-package-path">The Plug-in Package Path</h2>
+<p>In order for Trados Studio to pick up the plug-in package and to extract it, the following folders need to be available on your hard drive:</p>
+<p><strong>For Windows 10\ Windows 7\ Windows 8</strong>:</p>
+<ul>
+<li>%AppData%\Roaming\SDL\SDL Trados Studio\16\Plugins\Packages\ *</li>
+</ul>
+<p>and</p>
+<ul>
+<li>%AppData%\Roaming\SDL\SDL Trados Studio\16\Plugins\Unpacked\ *</li>
+</ul>
+<p>Make sure that you place the <em>*.sdlplugin</em> file into the sub-folder Packages and launch Trados Studio. During startup of Trados Studio the content of the package will be automatically extracted to the Unpacked sub-folder, as illustrated below:</p>
+<p>The above folder does not have to be the build output path, but it is convenient to build the project in this folder, as this will also create the <em>*.sdlplugin</em> file where it needs to be. After creating the plug-in based on the (empty) template, you could already build the project. However, it will, of course, not offer any functionality.</p>
+<p>Upon start-up Trados Studio will load the unpacked plug-in and show the following message, which you can confirm with <strong>Yes</strong>, so that the plug-in gets loaded. This message appears when loading plug-ins that have not been certified by RWS, which could potentially be unsafe. The message can be avoided by submitting your plug-in to RWS for certification.</p>
+<p><img src="images/NativeFilterWarning.jpg" alt="NativeFilterWarning"></p>
+<div class="NOTE"><h5>Note</h5><p>If a user clicks <strong>No</strong> when the plug-in security message is displayed during start-up of Trados Studio, the plug-in will not be shown in the application.</p>
+</div>
+<p>After loading the plug-in in Trados Studio, you can confirm that the plug-in has been added by raising the corresponding dialog box through the menu command <strong>Tools</strong> -&gt; <strong>Plug-ins</strong>. The <strong>Plug-ins</strong> dialog box should list the name of your newly created plug-in:</p>
+<p><img src="images/PlugInList.jpg" alt="PlugInList"></p>
+<h2 id="the-plug-in-manifest">The Plug-in Manifest</h2>
+<p>One essential piece of information required in order to build the plug-in package this is the plug-in package manifest, which is defined in the file <strong>pluginpackage.manifest.xml</strong>. This file is part of the project template. If this manifest is missing, the project package cannot be built.</p>
+<p>Below you see what the manifest of our sample plug-in looks like:</p>
+<div class="tabGroup" id="tabgroup_--Ujz8MJAr">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_--Ujz8MJAr_tabid-1" role="tab" aria-controls="tabpanel_--Ujz8MJAr_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">Xml</a>
+</li>
+</ul>
+<section id="tabpanel_--Ujz8MJAr_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;PluginPackage xmlns=&quot;http://www.sdl.com/Plugins/PluginPackage/1.0&quot;&gt;
+  &lt;PlugInName&gt;Sdl.Sdk.FileTypeSupport.Samples.SimpleText&lt;/PlugInName&gt;
+  &lt;Version&gt;1.0&lt;/Version&gt;
+  &lt;Description&gt;Sdl.Sdk.FileTypeSupport.Samples.SimpleText&lt;/Description&gt;
+  &lt;Author&gt;&lt;/Author&gt;
+  &lt;RequiredProduct name=&quot;SDLTradosStudio&quot; minversion=&quot;16.0&quot; /&gt;
+&lt;/PluginPackage&gt;
+</code></pre></section>
+</div>
+<p>The manifest contains the following information:</p>
+<ul>
+<li><strong>PlugInName</strong>: indicates the friendly name of the plugin. This string be different from the name of the plug-in that is defined in PluginResources.resx. The reason for this is that a plug-in package can - in theory - contain multiple plug-ins, which need to be distinguished.</li>
+<li><strong>Version</strong>: the version of the plug-in package. This information is used to detect any package updates upon start-up of Trados Studio, and is therefore important.</li>
+<li><strong>Description</strong>: descriptive information of the plug-in package.</li>
+<li><strong>Author</strong>: the name of the plug-in developer.</li>
+<li><strong>RequiredProduct</strong>: this string indicates which RWS product version is required to run the given plug-in. The information that you indicate here must include the minimum version, and can optionally include a maximum version.</li>
+</ul>
+<h2 id="build-and-debug-suggestions">Build and Debug Suggestions</h2>
+<p>Here are a couple of simple suggestions to help buld and debug your plug-in.</p>
+<ul>
+<li>Change your solution and project so that it runs Trados Studio by default.</li>
+<li>Change your project so that it the output is directed to the Trados Studio plug-in package directory - this will automatically deploy your plug-in. In Windows 7, the Trados Studioplug-in package directory is stored in %AppData%\Roaming\SDL\SDL Trados Studio\16\Plugins\Packages\.</li>
+<li>Change your project so that it deletes the previous unpacked version of your plug-in - this will ensure that Studio uses the latest version of your plug-in. This can be done using a post-build event.</li>
+</ul>
+<pre><code class="lang-txt">rmdir /S /Q &quot;&lt;Var:PluginUnpackedPath&gt; \Sdl.Sdk.FileTypeSupport.Samples.Bil&quot;
+</code></pre><h2 id="see-also">See Also</h2>
+<p><a href="creating_a_new_project.html">Creating a New Project</a></p>
+<div class="NOTE"><h5>Note</h5><p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+</div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/15.2/apiconcepts/filetypesupport/build_the_file_type_plug_in.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

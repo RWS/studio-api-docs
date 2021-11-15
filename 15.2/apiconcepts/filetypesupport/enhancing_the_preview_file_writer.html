@@ -1,0 +1,445 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Enhancing the Preview File Writer </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Enhancing the Preview File Writer ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="enhancing-the-preview-file-writer">Enhancing the Preview File Writer</h1>
+
+<p>In this chapter you will learn how to enhance the preview writer component to support the dynamic functionality of the real-time preview.</p>
+<h2 id="why-you-should-enhance-the-preview-writer">Why you Should Enhance the Preview Writer</h2>
+<p>For the static preview writer it was sufficient to output very simple HTML code (see <a href="implementing_the_preview_writer.html">Implementing the Preview Writer</a>). However, to implement a dynamic real-time preview, which allows users to click segments and jump to the corresponding row in the side-by-side editor, the preview needs to implement active elements through the addition of CSS and JavaScript.</p>
+<h2 id="enhance-the-html-header">Enhance the HTML Header</h2>
+<p>The currently selected (i.e. active) segment in the real-time preview should be highlighted, e.g. with a silver background, while unselected segments retain a white background. In our case, this can be best implemented through CSS stylesheets. Therefore, the header of the preview file will contain the following styles, which are applied to the currently selected segment (<code>activesegment</code>) and to the unselected segments (<code>normal</code>).</p>
+<div class="tabGroup" id="tabgroup_inf0ZuX6OC">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_inf0ZuX6OC_tabid-1" role="tab" aria-controls="tabpanel_inf0ZuX6OC_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">HTML</a>
+</li>
+</ul>
+<section id="tabpanel_inf0ZuX6OC_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-html">&lt;style type=&quot;text/css&quot;&gt;
+        body {color:grey; font-size:10pt; font-family:@Arial Unicode MS;}
+        span {color:black; cursor:hand;}
+
+        // real-time preview related styles
+        .activesegment {color:red; background-color:silver; cursor:hand;}
+        .normal {color:black; background-color:white; cursor:hand;}                
+ &lt;/style&gt;
+</code></pre></section>
+</div>
+<p>Moreover, we will use two JavaScript functions to apply the <code>activesegment</code> or the normal styles. These JavaScript functions can later be called from the Web browser preview control, which we will implement in one of the following chapters (see <a href="adding_a_preview_ui_control.html">Adding a Preview UI Control</a>).</p>
+<div class="tabGroup" id="tabgroup_inf0ZuX6OC-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_inf0ZuX6OC-1_tabid-2" role="tab" aria-controls="tabpanel_inf0ZuX6OC-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_inf0ZuX6OC-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<pre><code class="lang-html">&lt;script type=&quot;text/javascript&quot;&gt;
+    function setActiveStyle(objDivID)
+    {
+            document.getElementById(objDivID).className = &#39;activesegment&#39;;
+    }
+
+    function setNormalStyle(objDivID)
+    {
+            document.getElementById(objDivID).className = &#39;normal&#39;;
+    }
+       &lt;/script&gt;
+</code></pre></section>
+</div>
+<p>First, it is best to add a separate helper function that generates the HTML header as shown below:</p>
+<div class="tabGroup" id="tabgroup_inf0ZuX6OC-2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_inf0ZuX6OC-2_tabid-3" role="tab" aria-controls="tabpanel_inf0ZuX6OC-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_inf0ZuX6OC-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<pre><code class="lang-cs">// write the HTML header, which contains CSS styles
+// and JavaScript functions, which can be called from the
+// preview viewer control
+private string GetHTMLStart()
+{
+    string header = &quot;&lt;!DOCTYPE HTML PUBLIC \&quot;-//W3C//DTD HTML 4.01 Transitional//EN\&quot;&gt;\n&quot;;
+    header += &quot;&lt;html&gt;\n&quot;;
+    header += &quot;&lt;head&gt;\n&quot;;
+    header += &quot;&lt;meta http-equiv=\&quot;content-type\&quot; content=\&quot;text/html; charset=utf-8\&quot;&gt;\n&quot;;
+    header += &quot;&lt;title&gt;&quot; + &quot;Preview&quot; + &quot;&lt;/title&gt;\n&quot;;
+
+    header += &quot;&lt;style type=\&quot;text/css\&quot;&gt;\n&quot;;
+    header += &quot;&lt;!--\n&quot;;
+    header += &quot;body{color:grey; font-size:10pt;font-family: @Arial Unicode MS;}\n&quot;;
+    header += &quot;span{color:black;cursor: hand;}\n&quot;;
+
+    //real-time preview related styles
+    header += &quot;.activesegment{color:red;background-color: silver;cursor: hand;}\n&quot;;
+    header += &quot;.normal{color:black;background-color: white;cursor: hand;}\n&quot;;
+    header += &quot;//--&gt;\n&quot;;
+    header += &quot;&lt;/style&gt;\n&quot;;
+
+    //real-time preview related JavaScript functions
+    header += &quot;&lt;script type=\&quot;text/javascript\&quot;&gt;\n&quot;;
+    header += &quot;&lt;!--\n&quot;;
+    header += &quot;function setActiveStyle(objDivID)\n&quot;;
+    header += &quot;{\n&quot;;
+    header += &quot;document.getElementById(objDivID).className = &#39;activesegment&#39;;\n&quot;;
+    header += &quot;}\n&quot;;
+    header += &quot;function setNormalStyle(objDivID)\n&quot;;
+    header += &quot;{\n&quot;;
+    header += &quot;document.getElementById(objDivID).className = &#39;normal&#39;;\n&quot;;
+    header += &quot;}\n&quot;;
+    header += &quot;//--&gt;\n&quot;;
+    header += &quot;&lt;/script&gt;\n&quot;;
+
+    header += &quot;&lt;/head&gt;\n&quot;;
+    header += &quot;&lt;body&gt;\n&quot;;
+    return header;
+}
+</code></pre></section>
+</div>
+<p>Modify the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.html#Sdl_FileTypeSupport_Framework_NativeApi_INativeContentCycleAware_StartOfInput">StartOfInput</a> member as shown below to call the above helper function, which generates the HTML header:</p>
+<div class="tabGroup" id="tabgroup_inf0ZuX6OC-3">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_inf0ZuX6OC-3_tabid-4" role="tab" aria-controls="tabpanel_inf0ZuX6OC-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_inf0ZuX6OC-3_tabid-4" role="tabpanel" data-tab="tabid-4">
+<pre><code class="lang-cs">// start the preview output
+public void StartOfInput()
+{
+    _preview = new StreamWriter(OutputProperties.OutputFilePath);
+    _preview.WriteLine(GetHTMLStart());
+}
+</code></pre></section>
+</div>
+<h2 id="enhance-the-segment-output-to-allow-for-navigation">Enhance the Segment Output to Allow for Navigation</h2>
+<p>To determine a particular segment to be highlighted in the real-time preview when the user selects it in the side-by-side editor (or vice versa), you require two parameters: the paragraph unit id and the segment id.</p>
+<p>First, we add the paragraph unit as a string member to the writer class:</p>
+<div class="tabGroup" id="tabgroup_inf0ZuX6OC-4">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_inf0ZuX6OC-4_tabid-5" role="tab" aria-controls="tabpanel_inf0ZuX6OC-4_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_inf0ZuX6OC-4_tabid-5" role="tabpanel" data-tab="tabid-5">
+<pre><code class="lang-cs">string _paragraphUnitId = String.Empty;
+</code></pre></section>
+</div>
+<p>Then we enhance the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileWriter.html#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileWriter_ParagraphUnitStart_Sdl_FileTypeSupport_Framework_NativeApi_IParagraphUnitProperties_">ParagraphUnitStart</a> method to set the value of <code>_paragraphUnitId</code> to the id of the currently selected paragraph unit.</p>
+<div class="tabGroup" id="tabgroup_inf0ZuX6OC-5">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_inf0ZuX6OC-5_tabid-6" role="tab" aria-controls="tabpanel_inf0ZuX6OC-5_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_inf0ZuX6OC-5_tabid-6" role="tabpanel" data-tab="tabid-6">
+<pre><code class="lang-cs">// each paragraph unit should appear in a new line
+// therefore use a DIV element
+public override void ParagraphUnitStart(IParagraphUnitProperties properties)
+{
+    _preview.WriteLine(&quot;&lt;div&gt;&quot;);
+    _paragraphUnitId = properties.ParagraphUnitId.Id;
+</code></pre></section>
+</div>
+<p>Next, we make the segments in the real-time preview &#39;clickable&#39; by outputting the following HTML through the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileWriter.html#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileWriter_SegmentStart_Sdl_FileTypeSupport_Framework_NativeApi_ISegmentPairProperties_">SegmentStart</a> method:</p>
+<div class="tabGroup" id="tabgroup_inf0ZuX6OC-6">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_inf0ZuX6OC-6_tabid-7" role="tab" aria-controls="tabpanel_inf0ZuX6OC-6_tabid-7" data-tab="tabid-7" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_inf0ZuX6OC-6_tabid-7" role="tabpanel" data-tab="tabid-7">
+<pre><code class="lang-cs">// enclose each segment in a SPAN tag pair
+public override void SegmentStart(ISegmentPairProperties properties)
+{
+        _preview.Write(&quot;&lt;span id=\&quot;&quot; + properties.Id.Id + &quot;\&quot; onClick=\&quot;window.external.SelectSegment(&#39;&quot; + _paragraphUnitId + &quot;&#39;,&#39;&quot; + properties.Id.Id + &quot;&#39;)\&quot; &gt;&quot;);
+}
+</code></pre></section>
+</div>
+<p>The <strong>SPAN</strong> tag now includes an onClick event handler, which passes the segment id and the paragraph unit id.
+Below you see an example of the HTML code the enhanced preview writer will generate for a paragraph unit that contains two segments:</p>
+<div class="tabGroup" id="tabgroup_inf0ZuX6OC-7">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_inf0ZuX6OC-7_tabid-8" role="tab" aria-controls="tabpanel_inf0ZuX6OC-7_tabid-8" data-tab="tabid-8" tabindex="0" aria-selected="true">HTML</a>
+</li>
+</ul>
+<section id="tabpanel_inf0ZuX6OC-7_tabid-8" role="tabpanel" data-tab="tabid-8">
+<pre><code class="lang-html">&lt;div&gt; 
+&lt;span id=&quot;5&quot; onclick=&quot;window.external.SelectSegment(&#39;5445c60d-445a-48ef-8623-8c63d56a9a51&#39;,&#39;5&#39;)&quot;&gt;
+Prompt me to re-open previously edited documents.
+&lt;/span&gt; 
+&lt;span id=&quot;6&quot; onclick=&quot;window.external.SelectSegment(&#39;5445c60d-445a-48ef-8623-8c63d56a9a51&#39;,&#39;6&#39;)&quot;&gt;
+Opens a dialog box on start-up.
+&lt;/span&gt;
+&lt;/div&gt;
+</code></pre></section>
+</div>
+<h2 id="putting-it-all-together">Putting it All Together</h2>
+<p>Your enhanced preview writer class should now look as shown below. Note that the same preview writer can be used both for the internal static and the real-time preview. There is no harm in having the styles and JavaScript functions in the static preview, they will just never be called.</p>
+<div class="tabGroup" id="tabgroup_inf0ZuX6OC-8">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_inf0ZuX6OC-8_tabid-9" role="tab" aria-controls="tabpanel_inf0ZuX6OC-8_tabid-9" data-tab="tabid-9" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_inf0ZuX6OC-8_tabid-9" role="tabpanel" data-tab="tabid-9">
+<pre><code class="lang-cs">using System;
+using System.IO;
+using Sdl.FileTypeSupport.Framework.BilingualApi;
+using Sdl.FileTypeSupport.Framework.NativeApi;
+
+namespace Sdk.FileTypeSupport.Samples.SimpleText.Preview
+{
+    class InternalPreviewWriter : AbstractNativeFileWriter, INativeContentCycleAware
+    {
+        StreamWriter _preview = null;
+        string _paragraphUnitId = String.Empty;
+
+        public void SetFileProperties(IFileProperties properties)
+        {
+            // not used in this implementation
+        }
+
+        #region &quot;start output&quot;
+        // start the preview output
+        public void StartOfInput()
+        {
+            _preview = new StreamWriter(OutputProperties.OutputFilePath);
+            _preview.WriteLine(GetHTMLStart());
+        }
+        #endregion
+
+        #region &quot;text&quot;
+        // output the translatable strings
+        public override void Text(ITextProperties textInfo)
+        {            
+            _preview.Write(textInfo.Text);
+        }
+        #endregion
+
+        #region &quot;para&quot;
+        #region &quot;para start&quot;
+        // each paragraph unit should appear in a new line
+        // therefore use a DIV element
+        public override void ParagraphUnitStart(IParagraphUnitProperties properties)
+        {
+            _preview.WriteLine(&quot;&lt;div&gt;&quot;);
+            _paragraphUnitId = properties.ParagraphUnitId.Id;
+        }
+        #endregion
+
+
+        public override void ParagraphUnitEnd()
+        {
+            _preview.Write(&quot;&lt;/div&gt;&quot;);
+        }
+        #endregion
+
+
+        #region &quot;segment&quot;
+        // enclose each segment in a SPAN tag pair
+        public override void SegmentStart(ISegmentPairProperties properties)
+        {
+                _preview.Write(&quot;&lt;span id=\&quot;&quot; + properties.Id.Id + &quot;\&quot; onClick=\&quot;window.external.SelectSegment(&#39;&quot; + _paragraphUnitId + &quot;&#39;,&#39;&quot; + properties.Id.Id + &quot;&#39;)\&quot; &gt;&quot;);
+        }
+        #endregion
+
+        public override void SegmentEnd()
+        {
+            _preview.Write(&quot;&lt;/span&gt;&quot;);
+        }
+
+
+        #region &quot;inline tags&quot;
+        // output any inline tags,
+        // which will also apply the corresponding character formatting
+        public override void InlineStartTag(IStartTagProperties tagInfo)
+        {
+            _preview.Write(tagInfo.TagContent);
+        }
+
+        public override void InlineEndTag(IEndTagProperties tagInfo)
+        {
+            _preview.Write(tagInfo.TagContent);
+        }
+        #endregion
+
+
+
+        #region &quot;end output&quot;
+        // end the preview output
+        public void EndOfInput()
+        {
+            _preview.WriteLine(&quot;&lt;/body&gt;&lt;/html&gt;&quot;);
+            _preview.Close();
+        }
+        #endregion
+
+        #region &quot;html start&quot;
+        // write the HTML header, which contains CSS styles
+        // and JavaScript functions, which can be called from the
+        // preview viewer control
+        private string GetHTMLStart()
+        {
+            string header = &quot;&lt;!DOCTYPE HTML PUBLIC \&quot;-//W3C//DTD HTML 4.01 Transitional//EN\&quot;&gt;\n&quot;;
+            header += &quot;&lt;html&gt;\n&quot;;
+            header += &quot;&lt;head&gt;\n&quot;;
+            header += &quot;&lt;meta http-equiv=\&quot;content-type\&quot; content=\&quot;text/html; charset=utf-8\&quot;&gt;\n&quot;;
+            header += &quot;&lt;title&gt;&quot; + &quot;Preview&quot; + &quot;&lt;/title&gt;\n&quot;;
+
+            header += &quot;&lt;style type=\&quot;text/css\&quot;&gt;\n&quot;;
+            header += &quot;&lt;!--\n&quot;;
+            header += &quot;body{color:grey; font-size:10pt;font-family: @Arial Unicode MS;}\n&quot;;
+            header += &quot;span{color:black;cursor: hand;}\n&quot;;
+
+            //real-time preview related styles
+            header += &quot;.activesegment{color:red;background-color: silver;cursor: hand;}\n&quot;;
+            header += &quot;.normal{color:black;background-color: white;cursor: hand;}\n&quot;;
+            header += &quot;//--&gt;\n&quot;;
+            header += &quot;&lt;/style&gt;\n&quot;;
+
+            //real-time preview related JavaScript functions
+            header += &quot;&lt;script type=\&quot;text/javascript\&quot;&gt;\n&quot;;
+            header += &quot;&lt;!--\n&quot;;
+            header += &quot;function setActiveStyle(objDivID)\n&quot;;
+            header += &quot;{\n&quot;;
+            header += &quot;document.getElementById(objDivID).className = &#39;activesegment&#39;;\n&quot;;
+            header += &quot;}\n&quot;;
+            header += &quot;function setNormalStyle(objDivID)\n&quot;;
+            header += &quot;{\n&quot;;
+            header += &quot;document.getElementById(objDivID).className = &#39;normal&#39;;\n&quot;;
+            header += &quot;}\n&quot;;
+            header += &quot;//--&gt;\n&quot;;
+            header += &quot;&lt;/script&gt;\n&quot;;
+
+            header += &quot;&lt;/head&gt;\n&quot;;
+            header += &quot;&lt;body&gt;\n&quot;;
+            return header;
+        }
+        #endregion
+    }
+}
+</code></pre></section>
+</div>
+<div class="NOTE"><h5>Note</h5><p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+</div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/15.2/apiconcepts/filetypesupport/enhancing_the_preview_file_writer.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

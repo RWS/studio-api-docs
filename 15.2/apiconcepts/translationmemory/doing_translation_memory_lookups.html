@@ -1,0 +1,471 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Doing Translation Memory Lookups </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Doing Translation Memory Lookups ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="doing-translation-memory-lookups">Doing Translation Memory Lookups</h1>
+
+<p>The most common operation performed on a translation memory involves looking up whole segments or searching single words/expressions through a concordance search. This chapter will show to you how to perform TM lookups programmatically. The aim is to develop a simplified application that searches a selected TM for a particular string. The application should be configurable to perform e.g. a normal segment search or a concordance search:</p>
+<h2 id="add-a-new-class">Add a New Class</h2>
+<p>Add a new class called <code>TmLookup</code> to your project. Then implement a function called <code>SearchForText</code>, which takes the TM file name and path, the search string and the search mode (i.e. segment lookup or concordance search) as parameters. This function can be called as shown in the example below:</p>
+<div class="tabGroup" id="tabgroup_6rK+BetqPm">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_6rK+BetqPm_tabid-1" role="tab" aria-controls="tabpanel_6rK+BetqPm_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_6rK+BetqPm_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-cs">TMLookup search = new TMLookup();
+search.SearchForText(_translationMemoryFilePath, &quot;To run the Spelling Checker:&quot;, SearchMode.NormalSearch);
+</code></pre></section>
+</div>
+<h2 id="execute-the-search-and-configure-the-search-settings">Execute the Search and Configure the Search Settings</h2>
+<p>After opening the TM the search is executed by applying the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.AbstractMachineTranslationProviderLanguageDirection.html#Sdl_LanguagePlatform_TranslationMemoryApi_AbstractMachineTranslationProviderLanguageDirection_SearchText_Sdl_LanguagePlatform_TranslationMemory_SearchSettings_System_String_">SearchText</a> method to the language direction of the selected TM, thereby creating a results object, which holds the search results (if any).</p>
+<div class="tabGroup" id="tabgroup_6rK+BetqPm-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_6rK+BetqPm-1_tabid-2" role="tab" aria-controls="tabpanel_6rK+BetqPm-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_6rK+BetqPm-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<pre><code class="lang-cs">FileBasedTranslationMemory tm = new FileBasedTranslationMemory(tmPath);
+SearchResults results = tm.LanguageDirection.SearchText(this.GetSearchSettings(mode), searchText);
+</code></pre></section>
+</div>
+<p>The <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.AbstractMachineTranslationProviderLanguageDirection.html#Sdl_LanguagePlatform_TranslationMemoryApi_AbstractMachineTranslationProviderLanguageDirection_SearchText_Sdl_LanguagePlatform_TranslationMemory_SearchSettings_System_String_">SearchText</a> method requires the search string as well as the search settings as parameters. The search parameters are configured in a separate helper function:</p>
+<div class="tabGroup" id="tabgroup_6rK+BetqPm-2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_6rK+BetqPm-2_tabid-3" role="tab" aria-controls="tabpanel_6rK+BetqPm-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_6rK+BetqPm-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<pre><code class="lang-cs">private SearchSettings GetSearchSettings(SearchMode mode)
+{
+    SearchSettings settings = new SearchSettings();
+
+    settings.MaxResults = 5;
+    settings.MinScore = 70;
+    settings.Mode = mode;
+    settings.FindPenalty(PenaltyType.FilterPenalty);
+
+    return settings;
+}
+</code></pre></section>
+</div>
+<p>Here, you can set, for example, the minimum fuzziness score (<strong>MinScore</strong>) that a TU should have to be offered as a result. Trados Studio uses a default minimum fuzziness value of 70%. You may choose a higher value to restrict the search so that it yields only results that are potentially of better quality. You can also restrict the maximum number of results that should be returned (<strong>MaxResults</strong>).</p>
+<p>Trados Studio uses a default maximum results count of 5. This means that even if the TM contains, for example, 10 potential matches, only the first 5 (best) matches will be returned. Note that setting the minimum fuzziness score and the maximum number of results can have an impact on search performance. The more results potentially need to be returned, and the deeper the search needs to go, the longer the search might take. It usually takes more time to retrieve a low fuzzy match (e.g. 60%) then to retrieve an exact match or a high fuzzy match.</p>
+<p>Another parameter that we pass in this implementation is the search mode, which can be configured, for example, to execute a concordance search, i.e. the search type that looks up all segments that contain a particular string. Note that the search mode can be set to do a concordance search in the source or target segment, provided that during TM creation (<a href="creating_a_file_based_translation_memory.html">Creating a File-based Translation Memory</a>) the database has been configured to index the target segments. You can also set the mode to perform a segment lookup using the values of the <strong>SearchMode</strong> enumerator. By default, Trados Studio performs a <strong>NormalSearch</strong> search. This means that fuzzy matches are only retrieved if no exact or context match has been found. <strong>FullSearch</strong> also yields fuzzy matches even if an exact match has been found. Usually, the exact matches are the ones that translators will insert into the target document. However, in rare instances, a fuzzy match might prove more useful than the exact match. Note that retrieving fuzzy matches even if exact matches have been found can also have an impact on the TM lookup performance.</p>
+<h2 id="run-a-filtered-search">Run a Filtered Search</h2>
+<p>Trados Studio allows you to define one or several filter criteria that can be applied during a TM search. Example: You want to focus on TUs that are associated with the customer <em>Microsoft</em>, i.e. where the <em>Customer</em> field contains the value <em>Microsoft</em>. TUs that do not match this filter can still be found, however, a penalty is applied to them. Example: A TU matches a particular segment exactly, i.e. it has the score 100%. However, as it does not match the specified filter, a penalty of 1% is applied, which reduces the score to 99%. This is done to draw the translator&#39;s attention to the fact that the suggested translation might not fit the current context, as it was not created for the specified customer.</p>
+<p>The screenshot below shows an example of a filter that applies a penalty of 1% to any TUs that do not have with the <em>Subject</em> field value <em>Technology</em>:</p>
+<p><img src="images/FilterPenalty.jpg" alt="FilterPenalty"></p>
+<p>In order to apply a filter to your search, expand the helper function <code>GetSearchSettings</code> by adding the two following lines:</p>
+<div class="tabGroup" id="tabgroup_6rK+BetqPm-3">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_6rK+BetqPm-3_tabid-4" role="tab" aria-controls="tabpanel_6rK+BetqPm-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_6rK+BetqPm-3_tabid-4" role="tabpanel" data-tab="tabid-4">
+<pre><code class="lang-cs">Filter filter = new Filter(this.GetFilter(), &quot;Microsoft&quot;, 1);
+settings.AddFilter(filter);
+</code></pre></section>
+</div>
+<p>First, a new filter object is created. This is done by calling a separate helper function called <code>GetFilter</code>, which we will implement in the next step, and which defines the actual filter expression (i.e. the filter criterion). You then provide the filter name as string (which can be any descriptive name) and the penalty value to apply. Then the filter is added to the settings object using the <strong>AddFilter</strong> method.</p>
+<p>Now you add the helper function that returns the <strong>FilterExpression</strong> object. As mentioned above, you would like to focus on TUs where the <em>Customer</em> field is equal to the value <em>Microsoft</em>. Note that in this example, <em>Customer</em> is a picklist field that allows multiple values. The following sample code shows you how to set the field name and value and how to build a filter criterion:</p>
+<div class="tabGroup" id="tabgroup_6rK+BetqPm-4">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_6rK+BetqPm-4_tabid-5" role="tab" aria-controls="tabpanel_6rK+BetqPm-4_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_6rK+BetqPm-4_tabid-5" role="tabpanel" data-tab="tabid-5">
+<pre><code class="lang-cs">PicklistItem fieldName = new PicklistItem(&quot;Customer&quot;);
+MultiplePicklistFieldValue fieldValue = new MultiplePicklistFieldValue(&quot;Microsoft&quot;);
+fieldValue.Add(fieldName);
+</code></pre></section>
+</div>
+<p>In the next step you use the <strong>AtomicExpression</strong> class to create the filter expression to return to the function that we use to configure the search settings. The parameters required are the field value and the operator. In our case, the filter calls for an <strong>Equal</strong> value. (Other possible values could be <strong>Contains</strong>, <strong>Greater</strong>, <strong>Smaller</strong>, etc.)</p>
+<div class="tabGroup" id="tabgroup_6rK+BetqPm-5">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_6rK+BetqPm-5_tabid-6" role="tab" aria-controls="tabpanel_6rK+BetqPm-5_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_6rK+BetqPm-5_tabid-6" role="tabpanel" data-tab="tabid-6">
+<pre><code class="lang-cs">AtomicExpression filter = new AtomicExpression(fieldValue, AtomicExpression.Operator.Equal);
+return filter;
+</code></pre></section>
+</div>
+<p>The full function for returning the filter expression thus looks as shown below:</p>
+<div class="tabGroup" id="tabgroup_6rK+BetqPm-6">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_6rK+BetqPm-6_tabid-7" role="tab" aria-controls="tabpanel_6rK+BetqPm-6_tabid-7" data-tab="tabid-7" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_6rK+BetqPm-6_tabid-7" role="tabpanel" data-tab="tabid-7">
+<pre><code class="lang-cs">private FilterExpression GetFilter()
+{
+    #region &quot;SimpleCriterion&quot;
+    PicklistItem fieldName = new PicklistItem(&quot;Customer&quot;);
+    MultiplePicklistFieldValue fieldValue = new MultiplePicklistFieldValue(&quot;Microsoft&quot;);
+    fieldValue.Add(fieldName);
+    #endregion
+
+    #region &quot;SimpleFilter&quot;
+    AtomicExpression filter = new AtomicExpression(fieldValue, AtomicExpression.Operator.Equal);
+    return filter;
+    #endregion
+}
+</code></pre></section>
+</div>
+<div class="NOTE"><h5>Note</h5><p>Filter names must not contain spaces.</p>
+</div>
+<h2 id="output-the-search-results">Output the Search Results</h2>
+<p>After executing the search, you will want to output the result (if any). In our simple implementation we will use a message box, which should include the following:</p>
+<ul>
+<li>The hit count.</li>
+<li>The source/target segments of the matching TUs that were found in the TM</li>
+<li>The match score, so that users can ascertain at a glance whether the match is of higher or lower quality.</li>
+<li>The origin - this property will indicate <strong>TM</strong> in our example, as we are searching in a TM. Translators might also consult other translation providers such as online machine translation engines. In this case, the origin will not be a TM.</li>
+<li>The TU creation date, which helps users ascertain how up to date a particular TU is.</li>
+</ul>
+<p>The following code loops through the search results and compiles a string with the above mentioned information.</p>
+<div class="tabGroup" id="tabgroup_6rK+BetqPm-7">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_6rK+BetqPm-7_tabid-8" role="tab" aria-controls="tabpanel_6rK+BetqPm-7_tabid-8" data-tab="tabid-8" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_6rK+BetqPm-7_tabid-8" role="tabpanel" data-tab="tabid-8">
+<pre><code class="lang-cs">string hitList = &quot;Number of hits found: &quot; + results.Count.ToString() + &quot;\n\n&quot;;
+
+foreach (SearchResult result in results)
+{
+    hitList += &quot;Source segment: &quot; + result.MemoryTranslationUnit.SourceSegment.ToPlain() + &quot;\n&quot;;
+    hitList += &quot;Target segment: &quot; + result.MemoryTranslationUnit.TargetSegment.ToPlain() + &quot;\n&quot;;
+    hitList += &quot;Created on: &quot; + result.MemoryTranslationUnit.SystemFields.CreationDate.ToString() + &quot;\n&quot;;
+    hitList += &quot;Origin: &quot; + result.MemoryTranslationUnit.Origin.ToString() + &quot;\n&quot;;
+    hitList += &quot;Match value: &quot; + result.ScoringResult.Match.ToString() + &quot;\n\n&quot;;
+}
+
+MessageBox.Show(hitList);
+</code></pre></section>
+</div>
+<p>Below is an example of a result displayed in the message box:</p>
+<p><img src="images/HitListSample.jpg" alt="HitListSample"></p>
+<h2 id="search-for-segment-or-tu">Search for Segment or TU</h2>
+<p>In the example above we provided a &#39;normal&#39; string as search parameter when applying the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.AbstractMachineTranslationProviderLanguageDirection.html#Sdl_LanguagePlatform_TranslationMemoryApi_AbstractMachineTranslationProviderLanguageDirection_SearchText_Sdl_LanguagePlatform_TranslationMemory_SearchSettings_System_String_">SearchText</a> method. Alternatively, you can also search for a segment or TU object by using <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderLanguageDirection.html#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderLanguageDirection_SearchSegment_Sdl_LanguagePlatform_TranslationMemory_SearchSettings_Sdl_LanguagePlatform_Core_Segment_">SearchSegment</a> or <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderLanguageDirection.html#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderLanguageDirection_SearchTranslationUnit_Sdl_LanguagePlatform_TranslationMemory_SearchSettings_Sdl_LanguagePlatform_TranslationMemory_TranslationUnit_">SearchTranslationUnit</a>. The following sample function outlines how to create and use a <strong>Segment</strong> object to carry out a TM search:</p>
+<div class="tabGroup" id="tabgroup_6rK+BetqPm-8">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_6rK+BetqPm-8_tabid-9" role="tab" aria-controls="tabpanel_6rK+BetqPm-8_tabid-9" data-tab="tabid-9" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_6rK+BetqPm-8_tabid-9" role="tabpanel" data-tab="tabid-9">
+<pre><code class="lang-cs">public void SearchForSegment(string tmPath)
+{
+    FileBasedTranslationMemory tm = new FileBasedTranslationMemory(tmPath);
+    SearchSettings settings = new SearchSettings();
+    settings.MaxResults = 5;
+
+    Segment srcSegment = new Segment(tm.LanguageDirection.SourceLanguage);
+    srcSegment.Add(&quot;Configure the spelling checker as shown below:&quot;);
+    SearchResults results = tm.LanguageDirection.SearchSegment(settings, srcSegment);
+
+    foreach (SearchResult result in results)
+    {
+        MessageBox.Show(result.TranslationProposal.TargetSegment.ToPlain());
+    }
+}
+</code></pre></section>
+</div>
+<p>And the sample function below demonstrates how to create and use a <strong>TranslationUnit</strong> object for a TM search:</p>
+<div class="tabGroup" id="tabgroup_6rK+BetqPm-9">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_6rK+BetqPm-9_tabid-10" role="tab" aria-controls="tabpanel_6rK+BetqPm-9_tabid-10" data-tab="tabid-10" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_6rK+BetqPm-9_tabid-10" role="tabpanel" data-tab="tabid-10">
+<pre><code class="lang-cs">public void SearchForTu(string tmPath)
+{
+    FileBasedTranslationMemory tm = new FileBasedTranslationMemory(tmPath);
+    SearchSettings settings = new SearchSettings();
+    settings.MaxResults = 5;
+
+    TranslationUnit tu = new TranslationUnit();
+    tu.SourceSegment = new Segment(tm.LanguageDirection.SourceLanguage);
+    tu.TargetSegment = new Segment(tm.LanguageDirection.TargetLanguage);
+
+    tu.SourceSegment.Add(&quot;Configure the spelling checker as shown below:&quot;);
+    tu.TargetSegment.Add(&quot;Konfigurieren Sie die Rechtschreibprüfung wie unten gezeigt:&quot;);
+
+    SearchResults results = tm.LanguageDirection.SearchTranslationUnit(settings, tu);
+
+    foreach (SearchResult result in results)
+    {
+        MessageBox.Show(result.TranslationProposal.TargetSegment.ToPlain());
+    }
+}
+</code></pre></section>
+</div>
+<h2 id="putting-it-all-together">Putting it All Together</h2>
+<p>The complete class should now look as shown below:</p>
+<div class="tabGroup" id="tabgroup_6rK+BetqPm-10">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_6rK+BetqPm-10_tabid-11" role="tab" aria-controls="tabpanel_6rK+BetqPm-10_tabid-11" data-tab="tabid-11" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_6rK+BetqPm-10_tabid-11" role="tabpanel" data-tab="tabid-11">
+<pre><code class="lang-cs">namespace SDK.LanguagePlatform.Samples.TmAutomation
+{
+    using System.Windows.Forms;
+    using Sdl.LanguagePlatform.Core;
+    using Sdl.LanguagePlatform.TranslationMemory;
+    using Sdl.LanguagePlatform.TranslationMemoryApi;
+
+    public class TMLookup
+    {
+        #region &quot;searchTU&quot;
+        public void SearchForText(string tmPath, string searchText, SearchMode mode)
+        {
+            #region &quot;ExecuteSearch&quot;
+            FileBasedTranslationMemory tm = new FileBasedTranslationMemory(tmPath);
+            SearchResults results = tm.LanguageDirection.SearchText(this.GetSearchSettings(mode), searchText);
+            #endregion
+
+            #region &quot;histlist&quot;
+            string hitList = &quot;Number of hits found: &quot; + results.Count.ToString() + &quot;\n\n&quot;;
+
+            foreach (SearchResult result in results)
+            {
+                hitList += &quot;Source segment: &quot; + result.MemoryTranslationUnit.SourceSegment.ToPlain() + &quot;\n&quot;;
+                hitList += &quot;Target segment: &quot; + result.MemoryTranslationUnit.TargetSegment.ToPlain() + &quot;\n&quot;;
+                hitList += &quot;Created on: &quot; + result.MemoryTranslationUnit.SystemFields.CreationDate.ToString() + &quot;\n&quot;;
+                hitList += &quot;Origin: &quot; + result.MemoryTranslationUnit.Origin.ToString() + &quot;\n&quot;;
+                hitList += &quot;Match value: &quot; + result.ScoringResult.Match.ToString() + &quot;\n\n&quot;;
+            }
+
+            MessageBox.Show(hitList);
+            #endregion
+        }
+        #endregion
+
+        #region &quot;settings&quot;
+        private SearchSettings GetSearchSettings(SearchMode mode)
+        {
+            SearchSettings settings = new SearchSettings();
+
+            settings.MaxResults = 5;
+            settings.MinScore = 70;
+            settings.Mode = mode;
+            settings.FindPenalty(PenaltyType.FilterPenalty);
+
+            return settings;
+        }
+        #endregion
+
+        #region &quot;SettingsWithFilter&quot;
+        private SearchSettings GetSearchSettingsWithFilter(SearchMode mode)
+        {
+            SearchSettings settings = new SearchSettings();
+
+            settings.MaxResults = 5;
+            settings.MinScore = 70;
+            settings.Mode = mode;
+
+            #region &quot;SettingFilter&quot;
+            Filter filter = new Filter(this.GetFilter(), &quot;Microsoft&quot;, 1);
+            settings.AddFilter(filter);
+            #endregion
+
+            return settings;
+        }
+        #endregion
+
+        #region &quot;GetFilter&quot;
+        private FilterExpression GetFilter()
+        {
+            #region &quot;SimpleCriterion&quot;
+            PicklistItem fieldName = new PicklistItem(&quot;Customer&quot;);
+            MultiplePicklistFieldValue fieldValue = new MultiplePicklistFieldValue(&quot;Microsoft&quot;);
+            fieldValue.Add(fieldName);
+            #endregion
+
+            #region &quot;SimpleFilter&quot;
+            AtomicExpression filter = new AtomicExpression(fieldValue, AtomicExpression.Operator.Equal);
+            return filter;
+            #endregion
+        }
+        #endregion
+
+        #region &quot;SearchForSegment&quot;
+        public void SearchForSegment(string tmPath)
+        {
+            FileBasedTranslationMemory tm = new FileBasedTranslationMemory(tmPath);
+            SearchSettings settings = new SearchSettings();
+            settings.MaxResults = 5;
+
+            Segment srcSegment = new Segment(tm.LanguageDirection.SourceLanguage);
+            srcSegment.Add(&quot;Configure the spelling checker as shown below:&quot;);
+            SearchResults results = tm.LanguageDirection.SearchSegment(settings, srcSegment);
+
+            foreach (SearchResult result in results)
+            {
+                MessageBox.Show(result.TranslationProposal.TargetSegment.ToPlain());
+            }
+        }
+        #endregion
+
+        #region &quot;SearchForTu&quot;
+        public void SearchForTu(string tmPath)
+        {
+            FileBasedTranslationMemory tm = new FileBasedTranslationMemory(tmPath);
+            SearchSettings settings = new SearchSettings();
+            settings.MaxResults = 5;
+
+            TranslationUnit tu = new TranslationUnit();
+            tu.SourceSegment = new Segment(tm.LanguageDirection.SourceLanguage);
+            tu.TargetSegment = new Segment(tm.LanguageDirection.TargetLanguage);
+
+            tu.SourceSegment.Add(&quot;Configure the spelling checker as shown below:&quot;);
+            tu.TargetSegment.Add(&quot;Konfigurieren Sie die Rechtschreibprüfung wie unten gezeigt:&quot;);
+
+            SearchResults results = tm.LanguageDirection.SearchTranslationUnit(settings, tu);
+
+            foreach (SearchResult result in results)
+            {
+                MessageBox.Show(result.TranslationProposal.TargetSegment.ToPlain());
+            }
+        }
+        #endregion
+    }
+}
+</code></pre></section>
+</div>
+<h2 id="see-also">See Also</h2>
+<p><a href="performing_translation_memory_lookups.html">Performing Translation Memory Lookups</a></p>
+<p><a href="introduction_to_the_tm_lookup_tool.html">Introduction the TM Lookup Tool</a></p>
+<p><a href="exporting_to_a_tmx_file.html">Exporting to a TMX File</a></p>
+<p><a href="updating_translation_memories.html">Updating Translation Memories</a></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/15.2/apiconcepts/translationmemory/doing_translation_memory_lookups.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

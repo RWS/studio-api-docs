@@ -1,0 +1,206 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Enabling the Required Translation Provider Features </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Enabling the Required Translation Provider Features ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="enabling-the-required-translation-provider-features">Enabling the Required Translation Provider Features</h1>
+
+<p>Not all features that are typically supported by translation memories may make sense for a particular translation provider. For example, a machine translation translation provider will usually not offer concordance searching, nor will it be updated during the translation. Our sample plug-in should support segment lookup and concordance searching in the source and target language. However, the delimited list that contains translation solutions should not be updated, i.e. no write access will occur while the list is used.</p>
+<h2 id="implement-the-class-for-enabling-the-provider-features">Implement the Class for Enabling the Provider Features</h2>
+<p>In the project template the class that controls which features the plug-in supports is called <code>MyTranslationProvider</code>. For our sample provider, we will rename this class to <code>ListTranslationProvider</code>.</p>
+<p>This class implements the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider.html">ITranslationProvider</a> interface, which actually forms the main part of a custom translation provider plug-in implementation.</p>
+<p>This interface contains numerous members such as <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider.html#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProvider_SupportsConcordanceSearch">SupportsConcordanceSearch</a>, which you can set to return <code>True</code> or <code>False</code> depending on whether your implementation is supposed to support e.g. concordance searching or not.</p>
+<p>If you set the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider.html#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProvider_SupportsConcordanceSearch">SupportsConcordanceSearch</a> member to <code>True</code>, the <strong>Concordance</strong> check box for the selected provider will be enabled in the UI of Trados Studio, which should be the case for our implementation. Users can uncheck these options at runtime if, for some reason, the selected provider should not be taken into account when executing a concordance search. Example: While working, the user discovers that the concordance matches offered by a given translation provider are not helpful for a particular project. In this case, he/she can disable concordance searching for this particular provider, and focus on the matches returned by another provider, for example, a translation memory.</p>
+<p>The screenshot below shows an example in which a file TM has been selected for lookup, concordance, and updating. Our sample provider is only enabled for lookup and concordance searching.</p>
+<p><img style="display:block; " src="images/PlugInsSelected.jpg"></p>
+<p>In this chapter we will not explain the functions of all members (as they are quite numerous), but only the ones that are relevant for our particular implementation.</p>
+<ul>
+<li><p><strong>Concordance searching</strong>: As our implementation should support concordance searching, the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider.html#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProvider_SupportsConcordanceSearch">SupportsConcordanceSearch</a> member needs to return <code>True</code>:</p>
+<div class="tabGroup" id="tabgroup_ykQHNXaD0u">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_ykQHNXaD0u_tabid-1" role="tab" aria-controls="tabpanel_ykQHNXaD0u_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_ykQHNXaD0u_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-cs">public bool SupportsConcordanceSearch
+{
+    get { return true; }
+}
+</code></pre></section>
+</div>
+</li>
+<li><p><strong>Source/target concordance searching</strong>: The concordance search can be sub-divided into support for concordance searching in the source and/or the target language. Since our implementation is supposed to support concordance searching in both languages, the two following members will also be set to return <code>True</code>:</p>
+<pre><code class="lang-cs">public bool SupportsSourceConcordanceSearch
+{
+    get { return true; }
+}
+
+public bool SupportsTargetConcordanceSearch
+{
+    get { return true; }
+}
+</code></pre></li>
+<li><p><strong>Translation unit search</strong>: Our implementation should support matching of translation units to segments in the source document. Therefore, we set <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider.html#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProvider_SupportsSearchForTranslationUnits">SupportsSearchForTranslationUnits</a> to return <code>True</code>. Note that a translation unit in our implementation corresponds to a delimited line in the list file.</p>
+<pre><code class="lang-cs">public bool SupportsSearchForTranslationUnits
+{
+    get { return true; }
+}
+</code></pre></li>
+<li><p><strong>Fuzzy searching</strong>: The <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider.html#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProvider_SupportsFuzzySearch">SupportsFuzzySearch</a> should be set to return False, as our simplified implementation should only support exact matches:</p>
+<pre><code class="lang-cs">public bool SupportsFuzzySearch
+{
+    get { return false; }
+}
+</code></pre></li>
+</ul>
+<h2 id="examples-of-features-that-the-sample-implementation-does-not-support">Examples of Features that the Sample Implementation does not Support</h2>
+<p>Below are a few examples of members in the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider.html">ITranslationProvider</a> interface, which you might have to implement for your particular implementation, but that do not need to be used for our simple delimited list provider.</p>
+<p>As our sample plug-in is only supposed to look up and return plain text (i.e. no tagged input), the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider.html#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProvider_SupportsTaggedInput">SupportsTaggedInput</a> property can be set to return <code>False</code>:</p>
+<div class="tabGroup" id="tabgroup_ykQHNXaD0u-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_ykQHNXaD0u-1_tabid-2" role="tab" aria-controls="tabpanel_ykQHNXaD0u-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_ykQHNXaD0u-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<pre><code class="lang-cs">public bool SupportsTaggedInput
+{
+    get { return false; }
+}
+</code></pre></section>
+</div>
+<p>Also, the delimited lists are only supposed to be used for lookup, not for updating the translation provider. For this reason, the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider.html#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProvider_SupportsUpdate">SupportsUpdate`</a>property is also set to return <code>False</code>:</p>
+<div class="tabGroup" id="tabgroup_ykQHNXaD0u-2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_ykQHNXaD0u-2_tabid-3" role="tab" aria-controls="tabpanel_ykQHNXaD0u-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_ykQHNXaD0u-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<pre><code class="lang-cs">public bool SupportsUpdate
+{
+    get { return false; }
+}
+</code></pre></section>
+</div>
+<p>Returning <code>False</code> has a direct impact on the user interface of Trados Studio, as it will disable the Update check box as shown below:</p>
+<p><img style="display:block; " src="images/UpdateDisabled.jpg"></p>
+<p>This component of the plug-in is also used to determine whether the selected translation provider list actually supports the selected language combination. This is explained in detail in the next chapter (see <a href="verifying_the_language_pair_support.html">Verifying the Language Pair Support</a>).</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/15.2/apiconcepts/translationmemory/enabling_the_required_translation_provider_features.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>
