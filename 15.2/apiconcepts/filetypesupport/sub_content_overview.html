@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Sub Content Overview </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Sub Content Overview ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="sub-content-overview">Sub Content Overview</h1>
+
+<p>The  File Type Support Framework allows users to create sub-content filters or processors which handle content which is of a different format to the main content. For example, an XML file may contain a CDATA section which in turn contains HTML markup. The main XML filter processes the XML until it hits the CDATA section. It then passes the contents to the CDATA section to the framework and asks it to process this using an appropriate sub-content processor (in this example, an HTML processor)</p>
+<h2 id="handling-subcontent-in-the--file-type-support-framework">Handling SubContent in the  File Type Support Framework</h2>
+<p>The  File Type Support Framework supports handling of sub-content in the following manner:</p>
+<p>The main parser must be able to determine which of its content is to be treated as sub-content. In order to push the sub-content to the framework, it must implement the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ISubContentPublisher.html">ISubContentPublisher</a> interface. This interface defines an event named <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ISubContentPublisher.html#Sdl_FileTypeSupport_Framework_NativeApi_ISubContentPublisher_ProcessSubContent">ProcessSubContent</a> which is raised whenever the main parser wishes to pass off subcontent to the  File Type Support Framework. The main parser populates the properties of the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ProcessSubContentEventArgs.html">ProcessSubContentEventArgs</a> and then raises the event. The  File Type Support Framework takes the ID of the sub-content processor from the event arguments and uses this to set up this processor to handle the sub-content.</p>
+<p>The sub-content processor is a regular filter parser which implements the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ISubContentParser.html">ISubContentParser</a> interface. Two of its requirements are to be able to handle streams and document fragments. The parser receives the stream containing the sub-content when the  File Type Support Framework calls the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ISubContentParser.html#Sdl_FileTypeSupport_Framework_NativeApi_ISubContentParser_InitializeSubContentParser_System_IO_Stream_">InitializeSubContentParser</a> method. The parser must simply use this stream to parse the content from. Everything else is set up in the same way as for file-based parsing.</p>
+<p>For target regeneration, the framework makes calls to a sub-content writer which builds up the sub-content during these calls. The sub-content writer must implement the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ISubContentWriter.html">ISubContentWriter</a> interface. The framework initially calls the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ISubContentWriter.html#Sdl_FileTypeSupport_Framework_NativeApi_ISubContentWriter_InitializeSubContentWriter_System_IO_Stream_">InitializeSubContentWriter</a> method in order to pass in the original sub-content, in case the writer needs this data to reconstruct the generated content. Once all of the sub-content has been built up, the framework calls the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ISubContentWriter.html#Sdl_FileTypeSupport_Framework_NativeApi_ISubContentWriter_GetSubContentStream">GetSubContentStream</a> method in order to retrieve the sub-content stream from the writer. In order for the framework to pass the sub-content back to the main writer for insertion into its output stream, the main writer must implement the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ISubContentAware.html">ISubContentAware</a> interface. This allows the framework to call the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ISubContentAware.html#Sdl_FileTypeSupport_Framework_NativeApi_ISubContentAware_AddSubContent_System_IO_Stream_">AddSubContent</a> method and pass the sub-content to the main writer.</p>
+<p>In order for the framework to be aware of a sub-content processor, it must implement a component builder which specifies which parser and writer to use for the processing of sub-content. The component builder must implement two interfaces, namely, <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilder.html">IFileTypeComponentBuilder</a> and <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.ISubContentComponentBuilder.html">ISubContentComponentBuilder</a>. The component builder must implement <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.ISubContentComponentBuilder.html#Sdl_FileTypeSupport_Framework_IntegrationApi_ISubContentComponentBuilder_BuildSubContentExtractor_System_String_">BuildSubContentExtractor</a> and <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.ISubContentComponentBuilder.html#Sdl_FileTypeSupport_Framework_IntegrationApi_ISubContentComponentBuilder_BuildSubContentGenerator_System_String_">BuildSubContentGenerator</a>. These methods are similar to the regular <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilder.html#Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeComponentBuilder_BuildFileExtractor_System_String_">BuildFileExtractor</a> and <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilder.html#Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeComponentBuilder_BuildFileGenerator_System_String_">BuildFileGenerator</a> methods, but instead, allow the component builder to specify a specific parser and writer along with additional processors for the sub-content processing. The method <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilder.html#Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeComponentBuilder_BuildFileTypeInformation_System_String_">BuildFileTypeInformation</a> should also be implemented, however, all other methods may return null. A unique File Type Identifier should also be used for each processor. Please note that File Sniffers are not used by sub-content processors.</p>
+<p>The same settings pages may be used for sub-content processor where this makes sense. Usually sub-content processors use a sub-set of the main filter&#39;s setting pages with some instances of customized settings pages required.</p>
+<p>In order to display the sub-content FileTypeConfiguration Ids in your UI, you must pass in the list of UIs from the settings page to the UI control. You can then populate a dropdown with the Ids and allow the user to select which processor they will use to handle the sub-content from the main filter. Here you can see how the Ids are obtained via <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Settings.IFileTypeConfigurationAware.html#Sdl_FileTypeSupport_Framework_Core_Settings_IFileTypeConfigurationAware_SubContentFileTypeConfigurationIds">SubContentFileTypeConfigurationIds</a>. The selected Id should be stored in a settings object which can be accessed by the main parser and passed along in the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ProcessSubContentEventArgs.html">ProcessSubContentEventArgs</a> via the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ISubContentPublisher.html#Sdl_FileTypeSupport_Framework_NativeApi_ISubContentPublisher_ProcessSubContent">ProcessSubContent</a> event call.</p>
+<p>Embedded content (or sub-content) is processed by the framework in a sequential manner. First, the main filter processes its content and if it detects any sub-content then raises an event passing in the sub-content. The sub-content parser is then called and consumes all of the sub-content. When this is done, the framework continues with the main parser again. This flow is shown as follows:</p>
+<p><img src="images/EmbeddedContentFlow.jpg" alt="EmbeddedContentFlow"></p>
+<p>This is saved in the SDLXLIFF file as individual file sections as shown above. In Trados Studio, this is presented as:</p>
+<p><img src="images/SEEC.jpg" alt="SEEC"></p>
+<div class="NOTE"><h5>Note</h5><p>It is currently not possible to extend a sub-content component builder in the same manner as a filter component builder.</p>
+</div>
+<div class="NOTE"><h5>Note</h5><p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+</div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/15.2/apiconcepts/filetypesupport/sub_content_overview.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

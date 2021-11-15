@@ -1,0 +1,290 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Setting the Project Information </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Setting the Project Information ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="setting-the-project-information">Setting the Project Information</h1>
+
+<p>In this chapter you will learn how to programmatically create a simple project, and define the general project properties such as name, description, due date, etc.</p>
+<h2 id="create-the-project">Create the Project</h2>
+<p>Start by implementing a function called <code>CreateProject</code>. Create a file-based project object called <code>newProject</code> based on the class <a href="../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.html">FileBasedProject</a>. In our example we provide the project properties as parameter. We recommend that you generate the project properties through a separate helper function called e.g. GetProjectInfo as shown below:</p>
+<div class="tabGroup" id="tabgroup_5hkozJxkS9">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_5hkozJxkS9_tabid-1" role="tab" aria-controls="tabpanel_5hkozJxkS9_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_5hkozJxkS9_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-CS">FileBasedProject newProject = new FileBasedProject(info);
+</code></pre></section>
+</div>
+<h2 id="set-the-project-information">Set the Project Information</h2>
+<p>In the GetProjectInfo helper function, we first create a <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.ProjectInfo.html">ProjectInfo</a> object:</p>
+<div class="tabGroup" id="tabgroup_5hkozJxkS9-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_5hkozJxkS9-1_tabid-2" role="tab" aria-controls="tabpanel_5hkozJxkS9-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_5hkozJxkS9-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<pre><code class="lang-CS">ProjectInfo info = new ProjectInfo();
+</code></pre></section>
+</div>
+<p>We define the project properties by applying various properties to the project object as outlined below:</p>
+<div class="tabGroup" id="tabgroup_5hkozJxkS9-2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_5hkozJxkS9-2_tabid-3" role="tab" aria-controls="tabpanel_5hkozJxkS9-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_5hkozJxkS9-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<pre><code class="lang-CS">info.Name = &quot;My First Project&quot;;
+info.Description = &quot;This is a programmatically created project.&quot;;
+info.DueDate = DateTime.Now.AddDays(3);
+</code></pre></section>
+</div>
+<p>In the above example we set the following parameters:</p>
+<ul>
+<li>Project name, which can be any descriptive name</li>
+<li>The (optional) project description</li>
+<li>The (optional) project due date, e.g. 3 days from now</li>
+</ul>
+<p>The screenshot below illustrates how this information is entered in the <strong>New Project</strong> wizard of Trados Studio.
+<img src="images/NewProject01.jpg" alt="NewProject01"></p>
+<h2 id="set-the-local-project-folder">Set the Local Project Folder</h2>
+<p>All project files, i.e. translatable and localizable documents, reference files, project TMs, etc. are stored in a specific folder. By default, the main folder used for storing projects is: C:\Users\UserName\Documents\Studio 2021\Projects. Below this main folder Trados Studio creates sub-folders that carry the name of the respective project. However, you could just as well pick any other folder name, as long as the specified folder is empty so as to avoid collisions with existing files. In the example below we follow the default folder rule of Trados Studio by selecting the Studio 2021\Projects\ folder below Documents, and by appending the project name sub-folder. We then set the <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.ProjectInfo.html#Sdl_ProjectAutomation_Core_ProjectInfo_LocalProjectFolder">LocalProjectFolder</a> property accordingly as shown in the example below:</p>
+<div class="tabGroup" id="tabgroup_5hkozJxkS9-3">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_5hkozJxkS9-3_tabid-4" role="tab" aria-controls="tabpanel_5hkozJxkS9-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_5hkozJxkS9-3_tabid-4" role="tabpanel" data-tab="tabid-4">
+<pre><code class="lang-CS">string localProjectFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).ToString() +
+    Path.DirectorySeparatorChar + $@&quot;{Versioning.Versions.StudioDocumentsFolderName}\Projects\&quot; + info.Name;
+
+info.LocalProjectFolder = localProjectFolder;
+</code></pre></section>
+</div>
+<h2 id="select-the-project-languages">Select the Project Languages</h2>
+<p>A project must have at least one language pair, i.e. a source language and one target language. Projects can have only one source language, but multiple target languages. The screenshot below highlights how languages are selected in Trados Studio:</p>
+<p><img src="images/NewProject02.jpg" alt="NewProject02"></p>
+<p>For this example, let us assume that the source language should be English (US), and the target languages German and French. First, we create the source language object through the <code>Language</code> class. The language object takes the <a href="https://docs.microsoft.com/en-us/dotnet/api/system.globalization.cultureinfo?redirectedfrom=MSDN&amp;view=net-5.0">CultureInfo</a> as parameter. Then we assign the source language object to the project info by applying the <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.ProjectInfo.html#Sdl_ProjectAutomation_Core_ProjectInfo_SourceLanguage">SourceLanguage</a>  property:</p>
+<div class="tabGroup" id="tabgroup_5hkozJxkS9-4">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_5hkozJxkS9-4_tabid-5" role="tab" aria-controls="tabpanel_5hkozJxkS9-4_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_5hkozJxkS9-4_tabid-5" role="tabpanel" data-tab="tabid-5">
+<pre><code class="lang-CS">Language srcLang = new Language(CultureInfo.GetCultureInfo(&quot;en-US&quot;));
+info.SourceLanguage = srcLang;
+</code></pre></section>
+</div>
+<p>In the next step we do the same for the target languages. Since a project can have several target languages, we use an array of language objects, and then assign this array to the project info through the <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.ProjectInfo.html#Sdl_ProjectAutomation_Core_ProjectInfo_TargetLanguages">TargetLanguages</a> property:</p>
+<div class="tabGroup" id="tabgroup_5hkozJxkS9-5">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_5hkozJxkS9-5_tabid-6" role="tab" aria-controls="tabpanel_5hkozJxkS9-5_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_5hkozJxkS9-5_tabid-6" role="tabpanel" data-tab="tabid-6">
+<pre><code class="lang-CS">Language[] trgLangs = new Language[] { new Language(CultureInfo.GetCultureInfo(&quot;de-DE&quot;)), new Language(CultureInfo.GetCultureInfo(&quot;fr-FR&quot;)) };
+info.TargetLanguages = trgLangs;
+</code></pre></section>
+</div>
+<p>After setting the above project properties, do not forget to return the project info object:</p>
+<div class="tabGroup" id="tabgroup_5hkozJxkS9-6">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_5hkozJxkS9-6_tabid-7" role="tab" aria-controls="tabpanel_5hkozJxkS9-6_tabid-7" data-tab="tabid-7" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_5hkozJxkS9-6_tabid-7" role="tabpanel" data-tab="tabid-7">
+<pre><code class="lang-CS">return info;
+</code></pre></section>
+</div>
+<p>Furthermore, to persist the project information in the project object, you need to apply the Save method:</p>
+<div class="tabGroup" id="tabgroup_5hkozJxkS9-7">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_5hkozJxkS9-7_tabid-8" role="tab" aria-controls="tabpanel_5hkozJxkS9-7_tabid-8" data-tab="tabid-8" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_5hkozJxkS9-7_tabid-8" role="tabpanel" data-tab="tabid-8">
+<pre><code class="lang-CS">newProject.Save();
+</code></pre></section>
+</div>
+<p>This will create an <em>*.sdlproj</em> file, which is an XML-compliant document that contains all the project information.
+After running the above code you should already see a result in the projects folder as illustrated in the screenshot below:
+<img src="images/FoldersAfterProjectInfo.jpg" alt="FoldersAfterProjectInfo"></p>
+<p>Even if you have not added any translatable files yet, you will end up generating the project sub-folder (i.e. Projects\My first project), which contains the *.sdlproj file. In the following chapters you will learn how to add documents, TMs, termbases, etc. to turn your sample into a meaningful project. Note that if you run your sample application again while the My first project is still there, an error will be thrown, as the folder is not empty. It is recommended that when you re-run your sample application for testing purposes that you delete the project sub-folder, so that you have a fresh start (see also <a href="deleting_projects.html">Deleting Projects</a>).</p>
+<p>Also note that the C:\Users\UserName\Documents\Studio 2021\Projects folder contains a file called projects.xml. This is a meta file that contains references to all the projects that have been created in Trados Studio. The projects that you create programmatically will not be referenced in this file, and thus not be listed in Trados Studio, which is by design. However, you can, of course, open the programmatically created *.sdlproj file in Trados Studio.</p>
+<h2 id="putting-it-all-together">Putting it All Together</h2>
+<p>The complete function for setting the project properties should look as shown below:</p>
+<div class="tabGroup" id="tabgroup_5hkozJxkS9-8">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_5hkozJxkS9-8_tabid-9" role="tab" aria-controls="tabpanel_5hkozJxkS9-8_tabid-9" data-tab="tabid-9" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_5hkozJxkS9-8_tabid-9" role="tabpanel" data-tab="tabid-9">
+<pre><code class="lang-CS">public ProjectInfo GetProjectInfo()
+{
+    #region &quot;InfoObject&quot;
+    ProjectInfo info = new ProjectInfo();
+    #endregion
+
+    #region &quot;GeneralInfo&quot;
+    info.Name = &quot;My first project&quot;;
+    info.Description = &quot;This is a programmatically created project.&quot;;
+    info.DueDate = DateTime.Now.AddDays(3);
+    #endregion
+
+    #region &quot;ProjectFolder&quot;
+    string localProjectFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).ToString() +
+        Path.DirectorySeparatorChar + $@&quot;{Versioning.Versions.StudioDocumentsFolderName}\Projects\&quot; + info.Name;
+
+    info.LocalProjectFolder = localProjectFolder;
+    #endregion
+
+    #region &quot;SourceLanguage&quot;
+    Language srcLang = new Language(CultureInfo.GetCultureInfo(&quot;en-US&quot;));
+    info.SourceLanguage = srcLang;
+    #endregion
+
+    #region &quot;TargetLanguages&quot;
+    Language[] trgLangs = new Language[] { new Language(CultureInfo.GetCultureInfo(&quot;de-DE&quot;)), new Language(CultureInfo.GetCultureInfo(&quot;fr-FR&quot;)) };
+    info.TargetLanguages = trgLangs;
+    #endregion
+
+    #region &quot;ReturnInfo&quot;
+    return info;
+    #endregion
+}
+</code></pre></section>
+</div>
+<h2 id="see-also">See Also</h2>
+<p><a href="adding_files_and_folders.html">Adding Files and Folders</a></p>
+<p><a href="adding_translation_memories.html">Adding Translation Memories</a></p>
+<p><a href="running_tasks_on_project_files.html">Running Tasks on the Project Files</a></p>
+<p><a href="creating_project_based_on_prev_proj.html">Creating Projects Based on Previous Projects</a></p>
+<p><a href="creating_proj_based_on_templates.html">Creating Projects Based on Templates</a></p>
+<p><a href="configuring_the_project_properties.html">Configuring the Project Properties</a></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/15.2/apiconcepts/projectautomation/setting_the_project_information.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,390 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Looping through the Folder(s) </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Looping through the Folder(s) ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="looping-through-the-folders">Looping through the Folder(s)</h1>
+
+<p>The user of your sample application is required to enter a main path. The application then loops through the files in that path and any files contained in sub-folders of the main path. The application logic for traversing the folders and sub-folders will be implemented in a dedicated iterator class. This class will be used both for looping through all *.sdltm, which then need to be exported to *.tmx.</p>
+<h2 id="add-a-new-class">Add a New Class</h2>
+<p>Add a class called <code>TmIterator</code> to your project. At the beginning of the class, declare two constants, one to specify how deep into the sub-folder structure the recursion should go. For example, we will hard-code the depth to 10, so that the application will go down to 10 sub-folder levels. The second constant sets the recursion level, which should be 1:</p>
+<div class="tabGroup" id="tabgroup_Grzp7uNLDF">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_Grzp7uNLDF_tabid-1" role="tab" aria-controls="tabpanel_Grzp7uNLDF_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_Grzp7uNLDF_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-cs">/// &lt;summary&gt;
+/// Determines how deep in the sub-folder structure
+/// the application should go.
+/// &lt;/summary&gt;
+public const int Depth = 10;
+
+/// &lt;summary&gt;
+/// Determines current level of recursion when iterating thru subfolders.
+/// &lt;/summary&gt;
+public const int RecursionLevel = 1;
+</code></pre></section>
+</div>
+<p>Then add a public function called ProcessDir:</p>
+<div class="tabGroup" id="tabgroup_Grzp7uNLDF-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_Grzp7uNLDF-1_tabid-2" role="tab" aria-controls="tabpanel_Grzp7uNLDF-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_Grzp7uNLDF-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<pre><code class="lang-cs">/// &lt;summary&gt;
+/// This function is used to iterate through the main folder and
+/// (if applicable) the subfolders to look for *.sdltm files to export.
+/// &lt;/summary&gt;
+/// &lt;param name=&quot;sourceDirectory&quot;&gt;Directory to iterate thru.&lt;/param&gt;
+/// &lt;param name=&quot;processSubFolders&quot;&gt;True if recursive teration thru subfolders is required.&lt;/param&gt;
+public void ProcessDirectory(string sourceDirectory, bool processSubFolders)
+</code></pre></section>
+</div>
+<p>This function takes the main folder entered by the user in the command line interface as string parameter, and a boolean parameter that indicates whether sub-folders should be processed through self-recursion.</p>
+<h2 id="implement-the-recursion">Implement the Recursion</h2>
+<p>Within the function implement an <code>if</code>, which makes the function loop through all sub-folders until the recursion level has reached the maximum depth.</p>
+<div class="tabGroup" id="tabgroup_Grzp7uNLDF-2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_Grzp7uNLDF-2_tabid-3" role="tab" aria-controls="tabpanel_Grzp7uNLDF-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_Grzp7uNLDF-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<pre><code class="lang-cs">// Loop until the recursion level has reached the
+// maximum folder depth.
+if (RecursionLevel &lt;= Depth)
+</code></pre></section>
+</div>
+<p>Next, you iterate through the files found in a given directory. However, the files should only be processed if they match the provided extension, i.e. *.sdltm. If the extension sdltm is encountered, an export will be triggered, which we will implement in a separate class in a later step (see <a href="importing_into_the_master_translation_memories.html">Importing into the Master Translation Memories</a>).</p>
+<div class="tabGroup" id="tabgroup_Grzp7uNLDF-3">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_Grzp7uNLDF-3_tabid-4" role="tab" aria-controls="tabpanel_Grzp7uNLDF-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_Grzp7uNLDF-3_tabid-4" role="tabpanel" data-tab="tabid-4">
+<pre><code class="lang-cs">// Retrieve the names of the files found in the given folder.
+string[] fileEntries = Directory.GetFiles(sourceDirectory);
+foreach (string fileName in fileEntries)
+{
+    if (fileName.ToLower().EndsWith(&quot;.sdltm&quot;))
+    {
+        // Only process file if it is a TMX import file.
+        Console.WriteLine(&quot;Exporting &quot; + fileName);
+        TMExporter exportTm = new TMExporter();
+        exportTm.Export(fileName);
+    }
+}
+</code></pre></section>
+</div>
+<p>After all files of the given folder have been processed accordingly, the function needs to re-trigger itself, so that any files in a sub-folder (if applicable) can be processed. The boolean <code>processSubFolders</code> parameter determines whether the recursion should be triggered or not. If this parameter is <code>False</code>, then only the main path will be processed.</p>
+<div class="tabGroup" id="tabgroup_Grzp7uNLDF-4">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_Grzp7uNLDF-4_tabid-5" role="tab" aria-controls="tabpanel_Grzp7uNLDF-4_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_Grzp7uNLDF-4_tabid-5" role="tabpanel" data-tab="tabid-5">
+<pre><code class="lang-cs">// Self-recursion to loop through the folder structure until
+// the folder depth has reached the recursion level value.
+if (processSubFolders)
+{
+    string[] subdirEntries = Directory.GetDirectories(sourceDirectory);
+    foreach (string subdir in subdirEntries)
+    {
+        if ((File.GetAttributes(subdir) &amp; FileAttributes.ReparsePoint) != FileAttributes.ReparsePoint)
+        {
+            this.ProcessDirectory(subdir, processSubFolders);
+        }
+    }
+}
+</code></pre></section>
+</div>
+<h2 id="trigger-the-function">Trigger the Function</h2>
+<p>The <code>ProcessDir</code> function needs to be called from <code>Main</code> in the <code>Program</code> class as shown below. The user provides two parameters:</p>
+<ul>
+<li>The main translation memory path</li>
+<li>the <code>/y</code> parameter to indicate that sub-folders (if any) should be processed</li>
+</ul>
+<p>Example:</p>
+<div class="tabGroup" id="tabgroup_Grzp7uNLDF-5">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_Grzp7uNLDF-5_tabid-6" role="tab" aria-controls="tabpanel_Grzp7uNLDF-5_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true"></a>
+</li>
+</ul>
+<section id="tabpanel_Grzp7uNLDF-5_tabid-6" role="tabpanel" data-tab="tabid-6">
+<pre><code>Sdl.SDK.LanguagePlatform.Samples.BatchExport.exe c:\tm /y
+</code></pre></section>
+</div>
+<p>The following code in <code>Program.cs</code> is used for explaining the application use and retrieves the parameters for the file processing. It also checks the validity of the input folder:</p>
+<div class="tabGroup" id="tabgroup_Grzp7uNLDF-6">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_Grzp7uNLDF-6_tabid-7" role="tab" aria-controls="tabpanel_Grzp7uNLDF-6_tabid-7" data-tab="tabid-7" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_Grzp7uNLDF-6_tabid-7" role="tabpanel" data-tab="tabid-7">
+<pre><code class="lang-cs">/// &lt;summary&gt;
+/// Main entrance point of the program.
+/// &lt;/summary&gt;
+/// &lt;param name=&quot;args&quot;&gt;Contain string parameters that are passed via the command line.&lt;/param&gt;
+public static void Main(string[] args)
+{
+    string mainPath = string.Empty;
+    bool processSubFolders = false;
+
+    if (args.Length != 2)
+    {
+        Console.WriteLine(&quot;Usage:&quot;);
+        Console.WriteLine(&quot;Sdl.SDK.LanguagePlatform.Samples.BatchExport.exe source /y&quot;);
+        Console.WriteLine(&quot;source   path to input folder&quot;);
+        Console.WriteLine(&quot;/y   should process subfolders&quot;);
+        Console.WriteLine(&quot;This application uses a hard-coded recursion level of up to 10 sub-folders.&quot;);
+        return;
+    }
+
+    if (!String.IsNullOrEmpty(args[0]) &amp;&amp; !Directory.Exists(args[0]))
+    {
+        Console.WriteLine(&quot;Specify valid input directory. Press ENTER to exit.&quot;);
+        return;
+    }
+
+    mainPath = args[0];
+
+    if (!String.IsNullOrEmpty(args[1]) &amp;&amp; args[1] == &quot;/y&quot;)
+    {
+        processSubFolders = true;
+    }
+
+    try
+    {
+        TMIterator it = new TMIterator();
+        it.ProcessDirectory(mainPath, processSubFolders);
+        Console.WriteLine();
+        Console.WriteLine(&quot;Batch export finished. Press ENTER to exit.&quot;);
+        Console.ReadLine();
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine(ex.Message);
+        Console.WriteLine(&quot;Press ENTER to exit.&quot;);
+        Console.ReadLine();
+    }
+}
+</code></pre></section>
+</div>
+<h2 id="putting-it-all-together">Putting it All Together</h2>
+<p>The complete class should now look as shown below:</p>
+<div class="tabGroup" id="tabgroup_Grzp7uNLDF-7">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_Grzp7uNLDF-7_tabid-8" role="tab" aria-controls="tabpanel_Grzp7uNLDF-7_tabid-8" data-tab="tabid-8" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_Grzp7uNLDF-7_tabid-8" role="tabpanel" data-tab="tabid-8">
+<pre><code class="lang-cs">namespace SDK.LanguagePlatform.Samples.BatchExport
+{
+    using System;
+    using System.IO;
+
+    /// &lt;summary&gt;
+    /// Represents functionality for importing *.tmx files into FileBasedTranslationMemory.
+    /// &lt;/summary&gt;
+    public class TMIterator
+    {
+        #region &quot;Constants&quot;
+
+        /// &lt;summary&gt;
+        /// Determines how deep in the sub-folder structure
+        /// the application should go.
+        /// &lt;/summary&gt;
+        public const int Depth = 10;
+
+        /// &lt;summary&gt;
+        /// Determines current level of recursion when iterating thru subfolders.
+        /// &lt;/summary&gt;
+        public const int RecursionLevel = 1;
+
+        #endregion
+
+        #region &quot;Function&quot;
+
+        /// &lt;summary&gt;
+        /// This function is used to iterate through the main folder and
+        /// (if applicable) the subfolders to look for *.sdltm files to export.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;sourceDirectory&quot;&gt;Directory to iterate thru.&lt;/param&gt;
+        /// &lt;param name=&quot;processSubFolders&quot;&gt;True if recursive teration thru subfolders is required.&lt;/param&gt;
+        public void ProcessDirectory(string sourceDirectory, bool processSubFolders)
+        #endregion
+        {
+            #region &quot;Scan&quot;
+            // Loop until the recursion level has reached the
+            // maximum folder depth.
+            if (RecursionLevel &lt;= Depth)
+            #endregion
+            {
+                #region &quot;ProcessFiles&quot;
+
+                // Retrieve the names of the files found in the given folder.
+                string[] fileEntries = Directory.GetFiles(sourceDirectory);
+                foreach (string fileName in fileEntries)
+                {
+                    if (fileName.ToLower().EndsWith(&quot;.sdltm&quot;))
+                    {
+                        // Only process file if it is a TMX import file.
+                        Console.WriteLine(&quot;Exporting &quot; + fileName);
+                        TMExporter exportTm = new TMExporter();
+                        exportTm.Export(fileName);
+                    }
+                }
+
+                #endregion
+
+                #region &quot;Recursion&quot;
+
+                // Self-recursion to loop through the folder structure until
+                // the folder depth has reached the recursion level value.
+                if (processSubFolders)
+                {
+                    string[] subdirEntries = Directory.GetDirectories(sourceDirectory);
+                    foreach (string subdir in subdirEntries)
+                    {
+                        if ((File.GetAttributes(subdir) &amp; FileAttributes.ReparsePoint) != FileAttributes.ReparsePoint)
+                        {
+                            this.ProcessDirectory(subdir, processSubFolders);
+                        }
+                    }
+                }
+
+                #endregion
+            }
+        }
+    }
+}
+</code></pre></section>
+</div>
+<h2 id="see-also">See Also</h2>
+<p><a href="exporting_to_tmx.html">Exporting to TMX</a></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/15.2/apiconcepts/translationmemory/looping_through_the_folder.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

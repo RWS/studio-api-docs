@@ -1,0 +1,795 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Interface IContentSelection
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Interface IContentSelection
+   ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../../apiconcepts/toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Sdl.DesktopEditor.EditorApi.IContentSelection">
+  
+  
+  <h1 id="Sdl_DesktopEditor_EditorApi_IContentSelection" data-uid="Sdl.DesktopEditor.EditorApi.IContentSelection" class="text-break">Interface IContentSelection
+  </h1>
+  <div class="markdown level0 summary"><p>The currently selected content in the edit control.
+<p>
+The selection is represented by two positions: <a class="xref" href="Sdl.DesktopEditor.EditorApi.IContentSelection.html#Sdl_DesktopEditor_EditorApi_IContentSelection_From">From</a> and <a class="xref" href="Sdl.DesktopEditor.EditorApi.IContentSelection.html#Sdl_DesktopEditor_EditorApi_IContentSelection_Upto">Upto</a>, where the from 
+position is the start of the selection and the upto position is the active end of the selection, i.e. the end that
+typically moves when the user presses Shift + arrow keys, or selects text using the mouse.
+</p>
+<p>
+When no content is selected the from and upto positions are the same. This can
+be tested through the <a class="xref" href="Sdl.DesktopEditor.EditorApi.IContentSelection.html#Sdl_DesktopEditor_EditorApi_IContentSelection_IsEmpty">IsEmpty</a> property of the selection.
+</p>
+<p>
+The selection can be made empty by explicitly calling <a class="xref" href="Sdl.DesktopEditor.EditorApi.IContentSelection.html#Sdl_DesktopEditor_EditorApi_IContentSelection_CollapseToFrom">CollapseToFrom()</a> and <a class="xref" href="Sdl.DesktopEditor.EditorApi.IContentSelection.html#Sdl_DesktopEditor_EditorApi_IContentSelection_CollapseToUpto">CollapseToUpto()</a>.
+</p>
+<p>
+The from position does not need to be before the upto position. This can happen e.g. if the user selects 
+text starting from the right and moving left in the document. In such cases the selection is said to be reversed. 
+This can be tested through the <a class="xref" href="Sdl.DesktopEditor.EditorApi.IContentSelection.html#Sdl_DesktopEditor_EditorApi_IContentSelection_IsReversed">IsReversed</a> property of the selection. 
+</p>
+<p>
+The from and upto positions of the selection can be swapped by calling the <a class="xref" href="Sdl.DesktopEditor.EditorApi.IContentSelection.html#Sdl_DesktopEditor_EditorApi_IContentSelection_Reverse">Reverse()</a>
+method. Calling the <a class="xref" href="Sdl.DesktopEditor.EditorApi.IContentSelection.html#Sdl_DesktopEditor_EditorApi_IContentSelection_Normalize">Normalize()</a> method ensures that the from position in the selection
+is not after the upto position, by testing if the selection is reversed and in that case reversing it.
+</p>
+<p>
+The selection can be explicitly moved through the methods <a class="xref" href="Sdl.DesktopEditor.EditorApi.IContentSelection.html#Sdl_DesktopEditor_EditorApi_IContentSelection_Move_Sdl_DesktopEditor_EditorApi_Move_System_Boolean_">Move(Move, Boolean)</a> and 
+<a class="xref" href="Sdl.DesktopEditor.EditorApi.IContentSelection.html#Sdl_DesktopEditor_EditorApi_IContentSelection_MoveTo_Sdl_DesktopEditor_EditorApi_Position_System_Boolean_">MoveTo(Position, Boolean)</a>.
+</p>
+<p>
+The selection is never <code>null</code> but may not always be valid. Use <a class="xref" href="Sdl.DesktopEditor.EditorApi.IContentSelection.html#Sdl_DesktopEditor_EditorApi_IContentSelection_IsValid">IsValid</a> to test whether
+the selection is in a safe state to use.
+</p></p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Sdl.DesktopEditor.EditorApi.html">Sdl.DesktopEditor.EditorApi</a></h6>
+  <h6><strong>Assembly</strong>: Sdl.DesktopEditor.EditorApi.dll</h6>
+  <h5 id="Sdl_DesktopEditor_EditorApi_IContentSelection_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface IContentSelection</code></pre>
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  
+  
+  <a id="Sdl_DesktopEditor_EditorApi_IContentSelection_Control_" data-uid="Sdl.DesktopEditor.EditorApi.IContentSelection.Control*"></a>
+  <h4 id="Sdl_DesktopEditor_EditorApi_IContentSelection_Control" data-uid="Sdl.DesktopEditor.EditorApi.IContentSelection.Control">Control</h4>
+  <div class="markdown level1 summary"><p>The edit control the selection belongs to.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IEditControl Control { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.DesktopEditor.EditorApi.IEditControl.html">IEditControl</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_DesktopEditor_EditorApi_IContentSelection_FileAtActiveEnd_" data-uid="Sdl.DesktopEditor.EditorApi.IContentSelection.FileAtActiveEnd*"></a>
+  <h4 id="Sdl_DesktopEditor_EditorApi_IContentSelection_FileAtActiveEnd" data-uid="Sdl.DesktopEditor.EditorApi.IContentSelection.FileAtActiveEnd">FileAtActiveEnd</h4>
+  <div class="markdown level1 summary"><p>Some editing operations should not work if the selection spans file boundaries.
+This method can be used for checking these condition.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IFileContainerNode FileAtActiveEnd { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.DesktopEditor.EditorApi.IFileContainerNode.html">IFileContainerNode</a></td>
+        <td><p>The file container for the active end of the selection.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_DesktopEditor_EditorApi_IContentSelection_FileAtNonactiveEnd_" data-uid="Sdl.DesktopEditor.EditorApi.IContentSelection.FileAtNonactiveEnd*"></a>
+  <h4 id="Sdl_DesktopEditor_EditorApi_IContentSelection_FileAtNonactiveEnd" data-uid="Sdl.DesktopEditor.EditorApi.IContentSelection.FileAtNonactiveEnd">FileAtNonactiveEnd</h4>
+  <div class="markdown level1 summary"><p>Some editing operations should not work if the selection spans file boundaries.
+This method can be used for checking these condition.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IFileContainerNode FileAtNonactiveEnd { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.DesktopEditor.EditorApi.IFileContainerNode.html">IFileContainerNode</a></td>
+        <td><p>The file container for the non-active end of the selection.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_DesktopEditor_EditorApi_IContentSelection_From_" data-uid="Sdl.DesktopEditor.EditorApi.IContentSelection.From*"></a>
+  <h4 id="Sdl_DesktopEditor_EditorApi_IContentSelection_From" data-uid="Sdl.DesktopEditor.EditorApi.IContentSelection.From">From</h4>
+  <div class="markdown level1 summary"><p>The start of the currently selected content in the edit control.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Position From { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.DesktopEditor.EditorApi.Position.html">Position</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Sdl_DesktopEditor_EditorApi_IContentSelection_From_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This is the non-active end of the selection, i.e. the end that does not move when selecting 
+text using arrow keys or the mouse (or the <a class="xref" href="Sdl.DesktopEditor.EditorApi.IContentSelection.html#Sdl_DesktopEditor_EditorApi_IContentSelection_Move_Sdl_DesktopEditor_EditorApi_Move_System_Boolean_">Move(Move, Boolean)</a> or 
+<a class="xref" href="Sdl.DesktopEditor.EditorApi.IContentSelection.html#Sdl_DesktopEditor_EditorApi_IContentSelection_MoveTo_Sdl_DesktopEditor_EditorApi_Position_System_Boolean_">MoveTo(Position, Boolean)</a> methods).</p>
+<p>The From position may appear before the Upto position if the selection is reversed.</p>
+<p>
+Assigning to this property moves the selection. If the selection is not visible it is also scrolled into view.
+</p>
+</div>
+  
+  
+  <a id="Sdl_DesktopEditor_EditorApi_IContentSelection_FromRow_" data-uid="Sdl.DesktopEditor.EditorApi.IContentSelection.FromRow*"></a>
+  <h4 id="Sdl_DesktopEditor_EditorApi_IContentSelection_FromRow" data-uid="Sdl.DesktopEditor.EditorApi.IContentSelection.FromRow">FromRow</h4>
+  <div class="markdown level1 summary"><p>The row at the <a class="xref" href="Sdl.DesktopEditor.EditorApi.IContentSelection.html#Sdl_DesktopEditor_EditorApi_IContentSelection_From">From</a> position of the current selection. Can be <code>null</code> if there is
+no row at that position (either because from is invalid or the layout has not be fully generated yet).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IRowInfo FromRow { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.DesktopEditor.EditorApi.IRowInfo.html">IRowInfo</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Sdl_DesktopEditor_EditorApi_IContentSelection_FromRow_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>
+This property can also be used to gain access to the <a class="xref" href="Sdl.DesktopEditor.EditorApi.ISegmentContainerNode.html">ISegmentContainerNode</a>
+and the <a class="xref" href="Sdl.DesktopEditor.EditorApi.IParagraphUnitContainerNode.html">IParagraphUnitContainerNode</a> at the from end of selection.
+</p>
+</div>
+  
+  
+  <a id="Sdl_DesktopEditor_EditorApi_IContentSelection_IsEmpty_" data-uid="Sdl.DesktopEditor.EditorApi.IContentSelection.IsEmpty*"></a>
+  <h4 id="Sdl_DesktopEditor_EditorApi_IContentSelection_IsEmpty" data-uid="Sdl.DesktopEditor.EditorApi.IContentSelection.IsEmpty">IsEmpty</h4>
+  <div class="markdown level1 summary"><p><code>true</code> if the selection is empty (when the <a class="xref" href="Sdl.DesktopEditor.EditorApi.IContentSelection.html#Sdl_DesktopEditor_EditorApi_IContentSelection_From">From</a> position
+is equivalent to the <a class="xref" href="Sdl.DesktopEditor.EditorApi.IContentSelection.html#Sdl_DesktopEditor_EditorApi_IContentSelection_Upto">Upto</a> position).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool IsEmpty { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Sdl_DesktopEditor_EditorApi_IContentSelection_IsEmpty_seealso">See Also</h5>
+  <div class="seealso">
+      <div><a class="xref" href="Sdl.DesktopEditor.EditorApi.IContentSelection.html#Sdl_DesktopEditor_EditorApi_IContentSelection_CollapseToFrom">CollapseToFrom()</a></div>
+      <div><a class="xref" href="Sdl.DesktopEditor.EditorApi.IContentSelection.html#Sdl_DesktopEditor_EditorApi_IContentSelection_CollapseToUpto">CollapseToUpto()</a></div>
+  </div>
+  
+  
+  <a id="Sdl_DesktopEditor_EditorApi_IContentSelection_IsReversed_" data-uid="Sdl.DesktopEditor.EditorApi.IContentSelection.IsReversed*"></a>
+  <h4 id="Sdl_DesktopEditor_EditorApi_IContentSelection_IsReversed" data-uid="Sdl.DesktopEditor.EditorApi.IContentSelection.IsReversed">IsReversed</h4>
+  <div class="markdown level1 summary"><p><code>true</code> if the selection is reversed (the <a class="xref" href="Sdl.DesktopEditor.EditorApi.IContentSelection.html#Sdl_DesktopEditor_EditorApi_IContentSelection_Upto">Upto</a>
+position is before the <a class="xref" href="Sdl.DesktopEditor.EditorApi.IContentSelection.html#Sdl_DesktopEditor_EditorApi_IContentSelection_From">From</a> position).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool IsReversed { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Sdl_DesktopEditor_EditorApi_IContentSelection_IsReversed_seealso">See Also</h5>
+  <div class="seealso">
+      <div><a class="xref" href="Sdl.DesktopEditor.EditorApi.IContentSelection.html#Sdl_DesktopEditor_EditorApi_IContentSelection_Reverse">Reverse()</a></div>
+      <div><a class="xref" href="Sdl.DesktopEditor.EditorApi.IContentSelection.html#Sdl_DesktopEditor_EditorApi_IContentSelection_Normalize">Normalize()</a></div>
+  </div>
+  
+  
+  <a id="Sdl_DesktopEditor_EditorApi_IContentSelection_IsValid_" data-uid="Sdl.DesktopEditor.EditorApi.IContentSelection.IsValid*"></a>
+  <h4 id="Sdl_DesktopEditor_EditorApi_IContentSelection_IsValid" data-uid="Sdl.DesktopEditor.EditorApi.IContentSelection.IsValid">IsValid</h4>
+  <div class="markdown level1 summary"><p>Tests whether the current selection is valid. The selection is valid when both
+from and upto positions are valid, otherwise it is not valid.  This is useful for
+testing whether the selection has been initialized properly yet, or is visible on the screen.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool IsValid { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_DesktopEditor_EditorApi_IContentSelection_Upto_" data-uid="Sdl.DesktopEditor.EditorApi.IContentSelection.Upto*"></a>
+  <h4 id="Sdl_DesktopEditor_EditorApi_IContentSelection_Upto" data-uid="Sdl.DesktopEditor.EditorApi.IContentSelection.Upto">Upto</h4>
+  <div class="markdown level1 summary"><p>The active end of the currently selected content in the edit control.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Position Upto { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.DesktopEditor.EditorApi.Position.html">Position</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Sdl_DesktopEditor_EditorApi_IContentSelection_Upto_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This is the part of the selection that moves when selecting text using arrow keys or the mouse 
+(or the <a class="xref" href="Sdl.DesktopEditor.EditorApi.IContentSelection.html#Sdl_DesktopEditor_EditorApi_IContentSelection_Move_Sdl_DesktopEditor_EditorApi_Move_System_Boolean_">Move(Move, Boolean)</a> or <a class="xref" href="Sdl.DesktopEditor.EditorApi.IContentSelection.html#Sdl_DesktopEditor_EditorApi_IContentSelection_MoveTo_Sdl_DesktopEditor_EditorApi_Position_System_Boolean_">MoveTo(Position, Boolean)</a> methods).</p>
+<p>The Upto position may appear after the From position if the selection is reversed.</p>
+<p>
+Assigning to this property moves the selection. If the selection is not visible it is also scrolled into view.
+</p>
+</div>
+  
+  
+  <a id="Sdl_DesktopEditor_EditorApi_IContentSelection_UptoRow_" data-uid="Sdl.DesktopEditor.EditorApi.IContentSelection.UptoRow*"></a>
+  <h4 id="Sdl_DesktopEditor_EditorApi_IContentSelection_UptoRow" data-uid="Sdl.DesktopEditor.EditorApi.IContentSelection.UptoRow">UptoRow</h4>
+  <div class="markdown level1 summary"><p>The row at the <a class="xref" href="Sdl.DesktopEditor.EditorApi.IContentSelection.html#Sdl_DesktopEditor_EditorApi_IContentSelection_Upto">Upto</a> position of the current selection. Can be <code>null</code> if there is
+no row at that position (either because upto is invalid or the layout has not be fully generated yet).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IRowInfo UptoRow { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.DesktopEditor.EditorApi.IRowInfo.html">IRowInfo</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Sdl_DesktopEditor_EditorApi_IContentSelection_UptoRow_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>
+This property can also be used to gain access to the <a class="xref" href="Sdl.DesktopEditor.EditorApi.ISegmentContainerNode.html">ISegmentContainerNode</a>
+and the <a class="xref" href="Sdl.DesktopEditor.EditorApi.IParagraphUnitContainerNode.html">IParagraphUnitContainerNode</a> at the upto end of selection.
+</p>
+</div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="Sdl_DesktopEditor_EditorApi_IContentSelection_CollapseToFrom_" data-uid="Sdl.DesktopEditor.EditorApi.IContentSelection.CollapseToFrom*"></a>
+  <h4 id="Sdl_DesktopEditor_EditorApi_IContentSelection_CollapseToFrom" data-uid="Sdl.DesktopEditor.EditorApi.IContentSelection.CollapseToFrom">CollapseToFrom()</h4>
+  <div class="markdown level1 summary"><p>Makes the selection empty by moving <a class="xref" href="Sdl.DesktopEditor.EditorApi.IContentSelection.html#Sdl_DesktopEditor_EditorApi_IContentSelection_Upto">Upto</a> to the <a class="xref" href="Sdl.DesktopEditor.EditorApi.IContentSelection.html#Sdl_DesktopEditor_EditorApi_IContentSelection_From">From</a> position.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void CollapseToFrom()</code></pre>
+  </div>
+  <h5 id="Sdl_DesktopEditor_EditorApi_IContentSelection_CollapseToFrom_seealso">See Also</h5>
+  <div class="seealso">
+      <div><a class="xref" href="Sdl.DesktopEditor.EditorApi.IContentSelection.html#Sdl_DesktopEditor_EditorApi_IContentSelection_IsEmpty">IsEmpty</a></div>
+      <div><a class="xref" href="Sdl.DesktopEditor.EditorApi.IContentSelection.html#Sdl_DesktopEditor_EditorApi_IContentSelection_CollapseToUpto">CollapseToUpto()</a></div>
+  </div>
+  
+  
+  <a id="Sdl_DesktopEditor_EditorApi_IContentSelection_CollapseToUpto_" data-uid="Sdl.DesktopEditor.EditorApi.IContentSelection.CollapseToUpto*"></a>
+  <h4 id="Sdl_DesktopEditor_EditorApi_IContentSelection_CollapseToUpto" data-uid="Sdl.DesktopEditor.EditorApi.IContentSelection.CollapseToUpto">CollapseToUpto()</h4>
+  <div class="markdown level1 summary"><p>Makes the selection empty by moving <a class="xref" href="Sdl.DesktopEditor.EditorApi.IContentSelection.html#Sdl_DesktopEditor_EditorApi_IContentSelection_From">From</a> to the <a class="xref" href="Sdl.DesktopEditor.EditorApi.IContentSelection.html#Sdl_DesktopEditor_EditorApi_IContentSelection_Upto">Upto</a> position.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void CollapseToUpto()</code></pre>
+  </div>
+  <h5 id="Sdl_DesktopEditor_EditorApi_IContentSelection_CollapseToUpto_seealso">See Also</h5>
+  <div class="seealso">
+      <div><a class="xref" href="Sdl.DesktopEditor.EditorApi.IContentSelection.html#Sdl_DesktopEditor_EditorApi_IContentSelection_IsEmpty">IsEmpty</a></div>
+      <div><a class="xref" href="Sdl.DesktopEditor.EditorApi.IContentSelection.html#Sdl_DesktopEditor_EditorApi_IContentSelection_CollapseToFrom">CollapseToFrom()</a></div>
+  </div>
+  
+  
+  <a id="Sdl_DesktopEditor_EditorApi_IContentSelection_Contains_" data-uid="Sdl.DesktopEditor.EditorApi.IContentSelection.Contains*"></a>
+  <h4 id="Sdl_DesktopEditor_EditorApi_IContentSelection_Contains_Sdl_DesktopEditor_EditorApi_Position_" data-uid="Sdl.DesktopEditor.EditorApi.IContentSelection.Contains(Sdl.DesktopEditor.EditorApi.Position)">Contains(Position)</h4>
+  <div class="markdown level1 summary"><p>Determine if a position is inside the selection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool Contains(Position position)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.DesktopEditor.EditorApi.Position.html">Position</a></td>
+        <td><span class="parametername">position</span></td>
+        <td><p>The position to test.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p><code>true</code> if the position is considered to be inside the selection.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Sdl_DesktopEditor_EditorApi_IContentSelection_Contains_Sdl_DesktopEditor_EditorApi_Position__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>
+The position is considered to be &quot;inside&quot; if it is at the same location as the first 
+position in the selection (i.e. the From position if the range is normalized, or the Upto position if not).
+It is considered &quot;outside&quot; if it is at (i.e. same as) the last part of the selection.
+If the selection is empty the position is not considered to be &quot;inside&quot;.
+</p>
+</div>
+  
+  
+  <a id="Sdl_DesktopEditor_EditorApi_IContentSelection_Move_" data-uid="Sdl.DesktopEditor.EditorApi.IContentSelection.Move*"></a>
+  <h4 id="Sdl_DesktopEditor_EditorApi_IContentSelection_Move_Sdl_DesktopEditor_EditorApi_Move_System_Boolean_" data-uid="Sdl.DesktopEditor.EditorApi.IContentSelection.Move(Sdl.DesktopEditor.EditorApi.Move,System.Boolean)">Move(Move, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Move the selection relative to its current location.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool Move(Move direction, bool extendSelection)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.DesktopEditor.EditorApi.Move.html">Move</a></td>
+        <td><span class="parametername">direction</span></td>
+        <td><p>Indicates how the selection should be moved.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">extendSelection</span></td>
+        <td><p>If <code>true</code> only the active end (<a class="xref" href="Sdl.DesktopEditor.EditorApi.IContentSelection.html#Sdl_DesktopEditor_EditorApi_IContentSelection_Upto">Upto</a>)
+is moved. If <code>false</code> both <a class="xref" href="Sdl.DesktopEditor.EditorApi.IContentSelection.html#Sdl_DesktopEditor_EditorApi_IContentSelection_From">From</a> and <a class="xref" href="Sdl.DesktopEditor.EditorApi.IContentSelection.html#Sdl_DesktopEditor_EditorApi_IContentSelection_Upto">Upto</a> are moved.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p><code>true</code> if the selection was moved as a result of the operation. (For example
+            moving to the start of the line when the selection is already at the start of the line
+            will not change the selection.)</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Sdl_DesktopEditor_EditorApi_IContentSelection_Move_Sdl_DesktopEditor_EditorApi_Move_System_Boolean__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>
+If the selection is not visible it is automatically scrolled into view.
+</p>
+</div>
+  
+  
+  <a id="Sdl_DesktopEditor_EditorApi_IContentSelection_MoveTo_" data-uid="Sdl.DesktopEditor.EditorApi.IContentSelection.MoveTo*"></a>
+  <h4 id="Sdl_DesktopEditor_EditorApi_IContentSelection_MoveTo_Sdl_DesktopEditor_EditorApi_ContentRange_" data-uid="Sdl.DesktopEditor.EditorApi.IContentSelection.MoveTo(Sdl.DesktopEditor.EditorApi.ContentRange)">MoveTo(ContentRange)</h4>
+  <div class="markdown level1 summary"><p>Move the selection so that it spans the specified range.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool MoveTo(ContentRange range)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.DesktopEditor.EditorApi.ContentRange.html">ContentRange</a></td>
+        <td><span class="parametername">range</span></td>
+        <td><p>The range that the selection should span.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p><code>true</code> if the selection was moved as a result of this operation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Sdl_DesktopEditor_EditorApi_IContentSelection_MoveTo_Sdl_DesktopEditor_EditorApi_ContentRange__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>
+If the selection is not visible it is automatically scrolled into view.
+</p>
+</div>
+  
+  
+  <a id="Sdl_DesktopEditor_EditorApi_IContentSelection_MoveTo_" data-uid="Sdl.DesktopEditor.EditorApi.IContentSelection.MoveTo*"></a>
+  <h4 id="Sdl_DesktopEditor_EditorApi_IContentSelection_MoveTo_Sdl_DesktopEditor_EditorApi_Position_System_Boolean_" data-uid="Sdl.DesktopEditor.EditorApi.IContentSelection.MoveTo(Sdl.DesktopEditor.EditorApi.Position,System.Boolean)">MoveTo(Position, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Move the selection to a specific location.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool MoveTo(Position destination, bool extendSelection)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.DesktopEditor.EditorApi.Position.html">Position</a></td>
+        <td><span class="parametername">destination</span></td>
+        <td><p>The location to which the selection should be moved.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">extendSelection</span></td>
+        <td><p>If <code>true</code> only the active end (<a class="xref" href="Sdl.DesktopEditor.EditorApi.IContentSelection.html#Sdl_DesktopEditor_EditorApi_IContentSelection_Upto">Upto</a>)
+is moved. If <code>false</code> both <a class="xref" href="Sdl.DesktopEditor.EditorApi.IContentSelection.html#Sdl_DesktopEditor_EditorApi_IContentSelection_From">From</a> and <a class="xref" href="Sdl.DesktopEditor.EditorApi.IContentSelection.html#Sdl_DesktopEditor_EditorApi_IContentSelection_Upto">Upto</a> are moved.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p><code>true</code> if the selection was moved as a result of the operation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Sdl_DesktopEditor_EditorApi_IContentSelection_MoveTo_Sdl_DesktopEditor_EditorApi_Position_System_Boolean__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>
+If the selection is not visible it is automatically scrolled into view.
+</p>
+</div>
+  
+  
+  <a id="Sdl_DesktopEditor_EditorApi_IContentSelection_Normalize_" data-uid="Sdl.DesktopEditor.EditorApi.IContentSelection.Normalize*"></a>
+  <h4 id="Sdl_DesktopEditor_EditorApi_IContentSelection_Normalize" data-uid="Sdl.DesktopEditor.EditorApi.IContentSelection.Normalize">Normalize()</h4>
+  <div class="markdown level1 summary"><p>Swaps the <a class="xref" href="Sdl.DesktopEditor.EditorApi.IContentSelection.html#Sdl_DesktopEditor_EditorApi_IContentSelection_From">From</a> and <a class="xref" href="Sdl.DesktopEditor.EditorApi.IContentSelection.html#Sdl_DesktopEditor_EditorApi_IContentSelection_Upto">Upto</a> positions if the selection
+is reversed, to ensure that From always appears before (or in the same place as) Upto.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void Normalize()</code></pre>
+  </div>
+  <h5 id="Sdl_DesktopEditor_EditorApi_IContentSelection_Normalize_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This operation has no effect if the selection is empty or if it is not reversed.</p>
+</div>
+  <h5 id="Sdl_DesktopEditor_EditorApi_IContentSelection_Normalize_seealso">See Also</h5>
+  <div class="seealso">
+      <div><a class="xref" href="Sdl.DesktopEditor.EditorApi.IContentSelection.html#Sdl_DesktopEditor_EditorApi_IContentSelection_IsReversed">IsReversed</a></div>
+      <div><a class="xref" href="Sdl.DesktopEditor.EditorApi.IContentSelection.html#Sdl_DesktopEditor_EditorApi_IContentSelection_Reverse">Reverse()</a></div>
+  </div>
+  
+  
+  <a id="Sdl_DesktopEditor_EditorApi_IContentSelection_Reverse_" data-uid="Sdl.DesktopEditor.EditorApi.IContentSelection.Reverse*"></a>
+  <h4 id="Sdl_DesktopEditor_EditorApi_IContentSelection_Reverse" data-uid="Sdl.DesktopEditor.EditorApi.IContentSelection.Reverse">Reverse()</h4>
+  <div class="markdown level1 summary"><p>Swaps the <a class="xref" href="Sdl.DesktopEditor.EditorApi.IContentSelection.html#Sdl_DesktopEditor_EditorApi_IContentSelection_From">From</a> and <a class="xref" href="Sdl.DesktopEditor.EditorApi.IContentSelection.html#Sdl_DesktopEditor_EditorApi_IContentSelection_Upto">Upto</a> positions.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void Reverse()</code></pre>
+  </div>
+  <h5 id="Sdl_DesktopEditor_EditorApi_IContentSelection_Reverse_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This operation has no effect if the selection is empty.</p>
+</div>
+  <h5 id="Sdl_DesktopEditor_EditorApi_IContentSelection_Reverse_seealso">See Also</h5>
+  <div class="seealso">
+      <div><a class="xref" href="Sdl.DesktopEditor.EditorApi.IContentSelection.html#Sdl_DesktopEditor_EditorApi_IContentSelection_IsReversed">IsReversed</a></div>
+      <div><a class="xref" href="Sdl.DesktopEditor.EditorApi.IContentSelection.html#Sdl_DesktopEditor_EditorApi_IContentSelection_Normalize">Normalize()</a></div>
+  </div>
+  
+  
+  <a id="Sdl_DesktopEditor_EditorApi_IContentSelection_ScrollIntoView_" data-uid="Sdl.DesktopEditor.EditorApi.IContentSelection.ScrollIntoView*"></a>
+  <h4 id="Sdl_DesktopEditor_EditorApi_IContentSelection_ScrollIntoView" data-uid="Sdl.DesktopEditor.EditorApi.IContentSelection.ScrollIntoView">ScrollIntoView()</h4>
+  <div class="markdown level1 summary"><p>Scroll the content at the current selection into view.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void ScrollIntoView()</code></pre>
+  </div>
+  <h5 id="Sdl_DesktopEditor_EditorApi_IContentSelection_ScrollIntoView_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>
+Note that there is seldom a need to call this method as the selection is
+automatically scrolled into view when it is moved. However if you resize
+the window (for example) the selection may end up outside of the view as a result - calling
+this method will bring it back into view.
+</p>
+<p>
+If the entire selection cannot be scrolled into view the <a class="xref" href="Sdl.DesktopEditor.EditorApi.IContentSelection.html#Sdl_DesktopEditor_EditorApi_IContentSelection_Upto">Upto</a> end
+of the selection should at least be scrolled in, with as much of the rest
+of the selection visible as possible.
+</p>
+</div>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Sdl.Desktop.Platform.Controls.Controls.WindowsControlUtils.html#Sdl_Desktop_Platform_Controls_Controls_WindowsControlUtils_ForWindowFromFrameworkElement_System_Object_System_Action_System_Windows_Window__">WindowsControlUtils.ForWindowFromFrameworkElement(Object, Action&lt;Window&gt;)</a>
+  </div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>
