@@ -29,6 +29,6 @@ Copy-Item "$SOURCE_DIR\_site\15.2\*" .\15.2\ -Recurse -force
 write-host "Push the new docs to the remote branch"
 git config --local user.email "github-actions[bot]@users.noreply.sdl.com"
 git config --local user.name "github-actions[bot]"
-git add . -A
+git add .\15.2 -A
 git commit -m "Update generated documentation"
 git push "$remote_repo" HEAD:gh-pages
