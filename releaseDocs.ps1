@@ -31,5 +31,8 @@ git config --local user.email "github-actions[bot]@users.noreply.sdl.com"
 git config --local user.name "github-actions[bot]"
 git add .\15.2 -A
 git commit -m "Update generated documentation"
-git fetch
-git push "$remote_repo" HEAD:gh-pages
+
+git fetch              # update 'gh-pages' from remote
+git tag base gh-pages    # mark our base point
+git rebase -i gh-pages   # rewrite some commits
+git push --force-with-lease=gh-pages:base gh-pages:gh-pages
