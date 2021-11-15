@@ -23,6 +23,7 @@ git clone $remote_repo --branch gh-pages $TEMP_REPO_DIR
 #git rm -r *
 
 write-host "Copy documentation into the repo"
+md "15.2"
 Copy-Item "$SOURCE_DIR\_site\15.2\*" .\15.2\ -Recurse -force
 
 write-host "Push the new docs to the remote branch"
