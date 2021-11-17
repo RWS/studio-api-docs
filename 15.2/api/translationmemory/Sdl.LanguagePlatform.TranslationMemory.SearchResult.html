@@ -86,7 +86,9 @@
   
   <h1 id="Sdl_LanguagePlatform_TranslationMemory_SearchResult" data-uid="Sdl.LanguagePlatform.TranslationMemory.SearchResult" class="text-break">Class SearchResult
   </h1>
-  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 summary"><p>Encapsulates the result of a search operation, a memory translation unit, 
+possiby annotated with score, placeables and context information.</p>
+</div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
@@ -130,7 +132,8 @@
   
   <a id="Sdl_LanguagePlatform_TranslationMemory_SearchResult__ctor_" data-uid="Sdl.LanguagePlatform.TranslationMemory.SearchResult.#ctor*"></a>
   <h4 id="Sdl_LanguagePlatform_TranslationMemory_SearchResult__ctor_Sdl_LanguagePlatform_TranslationMemory_TranslationUnit_" data-uid="Sdl.LanguagePlatform.TranslationMemory.SearchResult.#ctor(Sdl.LanguagePlatform.TranslationMemory.TranslationUnit)">SearchResult(TranslationUnit)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the SearchResult class.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -149,7 +152,8 @@
       <tr>
         <td><a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.TranslationUnit.html">TranslationUnit</a></td>
         <td><span class="parametername">tmTu</span></td>
-        <td></td>
+        <td><p>The translation unit found by the search operation.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -159,7 +163,8 @@
   
   <a id="Sdl_LanguagePlatform_TranslationMemory_SearchResult_CascadeEntryIndex_" data-uid="Sdl.LanguagePlatform.TranslationMemory.SearchResult.CascadeEntryIndex*"></a>
   <h4 id="Sdl_LanguagePlatform_TranslationMemory_SearchResult_CascadeEntryIndex" data-uid="Sdl.LanguagePlatform.TranslationMemory.SearchResult.CascadeEntryIndex">CascadeEntryIndex</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Gets or sets the cascade entry index.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -180,11 +185,16 @@
       </tr>
     </tbody>
   </table>
+  <h5 id="Sdl_LanguagePlatform_TranslationMemory_SearchResult_CascadeEntryIndex_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>The cascade entry index corresponds to a position in the cascade&apos;s cascade entries list (Cascade.CascadeEntries).
+If the cascade entry index is -1 then the search result was not created in a cascade.</p>
+</div>
   
   
   <a id="Sdl_LanguagePlatform_TranslationMemory_SearchResult_ContextData_" data-uid="Sdl.LanguagePlatform.TranslationMemory.SearchResult.ContextData*"></a>
   <h4 id="Sdl_LanguagePlatform_TranslationMemory_SearchResult_ContextData" data-uid="Sdl.LanguagePlatform.TranslationMemory.SearchResult.ContextData">ContextData</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Gets or sets the context information for this translation unit.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -209,7 +219,19 @@
   
   <a id="Sdl_LanguagePlatform_TranslationMemory_SearchResult_MatchingPlaceholderTokens_" data-uid="Sdl.LanguagePlatform.TranslationMemory.SearchResult.MatchingPlaceholderTokens*"></a>
   <h4 id="Sdl_LanguagePlatform_TranslationMemory_SearchResult_MatchingPlaceholderTokens" data-uid="Sdl.LanguagePlatform.TranslationMemory.SearchResult.MatchingPlaceholderTokens">MatchingPlaceholderTokens</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Gets or sets the matching tokens.
+MatchingPlaceholderTokens attribute counts the number of placeholders that match by value. 
+Upon comparing two segments, if the placeholders value is different, 
+the Scorer will still give 100% match, even if the placeholders value is different
+for example: </p>
+<ul>
+<li>first segment:  {Birth}{&apos; &apos;}{year}{&apos; &apos;}{is}{&apos; &apos;}{NumberToken(1980)}</li>
+<li>second segment: {Birth}{&apos; &apos;}{year}{&apos; &apos;}{is}{&apos; &apos;}{NumberToken(1985)}
+The above segments will be considerred equal, even if they are not. 
+This info is used upon ordering of TM entries so that on the first position
+to appear the segment that match by token value too</li>
+</ul>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -230,11 +252,16 @@
       </tr>
     </tbody>
   </table>
+  <h5 id="Sdl_LanguagePlatform_TranslationMemory_SearchResult_MatchingPlaceholderTokens_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This field is used internally upon ordering of TM entries so that on the first position
+to appear the segment that match by token value too.</p>
+</div>
   
   
   <a id="Sdl_LanguagePlatform_TranslationMemory_SearchResult_MemoryPlaceables_" data-uid="Sdl.LanguagePlatform.TranslationMemory.SearchResult.MemoryPlaceables*"></a>
   <h4 id="Sdl_LanguagePlatform_TranslationMemory_SearchResult_MemoryPlaceables" data-uid="Sdl.LanguagePlatform.TranslationMemory.SearchResult.MemoryPlaceables">MemoryPlaceables</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Gets or sets the list of placeables which are found in the memory segment.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -259,7 +286,8 @@
   
   <a id="Sdl_LanguagePlatform_TranslationMemory_SearchResult_MemoryTranslationUnit_" data-uid="Sdl.LanguagePlatform.TranslationMemory.SearchResult.MemoryTranslationUnit*"></a>
   <h4 id="Sdl_LanguagePlatform_TranslationMemory_SearchResult_MemoryTranslationUnit" data-uid="Sdl.LanguagePlatform.TranslationMemory.SearchResult.MemoryTranslationUnit">MemoryTranslationUnit</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>The translation unit found by the search, used to compute the translation proposal.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -284,7 +312,8 @@
   
   <a id="Sdl_LanguagePlatform_TranslationMemory_SearchResult_MetaData_" data-uid="Sdl.LanguagePlatform.TranslationMemory.SearchResult.MetaData*"></a>
   <h4 id="Sdl_LanguagePlatform_TranslationMemory_SearchResult_MetaData" data-uid="Sdl.LanguagePlatform.TranslationMemory.SearchResult.MetaData">MetaData</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Used in various flows to hold data related to SearchResult</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -309,7 +338,8 @@
   
   <a id="Sdl_LanguagePlatform_TranslationMemory_SearchResult_PlaceableAssociations_" data-uid="Sdl.LanguagePlatform.TranslationMemory.SearchResult.PlaceableAssociations*"></a>
   <h4 id="Sdl_LanguagePlatform_TranslationMemory_SearchResult_PlaceableAssociations" data-uid="Sdl.LanguagePlatform.TranslationMemory.SearchResult.PlaceableAssociations">PlaceableAssociations</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Gets or sets the list of placeables which are found in the memory segment.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -334,7 +364,8 @@
   
   <a id="Sdl_LanguagePlatform_TranslationMemory_SearchResult_ScoringResult_" data-uid="Sdl.LanguagePlatform.TranslationMemory.SearchResult.ScoringResult*"></a>
   <h4 id="Sdl_LanguagePlatform_TranslationMemory_SearchResult_ScoringResult" data-uid="Sdl.LanguagePlatform.TranslationMemory.SearchResult.ScoringResult">ScoringResult</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Gets or sets the scoring for this result.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -359,7 +390,9 @@
   
   <a id="Sdl_LanguagePlatform_TranslationMemory_SearchResult_TranslationProposal_" data-uid="Sdl.LanguagePlatform.TranslationMemory.SearchResult.TranslationProposal*"></a>
   <h4 id="Sdl_LanguagePlatform_TranslationMemory_SearchResult_TranslationProposal" data-uid="Sdl.LanguagePlatform.TranslationMemory.SearchResult.TranslationProposal">TranslationProposal</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Gets or sets the translation proposal TU, which is a copy of the memory
+translation unit in which all placeables have been resolved.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">

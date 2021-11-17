@@ -86,7 +86,8 @@
   
   <h1 id="Sdl_LanguagePlatform_Core_CultureInfoExtensions" data-uid="Sdl.LanguagePlatform.Core.CultureInfoExtensions" class="text-break">Class CultureInfoExtensions
   </h1>
-  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 summary"><p>Utilities related to <span class="xref">System.Globalization.CultureInfo</span> objects.</p>
+</div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
@@ -129,7 +130,13 @@
   
   <a id="Sdl_LanguagePlatform_Core_CultureInfoExtensions_LegacyLanguageCodeMapping_" data-uid="Sdl.LanguagePlatform.Core.CultureInfoExtensions.LegacyLanguageCodeMapping*"></a>
   <h4 id="Sdl_LanguagePlatform_Core_CultureInfoExtensions_LegacyLanguageCodeMapping" data-uid="Sdl.LanguagePlatform.Core.CultureInfoExtensions.LegacyLanguageCodeMapping">LegacyLanguageCodeMapping</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Gets a mapping from legacy language codes to .Net language codes. The mapping maps from
+legacy language codes as they are used by SDLX and Trados Translator&apos;s Workbench and
+related applications to the closest language code used by .Net. 
+<p>This is an internal data structure which should not be directly used and 
+not be modified. To look up a legacy code,
+use <a class="xref" href="Sdl.LanguagePlatform.Core.CultureInfoExtensions.html#Sdl_LanguagePlatform_Core_CultureInfoExtensions_GetMappedCultureCodeForLegacyCode_System_String_">GetMappedCultureCodeForLegacyCode(String)</a>.</p></p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -156,7 +163,10 @@
   
   <a id="Sdl_LanguagePlatform_Core_CultureInfoExtensions_AreCompatible_" data-uid="Sdl.LanguagePlatform.Core.CultureInfoExtensions.AreCompatible*"></a>
   <h4 id="Sdl_LanguagePlatform_Core_CultureInfoExtensions_AreCompatible_System_Globalization_CultureInfo_System_Globalization_CultureInfo_" data-uid="Sdl.LanguagePlatform.Core.CultureInfoExtensions.AreCompatible(System.Globalization.CultureInfo,System.Globalization.CultureInfo)">AreCompatible(CultureInfo, CultureInfo)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Checks whether two cultures (languages) are compatible. Two cultures are 
+compatible if they denote the same language which means they have to be identical or 
+their closest region-neutral parents are identical.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -203,7 +213,10 @@
   
   <a id="Sdl_LanguagePlatform_Core_CultureInfoExtensions_GetCultureInfo_" data-uid="Sdl.LanguagePlatform.Core.CultureInfoExtensions.GetCultureInfo*"></a>
   <h4 id="Sdl_LanguagePlatform_Core_CultureInfoExtensions_GetCultureInfo_System_Int32_" data-uid="Sdl.LanguagePlatform.Core.CultureInfoExtensions.GetCultureInfo(System.Int32)">GetCultureInfo(Int32)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Returns the culture which corresponds to the specified LCID. If the LCID is unknown or
+invalid, an exception is thrown. Note that this will also be the case for custom cultures,
+which seem to always get the same LCID (4096).</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -222,7 +235,8 @@
       <tr>
         <td><span class="xref">System.Int32</span></td>
         <td><span class="parametername">lcid</span></td>
-        <td></td>
+        <td><p>The locale identifier (lcid)</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -237,7 +251,8 @@
     <tbody>
       <tr>
         <td><span class="xref">System.Globalization.CultureInfo</span></td>
-        <td></td>
+        <td><p>A CultureInfo object, or throws for unknown LCIDs.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -245,7 +260,9 @@
   
   <a id="Sdl_LanguagePlatform_Core_CultureInfoExtensions_GetCultureInfo_" data-uid="Sdl.LanguagePlatform.Core.CultureInfoExtensions.GetCultureInfo*"></a>
   <h4 id="Sdl_LanguagePlatform_Core_CultureInfoExtensions_GetCultureInfo_System_Int32_System_Boolean_" data-uid="Sdl.LanguagePlatform.Core.CultureInfoExtensions.GetCultureInfo(System.Int32,System.Boolean)">GetCultureInfo(Int32, Boolean)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Returns the culture which corresponds to the specified locale, which may be a legacy LCID 
+used internally by SDLX or Trados Translator&apos;s Workbench.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -264,12 +281,16 @@
       <tr>
         <td><span class="xref">System.Int32</span></td>
         <td><span class="parametername">lcid</span></td>
-        <td></td>
+        <td><p>The locale identifier (lcid)</p>
+</td>
       </tr>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
         <td><span class="parametername">returnNullForUnknowns</span></td>
-        <td></td>
+        <td><p>If true, null is returned for unknown languages. Otherwise, an exception
+is thrown. This will also be the case if the lcid represets a custom culture (in most cases, 
+the lcid will be 4096 in this case).</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -284,7 +305,8 @@
     <tbody>
       <tr>
         <td><span class="xref">System.Globalization.CultureInfo</span></td>
-        <td></td>
+        <td><p>A <span class="xref">System.Globalization.CultureInfo</span> object, or null if <code data-dev-comment-type="paramref" class="paramref">returnNullForUnknowns</code> is true.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -292,7 +314,12 @@
   
   <a id="Sdl_LanguagePlatform_Core_CultureInfoExtensions_GetCultureInfo_" data-uid="Sdl.LanguagePlatform.Core.CultureInfoExtensions.GetCultureInfo*"></a>
   <h4 id="Sdl_LanguagePlatform_Core_CultureInfoExtensions_GetCultureInfo_System_String_" data-uid="Sdl.LanguagePlatform.Core.CultureInfoExtensions.GetCultureInfo(System.String)">GetCultureInfo(String)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Similar to <span class="xref">System.Globalization.CultureInfo.GetCultureInfo(System.String)</span>, but 
+covers culture names (&lt;language-code&gt;-&lt;region-code&gt;) which are used
+by SDLX and Trados Translator&apos;s Workbench, but have a different code in .Net. 
+<p>Use this method to transparently map language codes (current and legacy ones)
+to cultures, for example when processing TTX, ITD, or TMX.</p></p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -311,7 +338,8 @@
       <tr>
         <td><span class="xref">System.String</span></td>
         <td><span class="parametername">name</span></td>
-        <td></td>
+        <td><p>The culture code</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -326,15 +354,26 @@
     <tbody>
       <tr>
         <td><span class="xref">System.Globalization.CultureInfo</span></td>
-        <td></td>
+        <td><p>A CultureInfo object, using appropriate fallbacks for backwards compatibility. Throws
+an exeption if neither the fallback heuristics nor .Net can resolve the culture name.</p>
+</td>
       </tr>
     </tbody>
   </table>
+  <h5 id="Sdl_LanguagePlatform_Core_CultureInfoExtensions_GetCultureInfo_System_String__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>To avoid an exception to be thrown, and to get <code>null</code> for unknown 
+culture codes, use <a class="xref" href="Sdl.LanguagePlatform.Core.CultureInfoExtensions.html#Sdl_LanguagePlatform_Core_CultureInfoExtensions_GetCultureInfo_System_String_System_Boolean_">GetCultureInfo(String, Boolean)</a>.</p>
+</div>
   
   
   <a id="Sdl_LanguagePlatform_Core_CultureInfoExtensions_GetCultureInfo_" data-uid="Sdl.LanguagePlatform.Core.CultureInfoExtensions.GetCultureInfo*"></a>
   <h4 id="Sdl_LanguagePlatform_Core_CultureInfoExtensions_GetCultureInfo_System_String_System_Boolean_" data-uid="Sdl.LanguagePlatform.Core.CultureInfoExtensions.GetCultureInfo(System.String,System.Boolean)">GetCultureInfo(String, Boolean)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Similar to <span class="xref">System.Globalization.CultureInfo.GetCultureInfo(System.String)</span>, but 
+covers culture names (&lt;language-code&gt;-&lt;region-code&gt;) which are used
+by SDLX and Trados Translator&apos;s Workbench, but have a different code in .Net. 
+<p>Use this method to transparently map language codes (current and legacy ones)
+to cultures, for example when processing TTX, ITD, or TMX.</p></p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -353,12 +392,15 @@
       <tr>
         <td><span class="xref">System.String</span></td>
         <td><span class="parametername">name</span></td>
-        <td></td>
+        <td><p>The culture code</p>
+</td>
       </tr>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
         <td><span class="parametername">returnNullForUnknowns</span></td>
-        <td></td>
+        <td><p>If true, null is returned for unknown culture codes. If false, an exception is thrown if
+the culture code cannot be resolved.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -373,7 +415,9 @@
     <tbody>
       <tr>
         <td><span class="xref">System.Globalization.CultureInfo</span></td>
-        <td></td>
+        <td><p>A CultureInfo object, using appropriate fallbacks for backwards compatibility, or 
+null if the culture code cannot be resolved and <code data-dev-comment-type="paramref" class="paramref">returnNullForUnknowns</code> is <code>true</code>.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -381,7 +425,8 @@
   
   <a id="Sdl_LanguagePlatform_Core_CultureInfoExtensions_GetLanguageGroupID_" data-uid="Sdl.LanguagePlatform.Core.CultureInfoExtensions.GetLanguageGroupID*"></a>
   <h4 id="Sdl_LanguagePlatform_Core_CultureInfoExtensions_GetLanguageGroupID_System_Globalization_CultureInfo_" data-uid="Sdl.LanguagePlatform.Core.CultureInfoExtensions.GetLanguageGroupID(System.Globalization.CultureInfo)">GetLanguageGroupID(CultureInfo)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Returns the <a class="xref" href="Sdl.LanguagePlatform.Core.CultureInfoExtensions.LanguageGroupID.html">CultureInfoExtensions.LanguageGroupID</a> associated with the specified culture.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -423,7 +468,8 @@
   
   <a id="Sdl_LanguagePlatform_Core_CultureInfoExtensions_GetLanguageGroupName_" data-uid="Sdl.LanguagePlatform.Core.CultureInfoExtensions.GetLanguageGroupName*"></a>
   <h4 id="Sdl_LanguagePlatform_Core_CultureInfoExtensions_GetLanguageGroupName_System_Globalization_CultureInfo_" data-uid="Sdl.LanguagePlatform.Core.CultureInfoExtensions.GetLanguageGroupName(System.Globalization.CultureInfo)">GetLanguageGroupName(CultureInfo)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Returns the name of the language group for the specified culture as a string.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -442,7 +488,8 @@
       <tr>
         <td><span class="xref">System.Globalization.CultureInfo</span></td>
         <td><span class="parametername">culture</span></td>
-        <td></td>
+        <td><p>The culture (may not be null)</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -457,7 +504,9 @@
     <tbody>
       <tr>
         <td><span class="xref">System.String</span></td>
-        <td></td>
+        <td><p>The name of the language group the culture belongs to, or <code>null</code> if
+the group is unknown.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -465,7 +514,9 @@
   
   <a id="Sdl_LanguagePlatform_Core_CultureInfoExtensions_GetLeadingClitics_" data-uid="Sdl.LanguagePlatform.Core.CultureInfoExtensions.GetLeadingClitics*"></a>
   <h4 id="Sdl_LanguagePlatform_Core_CultureInfoExtensions_GetLeadingClitics_System_Globalization_CultureInfo_" data-uid="Sdl.LanguagePlatform.Core.CultureInfoExtensions.GetLeadingClitics(System.Globalization.CultureInfo)">GetLeadingClitics(CultureInfo)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Returns a case-sensitive string hash set containing the leading separable clitics for the provided
+culture, or <code>null</code> if none are defined.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -507,7 +558,10 @@
   
   <a id="Sdl_LanguagePlatform_Core_CultureInfoExtensions_GetMappedCultureCodeForLegacyCode_" data-uid="Sdl.LanguagePlatform.Core.CultureInfoExtensions.GetMappedCultureCodeForLegacyCode*"></a>
   <h4 id="Sdl_LanguagePlatform_Core_CultureInfoExtensions_GetMappedCultureCodeForLegacyCode_System_String_" data-uid="Sdl.LanguagePlatform.Core.CultureInfoExtensions.GetMappedCultureCodeForLegacyCode(System.String)">GetMappedCultureCodeForLegacyCode(String)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Assumes the passed culture code is a legacy code and returns the mapped
+equivalent. null is returned if no mapping exists (which means that the
+code is not a legacy code or no mapping is required or yet specified).</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -549,7 +603,10 @@
   
   <a id="Sdl_LanguagePlatform_Core_CultureInfoExtensions_GetRegionNeutralCulture_" data-uid="Sdl.LanguagePlatform.Core.CultureInfoExtensions.GetRegionNeutralCulture*"></a>
   <h4 id="Sdl_LanguagePlatform_Core_CultureInfoExtensions_GetRegionNeutralCulture_System_Globalization_CultureInfo_" data-uid="Sdl.LanguagePlatform.Core.CultureInfoExtensions.GetRegionNeutralCulture(System.Globalization.CultureInfo)">GetRegionNeutralCulture(CultureInfo)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Computes and returns the region-neutral parent culture of the input culture. If the input
+culture is already neutral, it is returned. Otherwise, the parent culture hierarchy is 
+traversed until a region-neutral culture is found.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -568,7 +625,8 @@
       <tr>
         <td><span class="xref">System.Globalization.CultureInfo</span></td>
         <td><span class="parametername">culture</span></td>
-        <td></td>
+        <td><p>The input culture</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -583,15 +641,25 @@
     <tbody>
       <tr>
         <td><span class="xref">System.Globalization.CultureInfo</span></td>
-        <td></td>
+        <td><p>The region-neutral parent culture of the input culture</p>
+</td>
       </tr>
     </tbody>
   </table>
+  <h5 id="Sdl_LanguagePlatform_Core_CultureInfoExtensions_GetRegionNeutralCulture_System_Globalization_CultureInfo__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>A region-neutral culture is not necessarily one &quot;without dashes&quot;. For example,
+the region-neutral parent culture of <code>zh-CN</code> (Chinese, PRC) is <code>zh-CHS</code> or <code>zh-Hans</code> (Simplified
+Chinese). The exact result may depend on the operating system version and the .Net version.</p>
+</div>
   
   
   <a id="Sdl_LanguagePlatform_Core_CultureInfoExtensions_GetRegionQualifiedCulture_" data-uid="Sdl.LanguagePlatform.Core.CultureInfoExtensions.GetRegionQualifiedCulture*"></a>
   <h4 id="Sdl_LanguagePlatform_Core_CultureInfoExtensions_GetRegionQualifiedCulture_System_Globalization_CultureInfo_" data-uid="Sdl.LanguagePlatform.Core.CultureInfoExtensions.GetRegionQualifiedCulture(System.Globalization.CultureInfo)">GetRegionQualifiedCulture(CultureInfo)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Heuristically computes and returns the region-specified (&quot;default&quot;) culture for a given
+language. If the input culture is not neutral (i.e. it is region-specific), it is returned. 
+Otherwise the method will find the region-qualified culture which most likely represents 
+the culture&apos;s default/major region.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -610,7 +678,8 @@
       <tr>
         <td><span class="xref">System.Globalization.CultureInfo</span></td>
         <td><span class="parametername">culture</span></td>
-        <td></td>
+        <td><p>The input culture</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -625,7 +694,8 @@
     <tbody>
       <tr>
         <td><span class="xref">System.Globalization.CultureInfo</span></td>
-        <td></td>
+        <td><p>The input parameter, if it&apos;s a region-qualified/non-neutral culture, or the default region-qualified culture otheriwise.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -633,7 +703,10 @@
   
   <a id="Sdl_LanguagePlatform_Core_CultureInfoExtensions_GetRegionQualifiedCulture_" data-uid="Sdl.LanguagePlatform.Core.CultureInfoExtensions.GetRegionQualifiedCulture*"></a>
   <h4 id="Sdl_LanguagePlatform_Core_CultureInfoExtensions_GetRegionQualifiedCulture_System_String_" data-uid="Sdl.LanguagePlatform.Core.CultureInfoExtensions.GetRegionQualifiedCulture(System.String)">GetRegionQualifiedCulture(String)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Heuristically computes and returns the region-specified (&quot;default&quot;) culture code for a given
+language code. If the input culture is not neutral or does not have a region-qualified 
+equivalent, null is returned.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -675,7 +748,9 @@
   
   <a id="Sdl_LanguagePlatform_Core_CultureInfoExtensions_GetTrailingClitics_" data-uid="Sdl.LanguagePlatform.Core.CultureInfoExtensions.GetTrailingClitics*"></a>
   <h4 id="Sdl_LanguagePlatform_Core_CultureInfoExtensions_GetTrailingClitics_System_Globalization_CultureInfo_" data-uid="Sdl.LanguagePlatform.Core.CultureInfoExtensions.GetTrailingClitics(System.Globalization.CultureInfo)">GetTrailingClitics(CultureInfo)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Returns a case-sensitive string hash set containing the trailing separable clitics for the provided
+culture, or <code>null</code> if none are defined.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -717,7 +792,9 @@
   
   <a id="Sdl_LanguagePlatform_Core_CultureInfoExtensions_IsRomanceLanguage_" data-uid="Sdl.LanguagePlatform.Core.CultureInfoExtensions.IsRomanceLanguage*"></a>
   <h4 id="Sdl_LanguagePlatform_Core_CultureInfoExtensions_IsRomanceLanguage_System_Globalization_CultureInfo_" data-uid="Sdl.LanguagePlatform.Core.CultureInfoExtensions.IsRomanceLanguage(System.Globalization.CultureInfo)">IsRomanceLanguage(CultureInfo)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Determines whether the specified culture info is any of the romance languages: French, Spanish, Portuguese, 
+Italian, Romanian, Galician or Catalan.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -736,7 +813,8 @@
       <tr>
         <td><span class="xref">System.Globalization.CultureInfo</span></td>
         <td><span class="parametername">culture</span></td>
-        <td></td>
+        <td><p>The culture info.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -751,7 +829,8 @@
     <tbody>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
-        <td></td>
+        <td><p>true if culture is any of the romance languages, otherwise false.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -759,7 +838,9 @@
   
   <a id="Sdl_LanguagePlatform_Core_CultureInfoExtensions_UseBlankAsSentenceSeparator_" data-uid="Sdl.LanguagePlatform.Core.CultureInfoExtensions.UseBlankAsSentenceSeparator*"></a>
   <h4 id="Sdl_LanguagePlatform_Core_CultureInfoExtensions_UseBlankAsSentenceSeparator_System_Globalization_CultureInfo_" data-uid="Sdl.LanguagePlatform.Core.CultureInfoExtensions.UseBlankAsSentenceSeparator(System.Globalization.CultureInfo)">UseBlankAsSentenceSeparator(CultureInfo)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Determines whether the specified culture uses blanks as sentence separators. This is 
+currently only true for Thai.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -778,7 +859,8 @@
       <tr>
         <td><span class="xref">System.Globalization.CultureInfo</span></td>
         <td><span class="parametername">culture</span></td>
-        <td></td>
+        <td><p>The culture to test.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -793,7 +875,8 @@
     <tbody>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
-        <td></td>
+        <td><p>true iff the language associated with the culture uses blanks as sentence separators.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -801,7 +884,9 @@
   
   <a id="Sdl_LanguagePlatform_Core_CultureInfoExtensions_UseBlankAsWordSeparator_" data-uid="Sdl.LanguagePlatform.Core.CultureInfoExtensions.UseBlankAsWordSeparator*"></a>
   <h4 id="Sdl_LanguagePlatform_Core_CultureInfoExtensions_UseBlankAsWordSeparator_System_Globalization_CultureInfo_" data-uid="Sdl.LanguagePlatform.Core.CultureInfoExtensions.UseBlankAsWordSeparator(System.Globalization.CultureInfo)">UseBlankAsWordSeparator(CultureInfo)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Determines whether the specified culture uses blanks as word separators. This is 
+true for all cultures except those based on Japanese, Thai, or Chinese.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -820,7 +905,8 @@
       <tr>
         <td><span class="xref">System.Globalization.CultureInfo</span></td>
         <td><span class="parametername">culture</span></td>
-        <td></td>
+        <td><p>The culture to test.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -835,7 +921,8 @@
     <tbody>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
-        <td></td>
+        <td><p>true iff the language associated with the culture uses blanks as word separators.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -843,7 +930,8 @@
   
   <a id="Sdl_LanguagePlatform_Core_CultureInfoExtensions_UseFullWidth_" data-uid="Sdl.LanguagePlatform.Core.CultureInfoExtensions.UseFullWidth*"></a>
   <h4 id="Sdl_LanguagePlatform_Core_CultureInfoExtensions_UseFullWidth_System_Globalization_CultureInfo_" data-uid="Sdl.LanguagePlatform.Core.CultureInfoExtensions.UseFullWidth(System.Globalization.CultureInfo)">UseFullWidth(CultureInfo)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>returns true for CJK cultures</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -885,7 +973,8 @@
   
   <a id="Sdl_LanguagePlatform_Core_CultureInfoExtensions_UsesClitics_" data-uid="Sdl.LanguagePlatform.Core.CultureInfoExtensions.UsesClitics*"></a>
   <h4 id="Sdl_LanguagePlatform_Core_CultureInfoExtensions_UsesClitics_System_Globalization_CultureInfo_" data-uid="Sdl.LanguagePlatform.Core.CultureInfoExtensions.UsesClitics(System.Globalization.CultureInfo)">UsesClitics(CultureInfo)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Determines whether the specified culture uses clitics (English and the romance languages).</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -904,7 +993,8 @@
       <tr>
         <td><span class="xref">System.Globalization.CultureInfo</span></td>
         <td><span class="parametername">culture</span></td>
-        <td></td>
+        <td><p>The culture.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -919,7 +1009,8 @@
     <tbody>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
-        <td></td>
+        <td><p>true if culture contains clitics, otherwise false.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -927,7 +1018,8 @@
   
   <a id="Sdl_LanguagePlatform_Core_CultureInfoExtensions_UsesDefaultDigits_" data-uid="Sdl.LanguagePlatform.Core.CultureInfoExtensions.UsesDefaultDigits*"></a>
   <h4 id="Sdl_LanguagePlatform_Core_CultureInfoExtensions_UsesDefaultDigits_System_Globalization_CultureInfo_" data-uid="Sdl.LanguagePlatform.Core.CultureInfoExtensions.UsesDefaultDigits(System.Globalization.CultureInfo)">UsesDefaultDigits(CultureInfo)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Determines whether the specified culture uses the standard default digits.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -946,7 +1038,8 @@
       <tr>
         <td><span class="xref">System.Globalization.CultureInfo</span></td>
         <td><span class="parametername">culture</span></td>
-        <td></td>
+        <td><p>The culture, which must not be null or a neutral culture</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -961,7 +1054,8 @@
     <tbody>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
-        <td></td>
+        <td><p><code>true</code> if the culture uses the default digits (0-9), and <code>false</code> otherwise.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -969,7 +1063,9 @@
   
   <a id="Sdl_LanguagePlatform_Core_CultureInfoExtensions_UsesStandardNumberGrouping_" data-uid="Sdl.LanguagePlatform.Core.CultureInfoExtensions.UsesStandardNumberGrouping*"></a>
   <h4 id="Sdl_LanguagePlatform_Core_CultureInfoExtensions_UsesStandardNumberGrouping_System_Globalization_CultureInfo_" data-uid="Sdl.LanguagePlatform.Core.CultureInfoExtensions.UsesStandardNumberGrouping(System.Globalization.CultureInfo)">UsesStandardNumberGrouping(CultureInfo)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Determines whether the provided culture uses standard three-digit grouping for number
+formatting. </p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -988,7 +1084,8 @@
       <tr>
         <td><span class="xref">System.Globalization.CultureInfo</span></td>
         <td><span class="parametername">culture</span></td>
-        <td></td>
+        <td><p>The culture, which must not be null or a neutral culture</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -1003,7 +1100,8 @@
     <tbody>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
-        <td></td>
+        <td><p>true if the culture uses standard three-digit grouping, and false otherwise</p>
+</td>
       </tr>
     </tbody>
   </table>
