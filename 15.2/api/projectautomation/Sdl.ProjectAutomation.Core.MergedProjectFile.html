@@ -86,7 +86,9 @@
   
   <h1 id="Sdl_ProjectAutomation_Core_MergedProjectFile" data-uid="Sdl.ProjectAutomation.Core.MergedProjectFile" class="text-break">Class MergedProjectFile
   </h1>
-  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 summary"><p>Represents a merged translatable file, which consists of a number of child translatable files.
+This allows manipulating the content of all the child files within one physical SDLXLIFF file.</p>
+</div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
@@ -163,6 +165,18 @@
       <a class="xref" href="Sdl.ProjectAutomation.Core.ProjectFile.html#Sdl_ProjectAutomation_Core_ProjectFile_CurrentServerVersion">ProjectFile.CurrentServerVersion</a>
     </div>
     <div>
+      <a class="xref" href="Sdl.ProjectAutomation.Core.ProjectFile.html#Sdl_ProjectAutomation_Core_ProjectFile_LastModified">ProjectFile.LastModified</a>
+    </div>
+    <div>
+      <a class="xref" href="Sdl.ProjectAutomation.Core.ProjectFile.html#Sdl_ProjectAutomation_Core_ProjectFile_Size">ProjectFile.Size</a>
+    </div>
+    <div>
+      <a class="xref" href="Sdl.ProjectAutomation.Core.ProjectFile.html#Sdl_ProjectAutomation_Core_ProjectFile_PathInProject">ProjectFile.PathInProject</a>
+    </div>
+    <div>
+      <a class="xref" href="Sdl.ProjectAutomation.Core.ProjectFile.html#Sdl_ProjectAutomation_Core_ProjectFile_OriginalName">ProjectFile.OriginalName</a>
+    </div>
+    <div>
       <span class="xref">System.Object.ToString()</span>
     </div>
     <div>
@@ -190,13 +204,32 @@
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public class MergedProjectFile : ProjectFile</code></pre>
   </div>
+  <h5 id="Sdl_ProjectAutomation_Core_MergedProjectFile_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>
+To create a merged file, first add all the individual files to the project and subsequently
+call <a class="xref" href="Sdl.ProjectAutomation.Core.IProject.html#Sdl_ProjectAutomation_Core_IProject_CreateMergedProjectFile_System_String_System_String_System_Guid___">CreateMergedProjectFile(String, String, Guid[])</a> to create the merged file object. 
+initially, the merge state (<a class="xref" href="Sdl.ProjectAutomation.Core.MergedProjectFile.html#Sdl_ProjectAutomation_Core_MergedProjectFile_MergeState">MergeState</a>) of the file is <a class="xref" href="Sdl.ProjectAutomation.Core.MergeState.html#Sdl_ProjectAutomation_Core_MergeState_NotMerged">NotMerged</a>,
+which indicates that the merged SDLXLIFF file has not actually been created yet. In order to do this, you need to run a 
+&quot;Convert to Bilingual&quot; task after which the merge state changes to <a class="xref" href="Sdl.ProjectAutomation.Core.MergeState.html#Sdl_ProjectAutomation_Core_MergeState_Merged">Merged</a>.
+</p>
+<p><br>A merged project file with merge state <a class="xref" href="Sdl.ProjectAutomation.Core.MergeState.html#Sdl_ProjectAutomation_Core_MergeState_Merged">Merged</a> 
+can be used for all operations any other translatable project file can be used. The operation will then be performed on
+the merged SDLXLIFF file.
+</p>
+<p>
+The Generate Target Translation task (<a class="xref" href="Sdl.ProjectAutomation.Core.AutomaticTaskTemplateIds.html#Sdl_ProjectAutomation_Core_AutomaticTaskTemplateIds_GenerateTargetTranslations">GenerateTargetTranslations</a>) will effectively &quot;split&quot;
+the merged file again and produce all the native target language files. After this has happened, the merge state of the merged file
+changes to <a class="xref" href="Sdl.ProjectAutomation.Core.MergeState.html#Sdl_ProjectAutomation_Core_MergeState_Split">Split</a>. After this point, no operations can be performed on the merged file anymore.
+</p>
+</div>
   <h3 id="constructors">Constructors
   </h3>
   
   
   <a id="Sdl_ProjectAutomation_Core_MergedProjectFile__ctor_" data-uid="Sdl.ProjectAutomation.Core.MergedProjectFile.#ctor*"></a>
   <h4 id="Sdl_ProjectAutomation_Core_MergedProjectFile__ctor" data-uid="Sdl.ProjectAutomation.Core.MergedProjectFile.#ctor">MergedProjectFile()</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Default constructor.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -208,7 +241,8 @@
   
   <a id="Sdl_ProjectAutomation_Core_MergedProjectFile_ChildFiles_" data-uid="Sdl.ProjectAutomation.Core.MergedProjectFile.ChildFiles*"></a>
   <h4 id="Sdl_ProjectAutomation_Core_MergedProjectFile_ChildFiles" data-uid="Sdl.ProjectAutomation.Core.MergedProjectFile.ChildFiles">ChildFiles</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Gets the translatable files this merged file consists of.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -233,7 +267,8 @@
   
   <a id="Sdl_ProjectAutomation_Core_MergedProjectFile_MergeState_" data-uid="Sdl.ProjectAutomation.Core.MergedProjectFile.MergeState*"></a>
   <h4 id="Sdl_ProjectAutomation_Core_MergedProjectFile_MergeState" data-uid="Sdl.ProjectAutomation.Core.MergedProjectFile.MergeState">MergeState</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Gets the current merge state of the file.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">

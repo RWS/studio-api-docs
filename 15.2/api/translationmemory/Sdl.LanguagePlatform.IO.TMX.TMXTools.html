@@ -129,7 +129,12 @@
   
   <a id="Sdl_LanguagePlatform_IO_TMX_TMXTools_GetLanguageDirection_" data-uid="Sdl.LanguagePlatform.IO.TMX.TMXTools.GetLanguageDirection*"></a>
   <h4 id="Sdl_LanguagePlatform_IO_TMX_TMXTools_GetLanguageDirection_System_String_System_Globalization_CultureInfo__" data-uid="Sdl.LanguagePlatform.IO.TMX.TMXTools.GetLanguageDirection(System.String,System.Globalization.CultureInfo@)">GetLanguageDirection(String, out CultureInfo)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Attempts to obtain the language direction from a TMX file which must be bilingual. The method reads
+the first couple of TUs from the input file and determines the language direction. If not null, the 
+result&apos;s languages will be set to the source and target language. If a language in the result is null, 
+it was not present in any TUs in the sample. If a language is the InvariantCulture, it was inconsistent 
+within the sample (as is the case with multi-target-language TUs).</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -148,12 +153,14 @@
       <tr>
         <td><span class="xref">System.String</span></td>
         <td><span class="parametername">fileName</span></td>
-        <td></td>
+        <td><p>The input file name</p>
+</td>
       </tr>
       <tr>
         <td><span class="xref">System.Globalization.CultureInfo</span></td>
         <td><span class="parametername">headerSourceLanguage</span></td>
-        <td></td>
+        <td><p>The source language as it is specified in the TMX header, or null if not set</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -168,7 +175,8 @@
     <tbody>
       <tr>
         <td><a class="xref" href="Sdl.LanguagePlatform.Core.LanguagePair.html">LanguagePair</a></td>
-        <td></td>
+        <td><p>The language direction or null on errors or if the language direction cannot be determined or invalid input is encountered. No exceptions are returned.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -176,7 +184,8 @@
   
   <a id="Sdl_LanguagePlatform_IO_TMX_TMXTools_GetLanguages_" data-uid="Sdl.LanguagePlatform.IO.TMX.TMXTools.GetLanguages*"></a>
   <h4 id="Sdl_LanguagePlatform_IO_TMX_TMXTools_GetLanguages_System_String_System_Int32_System_Int32__" data-uid="Sdl.LanguagePlatform.IO.TMX.TMXTools.GetLanguages(System.String,System.Int32,System.Int32@)">GetLanguages(String, Int32, out Int32)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Gets the languages from the given TMX filename.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -195,17 +204,20 @@
       <tr>
         <td><span class="xref">System.String</span></td>
         <td><span class="parametername">fileName</span></td>
-        <td></td>
+        <td><p>file name</p>
+</td>
       </tr>
       <tr>
         <td><span class="xref">System.Int32</span></td>
         <td><span class="parametername">limit</span></td>
-        <td></td>
+        <td><p>limit on scanned TUs; if 0 then no limit</p>
+</td>
       </tr>
       <tr>
         <td><span class="xref">System.Int32</span></td>
         <td><span class="parametername">scannedTUs</span></td>
-        <td></td>
+        <td><p>scanned TUs; if limit 0 then this corresponds to TU count</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -220,7 +232,8 @@
     <tbody>
       <tr>
         <td><span class="xref">System.Collections.Generic.IList</span>&lt;<span class="xref">System.Globalization.CultureInfo</span>&gt;</td>
-        <td></td>
+        <td><p>languages</p>
+</td>
       </tr>
     </tbody>
   </table>

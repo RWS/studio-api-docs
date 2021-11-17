@@ -127,7 +127,8 @@
   
   <a id="Sdl_Core_FineGrainedAlignment_IFineGrainedAligner_Align_" data-uid="Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.Align*"></a>
   <h4 id="Sdl_Core_FineGrainedAlignment_IFineGrainedAligner_Align_System_Collections_Generic_IEnumerable_Sdl_Core_FineGrainedAlignment_IAlignableContentPair__" data-uid="Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.Align(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair})">Align(IEnumerable&lt;IAlignableContentPair&gt;)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Performs alignment on the pairs provided - any &apos;native&apos; alignments should be provided by the corpus</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -161,10 +162,17 @@
     <tbody>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
-        <td></td>
+        <td><p>True if the pairs were aligned, false if alignment was not possible (e.g. model not yet built)</p>
+</td>
       </tr>
     </tbody>
   </table>
+  <h5 id="Sdl_Core_FineGrainedAlignment_IFineGrainedAligner_Align_System_Collections_Generic_IEnumerable_Sdl_Core_FineGrainedAlignment_IAlignableContentPair___remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>The AlignmentData provided for each pair can either be null, or a LiftAlignedSpanPairSet containing any &apos;native&apos; alignments that the corpus can provide.
+If alignment can&apos;t be peformed (e.g. model not built) implementations should set AlignmentData and TranslationModelDate to null for each pair. If alignment can be 
+performed but no alignment data can be computed for a given pair (e.g. no significant tokens, or too many), AlignmentData for the pair
+should be set to an empty LiftAlignedSpanPairSet.</p>
+</div>
   
   
   <a id="Sdl_Core_FineGrainedAlignment_IFineGrainedAligner_Align_" data-uid="Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.Align*"></a>
@@ -221,7 +229,8 @@
   
   <a id="Sdl_Core_FineGrainedAlignment_IFineGrainedAligner_AlignEx_" data-uid="Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.AlignEx*"></a>
   <h4 id="Sdl_Core_FineGrainedAlignment_IFineGrainedAligner_AlignEx_System_Collections_Generic_IEnumerable_Sdl_Core_FineGrainedAlignment_IAlignableContentPair__" data-uid="Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.AlignEx(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair})">AlignEx(IEnumerable&lt;IAlignableContentPair&gt;)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Same functionality as Align but with detailed result codes for each pair processed.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -255,7 +264,8 @@
     <tbody>
       <tr>
         <td><a class="xref" href="Sdl.Core.FineGrainedAlignment.AlignResult.html">AlignResult</a>[]</td>
-        <td></td>
+        <td><p>An array of <a class="xref" href="Sdl.Core.FineGrainedAlignment.AlignResult.html">AlignResult</a>, one per item in <code data-dev-comment-type="paramref" class="paramref">pairs</code></p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -357,7 +367,9 @@
   
   <a id="Sdl_Core_FineGrainedAlignment_IFineGrainedAligner_SetErrorLogger_" data-uid="Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.SetErrorLogger*"></a>
   <h4 id="Sdl_Core_FineGrainedAlignment_IFineGrainedAligner_SetErrorLogger_System_Action_System_Exception_System_String__" data-uid="Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.SetErrorLogger(System.Action{System.Exception,System.String})">SetErrorLogger(Action&lt;Exception, String&gt;)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Provides an implementation of an error logger for the aligner. In exception cases, the aligner may invoke
+the implementation, providing either an Exception object, a string, or both.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -376,10 +388,14 @@
       <tr>
         <td><span class="xref">System.Action</span>&lt;<span class="xref">System.Exception</span>, <span class="xref">System.String</span>&gt;</td>
         <td><span class="parametername">logger</span></td>
-        <td></td>
+        <td><p>The logger implementation</p>
+</td>
       </tr>
     </tbody>
   </table>
+  <h5 id="Sdl_Core_FineGrainedAlignment_IFineGrainedAligner_SetErrorLogger_System_Action_System_Exception_System_String___remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>If the aligner wishes only to invoke using the Exception object, the string argument will be null, and vice versa.</p>
+</div>
 </article>
           </div>
           

@@ -86,7 +86,29 @@
   
   <h1 id="Sdl_Core_Globalization_Codepage" data-uid="Sdl.Core.Globalization.Codepage" class="text-break">Class Codepage
   </h1>
-  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 summary"><p>Represents a code page in the sense of a <span class="xref">System.Text.Encoding</span>
+object, using a mechanism that allows basic manipulations on a system where 
+support for the code page may not be installed.</p>
+
+<p>Normally the Codepage object is constructed from an Encoding object,
+but for persistence it can be constructed from a string.</p>
+
+<p>If the code page is supported by the local machine you can use the
+<a class="xref" href="Sdl.Core.Globalization.Codepage.html#Sdl_Core_Globalization_Codepage_Encoding">Encoding</a> property to retrieve the corresponding 
+.NET encoding object. If you access this property for a code page
+that is not supported on this machine this will result in a 
+<a class="xref" href="Sdl.Core.Globalization.UnsupportedCodepageException.html">UnsupportedCodepageException</a>.</p>
+
+<p>Using this mechanism as opposed to directly using the Encoding class
+means that we can still work with files for which a code page is not
+supported on a certain machine (at least as long as no code page conversion
+operations are needed). This may be a common use case when a file
+is converted on one system and then edited on another.</p>
+
+<p>Use the <a class="xref" href="Sdl.Core.Globalization.Codepage.html#Sdl_Core_Globalization_Codepage_IsValid">IsValid</a> and <a class="xref" href="Sdl.Core.Globalization.Codepage.html#Sdl_Core_Globalization_Codepage_IsSupported">IsSupported</a> properties
+to determine if the codepage has been set and if it is supported
+on this system.</p>
+</div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
@@ -124,7 +146,8 @@
   
   <a id="Sdl_Core_Globalization_Codepage__ctor_" data-uid="Sdl.Core.Globalization.Codepage.#ctor*"></a>
   <h4 id="Sdl_Core_Globalization_Codepage__ctor" data-uid="Sdl.Core.Globalization.Codepage.#ctor">Codepage()</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Constructs an invalid code page object (does not set a code page name).</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -134,7 +157,8 @@
   
   <a id="Sdl_Core_Globalization_Codepage__ctor_" data-uid="Sdl.Core.Globalization.Codepage.#ctor*"></a>
   <h4 id="Sdl_Core_Globalization_Codepage__ctor_Sdl_Core_Globalization_Codepage_" data-uid="Sdl.Core.Globalization.Codepage.#ctor(Sdl.Core.Globalization.Codepage)">Codepage(Codepage)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Create a deep clone of the other object.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -153,7 +177,8 @@
       <tr>
         <td><a class="xref" href="Sdl.Core.Globalization.Codepage.html">Codepage</a></td>
         <td><span class="parametername">other</span></td>
-        <td></td>
+        <td><p>Codepage to clone.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -161,7 +186,10 @@
   
   <a id="Sdl_Core_Globalization_Codepage__ctor_" data-uid="Sdl.Core.Globalization.Codepage.#ctor*"></a>
   <h4 id="Sdl_Core_Globalization_Codepage__ctor_System_String_" data-uid="Sdl.Core.Globalization.Codepage.#ctor(System.String)">Codepage(String)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Construction from a code page name.</p>
+<p>See the <a class="xref" href="Sdl.Core.Globalization.Codepage.html#Sdl_Core_Globalization_Codepage_Name">Name</a> property for information about what is considered
+to be a valid code page name.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -180,15 +208,22 @@
       <tr>
         <td><span class="xref">System.String</span></td>
         <td><span class="parametername">codepageName</span></td>
-        <td></td>
+        <td><p>A valid codepage name.</p>
+</td>
       </tr>
     </tbody>
   </table>
+  <h5 id="Sdl_Core_Globalization_Codepage__ctor_System_String__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>
+This constructor is typically used only in (de-)serialization. If possible a 
+new code page object should be created from an existing encoding object instead.
+</p></div>
   
   
   <a id="Sdl_Core_Globalization_Codepage__ctor_" data-uid="Sdl.Core.Globalization.Codepage.#ctor*"></a>
   <h4 id="Sdl_Core_Globalization_Codepage__ctor_System_Text_Encoding_" data-uid="Sdl.Core.Globalization.Codepage.#ctor(System.Text.Encoding)">Codepage(Encoding)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the Codepage class from an existing .NET Encoding.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -207,7 +242,8 @@
       <tr>
         <td><span class="xref">System.Text.Encoding</span></td>
         <td><span class="parametername">encoding</span></td>
-        <td></td>
+        <td><p>An existing .NET Encoding.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -217,7 +253,11 @@
   
   <a id="Sdl_Core_Globalization_Codepage_Encoding_" data-uid="Sdl.Core.Globalization.Codepage.Encoding*"></a>
   <h4 id="Sdl_Core_Globalization_Codepage_Encoding" data-uid="Sdl.Core.Globalization.Codepage.Encoding">Encoding</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Returns the .NET Encoding that corresponds to this code page.</p>
+<p>If the code page is null this property returns null.</p>
+<p>If the encoding is not supported on this system 
+an <a class="xref" href="Sdl.Core.Globalization.UnsupportedCodepageException.html">UnsupportedCodepageException</a> is thrown.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -238,11 +278,27 @@
       </tr>
     </tbody>
   </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.Core.Globalization.UnsupportedCodepageException.html">UnsupportedCodepageException</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
   
   
   <a id="Sdl_Core_Globalization_Codepage_IsSupported_" data-uid="Sdl.Core.Globalization.Codepage.IsSupported*"></a>
   <h4 id="Sdl_Core_Globalization_Codepage_IsSupported" data-uid="Sdl.Core.Globalization.Codepage.IsSupported">IsSupported</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>True if the code page is supported on this system.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -267,7 +323,8 @@
   
   <a id="Sdl_Core_Globalization_Codepage_IsValid_" data-uid="Sdl.Core.Globalization.Codepage.IsValid*"></a>
   <h4 id="Sdl_Core_Globalization_Codepage_IsValid" data-uid="Sdl.Core.Globalization.Codepage.IsValid">IsValid</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>True if a code page name has been set.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -288,11 +345,20 @@
       </tr>
     </tbody>
   </table>
+  <h5 id="Sdl_Core_Globalization_Codepage_IsValid_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This does not mean that the actual code page string is valid.
+Since the code page name could represent a code page that is not supported
+on this particular system there is no safe way we can determine if the name
+is a valid encoding name or not. Thus anything else than null or an empty
+string for a name must be considered a &quot;valid&quot; code page name.
+To test if a codepage is supported on this system, use the <a class="xref" href="Sdl.Core.Globalization.Codepage.html#Sdl_Core_Globalization_Codepage_IsSupported">IsSupported</a> property.</p>
+</div>
   
   
   <a id="Sdl_Core_Globalization_Codepage_Name_" data-uid="Sdl.Core.Globalization.Codepage.Name*"></a>
   <h4 id="Sdl_Core_Globalization_Codepage_Name" data-uid="Sdl.Core.Globalization.Codepage.Name">Name</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>The IANA preferred name of the code page, e.g. windows-1252 or iso-8859-1.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -313,13 +379,18 @@
       </tr>
     </tbody>
   </table>
+  <h5 id="Sdl_Core_Globalization_Codepage_Name_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This corresponds to the <code>Encoding.WebName</code> property
+for code pages supported by the machine.</p>
+</div>
   <h3 id="methods">Methods
   </h3>
   
   
   <a id="Sdl_Core_Globalization_Codepage_Clone_" data-uid="Sdl.Core.Globalization.Codepage.Clone*"></a>
   <h4 id="Sdl_Core_Globalization_Codepage_Clone" data-uid="Sdl.Core.Globalization.Codepage.Clone">Clone()</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Return a deep clone of this object.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -336,7 +407,8 @@
     <tbody>
       <tr>
         <td><span class="xref">System.Object</span></td>
-        <td></td>
+        <td><p>A deep clone of this object.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -344,7 +416,8 @@
   
   <a id="Sdl_Core_Globalization_Codepage_Equals_" data-uid="Sdl.Core.Globalization.Codepage.Equals*"></a>
   <h4 id="Sdl_Core_Globalization_Codepage_Equals_System_Object_" data-uid="Sdl.Core.Globalization.Codepage.Equals(System.Object)">Equals(Object)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Case-sensitive comparison on whether the code page names are the same.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -363,7 +436,8 @@
       <tr>
         <td><span class="xref">System.Object</span></td>
         <td><span class="parametername">obj</span></td>
-        <td></td>
+        <td><p>Object to test equality against.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -378,7 +452,8 @@
     <tbody>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
-        <td></td>
+        <td><p><code>true</code> if the code page names are the same.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -388,7 +463,8 @@
   
   <a id="Sdl_Core_Globalization_Codepage_GetHashCode_" data-uid="Sdl.Core.Globalization.Codepage.GetHashCode*"></a>
   <h4 id="Sdl_Core_Globalization_Codepage_GetHashCode" data-uid="Sdl.Core.Globalization.Codepage.GetHashCode">GetHashCode()</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Hash code based on the code page name, or 0 if none.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -405,7 +481,8 @@
     <tbody>
       <tr>
         <td><span class="xref">System.Int32</span></td>
-        <td></td>
+        <td><p>Hash code based on the code page name, or 0 if none.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -415,7 +492,8 @@
   
   <a id="Sdl_Core_Globalization_Codepage_ToString_" data-uid="Sdl.Core.Globalization.Codepage.ToString*"></a>
   <h4 id="Sdl_Core_Globalization_Codepage_ToString" data-uid="Sdl.Core.Globalization.Codepage.ToString">ToString()</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>The code page name.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -432,7 +510,8 @@
     <tbody>
       <tr>
         <td><span class="xref">System.String</span></td>
-        <td></td>
+        <td><p>The code page name.</p>
+</td>
       </tr>
     </tbody>
   </table>

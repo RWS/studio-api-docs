@@ -86,7 +86,8 @@
   
   <h1 id="Sdl_LanguagePlatform_TranslationMemory_SubsegmentSearchSettings" data-uid="Sdl.LanguagePlatform.TranslationMemory.SubsegmentSearchSettings" class="text-break">Class SubsegmentSearchSettings
   </h1>
-  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 summary"><p>Used to specify parameters to apply when subsegment matching</p>
+</div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
@@ -193,6 +194,20 @@
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public class SubsegmentSearchSettings : SearchSettings</code></pre>
   </div>
+  <h5 id="Sdl_LanguagePlatform_TranslationMemory_SubsegmentSearchSettings_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>TM-TDB matching (aka &apos;baseline&apos; subsegment recall) process fragments of the query segment, and for each fragment, 
+searches for a complete source TU segment matching it. If found, the complete target TU segment is proposed as a 
+translation of the query fragment.
+DTA matching (aka &apos;full&apos; subsegment recall) process fragments of the query segment, and for each fragment, searches 
+for a source TU segment that also contains that fragment. If found, it uses additional processing (such as fine-grained
+alignment information) to identify a fragment of the target TU segment to propose as a translation of the query fragment.
+Each type of matching can be subject to a minimum length of matching fragment. 
+Because some tokens are essentially valueless for recall (e.g. whitespace, tag tokens), the 
+length is calculated by counting the number of &apos;feature tokens&apos; in the fragment (see <span class="xref">Sdl.Core.FineGrainedAlignment.Core.SubsegmentUtilities.GetFeatures(System.Collections.Generic.List{Sdl.LanguagePlatform.Core.Tokenization.Token},System.Globalization.CultureInfo,System.Collections.Generic.List{System.Int16})</span>.
+In addition, some match fragments may be of no interest for recall if they consist only of 
+tokens with little translational significance, such as stop words. So, each type of matching can
+be further subject to a minimum number of significant feature tokens in a matching fragment (see <span class="xref">Sdl.Core.FineGrainedAlignment.Core.SubsegmentUtilities.IsSignificantForRecall(Sdl.LanguagePlatform.Core.Tokenization.Token)</span>).</p>
+</div>
   <h3 id="constructors">Constructors
   </h3>
   
@@ -210,7 +225,8 @@
   
   
   <h4 id="Sdl_LanguagePlatform_TranslationMemory_SubsegmentSearchSettings_MinFeatures" data-uid="Sdl.LanguagePlatform.TranslationMemory.SubsegmentSearchSettings.MinFeatures">MinFeatures</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>The minimum length of a DTA match fragment (see <a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.SubsegmentSearchSettings.html">SubsegmentSearchSettings</a> remarks)</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -234,7 +250,8 @@
   
   
   <h4 id="Sdl_LanguagePlatform_TranslationMemory_SubsegmentSearchSettings_MinSignificantFeatures" data-uid="Sdl.LanguagePlatform.TranslationMemory.SubsegmentSearchSettings.MinSignificantFeatures">MinSignificantFeatures</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>The minimum number of significant tokens in a DTA match fragment (see <a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.SubsegmentSearchSettings.html">SubsegmentSearchSettings</a> remarks)</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -258,7 +275,8 @@
   
   
   <h4 id="Sdl_LanguagePlatform_TranslationMemory_SubsegmentSearchSettings_MinTM_TDBFeatures" data-uid="Sdl.LanguagePlatform.TranslationMemory.SubsegmentSearchSettings.MinTM_TDBFeatures">MinTM_TDBFeatures</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>The minimum length of a TM-TDB match fragment (see <a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.SubsegmentSearchSettings.html">SubsegmentSearchSettings</a> remarks)</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -282,7 +300,8 @@
   
   
   <h4 id="Sdl_LanguagePlatform_TranslationMemory_SubsegmentSearchSettings_MinTM_TDBSignificantFeatures" data-uid="Sdl.LanguagePlatform.TranslationMemory.SubsegmentSearchSettings.MinTM_TDBSignificantFeatures">MinTM_TDBSignificantFeatures</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>The minimum number of significant tokens in a TM-TDB match fragment (see <a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.SubsegmentSearchSettings.html">SubsegmentSearchSettings</a> remarks)</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -306,7 +325,8 @@
   
   
   <h4 id="Sdl_LanguagePlatform_TranslationMemory_SubsegmentSearchSettings_SubsegmentMatchTypes" data-uid="Sdl.LanguagePlatform.TranslationMemory.SubsegmentSearchSettings.SubsegmentMatchTypes">SubsegmentMatchTypes</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>The types of subsegment matching that should be used. See remarks for <a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.SubsegmentSearchSettings.html">SubsegmentSearchSettings</a></p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
