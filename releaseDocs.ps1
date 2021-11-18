@@ -13,7 +13,7 @@ $remote_repo="https://github-actions:${TOKEN}@github.com/sdl/studio-api-docs.git
 
 write-host "Cloning the repo $remote_repo with the gh-pages branch"
 git clone $remote_repo --branch gh-pages $TEMP_REPO_DIR
-cd $TEMP_REPO_DIR
+Set-Location $TEMP_REPO_DIR
 write-host "Copy documentation into the repo"
 mkdir "15.2"
 Copy-Item "$SOURCE_DIR\_site\15.2\*" .\15.2\ -Recurse -force
