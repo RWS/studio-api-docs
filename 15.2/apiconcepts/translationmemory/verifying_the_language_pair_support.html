@@ -86,13 +86,13 @@
 <h2 id="requirements-for-checking-the-language-direction-in-our-implementation">Requirements for Checking the Language Direction in our Implementation</h2>
 <p>Remember that the first line of a delimited text file is required to contain the language pair with the source target languages being separated by the specified delimiting character, e.g.:</p>
 <pre><code>en-US;de_DE
-</code></pre><p>Our sample plug-in should first of all check whether the first line can be split at the specified delimiter character and whether the languages indicated here match the language pair that the user selected in Trados Studio.
+</code></pre><p>Our sample plug-in should first of all check whether the first line can be split at the specified delimiter character and whether the languages indicated here match the language pair that the user selected in SDL Trados Studio.
 In the following screenshot English (US) is selected as the source language, the target language is German (Germany). The API would therefore return en-US for the source language <code>SourceCultureName</code>, and de-DE for the target language, i.e. the <code>TargetCultureName</code> property. These strings map, of course, nicely to the locale combination of our list files, which makes checking whether the selected language pair actually fits the selected list very easy.
 <img style="display:block; " src="images/OpenDocumentWithPlugin.jpg"></p>
 <p>(In other implementations, the translation provider that you connect to might not allow for such an easy mapping of languages, which means that you may have to develop a more involved application logic for verifying the validity of the language combination.)</p>
 <p>The requirement is to check whether the selected language pair actually fits the translation provider, or whether the language pair is supported by the translation provider in the first place. For example, if you connect to an automated translation service that does not support Japanese, but the user has selected Japanese as source or target language, then a corresponding message needs to be thrown, and the user should not be allowed to select this particular translation provider.</p>
 <h2 id="implement-the-logic-for-checking-the-language-direction">Implement the Logic for Checking the Language Direction</h2>
-<p>The logic for checking the language direction is implemented within the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider.html#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProvider_SupportsLanguageDirection_Sdl_LanguagePlatform_Core_LanguagePair_">SupportsLanguageDirection</a> method of the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider.html">ITranslationProvider</a> interface. This method takes a region-qualified source-target language combination object as parameter. This object holds the information on the languages that were selected by the user in the user interface of Trados Studio, and which needs to be compared to the language direction of the translation provider.</p>
+<p>The logic for checking the language direction is implemented within the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider.html#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProvider_SupportsLanguageDirection_Sdl_LanguagePlatform_Core_LanguagePair_">SupportsLanguageDirection</a> method of the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider.html">ITranslationProvider</a> interface. This method takes a region-qualified source-target language combination object as parameter. This object holds the information on the languages that were selected by the user in the user interface of SDL Trados Studio, and which needs to be compared to the language direction of the translation provider.</p>
 <p>We start by opening the text file and reading the first line:</p>
 <div class="tabGroup" id="tabgroup_EIFY7CY8kS">
 <ul role="tablist">
@@ -123,7 +123,7 @@ if (langs.Count&lt;string&gt;() != 2)
 }
 </code></pre></section>
 </div>
-<p>If the first line matches the regular expression, we can proceed to comparing the language combination that is indicated in the list file to the source/target languages that have been chosen in Trados Studio. Depending on whether the language combination is matching or not, we return <code>True</code> or <code>False</code>.</p>
+<p>If the first line matches the regular expression, we can proceed to comparing the language combination that is indicated in the list file to the source/target languages that have been chosen in SDL Trados Studio. Depending on whether the language combination is matching or not, we return <code>True</code> or <code>False</code>.</p>
 <div class="tabGroup" id="tabgroup_EIFY7CY8kS-2">
 <ul role="tablist">
 <li role="presentation">
@@ -144,7 +144,7 @@ else
 }
 </code></pre></section>
 </div>
-<p>When the method returns <code>False</code>, Trados Studio will throw a message like the one in the example below when selecting the translation provider:</p>
+<p>When the method returns <code>False</code>, SDL Trados Studio will throw a message like the one in the example below when selecting the translation provider:</p>
 <p><img style="display:block; " src="images/LanguagesNotSupported.jpg"></p>
 <h2 id="putting-it-all-together">Putting it All Together</h2>
 <p>The complete method should now look as shown below:</p>

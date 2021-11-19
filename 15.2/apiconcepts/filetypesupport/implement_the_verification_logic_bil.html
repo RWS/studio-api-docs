@@ -150,7 +150,7 @@ public int MaxWordCount
 }
 </code></pre></section>
 </div>
-<p>The <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentMessageReporter.html#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentMessageReporter_ReportMessage_System_Object_System_String_Sdl_FileTypeSupport_Framework_NativeApi_ErrorLevel_System_String_Sdl_FileTypeSupport_Framework_BilingualApi_TextLocation_Sdl_FileTypeSupport_Framework_BilingualApi_TextLocation_">ReportMessage</a> is required for adding error messages (if any) to the <strong>Messages</strong> window of Trados Studio.</p>
+<p>The <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentMessageReporter.html#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentMessageReporter_ReportMessage_System_Object_System_String_Sdl_FileTypeSupport_Framework_NativeApi_ErrorLevel_System_String_Sdl_FileTypeSupport_Framework_BilingualApi_TextLocation_Sdl_FileTypeSupport_Framework_BilingualApi_TextLocation_">ReportMessage</a> is required for adding error messages (if any) to the <strong>Messages</strong> window of SDL Trados Studio.</p>
 <h2 id="provide-access-to-the-item-factory">Provide Access to the Item Factory</h2>
 <p>The item factory allows you to create, e.g. structure tags, placeholders, etc. Since our verifier only checks for the number of words in WordArt objects, this functionality is actually not necessary. However, you need to add this member, as it is required by the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualVerifier.html">IBilingualVerifier</a> interface.</p>
 <div class="tabGroup" id="tabgroup_o3jHOh9HMW-3">
@@ -186,7 +186,7 @@ public int MaxWordCount
 </code></pre></section>
 </div>
 <h2 id="add-the-file-and-process-complete-members">Add the File and Process Complete Members</h2>
-<p>In a similar manner, the following members need to be added as per the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualVerifier.html">IBilingualVerifier</a> interface, although they are not actually required for the functionality of our plug-in. You may wonder why there is a <code>FileComplete</code> and a <code>Complete</code> method, which both seem to serve the same purpose. The reason is that Trados Studio allows you to merge several documents into one bilingual (SDLXliff) master file (see <a href="merging_files.html">Merging files</a>). You could use the <code>FileComlete</code> to carry out an action after the verification of each of the single (merged) files has been completed. You can then call <code>Complete</code> when the verification process for the entire bilingual document has finished.</p>
+<p>In a similar manner, the following members need to be added as per the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualVerifier.html">IBilingualVerifier</a> interface, although they are not actually required for the functionality of our plug-in. You may wonder why there is a <code>FileComplete</code> and a <code>Complete</code> method, which both seem to serve the same purpose. The reason is that SDL Trados Studio allows you to merge several documents into one bilingual (SDLXliff) master file (see <a href="merging_files.html">Merging files</a>). You could use the <code>FileComlete</code> to carry out an action after the verification of each of the single (merged) files has been completed. You can then call <code>Complete</code> when the verification process for the entire bilingual document has finished.</p>
 <div class="tabGroup" id="tabgroup_o3jHOh9HMW-5">
 <ul role="tablist">
 <li role="presentation">
@@ -268,13 +268,13 @@ public void SetFileProperties(IFileProperties fileInfo)
 <li>loop through the target segment string and count the number of spaces</li>
 <li>the number of words corresponds to the number of spaces + 1</li>
 </ul>
-<p>Note that we will not check for non-breaking spaces, hyphens, etc., which is what you might have to do in a &#39;real&#39;, productive implementation. If the number of spaces +1 exceeds the maximum word count, a warning message will be added to the <strong>Messages</strong> window of Trados Studio. Also, when the translator confirms a WordArt translation that exceeds the maximum word count, a yellow warning icon will be displayed next to the segment in question.
+<p>Note that we will not check for non-breaking spaces, hyphens, etc., which is what you might have to do in a &#39;real&#39;, productive implementation. If the number of spaces +1 exceeds the maximum word count, a warning message will be added to the <strong>Messages</strong> window of SDL Trados Studio. Also, when the translator confirms a WordArt translation that exceeds the maximum word count, a yellow warning icon will be displayed next to the segment in question.
 The ReportMessage method takes the following parameters:</p>
 <ul>
 <li>The name of the verifier plug-in that has thrown the message</li>
 <li>The <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel.html">ErrorLevel</a>, which in this case we set to <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel.html#fields">Warning</a>. The fact that the word count has been exceeded, is not considered a critical problem, as it does not prevent the translator from generating a valid Microsoft Word target file. The translator is just prompted to re-consider the translation and shorten it.</li>
 <li>A detailed description of the problem, which helps the user ascertain why this segment has been flagged to help him/her take corrective action, i.e. shorten the translation.</li>
-<li>The start and end location of the target string that has caused the problem. By specifying the &#39;from&#39; and &#39;up to&#39; location you allow users to jump to the faulty target segment in the document by double-clicking the error message in the <strong>Messages</strong> window of Trados Studio.</li>
+<li>The start and end location of the target string that has caused the problem. By specifying the &#39;from&#39; and &#39;up to&#39; location you allow users to jump to the faulty target segment in the document by double-clicking the error message in the <strong>Messages</strong> window of SDL Trados Studio.</li>
 </ul>
 <div class="tabGroup" id="tabgroup_o3jHOh9HMW-7">
 <ul role="tablist">
