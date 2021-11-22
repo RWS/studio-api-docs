@@ -27,4 +27,4 @@ git add .\ -A
 git commit -m "Update generated documentation"
 git push "$remote_repo" HEAD:gh-pages_temp
 Write-Output (${TOKEN}) | gh auth login --with-token
-gh pr create --title "Update generated documentation" --body "Update generated documentation" -B gh-pages
+gh pr create --title "Update generated documentation" --body "Update generated documentation" --head -B gh-pages
