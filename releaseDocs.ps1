@@ -15,7 +15,6 @@ write-host "Cloning the repo $remote_repo with the gh-pages branch"
 git clone $remote_repo --branch gh-pages $TEMP_REPO_DIR
 cd $TEMP_REPO_DIR
 write-host "Copy documentation into the repo"
-mkdir "16.1"
 Copy-Item "$SOURCE_DIR\_site\16.1\*" .\16.1\ -Recurse -force
 
 write-host "Push the new docs to the remote branch"
