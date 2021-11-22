@@ -1,6 +1,6 @@
 Introduction
 ===
-This API provides access to all translation memory functionality, both for file- and server-based translation memories. In addition it also provides the capability to create custom translation providers, which allow applications like <Var:ProductName> to interact with automated translation engines, third-party translation memory implementations or other translation engines in a unified way.
+This API provides access to all translation memory functionality, both for file- and server-based translation memories. In addition, it also provides the capability to create custom translation providers, which allow applications like <Var:ProductName> to interact with automated translation engines, third-party translation memory implementations or other translation engines in a unified way.
 
 Translation Memories
 ----

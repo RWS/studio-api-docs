@@ -2,10 +2,10 @@ What you can do with this SDK
 =====
 This page provides a quick overview of what you can do with the Translation Memory API.
 
-The Translation Memory (TM) SDK allows you to create applications to automate a number of processes for TM-related operations. Examples are as follows:
+The Translation Memory (TM) SDK allows you to create applications to automate a number of processes for TM related operations. Examples are as follows:
 
 * Programmatically create file- or server-based TMs.
-* Develop a command-line application that iterates through a folder/sub-folder structure and performs a batch import of multiple TMX files into a TM. Such an application can also used to perform scheduled, regular import/export operations.
+* Develop a command-line application that iterates through a folder/sub-folder structure and performs a batch import of multiple TMX files into a TM. Such an application can also be used to perform scheduled, regular import/export operations.
 * Create an application that looks up segments or strings in one or several TMs.
 * Develop a plug-in that allows you to access 3rd party translation providers from Trados Studio, e.g. use an Web-based machine translation system, or simple, delimited text files.
 * Integrate common TM lookup and editing functionality into a 3rd party application.
