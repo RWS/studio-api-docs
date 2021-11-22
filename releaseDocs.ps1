@@ -25,6 +25,5 @@ git config --local user.name "github-actions[bot]"
 git add .\ -A
 git commit -m "Update generated documentation"
 git push "$remote_repo" HEAD:
-Write-Output ($TOKEN) | gh auth login --with-token
+Write-Output (${TOKEN}) | gh auth login --with-token
 gh pr create --title "Update generated documentation" --body "Update generated documentation" -B gh-pages
-
