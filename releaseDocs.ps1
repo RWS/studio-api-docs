@@ -22,6 +22,7 @@ Copy-Item "$SOURCE_DIR\_site\*" .\ -Recurse -force
 write-host "Push the new docs to the remote branch"
 git config --local user.email "github-actions[bot]@users.noreply.sdl.com"
 git config --local user.name "github-actions[bot]"
+new-item test.txt
 git add .\ -A
 git commit -m "Update generated documentation"
 git push "$remote_repo" HEAD:
