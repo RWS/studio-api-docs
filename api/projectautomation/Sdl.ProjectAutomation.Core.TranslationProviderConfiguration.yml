@@ -23,8 +23,6 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nThis class represents the configuration settings related to the use of translation providers within a project, including\nthe list of translation providers to use, the project translation memories and in which scenarios to use these\ntranslation providers.\n"
-  remarks: "\nThe translation provider configuration can be defined on the project level (see <xref href=\"Sdl.ProjectAutomation.Core.IProject.GetTranslationProviderConfiguration\" data-throw-if-not-resolved=\"false\"></xref>)\nand can be overridden for a specific project target language (see \n<xref href=\"Sdl.ProjectAutomation.Core.IProject.GetTranslationProviderConfiguration(Sdl.Core.Globalization.Language)\" data-throw-if-not-resolved=\"false\"></xref> \nand <xref href=\"Sdl.ProjectAutomation.Core.IProject.UpdateTranslationProviderConfiguration(Sdl.ProjectAutomation.Core.TranslationProviderConfiguration)\" data-throw-if-not-resolved=\"false\"></xref>). \n"
   syntax:
     content: public class TranslationProviderConfiguration
     content.vb: Public Class TranslationProviderConfiguration
@@ -61,7 +59,6 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nDefault constructor. Creates an empty configuration that doesn&apos;t override the parent.\n"
   syntax:
     content: public TranslationProviderConfiguration()
     content.vb: Public Sub New
@@ -87,22 +84,15 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nConstructor that takes the given cascade entry items, cascade search mode, and override parent flag.\n"
   syntax:
     content: public TranslationProviderConfiguration(List<TranslationProviderCascadeEntry> entries, bool stopSearchingWhenResultsFound, bool overrideParent)
     parameters:
     - id: entries
       type: System.Collections.Generic.List{Sdl.ProjectAutomation.Core.TranslationProviderCascadeEntry}
-      description: The cascade entries. Can be empty, but not <code>null</code>.
     - id: stopSearchingWhenResultsFound
       type: System.Boolean
-      description: >-
-        Whether to stop searching translation providers once a result has been found.
-
-        The translation providers are usually searched sequentially in the order they are specified in the <xref href="Sdl.ProjectAutomation.Core.TranslationProviderConfiguration.Entries" data-throw-if-not-resolved="false"></xref> list.
     - id: overrideParent
       type: System.Boolean
-      description: "Whether this configuration should override the parent translation provider configuration.\nThis is only applicable when working with a target-language specific translation provider configuration (see \n<xref href=\"Sdl.ProjectAutomation.Core.IProject.GetTranslationProviderConfiguration(Sdl.Core.Globalization.Language)\" data-throw-if-not-resolved=\"false\"></xref> \nand <xref href=\"Sdl.ProjectAutomation.Core.IProject.UpdateTranslationProviderConfiguration(Sdl.ProjectAutomation.Core.TranslationProviderConfiguration)\" data-throw-if-not-resolved=\"false\"></xref>).\n"
     content.vb: Public Sub New(entries As List(Of TranslationProviderCascadeEntry), stopSearchingWhenResultsFound As Boolean, overrideParent As Boolean)
   overload: Sdl.ProjectAutomation.Core.TranslationProviderConfiguration.#ctor*
   nameWithType.vb: TranslationProviderConfiguration.TranslationProviderConfiguration(List(Of TranslationProviderCascadeEntry), Boolean, Boolean)
@@ -129,13 +119,6 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nGets or sets the ordered list of translation provider cascade entries in this configuration. Can be empty but not <code>null</code>.\n"
-  remarks: >-
-    The order of the entries in this list is significant. It determines the order in which look-ups and updates
-
-    are performed. When <xref href="Sdl.ProjectAutomation.Core.TranslationProviderConfiguration.StopSearchingWhenResultsFound" data-throw-if-not-resolved="false"></xref> is set to <pre><code>true</code></pre>, this means the results returned
-
-    could be different depending on the order of the entries.
   syntax:
     content: public List<TranslationProviderCascadeEntry> Entries { get; set; }
     parameters: []
@@ -166,7 +149,6 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nGets or sets whether to stop searching translation providers once a result has been found.\nThe translation providers are usually searched sequentially in the order they are specified in the <xref href=\"Sdl.ProjectAutomation.Core.TranslationProviderConfiguration.Entries\" data-throw-if-not-resolved=\"false\"></xref> list.\n"
   syntax:
     content: public bool StopSearchingWhenResultsFound { get; set; }
     parameters: []
@@ -197,7 +179,6 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nGets or sets whether this configuration should override the parent translation provider configuration.\nThis is only applicable when working with a target-language specific translation provider configuration (see \n<xref href=\"Sdl.ProjectAutomation.Core.IProject.GetTranslationProviderConfiguration(Sdl.Core.Globalization.Language)\" data-throw-if-not-resolved=\"false\"></xref> \nand <xref href=\"Sdl.ProjectAutomation.Core.IProject.UpdateTranslationProviderConfiguration(Sdl.ProjectAutomation.Core.TranslationProviderConfiguration)\" data-throw-if-not-resolved=\"false\"></xref>).\n"
   syntax:
     content: public bool OverrideParent { get; set; }
     parameters: []

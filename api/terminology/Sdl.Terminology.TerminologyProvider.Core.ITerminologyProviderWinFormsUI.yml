@@ -25,7 +25,6 @@ items:
   assemblies:
   - Sdl.Terminology.TerminologyProvider.Core
   namespace: Sdl.Terminology.TerminologyProvider.Core
-  summary: "\nThis interface should be implemented by terminology provider implementers in order to provide user interface functionality in Trados Studio\nspecific to that type of terminology provider. Implementation of this interface should be marked up with the <xref href=\"Sdl.Terminology.TerminologyProvider.Core.TerminologyProviderWinFormsUIAttribute\" data-throw-if-not-resolved=\"false\"></xref>\nattribute for registration it with the plug-in manager.\n"
   syntax:
     content: public interface ITerminologyProviderWinFormsUI
     content.vb: Public Interface ITerminologyProviderWinFormsUI
@@ -52,16 +51,13 @@ items:
   assemblies:
   - Sdl.Terminology.TerminologyProvider.Core
   namespace: Sdl.Terminology.TerminologyProvider.Core
-  summary: "\nReturns true if this component supports the specified terminology provider URI.\n"
   syntax:
     content: bool SupportsTerminologyProviderUri(Uri terminologyProviderUri)
     parameters:
     - id: terminologyProviderUri
       type: System.Uri
-      description: The uri.
     return:
       type: System.Boolean
-      description: True if this component supports the specified terminology provider URI.
     content.vb: Function SupportsTerminologyProviderUri(terminologyProviderUri As Uri) As Boolean
   overload: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProviderWinFormsUI.SupportsTerminologyProviderUri*
 - uid: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProviderWinFormsUI.Browse(System.Windows.Forms.IWin32Window,Sdl.Terminology.TerminologyProvider.Core.ITerminologyProviderCredentialStore)
@@ -81,19 +77,15 @@ items:
   assemblies:
   - Sdl.Terminology.TerminologyProvider.Core
   namespace: Sdl.Terminology.TerminologyProvider.Core
-  summary: "\nDisplays a dialog to interactively browse for one or more terminology providers. \n"
   syntax:
     content: ITerminologyProvider[] Browse(IWin32Window owner, ITerminologyProviderCredentialStore credentialStore)
     parameters:
     - id: owner
       type: System.Windows.Forms.IWin32Window
-      description: The window that will own the dialog
     - id: credentialStore
       type: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProviderCredentialStore
-      description: 'A credential store object that can be used to retrieve credentials required. '
     return:
       type: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider[]
-      description: "\nA collection of terminology providers selected by the user, or <code>null</code> if none were selected or available or the browse was canceled."
     content.vb: Function Browse(owner As IWin32Window, credentialStore As ITerminologyProviderCredentialStore) As ITerminologyProvider()
   overload: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProviderWinFormsUI.Browse*
 - uid: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProviderWinFormsUI.Edit(System.Windows.Forms.IWin32Window,Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider)
@@ -113,25 +105,17 @@ items:
   assemblies:
   - Sdl.Terminology.TerminologyProvider.Core
   namespace: Sdl.Terminology.TerminologyProvider.Core
-  summary: "\nDisplays a dialog to interactively change any of the terminology provider settings.\n"
   syntax:
     content: bool Edit(IWin32Window owner, ITerminologyProvider terminologyProvider)
     parameters:
     - id: owner
       type: System.Windows.Forms.IWin32Window
-      description: The window that will own the dialog
     - id: terminologyProvider
       type: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider
-      description: A terminology provider descriptor, representing the terminology provider to edit.
     return:
       type: System.Boolean
-      description: True if changes were made to the terminology provider; false otherwise.
     content.vb: Function Edit(owner As IWin32Window, terminologyProvider As ITerminologyProvider) As Boolean
   overload: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProviderWinFormsUI.Edit*
-  exceptions:
-  - type: System.InvalidOperationException
-    commentId: T:System.InvalidOperationException
-    description: Thrown when calling this method while <xref href="Sdl.Terminology.TerminologyProvider.Core.ITerminologyProviderWinFormsUI.SupportsEditing" data-throw-if-not-resolved="false"></xref> return <pre><code>false</code></pre>.
 - uid: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProviderWinFormsUI.GetDisplayInfo(System.Uri)
   commentId: M:Sdl.Terminology.TerminologyProvider.Core.ITerminologyProviderWinFormsUI.GetDisplayInfo(System.Uri)
   id: GetDisplayInfo(System.Uri)
@@ -149,23 +133,13 @@ items:
   assemblies:
   - Sdl.Terminology.TerminologyProvider.Core
   namespace: Sdl.Terminology.TerminologyProvider.Core
-  summary: "\nGets display information for the specified terminology provider.\n"
-  remarks: >-
-    Note that this method can potentially be called very frequently so it is not advisable to instantiate the
-
-    translation provider within its implementation.
   syntax:
     content: TerminologyProviderDisplayInfo GetDisplayInfo(Uri terminologyProviderUri)
     parameters:
     - id: terminologyProviderUri
       type: System.Uri
-      description: A terminology provider URI, representing the terminology provider.
     return:
       type: Sdl.Terminology.TerminologyProvider.Core.TerminologyProviderDisplayInfo
-      description: >-
-        A <xref href="Sdl.Terminology.TerminologyProvider.Core.TerminologyProviderDisplayInfo" data-throw-if-not-resolved="false"></xref> object, containing display information that allows
-
-        an application to represent the terminology provider without having to instantiate it.
     content.vb: Function GetDisplayInfo(terminologyProviderUri As Uri) As TerminologyProviderDisplayInfo
   overload: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProviderWinFormsUI.GetDisplayInfo*
 - uid: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProviderWinFormsUI.TypeName
@@ -185,7 +159,6 @@ items:
   assemblies:
   - Sdl.Terminology.TerminologyProvider.Core
   namespace: Sdl.Terminology.TerminologyProvider.Core
-  summary: "\nGets the type name of the factory; e.g. &quot;Cloud-Based Terminology Provider&quot;\n"
   syntax:
     content: string TypeName { get; }
     parameters: []
@@ -214,7 +187,6 @@ items:
   assemblies:
   - Sdl.Terminology.TerminologyProvider.Core
   namespace: Sdl.Terminology.TerminologyProvider.Core
-  summary: "\nGets the type description of the factory; e.g. &quot;A plug-in provider to use Cloud-Based Terminology.&quot;\n"
   syntax:
     content: string TypeDescription { get; }
     parameters: []
@@ -243,13 +215,11 @@ items:
   assemblies:
   - Sdl.Terminology.TerminologyProvider.Core
   namespace: Sdl.Terminology.TerminologyProvider.Core
-  summary: "\nDetermines whether this supplied terminology provider can be edited (i.e. whether any settings can be changed).\n"
   syntax:
     content: bool SupportsEditing { get; }
     parameters: []
     return:
       type: System.Boolean
-      description: <code>true</code> if the provider&apos;s settings can be changed, and <code>false</code> otherwise.
     content.vb: ReadOnly Property SupportsEditing As Boolean
   overload: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProviderWinFormsUI.SupportsEditing*
   modifiers.csharp:
@@ -337,9 +307,6 @@ references:
   name: Edit
   nameWithType: ITerminologyProviderWinFormsUI.Edit
   fullName: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProviderWinFormsUI.Edit
-- uid: System.InvalidOperationException
-  commentId: T:System.InvalidOperationException
-  isExternal: true
 - uid: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider
   commentId: T:Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider
   parent: Sdl.Terminology.TerminologyProvider.Core

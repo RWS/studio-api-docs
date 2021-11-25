@@ -117,12 +117,10 @@ items:
   assemblies:
   - Sdl.Core.FineGrainedAlignment
   namespace: Sdl.Core.FineGrainedAlignment
-  summary: "\nComputes chi-square scores for all token pairs in the corpus, using default parameters.\n"
   syntax:
     content: public SparseMatrix<double> Compute()
     return:
       type: Sdl.LanguagePlatform.Stat.SparseMatrix{System.Double}
-      description: A matrix with the scores. Empty cells are below the min score
     content.vb: Public Function Compute As SparseMatrix(Of Double)
   overload: Sdl.Core.FineGrainedAlignment.BilingualChiSquareComputer3.Compute*
   modifiers.csharp:
@@ -146,22 +144,17 @@ items:
   assemblies:
   - Sdl.Core.FineGrainedAlignment
   namespace: Sdl.Core.FineGrainedAlignment
-  summary: "\nComputes chi-square scores for all token pairs of the corpus. Can take very long (several hours) to\ncompute on larger TMs (200.000 TUs and up).\n"
   syntax:
     content: public SparseMatrix<double> Compute(double minScore, int minFreq, int minCooc)
     parameters:
     - id: minScore
       type: System.Double
-      description: The minimum chi-square score a token pair must have to be included in the result. 5% ~= minscore = 3.841 (should be the minimum)
     - id: minFreq
       type: System.Int32
-      description: minimum occurrence (frequency) of a token to be considered
     - id: minCooc
       type: System.Int32
-      description: minimum co-occurrence of a token pair to be considered
     return:
       type: Sdl.LanguagePlatform.Stat.SparseMatrix{System.Double}
-      description: A matrix with the scores. Empty cells are below the min score
     content.vb: Public Function Compute(minScore As Double, minFreq As Integer, minCooc As Integer) As SparseMatrix(Of Double)
   overload: Sdl.Core.FineGrainedAlignment.BilingualChiSquareComputer3.Compute*
   modifiers.csharp:

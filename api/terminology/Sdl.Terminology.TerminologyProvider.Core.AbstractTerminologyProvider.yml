@@ -34,7 +34,6 @@ items:
   assemblies:
   - Sdl.Terminology.TerminologyProvider.Core
   namespace: Sdl.Terminology.TerminologyProvider.Core
-  summary: "\nAbstract base class for a terminology provider <xref href=\"Sdl.Terminology.TerminologyProvider.Core.IConnectionAwareTerminologyProvider\" data-throw-if-not-resolved=\"false\"></xref>\n"
   syntax:
     content: 'public abstract class AbstractTerminologyProvider : IConnectionAwareTerminologyProvider, ITerminologyProvider, IDisposable'
     content.vb: >-
@@ -79,7 +78,6 @@ items:
   assemblies:
   - Sdl.Terminology.TerminologyProvider.Core
   namespace: Sdl.Terminology.TerminologyProvider.Core
-  summary: "\nDefault constructor\n"
   syntax:
     content: public AbstractTerminologyProvider()
     content.vb: Public Sub New
@@ -105,31 +103,23 @@ items:
   assemblies:
   - Sdl.Terminology.TerminologyProvider.Core
   namespace: Sdl.Terminology.TerminologyProvider.Core
-  summary: "\nPerforms a search over the current terminology provider\n"
   syntax:
     content: public abstract IList<ISearchResult> Search(string text, ILanguage source, ILanguage destination, int maxResultsCount, SearchMode mode, bool targetRequired)
     parameters:
     - id: text
       type: System.String
-      description: The text to search for
     - id: source
       type: Sdl.Terminology.TerminologyProvider.Core.ILanguage
-      description: Source language
     - id: destination
       type: Sdl.Terminology.TerminologyProvider.Core.ILanguage
-      description: Destination language
     - id: maxResultsCount
       type: System.Int32
-      description: Maximum number of result to return
     - id: mode
       type: Sdl.Terminology.TerminologyProvider.Core.SearchMode
-      description: 'search mode: normal, fuzzy, full text'
     - id: targetRequired
       type: System.Boolean
-      description: True to return only term with target language term definition
     return:
       type: System.Collections.Generic.IList{Sdl.Terminology.TerminologyProvider.Core.ISearchResult}
-      description: The list of found terms
     content.vb: Public MustOverride Function Search(text As String, source As ILanguage, destination As ILanguage, maxResultsCount As Integer, mode As SearchMode, targetRequired As Boolean) As IList(Of ISearchResult)
   overload: Sdl.Terminology.TerminologyProvider.Core.AbstractTerminologyProvider.Search*
   implements:
@@ -157,19 +147,15 @@ items:
   assemblies:
   - Sdl.Terminology.TerminologyProvider.Core
   namespace: Sdl.Terminology.TerminologyProvider.Core
-  summary: "\nGet an entry from the terminology provider\n"
   syntax:
     content: public abstract IEntry GetEntry(int id, IEnumerable<ILanguage> languages)
     parameters:
     - id: id
       type: System.Int32
-      description: The entry id to get.
     - id: languages
       type: System.Collections.Generic.IEnumerable{Sdl.Terminology.TerminologyProvider.Core.ILanguage}
-      description: The languages to fill for the requested entry.
     return:
       type: Sdl.Terminology.TerminologyProvider.Core.IEntry
-      description: The entry object. Returns null if an entry with the specified id does not exists in the terminology provider.
     content.vb: Public MustOverride Function GetEntry(id As Integer, languages As IEnumerable(Of ILanguage)) As IEntry
   overload: Sdl.Terminology.TerminologyProvider.Core.AbstractTerminologyProvider.GetEntry*
   implements:
@@ -200,16 +186,13 @@ items:
   assemblies:
   - Sdl.Terminology.TerminologyProvider.Core
   namespace: Sdl.Terminology.TerminologyProvider.Core
-  summary: "\nGet an entry definition from the terminology provider\n"
   syntax:
     content: public abstract IEntry GetEntry(int id)
     parameters:
     - id: id
       type: System.Int32
-      description: The entry id to get.
     return:
       type: Sdl.Terminology.TerminologyProvider.Core.IEntry
-      description: The entry object. Returns null if an entry with the specified id does not exists in the terminology provider.
     content.vb: Public MustOverride Function GetEntry(id As Integer) As IEntry
   overload: Sdl.Terminology.TerminologyProvider.Core.AbstractTerminologyProvider.GetEntry*
   implements:
@@ -237,12 +220,10 @@ items:
   assemblies:
   - Sdl.Terminology.TerminologyProvider.Core
   namespace: Sdl.Terminology.TerminologyProvider.Core
-  summary: "\nReturns a list of the language languages available for this terminology provider\n"
   syntax:
     content: public abstract IList<ILanguage> GetLanguages()
     return:
       type: System.Collections.Generic.IList{Sdl.Terminology.TerminologyProvider.Core.ILanguage}
-      description: The list of language definitions for a terms
     content.vb: Public MustOverride Function GetLanguages As IList(Of ILanguage)
   overload: Sdl.Terminology.TerminologyProvider.Core.AbstractTerminologyProvider.GetLanguages*
   implements:
@@ -270,13 +251,11 @@ items:
   assemblies:
   - Sdl.Terminology.TerminologyProvider.Core
   namespace: Sdl.Terminology.TerminologyProvider.Core
-  summary: "\nSet the terminology provider as default\n"
   syntax:
     content: public virtual void SetDefault(bool value)
     parameters:
     - id: value
       type: System.Boolean
-      description: Determines if it is set as default or not
     content.vb: Public Overridable Sub SetDefault(value As Boolean)
   overload: Sdl.Terminology.TerminologyProvider.Core.AbstractTerminologyProvider.SetDefault*
   implements:
@@ -304,7 +283,6 @@ items:
   assemblies:
   - Sdl.Terminology.TerminologyProvider.Core
   namespace: Sdl.Terminology.TerminologyProvider.Core
-  summary: "\nThe dispose method.\n"
   syntax:
     content: public virtual void Dispose()
     content.vb: Public Overridable Sub Dispose
@@ -334,7 +312,6 @@ items:
   assemblies:
   - Sdl.Terminology.TerminologyProvider.Core
   namespace: Sdl.Terminology.TerminologyProvider.Core
-  summary: "\nGets the display name of the terminology provider\n"
   syntax:
     content: public abstract string Name { get; }
     parameters: []
@@ -369,7 +346,6 @@ items:
   assemblies:
   - Sdl.Terminology.TerminologyProvider.Core
   namespace: Sdl.Terminology.TerminologyProvider.Core
-  summary: "\nGets the terminology provider description\n"
   syntax:
     content: public abstract string Description { get; }
     parameters: []
@@ -404,7 +380,6 @@ items:
   assemblies:
   - Sdl.Terminology.TerminologyProvider.Core
   namespace: Sdl.Terminology.TerminologyProvider.Core
-  summary: "\nGets the URI of this terminology provider.\n"
   syntax:
     content: public abstract Uri Uri { get; }
     parameters: []
@@ -439,7 +414,6 @@ items:
   assemblies:
   - Sdl.Terminology.TerminologyProvider.Core
   namespace: Sdl.Terminology.TerminologyProvider.Core
-  summary: "\nGets the unique ID of the terminology provider\n"
   syntax:
     content: public virtual string Id { get; }
     parameters: []
@@ -474,7 +448,6 @@ items:
   assemblies:
   - Sdl.Terminology.TerminologyProvider.Core
   namespace: Sdl.Terminology.TerminologyProvider.Core
-  summary: "\nGet a list of terminology provider definition objects\n"
   syntax:
     content: public abstract IDefinition Definition { get; }
     parameters: []
@@ -509,7 +482,6 @@ items:
   assemblies:
   - Sdl.Terminology.TerminologyProvider.Core
   namespace: Sdl.Terminology.TerminologyProvider.Core
-  summary: "\nRead only flag for the terminology provider.\n"
   syntax:
     content: public virtual bool IsReadOnly { get; }
     parameters: []
@@ -544,7 +516,6 @@ items:
   assemblies:
   - Sdl.Terminology.TerminologyProvider.Core
   namespace: Sdl.Terminology.TerminologyProvider.Core
-  summary: "\nGets the type of the terminology provider.\n"
   syntax:
     content: public TerminologyProviderType Type { get; }
     parameters: []
@@ -577,7 +548,6 @@ items:
   assemblies:
   - Sdl.Terminology.TerminologyProvider.Core
   namespace: Sdl.Terminology.TerminologyProvider.Core
-  summary: "\nGets the terminology provider search enabled flag.\n"
   syntax:
     content: public virtual bool SearchEnabled { get; }
     parameters: []
@@ -612,7 +582,6 @@ items:
   assemblies:
   - Sdl.Terminology.TerminologyProvider.Core
   namespace: Sdl.Terminology.TerminologyProvider.Core
-  summary: "\nProvides information on the current status of the terminology provider\n"
   syntax:
     content: public virtual ITerminologyProviderStatus Status { get; protected set; }
     parameters: []

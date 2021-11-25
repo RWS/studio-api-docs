@@ -22,7 +22,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Resources
-  summary: "\nA resource data accessor provides access to language-specific resources of different types\n(see <xref href=\"Sdl.LanguagePlatform.Core.Resources.LanguageResourceType\" data-throw-if-not-resolved=\"false\"></xref> for the supported\nresource types). \n<p>Resources are binary-stored data streams. The caller is responsible to read the data in \nthe resource-specific format and interpret it accordingly.</p>\n"
   syntax:
     content: public interface IResourceDataAccessor
     content.vb: Public Interface IResourceDataAccessor
@@ -49,25 +48,17 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Resources
-  summary: "\nReturns the resource status for the specified resource and the specified culture.\n"
   syntax:
     content: ResourceStatus GetResourceStatus(CultureInfo culture, LanguageResourceType t, bool fallback)
     parameters:
     - id: culture
       type: System.Globalization.CultureInfo
-      description: The culture for which the status is requested.
     - id: t
       type: Sdl.LanguagePlatform.Core.Resources.LanguageResourceType
-      description: The language resource type which is requested.
     - id: fallback
       type: System.Boolean
-      description: >-
-        If true, a resource accessor may fallback to a more general
-
-        culture. If false, no fallback may be performed.
     return:
       type: Sdl.LanguagePlatform.Core.Resources.ResourceStatus
-      description: The resource status for the resource type and culture.
     content.vb: Function GetResourceStatus(culture As CultureInfo, t As LanguageResourceType, fallback As Boolean) As ResourceStatus
   overload: Sdl.LanguagePlatform.Core.Resources.IResourceDataAccessor.GetResourceStatus*
 - uid: Sdl.LanguagePlatform.Core.Resources.IResourceDataAccessor.ReadResourceData(System.Globalization.CultureInfo,Sdl.LanguagePlatform.Core.Resources.LanguageResourceType,System.Boolean)
@@ -87,25 +78,17 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Resources
-  summary: "\nReturns the data stream for the specified resource type and culture. If an appropriate\nresource is not found, an exception is thrown and/or null is returned. Callers should\ncheck for both conditions, and check the resource status before the stream is requested.\n"
   syntax:
     content: Stream ReadResourceData(CultureInfo culture, LanguageResourceType t, bool fallback)
     parameters:
     - id: culture
       type: System.Globalization.CultureInfo
-      description: The culture for which a resource is requested.
     - id: t
       type: Sdl.LanguagePlatform.Core.Resources.LanguageResourceType
-      description: The language resource type which is requested.
     - id: fallback
       type: System.Boolean
-      description: >-
-        If true, a resource accessor may fallback to a more general
-
-        culture. If false, no fallback may be performed.
     return:
       type: System.IO.Stream
-      description: "A stream containing the data for the requested resource, or null if \nthe resource is not available (in which case callers may also throw an \nexception).\n"
     content.vb: Function ReadResourceData(culture As CultureInfo, t As LanguageResourceType, fallback As Boolean) As Stream
   overload: Sdl.LanguagePlatform.Core.Resources.IResourceDataAccessor.ReadResourceData*
 - uid: Sdl.LanguagePlatform.Core.Resources.IResourceDataAccessor.GetResourceData(System.Globalization.CultureInfo,Sdl.LanguagePlatform.Core.Resources.LanguageResourceType,System.Boolean)
@@ -125,7 +108,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Resources
-  summary: "\nSimilar to <xref href=\"Sdl.LanguagePlatform.Core.Resources.IResourceDataAccessor.ReadResourceData(System.Globalization.CultureInfo%2cSdl.LanguagePlatform.Core.Resources.LanguageResourceType%2cSystem.Boolean)\" data-throw-if-not-resolved=\"false\"></xref> but returns the result as a byte array.\n"
   syntax:
     content: byte[] GetResourceData(CultureInfo culture, LanguageResourceType t, bool fallback)
     parameters:
@@ -156,16 +138,13 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Resources
-  summary: "\nReturns all cultures for which resources are found for the provided resource type.\n"
   syntax:
     content: List<CultureInfo> GetSupportedCultures(LanguageResourceType t)
     parameters:
     - id: t
       type: Sdl.LanguagePlatform.Core.Resources.LanguageResourceType
-      description: The resource type
     return:
       type: System.Collections.Generic.List{System.Globalization.CultureInfo}
-      description: The list of cultures for which a resource of the specified type is available
     content.vb: Function GetSupportedCultures(t As LanguageResourceType) As List(Of CultureInfo)
   overload: Sdl.LanguagePlatform.Core.Resources.IResourceDataAccessor.GetSupportedCultures*
 references:

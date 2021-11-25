@@ -32,7 +32,6 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.AutomaticTasks
   namespace: Sdl.ProjectAutomation.AutomaticTasks
-  summary: "\nBase class for file content processing automatic task.\n"
   syntax:
     content: public abstract class AbstractFileContentProcessingAutomaticTask
     content.vb: Public MustInherit Class AbstractFileContentProcessingAutomaticTask
@@ -71,7 +70,6 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.AutomaticTasks
   namespace: Sdl.ProjectAutomation.AutomaticTasks
-  summary: "\nGets the task settings of the project.\n"
   syntax:
     content: >-
       protected TSettings GetSetting<TSettings>()
@@ -106,7 +104,6 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.AutomaticTasks
   namespace: Sdl.ProjectAutomation.AutomaticTasks
-  summary: "\nCalled when the task is initialized. At this moment the Project and TaskFiles are available.\n"
   syntax:
     content: protected virtual void OnInitializeTask()
     content.vb: Protected Overridable Sub OnInitializeTask
@@ -134,7 +131,6 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.AutomaticTasks
   namespace: Sdl.ProjectAutomation.AutomaticTasks
-  summary: "\nCalled when the task is complete.\n"
   syntax:
     content: public virtual void TaskComplete()
     content.vb: Public Overridable Sub TaskComplete
@@ -162,7 +158,6 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.AutomaticTasks
   namespace: Sdl.ProjectAutomation.AutomaticTasks
-  summary: "\nCalled when user request cancel manually.\n"
   syntax:
     content: public virtual void Cancel(bool doRollback)
     parameters:
@@ -193,13 +188,11 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.AutomaticTasks
   namespace: Sdl.ProjectAutomation.AutomaticTasks
-  summary: "\nCheck if the task should process the file.\n"
   syntax:
     content: public virtual bool ShouldProcessFile(ProjectFile projectFile)
     parameters:
     - id: projectFile
       type: Sdl.ProjectAutomation.Core.ProjectFile
-      description: The project file.
     return:
       type: System.Boolean
     content.vb: Public Overridable Function ShouldProcessFile(projectFile As ProjectFile) As Boolean
@@ -227,16 +220,13 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.AutomaticTasks
   namespace: Sdl.ProjectAutomation.AutomaticTasks
-  summary: "\nConfigures the converter to add your content handler.\n"
   syntax:
     content: protected abstract void ConfigureConverter(ProjectFile projectFile, IMultiFileConverter multiFileConverter)
     parameters:
     - id: projectFile
       type: Sdl.ProjectAutomation.Core.ProjectFile
-      description: 'The file to processed in this task. '
     - id: multiFileConverter
       type: Sdl.FileTypeSupport.Framework.IntegrationApi.IMultiFileConverter
-      description: The converter.
     content.vb: Protected MustOverride Sub ConfigureConverter(projectFile As ProjectFile, multiFileConverter As IMultiFileConverter)
   overload: Sdl.ProjectAutomation.AutomaticTasks.AbstractFileContentProcessingAutomaticTask.ConfigureConverter*
   modifiers.csharp:
@@ -262,7 +252,6 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.AutomaticTasks
   namespace: Sdl.ProjectAutomation.AutomaticTasks
-  summary: "\nCalled when a file processing is finished. Derived class should implement this method to return information to indicate if the \nresulted file content should be uploaded.\n"
   syntax:
     content: public virtual bool OnFileComplete(ProjectFile projectFile, IMultiFileConverter multiFileConverter)
     parameters:
@@ -272,7 +261,6 @@ items:
       type: Sdl.FileTypeSupport.Framework.IntegrationApi.IMultiFileConverter
     return:
       type: System.Boolean
-      description: Returns true to indicate the file is updated. By default it returns false.
     content.vb: Public Overridable Function OnFileComplete(projectFile As ProjectFile, multiFileConverter As IMultiFileConverter) As Boolean
   overload: Sdl.ProjectAutomation.AutomaticTasks.AbstractFileContentProcessingAutomaticTask.OnFileComplete*
   modifiers.csharp:
@@ -298,19 +286,15 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.AutomaticTasks
   namespace: Sdl.ProjectAutomation.AutomaticTasks
-  summary: "\nCreates a report for this task. Generally the report data is created in xml format. The xml data will be provided to function as the data parameter.\nWhen a report is created the xml data will be stored as a xml file residing normally under the project/Reports folder. To render the report properly \nin the report view, a xslt file should be present in the task implementation project as embeded resource. The xlst file must have extension .xsl.        \n"
   syntax:
     content: public void CreateReport(string name, string description, string data)
     parameters:
     - id: name
       type: System.String
-      description: The name of the report.
     - id: description
       type: System.String
-      description: The description of this Report.
     - id: data
       type: System.String
-      description: The xml data of this report.
     content.vb: Public Sub CreateReport(name As String, description As String, data As String)
   overload: Sdl.ProjectAutomation.AutomaticTasks.AbstractFileContentProcessingAutomaticTask.CreateReport*
   modifiers.csharp:
@@ -334,22 +318,17 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.AutomaticTasks
   namespace: Sdl.ProjectAutomation.AutomaticTasks
-  summary: "\nCreates a report with a specified language for this task. Generally the report data is created in xml format. The xml data will be provided to function as the data parameter.\nWhen a report is created the xml data will be stored as a xml file residing normally under the project/Reports folder. To render the report properly \nin the report view, a xslt file should be present in the task implementation project as embeded resource. The xlst file must have extension .xsl.        \n"
   syntax:
     content: public void CreateReport(string name, string description, string data, LanguageDirection languageDirection)
     parameters:
     - id: name
       type: System.String
-      description: The name of the report.
     - id: description
       type: System.String
-      description: The description of this Report.
     - id: data
       type: System.String
-      description: The xml data of this report.
     - id: languageDirection
       type: Sdl.ProjectAutomation.AutomaticTasks.LanguageDirection
-      description: The language direction of this report.
     content.vb: Public Sub CreateReport(name As String, description As String, data As String, languageDirection As LanguageDirection)
   overload: Sdl.ProjectAutomation.AutomaticTasks.AbstractFileContentProcessingAutomaticTask.CreateReport*
   modifiers.csharp:
@@ -373,16 +352,13 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.AutomaticTasks
   namespace: Sdl.ProjectAutomation.AutomaticTasks
-  summary: "\nGets the WordCounter for a file.\n"
   syntax:
     content: public WordCounter GetWordCounter(ProjectFile projectFile)
     parameters:
     - id: projectFile
       type: Sdl.ProjectAutomation.Core.ProjectFile
-      description: The input file.
     return:
       type: Sdl.ProjectAutomation.AutomaticTasks.WordCounter
-      description: The WordCounter object
     content.vb: Public Function GetWordCounter(projectFile As ProjectFile) As WordCounter
   overload: Sdl.ProjectAutomation.AutomaticTasks.AbstractFileContentProcessingAutomaticTask.GetWordCounter*
   modifiers.csharp:
@@ -431,7 +407,6 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.AutomaticTasks
   namespace: Sdl.ProjectAutomation.AutomaticTasks
-  summary: "\nGets the project associated with this task.\n"
   syntax:
     content: public IProject Project { get; }
     parameters: []
@@ -462,7 +437,6 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.AutomaticTasks
   namespace: Sdl.ProjectAutomation.AutomaticTasks
-  summary: "\nGets the task files associated with this task.\n"
   syntax:
     content: public ProjectFile[] TaskFiles { get; }
     parameters: []
@@ -493,7 +467,6 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.AutomaticTasks
   namespace: Sdl.ProjectAutomation.AutomaticTasks
-  summary: "\nGets the id of the task.\n"
   syntax:
     content: public string TaskId { get; }
     parameters: []

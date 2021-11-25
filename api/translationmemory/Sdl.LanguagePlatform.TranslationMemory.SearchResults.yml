@@ -48,7 +48,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nRepresents a set of results returned by the translation memory after a search operation for a given input (segment/translation unit/string).\n"
   syntax:
     content: 'public class SearchResults : IEnumerable<SearchResult>, IEnumerable'
     content.vb: >-
@@ -93,7 +92,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nThe default sort order, in string representation, for normal searches. The\nprimary sort key is the score (descending), the secondary sort key is the \nuse count (descending), and the tertiary sort key is the use date (descending).\n"
   syntax:
     content: public static readonly string DefaultSortOrder
     return:
@@ -124,7 +122,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nThe default sort order, in string representation, for concordance searches. The\nprimary sort key is the score (descending), the secondary sort key is the \nchange date (descending), and the tertiary sort key is the use count (descending).\n"
   syntax:
     content: public static readonly string DefaultSortOrderConcordance
     return:
@@ -155,7 +152,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\n\n"
   syntax:
     content: protected void CopyFrom(SearchResults r)
     parameters:
@@ -184,7 +180,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nInitializes a new instance with default values.\n"
   syntax:
     content: public SearchResults()
     content.vb: Public Sub New
@@ -210,13 +205,11 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nInitializes a new instance with the specified sort order.\n"
   syntax:
     content: public SearchResults(SortSpecification defaultSortOrder)
     parameters:
     - id: defaultSortOrder
       type: Sdl.LanguagePlatform.TranslationMemory.SortSpecification
-      description: The default sort order.
     content.vb: Public Sub New(defaultSortOrder As SortSpecification)
   overload: Sdl.LanguagePlatform.TranslationMemory.SearchResults.#ctor*
   modifiers.csharp:
@@ -240,13 +233,11 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nSorts the results in this instance based on the specified sort order.\n"
   syntax:
     content: public void Sort(SortSpecification sortOrder)
     parameters:
     - id: sortOrder
       type: Sdl.LanguagePlatform.TranslationMemory.SortSpecification
-      description: The sort order. If null, the default sort order will be used.
     content.vb: Public Sub Sort(sortOrder As SortSpecification)
   overload: Sdl.LanguagePlatform.TranslationMemory.SearchResults.Sort*
   modifiers.csharp:
@@ -270,16 +261,13 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nSorts the results in this instance based on the specified sort order.\n"
   syntax:
     content: public void Sort(SortSpecification sortOrder, SearchResults.SearchResultComparer disambiguator)
     parameters:
     - id: sortOrder
       type: Sdl.LanguagePlatform.TranslationMemory.SortSpecification
-      description: The sort order. If null, the default sort order will be used.
     - id: disambiguator
       type: Sdl.LanguagePlatform.TranslationMemory.SearchResults.SearchResultComparer
-      description: "An optional, caller-defined delegate which will be called \nto disambiguate the sort order of two search results in case their sort order is not fully\ndetermined by the normal sort criteria.\n"
     content.vb: Public Sub Sort(sortOrder As SortSpecification, disambiguator As SearchResults.SearchResultComparer)
   overload: Sdl.LanguagePlatform.TranslationMemory.SearchResults.Sort*
   modifiers.csharp:
@@ -303,13 +291,11 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nSorts the results in this instance based on the specified sort order.\n"
   syntax:
     content: public void Sort(string sortOrder)
     parameters:
     - id: sortOrder
       type: System.String
-      description: "The sort order, in its string representation. If null, \nthe default sort order will be used."
     content.vb: Public Sub Sort(sortOrder As String)
   overload: Sdl.LanguagePlatform.TranslationMemory.SearchResults.Sort*
   modifiers.csharp:
@@ -333,7 +319,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nSorts the results in this instance using the currently set sort order (see <xref href=\"Sdl.LanguagePlatform.TranslationMemory.SearchResults.SortOrder\" data-throw-if-not-resolved=\"false\"></xref>),\nor the default sort order if no sort order is set.\n"
   syntax:
     content: public void Sort()
     content.vb: Public Sub Sort
@@ -359,19 +344,13 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nAppends addtional search results to the current list of search results. Note that other fields, such as \nthe source tokens or the source word count, are not merged (although they may differ for cross-TM\nsearches).\n"
   syntax:
     content: public void Merge(SearchResults other, bool removeDuplicates)
     parameters:
     - id: other
       type: Sdl.LanguagePlatform.TranslationMemory.SearchResults
-      description: The search results to merge with the current results.
     - id: removeDuplicates
       type: System.Boolean
-      description: >-
-        If true, a heuristics is applied to remove duplicates. The original
-
-        sort order is preserved, but the multiple translations information is re-evaluated.
     content.vb: Public Sub Merge(other As SearchResults, removeDuplicates As Boolean)
   overload: Sdl.LanguagePlatform.TranslationMemory.SearchResults.Merge*
   modifiers.csharp:
@@ -395,7 +374,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nCaps the number of search results to at most <code data-dev-comment-type=\"paramref\" class=\"paramref\">maxCapacity</code> elements. If the object holds \nless than the maximum number, this method has no effect.\n"
   syntax:
     content: public void Cap(int maxCapacity)
     parameters:
@@ -424,7 +402,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nCount the number of exact matches in the result and set the <xref href=\"Sdl.LanguagePlatform.TranslationMemory.SearchResults.MultipleTranslations\" data-throw-if-not-resolved=\"false\"></xref> \nflag and penalty accordingly. \nThis is only valid for normal searches; nothing will be changed for concordance searches.\n"
   syntax:
     content: public void CheckForMultipleTranslations(SearchSettings settings)
     parameters:
@@ -453,7 +430,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nCount the number of exact matches in the result and set the <xref href=\"Sdl.LanguagePlatform.TranslationMemory.SearchResults.MultipleTranslations\" data-throw-if-not-resolved=\"false\"></xref> \nflag and penalty accordingly. \nThis is only valid for normal searches; nothing will be changed for concordance searches.\n"
   syntax:
     content: public void CheckForMultipleTranslations(SearchSettings settings, List<SearchResult> searchResults)
     parameters:
@@ -487,7 +463,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nAdds a new search result to the collection.\n"
   syntax:
     content: public virtual void Add(SearchResult result)
     parameters:
@@ -518,7 +493,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nRemoves any duplicate search results. The duplicate with the lowest index\nis kept, and other duplicates are removed. \n"
   syntax:
     content: public void RemoveDuplicates()
     content.vb: Public Sub RemoveDuplicates
@@ -544,13 +518,11 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nRemoves all the elements that match the condition defined by the specified predicate\n"
   syntax:
     content: public int RemoveAll(Func<SearchResult, bool> predicate)
     parameters:
     - id: predicate
       type: System.Func{Sdl.LanguagePlatform.TranslationMemory.SearchResult,System.Boolean}
-      description: the predicate to use
     return:
       type: System.Int32
     content.vb: Public Function RemoveAll(predicate As Func(Of SearchResult, Boolean)) As Integer
@@ -579,16 +551,11 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nRemoves any duplicate search results.\n"
   syntax:
     content: public void RemoveDuplicates(Func<SearchResult, SearchResult, SearchResult> GetSearchResultToRemove)
     parameters:
     - id: GetSearchResultToRemove
       type: System.Func{Sdl.LanguagePlatform.TranslationMemory.SearchResult,Sdl.LanguagePlatform.TranslationMemory.SearchResult,Sdl.LanguagePlatform.TranslationMemory.SearchResult}
-      description: >-
-        determines which search result to remove;
-
-        null should be passed if neither search result should be removed
     content.vb: Public Sub RemoveDuplicates(GetSearchResultToRemove As Func(Of SearchResult, SearchResult, SearchResult))
   overload: Sdl.LanguagePlatform.TranslationMemory.SearchResults.RemoveDuplicates*
   nameWithType.vb: SearchResults.RemoveDuplicates(Func(Of SearchResult, SearchResult, SearchResult))
@@ -615,19 +582,15 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nDetermines whether two search results are equal, by comparing the segments of the\nmemory translation units.\n"
   syntax:
     content: public static bool AreEqual(SearchResult result1, SearchResult result2)
     parameters:
     - id: result1
       type: Sdl.LanguagePlatform.TranslationMemory.SearchResult
-      description: result1
     - id: result2
       type: Sdl.LanguagePlatform.TranslationMemory.SearchResult
-      description: results2
     return:
       type: System.Boolean
-      description: whether search results are equal
     content.vb: Public Shared Function AreEqual(result1 As SearchResult, result2 As SearchResult) As Boolean
   overload: Sdl.LanguagePlatform.TranslationMemory.SearchResults.AreEqual*
   modifiers.csharp:
@@ -653,7 +616,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nRemoves all results.\n"
   syntax:
     content: public void Clear()
     content.vb: Public Sub Clear
@@ -680,7 +642,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nReturns an enumerator to iterate through the list of search results.\n"
   syntax:
     content: IEnumerator IEnumerable.GetEnumerator()
     return:
@@ -709,7 +670,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nReturns an enumerator to iterate through the list of search results.\n"
   syntax:
     content: IEnumerator<SearchResult> IEnumerable<SearchResult>.GetEnumerator()
     return:
@@ -737,7 +697,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nGets or sets the sesarch results.\n"
   syntax:
     content: public List<SearchResult> Results { get; set; }
     parameters: []
@@ -768,7 +727,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nGets or sets the sort order. The search results are not re-sorted if this\nfield is set. To re-sort, call Sort() after setting the value.\n"
   syntax:
     content: public SortSpecification SortOrder { get; set; }
     parameters: []
@@ -799,7 +757,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nGets or sets the flag whether there exist multiple exact matches in the result set. Note that there also is a MultipleTranslationsPenalty\nin each match result. However, the penalty will only be set if the malus is > 0, but the MultipleTrnaslations flag will \nbe set independently.\n"
   syntax:
     content: public bool MultipleTranslations { get; set; }
     parameters: []
@@ -830,7 +787,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nGets or sets the source word counts for this instance.\n"
   syntax:
     content: public WordCounts SourceWordCounts { get; set; }
     parameters: []
@@ -861,7 +817,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nGets or sets the source segment placeables. The value is usually set by \nthe search engine.\n"
   syntax:
     content: public List<Placeable> DocumentPlaceables { get; set; }
     parameters: []
@@ -892,7 +847,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nGets or sets the document source segment for this instance. The value\nis set by the search engine.\n"
   syntax:
     content: public Segment SourceSegment { get; set; }
     parameters: []
@@ -923,7 +877,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nGets the number of results in this instance.\n"
   syntax:
     content: public int Count { get; }
     parameters: []
@@ -954,7 +907,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nGets or sets the source segment&apos;s hash value.\n"
   syntax:
     content: public long SourceHash { get; set; }
     parameters: []
@@ -985,16 +937,13 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nGets or sets the search results at the specified index in the collection.\n"
   syntax:
     content: public SearchResult this[int index] { get; set; }
     parameters:
     - id: index
       type: System.Int32
-      description: The index.
     return:
       type: Sdl.LanguagePlatform.TranslationMemory.SearchResult
-      description: The SearchResult at the specified index.
     content.vb: Public Property Item(index As Integer) As SearchResult
   overload: Sdl.LanguagePlatform.TranslationMemory.SearchResults.Item*
   nameWithType.vb: SearchResults.Item(Int32)

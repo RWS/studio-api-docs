@@ -6,13 +6,12 @@ items:
   parent: Sdl.TranslationStudioAutomation.IntegrationApi
   children:
   - Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.#ctor
-  - Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.Activate(Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument)
+  - Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.Activate(Sdl.TranslationStudioAutomation.IntegrationApi.Document)
   - Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.ActiveDocument
   - Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.ActiveDocumentChanged
-  - Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.Close(Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument)
+  - Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.Close(Sdl.TranslationStudioAutomation.IntegrationApi.Document)
   - Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.Closed
   - Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.Closing
-  - Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.ConcordanceSearchController
   - Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.GetDocuments
   - Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.Initialize(Sdl.Desktop.IntegrationApi.IViewContext)
   - Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.Open(Sdl.ProjectAutomation.Core.ProjectFile,Sdl.TranslationStudioAutomation.IntegrationApi.EditingMode)
@@ -20,15 +19,14 @@ items:
   - Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.Open(System.String)
   - Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.Opened
   - Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.Opening
-  - Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.Save(Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument)
-  - Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.SaveAs(Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument,System.Boolean)
-  - Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.SaveAs(Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument,System.Collections.Generic.IEnumerable{System.String},System.Boolean)
+  - Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.Save(Sdl.TranslationStudioAutomation.IntegrationApi.Document)
+  - Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.SaveAs(Sdl.TranslationStudioAutomation.IntegrationApi.Document,System.Boolean)
+  - Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.SaveAs(Sdl.TranslationStudioAutomation.IntegrationApi.Document,System.Collections.Generic.IEnumerable{System.String},System.Boolean)
   - Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.Saved
   - Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.SaveFailed
-  - Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.SaveSourceAs(Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument)
-  - Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.SaveTargetAs(Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument)
+  - Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.SaveSourceAs(Sdl.TranslationStudioAutomation.IntegrationApi.Document)
+  - Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.SaveTargetAs(Sdl.TranslationStudioAutomation.IntegrationApi.Document)
   - Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.Saving
-  - Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.TranslationResultsController
   langs:
   - csharp
   - vb
@@ -66,10 +64,7 @@ items:
   - Sdl.Desktop.IntegrationApi.Internal.AbstractBindedController.Activate
   - Sdl.Desktop.IntegrationApi.Internal.AbstractBindedController.GetExplorerBarControl
   - Sdl.Desktop.IntegrationApi.Internal.AbstractBindedController.GetContentControl
-  - Sdl.Desktop.IntegrationApi.Internal.AbstractBindedController.Invoke(System.Delegate)
-  - Sdl.Desktop.IntegrationApi.Internal.AbstractBindedController.BeginInvoke(System.Delegate)
   - Sdl.Desktop.IntegrationApi.Internal.AbstractBindedController.View
-  - Sdl.Desktop.IntegrationApi.Internal.AbstractBindedController.InvokeRequired
   - Sdl.Desktop.IntegrationApi.AbstractViewController.Refresh
   - Sdl.Desktop.IntegrationApi.AbstractViewController.Context
   - Sdl.Desktop.IntegrationApi.AbstractViewController.ActivationChanged
@@ -113,15 +108,15 @@ items:
   namespace: Sdl.TranslationStudioAutomation.IntegrationApi
   summary: "\nOpen a document from a physical file path.\n"
   syntax:
-    content: public IStudioDocument Open(string filePath)
+    content: public Document Open(string filePath)
     parameters:
     - id: filePath
       type: System.String
       description: Phath to the phisical file which should be opened.
     return:
-      type: Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument
+      type: Sdl.TranslationStudioAutomation.IntegrationApi.Document
       description: The opened document.
-    content.vb: Public Function Open(filePath As String) As IStudioDocument
+    content.vb: Public Function Open(filePath As String) As Document
   overload: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.Open*
   modifiers.csharp:
   - public
@@ -146,7 +141,7 @@ items:
   namespace: Sdl.TranslationStudioAutomation.IntegrationApi
   summary: "\nOpen multiple project files.\n"
   syntax:
-    content: public IStudioDocument Open(IEnumerable<ProjectFile> projectFiles, EditingMode mode)
+    content: public Document Open(IEnumerable<ProjectFile> projectFiles, EditingMode mode)
     parameters:
     - id: projectFiles
       type: System.Collections.Generic.IEnumerable{Sdl.ProjectAutomation.Core.ProjectFile}
@@ -155,9 +150,9 @@ items:
       type: Sdl.TranslationStudioAutomation.IntegrationApi.EditingMode
       description: The editing mode in which the document will be loaded.
     return:
-      type: Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument
+      type: Sdl.TranslationStudioAutomation.IntegrationApi.Document
       description: The opened document.
-    content.vb: Public Function Open(projectFiles As IEnumerable(Of ProjectFile), mode As EditingMode) As IStudioDocument
+    content.vb: Public Function Open(projectFiles As IEnumerable(Of ProjectFile), mode As EditingMode) As Document
   overload: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.Open*
   nameWithType.vb: EditorController.Open(IEnumerable(Of ProjectFile), EditingMode)
   modifiers.csharp:
@@ -185,7 +180,7 @@ items:
   namespace: Sdl.TranslationStudioAutomation.IntegrationApi
   summary: "\nOpen a document from a project file in the specified editing mode.\n"
   syntax:
-    content: public IStudioDocument Open(ProjectFile projectFile, EditingMode mode)
+    content: public Document Open(ProjectFile projectFile, EditingMode mode)
     parameters:
     - id: projectFile
       type: Sdl.ProjectAutomation.Core.ProjectFile
@@ -194,24 +189,24 @@ items:
       type: Sdl.TranslationStudioAutomation.IntegrationApi.EditingMode
       description: The editing mode in which the document will be loaded.
     return:
-      type: Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument
+      type: Sdl.TranslationStudioAutomation.IntegrationApi.Document
       description: The opened document.
-    content.vb: Public Function Open(projectFile As ProjectFile, mode As EditingMode) As IStudioDocument
+    content.vb: Public Function Open(projectFile As ProjectFile, mode As EditingMode) As Document
   overload: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.Open*
   modifiers.csharp:
   - public
   modifiers.vb:
   - Public
-- uid: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.Close(Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument)
-  commentId: M:Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.Close(Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument)
-  id: Close(Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument)
+- uid: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.Close(Sdl.TranslationStudioAutomation.IntegrationApi.Document)
+  commentId: M:Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.Close(Sdl.TranslationStudioAutomation.IntegrationApi.Document)
+  id: Close(Sdl.TranslationStudioAutomation.IntegrationApi.Document)
   parent: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController
   langs:
   - csharp
   - vb
-  name: Close(IStudioDocument)
-  nameWithType: EditorController.Close(IStudioDocument)
-  fullName: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.Close(Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument)
+  name: Close(Document)
+  nameWithType: EditorController.Close(Document)
+  fullName: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.Close(Sdl.TranslationStudioAutomation.IntegrationApi.Document)
   type: Method
   source:
     path: Sdl.TranslationStudioAutomation.IntegrationApi
@@ -221,27 +216,27 @@ items:
   namespace: Sdl.TranslationStudioAutomation.IntegrationApi
   summary: "\nPerforms the closing of the document.\n"
   syntax:
-    content: public void Close(IStudioDocument document)
+    content: public void Close(Document document)
     parameters:
     - id: document
-      type: Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument
+      type: Sdl.TranslationStudioAutomation.IntegrationApi.Document
       description: The document for which the operation is executed.
-    content.vb: Public Sub Close(document As IStudioDocument)
+    content.vb: Public Sub Close(document As Document)
   overload: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.Close*
   modifiers.csharp:
   - public
   modifiers.vb:
   - Public
-- uid: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.Save(Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument)
-  commentId: M:Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.Save(Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument)
-  id: Save(Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument)
+- uid: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.Save(Sdl.TranslationStudioAutomation.IntegrationApi.Document)
+  commentId: M:Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.Save(Sdl.TranslationStudioAutomation.IntegrationApi.Document)
+  id: Save(Sdl.TranslationStudioAutomation.IntegrationApi.Document)
   parent: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController
   langs:
   - csharp
   - vb
-  name: Save(IStudioDocument)
-  nameWithType: EditorController.Save(IStudioDocument)
-  fullName: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.Save(Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument)
+  name: Save(Document)
+  nameWithType: EditorController.Save(Document)
+  fullName: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.Save(Sdl.TranslationStudioAutomation.IntegrationApi.Document)
   type: Method
   source:
     path: Sdl.TranslationStudioAutomation.IntegrationApi
@@ -251,27 +246,27 @@ items:
   namespace: Sdl.TranslationStudioAutomation.IntegrationApi
   summary: "\nPerform the saving of the document.\n"
   syntax:
-    content: public void Save(IStudioDocument document)
+    content: public void Save(Document document)
     parameters:
     - id: document
-      type: Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument
+      type: Sdl.TranslationStudioAutomation.IntegrationApi.Document
       description: The document for which the operation is executed.
-    content.vb: Public Sub Save(document As IStudioDocument)
+    content.vb: Public Sub Save(document As Document)
   overload: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.Save*
   modifiers.csharp:
   - public
   modifiers.vb:
   - Public
-- uid: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.SaveAs(Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument,System.Boolean)
-  commentId: M:Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.SaveAs(Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument,System.Boolean)
-  id: SaveAs(Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument,System.Boolean)
+- uid: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.SaveAs(Sdl.TranslationStudioAutomation.IntegrationApi.Document,System.Boolean)
+  commentId: M:Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.SaveAs(Sdl.TranslationStudioAutomation.IntegrationApi.Document,System.Boolean)
+  id: SaveAs(Sdl.TranslationStudioAutomation.IntegrationApi.Document,System.Boolean)
   parent: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController
   langs:
   - csharp
   - vb
-  name: SaveAs(IStudioDocument, Boolean)
-  nameWithType: EditorController.SaveAs(IStudioDocument, Boolean)
-  fullName: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.SaveAs(Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument, System.Boolean)
+  name: SaveAs(Document, Boolean)
+  nameWithType: EditorController.SaveAs(Document, Boolean)
+  fullName: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.SaveAs(Sdl.TranslationStudioAutomation.IntegrationApi.Document, System.Boolean)
   type: Method
   source:
     path: Sdl.TranslationStudioAutomation.IntegrationApi
@@ -281,30 +276,30 @@ items:
   namespace: Sdl.TranslationStudioAutomation.IntegrationApi
   summary: "\nShow the Save As dialog. \n"
   syntax:
-    content: public void SaveAs(IStudioDocument document, bool saveProjectSettings = false)
+    content: public void SaveAs(Document document, bool saveProjectSettings = false)
     parameters:
     - id: document
-      type: Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument
+      type: Sdl.TranslationStudioAutomation.IntegrationApi.Document
       description: The document for which the Save As operation is executed.
     - id: saveProjectSettings
       type: System.Boolean
       description: True for saving the project settings
-    content.vb: Public Sub SaveAs(document As IStudioDocument, saveProjectSettings As Boolean = False)
+    content.vb: Public Sub SaveAs(document As Document, saveProjectSettings As Boolean = False)
   overload: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.SaveAs*
   modifiers.csharp:
   - public
   modifiers.vb:
   - Public
-- uid: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.SaveAs(Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument,System.Collections.Generic.IEnumerable{System.String},System.Boolean)
-  commentId: M:Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.SaveAs(Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument,System.Collections.Generic.IEnumerable{System.String},System.Boolean)
-  id: SaveAs(Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument,System.Collections.Generic.IEnumerable{System.String},System.Boolean)
+- uid: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.SaveAs(Sdl.TranslationStudioAutomation.IntegrationApi.Document,System.Collections.Generic.IEnumerable{System.String},System.Boolean)
+  commentId: M:Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.SaveAs(Sdl.TranslationStudioAutomation.IntegrationApi.Document,System.Collections.Generic.IEnumerable{System.String},System.Boolean)
+  id: SaveAs(Sdl.TranslationStudioAutomation.IntegrationApi.Document,System.Collections.Generic.IEnumerable{System.String},System.Boolean)
   parent: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController
   langs:
   - csharp
   - vb
-  name: SaveAs(IStudioDocument, IEnumerable<String>, Boolean)
-  nameWithType: EditorController.SaveAs(IStudioDocument, IEnumerable<String>, Boolean)
-  fullName: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.SaveAs(Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument, System.Collections.Generic.IEnumerable<System.String>, System.Boolean)
+  name: SaveAs(Document, IEnumerable<String>, Boolean)
+  nameWithType: EditorController.SaveAs(Document, IEnumerable<String>, Boolean)
+  fullName: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.SaveAs(Sdl.TranslationStudioAutomation.IntegrationApi.Document, System.Collections.Generic.IEnumerable<System.String>, System.Boolean)
   type: Method
   source:
     path: Sdl.TranslationStudioAutomation.IntegrationApi
@@ -314,10 +309,10 @@ items:
   namespace: Sdl.TranslationStudioAutomation.IntegrationApi
   summary: "\nSave the document to the specified absolute path \n"
   syntax:
-    content: public void SaveAs(IStudioDocument document, IEnumerable<string> filePaths, bool saveProjectSettings = false)
+    content: public void SaveAs(Document document, IEnumerable<string> filePaths, bool saveProjectSettings = false)
     parameters:
     - id: document
-      type: Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument
+      type: Sdl.TranslationStudioAutomation.IntegrationApi.Document
       description: The document for which the Save As operation is executed.
     - id: filePaths
       type: System.Collections.Generic.IEnumerable{System.String}
@@ -325,25 +320,25 @@ items:
     - id: saveProjectSettings
       type: System.Boolean
       description: True for saving the project settings
-    content.vb: Public Sub SaveAs(document As IStudioDocument, filePaths As IEnumerable(Of String), saveProjectSettings As Boolean = False)
+    content.vb: Public Sub SaveAs(document As Document, filePaths As IEnumerable(Of String), saveProjectSettings As Boolean = False)
   overload: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.SaveAs*
-  nameWithType.vb: EditorController.SaveAs(IStudioDocument, IEnumerable(Of String), Boolean)
+  nameWithType.vb: EditorController.SaveAs(Document, IEnumerable(Of String), Boolean)
   modifiers.csharp:
   - public
   modifiers.vb:
   - Public
-  fullName.vb: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.SaveAs(Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument, System.Collections.Generic.IEnumerable(Of System.String), System.Boolean)
-  name.vb: SaveAs(IStudioDocument, IEnumerable(Of String), Boolean)
-- uid: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.SaveTargetAs(Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument)
-  commentId: M:Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.SaveTargetAs(Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument)
-  id: SaveTargetAs(Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument)
+  fullName.vb: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.SaveAs(Sdl.TranslationStudioAutomation.IntegrationApi.Document, System.Collections.Generic.IEnumerable(Of System.String), System.Boolean)
+  name.vb: SaveAs(Document, IEnumerable(Of String), Boolean)
+- uid: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.SaveTargetAs(Sdl.TranslationStudioAutomation.IntegrationApi.Document)
+  commentId: M:Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.SaveTargetAs(Sdl.TranslationStudioAutomation.IntegrationApi.Document)
+  id: SaveTargetAs(Sdl.TranslationStudioAutomation.IntegrationApi.Document)
   parent: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController
   langs:
   - csharp
   - vb
-  name: SaveTargetAs(IStudioDocument)
-  nameWithType: EditorController.SaveTargetAs(IStudioDocument)
-  fullName: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.SaveTargetAs(Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument)
+  name: SaveTargetAs(Document)
+  nameWithType: EditorController.SaveTargetAs(Document)
+  fullName: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.SaveTargetAs(Sdl.TranslationStudioAutomation.IntegrationApi.Document)
   type: Method
   source:
     path: Sdl.TranslationStudioAutomation.IntegrationApi
@@ -353,27 +348,27 @@ items:
   namespace: Sdl.TranslationStudioAutomation.IntegrationApi
   summary: "\nShow the Save Target As dialog. \n"
   syntax:
-    content: public void SaveTargetAs(IStudioDocument document)
+    content: public void SaveTargetAs(Document document)
     parameters:
     - id: document
-      type: Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument
+      type: Sdl.TranslationStudioAutomation.IntegrationApi.Document
       description: The document for which the Save Target As operation is executed.
-    content.vb: Public Sub SaveTargetAs(document As IStudioDocument)
+    content.vb: Public Sub SaveTargetAs(document As Document)
   overload: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.SaveTargetAs*
   modifiers.csharp:
   - public
   modifiers.vb:
   - Public
-- uid: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.SaveSourceAs(Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument)
-  commentId: M:Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.SaveSourceAs(Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument)
-  id: SaveSourceAs(Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument)
+- uid: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.SaveSourceAs(Sdl.TranslationStudioAutomation.IntegrationApi.Document)
+  commentId: M:Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.SaveSourceAs(Sdl.TranslationStudioAutomation.IntegrationApi.Document)
+  id: SaveSourceAs(Sdl.TranslationStudioAutomation.IntegrationApi.Document)
   parent: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController
   langs:
   - csharp
   - vb
-  name: SaveSourceAs(IStudioDocument)
-  nameWithType: EditorController.SaveSourceAs(IStudioDocument)
-  fullName: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.SaveSourceAs(Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument)
+  name: SaveSourceAs(Document)
+  nameWithType: EditorController.SaveSourceAs(Document)
+  fullName: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.SaveSourceAs(Sdl.TranslationStudioAutomation.IntegrationApi.Document)
   type: Method
   source:
     path: Sdl.TranslationStudioAutomation.IntegrationApi
@@ -383,27 +378,27 @@ items:
   namespace: Sdl.TranslationStudioAutomation.IntegrationApi
   summary: "\nShow the Save Source As dialog. \n"
   syntax:
-    content: public void SaveSourceAs(IStudioDocument document)
+    content: public void SaveSourceAs(Document document)
     parameters:
     - id: document
-      type: Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument
+      type: Sdl.TranslationStudioAutomation.IntegrationApi.Document
       description: The document for which the Save Source As operation is executed.
-    content.vb: Public Sub SaveSourceAs(document As IStudioDocument)
+    content.vb: Public Sub SaveSourceAs(document As Document)
   overload: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.SaveSourceAs*
   modifiers.csharp:
   - public
   modifiers.vb:
   - Public
-- uid: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.Activate(Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument)
-  commentId: M:Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.Activate(Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument)
-  id: Activate(Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument)
+- uid: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.Activate(Sdl.TranslationStudioAutomation.IntegrationApi.Document)
+  commentId: M:Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.Activate(Sdl.TranslationStudioAutomation.IntegrationApi.Document)
+  id: Activate(Sdl.TranslationStudioAutomation.IntegrationApi.Document)
   parent: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController
   langs:
   - csharp
   - vb
-  name: Activate(IStudioDocument)
-  nameWithType: EditorController.Activate(IStudioDocument)
-  fullName: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.Activate(Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument)
+  name: Activate(Document)
+  nameWithType: EditorController.Activate(Document)
+  fullName: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.Activate(Sdl.TranslationStudioAutomation.IntegrationApi.Document)
   type: Method
   source:
     path: Sdl.TranslationStudioAutomation.IntegrationApi
@@ -413,12 +408,12 @@ items:
   namespace: Sdl.TranslationStudioAutomation.IntegrationApi
   summary: "\nActivates the specified document\n"
   syntax:
-    content: public void Activate(IStudioDocument document)
+    content: public void Activate(Document document)
     parameters:
     - id: document
-      type: Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument
+      type: Sdl.TranslationStudioAutomation.IntegrationApi.Document
       description: Document to be activated.
-    content.vb: Public Sub Activate(document As IStudioDocument)
+    content.vb: Public Sub Activate(document As Document)
   overload: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.Activate*
   modifiers.csharp:
   - public
@@ -476,11 +471,11 @@ items:
   namespace: Sdl.TranslationStudioAutomation.IntegrationApi
   summary: "\nGets all the opened documents.\n"
   syntax:
-    content: public IEnumerable<IStudioDocument> GetDocuments()
+    content: public IEnumerable<Document> GetDocuments()
     return:
-      type: System.Collections.Generic.IEnumerable{Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument}
+      type: System.Collections.Generic.IEnumerable{Sdl.TranslationStudioAutomation.IntegrationApi.Document}
       description: Returns an enumerable document collection of all the opened documents.
-    content.vb: Public Function GetDocuments As IEnumerable(Of IStudioDocument)
+    content.vb: Public Function GetDocuments As IEnumerable(Of Document)
   overload: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.GetDocuments*
   modifiers.csharp:
   - public
@@ -530,74 +525,12 @@ items:
   namespace: Sdl.TranslationStudioAutomation.IntegrationApi
   summary: "\nGet the active document.\n"
   syntax:
-    content: public IStudioDocument ActiveDocument { get; }
+    content: public Document ActiveDocument { get; }
     parameters: []
     return:
-      type: Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument
-    content.vb: Public ReadOnly Property ActiveDocument As IStudioDocument
+      type: Sdl.TranslationStudioAutomation.IntegrationApi.Document
+    content.vb: Public ReadOnly Property ActiveDocument As Document
   overload: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.ActiveDocument*
-  modifiers.csharp:
-  - public
-  - get
-  modifiers.vb:
-  - Public
-  - ReadOnly
-- uid: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.ConcordanceSearchController
-  commentId: P:Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.ConcordanceSearchController
-  id: ConcordanceSearchController
-  parent: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController
-  langs:
-  - csharp
-  - vb
-  name: ConcordanceSearchController
-  nameWithType: EditorController.ConcordanceSearchController
-  fullName: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.ConcordanceSearchController
-  type: Property
-  source:
-    path: Sdl.TranslationStudioAutomation.IntegrationApi
-    isExternal: true
-  assemblies:
-  - Sdl.TranslationStudioAutomation.IntegrationApi
-  namespace: Sdl.TranslationStudioAutomation.IntegrationApi
-  summary: "\nGets the controller responsible for interacting with Concordance Search\n"
-  syntax:
-    content: public IConcordanceSearchController ConcordanceSearchController { get; }
-    parameters: []
-    return:
-      type: Sdl.TranslationStudioAutomation.IntegrationApi.Editor.ConcordanceSearch.IConcordanceSearchController
-    content.vb: Public ReadOnly Property ConcordanceSearchController As IConcordanceSearchController
-  overload: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.ConcordanceSearchController*
-  modifiers.csharp:
-  - public
-  - get
-  modifiers.vb:
-  - Public
-  - ReadOnly
-- uid: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.TranslationResultsController
-  commentId: P:Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.TranslationResultsController
-  id: TranslationResultsController
-  parent: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController
-  langs:
-  - csharp
-  - vb
-  name: TranslationResultsController
-  nameWithType: EditorController.TranslationResultsController
-  fullName: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.TranslationResultsController
-  type: Property
-  source:
-    path: Sdl.TranslationStudioAutomation.IntegrationApi
-    isExternal: true
-  assemblies:
-  - Sdl.TranslationStudioAutomation.IntegrationApi
-  namespace: Sdl.TranslationStudioAutomation.IntegrationApi
-  summary: "\nGets the controller responsible for interacting with Concordance Search\n"
-  syntax:
-    content: public ITranslationResultsController TranslationResultsController { get; }
-    parameters: []
-    return:
-      type: Sdl.TranslationStudioAutomation.IntegrationApi.Editor.TranslationResults.ITranslationResultsController
-    content.vb: Public ReadOnly Property TranslationResultsController As ITranslationResultsController
-  overload: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.TranslationResultsController*
   modifiers.csharp:
   - public
   - get
@@ -986,88 +919,6 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: Sdl.Desktop.IntegrationApi.Internal.AbstractBindedController.Invoke(System.Delegate)
-  commentId: M:Sdl.Desktop.IntegrationApi.Internal.AbstractBindedController.Invoke(System.Delegate)
-  parent: Sdl.Desktop.IntegrationApi.Internal.AbstractBindedController
-  isExternal: true
-  name: Invoke(Delegate)
-  nameWithType: AbstractBindedController.Invoke(Delegate)
-  fullName: Sdl.Desktop.IntegrationApi.Internal.AbstractBindedController.Invoke(System.Delegate)
-  spec.csharp:
-  - uid: Sdl.Desktop.IntegrationApi.Internal.AbstractBindedController.Invoke(System.Delegate)
-    name: Invoke
-    nameWithType: AbstractBindedController.Invoke
-    fullName: Sdl.Desktop.IntegrationApi.Internal.AbstractBindedController.Invoke
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: System.Delegate
-    name: Delegate
-    nameWithType: Delegate
-    fullName: System.Delegate
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: Sdl.Desktop.IntegrationApi.Internal.AbstractBindedController.Invoke(System.Delegate)
-    name: Invoke
-    nameWithType: AbstractBindedController.Invoke
-    fullName: Sdl.Desktop.IntegrationApi.Internal.AbstractBindedController.Invoke
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: System.Delegate
-    name: Delegate
-    nameWithType: Delegate
-    fullName: System.Delegate
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: Sdl.Desktop.IntegrationApi.Internal.AbstractBindedController.BeginInvoke(System.Delegate)
-  commentId: M:Sdl.Desktop.IntegrationApi.Internal.AbstractBindedController.BeginInvoke(System.Delegate)
-  parent: Sdl.Desktop.IntegrationApi.Internal.AbstractBindedController
-  isExternal: true
-  name: BeginInvoke(Delegate)
-  nameWithType: AbstractBindedController.BeginInvoke(Delegate)
-  fullName: Sdl.Desktop.IntegrationApi.Internal.AbstractBindedController.BeginInvoke(System.Delegate)
-  spec.csharp:
-  - uid: Sdl.Desktop.IntegrationApi.Internal.AbstractBindedController.BeginInvoke(System.Delegate)
-    name: BeginInvoke
-    nameWithType: AbstractBindedController.BeginInvoke
-    fullName: Sdl.Desktop.IntegrationApi.Internal.AbstractBindedController.BeginInvoke
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: System.Delegate
-    name: Delegate
-    nameWithType: Delegate
-    fullName: System.Delegate
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: Sdl.Desktop.IntegrationApi.Internal.AbstractBindedController.BeginInvoke(System.Delegate)
-    name: BeginInvoke
-    nameWithType: AbstractBindedController.BeginInvoke
-    fullName: Sdl.Desktop.IntegrationApi.Internal.AbstractBindedController.BeginInvoke
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: System.Delegate
-    name: Delegate
-    nameWithType: Delegate
-    fullName: System.Delegate
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
 - uid: Sdl.Desktop.IntegrationApi.Internal.AbstractBindedController.View
   commentId: P:Sdl.Desktop.IntegrationApi.Internal.AbstractBindedController.View
   parent: Sdl.Desktop.IntegrationApi.Internal.AbstractBindedController
@@ -1075,13 +926,6 @@ references:
   name: View
   nameWithType: AbstractBindedController.View
   fullName: Sdl.Desktop.IntegrationApi.Internal.AbstractBindedController.View
-- uid: Sdl.Desktop.IntegrationApi.Internal.AbstractBindedController.InvokeRequired
-  commentId: P:Sdl.Desktop.IntegrationApi.Internal.AbstractBindedController.InvokeRequired
-  parent: Sdl.Desktop.IntegrationApi.Internal.AbstractBindedController
-  isExternal: true
-  name: InvokeRequired
-  nameWithType: AbstractBindedController.InvokeRequired
-  fullName: Sdl.Desktop.IntegrationApi.Internal.AbstractBindedController.InvokeRequired
 - uid: Sdl.Desktop.IntegrationApi.AbstractViewController.Refresh
   commentId: M:Sdl.Desktop.IntegrationApi.AbstractViewController.Refresh
   parent: Sdl.Desktop.IntegrationApi.AbstractViewController
@@ -1603,13 +1447,13 @@ references:
   name: String
   nameWithType: String
   fullName: System.String
-- uid: Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument
-  commentId: T:Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument
+- uid: Sdl.TranslationStudioAutomation.IntegrationApi.Document
+  commentId: T:Sdl.TranslationStudioAutomation.IntegrationApi.Document
   parent: Sdl.TranslationStudioAutomation.IntegrationApi
   isExternal: true
-  name: IStudioDocument
-  nameWithType: IStudioDocument
-  fullName: Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument
+  name: Document
+  nameWithType: Document
+  fullName: Sdl.TranslationStudioAutomation.IntegrationApi.Document
 - uid: System.Collections.Generic.IEnumerable{Sdl.ProjectAutomation.Core.ProjectFile}
   commentId: T:System.Collections.Generic.IEnumerable{Sdl.ProjectAutomation.Core.ProjectFile}
   parent: System.Collections.Generic
@@ -1858,16 +1702,16 @@ references:
   name: GetDocuments
   nameWithType: EditorController.GetDocuments
   fullName: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.GetDocuments
-- uid: System.Collections.Generic.IEnumerable{Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument}
-  commentId: T:System.Collections.Generic.IEnumerable{Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument}
+- uid: System.Collections.Generic.IEnumerable{Sdl.TranslationStudioAutomation.IntegrationApi.Document}
+  commentId: T:System.Collections.Generic.IEnumerable{Sdl.TranslationStudioAutomation.IntegrationApi.Document}
   parent: System.Collections.Generic
   definition: System.Collections.Generic.IEnumerable`1
-  name: IEnumerable<IStudioDocument>
-  nameWithType: IEnumerable<IStudioDocument>
-  fullName: System.Collections.Generic.IEnumerable<Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument>
-  nameWithType.vb: IEnumerable(Of IStudioDocument)
-  fullName.vb: System.Collections.Generic.IEnumerable(Of Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument)
-  name.vb: IEnumerable(Of IStudioDocument)
+  name: IEnumerable<Document>
+  nameWithType: IEnumerable<Document>
+  fullName: System.Collections.Generic.IEnumerable<Sdl.TranslationStudioAutomation.IntegrationApi.Document>
+  nameWithType.vb: IEnumerable(Of Document)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of Sdl.TranslationStudioAutomation.IntegrationApi.Document)
+  name.vb: IEnumerable(Of Document)
   spec.csharp:
   - uid: System.Collections.Generic.IEnumerable`1
     name: IEnumerable
@@ -1877,10 +1721,10 @@ references:
   - name: <
     nameWithType: <
     fullName: <
-  - uid: Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument
-    name: IStudioDocument
-    nameWithType: IStudioDocument
-    fullName: Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument
+  - uid: Sdl.TranslationStudioAutomation.IntegrationApi.Document
+    name: Document
+    nameWithType: Document
+    fullName: Sdl.TranslationStudioAutomation.IntegrationApi.Document
     isExternal: true
   - name: '>'
     nameWithType: '>'
@@ -1894,10 +1738,10 @@ references:
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - uid: Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument
-    name: IStudioDocument
-    nameWithType: IStudioDocument
-    fullName: Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument
+  - uid: Sdl.TranslationStudioAutomation.IntegrationApi.Document
+    name: Document
+    nameWithType: Document
+    fullName: Sdl.TranslationStudioAutomation.IntegrationApi.Document
     isExternal: true
   - name: )
     nameWithType: )
@@ -1914,44 +1758,6 @@ references:
   name: ActiveDocument
   nameWithType: EditorController.ActiveDocument
   fullName: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.ActiveDocument
-- uid: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.ConcordanceSearchController*
-  commentId: Overload:Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.ConcordanceSearchController
-  isExternal: true
-  name: ConcordanceSearchController
-  nameWithType: EditorController.ConcordanceSearchController
-  fullName: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.ConcordanceSearchController
-- uid: Sdl.TranslationStudioAutomation.IntegrationApi.Editor.ConcordanceSearch.IConcordanceSearchController
-  commentId: T:Sdl.TranslationStudioAutomation.IntegrationApi.Editor.ConcordanceSearch.IConcordanceSearchController
-  parent: Sdl.TranslationStudioAutomation.IntegrationApi.Editor.ConcordanceSearch
-  isExternal: true
-  name: IConcordanceSearchController
-  nameWithType: IConcordanceSearchController
-  fullName: Sdl.TranslationStudioAutomation.IntegrationApi.Editor.ConcordanceSearch.IConcordanceSearchController
-- uid: Sdl.TranslationStudioAutomation.IntegrationApi.Editor.ConcordanceSearch
-  commentId: N:Sdl.TranslationStudioAutomation.IntegrationApi.Editor.ConcordanceSearch
-  isExternal: true
-  name: Sdl.TranslationStudioAutomation.IntegrationApi.Editor.ConcordanceSearch
-  nameWithType: Sdl.TranslationStudioAutomation.IntegrationApi.Editor.ConcordanceSearch
-  fullName: Sdl.TranslationStudioAutomation.IntegrationApi.Editor.ConcordanceSearch
-- uid: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.TranslationResultsController*
-  commentId: Overload:Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.TranslationResultsController
-  isExternal: true
-  name: TranslationResultsController
-  nameWithType: EditorController.TranslationResultsController
-  fullName: Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.TranslationResultsController
-- uid: Sdl.TranslationStudioAutomation.IntegrationApi.Editor.TranslationResults.ITranslationResultsController
-  commentId: T:Sdl.TranslationStudioAutomation.IntegrationApi.Editor.TranslationResults.ITranslationResultsController
-  parent: Sdl.TranslationStudioAutomation.IntegrationApi.Editor.TranslationResults
-  isExternal: true
-  name: ITranslationResultsController
-  nameWithType: ITranslationResultsController
-  fullName: Sdl.TranslationStudioAutomation.IntegrationApi.Editor.TranslationResults.ITranslationResultsController
-- uid: Sdl.TranslationStudioAutomation.IntegrationApi.Editor.TranslationResults
-  commentId: N:Sdl.TranslationStudioAutomation.IntegrationApi.Editor.TranslationResults
-  isExternal: true
-  name: Sdl.TranslationStudioAutomation.IntegrationApi.Editor.TranslationResults
-  nameWithType: Sdl.TranslationStudioAutomation.IntegrationApi.Editor.TranslationResults
-  fullName: Sdl.TranslationStudioAutomation.IntegrationApi.Editor.TranslationResults
 - uid: System.EventHandler{Sdl.TranslationStudioAutomation.IntegrationApi.DocumentEventArgs}
   commentId: T:System.EventHandler{Sdl.TranslationStudioAutomation.IntegrationApi.DocumentEventArgs}
   parent: System

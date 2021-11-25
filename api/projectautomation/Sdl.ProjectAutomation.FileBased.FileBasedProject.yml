@@ -90,8 +90,8 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.FileBased
   namespace: Sdl.ProjectAutomation.FileBased
-  summary: "\nThis class provides an implementation of the <xref href=\"Sdl.ProjectAutomation.Core.IProject\" data-throw-if-not-resolved=\"false\"></xref> interface for working with Trados Studio projects.\n"
-  remarks: "\n<p>An Trados Studio project always resides in a dedicated project folder on disk. Within this, you can find the following:\n\n</p>\n<p>\nWhen creating a new <xref href=\"Sdl.ProjectAutomation.FileBased.FileBasedProject\" data-throw-if-not-resolved=\"false\"></xref> object, the project XML file is loaded into memory. Changes to the project are not saved\nautomatically and only happen in memory. After doing a series of operations on a project, you need to call <xref href=\"Sdl.ProjectAutomation.FileBased.FileBasedProject.Save\" data-throw-if-not-resolved=\"false\"></xref> to save the project XML file.\nYou may choose to do this at key points to prevent losing data in case your application crashes.\n</p>\n<p>The <xref href=\"Sdl.ProjectAutomation.FileBased.FileBasedProject\" data-throw-if-not-resolved=\"false\"></xref> class can be used to open any type of Trados Studio project. In order to create a project from a project package (*.sdlppx), use the static\n<xref href=\"Sdl.ProjectAutomation.FileBased.FileBasedProject.CreateFromProjectPackage(System.String%2cSystem.String%2cSdl.ProjectAutomation.Core.ProjectPackageImport%40)\" data-throw-if-not-resolved=\"false\"></xref> method. </p>\n<p>Project created using the Project Automation API will not automatically be added to the Trados Studio project list. In order to do this,\nsimply open the project in Trados Studio, which will add it to the list.</p>\n"
+  summary: "\nThis class provides an implementation of the <xref href=\"Sdl.ProjectAutomation.Core.IProject\" data-throw-if-not-resolved=\"false\"></xref> interface for working with SDL Trados Studio projects.\n"
+  remarks: "\n<p>An SDL Trados Studio project always resides in a dedicated project folder on disk. Within this, you can find the following:\n\n</p>\n<p>\nWhen creating a new <xref href=\"Sdl.ProjectAutomation.FileBased.FileBasedProject\" data-throw-if-not-resolved=\"false\"></xref> object, the project XML file is loaded into memory. Changes to the project are not saved\nautomatically and only happen in memory. After doing a series of operations on a project, you need to call <xref href=\"Sdl.ProjectAutomation.FileBased.FileBasedProject.Save\" data-throw-if-not-resolved=\"false\"></xref> to save the project XML file.\nYou may choose to do this at key points to prevent losing data in case your application crashes.\n</p>\n<p>The <xref href=\"Sdl.ProjectAutomation.FileBased.FileBasedProject\" data-throw-if-not-resolved=\"false\"></xref> class can be used to open any type of SDL Trados Studio project. In order to create a project from a project package (*.sdlppx), use the static\n<xref href=\"Sdl.ProjectAutomation.FileBased.FileBasedProject.CreateFromProjectPackage(System.String%2cSystem.String%2cSdl.ProjectAutomation.Core.ProjectPackageImport%40)\" data-throw-if-not-resolved=\"false\"></xref> method. </p>\n<p>Project created using the Project Automation API will not automatically be added to the SDL Trados Studio project list. In order to do this,\nsimply open the project in SDL Trados Studio, which will add it to the list.</p>\n"
   syntax:
     content: 'public class FileBasedProject : IProject, IProjectDeleteOperation'
     content.vb: >-
@@ -134,13 +134,13 @@ items:
   - Sdl.ProjectAutomation.FileBased
   namespace: Sdl.ProjectAutomation.FileBased
   summary: "\nCreates a new project from a project package.\n"
-  remarks: "\n<p>Unlike Trados Studio, this API does not allow you to open a project package and merge it into a project that was\npreviously created by opening a project package that originated from the same project. A new project is created for every project package you\nopen using this method.</p>\n"
+  remarks: "\n<p>Unlike SDL Trados Studio, this API does not allow you to open a project package and merge it into a project that was\npreviously created by opening a project package that originated from the same project. A new project is created for every project package you\nopen using this method.</p>\n"
   syntax:
     content: public static FileBasedProject CreateFromProjectPackage(string projectPackageFilePath, string projectFolder, out ProjectPackageImport result)
     parameters:
     - id: projectPackageFilePath
       type: System.String
-      description: The file path of the project package to open into a new project. Only native Trados Studio packages are supported (*.sdlppx).
+      description: The file path of the project package to open into a new project. Only native SDL Trados Studio packages are supported (*.sdlppx).
     - id: projectFolder
       type: System.String
       description: The file path of an empty folder to create the new project in.
@@ -313,9 +313,9 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.FileBased
   namespace: Sdl.ProjectAutomation.FileBased
-  summary: "\nCreates a new project based on the default project template set up in Trados Studio.\n"
+  summary: "\nCreates a new project based on the default project template set up in SDL Trados Studio.\n"
   remarks: >-
-    The default project template has to be set up before you can use this constructor. This is done automatically when Trados Studio
+    The default project template has to be set up before you can use this constructor. This is done automatically when SDL Trados Studio
 
     starts for the first time after installation.
   syntax:
@@ -329,7 +329,7 @@ items:
   exceptions:
   - type: System.InvalidOperationException
     commentId: T:System.InvalidOperationException
-    description: Thrown when trying to use this constructor before Trados Studio has initialized the default project template.
+    description: Thrown when trying to use this constructor before SDL Trados Studio has initialized the default project template.
   - type: System.ArgumentNullException
     commentId: T:System.ArgumentNullException
     description: Thrown when <code data-dev-comment-type="paramref" class="paramref">projectInfo</code> is <code>null</code>.
@@ -455,8 +455,6 @@ items:
     content: public void Save()
     content.vb: Public Sub Save
   overload: Sdl.ProjectAutomation.FileBased.FileBasedProject.Save*
-  implements:
-  - Sdl.ProjectAutomation.Core.IProject.Save
   modifiers.csharp:
   - public
   modifiers.vb:
@@ -2624,7 +2622,7 @@ items:
   - Sdl.ProjectAutomation.FileBased
   namespace: Sdl.ProjectAutomation.FileBased
   summary: "\nUploads the specifies including potentially related files that should be uploaded at the same time and checks them in.\n"
-  remarks: "\nThe method is to be used for check-out files only\nWhen passing in a locally added target language file, the corresponding source file is checked in and also all the related new target language\nfiles; but no other existing modified target language files.\nWhen passing in a locally added source file, the source file and all corresponding target languages files are uploaded and checked in.\n"
+  remarks: "\nWhen passing in a locally added target language file, the corresponding source file is checked in and also all the related new target language\nfiles; but no other existing modified target language files.\nWhen passing in a locally added source file, the source file and all corresponding target languages files are uploaded and checked in.\n"
   syntax:
     content: public void CheckinFiles(Guid[] projectFileIds, string comment, EventHandler<ProgressEventArgs> progressEventHandler)
     parameters:
@@ -3420,37 +3418,6 @@ references:
   name: Save
   nameWithType: FileBasedProject.Save
   fullName: Sdl.ProjectAutomation.FileBased.FileBasedProject.Save
-- uid: Sdl.ProjectAutomation.Core.IProject.Save
-  commentId: M:Sdl.ProjectAutomation.Core.IProject.Save
-  parent: Sdl.ProjectAutomation.Core.IProject
-  isExternal: true
-  name: Save()
-  nameWithType: IProject.Save()
-  fullName: Sdl.ProjectAutomation.Core.IProject.Save()
-  spec.csharp:
-  - uid: Sdl.ProjectAutomation.Core.IProject.Save
-    name: Save
-    nameWithType: IProject.Save
-    fullName: Sdl.ProjectAutomation.Core.IProject.Save
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: Sdl.ProjectAutomation.Core.IProject.Save
-    name: Save
-    nameWithType: IProject.Save
-    fullName: Sdl.ProjectAutomation.Core.IProject.Save
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
 - uid: Sdl.ProjectAutomation.FileBased.FileBasedProject.RunAutomaticTasks*
   commentId: Overload:Sdl.ProjectAutomation.FileBased.FileBasedProject.RunAutomaticTasks
   isExternal: true

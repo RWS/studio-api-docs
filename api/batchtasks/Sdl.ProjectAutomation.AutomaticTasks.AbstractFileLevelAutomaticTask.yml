@@ -31,7 +31,6 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.AutomaticTasks
   namespace: Sdl.ProjectAutomation.AutomaticTasks
-  summary: "\nBase class for file level automatic task.\n"
   syntax:
     content: public abstract class AbstractFileLevelAutomaticTask
     content.vb: Public MustInherit Class AbstractFileLevelAutomaticTask
@@ -70,7 +69,6 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.AutomaticTasks
   namespace: Sdl.ProjectAutomation.AutomaticTasks
-  summary: "\nCalled when the task is initialized. Overwrite this function where further initialization is required.\n"
   syntax:
     content: protected virtual void OnInitializeTask()
     content.vb: Protected Overridable Sub OnInitializeTask
@@ -98,7 +96,6 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.AutomaticTasks
   namespace: Sdl.ProjectAutomation.AutomaticTasks
-  summary: "\nCalled when the task is completed. Overwrite this function when further operation is required.\n"
   syntax:
     content: public virtual void TaskComplete()
     content.vb: Public Overridable Sub TaskComplete
@@ -126,7 +123,6 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.AutomaticTasks
   namespace: Sdl.ProjectAutomation.AutomaticTasks
-  summary: "\nCalled when the task execution is request to cancel.\n"
   syntax:
     content: public virtual void Cancel(bool doRollback)
     parameters:
@@ -157,7 +153,6 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.AutomaticTasks
   namespace: Sdl.ProjectAutomation.AutomaticTasks
-  summary: "\nExecutes the task. This function does the default implementation: ensure the files ready for the task, calls ProcessFile for each files and then populate \nthe files if the files are updated.\n"
   syntax:
     content: public virtual void Execute()
     content.vb: Public Overridable Sub Execute
@@ -185,16 +180,13 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.AutomaticTasks
   namespace: Sdl.ProjectAutomation.AutomaticTasks
-  summary: "\nUploads the file for the new version generated.\n"
   syntax:
     content: protected virtual void UploadFile(ProjectFile projectFile, string localFilePath)
     parameters:
     - id: projectFile
       type: Sdl.ProjectAutomation.Core.ProjectFile
-      description: The file to update
     - id: localFilePath
       type: System.String
-      description: The local path of the file.
     content.vb: Protected Overridable Sub UploadFile(projectFile As ProjectFile, localFilePath As String)
   overload: Sdl.ProjectAutomation.AutomaticTasks.AbstractFileLevelAutomaticTask.UploadFile*
   modifiers.csharp:
@@ -220,13 +212,11 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.AutomaticTasks
   namespace: Sdl.ProjectAutomation.AutomaticTasks
-  summary: "\nProcesses the file. It is implemented in the derived class.\n"
   syntax:
     content: protected abstract void ProcessFile(ProjectFile projectFile)
     parameters:
     - id: projectFile
       type: Sdl.ProjectAutomation.Core.ProjectFile
-      description: the file to process
     content.vb: Protected MustOverride Sub ProcessFile(projectFile As ProjectFile)
   overload: Sdl.ProjectAutomation.AutomaticTasks.AbstractFileLevelAutomaticTask.ProcessFile*
   modifiers.csharp:
@@ -252,13 +242,11 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.AutomaticTasks
   namespace: Sdl.ProjectAutomation.AutomaticTasks
-  summary: "\nReports the progress of this task.\n"
   syntax:
     content: protected virtual void OnFileProgress(TaskProgressEventArgs e)
     parameters:
     - id: e
       type: Sdl.ProjectAutomation.AutomaticTasks.TaskProgressEventArgs
-      description: The task progress event args
     content.vb: Protected Overridable Sub OnFileProgress(e As TaskProgressEventArgs)
   overload: Sdl.ProjectAutomation.AutomaticTasks.AbstractFileLevelAutomaticTask.OnFileProgress*
   modifiers.csharp:
@@ -309,7 +297,6 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.AutomaticTasks
   namespace: Sdl.ProjectAutomation.AutomaticTasks
-  summary: "\nGets/Sets if this task should add a new version of the files. If the task updates the task files, \nit should be set to true so the updated files will be preserved.\n"
   syntax:
     content: public bool ShouldAddNewFileVersion { get; set; }
     parameters: []
@@ -340,7 +327,6 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.AutomaticTasks
   namespace: Sdl.ProjectAutomation.AutomaticTasks
-  summary: "\nChecks if the task is requested to be cancelled.\n"
   syntax:
     content: public bool IsCancelRequested { get; }
     parameters: []
@@ -371,7 +357,6 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.AutomaticTasks
   namespace: Sdl.ProjectAutomation.AutomaticTasks
-  summary: "\nGets the project for this task.\n"
   syntax:
     content: public IProject Project { get; }
     parameters: []
@@ -402,7 +387,6 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.AutomaticTasks
   namespace: Sdl.ProjectAutomation.AutomaticTasks
-  summary: "\nGets the files for this task.\n"
   syntax:
     content: public ProjectFile[] TaskFiles { get; }
     parameters: []
@@ -433,7 +417,6 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.AutomaticTasks
   namespace: Sdl.ProjectAutomation.AutomaticTasks
-  summary: "\nThe task progress event.\n"
   syntax:
     content: public event EventHandler<TaskProgressEventArgs> Progress
     return:

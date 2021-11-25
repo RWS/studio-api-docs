@@ -20,16 +20,12 @@ items:
   - Sdl.ProjectAutomation.Core.ProjectFile.IsCheckedOutToMe
   - Sdl.ProjectAutomation.Core.ProjectFile.IsSource
   - Sdl.ProjectAutomation.Core.ProjectFile.Language
-  - Sdl.ProjectAutomation.Core.ProjectFile.LastModified
   - Sdl.ProjectAutomation.Core.ProjectFile.LatestServerVersion
   - Sdl.ProjectAutomation.Core.ProjectFile.LocalFilePath
   - Sdl.ProjectAutomation.Core.ProjectFile.LocalFileState
   - Sdl.ProjectAutomation.Core.ProjectFile.Name
-  - Sdl.ProjectAutomation.Core.ProjectFile.OriginalName
-  - Sdl.ProjectAutomation.Core.ProjectFile.PathInProject
   - Sdl.ProjectAutomation.Core.ProjectFile.ProjectId
   - Sdl.ProjectAutomation.Core.ProjectFile.Role
-  - Sdl.ProjectAutomation.Core.ProjectFile.Size
   - Sdl.ProjectAutomation.Core.ProjectFile.SourceFile
   - Sdl.ProjectAutomation.Core.ProjectFile.TargetFiles
   langs:
@@ -45,7 +41,6 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nRepresents a file in a project. \n"
   syntax:
     content: public class ProjectFile
     content.vb: Public Class ProjectFile
@@ -84,7 +79,6 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nDefault constructor\n"
   syntax:
     content: public ProjectFile()
     content.vb: Public Sub New
@@ -110,7 +104,6 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nGets the unique ID of the file.\n"
   syntax:
     content: public Guid Id { get; }
     parameters: []
@@ -141,7 +134,6 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nGets the unique ID of the project to which the file belongs.\n"
   syntax:
     content: public Guid ProjectId { get; }
     parameters: []
@@ -172,7 +164,6 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nGets the file name of the current version of this file.\n"
   syntax:
     content: public string Name { get; }
     parameters: []
@@ -203,8 +194,6 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nGets the file role, which indicates how the file should be treated in the project.\n"
-  remarks: Use <xref href="Sdl.ProjectAutomation.Core.IProject.SetFileRole(System.Guid%5b%5d%2cSdl.ProjectAutomation.Core.FileRole)" data-throw-if-not-resolved="false"></xref> to change the role of a file.
   syntax:
     content: public FileRole Role { get; }
     parameters: []
@@ -235,7 +224,6 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nGets the File Type Identifier of the file type that will be used to process this file.\nThis is only relevant for translatable files (where <xref href=\"Sdl.ProjectAutomation.Core.ProjectFile.Role\" data-throw-if-not-resolved=\"false\"></xref> equals <xref href=\"Sdl.ProjectAutomation.Core.FileRole.Translatable\" data-throw-if-not-resolved=\"false\"></xref>)\nand is set by the Scan task (see <xref href=\"Sdl.ProjectAutomation.Core.AutomaticTaskTemplateIds.Scan\" data-throw-if-not-resolved=\"false\"></xref>.\n"
   syntax:
     content: public string FileTypeId { get; }
     parameters: []
@@ -266,7 +254,6 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nGets the project language with which this file is associated. \n"
   syntax:
     content: public Language Language { get; }
     parameters: []
@@ -297,7 +284,6 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nGets whether this file is a source language or target language file.\n"
   syntax:
     content: public bool IsSource { get; }
     parameters: []
@@ -328,7 +314,6 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nIf this is a target language file, gets the corresponding source language file.\nReturns <pre><code>null</code></pre> for source language files.\n"
   syntax:
     content: public ProjectFile SourceFile { get; }
     parameters: []
@@ -359,7 +344,6 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nIf this is a source language file, returns all the corresponding target language files.\nReturns <code>null</code> for target language files.\n"
   syntax:
     content: public ProjectFile[] TargetFiles { get; }
     parameters: []
@@ -390,7 +374,6 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nGets the logical project folder in which this file resides.\n"
   syntax:
     content: public string Folder { get; }
     parameters: []
@@ -421,7 +404,6 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nReturns the local file path where this file resides.\n"
   syntax:
     content: public string LocalFilePath { get; }
     parameters: []
@@ -452,7 +434,6 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nGets the analysis statistics for this file. Returns <code>null</code> if this is not a translatable file.\nFor source-language files, returns the word count statistics only. For target-language files, returns the full\ntranslation provider analysis statistics. Note that you need to run the <xref href=\"Sdl.ProjectAutomation.Core.AutomaticTaskTemplateIds.AnalyzeFiles\" data-throw-if-not-resolved=\"false\"></xref>\nor <xref href=\"Sdl.ProjectAutomation.Core.AutomaticTaskTemplateIds.WordCount\" data-throw-if-not-resolved=\"false\"></xref> tasks to generate these statistics.\n"
   syntax:
     content: public AnalysisStatistics AnalysisStatistics { get; }
     parameters: []
@@ -483,7 +464,6 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nGets the confirmation statistics for this file. Returns <code>null</code> if this is not a translatable file.\nNote that you need to run the <xref href=\"Sdl.ProjectAutomation.Core.AutomaticTaskTemplateIds.TranslationCount\" data-throw-if-not-resolved=\"false\"></xref> task to \ngenerate these statistics.\n"
   syntax:
     content: public ConfirmationStatistics ConfirmationStatistics { get; }
     parameters: []
@@ -514,7 +494,6 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nGets the path of the bilingual reference file associated with this file (Previously translated version of the file). \nThi is required for Perfect Match operations.\n"
   syntax:
     content: public string BilingualReferenceFileLocalPath { get; }
     parameters: []
@@ -545,7 +524,6 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nThe status of the local file in relation to the file stored on a project server\n"
   syntax:
     content: public LocalFileState LocalFileState { get; }
     parameters: []
@@ -576,7 +554,6 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nThe user that the file is checked out to if shared on a project server\n"
   syntax:
     content: public string CheckedOutTo { get; }
     parameters: []
@@ -607,7 +584,6 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nThe date the file was checked or null if not checked out when shared on a project server\n"
   syntax:
     content: public DateTime? CheckedOutAt { get; }
     parameters: []
@@ -638,7 +614,6 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nSet to true if the file is checked out to the currently logged in user when shared on a project server\n"
   syntax:
     content: public bool IsCheckedOutToMe { get; }
     parameters: []
@@ -669,7 +644,6 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nSet to true when the file has been checked out for editing by any user when shared on a project server\n"
   syntax:
     content: public bool IsCheckedOut { get; }
     parameters: []
@@ -700,7 +674,6 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nSet to true when the file has been checked out by any user other than the current user when shared on a project server\n"
   syntax:
     content: public bool IsCheckedOutToAnotherUser { get; }
     parameters: []
@@ -731,7 +704,6 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nThe latest version of this file that is stored on the project server\n"
   syntax:
     content: public int LatestServerVersion { get; }
     parameters: []
@@ -762,7 +734,6 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nThe version of this file stored in the local file system\n"
   syntax:
     content: public int CurrentServerVersion { get; }
     parameters: []
@@ -770,130 +741,6 @@ items:
       type: System.Int32
     content.vb: Public ReadOnly Property CurrentServerVersion As Integer
   overload: Sdl.ProjectAutomation.Core.ProjectFile.CurrentServerVersion*
-  modifiers.csharp:
-  - public
-  - get
-  modifiers.vb:
-  - Public
-  - ReadOnly
-- uid: Sdl.ProjectAutomation.Core.ProjectFile.LastModified
-  commentId: P:Sdl.ProjectAutomation.Core.ProjectFile.LastModified
-  id: LastModified
-  parent: Sdl.ProjectAutomation.Core.ProjectFile
-  langs:
-  - csharp
-  - vb
-  name: LastModified
-  nameWithType: ProjectFile.LastModified
-  fullName: Sdl.ProjectAutomation.Core.ProjectFile.LastModified
-  type: Property
-  source:
-    path: Sdl.ProjectAutomation.Core
-    isExternal: true
-  assemblies:
-  - Sdl.ProjectAutomation.Core
-  namespace: Sdl.ProjectAutomation.Core
-  summary: "\nThe Last Date Time when the file was modified\n"
-  syntax:
-    content: public DateTime LastModified { get; }
-    parameters: []
-    return:
-      type: System.DateTime
-    content.vb: Public ReadOnly Property LastModified As Date
-  overload: Sdl.ProjectAutomation.Core.ProjectFile.LastModified*
-  modifiers.csharp:
-  - public
-  - get
-  modifiers.vb:
-  - Public
-  - ReadOnly
-- uid: Sdl.ProjectAutomation.Core.ProjectFile.Size
-  commentId: P:Sdl.ProjectAutomation.Core.ProjectFile.Size
-  id: Size
-  parent: Sdl.ProjectAutomation.Core.ProjectFile
-  langs:
-  - csharp
-  - vb
-  name: Size
-  nameWithType: ProjectFile.Size
-  fullName: Sdl.ProjectAutomation.Core.ProjectFile.Size
-  type: Property
-  source:
-    path: Sdl.ProjectAutomation.Core
-    isExternal: true
-  assemblies:
-  - Sdl.ProjectAutomation.Core
-  namespace: Sdl.ProjectAutomation.Core
-  summary: "\nSize of the File\n"
-  syntax:
-    content: public long Size { get; }
-    parameters: []
-    return:
-      type: System.Int64
-    content.vb: Public ReadOnly Property Size As Long
-  overload: Sdl.ProjectAutomation.Core.ProjectFile.Size*
-  modifiers.csharp:
-  - public
-  - get
-  modifiers.vb:
-  - Public
-  - ReadOnly
-- uid: Sdl.ProjectAutomation.Core.ProjectFile.PathInProject
-  commentId: P:Sdl.ProjectAutomation.Core.ProjectFile.PathInProject
-  id: PathInProject
-  parent: Sdl.ProjectAutomation.Core.ProjectFile
-  langs:
-  - csharp
-  - vb
-  name: PathInProject
-  nameWithType: ProjectFile.PathInProject
-  fullName: Sdl.ProjectAutomation.Core.ProjectFile.PathInProject
-  type: Property
-  source:
-    path: Sdl.ProjectAutomation.Core
-    isExternal: true
-  assemblies:
-  - Sdl.ProjectAutomation.Core
-  namespace: Sdl.ProjectAutomation.Core
-  summary: "\nRelative Path to the Project\n"
-  syntax:
-    content: public string PathInProject { get; }
-    parameters: []
-    return:
-      type: System.String
-    content.vb: Public ReadOnly Property PathInProject As String
-  overload: Sdl.ProjectAutomation.Core.ProjectFile.PathInProject*
-  modifiers.csharp:
-  - public
-  - get
-  modifiers.vb:
-  - Public
-  - ReadOnly
-- uid: Sdl.ProjectAutomation.Core.ProjectFile.OriginalName
-  commentId: P:Sdl.ProjectAutomation.Core.ProjectFile.OriginalName
-  id: OriginalName
-  parent: Sdl.ProjectAutomation.Core.ProjectFile
-  langs:
-  - csharp
-  - vb
-  name: OriginalName
-  nameWithType: ProjectFile.OriginalName
-  fullName: Sdl.ProjectAutomation.Core.ProjectFile.OriginalName
-  type: Property
-  source:
-    path: Sdl.ProjectAutomation.Core
-    isExternal: true
-  assemblies:
-  - Sdl.ProjectAutomation.Core
-  namespace: Sdl.ProjectAutomation.Core
-  summary: "\nOriginal file name\n"
-  syntax:
-    content: public string OriginalName { get; }
-    parameters: []
-    return:
-      type: System.String
-    content.vb: Public ReadOnly Property OriginalName As String
-  overload: Sdl.ProjectAutomation.Core.ProjectFile.OriginalName*
   modifiers.csharp:
   - public
   - get
@@ -1514,41 +1361,3 @@ references:
   name: CurrentServerVersion
   nameWithType: ProjectFile.CurrentServerVersion
   fullName: Sdl.ProjectAutomation.Core.ProjectFile.CurrentServerVersion
-- uid: Sdl.ProjectAutomation.Core.ProjectFile.LastModified*
-  commentId: Overload:Sdl.ProjectAutomation.Core.ProjectFile.LastModified
-  isExternal: true
-  name: LastModified
-  nameWithType: ProjectFile.LastModified
-  fullName: Sdl.ProjectAutomation.Core.ProjectFile.LastModified
-- uid: System.DateTime
-  commentId: T:System.DateTime
-  parent: System
-  isExternal: true
-  name: DateTime
-  nameWithType: DateTime
-  fullName: System.DateTime
-- uid: Sdl.ProjectAutomation.Core.ProjectFile.Size*
-  commentId: Overload:Sdl.ProjectAutomation.Core.ProjectFile.Size
-  isExternal: true
-  name: Size
-  nameWithType: ProjectFile.Size
-  fullName: Sdl.ProjectAutomation.Core.ProjectFile.Size
-- uid: System.Int64
-  commentId: T:System.Int64
-  parent: System
-  isExternal: true
-  name: Int64
-  nameWithType: Int64
-  fullName: System.Int64
-- uid: Sdl.ProjectAutomation.Core.ProjectFile.PathInProject*
-  commentId: Overload:Sdl.ProjectAutomation.Core.ProjectFile.PathInProject
-  isExternal: true
-  name: PathInProject
-  nameWithType: ProjectFile.PathInProject
-  fullName: Sdl.ProjectAutomation.Core.ProjectFile.PathInProject
-- uid: Sdl.ProjectAutomation.Core.ProjectFile.OriginalName*
-  commentId: Overload:Sdl.ProjectAutomation.Core.ProjectFile.OriginalName
-  isExternal: true
-  name: OriginalName
-  nameWithType: ProjectFile.OriginalName
-  fullName: Sdl.ProjectAutomation.Core.ProjectFile.OriginalName

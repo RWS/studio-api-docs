@@ -32,7 +32,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Segmentation
-  summary: "\n<p>A segmentation context consists of a context which should precede the match, and \na context which should follow a match. For performance reasons, it may also contain\na list of trigger characters which, if specified, are used to determine whether a \nspecific context is probed for matching or not. \n</p>\n<p>\nA null context matches every position. Therefore, if the preceding context is null, \nthe segmentation context matches at each position which is not excluded by the \nfollowing context. If the following context is also null, the segmentation context\nwill match everywhere in the input string.\n</p>\n<p>\nIf the trigger characters are specified, they should consist of all characters which\nmay appear at the end of the preceding context. If the trigger characters are specified, \nbut the preceding context is null, the rule will only be tested for those positions in \nthe string where one of the trigger characters is found. In that case, as the preceding \ncontext is null, the rule will &quot;fire&quot; at each of the positions of any trigger character.\n</p>\n"
   syntax:
     content: 'public class SegmentationContext : ICloneable'
     content.vb: >-
@@ -72,7 +71,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Segmentation
-  summary: "\nInitializes a new instance with default values. This constructor is required for\nXML deserialization and should not be used directly.\n"
   syntax:
     content: public SegmentationContext()
     content.vb: Public Sub New
@@ -98,13 +96,11 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Segmentation
-  summary: "\nInitializes a new instance with the values of another instance, creating a deep copy.\n"
   syntax:
     content: public SegmentationContext(SegmentationContext other)
     parameters:
     - id: other
       type: Sdl.LanguagePlatform.Core.Segmentation.SegmentationContext
-      description: The other instance
     content.vb: Public Sub New(other As SegmentationContext)
   overload: Sdl.LanguagePlatform.Core.Segmentation.SegmentationContext.#ctor*
   modifiers.csharp:
@@ -128,22 +124,17 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Segmentation
-  summary: "\nInitializes a new instance with the specified values.\n"
   syntax:
     content: public SegmentationContext(string description, string triggerChars, Context precedingContext, Context followingContext)
     parameters:
     - id: description
       type: System.String
-      description: A description of the context, for UI purposes.
     - id: triggerChars
       type: System.String
-      description: "If specified, a string which contains the characters which\ncan occur at the start of a matching text. If the current start character is not in this\nlist, no match will be computed, which may improve performance. If <code>null</code>, the \nmatch computation will take place as usual."
     - id: precedingContext
       type: Sdl.LanguagePlatform.Core.Segmentation.Context
-      description: The pre-break context
     - id: followingContext
       type: Sdl.LanguagePlatform.Core.Segmentation.Context
-      description: The post-break context
     content.vb: Public Sub New(description As String, triggerChars As String, precedingContext As Context, followingContext As Context)
   overload: Sdl.LanguagePlatform.Core.Segmentation.SegmentationContext.#ctor*
   modifiers.csharp:
@@ -167,28 +158,19 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Segmentation
-  summary: "\nTests whether the context matches at the specified position. The preceding context, if specified,\nmust match up to the position (not including), and the following context must match from that \nposition onwards. If true, a match is postulated directly before position.\n"
   syntax:
     content: public bool MatchesAt(string input, int position, bool assumeEof, bool followedByWordBreak)
     parameters:
     - id: input
       type: System.String
-      description: The input string to test
     - id: position
       type: System.Int32
-      description: The position in the input to test for a match
     - id: assumeEof
       type: System.Boolean
-      description: "If true, it is assumed that the end of input has been reached, and \nend-of-input constraints will match. If false, any end-of-input constraints will not match.\n"
     - id: followedByWordBreak
       type: System.Boolean
-      description: >-
-        If true, any end-of-word constraints will match. If false,
-
-        no end-of-word constraints will match.
     return:
       type: System.Boolean
-      description: "true iff the preceding context matches up to the specified position (non-inclusive), \nand the following context matches from that position onwards."
     content.vb: Public Function MatchesAt(input As String, position As Integer, assumeEof As Boolean, followedByWordBreak As Boolean) As Boolean
   overload: Sdl.LanguagePlatform.Core.Segmentation.SegmentationContext.MatchesAt*
   modifiers.csharp:
@@ -212,28 +194,19 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Segmentation
-  summary: "\nFinds all matches of the context in the input string, starting at the specified position.\n"
   syntax:
     content: public List<int> FindAllMatches(string input, int startOffset, bool assumeEof, bool followedByWordBreak)
     parameters:
     - id: input
       type: System.String
-      description: The input string to test
     - id: startOffset
       type: System.Int32
-      description: The zero-based position in the input to start the match process from
     - id: assumeEof
       type: System.Boolean
-      description: "If true, it is assumed that the end of input has been reached, and \nend-of-input constraints will match at the end of the input string. If false, any end-of-input constraints will not match.\n"
     - id: followedByWordBreak
       type: System.Boolean
-      description: >-
-        If true, any end-of-word constraints will match at the end of the input string. If false,
-
-        no end-of-word constraints will match.
     return:
       type: System.Collections.Generic.List{System.Int32}
-      description: A list of positions where the context matches in the input string
     content.vb: Public Function FindAllMatches(input As String, startOffset As Integer, assumeEof As Boolean, followedByWordBreak As Boolean) As List(Of Integer)
   overload: Sdl.LanguagePlatform.Core.Segmentation.SegmentationContext.FindAllMatches*
   modifiers.csharp:
@@ -257,12 +230,10 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Segmentation
-  summary: "\n<xref href=\"System.ICloneable.Clone\" data-throw-if-not-resolved=\"false\"></xref>\n"
   syntax:
     content: public object Clone()
     return:
       type: System.Object
-      description: A new object that is a deep copy of this instance.
     content.vb: Public Function Clone As Object
   overload: Sdl.LanguagePlatform.Core.Segmentation.SegmentationContext.Clone*
   implements:
@@ -288,12 +259,10 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Segmentation
-  summary: "\n<xref href=\"System.Object.ToString\" data-throw-if-not-resolved=\"false\"></xref>\n"
   syntax:
     content: public override string ToString()
     return:
       type: System.String
-      description: A string representation of the object, for display purposes.
     content.vb: Public Overrides Function ToString As String
   overridden: System.Object.ToString
   overload: Sdl.LanguagePlatform.Core.Segmentation.SegmentationContext.ToString*
@@ -320,7 +289,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Segmentation
-  summary: "\nGets or sets the description of this context.\n"
   syntax:
     content: public LocalizedString Description { get; set; }
     parameters: []
@@ -351,7 +319,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Segmentation
-  summary: "\nGets or sets the name of a language resource required for this match context to be\nvalid. If, at runtime, the required resource cannot be obtained, the match context\nis invalid and will never be evaluated.\n"
   syntax:
     content: public string Requires { get; set; }
     parameters: []
@@ -382,7 +349,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Segmentation
-  summary: "\nGets or sets the context type.\n"
   syntax:
     content: public ContextType ContextType { get; set; }
     parameters: []
@@ -413,7 +379,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Segmentation
-  summary: "\n<p>The characters which trigger this rule. The trigger chars are used to optimize\nrule evaluation and to avoid more expensive tests (such as regex matches) against\nthe input. If null, the contexts will be checked nevertheless.\n</p>\n<p>\nIf you specify trigger characters, you must take care. For example, if a context \nhas optional trailing parts (as in &quot;\\.\\p{Pe}*&quot; for a full stop followed by an optionally\nempty sequence of closing punctuation), specifying a trigger character &quot;.&quot;\nwill prevent the context from matching any trailing closing punctuation. In this\ncase, you should specify all possible trailing characters.\n</p>\n"
   syntax:
     content: public string TriggerChars { get; set; }
     parameters: []
@@ -444,7 +409,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Segmentation
-  summary: "\nThe break context which directly precedes the break. The preceding context \ntypically ends with one or more of the trigger chars. If null, the context\nmatches any position.\n"
   syntax:
     content: public Context PrecedingContext { get; set; }
     parameters: []
@@ -475,7 +439,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Segmentation
-  summary: "\nThe break context which directly follows the break. The following context\nusually contains any post-break whitespace in the pattern. If null, the\ncontext &quot;matches&quot; any position.\n"
   syntax:
     content: public Context FollowingContext { get; set; }
     parameters: []
@@ -506,7 +469,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Segmentation
-  summary: "\nGets or sets a flag to control whether this context is currently enabled. Note that not\nall clients evaluate this flag yet, and all contexts (whether enabled or not) may be used\nduring segmentation.\n"
   syntax:
     content: public bool IsEnabled { get; set; }
     parameters: []

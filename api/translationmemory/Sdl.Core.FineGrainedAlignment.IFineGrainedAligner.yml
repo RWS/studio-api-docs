@@ -51,8 +51,6 @@ items:
   assemblies:
   - Sdl.Core.FineGrainedAlignment
   namespace: Sdl.Core.FineGrainedAlignment
-  summary: "\nPerforms alignment on the pairs provided - any &apos;native&apos; alignments should be provided by the corpus\n"
-  remarks: "The AlignmentData provided for each pair can either be null, or a LiftAlignedSpanPairSet containing any &apos;native&apos; alignments that the corpus can provide.\nIf alignment can&apos;t be peformed (e.g. model not built) implementations should set AlignmentData and TranslationModelDate to null for each pair. If alignment can be \nperformed but no alignment data can be computed for a given pair (e.g. no significant tokens, or too many), AlignmentData for the pair\nshould be set to an empty LiftAlignedSpanPairSet.\n"
   syntax:
     content: bool Align(IEnumerable<IAlignableContentPair> pairs)
     parameters:
@@ -60,7 +58,6 @@ items:
       type: System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair}
     return:
       type: System.Boolean
-      description: True if the pairs were aligned, false if alignment was not possible (e.g. model not yet built)
     content.vb: Function Align(pairs As IEnumerable(Of IAlignableContentPair)) As Boolean
   overload: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.Align*
   nameWithType.vb: IFineGrainedAligner.Align(IEnumerable(Of IAlignableContentPair))
@@ -116,7 +113,6 @@ items:
   assemblies:
   - Sdl.Core.FineGrainedAlignment
   namespace: Sdl.Core.FineGrainedAlignment
-  summary: "\nSame functionality as Align but with detailed result codes for each pair processed.\n"
   syntax:
     content: AlignResult[] AlignEx(IEnumerable<IAlignableContentPair> pairs)
     parameters:
@@ -124,7 +120,6 @@ items:
       type: System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair}
     return:
       type: Sdl.Core.FineGrainedAlignment.AlignResult[]
-      description: An array of <xref href="Sdl.Core.FineGrainedAlignment.AlignResult" data-throw-if-not-resolved="false"></xref>, one per item in <code data-dev-comment-type="paramref" class="paramref">pairs</code>
     content.vb: Function AlignEx(pairs As IEnumerable(Of IAlignableContentPair)) As AlignResult()
   overload: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.AlignEx*
   nameWithType.vb: IFineGrainedAligner.AlignEx(IEnumerable(Of IAlignableContentPair))
@@ -180,7 +175,6 @@ items:
   assemblies:
   - Sdl.Core.FineGrainedAlignment
   namespace: Sdl.Core.FineGrainedAlignment
-  summary: "\n\n"
   syntax:
     content: bool[] CanAlign(IEnumerable<IAlignableContentPair> pairs)
     parameters:
@@ -210,14 +204,11 @@ items:
   assemblies:
   - Sdl.Core.FineGrainedAlignment
   namespace: Sdl.Core.FineGrainedAlignment
-  summary: "\nProvides an implementation of an error logger for the aligner. In exception cases, the aligner may invoke\nthe implementation, providing either an Exception object, a string, or both.\n"
-  remarks: If the aligner wishes only to invoke using the Exception object, the string argument will be null, and vice versa.
   syntax:
     content: void SetErrorLogger(Action<Exception, string> logger)
     parameters:
     - id: logger
       type: System.Action{System.Exception,System.String}
-      description: The logger implementation
     content.vb: Sub SetErrorLogger(logger As Action(Of Exception, String))
   overload: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.SetErrorLogger*
   nameWithType.vb: IFineGrainedAligner.SetErrorLogger(Action(Of Exception, String))

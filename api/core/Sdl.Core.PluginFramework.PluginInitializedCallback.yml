@@ -15,29 +15,27 @@ items:
   name: PluginInitializedCallback
   nameWithType: PluginInitializedCallback
   fullName: Sdl.Core.PluginFramework.PluginInitializedCallback
-  type: Class
+  type: Delegate
   source:
     path: Sdl.Core.PluginFramework
     isExternal: true
   assemblies:
   - Sdl.Core.PluginFramework
   namespace: Sdl.Core.PluginFramework
-  summary: "\nCallback delegate for the <xref href=\"Sdl.Core.PluginFramework.IPluginInitializer.InitializePluginAsync(System.Collections.Generic.IEnumerable%7bSdl.Core.PluginFramework.IPlugin%7d)\" data-throw-if-not-resolved=\"false\"></xref> call.\n"
   syntax:
-    content: 'public sealed class PluginInitializedCallback : MulticastDelegate'
-    content.vb: >-
-      Public NotInheritable Class PluginInitializedCallback
-          Inherits MulticastDelegate
-  inheritance:
-  - System.Object
+    content: public delegate void PluginInitializedCallback(IPlugin plugin, Exception error);
+    parameters:
+    - id: plugin
+      type: Sdl.Core.PluginFramework.IPlugin
+    - id: error
+      type: System.Exception
+    content.vb: Public Delegate Sub PluginInitializedCallback(plugin As IPlugin, error As Exception)
   modifiers.csharp:
   - public
-  - sealed
-  - class
+  - delegate
   modifiers.vb:
   - Public
-  - NotInheritable
-  - Class
+  - Delegate
 - uid: Sdl.Core.PluginFramework.PluginInitializedCallback.#ctor(System.Object,System.IntPtr)
   commentId: M:Sdl.Core.PluginFramework.PluginInitializedCallback.#ctor(System.Object,System.IntPtr)
   id: '#ctor(System.Object,System.IntPtr)'
@@ -175,38 +173,6 @@ references:
   name: Sdl.Core.PluginFramework
   nameWithType: Sdl.Core.PluginFramework
   fullName: Sdl.Core.PluginFramework
-- uid: System.Object
-  commentId: T:System.Object
-  parent: System
-  isExternal: true
-  name: Object
-  nameWithType: Object
-  fullName: System.Object
-- uid: System
-  commentId: N:System
-  isExternal: true
-  name: System
-  nameWithType: System
-  fullName: System
-- uid: Sdl.Core.PluginFramework.PluginInitializedCallback.#ctor*
-  commentId: Overload:Sdl.Core.PluginFramework.PluginInitializedCallback.#ctor
-  isExternal: true
-  name: PluginInitializedCallback
-  nameWithType: PluginInitializedCallback.PluginInitializedCallback
-  fullName: Sdl.Core.PluginFramework.PluginInitializedCallback.PluginInitializedCallback
-- uid: System.IntPtr
-  commentId: T:System.IntPtr
-  parent: System
-  isExternal: true
-  name: IntPtr
-  nameWithType: IntPtr
-  fullName: System.IntPtr
-- uid: Sdl.Core.PluginFramework.PluginInitializedCallback.Invoke*
-  commentId: Overload:Sdl.Core.PluginFramework.PluginInitializedCallback.Invoke
-  isExternal: true
-  name: Invoke
-  nameWithType: PluginInitializedCallback.Invoke
-  fullName: Sdl.Core.PluginFramework.PluginInitializedCallback.Invoke
 - uid: Sdl.Core.PluginFramework.IPlugin
   commentId: T:Sdl.Core.PluginFramework.IPlugin
   parent: Sdl.Core.PluginFramework
@@ -221,6 +187,38 @@ references:
   name: Exception
   nameWithType: Exception
   fullName: System.Exception
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Sdl.Core.PluginFramework.PluginInitializedCallback.#ctor*
+  commentId: Overload:Sdl.Core.PluginFramework.PluginInitializedCallback.#ctor
+  isExternal: true
+  name: PluginInitializedCallback
+  nameWithType: PluginInitializedCallback.PluginInitializedCallback
+  fullName: Sdl.Core.PluginFramework.PluginInitializedCallback.PluginInitializedCallback
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System.IntPtr
+  commentId: T:System.IntPtr
+  parent: System
+  isExternal: true
+  name: IntPtr
+  nameWithType: IntPtr
+  fullName: System.IntPtr
+- uid: Sdl.Core.PluginFramework.PluginInitializedCallback.Invoke*
+  commentId: Overload:Sdl.Core.PluginFramework.PluginInitializedCallback.Invoke
+  isExternal: true
+  name: Invoke
+  nameWithType: PluginInitializedCallback.Invoke
+  fullName: Sdl.Core.PluginFramework.PluginInitializedCallback.Invoke
 - uid: Sdl.Core.PluginFramework.PluginInitializedCallback.BeginInvoke*
   commentId: Overload:Sdl.Core.PluginFramework.PluginInitializedCallback.BeginInvoke
   isExternal: true
@@ -228,12 +226,15 @@ references:
   nameWithType: PluginInitializedCallback.BeginInvoke
   fullName: Sdl.Core.PluginFramework.PluginInitializedCallback.BeginInvoke
 - uid: System.AsyncCallback
-  commentId: '!:System.AsyncCallback'
+  commentId: T:System.AsyncCallback
+  parent: System
   isExternal: true
   name: AsyncCallback
   nameWithType: AsyncCallback
   fullName: System.AsyncCallback
 - uid: System.IAsyncResult
+  commentId: T:System.IAsyncResult
+  parent: System
   isExternal: true
   name: IAsyncResult
   nameWithType: IAsyncResult

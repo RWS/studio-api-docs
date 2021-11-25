@@ -11,7 +11,6 @@ items:
   - Sdl.LanguagePlatform.TranslationMemory.TranslationUnit.AlignmentData
   - Sdl.LanguagePlatform.TranslationMemory.TranslationUnit.AlignModelDate
   - Sdl.LanguagePlatform.TranslationMemory.TranslationUnit.CheckAndComputeTagAssociations
-  - Sdl.LanguagePlatform.TranslationMemory.TranslationUnit.CheckAndComputeTagAssociationsAndKeepInvalidAlignments
   - Sdl.LanguagePlatform.TranslationMemory.TranslationUnit.ComputePlaceables
   - Sdl.LanguagePlatform.TranslationMemory.TranslationUnit.ConfirmationLevel
   - Sdl.LanguagePlatform.TranslationMemory.TranslationUnit.Contexts
@@ -55,7 +54,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nRepresents a pair of source and target text, decorated with a set of system fields and eventually, with a set of\nuser defined fields/attributes. It may also contain contextual information as well as information about its origin and\neventually, a key for unique identification on a given system.\n"
   syntax:
     content: 'public class TranslationUnit : PersistentObject, ITypedKeyValueContainer'
     content.vb: >-
@@ -99,7 +97,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nInitializes a new instance of the TranslationUnit class. The system fields are initialized to their default values, \nthe user defined fields as well as the context list are initialized to empty lists.\n"
   syntax:
     content: public TranslationUnit()
     content.vb: Public Sub New
@@ -125,16 +122,13 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nInitializes a new instance of the TranslationUnit class with the specified values. The system fields are initialized to their default values, \nthe user defined fields as well as the context list are initialized to empty lists.\n"
   syntax:
     content: public TranslationUnit(Segment sourceSegment, Segment targetSegment)
     parameters:
     - id: sourceSegment
       type: Sdl.LanguagePlatform.Core.Segment
-      description: The source segment
     - id: targetSegment
       type: Sdl.LanguagePlatform.Core.Segment
-      description: The target segment
     content.vb: Public Sub New(sourceSegment As Segment, targetSegment As Segment)
   overload: Sdl.LanguagePlatform.TranslationMemory.TranslationUnit.#ctor*
   modifiers.csharp:
@@ -158,13 +152,11 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nInitializes a new instance of the TranslationUnit class from another instance (deep copy).\n"
   syntax:
     content: public TranslationUnit(TranslationUnit other)
     parameters:
     - id: other
       type: Sdl.LanguagePlatform.TranslationMemory.TranslationUnit
-      description: The other instance.
     content.vb: Public Sub New(other As TranslationUnit)
   overload: Sdl.LanguagePlatform.TranslationMemory.TranslationUnit.#ctor*
   modifiers.csharp:
@@ -188,7 +180,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nInstantiates and returns a deep copy of the current instance.\n"
   syntax:
     content: public TranslationUnit Duplicate()
     return:
@@ -216,7 +207,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nDeletes all tags from the TU&apos;s segments but keeps text placeholders (and locked content tags).\n"
   syntax:
     content: public void DeleteTags()
     content.vb: Public Sub DeleteTags
@@ -242,7 +232,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nDeletes all tags from the TU&apos;s segments and performs the specified <xref href=\"Sdl.LanguagePlatform.Core.Segment.DeleteTagsAction\" data-throw-if-not-resolved=\"false\"></xref> on text placeholders\nand locked content.\n"
   syntax:
     content: public void DeleteTags(Segment.DeleteTagsAction action)
     parameters:
@@ -271,12 +260,10 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nPerforms validation checks on this instance. All errors will be reported.\n"
   syntax:
     content: public ErrorCode Validate()
     return:
       type: Sdl.LanguagePlatform.Core.ErrorCode
-      description: An ErrorCode.
     content.vb: Public Function Validate As ErrorCode
   overload: Sdl.LanguagePlatform.TranslationMemory.TranslationUnit.Validate*
   modifiers.csharp:
@@ -300,7 +287,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nPerforms validation checks on this instance with the specified validation mode.\n"
   syntax:
     content: public ErrorCode Validate(Segment.ValidationMode mode)
     parameters:
@@ -308,7 +294,6 @@ items:
       type: Sdl.LanguagePlatform.Core.Segment.ValidationMode
     return:
       type: Sdl.LanguagePlatform.Core.ErrorCode
-      description: An ErrorCode.
     content.vb: Public Function Validate(mode As Segment.ValidationMode) As ErrorCode
   overload: Sdl.LanguagePlatform.TranslationMemory.TranslationUnit.Validate*
   modifiers.csharp:
@@ -332,7 +317,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nDetermines whether this instance is a valid translation unit.\n"
   syntax:
     content: public bool IsValid()
     return:
@@ -360,7 +344,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nReturns the highest tag anchor used in any segment, or 0 if no tags are present.\n"
   syntax:
     content: public int GetMaxTagAnchor()
     return:
@@ -388,37 +371,10 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nComputes cross-segment tag associations. Primarily checks or changes the tag-related\nalignment anchors. Renumbers association anchors.\n"
   syntax:
     content: public void CheckAndComputeTagAssociations()
     content.vb: Public Sub CheckAndComputeTagAssociations
   overload: Sdl.LanguagePlatform.TranslationMemory.TranslationUnit.CheckAndComputeTagAssociations*
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
-- uid: Sdl.LanguagePlatform.TranslationMemory.TranslationUnit.CheckAndComputeTagAssociationsAndKeepInvalidAlignments
-  commentId: M:Sdl.LanguagePlatform.TranslationMemory.TranslationUnit.CheckAndComputeTagAssociationsAndKeepInvalidAlignments
-  id: CheckAndComputeTagAssociationsAndKeepInvalidAlignments
-  parent: Sdl.LanguagePlatform.TranslationMemory.TranslationUnit
-  langs:
-  - csharp
-  - vb
-  name: CheckAndComputeTagAssociationsAndKeepInvalidAlignments()
-  nameWithType: TranslationUnit.CheckAndComputeTagAssociationsAndKeepInvalidAlignments()
-  fullName: Sdl.LanguagePlatform.TranslationMemory.TranslationUnit.CheckAndComputeTagAssociationsAndKeepInvalidAlignments()
-  type: Method
-  source:
-    path: Sdl.LanguagePlatform.TranslationMemory
-    isExternal: true
-  assemblies:
-  - Sdl.LanguagePlatform.TranslationMemory
-  namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nsimilar with CheckAndComputeTagAssociations but keeps invalid alignments so tu.validate detects them later and invalidates tu before write to storage\n"
-  syntax:
-    content: public void CheckAndComputeTagAssociationsAndKeepInvalidAlignments()
-    content.vb: Public Sub CheckAndComputeTagAssociationsAndKeepInvalidAlignments
-  overload: Sdl.LanguagePlatform.TranslationMemory.TranslationUnit.CheckAndComputeTagAssociationsAndKeepInvalidAlignments*
   modifiers.csharp:
   - public
   modifiers.vb:
@@ -440,12 +396,10 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nIf AlignmentData == null, creates minimal alignment data for the TU, based on placeable information\n"
   syntax:
     content: public bool GenerateAlignmentData()
     return:
       type: System.Boolean
-      description: True if alignment data was created, false otherwise (AlignmentData != null, or segment tokens not available)
     content.vb: Public Function GenerateAlignmentData As Boolean
   overload: Sdl.LanguagePlatform.TranslationMemory.TranslationUnit.GenerateAlignmentData*
   modifiers.csharp:
@@ -469,7 +423,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nTrims off peripheral whitespace from the TU&apos;s segments.\n"
   syntax:
     content: public void Trim()
     content.vb: Public Sub Trim
@@ -495,16 +448,13 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nRetrieves the value of a specified field from this translation unit.\n<p>The system fields can be retrieved using the following names:</p>\n<table><thead><tr><th>Name</th><th>Corresponding System Field</th></tr></thead><tbody><tr><td>chd</td><td>Change date</td></tr><tr><td>chu</td><td>Change user</td></tr><tr><td>usd</td><td>Last used date</td></tr><tr><td>usu</td><td>Last used user</td></tr><tr><td>usc</td><td>Usage counter</td></tr><tr><td>crd</td><td>Creation date</td></tr><tr><td>cru</td><td>Creation user</td></tr></tbody></table>\n<p>Pseudo-fields contain values that are not saved as separate field values, but can be computed from the existing \ninformation in a translatin unit. The available pseudo-fields are:</p>\n<table><thead><tr><th>Name</th><th>Corresponding Pseudo-field</th></tr></thead><tbody><tr><td>src</td><td>Source segment (including tags).</td></tr><tr><td>trg</td><td>Target segment (including tags)</td></tr><tr><td>sourceplainlength</td><td>The length of the plain text in the source segment (without tags)</td></tr><tr><td>targetplainlength</td><td>The length of the plain text in the target segment (without tags)</td></tr></tbody></table>\n"
   syntax:
     content: public FieldValue GetValue(string fieldName)
     parameters:
     - id: fieldName
       type: System.String
-      description: The field name.
     return:
       type: Sdl.LanguagePlatform.TranslationMemory.FieldValue
-      description: The corresponding field value or null if such a field does not exist.
     content.vb: Public Function GetValue(fieldName As String) As FieldValue
   overload: Sdl.LanguagePlatform.TranslationMemory.TranslationUnit.GetValue*
   implements:
@@ -530,19 +480,13 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nSets the value of the specified field, which can be a system field or a user field.\nPseudo fields (such as src, trg, soruceplainlength, etc.) can not be set. \n<p>Exceptions will be thrown if the field types are incompatible.</p>\n"
   syntax:
     content: public void SetValue(FieldValue fv, bool addIfMissing)
     parameters:
     - id: fv
       type: Sdl.LanguagePlatform.TranslationMemory.FieldValue
-      description: The new field value, including the field name.
     - id: addIfMissing
       type: System.Boolean
-      description: >-
-        If true, a new field value is added to the current
-
-        list of values if no previous value is present.
     content.vb: Public Sub SetValue(fv As FieldValue, addIfMissing As Boolean)
   overload: Sdl.LanguagePlatform.TranslationMemory.TranslationUnit.SetValue*
   modifiers.csharp:
@@ -566,19 +510,15 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nRetrieves the field value with the specified type from this translation unit.\n"
   syntax:
     content: public FieldValue GetValue(string fieldName, FieldValueType t)
     parameters:
     - id: fieldName
       type: System.String
-      description: The field name.
     - id: t
       type: Sdl.LanguagePlatform.TranslationMemory.FieldValueType
-      description: The field type.
     return:
       type: Sdl.LanguagePlatform.TranslationMemory.FieldValue
-      description: "The corresponding field value, null if a field with the specified name does not exist or an error if the type \ndoes not match the result."
     content.vb: Public Function GetValue(fieldName As String, t As FieldValueType) As FieldValue
   overload: Sdl.LanguagePlatform.TranslationMemory.TranslationUnit.GetValue*
   implements:
@@ -604,16 +544,13 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nReturns the field value type for known system and pseudo fields.\n"
   syntax:
     content: public static FieldValueType GetSystemFieldType(string fieldName)
     parameters:
     - id: fieldName
       type: System.String
-      description: The field name.
     return:
       type: Sdl.LanguagePlatform.TranslationMemory.FieldValueType
-      description: "The field type, or <xref href=\"FieldValueType.Unknown\" data-throw-if-not-resolved=\"false\"></xref> if the \nfield is not a known system or pseudo field."
     content.vb: Public Shared Function GetSystemFieldType(fieldName As String) As FieldValueType
   overload: Sdl.LanguagePlatform.TranslationMemory.TranslationUnit.GetSystemFieldType*
   modifiers.csharp:
@@ -639,16 +576,13 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nRetrieves the type of the specified field.\n"
   syntax:
     content: public FieldValueType GetType(string fieldName)
     parameters:
     - id: fieldName
       type: System.String
-      description: The field name.
     return:
       type: Sdl.LanguagePlatform.TranslationMemory.FieldValueType
-      description: The corresponding type or Unknown if a field with such name does not exist.
     content.vb: Public Function GetType(fieldName As String) As FieldValueType
   overload: Sdl.LanguagePlatform.TranslationMemory.TranslationUnit.GetType*
   implements:
@@ -674,12 +608,10 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nComputes the list of placeables and their alignment for this translation unit.\n"
   syntax:
     content: public List<Placeable> ComputePlaceables()
     return:
       type: System.Collections.Generic.List{Sdl.LanguagePlatform.TranslationMemory.Placeable}
-      description: A list of placeables
     content.vb: Public Function ComputePlaceables As List(Of Placeable)
   overload: Sdl.LanguagePlatform.TranslationMemory.TranslationUnit.ComputePlaceables*
   modifiers.csharp:
@@ -703,19 +635,15 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nExtracts a fragment of a translation unit based on a segment range\n"
   syntax:
     content: public TranslationUnit ExtractFragment(SegmentRange sourceRange, SegmentRange targetRange)
     parameters:
     - id: sourceRange
       type: Sdl.LanguagePlatform.Core.SegmentRange
-      description: The segment range for the source segment
     - id: targetRange
       type: Sdl.LanguagePlatform.Core.SegmentRange
-      description: The segment range for the target segment
     return:
       type: Sdl.LanguagePlatform.TranslationMemory.TranslationUnit
-      description: A translation unit containing the fragment specified by the segment range
     content.vb: Public Function ExtractFragment(sourceRange As SegmentRange, targetRange As SegmentRange) As TranslationUnit
   overload: Sdl.LanguagePlatform.TranslationMemory.TranslationUnit.ExtractFragment*
   modifiers.csharp:
@@ -739,7 +667,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nGets or set the document properties\n"
   syntax:
     content: public IDocumentProperties DocumentProperties { get; set; }
     parameters: []
@@ -770,7 +697,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nGets or set the file properties \n"
   syntax:
     content: public IFileProperties FileProperties { get; set; }
     parameters: []
@@ -801,7 +727,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nGets or sets the segment pair associated to this translation unit.\nThe segment pair should not be modified because the modification might change the original document.\n"
   syntax:
     content: public ISegmentPair DocumentSegmentPair { get; set; }
     parameters: []
@@ -832,7 +757,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nGets or sets the source segment of this instance.\n"
   syntax:
     content: public Segment SourceSegment { get; set; }
     parameters: []
@@ -863,7 +787,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nGets or sets the target segment of this instance.\n"
   syntax:
     content: public Segment TargetSegment { get; set; }
     parameters: []
@@ -894,7 +817,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nGets or sets the contexts for this instance.\n"
   syntax:
     content: public TuContexts Contexts { get; set; }
     parameters: []
@@ -925,7 +847,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nstores SID context\n"
   syntax:
     content: public TuIdContexts IdContexts { get; set; }
     parameters: []
@@ -956,7 +877,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\n\n"
   syntax:
     content: public LiftAlignedSpanPairSet AlignmentData { get; set; }
     parameters: []
@@ -987,7 +907,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nThe build DateTime of the translation model used to align content in this TU.\n"
   syntax:
     content: public DateTime? AlignModelDate { get; set; }
     parameters: []
@@ -1018,7 +937,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nThe DateTime used to determine whether this TU is &apos;postdated&apos; compared to a translation model.\nThis is usually the time at which the TU was added, unless it&apos;s &quot;cloned&quot; from an earlier TU,\ne.g. in an UpdateTranslationUnits flow that does not change segment content.\n"
   syntax:
     content: public DateTime? InsertDate { get; set; }
     parameters: []
@@ -1049,7 +967,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nGets or sets the origin of this translation unit.\n"
   syntax:
     content: public TranslationUnitOrigin Origin { get; set; }
     parameters: []
@@ -1080,7 +997,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nGets or sets the confirmation level of this translation unit.\n"
   syntax:
     content: public ConfirmationLevel ConfirmationLevel { get; set; }
     parameters: []
@@ -1111,7 +1027,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nGets or sets the format of this translation unit.\n"
   syntax:
     content: public TranslationUnitFormat Format { get; set; }
     parameters: []
@@ -1142,7 +1057,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nGets or sets the system fields of this translation unit.\n"
   syntax:
     content: public SystemFields SystemFields { get; set; }
     parameters: []
@@ -1173,7 +1087,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nGets or sets the user-defined field values for this translation unit.\n"
   syntax:
     content: public FieldValues FieldValues { get; set; }
     parameters: []
@@ -1204,11 +1117,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nGets or sets the names of the structure contexts in which this translation unit occured within\nthe documents it originated from.\n"
-  remarks: >-
-    This setting is stored as a multiple string field value with name &quot;StructureContext&quot; in the <xref href="Sdl.LanguagePlatform.TranslationMemory.TranslationUnit.FieldValues" data-throw-if-not-resolved="false"></xref>
-
-    collection.
   syntax:
     content: public string[] StructureContexts { get; set; }
     parameters: []
@@ -1639,12 +1547,6 @@ references:
   name: CheckAndComputeTagAssociations
   nameWithType: TranslationUnit.CheckAndComputeTagAssociations
   fullName: Sdl.LanguagePlatform.TranslationMemory.TranslationUnit.CheckAndComputeTagAssociations
-- uid: Sdl.LanguagePlatform.TranslationMemory.TranslationUnit.CheckAndComputeTagAssociationsAndKeepInvalidAlignments*
-  commentId: Overload:Sdl.LanguagePlatform.TranslationMemory.TranslationUnit.CheckAndComputeTagAssociationsAndKeepInvalidAlignments
-  isExternal: true
-  name: CheckAndComputeTagAssociationsAndKeepInvalidAlignments
-  nameWithType: TranslationUnit.CheckAndComputeTagAssociationsAndKeepInvalidAlignments
-  fullName: Sdl.LanguagePlatform.TranslationMemory.TranslationUnit.CheckAndComputeTagAssociationsAndKeepInvalidAlignments
 - uid: Sdl.LanguagePlatform.TranslationMemory.TranslationUnit.GenerateAlignmentData*
   commentId: Overload:Sdl.LanguagePlatform.TranslationMemory.TranslationUnit.GenerateAlignmentData
   isExternal: true

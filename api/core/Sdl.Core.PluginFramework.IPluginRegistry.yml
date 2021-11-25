@@ -27,13 +27,13 @@ items:
   assemblies:
   - Sdl.Core.PluginFramework
   namespace: Sdl.Core.PluginFramework
-  summary: "\nThis interface provides the main entry point for working with plug-ins and extensions.\n"
-  remarks: Instances of the plugin registry can be created using the various factory methods of the <xref href="Sdl.Core.PluginFramework.PluginManager" data-throw-if-not-resolved="false"></xref> class.
   syntax:
     content: 'public interface IPluginRegistry : IDisposable'
     content.vb: >-
       Public Interface IPluginRegistry
           Inherits IDisposable
+  inheritedMembers:
+  - System.IDisposable.Dispose
   modifiers.csharp:
   - public
   - interface
@@ -57,17 +57,14 @@ items:
   assemblies:
   - Sdl.Core.PluginFramework
   namespace: Sdl.Core.PluginFramework
-  summary: "\nGets the extension point for a certain type of extension attribute.\n"
   syntax:
     content: >-
       IExtensionPoint GetExtensionPoint<T>()
           where T : ExtensionAttribute
     typeParameters:
     - id: T
-      description: The extension attribute type identifying the extension point.
     return:
       type: Sdl.Core.PluginFramework.IExtensionPoint
-      description: The extension point for the given type of extension attribute.
     content.vb: Function GetExtensionPoint(Of T As ExtensionAttribute) As IExtensionPoint
   overload: Sdl.Core.PluginFramework.IPluginRegistry.GetExtensionPoint*
   nameWithType.vb: IPluginRegistry.GetExtensionPoint(Of T)()
@@ -90,7 +87,6 @@ items:
   assemblies:
   - Sdl.Core.PluginFramework
   namespace: Sdl.Core.PluginFramework
-  summary: "\nHelper method to asynchronously initialize all the plug-ins that are required to instantiate the specified\nextensions.\n"
   syntax:
     content: void EnsurePluginsInitialized(IEnumerable<IExtension> extensions, EventHandler<PluginInitializationResultsEventArgs> pluginsInitializedCallback)
     parameters:
@@ -120,7 +116,6 @@ items:
   assemblies:
   - Sdl.Core.PluginFramework
   namespace: Sdl.Core.PluginFramework
-  summary: "\nReturns the plug-in cache associated with this plug-in registry.\n"
   syntax:
     content: IPluginCache PluginCache { get; }
     parameters: []
@@ -149,7 +144,6 @@ items:
   assemblies:
   - Sdl.Core.PluginFramework
   namespace: Sdl.Core.PluginFramework
-  summary: "\nReturns the plug-in locator associated with this plug-in registry.\n"
   syntax:
     content: IPluginLocator PluginLocator { get; }
     parameters: []
@@ -178,7 +172,6 @@ items:
   assemblies:
   - Sdl.Core.PluginFramework
   namespace: Sdl.Core.PluginFramework
-  summary: "\nGets the plug-in type loader component used by the plug-in registry to load types referred to in plug-in manifests.\n"
   syntax:
     content: IPluginTypeLoader PluginTypeLoader { get; }
     parameters: []
@@ -207,7 +200,6 @@ items:
   assemblies:
   - Sdl.Core.PluginFramework
   namespace: Sdl.Core.PluginFramework
-  summary: "\nGets the plug-in filter that controls whether certain plug-ins or individual extensions are loaded. Can be null.\n"
   syntax:
     content: IPluginFilter PluginFilter { get; }
     parameters: []
@@ -236,7 +228,6 @@ items:
   assemblies:
   - Sdl.Core.PluginFramework
   namespace: Sdl.Core.PluginFramework
-  summary: "\nReturns a collection of all the plug-ins that are available.\n"
   syntax:
     content: PluginCollection Plugins { get; }
     parameters: []
@@ -265,7 +256,6 @@ items:
   assemblies:
   - Sdl.Core.PluginFramework
   namespace: Sdl.Core.PluginFramework
-  summary: "\nGets or sets an plugin state handler, which determines whether plugins can be enabled or disabled. Can be null.\n"
   syntax:
     content: IPluginStateHandler PluginStateHandler { get; set; }
     parameters: []
@@ -293,7 +283,6 @@ items:
   assemblies:
   - Sdl.Core.PluginFramework
   namespace: Sdl.Core.PluginFramework
-  summary: "\nGets the <xref href=\"Sdl.Core.PluginFramework.IPluginInitializer\" data-throw-if-not-resolved=\"false\"></xref> used by the plug-in registry to initialize plug-ins.\n"
   syntax:
     content: IPluginInitializer PluginInitializer { get; }
     parameters: []
@@ -312,6 +301,50 @@ references:
   name: Sdl.Core.PluginFramework
   nameWithType: Sdl.Core.PluginFramework
   fullName: Sdl.Core.PluginFramework
+- uid: System.IDisposable.Dispose
+  commentId: M:System.IDisposable.Dispose
+  parent: System.IDisposable
+  isExternal: true
+  name: Dispose()
+  nameWithType: IDisposable.Dispose()
+  fullName: System.IDisposable.Dispose()
+  spec.csharp:
+  - uid: System.IDisposable.Dispose
+    name: Dispose
+    nameWithType: IDisposable.Dispose
+    fullName: System.IDisposable.Dispose
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.IDisposable.Dispose
+    name: Dispose
+    nameWithType: IDisposable.Dispose
+    fullName: System.IDisposable.Dispose
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.IDisposable
+  commentId: T:System.IDisposable
+  parent: System
+  isExternal: true
+  name: IDisposable
+  nameWithType: IDisposable
+  fullName: System.IDisposable
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
 - uid: Sdl.Core.PluginFramework.IPluginRegistry.GetExtensionPoint*
   commentId: Overload:Sdl.Core.PluginFramework.IPluginRegistry.GetExtensionPoint
   isExternal: true
@@ -332,7 +365,8 @@ references:
   nameWithType: IPluginRegistry.EnsurePluginsInitialized
   fullName: Sdl.Core.PluginFramework.IPluginRegistry.EnsurePluginsInitialized
 - uid: System.Collections.Generic.IEnumerable{Sdl.Core.PluginFramework.IExtension}
-  commentId: '!:System.Collections.Generic.IEnumerable{Sdl.Core.PluginFramework.IExtension}'
+  commentId: T:System.Collections.Generic.IEnumerable{Sdl.Core.PluginFramework.IExtension}
+  parent: System.Collections.Generic
   definition: System.Collections.Generic.IEnumerable`1
   name: IEnumerable<IExtension>
   nameWithType: IEnumerable<IExtension>
@@ -375,7 +409,8 @@ references:
     nameWithType: )
     fullName: )
 - uid: System.EventHandler{Sdl.Core.PluginFramework.PluginInitializationResultsEventArgs}
-  commentId: '!:System.EventHandler{Sdl.Core.PluginFramework.PluginInitializationResultsEventArgs}'
+  commentId: T:System.EventHandler{Sdl.Core.PluginFramework.PluginInitializationResultsEventArgs}
+  parent: System
   definition: System.EventHandler`1
   name: EventHandler<PluginInitializationResultsEventArgs>
   nameWithType: EventHandler<PluginInitializationResultsEventArgs>
@@ -420,12 +455,12 @@ references:
 - uid: System.Collections.Generic.IEnumerable`1
   commentId: T:System.Collections.Generic.IEnumerable`1
   isExternal: true
-  name: IEnumerable<>
-  nameWithType: IEnumerable<>
-  fullName: System.Collections.Generic.IEnumerable<>
-  nameWithType.vb: IEnumerable(Of )
-  fullName.vb: System.Collections.Generic.IEnumerable(Of )
-  name.vb: IEnumerable(Of )
+  name: IEnumerable<T>
+  nameWithType: IEnumerable<T>
+  fullName: System.Collections.Generic.IEnumerable<T>
+  nameWithType.vb: IEnumerable(Of T)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of T)
+  name.vb: IEnumerable(Of T)
   spec.csharp:
   - uid: System.Collections.Generic.IEnumerable`1
     name: IEnumerable
@@ -435,9 +470,9 @@ references:
   - name: <
     nameWithType: <
     fullName: <
-  - name: ''
-    nameWithType: ''
-    fullName: ''
+  - name: T
+    nameWithType: T
+    fullName: T
   - name: '>'
     nameWithType: '>'
     fullName: '>'
@@ -450,21 +485,27 @@ references:
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - name: ''
-    nameWithType: ''
-    fullName: ''
+  - name: T
+    nameWithType: T
+    fullName: T
   - name: )
     nameWithType: )
     fullName: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
 - uid: System.EventHandler`1
   commentId: T:System.EventHandler`1
   isExternal: true
-  name: EventHandler<>
-  nameWithType: EventHandler<>
-  fullName: System.EventHandler<>
-  nameWithType.vb: EventHandler(Of )
-  fullName.vb: System.EventHandler(Of )
-  name.vb: EventHandler(Of )
+  name: EventHandler<TEventArgs>
+  nameWithType: EventHandler<TEventArgs>
+  fullName: System.EventHandler<TEventArgs>
+  nameWithType.vb: EventHandler(Of TEventArgs)
+  fullName.vb: System.EventHandler(Of TEventArgs)
+  name.vb: EventHandler(Of TEventArgs)
   spec.csharp:
   - uid: System.EventHandler`1
     name: EventHandler
@@ -474,9 +515,9 @@ references:
   - name: <
     nameWithType: <
     fullName: <
-  - name: ''
-    nameWithType: ''
-    fullName: ''
+  - name: TEventArgs
+    nameWithType: TEventArgs
+    fullName: TEventArgs
   - name: '>'
     nameWithType: '>'
     fullName: '>'
@@ -489,9 +530,9 @@ references:
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - name: ''
-    nameWithType: ''
-    fullName: ''
+  - name: TEventArgs
+    nameWithType: TEventArgs
+    fullName: TEventArgs
   - name: )
     nameWithType: )
     fullName: )

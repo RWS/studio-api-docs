@@ -57,19 +57,15 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.IO
   namespace: Sdl.LanguagePlatform.IO.TMX
-  summary: "\nAttempts to obtain the language direction from a TMX file which must be bilingual. The method reads\nthe first couple of TUs from the input file and determines the language direction. If not null, the \nresult&apos;s languages will be set to the source and target language. If a language in the result is null, \nit was not present in any TUs in the sample. If a language is the InvariantCulture, it was inconsistent \nwithin the sample (as is the case with multi-target-language TUs).\n"
   syntax:
     content: public static LanguagePair GetLanguageDirection(string fileName, out CultureInfo headerSourceLanguage)
     parameters:
     - id: fileName
       type: System.String
-      description: The input file name
     - id: headerSourceLanguage
       type: System.Globalization.CultureInfo
-      description: The source language as it is specified in the TMX header, or null if not set
     return:
       type: Sdl.LanguagePlatform.Core.LanguagePair
-      description: The language direction or null on errors or if the language direction cannot be determined or invalid input is encountered. No exceptions are returned.
     content.vb: Public Shared Function GetLanguageDirection(fileName As String, ByRef headerSourceLanguage As CultureInfo) As LanguagePair
   overload: Sdl.LanguagePlatform.IO.TMX.TMXTools.GetLanguageDirection*
   nameWithType.vb: TMXTools.GetLanguageDirection(String, ByRef CultureInfo)
@@ -98,22 +94,17 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.IO
   namespace: Sdl.LanguagePlatform.IO.TMX
-  summary: "\nGets the languages from the given TMX filename.\n"
   syntax:
     content: public static IList<CultureInfo> GetLanguages(string fileName, int limit, out int scannedTUs)
     parameters:
     - id: fileName
       type: System.String
-      description: file name
     - id: limit
       type: System.Int32
-      description: limit on scanned TUs; if 0 then no limit
     - id: scannedTUs
       type: System.Int32
-      description: scanned TUs; if limit 0 then this corresponds to TU count
     return:
       type: System.Collections.Generic.IList{System.Globalization.CultureInfo}
-      description: languages
     content.vb: Public Shared Function GetLanguages(fileName As String, limit As Integer, ByRef scannedTUs As Integer) As IList(Of CultureInfo)
   overload: Sdl.LanguagePlatform.IO.TMX.TMXTools.GetLanguages*
   nameWithType.vb: TMXTools.GetLanguages(String, Int32, ByRef Int32)

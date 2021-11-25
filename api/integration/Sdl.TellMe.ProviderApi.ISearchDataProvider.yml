@@ -22,7 +22,6 @@ items:
   assemblies:
   - Sdl.TellMe.ProviderApi
   namespace: Sdl.TellMe.ProviderApi
-  summary: "\nRepresents a search mechanism that can be activated if the user types the provider name preceded by @. \nThe Tell Me will use it&apos;s default provider in case no @ sign is detected at the beginning of the word. \nIn case an @ is detected it will search the providers for the corresponding provider name if none is found\nit will use the default one. If one is detected then it will be used to do a query on it using the words after \nthe provider name. \ne.g @CustomProvider stringToSearch1 stringToSearch2\n"
   syntax:
     content: public interface ISearchDataProvider
     content.vb: Public Interface ISearchDataProvider
@@ -51,13 +50,11 @@ items:
   assemblies:
   - Sdl.TellMe.ProviderApi
   namespace: Sdl.TellMe.ProviderApi
-  summary: "\nCalled to identify if the provider can be used for the query\n"
   syntax:
     content: IEnumerable<ISearchDataProvider> GetProviderForQuery(string query)
     parameters:
     - id: query
       type: System.String
-      description: text entry from the Tell Me UI
     return:
       type: System.Collections.Generic.IEnumerable{Sdl.TellMe.ProviderApi.ISearchDataProvider}
     content.vb: Function GetProviderForQuery(query As String) As IEnumerable(Of ISearchDataProvider)
@@ -79,13 +76,11 @@ items:
   assemblies:
   - Sdl.TellMe.ProviderApi
   namespace: Sdl.TellMe.ProviderApi
-  summary: "\nExecutes the query\n"
   syntax:
     content: IEnumerable<ITellMeAction> SearchForSuggestion(string query)
     parameters:
     - id: query
       type: System.String
-      description: text entry from the Tell Me UI (except the @ProviderName string)
     return:
       type: System.Collections.Generic.IEnumerable{Sdl.TellMe.ProviderApi.ITellMeAction}
     content.vb: Function SearchForSuggestion(query As String) As IEnumerable(Of ITellMeAction)

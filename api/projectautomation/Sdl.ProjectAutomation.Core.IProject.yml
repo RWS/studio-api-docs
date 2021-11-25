@@ -38,7 +38,6 @@ items:
   - Sdl.ProjectAutomation.Core.IProject.RemoveBilingualReferenceFile(System.Guid)
   - Sdl.ProjectAutomation.Core.IProject.RunAutomaticTask(System.Guid[],System.String)
   - Sdl.ProjectAutomation.Core.IProject.RunAutomaticTask(System.Guid[],System.String,System.EventHandler{Sdl.ProjectAutomation.Core.TaskStatusEventArgs},System.EventHandler{Sdl.ProjectAutomation.Core.TaskMessageEventArgs})
-  - Sdl.ProjectAutomation.Core.IProject.Save
   - Sdl.ProjectAutomation.Core.IProject.SavePackageAs(System.Guid,System.String)
   - Sdl.ProjectAutomation.Core.IProject.SaveProjectFileAs(System.Guid,System.String)
   - Sdl.ProjectAutomation.Core.IProject.SaveTaskReportAs(System.Guid,System.String,Sdl.ProjectAutomation.Core.ReportFormat)
@@ -62,7 +61,6 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nRepresents a project. Provides access to project information and settings, \nand provides functionality for modifying the project, running tasks etc.\n"
   syntax:
     content: public interface IProject
     content.vb: Public Interface IProject
@@ -89,7 +87,6 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nRetrieves information about the project\n"
   syntax:
     content: ProjectInfo GetProjectInfo()
     return:
@@ -113,17 +110,13 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nUpdates the project with the new information contained in <code data-dev-comment-type=\"paramref\" class=\"paramref\">projectInfo</code>.\n"
-  remarks: "\nIt is only valid to update certain properties. See the comments in <xref href=\"Sdl.ProjectAutomation.Core.ProjectInfo\" data-throw-if-not-resolved=\"false\"></xref> properties for more details.\nIt is recommended to first obtain a <xref href=\"Sdl.ProjectAutomation.Core.ProjectInfo\" data-throw-if-not-resolved=\"false\"></xref> object using <xref href=\"Sdl.ProjectAutomation.Core.IProject.GetProjectInfo\" data-throw-if-not-resolved=\"false\"></xref>, then modify its \nproperties before passing into this update method.\n"
   syntax:
     content: ProjectInfo UpdateProject(ProjectInfo projectInfo)
     parameters:
     - id: projectInfo
       type: Sdl.ProjectAutomation.Core.ProjectInfo
-      description: The updated project information.
     return:
       type: Sdl.ProjectAutomation.Core.ProjectInfo
-      description: The updated project information.
     content.vb: Function UpdateProject(projectInfo As ProjectInfo) As ProjectInfo
   overload: Sdl.ProjectAutomation.Core.IProject.UpdateProject*
 - uid: Sdl.ProjectAutomation.Core.IProject.GetSettings
@@ -143,18 +136,10 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nGets the project-level settings.\n"
-  remarks: >
-    Project settings can be overridden for a specific target language using <xref href="Sdl.ProjectAutomation.Core.IProject.UpdateSettings(Sdl.Core.Globalization.Language%2cSdl.Core.Settings.ISettingsBundle)" data-throw-if-not-resolved="false"></xref>.
-
-    The override mechanism works on an individual setting level, not on a settings bundle or group level. This means that any setting
-
-    that is not specifically defined/overridden on the target language level will be inherited from the project-level settings.
   syntax:
     content: ISettingsBundle GetSettings()
     return:
       type: Sdl.Core.Settings.ISettingsBundle
-      description: A settings bundle containing the project settings. Never returns <code>null</code>.
     content.vb: Function GetSettings As ISettingsBundle
   overload: Sdl.ProjectAutomation.Core.IProject.GetSettings*
 - uid: Sdl.ProjectAutomation.Core.IProject.GetSettings(Sdl.Core.Globalization.Language)
@@ -174,28 +159,15 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nGets the settings for a specific target language.\n"
-  remarks: >
-    Target language settings override settings specified on the project level (see <xref href="Sdl.ProjectAutomation.Core.IProject.GetSettings" data-throw-if-not-resolved="false"></xref>.
-
-    The override mechanism works on an individual setting level, not on a settings bundle or group level. This means that any setting
-
-    that is not specifically defined/overridden on the target language level will be inherited from the project-level settings.
   syntax:
     content: ISettingsBundle GetSettings(Language targetLanguage)
     parameters:
     - id: targetLanguage
       type: Sdl.Core.Globalization.Language
-      description: The project target language for which to retrieve the settings.
     return:
       type: Sdl.Core.Settings.ISettingsBundle
-      description: "A settings bundle containing the target language specific settings. The settings bundle returned will have a parent \nsettings bundle which represent the current project settings. Never returns <code>null</code>."
     content.vb: Function GetSettings(targetLanguage As Language) As ISettingsBundle
   overload: Sdl.ProjectAutomation.Core.IProject.GetSettings*
-  exceptions:
-  - type: System.ArgumentException
-    commentId: T:System.ArgumentException
-    description: Thrown when <code data-dev-comment-type="paramref" class="paramref">targetLanguage</code> is <code>null</code> or invalid.
 - uid: Sdl.ProjectAutomation.Core.IProject.UpdateSettings(Sdl.Core.Settings.ISettingsBundle)
   commentId: M:Sdl.ProjectAutomation.Core.IProject.UpdateSettings(Sdl.Core.Settings.ISettingsBundle)
   id: UpdateSettings(Sdl.Core.Settings.ISettingsBundle)
@@ -213,20 +185,13 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nUpdates the project-level settings.\n"
-  remarks: "\n<p>The project settings will be completely replaced with the specified settings, so any settings not present in\nthe updated settings bundle will revert to their defaults.</p>\n<p>You can also override settings for a specific target language. See <xref href=\"Sdl.ProjectAutomation.Core.IProject.UpdateSettings(Sdl.Core.Globalization.Language%2cSdl.Core.Settings.ISettingsBundle)\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
   syntax:
     content: void UpdateSettings(ISettingsBundle settings)
     parameters:
     - id: settings
       type: Sdl.Core.Settings.ISettingsBundle
-      description: A settings bundle object containing the new project settings.
     content.vb: Sub UpdateSettings(settings As ISettingsBundle)
   overload: Sdl.ProjectAutomation.Core.IProject.UpdateSettings*
-  exceptions:
-  - type: System.ArgumentNullException
-    commentId: T:System.ArgumentNullException
-    description: Thrown if <code data-dev-comment-type="paramref" class="paramref">settings</code> is <code>null</code>.
 - uid: Sdl.ProjectAutomation.Core.IProject.UpdateSettings(Sdl.Core.Globalization.Language,Sdl.Core.Settings.ISettingsBundle)
   commentId: M:Sdl.ProjectAutomation.Core.IProject.UpdateSettings(Sdl.Core.Globalization.Language,Sdl.Core.Settings.ISettingsBundle)
   id: UpdateSettings(Sdl.Core.Globalization.Language,Sdl.Core.Settings.ISettingsBundle)
@@ -244,26 +209,15 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nUpdates the settings for a specific target language.\n"
-  remarks: "\n<p>Note that this method will only update the target-language settings. If you have changed the parent project-level\nsettings too, thee need to be updated with a separate call to <xref href=\"Sdl.ProjectAutomation.Core.IProject.UpdateSettings(Sdl.Core.Settings.ISettingsBundle)\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
   syntax:
     content: void UpdateSettings(Language targetLanguage, ISettingsBundle settings)
     parameters:
     - id: targetLanguage
       type: Sdl.Core.Globalization.Language
-      description: The target language for which to update the settings.
     - id: settings
       type: Sdl.Core.Settings.ISettingsBundle
-      description: A settings bundle representing the new target language settings.
     content.vb: Sub UpdateSettings(targetLanguage As Language, settings As ISettingsBundle)
   overload: Sdl.ProjectAutomation.Core.IProject.UpdateSettings*
-  exceptions:
-  - type: System.ArgumentException
-    commentId: T:System.ArgumentException
-    description: Thrown when <code data-dev-comment-type="paramref" class="paramref">targetLanguage</code> is <code>null</code> or invalid.
-  - type: System.ArgumentNullException
-    commentId: T:System.ArgumentNullException
-    description: Thrown if <code data-dev-comment-type="paramref" class="paramref">settings</code> is <code>null</code>.
 - uid: Sdl.ProjectAutomation.Core.IProject.GetProjectStatistics
   commentId: M:Sdl.ProjectAutomation.Core.IProject.GetProjectStatistics
   id: GetProjectStatistics
@@ -281,12 +235,10 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nGets the aggregated analysis, word count and confirmation statistics for all the files in the project.\nThis will not actually compute the statistics, but just return a snapshot of the statistics that where most recently computed.\nTo update the statistics, run the relevant task: <xref href=\"Sdl.ProjectAutomation.Core.AutomaticTaskTemplateIds.WordCount\" data-throw-if-not-resolved=\"false\"></xref>,\n<xref href=\"Sdl.ProjectAutomation.Core.AutomaticTaskTemplateIds.AnalyzeFiles\" data-throw-if-not-resolved=\"false\"></xref> or <xref href=\"Sdl.ProjectAutomation.Core.AutomaticTaskTemplateIds.TranslationCount\" data-throw-if-not-resolved=\"false\"></xref>.\n"
   syntax:
     content: ProjectStatistics GetProjectStatistics()
     return:
       type: Sdl.ProjectAutomation.Core.ProjectStatistics
-      description: The aggregated analysis, word count and confirmation statistics for all the files in the project.
     content.vb: Function GetProjectStatistics As ProjectStatistics
   overload: Sdl.ProjectAutomation.Core.IProject.GetProjectStatistics*
 - uid: Sdl.ProjectAutomation.Core.IProject.GetSourceLanguageFiles
@@ -306,12 +258,10 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nRetrieves all source language files.\n"
   syntax:
     content: ProjectFile[] GetSourceLanguageFiles()
     return:
       type: Sdl.ProjectAutomation.Core.ProjectFile[]
-      description: All the source language files in this project.
     content.vb: Function GetSourceLanguageFiles As ProjectFile()
   overload: Sdl.ProjectAutomation.Core.IProject.GetSourceLanguageFiles*
 - uid: Sdl.ProjectAutomation.Core.IProject.GetTargetLanguageFiles(Sdl.Core.Globalization.Language)
@@ -331,19 +281,11 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nRetrieves all files for the specified target language.\n"
-  remarks: >-
-    For merged files (<xref href="Sdl.ProjectAutomation.Core.MergedProjectFile" data-throw-if-not-resolved="false"></xref>) with
-
-    merge state <xref href="Sdl.ProjectAutomation.Core.MergeState.NotMerged" data-throw-if-not-resolved="false"></xref> or <xref href="Sdl.ProjectAutomation.Core.MergeState.Merged" data-throw-if-not-resolved="false"></xref> the merged file will be returned from this method, but not the child files.
-
-    When the merge state is <xref href="Sdl.ProjectAutomation.Core.MergeState.Split" data-throw-if-not-resolved="false"></xref>, only the child files are returned, not the merged file.
   syntax:
     content: ProjectFile[] GetTargetLanguageFiles(Language targetLanguage)
     parameters:
     - id: targetLanguage
       type: Sdl.Core.Globalization.Language
-      description: The target language to retrieve files for.
     return:
       type: Sdl.ProjectAutomation.Core.ProjectFile[]
     content.vb: Function GetTargetLanguageFiles(targetLanguage As Language) As ProjectFile()
@@ -365,13 +307,6 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nRetrieves all target language files.\n"
-  remarks: >-
-    For merged files (<xref href="Sdl.ProjectAutomation.Core.MergedProjectFile" data-throw-if-not-resolved="false"></xref>) with
-
-    merge state <xref href="Sdl.ProjectAutomation.Core.MergeState.NotMerged" data-throw-if-not-resolved="false"></xref> or <xref href="Sdl.ProjectAutomation.Core.MergeState.Merged" data-throw-if-not-resolved="false"></xref> the merged file will be returned from this method, but not the child files.
-
-    When the merge state is <xref href="Sdl.ProjectAutomation.Core.MergeState.Split" data-throw-if-not-resolved="false"></xref>, only the child files are returned, not the merged file.
   syntax:
     content: ProjectFile[] GetTargetLanguageFiles()
     return:
@@ -395,16 +330,13 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nRetrieves the file with specified ID.\n"
   syntax:
     content: ProjectFile GetFile(Guid projectFileId)
     parameters:
     - id: projectFileId
       type: System.Guid
-      description: The ID of the file to retrieve.
     return:
       type: Sdl.ProjectAutomation.Core.ProjectFile
-      description: The added project file.
     content.vb: Function GetFile(projectFileId As Guid) As ProjectFile
   overload: Sdl.ProjectAutomation.Core.IProject.GetFile*
 - uid: Sdl.ProjectAutomation.Core.IProject.SetFileRole(System.Guid[],Sdl.ProjectAutomation.Core.FileRole)
@@ -424,16 +356,13 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nChanges the role of the file. A Scan task (<xref href=\"Sdl.ProjectAutomation.Core.AutomaticTaskTemplateIds.Scan\" data-throw-if-not-resolved=\"false\"></xref>) should be run after \nchanging the file role in this way.\n"
   syntax:
     content: void SetFileRole(Guid[] projectFileIds, FileRole fileRole)
     parameters:
     - id: projectFileIds
       type: System.Guid[]
-      description: The IDs of the project files.
     - id: fileRole
       type: Sdl.ProjectAutomation.Core.FileRole
-      description: The new <xref href="Sdl.ProjectAutomation.Core.FileRole" data-throw-if-not-resolved="false"></xref> value.
     content.vb: Sub SetFileRole(projectFileIds As Guid(), fileRole As FileRole)
   overload: Sdl.ProjectAutomation.Core.IProject.SetFileRole*
   nameWithType.vb: IProject.SetFileRole(Guid(), FileRole)
@@ -456,17 +385,13 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nAdds a set of files into the project, in the root folder.\n"
-  remarks: When adding files to a project, these files are copied into the project folder; they are not referenced in their original location.
   syntax:
     content: ProjectFile[] AddFiles(string[] filePaths)
     parameters:
     - id: filePaths
       type: System.String[]
-      description: The paths of the files to add. These should be absolute paths.
     return:
       type: Sdl.ProjectAutomation.Core.ProjectFile[]
-      description: The added files
     content.vb: Function AddFiles(filePaths As String()) As ProjectFile()
   overload: Sdl.ProjectAutomation.Core.IProject.AddFiles*
   nameWithType.vb: IProject.AddFiles(String())
@@ -489,23 +414,15 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nAdds a set of files into the project, below a specified project folder.\n"
-  remarks: When adding files to a project, these files are copied into the project folder; they are not referenced in their original location.
   syntax:
     content: ProjectFile[] AddFiles(string[] filePaths, string folderPathInProject)
     parameters:
     - id: filePaths
       type: System.String[]
-      description: The paths of the files to add. These should be absolute paths.
     - id: folderPathInProject
       type: System.String
-      description: >-
-        The folder in this project below which the files should be added.
-
-        If empty the files will be in the project root folder.
     return:
       type: Sdl.ProjectAutomation.Core.ProjectFile[]
-      description: The added files
     content.vb: Function AddFiles(filePaths As String(), folderPathInProject As String) As ProjectFile()
   overload: Sdl.ProjectAutomation.Core.IProject.AddFiles*
   nameWithType.vb: IProject.AddFiles(String(), String)
@@ -528,20 +445,15 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nAdds all the files from a folder into the project, in the root folder\n"
-  remarks: When adding files to a project, these files are copied into the project folder; they are not referenced in their original location.
   syntax:
     content: ProjectFile[] AddFolderWithFiles(string localFolderPath, bool recursive)
     parameters:
     - id: localFolderPath
       type: System.String
-      description: The absolute path of the folder containing the files to add.
     - id: recursive
       type: System.Boolean
-      description: If <code>true</code>, files in sub folders will also be added. The relative folder structure is preserved in the project.
     return:
       type: Sdl.ProjectAutomation.Core.ProjectFile[]
-      description: The added project files.
     content.vb: Function AddFolderWithFiles(localFolderPath As String, recursive As Boolean) As ProjectFile()
   overload: Sdl.ProjectAutomation.Core.IProject.AddFolderWithFiles*
 - uid: Sdl.ProjectAutomation.Core.IProject.AddFolderWithFiles(System.String,System.String,System.Boolean)
@@ -561,26 +473,17 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nAdds all the files from a folder into the project, below a specified project folder.\n"
-  remarks: When adding files to a project, these files are copied into the project folder; they are not referenced in their original location.
   syntax:
     content: ProjectFile[] AddFolderWithFiles(string localFolderPath, string folderPathInProject, bool recursive)
     parameters:
     - id: localFolderPath
       type: System.String
-      description: The absolute path of the folder containing the files to add.
     - id: folderPathInProject
       type: System.String
-      description: >-
-        The folder in this project below which the files should be added.
-
-        If empty the files will be in the project root folder.
     - id: recursive
       type: System.Boolean
-      description: If <code>true</code>, files in sub folders will also be added. The relative folder structure is preserved in the project.
     return:
       type: Sdl.ProjectAutomation.Core.ProjectFile[]
-      description: The added project files.
     content.vb: Function AddFolderWithFiles(localFolderPath As String, folderPathInProject As String, recursive As Boolean) As ProjectFile()
   overload: Sdl.ProjectAutomation.Core.IProject.AddFolderWithFiles*
 - uid: Sdl.ProjectAutomation.Core.IProject.AddNewFileVersion(System.Guid,System.String)
@@ -600,17 +503,13 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nAdds a new version of the file into the project.\n"
-  remarks: When adding files to a project, these files are copied into the project folder; they are not referenced in their original location.
   syntax:
     content: void AddNewFileVersion(Guid projectFileId, string filePath)
     parameters:
     - id: projectFileId
       type: System.Guid
-      description: The file to add a new version for.
     - id: filePath
       type: System.String
-      description: The absolute file path of the new version of the file.
     content.vb: Sub AddNewFileVersion(projectFileId As Guid, filePath As String)
   overload: Sdl.ProjectAutomation.Core.IProject.AddNewFileVersion*
 - uid: Sdl.ProjectAutomation.Core.IProject.CreateMergedProjectFile(System.String,System.String,System.Guid[])
@@ -630,25 +529,17 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nCreates a merged file from a number of translatable files in the project. \nThis allows manipulating the content of all the child files within one physical file.\nFor more information, see <xref href=\"Sdl.ProjectAutomation.Core.MergedProjectFile\" data-throw-if-not-resolved=\"false\"></xref>.\n"
   syntax:
     content: MergedProjectFile CreateMergedProjectFile(string mergedFileName, string folderPathInProject, Guid[] projectFileIds)
     parameters:
     - id: mergedFileName
       type: System.String
-      description: The file name for the newly created merged file. This must have the &quot;.sdlxliff&quot; extension.
     - id: folderPathInProject
       type: System.String
-      description: >-
-        The folder in this project in which the merged file be added.
-
-        If empty the merged file will be in the project root folder.
     - id: projectFileIds
       type: System.Guid[]
-      description: 'The IDs of the translatable files to be merged in to one. '
     return:
       type: Sdl.ProjectAutomation.Core.MergedProjectFile
-      description: The newly created and added merged project file.
     content.vb: Function CreateMergedProjectFile(mergedFileName As String, folderPathInProject As String, projectFileIds As Guid()) As MergedProjectFile
   overload: Sdl.ProjectAutomation.Core.IProject.CreateMergedProjectFile*
   nameWithType.vb: IProject.CreateMergedProjectFile(String, String, Guid())
@@ -671,16 +562,13 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nReturns a stream that can be used to save out the latest version of the file.\n"
   syntax:
     content: Stream OpenProjectFileStream(Guid projectFileId)
     parameters:
     - id: projectFileId
       type: System.Guid
-      description: The file to obtain the stream for.
     return:
       type: System.IO.Stream
-      description: A stream from which the file contents can be read. It is the responsibility of the caller to close this stream.
     content.vb: Function OpenProjectFileStream(projectFileId As Guid) As Stream
   overload: Sdl.ProjectAutomation.Core.IProject.OpenProjectFileStream*
 - uid: Sdl.ProjectAutomation.Core.IProject.SaveProjectFileAs(System.Guid,System.String)
@@ -700,16 +588,13 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nSaves out the file to a specified file location.\n"
   syntax:
     content: void SaveProjectFileAs(Guid projectFileId, string outputFilePath)
     parameters:
     - id: projectFileId
       type: System.Guid
-      description: The file to save.
     - id: outputFilePath
       type: System.String
-      description: The file path to save the project file to.
     content.vb: Sub SaveProjectFileAs(projectFileId As Guid, outputFilePath As String)
   overload: Sdl.ProjectAutomation.Core.IProject.SaveProjectFileAs*
 - uid: Sdl.ProjectAutomation.Core.IProject.RunAutomaticTask(System.Guid[],System.String)
@@ -729,20 +614,15 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nRuns an automatic task on a set of files.\nAutomatic task template IDs are defined in <xref href=\"Sdl.ProjectAutomation.Core.AutomaticTaskTemplateIds\" data-throw-if-not-resolved=\"false\"></xref>.\n"
-  remarks: Multiple automatic tasks can be run together in a sequence using <code>FileBasedProject.RunAutomaticTasks</code>
   syntax:
     content: AutomaticTask RunAutomaticTask(Guid[] projectFileIds, string taskTemplateId)
     parameters:
     - id: projectFileIds
       type: System.Guid[]
-      description: The files to run the task on.
     - id: taskTemplateId
       type: System.String
-      description: The ID of the task template (i.e. the type of task) to run.
     return:
       type: Sdl.ProjectAutomation.Core.AutomaticTask
-      description: Information about the automatic task that has been run.
     content.vb: Function RunAutomaticTask(projectFileIds As Guid(), taskTemplateId As String) As AutomaticTask
   overload: Sdl.ProjectAutomation.Core.IProject.RunAutomaticTask*
   nameWithType.vb: IProject.RunAutomaticTask(Guid(), String)
@@ -765,26 +645,19 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nRuns an automatic task on a set of files.\nAutomatic task template IDs are defined in <xref href=\"Sdl.ProjectAutomation.Core.AutomaticTaskTemplateIds\" data-throw-if-not-resolved=\"false\"></xref>.\nThis overload allows event handlers to be specified for task status and message events.\nThese events support cancellation of the task.\n"
-  remarks: Multiple automatic tasks can be run together in a sequence using <code>FileBasedProject.RunAutomaticTasks</code>
   syntax:
     content: AutomaticTask RunAutomaticTask(Guid[] projectFileIds, string taskTemplateId, EventHandler<TaskStatusEventArgs> statusEventHandler, EventHandler<TaskMessageEventArgs> messageEventHandler)
     parameters:
     - id: projectFileIds
       type: System.Guid[]
-      description: The files to run the task on.
     - id: taskTemplateId
       type: System.String
-      description: The ID of the task template (i.e. the type of task) to run.
     - id: statusEventHandler
       type: System.EventHandler{Sdl.ProjectAutomation.Core.TaskStatusEventArgs}
-      description: Event handler for task status events.
     - id: messageEventHandler
       type: System.EventHandler{Sdl.ProjectAutomation.Core.TaskMessageEventArgs}
-      description: Event handler for message events.
     return:
       type: Sdl.ProjectAutomation.Core.AutomaticTask
-      description: Information about the automatic task that has been run.
     content.vb: Function RunAutomaticTask(projectFileIds As Guid(), taskTemplateId As String, statusEventHandler As EventHandler(Of TaskStatusEventArgs), messageEventHandler As EventHandler(Of TaskMessageEventArgs)) As AutomaticTask
   overload: Sdl.ProjectAutomation.Core.IProject.RunAutomaticTask*
   nameWithType.vb: IProject.RunAutomaticTask(Guid(), String, EventHandler(Of TaskStatusEventArgs), EventHandler(Of TaskMessageEventArgs))
@@ -807,19 +680,15 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nSaves the task report out to a file, in the specified format\n"
   syntax:
     content: void SaveTaskReportAs(Guid reportId, string path, ReportFormat reportFormat)
     parameters:
     - id: reportId
       type: System.Guid
-      description: The id of the task report to save.
     - id: path
       type: System.String
-      description: The file path to save the report to.
     - id: reportFormat
       type: Sdl.ProjectAutomation.Core.ReportFormat
-      description: The format used when saving out the report.
     content.vb: Sub SaveTaskReportAs(reportId As Guid, path As String, reportFormat As ReportFormat)
   overload: Sdl.ProjectAutomation.Core.IProject.SaveTaskReportAs*
 - uid: Sdl.ProjectAutomation.Core.IProject.CreateManualTask(System.String,System.String,System.DateTime,Sdl.ProjectAutomation.Core.TaskFileInfo[])
@@ -839,25 +708,19 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nCreates a manual task. A manual task includes a set of files that is assigned to a user.\nThe created manual task can be used to create a project package using <xref href=\"Sdl.ProjectAutomation.Core.IProject.CreateProjectPackage(System.Guid%2cSystem.String%2cSystem.String%2cSdl.ProjectAutomation.Core.ProjectPackageCreationOptions%2cSystem.EventHandler%7bSdl.ProjectAutomation.Core.ProgressEventArgs%7d%2cSystem.EventHandler%7bSdl.ProjectAutomation.Core.MessageEventArgs%7d)\" data-throw-if-not-resolved=\"false\"></xref>\n"
   syntax:
     content: ManualTask CreateManualTask(string manualTaskName, string assignToUser, DateTime dueDate, TaskFileInfo[] inputFiles)
     parameters:
     - id: manualTaskName
       type: System.String
-      description: 'The name of the manual task. Typically &quot;Translate&quot; or &quot;Review&quot;, but other task names can be '
     - id: assignToUser
       type: System.String
-      description: The user to assign the task to.
     - id: dueDate
       type: System.DateTime
-      description: The date by which the task should be completed.
     - id: inputFiles
       type: Sdl.ProjectAutomation.Core.TaskFileInfo[]
-      description: The files to include in the task.
     return:
       type: Sdl.ProjectAutomation.Core.ManualTask
-      description: The newly created manual task.
     content.vb: Function CreateManualTask(manualTaskName As String, assignToUser As String, dueDate As Date, inputFiles As TaskFileInfo()) As ManualTask
   overload: Sdl.ProjectAutomation.Core.IProject.CreateManualTask*
   nameWithType.vb: IProject.CreateManualTask(String, String, DateTime, TaskFileInfo())
@@ -880,26 +743,19 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nCreates a manual task. A manual task includes a set of files that is assigned to a user.\nThe created manual task can be used to create a project package using <xref href=\"Sdl.ProjectAutomation.Core.IProject.CreateProjectPackage(System.Guid%2cSystem.String%2cSystem.String%2cSdl.ProjectAutomation.Core.ProjectPackageCreationOptions%2cSystem.EventHandler%7bSdl.ProjectAutomation.Core.ProgressEventArgs%7d%2cSystem.EventHandler%7bSdl.ProjectAutomation.Core.MessageEventArgs%7d)\" data-throw-if-not-resolved=\"false\"></xref>\n"
-  remarks: "\nThis overload allows a list of project file IDs to be specified rather than <xref href=\"Sdl.ProjectAutomation.Core.TaskFileInfo\" data-throw-if-not-resolved=\"false\"></xref> objects.\nA project file will be marked as a &quot;read only&quot; task file if it has a role of <xref href=\"Sdl.ProjectAutomation.Core.FileRole.Reference\" data-throw-if-not-resolved=\"false\"></xref>.\n"
   syntax:
     content: ManualTask CreateManualTask(string manualTaskName, string assignToUser, DateTime dueDate, Guid[] projectFileIds)
     parameters:
     - id: manualTaskName
       type: System.String
-      description: 'The name of the manual task. Typically &quot;Translate&quot; or &quot;Review&quot;, but other task names can be '
     - id: assignToUser
       type: System.String
-      description: The user to assign the task to.
     - id: dueDate
       type: System.DateTime
-      description: The date by which the task should be completed.
     - id: projectFileIds
       type: System.Guid[]
-      description: The project files to include in the task. Reference files will be marked as &quot;read only&quot; task files
     return:
       type: Sdl.ProjectAutomation.Core.ManualTask
-      description: The newly created manual task.
     content.vb: Function CreateManualTask(manualTaskName As String, assignToUser As String, dueDate As Date, projectFileIds As Guid()) As ManualTask
   overload: Sdl.ProjectAutomation.Core.IProject.CreateManualTask*
   nameWithType.vb: IProject.CreateManualTask(String, String, DateTime, Guid())
@@ -922,13 +778,11 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nRetrieves an existing manual task.\n"
   syntax:
     content: ManualTask GetManualTask(Guid manualTaskId)
     parameters:
     - id: manualTaskId
       type: System.Guid
-      description: The ID of the manual task
     return:
       type: Sdl.ProjectAutomation.Core.ManualTask
     content.vb: Function GetManualTask(manualTaskId As Guid) As ManualTask
@@ -950,13 +804,11 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nRetrieves an existing automatic task.\n"
   syntax:
     content: AutomaticTask GetAutomaticTask(Guid automaticTaskId)
     parameters:
     - id: automaticTaskId
       type: System.Guid
-      description: The ID of the automatic task.
     return:
       type: Sdl.ProjectAutomation.Core.AutomaticTask
     content.vb: Function GetAutomaticTask(automaticTaskId As Guid) As AutomaticTask
@@ -978,25 +830,19 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nCreates a project package. The package can then be obtained using <xref href=\"Sdl.ProjectAutomation.Core.IProject.SavePackageAs(System.Guid%2cSystem.String)\" data-throw-if-not-resolved=\"false\"></xref>.\n"
   syntax:
     content: ProjectPackageCreation CreateProjectPackage(Guid manualTaskId, string packageName, string comment, ProjectPackageCreationOptions options)
     parameters:
     - id: manualTaskId
       type: System.Guid
-      description: The ID of the task that the package relates to. (The task defines which files are included in the package.)
     - id: packageName
       type: System.String
-      description: The name of the package.
     - id: comment
       type: System.String
-      description: Optional comment.
     - id: options
       type: Sdl.ProjectAutomation.Core.ProjectPackageCreationOptions
-      description: Various options to control what will be included in a project package.
     return:
       type: Sdl.ProjectAutomation.Core.ProjectPackageCreation
-      description: A <xref href="Sdl.ProjectAutomation.Core.ProjectPackageCreation" data-throw-if-not-resolved="false"></xref> object, which contains the results of the package creation.
     content.vb: Function CreateProjectPackage(manualTaskId As Guid, packageName As String, comment As String, options As ProjectPackageCreationOptions) As ProjectPackageCreation
   overload: Sdl.ProjectAutomation.Core.IProject.CreateProjectPackage*
 - uid: Sdl.ProjectAutomation.Core.IProject.CreateProjectPackage(System.Guid,System.String,System.String,Sdl.ProjectAutomation.Core.ProjectPackageCreationOptions,System.EventHandler{Sdl.ProjectAutomation.Core.ProgressEventArgs},System.EventHandler{Sdl.ProjectAutomation.Core.MessageEventArgs})
@@ -1016,31 +862,23 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nCreates a project package. The package can then be obtained using <xref href=\"Sdl.ProjectAutomation.Core.IProject.SavePackageAs(System.Guid%2cSystem.String)\" data-throw-if-not-resolved=\"false\"></xref>.\n"
   syntax:
     content: ProjectPackageCreation CreateProjectPackage(Guid manualTaskId, string packageName, string comment, ProjectPackageCreationOptions options, EventHandler<ProgressEventArgs> statusEventHandler, EventHandler<MessageEventArgs> messageEventHandler)
     parameters:
     - id: manualTaskId
       type: System.Guid
-      description: The ID of the task that the package relates to. (The task defines which files are included in the package.)
     - id: packageName
       type: System.String
-      description: The name of the package.
     - id: comment
       type: System.String
-      description: Optional comment.
     - id: options
       type: Sdl.ProjectAutomation.Core.ProjectPackageCreationOptions
-      description: Various options to control what will be included in a project package.
     - id: statusEventHandler
       type: System.EventHandler{Sdl.ProjectAutomation.Core.ProgressEventArgs}
-      description: Event handler for package creation status events.
     - id: messageEventHandler
       type: System.EventHandler{Sdl.ProjectAutomation.Core.MessageEventArgs}
-      description: Event handler for message events.
     return:
       type: Sdl.ProjectAutomation.Core.ProjectPackageCreation
-      description: A <xref href="Sdl.ProjectAutomation.Core.ProjectPackageCreation" data-throw-if-not-resolved="false"></xref> object, which contains the results of the package creation.
     content.vb: Function CreateProjectPackage(manualTaskId As Guid, packageName As String, comment As String, options As ProjectPackageCreationOptions, statusEventHandler As EventHandler(Of ProgressEventArgs), messageEventHandler As EventHandler(Of MessageEventArgs)) As ProjectPackageCreation
   overload: Sdl.ProjectAutomation.Core.IProject.CreateProjectPackage*
   nameWithType.vb: IProject.CreateProjectPackage(Guid, String, String, ProjectPackageCreationOptions, EventHandler(Of ProgressEventArgs), EventHandler(Of MessageEventArgs))
@@ -1063,16 +901,13 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nSaves out a created project or return package to a specified file location.\n"
   syntax:
     content: void SavePackageAs(Guid packageId, string path)
     parameters:
     - id: packageId
       type: System.Guid
-      description: The ID of the package to save. See <xref href="Sdl.ProjectAutomation.Core.PackageOperation.PackageId" data-throw-if-not-resolved="false"></xref>.
     - id: path
       type: System.String
-      description: The file path to save the package to.
     content.vb: Sub SavePackageAs(packageId As Guid, path As String)
   overload: Sdl.ProjectAutomation.Core.IProject.SavePackageAs*
 - uid: Sdl.ProjectAutomation.Core.IProject.ImportReturnPackage(System.String)
@@ -1092,19 +927,13 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nImports a return package into this project.\n"
   syntax:
     content: ReturnPackageImport ImportReturnPackage(string returnPackageFilePath)
     parameters:
     - id: returnPackageFilePath
       type: System.String
-      description: >-
-        The file path of the return package to import.
-
-        Has file extension .sdlrpx
     return:
       type: Sdl.ProjectAutomation.Core.ReturnPackageImport
-      description: Information about the import operation.
     content.vb: Function ImportReturnPackage(returnPackageFilePath As String) As ReturnPackageImport
   overload: Sdl.ProjectAutomation.Core.IProject.ImportReturnPackage*
 - uid: Sdl.ProjectAutomation.Core.IProject.ImportReturnPackage(System.String,System.EventHandler{Sdl.ProjectAutomation.Core.ProgressEventArgs},System.EventHandler{Sdl.ProjectAutomation.Core.MessageEventArgs})
@@ -1124,25 +953,17 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nImports a return package into this project.\n"
   syntax:
     content: ReturnPackageImport ImportReturnPackage(string returnPackageFilePath, EventHandler<ProgressEventArgs> statusEventHandler, EventHandler<MessageEventArgs> messageEventHandler)
     parameters:
     - id: returnPackageFilePath
       type: System.String
-      description: >-
-        The file path of the return package to import.
-
-        Has file extension .sdlrpx
     - id: statusEventHandler
       type: System.EventHandler{Sdl.ProjectAutomation.Core.ProgressEventArgs}
-      description: Event handler for status events
     - id: messageEventHandler
       type: System.EventHandler{Sdl.ProjectAutomation.Core.MessageEventArgs}
-      description: Event handler for message events
     return:
       type: Sdl.ProjectAutomation.Core.ReturnPackageImport
-      description: Information about the import operation.
     content.vb: Function ImportReturnPackage(returnPackageFilePath As String, statusEventHandler As EventHandler(Of ProgressEventArgs), messageEventHandler As EventHandler(Of MessageEventArgs)) As ReturnPackageImport
   overload: Sdl.ProjectAutomation.Core.IProject.ImportReturnPackage*
   nameWithType.vb: IProject.ImportReturnPackage(String, EventHandler(Of ProgressEventArgs), EventHandler(Of MessageEventArgs))
@@ -1165,23 +986,17 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nCreates a return package from a set of files. The files must all have previously been received as part of a \nproject package in order for the return package to be created.\n"
-  remarks: It is only valid to call this method if this project was created from a project package
   syntax:
     content: ReturnPackageCreation CreateReturnPackage(Guid[] projectFileIds, string packageName, string comment)
     parameters:
     - id: projectFileIds
       type: System.Guid[]
-      description: The files to include in the return package.
     - id: packageName
       type: System.String
-      description: The name of the package.
     - id: comment
       type: System.String
-      description: A comment for the package.
     return:
       type: Sdl.ProjectAutomation.Core.ReturnPackageCreation
-      description: 'A <xref href="Sdl.ProjectAutomation.Core.ReturnPackageCreation" data-throw-if-not-resolved="false"></xref> object, representing the results of the return package creation. '
     content.vb: Function CreateReturnPackage(projectFileIds As Guid(), packageName As String, comment As String) As ReturnPackageCreation
   overload: Sdl.ProjectAutomation.Core.IProject.CreateReturnPackage*
   nameWithType.vb: IProject.CreateReturnPackage(Guid(), String, String)
@@ -1204,26 +1019,19 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nCreates a return package from a set of files. The files must all have previously been received as part of a \nproject package in order for the return package to be created.\n"
-  remarks: It is only valid to call this method if this project was created from a project package
   syntax:
     content: ReturnPackageCreation CreateReturnPackage(Guid[] projectFileIds, string packageName, string comment, EventHandler<ProgressEventArgs> statusEventHandler, EventHandler<MessageEventArgs> messageEventHandler)
     parameters:
     - id: projectFileIds
       type: System.Guid[]
-      description: The files to include in the return package.
     - id: packageName
       type: System.String
-      description: The name of the package.
     - id: comment
       type: System.String
-      description: A comment for the package.
     - id: statusEventHandler
       type: System.EventHandler{Sdl.ProjectAutomation.Core.ProgressEventArgs}
-      description: Event handler for status events
     - id: messageEventHandler
       type: System.EventHandler{Sdl.ProjectAutomation.Core.MessageEventArgs}
-      description: Event handler for message events
     return:
       type: Sdl.ProjectAutomation.Core.ReturnPackageCreation
     content.vb: Function CreateReturnPackage(projectFileIds As Guid(), packageName As String, comment As String, statusEventHandler As EventHandler(Of ProgressEventArgs), messageEventHandler As EventHandler(Of MessageEventArgs)) As ReturnPackageCreation
@@ -1248,12 +1056,10 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nRetrieves all termbase-related settings that are associated with this project.\n"
   syntax:
     content: TermbaseConfiguration GetTermbaseConfiguration()
     return:
       type: Sdl.ProjectAutomation.Core.TermbaseConfiguration
-      description: A <xref href="Sdl.ProjectAutomation.Core.TermbaseConfiguration" data-throw-if-not-resolved="false"></xref> object containing all termbase-related configuration for this project.
     content.vb: Function GetTermbaseConfiguration As TermbaseConfiguration
   overload: Sdl.ProjectAutomation.Core.IProject.GetTermbaseConfiguration*
 - uid: Sdl.ProjectAutomation.Core.IProject.UpdateTermbaseConfiguration(Sdl.ProjectAutomation.Core.TermbaseConfiguration)
@@ -1273,16 +1079,11 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nUpdates the termbase-related settings for this project.\n"
   syntax:
     content: void UpdateTermbaseConfiguration(TermbaseConfiguration termbaseConfiguration)
     parameters:
     - id: termbaseConfiguration
       type: Sdl.ProjectAutomation.Core.TermbaseConfiguration
-      description: >-
-        A <xref href="Sdl.ProjectAutomation.Core.TermbaseConfiguration" data-throw-if-not-resolved="false"></xref> object containing all termbase-related configuration for this project.
-
-        This can either be newly created termbase configuration object or one that was retrieved via <xref href="Sdl.ProjectAutomation.Core.IProject.GetTermbaseConfiguration" data-throw-if-not-resolved="false"></xref>.
     content.vb: Sub UpdateTermbaseConfiguration(termbaseConfiguration As TermbaseConfiguration)
   overload: Sdl.ProjectAutomation.Core.IProject.UpdateTermbaseConfiguration*
 - uid: Sdl.ProjectAutomation.Core.IProject.GetTranslationProviderConfiguration
@@ -1302,13 +1103,10 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nGets the translation provider configuration for this project.\n"
-  remarks: "\n<p>The translation provider configuration can be overridden for a specific target language\n(see <xref href=\"Sdl.ProjectAutomation.Core.IProject.GetTranslationProviderConfiguration(Sdl.Core.Globalization.Language)\" data-throw-if-not-resolved=\"false\"></xref>)\nand <xref href=\"Sdl.ProjectAutomation.Core.IProject.UpdateTranslationProviderConfiguration(Sdl.Core.Globalization.Language%2cSdl.ProjectAutomation.Core.TranslationProviderConfiguration)\" data-throw-if-not-resolved=\"false\"></xref>).</p>"
   syntax:
     content: TranslationProviderConfiguration GetTranslationProviderConfiguration()
     return:
       type: Sdl.ProjectAutomation.Core.TranslationProviderConfiguration
-      description: The translation provider configuration. This never returns <code>null</code>.
     content.vb: Function GetTranslationProviderConfiguration As TranslationProviderConfiguration
   overload: Sdl.ProjectAutomation.Core.IProject.GetTranslationProviderConfiguration*
 - uid: Sdl.ProjectAutomation.Core.IProject.GetTranslationProviderConfiguration(Sdl.Core.Globalization.Language)
@@ -1328,16 +1126,13 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nGets the translation provider configuration for the specified target language. If no specific configuration has been specified for the specified target language,\nthis method returns an empty (not <code>null</code>!) configuration. \n"
   syntax:
     content: TranslationProviderConfiguration GetTranslationProviderConfiguration(Language targetLanguage)
     parameters:
     - id: targetLanguage
       type: Sdl.Core.Globalization.Language
-      description: The target language for which to get the translation provider configuration.
     return:
       type: Sdl.ProjectAutomation.Core.TranslationProviderConfiguration
-      description: The translation provider configuration for the specified target language. This never returns <code>null</code>.
     content.vb: Function GetTranslationProviderConfiguration(targetLanguage As Language) As TranslationProviderConfiguration
   overload: Sdl.ProjectAutomation.Core.IProject.GetTranslationProviderConfiguration*
 - uid: Sdl.ProjectAutomation.Core.IProject.UpdateTranslationProviderConfiguration(Sdl.Core.Globalization.Language,Sdl.ProjectAutomation.Core.TranslationProviderConfiguration)
@@ -1357,28 +1152,15 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nUpdates the translation provider configuration for a specific project target language.\n"
   syntax:
     content: void UpdateTranslationProviderConfiguration(Language targetLanguage, TranslationProviderConfiguration translationProviderConfiguration)
     parameters:
     - id: targetLanguage
       type: Sdl.Core.Globalization.Language
-      description: The project target language for which to update the configuration.
     - id: translationProviderConfiguration
       type: Sdl.ProjectAutomation.Core.TranslationProviderConfiguration
-      description: "The translation provider configuration. Note that you need to set \n<xref href=\"Sdl.ProjectAutomation.Core.TranslationProviderConfiguration.OverrideParent\" data-throw-if-not-resolved=\"false\"></xref> to <pre><code>true</code></pre> in order for the configuration to be used. If this is\nset to <pre><code>false</code></pre>, the project-wide translation provider configuration will be used instead (<xref href=\"Sdl.ProjectAutomation.Core.IProject.GetTranslationProviderConfiguration\" data-throw-if-not-resolved=\"false\"></xref>)."
     content.vb: Sub UpdateTranslationProviderConfiguration(targetLanguage As Language, translationProviderConfiguration As TranslationProviderConfiguration)
   overload: Sdl.ProjectAutomation.Core.IProject.UpdateTranslationProviderConfiguration*
-  exceptions:
-  - type: System.ArgumentException
-    commentId: T:System.ArgumentException
-    description: Thrown when <code data-dev-comment-type="paramref" class="paramref">targetLanguage</code> is <code>null</code>, invalid or not one of the project target languages.
-  - type: System.ArgumentNullException
-    commentId: T:System.ArgumentNullException
-    description: Thrown when <code data-dev-comment-type="paramref" class="paramref">translationProviderConfiguration</code> is <code>null</code>.
-  - type: System.ArgumentException
-    commentId: T:System.ArgumentException
-    description: Thrown when <code data-dev-comment-type="paramref" class="paramref">translationProviderConfiguration</code> is invalid. See <xref href="Sdl.ProjectAutomation.Core.TranslationProviderConfiguration" data-throw-if-not-resolved="false"></xref> for more information.
 - uid: Sdl.ProjectAutomation.Core.IProject.UpdateTranslationProviderConfiguration(Sdl.ProjectAutomation.Core.TranslationProviderConfiguration)
   commentId: M:Sdl.ProjectAutomation.Core.IProject.UpdateTranslationProviderConfiguration(Sdl.ProjectAutomation.Core.TranslationProviderConfiguration)
   id: UpdateTranslationProviderConfiguration(Sdl.ProjectAutomation.Core.TranslationProviderConfiguration)
@@ -1396,25 +1178,13 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nUpdates the project-wide translation provider configuration.\n"
   syntax:
     content: void UpdateTranslationProviderConfiguration(TranslationProviderConfiguration translationProviderConfiguration)
     parameters:
     - id: translationProviderConfiguration
       type: Sdl.ProjectAutomation.Core.TranslationProviderConfiguration
-      description: >-
-        The translation provider configuration. Note that the project-wide configuration might have been
-
-        overridden for one or more specific project target languages (see <xref href="Sdl.ProjectAutomation.Core.IProject.UpdateTranslationProviderConfiguration(Sdl.Core.Globalization.Language%2cSdl.ProjectAutomation.Core.TranslationProviderConfiguration)" data-throw-if-not-resolved="false"></xref>). The project-wide configuration will not be used for these target languages.
     content.vb: Sub UpdateTranslationProviderConfiguration(translationProviderConfiguration As TranslationProviderConfiguration)
   overload: Sdl.ProjectAutomation.Core.IProject.UpdateTranslationProviderConfiguration*
-  exceptions:
-  - type: System.ArgumentNullException
-    commentId: T:System.ArgumentNullException
-    description: Thrown when <code data-dev-comment-type="paramref" class="paramref">translationProviderConfiguration</code> is <code>null</code>.
-  - type: System.ArgumentException
-    commentId: T:System.ArgumentException
-    description: Thrown when <code data-dev-comment-type="paramref" class="paramref">translationProviderConfiguration</code> is invalid. See <xref href="Sdl.ProjectAutomation.Core.TranslationProviderConfiguration" data-throw-if-not-resolved="false"></xref> for more information.
 - uid: Sdl.ProjectAutomation.Core.IProject.AddBilingualReferenceFiles(Sdl.ProjectAutomation.Core.BilingualFileMapping[])
   commentId: M:Sdl.ProjectAutomation.Core.IProject.AddBilingualReferenceFiles(Sdl.ProjectAutomation.Core.BilingualFileMapping[])
   id: AddBilingualReferenceFiles(Sdl.ProjectAutomation.Core.BilingualFileMapping[])
@@ -1432,14 +1202,11 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nAssociates a number of Bilingual reference file to particular source file in a target language using an array of\nBilingualFileMapping\n"
-  remarks: "\nThis is used to associate bilingual reference files prior to running the project prepare task sequance so that \nbilingual reference files can be associated with target files before the files have been copied to the target \nlanguages\n"
   syntax:
     content: void AddBilingualReferenceFiles(BilingualFileMapping[] mappings)
     parameters:
     - id: mappings
       type: Sdl.ProjectAutomation.Core.BilingualFileMapping[]
-      description: An array of BilingualFileMapping Objects
     content.vb: Sub AddBilingualReferenceFiles(mappings As BilingualFileMapping())
   overload: Sdl.ProjectAutomation.Core.IProject.AddBilingualReferenceFiles*
   nameWithType.vb: IProject.AddBilingualReferenceFiles(BilingualFileMapping())
@@ -1462,14 +1229,11 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nAssociates a bilingual reference file with a particular source file and target language using a BilingualFileMapping\n"
-  remarks: "\nThis is used to associate bilingual reference files prior to running the project prepare task sequance so that \nbilingual reference files can be associated with target files before the files have been copied to the target \nlanguages\n"
   syntax:
     content: void AddBilingualReferenceFile(BilingualFileMapping mapping)
     parameters:
     - id: mapping
       type: Sdl.ProjectAutomation.Core.BilingualFileMapping
-      description: A BilingualFileMapping Object that holds the association
     content.vb: Sub AddBilingualReferenceFile(mapping As BilingualFileMapping)
   overload: Sdl.ProjectAutomation.Core.IProject.AddBilingualReferenceFile*
 - uid: Sdl.ProjectAutomation.Core.IProject.RemoveBilingualReferenceFile(System.Guid)
@@ -1489,38 +1253,13 @@ items:
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nRemoves a Bilingual reference file from a target project file\n"
   syntax:
     content: void RemoveBilingualReferenceFile(Guid ProjectTargetFileId)
     parameters:
     - id: ProjectTargetFileId
       type: System.Guid
-      description: The file that where the bilingual reference needs to be removed
     content.vb: Sub RemoveBilingualReferenceFile(ProjectTargetFileId As Guid)
   overload: Sdl.ProjectAutomation.Core.IProject.RemoveBilingualReferenceFile*
-- uid: Sdl.ProjectAutomation.Core.IProject.Save
-  commentId: M:Sdl.ProjectAutomation.Core.IProject.Save
-  id: Save
-  parent: Sdl.ProjectAutomation.Core.IProject
-  langs:
-  - csharp
-  - vb
-  name: Save()
-  nameWithType: IProject.Save()
-  fullName: Sdl.ProjectAutomation.Core.IProject.Save()
-  type: Method
-  source:
-    path: Sdl.ProjectAutomation.Core
-    isExternal: true
-  assemblies:
-  - Sdl.ProjectAutomation.Core
-  namespace: Sdl.ProjectAutomation.Core
-  summary: "\nPersists the project file. The file has extension .sdlproj and is located in the folder given by <xref href=\"Sdl.ProjectAutomation.Core.ProjectInfo.LocalProjectFolder\" data-throw-if-not-resolved=\"false\"></xref>.       .\n"
-  remarks: "It is recommended to regularly save the project, for example after making a set of changes \nand after running a task."
-  syntax:
-    content: void Save()
-    content.vb: Sub Save
-  overload: Sdl.ProjectAutomation.Core.IProject.Save*
 references:
 - uid: Sdl.ProjectAutomation.Core
   commentId: N:Sdl.ProjectAutomation.Core
@@ -1558,9 +1297,6 @@ references:
   name: ISettingsBundle
   nameWithType: ISettingsBundle
   fullName: Sdl.Core.Settings.ISettingsBundle
-- uid: System.ArgumentException
-  commentId: T:System.ArgumentException
-  isExternal: true
 - uid: Sdl.Core.Globalization.Language
   isExternal: true
   name: Language
@@ -1572,9 +1308,6 @@ references:
   name: UpdateSettings
   nameWithType: IProject.UpdateSettings
   fullName: Sdl.ProjectAutomation.Core.IProject.UpdateSettings
-- uid: System.ArgumentNullException
-  commentId: T:System.ArgumentNullException
-  isExternal: true
 - uid: Sdl.ProjectAutomation.Core.IProject.GetProjectStatistics*
   commentId: Overload:Sdl.ProjectAutomation.Core.IProject.GetProjectStatistics
   isExternal: true
@@ -2227,9 +1960,3 @@ references:
   name: RemoveBilingualReferenceFile
   nameWithType: IProject.RemoveBilingualReferenceFile
   fullName: Sdl.ProjectAutomation.Core.IProject.RemoveBilingualReferenceFile
-- uid: Sdl.ProjectAutomation.Core.IProject.Save*
-  commentId: Overload:Sdl.ProjectAutomation.Core.IProject.Save
-  isExternal: true
-  name: Save
-  nameWithType: IProject.Save
-  fullName: Sdl.ProjectAutomation.Core.IProject.Save

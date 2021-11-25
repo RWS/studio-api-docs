@@ -24,7 +24,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory.EditScripts
-  summary: "\nRenames a field or a field&apos;s picklist values. System fields cannot be renamed. \nThe subsequent processor needs to \nknow how to handle renamed fields - i.e. an importer would need to be allowed to add\nnew fields on-the-fly unless the TM is already set up. If fields or picklist values are renamed, \nin-place editing in a UI may fail unless the renamed objects are already defined in the TM&apos;s setup.\n<p>\nIf a field is renamed but a value with that renamed\nfield value already exists, the original field value will be dropped. Note that the \nfield type will remain as is.\n</p>\n<p>\nThe action can also be used to rename picklist values. If the <xref href=\"Sdl.LanguagePlatform.TranslationMemory.EditScripts.EditActionRenameField.PicklistValueMap\" data-throw-if-not-resolved=\"false\"></xref>\nis non-null, then that mapping will be applied to the values of picklist fields. If you only\nwant to rename the picklist values, but not the field itself, set <xref href=\"Sdl.LanguagePlatform.TranslationMemory.EditScripts.EditActionRenameField.ToName\" data-throw-if-not-resolved=\"false\"></xref> to the\nsame value as <xref href=\"Sdl.LanguagePlatform.TranslationMemory.EditScripts.EditActionRenameField.FromName\" data-throw-if-not-resolved=\"false\"></xref>.\n</p>\n"
   syntax:
     content: 'public class EditActionRenameField : EditAction'
     content.vb: >-
@@ -64,16 +63,13 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory.EditScripts
-  summary: "\nInitializes a new instance with the specified values.\n"
   syntax:
     content: public EditActionRenameField(string fromName, string toName)
     parameters:
     - id: fromName
       type: System.String
-      description: The original field name
     - id: toName
       type: System.String
-      description: The new field name
     content.vb: Public Sub New(fromName As String, toName As String)
   overload: Sdl.LanguagePlatform.TranslationMemory.EditScripts.EditActionRenameField.#ctor*
   modifiers.csharp:
@@ -97,26 +93,15 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory.EditScripts
-  summary: "\nSee <xref href=\"Sdl.LanguagePlatform.TranslationMemory.EditScripts.EditAction.Validate(Sdl.LanguagePlatform.TranslationMemory.IFieldDefinitions%2cSystem.Boolean)\" data-throw-if-not-resolved=\"false\"></xref>\n"
   syntax:
     content: public override bool Validate(IFieldDefinitions fields, bool throwIfInvalid)
     parameters:
     - id: fields
       type: Sdl.LanguagePlatform.TranslationMemory.IFieldDefinitions
-      description: The field definitions to validate against.
     - id: throwIfInvalid
       type: System.Boolean
-      description: >-
-        If true, an exception will be thrown if invalid field names
-
-        or other issues are encountered. If false, the return value will be set to false without an exception
-
-        being thrown.
     return:
       type: System.Boolean
-      description: >-
-        <code>true</code> if the edit action is valid, given the provided field definitions, and <code>false</code>
-                    otherwise.
     content.vb: Public Overrides Function Validate(fields As IFieldDefinitions, throwIfInvalid As Boolean) As Boolean
   overridden: Sdl.LanguagePlatform.TranslationMemory.EditScripts.EditAction.Validate(Sdl.LanguagePlatform.TranslationMemory.IFieldDefinitions,System.Boolean)
   overload: Sdl.LanguagePlatform.TranslationMemory.EditScripts.EditActionRenameField.Validate*
@@ -143,16 +128,13 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory.EditScripts
-  summary: "\nSee <xref href=\"Sdl.LanguagePlatform.TranslationMemory.EditScripts.EditAction.Apply(Sdl.LanguagePlatform.TranslationMemory.TranslationUnit)\" data-throw-if-not-resolved=\"false\"></xref>\n"
   syntax:
     content: public override bool Apply(TranslationUnit tu)
     parameters:
     - id: tu
       type: Sdl.LanguagePlatform.TranslationMemory.TranslationUnit
-      description: The TU to apply the edit action to
     return:
       type: System.Boolean
-      description: <code>true</code> if a change was made to the TU, and <code>false</code> otherwise.
     content.vb: Public Overrides Function Apply(tu As TranslationUnit) As Boolean
   overridden: Sdl.LanguagePlatform.TranslationMemory.EditScripts.EditAction.Apply(Sdl.LanguagePlatform.TranslationMemory.TranslationUnit)
   overload: Sdl.LanguagePlatform.TranslationMemory.EditScripts.EditActionRenameField.Apply*
@@ -179,7 +161,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory.EditScripts
-  summary: "\nGets or sets the field name prior to the change.\n"
   syntax:
     content: public string FromName { get; set; }
     parameters: []
@@ -210,7 +191,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory.EditScripts
-  summary: "\nGets or sets the new field name. Cannot be a reserved field name (i.e. a system field).\n"
   syntax:
     content: public string ToName { get; set; }
     parameters: []
@@ -241,7 +221,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory.EditScripts
-  summary: "\nGets or sets a picklist value name mapping for picklist values. This will only be applied to picklist fields.\n"
   syntax:
     content: public Dictionary<string, string> PicklistValueMap { get; set; }
     parameters: []

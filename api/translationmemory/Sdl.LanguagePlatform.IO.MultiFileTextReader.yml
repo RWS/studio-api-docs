@@ -30,7 +30,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.IO
   namespace: Sdl.LanguagePlatform.IO
-  summary: "\nA text reader which virtually concatenates a number of text files and allows sequential reading from this file set.\n"
   syntax:
     content: 'public class MultiFileTextReader : TextReader, IDisposable'
     content.vb: >-
@@ -86,7 +85,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.IO
   namespace: Sdl.LanguagePlatform.IO
-  summary: "\nInstantiates a MultiFileTextReader which works on the specified set of files. The files are opened with BOM sniffing\ndefaulting to UTF8 encoding.\n"
   syntax:
     content: public MultiFileTextReader(params FileInfo[] files)
     parameters:
@@ -118,19 +116,15 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.IO
   namespace: Sdl.LanguagePlatform.IO
-  summary: "\nInstantiates a MultiFileTextReader which works on the files contained in the specified directory and its subdirectories.\n"
   syntax:
     content: public MultiFileTextReader(DirectoryInfo rootDirectory, string fileFilter, bool recurse)
     parameters:
     - id: rootDirectory
       type: System.IO.DirectoryInfo
-      description: The directory in which to search for applicable files.
     - id: fileFilter
       type: System.String
-      description: 'If non-null, only files which match the filter are added to the file set (see System.IO.DirectoryInfo.GetFiles()). '
     - id: recurse
       type: System.Boolean
-      description: If true, subdirectories are scanned for matching false. Otherwise, only files in the specified root directory are considered.
     content.vb: Public Sub New(rootDirectory As DirectoryInfo, fileFilter As String, recurse As Boolean)
   overload: Sdl.LanguagePlatform.IO.MultiFileTextReader.#ctor*
   modifiers.csharp:
@@ -154,13 +148,11 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.IO
   namespace: Sdl.LanguagePlatform.IO
-  summary: "\nInstantiates a MultiFileTextReader which works on the files or directories passed as the parameter. Directories\nare recursed into, files are opened UTF8 with BOM sniffing.\n"
   syntax:
     content: public MultiFileTextReader(params string[] filesOrDirectories)
     parameters:
     - id: filesOrDirectories
       type: System.String[]
-      description: The set of file names or directory names to work on
     content.vb: Public Sub New(ParamArray filesOrDirectories As String())
   overload: Sdl.LanguagePlatform.IO.MultiFileTextReader.#ctor*
   nameWithType.vb: MultiFileTextReader.MultiFileTextReader(String())
@@ -187,12 +179,10 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.IO
   namespace: Sdl.LanguagePlatform.IO
-  summary: "\nNot implemented.\n"
   syntax:
     content: public override int Peek()
     return:
       type: System.Int32
-      description: Always throws exception.
     content.vb: Public Overrides Function Peek As Integer
   overridden: System.IO.TextReader.Peek
   overload: Sdl.LanguagePlatform.IO.MultiFileTextReader.Peek*
@@ -219,12 +209,10 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.IO
   namespace: Sdl.LanguagePlatform.IO
-  summary: "\nReads the next character from the set of input files, advances the current file as necessary.\n"
   syntax:
     content: public override int Read()
     return:
       type: System.Int32
-      description: The next input character or -1 if EOF (of the concatenation) is reached.
     content.vb: Public Overrides Function Read As Integer
   overridden: System.IO.TextReader.Read
   overload: Sdl.LanguagePlatform.IO.MultiFileTextReader.Read*
@@ -251,22 +239,17 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.IO
   namespace: Sdl.LanguagePlatform.IO
-  summary: "\nReads a block of characters from the virtual concatenation of text files.\n"
   syntax:
     content: public override int Read(char[] buffer, int index, int count)
     parameters:
     - id: buffer
       type: System.Char[]
-      description: The buffer to store the data in (see TextReader.Read())
     - id: index
       type: System.Int32
-      description: The index to start storing characters in the buffer.
     - id: count
       type: System.Int32
-      description: The maximum number of characters to read
     return:
       type: System.Int32
-      description: 0 on EOF, or the number of characters read which may be 0 &lt; n &lt;= count
     content.vb: Public Overrides Function Read(buffer As Char(), index As Integer, count As Integer) As Integer
   overridden: System.IO.TextReader.Read(System.Char[],System.Int32,System.Int32)
   overload: Sdl.LanguagePlatform.IO.MultiFileTextReader.Read*
@@ -296,22 +279,17 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.IO
   namespace: Sdl.LanguagePlatform.IO
-  summary: "\nReads a block of characters from the virtual concatenation of text files.\n"
   syntax:
     content: public override int ReadBlock(char[] buffer, int index, int count)
     parameters:
     - id: buffer
       type: System.Char[]
-      description: The buffer to store the data in (see TextReader.Read())
     - id: index
       type: System.Int32
-      description: The index to start storing characters in the buffer
     - id: count
       type: System.Int32
-      description: The number of characters to read
     return:
       type: System.Int32
-      description: "The number of characters read. Unlike Read(buffer, index, count), this method\nwill always attempt to read count characters and will automatically advance to the next file \nif the current file does not contain enough data.\n"
     content.vb: Public Overrides Function ReadBlock(buffer As Char(), index As Integer, count As Integer) As Integer
   overridden: System.IO.TextReader.ReadBlock(System.Char[],System.Int32,System.Int32)
   overload: Sdl.LanguagePlatform.IO.MultiFileTextReader.ReadBlock*
@@ -341,7 +319,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.IO
   namespace: Sdl.LanguagePlatform.IO
-  summary: "\nReads the next line of input from the concatenation of text files.\n"
   syntax:
     content: public override string ReadLine()
     return:
@@ -372,12 +349,10 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.IO
   namespace: Sdl.LanguagePlatform.IO
-  summary: "\nNot implemented.\n"
   syntax:
     content: public override string ReadToEnd()
     return:
       type: System.String
-      description: Always throws exception.
     content.vb: Public Overrides Function ReadToEnd As String
   overridden: System.IO.TextReader.ReadToEnd
   overload: Sdl.LanguagePlatform.IO.MultiFileTextReader.ReadToEnd*
@@ -404,7 +379,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.IO
   namespace: Sdl.LanguagePlatform.IO
-  summary: "\nCloses the overall file set. An attempt to read more data will lead to an exception.\n"
   syntax:
     content: public override void Close()
     content.vb: Public Overrides Sub Close
@@ -459,7 +433,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.IO
   namespace: Sdl.LanguagePlatform.IO
-  summary: "\nAllows access to the FileInfo of the currently worked-on file. If null, EOF has been reached.\n"
   syntax:
     content: public FileInfo CurrentFile { get; }
     parameters: []

@@ -22,7 +22,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\nDefines the interface for auto-localizable tokens. Localizable tokens have a value, and \ntheir surface representation (&quot;text&quot;) can be automatically converted into a target culture\nrepresentation, given the token&apos;s value and the target culture. \n"
   syntax:
     content: public interface ILocalizableToken
     content.vb: Public Interface ILocalizableToken
@@ -49,19 +48,15 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\nAuto-localizes the token according to the settings of the specified target culture \nand the provided auto-localization settings. The text of the token will be changed, \nbut not the values.\n<p>\nFor some token types, special <xref href=\"Sdl.LanguagePlatform.Core.Tokenization.AutoLocalizationSettings\" data-throw-if-not-resolved=\"false\"></xref> will be used, if provided.\n</p>\n"
   syntax:
     content: bool Localize(CultureInfo culture, AutoLocalizationSettings autoLocalizationSettings)
     parameters:
     - id: culture
       type: System.Globalization.CultureInfo
-      description: The target culture
     - id: autoLocalizationSettings
       type: Sdl.LanguagePlatform.Core.Tokenization.AutoLocalizationSettings
-      description: "Contains the <xref href=\"Sdl.LanguagePlatform.Core.Tokenization.AutoLocalizationSettings\" data-throw-if-not-resolved=\"false\"></xref> to use for some token types. May be null, \nin which case default settings will be used."
     return:
       type: System.Boolean
-      description: <code>true</code> if the token text has been changed, and <code>false</code> otherwise
     content.vb: Function Localize(culture As CultureInfo, autoLocalizationSettings As AutoLocalizationSettings) As Boolean
   overload: Sdl.LanguagePlatform.Core.Tokenization.ILocalizableToken.Localize*
 - uid: Sdl.LanguagePlatform.Core.Tokenization.ILocalizableToken.Localize(System.Globalization.CultureInfo,Sdl.LanguagePlatform.Core.Tokenization.AutoLocalizationSettings,Sdl.LanguagePlatform.Core.Tokenization.ILocalizableToken,System.Boolean)
@@ -81,28 +76,19 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\nAuto-localizes the token according to the settings of the specified target culture \nand the provided auto-localization settings. The text of the token will be changed, \nbut not the values.\n<p>\nFor some token types, special <xref href=\"Sdl.LanguagePlatform.Core.Tokenization.AutoLocalizationSettings\" data-throw-if-not-resolved=\"false\"></xref> will be used, if provided.\n</p>\n"
   syntax:
     content: bool Localize(CultureInfo culture, AutoLocalizationSettings autoLocalizationSettings, ILocalizableToken originalMemoryToken, bool adjustCasing)
     parameters:
     - id: culture
       type: System.Globalization.CultureInfo
-      description: The target culture
     - id: autoLocalizationSettings
       type: Sdl.LanguagePlatform.Core.Tokenization.AutoLocalizationSettings
-      description: "Contains the <xref href=\"Sdl.LanguagePlatform.Core.Tokenization.AutoLocalizationSettings\" data-throw-if-not-resolved=\"false\"></xref> to use for some token types. May be null, \nin which case default settings will be used."
     - id: originalMemoryToken
       type: Sdl.LanguagePlatform.Core.Tokenization.ILocalizableToken
-      description: "The original memory token. Some auto-localization settings will \nbe derived from the token, if provided."
     - id: adjustCasing
       type: System.Boolean
-      description: >-
-        If true, it is assumed that the token is in segment-initial position. Then, casing
-
-        will be adjusted if the original memory token is supplied as well.
     return:
       type: System.Boolean
-      description: <code>true</code> if the token text has been changed, and <code>false</code> otherwise
     content.vb: Function Localize(culture As CultureInfo, autoLocalizationSettings As AutoLocalizationSettings, originalMemoryToken As ILocalizableToken, adjustCasing As Boolean) As Boolean
   overload: Sdl.LanguagePlatform.Core.Tokenization.ILocalizableToken.Localize*
 - uid: Sdl.LanguagePlatform.Core.Tokenization.ILocalizableToken.SetValue(Sdl.LanguagePlatform.Core.Tokenization.Token,System.Boolean)
@@ -122,22 +108,15 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\nOverwrites the current token&apos;s value with the value from <code data-dev-comment-type=\"paramref\" class=\"paramref\">blueprint</code>, which\nalso must be a <xref href=\"Sdl.LanguagePlatform.Core.Tokenization.DateTimeToken\" data-throw-if-not-resolved=\"false\"></xref>. Note that only the value and the type are\noverwritten, not the textual representation. \n"
   syntax:
     content: bool SetValue(Token blueprint, bool keepNumericSeparators)
     parameters:
     - id: blueprint
       type: Sdl.LanguagePlatform.Core.Tokenization.Token
-      description: The token to take the value from
     - id: keepNumericSeparators
       type: System.Boolean
-      description: >-
-        Applicable to numeric (number and measurement) tokens only: if true, do not
-
-        override the original group and decimal separators.
     return:
       type: System.Boolean
-      description: A flag indicating whether the token&apos;s value or type were changed.
     content.vb: Function SetValue(blueprint As Token, keepNumericSeparators As Boolean) As Boolean
   overload: Sdl.LanguagePlatform.Core.Tokenization.ILocalizableToken.SetValue*
 - uid: Sdl.LanguagePlatform.Core.Tokenization.ILocalizableToken.TokenizationContext
@@ -157,7 +136,6 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.Core
   namespace: Sdl.LanguagePlatform.Core.Tokenization
-  summary: "\nThe <xref href=\"Sdl.LanguagePlatform.Core.Tokenization.ILocalizableToken.TokenizationContext\" data-throw-if-not-resolved=\"false\"></xref> in which to apply localization etc.\n"
   syntax:
     content: TokenizationContext TokenizationContext { get; set; }
     parameters: []
