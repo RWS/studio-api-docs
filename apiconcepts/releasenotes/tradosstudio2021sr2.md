@@ -83,11 +83,11 @@ LanguageResourceBundleCollection bundles = provider.LanguageResourceBundles
 
 ## Files Controller
 
-* Added a new property [AreAllSelectedTaskFilesAssignedToCurrentUser]() which returns true if all the selected files are assigned to the current user.
+* Added a new property [AreAllSelectedTaskFilesAssignedToCurrentUser](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.FilesController.yml#Sdl_TranslationStudioAutomation_IntegrationApi_FilesController_AreAllSelectedTaskFilesAssignedToCurrentUser) which returns true if all the selected files are assigned to the current user.
 
 ## IStudioDocument
 
-* Added new [IsDirty]() parameter that returns true if the document has unsaved changes.
+* Added new [IsDirty](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument.yml#Sdl_TranslationStudioAutomation_IntegrationApi_IStudioDocument_IsDirty) parameter that returns true if the document has unsaved changes.
 
 # WPF Styles API
 
