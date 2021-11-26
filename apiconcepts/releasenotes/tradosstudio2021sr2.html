@@ -1,0 +1,205 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Release Notes for Trados Studio 2021 SR2 </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Release Notes for Trados Studio 2021 SR2 ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="release-notes-for-varproductnamewithedition-sr2">Release Notes for Trados Studio 2021 SR2</h1>
+
+<h2 id="project-automation-api">Project Automation API</h2>
+<ul>
+<li><p>You can now check-in newly added files using the  <a href="../../api/projectautomation/Sdl.ProjectAutomation.FileBased.ServerOperations.ServerBasedProjectOperations.html#Sdl_ProjectAutomation_FileBased_ServerOperations_ServerBasedProjectOperations_UploadAndCheckinFiles_System_Guid___System_String_System_EventHandler_Sdl_ProjectAutomation_Core_ProgressEventArgs__">UploadAndCheckinFiles()</a> method in the new <a href="../../api/projectautomation/Sdl.ProjectAutomation.FileBased.ServerOperations.ServerBasedProjectOperations.html">SeverBasedProjectOperations</a> class.  \
+Example:</p>
+<pre><code class="lang-cs">
+var _sdlProject = new FileBasedProject(sdlProjectPath, gsUseWindowsAuthentication, gsUser, gsPassword);
+var tmp = _sdlProject.AddFiles(new[] {&quot;d:\\temp2.txt&quot;})[0];
+
+var serverBasedProjectOperations = new ServerBasedProjectOperations( _sdlProject);
+serverBasedProjectOperations .UploadAndCheckinFiles(new [] {tmp.Id}, &quot;Temp&quot;, (sender, args) =&gt; { });
+</code></pre></li>
+<li><p>Added CRUD operations for project reports in the <a href="api/projectautomation/Sdl.ProjectAutomation.FileBased.Reports.Operations.ProjectReportsOperations.yml">ProjectReportsOperations</a> class:  </p>
+<ul>
+<li><p>Added new <a href="../../api/projectautomation/Sdl.ProjectAutomation.FileBased.Reports.Operations.ProjectReportsOperations.html#Sdl_ProjectAutomation_FileBased_Reports_Operations_ProjectReportsOperations_AddReport_System_String_System_String_System_String_System_String_System_String_">AddReport()</a> method that allows you to add a custom report to a file based project. \
+Example:</p>
+<pre><code class="lang-cs">var addedReport = new ProjectReportsOperations(fileBasedProject)
+.AddReport(&quot;Sdl.ProjectApi.AutomaticTasks.Translate&quot;, &quot;Name&quot;, &quot;Description&quot;, &quot;de-De&quot;, &quot;&lt;xml&gt;&lt;/xml&gt;&quot;);
+</code></pre></li>
+<li><p>Added new <a href="../../api/projectautomation/Sdl.ProjectAutomation.FileBased.Reports.Operations.ProjectReportsOperations.html#Sdl_ProjectAutomation_FileBased_Reports_Operations_ProjectReportsOperations_AddReport_System_String_System_String_System_String_System_String_System_String_">GetProjectReports()</a> method that exposes the list of reports for a file based project. \
+Example: </p>
+<pre><code class="lang-cs">var reports = new ProjectReportOperations(fileBasedProject).GetProjectReports();
+</code></pre></li>
+<li>Added new <a href="../../api/projectautomation/Sdl.ProjectAutomation.FileBased.Reports.Operations.ProjectReportsOperations.html#Sdl_ProjectAutomation_FileBased_Reports_Operations_ProjectReportsOperations_UpdateReport_System_Guid_System_String_System_String_System_String_">UpdateReport()</a> method that allows you to change the name, description and content for a file based project. \
+Example:
+<code>cs
+new ProjectReportsOperations(fileBasedProject).UpdateReport(&quot;aa84193b-fd88-439c-8293-4ad0f9cfa8ec&quot;, &quot;Name&quot;, &quot;Description&quot;, &quot;&lt;xml&gt;&lt;/xml&gt;&quot;);</code></li>
+<li>Added new <a href="../../api/projectautomation/Sdl.ProjectAutomation.FileBased.Reports.Operations.ProjectReportsOperations.html#Sdl_ProjectAutomation_FileBased_Reports_Operations_ProjectReportsOperations_RemoveReports_System_Collections_Generic_List_System_Guid__">RemoveReports()</a> method that allows you to delete the list of reports for a file based project. \
+Example:
+<code>cs
+new ReportProjectOperations(fileBasedProject).RemoveReports(reports.Select(r =&gt; Guid.Parse(r.Id)).ToList());</code></li>
+</ul>
+</li>
+<li><p>You can now use the <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.IProject.html#Sdl_ProjectAutomation_Core_IProject_Save">Save()</a> method added to the <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.IProject.html">IProject</a> interface to avoid casting to <a href="../../api/projectautomation/Sdl.ProjectAutomation.FileBased.html#filebasedproject">FileBasedProject</a><br>Example: \
+  You can use </p>
+<pre><code class="lang-cs">SelectedProject.Save()
+</code></pre><p>  instead of </p>
+<pre><code class="lang-cs">if (SelectedProject is FileBasedProject fileBasedProject)
+{
+fileBasedProject.Save();
+}
+</code></pre></li>
+</ul>
+<h2 id="translation-memory-api">Translation Memory API</h2>
+<ul>
+<li>Added a new <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables.html">ISupportPlaceables</a> interface to the existing <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables.html">ITranslationMemory</a> and <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourcesTemplate.html">ILanguageResourceTemplates</a>  interfaces. \
+<code>ISupportPlaceables</code> contains two properties, <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables.html#Sdl_LanguagePlatform_TranslationMemoryApi_ISupportPlaceables_LanguageResourceBundles">LanguageResourceBundleCollection</a> and <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables.html#Sdl_LanguagePlatform_TranslationMemoryApi_ISupportPlaceables_Recognizers">BuiltInRecognizers</a> and is implemented by providers that support placeables. \
+Example:
+```cs
+public class CustomProvider : ISupportPlaceables</li>
+</ul>
+<p>var provider = new CustomProvider();</p>
+<p>BuiltinRecognizers recognizers = provider.Recognizers;</p>
+<p>LanguageResourceBundleCollection bundles = provider.LanguageResourceBundles
+ ```</p>
+<h2 id="licensing-app-support">Licensing App Support</h2>
+<ul>
+<li><p>The <a href="../../api/integration/Sdl.Common.Licensing.AppSupport.ProductLicenseManager.html#Sdl_Common_Licensing_AppSupport_ProductLicenseManager_Initialize_Sdl_Common_Licensing_AppSupport_Product_Microsoft_Extensions_Logging_ILoggerFactory_">ProductLicenseManager.Initialize()</a> method has a new overload which takes an <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.logging.iloggerfactory?view=dotnet-plat-ext-5.0">ILoggerFactory</a> as an extra parameter. This new parameter allows you to inject logging mechanisms into the API. \</p>
+<p>For more information see the <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.logging.abstractions?view=dotnet-plat-ext-5.0">Microsoft.Extensions.Logging.Abstraction</a> namespace. \</p>
+<p>You can get the NuGet package <a href="https://www.nuget.org/packages/Microsoft.Extensions.Logging.Abstractions/">here</a> or get clients already available as NuGet packages <a href="https://www.nuget.org/packages/NLog.Extensions.Logging/5.0.0-preview.1">here</a>.</p>
+</li>
+</ul>
+<h2 id="files-controller">Files Controller</h2>
+<ul>
+<li>Added a new property <a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.FilesController.html#Sdl_TranslationStudioAutomation_IntegrationApi_FilesController_AreAllSelectedTaskFilesAssignedToCurrentUser">AreAllSelectedTaskFilesAssignedToCurrentUser</a> which returns true if all the selected files are assigned to the current user.</li>
+</ul>
+<h2 id="istudiodocument">IStudioDocument</h2>
+<ul>
+<li>Added new <a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument.html#Sdl_TranslationStudioAutomation_IntegrationApi_IStudioDocument_IsDirty">IsDirty</a> parameter that returns true if the document has unsaved changes.</li>
+</ul>
+<h1 id="wpf-styles-api">WPF Styles API</h1>
+<ul>
+<li>Trados Studio now exposes its own custom progress ring with an RWS look and feel. As a result, the <code>Sdl.ProgressRing.Asterisk</code> style has been removed for the MahApps Metro ProgressRing control. </li>
+</ul>
+<h2 id="desktopextensions">Desktop.Extensions</h2>
+<ul>
+<li>Added new extension points. For more information see <a href="../integration/create_a_trados_studio_commandLineProcessor.html">Trados Studio Command line processor</a>.</li>
+</ul>
+<h2 id="languagecloudidentityapi">LanguageCloud.IdentityApi</h2>
+<ul>
+<li>The <code>APIKey</code> has been marked obsolete since it is no longer used when logging in to Language Cloud from Trados Studio.</li>
+</ul>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/main/apiconcepts/releasenotes/tradosstudio2021sr2.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>
