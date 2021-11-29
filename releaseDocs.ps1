@@ -15,6 +15,12 @@ write-host "Cloning the repo $remote_repo with the gh-pages branch"
 git clone $remote_repo --branch gh-pages $TEMP_REPO_DIR
 Set-Location $TEMP_REPO_DIR
 git checkout -b gh-pages_temp
+$items = ls
+foreach ($item in $items){
+ if (($item -ne "15.2") -and ($item -ne "16.1"){
+  git -rm $item -r
+ }
+}
 write-host "Copy documentation into the repo"
 
 Copy-Item "$SOURCE_DIR\_site\*" .\ -Recurse -force
