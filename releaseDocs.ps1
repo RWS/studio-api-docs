@@ -17,7 +17,7 @@ Set-Location $TEMP_REPO_DIR
 git checkout -b gh-pages_temp
 $items = ls
 foreach ($item in $items){
- if (($item -ne "15.2") -and ($item -ne "16.1"){
+ if (($item -ne "15.2") -and ($item -ne "16.1")){
   git -rm $item -r
  }
 }
