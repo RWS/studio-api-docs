@@ -1,6 +1,6 @@
 Accessing Translation Memories
 =====
-TMs can be accessed in two ways: either by opening a TM file stored on a hard disk or by connecting to a TM Server.
+TMs can be accessed in two ways: either by opening a TM file stored on a hard disk or by connecting to a TM Server over LAN or WAN.
 
 File-based TMs
 ----
@@ -11,8 +11,9 @@ When accessing a file-based TM users open an *.sdltm file, which is based on SQL
 Server-based TMs
 ----
 Server TMs are physically stored in a database system such as Microsoft SQL Server. 
-A user who wants to access a server TM, requires access to a Trados GroupShare server, the server address, the port, and the login credentials.
+The TM Server middleware negotiates the access between the client application and the server-based TMs. The TM Server software can be installed on the same machine as the database system or on a separate server computer. Server-based TMs can be accessed in a LAN through TCP or through the Web using HTTP or HTTPS.
 
+A user who wants to access a server TM, requires the server address, the port, and a valid TM server user.
 <img style="display:block; " src="images/Tm-ServerLogin.jpg"/>
 
 See Also
