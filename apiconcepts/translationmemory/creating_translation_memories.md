@@ -1,6 +1,6 @@
 Creating Translation Memories
 ====
-Translation memories (TMs) are databases that store bilingual content as source and target sentence pairs. These sentence pairs are called translation units (TUs). When a user needs to translate a sentence that is already stored in the TM, the translation can be retrieved from the TM database. That way, the same sentence does not have to be translated twice. A TM recognizes identical sentences (exact matches) and similar sentences (fuzzy matches). Note that instead of sentence usually the term segment is used in the context of TMs.
+Translation memories (TMs) are databases that store bilingual content as source and target sentence pairs. These sentence pairs are called translation units (TUs). When a user needs to translate a sentence that is already stored in the TM, the translation can be retrieved from the TM database. That way, the same sentence does not have to be translated twice. A TM recognizes identical sentences (exact matches) and similar sentences (fuzzy matches). Note that instead of sentence, usually the term segment is used in the context of TMs.
 
 Apart from the linguistic content, TMs also store formatting information (e.g. bold, italics, underline) as well as the information on whether a given segment occurred in a headline, paragraph, footnote, table cell, etc.
 
