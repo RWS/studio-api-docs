@@ -14,6 +14,15 @@ $remote_repo="https://github-actions:${TOKEN}@github.com/sdl/studio-api-docs.git
 write-host "Cloning the repo $remote_repo with the gh-pages branch"
 git clone $remote_repo --branch gh-pages $TEMP_REPO_DIR
 cd $TEMP_REPO_DIR
+
+#delete gh-pages_temp branch if already exist 
+$checkBranch =  git show-ref origin/gh-pages_temp
+Write-Output($checkBranch)
+if($checkBranch){
+	Write-Output("delete existing branch gh-pages_temp")
+	git push origin --delete gh-pages_temp
+}
+
 git checkout -b gh-pages_temp
 git rm  ".\16.1\*" -r
 md "16.1"
