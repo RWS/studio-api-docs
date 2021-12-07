@@ -82,87 +82,65 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="release-notes-for-varproductnamewithedition-sr2">Release Notes for Trados Studio 2021 SR2</h1>
 
-<h2 id="project-automation-api">Project Automation API</h2>
-<ul>
-<li><p>You can now check-in newly added files using the  <a href="../../api/projectautomation/Sdl.ProjectAutomation.FileBased.ServerOperations.ServerBasedProjectOperations.html#Sdl_ProjectAutomation_FileBased_ServerOperations_ServerBasedProjectOperations_UploadAndCheckinFiles_System_Guid___System_String_System_EventHandler_Sdl_ProjectAutomation_Core_ProgressEventArgs__">UploadAndCheckinFiles()</a> method in the new <a href="../../api/projectautomation/Sdl.ProjectAutomation.FileBased.ServerOperations.ServerBasedProjectOperations.html">SeverBasedProjectOperations</a> class.  \
-Example:</p>
+<h1 id="project-automation-api">Project Automation API</h1>
+<h3 id="ability-to-check-in-files">Ability to check in files</h3>
+<p>You can now check-in newly added files using the  <a href="../../api/projectautomation/Sdl.ProjectAutomation.FileBased.ServerOperations.ServerBasedProjectOperations.html#Sdl_ProjectAutomation_FileBased_ServerOperations_ServerBasedProjectOperations_UploadAndCheckinFiles_System_Guid___System_String_System_EventHandler_Sdl_ProjectAutomation_Core_ProgressEventArgs__">UploadAndCheckinFiles()</a> method in the new <a href="../../api/projectautomation/Sdl.ProjectAutomation.FileBased.ServerOperations.ServerBasedProjectOperations.html">SeverBasedProjectOperations</a> class.  </p>
+<p>  Example:</p>
 <pre><code class="lang-cs">
-var _sdlProject = new FileBasedProject(sdlProjectPath, gsUseWindowsAuthentication, gsUser, gsPassword);
-var tmp = _sdlProject.AddFiles(new[] {&quot;d:\\temp2.txt&quot;})[0];
+  var _sdlProject = new FileBasedProject(sdlProjectPath, gsUseWindowsAuthentication, gsUser, gsPassword);
+  var tmp = _sdlProject.AddFiles(new[] {&quot;d:\\temp2.txt&quot;})[0];
 
-var serverBasedProjectOperations = new ServerBasedProjectOperations( _sdlProject);
-serverBasedProjectOperations .UploadAndCheckinFiles(new [] {tmp.Id}, &quot;Temp&quot;, (sender, args) =&gt; { });
-</code></pre></li>
-<li><p>Added CRUD operations for project reports in the <a href="api/projectautomation/Sdl.ProjectAutomation.FileBased.Reports.Operations.ProjectReportsOperations.yml">ProjectReportsOperations</a> class:  </p>
-<ul>
-<li><p>Added new <a href="../../api/projectautomation/Sdl.ProjectAutomation.FileBased.Reports.Operations.ProjectReportsOperations.html#Sdl_ProjectAutomation_FileBased_Reports_Operations_ProjectReportsOperations_AddReport_System_String_System_String_System_String_System_String_System_String_">AddReport()</a> method that allows you to add a custom report to a file based project. \
-Example:</p>
+  var serverBasedProjectOperations = new ServerBasedProjectOperations( _sdlProject);
+  serverBasedProjectOperations .UploadAndCheckinFiles(new [] {tmp.Id}, &quot;Temp&quot;, (sender, args) =&gt; { });
+</code></pre><h3 id="ability-to-perform-crud-operations-in-the-projectreportsoperationsapiprojectautomationsdlprojectautomationfilebasedreportsoperationsprojectreportsoperationsyml-class">Ability to perform CRUD operations in the <a href="../../api/projectautomation/Sdl.ProjectAutomation.FileBased.Reports.Operations.ProjectReportsOperations.html">ProjectReportsOperations</a> class:</h3>
+<p>Added new <a href="../../api/projectautomation/Sdl.ProjectAutomation.FileBased.Reports.Operations.ProjectReportsOperations.html#Sdl_ProjectAutomation_FileBased_Reports_Operations_ProjectReportsOperations_AddReport_System_String_System_String_System_String_System_String_System_String_">AddReport()</a> method that allows you to add a custom report to a file based project. </p>
+<p>  Example:</p>
 <pre><code class="lang-cs">var addedReport = new ProjectReportsOperations(fileBasedProject)
 .AddReport(&quot;Sdl.ProjectApi.AutomaticTasks.Translate&quot;, &quot;Name&quot;, &quot;Description&quot;, &quot;de-De&quot;, &quot;&lt;xml&gt;&lt;/xml&gt;&quot;);
-</code></pre></li>
-<li><p>Added new <a href="../../api/projectautomation/Sdl.ProjectAutomation.FileBased.Reports.Operations.ProjectReportsOperations.html#Sdl_ProjectAutomation_FileBased_Reports_Operations_ProjectReportsOperations_AddReport_System_String_System_String_System_String_System_String_System_String_">GetProjectReports()</a> method that exposes the list of reports for a file based project. \
-Example: </p>
+</code></pre><p>Added new <a href="../../api/projectautomation/Sdl.ProjectAutomation.FileBased.Reports.Operations.ProjectReportsOperations.html#Sdl_ProjectAutomation_FileBased_Reports_Operations_ProjectReportsOperations_GetProjectReports">GetProjectReports()</a> method that exposes the list of reports for a file based project. </p>
+<p>  Example: </p>
 <pre><code class="lang-cs">var reports = new ProjectReportOperations(fileBasedProject).GetProjectReports();
-</code></pre></li>
-<li>Added new <a href="../../api/projectautomation/Sdl.ProjectAutomation.FileBased.Reports.Operations.ProjectReportsOperations.html#Sdl_ProjectAutomation_FileBased_Reports_Operations_ProjectReportsOperations_UpdateReport_System_Guid_System_String_System_String_System_String_">UpdateReport()</a> method that allows you to change the name, description and content for a file based project. \
-Example:
-<code>cs
-new ProjectReportsOperations(fileBasedProject).UpdateReport(&quot;aa84193b-fd88-439c-8293-4ad0f9cfa8ec&quot;, &quot;Name&quot;, &quot;Description&quot;, &quot;&lt;xml&gt;&lt;/xml&gt;&quot;);</code></li>
-<li>Added new <a href="../../api/projectautomation/Sdl.ProjectAutomation.FileBased.Reports.Operations.ProjectReportsOperations.html#Sdl_ProjectAutomation_FileBased_Reports_Operations_ProjectReportsOperations_RemoveReports_System_Collections_Generic_List_System_Guid__">RemoveReports()</a> method that allows you to delete the list of reports for a file based project. \
-Example:
-<code>cs
-new ReportProjectOperations(fileBasedProject).RemoveReports(reports.Select(r =&gt; Guid.Parse(r.Id)).ToList());</code></li>
-</ul>
-</li>
-<li><p>You can now use the <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.IProject.html#Sdl_ProjectAutomation_Core_IProject_Save">Save()</a> method added to the <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.IProject.html">IProject</a> interface to avoid casting to <a href="../../api/projectautomation/Sdl.ProjectAutomation.FileBased.html#filebasedproject">FileBasedProject</a><br>Example: \
-  You can use </p>
-<pre><code class="lang-cs">SelectedProject.Save()
-</code></pre><p>  instead of </p>
+</code></pre><p>Added new <a href="../../api/projectautomation/Sdl.ProjectAutomation.FileBased.Reports.Operations.ProjectReportsOperations.html#Sdl_ProjectAutomation_FileBased_Reports_Operations_ProjectReportsOperations_UpdateReport_System_Guid_System_String_System_String_System_String_">UpdateReport()</a> method that allows you to change the name, description and content for a file based project. </p>
+<p>  Example:</p>
+<pre><code class="lang-cs">new ProjectReportsOperations(fileBasedProject).UpdateReport(&quot;aa84193b-fd88-439c-8293-4ad0f9cfa8ec&quot;, &quot;Name&quot;, &quot;Description&quot;, &quot;&lt;xml&gt;&lt;/xml&gt;&quot;);
+</code></pre><p>Added new <a href="../../api/projectautomation/Sdl.ProjectAutomation.FileBased.Reports.Operations.ProjectReportsOperations.html#Sdl_ProjectAutomation_FileBased_Reports_Operations_ProjectReportsOperations_RemoveReports_System_Collections_Generic_List_System_Guid__">RemoveReports()</a> method that allows you to delete the list of reports for a file based project. </p>
+<p>  Example:</p>
+<pre><code class="lang-cs">new ReportProjectOperations(fileBasedProject).RemoveReports(reports.Select(r =&gt; Guid.Parse(r.Id)).ToList());
+</code></pre><h3 id="ability-to-save-projects-without-casting-to-filebasedproject">Ability to save projects without casting to FileBasedProject</h3>
+<p>You can now use the <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.IProject.html#Sdl_ProjectAutomation_Core_IProject_Save">Save()</a> method added to the <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.IProject.html">IProject</a> interface to avoid casting to <a href="../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.html">FileBasedProject</a>  </p>
+<p>Example: </p>
+<p>You can use</p>
+<pre><code class="lang-cs">  SelectedProject.Save()
+</code></pre><p>instead of </p>
 <pre><code class="lang-cs">if (SelectedProject is FileBasedProject fileBasedProject)
 {
 fileBasedProject.Save();
 }
-</code></pre></li>
-</ul>
-<h2 id="translation-memory-api">Translation Memory API</h2>
-<ul>
-<li>Added a new <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables.html">ISupportPlaceables</a> interface to the existing <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables.html">ITranslationMemory</a> and <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourcesTemplate.html">ILanguageResourceTemplates</a>  interfaces. \
-<code>ISupportPlaceables</code> contains two properties, <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables.html#Sdl_LanguagePlatform_TranslationMemoryApi_ISupportPlaceables_LanguageResourceBundles">LanguageResourceBundleCollection</a> and <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables.html#Sdl_LanguagePlatform_TranslationMemoryApi_ISupportPlaceables_Recognizers">BuiltInRecognizers</a> and is implemented by providers that support placeables. \
-Example:
-```cs
-public class CustomProvider : ISupportPlaceables</li>
-</ul>
-<p>var provider = new CustomProvider();</p>
-<p>BuiltinRecognizers recognizers = provider.Recognizers;</p>
-<p>LanguageResourceBundleCollection bundles = provider.LanguageResourceBundles
- ```</p>
-<h2 id="licensing-app-support">Licensing App Support</h2>
-<ul>
-<li><p>The <a href="../../api/integration/Sdl.Common.Licensing.AppSupport.ProductLicenseManager.html#Sdl_Common_Licensing_AppSupport_ProductLicenseManager_Initialize_Sdl_Common_Licensing_AppSupport_Product_Microsoft_Extensions_Logging_ILoggerFactory_">ProductLicenseManager.Initialize()</a> method has a new overload which takes an <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.logging.iloggerfactory?view=dotnet-plat-ext-5.0">ILoggerFactory</a> as an extra parameter. This new parameter allows you to inject logging mechanisms into the API. \</p>
-<p>For more information see the <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.logging.abstractions?view=dotnet-plat-ext-5.0">Microsoft.Extensions.Logging.Abstraction</a> namespace. \</p>
+</code></pre><h1 id="translation-memory-api">Translation Memory API</h1>
+<p>Added a new <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables.html">ISupportPlaceables</a> interface to the existing <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.html">ITranslationMemory</a> and <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourcesTemplate.html">ILanguageResourceTemplates</a>  interfaces.</p>
+<p><code>ISupportPlaceables</code> contains two properties, <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables.html#Sdl_LanguagePlatform_TranslationMemoryApi_ISupportPlaceables_LanguageResourceBundles">LanguageResourceBundleCollection</a> and <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ISupportPlaceables.html#Sdl_LanguagePlatform_TranslationMemoryApi_ISupportPlaceables_Recognizers">BuiltInRecognizers</a> and is implemented by providers that support placeables. </p>
+<p>Example:</p>
+<pre><code class="lang-cs">public class CustomProvider : ISupportPlaceables
+
+var provider = new CustomProvider();
+
+BuiltinRecognizers recognizers = provider.Recognizers;
+
+LanguageResourceBundleCollection bundles = provider.LanguageResourceBundles
+</code></pre><h1 id="licensing-app-support">Licensing App Support</h1>
+<p>The <a href="../../api/integration/Sdl.Common.Licensing.AppSupport.ProductLicenseManager.html#Sdl_Common_Licensing_AppSupport_ProductLicenseManager_Initialize_Sdl_Common_Licensing_AppSupport_Product_Microsoft_Extensions_Logging_ILoggerFactory_">ProductLicenseManager.Initialize()</a> method has a new overload which takes an <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.logging.iloggerfactory?view=dotnet-plat-ext-5.0">ILoggerFactory</a> as an extra parameter. This new parameter allows you to inject logging mechanisms into the API. </p>
+<p>For more information see the <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.logging.abstractions?view=dotnet-plat-ext-5.0">Microsoft.Extensions.Logging.Abstraction</a> namespace. </p>
 <p>You can get the NuGet package <a href="https://www.nuget.org/packages/Microsoft.Extensions.Logging.Abstractions/">here</a> or get clients already available as NuGet packages <a href="https://www.nuget.org/packages/NLog.Extensions.Logging/5.0.0-preview.1">here</a>.</p>
-</li>
-</ul>
-<h2 id="files-controller">Files Controller</h2>
-<ul>
-<li>Added a new property <a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.FilesController.html#Sdl_TranslationStudioAutomation_IntegrationApi_FilesController_AreAllSelectedTaskFilesAssignedToCurrentUser">AreAllSelectedTaskFilesAssignedToCurrentUser</a> which returns true if all the selected files are assigned to the current user.</li>
-</ul>
-<h2 id="istudiodocument">IStudioDocument</h2>
-<ul>
-<li>Added new <a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument.html#Sdl_TranslationStudioAutomation_IntegrationApi_IStudioDocument_IsDirty">IsDirty</a> parameter that returns true if the document has unsaved changes.</li>
-</ul>
+<h1 id="files-controller">Files Controller</h1>
+<p>Added a new property <a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.FilesController.html#Sdl_TranslationStudioAutomation_IntegrationApi_FilesController_AreAllSelectedTaskFilesAssignedToCurrentUser">AreAllSelectedTaskFilesAssignedToCurrentUser</a> which returns true if all the selected files are assigned to the current user.</p>
+<h1 id="istudiodocument">IStudioDocument</h1>
+<p>Added new <a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument.html#Sdl_TranslationStudioAutomation_IntegrationApi_IStudioDocument_IsDirty">IsDirty</a> parameter that returns true if the document has unsaved changes.</p>
 <h1 id="wpf-styles-api">WPF Styles API</h1>
-<ul>
-<li>Trados Studio now exposes its own custom progress ring with an RWS look and feel. As a result, the <code>Sdl.ProgressRing.Asterisk</code> style has been removed for the MahApps Metro ProgressRing control. </li>
-</ul>
-<h2 id="desktopextensions">Desktop.Extensions</h2>
-<ul>
-<li>Added new extension points. For more information see <a href="../integration/create_a_trados_studio_commandLineProcessor.html">Trados Studio Command line processor</a>.</li>
-</ul>
-<h2 id="languagecloudidentityapi">LanguageCloud.IdentityApi</h2>
-<ul>
-<li>The <code>APIKey</code> has been marked obsolete since it is no longer used when logging in to Language Cloud from Trados Studio.</li>
-</ul>
+<p>Trados Studio now exposes its own custom progress ring with an RWS look and feel. As a result, the <code>Sdl.ProgressRing.Asterisk</code> style has been removed for the MahApps Metro ProgressRing control. </p>
+<h1 id="desktopextensions">Desktop.Extensions</h1>
+<p>Added new extension points. For more information see <a href="../integration/create_a_trados_studio_commandLineProcessor.html">Trados Studio Command line processor</a>.</p>
+<h1 id="languagecloudidentityapi">LanguageCloud.IdentityApi</h1>
+<p>The <code>APIKey</code> has been marked obsolete since it is no longer used when logging in to Language Cloud from Trados Studio.</p>
 </article>
           </div>
           
