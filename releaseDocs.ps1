@@ -13,6 +13,7 @@ $remote_repo="https://github-actions:${TOKEN}@github.com/sdl/studio-api-docs.git
 
 write-host "Cloning the repo $remote_repo with the gh-pages branch"
 git clone $remote_repo --branch gh-pages $TEMP_REPO_DIR
+Set-Location $TEMP_REPO_DIR
 
 #delete gh-pages_temp branch if already exist 
 $checkBranch =  git show-ref origin/gh-pages_temp
@@ -22,7 +23,6 @@ if($checkBranch){
 	git push origin --delete gh-pages_temp
 }
 
-Set-Location $TEMP_REPO_DIR
 git checkout -b gh-pages_temp
 $items = ls
 foreach ($item in $items){
