@@ -6,9 +6,9 @@ In this chapter you will learn how to properly set up a project for developing a
 Create the Project
 --
 
-After launching <Var:VisualStudioEdition> choose to create a new <Var:ProductName> Plug-in Project, and give it an appropriate name, e.g. Sdl.Sdk.FileTypeSupport.Samples.WordArtVerifier. The instructions for creating a <Var:ProductName> Plug-in Project are described in the **Plug-in Framework SDK** under **<Var:ProductName>** > **Building a Plug-in**
+After launching <Var:VisualStudioEdition> choose to create a new <Var:ProductName> Plug-in Project, and give it an appropriate name, e.g. Sdl.Sdk.FileTypeSupport.Samples.WordArtVerifier. The instructions for creating a <Var:ProductName> Plug-in Project are described in the [**Building a Plug-in**](\..\\..\articles\gettingstarted\building_a_plugin.md) article under the **Getting Started** section.
 
-A <Var:ProductName> Plug-in Project produces a Plug-in Package (* *.sdlplugin*). This needs to be manually deployed or copied to the <Var:ProductName> Plug-in Packages directory so that <Var:ProductName> can use the plug-in. See **Plug-in Framework SDK** under **<Var:ProductName>** > **Plug-in Deployment**.
+A <Var:ProductName> Plug-in Project produces a Plug-in Package (* *.sdlplugin*). This needs to be manually deployed or copied to the <Var:ProductName> Plug-in Packages directory so that <Var:ProductName> can use the plug-in. See the [**Plug-in Deployment**](\..\\..\articles\gettingstarted\plugin_deployment.md) article under the **Getting Started** section.
 
 Add the Required References
 --

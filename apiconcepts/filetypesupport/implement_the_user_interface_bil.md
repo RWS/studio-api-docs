@@ -6,7 +6,7 @@ In this step you will learn how to add a user interface to your plug-in, through
 Add a User Control
 --
 
-Implement the graphical user interface by adding a user control, which you can name e.g. **SettingsUI.cs**. This is the interface that users will see when configuring the file type plug-in in <Var:ProductName> through e.g. **Tools** > **Options** > **File Types**. Our simple bilingual verifier will implement two settings through with users can enable/disable the word count check and specify the maximum number of words. First, add a check box to the user control, which you call ```cb_CheckWordArt```.
+Implement the graphical user interface by adding a user control, which you can name e.g. **SettingsUI.cs**. This is the interface that users will see when configuring the file type plug-in in <Var:ProductName> through e.g. **File** > **Options** > **File Types**. Our simple bilingual verifier will implement two settings through with users can enable/disable the word count check and specify the maximum number of words. First, add a check box to the user control, which you call ```cb_CheckWordArt```.
 
 Furthermore, add a text field control element (named ```txt_MaxWordCount```) into which users can enter the maximum number of words allowed for WordArt objects at runtime. The default value should be 3.
 
