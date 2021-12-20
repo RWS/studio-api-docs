@@ -8,7 +8,7 @@ A file-based translation memory is a translation memory ([ITranslationMemory](..
 
 File-based translation memories are represented by the [FileBasedTranslationMemory](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.FileBasedTranslationMemory.yml) class, which in turn inherits from [AbstractLocalTranslationMemory](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.AbstractLocalTranslationMemory.yml), the base class for file-based and in-memory translation memories ([InMemoryTranslationMemory](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.InMemoryTranslationMemory.yml)).
 
-<img style="display:block; " src="images/FileBasedTranslationMemory.png"/>
+<img style="display:block; " src="images/Cd-FileBasedTranslationMemory.png"/>
 
 Password Protection
 -----

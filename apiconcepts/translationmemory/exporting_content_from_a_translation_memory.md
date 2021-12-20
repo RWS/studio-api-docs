@@ -6,12 +6,12 @@ Export
 -----
 Any translation memory allows exporting translation units to a bilingual TMX file.
 
-The export functionality is exposed by the [TranslationMemoryExporter](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryExporter.yml) class. In order to export a translation memory, create a [TranslationMemoryExporter](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryExporter.yml) object and specify the [ITranslationMemoryLanguageDirection](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemoryLanguageDirection.yml) to export from and the TMX file to export to. Optionally specify a filter ([FilterExpression](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemory.FilterExpression.yml)), see [Working with Filters](working_with_filters.md)) and subsequently call [Export](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryExporter.yml#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationMemoryExporter_Export_System_String_System_Boolean_).
+The export functionality is exposed by the [TranslationMemoryExporter](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryExporter.yml) class. In order to export content from a translation memory, create a [TranslationMemoryExporter](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryExporter.yml) object and specify the [ITranslationMemoryLanguageDirection](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemoryLanguageDirection.yml) to export from and the TMX file to export into. Optionally specify a filter ([FilterExpression](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemory.FilterExpression.yml), see [Working with Filters](working_with_filters.md)) and subsequently call [Export](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryExporter.yml#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationMemoryExporter_Export_System_String_System_Boolean_).
 
 The [BatchExported](../../api/translationmemory/Sdl.Core.TM.ImportExport.Exporter.yml#Sdl_Core_TM_ImportExport_Exporter_BatchExported) event is raised repeatedly during export (after evey batch of translation units has been exported, see [ChunkSize](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryExporter.yml#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationMemoryExporter_ChunkSize)). The export can be canceled.
 
 
-<img style="display:block; " src="images/Export.png"/>
+<img style="display:block; " src="images/Cd-Export.png"/>
 
 See Also
 ------------

@@ -1,10 +1,10 @@
 Working with Field Definitions
 =====
-This section describes how to work with field definitions within translation memories and fields templates.
+This section describes how to work with field definitions within translation memories and field templates.
 
 Field Definitions
 -----
-A translation memory provides the capability to define custom translation units fields, which can be used to associate additional information with translation units. Translation units can be filtered based expressions defined in terms of fields when performing various operations.
+A translation memory provides the possibility to define custom translation unit fields, which can be used to associate additional information with translation units. Translation units can be filtered based expressions defined in terms of fields when performing various operations.
 
 Every translation memory can have a collection of field definitions, represented by the [FieldDefinitionCollection](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.FieldDefinitionCollection.yml) class, which is a collection of [FieldDefinition](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.FieldDefinition.yml) objects.
 
@@ -19,9 +19,9 @@ A field definition can have one of the following types, as defined in [FieldValu
 * **SinglePicklist**: A field with a single value out of a set of possible string values.
 * **MultiplePicklist**: A field with multiple values out of a set of possible string values.
 
-<img style="display:block; " src="images/FieldDefinitions.png"/>
+<img style="display:block; " src="images/Cd-FieldDefinitions.png"/>
 
-Any changes made to the field definition collection are only actually persisted after saving the translation memory or fields template that owns the fields. This includes adding field definitions, deleting field definitions, renaming field definitions and adding/removing/renaming picklist items. When deleting a field definition, note that any values set for the field will be deleted from the translation memory.
+Any changes made to the field definition collection are only actually kept after saving the translation memory or field template that contains the fields. This includes adding field definitions, deleting field definitions, renaming field definitions and adding/removing/renaming picklist items. When deleting a field definition, note that any values set for the field will be deleted from the translation memory.
 
 See Also
 ---------
