@@ -1,6 +1,6 @@
 Working with Filters
 =======
-The section describes how to create translation unit filters that can be used with operations such as import, export and search.
+This section describes how to create translation unit filters that can be used with operations such as import, export and search.
 
 Overview
 ----
