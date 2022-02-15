@@ -17,7 +17,7 @@ Integrating pages as steps into <Var:ProductName> wizards
 ----
 To inject the custom pages as steps into a <Var:ProductName> wizard, the third-party developer will require the following steps:
 
-* Determine a place in code where the wizard (with custom steps) should be called; they may use other integration elements, such as an `AbstractViewPartController` (see [Creating view parts](creating_viewparts.md)), and a custom event handler there to actually initiate the action
+* Determine or define a place in your code where the wizard (with custom steps) should be called; for example, under an [Action](../../api/integration/Sdl.Desktop.IntegrationApi.AbstractAction.yml)'s `Execute` method.
 * Determine the appropriate event (e.g. [OpenProjectPackageEvent](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Events.OpenProjectPackageEvent.yml)) to be raised in order to start the appropriate wizard
 * Set up a `List` of [AbstractWizardPage](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Wizard.AbstractWizardPage.yml) object instances indicating the pages to be loaded as initial steps within the wizard – the `firstPages`
 * Set up a `List` of [AbstractWizardPage](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Wizard.AbstractWizardPage.yml) object instances indicating the pages to be loaded as final steps within the wizard – the `lastPages`
