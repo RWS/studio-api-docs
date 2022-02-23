@@ -19,7 +19,7 @@ To inject the custom pages as steps into a <Var:ProductName> wizard, the third-p
 
 * Determine or define a place in your code where the wizard (with custom steps) would need to be initiated; for example, under an [Action](../../api/integration/Sdl.Desktop.IntegrationApi.AbstractAction.yml)'s `Execute` method.
 * Determine the appropriate event (e.g. [OpenProjectPackageEvent](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Events.OpenProjectPackageEvent.yml)) to be raised in order to start the wizard
-* Set up a `List` of [StudioWizardPageViewModel](../../api/integration/Sdl.Desktop.IntegrationApi.AbstractAction.yml) instances indicating the pages to be loaded as initial steps within the wizard, i.e. the `firstPages`
+* Set up a `List` of [StudioWizardPageViewModel](../../api/integration/Sdl.Desktop.IntegrationApi.Wizard.StudioWizardPageViewModel.yml) instances indicating the pages to be loaded as initial steps within the wizard, i.e. the `firstPages`
 * Create and raise an event instance passing `firstPages` list as an argument
 
 See also: [full sample application with source code](https://github.com/RWS/trados-studio-api-samples/tree/master/TranslationStudioAutomation/Sdl.CustomWizardSteps.Sample) (on GitHub).
