@@ -43,8 +43,8 @@ namespace TradosStudioDocsPlugin
                 { "ProductVersion", "Studio16" },
                 { "VersionNumber", "16" },
                 { "VisualStudioEdition", "Microsoft Visual Studio 2019" },
-                { "PluginPackedPath", "%AppData%\\Roaming\\SDL\\SDL Trados Studio\\16\\Plugins\\Packages\\" },
-                { "PluginUnpackedPath", "%AppData%\\Roaming\\SDL\\SDL Trados Studio\\16\\Plugins\\Unpacked\\" },
+                { "PluginPackedPath", "%AppData%\\SDL\\SDL Trados Studio\\16\\Plugins\\Packages\\" },
+                { "PluginUnpackedPath", "%AppData%\\SDL\\SDL Trados Studio\\16\\Plugins\\Unpacked\\" },
                 { "InstallationFolder", "C:\\Program Files\\SDL\\SDL Trados Studio\\Studio16" },
                 { "AppSigningEmail", "app-signing@sdl.com" }
             };
