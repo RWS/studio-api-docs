@@ -73,7 +73,7 @@ The diagram below briefly describes the wizard's execution sequence, and shows t
 Open package wizard specifics
 ----
 * You can provide your own custom package converter to be used in the Open Package wizard. To do so, create a class that implements the `IExternalPackageConverter` interface and decorate it with the `ExternalPackageConvertor` attribute. The Plugin Framework will pick it up as an extension point.
-* The wizard `Data` object is available in the custom package converter as well, via the `ExternalPackageConversionInfo.CustomData` property. This alllows you to configure your converter using wizard pages.
+* The wizard `Data` object is available in the custom package converter as well, via the `ExternalPackageConversionInfo.CustomData` property. This allows you to configure your converter using wizard pages.
 
 See also: [full sample application with source code](https://github.com/RWS/trados-studio-api-samples/tree/master/TranslationStudioAutomation/Sdl.CustomWizardSteps.Sample) (on GitHub).
 
