@@ -8,7 +8,7 @@ Creating pages to use as wizard steps
 In order to create a view that can be used as a wizard step, a third-party developer needs to:
 
 * Create a WPF view file, e.g. `UserControl`, with custom XAML and/or code behind
-* You can also create a ViewModel for the view if you need one
+* Create a ViewModel for the view, if necessary
 * Create a new class representing the custom page
     * This class needs to inherit from the abstract [StudioWizardPage](../../api/integration/Sdl.Desktop.IntegrationApi.Wizard.StudioWizardPage.yml)
     * Implement the required abstract properties
