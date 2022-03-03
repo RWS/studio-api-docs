@@ -6,10 +6,13 @@ items:
   parent: Sdl.Versioning
   children:
   - Sdl.Versioning.StudioVersion.#ctor
+  - Sdl.Versioning.StudioVersion.BaseProductName
+  - Sdl.Versioning.StudioVersion.Company
   - Sdl.Versioning.StudioVersion.Edition
   - Sdl.Versioning.StudioVersion.ExecutableVersion
   - Sdl.Versioning.StudioVersion.InstallPath
-  - Sdl.Versioning.StudioVersion.PluginSubPath
+  - Sdl.Versioning.StudioVersion.PluginPackagePath
+  - Sdl.Versioning.StudioVersion.PluginUnpackPath
   - Sdl.Versioning.StudioVersion.PublicVersion
   - Sdl.Versioning.StudioVersion.ShortVersion
   - Sdl.Versioning.StudioVersion.StudioDocumentsFolderName
@@ -41,8 +44,6 @@ items:
   - System.Object.GetHashCode
   - System.Object.GetType
   - System.Object.MemberwiseClone
-  extensionMethods:
-  - System.Object.Sdl.Desktop.Platform.Controls.Controls.WindowsControlUtils.ForWindowFromFrameworkElement(System.Action{System.Windows.Window})
   modifiers.csharp:
   - public
   - class
@@ -152,7 +153,7 @@ items:
   assemblies:
   - Sdl.Versioning
   namespace: Sdl.Versioning
-  summary: "\nThe public version e.g.&quot;Trados Studio 2021&quot;\n"
+  summary: "\nThe public version e.g.&quot;Trados Studio WR&quot;\n"
   syntax:
     content: public string PublicVersion { get; set; }
     parameters: []
@@ -228,16 +229,16 @@ items:
   - set
   modifiers.vb:
   - Public
-- uid: Sdl.Versioning.StudioVersion.PluginSubPath
-  commentId: P:Sdl.Versioning.StudioVersion.PluginSubPath
-  id: PluginSubPath
+- uid: Sdl.Versioning.StudioVersion.BaseProductName
+  commentId: P:Sdl.Versioning.StudioVersion.BaseProductName
+  id: BaseProductName
   parent: Sdl.Versioning.StudioVersion
   langs:
   - csharp
   - vb
-  name: PluginSubPath
-  nameWithType: StudioVersion.PluginSubPath
-  fullName: Sdl.Versioning.StudioVersion.PluginSubPath
+  name: BaseProductName
+  nameWithType: StudioVersion.BaseProductName
+  fullName: Sdl.Versioning.StudioVersion.BaseProductName
   type: Property
   source:
     path: Sdl.Versioning
@@ -245,14 +246,76 @@ items:
   assemblies:
   - Sdl.Versioning
   namespace: Sdl.Versioning
-  summary: "\nThe version dependent part of the plugin installation location e.g 15 or 16 or 16Beta\n"
+  summary: "\nThe Name of the product with no qualifiers e.g. Trados Studio this is usually used as a neutral folder name\n"
   syntax:
-    content: public string PluginSubPath { get; }
+    content: public string BaseProductName { get; set; }
     parameters: []
     return:
       type: System.String
-    content.vb: Public ReadOnly Property PluginSubPath As String
-  overload: Sdl.Versioning.StudioVersion.PluginSubPath*
+    content.vb: Public Property BaseProductName As String
+  overload: Sdl.Versioning.StudioVersion.BaseProductName*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Sdl.Versioning.StudioVersion.PluginPackagePath
+  commentId: P:Sdl.Versioning.StudioVersion.PluginPackagePath
+  id: PluginPackagePath
+  parent: Sdl.Versioning.StudioVersion
+  langs:
+  - csharp
+  - vb
+  name: PluginPackagePath
+  nameWithType: StudioVersion.PluginPackagePath
+  fullName: Sdl.Versioning.StudioVersion.PluginPackagePath
+  type: Property
+  source:
+    path: Sdl.Versioning
+    isExternal: true
+  assemblies:
+  - Sdl.Versioning
+  namespace: Sdl.Versioning
+  summary: "\nThe version dependent part of the plugin package location e.g 15 or 16 or 16Beta\n"
+  syntax:
+    content: public string PluginPackagePath { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public ReadOnly Property PluginPackagePath As String
+  overload: Sdl.Versioning.StudioVersion.PluginPackagePath*
+  modifiers.csharp:
+  - public
+  - get
+  modifiers.vb:
+  - Public
+  - ReadOnly
+- uid: Sdl.Versioning.StudioVersion.PluginUnpackPath
+  commentId: P:Sdl.Versioning.StudioVersion.PluginUnpackPath
+  id: PluginUnpackPath
+  parent: Sdl.Versioning.StudioVersion
+  langs:
+  - csharp
+  - vb
+  name: PluginUnpackPath
+  nameWithType: StudioVersion.PluginUnpackPath
+  fullName: Sdl.Versioning.StudioVersion.PluginUnpackPath
+  type: Property
+  source:
+    path: Sdl.Versioning
+    isExternal: true
+  assemblies:
+  - Sdl.Versioning
+  namespace: Sdl.Versioning
+  summary: "\nThe version dependent part of the plugin contents when unpacked location e.g 15 or 16 or 16Beta\n"
+  syntax:
+    content: public string PluginUnpackPath { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public ReadOnly Property PluginUnpackPath As String
+  overload: Sdl.Versioning.StudioVersion.PluginUnpackPath*
   modifiers.csharp:
   - public
   - get
@@ -346,6 +409,37 @@ items:
       type: System.String
     content.vb: Public Property ShortVersion As String
   overload: Sdl.Versioning.StudioVersion.ShortVersion*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Sdl.Versioning.StudioVersion.Company
+  commentId: P:Sdl.Versioning.StudioVersion.Company
+  id: Company
+  parent: Sdl.Versioning.StudioVersion
+  langs:
+  - csharp
+  - vb
+  name: Company
+  nameWithType: StudioVersion.Company
+  fullName: Sdl.Versioning.StudioVersion.Company
+  type: Property
+  source:
+    path: Sdl.Versioning
+    isExternal: true
+  assemblies:
+  - Sdl.Versioning
+  namespace: Sdl.Versioning
+  summary: "\nThe publishing company of the Studio edition e.g. Sdl or Trados\n"
+  syntax:
+    content: public string Company { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Company As String
+  overload: Sdl.Versioning.StudioVersion.Company*
   modifiers.csharp:
   - public
   - get
@@ -614,172 +708,12 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: System.Object.Sdl.Desktop.Platform.Controls.Controls.WindowsControlUtils.ForWindowFromFrameworkElement(System.Action{System.Windows.Window})
-  commentId: M:Sdl.Desktop.Platform.Controls.Controls.WindowsControlUtils.ForWindowFromFrameworkElement(System.Object,System.Action{System.Windows.Window})
-  parent: Sdl.Desktop.Platform.Controls.Controls.WindowsControlUtils
-  definition: Sdl.Desktop.Platform.Controls.Controls.WindowsControlUtils.ForWindowFromFrameworkElement(System.Object,System.Action{System.Windows.Window})
-  name: ForWindowFromFrameworkElement(Action<Window>)
-  nameWithType: WindowsControlUtils.ForWindowFromFrameworkElement(Action<Window>)
-  fullName: Sdl.Desktop.Platform.Controls.Controls.WindowsControlUtils.ForWindowFromFrameworkElement(System.Action<System.Windows.Window>)
-  nameWithType.vb: WindowsControlUtils.ForWindowFromFrameworkElement(Action(Of Window))
-  fullName.vb: Sdl.Desktop.Platform.Controls.Controls.WindowsControlUtils.ForWindowFromFrameworkElement(System.Action(Of System.Windows.Window))
-  name.vb: ForWindowFromFrameworkElement(Action(Of Window))
-  spec.csharp:
-  - uid: Sdl.Desktop.Platform.Controls.Controls.WindowsControlUtils.ForWindowFromFrameworkElement(System.Action{System.Windows.Window})
-    name: ForWindowFromFrameworkElement
-    nameWithType: WindowsControlUtils.ForWindowFromFrameworkElement
-    fullName: Sdl.Desktop.Platform.Controls.Controls.WindowsControlUtils.ForWindowFromFrameworkElement
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: System.Action`1
-    name: Action
-    nameWithType: Action
-    fullName: System.Action
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
-  - uid: System.Windows.Window
-    name: Window
-    nameWithType: Window
-    fullName: System.Windows.Window
-    isExternal: true
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: Sdl.Desktop.Platform.Controls.Controls.WindowsControlUtils.ForWindowFromFrameworkElement(System.Action{System.Windows.Window})
-    name: ForWindowFromFrameworkElement
-    nameWithType: WindowsControlUtils.ForWindowFromFrameworkElement
-    fullName: Sdl.Desktop.Platform.Controls.Controls.WindowsControlUtils.ForWindowFromFrameworkElement
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: System.Action`1
-    name: Action
-    nameWithType: Action
-    fullName: System.Action
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - uid: System.Windows.Window
-    name: Window
-    nameWithType: Window
-    fullName: System.Windows.Window
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-  - name: )
-    nameWithType: )
-    fullName: )
 - uid: System
   commentId: N:System
   isExternal: true
   name: System
   nameWithType: System
   fullName: System
-- uid: Sdl.Desktop.Platform.Controls.Controls.WindowsControlUtils.ForWindowFromFrameworkElement(System.Object,System.Action{System.Windows.Window})
-  commentId: M:Sdl.Desktop.Platform.Controls.Controls.WindowsControlUtils.ForWindowFromFrameworkElement(System.Object,System.Action{System.Windows.Window})
-  isExternal: true
-  name: ForWindowFromFrameworkElement(Object, Action<Window>)
-  nameWithType: WindowsControlUtils.ForWindowFromFrameworkElement(Object, Action<Window>)
-  fullName: Sdl.Desktop.Platform.Controls.Controls.WindowsControlUtils.ForWindowFromFrameworkElement(System.Object, System.Action<System.Windows.Window>)
-  nameWithType.vb: WindowsControlUtils.ForWindowFromFrameworkElement(Object, Action(Of Window))
-  fullName.vb: Sdl.Desktop.Platform.Controls.Controls.WindowsControlUtils.ForWindowFromFrameworkElement(System.Object, System.Action(Of System.Windows.Window))
-  name.vb: ForWindowFromFrameworkElement(Object, Action(Of Window))
-  spec.csharp:
-  - uid: Sdl.Desktop.Platform.Controls.Controls.WindowsControlUtils.ForWindowFromFrameworkElement(System.Object,System.Action{System.Windows.Window})
-    name: ForWindowFromFrameworkElement
-    nameWithType: WindowsControlUtils.ForWindowFromFrameworkElement
-    fullName: Sdl.Desktop.Platform.Controls.Controls.WindowsControlUtils.ForWindowFromFrameworkElement
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: System.Action`1
-    name: Action
-    nameWithType: Action
-    fullName: System.Action
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
-  - uid: System.Windows.Window
-    name: Window
-    nameWithType: Window
-    fullName: System.Windows.Window
-    isExternal: true
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: Sdl.Desktop.Platform.Controls.Controls.WindowsControlUtils.ForWindowFromFrameworkElement(System.Object,System.Action{System.Windows.Window})
-    name: ForWindowFromFrameworkElement
-    nameWithType: WindowsControlUtils.ForWindowFromFrameworkElement
-    fullName: Sdl.Desktop.Platform.Controls.Controls.WindowsControlUtils.ForWindowFromFrameworkElement
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: System.Action`1
-    name: Action
-    nameWithType: Action
-    fullName: System.Action
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - uid: System.Windows.Window
-    name: Window
-    nameWithType: Window
-    fullName: System.Windows.Window
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: Sdl.Desktop.Platform.Controls.Controls.WindowsControlUtils
-  commentId: T:Sdl.Desktop.Platform.Controls.Controls.WindowsControlUtils
-  parent: Sdl.Desktop.Platform.Controls.Controls
-  isExternal: true
-  name: WindowsControlUtils
-  nameWithType: WindowsControlUtils
-  fullName: Sdl.Desktop.Platform.Controls.Controls.WindowsControlUtils
-- uid: Sdl.Desktop.Platform.Controls.Controls
-  commentId: N:Sdl.Desktop.Platform.Controls.Controls
-  isExternal: true
-  name: Sdl.Desktop.Platform.Controls.Controls
-  nameWithType: Sdl.Desktop.Platform.Controls.Controls
-  fullName: Sdl.Desktop.Platform.Controls.Controls
 - uid: System.Object.ToString
   commentId: M:System.Object.ToString
   parent: System.Object
@@ -861,12 +795,24 @@ references:
   name: Version
   nameWithType: Version
   fullName: System.Version
-- uid: Sdl.Versioning.StudioVersion.PluginSubPath*
-  commentId: Overload:Sdl.Versioning.StudioVersion.PluginSubPath
+- uid: Sdl.Versioning.StudioVersion.BaseProductName*
+  commentId: Overload:Sdl.Versioning.StudioVersion.BaseProductName
   isExternal: true
-  name: PluginSubPath
-  nameWithType: StudioVersion.PluginSubPath
-  fullName: Sdl.Versioning.StudioVersion.PluginSubPath
+  name: BaseProductName
+  nameWithType: StudioVersion.BaseProductName
+  fullName: Sdl.Versioning.StudioVersion.BaseProductName
+- uid: Sdl.Versioning.StudioVersion.PluginPackagePath*
+  commentId: Overload:Sdl.Versioning.StudioVersion.PluginPackagePath
+  isExternal: true
+  name: PluginPackagePath
+  nameWithType: StudioVersion.PluginPackagePath
+  fullName: Sdl.Versioning.StudioVersion.PluginPackagePath
+- uid: Sdl.Versioning.StudioVersion.PluginUnpackPath*
+  commentId: Overload:Sdl.Versioning.StudioVersion.PluginUnpackPath
+  isExternal: true
+  name: PluginUnpackPath
+  nameWithType: StudioVersion.PluginUnpackPath
+  fullName: Sdl.Versioning.StudioVersion.PluginUnpackPath
 - uid: Sdl.Versioning.StudioVersion.Edition*
   commentId: Overload:Sdl.Versioning.StudioVersion.Edition
   isExternal: true
@@ -885,3 +831,9 @@ references:
   name: ShortVersion
   nameWithType: StudioVersion.ShortVersion
   fullName: Sdl.Versioning.StudioVersion.ShortVersion
+- uid: Sdl.Versioning.StudioVersion.Company*
+  commentId: Overload:Sdl.Versioning.StudioVersion.Company
+  isExternal: true
+  name: Company
+  nameWithType: StudioVersion.Company
+  fullName: Sdl.Versioning.StudioVersion.Company
