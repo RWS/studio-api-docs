@@ -48,7 +48,6 @@ Some of the properties are represented on the user interface directly. You can s
 ### Id
 * This property is used by the wizard framework to uniquely identify the pages.
 
-### HelpId
   
 # Integrating pages as steps into <Var:ProductName> wizards
 Custom pages are injected into the wizard via the `firstPages` argument of the event object corresponding to the respective wizard. Keep in mind that the `firstPages` argument is available only for some wizard event objects.
