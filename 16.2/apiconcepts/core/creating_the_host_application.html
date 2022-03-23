@@ -1,0 +1,242 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Creating the Host Application </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Creating the Host Application ">
+    <meta name="generator" content="docfx 2.59.0.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="creating-the-host-application">Creating the Host Application</h1>
+
+<p>This section explains how to use the plug-in framework top provide plug-in functionality within an application or component.</p>
+<h2 id="creating-the-host-application-1">Creating the Host Application</h2>
+<p>The first thing to do is create an instance of the plug-in registry using the plug-in manager (see <a href="../../api/core/Sdl.Core.PluginFramework.PluginManager.html">PluginManager</a>):</p>
+<div class="tabGroup" id="tabgroup_izwTD07pNq">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_izwTD07pNq_tabid-1" role="tab" aria-controls="tabpanel_izwTD07pNq_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_izwTD07pNq_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-csharp" name="HostApplication">string applicationDirectory = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+string pluginsDirectory = Path.Combine(applicationDirectory, &quot;plugins&quot;);
+
+// create plug-in registry
+IPluginRegistry pluginRegistry =
+    PluginManager.CreatePluginRegistry(pluginsDirectory, &quot;plugincache.xml&quot;, false);
+
+</code></pre></section>
+</div>
+<p>We define the plugins directory as the plugins subfolder of the bin folder, where the plug-in manifest file is located. Then, use the <a href="../../api/core/Sdl.Core.PluginFramework.PluginManager.html">PluginManager</a> class to create a plug-in registry instance, passing three parameters:</p>
+<ul>
+<li>The plugins directory</li>
+<li>The plug-in cache file path: this file is used to store which plug-ins are enabled or disabled in case your application would support this.</li>
+<li>A boolean specifying whether to validate all plug-in manifest files found. We pass false, because that ensures that all the extensions are lazily loaded, which is the recommended way. In case there is a problem, we will get an exception when we try to create an instance of the extension or access its meta data.
+When creating the plug-in registry, the plugins directory is scanned for plug-in manifest files and these are loaded. At this point, the plug-in registry knows about all the plug-ins and extensions that are available to the application.</li>
+</ul>
+<p>Next, we get the extension point from the plug-in registry. An extension point is represented by the <a href="../../api/core/Sdl.Core.PluginFramework.IExtensionPoint.html">IExtensionPoint</a> interface and provides access to all extensions discovered for that extension point. The extension point is identified by passing <code>MessageTransmitterAttribute</code> as the template parameter:</p>
+<div class="tabGroup" id="tabgroup_izwTD07pNq-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_izwTD07pNq-1_tabid-2" role="tab" aria-controls="tabpanel_izwTD07pNq-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_izwTD07pNq-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<pre><code class="lang-csharp" name="HostApplication">
+IExtensionPoint extensionPoint = pluginRegistry.GetExtensionPoint&lt;MessageTransmitterAttribute&gt;();
+
+</code></pre></section>
+</div>
+<p>Prompt the user to enter a message:</p>
+<div class="tabGroup" id="tabgroup_izwTD07pNq-2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_izwTD07pNq-2_tabid-3" role="tab" aria-controls="tabpanel_izwTD07pNq-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_izwTD07pNq-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<pre><code class="lang-csharp" name="HostApplication">Console.Write(&quot;Enter your message: &quot;);
+string message = Console.ReadLine();
+</code></pre></section>
+</div>
+<p>Now list all the available message transmitters, along with their name and the cost per character. This is done by iterating over the Extensions collection of the extension point, which contains <a href="../../api/core/Sdl.Core.PluginFramework.IExtension.html">IExtension</a> objects. These provide access to the extension attribute that was used to annotate the respective extension implementation classes. The name and cost per character can be retreived from that <code>MessageTransmitterAttribute</code>:</p>
+<div class="tabGroup" id="tabgroup_izwTD07pNq-3">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_izwTD07pNq-3_tabid-4" role="tab" aria-controls="tabpanel_izwTD07pNq-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_izwTD07pNq-3_tabid-4" role="tabpanel" data-tab="tabid-4">
+<pre><code class="lang-csharp" name="HostApplication">int i = 0;
+Console.WriteLine(&quot;Available message transmitters:&quot;);
+foreach (IExtension extension in extensionPoint.Extensions)
+{
+    MessageTransmitterAttribute extensionAttribute =
+        (MessageTransmitterAttribute)extension.ExtensionAttribute;
+
+    Console.WriteLine(String.Format(&quot;{0}) {1} (cost per character: ${2})&quot;,
+        ++i,
+        extensionAttribute.Name,
+        extensionAttribute.CostPerCharacter));
+}
+
+Console.WriteLine(String.Format(&quot;Choose a message transmitter (1-{0}):&quot;, i));
+int number = Convert.ToInt32(Console.ReadLine());
+</code></pre></section>
+</div>
+<p>Now, get the extension object corresponding to the user’s choice, and also get hold of the extension attribute instance:</p>
+<div class="tabGroup" id="tabgroup_izwTD07pNq-4">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_izwTD07pNq-4_tabid-5" role="tab" aria-controls="tabpanel_izwTD07pNq-4_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_izwTD07pNq-4_tabid-5" role="tabpanel" data-tab="tabid-5">
+<pre><code class="lang-csharp" name="HostApplication">
+IExtension selectedExtension = extensionPoint.Extensions[number - 1];
+</code></pre></section>
+</div>
+<p>Now, we are ready to create the actual message transmitter implementation, using the <a href="../../api/core/Sdl.Core.PluginFramework.IExtension.html">IExtension</a> object:</p>
+<div class="tabGroup" id="tabgroup_izwTD07pNq-5">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_izwTD07pNq-5_tabid-6" role="tab" aria-controls="tabpanel_izwTD07pNq-5_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_izwTD07pNq-5_tabid-6" role="tabpanel" data-tab="tabid-6">
+<pre><code class="lang-csharp" name="HostApplication">IMessageTransmitter selectedTransmitter =
+    (IMessageTransmitter)selectedExtension.CreateInstance();
+</code></pre></section>
+</div>
+<p>Finally, call the SendMessage method to send the message:</p>
+<div class="tabGroup" id="tabgroup_izwTD07pNq-6">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_izwTD07pNq-6_tabid-7" role="tab" aria-controls="tabpanel_izwTD07pNq-6_tabid-7" data-tab="tabid-7" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_izwTD07pNq-6_tabid-7" role="tabpanel" data-tab="tabid-7">
+<pre><code class="lang-csharp" name="HostApplication">
+selectedTransmitter.SendMessage(message);
+
+</code></pre></section>
+</div>
+<p>The application produces the following output:</p>
+<p><img style="display:block; " src="images/HostApplicationOutput.png"></p>
+<p>This completes the basic use case, demonstrated by a simple sample application.</p>
+<div class="NOTE"><h5>Note</h5><p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+</div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/16.2/apiconcepts/core/creating_the_host_application.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

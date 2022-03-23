@@ -1,0 +1,337 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Looping through Translation Memories </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Looping through Translation Memories ">
+    <meta name="generator" content="docfx 2.59.0.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="looping-through-translation-memories">Looping through Translation Memories</h1>
+
+<p>Iterating through all the translation units in a TM can be useful to perform various maintenance-related tasks. Suppose you need to batch-delete a number of TUs, e.g. all TUs that do belong to a certain customer, or all TUs that are older than two years, as they can be considered outdated. In this case, you can loop through the TUs and apply a delete action to each TU that fulfills (or does not fulfill) a specific criteria. In this chapter we would like to demonstrate how to programmatically handle such a use case by deleting all TUs that belong to the client <em>Microsoft</em>, i.e. where the TM field <em>Customer</em> has the value <em>Microsoft</em>.</p>
+<h2 id="add-a-new-class">Add a New Class</h2>
+<p>Start by adding new class called <code>TmIterator</code> to your project. Implement a public function called <code>Iterate</code>, which takes the TM file name and path as string parameter. For this sample scenario, let us assume that the aim is to iterate through a given TM and output the source segments of each translation unit that has the field value <em>Customer</em> -&gt; <em>Microsoft</em>.</p>
+<p>Start by opening the TM as shown below:</p>
+<div class="tabGroup" id="tabgroup_4vuG76x77L">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_4vuG76x77L_tabid-1" role="tab" aria-controls="tabpanel_4vuG76x77L_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_4vuG76x77L_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-cs">FileBasedTranslationMemory tm = new FileBasedTranslationMemory(tmPath);
+</code></pre></section>
+</div>
+<p>Then create a TM iterator object as follows:</p>
+<div class="tabGroup" id="tabgroup_4vuG76x77L-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_4vuG76x77L-1_tabid-2" role="tab" aria-controls="tabpanel_4vuG76x77L-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_4vuG76x77L-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<pre><code class="lang-cs">RegularIterator tmIterator = new RegularIterator(1);
+</code></pre></section>
+</div>
+<p>The <strong>RegularIterator</strong> class can take the maximum amount of TUs to return in one roundtrip as parameter. If you do not provide a value, the iterator will move through the TM in increments of 100. You may want to specify a lower value for performance reasons, especially when accessing TMs through an Internet connection. In the next step you retrieve all TUs (ans store them in an array) by applying the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.FileBasedTranslationMemoryLanguageDirection.html#Sdl_LanguagePlatform_TranslationMemoryApi_FileBasedTranslationMemoryLanguageDirection_GetTranslationUnits_Sdl_LanguagePlatform_TranslationMemory_RegularIterator__">GetTranslationUnits</a> method, which takes the previously created iterator object as parameter:</p>
+<div class="tabGroup" id="tabgroup_4vuG76x77L-2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_4vuG76x77L-2_tabid-3" role="tab" aria-controls="tabpanel_4vuG76x77L-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_4vuG76x77L-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<pre><code class="lang-cs">TranslationUnit[] Tus = tm.LanguageDirection.GetTranslationUnits(ref tmIterator);
+</code></pre></section>
+</div>
+<p>Use a <code>while</code> loop to go through the TM until the iterator TU count is still greater than zero:</p>
+<div class="tabGroup" id="tabgroup_4vuG76x77L-3">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_4vuG76x77L-3_tabid-4" role="tab" aria-controls="tabpanel_4vuG76x77L-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_4vuG76x77L-3_tabid-4" role="tabpanel" data-tab="tabid-4">
+<pre><code class="lang-cs">while (Tus.Count&lt;TranslationUnit&gt;() &gt; 0)
+</code></pre></section>
+</div>
+<p>Note that since we specified the iterator to move through the TM in increments of 1, the count will be 1. Next, loop through the actual TUs:</p>
+<div class="tabGroup" id="tabgroup_4vuG76x77L-4">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_4vuG76x77L-4_tabid-5" role="tab" aria-controls="tabpanel_4vuG76x77L-4_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_4vuG76x77L-4_tabid-5" role="tabpanel" data-tab="tabid-5">
+<pre><code class="lang-cs">foreach (TranslationUnit Tu in Tus)
+</code></pre></section>
+</div>
+<p>Then, traverse the field values of each TU in order to ascertain whether there is a <em>Customer</em> field value <em>Microsoft</em>.</p>
+<div class="tabGroup" id="tabgroup_4vuG76x77L-5">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_4vuG76x77L-5_tabid-6" role="tab" aria-controls="tabpanel_4vuG76x77L-5_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_4vuG76x77L-5_tabid-6" role="tabpanel" data-tab="tabid-6">
+<pre><code class="lang-cs">foreach (FieldValue item in Tu.FieldValues)
+</code></pre></section>
+</div>
+<p>Use an <code>if</code> to determine the name of the current field:</p>
+<div class="tabGroup" id="tabgroup_4vuG76x77L-6">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_4vuG76x77L-6_tabid-7" role="tab" aria-controls="tabpanel_4vuG76x77L-6_tabid-7" data-tab="tabid-7" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_4vuG76x77L-6_tabid-7" role="tabpanel" data-tab="tabid-7">
+<pre><code class="lang-cs">if (item.Name == &quot;Customer&quot;)
+</code></pre></section>
+</div>
+<p>If the current customer field value equals <em>Microsoft</em>, output the source segment:</p>
+<div class="tabGroup" id="tabgroup_4vuG76x77L-7">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_4vuG76x77L-7_tabid-8" role="tab" aria-controls="tabpanel_4vuG76x77L-7_tabid-8" data-tab="tabid-8" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_4vuG76x77L-7_tabid-8" role="tabpanel" data-tab="tabid-8">
+<pre><code class="lang-cs">if (item.ToString() == &quot;Microsoft&quot;)
+{
+    MessageBox.Show(Tu.SourceSegment.ToPlain());
+}
+</code></pre></section>
+</div>
+<p>In the last step, update the TU collection using the TM iterator object. This will cause the iterator to move to the next set of TUs in the translation memory.</p>
+<div class="tabGroup" id="tabgroup_4vuG76x77L-8">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_4vuG76x77L-8_tabid-9" role="tab" aria-controls="tabpanel_4vuG76x77L-8_tabid-9" data-tab="tabid-9" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_4vuG76x77L-8_tabid-9" role="tabpanel" data-tab="tabid-9">
+<pre><code class="lang-cs">Tus = tm.LanguageDirection.GetTranslationUnits(ref tmIterator);
+</code></pre></section>
+</div>
+<p>The full loop looks as shown below:</p>
+<div class="tabGroup" id="tabgroup_4vuG76x77L-9">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_4vuG76x77L-9_tabid-10" role="tab" aria-controls="tabpanel_4vuG76x77L-9_tabid-10" data-tab="tabid-10" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_4vuG76x77L-9_tabid-10" role="tabpanel" data-tab="tabid-10">
+<pre><code class="lang-cs">
+while (Tus.Count&lt;TranslationUnit&gt;() &gt; 0)
+{
+    #region &quot;LoopTus&quot;
+    foreach (TranslationUnit Tu in Tus)
+    #endregion
+    {
+        #region &quot;LoopValues&quot;
+        foreach (FieldValue item in Tu.FieldValues)
+        #endregion
+        {
+            #region &quot;DetermineFieldName&quot;
+            if (item.Name == &quot;Customer&quot;)
+            #endregion
+            {
+                #region &quot;DetermineFieldValue&quot;
+                if (item.ToString() == &quot;Microsoft&quot;)
+                {
+                    MessageBox.Show(Tu.SourceSegment.ToPlain());
+                }
+                #endregion
+            }
+        }
+    }
+    #region &quot;update&quot;
+    Tus = tm.LanguageDirection.GetTranslationUnits(ref tmIterator);
+    #endregion
+}
+</code></pre></section>
+</div>
+<h2 id="putting-it-all-together">Putting it All Together</h2>
+<p>Your complete class should now look as shown below:</p>
+<div class="tabGroup" id="tabgroup_4vuG76x77L-10">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_4vuG76x77L-10_tabid-11" role="tab" aria-controls="tabpanel_4vuG76x77L-10_tabid-11" data-tab="tabid-11" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_4vuG76x77L-10_tabid-11" role="tabpanel" data-tab="tabid-11">
+<pre><code class="lang-cs">namespace SDK.LanguagePlatform.Samples.TmAutomation
+{
+    using System.Linq;
+    using System.Windows.Forms;
+    using Sdl.LanguagePlatform.TranslationMemory;
+    using Sdl.LanguagePlatform.TranslationMemoryApi;
+
+    public class TMIterator
+    {
+        public void Iterate(string tmPath)
+        {
+            #region &quot;open&quot;
+            FileBasedTranslationMemory tm = new FileBasedTranslationMemory(tmPath);
+            #endregion
+
+            #region &quot;iterator&quot;
+            RegularIterator tmIterator = new RegularIterator(1);
+            #endregion
+
+            #region &quot;GetTUs&quot;
+            TranslationUnit[] Tus = tm.LanguageDirection.GetTranslationUnits(ref tmIterator);
+            #endregion
+
+            #region &quot;loop&quot;
+            #region &quot;while&quot;
+            while (Tus.Count&lt;TranslationUnit&gt;() &gt; 0)
+            #endregion
+            {
+                #region &quot;LoopTus&quot;
+                foreach (TranslationUnit Tu in Tus)
+                #endregion
+                {
+                    #region &quot;LoopValues&quot;
+                    foreach (FieldValue item in Tu.FieldValues)
+                    #endregion
+                    {
+                        #region &quot;DetermineFieldName&quot;
+                        if (item.Name == &quot;Customer&quot;)
+                        #endregion
+                        {
+                            #region &quot;DetermineFieldValue&quot;
+                            if (item.ToString() == &quot;Microsoft&quot;)
+                            {
+                                MessageBox.Show(Tu.SourceSegment.ToPlain());
+                            }
+                            #endregion
+                        }
+                    }
+                }
+                #region &quot;update&quot;
+                Tus = tm.LanguageDirection.GetTranslationUnits(ref tmIterator);
+                #endregion
+            }
+            #endregion
+        }
+    }
+}
+</code></pre></section>
+</div>
+<h2 id="see-also">See Also</h2>
+<p><a href="maintaining_translation_memories.html">Maintaining Translation Memories</a></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/16.2/apiconcepts/translationmemory/looping_through_translation_memories.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

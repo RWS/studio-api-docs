@@ -1,0 +1,290 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Implement the User Interface </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Implement the User Interface ">
+    <meta name="generator" content="docfx 2.59.0.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="implement-the-user-interface">Implement the User Interface</h1>
+
+<p>In this chapter you will learn how to implement the user interface of your verification plug-in.</p>
+<h2 id="add-a-user-control">Add a User Control</h2>
+<p>Implement the graphical user interface by adding a user control, which you can name, e.g. <strong>SettingsUI.cs</strong>. This is the interface that users will see when configuring the file type plug-in in Trados Studio through, e.g. <strong>File</strong> &gt; <strong>Options</strong> &gt; <strong>File Types</strong>. Our simple native verifier will only implement one setting, through which users can configure whether to enable the verification function or to disable it. Therefore, you only need to add one check box to the user control, which we call <code>cb_Enabled</code>.</p>
+<p>The user interface should look as shown below:</p>
+<p><img src="images/length_checker_settings_page.jpg" alt="length_checker_settings_page"></p>
+<p>Next, switch to the code view of your newly added user control. This class needs to use the following namespace:</p>
+<ul>
+<li><strong>Sdl.FileTypeSupport.Framework.Core.Settings</strong></li>
+</ul>
+<h2 id="the-settings-bundle">The Settings Bundle</h2>
+<p>Each plug-in uses a settings bundle to store and retrieve settings. The mechanism for doing that is provided in a separate class called <code>VerifierSettings</code>, which we will implement later (see <a href="loading_and_saving_the_settings_native.html">Loading and Saving the Settings</a>). Within the controller UI component, we need to create an object based on the <code>VerifierSettings</code> class:</p>
+<div class="tabGroup" id="tabgroup_94dAS5LJRQ">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_94dAS5LJRQ_tabid-1" role="tab" aria-controls="tabpanel_94dAS5LJRQ_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_94dAS5LJRQ_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-cs">VerifierSettings _settings;
+</code></pre></section>
+</div>
+<h2 id="initialize-the-plug-in-user-interface">Initialize the Plug-in User Interface</h2>
+<p>When the user raises the plug-in user interface, the control element should be set according to what is stored in the settings bundle, which is handled through the <code>_settings</code> object (which we declared previously).</p>
+<div class="tabGroup" id="tabgroup_94dAS5LJRQ-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_94dAS5LJRQ-1_tabid-2" role="tab" aria-controls="tabpanel_94dAS5LJRQ-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_94dAS5LJRQ-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<pre><code class="lang-cs">public VerifierSettings Settings
+{
+    get
+    {
+        return _settings;
+    }
+    set
+    {
+        _settings = value;
+        UpdateControl();
+    }
+}
+</code></pre></section>
+</div>
+<p>During initialization the UpdateControl method is invoked, which sets the state of the check box (checked or unchecked) to the value of the <code>Enabled</code> member of the <code>VerifierSettings</code> class as shown below:</p>
+<div class="tabGroup" id="tabgroup_94dAS5LJRQ-2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_94dAS5LJRQ-2_tabid-3" role="tab" aria-controls="tabpanel_94dAS5LJRQ-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_94dAS5LJRQ-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<pre><code class="lang-cs">public void UpdateControl()
+{
+    cb_Enable.Checked = _settings.Enable;
+}
+</code></pre></section>
+</div>
+<h2 id="save-the-settings-to-the-settings-bundle">Save the Settings to the Settings Bundle</h2>
+<p>Conversely, the user interface needs to save the check box setting to the settings bundle, e.g. when the user raises the plug-in UI, changes the check box setting, and then clicks <strong>OK</strong> to apply the changed setting to the settings bundle:</p>
+<div class="tabGroup" id="tabgroup_94dAS5LJRQ-3">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_94dAS5LJRQ-3_tabid-4" role="tab" aria-controls="tabpanel_94dAS5LJRQ-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_94dAS5LJRQ-3_tabid-4" role="tabpanel" data-tab="tabid-4">
+<pre><code class="lang-cs">private void cb_Enable_CheckedChanged(object sender, EventArgs e)
+{
+    _settings.Enable = cb_Enable.Checked;
+}
+</code></pre></section>
+</div>
+<h2 id="putting-it-all-together">Putting it all Together</h2>
+<p>If you put it all together, the <code>SettingsUI</code> class should look as shown below:</p>
+<div class="tabGroup" id="tabgroup_94dAS5LJRQ-4">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_94dAS5LJRQ-4_tabid-5" role="tab" aria-controls="tabpanel_94dAS5LJRQ-4_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_94dAS5LJRQ-4_tabid-5" role="tabpanel" data-tab="tabid-5">
+<pre><code class="lang-cs">using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using Sdl.FileTypeSupport.Framework.Core.Settings;
+
+namespace Sdk.FileTypeSupport.Samples.XMLChecker
+{
+    /// &lt;summary&gt;
+    /// Implements the user interface through which the verification plug-in can be enabled or disabled.
+    /// &lt;/summary&gt;
+    #region ClassDeclaration
+    public partial class SettingsUI : UserControl, IFileTypeSettingsAware&lt;VerifierSettings&gt;
+    #endregion
+    {
+        /// &lt;summary&gt;
+        /// Create a settings object based on the VerifierSettings class. 
+        /// &lt;/summary&gt;
+        #region &quot;SettingsObject&quot;
+        VerifierSettings _settings;
+        #endregion 
+
+        /// &lt;summary&gt;
+        /// Initalize the user interface control by setting it to the
+        /// setting value stored in the settings bundle.
+        /// &lt;/summary&gt;
+        public SettingsUI()
+        {
+            InitializeComponent();
+        }
+
+        /// &lt;summary&gt;
+        /// Reset the user interface control to its default value, which is
+        /// checked, i.e. the verification functionality should be enabled
+        /// by default.
+        /// &lt;/summary&gt;
+        #region &quot;UpdateControl&quot;
+        public void UpdateControl()
+        {
+            cb_Enable.Checked = _settings.Enable;
+        }
+        #endregion
+
+        /// &lt;summary&gt;
+        /// Save the settings based on the value of the the check box.
+        /// The setting is saved through the VerifierSettings class, which
+        /// handles the plug-in settings bundle.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;sender&quot;&gt;&lt;/param&gt;
+        /// &lt;param name=&quot;e&quot;&gt;&lt;/param&gt;
+        #region &quot;SaveSetting&quot;
+        private void cb_Enable_CheckedChanged(object sender, EventArgs e)
+        {
+            _settings.Enable = cb_Enable.Checked;
+        }
+        #endregion
+
+        #region &quot;Initialize&quot;
+        public VerifierSettings Settings
+        {
+            get
+            {
+                return _settings;
+            }
+            set
+            {
+                _settings = value;
+                UpdateControl();
+            }
+        }
+        #endregion
+    }
+}
+</code></pre></section>
+</div>
+<h2 id="see-also">See Also</h2>
+<p><a href="implement_the_ui_controller_class_native.html">Implement the UI Controller Class</a></p>
+<p><a href="loading_and_saving_the_settings_native.html">Loading and Saving the Settings</a></p>
+<div class="NOTE"><h5>Note</h5><p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+</div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/16.2/apiconcepts/filetypesupport/implement_the_user_interface_native.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

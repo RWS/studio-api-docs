@@ -1,0 +1,487 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>TM Fields Templates </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="TM Fields Templates ">
+    <meta name="generator" content="docfx 2.59.0.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="tm-fields-templates">TM Fields Templates</h1>
+
+<p>Server translation memories can use field templates (which are not available for file TMs). Image that you need to use the same fields (e.g. <em>Customer</em> and <em>Project id</em>) for a large number of TMs. Rather than adding the fields to the setup of each TM, you just define the fields once in a template, which then gets applied to the individual TMs. Moreover, when you change the template to contain a new field (e.g. Domain), this new field will then be instantly made available in all TMs that are based on this particular template.</p>
+<p>On this page you will learn how to retrieve available field templates and how to create a template.</p>
+<h2 id="add-a-new-class">Add a New Class</h2>
+<p>Start by adding a new class called <code>ServerFieldTemplates</code> to your project. This class should contain the functionality to retrieve existing field templates and create new templates.</p>
+<h2 id="retrieve-the-available-fields-templates">Retrieve the Available Fields Templates</h2>
+<p>Our first task will be to generate a list of all field templates that are hosted on the TM Server. To do this implement a function called <code>GetFieldTemplates</code>, which takes the translation provider server as parameter. First, add a string variable that will hold the field templates list. Add the templates information to this variable by looping through all field templates that are hosted on the server:</p>
+<div class="tabGroup" id="tabgroup_FwYJme1HpJ">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_FwYJme1HpJ_tabid-1" role="tab" aria-controls="tabpanel_FwYJme1HpJ_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_FwYJme1HpJ_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-cs">StringBuilder templateList = new StringBuilder();
+
+foreach (ServerBasedFieldsTemplate template in tmServer.GetFieldsTemplates(FieldsTemplateProperties.All))
+</code></pre></section>
+</div>
+<p>The list should contain the field template names and descriptions:</p>
+<div class="tabGroup" id="tabgroup_FwYJme1HpJ-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_FwYJme1HpJ-1_tabid-2" role="tab" aria-controls="tabpanel_FwYJme1HpJ-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_FwYJme1HpJ-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<pre><code class="lang-cs">templateList.AppendFormat(&quot;Template name: {0}\n&quot;, template.Name);
+templateList.AppendFormat(&quot;Template description: {0}\n&quot;, template.Description);
+</code></pre></section>
+</div>
+<p>Next, retrieve the field names and types (e.g. text or picklist). To do this, loop through the field definitions of each template as follows:</p>
+<div class="tabGroup" id="tabgroup_FwYJme1HpJ-2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_FwYJme1HpJ-2_tabid-3" role="tab" aria-controls="tabpanel_FwYJme1HpJ-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_FwYJme1HpJ-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<pre><code class="lang-cs">templateList.AppendLine(&quot;Fields: &quot;);
+foreach (FieldDefinition def in template.FieldDefinitions)
+{
+    templateList.AppendFormat(&quot;{0}({1})&quot;, def.Name, def.ValueType.ToString());
+}
+
+templateList.AppendLine(string.Empty);
+</code></pre></section>
+</div>
+<p>The complete function should look as shown below:</p>
+<div class="tabGroup" id="tabgroup_FwYJme1HpJ-3">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_FwYJme1HpJ-3_tabid-4" role="tab" aria-controls="tabpanel_FwYJme1HpJ-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_FwYJme1HpJ-3_tabid-4" role="tabpanel" data-tab="tabid-4">
+<pre><code class="lang-cs">public void GetFieldTemplates(TranslationProviderServer tmServer)
+{
+    #region &quot;LoopTemplates&quot;
+    StringBuilder templateList = new StringBuilder();
+
+    foreach (ServerBasedFieldsTemplate template in tmServer.GetFieldsTemplates(FieldsTemplateProperties.All))
+    #endregion
+    {
+        #region &quot;GeneralTemplateInfo&quot;
+        templateList.AppendFormat(&quot;Template name: {0}\n&quot;, template.Name);
+        templateList.AppendFormat(&quot;Template description: {0}\n&quot;, template.Description);
+        #endregion
+
+        #region &quot;fields&quot;
+        templateList.AppendLine(&quot;Fields: &quot;);
+        foreach (FieldDefinition def in template.FieldDefinitions)
+        {
+            templateList.AppendFormat(&quot;{0}({1})&quot;, def.Name, def.ValueType.ToString());
+        }
+
+        templateList.AppendLine(string.Empty);
+        #endregion
+    }
+
+    MessageBox.Show(templateList.ToString(), &quot;Template List&quot;);
+}
+</code></pre></section>
+</div>
+<h2 id="retrieve-the-tms-that-use-a-given-fields-template">Retrieve the TMs that Use a Given Fields Template</h2>
+<p>When creating server TMs you can specify a field template. The TM will then &#39;inherit&#39; the fields defined in the template. Imagine that you want to know which server TMs use a particular template. To do this, add a function called <code>GetTmsForTemplate</code>, which takes the translation provider server and the fields template name as parameters. First, retrieve the fields template that you want to select. The template can be referenced using the template name:</p>
+<div class="tabGroup" id="tabgroup_FwYJme1HpJ-4">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_FwYJme1HpJ-4_tabid-5" role="tab" aria-controls="tabpanel_FwYJme1HpJ-4_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_FwYJme1HpJ-4_tabid-5" role="tabpanel" data-tab="tabid-5">
+<pre><code class="lang-cs">ServerBasedFieldsTemplate template = tmServer.GetFieldsTemplate(templateName, FieldsTemplateProperties.All);
+</code></pre></section>
+</div>
+<p>Next, declare a string variable that holds the names of the TMs. Build up the variable by looping through all TMs that are associated with the selected template:</p>
+<div class="tabGroup" id="tabgroup_FwYJme1HpJ-5">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_FwYJme1HpJ-5_tabid-6" role="tab" aria-controls="tabpanel_FwYJme1HpJ-5_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_FwYJme1HpJ-5_tabid-6" role="tabpanel" data-tab="tabid-6">
+<pre><code class="lang-cs">StringBuilder tmList = new StringBuilder();
+
+foreach (ServerBasedTranslationMemory tm in template.TranslationMemories)
+{
+    tmList.AppendLine(tm.Name);
+}
+
+MessageBox.Show(tmList.ToString());
+</code></pre></section>
+</div>
+<p>The complete function looks as shown below:</p>
+<div class="tabGroup" id="tabgroup_FwYJme1HpJ-6">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_FwYJme1HpJ-6_tabid-7" role="tab" aria-controls="tabpanel_FwYJme1HpJ-6_tabid-7" data-tab="tabid-7" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_FwYJme1HpJ-6_tabid-7" role="tabpanel" data-tab="tabid-7">
+<pre><code class="lang-cs">public void GetTmsForTemplate(TranslationProviderServer tmServer, string templateName)
+{
+    #region &quot;GetTemplate&quot;
+    ServerBasedFieldsTemplate template = tmServer.GetFieldsTemplate(templateName, FieldsTemplateProperties.All);
+    #endregion
+
+    #region &quot;TmLoop&quot;
+    StringBuilder tmList = new StringBuilder();
+
+    foreach (ServerBasedTranslationMemory tm in template.TranslationMemories)
+    {
+        tmList.AppendLine(tm.Name);
+    }
+
+    MessageBox.Show(tmList.ToString());
+    #endregion
+}
+</code></pre></section>
+</div>
+<h2 id="create-a-new-fields-template">Create a New Fields Template</h2>
+<p>In this step you will learn how to create a new server-based fields template. Imagine that you need to create a template that contains a text field called <em>Project id</em> and a list field called <em>Client</em>. Implement a function called <code>CreateTemplate</code>, which takes the translation provider server as parameter. Next, create a template object for the given server as shown below. Here, you also specify the general template information, i.e. the name and the (optional) description.</p>
+<div class="tabGroup" id="tabgroup_FwYJme1HpJ-7">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_FwYJme1HpJ-7_tabid-8" role="tab" aria-controls="tabpanel_FwYJme1HpJ-7_tabid-8" data-tab="tabid-8" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_FwYJme1HpJ-7_tabid-8" role="tabpanel" data-tab="tabid-8">
+<pre><code class="lang-cs">ServerBasedFieldsTemplate template = new ServerBasedFieldsTemplate(tmServer);
+template.Name = &quot;Sample Template&quot;;
+template.Description = &quot;Fields template created by API&quot;;
+</code></pre></section>
+</div>
+<p>In the next step, create the field definition object for the text field <em>Project id</em> by providing the field name and the field type (i.e. <strong>MultipleString</strong>):</p>
+<div class="tabGroup" id="tabgroup_FwYJme1HpJ-8">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_FwYJme1HpJ-8_tabid-9" role="tab" aria-controls="tabpanel_FwYJme1HpJ-8_tabid-9" data-tab="tabid-9" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_FwYJme1HpJ-8_tabid-9" role="tabpanel" data-tab="tabid-9">
+<pre><code class="lang-cs">FieldDefinition projField = new FieldDefinition(&quot;Project id&quot;, FieldValueType.MultipleString);
+</code></pre></section>
+</div>
+<p>Similarly, you create the list field called <em>Client</em>, which should allow for multiple picklist values. Since a list field needs to be associated with one or several pre-defined values, add two sample values to the field definition:</p>
+<div class="tabGroup" id="tabgroup_FwYJme1HpJ-9">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_FwYJme1HpJ-9_tabid-10" role="tab" aria-controls="tabpanel_FwYJme1HpJ-9_tabid-10" data-tab="tabid-10" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_FwYJme1HpJ-9_tabid-10" role="tabpanel" data-tab="tabid-10">
+<pre><code class="lang-cs">FieldDefinition clientField = new FieldDefinition(&quot;Client&quot;, FieldValueType.MultiplePicklist);
+clientField.PicklistItems.Add(&quot;Microsoft&quot;);
+clientField.PicklistItems.Add(&quot;SAP&quot;);
+</code></pre></section>
+</div>
+<p>Now add the two field definitions to the template:</p>
+<div class="tabGroup" id="tabgroup_FwYJme1HpJ-10">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_FwYJme1HpJ-10_tabid-11" role="tab" aria-controls="tabpanel_FwYJme1HpJ-10_tabid-11" data-tab="tabid-11" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_FwYJme1HpJ-10_tabid-11" role="tabpanel" data-tab="tabid-11">
+<pre><code class="lang-cs">template.FieldDefinitions.Add(projField);
+template.FieldDefinitions.Add(clientField);
+</code></pre></section>
+</div>
+<p>In the last step you need to save the template. Optionally, you may use the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedFieldsTemplate.html#Sdl_LanguagePlatform_TranslationMemoryApi_ServerBasedFieldsTemplate_IsDirty">IsDirty</a> boolean property to verify whether there are any unsaved changes in your template definition, which - at this point - should not be the case:</p>
+<div class="tabGroup" id="tabgroup_FwYJme1HpJ-11">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_FwYJme1HpJ-11_tabid-12" role="tab" aria-controls="tabpanel_FwYJme1HpJ-11_tabid-12" data-tab="tabid-12" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_FwYJme1HpJ-11_tabid-12" role="tabpanel" data-tab="tabid-12">
+<pre><code class="lang-cs">template.Save();
+MessageBox.Show(&quot;Unsaved changes? &quot; + template.IsDirty.ToString());
+</code></pre></section>
+</div>
+<p>Fields templates can be deleted by applying the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedFieldsTemplate.html#Sdl_LanguagePlatform_TranslationMemoryApi_ServerBasedFieldsTemplate_Delete">Delete</a> method (provided that you have the required access rights):</p>
+<div class="tabGroup" id="tabgroup_FwYJme1HpJ-12">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_FwYJme1HpJ-12_tabid-13" role="tab" aria-controls="tabpanel_FwYJme1HpJ-12_tabid-13" data-tab="tabid-13" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_FwYJme1HpJ-12_tabid-13" role="tabpanel" data-tab="tabid-13">
+<pre><code class="lang-cs">template.Delete();
+</code></pre></section>
+</div>
+<p>The complete function should look as shown below:</p>
+<div class="tabGroup" id="tabgroup_FwYJme1HpJ-13">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_FwYJme1HpJ-13_tabid-14" role="tab" aria-controls="tabpanel_FwYJme1HpJ-13_tabid-14" data-tab="tabid-14" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_FwYJme1HpJ-13_tabid-14" role="tabpanel" data-tab="tabid-14">
+<pre><code class="lang-cs">public void CreateTemplate(TranslationProviderServer tmServer)
+{
+    #region &quot;CreateTemplate&quot;
+    ServerBasedFieldsTemplate template = new ServerBasedFieldsTemplate(tmServer);
+    template.Name = &quot;Sample Template&quot;;
+    template.Description = &quot;Fields template created by API&quot;;
+    #endregion
+
+    #region &quot;AddTextField&quot;
+    FieldDefinition projField = new FieldDefinition(&quot;Project id&quot;, FieldValueType.MultipleString);
+    #endregion
+
+    #region &quot;AddListField&quot;
+    FieldDefinition clientField = new FieldDefinition(&quot;Client&quot;, FieldValueType.MultiplePicklist);
+    clientField.PicklistItems.Add(&quot;Microsoft&quot;);
+    clientField.PicklistItems.Add(&quot;SAP&quot;);
+    #endregion
+
+    #region &quot;AddFieldsToTemplate&quot;
+    template.FieldDefinitions.Add(projField);
+    template.FieldDefinitions.Add(clientField);
+    #endregion
+
+    #region &quot;save&quot;
+    template.Save();
+    MessageBox.Show(&quot;Unsaved changes? &quot; + template.IsDirty.ToString());
+    #endregion
+
+    #region &quot;delete&quot;
+    template.Delete();
+    #endregion
+}
+</code></pre></section>
+</div>
+<h2 id="putting-it-all-together">Putting it All Together</h2>
+<p>The complete class should look as shown below:</p>
+<div class="tabGroup" id="tabgroup_FwYJme1HpJ-14">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_FwYJme1HpJ-14_tabid-15" role="tab" aria-controls="tabpanel_FwYJme1HpJ-14_tabid-15" data-tab="tabid-15" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_FwYJme1HpJ-14_tabid-15" role="tabpanel" data-tab="tabid-15">
+<pre><code class="lang-cs">namespace SDK.LanguagePlatform.Samples.TmAutomation
+{
+    using System.Text;
+    using System.Windows.Forms;
+    using Sdl.LanguagePlatform.TranslationMemory;
+    using Sdl.LanguagePlatform.TranslationMemoryApi;
+
+    public class ServerFieldTemplates
+    {
+        #region &quot;get&quot;
+        public void GetFieldTemplates(TranslationProviderServer tmServer)
+        {
+            #region &quot;LoopTemplates&quot;
+            StringBuilder templateList = new StringBuilder();
+
+            foreach (ServerBasedFieldsTemplate template in tmServer.GetFieldsTemplates(FieldsTemplateProperties.All))
+            #endregion
+            {
+                #region &quot;GeneralTemplateInfo&quot;
+                templateList.AppendFormat(&quot;Template name: {0}\n&quot;, template.Name);
+                templateList.AppendFormat(&quot;Template description: {0}\n&quot;, template.Description);
+                #endregion
+
+                #region &quot;fields&quot;
+                templateList.AppendLine(&quot;Fields: &quot;);
+                foreach (FieldDefinition def in template.FieldDefinitions)
+                {
+                    templateList.AppendFormat(&quot;{0}({1})&quot;, def.Name, def.ValueType.ToString());
+                }
+
+                templateList.AppendLine(string.Empty);
+                #endregion
+            }
+
+            MessageBox.Show(templateList.ToString(), &quot;Template List&quot;);
+        }
+        #endregion
+
+        #region &quot;GetTms&quot;
+        public void GetTmsForTemplate(TranslationProviderServer tmServer, string templateName)
+        {
+            #region &quot;GetTemplate&quot;
+            ServerBasedFieldsTemplate template = tmServer.GetFieldsTemplate(templateName, FieldsTemplateProperties.All);
+            #endregion
+
+            #region &quot;TmLoop&quot;
+            StringBuilder tmList = new StringBuilder();
+
+            foreach (ServerBasedTranslationMemory tm in template.TranslationMemories)
+            {
+                tmList.AppendLine(tm.Name);
+            }
+
+            MessageBox.Show(tmList.ToString());
+            #endregion
+        }
+        #endregion
+
+        #region &quot;create&quot;
+        public void CreateTemplate(TranslationProviderServer tmServer)
+        {
+            #region &quot;CreateTemplate&quot;
+            ServerBasedFieldsTemplate template = new ServerBasedFieldsTemplate(tmServer);
+            template.Name = &quot;Sample Template&quot;;
+            template.Description = &quot;Fields template created by API&quot;;
+            #endregion
+
+            #region &quot;AddTextField&quot;
+            FieldDefinition projField = new FieldDefinition(&quot;Project id&quot;, FieldValueType.MultipleString);
+            #endregion
+
+            #region &quot;AddListField&quot;
+            FieldDefinition clientField = new FieldDefinition(&quot;Client&quot;, FieldValueType.MultiplePicklist);
+            clientField.PicklistItems.Add(&quot;Microsoft&quot;);
+            clientField.PicklistItems.Add(&quot;SAP&quot;);
+            #endregion
+
+            #region &quot;AddFieldsToTemplate&quot;
+            template.FieldDefinitions.Add(projField);
+            template.FieldDefinitions.Add(clientField);
+            #endregion
+
+            #region &quot;save&quot;
+            template.Save();
+            MessageBox.Show(&quot;Unsaved changes? &quot; + template.IsDirty.ToString());
+            #endregion
+
+            #region &quot;delete&quot;
+            template.Delete();
+            #endregion
+        }
+        #endregion
+    }
+}
+</code></pre></section>
+</div>
+<h2 id="see-also">See Also</h2>
+<p><a href="configuring_translation_memories.html">Configuring Translation Memories</a></p>
+<p><a href="adding_tm_fields.html">Adding TM Fields</a></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/16.2/apiconcepts/translationmemory/tm_fields_templates.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

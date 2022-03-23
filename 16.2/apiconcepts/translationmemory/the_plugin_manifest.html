@@ -1,0 +1,153 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>The Plug-in Manifest </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="The Plug-in Manifest ">
+    <meta name="generator" content="docfx 2.59.0.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="the-plug-in-manifest">The Plug-in Manifest</h1>
+
+<p>All Visual Studio projects that are based on the templates that come with the Trados Studio SDK are configured to automatically create a plug-in package (i.e. an <strong>.sdlplugin* file) when the project is built. (See also <a href="setting_up_the_provider_project.html">Setting up the Project</a>). One essential piece of information required in order to do this is the plug-in package manifest, which is defined in the file **pluginpackage.manifest.xml</strong>, which is part of the project template. If this manifest is missing, the project package cannot be built (see also <a href="building_the_plugin.html">Building the Plug-in</a>).</p>
+<p>Below you see what the manifest of our sample plug-in looks like:</p>
+<div class="tabGroup" id="tabgroup_XRxHXszTb8">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_XRxHXszTb8_tabid-1" role="tab" aria-controls="tabpanel_XRxHXszTb8_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">XML</a>
+</li>
+</ul>
+<section id="tabpanel_XRxHXszTb8_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;PluginPackage xmlns=&quot;http://www.sdl.com/Plugins/PluginPackage/1.0&quot;&gt;
+  &lt;PlugInName&gt;Sdl.Sdk.LanguagePlatform.Samples.ListProvider&lt;/PlugInName&gt;
+  &lt;Version&gt;1.0&lt;/Version&gt;
+  &lt;Description&gt;Delimited List Translation Provider&lt;/Description&gt;
+  &lt;Author&gt;SDK Sample Provider&lt;/Author&gt;
+  &lt;RequiredProduct name=&quot;SDLTradosStudio&quot; minversion=&quot;10.0&quot; /&gt;
+&lt;/PluginPackage&gt;
+</code></pre></section>
+</div>
+<p>The manifest contains the following information:</p>
+<ul>
+<li><strong>PlugInName</strong>: indicates the friendly name of the plugin. This string be different from the name of the plug-in that is defined in <strong>PluginResources.resx</strong>. The reason for this is that a plug-in package can - in theory - contain multiple plug-ins, which need to be distinguished.</li>
+<li><strong>Version</strong>: the version of the plug-in package. This information used to detect any package updates upon start-up of Trados Studio, and is therefore important.</li>
+<li><strong>Description</strong>: descriptive information of the plug-in package.</li>
+<li><strong>Author</strong>: the name of the plug-in developer.</li>
+<li><strong>RequiredProduct</strong>: this string indicates which product version is required to run the given plug-in. The information that you indicate here must include the minimum version, and can optionally include a maximum version.</li>
+</ul>
+<h2 id="see-also">See Also</h2>
+<p><a href="building_the_plugin.html">Building the Plug-in</a></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/16.2/apiconcepts/translationmemory/the_plugin_manifest.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

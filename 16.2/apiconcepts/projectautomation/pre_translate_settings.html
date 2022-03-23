@@ -1,0 +1,273 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Pre-translate Settings </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Pre-translate Settings ">
+    <meta name="generator" content="docfx 2.59.0.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="pre-translate-settings">Pre-translate Settings</h1>
+
+<p>When matches for a given document are found in one or several TMs, you may want the target segments for all matching segments to be inserted automatically in one go, rather than having to insert the translations manually in the editor. This is what the pre-translate batch task does. This chapter provides information on the settings that you can configure for this task.</p>
+<p>The screenshot below shows the settings that can be configured for the pre-translate task in Trados Studio.</p>
+<p><img src="images/ProjectApiPreTranslateSettings.jpg" alt="ProjectApiPreTranslateSettings"></p>
+<p>To configure the task settings programmatically, implement a helper function called     <code>GetPretranslateTaskSettings</code>, which takes a <a href="../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.html">FileBasedProject</a> object as parameter. The settings for a particular task are saved within the project. The settings can either apply to the entire project or can be target-language specific, e.g. when the German files require different settings than the French files. Each project is associated with a settings bundle, which contains the settings for all tasks (e.g. analyze, pre-translate, etc.). First, create a <code>ISettingsBundle</code> object by applying the <code>GetSettings</code> method to the project object. Then apply the <code>GetSettingsGroup</code> method to generate a settings object based on the <a href="../../api/projectautomation/Sdl.ProjectAutomation.Settings.TranslateTaskSettings.html">TranslateTaskSettings</a> class:</p>
+<div class="tabGroup" id="tabgroup_aitjUG1u-z">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_aitjUG1u-z_tabid-1" role="tab" aria-controls="tabpanel_aitjUG1u-z_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_aitjUG1u-z_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-CS">ISettingsBundle settings = project.GetSettings();
+TranslateTaskSettings pretranslateSettings = settings.GetSettingsGroup&lt;TranslateTaskSettings&gt;();
+</code></pre></section>
+</div>
+<p>Afterwards, you configure the task-specific settings as follows:</p>
+<p><strong>Setting the Minimum Match Score</strong></p>
+<p>This is probably the most important setting. By default, segments are only pre-translated when an exact or a context match is found in a TM. However, you may also lower the minimum fuzzy match value to take, e.g. 90% matches into account. If you lower this setting to another value through the <a href="../../api/projectautomation/Sdl.ProjectAutomation.Settings.TranslateTaskSettings.html#Sdl_ProjectAutomation_Settings_TranslateTaskSettings_MinimumMatchScore">MinimumMatchScore</a> property, it is recommended to keep it within the high fuzzy range (e.g. 95%).</p>
+<div class="tabGroup" id="tabgroup_aitjUG1u-z-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_aitjUG1u-z-1_tabid-2" role="tab" aria-controls="tabpanel_aitjUG1u-z-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_aitjUG1u-z-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<pre><code class="lang-CS">pretranslateSettings.MinimumMatchScore.Value = 95;
+</code></pre></section>
+</div>
+<p><strong>Confirming Exact Matches</strong></p>
+<p>When an exact (100%) match is found during pre-translating, the segment pair gets confirmed automatically by default. This means that when opening the document in the editor translators / editors will see an icon that states that this particular segment is confirmed, which is an indication that it usually does not require any further editing. You can change this default behavior by setting the <a href="../../api/projectautomation/Sdl.ProjectAutomation.Settings.TranslateTaskSettings.html#Sdl_ProjectAutomation_Settings_TranslateTaskSettings_ConfirmAfterApplyingExactMatch">ConfirmAfterApplyingExactMatch</a> property to False.</p>
+<div class="tabGroup" id="tabgroup_aitjUG1u-z-2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_aitjUG1u-z-2_tabid-3" role="tab" aria-controls="tabpanel_aitjUG1u-z-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_aitjUG1u-z-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<pre><code class="lang-CS">pretranslateSettings.ConfirmAfterApplyingExactMatch.Value = true;
+pretranslateSettings.LockExactMatchSegments.Value = false;
+</code></pre></section>
+</div>
+<p><strong>Confirming and Locking Context Matches</strong></p>
+<p>The same principle applies to context matches, which are also confirmed by default. By setting the <a href="../../api/projectautomation/Sdl.ProjectAutomation.Settings.TranslateTaskSettings.html#Sdl_ProjectAutomation_Settings_TranslateTaskSettings_ConfirmAfterApplyingInContextExactMatch">ConfirmAfterApplyingInContextExactMatch</a> property to False you can change this default behavior. In addition you can set the <a href="../../api/projectautomation/Sdl.ProjectAutomation.Settings.TranslateTaskSettings.html#Sdl_ProjectAutomation_Settings_TranslateTaskSettings_LockExactMatchSegments">LockContextMatchSegments</a> property to True to lock all pre-translated context matches. This is an even stronger indication that this translation should not be changed. Users are prevented from editing such a segment, but they can manually unlock them if required.</p>
+<div class="tabGroup" id="tabgroup_aitjUG1u-z-3">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_aitjUG1u-z-3_tabid-4" role="tab" aria-controls="tabpanel_aitjUG1u-z-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_aitjUG1u-z-3_tabid-4" role="tabpanel" data-tab="tabid-4">
+<pre><code class="lang-CS">pretranslateSettings.ConfirmAfterApplyingInContextExactMatch.Value = true;
+pretranslateSettings.LockContextMatchSegments.Value = true;
+</code></pre></section>
+</div>
+<p><strong>Handling No Matches</strong></p>
+<p>Through the <a href="../../api/projectautomation/Sdl.ProjectAutomation.Settings.NoTranslationMemoryMatchFoundAction.html">NoTranslationMemoryMatchFoundAction</a> property you can control what happens when no match is found for a particular segment. There are three available options:</p>
+<ul>
+<li><a href="../../api/projectautomation/Sdl.ProjectAutomation.Settings.NoTranslationMemoryMatchFoundAction.html#fields">LeaveEmpty</a>: This is the default option, i.e. the segment is left unchanged, i.e. it remains empty and needs to be filled in by the translator.</li>
+<li><a href="../../api/projectautomation/Sdl.ProjectAutomation.Settings.NoTranslationMemoryMatchFoundAction.html#fields">CopySourceToTarget</a>: The source segment content is copied into the target. This is useful for documents in which the translations are very similar to the source segments, because they contain e.g. a lot of untranslatable names.</li>
+<li><a href="../../api/projectautomation/Sdl.ProjectAutomation.Settings.NoTranslationMemoryMatchFoundAction.html#fields">ApplyAutomatedTranslation</a>: If no TM match is found, an automatic translation from an automatic translation provider (e.g. Google Translate) should be used. For this to work, the translation provider container of the project requires an automated translation provider (see also <a href="adding_translation_memories.html">Adding Translation Memories</a>).</li>
+</ul>
+<div class="tabGroup" id="tabgroup_aitjUG1u-z-4">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_aitjUG1u-z-4_tabid-5" role="tab" aria-controls="tabpanel_aitjUG1u-z-4_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_aitjUG1u-z-4_tabid-5" role="tabpanel" data-tab="tabid-5">
+<pre><code class="lang-CS">pretranslateSettings.NoTranslationMemoryMatchFoundAction.Value = NoTranslationMemoryMatchFoundAction.CopySourceToTarget;
+</code></pre></section>
+</div>
+<p><strong>Handling Existing Translations</strong></p>
+<p>It may also happen that you pre-translate a bilingual (SDLXliff) file that already has translated content, for example, because it has been partly translated by someone. Using the <code>TranslationOverwriteMode</code> property you can configure what should happen in those cases. Through <a href="../../api/projectautomation/Sdl.ProjectAutomation.Settings.TranslationUpdateMode.html">TranslationUpdateMode</a> you can access the three available options:</p>
+<ul>
+<li><a href="../../api/projectautomation/Sdl.ProjectAutomation.Settings.TranslationUpdateMode.html#fields">OverwriteExistingTranslationIfBetterMatch</a>: This is the default option, i.e. the translation in the bilingual file is only replaced by the translation from the TM, if the TM offers a higher match. Example: The bilingual document contains a translation with a match value of 79%. In the TM, a 90% match is found for the source segment. In this case the existing 79% match from the document will be replaced by the translation from the TM.</li>
+<li><a href="../../api/projectautomation/Sdl.ProjectAutomation.Settings.TranslationUpdateMode.html#fields">KeepExistingTranslation</a>: The translation in the bilingual document is left unchanged, even if a (better) match is found in the TM.</li>
+<li><a href="../../api/projectautomation/Sdl.ProjectAutomation.Settings.TranslationUpdateMode.html#fields">OverwriteExistingTranslation</a>: The translation in the bilingual document is always replaced by the match from the TM, even if the TM offers a lower match.</li>
+</ul>
+<div class="tabGroup" id="tabgroup_aitjUG1u-z-5">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_aitjUG1u-z-5_tabid-6" role="tab" aria-controls="tabpanel_aitjUG1u-z-5_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_aitjUG1u-z-5_tabid-6" role="tabpanel" data-tab="tabid-6">
+<pre><code class="lang-CS">pretranslateSettings.TranslationOverwriteMode.Value = TranslationUpdateMode.OverwriteExistingTranslation;
+</code></pre></section>
+</div>
+<p>Last, you need to apply the settings to the project through the <a href="../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.html#Sdl_ProjectAutomation_FileBased_FileBasedProject_UpdateSettings_Sdl_Core_Globalization_Language_Sdl_Core_Settings_ISettingsBundle_">UpdateSettings</a> method, so that the settings are persisted in the project:</p>
+<div class="tabGroup" id="tabgroup_aitjUG1u-z-6">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_aitjUG1u-z-6_tabid-7" role="tab" aria-controls="tabpanel_aitjUG1u-z-6_tabid-7" data-tab="tabid-7" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_aitjUG1u-z-6_tabid-7" role="tabpanel" data-tab="tabid-7">
+<pre><code class="lang-CS">project.UpdateSettings(settings);
+</code></pre></section>
+</div>
+<h2 id="putting-it-all-together">Putting it All Together</h2>
+<p>The function should look as shown below:</p>
+<div class="tabGroup" id="tabgroup_aitjUG1u-z-7">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_aitjUG1u-z-7_tabid-8" role="tab" aria-controls="tabpanel_aitjUG1u-z-7_tabid-8" data-tab="tabid-8" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_aitjUG1u-z-7_tabid-8" role="tabpanel" data-tab="tabid-8">
+<pre><code class="lang-CS">public void GetPretranslateTaskSettings(FileBasedProject project)
+{
+    #region &quot;PetranslateTaskSettings&quot;
+    ISettingsBundle settings = project.GetSettings();
+    TranslateTaskSettings pretranslateSettings = settings.GetSettingsGroup&lt;TranslateTaskSettings&gt;();
+    #endregion
+
+    #region &quot;MinimumScore&quot;
+    pretranslateSettings.MinimumMatchScore.Value = 95;
+    #endregion
+
+    #region &quot;ExactMatches&quot;
+    pretranslateSettings.ConfirmAfterApplyingExactMatch.Value = true;
+    pretranslateSettings.LockExactMatchSegments.Value = false;
+    #endregion
+
+    #region &quot;ContextMatches&quot;
+    pretranslateSettings.ConfirmAfterApplyingInContextExactMatch.Value = true;
+    pretranslateSettings.LockContextMatchSegments.Value = true;
+    #endregion
+
+    #region &quot;NoMatch&quot;
+    pretranslateSettings.NoTranslationMemoryMatchFoundAction.Value = NoTranslationMemoryMatchFoundAction.CopySourceToTarget;
+    #endregion
+
+    #region &quot;TranslationOverwrite&quot;
+    pretranslateSettings.TranslationOverwriteMode.Value = TranslationUpdateMode.OverwriteExistingTranslation;
+    #endregion
+
+    #region &quot;UpdateTaskSettings&quot;
+    project.UpdateSettings(settings);
+    #endregion
+}
+</code></pre></section>
+</div>
+<h2 id="see-also">See Also</h2>
+<p><a href="analyze_files_settings.html">Analyze Files Settings</a></p>
+<p><a href="project_tm_creation_settings.html">Project TM Creation Settings</a></p>
+<p><a href="perfect_match.html">Perfect Match</a></p>
+<p><a href="update_translation_memory_settings.html">Update Translation Memory Settings</a></p>
+<p><a href="generating_and_exporting_target_files.html">Generating and Exporting Target Files</a></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/16.2/apiconcepts/projectautomation/pre_translate_settings.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

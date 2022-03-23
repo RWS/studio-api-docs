@@ -1,0 +1,214 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Defining an Extension Point </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Defining an Extension Point ">
+    <meta name="generator" content="docfx 2.59.0.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="defining-an-extension-point">Defining an Extension Point</h1>
+
+<p>This section explains how to create an extension point.</p>
+<h2 id="defining-an-extension-point-1">Defining an Extension Point</h2>
+<p>An extension point is defined by creating an attribute class, which extends the extension attribute base class,  <a href="../../api/core/Sdl.Core.PluginFramework.ExtensionAttribute.html">ExtensionAttribute</a>. The properties of this attribute class define the metadata extension developers can provide with their extensions.</p>
+<p>Extension developers can now create an extension .Net class, and mark this up with the extension attribute to indicate which extension point it targets.</p>
+<p>Going back to the example, in order to allow message transmitters to be plugged in, we need to define an extension point. This is done by defining an extension attribute class, <code>MessageTransmitterAttribute</code>, which extends the extension attribute base class,  <a href="../../api/core/Sdl.Core.PluginFramework.ExtensionAttribute.html">ExtensionAttribute</a>:</p>
+<div class="tabGroup" id="tabgroup_U00E4nYdzY">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_U00E4nYdzY_tabid-1" role="tab" aria-controls="tabpanel_U00E4nYdzY_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_U00E4nYdzY_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-csharp" name="MessageTransmitterAttribute">[ExtensionPointInfo(&quot;Message Transmitters&quot;, ExtensionPointBehavior.Static)]
+public class MessageTransmitterAttribute : ExtensionAttribute
+{
+    private double _costPerCharacter;
+
+    /// &lt;summary&gt;
+    /// Constructor for XML serialization
+    /// &lt;/summary&gt;
+    public MessageTransmitterAttribute()
+    {
+    }
+    /// &lt;summary&gt;
+    /// Constructor using basic properties.
+    /// &lt;/summary&gt;
+    public MessageTransmitterAttribute(string id, string name, string description)
+        : base(id, name, description)
+    {
+    }
+
+    /// &lt;summary&gt;
+    /// Gets or sets the cost in dollar per character in the message.
+    /// &lt;/summary&gt;
+    public double CostPerCharacter
+    {
+        get { return _costPerCharacter; }
+        set { _costPerCharacter = value; }
+    }
+
+    /// &lt;summary&gt;
+    /// Validates that the extension implements the IMessageTransmitter interface.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;info&quot;&gt;&lt;/param&gt;
+    /// &lt;param name=&quot;context&quot;&gt;&lt;/param&gt;
+    public override void Validate(
+        Sdl.Core.PluginFramework.Validation.IExtensionAttributeInfo info,
+        Sdl.Core.PluginFramework.Validation.IExtensionValidationContext context)
+    {
+        base.Validate(info, context);
+
+        context.ValidateRequiredInterface(typeof(IMessageTransmitter));
+    }
+}
+</code></pre></section>
+</div>
+<p>The purpose of the message transmitter attribute is to allow plug-in developers to use it to annotate their message transmitter extension classes, to make them known as message transmitter implementations to the extension point.</p>
+<p>In order to make the attribute an extension point, we have to annotate with the <a href="../../api/core/Sdl.Core.PluginFramework.ExtensionPointInfoAttribute.html">ExtensionPointInfoAttribute</a> attribute, which specifies the name and type of the extension point. The name can be used by a plug-in manager UI to represent the extension point. The type can be either static or dynamic, referring to whether this extension point allows enabling or disabling of one or more of it’s extensions without having to restart the application. More on that later.</p>
+<p>The  <a href="../../api/core/Sdl.Core.PluginFramework.ExtensionAttribute.html">ExtensionAttribute</a> class has the following properties, providing meta data about the extension:</p>
+<ul>
+<li><em>Id</em>: A unique id for the extension</li>
+<li><em>Name</em>: A friendly name for the extension.</li>
+<li><em>Description</em>: A description of the extension.</li>
+<li><em>Icon</em>: An optional icon representing the extension.
+Note that we have defined an extra property, CostPerCharacter, which indicates the cost in dollar for each character sent in a message.</li>
+</ul>
+<p>Since all these properties will be extracted to the plug-in manifest file by the plug-in manifest generator, the host application will be able to access their values without having to create an instance of the actual transmitters or even load the plug-in assembly. Since the plug-in manifest generator uses XML serialization to save the attribute information, the attribute has have a default, parameterless constructor.</p>
+<p>We still have to define which functionality is required from an extension class to be accepted as a valid message transmitter by the host application. This is done by defining an interface:</p>
+<pre><code class="lang-csharp" name="IMessageTransmitter">using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace TranslationStudio.Sdk.Documentation.Samples
+{
+    #region IMessageTransmitter
+
+    public interface IMessageTransmitter
+    {
+        void SendMessage(string message);
+    }
+
+    #endregion IMessageTransmitter
+}
+</code></pre><hr>
+<p>This simple interface contains one method, SendMessage, to be called by the host application to send the message.</p>
+<p>Extension points can also define validation functionality which is used by the framework at compile-time to validate its extensions. In the example, tye extension point checks whether the extension implements the IMessageTransmitter interface. If an extension ndoes not implement this interface, an error will be generated at compile time. For more information on extension validation see Compile-time Validation.</p>
+<p>We define both the <code>MessageTransmitterAttribute</code> and the interface in an assembly, called <code>ExtensionPointDefinitions</code>, so it can be references by the host applications and by plug-in assemblies.</p>
+<p>Next, we can start creating an extension that targets our new extension point in <a href="creating_extensions.html">Creating Extensions</a>.</p>
+<div class="NOTE"><h5>Note</h5><p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+</div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/16.2/apiconcepts/core/defining_an_extension_point.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

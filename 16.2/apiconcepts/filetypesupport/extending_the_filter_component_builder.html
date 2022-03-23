@@ -1,0 +1,300 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Extending the Filter Component Builder </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Extending the Filter Component Builder ">
+    <meta name="generator" content="docfx 2.59.0.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="extending-the-filter-component-builder">Extending the Filter Component Builder</h1>
+
+<p>This section shows how to extend an existing file type plug-in</p>
+<div class="NOTE"><h5>Note</h5><p>Please note that this functionality is only available in Studio 2011 SP3.</p>
+</div>
+<p>Existing file type plug-in can be extended by implementing the <code>IFileTypeComponentBuilderAdapter</code> interface and applying the <code>FileTypeComponentBuilderExtensionAttribute</code> attribute to the component builder class. Using this technique it is easy to add new <a href="native_file_tweakers.html">Pre and Post Tweakers</a>, add new Native and Bilingual Content Processors to the <a href="the_file_parser.html">Parser</a> and to the [Writer]the_file_writer.md) and add new Verifiers (Native or Bilingual). It also allows to redefine the file type plug-ins <a href="the_file_sniffer.html">Sniffer</a> and the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeInformation.html">IFileTypeInformation</a> associated to the file type plug-in. For more advanced users it is also possible to define a new <a href="the_filter_preview.html">File Preview mechanism</a> to existing file type plug-in.</p>
+<h2 id="how-to-do-it">How to do it</h2>
+<p>The Filter extension implementation consists of a class that implements the <code>IFileTypeComponentBuilderAdapter</code> interface. The original File Type Component Builder can be accessed by the <code>Original</code> property. For example to add a new <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IFilePreTweaker.html">IFilePreTweaker</a> to the existing SimpleText Filter provided with the examples of this SDK it is enough to implement the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.DynamicFilterComponentBuilder.html#Sdl_FileTypeSupport_Framework_IntegrationApi_DynamicFilterComponentBuilder_BuildFileExtractor_System_String_">BuildFileExtractor</a> method, call the original method and add the new tweaker to the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeExtractor.html">INativeExtractor</a> using <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileExtractor.html#Sdl_FileTypeSupport_Framework_IntegrationApi_IFileExtractor_AddFileTweaker_Sdl_FileTypeSupport_Framework_NativeApi_IFilePreTweaker_">AddFileTweaker</a> method. The following code shows how to do this:</p>
+<div class="tabGroup" id="tabgroup_qLOEXxISh-">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_qLOEXxISh-_tabid-1" role="tab" aria-controls="tabpanel_qLOEXxISh-_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_qLOEXxISh-_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-cs">public  IFileExtractor BuildFileExtractor(string name)
+{
+    // remember to call the original component builder method
+    var extractor = Original.BuildFileExtractor(name);
+
+    // add a pre tweaker
+    extractor.AddFileTweaker(new SimpleTextExtensionPreTweaker { RequireValidEncoding = false });
+
+    // add a native content processor
+    if (extractor.NativeExtractor != null)
+    {
+        extractor.NativeExtractor.AddProcessor(new NativeContentProcessorStub());
+    }
+
+    // add a bilingual content processor
+    extractor.AddBilingualProcessor(new BilingualContentProcessorStub());
+
+    return extractor;
+}
+</code></pre></section>
+</div>
+<p>where <code>SimpleTextExtensionPreTweaker</code> is the class that implements the new Tweaker that is being added.</p>
+<p>Note that extending an extension and extending a filter template are not supported by the filter framework and can have unexpected results.</p>
+<p>The next code shows part of the example (SimpleTextExtension) included with the sample projects. Note that the class has an attribute called <code>FileTypeComponentBuilderExtensionAttribute</code> to enable the plug-in mechanism. The property <code>OriginalFileType</code> must be set to match the FileTypeId of the FileType you wish to extend. Please refer to the <a href="build_the_file_type_plug_in.html">Build the File Type Plug-in</a> topic for more information.</p>
+<div class="tabGroup" id="tabgroup_qLOEXxISh--1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_qLOEXxISh--1_tabid-2" role="tab" aria-controls="tabpanel_qLOEXxISh--1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_qLOEXxISh--1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<pre><code class="lang-cs">namespace Sdk.FileTypeSupport.Samples.SimpleTextExtension
+{
+    using Sdl.Sdk.FileTypeSupport.Samples.SimpleText;
+    using Sdl.FileTypeSupport.Framework.IntegrationApi;
+    using Sdl.FileTypeSupport.Framework.NativeApi;
+    using Sdl.FileTypeSupport.Framework;
+    using Sdl.Core.Globalization;
+
+    [FileTypeComponentBuilderExtensionAttribute(Id = &quot;SimpleTextFilterExtension_Id&quot;,
+                                       Name = &quot;SimpleTextFilterExtension_Name&quot;,
+                                       Description = &quot;SimpleTextFilterExtension_Description&quot;,
+                                       OriginalFileType = &quot;Simple Text Filter 1.0.0.0&quot;)]
+    public sealed class SimpleTextExtensionComponentBuilder : IFileTypeComponentBuilderAdapter
+    {
+        public  IFileTypeInformation BuildFileTypeInformation(string name)
+        {
+            var info = Original.BuildFileTypeInformation(name);
+
+            info.FileTypeDefinitionId = new FileTypeDefinitionId(&quot;SimpleTextExtension 1.0.0.0&quot;);
+            info.FileTypeName = new LocalizableString(&quot;SimpleTextExtension&quot;);
+            //info.FileTypeDocumentName = new LocalizableString(&quot;SimpleTextExtension&quot;);
+            //info.FileTypeDocumentsName = new LocalizableString(&quot;SimpleTextExtensions&quot;);
+            //info.Description = new LocalizableString(&quot;Simple Extension Filter&quot;);
+            //info.FileDialogWildcardExpression = &quot;*.txtExtension&quot;;
+            //info.DefaultFileExtension = &quot;txtExtension&quot;;
+
+            return info;
+        }
+
+        public INativeFileSniffer BuildFileSniffer(string name)
+        {
+            return Original.BuildFileSniffer(name);
+        }
+
+        #region BuildFileExtractor
+        public  IFileExtractor BuildFileExtractor(string name)
+        {
+            // remember to call the original component builder method
+            var extractor = Original.BuildFileExtractor(name);
+
+            // add a pre tweaker
+            extractor.AddFileTweaker(new SimpleTextExtensionPreTweaker { RequireValidEncoding = false });
+
+            // add a native content processor
+            if (extractor.NativeExtractor != null)
+            {
+                extractor.NativeExtractor.AddProcessor(new NativeContentProcessorStub());
+            }
+
+            // add a bilingual content processor
+            extractor.AddBilingualProcessor(new BilingualContentProcessorStub());
+
+            return extractor;
+        }
+        #endregion
+
+        public  IFileGenerator BuildFileGenerator(string name)
+        {
+            // remember to call the base class method
+            var generator = Original.BuildFileGenerator(name);
+
+            // add a post tweaker
+            generator.AddFileTweaker(new SimpleTextExtensionPostTweaker() { RequireValidEncoding = false });
+
+            // add a native processor to the generator
+            if (generator.NativeGenerator != null)
+            {
+                generator.NativeGenerator.AddProcessor(new NativeContentProcessorStub());
+            }
+
+            // add a bilingual content processor
+            generator.AddBilingualProcessor(new BilingualContentProcessorStub());
+
+            return generator;
+        }
+
+        public  IVerifierCollection BuildVerifierCollection(string name)
+        {
+            // remember to call the base class method
+            var verifierCollection = Original.BuildVerifierCollection(name);
+            verifierCollection.NativeVerifiers.Add(new NativeVerifierStub());
+            verifierCollection.BilingualVerifiers.Add(new BilingualVerifierStub());
+            return verifierCollection;
+        }
+
+        public  IBilingualDocumentGenerator BuildBilingualGenerator(string name)
+        {
+            return Original.BuildBilingualGenerator(name);
+        }
+
+        public  IPreviewSetsFactory BuildPreviewSetsFactory(string name)
+        {
+            return Original.BuildPreviewSetsFactory(name);
+        }
+
+        public  IAbstractPreviewApplication BuildPreviewApplication(string name)
+        {
+            return Original.BuildPreviewApplication(name);
+        }
+
+        public  IAbstractPreviewControl BuildPreviewControl(string name)
+        {
+            return Original.BuildPreviewControl(name);
+        }
+
+        public IFileTypeComponentBuilder Original { get; set; }
+
+        public IAbstractGenerator BuildAbstractGenerator(string name)
+        {
+            return Original.BuildAbstractGenerator(name);
+        }
+
+        public IAdditionalGeneratorsInfo BuildAdditionalGeneratorsInfo(string name)
+        {
+            return Original.BuildAdditionalGeneratorsInfo(name);
+        }
+
+        public IQuickTagsFactory BuildQuickTagsFactory(string name)
+        {
+            return Original.BuildQuickTagsFactory(name);
+        }
+
+        public IFileTypeManager FileTypeManager { get; set; }
+
+        public IFileTypeDefinition FileTypeDefinition { get; set; }
+    }
+}
+</code></pre></section>
+</div>
+<p>Note that if the <code>FileTypeDefinitionId</code> is changed in the <code>BuildFileTypeInformation</code> section, then the extension will appear as a new filter in the Studio file type options dialog. Otherwise it will simply override the original one (i.e. no new filter will appear in U.I.)</p>
+<div class="NOTE"><h5>Note</h5><p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+</div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/16.2/apiconcepts/filetypesupport/extending_the_filter_component_builder.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>
