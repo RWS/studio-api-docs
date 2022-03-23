@@ -1,0 +1,143 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>File type settings </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="File type settings ">
+    <meta name="generator" content="docfx 2.59.0.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="file-type-settings">File type settings</h1>
+
+<p>Each file format has its particular features, for example, MS PowerPoint files can contain speaker notes, which is a feature specific to this document format. Users may be required to translate speaker notes, or they may have to exclude them from translation, depending on the specific project requirements. A file type plug-in can be equipped with a special settings UI, which allows users to configure settings at runtime. That way, they can determine, for example, whether the file type plug-in should extract speaker notes text from the MS PowerPoint file and make them available for translation/editing in the intermediary format (e.g. SDLXliff) or not.</p>
+<p>The more complex a file format is, the more likely it is to require the configuration of settings at runtime. Below are a few examples of file type settings used in Trados Studio:</p>
+<ul>
+<li>Styles that should be treated as non-translatable in Microsoft Word files</li>
+<li>Extracting the document properties of Microsoft Word files for editing</li>
+<li>Extracting Web addresses found in an Adobe InDesign (INX) file for editing</li>
+<li>Extracting hidden conditional text found in an Adobe InDesign (INX) file for editing
+etc.
+If your file type plug-in processes a file format that might potentially require users to extract or hide certain content on a case-by-case basis, you need to implement a user interface that exposes the required settings, which can then be configured by the users at runtime. Below you see an example of a settings page for the standard Adobe InDesign (INX) file type plug-in currently used in Trados Studio.</li>
+</ul>
+<p><img style="display:block; " src="images/INX_Settings.jpg"></p>
+<p>The settings page for the Adobe InDesign INX file type plug-in</p>
+<p>The settings are initially persisted in the default Project Template <strong>Default.sdltpl</strong> file, when edited without a project being open. Under Windows Vista or 7, this is usually located at: <em>c:\Users\UserName\Documents\SDL Trados Studio\Project Templates\Default.sdltpl</em> (provided Trados Studio is installed on your machine). A copy of these settings is made when a new project is created and the settings (for the open project) are then persisted in the project file (*.sdlproj)</p>
+<p>For example, when you create a project with the name of, say, <strong>Project 1</strong>, the project file will be located at: <em>c:\Users\ **UserName</em><em>\Documents\SDL Trados Studio\Projects\Project 1\Project 1.sdlproj</em>, assuming the default location for the project. The non-default settings for all file types will be stored in this project file (i.e. only settings which have been changed for file types are stored).</p>
+<p>You can also export or import settings from the default template using the UI</p>
+<p>There would be problems when a user tries to open an intermediary (SDLXliff) file which was generated by a file type plug-in whose binaries are not available on the machine on which the file is to be translated or edited. It would be possible to open the intermediary file and translate/edit it, however, it would not be possible to generate, for example, the native target file, previews, etc., because the binaries required to perform these functions are not accessible.</p>
+<h2 id="see-also">See Also</h2>
+<p><a href="implementing_the_settings_ui.html">Implementing the Settings UI</a></p>
+<p><a href="implementing_the_ui_controller_class.html">Implementing the UI Controller Class</a></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/16.2/apiconcepts/filetypesupport/file_type_settings.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,151 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Introduction </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Introduction ">
+    <meta name="generator" content="docfx 2.59.0.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="introduction">Introduction</h1>
+
+<p>This section describes how to work with translation memories, focusing on common functionality between file- and server-based translation memories. The <a href="performing_filebased_tm_lookups.html">Performing Translation Memory Lookups</a> section describes use cases that are specific to server-based translation memories.</p>
+<h2 id="overview">Overview</h2>
+<p>The Translation Memory API models a translation memory using the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.html">ITranslationMemory</a> interface. A translation memory is essentially a specific type of translation provider (see <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider.html">ITranslationProvider</a>), which exposes additional translation memory-specific functionality. For more information about translation providers, see <a href="creating_the_translation_provider.html">Creating the Translation Provider</a>.</p>
+<p><a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.html">ITranslationMemory</a> represents a multilingual translation memory, i.e. a translation memory that can have one or more language directions. Each of the language directions are represented by a <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemoryLanguageDirection.html">ITranslationMemoryLanguageDirection</a> object, which exposes functionality specific to that language direction.</p>
+<p><img style="display:block; " src="images/Cd-TranslationMemory.png"></p>
+<p>There are several implementations of the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.html">ITranslationMemory</a> interface:</p>
+<ul>
+<li><strong>File-based translation memory</strong>: a translation memory that is stored in a single file on disk, designed for single-user access. File-based translation memories support only a single language direction. For more information, see <a href="working_with_file_based_translation_memories.html">Working with File-based Translation Memories</a>.</li>
+<li><strong>Server-based translation memory</strong>: a translation memory that is hosted on a server and accessed via a WCF service. The translation memory data is stored in a central database (Microsoft SQL Server). For more information about server-based translation memories, see <a href="working_with_tm_server.html">Introduction</a>.</li>
+<li><strong>In-memory translation memory</strong>: a lightweight translation memory implementation, the data of which is held only in memory. This is designed for use is scenarios where there&#39;s a need for a relatively small and fast translation memory that does not need to be saved.</li>
+</ul>
+<p><img style="display:block; " src="images/Cd-TranslationMemories.png"></p>
+<p>Apart from the standard functionality supported by any translation provider, a translation memory has the following main additional features:</p>
+<ul>
+<li><strong>Field definitions</strong>: offers support for defining fields that allow associating custom meta-data with the translation units in the translation memory. This meta-data can then be used for filtering translation units during various operations. For more information, see <a href="working_with_field_definitions.html">Working with Field Definitions</a>.</li>
+<li><strong>Language Resources</strong>: offers support for storing custom language resources, such as segmentation rules, abbreviations, ordinal followers, variables, dates, times, numbers, measurements and currency recognizers. Storing these resources in the translation memory ensures that they are consistenly being used throughout translation or when segmenting content that is targeting the translation memory. This ensures consistency and optimal translation re-use. For more information about language resources, see <a href="working_with_language_resources.html">Working with Language Resources</a>.</li>
+<li><strong>Import</strong>: translation memories support bulk import of translation units from TMX or other supported bilingual file formats. For more information, see <a href="importing_content_into_a_translation_memory.html">Importing Content into a Translation Memory</a>.</li>
+<li><strong>Export</strong>: translation memories support exporting translation units to a TMX file. For more information, see <a href="exporting_content_from_a_translation_memory.html">Exporting Content from a Translation Memory</a>.
+The <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.html">ITranslationMemory</a> interface provides management functionality that allows you to modify properties such as name and description, but also language directions, field and language resources. When making changes to any of these, you need to call <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.html#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationMemory_Save">Save</a> in order to keep the changes.</li>
+</ul>
+<h2 id="see-also">See Also</h2>
+<p><a href="working_with_file_based_translation_memories.html">Working with File-based Translation Memories</a></p>
+<p><a href="working_with_field_definitions.html">Working with Field Definitions</a></p>
+<p><a href="working_with_language_resources.html">Working with Language Resources</a></p>
+<p><a href="importing_content_into_a_translation_memory.html">Importing Content into a Translation Memory</a></p>
+<p><a href="exporting_content_from_a_translation_memory.html">Exporting Content from a Translation Memory</a></p>
+<p><a href="performing_filebased_tm_lookups.html">Performing Translation Memory Lookups</a></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/16.2/apiconcepts/translationmemory/working_with_translation_memories.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

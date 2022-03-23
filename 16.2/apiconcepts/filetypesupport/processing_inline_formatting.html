@@ -1,0 +1,460 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Processing Inline Formatting </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Processing Inline Formatting ">
+    <meta name="generator" content="docfx 2.59.0.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h2 id="processing-inline-formatting">Processing Inline Formatting</h2>
+
+<p>In this chapter you will learn how to enhance your file type plug-in to properly mark up inline tags and apply character formatting.</p>
+<h2 id="add-new-members-to-the-parser-class">Add New Members to the Parser Class</h2>
+<p>For your parser class to be able to identify inline tags embedded within translatable content and to apply character display formatting, you need to make the following additions:</p>
+<p>Since we will use regular expressions to identify tags within translatable strings, you need to add the regular expressions namespace to your class, i.e. <code>System.Text.RegularExpressions</code></p>
+<p>Second, add the <code>Sdl.FileTypeSupport.Framework.Formatting</code> namespace. This namespace is required to access the functionality used to apply display character formatting in the editor of Trados Studio.</p>
+<p>To keep this project simple, let us proceed on the assumption that a text file can only contain the &lt; b&gt; tag for applying bold character formatting. To reflect this in your code, add a new formatting member to the global settings of your class:</p>
+<div class="tabGroup" id="tabgroup_LH+rzsgxrJ">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_LH+rzsgxrJ_tabid-1" role="tab" aria-controls="tabpanel_LH+rzsgxrJ_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_LH+rzsgxrJ_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-cs">IPersistentFileConversionProperties _fileConversionProperties;
+StreamReader _reader = null;
+
+FormattingGroup _fBold;
+</code></pre></section>
+</div>
+<h2 id="add-the-functionality-required-for-processing-formatting">Add the Functionality Required for Processing Formatting</h2>
+<p>Change the <code>ProcessLine()</code> helper as shown below, so that a new <code>ProcessFormatting()</code> function is called through <code>WriteText()</code>. (We will add this new helper function for processing formatting in the next step.)</p>
+<div class="tabGroup" id="tabgroup_LH+rzsgxrJ-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_LH+rzsgxrJ-1_tabid-2" role="tab" aria-controls="tabpanel_LH+rzsgxrJ-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_LH+rzsgxrJ-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<pre><code class="lang-cs">// determines whether a given line is
+// translatable or not
+// if not, a structure tag is output
+// otherwise, the translatable text is exposed
+private void ProcessLine(string sLine)
+{
+    if (sLine.StartsWith(&quot;[&quot;) &amp;&amp; sLine.EndsWith(&quot;]&quot;))
+    {
+        WriteStructureTag(sLine);
+        WriteContext(sLine);
+    }
+    else
+    {                
+        WriteText(ProcessFormatting(sLine));
+    }
+}
+</code></pre></section>
+</div>
+<p>Now add the function that identifies inline tag content (if available) within a translatable line:</p>
+<div class="tabGroup" id="tabgroup_LH+rzsgxrJ-2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_LH+rzsgxrJ-2_tabid-3" role="tab" aria-controls="tabpanel_LH+rzsgxrJ-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_LH+rzsgxrJ-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<pre><code class="lang-cs">// this function uses regular expressions to identify
+// what is &#39;normal&#39; translatable content and which strings
+// need to be marked up as inline tags, e.g. &lt;b&gt;
+private string ProcessFormatting(string sLine)
+{
+    int LastPosition = 0;
+    // search for opening and closing &lt;b&gt; tags
+    Regex rx = new Regex(@&quot;\&lt;.*?\&gt;&quot;, RegexOptions.Compiled);
+    MatchCollection rxMatches = rx.Matches(sLine);
+
+    foreach (Match rxMatch in rxMatches)
+    {
+        if (LastPosition != rxMatch.Index)
+        {
+            WriteText(sLine.Substring(LastPosition, rxMatch.Index - LastPosition));
+        }
+
+        bool IsOpening = rxMatch.Value.Contains(&quot;/&quot;) ? false : true;
+        WriteInlineTag(rxMatch.Value, IsOpening);  
+
+        LastPosition = rxMatch.Index + rxMatch.Length;
+    }
+    return sLine.Substring(LastPosition, sLine.Length - LastPosition);
+}
+</code></pre></section>
+</div>
+<p>This function calls <code>WriteText()</code> to output &#39;normal&#39; text and <code>WriteInlineTag()</code> to output any inline tags that have been found.
+Next, add the function that outputs the inline &lt; b&gt; tags. Note that these inline tags always occur in pairs, i.e. there will be an opening and a closing tag. This is why this function takes a boolean isStart parameter. If this function is called with a True value from <code>ProcessFormatting()</code>, a start tag will be created through the properties factory, which is then output to the bilingual file. Otherwise an end tag will be output.</p>
+<div class="NOTE"><h5>Note</h5><p>Start tags and end tags must be well-formed in the XML sense, i.e. all start tags must match an end tag with the same nesting of paired tags. If not, the  File Type Support Framework will throw a fatal exception. When paired tags are processed by the  File Type Support Framework and the framework-based editor, this well-formedness is guaranteed to be preserved. This can simplify other tag processing modules such as the native file writer (see <a href="implementing_the_file_writer.html">Implementing the File Writer</a>).</p>
+</div>
+<p><strong>Outputting the start tag of a tag pair</strong>: The properties factory provides a <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPropertiesFactory.html#Sdl_FileTypeSupport_Framework_NativeApi_IPropertiesFactory_CreateStartTagProperties_System_String_">CreateStartTagProperties</a> method that creates properties for a start tag that may appear inside localizable content and that has a corresponding end tag. When creating the tag property the tag content is passed to the Create() method as a parameter. The start tag property can then be output to the API using <code>Output.InlineStartTag()</code>.</p>
+<p><strong>Outputting the end tag of a tag pair</strong>: The properties factory has a <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPropertiesFactory.html#Sdl_FileTypeSupport_Framework_NativeApi_IPropertiesFactory_CreateEndTagProperties_System_String_">CreateEndTagProperties</a> method that creates properties for an end tag, which matches a previously emitted start tag. When creating the tag property the tag content is passed to the <code>Create()</code> method as a parameter. The end tag property can then be output to the API through the method <code>OutputInlineEndTag()</code>.</p>
+<p>This function also creates a formatting object to apply bold display formatting in the editor for the translator&#39;s convenience. We use the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IAbstractInlineTagProperties.html#Sdl_FileTypeSupport_Framework_NativeApi_IAbstractInlineTagProperties_CanHide">CanHide</a> property to hide the inline tags by default. This means that the translator will only see the formatting, not the actual tags, which is usually more convenient for the translation process.</p>
+<div class="tabGroup" id="tabgroup_LH+rzsgxrJ-3">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_LH+rzsgxrJ-3_tabid-4" role="tab" aria-controls="tabpanel_LH+rzsgxrJ-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_LH+rzsgxrJ-3_tabid-4" role="tabpanel" data-tab="tabid-4">
+<pre><code class="lang-cs">// this function outputs an opening or a closing &lt;b&gt; tag
+// and applies bold character formatting to the strings
+// that the tags enclose
+private void WriteInlineTag(string tagContent, bool isStart)
+{
+    _fBold = new FormattingGroup();
+    _fBold.Add(new Bold(true));
+
+    if (isStart)
+    {
+        IStartTagProperties startTag = PropertiesFactory.CreateStartTagProperties(tagContent);
+        startTag.DisplayText = &quot;b&quot;;
+        startTag.TagContent = tagContent;
+        startTag.Formatting = _fBold;
+        startTag.CanHide = true;
+        Output.InlineStartTag(startTag);
+    }
+    else
+    {
+        IEndTagProperties endTag = PropertiesFactory.CreateEndTagProperties(tagContent);
+        endTag.DisplayText = &quot;b&quot;;
+        endTag.TagContent = tagContent;
+        endTag.CanHide = true;
+        Output.InlineEndTag(endTag);
+    }
+}
+</code></pre></section>
+</div>
+<p>Through the (optional) <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IAbstractBasicTagProperties.html#Sdl_FileTypeSupport_Framework_NativeApi_IAbstractBasicTagProperties_DisplayText">DisplayText</a> property you can define the tag text that users see when they decide to display inline tags in the partial tag text mode. The <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IAbstractBasicTagProperties.html#Sdl_FileTypeSupport_Framework_NativeApi_IAbstractBasicTagProperties_TagContent">TagContent</a> property determines the tag text that users see when they activate the full tag text view.</p>
+<p>Below you see what the text looks like with proper display character formatting:</p>
+<p><img src="images/OnlyFormatting.jpg" alt="OnlyFormatting"></p>
+<p>This is what the editor view will look like when the user decides to display inline tags (partial tag text):</p>
+<p><img src="images/PartialTagText.jpg" alt="PartialTagText"></p>
+<p>This is what the editor view will look like when the user decides to display inline tags (full tag text):</p>
+<p><img src="images/FullTagText.jpg" alt="FullTagText"></p>
+<h2 id="putting-it-all-together">Putting it All Together</h2>
+<p>The enhanced file parser class should now look as shown below:</p>
+<div class="tabGroup" id="tabgroup_LH+rzsgxrJ-4">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_LH+rzsgxrJ-4_tabid-5" role="tab" aria-controls="tabpanel_LH+rzsgxrJ-4_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_LH+rzsgxrJ-4_tabid-5" role="tabpanel" data-tab="tabid-5">
+<pre><code class="lang-cs">using System.Drawing;
+using System.IO;
+using System.Text.RegularExpressions;
+using Sdl.FileTypeSupport.Framework.BilingualApi;
+using Sdl.FileTypeSupport.Framework.Core.Utilities.Formatting;
+using Sdl.FileTypeSupport.Framework.NativeApi;
+using Sdl.FileTypeSupport.Framework.Formatting;
+
+namespace Sdk.Snippets.Native
+{
+    public class SimpleTextParser : AbstractNativeFileParser, INativeContentCycleAware
+    {
+        #region &quot;global settings&quot;
+        IPersistentFileConversionProperties _fileConversionProperties;
+        StreamReader _reader = null;
+
+        FormattingGroup _fBold;
+        #endregion
+
+        #region &quot;INativeContentCycleAware members&quot;
+        // through the properties object you can retrieve important information
+        // on the native input file such as the original file name and path
+        public void SetFileProperties(IFileProperties properties)
+        {
+            _fileConversionProperties = properties.FileConversionProperties;
+        }
+
+        public void StartOfInput()
+        {
+
+        }
+
+
+        public void EndOfInput()
+        {
+
+        }
+        #endregion
+
+        #region &quot;members of AbstractNativeFileParser&quot;
+
+        #region &quot;before parsing&quot;
+        protected override void BeforeParsing()
+        {
+            // set progress reporter to the beginning
+            OnProgress(0);
+
+            // open the native input file for reading
+            _reader = new StreamReader(_fileConversionProperties.OriginalFilePath);
+        }
+        #endregion
+
+        #region &quot;during parsing&quot;
+        protected override bool DuringParsing()
+        {
+            // iterate through all lines in the input file
+            while (!_reader.EndOfStream)
+            {
+                ProcessLine(_reader.ReadLine());
+            }
+            return false;
+        }
+        #endregion
+
+        #region &quot;after parsing&quot;
+        protected override void AfterParsing()
+        {
+            //close original file
+            _reader.Close();
+            _reader.Dispose();
+            _reader = null;
+            //set progres report to 100%
+            OnProgress(100);
+        }
+        #endregion
+
+        #endregion
+
+        #region &quot;process line&quot;
+        // determines whether a given line is
+        // translatable or not
+        // if not, a structure tag is output
+        // otherwise, the translatable text is exposed
+        private void ProcessLine(string sLine)
+        {
+            if (sLine.StartsWith(&quot;[&quot;) &amp;&amp; sLine.EndsWith(&quot;]&quot;))
+            {
+                WriteStructureTag(sLine);
+                WriteContext(sLine);
+            }
+            else
+            {                
+                WriteText(ProcessFormatting(sLine));
+            }
+        }
+        #endregion
+
+        #region &quot;text&quot;
+        // output translatable text
+        private void WriteText(string TextContent)
+        {
+            ITextProperties textProperties = PropertiesFactory.CreateTextProperties(TextContent);
+            Output.Text(textProperties);
+        }
+        #endregion
+
+        #region &quot;structure&quot;
+        // output non-translatable text as structure tag
+        private void WriteStructureTag(string TagContent)
+        {
+            IStructureTagProperties structureTagProperties = PropertiesFactory.CreateStructureTagProperties(TagContent);
+            structureTagProperties.DisplayText = TagContent;
+            Output.StructureTag(structureTagProperties);
+        }
+        #endregion
+
+        #region &quot;context&quot;
+        // output context information, not required, but useful
+        // information for the translator
+        private void WriteContext(string ContextContent)
+        {
+            IContextProperties contextProperties = PropertiesFactory.CreateContextProperties();
+            IContextInfo contextInfo = PropertiesFactory.CreateContextInfo(ContextContent);
+            contextInfo.DisplayCode = &quot;EL&quot;;
+            contextInfo.DisplayName = &quot;Element&quot;;
+            contextInfo.Description = ContextContent;
+            contextInfo.DisplayColor = Color.Beige;
+            contextProperties.Contexts.Add(contextInfo);
+            Output.ChangeContext(contextProperties);
+        }
+        #endregion
+
+        #region &quot;process formatting&quot;
+        // this function uses regular expressions to identify
+        // what is &#39;normal&#39; translatable content and which strings
+        // need to be marked up as inline tags, e.g. &lt;b&gt;
+        private string ProcessFormatting(string sLine)
+        {
+            int LastPosition = 0;
+            // search for opening and closing &lt;b&gt; tags
+            Regex rx = new Regex(@&quot;\&lt;.*?\&gt;&quot;, RegexOptions.Compiled);
+            MatchCollection rxMatches = rx.Matches(sLine);
+
+            foreach (Match rxMatch in rxMatches)
+            {
+                if (LastPosition != rxMatch.Index)
+                {
+                    WriteText(sLine.Substring(LastPosition, rxMatch.Index - LastPosition));
+                }
+
+                bool IsOpening = rxMatch.Value.Contains(&quot;/&quot;) ? false : true;
+                WriteInlineTag(rxMatch.Value, IsOpening);
+
+                LastPosition = rxMatch.Index + rxMatch.Length;
+            }
+            return sLine.Substring(LastPosition, sLine.Length - LastPosition);
+        }
+        #endregion
+
+        #region &quot;write inline tag&quot;
+        // this function outputs an opening or a closing &lt;b&gt; tag
+        // and applies bold character formatting to the strings
+        // that the tags enclose
+        private void WriteInlineTag(string tagContent, bool isStart)
+        {
+            _fBold = new FormattingGroup();
+            _fBold.Add(new Bold(true));
+
+            if (isStart)
+            {
+                IStartTagProperties startTag = PropertiesFactory.CreateStartTagProperties(tagContent);
+                startTag.DisplayText = &quot;b&quot;;
+                startTag.TagContent = tagContent;
+                startTag.Formatting = _fBold;
+                startTag.CanHide = true;
+                Output.InlineStartTag(startTag);
+            }
+            else
+            {
+                IEndTagProperties endTag = PropertiesFactory.CreateEndTagProperties(tagContent);
+                endTag.DisplayText = &quot;b&quot;;
+                endTag.TagContent = tagContent;
+                endTag.CanHide = true;
+                Output.InlineEndTag(endTag);
+            }
+        }
+        #endregion
+    }
+}
+</code></pre></section>
+</div>
+<h2 id="see-also">See Also</h2>
+<p><a href="implementing_the_file_parser.html">Implementing the File Parser</a></p>
+<p><a href="processing_placeholder_tags.html">Processing Placeholder Tags</a></p>
+<p><a href="handling_tags_during_segmentation.html">Handling Tags During Segmentation</a></p>
+<p><a href="tag_display_modes.html">Tag display modes</a></p>
+<div class="NOTE"><h5>Note</h5><p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+</div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/16.2/apiconcepts/filetypesupport/processing_inline_formatting.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

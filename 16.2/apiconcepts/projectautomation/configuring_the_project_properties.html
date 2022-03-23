@@ -1,0 +1,303 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Configuring the Project Properties </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Configuring the Project Properties ">
+    <meta name="generator" content="docfx 2.59.0.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="configuring-the-project-properties">Configuring the Project Properties</h1>
+
+<p>Before the files can be processed we need to create a project, to which we later add the files to analyze as well as the TM file that should be used for the analysis. For the project creation, we proceed on the following assumptions:</p>
+<ul>
+<li>The project language direction will correspond to the source / target language combination of the translation memory. Therefore, the project language direction will be implicitly determined by the TM.</li>
+<li>The project will be created in the Trados Studio projects folder, e.g. C:\Documents and <em>Settings\UserName\My Documents\ Trados Studio \Projects.</em></li>
+<li>The project name will be hard-coded and based on the current date/time to ensure that the project folder names are unique.</li>
+</ul>
+<h2 id="add-the-class-for-the-project-creation">Add the Class for the Project Creation</h2>
+<p>Add a new class to your project called ProjectCreator. Make sure that this class uses the namespaces listed in the chapter <a href="required_references_and_namespaces.html">Required References and Namespaces</a>. Moreover, you also need to use the following namespaces from the Translation Memory API:</p>
+<ul>
+<li>Sdl.LanguagePlatform.TranslationMemoryApi</li>
+<li>Sdl.LanguagePlatform.TranslationMemory</li>
+<li>Sdl.LanguagePlatform.Core.Tokenization</li>
+<li>Sdl.LanguagePlatform.Core</li>
+</ul>
+<h2 id="create-the-project">Create the Project</h2>
+<p>Start by implementing a public function called Create. This function takes the following parameters:</p>
+<ul>
+<li>The document folder name as (string)</li>
+<li>The full file name and path of the TM file (string)</li>
+<li>A boolean parameter to indicate whether sub-folders should be processed through recursion</li>
+<li>Two boolean parameters to enable/disable cross-file repetition and internal fuzzy match leverage reporting</li>
+</ul>
+<div class="tabGroup" id="tabgroup_mR0OYh39vw">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_mR0OYh39vw_tabid-1" role="tab" aria-controls="tabpanel_mR0OYh39vw_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_mR0OYh39vw_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-cs">/// &lt;summary&gt;
+/// Creates the actual project that is used as a container for
+/// the files to analyze. Triggers all subsequent helper function
+/// in sequence, i.e. adding the source files, the TM, configuring
+/// the task settings, and running the required tasks, 
+/// if required publishing the result to a project server
+/// &lt;/summary&gt; 
+public void Create(
+    string docFolder,
+    string tmFile,
+    bool recursion,
+    bool reportCrossFileRepetitions,
+    bool reportInternalFuzzyMatchLeverage,
+    bool keepProjectFiles, 
+    bool publishToServer)
+</code></pre></section>
+</div>
+<p>Within this function you first open the TM file. This is the only point at which we make use of the Translation Memory API, as we need to retrieve the source/target language from the TM for the project creation as shown below:</p>
+<div class="tabGroup" id="tabgroup_mR0OYh39vw-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_mR0OYh39vw-1_tabid-2" role="tab" aria-controls="tabpanel_mR0OYh39vw-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_mR0OYh39vw-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<pre><code class="lang-cs">FileBasedTranslationMemory fileTm = new FileBasedTranslationMemory(tmFile);
+string srcLocale = fileTm.LanguageDirection.SourceLanguage.ToString();
+string trgLocale = fileTm.LanguageDirection.TargetLanguage.ToString();
+</code></pre></section>
+</div>
+<p>In the next step use the <a href="../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.html">FileBasedProject</a> class to create an object that represents our new project. When creating the project object we need to provide the project properties. Project properties are, for example, the project name, location, the source / target language, etc. For convenience reasons we &#39;outsource&#39; the project info configuration to a separate helper function.</p>
+<div class="tabGroup" id="tabgroup_mR0OYh39vw-2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_mR0OYh39vw-2_tabid-3" role="tab" aria-controls="tabpanel_mR0OYh39vw-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_mR0OYh39vw-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<pre><code class="lang-cs">FileBasedProject newProject = new FileBasedProject(this.GetProjectInfo(srcLocale, trgLocale));
+</code></pre></section>
+</div>
+<h2 id="configure-the-project-properties">Configure the Project Properties</h2>
+<p>Implement a separate helper function for configuring the project properties called <code>GetProjectInfo</code>. As this function is responsible for setting the project languages, it takes the source and the target locales (e.g.* en-US* and <em>de-DE</em>) as string parameters:</p>
+<div class="tabGroup" id="tabgroup_mR0OYh39vw-3">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_mR0OYh39vw-3_tabid-4" role="tab" aria-controls="tabpanel_mR0OYh39vw-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_mR0OYh39vw-3_tabid-4" role="tabpanel" data-tab="tabid-4">
+<pre><code class="lang-cs">/// &lt;summary&gt;
+/// Configures the project information, i.e. the project location (folder), the project name,
+/// and the source/target language.
+/// &lt;/summary&gt; 
+private ProjectInfo GetProjectInfo(string srcLocale, string trgLocale)
+</code></pre></section>
+</div>
+<p>Start by creating a <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.ProjectInfo.html">ProjectInfo</a> object, which holds the properties that we are going to set subsequently:</p>
+<div class="tabGroup" id="tabgroup_mR0OYh39vw-4">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_mR0OYh39vw-4_tabid-5" role="tab" aria-controls="tabpanel_mR0OYh39vw-4_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_mR0OYh39vw-4_tabid-5" role="tabpanel" data-tab="tabid-5">
+<pre><code class="lang-cs">ProjectInfo info = new ProjectInfo();
+</code></pre></section>
+</div>
+<p>To keep things as simple as possible, we are going to hard-code the name of the project as <em>BatchAnalyzer</em>. Note that in our implementation, the project files will be stored in a folder that is named after the project. Note that the API will throw an error when you try to create a project with the same name in the same location again, as a folder with that name already exists. As we can assume that this application will be used quite often for running multiple batch analysis processes, we need to make sure that the project (folder) names stay unique. We achieve this by appending a string that is based on the current date/time:</p>
+<div class="tabGroup" id="tabgroup_mR0OYh39vw-5">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_mR0OYh39vw-5_tabid-6" role="tab" aria-controls="tabpanel_mR0OYh39vw-5_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_mR0OYh39vw-5_tabid-6" role="tabpanel" data-tab="tabid-6">
+<pre><code class="lang-cs">string nameExt = DateTime.Now.ToString();
+nameExt = nameExt.Replace(&#39;.&#39;, &#39;_&#39;);
+nameExt = nameExt.Replace(&#39;:&#39;, &#39;_&#39;);
+nameExt = nameExt.Replace(&#39;/&#39;, &#39;_&#39;);
+nameExt = nameExt.Replace(&#39; &#39;, &#39;T&#39;);
+info.Name = &quot;BatchAnalyzer_&quot; + nameExt;
+</code></pre></section>
+</div>
+<p>In the next step we set the project folder, which stores all the files and sub-folders associated with our project. Here, we select the Projects folder of Trados Studio, e.g.:* C:\Documents and Settings\UserName\My Documents\ Trados Studio \Projects*. To this main folder, we append the name of our project, so that a corresponding project sub-folder is created. Then we set the <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.ProjectInfo.html#Sdl_ProjectAutomation_Core_ProjectInfo_LocalProjectFolder">LocalProjectFolder</a> property to the specified folder string as shown below:</p>
+<div class="tabGroup" id="tabgroup_mR0OYh39vw-6">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_mR0OYh39vw-6_tabid-7" role="tab" aria-controls="tabpanel_mR0OYh39vw-6_tabid-7" data-tab="tabid-7" tabindex="0" aria-selected="true">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_mR0OYh39vw-6_tabid-8" role="tab" aria-controls="tabpanel_mR0OYh39vw-6_tabid-8" data-tab="tabid-8" tabindex="-1">C#</a>
+</li>
+</ul>
+<section id="tabpanel_mR0OYh39vw-6_tabid-7" role="tabpanel" data-tab="tabid-7">
+<pre><code class="lang-cs">string localProjectFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).ToString() +
+    Path.DirectorySeparatorChar + $@&quot;{Versioning.Versions.StudioDocumentsFolderName}\Projects\&quot; + info.Name;
+info.LocalProjectFolder = localProjectFolder;
+</code></pre><p>**</p>
+<p>Next, we set the project source language. To do this we first create a <code>Language</code> object based on the given source locale string.</p>
+</section>
+<section id="tabpanel_mR0OYh39vw-6_tabid-8" role="tabpanel" data-tab="tabid-8" aria-hidden="true" hidden="hidden">
+<pre><code class="lang-cs">Language srcLang = new Language(CultureInfo.GetCultureInfo(srcLocale));
+info.SourceLanguage = srcLang;
+</code></pre></section>
+</div>
+<p>Then we determine the project target language. Note that a project can have several target languages. This is why the <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.ProjectInfo.html#Sdl_ProjectAutomation_Core_ProjectInfo_TargetLanguages">TargetLanguages</a> needs to be set to a language array. However, since our implementation only supports one target language, the array will contain a single language object:</p>
+<div class="tabGroup" id="tabgroup_mR0OYh39vw-7">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_mR0OYh39vw-7_tabid-9" role="tab" aria-controls="tabpanel_mR0OYh39vw-7_tabid-9" data-tab="tabid-9" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_mR0OYh39vw-7_tabid-9" role="tabpanel" data-tab="tabid-9">
+<pre><code class="lang-cs">Language[] trgLang = new Language[] { new Language(CultureInfo.GetCultureInfo(trgLocale)) };
+info.TargetLanguages = trgLang;
+</code></pre></section>
+</div>
+<p>Finally, the function needs to return the project info object:</p>
+<div class="tabGroup" id="tabgroup_mR0OYh39vw-8">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_mR0OYh39vw-8_tabid-10" role="tab" aria-controls="tabpanel_mR0OYh39vw-8_tabid-10" data-tab="tabid-10" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_mR0OYh39vw-8_tabid-10" role="tabpanel" data-tab="tabid-10">
+<pre><code class="lang-cs">return info;
+</code></pre></section>
+</div>
+<p>Note that other properties such as setting the due date are not required for our implementation.</p>
+<p>The complete function for configuring the project information should look as shown below:</p>
+<div class="tabGroup" id="tabgroup_mR0OYh39vw-9">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_mR0OYh39vw-9_tabid-11" role="tab" aria-controls="tabpanel_mR0OYh39vw-9_tabid-11" data-tab="tabid-11" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_mR0OYh39vw-9_tabid-11" role="tabpanel" data-tab="tabid-11">
+<pre><code class="lang-cs">/// &lt;summary&gt;
+/// Configures the project information, i.e. the project location (folder), the project name,
+/// and the source/target language.
+/// &lt;/summary&gt; 
+private ProjectInfo GetProjectInfo(string srcLocale, string trgLocale)
+</code></pre></section>
+</div>
+<h2 id="see-also">See Also</h2>
+<p><a href="setting_the_project_information.html">Setting the Project Information</a></p>
+<p><a href="creating_proj_based_on_templates.html">Creating Projects Based on Previous Projects</a></p>
+<p><a href="creating_proj_based_on_templates.html">Creating Projects Based on Templates</a></p>
+<p><a href="project_configuration.html">Project Configuration</a></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/16.2/apiconcepts/projectautomation/configuring_the_project_properties.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>
