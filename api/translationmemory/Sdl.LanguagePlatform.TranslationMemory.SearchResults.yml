@@ -21,6 +21,7 @@ items:
   - Sdl.LanguagePlatform.TranslationMemory.SearchResults.Item(System.Int32)
   - Sdl.LanguagePlatform.TranslationMemory.SearchResults.Merge(Sdl.LanguagePlatform.TranslationMemory.SearchResults,System.Boolean)
   - Sdl.LanguagePlatform.TranslationMemory.SearchResults.MultipleTranslations
+  - Sdl.LanguagePlatform.TranslationMemory.SearchResults.PostMergeFixup(System.Collections.Generic.IEnumerable{Sdl.LanguagePlatform.TranslationMemory.SearchResults},System.Collections.Generic.IEnumerable{System.Boolean},Sdl.LanguagePlatform.TranslationMemory.SearchSettings)
   - Sdl.LanguagePlatform.TranslationMemory.SearchResults.RemoveAll(System.Func{Sdl.LanguagePlatform.TranslationMemory.SearchResult,System.Boolean})
   - Sdl.LanguagePlatform.TranslationMemory.SearchResults.RemoveDuplicates
   - Sdl.LanguagePlatform.TranslationMemory.SearchResults.RemoveDuplicates(System.Func{Sdl.LanguagePlatform.TranslationMemory.SearchResult,Sdl.LanguagePlatform.TranslationMemory.SearchResult,Sdl.LanguagePlatform.TranslationMemory.SearchResult})
@@ -378,6 +379,48 @@ items:
   - public
   modifiers.vb:
   - Public
+- uid: Sdl.LanguagePlatform.TranslationMemory.SearchResults.PostMergeFixup(System.Collections.Generic.IEnumerable{Sdl.LanguagePlatform.TranslationMemory.SearchResults},System.Collections.Generic.IEnumerable{System.Boolean},Sdl.LanguagePlatform.TranslationMemory.SearchSettings)
+  commentId: M:Sdl.LanguagePlatform.TranslationMemory.SearchResults.PostMergeFixup(System.Collections.Generic.IEnumerable{Sdl.LanguagePlatform.TranslationMemory.SearchResults},System.Collections.Generic.IEnumerable{System.Boolean},Sdl.LanguagePlatform.TranslationMemory.SearchSettings)
+  id: PostMergeFixup(System.Collections.Generic.IEnumerable{Sdl.LanguagePlatform.TranslationMemory.SearchResults},System.Collections.Generic.IEnumerable{System.Boolean},Sdl.LanguagePlatform.TranslationMemory.SearchSettings)
+  parent: Sdl.LanguagePlatform.TranslationMemory.SearchResults
+  langs:
+  - csharp
+  - vb
+  name: PostMergeFixup(IEnumerable<SearchResults>, IEnumerable<Boolean>, SearchSettings)
+  nameWithType: SearchResults.PostMergeFixup(IEnumerable<SearchResults>, IEnumerable<Boolean>, SearchSettings)
+  fullName: Sdl.LanguagePlatform.TranslationMemory.SearchResults.PostMergeFixup(System.Collections.Generic.IEnumerable<Sdl.LanguagePlatform.TranslationMemory.SearchResults>, System.Collections.Generic.IEnumerable<System.Boolean>, Sdl.LanguagePlatform.TranslationMemory.SearchSettings)
+  type: Method
+  source:
+    path: Sdl.LanguagePlatform.TranslationMemory
+    isExternal: true
+  assemblies:
+  - Sdl.LanguagePlatform.TranslationMemory
+  namespace: Sdl.LanguagePlatform.TranslationMemory
+  summary: "\nWhen a search is performed on a batch of document segments for a single TM, TM search logic\ndeals with any logic spanning multiple segments, e.g. context match rules. However, when\nresults from multiple TMs are merged together, <xref href=\"Sdl.LanguagePlatform.TranslationMemory.SearchResults.Merge(Sdl.LanguagePlatform.TranslationMemory.SearchResults%2cSystem.Boolean)\" data-throw-if-not-resolved=\"false\"></xref>\nis generally used, once per document segment, which does not allow for that logic to\nbe applied. This function should be used on a list of document segment <xref href=\"Sdl.LanguagePlatform.TranslationMemory.SearchResults\" data-throw-if-not-resolved=\"false\"></xref>\nonce all <xref href=\"Sdl.LanguagePlatform.TranslationMemory.SearchResults.Merge(Sdl.LanguagePlatform.TranslationMemory.SearchResults%2cSystem.Boolean)\" data-throw-if-not-resolved=\"false\"></xref> calls have been performed.\n"
+  remarks: See https://jira.sdl.com/browse/LCC-12742
+  syntax:
+    content: public static void PostMergeFixup(IEnumerable<SearchResults> searchResultsPerSegment, IEnumerable<bool> searchMask, SearchSettings settings)
+    parameters:
+    - id: searchResultsPerSegment
+      type: System.Collections.Generic.IEnumerable{Sdl.LanguagePlatform.TranslationMemory.SearchResults}
+      description: The ordered list of <xref href="Sdl.LanguagePlatform.TranslationMemory.SearchResults" data-throw-if-not-resolved="false"></xref>, one per document segment (including possible null values e.g. for masked segments)
+    - id: searchMask
+      type: System.Collections.Generic.IEnumerable{System.Boolean}
+      description: Any mask used when performing the search over document segments
+    - id: settings
+      type: Sdl.LanguagePlatform.TranslationMemory.SearchSettings
+      description: The settings used for performing the search
+    content.vb: Public Shared Sub PostMergeFixup(searchResultsPerSegment As IEnumerable(Of SearchResults), searchMask As IEnumerable(Of Boolean), settings As SearchSettings)
+  overload: Sdl.LanguagePlatform.TranslationMemory.SearchResults.PostMergeFixup*
+  nameWithType.vb: SearchResults.PostMergeFixup(IEnumerable(Of SearchResults), IEnumerable(Of Boolean), SearchSettings)
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+  fullName.vb: Sdl.LanguagePlatform.TranslationMemory.SearchResults.PostMergeFixup(System.Collections.Generic.IEnumerable(Of Sdl.LanguagePlatform.TranslationMemory.SearchResults), System.Collections.Generic.IEnumerable(Of System.Boolean), Sdl.LanguagePlatform.TranslationMemory.SearchSettings)
+  name.vb: PostMergeFixup(IEnumerable(Of SearchResults), IEnumerable(Of Boolean), SearchSettings)
 - uid: Sdl.LanguagePlatform.TranslationMemory.SearchResults.Cap(System.Int32)
   commentId: M:Sdl.LanguagePlatform.TranslationMemory.SearchResults.Cap(System.Int32)
   id: Cap(System.Int32)
@@ -1466,6 +1509,107 @@ references:
   name: Boolean
   nameWithType: Boolean
   fullName: System.Boolean
+- uid: Sdl.LanguagePlatform.TranslationMemory.SearchResults.PostMergeFixup*
+  commentId: Overload:Sdl.LanguagePlatform.TranslationMemory.SearchResults.PostMergeFixup
+  isExternal: true
+  name: PostMergeFixup
+  nameWithType: SearchResults.PostMergeFixup
+  fullName: Sdl.LanguagePlatform.TranslationMemory.SearchResults.PostMergeFixup
+- uid: System.Collections.Generic.IEnumerable{Sdl.LanguagePlatform.TranslationMemory.SearchResults}
+  commentId: T:System.Collections.Generic.IEnumerable{Sdl.LanguagePlatform.TranslationMemory.SearchResults}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerable`1
+  name: IEnumerable<SearchResults>
+  nameWithType: IEnumerable<SearchResults>
+  fullName: System.Collections.Generic.IEnumerable<Sdl.LanguagePlatform.TranslationMemory.SearchResults>
+  nameWithType.vb: IEnumerable(Of SearchResults)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of Sdl.LanguagePlatform.TranslationMemory.SearchResults)
+  name.vb: IEnumerable(Of SearchResults)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Sdl.LanguagePlatform.TranslationMemory.SearchResults
+    name: SearchResults
+    nameWithType: SearchResults
+    fullName: Sdl.LanguagePlatform.TranslationMemory.SearchResults
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Sdl.LanguagePlatform.TranslationMemory.SearchResults
+    name: SearchResults
+    nameWithType: SearchResults
+    fullName: Sdl.LanguagePlatform.TranslationMemory.SearchResults
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.IEnumerable{System.Boolean}
+  commentId: T:System.Collections.Generic.IEnumerable{System.Boolean}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerable`1
+  name: IEnumerable<Boolean>
+  nameWithType: IEnumerable<Boolean>
+  fullName: System.Collections.Generic.IEnumerable<System.Boolean>
+  nameWithType.vb: IEnumerable(Of Boolean)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of System.Boolean)
+  name.vb: IEnumerable(Of Boolean)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Sdl.LanguagePlatform.TranslationMemory.SearchSettings
+  commentId: T:Sdl.LanguagePlatform.TranslationMemory.SearchSettings
+  parent: Sdl.LanguagePlatform.TranslationMemory
+  isExternal: true
+  name: SearchSettings
+  nameWithType: SearchSettings
+  fullName: Sdl.LanguagePlatform.TranslationMemory.SearchSettings
 - uid: Sdl.LanguagePlatform.TranslationMemory.SearchResults.Cap*
   commentId: Overload:Sdl.LanguagePlatform.TranslationMemory.SearchResults.Cap
   isExternal: true
@@ -1485,13 +1629,6 @@ references:
   name: CheckForMultipleTranslations
   nameWithType: SearchResults.CheckForMultipleTranslations
   fullName: Sdl.LanguagePlatform.TranslationMemory.SearchResults.CheckForMultipleTranslations
-- uid: Sdl.LanguagePlatform.TranslationMemory.SearchSettings
-  commentId: T:Sdl.LanguagePlatform.TranslationMemory.SearchSettings
-  parent: Sdl.LanguagePlatform.TranslationMemory
-  isExternal: true
-  name: SearchSettings
-  nameWithType: SearchSettings
-  fullName: Sdl.LanguagePlatform.TranslationMemory.SearchSettings
 - uid: System.Collections.Generic.List{Sdl.LanguagePlatform.TranslationMemory.SearchResult}
   commentId: T:System.Collections.Generic.List{Sdl.LanguagePlatform.TranslationMemory.SearchResult}
   parent: System.Collections.Generic

@@ -5,7 +5,6 @@ items:
   id: ProjectFile
   parent: Sdl.ProjectAutomation.Core
   children:
-  - Sdl.ProjectAutomation.Core.ProjectFile.#ctor
   - Sdl.ProjectAutomation.Core.ProjectFile.AnalysisStatistics
   - Sdl.ProjectAutomation.Core.ProjectFile.BilingualReferenceFileLocalPath
   - Sdl.ProjectAutomation.Core.ProjectFile.CheckedOutAt
@@ -14,6 +13,7 @@ items:
   - Sdl.ProjectAutomation.Core.ProjectFile.CurrentServerVersion
   - Sdl.ProjectAutomation.Core.ProjectFile.FileTypeId
   - Sdl.ProjectAutomation.Core.ProjectFile.Folder
+  - Sdl.ProjectAutomation.Core.ProjectFile.GetSettings
   - Sdl.ProjectAutomation.Core.ProjectFile.Id
   - Sdl.ProjectAutomation.Core.ProjectFile.IsCheckedOut
   - Sdl.ProjectAutomation.Core.ProjectFile.IsCheckedOutToAnotherUser
@@ -32,6 +32,7 @@ items:
   - Sdl.ProjectAutomation.Core.ProjectFile.Size
   - Sdl.ProjectAutomation.Core.ProjectFile.SourceFile
   - Sdl.ProjectAutomation.Core.ProjectFile.TargetFiles
+  - Sdl.ProjectAutomation.Core.ProjectFile.UpdateSettings(Sdl.Core.Settings.ISettingsBundle)
   langs:
   - csharp
   - vb
@@ -67,28 +68,66 @@ items:
   modifiers.vb:
   - Public
   - Class
-- uid: Sdl.ProjectAutomation.Core.ProjectFile.#ctor
-  commentId: M:Sdl.ProjectAutomation.Core.ProjectFile.#ctor
-  id: '#ctor'
+- uid: Sdl.ProjectAutomation.Core.ProjectFile.GetSettings
+  commentId: M:Sdl.ProjectAutomation.Core.ProjectFile.GetSettings
+  id: GetSettings
   parent: Sdl.ProjectAutomation.Core.ProjectFile
   langs:
   - csharp
   - vb
-  name: ProjectFile()
-  nameWithType: ProjectFile.ProjectFile()
-  fullName: Sdl.ProjectAutomation.Core.ProjectFile.ProjectFile()
-  type: Constructor
+  name: GetSettings()
+  nameWithType: ProjectFile.GetSettings()
+  fullName: Sdl.ProjectAutomation.Core.ProjectFile.GetSettings()
+  type: Method
   source:
     path: Sdl.ProjectAutomation.Core
     isExternal: true
   assemblies:
   - Sdl.ProjectAutomation.Core
   namespace: Sdl.ProjectAutomation.Core
-  summary: "\nDefault constructor\n"
+  summary: "\nGets the project-level settings.\n"
   syntax:
-    content: public ProjectFile()
-    content.vb: Public Sub New
-  overload: Sdl.ProjectAutomation.Core.ProjectFile.#ctor*
+    content: public ISettingsBundle GetSettings()
+    return:
+      type: Sdl.Core.Settings.ISettingsBundle
+      description: "\nA settings bundle containing the project settings. Never returns <code>null</code>.\n"
+    content.vb: Public Function GetSettings As ISettingsBundle
+  overload: Sdl.ProjectAutomation.Core.ProjectFile.GetSettings*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Sdl.ProjectAutomation.Core.ProjectFile.UpdateSettings(Sdl.Core.Settings.ISettingsBundle)
+  commentId: M:Sdl.ProjectAutomation.Core.ProjectFile.UpdateSettings(Sdl.Core.Settings.ISettingsBundle)
+  id: UpdateSettings(Sdl.Core.Settings.ISettingsBundle)
+  parent: Sdl.ProjectAutomation.Core.ProjectFile
+  langs:
+  - csharp
+  - vb
+  name: UpdateSettings(ISettingsBundle)
+  nameWithType: ProjectFile.UpdateSettings(ISettingsBundle)
+  fullName: Sdl.ProjectAutomation.Core.ProjectFile.UpdateSettings(Sdl.Core.Settings.ISettingsBundle)
+  type: Method
+  source:
+    path: Sdl.ProjectAutomation.Core
+    isExternal: true
+  assemblies:
+  - Sdl.ProjectAutomation.Core
+  namespace: Sdl.ProjectAutomation.Core
+  summary: "\nUpdates the project-level settings.\n"
+  remarks: "\n<p>The project settings will be completely replaced with the specified settings, so any settings not present in\nthe updated settings bundle will revert to their defaults.</p>\n"
+  syntax:
+    content: public void UpdateSettings(ISettingsBundle settings)
+    parameters:
+    - id: settings
+      type: Sdl.Core.Settings.ISettingsBundle
+      description: A settings bundle object containing the new project settings.
+    content.vb: Public Sub UpdateSettings(settings As ISettingsBundle)
+  overload: Sdl.ProjectAutomation.Core.ProjectFile.UpdateSettings*
+  exceptions:
+  - type: System.ArgumentNullException
+    commentId: T:System.ArgumentNullException
+    description: Thrown if <code data-dev-comment-type="paramref" class="paramref">settings</code> is <code>null</code>.
   modifiers.csharp:
   - public
   modifiers.vb:
@@ -1199,12 +1238,26 @@ references:
   name: System
   nameWithType: System
   fullName: System
-- uid: Sdl.ProjectAutomation.Core.ProjectFile.#ctor*
-  commentId: Overload:Sdl.ProjectAutomation.Core.ProjectFile.#ctor
+- uid: Sdl.ProjectAutomation.Core.ProjectFile.GetSettings*
+  commentId: Overload:Sdl.ProjectAutomation.Core.ProjectFile.GetSettings
   isExternal: true
-  name: ProjectFile
-  nameWithType: ProjectFile.ProjectFile
-  fullName: Sdl.ProjectAutomation.Core.ProjectFile.ProjectFile
+  name: GetSettings
+  nameWithType: ProjectFile.GetSettings
+  fullName: Sdl.ProjectAutomation.Core.ProjectFile.GetSettings
+- uid: Sdl.Core.Settings.ISettingsBundle
+  isExternal: true
+  name: ISettingsBundle
+  nameWithType: ISettingsBundle
+  fullName: Sdl.Core.Settings.ISettingsBundle
+- uid: Sdl.ProjectAutomation.Core.ProjectFile.UpdateSettings*
+  commentId: Overload:Sdl.ProjectAutomation.Core.ProjectFile.UpdateSettings
+  isExternal: true
+  name: UpdateSettings
+  nameWithType: ProjectFile.UpdateSettings
+  fullName: Sdl.ProjectAutomation.Core.ProjectFile.UpdateSettings
+- uid: System.ArgumentNullException
+  commentId: T:System.ArgumentNullException
+  isExternal: true
 - uid: Sdl.ProjectAutomation.Core.ProjectFile.Id*
   commentId: Overload:Sdl.ProjectAutomation.Core.ProjectFile.Id
   isExternal: true
