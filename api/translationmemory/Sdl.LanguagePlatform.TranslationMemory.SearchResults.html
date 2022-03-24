@@ -743,6 +743,55 @@ sort order is preserved, but the multiple translations information is re-evaluat
   </table>
   
   
+  <a id="Sdl_LanguagePlatform_TranslationMemory_SearchResults_PostMergeFixup_" data-uid="Sdl.LanguagePlatform.TranslationMemory.SearchResults.PostMergeFixup*"></a>
+  <h4 id="Sdl_LanguagePlatform_TranslationMemory_SearchResults_PostMergeFixup_System_Collections_Generic_IEnumerable_Sdl_LanguagePlatform_TranslationMemory_SearchResults__System_Collections_Generic_IEnumerable_System_Boolean__Sdl_LanguagePlatform_TranslationMemory_SearchSettings_" data-uid="Sdl.LanguagePlatform.TranslationMemory.SearchResults.PostMergeFixup(System.Collections.Generic.IEnumerable{Sdl.LanguagePlatform.TranslationMemory.SearchResults},System.Collections.Generic.IEnumerable{System.Boolean},Sdl.LanguagePlatform.TranslationMemory.SearchSettings)">PostMergeFixup(IEnumerable&lt;SearchResults&gt;, IEnumerable&lt;Boolean&gt;, SearchSettings)</h4>
+  <div class="markdown level1 summary"><p>When a search is performed on a batch of document segments for a single TM, TM search logic
+deals with any logic spanning multiple segments, e.g. context match rules. However, when
+results from multiple TMs are merged together, <a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.SearchResults.html#Sdl_LanguagePlatform_TranslationMemory_SearchResults_Merge_Sdl_LanguagePlatform_TranslationMemory_SearchResults_System_Boolean_">Merge(SearchResults, Boolean)</a>
+is generally used, once per document segment, which does not allow for that logic to
+be applied. This function should be used on a list of document segment <a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.SearchResults.html">SearchResults</a>
+once all <a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.SearchResults.html#Sdl_LanguagePlatform_TranslationMemory_SearchResults_Merge_Sdl_LanguagePlatform_TranslationMemory_SearchResults_System_Boolean_">Merge(SearchResults, Boolean)</a> calls have been performed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void PostMergeFixup(IEnumerable&lt;SearchResults&gt; searchResultsPerSegment, IEnumerable&lt;bool&gt; searchMask, SearchSettings settings)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.SearchResults.html">SearchResults</a>&gt;</td>
+        <td><span class="parametername">searchResultsPerSegment</span></td>
+        <td><p>The ordered list of <a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.SearchResults.html">SearchResults</a>, one per document segment (including possible null values e.g. for masked segments)</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.Boolean</span>&gt;</td>
+        <td><span class="parametername">searchMask</span></td>
+        <td><p>Any mask used when performing the search over document segments</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.SearchSettings.html">SearchSettings</a></td>
+        <td><span class="parametername">settings</span></td>
+        <td><p>The settings used for performing the search</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Sdl_LanguagePlatform_TranslationMemory_SearchResults_PostMergeFixup_System_Collections_Generic_IEnumerable_Sdl_LanguagePlatform_TranslationMemory_SearchResults__System_Collections_Generic_IEnumerable_System_Boolean__Sdl_LanguagePlatform_TranslationMemory_SearchSettings__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>See <a href="https://jira.sdl.com/browse/LCC-12742">https://jira.sdl.com/browse/LCC-12742</a></p>
+</div>
+  
+  
   <a id="Sdl_LanguagePlatform_TranslationMemory_SearchResults_RemoveAll_" data-uid="Sdl.LanguagePlatform.TranslationMemory.SearchResults.RemoveAll*"></a>
   <h4 id="Sdl_LanguagePlatform_TranslationMemory_SearchResults_RemoveAll_System_Func_Sdl_LanguagePlatform_TranslationMemory_SearchResult_System_Boolean__" data-uid="Sdl.LanguagePlatform.TranslationMemory.SearchResults.RemoveAll(System.Func{Sdl.LanguagePlatform.TranslationMemory.SearchResult,System.Boolean})">RemoveAll(Func&lt;SearchResult, Boolean&gt;)</h4>
   <div class="markdown level1 summary"><p>Removes all the elements that match the condition defined by the specified predicate</p>
