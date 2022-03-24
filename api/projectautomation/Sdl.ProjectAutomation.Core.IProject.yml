@@ -21,6 +21,7 @@ items:
   - Sdl.ProjectAutomation.Core.IProject.CreateReturnPackage(System.Guid[],System.String,System.String,System.EventHandler{Sdl.ProjectAutomation.Core.ProgressEventArgs},System.EventHandler{Sdl.ProjectAutomation.Core.MessageEventArgs})
   - Sdl.ProjectAutomation.Core.IProject.GetAutomaticTask(System.Guid)
   - Sdl.ProjectAutomation.Core.IProject.GetFile(System.Guid)
+  - Sdl.ProjectAutomation.Core.IProject.GetFileTypeConfiguration
   - Sdl.ProjectAutomation.Core.IProject.GetManualTask(System.Guid)
   - Sdl.ProjectAutomation.Core.IProject.GetProjectInfo
   - Sdl.ProjectAutomation.Core.IProject.GetProjectStatistics
@@ -29,7 +30,7 @@ items:
   - Sdl.ProjectAutomation.Core.IProject.GetSourceLanguageFiles
   - Sdl.ProjectAutomation.Core.IProject.GetTargetLanguageFiles
   - Sdl.ProjectAutomation.Core.IProject.GetTargetLanguageFiles(Sdl.Core.Globalization.Language)
-  - Sdl.ProjectAutomation.Core.IProject.GetTermbaseConfiguration
+  - Sdl.ProjectAutomation.Core.IProject.GetTermbaseConfiguration(System.Boolean)
   - Sdl.ProjectAutomation.Core.IProject.GetTranslationProviderConfiguration
   - Sdl.ProjectAutomation.Core.IProject.GetTranslationProviderConfiguration(Sdl.Core.Globalization.Language)
   - Sdl.ProjectAutomation.Core.IProject.ImportReturnPackage(System.String)
@@ -1231,16 +1232,16 @@ items:
   nameWithType.vb: IProject.CreateReturnPackage(Guid(), String, String, EventHandler(Of ProgressEventArgs), EventHandler(Of MessageEventArgs))
   fullName.vb: Sdl.ProjectAutomation.Core.IProject.CreateReturnPackage(System.Guid(), System.String, System.String, System.EventHandler(Of Sdl.ProjectAutomation.Core.ProgressEventArgs), System.EventHandler(Of Sdl.ProjectAutomation.Core.MessageEventArgs))
   name.vb: CreateReturnPackage(Guid(), String, String, EventHandler(Of ProgressEventArgs), EventHandler(Of MessageEventArgs))
-- uid: Sdl.ProjectAutomation.Core.IProject.GetTermbaseConfiguration
-  commentId: M:Sdl.ProjectAutomation.Core.IProject.GetTermbaseConfiguration
-  id: GetTermbaseConfiguration
+- uid: Sdl.ProjectAutomation.Core.IProject.GetTermbaseConfiguration(System.Boolean)
+  commentId: M:Sdl.ProjectAutomation.Core.IProject.GetTermbaseConfiguration(System.Boolean)
+  id: GetTermbaseConfiguration(System.Boolean)
   parent: Sdl.ProjectAutomation.Core.IProject
   langs:
   - csharp
   - vb
-  name: GetTermbaseConfiguration()
-  nameWithType: IProject.GetTermbaseConfiguration()
-  fullName: Sdl.ProjectAutomation.Core.IProject.GetTermbaseConfiguration()
+  name: GetTermbaseConfiguration(Boolean)
+  nameWithType: IProject.GetTermbaseConfiguration(Boolean)
+  fullName: Sdl.ProjectAutomation.Core.IProject.GetTermbaseConfiguration(System.Boolean)
   type: Method
   source:
     path: Sdl.ProjectAutomation.Core
@@ -1250,11 +1251,14 @@ items:
   namespace: Sdl.ProjectAutomation.Core
   summary: "\nRetrieves all termbase-related settings that are associated with this project.\n"
   syntax:
-    content: TermbaseConfiguration GetTermbaseConfiguration()
+    content: TermbaseConfiguration GetTermbaseConfiguration(bool obtainCopy)
+    parameters:
+    - id: obtainCopy
+      type: System.Boolean
     return:
       type: Sdl.ProjectAutomation.Core.TermbaseConfiguration
       description: A <xref href="Sdl.ProjectAutomation.Core.TermbaseConfiguration" data-throw-if-not-resolved="false"></xref> object containing all termbase-related configuration for this project.
-    content.vb: Function GetTermbaseConfiguration As TermbaseConfiguration
+    content.vb: Function GetTermbaseConfiguration(obtainCopy As Boolean) As TermbaseConfiguration
   overload: Sdl.ProjectAutomation.Core.IProject.GetTermbaseConfiguration*
 - uid: Sdl.ProjectAutomation.Core.IProject.UpdateTermbaseConfiguration(Sdl.ProjectAutomation.Core.TermbaseConfiguration)
   commentId: M:Sdl.ProjectAutomation.Core.IProject.UpdateTermbaseConfiguration(Sdl.ProjectAutomation.Core.TermbaseConfiguration)
@@ -1282,7 +1286,7 @@ items:
       description: >-
         A <xref href="Sdl.ProjectAutomation.Core.TermbaseConfiguration" data-throw-if-not-resolved="false"></xref> object containing all termbase-related configuration for this project.
 
-        This can either be newly created termbase configuration object or one that was retrieved via <xref href="Sdl.ProjectAutomation.Core.IProject.GetTermbaseConfiguration" data-throw-if-not-resolved="false"></xref>.
+        This can either be newly created termbase configuration object or one that was retrieved via <xref href="Sdl.ProjectAutomation.Core.IProject.GetTermbaseConfiguration(System.Boolean)" data-throw-if-not-resolved="false"></xref>.
     content.vb: Sub UpdateTermbaseConfiguration(termbaseConfiguration As TermbaseConfiguration)
   overload: Sdl.ProjectAutomation.Core.IProject.UpdateTermbaseConfiguration*
 - uid: Sdl.ProjectAutomation.Core.IProject.GetTranslationProviderConfiguration
@@ -1521,6 +1525,30 @@ items:
     content: void Save()
     content.vb: Sub Save
   overload: Sdl.ProjectAutomation.Core.IProject.Save*
+- uid: Sdl.ProjectAutomation.Core.IProject.GetFileTypeConfiguration
+  commentId: M:Sdl.ProjectAutomation.Core.IProject.GetFileTypeConfiguration
+  id: GetFileTypeConfiguration
+  parent: Sdl.ProjectAutomation.Core.IProject
+  langs:
+  - csharp
+  - vb
+  name: GetFileTypeConfiguration()
+  nameWithType: IProject.GetFileTypeConfiguration()
+  fullName: Sdl.ProjectAutomation.Core.IProject.GetFileTypeConfiguration()
+  type: Method
+  source:
+    path: Sdl.ProjectAutomation.Core
+    isExternal: true
+  assemblies:
+  - Sdl.ProjectAutomation.Core
+  namespace: Sdl.ProjectAutomation.Core
+  summary: "\nReturns the configuration for the file types asssociated to this project\n"
+  syntax:
+    content: ProjectFileTypeConfiguration GetFileTypeConfiguration()
+    return:
+      type: Sdl.ProjectAutomation.Core.ProjectFileTypeConfiguration
+    content.vb: Function GetFileTypeConfiguration As ProjectFileTypeConfiguration
+  overload: Sdl.ProjectAutomation.Core.IProject.GetFileTypeConfiguration*
 references:
 - uid: Sdl.ProjectAutomation.Core
   commentId: N:Sdl.ProjectAutomation.Core
@@ -2233,3 +2261,16 @@ references:
   name: Save
   nameWithType: IProject.Save
   fullName: Sdl.ProjectAutomation.Core.IProject.Save
+- uid: Sdl.ProjectAutomation.Core.IProject.GetFileTypeConfiguration*
+  commentId: Overload:Sdl.ProjectAutomation.Core.IProject.GetFileTypeConfiguration
+  isExternal: true
+  name: GetFileTypeConfiguration
+  nameWithType: IProject.GetFileTypeConfiguration
+  fullName: Sdl.ProjectAutomation.Core.IProject.GetFileTypeConfiguration
+- uid: Sdl.ProjectAutomation.Core.ProjectFileTypeConfiguration
+  commentId: T:Sdl.ProjectAutomation.Core.ProjectFileTypeConfiguration
+  parent: Sdl.ProjectAutomation.Core
+  isExternal: true
+  name: ProjectFileTypeConfiguration
+  nameWithType: ProjectFileTypeConfiguration
+  fullName: Sdl.ProjectAutomation.Core.ProjectFileTypeConfiguration
