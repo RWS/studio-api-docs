@@ -6,6 +6,9 @@ Read more on how you can write your first <Var:ProductName> plugin.
 ## [Learn more about <Var:ProductNameWithEdition> APIs](apiconcepts/overview.md) 
 Learn more about the APIs and what you can achieve with them.
 
+## [How to update plugins to <Var:ProductNameWithEdition>](articles/hints_tips/Update_Plugins/update_plugins_to_Studio2022.md) 
+Learn more about how you can make your plugin compatible with <Var:ProductNameWithEdition>.
+
 ## [Articles](articles/intro.md)
 Read articles on how to get more out of <Var:ProductName>.
 
