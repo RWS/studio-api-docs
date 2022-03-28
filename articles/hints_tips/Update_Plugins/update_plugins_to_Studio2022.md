@@ -120,7 +120,7 @@ If you project is still using a packages.config file to reference the nuget pack
 <br/>
 
 ### Remove redundant references to the plugin framework
-Unload the project from Visual Studio and remove the obsolete references to the plugin framework as highlighted underneath:
+Unload the project from Visual Studio and remove the redundant references to the plugin framework as highlighted underneath:
 <img style="display:block; margin: 0px" src="images/RedundantFrameworkReference.png" />
 
 <br/>
