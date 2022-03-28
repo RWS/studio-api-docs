@@ -114,13 +114,13 @@ The option declaration `<Private>False</Private>` in the following example shoul
 <br/>
 
 ### Migrate packages.config to PackageReference
-If you project is still using a packages.config file to reference the nuget packages, then we need to migrate it to PackageReference from the visual studio solution.  Right-click on the **packages.config** file from the project solution and select **Migrate packages.config to PackageReference...** from the context menu.
+If you project is still using a packages.config file to reference the nuget packages, then we need to migrate it to PackageReference from the Visual Studio solution.  Right-click on the **packages.config** file from the project solution and select **Migrate packages.config to PackageReference...** from the context menu.
 <img style="display:block; margin: 0px" src="images/MigratePackagesConfig.png" />
 
 <br/>
 
 ### Remove redundant references to the plugin framework
-Unload the project from visual studio and remove the obsolete references to the plugin framework as highlighted underneath:
+Unload the project from Visual Studio and remove the obsolete references to the plugin framework as highlighted underneath:
 <img style="display:block; margin: 0px" src="images/RedundantFrameworkReference.png" />
 
 <br/>
