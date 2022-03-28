@@ -126,7 +126,7 @@ Unload the project from Visual Studio and remove the redundant references to the
 <br/>
 
 ### .NetFramework is higher than the current targeted framework error
-Unload the project and search in .csproj file for _TargetFrameworkVersion_. Make sure you have only one _TargetFrameworkVersion_ version in the file and is pointing to _v4.8_. For example:
+Unload the project and search in .csproj file for `TargetFrameworkVersion`. Make sure you have only one `TargetFrameworkVersion` version in the file and is pointing to _v4.8_. For example:
 
 ~~~xml
 <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
