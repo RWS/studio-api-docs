@@ -1,12 +1,12 @@
-# How to update plugins to Trados Studio 2022
+# How to update plugins to <var:ProductNameWithEdition>
 
-Plugins built for previous releases of Trados Studio are not compatible with Trados Studio 2022.  While the main reason for this is due to the assembly versions increased to align with the latest product release, there are also other breaking changes to take in to consideration. 
+Plugins built for previous releases of <var:ProductName> are not compatible with <var:ProductNameWithEdition>.  While the main reason for this is due to the assembly versions increased to align with the latest product release, there are also other breaking changes to take in to consideration. 
 
-The following are a list of changes and known issues to consider when updating your plugin to be compatible with Trados Studio 2022.
+The following are a list of changes and known issues to consider when updating your plugin to be compatible with <var:ProductNameWithEdition>.
 
 > [!NOTE]
 >
-> In order to migrate a plugin to be compatible with Trados Studio 2022 we need to install:
+> In order to migrate a plugin to be compatible with <var:ProductNameWithEdition> we need to install:
 > .NET Framework *4.8*. It can be installed form https://dotnet.microsoft.com/download/dotnet-framework/net48. After you install the framework a restart is required.
 
 ### How check if the .Net Framework was installed correctly
@@ -39,7 +39,7 @@ The manifest file pluginpackage.manifest.xml is located at the root of your proj
 
 <b>RequiredProduct</b>
 * Min version should be set to: _17.0_
-* Max version should be set to _17.9_.  It is recommend to also set this value, as it will provide the RWS AppStore with sufficient information in correctly identifying plugins that are compatible with the version of Trados Studio that is launched.
+* Max version should be set to _17.9_.  It is recommend to also set this value, as it will provide the RWS AppStore with sufficient information in correctly identifying plugins that are compatible with the version of <var:ProductName> that is launched.
 * Name should be set to: _TradosStudio_
  
 **Example:**
@@ -60,7 +60,7 @@ The manifest file pluginpackage.manifest.xml is located at the root of your proj
 ## Project References & Deployment Path
 The following changes should be applied in the project file (.csproj)
 
-All Trados Studio references should point to the new installation path *$(ProgramFiles)\Trados\Trados Studio\Studio17*. For example:
+All <var:ProductName> references should point to the new installation path *$(ProgramFiles)\Trados\Trados Studio\Studio17*. For example:
 
 ~~~xml
 <Reference Include="Sdl.Desktop.IntegrationApi.Extensions">
@@ -78,7 +78,7 @@ The plugin deployment path should point to the new location *$(AppData)\Trados\T
 >
 > To update settings directly in the project file from Visual Studio
 > * Right-click on the project node in the **Solution Explorer** and select **Unload Project**.
-> * Then, right-click on the project and choose *Edit* <projectname>
+> * Then, right-click on the project and choose **Edit** <projectname>
 > 
 > Once you have applied your changes in the project file, then reload project
 > * In the **Solution Explorer**, select the projects you want to load (press **Ctrl** while clicking to select more than one project)
@@ -92,7 +92,7 @@ The plugin deployment path should point to the new location *$(AppData)\Trados\T
 The following are a list of known issues and solutions that you might encounter depending on your settings and configuration
 
 ### Project Reference, Private = false issue
-We have discovered a new symptom while building plugins with the latest plugin framework against Trados Studio 2022. If the reference option (private = false) is present in the Trados Studio assembly reference of the project, then the plugin will not be built correctly. 
+We have discovered a new symptom while building plugins with the latest plugin framework against <var:ProductNameWithEdition>. If the reference option (private = false) is present in the <var:ProductName> assembly reference of the project, then the plugin will not be built correctly. 
 
 You will noticed that the API extension context is missing from the *.plugin.xml file. This is needed by the desktop platform to recognize and load the plugin in the studio context.
 
@@ -107,7 +107,7 @@ The option declaration `<Private>False</Private>` in the following example shoul
 ~~~xml
 <Reference Include="Sdl.Desktop.IntegrationApi.Extensions">
     <Private>False</Private>
-    <HintPath>$(ProgramFiles)\Trados\Trados Studio\17beta\Sdl.Desktop.IntegrationApi.Extensions.dll</HintPath>
+    <HintPath>$(ProgramFiles)\Trados\Trados Studio\17\Sdl.Desktop.IntegrationApi.Extensions.dll</HintPath>
 </Reference>
 ~~~
 
