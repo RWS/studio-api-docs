@@ -6,7 +6,7 @@ Translation units are associated with a set of system information, which is adde
 About Translation Unit System Information
 --
 
-For TU a set of information is stored, i.e. the date/time when the TU was created and the date/time the TU was last changed (if applicable). In addition, the name of the user who created/changed the TU is also stored as well as the name of the user who last used the TU and when (if applicable). Furthermore, a usage counter is maintained, i.e. the system tracks how often a TU has been used. Using a TU means that it has been found during a TM lookup operation, and the suggested translation has been inserted into the document, thus being 'used'. This allows you, for example, to filter for TUs that have never been used, and delete them in order to keep the TM lean and efficient. The screenshot below shows an example of the system information that is kept for a particular TU in <Var:ProductName>:
+For each TU, a set of information is stored, i.e. the date/time when the TU was created and the date/time the TU was last changed (if applicable). In addition, the name of the user who created/changed the TU is also stored as well as the name of the user who last used the TU and when (if applicable). Furthermore, a usage counter is maintained, i.e. the system tracks how often a TU has been used. Using a TU means that it has been found during a TM lookup operation, and the suggested translation has been inserted into the document, thus being 'used'. This allows you, for example, to filter for TUs that have never been used, and delete them in order to keep the TM lean and efficient. The screenshot below shows an example of the system information that is kept for a particular TU in <Var:ProductName>:
 
 ![SystemInfo](images/SystemInfo.jpg)
 
@@ -18,7 +18,7 @@ In the following you will learn how to retrieve the system information of a TU p
 
 # [C#](#tab/tabid-1)
 ```cs
-FileBasedTranslationMemory tm = new FileBasedTranslationMemory(tmPath);
+var tm = new FileBasedTranslationMemory(tmPath);
 
 SearchResults results = tm.LanguageDirection.SearchText(this.GetSearchSettings(), "A dialog box will open.");
 ```
@@ -37,7 +37,7 @@ foreach (SearchResult item in results)
         SystemFields sysFields = tu.SystemFields;
 
         tuInfo = "Creation date: " + sysFields.CreationUser + "\n";
-        tuInfo += "Craetion usr: " + sysFields.CreationUser + "\n";
+        tuInfo += "Creation user: " + sysFields.CreationUser + "\n";
         tuInfo += "Change date: " + sysFields.ChangeDate + "\n";
         tuInfo += "Change user: " + sysFields.ChangeUser + "\n";
         tuInfo += "Usage count: " + sysFields.UseCount + "\n";
@@ -64,13 +64,13 @@ namespace SDK.LanguagePlatform.Samples.TmAutomation
     using Sdl.LanguagePlatform.TranslationMemory;
     using Sdl.LanguagePlatform.TranslationMemoryApi;
 
-    public class TUSystemInfo
+    public class TuSystemInfo
     {
         #region "GetInfo"
         public void GetInfo(string tmPath)
         {
             #region "open"
-            FileBasedTranslationMemory tm = new FileBasedTranslationMemory(tmPath);
+            var tm = new FileBasedTranslationMemory(tmPath);
 
             SearchResults results = tm.LanguageDirection.SearchText(this.GetSearchSettings(), "A dialog box will open.");
             #endregion
@@ -85,7 +85,7 @@ namespace SDK.LanguagePlatform.Samples.TmAutomation
                     SystemFields sysFields = tu.SystemFields;
 
                     tuInfo = "Creation date: " + sysFields.CreationUser + "\n";
-                    tuInfo += "Craetion usr: " + sysFields.CreationUser + "\n";
+                    tuInfo += "Creation user: " + sysFields.CreationUser + "\n";
                     tuInfo += "Change date: " + sysFields.ChangeDate + "\n";
                     tuInfo += "Change user: " + sysFields.ChangeUser + "\n";
                     tuInfo += "Usage count: " + sysFields.UseCount + "\n";
@@ -103,7 +103,7 @@ namespace SDK.LanguagePlatform.Samples.TmAutomation
         #region "settings"
         private SearchSettings GetSearchSettings()
         {
-            SearchSettings settings = new SearchSettings();
+            var settings = new SearchSettings();
             settings.MinScore = 100;
             return settings;
         }

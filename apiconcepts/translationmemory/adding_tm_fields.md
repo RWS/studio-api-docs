@@ -1,4 +1,6 @@
 Adding TM Fields
+==
+
 This page shows how to add fields to a translation memory. For more information on what TM fields are and what their purpose is, please refer to [Configuring Translation Memories](configuring_translation_memories.md).
 
 Add a New Class
@@ -12,8 +14,8 @@ Start by adding a public function called ```AddFields```, which takes the file p
 
 # [C#](#tab/tabid-1)
 ```cs
-TMFieldGenerator objFieldGenerator = new TMFieldGenerator();
-objFieldGenerator.AddFields(_translationMemoryFilePath);
+var tmFieldGenerator = new TmFieldGenerator();
+tmFieldGenerator.AddFields(_translationMemoryFilePath);
 ```
 ***
 
@@ -23,9 +25,9 @@ Apply the **ValueType** property to define the field as a picklist that can hold
 
 # [C#](#tab/tabid-2)
 ```cs
-FileBasedTranslationMemory tm = new FileBasedTranslationMemory(tmPath);
+var tm = new FileBasedTranslationMemory(tmPath);
 
-FieldDefinition listField = new FieldDefinition();
+var listField = new FieldDefinition();
 listField.Name = "Customer";
 listField.ValueType = FieldValueType.MultiplePicklist;
 listField.PicklistItems.Add("RWS");
@@ -37,7 +39,7 @@ The second example should be a free text field, which we call *Project id*. Ther
 
 # [C#](#tab/tabid-3)
 ```cs
-FieldDefinition textField = new FieldDefinition();
+var textField = new FieldDefinition();
 textField.Name = "Project id";
 textField.ValueType = FieldValueType.MultipleString;
 ```
@@ -57,15 +59,15 @@ namespace SDK.LanguagePlatform.Samples.TmAutomation
     using Sdl.LanguagePlatform.TranslationMemory;
     using Sdl.LanguagePlatform.TranslationMemoryApi;
 
-    public class TMFieldGenerator
+    public class TmFieldGenerator
     {
         #region "AddFields"
         public void AddFields(string tmPath)
         {
             #region "listField"
-            FileBasedTranslationMemory tm = new FileBasedTranslationMemory(tmPath);
+            var tm = new FileBasedTranslationMemory(tmPath);
 
-            FieldDefinition listField = new FieldDefinition();
+            var listField = new FieldDefinition();
             listField.Name = "Customer";
             listField.ValueType = FieldValueType.MultiplePicklist;
             listField.PicklistItems.Add("RWS");
@@ -73,7 +75,7 @@ namespace SDK.LanguagePlatform.Samples.TmAutomation
             #endregion
 
             #region "textField"
-            FieldDefinition textField = new FieldDefinition();
+            var textField = new FieldDefinition();
             textField.Name = "Project id";
             textField.ValueType = FieldValueType.MultipleString;
             #endregion

@@ -6,9 +6,9 @@ As a general rule, file-based TMs can generally be opened and used by anyone who
 There are four different access levels for file based TMs:
 
 * **Administrator**: Can perform any TM-related operation, i.e. read/write, change settings, import/export.
-* **Maintenance**: Can perform operations such as global find/replace in a TM (but no change of TM settings and no import/export).
+* **Maintenance**: Can perform operations such as global find/replace in a TM (but no change to TM settings and no import/export).
 * **Read/Write**: This access level is typically used by translators, who need to be able to add/change TUs and search the TM.
-* **Read-only**: Guest access that allows users to perform TM look-ups.
+* **Read-only**: Guest access that allows users to perform only TM look-ups.
 
 >[!NOTE]
 >
@@ -17,7 +17,7 @@ There are four different access levels for file based TMs:
 
 When a user opens a password-protected TM in <Var:ProductName> the following prompt will be shown where you can select the required access level and then enter the corresponding password:
 
-![PwPompt](images/PwPompt.jpg)
+![PwdPrompt](images/PwdPrompt.jpg)
 
 Setting Passwords Programmatically
 --
@@ -26,8 +26,8 @@ Add a new class to your project, which you call ```TmProtector```. Add a public 
 
 # [C#](#tab/tabid-1)
 ```cs
-TMProtector objProtect = new TMProtector();
-objProtect.AssignPasswords(_translationMemoryFilePath);
+var tmProtector = new TmProtector();
+tmProtector.AssignPasswords(_translationMemoryFilePath);
 ```
 ***
 
@@ -38,7 +38,7 @@ The API offers four different methods for setting passwords corresponding to the
 ```cs
 public void AssignPasswords(string tmPath)
 {
-    FileBasedTranslationMemory tm = new FileBasedTranslationMemory(tmPath);
+    var tm = new FileBasedTranslationMemory(tmPath);
 
     tm.SetAdministratorPassword("super");
     tm.SetMaintenancePassword("maintain");
@@ -64,7 +64,7 @@ private void OpenProtectedTm(string tmPath, string password)
 {
     try
     {
-        FileBasedTranslationMemory tm = new FileBasedTranslationMemory(tmPath, password);
+        var tm = new FileBasedTranslationMemory(tmPath, password);
     }
     catch (Exception ex)
     {
@@ -87,12 +87,12 @@ namespace SDK.LanguagePlatform.Samples.TmAutomation
     using System.Windows.Forms;
     using Sdl.LanguagePlatform.TranslationMemoryApi;
 
-    public class TMProtector
+    public class TmProtector
     {
         #region "assign"
         public void AssignPasswords(string tmPath)
         {
-            FileBasedTranslationMemory tm = new FileBasedTranslationMemory(tmPath);
+            var tm = new FileBasedTranslationMemory(tmPath);
 
             tm.SetAdministratorPassword("super");
             tm.SetMaintenancePassword("maintain");
@@ -109,7 +109,7 @@ namespace SDK.LanguagePlatform.Samples.TmAutomation
         {
             try
             {
-                FileBasedTranslationMemory tm = new FileBasedTranslationMemory(tmPath, password);
+                var tm = new FileBasedTranslationMemory(tmPath, password);
             }
             catch (Exception ex)
             {

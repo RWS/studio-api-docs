@@ -1,7 +1,7 @@
 Updating a Translation Memory
 --
 
-In this chapter you will learn how to add content to a TM. While translators work they typically add translation units to the TM, or edit existing ones, e.g. by replacing past translations. In addition, updating a TM can also involve adding TM field information (e.g. project id, client) to the translation units. The following examples illustrate how to handle these common TM editing scenarios programmatically.
+In this chapter you will learn how to add content to a TM. While translators work, they typically add translation units to the TM or edit existing ones, e.g. by replacing past translations. In addition, updating a TM can also involve adding TM field information (e.g. project id, client) to the translation units. The following examples illustrate how to handle these common TM editing scenarios programmatically.
 
 Add a New Class
 --
@@ -17,11 +17,11 @@ Start by implementing a function called ```AddTu```, which takes the TM file nam
 
 # [C#](#tab/tabid-1)
 ```cs
-TMUpdater update = new TMUpdater();
-update.AddTu(_translationMemoryFilePath);
-update.AddTuExtended(_translationMemoryFilePath);
-update.EditTu(_translationMemoryFilePath);
-update.DeleteTu(_translationMemoryFilePath);
+var tmUpdater = new TmUpdater();
+tmUpdater.AddTu(_translationMemoryFilePath);
+tmUpdater.AddTuExtended(_translationMemoryFilePath);
+tmUpdater.EditTu(_translationMemoryFilePath);
+tmUpdater.DeleteTu(_translationMemoryFilePath);
 ```
 ***
 
@@ -29,9 +29,9 @@ After opening the TM create a TU object:
 
 # [C#](#tab/tabid-2)
 ```cs
-FileBasedTranslationMemory tm = new FileBasedTranslationMemory(tmPath);
+var tm = new FileBasedTranslationMemory(tmPath);
 
-TranslationUnit tu = new TranslationUnit();
+var tu = new TranslationUnit();
 ```
 ***
 
@@ -56,7 +56,7 @@ Let us assume that you would also like to add a picklist field value to the new 
 
 # [C#](#tab/tabid-4)
 ```cs
-MultiplePicklistFieldValue value = new MultiplePicklistFieldValue("Customer");
+var value = new MultiplePicklistFieldValue("Customer");
 value.Add("Microsoft");
 tu.FieldValues.Add(value);
 ```
@@ -66,7 +66,7 @@ Finally, add the TU object to the TM:
 
 # [C#](#tab/tabid-5)
 ```cs
-MultiplePicklistFieldValue value = new MultiplePicklistFieldValue("Customer");
+var value = new MultiplePicklistFieldValue("Customer");
 value.Add("Microsoft");
 tu.FieldValues.Add(value);
 ```
@@ -79,7 +79,7 @@ Note that apart from the TU object the [AddTranslationUnit](../../api/translatio
 ```cs
 private ImportSettings GetImportSettings()
 {
-    ImportSettings settings = new ImportSettings();
+    var settings = new ImportSettings();
     settings.CheckMatchingSublanguages = true;
     settings.ExistingFieldsUpdateMode = ImportSettings.FieldUpdateMode.Merge;
 
@@ -136,9 +136,9 @@ The full function for adding a TU looks as shown below:
 public void AddTu(string tmPath)
 {
     #region "open"
-    FileBasedTranslationMemory tm = new FileBasedTranslationMemory(tmPath);
+    var tm = new FileBasedTranslationMemory(tmPath);
 
-    TranslationUnit tu = new TranslationUnit();
+    var tu = new TranslationUnit();
     #endregion
 
     #region "segments"
@@ -150,7 +150,7 @@ public void AddTu(string tmPath)
     #endregion
 
     #region "AddField"
-    MultiplePicklistFieldValue value = new MultiplePicklistFieldValue("Customer");
+    var value = new MultiplePicklistFieldValue("Customer");
     value.Add("Microsoft");
     tu.FieldValues.Add(value);
     #endregion
@@ -180,7 +180,7 @@ public void AddTu(string tmPath)
 ```
 ***
 
-TUs can also contain structure context information that indicates whether a particular segment occurred, for example, in a headline, a table cell, a footnote, etc. This structure context information can be helpful, as the same source segment might sometimes have to be translated differently depending on whether it occurs e.g. in a normal paragraph or in a table cell. For this reason, structure context information, too, can be saved with a TU. <Var:ProductName> uses display codes such as H (Headline), FN (Footnote) to show the structure context of a particular TU to the user.
+TUs can also contain structure context information that indicates whether a particular segment occurred, for example, in a headline, a table cell, a footnote, etc. This structure context information can be helpful, as the same source segment might sometimes have to be translated differently depending on whether it occurs e.g. in a normal paragraph or in a table cell. For this reason, structure context information, too, can be saved within a TU. <Var:ProductName> uses display codes such as H (Headline), FN (Footnote) to show the structure context of a particular TU to the user.
 
 ![StructureContext](images/StructureContext.jpg)
 
@@ -203,11 +203,11 @@ Start by adding a function called ```EditTu```, which takes the TM file name and
 
 # [C#](#tab/tabid-12)
 ```cs
-TMUpdater update = new TMUpdater();
-update.AddTu(_translationMemoryFilePath);
-update.AddTuExtended(_translationMemoryFilePath);
-update.EditTu(_translationMemoryFilePath);
-update.DeleteTu(_translationMemoryFilePath);
+var tmUpdater = new TmUpdater();
+tmUpdater.AddTu(_translationMemoryFilePath);
+tmUpdater.AddTuExtended(_translationMemoryFilePath);
+tmUpdater.EditTu(_translationMemoryFilePath);
+tmUpdater.DeleteTu(_translationMemoryFilePath);
 ```
 ***
 
