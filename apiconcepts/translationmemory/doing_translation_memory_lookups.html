@@ -8,7 +8,7 @@
     <title>Doing Translation Memory Lookups </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Doing Translation Memory Lookups ">
-    <meta name="generator" content="docfx 2.59.0.0">
+    <meta name="generator" content="docfx 2.59.2.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
@@ -92,7 +92,7 @@
 </li>
 </ul>
 <section id="tabpanel_6rK+BetqPm_tabid-1" role="tabpanel" data-tab="tabid-1">
-<pre><code class="lang-cs">TMLookup search = new TMLookup();
+<pre><code class="lang-cs">var search = new TmLookup();
 search.SearchForText(_translationMemoryFilePath, &quot;To run the Spelling Checker:&quot;, SearchMode.NormalSearch);
 </code></pre></section>
 </div>
@@ -105,8 +105,8 @@ search.SearchForText(_translationMemoryFilePath, &quot;To run the Spelling Check
 </li>
 </ul>
 <section id="tabpanel_6rK+BetqPm-1_tabid-2" role="tabpanel" data-tab="tabid-2">
-<pre><code class="lang-cs">FileBasedTranslationMemory tm = new FileBasedTranslationMemory(tmPath);
-SearchResults results = tm.LanguageDirection.SearchText(this.GetSearchSettings(mode), searchText);
+<pre><code class="lang-cs">var tm = new FileBasedTranslationMemory(tmPath);
+var results = tm.LanguageDirection.SearchText(this.GetSearchSettings(mode), searchText);
 </code></pre></section>
 </div>
 <p>The <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.AbstractMachineTranslationProviderLanguageDirection.html#Sdl_LanguagePlatform_TranslationMemoryApi_AbstractMachineTranslationProviderLanguageDirection_SearchText_Sdl_LanguagePlatform_TranslationMemory_SearchSettings_System_String_">SearchText</a> method requires the search string as well as the search settings as parameters. The search parameters are configured in a separate helper function:</p>
@@ -119,7 +119,7 @@ SearchResults results = tm.LanguageDirection.SearchText(this.GetSearchSettings(m
 <section id="tabpanel_6rK+BetqPm-2_tabid-3" role="tabpanel" data-tab="tabid-3">
 <pre><code class="lang-cs">private SearchSettings GetSearchSettings(SearchMode mode)
 {
-    SearchSettings settings = new SearchSettings();
+    var settings = new SearchSettings();
 
     settings.MaxResults = 5;
     settings.MinScore = 70;
@@ -135,7 +135,7 @@ SearchResults results = tm.LanguageDirection.SearchText(this.GetSearchSettings(m
 <p>Another parameter that we pass in this implementation is the search mode, which can be configured, for example, to execute a concordance search, i.e. the search type that looks up all segments that contain a particular string. Note that the search mode can be set to do a concordance search in the source or target segment, provided that during TM creation (<a href="creating_a_file_based_translation_memory.html">Creating a File-based Translation Memory</a>) the database has been configured to index the target segments. You can also set the mode to perform a segment lookup using the values of the <strong>SearchMode</strong> enumerator. By default, Trados Studio performs a <strong>NormalSearch</strong> search. This means that fuzzy matches are only retrieved if no exact or context match has been found. <strong>FullSearch</strong> also yields fuzzy matches even if an exact match has been found. Usually, the exact matches are the ones that translators will insert into the target document. However, in rare instances, a fuzzy match might prove more useful than the exact match. Note that retrieving fuzzy matches even if exact matches have been found can also have an impact on the TM lookup performance.</p>
 <h2 id="run-a-filtered-search">Run a Filtered Search</h2>
 <p>Trados Studio allows you to define one or several filter criteria that can be applied during a TM search. Example: You want to focus on TUs that are associated with the customer <em>Microsoft</em>, i.e. where the <em>Customer</em> field contains the value <em>Microsoft</em>. TUs that do not match this filter can still be found, however, a penalty is applied to them. Example: A TU matches a particular segment exactly, i.e. it has the score 100%. However, as it does not match the specified filter, a penalty of 1% is applied, which reduces the score to 99%. This is done to draw the translator&#39;s attention to the fact that the suggested translation might not fit the current context, as it was not created for the specified customer.</p>
-<p>The screenshot below shows an example of a filter that applies a penalty of 1% to any TUs that do not have with the <em>Subject</em> field value <em>Technology</em>:</p>
+<p>The screenshot below shows an example of a filter that applies a penalty of 1% to any TUs that were not created by <em>User1</em>:</p>
 <p><img src="images/FilterPenalty.jpg" alt="FilterPenalty"></p>
 <p>In order to apply a filter to your search, expand the helper function <code>GetSearchSettings</code> by adding the two following lines:</p>
 <div class="tabGroup" id="tabgroup_6rK+BetqPm-3">
@@ -145,7 +145,7 @@ SearchResults results = tm.LanguageDirection.SearchText(this.GetSearchSettings(m
 </li>
 </ul>
 <section id="tabpanel_6rK+BetqPm-3_tabid-4" role="tabpanel" data-tab="tabid-4">
-<pre><code class="lang-cs">Filter filter = new Filter(this.GetFilter(), &quot;Microsoft&quot;, 1);
+<pre><code class="lang-cs">var filter = new Filter(this.GetFilter(), &quot;Microsoft&quot;, 1);
 settings.AddFilter(filter);
 </code></pre></section>
 </div>
@@ -158,8 +158,8 @@ settings.AddFilter(filter);
 </li>
 </ul>
 <section id="tabpanel_6rK+BetqPm-4_tabid-5" role="tabpanel" data-tab="tabid-5">
-<pre><code class="lang-cs">PicklistItem fieldName = new PicklistItem(&quot;Customer&quot;);
-MultiplePicklistFieldValue fieldValue = new MultiplePicklistFieldValue(&quot;Microsoft&quot;);
+<pre><code class="lang-cs">var fieldName = new PicklistItem(&quot;Customer&quot;);
+var fieldValue = new MultiplePicklistFieldValue(&quot;Microsoft&quot;);
 fieldValue.Add(fieldName);
 </code></pre></section>
 </div>
@@ -171,7 +171,7 @@ fieldValue.Add(fieldName);
 </li>
 </ul>
 <section id="tabpanel_6rK+BetqPm-5_tabid-6" role="tabpanel" data-tab="tabid-6">
-<pre><code class="lang-cs">AtomicExpression filter = new AtomicExpression(fieldValue, AtomicExpression.Operator.Equal);
+<pre><code class="lang-cs">var filter = new AtomicExpression(fieldValue, AtomicExpression.Operator.Equal);
 return filter;
 </code></pre></section>
 </div>
@@ -186,13 +186,13 @@ return filter;
 <pre><code class="lang-cs">private FilterExpression GetFilter()
 {
     #region &quot;SimpleCriterion&quot;
-    PicklistItem fieldName = new PicklistItem(&quot;Customer&quot;);
-    MultiplePicklistFieldValue fieldValue = new MultiplePicklistFieldValue(&quot;Microsoft&quot;);
+    var fieldName = new PicklistItem(&quot;Customer&quot;);
+    var fieldValue = new MultiplePicklistFieldValue(&quot;Microsoft&quot;);
     fieldValue.Add(fieldName);
     #endregion
 
     #region &quot;SimpleFilter&quot;
-    AtomicExpression filter = new AtomicExpression(fieldValue, AtomicExpression.Operator.Equal);
+    var filter = new AtomicExpression(fieldValue, AtomicExpression.Operator.Equal);
     return filter;
     #endregion
 }
@@ -244,11 +244,11 @@ MessageBox.Show(hitList);
 <section id="tabpanel_6rK+BetqPm-8_tabid-9" role="tabpanel" data-tab="tabid-9">
 <pre><code class="lang-cs">public void SearchForSegment(string tmPath)
 {
-    FileBasedTranslationMemory tm = new FileBasedTranslationMemory(tmPath);
-    SearchSettings settings = new SearchSettings();
+    var tm = new FileBasedTranslationMemory(tmPath);
+    var settings = new SearchSettings();
     settings.MaxResults = 5;
 
-    Segment srcSegment = new Segment(tm.LanguageDirection.SourceLanguage);
+    var srcSegment = new Segment(tm.LanguageDirection.SourceLanguage);
     srcSegment.Add(&quot;Configure the spelling checker as shown below:&quot;);
     SearchResults results = tm.LanguageDirection.SearchSegment(settings, srcSegment);
 
@@ -269,11 +269,11 @@ MessageBox.Show(hitList);
 <section id="tabpanel_6rK+BetqPm-9_tabid-10" role="tabpanel" data-tab="tabid-10">
 <pre><code class="lang-cs">public void SearchForTu(string tmPath)
 {
-    FileBasedTranslationMemory tm = new FileBasedTranslationMemory(tmPath);
-    SearchSettings settings = new SearchSettings();
+    var tm = new FileBasedTranslationMemory(tmPath);
+    var settings = new SearchSettings();
     settings.MaxResults = 5;
 
-    TranslationUnit tu = new TranslationUnit();
+    var tu = new TranslationUnit();
     tu.SourceSegment = new Segment(tm.LanguageDirection.SourceLanguage);
     tu.TargetSegment = new Segment(tm.LanguageDirection.TargetLanguage);
 
@@ -305,13 +305,13 @@ MessageBox.Show(hitList);
     using Sdl.LanguagePlatform.TranslationMemory;
     using Sdl.LanguagePlatform.TranslationMemoryApi;
 
-    public class TMLookup
+    public class TmLookup
     {
         #region &quot;searchTU&quot;
         public void SearchForText(string tmPath, string searchText, SearchMode mode)
         {
             #region &quot;ExecuteSearch&quot;
-            FileBasedTranslationMemory tm = new FileBasedTranslationMemory(tmPath);
+            var tm = new FileBasedTranslationMemory(tmPath);
             SearchResults results = tm.LanguageDirection.SearchText(this.GetSearchSettings(mode), searchText);
             #endregion
 
@@ -335,7 +335,7 @@ MessageBox.Show(hitList);
         #region &quot;settings&quot;
         private SearchSettings GetSearchSettings(SearchMode mode)
         {
-            SearchSettings settings = new SearchSettings();
+            var settings = new SearchSettings();
 
             settings.MaxResults = 5;
             settings.MinScore = 70;
@@ -349,7 +349,7 @@ MessageBox.Show(hitList);
         #region &quot;SettingsWithFilter&quot;
         private SearchSettings GetSearchSettingsWithFilter(SearchMode mode)
         {
-            SearchSettings settings = new SearchSettings();
+            var settings = new SearchSettings();
 
             settings.MaxResults = 5;
             settings.MinScore = 70;
@@ -368,13 +368,13 @@ MessageBox.Show(hitList);
         private FilterExpression GetFilter()
         {
             #region &quot;SimpleCriterion&quot;
-            PicklistItem fieldName = new PicklistItem(&quot;Customer&quot;);
-            MultiplePicklistFieldValue fieldValue = new MultiplePicklistFieldValue(&quot;Microsoft&quot;);
+            var fieldName = new PicklistItem(&quot;Customer&quot;);
+            var fieldValue = new MultiplePicklistFieldValue(&quot;Microsoft&quot;);
             fieldValue.Add(fieldName);
             #endregion
 
             #region &quot;SimpleFilter&quot;
-            AtomicExpression filter = new AtomicExpression(fieldValue, AtomicExpression.Operator.Equal);
+            var filter = new AtomicExpression(fieldValue, AtomicExpression.Operator.Equal);
             return filter;
             #endregion
         }
@@ -383,11 +383,11 @@ MessageBox.Show(hitList);
         #region &quot;SearchForSegment&quot;
         public void SearchForSegment(string tmPath)
         {
-            FileBasedTranslationMemory tm = new FileBasedTranslationMemory(tmPath);
-            SearchSettings settings = new SearchSettings();
+            var tm = new FileBasedTranslationMemory(tmPath);
+            var settings = new SearchSettings();
             settings.MaxResults = 5;
 
-            Segment srcSegment = new Segment(tm.LanguageDirection.SourceLanguage);
+            var srcSegment = new Segment(tm.LanguageDirection.SourceLanguage);
             srcSegment.Add(&quot;Configure the spelling checker as shown below:&quot;);
             SearchResults results = tm.LanguageDirection.SearchSegment(settings, srcSegment);
 
@@ -401,11 +401,11 @@ MessageBox.Show(hitList);
         #region &quot;SearchForTu&quot;
         public void SearchForTu(string tmPath)
         {
-            FileBasedTranslationMemory tm = new FileBasedTranslationMemory(tmPath);
-            SearchSettings settings = new SearchSettings();
+            var tm = new FileBasedTranslationMemory(tmPath);
+            var settings = new SearchSettings();
             settings.MaxResults = 5;
 
-            TranslationUnit tu = new TranslationUnit();
+            var tu = new TranslationUnit();
             tu.SourceSegment = new Segment(tm.LanguageDirection.SourceLanguage);
             tu.TargetSegment = new Segment(tm.LanguageDirection.TargetLanguage);
 

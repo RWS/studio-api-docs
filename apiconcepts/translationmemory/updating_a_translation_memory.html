@@ -8,7 +8,7 @@
     <title>Updating a Translation Memory </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Updating a Translation Memory ">
-    <meta name="generator" content="docfx 2.59.0.0">
+    <meta name="generator" content="docfx 2.59.2.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
@@ -82,7 +82,7 @@
             <article class="content wrap" id="_content" data-uid="">
 <h2 id="updating-a-translation-memory">Updating a Translation Memory</h2>
 
-<p>In this chapter you will learn how to add content to a TM. While translators work they typically add translation units to the TM, or edit existing ones, e.g. by replacing past translations. In addition, updating a TM can also involve adding TM field information (e.g. project id, client) to the translation units. The following examples illustrate how to handle these common TM editing scenarios programmatically.</p>
+<p>In this chapter you will learn how to add content to a TM. While translators work, they typically add translation units to the TM or edit existing ones, e.g. by replacing past translations. In addition, updating a TM can also involve adding TM field information (e.g. project id, client) to the translation units. The following examples illustrate how to handle these common TM editing scenarios programmatically.</p>
 <h2 id="add-a-new-class">Add a New Class</h2>
 <p>Start by adding a new class called <code>TmUpdater</code> to your project.</p>
 <h2 id="add-a-translation-unit">Add a Translation Unit</h2>
@@ -95,11 +95,11 @@
 </li>
 </ul>
 <section id="tabpanel_SgbQt+E4l1_tabid-1" role="tabpanel" data-tab="tabid-1">
-<pre><code class="lang-cs">TMUpdater update = new TMUpdater();
-update.AddTu(_translationMemoryFilePath);
-update.AddTuExtended(_translationMemoryFilePath);
-update.EditTu(_translationMemoryFilePath);
-update.DeleteTu(_translationMemoryFilePath);
+<pre><code class="lang-cs">var tmUpdater = new TmUpdater();
+tmUpdater.AddTu(_translationMemoryFilePath);
+tmUpdater.AddTuExtended(_translationMemoryFilePath);
+tmUpdater.EditTu(_translationMemoryFilePath);
+tmUpdater.DeleteTu(_translationMemoryFilePath);
 </code></pre></section>
 </div>
 <p>After opening the TM create a TU object:</p>
@@ -110,9 +110,9 @@ update.DeleteTu(_translationMemoryFilePath);
 </li>
 </ul>
 <section id="tabpanel_SgbQt+E4l1-1_tabid-2" role="tabpanel" data-tab="tabid-2">
-<pre><code class="lang-cs">FileBasedTranslationMemory tm = new FileBasedTranslationMemory(tmPath);
+<pre><code class="lang-cs">var tm = new FileBasedTranslationMemory(tmPath);
 
-TranslationUnit tu = new TranslationUnit();
+var tu = new TranslationUnit();
 </code></pre></section>
 </div>
 <p>Each TU contains at least a source and a target segment. You therefore need to create a source and target segment object based on the TM language direction. Next, you specify the source and target content. In this example, we specify two strings, which works well if you only need to add plain text.</p>
@@ -140,7 +140,7 @@ tu.TargetSegment.Add(&quot;Es öffnet sich ein Dialogfenster.&quot;);
 </li>
 </ul>
 <section id="tabpanel_SgbQt+E4l1-3_tabid-4" role="tabpanel" data-tab="tabid-4">
-<pre><code class="lang-cs">MultiplePicklistFieldValue value = new MultiplePicklistFieldValue(&quot;Customer&quot;);
+<pre><code class="lang-cs">var value = new MultiplePicklistFieldValue(&quot;Customer&quot;);
 value.Add(&quot;Microsoft&quot;);
 tu.FieldValues.Add(value);
 </code></pre></section>
@@ -153,7 +153,7 @@ tu.FieldValues.Add(value);
 </li>
 </ul>
 <section id="tabpanel_SgbQt+E4l1-4_tabid-5" role="tabpanel" data-tab="tabid-5">
-<pre><code class="lang-cs">MultiplePicklistFieldValue value = new MultiplePicklistFieldValue(&quot;Customer&quot;);
+<pre><code class="lang-cs">var value = new MultiplePicklistFieldValue(&quot;Customer&quot;);
 value.Add(&quot;Microsoft&quot;);
 tu.FieldValues.Add(value);
 </code></pre></section>
@@ -168,7 +168,7 @@ tu.FieldValues.Add(value);
 <section id="tabpanel_SgbQt+E4l1-5_tabid-6" role="tabpanel" data-tab="tabid-6">
 <pre><code class="lang-cs">private ImportSettings GetImportSettings()
 {
-    ImportSettings settings = new ImportSettings();
+    var settings = new ImportSettings();
     settings.CheckMatchingSublanguages = true;
     settings.ExistingFieldsUpdateMode = ImportSettings.FieldUpdateMode.Merge;
 
@@ -228,9 +228,9 @@ tu.FieldValues.Add(value);
 <pre><code class="lang-cs">public void AddTu(string tmPath)
 {
     #region &quot;open&quot;
-    FileBasedTranslationMemory tm = new FileBasedTranslationMemory(tmPath);
+    var tm = new FileBasedTranslationMemory(tmPath);
 
-    TranslationUnit tu = new TranslationUnit();
+    var tu = new TranslationUnit();
     #endregion
 
     #region &quot;segments&quot;
@@ -242,7 +242,7 @@ tu.FieldValues.Add(value);
     #endregion
 
     #region &quot;AddField&quot;
-    MultiplePicklistFieldValue value = new MultiplePicklistFieldValue(&quot;Customer&quot;);
+    var value = new MultiplePicklistFieldValue(&quot;Customer&quot;);
     value.Add(&quot;Microsoft&quot;);
     tu.FieldValues.Add(value);
     #endregion
@@ -271,7 +271,7 @@ tu.FieldValues.Add(value);
 }
 </code></pre></section>
 </div>
-<p>TUs can also contain structure context information that indicates whether a particular segment occurred, for example, in a headline, a table cell, a footnote, etc. This structure context information can be helpful, as the same source segment might sometimes have to be translated differently depending on whether it occurs e.g. in a normal paragraph or in a table cell. For this reason, structure context information, too, can be saved with a TU. Trados Studio uses display codes such as H (Headline), FN (Footnote) to show the structure context of a particular TU to the user.</p>
+<p>TUs can also contain structure context information that indicates whether a particular segment occurred, for example, in a headline, a table cell, a footnote, etc. This structure context information can be helpful, as the same source segment might sometimes have to be translated differently depending on whether it occurs e.g. in a normal paragraph or in a table cell. For this reason, structure context information, too, can be saved within a TU. Trados Studio uses display codes such as H (Headline), FN (Footnote) to show the structure context of a particular TU to the user.</p>
 <p><img src="images/StructureContext.jpg" alt="StructureContext"></p>
 <p>You can apply structure context information through the <strong>StructureContexts</strong> class as shown in the code example below:</p>
 <div class="tabGroup" id="tabgroup_SgbQt+E4l1-10">
@@ -295,11 +295,11 @@ tu.FieldValues.Add(value);
 </li>
 </ul>
 <section id="tabpanel_SgbQt+E4l1-11_tabid-12" role="tabpanel" data-tab="tabid-12">
-<pre><code class="lang-cs">TMUpdater update = new TMUpdater();
-update.AddTu(_translationMemoryFilePath);
-update.AddTuExtended(_translationMemoryFilePath);
-update.EditTu(_translationMemoryFilePath);
-update.DeleteTu(_translationMemoryFilePath);
+<pre><code class="lang-cs">var tmUpdater = new TmUpdater();
+tmUpdater.AddTu(_translationMemoryFilePath);
+tmUpdater.AddTuExtended(_translationMemoryFilePath);
+tmUpdater.EditTu(_translationMemoryFilePath);
+tmUpdater.DeleteTu(_translationMemoryFilePath);
 </code></pre></section>
 </div>
 <p>This new EditTu function simulates the use case in which a translator looks up the segment &quot;&quot;<em>A dialog box will open.</em>&quot;&quot;, and receives a 100% match, whose original target segment (<em>Es öffnet sich ein Dialogfenster</em>.) should be replaced with a new translation, (e.g. <em>Ein Dialogfeld wird geöffnet</em>.). In our simplified implementation, we first open the TM. Then we launch a search for the source segment. Like in the previous chapter (see <a href="doing_translation_memory_lookups.html">Doing Translation Memory Lookups</a>) we &#39;outsource&#39; the search settings to a separate function, i.e.:</p>

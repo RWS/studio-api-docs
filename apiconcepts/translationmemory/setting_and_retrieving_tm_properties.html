@@ -8,7 +8,7 @@
     <title>Setting and Retrieving TM Properties </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Setting and Retrieving TM Properties ">
-    <meta name="generator" content="docfx 2.59.0.0">
+    <meta name="generator" content="docfx 2.59.2.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
@@ -92,8 +92,8 @@
 </li>
 </ul>
 <section id="tabpanel_9xnwdq3GLJ_tabid-1" role="tabpanel" data-tab="tabid-1">
-<pre><code class="lang-cs">TMProperties objProps = new TMProperties();
-objProps.GetAndSetProperties(_translationMemoryFilePath);
+<pre><code class="lang-cs">var tmProperties = new TmProperties();
+tmProperties.GetAndSetProperties(_translationMemoryFilePath);
 </code></pre></section>
 </div>
 <p>After opening the TM we set a number of properties. Note that there are many more properties that can be set. The code example only showcases a small selection:</p>
@@ -109,9 +109,8 @@ tm.Copyright = &quot;(c) 3021 RWS Group&quot;;
 tm.ExpirationDate = DateTime.Now.AddDays(7);
 </code></pre></section>
 </div>
-<p>The above part of the code sets a TM description and copyright string, and defines an expiry date for the TM. In this case, we select 7 days, after which the TM can no longer be used. Using an expiry date, you can &#39;time-bomb&#39; a TM, which is useful, for example, if you give the TM to a freelancer, and you want to prevent him or her from using it after the project deadline has passed.</p>
-<p>Below you see a few examples of properties that you can retrieve on a 
-given TM and then output in a message box.</p>
+<p>The above part of the code sets a TM description and copyright string, and defines an expiry date for the TM. In this case, we select 7 days, after which the TM can no longer be used. By using an expiry date, you can &#39;time-bomb&#39; a TM, which is useful, for example, if you give the TM to a freelancer, and you want to prevent them from using it after the project deadline has passed.</p>
+<p>Below you see a few examples of properties that you can retrieve on a given TM and then output in a message box.</p>
 <div class="tabGroup" id="tabgroup_9xnwdq3GLJ-2">
 <ul role="tablist">
 <li role="presentation">
@@ -141,11 +140,11 @@ MessageBox.Show(tmInfo);
     using System.Windows.Forms;
     using Sdl.LanguagePlatform.TranslationMemoryApi;
 
-    public class TMProperties
+    public class TmProperties
     {
         public void GetAndSetProperties(string tmPath)
         {
-            FileBasedTranslationMemory tm = new FileBasedTranslationMemory(tmPath);
+            var tm = new FileBasedTranslationMemory(tmPath);
 
             #region &quot;set&quot;
             tm.Description = &quot;This is the TM description.&quot;;

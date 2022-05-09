@@ -8,7 +8,7 @@
     <title>Tuning and Maintaining a Translation Memory </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Tuning and Maintaining a Translation Memory ">
-    <meta name="generator" content="docfx 2.59.0.0">
+    <meta name="generator" content="docfx 2.59.2.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
@@ -83,8 +83,8 @@
 <h1 id="tuning-and-maintaining-a-translation-memory">Tuning and Maintaining a Translation Memory</h1>
 
 <p>Translation memory databases need to be tuned and maintained from time to time as they are growing. This is a task that may potentially require automation, e.g. if you want to develop a scheduled task that performs a tuning operation on a TM at regular intervals.</p>
-<p>About TM Tuning
-In Trados Studio, the tuning options look as shown in the screenshot below:</p>
+<h2 id="about-tm-tuning">About TM Tuning</h2>
+<p>In Trados Studio, the tuning options look as shown in the screenshot below:</p>
 <p><img src="images/TmTuning.jpg" alt="TmTuning"></p>
 <p>Probably the most common tuning operation is the recomputation of the fuzzy index. As the TM grows more and more units get added to the database. To keep the fuzzy index lean and efficient, you should recompute the index at regular intervals, depending on how fast your TM grows. This ensures speed and accuracy of the TM. Through the API you can determine when the fuzzy index was last recomputed and whether recomputing is required / recommended. Based on this information you could then trigger an action to recompute the fuzzy index programmatically.</p>
 <p>Moreover, there is a trade-off between accuracy and speed. This means that you may increase the search speed at the price of not retrieving certain lower fuzzy matches. On the other hand, you may want to get more low fuzzy matches at the price of slower TM lookups. For example, if your TM has become rather big (e.g. more than 200,000 units), and users are reporting that TM lookup operations have become slow, you may want to optimize the TM for speed. To be sure, this might mean that certain lower fuzzy matches will no longer be offered. On the other hand, in a big TM the likelihood of finding solutions is, of course, much bigger than in small TMs.</p>
@@ -98,8 +98,8 @@ In Trados Studio, the tuning options look as shown in the screenshot below:</p>
 </li>
 </ul>
 <section id="tabpanel_M+lU1fcDTw_tabid-1" role="tabpanel" data-tab="tabid-1">
-<pre><code class="lang-cs">TMTuner tuning = new TMTuner();
-tuning.TuneTm(_translationMemoryFilePath);
+<pre><code class="lang-cs">var tuner = new TmTuner();
+tuner.TuneTm(_translationMemoryFilePath);
 </code></pre></section>
 </div>
 <p>We use the <code>TuneTm</code> function to recompute the fuzzy index and to optimize the TM for speed through the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.AbstractLocalTranslationMemory.html#Sdl_LanguagePlatform_TranslationMemoryApi_AbstractLocalTranslationMemory_RecomputeFuzzyIndexStatistics">RecomputeFuzzyIndexStatistics</a> method as shown in the example below:</p>
@@ -110,7 +110,7 @@ tuning.TuneTm(_translationMemoryFilePath);
 </li>
 </ul>
 <section id="tabpanel_M+lU1fcDTw-1_tabid-2" role="tabpanel" data-tab="tabid-2">
-<pre><code class="lang-cs">FileBasedTranslationMemory tm = new FileBasedTranslationMemory(tmPath);
+<pre><code class="lang-cs">var tm = new FileBasedTranslationMemory(tmPath);
 
 tm.RecomputeFuzzyIndexStatistics();
 tm.Save();
@@ -146,12 +146,12 @@ MessageBox.Show(stats);
     using System.Windows.Forms;
     using Sdl.LanguagePlatform.TranslationMemoryApi;
 
-    public class TMTuner
+    public class TmTuner
     {
         public void TuneTm(string tmPath)
         {
             #region &quot;tune&quot;
-            FileBasedTranslationMemory tm = new FileBasedTranslationMemory(tmPath);
+            var tm = new FileBasedTranslationMemory(tmPath);
 
             tm.RecomputeFuzzyIndexStatistics();
             tm.Save();

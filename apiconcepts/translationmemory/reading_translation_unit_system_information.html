@@ -8,7 +8,7 @@
     <title>Reading Translation Unit System Information </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Reading Translation Unit System Information ">
-    <meta name="generator" content="docfx 2.59.0.0">
+    <meta name="generator" content="docfx 2.59.2.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
@@ -84,7 +84,7 @@
 
 <p>Translation units are associated with a set of system information, which is added automatically to each TU during translation and editing. This means that the system keeps track of such information automatically, no TM fields have to be created or maintained for this kind of information.</p>
 <h2 id="about-translation-unit-system-information">About Translation Unit System Information</h2>
-<p>For TU a set of information is stored, i.e. the date/time when the TU was created and the date/time the TU was last changed (if applicable). In addition, the name of the user who created/changed the TU is also stored as well as the name of the user who last used the TU and when (if applicable). Furthermore, a usage counter is maintained, i.e. the system tracks how often a TU has been used. Using a TU means that it has been found during a TM lookup operation, and the suggested translation has been inserted into the document, thus being &#39;used&#39;. This allows you, for example, to filter for TUs that have never been used, and delete them in order to keep the TM lean and efficient. The screenshot below shows an example of the system information that is kept for a particular TU in Trados Studio:</p>
+<p>For each TU, a set of information is stored, i.e. the date/time when the TU was created and the date/time the TU was last changed (if applicable). In addition, the name of the user who created/changed the TU is also stored as well as the name of the user who last used the TU and when (if applicable). Furthermore, a usage counter is maintained, i.e. the system tracks how often a TU has been used. Using a TU means that it has been found during a TM lookup operation, and the suggested translation has been inserted into the document, thus being &#39;used&#39;. This allows you, for example, to filter for TUs that have never been used, and delete them in order to keep the TM lean and efficient. The screenshot below shows an example of the system information that is kept for a particular TU in Trados Studio:</p>
 <p><img src="images/SystemInfo.jpg" alt="SystemInfo"></p>
 <h2 id="add-a-new-class">Add a New Class</h2>
 <p>In the following you will learn how to retrieve the system information of a TU programmatically. Start by adding a new class called <code>TuSystemInfo</code>. Implement a public function called <code>GetInfo</code> to your class, which uses the TM file name and path as string parameter. First, you open the TM and retrieve a particular TU by searching a segment as demonstrated below:</p>
@@ -95,7 +95,7 @@
 </li>
 </ul>
 <section id="tabpanel_MUjy0ZaiVk_tabid-1" role="tabpanel" data-tab="tabid-1">
-<pre><code class="lang-cs">FileBasedTranslationMemory tm = new FileBasedTranslationMemory(tmPath);
+<pre><code class="lang-cs">var tm = new FileBasedTranslationMemory(tmPath);
 
 SearchResults results = tm.LanguageDirection.SearchText(this.GetSearchSettings(), &quot;A dialog box will open.&quot;);
 </code></pre></section>
@@ -117,7 +117,7 @@ foreach (SearchResult item in results)
         SystemFields sysFields = tu.SystemFields;
 
         tuInfo = &quot;Creation date: &quot; + sysFields.CreationUser + &quot;\n&quot;;
-        tuInfo += &quot;Craetion usr: &quot; + sysFields.CreationUser + &quot;\n&quot;;
+        tuInfo += &quot;Creation user: &quot; + sysFields.CreationUser + &quot;\n&quot;;
         tuInfo += &quot;Change date: &quot; + sysFields.ChangeDate + &quot;\n&quot;;
         tuInfo += &quot;Change user: &quot; + sysFields.ChangeUser + &quot;\n&quot;;
         tuInfo += &quot;Usage count: &quot; + sysFields.UseCount + &quot;\n&quot;;
@@ -145,13 +145,13 @@ MessageBox.Show(tuInfo, &quot;TU Information&quot;);
     using Sdl.LanguagePlatform.TranslationMemory;
     using Sdl.LanguagePlatform.TranslationMemoryApi;
 
-    public class TUSystemInfo
+    public class TuSystemInfo
     {
         #region &quot;GetInfo&quot;
         public void GetInfo(string tmPath)
         {
             #region &quot;open&quot;
-            FileBasedTranslationMemory tm = new FileBasedTranslationMemory(tmPath);
+            var tm = new FileBasedTranslationMemory(tmPath);
 
             SearchResults results = tm.LanguageDirection.SearchText(this.GetSearchSettings(), &quot;A dialog box will open.&quot;);
             #endregion
@@ -166,7 +166,7 @@ MessageBox.Show(tuInfo, &quot;TU Information&quot;);
                     SystemFields sysFields = tu.SystemFields;
 
                     tuInfo = &quot;Creation date: &quot; + sysFields.CreationUser + &quot;\n&quot;;
-                    tuInfo += &quot;Craetion usr: &quot; + sysFields.CreationUser + &quot;\n&quot;;
+                    tuInfo += &quot;Creation user: &quot; + sysFields.CreationUser + &quot;\n&quot;;
                     tuInfo += &quot;Change date: &quot; + sysFields.ChangeDate + &quot;\n&quot;;
                     tuInfo += &quot;Change user: &quot; + sysFields.ChangeUser + &quot;\n&quot;;
                     tuInfo += &quot;Usage count: &quot; + sysFields.UseCount + &quot;\n&quot;;
@@ -184,7 +184,7 @@ MessageBox.Show(tuInfo, &quot;TU Information&quot;);
         #region &quot;settings&quot;
         private SearchSettings GetSearchSettings()
         {
-            SearchSettings settings = new SearchSettings();
+            var settings = new SearchSettings();
             settings.MinScore = 100;
             return settings;
         }
