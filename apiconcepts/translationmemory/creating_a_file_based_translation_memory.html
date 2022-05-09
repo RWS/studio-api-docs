@@ -8,7 +8,7 @@
     <title>Creating a File-based Translation Memory </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Creating a File-based Translation Memory ">
-    <meta name="generator" content="docfx 2.59.0.0">
+    <meta name="generator" content="docfx 2.59.2.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
@@ -84,7 +84,7 @@
 
 <p>In this chapter you will learn how to programmatically create a file-based translation memory, i.e. an *.sdltm file.</p>
 <h2 id="add-a-new-class">Add a New Class</h2>
-<p>Add a new class to your project called <code>TmCreator</code>. Then, add a public function called <code>CreateFileBasedTM()</code> to the new class. This function takes <code>tmPath</code> as string parameter, which specifies the path and file name of the TM to be created. This function can be called as shown below:</p>
+<p>Add a new class to your project called <code>TmCreator</code>. Then, add a public function called <code>CreateFileBasedTm()</code> to the new class. This function takes <code>tmPath</code> as string parameter, which specifies the path and file name of the TM to be created. This function can be called as shown below:</p>
 <div class="tabGroup" id="tabgroup_ldSduTybZd">
 <ul role="tablist">
 <li role="presentation">
@@ -92,8 +92,8 @@
 </li>
 </ul>
 <section id="tabpanel_ldSduTybZd_tabid-1" role="tabpanel" data-tab="tabid-1">
-<pre><code class="lang-cs">TMCreator objCreate = new TMCreator();
-objCreate.CreateFileBasedTM(_translationMemoryFilePath);
+<pre><code class="lang-cs">var tmCreator = new TmCreator();
+tmCreator.CreateFileBasedTm(_translationMemoryFilePath);
 </code></pre></section>
 </div>
 <p>Within the function, start by creating a TM object as follows:</p>
@@ -104,17 +104,17 @@ objCreate.CreateFileBasedTM(_translationMemoryFilePath);
 </li>
 </ul>
 <section id="tabpanel_ldSduTybZd-1_tabid-2" role="tabpanel" data-tab="tabid-2">
-<pre><code class="lang-cs">public void CreateFileBasedTM(string tmPath)
+<pre><code class="lang-cs">public void CreateFileBasedTm(string tmPath)
 {
-    FileBasedTranslationMemory tm = new FileBasedTranslationMemory(
+    var tm = new FileBasedTranslationMemory(
         tmPath,
         &quot;This is a sample TM&quot;,
         CultureInfo.GetCultureInfo(&quot;en-US&quot;),
         CultureInfo.GetCultureInfo(&quot;de-DE&quot;),
         this.GetFuzzyIndexes(),
         this.GetRecognizers(),
-        TokenizerFlags.AllFlags,
-        WordCountFlags.AllFlags
+        TokenizerFlags.BreakOnDash | TokenizerFlags.BreakOnHyphen | TokenizerFlags.BreakOnApostrophe, 
+        WordCountFlags.BreakOnTag | WordCountFlags.BreakOnHyphen | WordCountFlags.BreakOnApostrophe | WordCountFlags.BreakOnDash
         );
 
     tm.LanguageResourceBundles.Clear();
@@ -128,7 +128,7 @@ objCreate.CreateFileBasedTM(_translationMemoryFilePath);
 <li>The full file name and path.</li>
 <li>The TM description string (which can also be empty.)</li>
 <li>The source and target language. The language is specified through the <a href="https://docs.microsoft.com/en-us/dotnet/api/system.globalization.cultureinfo?redirectedfrom=MSDN&amp;view=net-5.0">CultureInfo</a>, which is created by the <a href="https://docs.microsoft.com/en-us/dotnet/api/system.globalization.cultureinfo.getcultureinfo?redirectedfrom=MSDN&amp;view=net-5.0#overloads">GetCultureInfo</a> method. This method takes the language locale as string parameter. To create a TM with the language direction <strong>English (US) -&gt; German</strong>, provide <strong>en-US</strong> and <strong>de-DE</strong> as parameters. Note that providing an invalid locale string (e.g. <em>en-DE</em>) will throw an exception.</li>
-<li>Moreover, you need to specify the fuzzy indexes that should be created for the TM. Here you specify whether a fuzzy index should be created and maintained for the source and/or target segments. The fuzzy index is required for performing concordance searches, which allow translators to select one or several words in a source or target segment and search for all occurrences in the TM. By creating a fuzzy index for both the source and the target, you enable the TM for concordance searches in both languages. The concordance search can be word- or character-based. Character-based potentially yields more results as this kind of search is more tolerant. For example, with a character-based concordance search the user might enter <em>revolution</em> and get a result such as revolving, as this result matches some of the search characters. In this case, a word-based concordance search would not present revolving as a result, as this word differs to much from the search expression. However, you need to consider that character-based concordance searches are significantly slower than word-based searches, especially in large TMs. Character-based indexing is therefore only recommended for small TMs, which contain e.g. a few hundred or a few thousand segments. Also note that users will generally want to do concordance searches both in the source and target language. For our simple example we assume that we enable word- and character-based indexing for both the source and the target segments. As parameter we provide a separate helper function, which contains all available <strong>FuzzyIndexes</strong> enumerator values, i.e:</li>
+<li>Moreover, you need to specify the fuzzy indexes that should be created for the TM. Here you specify whether a fuzzy index should be created and maintained for the source and/or target segments. The fuzzy index is required for performing concordance searches, which allow translators to select one or several words in a source or target segment and search for all occurrences in the TM. By creating a fuzzy index for both the source and the target, you enable the TM for concordance searches in both languages. The concordance search can be word- or character-based. A character-based concordance search will potentially yield more results as this kind of search is more tolerant. For example, with a character-based concordance search the user might enter <em>revolution</em> and get a result such as revolving, as this result matches some of the search characters. In this case, a word-based concordance search would not present revolving as a result, as this word differs to much from the search expression. However, you need to consider that character-based concordance searches are significantly slower than word-based searches, especially in large TMs. Character-based indexing is therefore only recommended for small TMs, which contain up to a few thousand segments. Also note that users will generally want to do concordance searches both in the source and target language. For our simple example we assume that we enable word- and character-based indexing for both the source and the target segments. As parameter we provide a separate helper function, which contains all available <strong>FuzzyIndexes</strong> enumerator values, i.e:</li>
 </ol>
 <div class="tabGroup" id="tabgroup_ldSduTybZd-2">
 <ul role="tablist">
@@ -163,7 +163,8 @@ objCreate.CreateFileBasedTM(_translationMemoryFilePath);
         BuiltinRecognizers.RecognizeNumbers |
         BuiltinRecognizers.RecognizeTimes |
         BuiltinRecognizers.RecognizeVariables |
-        BuiltinRecognizers.RecognizeMeasurements;
+        BuiltinRecognizers.RecognizeMeasurements |
+        BuiltinRecognizers.RecognizeAlphaNumeric;
 }
 </code></pre></section>
 </div>
@@ -185,10 +186,10 @@ objCreate.CreateFileBasedTM(_translationMemoryFilePath);
     using Sdl.LanguagePlatform.TranslationMemory;
     using Sdl.LanguagePlatform.TranslationMemoryApi;
 
-    public class TMCreator
+    public class TmCreator
     {
         #region &quot;create TM&quot;
-        public void CreateFileBasedTM(string tmPath)
+        public void CreateFileBasedTm(string tmPath)
         {
             FileBasedTranslationMemory tm = new FileBasedTranslationMemory(
                 tmPath,
@@ -197,8 +198,8 @@ objCreate.CreateFileBasedTM(_translationMemoryFilePath);
                 CultureInfo.GetCultureInfo(&quot;de-DE&quot;),
                 this.GetFuzzyIndexes(),
                 this.GetRecognizers(),
-                TokenizerFlags.AllFlags,
-                WordCountFlags.AllFlags
+                TokenizerFlags.BreakOnDash | TokenizerFlags.BreakOnHyphen TokenizerFlags.BreakOnApostrophe, 
+                WordCountFlags.BreakOnTag | WordCountFlags.BreakOnHyphen | WordCountFlags.BreakOnApostrophe | WordCountFlags.BreakOnDash
                 );
 
             tm.LanguageResourceBundles.Clear();
@@ -225,7 +226,8 @@ objCreate.CreateFileBasedTM(_translationMemoryFilePath);
                 BuiltinRecognizers.RecognizeNumbers |
                 BuiltinRecognizers.RecognizeTimes |
                 BuiltinRecognizers.RecognizeVariables |
-                BuiltinRecognizers.RecognizeMeasurements;
+                BuiltinRecognizers.RecognizeMeasurements|
+                BuiltinRecognizers.RecognizeAlphaNumeric;
         }
         #endregion
     }
