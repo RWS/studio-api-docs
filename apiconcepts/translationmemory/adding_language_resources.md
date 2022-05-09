@@ -8,7 +8,7 @@ Add a New Class
 
 Add a new class called ```TmLanguageResources``` to your project. Let us assume that you would like to add a number of variables and custom abbreviations to your TM. Remember that variables are used to mark up particular strings such as product names as placeables. With custom abbreviations you can prevent the system from interpreting the dot following an abbreviation as a full stop, and thus as a segment delimiter. A TM includes a list of common abbreviations for each language by default (for example U.S., ref., etc.). Below you see an example of the English abbreviations list that a TM includes by default:
 
-![RecognitionSettings](images/RecognitionSettings.jpg)
+![RecognitionSettings](images/Abbreviations.jpg)
 
 This default list can be expanded with custom abbreviations to further fine-tune the segmentation. Note that there is *no* default variable list, i.e. the variable list for each TM that you create is empty by default.
 
@@ -16,8 +16,8 @@ Add a function called ```AddResource``` to your class, which takes the TM file n
 
 # [C#](#tab/tabid-1)
 ```cs
-TMLanguageResource objResource = new TMLanguageResource();
-objResource.AddResource(_translationMemoryFilePath);
+var tmLanguageResource = new TmLanguageResource();
+tmLanguageResource.AddResource(_translationMemoryFilePath);
 ```
 ***
 
@@ -25,7 +25,7 @@ Start by opening the TM to which the custom abbreviations and variables should b
 
 # [C#](#tab/tabid-2)
 ```cs
-FileBasedTranslationMemory tm = new FileBasedTranslationMemory(tmPath);
+var tm = new FileBasedTranslationMemory(tmPath);
 ```
 ***
 
@@ -33,7 +33,7 @@ In the next step, create a default language resources object. For each language 
 
 # [C#](#tab/tabid-3)
 ```cs
-DefaultLanguageResourceProvider defaultBundle = new DefaultLanguageResourceProvider();
+var defaultBundle = new DefaultLanguageResourceProvider();
 ```
 ***
 
@@ -49,7 +49,7 @@ Note that the language resources bundle requires the source language information
 
 # [C#](#tab/tabid-5)
 ```cs
-FileBasedTranslationMemory tm = new FileBasedTranslationMemory(tmPath);
+var tm = new FileBasedTranslationMemory(tmPath);
 ```
 ***
 
@@ -74,7 +74,7 @@ Last, create another **Wordlist** object to hold the variables, which are added 
 ```cs
 newBundle.Variables = new Wordlist();
 newBundle.Variables.Add("Mac OSX");
-newBundle.Variables.Add("Microsoft Windows 7");
+newBundle.Variables.Add("Microsoft Windows 10");
 newBundle.Variables.Add("Suse Linux");
 
 tm.LanguageResourceBundles.Add(newBundle);
@@ -126,7 +126,7 @@ namespace SDK.LanguagePlatform.Samples.TmAutomation
             #region "variables"
             newBundle.Variables = new Wordlist();
             newBundle.Variables.Add("Mac OSX");
-            newBundle.Variables.Add("Microsoft Windows 7");
+            newBundle.Variables.Add("Microsoft Windows 10");
             newBundle.Variables.Add("Suse Linux");
 
             tm.LanguageResourceBundles.Add(newBundle);

@@ -8,27 +8,27 @@ Add a new Class
 
 Add a new class called ```TmImporter``` to your project.
 
-Continue by implementing a function function called ```ImportTMYFile``` in the class. This function can be called as shown below:
+Continue by implementing a function function called ```ImportTmxFile``` in the class. This function can be called as shown below:
 
 # [C#](#tab/tabid-1)
 ```cs
-TMImporter objTmImport = new TMImporter();
-objTmImport.ImportTMXFile(_translationMemoryFilePath, _importFilePath);
+var tmImporter = new TmImporter();
+tmImporter.ImportTMXFile(_translationMemoryFilePath, _importFilePath);
 ```
 ***
 
 The function requires the file name and path of the TM and the TMX document as string parameters.
 
-First, open the TM into which the TMX content should be imported. Then create an importer object, which takes the TM language direction as parameter. Note that like a TM a TMX file, too, is bilingual with a dedicated language direction, which should match the TM language direction. Therefore you need to provide the TM language direction as parameter to the ```TranslationMemoryImporter``` object as shown in the example below:
+First, open the TM into which the TMX content should be imported. Then create an importer object, which takes the TM language direction as parameter. Note that like a TM, a TMX file too, is bilingual with a dedicated language direction, which should match the TM language direction. Therefore you need to provide the TM language direction as parameter to the ```TranslationMemoryImporter``` object as shown in the example below:
 
 # [C#](#tab/tabid-2)
 ```cs
-FileBasedTranslationMemory tm = new FileBasedTranslationMemory(tmPath);
-TranslationMemoryImporter importer = new TranslationMemoryImporter(tm.LanguageDirection);
+var tm = new FileBasedTranslationMemory(tmPath);
+var importer = new TranslationMemoryImporter(tm.LanguageDirection);
 ```
 ***
 
-Next, define the import chunk size. With the chunk size you determine the maximum amount of units that should be read from the TMX file in one go. As long as the import file resides on a local disk, the chunk size can be large, as the whole file can potentially be read at once, as there are no Internet connection required, which may cause latency. If the import is going over e.g. an Internet line, then the chunk size ([ChunkSize](../../api/translationmemory/Sdl.Core.TM.ImportExport.Importer.yml#Sdl_Core_TM_ImportExport_Importer_ChunkSize)) should be small enough for the packages to be sent over the WAN. In our example we set the chunk size to 20, which corresponds roughly to the number of TUs contained in our small TMX sample file. Since we are running this import from the local hard disk, we can easily afford to take in the entire set of TUs in the TMX file. Note that the default chunk size is 50 ([DefaultTranslationUnitChunkSize](../../api/translationmemory/Sdl.Core.TM.ImportExport.Importer.yml#Sdl_Core_TM_ImportExport_Importer_DefaultTranslationUnitChunkSize)), the maximum chunk size is 200 ([MaxTranslationUnitChunkSize](../../api/translationmemory/Sdl.Core.TM.ImportExport.Importer.yml#Sdl_Core_TM_ImportExport_Importer_MaxTranslationUnitChunkSize).
+Next, define the import chunk size. With the chunk size you determine the maximum amount of units that should be read from the TMX file in one go. As long as the import file resides on a local disk, the chunk size can be large and the whole file can potentially be read at once. If the import is going over an Internet line, this can cause latency so the chunk size ([ChunkSize](../../api/translationmemory/Sdl.Core.TM.ImportExport.Importer.yml#Sdl_Core_TM_ImportExport_Importer_ChunkSize)) should be small enough for the packages to be sent over the WAN. In our example we set the chunk size to 20, which corresponds roughly to the number of TUs contained in our small TMX sample file. Since we are running this import from the local hard disk, we can easily afford to take in the entire set of TUs from the TMX file. Note that the default chunk size is 50 ([DefaultTranslationUnitChunkSize](../../api/translationmemory/Sdl.Core.TM.ImportExport.Importer.yml#Sdl_Core_TM_ImportExport_Importer_DefaultTranslationUnitChunkSize)) and the maximum is 200 ([MaxTranslationUnitChunkSize](../../api/translationmemory/Sdl.Core.TM.ImportExport.Importer.yml#Sdl_Core_TM_ImportExport_Importer_MaxTranslationUnitChunkSize).
 
 # [C#](#tab/tabid-3)
 ```cs
@@ -92,7 +92,7 @@ importSettings.ConfirmationLevels = levels;
 ```
 ***
 
-During import it may happen that invalid TUs are encountered in the TMX file. If you want such units to be written to an exclusion file for further analysis and troubleshooting you may specify a path and name for the file that is supposed to contain the invalid TUs, which failed to import as shown in the example below:
+During import it may happen that invalid TUs are encountered in the TMX file. If you want such units to be written to an exclusion file for further analysis and troubleshooting, you may specify a path and name for the file that is supposed to contain the invalid TUs, which failed to import as shown in the example below:
 
 # [C#](#tab/tabid-9)
 ```cs
@@ -108,9 +108,9 @@ importSettings.ExistingTUsUpdateMode = ImportSettings.TUUpdateMode.Overwrite;
 ```
 ***
 
-You may also import the TMX content in a way that only the plain text will be added to the TM. This means that all tags (e.g. inline formatting information) will be stripped from the TUs. If this is the case, you need to set the [PlainText](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemory.ImportSettings.yml#Sdl_LanguagePlatform_TranslationMemory_ImportSettings_PlainText) property to True. This is the most effective way to rid the import TUs of formatting information that is no longer required. A possible use case is the import of TMX files that come from third-party systems, that handle inline tags and formatting different from <Var:ProductName>. Adding that kind of formatting to the TM in <Var:ProductName> may degrade the matching quality and might 'clutter' the TM with formatting information that is not required, or that cannot be properly handled in <Var:ProductName>.
+You may also import the TMX content in a way that only the plain text will be added to the TM. This means that all tags (e.g. inline formatting information) will be stripped from the TUs. If this is the case, you need to set the [PlainText](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemory.ImportSettings.yml#Sdl_LanguagePlatform_TranslationMemory_ImportSettings_PlainText) property to True. This is the most effective way to rid the import TUs of formatting information that is no longer required. A possible use case is the import of TMX files that come from third-party systems, that handle inline tags and formatting differently than <Var:ProductName>. Adding that kind of formatting to the TM in <Var:ProductName> may degrade the matching quality and might 'clutter' the TM with formatting information that is not required, or that cannot be properly handled in <Var:ProductName>.
 
-Adding only the plain text information gives you the chance to start 'fresh' with existing linguistic content. Another use case: In the past your source documentation was created in Microsoft Word 2000 (RTF), however, now you have switched to XML. The inline tags of those two formats are likely to be very different. You therefore want to strip all the old tags from the RTF-based format to handle current and future XML files more efficiently.
+Adding only the plain text information gives you the chance to start 'fresh' with existing linguistic content. Another use case: in the past, your source documentation was created in Microsoft Word 2000 (RTF), however, now you have switched to XML. The inline tags of those two formats are likely to be very different. You therefore want to strip all the old tags from the RTF-based format to handle current and future XML files more efficiently.
 
 If you decide to import the text with tags you may also set a tag count limit (**TagCountLimit**). By setting this property to e.g. 10, you will prevent any TUs with a higher tag count to end up in your TM. That way you can prevent your TM from being cluttered with TUs that contain a large number of tags (e.g. segments in which different formatting was applied to every single letter). Example:
 
@@ -126,7 +126,7 @@ The screenshot below shows an example of TUs that contain inline tags:
 
 ![TUsWithTags](images/TUsWithTags.jpg)
 
-hermore, you can determine whether the usage count of the import TUs should be kept track of after the TUs have been added to the TM. Using a TU means that a translator retrieves the TU from the TM, and then inserts the translation into the document, thereby 'using' the translation, which, in turn, increments the usage counter:
+Furthermore, you can determine whether the usage count of the import TUs should be kept track of, after the TUs have been added to the TM. Using a TU means that a translator retrieves the TU from the TM, and then inserts the translation into the document, thereby 'using' the translation, which, in turn, increments the usage counter:
 
 # [C#](#tab/tabid-12)
 ```cs
@@ -155,7 +155,7 @@ Below is an example of a TU with a usage counter. Note the **usagecount** attrib
 Executing the Import
 --
 
-Before we execute the actual import we fire an event that should be triggered after the import of each batch (i.e. chunk). The event is triggered as shown in the example below:
+Before we execute the actual import, we fire an event that should be triggered after the import of each batch (i.e. chunk). The event is triggered as shown in the example below:
 
 # [C#](#tab/tabid-14)
 ```cs
@@ -170,7 +170,7 @@ Add the following member to your class, which outputs the statistics after the i
 private void importer_BatchImported(object sender, BatchImportedEventArgs e)
 {
     string info;
-    ImportStatistics stats = e.Statistics;
+    var stats = e.Statistics;
 
     info = "Total read: " + stats.TotalRead + "\n";
     info += "Total imported: " + stats.TotalImported + "\n";
@@ -202,8 +202,8 @@ The complete ```ImportTMXFile``` function looks as shown below:
 public void ImportTMXFile(string tmPath, string importFilePath)
 {
     #region "CreateImporter"
-    FileBasedTranslationMemory tm = new FileBasedTranslationMemory(tmPath);
-    TranslationMemoryImporter importer = new TranslationMemoryImporter(tm.LanguageDirection);
+    var tm = new FileBasedTranslationMemory(tmPath);
+    var importer = new TranslationMemoryImporter(tm.LanguageDirection);
     #endregion
 
     #region "chunk"
@@ -240,14 +240,14 @@ namespace SDK.LanguagePlatform.Samples.TmAutomation
     using Sdl.LanguagePlatform.TranslationMemory;
     using Sdl.LanguagePlatform.TranslationMemoryApi;
 
-    public class TMImporter
+    public class TmImporter
     {
         #region "import"
         public void ImportTMXFile(string tmPath, string importFilePath)
         {
             #region "CreateImporter"
-            FileBasedTranslationMemory tm = new FileBasedTranslationMemory(tmPath);
-            TranslationMemoryImporter importer = new TranslationMemoryImporter(tm.LanguageDirection);
+            var tm = new FileBasedTranslationMemory(tmPath);
+            var importer = new TranslationMemoryImporter(tm.LanguageDirection);
             #endregion
 
             #region "chunk"
@@ -272,7 +272,7 @@ namespace SDK.LanguagePlatform.Samples.TmAutomation
         private void importer_BatchImported(object sender, BatchImportedEventArgs e)
         {
             string info;
-            ImportStatistics stats = e.Statistics;
+            var stats = e.Statistics;
 
             info = "Total read: " + stats.TotalRead + "\n";
             info += "Total imported: " + stats.TotalImported + "\n";

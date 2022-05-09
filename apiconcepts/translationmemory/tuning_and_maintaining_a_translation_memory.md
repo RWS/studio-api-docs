@@ -4,6 +4,7 @@ Tuning and Maintaining a Translation Memory
 Translation memory databases need to be tuned and maintained from time to time as they are growing. This is a task that may potentially require automation, e.g. if you want to develop a scheduled task that performs a tuning operation on a TM at regular intervals.
 
 About TM Tuning
+--
 In <Var:ProductName>, the tuning options look as shown in the screenshot below:
 
 ![TmTuning](images/TmTuning.jpg)
@@ -21,8 +22,8 @@ Start by adding new class called ```TmTuner``` to your project. Next, implement 
 
 # [C#](#tab/tabid-1)
 ```cs
-TMTuner tuning = new TMTuner();
-tuning.TuneTm(_translationMemoryFilePath);
+var tuner = new TmTuner();
+tuner.TuneTm(_translationMemoryFilePath);
 ```
 ***
 
@@ -30,7 +31,7 @@ We use the ```TuneTm``` function to recompute the fuzzy index and to optimize th
 
 # [C#](#tab/tabid-2)
 ```cs
-FileBasedTranslationMemory tm = new FileBasedTranslationMemory(tmPath);
+var tm = new FileBasedTranslationMemory(tmPath);
 
 tm.RecomputeFuzzyIndexStatistics();
 tm.Save();
@@ -64,12 +65,12 @@ namespace SDK.LanguagePlatform.Samples.TmAutomation
     using System.Windows.Forms;
     using Sdl.LanguagePlatform.TranslationMemoryApi;
 
-    public class TMTuner
+    public class TmTuner
     {
         public void TuneTm(string tmPath)
         {
             #region "tune"
-            FileBasedTranslationMemory tm = new FileBasedTranslationMemory(tmPath);
+            var tm = new FileBasedTranslationMemory(tmPath);
 
             tm.RecomputeFuzzyIndexStatistics();
             tm.Save();

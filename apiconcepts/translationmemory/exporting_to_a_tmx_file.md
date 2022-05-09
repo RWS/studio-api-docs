@@ -10,9 +10,9 @@ Add a new class called ```TmExporter``` to your project. Then, implement a funct
 
 # [C#](#tab/tabid-1)
 ```cs
-TMExporter objTmExport = new TMExporter();
-objTmExport.ExportTMXFile(_translationMemoryFilePath, _exportFilePath);
-objTmExport.RunFilteredExport(_translationMemoryFilePath, _exportFilePath);
+var tmExporter = new TmExporter();
+tmExporter.ExportTMXFile(_translationMemoryFilePath, _exportFilePath);
+tmExporter.RunFilteredExport(_translationMemoryFilePath, _exportFilePath);
 ```
 ***
 
@@ -22,13 +22,13 @@ Start by opening the TM and by creating an exporter object:
 
 # [C#](#tab/tabid-2)
 ```cs
-FileBasedTranslationMemory tm = new FileBasedTranslationMemory(tmPath);
+var tm = new FileBasedTranslationMemory(tmPath);
 
-TranslationMemoryExporter exporter = new TranslationMemoryExporter(tm.LanguageDirection);
+var exporter = new TranslationMemoryExporter(tm.LanguageDirection);
 ```
 ***
 
-Note that the [TranslationMemoryExporter](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryExporter.yml) object requires the TM language direction as parameter. Like a TM a TMX file, too, is bilingual with a dedicated language direction, which will match the TM language direction. That is why you need to provide the TM language direction when creating a new [TranslationMemoryExporter](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryExporter.yml) object.
+Note that the [TranslationMemoryExporter](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryExporter.yml) object requires the TM language direction as parameter. Like a TM, a TMX file too, is bilingual with a dedicated language direction, which will match the TM language direction. That is why you need to provide the TM language direction when creating a new [TranslationMemoryExporter](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryExporter.yml) object.
 
 In the next step, you may specify the [ChunkSize](../../api/translationmemory/Sdl.Core.TM.ImportExport.Importer.yml#Sdl_Core_TM_ImportExport_Importer_ChunkSize). With the chunk size you determine the maximum amount of units that should be read from the TM. As long as the TM file resides on a local disk, the chunk size can be large, as the whole TM could be read in one go. If the export is going over e.g. an Internet line, then the chunk size should be small enough for the packages to be sent over the WAN. In our example, the chunk size is set to 20, which corresponds roughly to the size of our small sample TM:
 
@@ -40,7 +40,7 @@ exporter.ChunkSize = 20;
 
 Note that the default chunk size is 50 ([DefaultTranslationUnitChunkSize](../../api/translationmemory/Sdl.Core.TM.ImportExport.Importer.yml#Sdl_Core_TM_ImportExport_Importer_DefaultTranslationUnitChunkSize)), the maximum chunk size is 200 ([MaxTranslationUnitChunkSize](../../api/translationmemory/Sdl.Core.TM.ImportExport.Importer.yml#Sdl_Core_TM_ImportExport_Importer_MaxTranslationUnitChunkSize)).
 
-Before executing the export we fire an event after each batch (as specified by the chunk size) has been performed:
+Before executing the export, we fire an event after each batch (as specified by the chunk size) has been performed:
 
 # [C#](#tab/tabid-4)
 ```cs
@@ -64,7 +64,7 @@ private void exporter_BatchExported(object sender, BatchExportedEventArgs e)
 ```
 ***
 
-After each batch has been processed, the total number of units processed and the total number of units that has actually been exported is determined and output.
+After each batch has been processed, the total number of units processed and the total number of units that have actually been exported is determined and output.
 
 Finally, you apply the ```Export``` method to carry out the actual export operation. This method requires the full name and path of the TMX import file. With the second boolean parameter you can determine whether any existing export file should be overwritten or not.
 
@@ -83,9 +83,9 @@ The full ```ExportTMXFile``` function looks as shown below:
 public void ExportTMXFile(string tmPath, string exportFilePath)
 {
     #region "open"
-    FileBasedTranslationMemory tm = new FileBasedTranslationMemory(tmPath);
+    var tm = new FileBasedTranslationMemory(tmPath);
 
-    TranslationMemoryExporter exporter = new TranslationMemoryExporter(tm.LanguageDirection);
+    var exporter = new TranslationMemoryExporter(tm.LanguageDirection);
     #endregion
 
     #region "chunk"
@@ -111,8 +111,8 @@ If you do not want to export the entire TM database content into a TMX file, but
 
 # [C#](#tab/tabid-8)
 ```cs
-FileBasedTranslationMemory tm = new FileBasedTranslationMemory(tmPath);
-TranslationMemoryExporter exporter = new TranslationMemoryExporter(tm.LanguageDirection);
+var tm = new FileBasedTranslationMemory(tmPath);
+var exporter = new TranslationMemoryExporter(tm.LanguageDirection);
 ```
 ***
 
@@ -131,8 +131,8 @@ Like before, we fire the event that outputs the number of exported units in a ba
 public void RunFilteredExport(string tmPath, string exportFilePath)
 {
     #region "OpenForFilter"
-    FileBasedTranslationMemory tm = new FileBasedTranslationMemory(tmPath);
-    TranslationMemoryExporter exporter = new TranslationMemoryExporter(tm.LanguageDirection);
+    var tm = new FileBasedTranslationMemory(tmPath);
+    var exporter = new TranslationMemoryExporter(tm.LanguageDirection);
     #endregion
 
     #region "FilterDefinition"
@@ -162,8 +162,8 @@ Suppose that you want the export to only output TUs where the *Customer* field i
 
 # [C#](#tab/tabid-12)
 ```cs
-PicklistItem fieldName = new PicklistItem("Customer");
-MultiplePicklistFieldValue fieldValue = new MultiplePicklistFieldValue("Microsoft");
+var fieldName = new PicklistItem("Customer");
+var fieldValue = new MultiplePicklistFieldValue("Microsoft");
 fieldValue.Add(fieldName);
 ```
 ***
@@ -172,7 +172,7 @@ In the next step you use the **AtomicExpression** class to create the filter exp
 
 # [C#](#tab/tabid-13)
 ```cs
-AtomicExpression filter = new AtomicExpression(fieldValue, AtomicExpression.Operator.Equal);
+var filter = new AtomicExpression(fieldValue, AtomicExpression.Operator.Equal);
 return filter;
 ```
 ***
@@ -180,7 +180,7 @@ return filter;
 Define the Filter for the Export (Advanced)
 --
 
-Suppose you want to create a more advanced filter that has two (or more) criteria, e.g. export all TUs where the Customer field value equals Microsoft**OR** in which the *Project id* text field contains the string *2010*. Implement another helper function called ```GetFilterAdvanced```, i.e.:
+Suppose you want to create a more advanced filter that has two (or more) criteria, e.g. export all TUs where the Customer field value equals Microsoft **OR** in which the *Project id* text field contains the string *2010*. Implement another helper function called ```GetFilterAdvanced```, i.e.:
 
 # [C#](#tab/tabid-14)
 ```cs
@@ -193,10 +193,10 @@ expression using the **AtomicExpression** class.
 
 # [C#](#tab/tabid-15)
 ```cs
-PicklistItem fieldName1 = new PicklistItem("Customer");
-MultiplePicklistFieldValue fieldValue1 = new MultiplePicklistFieldValue("Microsoft");
+var fieldName1 = new PicklistItem("Customer");
+var fieldValue1 = new MultiplePicklistFieldValue("Microsoft");
 fieldValue1.Add(fieldName1);
-AtomicExpression expression1 = new AtomicExpression(fieldValue1, AtomicExpression.Operator.Equal);
+var expression1 = new AtomicExpression(fieldValue1, AtomicExpression.Operator.Equal);
 ```
 ***
 
@@ -204,9 +204,9 @@ Then, you set up the second filter criterion, i.e. *Project id* contains *2010* 
 
 # [C#](#tab/tabid-16)
 ```cs
-MultipleStringFieldValue fieldName2 = new MultipleStringFieldValue("Project id");
+var fieldName2 = new MultipleStringFieldValue("Project id");
 fieldName2.Add("2010");
-AtomicExpression expression2 = new AtomicExpression(fieldName2, AtomicExpression.Operator.Contains);
+var expression2 = new AtomicExpression(fieldName2, AtomicExpression.Operator.Contains);
 ```
 ***
 
@@ -214,7 +214,7 @@ The actual filter object that is returned to the export function is based on the
 
 # [C#](#tab/tabid-17)
 ```cs
-ComposedExpression filter = new ComposedExpression(expression1, ComposedExpression.Operator.Or, expression2);
+var filter = new ComposedExpression(expression1, ComposedExpression.Operator.Or, expression2);
 return filter;
 ```
 **
@@ -233,15 +233,15 @@ namespace SDK.LanguagePlatform.Samples.TmAutomation
     using Sdl.LanguagePlatform.TranslationMemory;
     using Sdl.LanguagePlatform.TranslationMemoryApi;
 
-    public class TMExporter
+    public class TmExporter
     {
         #region "export"
         public void ExportTMXFile(string tmPath, string exportFilePath)
         {
             #region "open"
-            FileBasedTranslationMemory tm = new FileBasedTranslationMemory(tmPath);
+            var tm = new FileBasedTranslationMemory(tmPath);
 
-            TranslationMemoryExporter exporter = new TranslationMemoryExporter(tm.LanguageDirection);
+            var exporter = new TranslationMemoryExporter(tm.LanguageDirection);
             #endregion
 
             #region "chunk"
@@ -275,8 +275,8 @@ namespace SDK.LanguagePlatform.Samples.TmAutomation
         public void RunFilteredExport(string tmPath, string exportFilePath)
         {
             #region "OpenForFilter"
-            FileBasedTranslationMemory tm = new FileBasedTranslationMemory(tmPath);
-            TranslationMemoryExporter exporter = new TranslationMemoryExporter(tm.LanguageDirection);
+            var tm = new FileBasedTranslationMemory(tmPath);
+            var exporter = new TranslationMemoryExporter(tm.LanguageDirection);
             #endregion
 
             #region "FilterDefinition"
@@ -294,13 +294,13 @@ namespace SDK.LanguagePlatform.Samples.TmAutomation
         private FilterExpression GetFilterSimple()
         {
             #region "SimpleCriterion"
-            PicklistItem fieldName = new PicklistItem("Customer");
-            MultiplePicklistFieldValue fieldValue = new MultiplePicklistFieldValue("Microsoft");
+            var fieldName = new PicklistItem("Customer");
+            var fieldValue = new MultiplePicklistFieldValue("Microsoft");
             fieldValue.Add(fieldName);
             #endregion
 
             #region "SimpleFilter"
-            AtomicExpression filter = new AtomicExpression(fieldValue, AtomicExpression.Operator.Equal);
+            var filter = new AtomicExpression(fieldValue, AtomicExpression.Operator.Equal);
             return filter;
             #endregion
         }
@@ -310,20 +310,20 @@ namespace SDK.LanguagePlatform.Samples.TmAutomation
         private FilterExpression GetFilterAdvanced()
         {
             #region "AdvancedCriterion1"
-            PicklistItem fieldName1 = new PicklistItem("Customer");
-            MultiplePicklistFieldValue fieldValue1 = new MultiplePicklistFieldValue("Microsoft");
+            var fieldName1 = new PicklistItem("Customer");
+            var fieldValue1 = new MultiplePicklistFieldValue("Microsoft");
             fieldValue1.Add(fieldName1);
-            AtomicExpression expression1 = new AtomicExpression(fieldValue1, AtomicExpression.Operator.Equal);
+            var expression1 = new AtomicExpression(fieldValue1, AtomicExpression.Operator.Equal);
             #endregion
 
             #region "AdvancedCriterion2"
-            MultipleStringFieldValue fieldName2 = new MultipleStringFieldValue("Project id");
+            var fieldName2 = new MultipleStringFieldValue("Project id");
             fieldName2.Add("2010");
-            AtomicExpression expression2 = new AtomicExpression(fieldName2, AtomicExpression.Operator.Contains);
+            var expression2 = new AtomicExpression(fieldName2, AtomicExpression.Operator.Contains);
             #endregion
 
             #region "AdvancedFilter"
-            ComposedExpression filter = new ComposedExpression(expression1, ComposedExpression.Operator.Or, expression2);
+            var filter = new ComposedExpression(expression1, ComposedExpression.Operator.Or, expression2);
             return filter;
             #endregion
         }

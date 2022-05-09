@@ -10,7 +10,7 @@ Add a new class called ```TmLookup``` to your project. Then implement a function
 
 # [C#](#tab/tabid-1)
 ```cs
-TMLookup search = new TMLookup();
+var search = new TmLookup();
 search.SearchForText(_translationMemoryFilePath, "To run the Spelling Checker:", SearchMode.NormalSearch);
 ```
 ***
@@ -22,8 +22,8 @@ After opening the TM the search is executed by applying the [SearchText](../../a
 
 # [C#](#tab/tabid-2)
 ```cs
-FileBasedTranslationMemory tm = new FileBasedTranslationMemory(tmPath);
-SearchResults results = tm.LanguageDirection.SearchText(this.GetSearchSettings(mode), searchText);
+var tm = new FileBasedTranslationMemory(tmPath);
+var results = tm.LanguageDirection.SearchText(this.GetSearchSettings(mode), searchText);
 ```
 ***
 
@@ -33,7 +33,7 @@ The [SearchText](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMem
 ```cs
 private SearchSettings GetSearchSettings(SearchMode mode)
 {
-    SearchSettings settings = new SearchSettings();
+    var settings = new SearchSettings();
 
     settings.MaxResults = 5;
     settings.MinScore = 70;
@@ -56,7 +56,7 @@ Run a Filtered Search
 
 <Var:ProductName> allows you to define one or several filter criteria that can be applied during a TM search. Example: You want to focus on TUs that are associated with the customer *Microsoft*, i.e. where the *Customer* field contains the value *Microsoft*. TUs that do not match this filter can still be found, however, a penalty is applied to them. Example: A TU matches a particular segment exactly, i.e. it has the score 100%. However, as it does not match the specified filter, a penalty of 1% is applied, which reduces the score to 99%. This is done to draw the translator's attention to the fact that the suggested translation might not fit the current context, as it was not created for the specified customer.
 
-The screenshot below shows an example of a filter that applies a penalty of 1% to any TUs that do not have with the *Subject* field value *Technology*:
+The screenshot below shows an example of a filter that applies a penalty of 1% to any TUs that were not created by *User1*:
 
 ![FilterPenalty](images/FilterPenalty.jpg)
 
@@ -64,7 +64,7 @@ In order to apply a filter to your search, expand the helper function ```GetSear
 
 # [C#](#tab/tabid-4)
 ```cs
-Filter filter = new Filter(this.GetFilter(), "Microsoft", 1);
+var filter = new Filter(this.GetFilter(), "Microsoft", 1);
 settings.AddFilter(filter);
 ```
 ***
@@ -75,8 +75,8 @@ Now you add the helper function that returns the **FilterExpression** object. As
 
 # [C#](#tab/tabid-5)
 ```cs
-PicklistItem fieldName = new PicklistItem("Customer");
-MultiplePicklistFieldValue fieldValue = new MultiplePicklistFieldValue("Microsoft");
+var fieldName = new PicklistItem("Customer");
+var fieldValue = new MultiplePicklistFieldValue("Microsoft");
 fieldValue.Add(fieldName);
 ```
 ***
@@ -85,7 +85,7 @@ In the next step you use the **AtomicExpression** class to create the filter exp
 
 # [C#](#tab/tabid-6)
 ```cs
-AtomicExpression filter = new AtomicExpression(fieldValue, AtomicExpression.Operator.Equal);
+var filter = new AtomicExpression(fieldValue, AtomicExpression.Operator.Equal);
 return filter;
 ```
 ***
@@ -97,13 +97,13 @@ The full function for returning the filter expression thus looks as shown below:
 private FilterExpression GetFilter()
 {
     #region "SimpleCriterion"
-    PicklistItem fieldName = new PicklistItem("Customer");
-    MultiplePicklistFieldValue fieldValue = new MultiplePicklistFieldValue("Microsoft");
+    var fieldName = new PicklistItem("Customer");
+    var fieldValue = new MultiplePicklistFieldValue("Microsoft");
     fieldValue.Add(fieldName);
     #endregion
 
     #region "SimpleFilter"
-    AtomicExpression filter = new AtomicExpression(fieldValue, AtomicExpression.Operator.Equal);
+    var filter = new AtomicExpression(fieldValue, AtomicExpression.Operator.Equal);
     return filter;
     #endregion
 }
@@ -157,11 +157,11 @@ In the example above we provided a 'normal' string as search parameter when appl
 ```cs
 public void SearchForSegment(string tmPath)
 {
-    FileBasedTranslationMemory tm = new FileBasedTranslationMemory(tmPath);
-    SearchSettings settings = new SearchSettings();
+    var tm = new FileBasedTranslationMemory(tmPath);
+    var settings = new SearchSettings();
     settings.MaxResults = 5;
 
-    Segment srcSegment = new Segment(tm.LanguageDirection.SourceLanguage);
+    var srcSegment = new Segment(tm.LanguageDirection.SourceLanguage);
     srcSegment.Add("Configure the spelling checker as shown below:");
     SearchResults results = tm.LanguageDirection.SearchSegment(settings, srcSegment);
 
@@ -179,11 +179,11 @@ And the sample function below demonstrates how to create and use a **Translation
 ```cs
 public void SearchForTu(string tmPath)
 {
-    FileBasedTranslationMemory tm = new FileBasedTranslationMemory(tmPath);
-    SearchSettings settings = new SearchSettings();
+    var tm = new FileBasedTranslationMemory(tmPath);
+    var settings = new SearchSettings();
     settings.MaxResults = 5;
 
-    TranslationUnit tu = new TranslationUnit();
+    var tu = new TranslationUnit();
     tu.SourceSegment = new Segment(tm.LanguageDirection.SourceLanguage);
     tu.TargetSegment = new Segment(tm.LanguageDirection.TargetLanguage);
 
@@ -214,13 +214,13 @@ namespace SDK.LanguagePlatform.Samples.TmAutomation
     using Sdl.LanguagePlatform.TranslationMemory;
     using Sdl.LanguagePlatform.TranslationMemoryApi;
 
-    public class TMLookup
+    public class TmLookup
     {
         #region "searchTU"
         public void SearchForText(string tmPath, string searchText, SearchMode mode)
         {
             #region "ExecuteSearch"
-            FileBasedTranslationMemory tm = new FileBasedTranslationMemory(tmPath);
+            var tm = new FileBasedTranslationMemory(tmPath);
             SearchResults results = tm.LanguageDirection.SearchText(this.GetSearchSettings(mode), searchText);
             #endregion
 
@@ -244,7 +244,7 @@ namespace SDK.LanguagePlatform.Samples.TmAutomation
         #region "settings"
         private SearchSettings GetSearchSettings(SearchMode mode)
         {
-            SearchSettings settings = new SearchSettings();
+            var settings = new SearchSettings();
 
             settings.MaxResults = 5;
             settings.MinScore = 70;
@@ -258,7 +258,7 @@ namespace SDK.LanguagePlatform.Samples.TmAutomation
         #region "SettingsWithFilter"
         private SearchSettings GetSearchSettingsWithFilter(SearchMode mode)
         {
-            SearchSettings settings = new SearchSettings();
+            var settings = new SearchSettings();
 
             settings.MaxResults = 5;
             settings.MinScore = 70;
@@ -277,13 +277,13 @@ namespace SDK.LanguagePlatform.Samples.TmAutomation
         private FilterExpression GetFilter()
         {
             #region "SimpleCriterion"
-            PicklistItem fieldName = new PicklistItem("Customer");
-            MultiplePicklistFieldValue fieldValue = new MultiplePicklistFieldValue("Microsoft");
+            var fieldName = new PicklistItem("Customer");
+            var fieldValue = new MultiplePicklistFieldValue("Microsoft");
             fieldValue.Add(fieldName);
             #endregion
 
             #region "SimpleFilter"
-            AtomicExpression filter = new AtomicExpression(fieldValue, AtomicExpression.Operator.Equal);
+            var filter = new AtomicExpression(fieldValue, AtomicExpression.Operator.Equal);
             return filter;
             #endregion
         }
@@ -292,11 +292,11 @@ namespace SDK.LanguagePlatform.Samples.TmAutomation
         #region "SearchForSegment"
         public void SearchForSegment(string tmPath)
         {
-            FileBasedTranslationMemory tm = new FileBasedTranslationMemory(tmPath);
-            SearchSettings settings = new SearchSettings();
+            var tm = new FileBasedTranslationMemory(tmPath);
+            var settings = new SearchSettings();
             settings.MaxResults = 5;
 
-            Segment srcSegment = new Segment(tm.LanguageDirection.SourceLanguage);
+            var srcSegment = new Segment(tm.LanguageDirection.SourceLanguage);
             srcSegment.Add("Configure the spelling checker as shown below:");
             SearchResults results = tm.LanguageDirection.SearchSegment(settings, srcSegment);
 
@@ -310,11 +310,11 @@ namespace SDK.LanguagePlatform.Samples.TmAutomation
         #region "SearchForTu"
         public void SearchForTu(string tmPath)
         {
-            FileBasedTranslationMemory tm = new FileBasedTranslationMemory(tmPath);
-            SearchSettings settings = new SearchSettings();
+            var tm = new FileBasedTranslationMemory(tmPath);
+            var settings = new SearchSettings();
             settings.MaxResults = 5;
 
-            TranslationUnit tu = new TranslationUnit();
+            var tu = new TranslationUnit();
             tu.SourceSegment = new Segment(tm.LanguageDirection.SourceLanguage);
             tu.TargetSegment = new Segment(tm.LanguageDirection.TargetLanguage);
 
