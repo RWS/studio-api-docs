@@ -14,4 +14,4 @@ To associate a server-based translation memory with a fields template, simply se
 
 
 
-<img style="display:block; " src="images/FieldsTemplate.png"/>
+<img style="display:block; " src="images/cd-FieldsTemplate.jpg"/>
