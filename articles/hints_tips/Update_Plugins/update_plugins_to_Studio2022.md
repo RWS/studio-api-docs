@@ -27,7 +27,7 @@ The latest version of the plugin framework packages should be installed. You can
 * Search for `Sdl.Core.PluginFramework` from the **Browse** tab.
 * Select the package from the list and click **Install** or **Update**.
   * `Sdl.Core.PluginFramework`, version _2.1.0_
-  * `Sdl.Core.PluginFramework.Build`, version _16.1.0_
+  * `Sdl.Core.PluginFramework.Build`, version _17.0.0_
 * Accept any license prompts to finnish the installation.
 <img style="display:block; margin: 0px" src="images/UpdatePluginFrameworkPackages.gif" />
 
