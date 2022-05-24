@@ -10,8 +10,8 @@ As we are going to implement the functionality for setting and retrieving the TM
 
 # [C#](#tab/tabid-1)
 ```cs
-TMProperties objProps = new TMProperties();
-objProps.GetAndSetProperties(_translationMemoryFilePath);
+var tmProperties = new TmProperties();
+tmProperties.GetAndSetProperties(_translationMemoryFilePath);
 ```
 ***
 
@@ -25,10 +25,9 @@ tm.ExpirationDate = DateTime.Now.AddDays(7);
 ```
 ***
 
-The above part of the code sets a TM description and copyright string, and defines an expiry date for the TM. In this case, we select 7 days, after which the TM can no longer be used. Using an expiry date, you can 'time-bomb' a TM, which is useful, for example, if you give the TM to a freelancer, and you want to prevent him or her from using it after the project deadline has passed.
+The above part of the code sets a TM description and copyright string, and defines an expiry date for the TM. In this case, we select 7 days, after which the TM can no longer be used. By using an expiry date, you can 'time-bomb' a TM, which is useful, for example, if you give the TM to a freelancer, and you want to prevent them from using it after the project deadline has passed.
 
-Below you see a few examples of properties that you can retrieve on a 
-given TM and then output in a message box.
+Below you see a few examples of properties that you can retrieve on a given TM and then output in a message box.
 
 # [C#](#tab/tabid-3)
 ```cs
@@ -54,11 +53,11 @@ namespace SDK.LanguagePlatform.Samples.TmAutomation
     using System.Windows.Forms;
     using Sdl.LanguagePlatform.TranslationMemoryApi;
 
-    public class TMProperties
+    public class TmProperties
     {
         public void GetAndSetProperties(string tmPath)
         {
-            FileBasedTranslationMemory tm = new FileBasedTranslationMemory(tmPath);
+            var tm = new FileBasedTranslationMemory(tmPath);
 
             #region "set"
             tm.Description = "This is the TM description.";

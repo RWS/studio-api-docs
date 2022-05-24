@@ -6,8 +6,8 @@ items:
   parent: Sdl.TranslationStudioAutomation.IntegrationApi.Packaging
   children:
   - Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IExternalPackageConverter.ConversionResult
-  - Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IExternalPackageConverter.ConvertPackage(Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.ExternalPackageConversionInfo)
-  - Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IExternalPackageConverter.ConvertReturnPackage(Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.ExternalPackageConversionInfo)
+  - Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IExternalPackageConverter.ConvertPackage(Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IConversionContext,Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.ExternalPackageConversionInfo)
+  - Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IExternalPackageConverter.ConvertReturnPackage(Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IConversionContext,Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.ExternalPackageConversionInfo)
   - Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IExternalPackageConverter.PackageConverted
   - Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IExternalPackageConverter.PackageMessage
   langs:
@@ -26,22 +26,24 @@ items:
   syntax:
     content: public interface IExternalPackageConverter
     content.vb: Public Interface IExternalPackageConverter
+  extensionMethods:
+  - System.Object.Sdl.Desktop.Platform.Controls.Controls.WindowsControlUtils.ForWindowFromFrameworkElement(System.Action{System.Windows.Window})
   modifiers.csharp:
   - public
   - interface
   modifiers.vb:
   - Public
   - Interface
-- uid: Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IExternalPackageConverter.ConvertPackage(Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.ExternalPackageConversionInfo)
-  commentId: M:Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IExternalPackageConverter.ConvertPackage(Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.ExternalPackageConversionInfo)
-  id: ConvertPackage(Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.ExternalPackageConversionInfo)
+- uid: Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IExternalPackageConverter.ConvertPackage(Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IConversionContext,Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.ExternalPackageConversionInfo)
+  commentId: M:Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IExternalPackageConverter.ConvertPackage(Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IConversionContext,Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.ExternalPackageConversionInfo)
+  id: ConvertPackage(Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IConversionContext,Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.ExternalPackageConversionInfo)
   parent: Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IExternalPackageConverter
   langs:
   - csharp
   - vb
-  name: ConvertPackage(ExternalPackageConversionInfo)
-  nameWithType: IExternalPackageConverter.ConvertPackage(ExternalPackageConversionInfo)
-  fullName: Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IExternalPackageConverter.ConvertPackage(Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.ExternalPackageConversionInfo)
+  name: ConvertPackage(IConversionContext, ExternalPackageConversionInfo)
+  nameWithType: IExternalPackageConverter.ConvertPackage(IConversionContext, ExternalPackageConversionInfo)
+  fullName: Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IExternalPackageConverter.ConvertPackage(Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IConversionContext, Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.ExternalPackageConversionInfo)
   type: Method
   source:
     path: Sdl.TranslationStudioAutomation.IntegrationApi
@@ -51,23 +53,26 @@ items:
   namespace: Sdl.TranslationStudioAutomation.IntegrationApi.Packaging
   summary: "\nConverts a package from another application/system into a package that can be processed by Trados Studio.\nDetails to be specified are:\n- The path of the package to be converted\n- The path for the converted package\n- Ability to run analysis to generate report\n- Tm settings used for updating existing TMs\n"
   syntax:
-    content: void ConvertPackage(ExternalPackageConversionInfo externalPackageConversionInfo)
+    content: void ConvertPackage(IConversionContext context, ExternalPackageConversionInfo externalPackageConversionInfo)
     parameters:
+    - id: context
+      type: Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IConversionContext
+      description: Context under which the conversion will take place.
     - id: externalPackageConversionInfo
       type: Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.ExternalPackageConversionInfo
       description: .The conversion details
-    content.vb: Sub ConvertPackage(externalPackageConversionInfo As ExternalPackageConversionInfo)
+    content.vb: Sub ConvertPackage(context As IConversionContext, externalPackageConversionInfo As ExternalPackageConversionInfo)
   overload: Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IExternalPackageConverter.ConvertPackage*
-- uid: Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IExternalPackageConverter.ConvertReturnPackage(Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.ExternalPackageConversionInfo)
-  commentId: M:Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IExternalPackageConverter.ConvertReturnPackage(Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.ExternalPackageConversionInfo)
-  id: ConvertReturnPackage(Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.ExternalPackageConversionInfo)
+- uid: Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IExternalPackageConverter.ConvertReturnPackage(Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IConversionContext,Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.ExternalPackageConversionInfo)
+  commentId: M:Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IExternalPackageConverter.ConvertReturnPackage(Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IConversionContext,Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.ExternalPackageConversionInfo)
+  id: ConvertReturnPackage(Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IConversionContext,Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.ExternalPackageConversionInfo)
   parent: Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IExternalPackageConverter
   langs:
   - csharp
   - vb
-  name: ConvertReturnPackage(ExternalPackageConversionInfo)
-  nameWithType: IExternalPackageConverter.ConvertReturnPackage(ExternalPackageConversionInfo)
-  fullName: Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IExternalPackageConverter.ConvertReturnPackage(Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.ExternalPackageConversionInfo)
+  name: ConvertReturnPackage(IConversionContext, ExternalPackageConversionInfo)
+  nameWithType: IExternalPackageConverter.ConvertReturnPackage(IConversionContext, ExternalPackageConversionInfo)
+  fullName: Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IExternalPackageConverter.ConvertReturnPackage(Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IConversionContext, Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.ExternalPackageConversionInfo)
   type: Method
   source:
     path: Sdl.TranslationStudioAutomation.IntegrationApi
@@ -77,12 +82,15 @@ items:
   namespace: Sdl.TranslationStudioAutomation.IntegrationApi.Packaging
   summary: "\nConverts a Trados Studio return package into a return package that can be processed by the original application/system.\n"
   syntax:
-    content: void ConvertReturnPackage(ExternalPackageConversionInfo externalPackageConversionInfo)
+    content: void ConvertReturnPackage(IConversionContext context, ExternalPackageConversionInfo externalPackageConversionInfo)
     parameters:
+    - id: context
+      type: Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IConversionContext
+      description: Context under which the conversion will take place.
     - id: externalPackageConversionInfo
       type: Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.ExternalPackageConversionInfo
       description: .The conversion details
-    content.vb: Sub ConvertReturnPackage(externalPackageConversionInfo As ExternalPackageConversionInfo)
+    content.vb: Sub ConvertReturnPackage(context As IConversionContext, externalPackageConversionInfo As ExternalPackageConversionInfo)
   overload: Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IExternalPackageConverter.ConvertReturnPackage*
 - uid: Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IExternalPackageConverter.ConversionResult
   commentId: P:Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IExternalPackageConverter.ConversionResult
@@ -165,12 +173,179 @@ references:
   name: Sdl.TranslationStudioAutomation.IntegrationApi.Packaging
   nameWithType: Sdl.TranslationStudioAutomation.IntegrationApi.Packaging
   fullName: Sdl.TranslationStudioAutomation.IntegrationApi.Packaging
+- uid: System.Object.Sdl.Desktop.Platform.Controls.Controls.WindowsControlUtils.ForWindowFromFrameworkElement(System.Action{System.Windows.Window})
+  commentId: M:Sdl.Desktop.Platform.Controls.Controls.WindowsControlUtils.ForWindowFromFrameworkElement(System.Object,System.Action{System.Windows.Window})
+  parent: Sdl.Desktop.Platform.Controls.Controls.WindowsControlUtils
+  definition: Sdl.Desktop.Platform.Controls.Controls.WindowsControlUtils.ForWindowFromFrameworkElement(System.Object,System.Action{System.Windows.Window})
+  name: ForWindowFromFrameworkElement(Action<Window>)
+  nameWithType: WindowsControlUtils.ForWindowFromFrameworkElement(Action<Window>)
+  fullName: Sdl.Desktop.Platform.Controls.Controls.WindowsControlUtils.ForWindowFromFrameworkElement(System.Action<System.Windows.Window>)
+  nameWithType.vb: WindowsControlUtils.ForWindowFromFrameworkElement(Action(Of Window))
+  fullName.vb: Sdl.Desktop.Platform.Controls.Controls.WindowsControlUtils.ForWindowFromFrameworkElement(System.Action(Of System.Windows.Window))
+  name.vb: ForWindowFromFrameworkElement(Action(Of Window))
+  spec.csharp:
+  - uid: Sdl.Desktop.Platform.Controls.Controls.WindowsControlUtils.ForWindowFromFrameworkElement(System.Action{System.Windows.Window})
+    name: ForWindowFromFrameworkElement
+    nameWithType: WindowsControlUtils.ForWindowFromFrameworkElement
+    fullName: Sdl.Desktop.Platform.Controls.Controls.WindowsControlUtils.ForWindowFromFrameworkElement
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Action`1
+    name: Action
+    nameWithType: Action
+    fullName: System.Action
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Windows.Window
+    name: Window
+    nameWithType: Window
+    fullName: System.Windows.Window
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Sdl.Desktop.Platform.Controls.Controls.WindowsControlUtils.ForWindowFromFrameworkElement(System.Action{System.Windows.Window})
+    name: ForWindowFromFrameworkElement
+    nameWithType: WindowsControlUtils.ForWindowFromFrameworkElement
+    fullName: Sdl.Desktop.Platform.Controls.Controls.WindowsControlUtils.ForWindowFromFrameworkElement
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Action`1
+    name: Action
+    nameWithType: Action
+    fullName: System.Action
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Windows.Window
+    name: Window
+    nameWithType: Window
+    fullName: System.Windows.Window
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Sdl.Desktop.Platform.Controls.Controls.WindowsControlUtils.ForWindowFromFrameworkElement(System.Object,System.Action{System.Windows.Window})
+  commentId: M:Sdl.Desktop.Platform.Controls.Controls.WindowsControlUtils.ForWindowFromFrameworkElement(System.Object,System.Action{System.Windows.Window})
+  isExternal: true
+  name: ForWindowFromFrameworkElement(Object, Action<Window>)
+  nameWithType: WindowsControlUtils.ForWindowFromFrameworkElement(Object, Action<Window>)
+  fullName: Sdl.Desktop.Platform.Controls.Controls.WindowsControlUtils.ForWindowFromFrameworkElement(System.Object, System.Action<System.Windows.Window>)
+  nameWithType.vb: WindowsControlUtils.ForWindowFromFrameworkElement(Object, Action(Of Window))
+  fullName.vb: Sdl.Desktop.Platform.Controls.Controls.WindowsControlUtils.ForWindowFromFrameworkElement(System.Object, System.Action(Of System.Windows.Window))
+  name.vb: ForWindowFromFrameworkElement(Object, Action(Of Window))
+  spec.csharp:
+  - uid: Sdl.Desktop.Platform.Controls.Controls.WindowsControlUtils.ForWindowFromFrameworkElement(System.Object,System.Action{System.Windows.Window})
+    name: ForWindowFromFrameworkElement
+    nameWithType: WindowsControlUtils.ForWindowFromFrameworkElement
+    fullName: Sdl.Desktop.Platform.Controls.Controls.WindowsControlUtils.ForWindowFromFrameworkElement
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Action`1
+    name: Action
+    nameWithType: Action
+    fullName: System.Action
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Windows.Window
+    name: Window
+    nameWithType: Window
+    fullName: System.Windows.Window
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Sdl.Desktop.Platform.Controls.Controls.WindowsControlUtils.ForWindowFromFrameworkElement(System.Object,System.Action{System.Windows.Window})
+    name: ForWindowFromFrameworkElement
+    nameWithType: WindowsControlUtils.ForWindowFromFrameworkElement
+    fullName: Sdl.Desktop.Platform.Controls.Controls.WindowsControlUtils.ForWindowFromFrameworkElement
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Action`1
+    name: Action
+    nameWithType: Action
+    fullName: System.Action
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Windows.Window
+    name: Window
+    nameWithType: Window
+    fullName: System.Windows.Window
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Sdl.Desktop.Platform.Controls.Controls.WindowsControlUtils
+  commentId: T:Sdl.Desktop.Platform.Controls.Controls.WindowsControlUtils
+  parent: Sdl.Desktop.Platform.Controls.Controls
+  isExternal: true
+  name: WindowsControlUtils
+  nameWithType: WindowsControlUtils
+  fullName: Sdl.Desktop.Platform.Controls.Controls.WindowsControlUtils
+- uid: Sdl.Desktop.Platform.Controls.Controls
+  commentId: N:Sdl.Desktop.Platform.Controls.Controls
+  isExternal: true
+  name: Sdl.Desktop.Platform.Controls.Controls
+  nameWithType: Sdl.Desktop.Platform.Controls.Controls
+  fullName: Sdl.Desktop.Platform.Controls.Controls
 - uid: Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IExternalPackageConverter.ConvertPackage*
   commentId: Overload:Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IExternalPackageConverter.ConvertPackage
   isExternal: true
   name: ConvertPackage
   nameWithType: IExternalPackageConverter.ConvertPackage
   fullName: Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IExternalPackageConverter.ConvertPackage
+- uid: Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IConversionContext
+  commentId: T:Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IConversionContext
+  parent: Sdl.TranslationStudioAutomation.IntegrationApi.Packaging
+  isExternal: true
+  name: IConversionContext
+  nameWithType: IConversionContext
+  fullName: Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IConversionContext
 - uid: Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.ExternalPackageConversionInfo
   commentId: T:Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.ExternalPackageConversionInfo
   parent: Sdl.TranslationStudioAutomation.IntegrationApi.Packaging

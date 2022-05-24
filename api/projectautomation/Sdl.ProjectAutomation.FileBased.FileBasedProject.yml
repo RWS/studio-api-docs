@@ -41,6 +41,7 @@ items:
   - Sdl.ProjectAutomation.FileBased.FileBasedProject.GetAutomaticTask(System.Guid)
   - Sdl.ProjectAutomation.FileBased.FileBasedProject.GetFile(System.Guid)
   - Sdl.ProjectAutomation.FileBased.FileBasedProject.GetFiles(System.Guid[])
+  - Sdl.ProjectAutomation.FileBased.FileBasedProject.GetFileTypeConfiguration
   - Sdl.ProjectAutomation.FileBased.FileBasedProject.GetManualTask(System.Guid)
   - Sdl.ProjectAutomation.FileBased.FileBasedProject.GetProjectFileVersionHistory(System.Guid)
   - Sdl.ProjectAutomation.FileBased.FileBasedProject.GetProjectInfo
@@ -50,7 +51,7 @@ items:
   - Sdl.ProjectAutomation.FileBased.FileBasedProject.GetSourceLanguageFiles
   - Sdl.ProjectAutomation.FileBased.FileBasedProject.GetTargetLanguageFiles
   - Sdl.ProjectAutomation.FileBased.FileBasedProject.GetTargetLanguageFiles(Sdl.Core.Globalization.Language)
-  - Sdl.ProjectAutomation.FileBased.FileBasedProject.GetTermbaseConfiguration
+  - Sdl.ProjectAutomation.FileBased.FileBasedProject.GetTermbaseConfiguration(System.Boolean)
   - Sdl.ProjectAutomation.FileBased.FileBasedProject.GetTranslationProviderConfiguration
   - Sdl.ProjectAutomation.FileBased.FileBasedProject.GetTranslationProviderConfiguration(Sdl.Core.Globalization.Language)
   - Sdl.ProjectAutomation.FileBased.FileBasedProject.ImportReturnPackage(System.String)
@@ -495,7 +496,7 @@ items:
       type: System.EventHandler{Sdl.ProjectAutomation.Core.TaskMessageEventArgs}
       description: Event handler for message events.
     return:
-      type: Sdl.ProjectAutomation.FileBased.TaskSequence
+      type: Sdl.ProjectAutomation.Core.TaskSequence
       description: Information about the sequence of tasks that has been run.
     content.vb: Public Function RunAutomaticTasks(projectFileIds As Guid(), taskTemplateIds As String(), statusEventHandler As EventHandler(Of TaskStatusEventArgs), messageEventHandler As EventHandler(Of TaskMessageEventArgs)) As TaskSequence
   overload: Sdl.ProjectAutomation.FileBased.FileBasedProject.RunAutomaticTasks*
@@ -531,7 +532,7 @@ items:
       type: System.Guid[]
       description: The files to run the task on.
     return:
-      type: Sdl.ProjectAutomation.FileBased.TaskSequence
+      type: Sdl.ProjectAutomation.Core.TaskSequence
       description: Information about the sequence of tasks that has been run.
     content.vb: Public Function RunDefaultTaskSequence(projectFileIds As Guid()) As TaskSequence
   overload: Sdl.ProjectAutomation.FileBased.FileBasedProject.RunDefaultTaskSequence*
@@ -573,7 +574,7 @@ items:
       type: System.EventHandler{Sdl.ProjectAutomation.Core.TaskMessageEventArgs}
       description: Event handler for message events.
     return:
-      type: Sdl.ProjectAutomation.FileBased.TaskSequence
+      type: Sdl.ProjectAutomation.Core.TaskSequence
       description: Information about the sequence of tasks that has been run.
     content.vb: Public Function RunDefaultTaskSequence(projectFileIds As Guid(), statusEventHandler As EventHandler(Of TaskStatusEventArgs), messageEventHandler As EventHandler(Of TaskMessageEventArgs)) As TaskSequence
   overload: Sdl.ProjectAutomation.FileBased.FileBasedProject.RunDefaultTaskSequence*
@@ -612,7 +613,7 @@ items:
       type: System.String[]
       description: The IDs of the task templates (i.e. the types of task) to run.
     return:
-      type: Sdl.ProjectAutomation.FileBased.TaskSequence
+      type: Sdl.ProjectAutomation.Core.TaskSequence
       description: Information about the sequence of tasks that has been run.
     content.vb: Public Function RunAutomaticTasks(projectFileIds As Guid(), taskTemplateIds As String()) As TaskSequence
   overload: Sdl.ProjectAutomation.FileBased.FileBasedProject.RunAutomaticTasks*
@@ -880,16 +881,16 @@ items:
   - public
   modifiers.vb:
   - Public
-- uid: Sdl.ProjectAutomation.FileBased.FileBasedProject.GetTermbaseConfiguration
-  commentId: M:Sdl.ProjectAutomation.FileBased.FileBasedProject.GetTermbaseConfiguration
-  id: GetTermbaseConfiguration
+- uid: Sdl.ProjectAutomation.FileBased.FileBasedProject.GetTermbaseConfiguration(System.Boolean)
+  commentId: M:Sdl.ProjectAutomation.FileBased.FileBasedProject.GetTermbaseConfiguration(System.Boolean)
+  id: GetTermbaseConfiguration(System.Boolean)
   parent: Sdl.ProjectAutomation.FileBased.FileBasedProject
   langs:
   - csharp
   - vb
-  name: GetTermbaseConfiguration()
-  nameWithType: FileBasedProject.GetTermbaseConfiguration()
-  fullName: Sdl.ProjectAutomation.FileBased.FileBasedProject.GetTermbaseConfiguration()
+  name: GetTermbaseConfiguration(Boolean)
+  nameWithType: FileBasedProject.GetTermbaseConfiguration(Boolean)
+  fullName: Sdl.ProjectAutomation.FileBased.FileBasedProject.GetTermbaseConfiguration(System.Boolean)
   type: Method
   source:
     path: Sdl.ProjectAutomation.FileBased
@@ -899,14 +900,17 @@ items:
   namespace: Sdl.ProjectAutomation.FileBased
   summary: "\nRetrieves all termbase-related settings that are associated with this project.\n"
   syntax:
-    content: public TermbaseConfiguration GetTermbaseConfiguration()
+    content: public TermbaseConfiguration GetTermbaseConfiguration(bool obtainCopy = false)
+    parameters:
+    - id: obtainCopy
+      type: System.Boolean
     return:
       type: Sdl.ProjectAutomation.Core.TermbaseConfiguration
       description: A <xref href="Sdl.ProjectAutomation.Core.TermbaseConfiguration" data-throw-if-not-resolved="false"></xref> object containing all termbase-related configuration for this project.
-    content.vb: Public Function GetTermbaseConfiguration As TermbaseConfiguration
+    content.vb: Public Function GetTermbaseConfiguration(obtainCopy As Boolean = False) As TermbaseConfiguration
   overload: Sdl.ProjectAutomation.FileBased.FileBasedProject.GetTermbaseConfiguration*
   implements:
-  - Sdl.ProjectAutomation.Core.IProject.GetTermbaseConfiguration
+  - Sdl.ProjectAutomation.Core.IProject.GetTermbaseConfiguration(System.Boolean)
   modifiers.csharp:
   - public
   modifiers.vb:
@@ -937,7 +941,7 @@ items:
       description: >-
         A <xref href="Sdl.ProjectAutomation.Core.TermbaseConfiguration" data-throw-if-not-resolved="false"></xref> object containing all termbase-related configuration for this project.
 
-        This can either be newly created termbase configuration object or one that was retrieved via <xref href="Sdl.ProjectAutomation.FileBased.FileBasedProject.GetTermbaseConfiguration" data-throw-if-not-resolved="false"></xref>.
+        This can either be newly created termbase configuration object or one that was retrieved via <xref href="Sdl.ProjectAutomation.FileBased.FileBasedProject.GetTermbaseConfiguration(System.Boolean)" data-throw-if-not-resolved="false"></xref>.
     content.vb: Public Sub UpdateTermbaseConfiguration(termbaseConfiguration As TermbaseConfiguration)
   overload: Sdl.ProjectAutomation.FileBased.FileBasedProject.UpdateTermbaseConfiguration*
   implements:
@@ -2827,6 +2831,35 @@ items:
   - public
   modifiers.vb:
   - Public
+- uid: Sdl.ProjectAutomation.FileBased.FileBasedProject.GetFileTypeConfiguration
+  commentId: M:Sdl.ProjectAutomation.FileBased.FileBasedProject.GetFileTypeConfiguration
+  id: GetFileTypeConfiguration
+  parent: Sdl.ProjectAutomation.FileBased.FileBasedProject
+  langs:
+  - csharp
+  - vb
+  name: GetFileTypeConfiguration()
+  nameWithType: FileBasedProject.GetFileTypeConfiguration()
+  fullName: Sdl.ProjectAutomation.FileBased.FileBasedProject.GetFileTypeConfiguration()
+  type: Method
+  source:
+    path: Sdl.ProjectAutomation.FileBased
+    isExternal: true
+  assemblies:
+  - Sdl.ProjectAutomation.FileBased
+  namespace: Sdl.ProjectAutomation.FileBased
+  syntax:
+    content: public ProjectFileTypeConfiguration GetFileTypeConfiguration()
+    return:
+      type: Sdl.ProjectAutomation.Core.ProjectFileTypeConfiguration
+    content.vb: Public Function GetFileTypeConfiguration As ProjectFileTypeConfiguration
+  overload: Sdl.ProjectAutomation.FileBased.FileBasedProject.GetFileTypeConfiguration*
+  implements:
+  - Sdl.ProjectAutomation.Core.IProject.GetFileTypeConfiguration
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
 - uid: Sdl.ProjectAutomation.FileBased.FileBasedProject.FilePath
   commentId: P:Sdl.ProjectAutomation.FileBased.FileBasedProject.FilePath
   id: FilePath
@@ -3597,13 +3630,13 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: Sdl.ProjectAutomation.FileBased.TaskSequence
-  commentId: T:Sdl.ProjectAutomation.FileBased.TaskSequence
-  parent: Sdl.ProjectAutomation.FileBased
+- uid: Sdl.ProjectAutomation.Core.TaskSequence
+  commentId: T:Sdl.ProjectAutomation.Core.TaskSequence
+  parent: Sdl.ProjectAutomation.Core
   isExternal: true
   name: TaskSequence
   nameWithType: TaskSequence
-  fullName: Sdl.ProjectAutomation.FileBased.TaskSequence
+  fullName: Sdl.ProjectAutomation.Core.TaskSequence
 - uid: Sdl.ProjectAutomation.FileBased.FileBasedProject.RunDefaultTaskSequence*
   commentId: Overload:Sdl.ProjectAutomation.FileBased.FileBasedProject.RunDefaultTaskSequence
   isExternal: true
@@ -3900,15 +3933,15 @@ references:
   name: GetTermbaseConfiguration
   nameWithType: FileBasedProject.GetTermbaseConfiguration
   fullName: Sdl.ProjectAutomation.FileBased.FileBasedProject.GetTermbaseConfiguration
-- uid: Sdl.ProjectAutomation.Core.IProject.GetTermbaseConfiguration
-  commentId: M:Sdl.ProjectAutomation.Core.IProject.GetTermbaseConfiguration
+- uid: Sdl.ProjectAutomation.Core.IProject.GetTermbaseConfiguration(System.Boolean)
+  commentId: M:Sdl.ProjectAutomation.Core.IProject.GetTermbaseConfiguration(System.Boolean)
   parent: Sdl.ProjectAutomation.Core.IProject
   isExternal: true
-  name: GetTermbaseConfiguration()
-  nameWithType: IProject.GetTermbaseConfiguration()
-  fullName: Sdl.ProjectAutomation.Core.IProject.GetTermbaseConfiguration()
+  name: GetTermbaseConfiguration(Boolean)
+  nameWithType: IProject.GetTermbaseConfiguration(Boolean)
+  fullName: Sdl.ProjectAutomation.Core.IProject.GetTermbaseConfiguration(System.Boolean)
   spec.csharp:
-  - uid: Sdl.ProjectAutomation.Core.IProject.GetTermbaseConfiguration
+  - uid: Sdl.ProjectAutomation.Core.IProject.GetTermbaseConfiguration(System.Boolean)
     name: GetTermbaseConfiguration
     nameWithType: IProject.GetTermbaseConfiguration
     fullName: Sdl.ProjectAutomation.Core.IProject.GetTermbaseConfiguration
@@ -3916,11 +3949,16 @@ references:
   - name: (
     nameWithType: (
     fullName: (
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: Sdl.ProjectAutomation.Core.IProject.GetTermbaseConfiguration
+  - uid: Sdl.ProjectAutomation.Core.IProject.GetTermbaseConfiguration(System.Boolean)
     name: GetTermbaseConfiguration
     nameWithType: IProject.GetTermbaseConfiguration
     fullName: Sdl.ProjectAutomation.Core.IProject.GetTermbaseConfiguration
@@ -3928,6 +3966,11 @@ references:
   - name: (
     nameWithType: (
     fullName: (
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
@@ -6943,6 +6986,50 @@ references:
   - name: ()
     nameWithType: ()
     fullName: ()
+- uid: Sdl.ProjectAutomation.FileBased.FileBasedProject.GetFileTypeConfiguration*
+  commentId: Overload:Sdl.ProjectAutomation.FileBased.FileBasedProject.GetFileTypeConfiguration
+  isExternal: true
+  name: GetFileTypeConfiguration
+  nameWithType: FileBasedProject.GetFileTypeConfiguration
+  fullName: Sdl.ProjectAutomation.FileBased.FileBasedProject.GetFileTypeConfiguration
+- uid: Sdl.ProjectAutomation.Core.IProject.GetFileTypeConfiguration
+  commentId: M:Sdl.ProjectAutomation.Core.IProject.GetFileTypeConfiguration
+  parent: Sdl.ProjectAutomation.Core.IProject
+  isExternal: true
+  name: GetFileTypeConfiguration()
+  nameWithType: IProject.GetFileTypeConfiguration()
+  fullName: Sdl.ProjectAutomation.Core.IProject.GetFileTypeConfiguration()
+  spec.csharp:
+  - uid: Sdl.ProjectAutomation.Core.IProject.GetFileTypeConfiguration
+    name: GetFileTypeConfiguration
+    nameWithType: IProject.GetFileTypeConfiguration
+    fullName: Sdl.ProjectAutomation.Core.IProject.GetFileTypeConfiguration
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Sdl.ProjectAutomation.Core.IProject.GetFileTypeConfiguration
+    name: GetFileTypeConfiguration
+    nameWithType: IProject.GetFileTypeConfiguration
+    fullName: Sdl.ProjectAutomation.Core.IProject.GetFileTypeConfiguration
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Sdl.ProjectAutomation.Core.ProjectFileTypeConfiguration
+  commentId: T:Sdl.ProjectAutomation.Core.ProjectFileTypeConfiguration
+  parent: Sdl.ProjectAutomation.Core
+  isExternal: true
+  name: ProjectFileTypeConfiguration
+  nameWithType: ProjectFileTypeConfiguration
+  fullName: Sdl.ProjectAutomation.Core.ProjectFileTypeConfiguration
 - uid: Sdl.ProjectAutomation.FileBased.FileBasedProject.FilePath*
   commentId: Overload:Sdl.ProjectAutomation.FileBased.FileBasedProject.FilePath
   isExternal: true

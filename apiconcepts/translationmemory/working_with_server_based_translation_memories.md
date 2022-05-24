@@ -11,8 +11,8 @@ Server-based translation memories are represented by the [ServerBasedTranslation
 In addition to the standard translation memory functionality, server-based translation memories have the following additional capabilities:
 
 * **Field Templates**: instead of defining field definitions for every translation memory individually, server-based translation memories can inherit their field defintions from a fields template, represented by [ServerBasedFieldsTemplate](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedFieldsTemplate.yml). For more information, see [Working with Field Templates](working_with_field_templates.md).
-* **Language Resource Templates**: instead of defining language resources for every translation memory individually, server-based translation memories can inherit their language resources from a language resources template, represented by [ServerBasedLanguageResourcesTemplate](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedLanguageResourcesTemplate.yml). For more information, see [Working with Language Resource Templates](working_with_language_resource_templates.md).
+* **Language Resource Templates**: same as with field templates, instead of defining language resources for every translation memory individually, server-based translation memories can inherit their language resources from a language resources template, represented by [ServerBasedLanguageResourcesTemplate](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedLanguageResourcesTemplate.yml). For more information, see [Working with Language Resource Templates](working_with_language_resource_templates.md).
 * **Scheduled import and export**: instead of importing remotely over the network or internet, you can schedule an import or export to be done on the server. For more information, see [Performing a Scheduled Import or Export](performing_a_scheduled_import_or_export.md).
 
 
-<img style="display:block; " src="images/ServerBasedTranslationMemory.png"/>
+<img style="display:block; " src="images/cd-ServerBasedTranslationMemory.jpg"/>
