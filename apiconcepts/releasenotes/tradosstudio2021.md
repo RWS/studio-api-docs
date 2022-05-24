@@ -69,7 +69,7 @@ Improved the Integration API by exposing two new interfaces ([IStudioDocument](.
 
 ### Increased code testability.
 
-Substituted the 'CommentUtil' static utility class with a testable [ICommuntUtilityService](../../api/integration/Sdl.TranslationStudio.Api.Editor.ICommentUtilityService.yml) that can eventually be injected in the [Document](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Document.yml) class.
+Substituted the 'CommentUtil' static utility class with a testable [ICommentUtilityService](../../api/integration/Sdl.TranslationStudio.Api.Editor.ICommentUtilityService.yml) that can eventually be injected in the [Document](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Document.yml) class.
 
 ### Exposed methods for recovering the segment pair by providing the row number or Paragraph + Segment Id combination.
 
