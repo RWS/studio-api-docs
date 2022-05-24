@@ -8,10 +8,9 @@ items:
   - Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.#ctor
   - Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.CultureName
   - Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.Data
-  - Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.Sdl#LanguagePlatform#TranslationMemoryApi#ILanguageResourceEntity#get_Id
-  - Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.Sdl#LanguagePlatform#TranslationMemoryApi#ILanguageResourceEntity#get_IsDirty
-  - Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.Sdl#LanguagePlatform#TranslationMemoryApi#ILanguageResourceEntity#MarkAsClean
-  - Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.Sdl#LanguagePlatform#TranslationMemoryApi#ILanguageResourceEntity#set_Id(Sdl.Core.Api.DataAccess.Identity)
+  - Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.Id
+  - Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.IsDirty
+  - Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.MarkAsClean
   - Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.Type
   - Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.UniqueId
   langs:
@@ -28,21 +27,55 @@ items:
   - Sdl.LanguagePlatform.TranslationMemoryApi
   namespace: Sdl.LanguagePlatform.TranslationMemoryApi
   syntax:
-    content: 'public class LanguageResourceEntity : Entity, ILanguageResourceEntity'
+    content: 'public class LanguageResourceEntity : ILanguageResourceEntity'
     content.vb: >-
       Public Class LanguageResourceEntity
-          Inherits Entity
           Implements ILanguageResourceEntity
   inheritance:
   - System.Object
   implements:
   - Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity
+  inheritedMembers:
+  - System.Object.ToString
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
   modifiers.csharp:
   - public
   - class
   modifiers.vb:
   - Public
   - Class
+- uid: Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.MarkAsClean
+  commentId: M:Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.MarkAsClean
+  id: MarkAsClean
+  parent: Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity
+  langs:
+  - csharp
+  - vb
+  name: MarkAsClean()
+  nameWithType: LanguageResourceEntity.MarkAsClean()
+  fullName: Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.MarkAsClean()
+  type: Method
+  source:
+    path: Sdl.LanguagePlatform.TranslationMemoryApi
+    isExternal: true
+  assemblies:
+  - Sdl.LanguagePlatform.TranslationMemoryApi
+  namespace: Sdl.LanguagePlatform.TranslationMemoryApi
+  syntax:
+    content: public void MarkAsClean()
+    content.vb: Public Sub MarkAsClean
+  overload: Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.MarkAsClean*
+  implements:
+  - Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.MarkAsClean
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
 - uid: Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.#ctor
   commentId: M:Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.#ctor
   id: '#ctor'
@@ -68,18 +101,17 @@ items:
   - public
   modifiers.vb:
   - Public
-- uid: Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.Sdl#LanguagePlatform#TranslationMemoryApi#ILanguageResourceEntity#get_Id
-  commentId: M:Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.Sdl#LanguagePlatform#TranslationMemoryApi#ILanguageResourceEntity#get_Id
-  id: Sdl#LanguagePlatform#TranslationMemoryApi#ILanguageResourceEntity#get_Id
-  isEii: true
+- uid: Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.Id
+  commentId: P:Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.Id
+  id: Id
   parent: Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity
   langs:
   - csharp
   - vb
-  name: ILanguageResourceEntity.get_Id()
-  nameWithType: LanguageResourceEntity.ILanguageResourceEntity.get_Id()
-  fullName: Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.get_Id()
-  type: Method
+  name: Id
+  nameWithType: LanguageResourceEntity.Id
+  fullName: Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.Id
+  type: Property
   source:
     path: Sdl.LanguagePlatform.TranslationMemoryApi
     isExternal: true
@@ -87,98 +119,20 @@ items:
   - Sdl.LanguagePlatform.TranslationMemoryApi
   namespace: Sdl.LanguagePlatform.TranslationMemoryApi
   syntax:
-    content: Identity ILanguageResourceEntity.get_Id()
+    content: public object Id { get; set; }
+    parameters: []
     return:
-      type: Sdl.Core.Api.DataAccess.Identity
-    content.vb: Function Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.get_Id As Identity Implements ILanguageResourceEntity.get_Id
-  overload: Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.Sdl#LanguagePlatform#TranslationMemoryApi#ILanguageResourceEntity#get_Id*
+      type: System.Object
+    content.vb: Public Property Id As Object
+  overload: Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.Id*
   implements:
-  - Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.get_Id
-  nameWithType.vb: LanguageResourceEntity.Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.get_Id()
-  name.vb: Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.get_Id()
-- uid: Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.Sdl#LanguagePlatform#TranslationMemoryApi#ILanguageResourceEntity#set_Id(Sdl.Core.Api.DataAccess.Identity)
-  commentId: M:Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.Sdl#LanguagePlatform#TranslationMemoryApi#ILanguageResourceEntity#set_Id(Sdl.Core.Api.DataAccess.Identity)
-  id: Sdl#LanguagePlatform#TranslationMemoryApi#ILanguageResourceEntity#set_Id(Sdl.Core.Api.DataAccess.Identity)
-  isEii: true
-  parent: Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity
-  langs:
-  - csharp
-  - vb
-  name: ILanguageResourceEntity.set_Id(Identity)
-  nameWithType: LanguageResourceEntity.ILanguageResourceEntity.set_Id(Identity)
-  fullName: Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.set_Id(Sdl.Core.Api.DataAccess.Identity)
-  type: Method
-  source:
-    path: Sdl.LanguagePlatform.TranslationMemoryApi
-    isExternal: true
-  assemblies:
-  - Sdl.LanguagePlatform.TranslationMemoryApi
-  namespace: Sdl.LanguagePlatform.TranslationMemoryApi
-  syntax:
-    content: void ILanguageResourceEntity.set_Id(Identity value)
-    parameters:
-    - id: value
-      type: Sdl.Core.Api.DataAccess.Identity
-    content.vb: Sub Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.set_Id(value As Identity) Implements ILanguageResourceEntity.set_Id
-  overload: Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.Sdl#LanguagePlatform#TranslationMemoryApi#ILanguageResourceEntity#set_Id*
-  implements:
-  - Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.set_Id(Sdl.Core.Api.DataAccess.Identity)
-  nameWithType.vb: LanguageResourceEntity.Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.set_Id(Identity)
-  name.vb: Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.set_Id(Identity)
-- uid: Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.Sdl#LanguagePlatform#TranslationMemoryApi#ILanguageResourceEntity#get_IsDirty
-  commentId: M:Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.Sdl#LanguagePlatform#TranslationMemoryApi#ILanguageResourceEntity#get_IsDirty
-  id: Sdl#LanguagePlatform#TranslationMemoryApi#ILanguageResourceEntity#get_IsDirty
-  isEii: true
-  parent: Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity
-  langs:
-  - csharp
-  - vb
-  name: ILanguageResourceEntity.get_IsDirty()
-  nameWithType: LanguageResourceEntity.ILanguageResourceEntity.get_IsDirty()
-  fullName: Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.get_IsDirty()
-  type: Method
-  source:
-    path: Sdl.LanguagePlatform.TranslationMemoryApi
-    isExternal: true
-  assemblies:
-  - Sdl.LanguagePlatform.TranslationMemoryApi
-  namespace: Sdl.LanguagePlatform.TranslationMemoryApi
-  syntax:
-    content: bool ILanguageResourceEntity.get_IsDirty()
-    return:
-      type: System.Boolean
-    content.vb: Function Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.get_IsDirty As Boolean Implements ILanguageResourceEntity.get_IsDirty
-  overload: Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.Sdl#LanguagePlatform#TranslationMemoryApi#ILanguageResourceEntity#get_IsDirty*
-  implements:
-  - Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.get_IsDirty
-  nameWithType.vb: LanguageResourceEntity.Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.get_IsDirty()
-  name.vb: Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.get_IsDirty()
-- uid: Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.Sdl#LanguagePlatform#TranslationMemoryApi#ILanguageResourceEntity#MarkAsClean
-  commentId: M:Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.Sdl#LanguagePlatform#TranslationMemoryApi#ILanguageResourceEntity#MarkAsClean
-  id: Sdl#LanguagePlatform#TranslationMemoryApi#ILanguageResourceEntity#MarkAsClean
-  isEii: true
-  parent: Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity
-  langs:
-  - csharp
-  - vb
-  name: ILanguageResourceEntity.MarkAsClean()
-  nameWithType: LanguageResourceEntity.ILanguageResourceEntity.MarkAsClean()
-  fullName: Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.MarkAsClean()
-  type: Method
-  source:
-    path: Sdl.LanguagePlatform.TranslationMemoryApi
-    isExternal: true
-  assemblies:
-  - Sdl.LanguagePlatform.TranslationMemoryApi
-  namespace: Sdl.LanguagePlatform.TranslationMemoryApi
-  syntax:
-    content: void ILanguageResourceEntity.MarkAsClean()
-    content.vb: Sub Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.MarkAsClean Implements ILanguageResourceEntity.MarkAsClean
-  overload: Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.Sdl#LanguagePlatform#TranslationMemoryApi#ILanguageResourceEntity#MarkAsClean*
-  implements:
-  - Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.MarkAsClean
-  nameWithType.vb: LanguageResourceEntity.Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.MarkAsClean()
-  name.vb: Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.MarkAsClean()
+  - Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.Id
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
 - uid: Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.UniqueId
   commentId: P:Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.UniqueId
   id: UniqueId
@@ -307,6 +261,38 @@ items:
   - set
   modifiers.vb:
   - Public
+- uid: Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.IsDirty
+  commentId: P:Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.IsDirty
+  id: IsDirty
+  parent: Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity
+  langs:
+  - csharp
+  - vb
+  name: IsDirty
+  nameWithType: LanguageResourceEntity.IsDirty
+  fullName: Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.IsDirty
+  type: Property
+  source:
+    path: Sdl.LanguagePlatform.TranslationMemoryApi
+    isExternal: true
+  assemblies:
+  - Sdl.LanguagePlatform.TranslationMemoryApi
+  namespace: Sdl.LanguagePlatform.TranslationMemoryApi
+  syntax:
+    content: public bool IsDirty { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public ReadOnly Property IsDirty As Boolean
+  overload: Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.IsDirty*
+  implements:
+  - Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.IsDirty
+  modifiers.csharp:
+  - public
+  - get
+  modifiers.vb:
+  - Public
+  - ReadOnly
 references:
 - uid: Sdl.LanguagePlatform.TranslationMemoryApi
   commentId: N:Sdl.LanguagePlatform.TranslationMemoryApi
@@ -328,165 +314,297 @@ references:
   name: ILanguageResourceEntity
   nameWithType: ILanguageResourceEntity
   fullName: Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  name: ToString()
+  nameWithType: Object.ToString()
+  fullName: System.Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object)
+  nameWithType: Object.Equals(Object)
+  fullName: System.Object.Equals(System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object, Object)
+  nameWithType: Object.Equals(Object, Object)
+  fullName: System.Object.Equals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: ReferenceEquals(Object, Object)
+  nameWithType: Object.ReferenceEquals(Object, Object)
+  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  name: GetHashCode()
+  nameWithType: Object.GetHashCode()
+  fullName: System.Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  name: GetType()
+  nameWithType: Object.GetType()
+  fullName: System.Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  name: MemberwiseClone()
+  nameWithType: Object.MemberwiseClone()
+  fullName: System.Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
 - uid: System
   commentId: N:System
   isExternal: true
   name: System
   nameWithType: System
   fullName: System
-- uid: Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.#ctor*
-  commentId: Overload:Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.#ctor
+- uid: Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.MarkAsClean*
+  commentId: Overload:Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.MarkAsClean
   isExternal: true
-  name: LanguageResourceEntity
-  nameWithType: LanguageResourceEntity.LanguageResourceEntity
-  fullName: Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.LanguageResourceEntity
-- uid: Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.Sdl#LanguagePlatform#TranslationMemoryApi#ILanguageResourceEntity#get_Id*
-  commentId: Overload:Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.Sdl#LanguagePlatform#TranslationMemoryApi#ILanguageResourceEntity#get_Id
-  isExternal: true
-  name: ILanguageResourceEntity.get_Id
-  nameWithType: LanguageResourceEntity.ILanguageResourceEntity.get_Id
-  fullName: Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.get_Id
-  nameWithType.vb: LanguageResourceEntity.Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.get_Id
-  name.vb: Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.get_Id
-- uid: Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.get_Id
-  commentId: M:Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.get_Id
-  parent: Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity
-  isExternal: true
-  name: get_Id()
-  nameWithType: ILanguageResourceEntity.get_Id()
-  fullName: Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.get_Id()
-  spec.csharp:
-  - uid: Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.get_Id
-    name: get_Id
-    nameWithType: ILanguageResourceEntity.get_Id
-    fullName: Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.get_Id
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.get_Id
-    name: get_Id
-    nameWithType: ILanguageResourceEntity.get_Id
-    fullName: Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.get_Id
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: Sdl.Core.Api.DataAccess.Identity
-  isExternal: true
-  name: Identity
-  nameWithType: Identity
-  fullName: Sdl.Core.Api.DataAccess.Identity
-- uid: Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.Sdl#LanguagePlatform#TranslationMemoryApi#ILanguageResourceEntity#set_Id*
-  commentId: Overload:Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.Sdl#LanguagePlatform#TranslationMemoryApi#ILanguageResourceEntity#set_Id
-  isExternal: true
-  name: ILanguageResourceEntity.set_Id
-  nameWithType: LanguageResourceEntity.ILanguageResourceEntity.set_Id
-  fullName: Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.set_Id
-  nameWithType.vb: LanguageResourceEntity.Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.set_Id
-  name.vb: Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.set_Id
-- uid: Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.set_Id(Sdl.Core.Api.DataAccess.Identity)
-  commentId: M:Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.set_Id(Sdl.Core.Api.DataAccess.Identity)
-  parent: Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity
-  isExternal: true
-  name: set_Id(Identity)
-  nameWithType: ILanguageResourceEntity.set_Id(Identity)
-  fullName: Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.set_Id(Sdl.Core.Api.DataAccess.Identity)
-  spec.csharp:
-  - uid: Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.set_Id(Sdl.Core.Api.DataAccess.Identity)
-    name: set_Id
-    nameWithType: ILanguageResourceEntity.set_Id
-    fullName: Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.set_Id
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: Sdl.Core.Api.DataAccess.Identity
-    name: Identity
-    nameWithType: Identity
-    fullName: Sdl.Core.Api.DataAccess.Identity
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.set_Id(Sdl.Core.Api.DataAccess.Identity)
-    name: set_Id
-    nameWithType: ILanguageResourceEntity.set_Id
-    fullName: Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.set_Id
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: Sdl.Core.Api.DataAccess.Identity
-    name: Identity
-    nameWithType: Identity
-    fullName: Sdl.Core.Api.DataAccess.Identity
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.Sdl#LanguagePlatform#TranslationMemoryApi#ILanguageResourceEntity#get_IsDirty*
-  commentId: Overload:Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.Sdl#LanguagePlatform#TranslationMemoryApi#ILanguageResourceEntity#get_IsDirty
-  isExternal: true
-  name: ILanguageResourceEntity.get_IsDirty
-  nameWithType: LanguageResourceEntity.ILanguageResourceEntity.get_IsDirty
-  fullName: Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.get_IsDirty
-  nameWithType.vb: LanguageResourceEntity.Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.get_IsDirty
-  name.vb: Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.get_IsDirty
-- uid: Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.get_IsDirty
-  commentId: M:Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.get_IsDirty
-  parent: Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity
-  isExternal: true
-  name: get_IsDirty()
-  nameWithType: ILanguageResourceEntity.get_IsDirty()
-  fullName: Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.get_IsDirty()
-  spec.csharp:
-  - uid: Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.get_IsDirty
-    name: get_IsDirty
-    nameWithType: ILanguageResourceEntity.get_IsDirty
-    fullName: Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.get_IsDirty
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.get_IsDirty
-    name: get_IsDirty
-    nameWithType: ILanguageResourceEntity.get_IsDirty
-    fullName: Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.get_IsDirty
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Boolean
-  commentId: T:System.Boolean
-  parent: System
-  isExternal: true
-  name: Boolean
-  nameWithType: Boolean
-  fullName: System.Boolean
-- uid: Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.Sdl#LanguagePlatform#TranslationMemoryApi#ILanguageResourceEntity#MarkAsClean*
-  commentId: Overload:Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.Sdl#LanguagePlatform#TranslationMemoryApi#ILanguageResourceEntity#MarkAsClean
-  isExternal: true
-  name: ILanguageResourceEntity.MarkAsClean
-  nameWithType: LanguageResourceEntity.ILanguageResourceEntity.MarkAsClean
-  fullName: Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.MarkAsClean
-  nameWithType.vb: LanguageResourceEntity.Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.MarkAsClean
-  name.vb: Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.MarkAsClean
+  name: MarkAsClean
+  nameWithType: LanguageResourceEntity.MarkAsClean
+  fullName: Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.MarkAsClean
 - uid: Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.MarkAsClean
   commentId: M:Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.MarkAsClean
   parent: Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity
@@ -518,6 +636,25 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+- uid: Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.#ctor*
+  commentId: Overload:Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.#ctor
+  isExternal: true
+  name: LanguageResourceEntity
+  nameWithType: LanguageResourceEntity.LanguageResourceEntity
+  fullName: Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.LanguageResourceEntity
+- uid: Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.Id*
+  commentId: Overload:Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.Id
+  isExternal: true
+  name: Id
+  nameWithType: LanguageResourceEntity.Id
+  fullName: Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.Id
+- uid: Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.Id
+  commentId: P:Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.Id
+  parent: Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity
+  isExternal: true
+  name: Id
+  nameWithType: ILanguageResourceEntity.Id
+  fullName: Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.Id
 - uid: Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.UniqueId*
   commentId: Overload:Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.UniqueId
   isExternal: true
@@ -578,12 +715,12 @@ references:
 - uid: System.Nullable`1
   commentId: T:System.Nullable`1
   isExternal: true
-  name: Nullable<T>
-  nameWithType: Nullable<T>
-  fullName: System.Nullable<T>
-  nameWithType.vb: Nullable(Of T)
-  fullName.vb: System.Nullable(Of T)
-  name.vb: Nullable(Of T)
+  name: Nullable<>
+  nameWithType: Nullable<>
+  fullName: System.Nullable<>
+  nameWithType.vb: Nullable(Of )
+  fullName.vb: System.Nullable(Of )
+  name.vb: Nullable(Of )
   spec.csharp:
   - uid: System.Nullable`1
     name: Nullable
@@ -593,9 +730,9 @@ references:
   - name: <
     nameWithType: <
     fullName: <
-  - name: T
-    nameWithType: T
-    fullName: T
+  - name: ''
+    nameWithType: ''
+    fullName: ''
   - name: '>'
     nameWithType: '>'
     fullName: '>'
@@ -608,9 +745,9 @@ references:
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - name: T
-    nameWithType: T
-    fullName: T
+  - name: ''
+    nameWithType: ''
+    fullName: ''
   - name: )
     nameWithType: )
     fullName: )
@@ -730,3 +867,23 @@ references:
   - name: ()
     nameWithType: ()
     fullName: ()
+- uid: Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.IsDirty*
+  commentId: Overload:Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.IsDirty
+  isExternal: true
+  name: IsDirty
+  nameWithType: LanguageResourceEntity.IsDirty
+  fullName: Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourceEntity.IsDirty
+- uid: Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.IsDirty
+  commentId: P:Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.IsDirty
+  parent: Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity
+  isExternal: true
+  name: IsDirty
+  nameWithType: ILanguageResourceEntity.IsDirty
+  fullName: Sdl.LanguagePlatform.TranslationMemoryApi.ILanguageResourceEntity.IsDirty
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  name: Boolean
+  nameWithType: Boolean
+  fullName: System.Boolean

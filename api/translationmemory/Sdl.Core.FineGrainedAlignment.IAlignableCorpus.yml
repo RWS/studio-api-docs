@@ -62,7 +62,7 @@ items:
       type: System.DateTime
     return:
       type: System.Int32
-    content.vb: Function GetPostdatedContentPairCount(modelDate As Date) As Integer
+    content.vb: Function GetPostdatedContentPairCount(modelDate As DateTime) As Integer
   overload: Sdl.Core.FineGrainedAlignment.IAlignableCorpus.GetPostdatedContentPairCount*
 - uid: Sdl.Core.FineGrainedAlignment.IAlignableCorpus.Pairs
   commentId: M:Sdl.Core.FineGrainedAlignment.IAlignableCorpus.Pairs
@@ -134,7 +134,7 @@ items:
       type: System.DateTime
     return:
       type: System.Int32
-    content.vb: Function GetAlignedPredatedContentPairCount(modelDate As Date) As Integer
+    content.vb: Function GetAlignedPredatedContentPairCount(modelDate As DateTime) As Integer
   overload: Sdl.Core.FineGrainedAlignment.IAlignableCorpus.GetAlignedPredatedContentPairCount*
 - uid: Sdl.Core.FineGrainedAlignment.IAlignableCorpus.UnalignedUnscheduledContentPairCount(System.Int32,System.DateTime)
   commentId: M:Sdl.Core.FineGrainedAlignment.IAlignableCorpus.UnalignedUnscheduledContentPairCount(System.Int32,System.DateTime)
@@ -154,10 +154,7 @@ items:
   - Sdl.Core.FineGrainedAlignment
   namespace: Sdl.Core.FineGrainedAlignment
   syntax:
-    content: >-
-      [Obsolete("replaced by UnalignedCount")]
-
-      int UnalignedUnscheduledContentPairCount(int schedule_delta, DateTime modelDate)
+    content: int UnalignedUnscheduledContentPairCount(int schedule_delta, DateTime modelDate)
     parameters:
     - id: schedule_delta
       type: System.Int32
@@ -165,17 +162,8 @@ items:
       type: System.DateTime
     return:
       type: System.Int32
-    content.vb: >-
-      <Obsolete("replaced by UnalignedCount")>
-
-      Function UnalignedUnscheduledContentPairCount(schedule_delta As Integer, modelDate As Date) As Integer
+    content.vb: Function UnalignedUnscheduledContentPairCount(schedule_delta As Integer, modelDate As DateTime) As Integer
   overload: Sdl.Core.FineGrainedAlignment.IAlignableCorpus.UnalignedUnscheduledContentPairCount*
-  attributes:
-  - type: System.ObsoleteAttribute
-    ctor: System.ObsoleteAttribute.#ctor(System.String)
-    arguments:
-    - type: System.String
-      value: replaced by UnalignedCount
 - uid: Sdl.Core.FineGrainedAlignment.IAlignableCorpus.UnalignedCount(System.Nullable{System.DateTime})
   commentId: M:Sdl.Core.FineGrainedAlignment.IAlignableCorpus.UnalignedCount(System.Nullable{System.DateTime})
   id: UnalignedCount(System.Nullable{System.DateTime})
@@ -194,13 +182,13 @@ items:
   - Sdl.Core.FineGrainedAlignment
   namespace: Sdl.Core.FineGrainedAlignment
   syntax:
-    content: int UnalignedCount(DateTime? modelDate)
+    content: int UnalignedCount(Nullable<DateTime> modelDate)
     parameters:
     - id: modelDate
       type: System.Nullable{System.DateTime}
     return:
       type: System.Int32
-    content.vb: Function UnalignedCount(modelDate As Date?) As Integer
+    content.vb: Function UnalignedCount(modelDate As Nullable(Of DateTime)) As Integer
   overload: Sdl.Core.FineGrainedAlignment.IAlignableCorpus.UnalignedCount*
   nameWithType.vb: IAlignableCorpus.UnalignedCount(Nullable(Of DateTime))
   fullName.vb: Sdl.Core.FineGrainedAlignment.IAlignableCorpus.UnalignedCount(System.Nullable(Of System.DateTime))
@@ -251,24 +239,12 @@ items:
   - Sdl.Core.FineGrainedAlignment
   namespace: Sdl.Core.FineGrainedAlignment
   syntax:
-    content: >-
-      [Obsolete("replaced by UnalignedCount")]
-
-      int UnalignedContentPairCount { get; }
+    content: int UnalignedContentPairCount { get; }
     parameters: []
     return:
       type: System.Int32
-    content.vb: >-
-      <Obsolete("replaced by UnalignedCount")>
-
-      ReadOnly Property UnalignedContentPairCount As Integer
+    content.vb: ReadOnly Property UnalignedContentPairCount As Integer
   overload: Sdl.Core.FineGrainedAlignment.IAlignableCorpus.UnalignedContentPairCount*
-  attributes:
-  - type: System.ObsoleteAttribute
-    ctor: System.ObsoleteAttribute.#ctor(System.String)
-    arguments:
-    - type: System.String
-      value: replaced by UnalignedCount
   modifiers.csharp:
   - get
   modifiers.vb:
@@ -397,8 +373,7 @@ references:
   nameWithType: IAlignableCorpus.Pairs
   fullName: Sdl.Core.FineGrainedAlignment.IAlignableCorpus.Pairs
 - uid: System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair}
-  commentId: T:System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair}
-  parent: System.Collections.Generic
+  commentId: '!:System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair}'
   definition: System.Collections.Generic.IEnumerable`1
   name: IEnumerable<IAlignableContentPair>
   nameWithType: IEnumerable<IAlignableContentPair>
@@ -443,12 +418,12 @@ references:
 - uid: System.Collections.Generic.IEnumerable`1
   commentId: T:System.Collections.Generic.IEnumerable`1
   isExternal: true
-  name: IEnumerable<T>
-  nameWithType: IEnumerable<T>
-  fullName: System.Collections.Generic.IEnumerable<T>
-  nameWithType.vb: IEnumerable(Of T)
-  fullName.vb: System.Collections.Generic.IEnumerable(Of T)
-  name.vb: IEnumerable(Of T)
+  name: IEnumerable<>
+  nameWithType: IEnumerable<>
+  fullName: System.Collections.Generic.IEnumerable<>
+  nameWithType.vb: IEnumerable(Of )
+  fullName.vb: System.Collections.Generic.IEnumerable(Of )
+  name.vb: IEnumerable(Of )
   spec.csharp:
   - uid: System.Collections.Generic.IEnumerable`1
     name: IEnumerable
@@ -458,9 +433,9 @@ references:
   - name: <
     nameWithType: <
     fullName: <
-  - name: T
-    nameWithType: T
-    fullName: T
+  - name: ''
+    nameWithType: ''
+    fullName: ''
   - name: '>'
     nameWithType: '>'
     fullName: '>'
@@ -473,18 +448,12 @@ references:
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - name: T
-    nameWithType: T
-    fullName: T
+  - name: ''
+    nameWithType: ''
+    fullName: ''
   - name: )
     nameWithType: )
     fullName: )
-- uid: System.Collections.Generic
-  commentId: N:System.Collections.Generic
-  isExternal: true
-  name: System.Collections.Generic
-  nameWithType: System.Collections.Generic
-  fullName: System.Collections.Generic
 - uid: Sdl.Core.FineGrainedAlignment.IAlignableCorpus.GetAlignerDefinition*
   commentId: Overload:Sdl.Core.FineGrainedAlignment.IAlignableCorpus.GetAlignerDefinition
   isExternal: true
@@ -517,7 +486,7 @@ references:
   nameWithType: IAlignableCorpus.UnalignedCount
   fullName: Sdl.Core.FineGrainedAlignment.IAlignableCorpus.UnalignedCount
 - uid: System.Nullable{System.DateTime}
-  commentId: T:System.Nullable{System.DateTime}
+  commentId: '!:System.Nullable{System.DateTime}'
   parent: System
   definition: System.Nullable`1
   name: Nullable<DateTime>
@@ -563,12 +532,12 @@ references:
 - uid: System.Nullable`1
   commentId: T:System.Nullable`1
   isExternal: true
-  name: Nullable<T>
-  nameWithType: Nullable<T>
-  fullName: System.Nullable<T>
-  nameWithType.vb: Nullable(Of T)
-  fullName.vb: System.Nullable(Of T)
-  name.vb: Nullable(Of T)
+  name: Nullable<>
+  nameWithType: Nullable<>
+  fullName: System.Nullable<>
+  nameWithType.vb: Nullable(Of )
+  fullName.vb: System.Nullable(Of )
+  name.vb: Nullable(Of )
   spec.csharp:
   - uid: System.Nullable`1
     name: Nullable
@@ -578,9 +547,9 @@ references:
   - name: <
     nameWithType: <
     fullName: <
-  - name: T
-    nameWithType: T
-    fullName: T
+  - name: ''
+    nameWithType: ''
+    fullName: ''
   - name: '>'
     nameWithType: '>'
     fullName: '>'
@@ -593,9 +562,9 @@ references:
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - name: T
-    nameWithType: T
-    fullName: T
+  - name: ''
+    nameWithType: ''
+    fullName: ''
   - name: )
     nameWithType: )
     fullName: )

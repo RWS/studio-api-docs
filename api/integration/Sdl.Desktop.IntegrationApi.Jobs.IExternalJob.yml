@@ -5,7 +5,7 @@ items:
   id: IExternalJob
   parent: Sdl.Desktop.IntegrationApi.Jobs
   children:
-  - Sdl.Desktop.IntegrationApi.Jobs.IExternalJob.Execute
+  - Sdl.Desktop.IntegrationApi.Jobs.IExternalJob.Execute(Sdl.Desktop.IntegrationApi.Jobs.IExternalJobExecutionContext)
   - Sdl.Desktop.IntegrationApi.Jobs.IExternalJob.JobCanceled(System.Object,System.EventArgs)
   - Sdl.Desktop.IntegrationApi.Jobs.IExternalJob.JobData
   - Sdl.Desktop.IntegrationApi.Jobs.IExternalJob.JobName
@@ -61,16 +61,16 @@ items:
       type: System.EventArgs
     content.vb: Sub JobCanceled(sender As Object, e As EventArgs)
   overload: Sdl.Desktop.IntegrationApi.Jobs.IExternalJob.JobCanceled*
-- uid: Sdl.Desktop.IntegrationApi.Jobs.IExternalJob.Execute
-  commentId: M:Sdl.Desktop.IntegrationApi.Jobs.IExternalJob.Execute
-  id: Execute
+- uid: Sdl.Desktop.IntegrationApi.Jobs.IExternalJob.Execute(Sdl.Desktop.IntegrationApi.Jobs.IExternalJobExecutionContext)
+  commentId: M:Sdl.Desktop.IntegrationApi.Jobs.IExternalJob.Execute(Sdl.Desktop.IntegrationApi.Jobs.IExternalJobExecutionContext)
+  id: Execute(Sdl.Desktop.IntegrationApi.Jobs.IExternalJobExecutionContext)
   parent: Sdl.Desktop.IntegrationApi.Jobs.IExternalJob
   langs:
   - csharp
   - vb
-  name: Execute()
-  nameWithType: IExternalJob.Execute()
-  fullName: Sdl.Desktop.IntegrationApi.Jobs.IExternalJob.Execute()
+  name: Execute(IExternalJobExecutionContext)
+  nameWithType: IExternalJob.Execute(IExternalJobExecutionContext)
+  fullName: Sdl.Desktop.IntegrationApi.Jobs.IExternalJob.Execute(Sdl.Desktop.IntegrationApi.Jobs.IExternalJobExecutionContext)
   type: Method
   source:
     path: Sdl.Desktop.IntegrationApi
@@ -80,8 +80,11 @@ items:
   namespace: Sdl.Desktop.IntegrationApi.Jobs
   summary: "\nTriggers the job execution\n"
   syntax:
-    content: void Execute()
-    content.vb: Sub Execute
+    content: void Execute(IExternalJobExecutionContext externalExecutionContext)
+    parameters:
+    - id: externalExecutionContext
+      type: Sdl.Desktop.IntegrationApi.Jobs.IExternalJobExecutionContext
+    content.vb: Sub Execute(externalExecutionContext As IExternalJobExecutionContext)
   overload: Sdl.Desktop.IntegrationApi.Jobs.IExternalJob.Execute*
 - uid: Sdl.Desktop.IntegrationApi.Jobs.IExternalJob.JobName
   commentId: P:Sdl.Desktop.IntegrationApi.Jobs.IExternalJob.JobName
@@ -131,11 +134,11 @@ items:
   namespace: Sdl.Desktop.IntegrationApi.Jobs
   summary: "\nCustom data specific to the job\n"
   syntax:
-    content: object JobData { get; set; }
+    content: IDictionary<string, object> JobData { get; set; }
     parameters: []
     return:
-      type: System.Object
-    content.vb: Property JobData As Object
+      type: System.Collections.Generic.IDictionary{System.String,System.Object}
+    content.vb: Property JobData As IDictionary(Of String, Object)
   overload: Sdl.Desktop.IntegrationApi.Jobs.IExternalJob.JobData*
   modifiers.csharp:
   - get
@@ -339,6 +342,13 @@ references:
   name: Execute
   nameWithType: IExternalJob.Execute
   fullName: Sdl.Desktop.IntegrationApi.Jobs.IExternalJob.Execute
+- uid: Sdl.Desktop.IntegrationApi.Jobs.IExternalJobExecutionContext
+  commentId: T:Sdl.Desktop.IntegrationApi.Jobs.IExternalJobExecutionContext
+  parent: Sdl.Desktop.IntegrationApi.Jobs
+  isExternal: true
+  name: IExternalJobExecutionContext
+  nameWithType: IExternalJobExecutionContext
+  fullName: Sdl.Desktop.IntegrationApi.Jobs.IExternalJobExecutionContext
 - uid: Sdl.Desktop.IntegrationApi.Jobs.IExternalJob.JobName*
   commentId: Overload:Sdl.Desktop.IntegrationApi.Jobs.IExternalJob.JobName
   isExternal: true
@@ -358,3 +368,120 @@ references:
   name: JobData
   nameWithType: IExternalJob.JobData
   fullName: Sdl.Desktop.IntegrationApi.Jobs.IExternalJob.JobData
+- uid: System.Collections.Generic.IDictionary{System.String,System.Object}
+  commentId: T:System.Collections.Generic.IDictionary{System.String,System.Object}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IDictionary`2
+  name: IDictionary<String, Object>
+  nameWithType: IDictionary<String, Object>
+  fullName: System.Collections.Generic.IDictionary<System.String, System.Object>
+  nameWithType.vb: IDictionary(Of String, Object)
+  fullName.vb: System.Collections.Generic.IDictionary(Of System.String, System.Object)
+  name.vb: IDictionary(Of String, Object)
+  spec.csharp:
+  - uid: System.Collections.Generic.IDictionary`2
+    name: IDictionary
+    nameWithType: IDictionary
+    fullName: System.Collections.Generic.IDictionary
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IDictionary`2
+    name: IDictionary
+    nameWithType: IDictionary
+    fullName: System.Collections.Generic.IDictionary
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.IDictionary`2
+  commentId: T:System.Collections.Generic.IDictionary`2
+  isExternal: true
+  name: IDictionary<TKey, TValue>
+  nameWithType: IDictionary<TKey, TValue>
+  fullName: System.Collections.Generic.IDictionary<TKey, TValue>
+  nameWithType.vb: IDictionary(Of TKey, TValue)
+  fullName.vb: System.Collections.Generic.IDictionary(Of TKey, TValue)
+  name.vb: IDictionary(Of TKey, TValue)
+  spec.csharp:
+  - uid: System.Collections.Generic.IDictionary`2
+    name: IDictionary
+    nameWithType: IDictionary
+    fullName: System.Collections.Generic.IDictionary
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TKey
+    nameWithType: TKey
+    fullName: TKey
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TValue
+    nameWithType: TValue
+    fullName: TValue
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IDictionary`2
+    name: IDictionary
+    nameWithType: IDictionary
+    fullName: System.Collections.Generic.IDictionary
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TKey
+    nameWithType: TKey
+    fullName: TKey
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TValue
+    nameWithType: TValue
+    fullName: TValue
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
