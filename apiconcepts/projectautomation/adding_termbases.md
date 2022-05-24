@@ -12,7 +12,7 @@ The screenshot below shows how a local termbase is selected in <Var:ProductName>
 
 ![NewProject05](images/NewProject05.jpg)
 
-Start by implementing a helper function called ```AddTermbase```, which adds a local termbase file to our sample project. This function takes a [FileBasedProject](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml) object as parameter. Within this helper function you first get a [TermbaseConfiguration](../../api/projectautomation/Sdl.ProjectAutomation.Core.TermbaseConfiguration.yml) object by applying the [GetTermbaseConfiguration](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml#Sdl_ProjectAutomation_FileBased_FileBasedProject_GetTermbaseConfiguration) method to the project as shown below:
+Start by implementing a helper function called ```AddTermbase```, which adds a local termbase file to our sample project. This function takes a [FileBasedProject](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml) object as parameter. Within this helper function you first get a [TermbaseConfiguration](../../api/projectautomation/Sdl.ProjectAutomation.Core.TermbaseConfiguration.yml) object by applying the [GetTermbaseConfiguration](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml#Sdl_ProjectAutomation_FileBased_FileBasedProject_GetTermbaseConfiguration_System_Boolean_) method to the project as shown below:
 
 # [C#](#tab/tabid-1)
 ```CS

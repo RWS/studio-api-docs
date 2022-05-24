@@ -30,13 +30,13 @@ Prerequisites
 
 System requirements for running <Var:ProductNameWithEdition>:
 ----
-* A Microsoft Windows-based PC or an Intel-based Apple Mac computer running Windows as an operating system. <Var:ProductNameWithEdition> runs on the latest build of Windows 10 and the latest updated version of Windows 8.1.
+* A Microsoft Windows-based PC or an Intel-based Apple Mac computer running Windows as an operating system. <Var:ProductNameWithEdition> runs on the latest build of Windows 11 and the latest updated version of Windows 10.
 * Up to 2.5 GB of available disk space to run the <Var:ProductNameWithEdition> installer
 * 2 GB of available disk space to run <Var:ProductNameWithEdition>
 * A recent processor with dual or multi-core technology
 * At least 8 GB RAM
 * <Var:ProductNameWithEdition> requires Microsoft .Net Framework 4.8.
-* Additional details can be found on the [product release notes](https://docs.sdl.com/binary/813470/802652/sdl-trados-studio-2021-sr1/sdl-trados-studio-release-notes)
+* Additional details can be found on the [product release notes](https://docs.rws.com/binary/980998/802650/trados-studio-2022/trados-studio-release-notes)
 
 System requirements for running SDL GroupShare ( TM Server,  Multiterm,  Project Server):
 ----
