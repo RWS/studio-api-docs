@@ -56,7 +56,7 @@ To inject the custom pages as steps into a <Var:ProductName> wizard:
 
 * Determine or define a place in your code to launch the wizard (with custom steps) from; for example, from an [Action](../../api/integration/Sdl.Desktop.IntegrationApi.AbstractAction.yml)'s `Execute` method.
 * Determine the appropriate event (e.g. [OpenProjectPackageEvent](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Events.OpenProjectPackageEvent.yml)) to be raised, that corresponds to the wizard you want to open.
-* Set up a `List` of [StudioWizardPage](../../api/integration/Sdl.Desktop.IntegrationApi.Wizard.StudioWizardPage.yml) instances indicating the custom pages to be inserted
+* Set up a `List` of [StudioWizardPage](../../api/integration/Sdl.Desktop.IntegrationApi.Wizard.StudioWizardPage.yml) instances, which represent the custom pages you want to insert in the wizard
 * Create the event, passing in `firstPages` list as an argument.
 * Use the event aggregator to raise the event. This will launch the wizard.
 
@@ -70,10 +70,15 @@ The diagram below briefly describes the wizard's execution sequence, and shows t
 
 <img style="display:block; " src="images/Wizard public API flow.png"/>
 
-Open package wizard specifics
+Open package wizard details
 ----
-* You can provide your own custom package converter to be used in the Open Package wizard. To do so, create a class that implements the `IExternalPackageConverter` interface and decorate it with the `ExternalPackageConvertor` attribute. The Plugin Framework will pick it up as an extension point.
-* The wizard `Data` object is available in the custom package converter as well, via the `ExternalPackageConversionInfo.CustomData` property. This allows you to configure your converter using wizard pages.
+#### Package converters
+The Open Package wizard uses converters to transform third-party packages into a format that <var:ProductName> can work with. You can create your own custom package converters using the extension point mechanism:
+1. Create a class that implements [IExternalPackageConverter](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IExternalPackageConverter.yml)
+2. Decorate the class with the [ExternalPackageConvertorExtension](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Extensions.ExternalPackageConvertorExtensionAttribute.yml) attribute. 
 
-See also: [full sample application with source code](https://github.com/RWS/trados-studio-api-samples/tree/master/TranslationStudioAutomation/Sdl.CustomWizardSteps.Sample) (on GitHub).
+#### Converter customization
+The wizard `Data` object is available in the custom package converter as well, via the `ExternalPackageConversionInfo.CustomData` property. This allows you to configure your converter using wizard pages.
+
+See also: [Full sample application with source code](https://github.com/RWS/trados-studio-api-samples/tree/master/TranslationStudioAutomation/Sdl.CustomWizardSteps.Sample) (on GitHub).
 
