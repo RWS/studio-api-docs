@@ -1,3 +1,4 @@
+TODO REMUS DELETE 
 The Plug-in Registry
 ====
 This section explains how to use the plug-in registry and how to customize its initialization.
