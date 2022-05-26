@@ -1,3 +1,5 @@
+TODO: Remus delete this page
+====
 Compile-time Validation
 =====
 This section explains how the plug-in manifest generator validates extensions at compile-time and how to provide custom validation when developing extension points.

@@ -1,3 +1,4 @@
+TODO REMUS DELETE 
 Auxiliary Extension Attributes
 ======
 This section explains how to allow an extension to provide additional metadata, on top of the properties provided with the extension attribute.

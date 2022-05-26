@@ -11,15 +11,11 @@ namespace TranslationStudio.Sdk.Documentation.Samples
         CostPerCharacter = 0.1)]
     public class EmailMessageTransmitter : IMessageTransmitter
     {
-        #region IMessageTransmitter Members
-
         public void SendMessage(string message)
         {
             Console.WriteLine();
             Console.WriteLine(String.Format("Email: {0}", message));
             Console.WriteLine();
         }
-
-        #endregion
     }
 }
