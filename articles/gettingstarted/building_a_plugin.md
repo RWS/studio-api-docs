@@ -25,7 +25,11 @@ First, open `PluginProperties.cs`, which is located next to the `AssemblyInfo.cs
 ```
 ***
 
-Open the `PluginResources.resx` file. You'll see that this contains a string value called `Plugin_Name`. This defines the name of the plug-in assembly and will be preset to the name of the Visual Studio project. This is the name that will show up in the <Var:ProductName> plug-in management dialog. Any localizable strings referred to from the plug-in attribute or extension attributes should be defined in `PluginResources.resx`. This ".resx" file will be compiled into a ".resources" file and will be deployed outside of the plug-in assembly itself, so the host application can access the information within it without having to load the plug-in assembly itself.
+Open the `PluginResources.resx` file. You'll see that this contains a string value called `Plugin_Name`. 
+
+<img style="display:block; " src="images/PluginResources.png"/>
+
+This defines the name of the plug-in assembly and will be preset to the name of the Visual Studio project. This is the name that will show up in the <Var:ProductName> plug-in management dialog. Any localizable strings referred to from the plug-in attribute or extension attributes should be defined in `PluginResources.resx`. This ".resx" file will be compiled into a ".resources" file and will be deployed outside of the plug-in assembly itself, so the host application can access the information within it without having to load the plug-in assembly itself.
 
 Every third-party plug-in has to be deployed using a Plug-in Package (*.sdlplugin). This is an OPC-based file format, essentially a ZIP file, that contains the plug-in assembly, plug-in manifest file and the plug-in resources file. All Visual Studio project templates that come with the <Var:ProductName> SDK are configured to automatically create a plug-in package when the project is built. One essential piece of information required in order to do this is the plug-in package manifest, which is defined in the file `pluginpackage.manifest.xml` that was part of the project template.
 
@@ -41,6 +45,14 @@ The plug-in package manifest defines some pieces of essential information:
 If the minimum version is set to *<var:VersionNumber>.1* that means the plugin can be installed only in <Var:ProductName> SR1 and above.
 * **Include**: a list of additional files to be included into the plugin package.
 
+Any plugin project need to have the following nuget packages refrenced : 
+
+* [Sdl.Core.PluginFramework](https://www.nuget.org/packages/Sdl.Core.PluginFramework/): this package provides the API's for the extension points
+* [Sdl.Core.PluginFramework.Build](https://www.nuget.org/packages/Sdl.Core.PluginFramework.Build/): this package provides the plug-in manifest creation build step, which uses the standard MSBuild extension mechanism. See [Plug-in manifest generator](the_plugin_manifest_generator.md).
+
+> [!NOTE]
+> `Sdl.Core.PluginFramework.Build` is needed only in build time.
+
 Now build the project and have a look in the project output folder. Notice the following:
 
 * The plug-in assembly, `MyPlugin.dll`
@@ -52,7 +64,7 @@ Now build the project and have a look in the project output folder. Notice the f
 
 After all the relevant information was added, build the project. Plugin can be found at the following local path *<var:PluginPackedPath>* if the default path wasn't changed. </br>
 
-If in the console following error appears: `Error 1 Failed to locate ResGen.exe and unable to compile plug-in resource file...` please make sure you have installed [.Net Framework 4.6.2](https://dotnet.microsoft.com/download/dotnet-framework/net462). 
+If in the console following error appears: `Error 1 Failed to locate ResGen.exe and unable to compile plug-in resource file...` please make sure you have installed [.Net Framework 4.8](https://dotnet.microsoft.com/en-us/download/dotnet-framework/net48). 
 
 
 Now, we are ready to deploy the plug-in package in <Var:ProductName>. See [Plug-in deployment](plugin_deployment.md).
