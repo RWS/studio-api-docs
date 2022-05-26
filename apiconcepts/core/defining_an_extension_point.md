@@ -4,7 +4,7 @@ This section explains how to create an extension point.
 
 Defining an Extension Point
 ----
-An extension point is defined by creating an attribute class, which extends the extension attribute base class,  [ExtensionAttribute](../../api/core/Sdl.Core.PluginFramework.ExtensionAttribute.yml). The properties of this attribute class define the metadata extension developers can provide with their extensions.
+An extension point is defined by creating an attribute class, which inherits the extension attribute base class,  [ExtensionAttribute](../../api/core/Sdl.Core.PluginFramework.ExtensionAttribute.yml). The properties of this attribute class define the metadata extension developers can provide with their extensions.
 
 Extension developers can now create an extension .Net class, and mark this up with the extension attribute to indicate which extension point it targets.
 
@@ -24,6 +24,7 @@ The  [ExtensionAttribute](../../api/core/Sdl.Core.PluginFramework.ExtensionAttri
 * *Name*: A friendly name for the extension.
 * *Description*: A description of the extension.
 * *Icon*: An optional icon representing the extension.
+
 Note that we have defined an extra property, CostPerCharacter, which indicates the cost in dollar for each character sent in a message.
 
 Since all these properties will be extracted to the plug-in manifest file by the plug-in manifest generator, the host application will be able to access their values without having to create an instance of the actual transmitters or even load the plug-in assembly. Since the plug-in manifest generator uses XML serialization to save the attribute information, the attribute has have a default, parameterless constructor.
@@ -35,11 +36,8 @@ We still have to define which functionality is required from an extension class 
 
 This simple interface contains one method, SendMessage, to be called by the host application to send the message.
 
-Extension points can also define validation functionality which is used by the framework at compile-time to validate its extensions. In the example, tye extension point checks whether the extension implements the IMessageTransmitter interface. If an extension ndoes not implement this interface, an error will be generated at compile time. For more information on extension validation see Compile-time Validation.
+Extension points can also define validation functionality which is used by the framework at compile-time to validate its extensions. In the example, the extension point checks whether the extension implements the IMessageTransmitter interface. If an extension does not implement this interface, an error will be generated at compile time. For more information on extension validation see Compile-time Validation.
 
 We define both the `MessageTransmitterAttribute` and the interface in an assembly, called `ExtensionPointDefinitions`, so it can be references by the host applications and by plug-in assemblies.
 
 Next, we can start creating an extension that targets our new extension point in [Creating Extensions](creating_extensions.md).
-
-> [!NOTE]
-> This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

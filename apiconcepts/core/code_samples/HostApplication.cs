@@ -65,11 +65,9 @@ namespace TranslationStudio.Sdk.Documentation.Samples
             IMessageTransmitter selectedTransmitter =
                 (IMessageTransmitter)selectedExtension.CreateInstance();
             #endregion CreateInstance
-
             
             selectedTransmitter.SendMessage(message);
-            
-            
+                        
             #region ObjectRegistry
 
             ObjectRegistry<MessageTransmitterAttribute, IMessageTransmitter> objectRegistry =
@@ -77,7 +75,6 @@ new ObjectRegistry<MessageTransmitterAttribute, IMessageTransmitter>(pluginRegis
 
             IMessageTransmitter[] messageTransmitters = objectRegistry.CreateObjects();
             #endregion ObjectRegistry
-
         }
     }
 }

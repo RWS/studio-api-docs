@@ -4,8 +4,6 @@ using System.Text;
 
 namespace TranslationStudio.Sdk.Documentation.Samples
 {
-    #region EmailMessageTransmitter
-
     [MessageTransmitter(
         Id = "email",
         Name = "E-mail Transmitter",
@@ -24,6 +22,4 @@ namespace TranslationStudio.Sdk.Documentation.Samples
 
         #endregion
     }
-
-    #endregion EmailMessageTransmitter
 }

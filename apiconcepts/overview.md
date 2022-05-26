@@ -1,5 +1,5 @@
 ## [Core](core/overview.md)
-This is the foundation which provides the plug-in framework available in <Var:ProductName>, used by other APIs to define extension points inside the software. As well as the plug-in framework, this API also provides the engine besides the settings mechanism you find inside <Var:ProductName>.
+This is the foundation which provides the plug-in framework available in <Var:ProductName>, used by other APIs to define extension points inside the software.
 
 ## [File Type Support Framework](filetypesupport/overview.md)
 In order to translate content from a certain file type, <Var:ProductName> extracts it into an SDLXliff. If you want to work with an unsupported file type that isn't already available with <Var:ProductName>, you can use this API to extract the content and create the SDLXliff needed for translation.

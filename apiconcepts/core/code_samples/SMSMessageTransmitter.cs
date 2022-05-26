@@ -4,7 +4,6 @@ using System.Text;
 
 namespace TranslationStudio.Sdk.Documentation.Samples
 {
-    #region SMSMessageTransmitter
     [MessageTransmitter(
     Id = "sms",
     Name = "SMS Transmitter",
@@ -28,5 +27,4 @@ namespace TranslationStudio.Sdk.Documentation.Samples
 
         #endregion
     }
-    #endregion SMSMessageTransmitter
 }
