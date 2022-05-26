@@ -6,8 +6,6 @@ using Sdl.Core.PluginFramework;
 
 namespace TranslationStudio.Sdk.Documentation.Samples
 {
-    #region MessageTransmitterAttribute
-
     [ExtensionPointInfo("Message Transmitters", ExtensionPointBehavior.Static)]
     public class MessageTransmitterAttribute : ExtensionAttribute
     {       
@@ -45,6 +43,4 @@ namespace TranslationStudio.Sdk.Documentation.Samples
             context.ValidateRequiredInterface(typeof(IMessageTransmitter));
         }
     }
-
-    #endregion MessageTransmitterAttribute
 }

@@ -12,20 +12,20 @@ namespace TranslationStudio.Sdk.Documentation.Samples
     {
         private void Main()
         {
-            #region CreatePluginRegistry
+            //#region CreatePluginRegistry
 
-            string applicationDirectory = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-            string pluginsDirectory = Path.Combine(applicationDirectory, "plugins");
+            //string applicationDirectory = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            //string pluginsDirectory = Path.Combine(applicationDirectory, "plugins");
 
-            // create plug-in registry
-            IPluginRegistry pluginRegistry =
-                PluginManager.CreatePluginRegistry(pluginsDirectory, "plugincache.xml", false);
+            //// create plug-in registry
+            //IPluginRegistry pluginRegistry =
+            //    PluginManager.CreatePluginRegistry(pluginsDirectory, "plugincache.xml", false);
 
-            #endregion CreatePluginRegistry
+            //#endregion CreatePluginRegistry
 
             #region GetExtensionPoint
 
-            IExtensionPoint extensionPoint = pluginRegistry.GetExtensionPoint<MessageTransmitterAttribute>();
+            IExtensionPoint extensionPoint = PluginManager.DefaultPluginRegistry.GetExtensionPoint<MessageTransmitterAttribute>();
 
             #endregion GetExtensionPoint
 
@@ -71,7 +71,7 @@ namespace TranslationStudio.Sdk.Documentation.Samples
             #region ObjectRegistry
 
             ObjectRegistry<MessageTransmitterAttribute, IMessageTransmitter> objectRegistry =
-new ObjectRegistry<MessageTransmitterAttribute, IMessageTransmitter>(pluginRegistry);
+new ObjectRegistry<MessageTransmitterAttribute, IMessageTransmitter>(PluginManager.DefaultPluginRegistry);
 
             IMessageTransmitter[] messageTransmitters = objectRegistry.CreateObjects();
             #endregion ObjectRegistry

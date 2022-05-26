@@ -1,4 +1,4 @@
-Object Registry
+TODO REMUS DELETE Object Registry
 =====
 This sections explains a couple of utility classes that can be used by host applications.
 
