@@ -38,7 +38,3 @@ For non-string properties, like for instance an icon, the plug-in resource file 
 # [C#](#tab/tabid-3)
 [!code-csharp[AdvancedPluginFramework](code_samples/AdvancedPluginFramework.cs#L16-L17)]
 ***
-
-> [!NOTE]
-> 
-> This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.
