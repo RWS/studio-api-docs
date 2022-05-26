@@ -17,7 +17,3 @@ We can avoid this automatic serialization overhead, by explicitly implementing t
 ***
 
 The plug-in framework calls the `ReadXml` and `WriteXml` methods directly, avoiding the overhead of automatic xml serialization.
-
-> [!NOTE]
-> 
-> This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

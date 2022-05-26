@@ -43,15 +43,12 @@ The plug-in package manifest defines some pieces of essential information:
 * **Author**: the name of the plug-in author
 * **RequiredProduct**: this indicates which product this plug-in supports. This must include the minimum version and can optionally include a maximum version. <br>
 If the minimum version is set to *<var:VersionNumber>.1* that means the plugin can be installed only in <Var:ProductName> SR1 and above.
-> [!NOTE]
-> We recomend setting the maxversion of the plugin to  *<var:VersionNumber>.9* so it's supported to an entire major version and will not be used accidentaly in future major releases. This can cause problems as the API version is changed at every major release making plugins incompatibile. 
 * **Include**: a list of additional files to be included into the plugin package.
 
 Any plugin project need to have the following nuget packages refrenced : 
 
 * [Sdl.Core.PluginFramework](https://www.nuget.org/packages/Sdl.Core.PluginFramework/): this package provides the API's for the extension points
-
-* [Sdl.Core.PluginFramework.Build](https://www.nuget.org/packages/Sdl.Core.PluginFramework.Build/) : this package provides the plug-in manifest creation build step, which uses the standard MSBuild extension mechanism. See [Plug-in manifest generator](the_plugin_manifest_generator.md).
+* [Sdl.Core.PluginFramework.Build](https://www.nuget.org/packages/Sdl.Core.PluginFramework.Build/): this package provides the plug-in manifest creation build step, which uses the standard MSBuild extension mechanism. See [Plug-in manifest generator](the_plugin_manifest_generator.md).
 
 > [!NOTE]
 > `Sdl.Core.PluginFramework.Build` is needed only in build time.
