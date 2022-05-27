@@ -79,14 +79,14 @@ You can only apply one extension attribute to an extension implementation: this 
 An auxiliary extension attribute needs to derive from the [AuxiliaryExtensionAttribute](../../api/core/Sdl.Core.PluginFramework.AuxiliaryExtensionAttribute.yml) base class. For instance, we can define a `ToolBarLocation` auxiliary attribute, which has a `ToolBarId` property that can be used to specify on which tool bar the action should appear. For menus, we can define a similar `MenuLocation` attribute:
 
 # [C#](#tab/tabid-1)
-[!code-csharp[AdvancedPluginFramework](./code_samples/AdvancedPluginFramework.cs#L62-L82)]
+[!code-csharp[AdvancedPluginFramework](./code_samples/AdvancedPluginFramework.cs#L56-L64)]
 ***
 <br>
 
 Now the plug-in action definition can be written like this:
 
 # [C#](#tab/tabid-1)
-[!code-csharp[AdvancedPluginFramework](./code_samples/AdvancedPluginFramework.cs#L88-L97)]
+[!code-csharp[AdvancedPluginFramework](./code_samples/AdvancedPluginFramework.cs#L70-L79)]
 ***
 <br>
 
