@@ -11,16 +11,18 @@ For that reason, the framework allows adding a specific plug-in resource file to
 To indicate that the value of a certain property needs to be retrieved from the plug-in resources file, the definition of that property within the extension attribute definition must be annotated with the `PluginResource` attribute. For instance, a plug-in button extension point, with a localizable `ToolTipText` property becomes:
 
 # [C#](#tab/tabid-1)
-[!code-csharp[AdvancedPluginFramework](code_samples/AdvancedPluginFramework.cs#L103-L113)]
+[!code-csharp[AdvancedPluginFramework](code_samples/AdvancedPluginFramework.cs#L25-L34)]
 ***
+<br>
 
 An extension targeting this extension point, `MyPluginButton`:
 
 # [C#](#tab/tabid-2)
-[!code-csharp[AdvancedPluginFramework](code_samples/AdvancedPluginFramework.cs#L46-L56)]
+[!code-csharp[AdvancedPluginFramework](code_samples/AdvancedPluginFramework.cs#L40-L50)]
 ***
+<br>
 
-, where `MyPluginButton_Name` and `MyPluginButton_ToolTipText` are keys of strings defined in the plugin resource file, `PluginResources.resx`.
+In the above code sample, `MyPluginButton_Name` and `MyPluginButton_ToolTipText` are keys of strings defined in the plugin resource file, `PluginResources.resx`.
 As mentioned before, the plug-in manifest generator requires that you pass the path to the plug-in resx file as the second parameter. To avoid having to load the plug-in assembly to get access to the embedded resource strings when the plug-in meta data is accessed, the plug-in manifest generator compiles an external .Net plug-in resource file. This compiled resource file is copied alongside the plug-in manifest file, so that it can be loaded separately from the plug-in assembly itself. For instance, for the plug-in assembly, PluginLibrary, this becomes:
 
 * `PluginLibrary.dll`: the plug-in assembly
@@ -38,7 +40,3 @@ For non-string properties, like for instance an icon, the plug-in resource file 
 # [C#](#tab/tabid-3)
 [!code-csharp[AdvancedPluginFramework](code_samples/AdvancedPluginFramework.cs#L16-L17)]
 ***
-
-> [!NOTE]
-> 
-> This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

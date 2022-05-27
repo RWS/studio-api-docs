@@ -4,12 +4,11 @@ using System.Text;
 
 namespace TranslationStudio.Sdk.Documentation.Samples
 {
-    #region SMSMessageTransmitter
     [MessageTransmitter(
-    Id = "sms",
-    Name = "SMS Transmitter",
-    Description = "Send messages via SMS",
-    CostPerCharacter = 0.5)]
+        Id = "sms",
+        Name = "SMS Transmitter",
+        Description = "Send messages via SMS",
+        CostPerCharacter = 0.5)]
     public class SMSMessageTransmitter : IMessageTransmitter
     {
         #region IMessageTransmitter Members
@@ -28,5 +27,4 @@ namespace TranslationStudio.Sdk.Documentation.Samples
 
         #endregion
     }
-    #endregion SMSMessageTransmitter
 }

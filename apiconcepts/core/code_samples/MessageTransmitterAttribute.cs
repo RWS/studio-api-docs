@@ -6,19 +6,16 @@ using Sdl.Core.PluginFramework;
 
 namespace TranslationStudio.Sdk.Documentation.Samples
 {
-    #region MessageTransmitterAttribute
-
     [ExtensionPointInfo("Message Transmitters", ExtensionPointBehavior.Static)]
     public class MessageTransmitterAttribute : ExtensionAttribute
-    {
-        private double _costPerCharacter;
-
+    {       
         /// <summary>
         /// Constructor for XML serialization
         /// </summary>
         public MessageTransmitterAttribute()
         {
         }
+        
         /// <summary>
         /// Constructor using basic properties.
         /// </summary>
@@ -30,11 +27,7 @@ namespace TranslationStudio.Sdk.Documentation.Samples
         /// <summary>
         /// Gets or sets the cost in dollar per character in the message.
         /// </summary>
-        public double CostPerCharacter
-        {
-            get { return _costPerCharacter; }
-            set { _costPerCharacter = value; }
-        }
+        public double CostPerCharacter { get; set; }
 
         /// <summary>
         /// Validates that the extension implements the IMessageTransmitter interface.
@@ -50,6 +43,4 @@ namespace TranslationStudio.Sdk.Documentation.Samples
             context.ValidateRequiredInterface(typeof(IMessageTransmitter));
         }
     }
-
-    #endregion MessageTransmitterAttribute
 }

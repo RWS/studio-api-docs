@@ -8,7 +8,7 @@ We removed all GroupShare 2015 references from the API since GroupShare 2015 is 
 # Project Automation API
 ## Sdl.ProjectAutomation.Core
 
-* We expanded the [ProjectInfo](../../../projectautomation/../studio-api-docs/api/projectautomation/Sdl.ProjectAutomation.Core.ProjectInfo.yml) class to include information regarding the current user associated to the project.
+* We expanded the [ProjectInfo](../../api/projectautomation/Sdl.ProjectAutomation.Core.ProjectInfo.yml) class to include information regarding the current user associated to the project.
 The `CurrentUserID` Property is identical to the user under which the API is running locally. For server-based projects this represents the ID of the user that is currently logged on to the server.
 
     Example: 
@@ -17,13 +17,13 @@ The `CurrentUserID` Property is identical to the user under which the API is run
 
     Console.WriteLine(projectInfo.CurrentUserId);
     ```
-* Added the [CommonFieExtensions](../../../api/projectautomation/Sdl.ProjectAutomation.Core.CommonFileExtensions.yml) class which returns constants for Studio's most common file extensions.
+* Added the [CommonFieExtensions](../../api/projectautomation/Sdl.ProjectAutomation.Core.CommonFileExtensions.yml) class which returns constants for Studio's most common file extensions.
 
 
 # Integration API
 ## Sdl.TranslationStudioAutomation.IntegrationApi
 
-* The [FilesController](../../../studio-api-docs/api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.FilesController.yml) class now exposesa property called `SelectedTasks` which returns the list of tasks currently selected by the user on the UI.
+* The [FilesController](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.FilesController.yml) class now exposesa property called `SelectedTasks` which returns the list of tasks currently selected by the user on the UI.
 
     This allows the developers to interact with the selected tasks and not just the selected files on the Files View
 
@@ -34,11 +34,11 @@ The `CurrentUserID` Property is identical to the user under which the API is run
     ```
 * The Integration API introduces the concept of external package converter. This allows you to create package converters for integrations between different systems, for example WorldServer and TMS. 
     
-    Along with the external package extension, the `IProject` interface now can now return the [ProjectFileTypeConfiguration](../../../studio-api-docs/api/projectautomation/Sdl.ProjectAutomation.Core.ProjectFileTypeConfiguration.yml) of that project.
+    Along with the external package extension, the `IProject` interface now can now return the [ProjectFileTypeConfiguration](../../api/projectautomation/Sdl.ProjectAutomation.Core.ProjectFileTypeConfiguration.yml) of that project.
     
-    For more information see [Packaging](../../../studio-api-docs/api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.yml).
+    For more information see [Packaging](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.yml).
 
-* The `Execute()` method of the [IExternalJob](../../../studio-api-docs/api/integration/Sdl.Desktop.IntegrationApi.Jobs.IExternalJob.yml) interface now receives an `IexternalJobExecutionContext` which allows you to see if the job was cancelled by the user or report the progress.
+* The `Execute()` method of the [IExternalJob](../../api/integration/Sdl.Desktop.IntegrationApi.Jobs.IExternalJob.yml) interface now receives an `IexternalJobExecutionContext` which allows you to see if the job was cancelled by the user or report the progress.
     
     Example:
     ```cs
@@ -80,7 +80,7 @@ The `CurrentUserID` Property is identical to the user under which the API is run
        public void JobCanceled(object sender, EventArgs e) { }
    }
     ```
-* We extended the [OpenProjectPackageEvent](../../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Events.OpenProjectPackageEvent.yml) and [CreateReturnPackageEvent](../../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Events.CreateReturnPackageEvent.yml) to allow you to inject wiard pages in the **Open Package** or **Create Return Package** wizards. The pages are added either as the first, or the last pages before processing the page.
+* We extended the [OpenProjectPackageEvent](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Events.OpenProjectPackageEvent.yml) and [CreateReturnPackageEvent](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Events.CreateReturnPackageEvent.yml) to allow you to inject wiard pages in the **Open Package** or **Create Return Package** wizards. The pages are added either as the first, or the last pages before processing the page.
 
     Example: 
     ```cs

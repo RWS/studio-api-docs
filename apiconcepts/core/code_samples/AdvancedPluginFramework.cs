@@ -25,18 +25,12 @@ namespace TranslationStudio.Sdk.Documentation.Samples
     [ExtensionPointInfo("Plug-in Buttons", ExtensionPointTypes.Static)]
     public class PluginButtonAttribute : ExtensionAttribute
     {
-        private string _toolTipText;
-
         public PluginButtonAttribute()
         {
         }
 
         [PluginResource()]
-        public string ToolTipText
-        {
-            get { return _toolTipText; }
-            set { _toolTipText = value; }
-        }
+        public string ToolTipText { get; set; }
     }
 
     #endregion PluginButtonAttribute
@@ -44,9 +38,9 @@ namespace TranslationStudio.Sdk.Documentation.Samples
     #region PluginButton
 
     [PluginButton(
-    Id = "mypluginbutton",
-    Name = "MyPluginButton_Name",
-    ToolTipText = "MyPluginButton_ToolTipText")]
+        Id = "mypluginbutton",
+        Name = "MyPluginButton_Name",
+        ToolTipText = "MyPluginButton_ToolTipText")]
     public class MyPluginButton : IPluginButton
     {
         public void OnClick()
@@ -61,24 +55,12 @@ namespace TranslationStudio.Sdk.Documentation.Samples
 
     public class ToolBarLocationAttribute : AuxiliaryExtensionAttribute
     {
-        private string _toolbarId;
-
-        public string ToolBarId
-        {
-            get { return _toolbarId; }
-            set { _toolbarId = value; }
-        }
+        public string ToolBarId { get; set; }
     }
 
     public class MenuLocationAttribute : AuxiliaryExtensionAttribute
     {
-        private string _menuId;
-
-        public string MenuId
-        {
-            get { return _menuId; }
-            set { _menuId = value; }
-        }
+        public string MenuId { get; set; }
     }
 
     #endregion Auxiliary
@@ -86,11 +68,11 @@ namespace TranslationStudio.Sdk.Documentation.Samples
     #region AuxiliaryExample
 
     [Sdl.Desktop.Platform.CommandBars.Action(
-    Id = "mypluginbutton",
-    Name = "MyPluginAction_Name",
-    Description = "MyPluginAction_ToolTipText")]
-    [ToolBarLocation(ToolBarId="StandardToolBar")]
-    [MenuLocation(MenuId="FileMenu")]
+        Id = "mypluginbutton",
+        Name = "MyPluginAction_Name",
+        Description = "MyPluginAction_ToolTipText")]
+    [ToolBarLocation(ToolBarId = "StandardToolBar")]
+    [MenuLocation(MenuId = "FileMenu")]
     public class MyPluginButton2 : IPluginButton
     {
         // ...
@@ -105,18 +87,12 @@ namespace TranslationStudio.Sdk.Documentation.Samples
         : ExtensionAttribute,
           System.Xml.Serialization.IXmlSerializable
     {
-        private string _toolTipText;
-
         public PluginButtonAttribute2()
         {
         }
 
         [PluginResource()]
-        public string ToolTipText
-        {
-            get { return _toolTipText; }
-            set { _toolTipText = value; }
-        }
+        public string ToolTipText { get; set; }
 
         public override void ReadXml(System.Xml.XmlReader reader)
         {

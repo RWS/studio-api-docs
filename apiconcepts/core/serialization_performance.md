@@ -13,11 +13,7 @@ Especially in the desktop application scenario, this will impact performance dra
 We can avoid this automatic serialization overhead, by explicitly implementing the `System.Xml.Serialization.IXmlSerializable` interface. The extension attribute base class already defines the methods required by this interface: `GetSchema`, `ReadXml` and `WriteXml`. All you need to do is mark your attribute class to implement `IXmlSerializable` and override `ReadXml` and `WriteXml` to read and write additional properties, making sure to call the base class method to read and write the base class properties:
 
 # [C#](#tab/tabid-1)
-[!code-csharp[AdvancedPluginFramework](code_samples/AdvancedPluginFramework.cs#L25-L40)]
+[!code-csharp[AdvancedPluginFramework](code_samples/AdvancedPluginFramework.cs#L85-L110)]
 ***
 
 The plug-in framework calls the `ReadXml` and `WriteXml` methods directly, avoiding the overhead of automatic xml serialization.
-
-> [!NOTE]
-> 
-> This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.
