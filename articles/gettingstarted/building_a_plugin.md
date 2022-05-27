@@ -48,7 +48,7 @@ If the minimum version is set to *<var:VersionNumber>.1* that means the plugin c
 Any plugin project need to have the following nuget packages refrenced : 
 
 * [Sdl.Core.PluginFramework](https://www.nuget.org/packages/Sdl.Core.PluginFramework/): this package provides the API's for the extension points
-* [Sdl.Core.PluginFramework.Build](https://www.nuget.org/packages/Sdl.Core.PluginFramework.Build/): this package provides the plug-in manifest creation build step, which uses the standard MSBuild extension mechanism. See [Plug-in manifest generator](the_plugin_manifest_generator.md).
+* [Sdl.Core.PluginFramework.Build](https://www.nuget.org/packages/Sdl.Core.PluginFramework.Build/): this package provides the plug-in manifest creation build step, which uses the standard MSBuild extension mechanism. See [Plug-in manifest generator](xref:the_plugin_manifest_generator.md).
 
 > [!NOTE]
 > `Sdl.Core.PluginFramework.Build` is needed only in build time.

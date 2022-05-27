@@ -86,9 +86,9 @@ namespace TranslationStudio.Sdk.Documentation.Samples
     #region AuxiliaryExample
 
     [Sdl.Desktop.Platform.CommandBars.Action(
-    Id = "mypluginbutton",
-    Name = "MyPluginAction_Name",
-    Description = "MyPluginAction_ToolTipText")]
+        Id = "mypluginbutton",
+        Name = "MyPluginAction_Name",
+        Description = "MyPluginAction_ToolTipText")]
     [ToolBarLocation(ToolBarId="StandardToolBar")]
     [MenuLocation(MenuId="FileMenu")]
     public class MyPluginButton2 : IPluginButton

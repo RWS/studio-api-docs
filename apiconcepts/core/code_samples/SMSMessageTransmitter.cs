@@ -5,10 +5,10 @@ using System.Text;
 namespace TranslationStudio.Sdk.Documentation.Samples
 {
     [MessageTransmitter(
-    Id = "sms",
-    Name = "SMS Transmitter",
-    Description = "Send messages via SMS",
-    CostPerCharacter = 0.5)]
+        Id = "sms",
+        Name = "SMS Transmitter",
+        Description = "Send messages via SMS",
+        CostPerCharacter = 0.5)]
     public class SMSMessageTransmitter : IMessageTransmitter
     {
         #region IMessageTransmitter Members

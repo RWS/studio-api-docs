@@ -12,20 +12,10 @@ namespace TranslationStudio.Sdk.Documentation.Samples
     {
         private void Main()
         {
-            //#region CreatePluginRegistry
-
-            //string applicationDirectory = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-            //string pluginsDirectory = Path.Combine(applicationDirectory, "plugins");
-
-            //// create plug-in registry
-            //IPluginRegistry pluginRegistry =
-            //    PluginManager.CreatePluginRegistry(pluginsDirectory, "plugincache.xml", false);
-
-            //#endregion CreatePluginRegistry
-
             #region GetExtensionPoint
 
-            IExtensionPoint extensionPoint = PluginManager.DefaultPluginRegistry.GetExtensionPoint<MessageTransmitterAttribute>();
+            IExtensionPoint extensionPoint = PluginManager.DefaultPluginRegistry.
+                                                GetExtensionPoint<MessageTransmitterAttribute>();
 
             #endregion GetExtensionPoint
 
@@ -62,16 +52,16 @@ namespace TranslationStudio.Sdk.Documentation.Samples
             #endregion GetSelectedTransmitter
 
             #region CreateInstance
-            IMessageTransmitter selectedTransmitter =
-                (IMessageTransmitter)selectedExtension.CreateInstance();
+            IMessageTransmitter selectedTransmitter = 
+                                    (IMessageTransmitter)selectedExtension.CreateInstance();
             #endregion CreateInstance
             
             selectedTransmitter.SendMessage(message);
                         
             #region ObjectRegistry
-
-            ObjectRegistry<MessageTransmitterAttribute, IMessageTransmitter> objectRegistry =
-new ObjectRegistry<MessageTransmitterAttribute, IMessageTransmitter>(PluginManager.DefaultPluginRegistry);
+            ObjectRegistry<MessageTransmitterAttribute, IMessageTransmitter> objectRegistry 
+                = new ObjectRegistry<MessageTransmitterAttribute, IMessageTransmitter>
+                            (PluginManager.DefaultPluginRegistry);
 
             IMessageTransmitter[] messageTransmitters = objectRegistry.CreateObjects();
             #endregion ObjectRegistry
