@@ -23,7 +23,7 @@ ServerBasedTranslationMemory tm = tmServer.GetTranslationMemory(
 Next, create an exporter object:
 # [C#](#tab/tabid-2)
 ```cs
-ScheduledTranslationMemoryExportOperation exporter = new ScheduledTranslationMemoryExportOperation(
+var exporter = new ScheduledServerTranslationMemoryExport(
     this.GetLanguageDirection(tm, CultureInfo.GetCultureInfo("en-US"), CultureInfo.GetCultureInfo("de-DE")));
 ```
 ****
@@ -105,7 +105,7 @@ if (exporter.Status == ScheduledOperationStatus.Completed)
 {
     using (Stream outputStream  = new FileStream(exportFilePath, FileMode.Create))
     {
-        exporter.DownloadExport(outputStream, exporter_Downloaded);
+        exporter.DownloadExport(outputStream);
     }
     MessageBox.Show("Export successfuly finished.");
 }
@@ -145,7 +145,7 @@ namespace SDK.LanguagePlatform.Samples.TmAutomation
             #endregion
 
             #region "exporter"
-            ScheduledTranslationMemoryExportOperation exporter = new ScheduledTranslationMemoryExportOperation(
+            var exporter = new ScheduledServerTranslationMemoryExport(
                 this.GetLanguageDirection(tm, CultureInfo.GetCultureInfo("en-US"), CultureInfo.GetCultureInfo("de-DE")));
             #endregion
 
@@ -194,7 +194,7 @@ namespace SDK.LanguagePlatform.Samples.TmAutomation
             {
                 using (Stream outputStream  = new FileStream(exportFilePath, FileMode.Create))
                 {
-                    exporter.DownloadExport(outputStream, exporter_Downloaded);
+                    exporter.DownloadExport(outputStream);
                 }
                 MessageBox.Show("Export successfuly finished.");
             }
@@ -223,21 +223,9 @@ namespace SDK.LanguagePlatform.Samples.TmAutomation
             throw new Exception("Requested direction doesn't exist.");
         }
         #endregion
-
-        private void exporter_Downloaded(object sender, FileTransferEventArgs e)
-        {
-            MessageBox.Show("Transferred - " + e.BytesTransferred.ToString() + " out of " + e.TotalBytes.ToString() + " bytes\r\n");
-            e.Cancel = false;
-        }
-
     }
 }
 ```
-****
-
-> [!NOTE]
-> 
-> This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.
 
 See Also
 ----

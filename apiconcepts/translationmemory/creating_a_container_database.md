@@ -4,18 +4,18 @@ In this chapter you will learn how to programmatically create a container on a d
 
 Add a New Class
 ---
-Start by adding a new class called `ServerContainer`. Then implement a public Create function, which takes a [TranslationProviderServer](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.yml) object as parameter. The function should look as shown below:
+Start by adding a new class called `ServerContainerManager`. Then implement a public Create function, which takes a [TranslationProviderServer](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.yml) object as parameter. The function should look as shown below:
 
 # [C#](#tab/tabid-1)
 ```cs
 public void Create(TranslationProviderServer tmServer)
 {
-    TranslationMemoryContainer container = new TranslationMemoryContainer(tmServer);
+    var container = new TranslationMemoryContainer(tmServer);
 
-    DatabaseServer dbServ = tmServer.GetDatabaseServer("DB01", this.GetDbServProperties());
+    DatabaseServer dbServ = tmServer.GetDatabaseServer("DB01", this.GetDbServerProperties());
     container.DatabaseServer = dbServ;
     container.DatabaseName = "DbName";
-    container.Name = "NiceName";
+    container.Name = "FriendlyName";
     container.Save();
 }
 ```
@@ -24,11 +24,9 @@ First, we create the database server object from the TM Server. For this, the [G
 
 # [C#](#tab/tabid-2)
 ```cs
-private DatabaseServerProperties GetDbServProperties()
+private DatabaseServerProperties GetDbServerProperties()
 {
-    DatabaseServerProperties props = new DatabaseServerProperties();
-
-    return props;
+    return new DatabaseServerProperties();
 }
 ```
 *****
@@ -37,25 +35,11 @@ When creating the container we specify the
 * physical database name (note that this name is subject to DB naming conventions)
 * friendly name for the container database
 
-Afterwards, we apply the [Save](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryContainer.yml#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationMemoryContainer_Save) method, which creates the actual container database. The complete function should look as shown below:
-# [C#](#tab/tabid-3)
-```cs
-public void Create(TranslationProviderServer tmServer)
-{
-    TranslationMemoryContainer container = new TranslationMemoryContainer(tmServer);
-
-    DatabaseServer dbServ = tmServer.GetDatabaseServer("DB01", this.GetDbServProperties());
-    container.DatabaseServer = dbServ;
-    container.DatabaseName = "DbName";
-    container.Name = "NiceName";
-    container.Save();
-}
-```
-****
+Afterwards, we apply the [Save](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryContainer.yml#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationMemoryContainer_Save) method, which creates the actual container database.
 
 Enhance the Code Example
 ---
-In the next step we would like to show to you how to enhance the function for creating containers. Add a new function called `CreateAdvanced` to your class, which takes a TM Server object and the container database name as parameters. The aim is to make the function for creating the container more robust by first checking whether the TM Server has any database servers registered in the first place. To do this determine the number of available database servers. If the count equals zero, an error message should be thrown:
+In the next step we would like to show to you how to enhance the function for creating containers. Add a new function called `CreateAdvanced` to your class, which takes a TM Server object and the container database name as parameters. The aim is to make the function for creating the container more robust by first checking whether the TM Server has any database servers registered in the first place. To do this, determine the number of available database servers. If the count equals zero, an error message should be thrown:
 # [C#](#tab/tabid-4)
 ```cs
 ReadOnlyCollection<DatabaseServer> dbs = tmServer.GetDatabaseServers(DatabaseServerProperties.Containers);
@@ -82,7 +66,7 @@ foreach (TranslationMemoryContainer item in dbs[0].Containers)
 If at least one database server is available, and a container by that name does not exist yet, we create the container on the database server:
 # [C#](#tab/tabid-6)
 ```cs
-TranslationMemoryContainer container = new TranslationMemoryContainer(tmServer);
+var container = new TranslationMemoryContainer(tmServer);
 container.DatabaseServer = dbs[0];
 container.DatabaseName = newContainerName + "DB";
 container.Name = newContainerName;
@@ -126,7 +110,7 @@ public void CreateAdvanced(TranslationProviderServer tmServer, string organizati
     #endregion
 
     #region "CreateContainer"
-    TranslationMemoryContainer container = new TranslationMemoryContainer(tmServer);
+    var container = new TranslationMemoryContainer(tmServer);
     container.DatabaseServer = dbs[0];
     container.DatabaseName = newContainerName + "DB";
     container.Name = newContainerName;
@@ -152,7 +136,10 @@ The short sample function below demonstrates how to remove a container database 
 public void DeleteContainer(TranslationProviderServer tmServer, string organization, string containerName)
 {
     if (!organization.EndsWith("/")) 
+    {
         organization += "/";
+    }
+
     TranslationMemoryContainer container = tmServer.GetContainer(organization + containerName, ContainerProperties.None);
     container.Delete(false);
 }
@@ -170,14 +157,14 @@ namespace SDK.LanguagePlatform.Samples.TmAutomation
     using System.Collections.ObjectModel;
     using Sdl.LanguagePlatform.TranslationMemoryApi;
 
-    public class ServerContainer
+    public class ServerContainerManager
     {
         #region "CreateSimple"
         public void Create(TranslationProviderServer tmServer)
         {
-            TranslationMemoryContainer container = new TranslationMemoryContainer(tmServer);
+            var container = new TranslationMemoryContainer(tmServer);
 
-            DatabaseServer dbServ = tmServer.GetDatabaseServer("DB01", this.GetDbServProperties());
+            DatabaseServer dbServ = tmServer.GetDatabaseServer("DB01", this.GetDbServerProperties());
             container.DatabaseServer = dbServ;
             container.DatabaseName = "DbName";
             container.Name = "NiceName";
@@ -186,11 +173,9 @@ namespace SDK.LanguagePlatform.Samples.TmAutomation
         #endregion
 
         #region "props"
-        private DatabaseServerProperties GetDbServProperties()
+        private DatabaseServerProperties GetDbServerProperties()
         {
-            DatabaseServerProperties props = new DatabaseServerProperties();
-
-            return props;
+            return new DatabaseServerProperties();
         }
         #endregion
 
@@ -216,7 +201,7 @@ namespace SDK.LanguagePlatform.Samples.TmAutomation
             #endregion
 
             #region "CreateContainer"
-            TranslationMemoryContainer container = new TranslationMemoryContainer(tmServer);
+            var container = new TranslationMemoryContainer(tmServer);
             container.DatabaseServer = dbs[0];
             container.DatabaseName = newContainerName + "DB";
             container.Name = newContainerName;
@@ -237,7 +222,10 @@ namespace SDK.LanguagePlatform.Samples.TmAutomation
         public void DeleteContainer(TranslationProviderServer tmServer, string organization, string containerName)
         {
             if (!organization.EndsWith("/")) 
+            {
                 organization += "/";
+            }
+            
             TranslationMemoryContainer container = tmServer.GetContainer(organization + containerName, ContainerProperties.None);
             container.Delete(false);
         }
