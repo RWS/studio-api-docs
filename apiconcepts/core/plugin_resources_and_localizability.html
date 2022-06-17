@@ -95,18 +95,18 @@
 </ul>
 <section id="tabpanel_vmrP5tuOGj_tabid-1" role="tabpanel" data-tab="tabid-1">
 <pre><code class="lang-csharp" name="AdvancedPluginFramework">[ExtensionPointInfo(&quot;Plug-in Buttons&quot;, ExtensionPointTypes.Static)]
-public class PluginButtonAttribute2
-    : ExtensionAttribute,
-      System.Xml.Serialization.IXmlSerializable
+public class PluginButtonAttribute : ExtensionAttribute
 {
-    private string _toolTipText;
-
-    public PluginButtonAttribute2()
+    public PluginButtonAttribute()
     {
     }
 
+    [PluginResource()]
+    public string ToolTipText { get; set; }
+}
 </code></pre></section>
 </div>
+<p><br></p>
 <p>An extension targeting this extension point, <code>MyPluginButton</code>:</p>
 <div class="tabGroup" id="tabgroup_vmrP5tuOGj-1">
 <ul role="tablist">
@@ -116,9 +116,9 @@ public class PluginButtonAttribute2
 </ul>
 <section id="tabpanel_vmrP5tuOGj-1_tabid-2" role="tabpanel" data-tab="tabid-2">
 <pre><code class="lang-csharp" name="AdvancedPluginFramework">[PluginButton(
-Id = &quot;mypluginbutton&quot;,
-Name = &quot;MyPluginButton_Name&quot;,
-ToolTipText = &quot;MyPluginButton_ToolTipText&quot;)]
+    Id = &quot;mypluginbutton&quot;,
+    Name = &quot;MyPluginButton_Name&quot;,
+    ToolTipText = &quot;MyPluginButton_ToolTipText&quot;)]
 public class MyPluginButton : IPluginButton
 {
     public void OnClick()
@@ -128,7 +128,8 @@ public class MyPluginButton : IPluginButton
 }
 </code></pre></section>
 </div>
-<p>, where <code>MyPluginButton_Name</code> and <code>MyPluginButton_ToolTipText</code> are keys of strings defined in the plugin resource file, <code>PluginResources.resx</code>.
+<p><br></p>
+<p>In the above code sample, <code>MyPluginButton_Name</code> and <code>MyPluginButton_ToolTipText</code> are keys of strings defined in the plugin resource file, <code>PluginResources.resx</code>.
 As mentioned before, the plug-in manifest generator requires that you pass the path to the plug-in resx file as the second parameter. To avoid having to load the plug-in assembly to get access to the embedded resource strings when the plug-in meta data is accessed, the plug-in manifest generator compiles an external .Net plug-in resource file. This compiled resource file is copied alongside the plug-in manifest file, so that it can be loaded separately from the plug-in assembly itself. For instance, for the plug-in assembly, PluginLibrary, this becomes:</p>
 <ul>
 <li><code>PluginLibrary.dll</code>: the plug-in assembly</li>
@@ -153,8 +154,6 @@ For non-string properties, like for instance an icon, the plug-in resource file 
 <pre><code class="lang-csharp" name="AdvancedPluginFramework">ExtensionAttribute attribute = extension.ExtensionAttribute;
 Icon icon = extension.Plugin.GetPluginResource&lt;Icon&gt;(attribute.Icon);
 </code></pre></section>
-</div>
-<div class="NOTE"><h5>Note</h5><p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
 </div>
 </article>
           </div>

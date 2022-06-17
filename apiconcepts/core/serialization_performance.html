@@ -96,26 +96,34 @@
 </ul>
 <section id="tabpanel_0vBUpmMeZj_tabid-1" role="tabpanel" data-tab="tabid-1">
 <pre><code class="lang-csharp" name="AdvancedPluginFramework">[ExtensionPointInfo(&quot;Plug-in Buttons&quot;, ExtensionPointTypes.Static)]
-public class PluginButtonAttribute : ExtensionAttribute
+public class PluginButtonAttribute2
+    : ExtensionAttribute,
+      System.Xml.Serialization.IXmlSerializable
 {
-    private string _toolTipText;
-
-    public PluginButtonAttribute()
+    public PluginButtonAttribute2()
     {
     }
 
     [PluginResource()]
-    public string ToolTipText
+    public string ToolTipText { get; set; }
+
+    public override void ReadXml(System.Xml.XmlReader reader)
     {
-        get { return _toolTipText; }
-        set { _toolTipText = value; }
+        base.ReadXml(reader);
+
+        ToolTipText = reader.ReadElementContentAsString(&quot;ToolTipText&quot;, &quot;&quot;);
+    }
+
+    public override void WriteXml(System.Xml.XmlWriter writer)
+    {
+        base.WriteXml(writer);
+
+        writer.WriteElementString(&quot;ToolTipText&quot;, ToolTipText);
     }
 }
 </code></pre></section>
 </div>
 <p>The plug-in framework calls the <code>ReadXml</code> and <code>WriteXml</code> methods directly, avoiding the overhead of automatic xml serialization.</p>
-<div class="NOTE"><h5>Note</h5><p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
-</div>
 </article>
           </div>
           
