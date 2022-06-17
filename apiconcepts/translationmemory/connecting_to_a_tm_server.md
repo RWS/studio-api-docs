@@ -1,10 +1,10 @@
 Connecting to a TM Server
 =====
-In this chapter you will learn how to establish a connection to an  TM Server programmatically.
+In this chapter you will learn how to establish a connection to a TM Server programmatically.
 
 Add a New Class
 ------
-Start by adding a class called `ServerConnector` to your project. Then add a public function called Connect. In this function you create a translation service provider object using the [TranslationProviderServer](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.yml) method, which requires the following parameters:
+Start by adding a class called `ServerConnector` to your project. Then add a public function called Connect. In this function you can create a translation service provider object using the [TranslationProviderServer](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.yml) object. Your method will require the following parameters:
 
 * The server URI (e.g. http://tmserv)
 * A boolean flag to indicate whether the user that is logging in is a Windows user (i.e. a user taken from Active Directory) or not
@@ -24,8 +24,8 @@ public TranslationProviderServer Connect()
 ```
 *********
 
-The user credentials are provided by the following helper function: In the above example we provide the credentials of a custom user (i.e. not an Active Directory user). TM Server supports Windows users (i.e. users derived from Active Directory or LDAP) as well as custom users. These users are not derived from any existing LDAP source, but are created specifically for use in TM Server or MultiTerm Server. Additionally, you may allow for anonymous access, i.e. organizations in TM Server can be configured for anonymous access, so that users do not have to enter a login.
-Below you see the logon screen of the TM Server manager, which reflects the various user types supported by the system:
+In the above example we provide the credentials of a custom user (i.e. not an Active Directory user). TM Server supports Windows users (i.e. users derived from Active Directory or LDAP) as well as custom users. These users are not derived from any existing LDAP source, but are created specifically for use in TM Server or MultiTerm Server. Additionally, you may allow for anonymous access, i.e. organizations in TM Server can be configured for anonymous access, so that users do not have to enter a login.
+Below you see the logon screen of the GroupShare Web UI:
 
 <img style="display:block; " src="images/Logon.jpg"/>
 

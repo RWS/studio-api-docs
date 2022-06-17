@@ -4,7 +4,7 @@ Like file translation memories, server TMs, too, can leverage language resource 
 
 Add a New Class
 ----
-Start by adding a new class called `ServerLanguageResourceTemplates` to your project. This class should contain the functionality to retrieve existing field templates and create new templates.
+Start by adding a new class called `ServerLanguageResourceTemplates` to your project. This class should contain the functionality to retrieve existing language resource templates and create new ones.
 
 Retrieve the Available Language Resources Templates
 ----
@@ -26,7 +26,7 @@ templateList += "Description: " + template.Description + "\n";
 ```
 ****
 
-A language resources template contains language resource bundles such as variable and abbreviations lists as well as segmentation rules. Below is a brief example of how to access the resource bundles. Imagine for this simple use case that the first resource bundle is a variable list, and we would like to determine the number of variables that this resource contains. To do this use the [LanguageResourceBundles](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedLanguageResourcesTemplate.yml#Sdl_LanguagePlatform_TranslationMemoryApi_ServerBasedLanguageResourcesTemplate_LanguageResourceBundles) property to select the first available resource bundle, then apply the `Variables` property to the resource bundle object to determine the variable count.
+A language resources template contains language resource bundles such as variable and abbreviations lists as well as segmentation rules. Below is a brief example of how to access the resource bundles. Imagine for this simple use case that the first resource bundle is a variable list, and we would like to determine the number of variables that this resource contains. To do this, use the [LanguageResourceBundles](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedLanguageResourcesTemplate.yml#Sdl_LanguagePlatform_TranslationMemoryApi_ServerBasedLanguageResourcesTemplate_LanguageResourceBundles) property to select the first available resource bundle, then apply the `Variables` property to the resource bundle object to determine the variable count.
 # [C#](#tab/tabid-3)
 ```cs
 LanguageResourceBundle bundle = template.LanguageResourceBundles[0];
@@ -59,7 +59,7 @@ public void GetTemplates(TranslationProviderServer tmServer)
 ```
 ***
 
-Retrieve the TMs that Use a Given Language Resources Template
+Retrieve the TMs that use a given Language Resources Template
 ----
 
 When creating server TMs you can specify a language resource template. The TM will then 'inherit' the language resources (e.g. variable lists) defined in the template. Imagine that you want to know which server TMs use a particular template. To do this implement a function called `GetTmsForTemplate`, which takes the translation provider server as and the language resources template name as parameters. First, retrieve the template that you want to select. The template can be referenced using the template name:
@@ -106,7 +106,7 @@ Create a New Language Resource Template
 The next task will be to create a new language resources template on the server. Start by adding a function called `CreateTemplate`, which takes the translation provider server as parameter. Create a template object on the server and assign the template name and an (optional) description by setting the corresponding properties:
 # [C#](#tab/tabid-8)
 ```cs
-ServerBasedLanguageResourcesTemplate template = new ServerBasedLanguageResourcesTemplate(tmServer);
+var template = new ServerBasedLanguageResourcesTemplate(tmServer);
 template.Name = "Sample Language Resources Template";
 template.Description = "Language Resources template created through API";
 ```
@@ -114,7 +114,7 @@ template.Description = "Language Resources template created through API";
 Let us assume that as language resources bundles you would like to add a variables list and an abbreviation list. Note that the language resources apply to the source language, this is why you need to specify the language that the resource bundle applies to. The sample code below creates a variables list for English (US), and then adds two product names as variables:
 # [C#](#tab/tabid-9)
 ```cs
-LanguageResourceBundle variables = new LanguageResourceBundle(CultureInfo.GetCultureInfo("en-US"));
+var variables = new LanguageResourceBundle(CultureInfo.GetCultureInfo("en-US"));
 variables.Variables.Add("Trados Studio);
 variables.Variables.Add("MultiTerm");
 ```
@@ -122,7 +122,7 @@ variables.Variables.Add("MultiTerm");
 Similarly, you create the resource bundle object for the abbreviation list. The sample code below creates the abbreviation list object and adds two abbreviations:
 # [C#](#tab/tabid-10)
 ```cs
-LanguageResourceBundle abbreviations = new LanguageResourceBundle(CultureInfo.GetCultureInfo("en-US"));
+var abbreviations = new LanguageResourceBundle(CultureInfo.GetCultureInfo("en-US"));
 abbreviations.Abbreviations.Add("hr.");
 abbreviations.Abbreviations.Add("cont.");
 ```
@@ -159,19 +159,19 @@ The complete function should look as shown below:
 public void CreateTemplate(TranslationProviderServer tmServer)
 {
     #region "TemplateProps"
-    ServerBasedLanguageResourcesTemplate template = new ServerBasedLanguageResourcesTemplate(tmServer);
+    var template = new ServerBasedLanguageResourcesTemplate(tmServer);
     template.Name = "Sample Language Resources Template";
     template.Description = "Language Resources template created through API";
     #endregion
 
     #region "variables"
-    LanguageResourceBundle variables = new LanguageResourceBundle(CultureInfo.GetCultureInfo("en-US"));
+    var variables = new LanguageResourceBundle(CultureInfo.GetCultureInfo("en-US"));
     variables.Variables.Add("Trados Studio");
     variables.Variables.Add("MultiTerm");
     #endregion
 
     #region "abbreviations"
-    LanguageResourceBundle abbreviations = new LanguageResourceBundle(CultureInfo.GetCultureInfo("en-US"));
+    var abbreviations = new LanguageResourceBundle(CultureInfo.GetCultureInfo("en-US"));
     abbreviations.Abbreviations.Add("hr.");
     abbreviations.Abbreviations.Add("cont.");
     #endregion
@@ -250,19 +250,19 @@ namespace SDK.LanguagePlatform.Samples.TmAutomation
         public void CreateTemplate(TranslationProviderServer tmServer)
         {
             #region "TemplateProps"
-            ServerBasedLanguageResourcesTemplate template = new ServerBasedLanguageResourcesTemplate(tmServer);
+            var template = new ServerBasedLanguageResourcesTemplate(tmServer);
             template.Name = "Sample Language Resources Template";
             template.Description = "Language Resources template created through API";
             #endregion
 
             #region "variables"
-            LanguageResourceBundle variables = new LanguageResourceBundle(CultureInfo.GetCultureInfo("en-US"));
+            var variables = new LanguageResourceBundle(CultureInfo.GetCultureInfo("en-US"));
             variables.Variables.Add("Trados Studio");
             variables.Variables.Add("MultiTerm");
             #endregion
 
             #region "abbreviations"
-            LanguageResourceBundle abbreviations = new LanguageResourceBundle(CultureInfo.GetCultureInfo("en-US"));
+            var abbreviations = new LanguageResourceBundle(CultureInfo.GetCultureInfo("en-US"));
             abbreviations.Abbreviations.Add("hr.");
             abbreviations.Abbreviations.Add("cont.");
             #endregion

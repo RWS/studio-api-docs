@@ -7,14 +7,10 @@ To enable a project for server TM access you need to make sure that the followin
 
 
 * Sdl.LanguagePlatform.ServerBasedTranslationMemory.Contracts
-In summary, make sure that your project uses all of the following references:
-
-<img style="display:block; " src="images/AllReferences.jpg"/>
-
-Also, make sure that from this point forward your classes use the following namespaces:
-
 * Sdl.LanguagePlatform.TranslationMemoryApi
 * Sdl.LanguagePlatform.TranslationMemory
+
+<img style="display:block; " src="images/TmServer-AllReferences.jpg"/>
 
 See Also
 -----

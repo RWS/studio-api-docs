@@ -24,7 +24,7 @@ Next, create an object for the scheduled TMX import. The language direction of t
 
 # [C#](#tab/tabid-2)
 ```cs
-ScheduledTranslationMemoryImportOperation importer = new ScheduledTranslationMemoryImportOperation(
+var importer = new ScheduledServerTranslationMemoryImport(
     this.GetLanguageDirection(tm, CultureInfo.GetCultureInfo("en-US"), CultureInfo.GetCultureInfo("de-DE")));
 ```
 ****
@@ -84,26 +84,13 @@ Through the settings, you may also specify whether any existing TUs should be ov
 Upload and Queue for Import
 ---
 
-Now apply the `Create` method to the importer object. This will create an import task on the server, without actually executing the import. It just acts as a placeholder for the import that should happen after the complete file has been uploaded to the server, which is done through the `Upload` method.
+Now apply the `Queue` method to the importer object. This will create an import task on the server and then will schedule the actual import operation.
 
 # [C#](#tab/tabid-6)
 ```cs
-importer.Create();
-importer.Upload(this.importer_Uploaded);
 importer.Queue();
 ```
 *****
-The `Upload` method takes an event as parameter, through which you can determine the progress of the upload, i.e. how many bytes out of the total have been transferred.
-# [C#](#tab/tabid-7)
-```cs
-private void importer_Uploaded(object sender, FileTransferEventArgs e)
-{
-    MessageBox.Show("Transferred - " + e.BytesTransferred.ToString() + " out of " + e.TotalBytes.ToString() + " bytes\r\n");
-    e.Cancel = false;
-}
-```
-****
-Last, you apply the `Queue` method to schedule the actual import operation on the server.
 
 Track the Operation Status
 ----
@@ -188,7 +175,7 @@ namespace SDK.LanguagePlatform.Samples.TmAutomation
             #endregion
 
             #region "importer"
-            ScheduledTranslationMemoryImportOperation importer = new ScheduledTranslationMemoryImportOperation(
+            var importer = new ScheduledServerTranslationMemoryImport(
                 this.GetLanguageDirection(tm, CultureInfo.GetCultureInfo("en-US"), CultureInfo.GetCultureInfo("de-DE")));
             #endregion
 
@@ -200,8 +187,6 @@ namespace SDK.LanguagePlatform.Samples.TmAutomation
             #endregion
 
             #region "upload"
-            importer.Create();
-            importer.Upload(this.importer_Uploaded);
             importer.Queue();
             #endregion
 
@@ -280,22 +265,9 @@ namespace SDK.LanguagePlatform.Samples.TmAutomation
             throw new Exception("Requested direction doesn't exist.");
         }
         #endregion
-
-        #region "event"
-        private void importer_Uploaded(object sender, FileTransferEventArgs e)
-        {
-            MessageBox.Show("Transferred - " + e.BytesTransferred.ToString() + " out of " + e.TotalBytes.ToString() + " bytes\r\n");
-            e.Cancel = false;
-        }
-        #endregion
     }
 }
 ```
-****
-
-> [!NOTE]
-> 
-> This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.
 
 See Also
 ----
