@@ -107,7 +107,7 @@
 </li>
 </ul>
 <section id="tabpanel_VyQEufxil0-1_tabid-2" role="tabpanel" data-tab="tabid-2">
-<pre><code class="lang-cs">ScheduledTranslationMemoryImportOperation importer = new ScheduledTranslationMemoryImportOperation(
+<pre><code class="lang-cs">var importer = new ScheduledServerTranslationMemoryImport(
     this.GetLanguageDirection(tm, CultureInfo.GetCultureInfo(&quot;en-US&quot;), CultureInfo.GetCultureInfo(&quot;de-DE&quot;)));
 </code></pre></section>
 </div>
@@ -171,7 +171,7 @@ this.GetImportSettings(importer.ImportSettings);
 <p>Here, you can, for example, specify whether sub-languages should be checked or not. If you set, for example, <code>CheckMatchingSublanguages</code> to True, any English (UK) TUs in an import file will not be accepted by a TM that uses English (US). If sub-languages are not checked, then, in our example, UK TUs would be treated as if they had a US locale.
 Through the settings, you may also specify whether any existing TUs should be overwritten. For example, if the TMX file contains a TU with the same source segment, but with a different translation, the TU in the TM can be overwritten by the import TU. You may also specify what should happen to any TM fields associated with a TU. Example: A TU in a TM has the field value <em>Customer: Microsoft</em>. The same TU exists in the TMX import file, but there the same field has the value <em>Apple</em>. Through the <code>ExistingFieldsUpdateMode</code> property you can set whether existing field values should be overwritten, left unchanged, or merged.</p>
 <h2 id="upload-and-queue-for-import">Upload and Queue for Import</h2>
-<p>Now apply the <code>Create</code> method to the importer object. This will create an import task on the server, without actually executing the import. It just acts as a placeholder for the import that should happen after the complete file has been uploaded to the server, which is done through the <code>Upload</code> method.</p>
+<p>Now apply the <code>Queue</code> method to the importer object. This will create an import task on the server and then will schedule the actual import operation.</p>
 <div class="tabGroup" id="tabgroup_VyQEufxil0-5">
 <ul role="tablist">
 <li role="presentation">
@@ -179,36 +179,18 @@ Through the settings, you may also specify whether any existing TUs should be ov
 </li>
 </ul>
 <section id="tabpanel_VyQEufxil0-5_tabid-6" role="tabpanel" data-tab="tabid-6">
-<pre><code class="lang-cs">importer.Create();
-importer.Upload(this.importer_Uploaded);
-importer.Queue();
+<pre><code class="lang-cs">importer.Queue();
 </code></pre></section>
 </div>
-<p>The <code>Upload</code> method takes an event as parameter, through which you can determine the progress of the upload, i.e. how many bytes out of the total have been transferred.</p>
+<h2 id="track-the-operation-status">Track the Operation Status</h2>
+<p>The import task can have a number of statuses that should cause the operation to stop such as aborted, canceled, error, or completed. There are also various statuses that should cause the import operation to be refreshed such as recovering, queued, allocated, etc. Through the following <code>while</code> loop you can determine based on the current scheduled operation status whether to refresh or to stop the import. For example, if the status is <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ScheduledOperationStatus.html">Recovering</a>, you apply the Refresh method to the importer object. Statuses such as <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ScheduledOperationStatus.html">CancelledOn</a> should not cause a refresh.</p>
 <div class="tabGroup" id="tabgroup_VyQEufxil0-6">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_VyQEufxil0-6_tabid-7" role="tab" aria-controls="tabpanel_VyQEufxil0-6_tabid-7" data-tab="tabid-7" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_VyQEufxil0-6_tabid-8" role="tab" aria-controls="tabpanel_VyQEufxil0-6_tabid-8" data-tab="tabid-8" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_VyQEufxil0-6_tabid-7" role="tabpanel" data-tab="tabid-7">
-<pre><code class="lang-cs">private void importer_Uploaded(object sender, FileTransferEventArgs e)
-{
-    MessageBox.Show(&quot;Transferred - &quot; + e.BytesTransferred.ToString() + &quot; out of &quot; + e.TotalBytes.ToString() + &quot; bytes\r\n&quot;);
-    e.Cancel = false;
-}
-</code></pre></section>
-</div>
-<p>Last, you apply the <code>Queue</code> method to schedule the actual import operation on the server.</p>
-<h2 id="track-the-operation-status">Track the Operation Status</h2>
-<p>The import task can have a number of statuses that should cause the operation to stop such as aborted, canceled, error, or completed. There are also various statuses that should cause the import operation to be refreshed such as recovering, queued, allocated, etc. Through the following <code>while</code> loop you can determine based on the current scheduled operation status whether to refresh or to stop the import. For example, if the status is <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ScheduledOperationStatus.html">Recovering</a>, you apply the Refresh method to the importer object. Statuses such as <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ScheduledOperationStatus.html">CancelledOn</a> should not cause a refresh.</p>
-<div class="tabGroup" id="tabgroup_VyQEufxil0-7">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_VyQEufxil0-7_tabid-8" role="tab" aria-controls="tabpanel_VyQEufxil0-7_tabid-8" data-tab="tabid-8" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_VyQEufxil0-7_tabid-8" role="tabpanel" data-tab="tabid-8">
+<section id="tabpanel_VyQEufxil0-6_tabid-8" role="tabpanel" data-tab="tabid-8">
 <pre><code class="lang-cs">bool continueWaiting = true;
 while (continueWaiting)
 {
@@ -242,13 +224,13 @@ while (continueWaiting)
 </div>
 <h2 id="check-whether-the-import-completed-successfully">Check Whether the Import Completed Successfully</h2>
 <p>At the end, you should check whether the import completed successfully indeed. For this, too, you can use the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ScheduledOperationStatus.html">ScheduledOperationStatus</a>. If the value is <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ScheduledOperationStatus.html">Completed</a>, you can output a success message. If the value is <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ScheduledOperationStatus.html">Error</a>, you output an error message.</p>
-<div class="tabGroup" id="tabgroup_VyQEufxil0-8">
+<div class="tabGroup" id="tabgroup_VyQEufxil0-7">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_VyQEufxil0-8_tabid-9" role="tab" aria-controls="tabpanel_VyQEufxil0-8_tabid-9" data-tab="tabid-9" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_VyQEufxil0-7_tabid-9" role="tab" aria-controls="tabpanel_VyQEufxil0-7_tabid-9" data-tab="tabid-9" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_VyQEufxil0-8_tabid-9" role="tabpanel" data-tab="tabid-9">
+<section id="tabpanel_VyQEufxil0-7_tabid-9" role="tabpanel" data-tab="tabid-9">
 <pre><code class="lang-cs">if (importer.Status == ScheduledOperationStatus.Completed)
 {
     MessageBox.Show(&quot;Import successfuly finished.&quot;);
@@ -265,13 +247,13 @@ else
 </div>
 <h2 id="putting-it-all-together">Putting it All Together</h2>
 <p>The complete class should look as shown below:</p>
-<div class="tabGroup" id="tabgroup_VyQEufxil0-9">
+<div class="tabGroup" id="tabgroup_VyQEufxil0-8">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_VyQEufxil0-9_tabid-10" role="tab" aria-controls="tabpanel_VyQEufxil0-9_tabid-10" data-tab="tabid-10" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_VyQEufxil0-8_tabid-10" role="tab" aria-controls="tabpanel_VyQEufxil0-8_tabid-10" data-tab="tabid-10" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_VyQEufxil0-9_tabid-10" role="tabpanel" data-tab="tabid-10">
+<section id="tabpanel_VyQEufxil0-8_tabid-10" role="tabpanel" data-tab="tabid-10">
 <pre><code class="lang-cs">namespace SDK.LanguagePlatform.Samples.TmAutomation
 {
     using System;
@@ -293,7 +275,7 @@ else
             #endregion
 
             #region &quot;importer&quot;
-            ScheduledTranslationMemoryImportOperation importer = new ScheduledTranslationMemoryImportOperation(
+            var importer = new ScheduledServerTranslationMemoryImport(
                 this.GetLanguageDirection(tm, CultureInfo.GetCultureInfo(&quot;en-US&quot;), CultureInfo.GetCultureInfo(&quot;de-DE&quot;)));
             #endregion
 
@@ -305,8 +287,6 @@ else
             #endregion
 
             #region &quot;upload&quot;
-            importer.Create();
-            importer.Upload(this.importer_Uploaded);
             importer.Queue();
             #endregion
 
@@ -385,24 +365,14 @@ else
             throw new Exception(&quot;Requested direction doesn&#39;t exist.&quot;);
         }
         #endregion
-
-        #region &quot;event&quot;
-        private void importer_Uploaded(object sender, FileTransferEventArgs e)
-        {
-            MessageBox.Show(&quot;Transferred - &quot; + e.BytesTransferred.ToString() + &quot; out of &quot; + e.TotalBytes.ToString() + &quot; bytes\r\n&quot;);
-            e.Cancel = false;
-        }
-        #endregion
     }
 }
-</code></pre></section>
-</div>
-<div class="NOTE"><h5>Note</h5><p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
-</div>
-<h2 id="see-also">See Also</h2>
+</code></pre><h2 id="see-also">See Also</h2>
 <p><a href="scheduled_tmx_exports.html">Scheduled TMX Exports</a></p>
 <p><a href="importing_a_tmx_file.html">Importing a TMX File</a></p>
 <p><a href="exporting_to_a_tmx_file.html">Exporting to a TMX File</a></p>
+</section>
+</div>
 </article>
           </div>
           

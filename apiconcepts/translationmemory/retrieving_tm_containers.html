@@ -82,9 +82,9 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="retrieving-tm-containers">Retrieving TM Containers</h1>
 
-<p>In this chapter you will learn how to get programmatic access to TM containers. Containers are the actual physical databases that contain one or more TMs. Technically speaking, TMs are tables within a container database. Depending on the number of TMs used you may consolidate all TMs in a single container database, or split the TMs among several container databases. This may be a consideration driven by the maximum physical size of a database. For example, Microsoft SQL Express versions only support databases up to a maximum size (4 GB).</p>
+<p>In this chapter you will learn how to get programmatic access to TM containers. Containers are the actual physical databases that contain one or more TMs. Technically speaking, TMs are tables within a container database. Depending on the number of TMs used, you may consolidate all TMs in a single container database, or split the TMs among several container databases. This may be a consideration driven by the maximum physical size of a database. For example, Microsoft SQL Express versions only support databases up to a maximum size (4 GB).</p>
 <h2 id="add-a-new-class">Add a New Class</h2>
-<p>Start by adding a new class called <code>ServerContainers</code> to your project. Then implement a public function called <code>GetDBContainers</code> in the class, which takes a <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.html">TranslationProviderServer</a> object as parameter. This function can be called from the connector class as shown below:</p>
+<p>Start by adding a new class called <code>ServerContainersProvider</code> to your project. Then implement a public function called <code>GetDBContainers</code> in the class, which takes a <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.html">TranslationProviderServer</a> object as parameter. This function can be called from the connector class as shown below:</p>
 <div class="tabGroup" id="tabgroup_uBZIKnnS56">
 <ul role="tablist">
 <li role="presentation">
@@ -92,8 +92,8 @@
 </li>
 </ul>
 <section id="tabpanel_uBZIKnnS56_tabid-1" role="tabpanel" data-tab="tabid-1">
-<pre><code class="lang-cs">ServerContainers containers = new ServerContainers();
-containers.GetDBContainers(tmServer);
+<pre><code class="lang-cs">var containersProvider = new ServerContainersProvider();
+containersProvider.GetDBContainers(tmServer);
 </code></pre></section>
 </div>
 <p>The <code>GetDBContainers</code> function loops through the containers that are associated with the TM Server object and outputs various information in a message box:</p>
@@ -122,7 +122,7 @@ containers.GetDBContainers(tmServer);
 </code></pre></section>
 </div>
 <p>Among the properties you can retrieve are the physical <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryContainer.html#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationMemoryContainer_DatabaseName">DatabaseName</a> as well as the friendly <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryContainer.html#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationMemoryContainer_Name">Name</a> assigned by the user during creation of the container database. Apart from that you can also retrieve, for example, the optional container description and the name of the database server on which the container is stored.
-Below you see an example of a container information box in  TM Server Manager:</p>
+Below you see an example of a container information box in GroupShare Web UI:</p>
 <p><img style="display:block; " src="images/ContainerInfo.jpg"></p>
 <h2 id="putting-it-all-together">Putting it All Together</h2>
 <p>The complete class looks as shown below:</p>
@@ -138,7 +138,7 @@ Below you see an example of a container information box in  TM Server Manager:</
     using System.Windows.Forms;
     using Sdl.LanguagePlatform.TranslationMemoryApi;
 
-    public class ServerContainers
+    public class ServerContainersProvider
     {
         #region &quot;get&quot;
         public void GetDBContainers(TranslationProviderServer tmServer)

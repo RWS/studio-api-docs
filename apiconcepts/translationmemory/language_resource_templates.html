@@ -84,7 +84,7 @@
 
 <p>Like file translation memories, server TMs, too, can leverage language resource templates. (For more information on language resources, see <a href="configuring_translation_memories.html">Configuring Translation Memories</a>.) On this page you will learn how to retrieve server language resource templates and how to create a new language resource template.</p>
 <h2 id="add-a-new-class">Add a New Class</h2>
-<p>Start by adding a new class called <code>ServerLanguageResourceTemplates</code> to your project. This class should contain the functionality to retrieve existing field templates and create new templates.</p>
+<p>Start by adding a new class called <code>ServerLanguageResourceTemplates</code> to your project. This class should contain the functionality to retrieve existing language resource templates and create new ones.</p>
 <h2 id="retrieve-the-available-language-resources-templates">Retrieve the Available Language Resources Templates</h2>
 <p>The first task will be to generate a list of all language resources templates that are hosted on a specified TM Server. To do this implement a function called <code>GetTemplates</code>, which takes the translation provider server as parameter. Use a <code>foreach</code> loop to iterate through all language resources templates by applying the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.html#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationProviderServer_GetLanguageResourcesTemplates_Sdl_LanguagePlatform_TranslationMemoryApi_LanguageResourcesTemplateProperties_System_Boolean_">GetLanguageResourcesTemplates</a> method:</p>
 <div class="tabGroup" id="tabgroup_p8Kb2vpZA4">
@@ -110,7 +110,7 @@ foreach (ServerBasedLanguageResourcesTemplate template in tmServer.GetLanguageRe
 templateList += &quot;Description: &quot; + template.Description + &quot;\n&quot;;
 </code></pre></section>
 </div>
-<p>A language resources template contains language resource bundles such as variable and abbreviations lists as well as segmentation rules. Below is a brief example of how to access the resource bundles. Imagine for this simple use case that the first resource bundle is a variable list, and we would like to determine the number of variables that this resource contains. To do this use the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedLanguageResourcesTemplate.html#Sdl_LanguagePlatform_TranslationMemoryApi_ServerBasedLanguageResourcesTemplate_LanguageResourceBundles">LanguageResourceBundles</a> property to select the first available resource bundle, then apply the <code>Variables</code> property to the resource bundle object to determine the variable count.</p>
+<p>A language resources template contains language resource bundles such as variable and abbreviations lists as well as segmentation rules. Below is a brief example of how to access the resource bundles. Imagine for this simple use case that the first resource bundle is a variable list, and we would like to determine the number of variables that this resource contains. To do this, use the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedLanguageResourcesTemplate.html#Sdl_LanguagePlatform_TranslationMemoryApi_ServerBasedLanguageResourcesTemplate_LanguageResourceBundles">LanguageResourceBundles</a> property to select the first available resource bundle, then apply the <code>Variables</code> property to the resource bundle object to determine the variable count.</p>
 <div class="tabGroup" id="tabgroup_p8Kb2vpZA4-2">
 <ul role="tablist">
 <li role="presentation">
@@ -151,7 +151,7 @@ templateList += &quot;Number of variables in template: &quot; + bundle.Variables
 }
 </code></pre></section>
 </div>
-<h2 id="retrieve-the-tms-that-use-a-given-language-resources-template">Retrieve the TMs that Use a Given Language Resources Template</h2>
+<h2 id="retrieve-the-tms-that-use-a-given-language-resources-template">Retrieve the TMs that use a given Language Resources Template</h2>
 <p>When creating server TMs you can specify a language resource template. The TM will then &#39;inherit&#39; the language resources (e.g. variable lists) defined in the template. Imagine that you want to know which server TMs use a particular template. To do this implement a function called <code>GetTmsForTemplate</code>, which takes the translation provider server as and the language resources template name as parameters. First, retrieve the template that you want to select. The template can be referenced using the template name:</p>
 <div class="tabGroup" id="tabgroup_p8Kb2vpZA4-4">
 <ul role="tablist">
@@ -214,7 +214,7 @@ MessageBox.Show(tmList);
 </li>
 </ul>
 <section id="tabpanel_p8Kb2vpZA4-7_tabid-8" role="tabpanel" data-tab="tabid-8">
-<pre><code class="lang-cs">ServerBasedLanguageResourcesTemplate template = new ServerBasedLanguageResourcesTemplate(tmServer);
+<pre><code class="lang-cs">var template = new ServerBasedLanguageResourcesTemplate(tmServer);
 template.Name = &quot;Sample Language Resources Template&quot;;
 template.Description = &quot;Language Resources template created through API&quot;;
 </code></pre></section>
@@ -227,7 +227,7 @@ template.Description = &quot;Language Resources template created through API&quo
 </li>
 </ul>
 <section id="tabpanel_p8Kb2vpZA4-8_tabid-9" role="tabpanel" data-tab="tabid-9">
-<pre><code class="lang-cs">LanguageResourceBundle variables = new LanguageResourceBundle(CultureInfo.GetCultureInfo(&quot;en-US&quot;));
+<pre><code class="lang-cs">var variables = new LanguageResourceBundle(CultureInfo.GetCultureInfo(&quot;en-US&quot;));
 variables.Variables.Add(&quot;Trados Studio);
 variables.Variables.Add(&quot;MultiTerm&quot;);
 </code></pre></section>
@@ -240,7 +240,7 @@ variables.Variables.Add(&quot;MultiTerm&quot;);
 </li>
 </ul>
 <section id="tabpanel_p8Kb2vpZA4-9_tabid-10" role="tabpanel" data-tab="tabid-10">
-<pre><code class="lang-cs">LanguageResourceBundle abbreviations = new LanguageResourceBundle(CultureInfo.GetCultureInfo(&quot;en-US&quot;));
+<pre><code class="lang-cs">var abbreviations = new LanguageResourceBundle(CultureInfo.GetCultureInfo(&quot;en-US&quot;));
 abbreviations.Abbreviations.Add(&quot;hr.&quot;);
 abbreviations.Abbreviations.Add(&quot;cont.&quot;);
 </code></pre></section>
@@ -294,19 +294,19 @@ MessageBox.Show(&quot;Unsaved changes? &quot; + template.IsDirty.ToString());
 <pre><code class="lang-cs">public void CreateTemplate(TranslationProviderServer tmServer)
 {
     #region &quot;TemplateProps&quot;
-    ServerBasedLanguageResourcesTemplate template = new ServerBasedLanguageResourcesTemplate(tmServer);
+    var template = new ServerBasedLanguageResourcesTemplate(tmServer);
     template.Name = &quot;Sample Language Resources Template&quot;;
     template.Description = &quot;Language Resources template created through API&quot;;
     #endregion
 
     #region &quot;variables&quot;
-    LanguageResourceBundle variables = new LanguageResourceBundle(CultureInfo.GetCultureInfo(&quot;en-US&quot;));
+    var variables = new LanguageResourceBundle(CultureInfo.GetCultureInfo(&quot;en-US&quot;));
     variables.Variables.Add(&quot;Trados Studio&quot;);
     variables.Variables.Add(&quot;MultiTerm&quot;);
     #endregion
 
     #region &quot;abbreviations&quot;
-    LanguageResourceBundle abbreviations = new LanguageResourceBundle(CultureInfo.GetCultureInfo(&quot;en-US&quot;));
+    var abbreviations = new LanguageResourceBundle(CultureInfo.GetCultureInfo(&quot;en-US&quot;));
     abbreviations.Abbreviations.Add(&quot;hr.&quot;);
     abbreviations.Abbreviations.Add(&quot;cont.&quot;);
     #endregion
@@ -389,19 +389,19 @@ MessageBox.Show(&quot;Unsaved changes? &quot; + template.IsDirty.ToString());
         public void CreateTemplate(TranslationProviderServer tmServer)
         {
             #region &quot;TemplateProps&quot;
-            ServerBasedLanguageResourcesTemplate template = new ServerBasedLanguageResourcesTemplate(tmServer);
+            var template = new ServerBasedLanguageResourcesTemplate(tmServer);
             template.Name = &quot;Sample Language Resources Template&quot;;
             template.Description = &quot;Language Resources template created through API&quot;;
             #endregion
 
             #region &quot;variables&quot;
-            LanguageResourceBundle variables = new LanguageResourceBundle(CultureInfo.GetCultureInfo(&quot;en-US&quot;));
+            var variables = new LanguageResourceBundle(CultureInfo.GetCultureInfo(&quot;en-US&quot;));
             variables.Variables.Add(&quot;Trados Studio&quot;);
             variables.Variables.Add(&quot;MultiTerm&quot;);
             #endregion
 
             #region &quot;abbreviations&quot;
-            LanguageResourceBundle abbreviations = new LanguageResourceBundle(CultureInfo.GetCultureInfo(&quot;en-US&quot;));
+            var abbreviations = new LanguageResourceBundle(CultureInfo.GetCultureInfo(&quot;en-US&quot;));
             abbreviations.Abbreviations.Add(&quot;hr.&quot;);
             abbreviations.Abbreviations.Add(&quot;cont.&quot;);
             #endregion
