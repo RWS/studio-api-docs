@@ -70,15 +70,5 @@ The diagram below briefly describes the wizard's execution sequence, and shows t
 
 <img style="display:block; " src="images/Wizard public API flow.png"/>
 
-Open package wizard details
-----
-#### Package converters
-The Open Package wizard uses converters to transform third-party packages into a format that <var:ProductName> can work with. You can create your own custom package converters using the extension point mechanism:
-1. Create a class that implements [IExternalPackageConverter](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IExternalPackageConverter.yml)
-2. Decorate the class with the [ExternalPackageConvertorExtension](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Extensions.ExternalPackageConvertorExtensionAttribute.yml) attribute. 
-
-#### Converter customization
-The wizard `Data` object is available in the custom package converter as well, via the `ExternalPackageConversionInfo.CustomData` property. This allows you to configure your converter using wizard pages.
-
 See also: [Full sample application with source code](https://github.com/RWS/trados-studio-api-samples/tree/master/TranslationStudioAutomation/Sdl.CustomWizardSteps.Sample) (on GitHub).
 

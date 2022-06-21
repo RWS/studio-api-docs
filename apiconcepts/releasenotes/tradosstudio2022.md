@@ -1,14 +1,13 @@
 Release Notes for <Var:ProductNameWithEdition>
 ===================
 
-# Project API
-## Sdl.ProjectApi.Implementation
-We removed all GroupShare 2015 references from the API since GroupShare 2015 is EOL. This means that the checkbox for the due date is always visible since all support for GroupShare 2015 was removed.
+# Groupshare 2015 Integration
+As of <Var:ProductNameWithEdition> the integration with Groupshare 2015 is EOL. Therefore the our public APIs no longer offer the support and any code references have been removed.
 
 # Project Automation API
-## Sdl.ProjectAutomation.Core
 
-* We expanded the [ProjectInfo](../../api/projectautomation/Sdl.ProjectAutomation.Core.ProjectInfo.yml) class to include information regarding the current user associated to the project.
+### New properties on [ProjectInfo](../../api/projectautomation/Sdl.ProjectAutomation.Core.ProjectInfo.yml)
+We expanded the [ProjectInfo](../../api/projectautomation/Sdl.ProjectAutomation.Core.ProjectInfo.yml) class to include information regarding the current user associated to the project.
 The `CurrentUserID` Property is identical to the user under which the API is running locally. For server-based projects this represents the ID of the user that is currently logged on to the server.
 
     Example: 
@@ -17,33 +16,37 @@ The `CurrentUserID` Property is identical to the user under which the API is run
 
     Console.WriteLine(projectInfo.CurrentUserId);
     ```
-* Added the [CommonFieExtensions](../../api/projectautomation/Sdl.ProjectAutomation.Core.CommonFileExtensions.yml) class which returns constants for Studio's most common file extensions.
+### Studio supported extensions    
+Added the [CommonFileExtensions](../../api/projectautomation/Sdl.ProjectAutomation.Core.CommonFileExtensions.yml) class which returns constants for Studio's most common file extensions.
 
 
 # Integration API
-## Sdl.TranslationStudioAutomation.IntegrationApi
 
-* The [FilesController](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.FilesController.yml) class now exposesa property called `SelectedTasks` which returns the list of tasks currently selected by the user on the UI.
+### Extended [FilesController](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.FilesController.yml)
+The [FilesController](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.FilesController.yml) class now exposes a property called `SelectedTasks` which returns the list of tasks currently selected by the user on the UI.
 
-    This allows the developers to interact with the selected tasks and not just the selected files on the Files View
+This allows the developers to interact with the selected tasks and not just the selected files on the Files View.
 
-    Example:
+Example:
+
     ```cs
     var filesController = SdlTradosStudio.Application.GetController<FilesController>();
     var noTasksSelected = filesController.SelectedTasks.Count() == 0;
     ```
-* The Integration API introduces the concept of external package converter. This allows you to create package converters for integrations between different systems, for example WorldServer and TMS. 
+### Package conversion support
+The Integration API introduces the concept of external package converter. This allows you to create package converters for integrations between different systems, for example WorldServer and TMS. 
     
-    Along with the external package extension, the `IProject` interface now can now return the [ProjectFileTypeConfiguration](../../api/projectautomation/Sdl.ProjectAutomation.Core.ProjectFileTypeConfiguration.yml) of that project.
+Along with the external package extension, the `IProject` interface now can now return the [ProjectFileTypeConfiguration](../../api/projectautomation/Sdl.ProjectAutomation.Core.ProjectFileTypeConfiguration.yml) of that project.
     
-    For more information see [Packaging](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.yml).
+For more information see [Extend default packaging functionality](../integration/extend_standard_packaging_support.md).
 
-* The `Execute()` method of the [IExternalJob](../../api/integration/Sdl.Desktop.IntegrationApi.Jobs.IExternalJob.yml) interface now receives an `IexternalJobExecutionContext` which allows you to see if the job was cancelled by the user or report the progress.
+### Better control through [IExternalJob](../../api/integration/Sdl.Desktop.IntegrationApi.Jobs.IExternalJob.yml)
+The `Execute()` method of the [IExternalJob](../../api/integration/Sdl.Desktop.IntegrationApi.Jobs.IExternalJob.yml) interface now receives an `IexternalJobExecutionContext` which allows you to see if the job was cancelled by the user or report the progress.
     
     Example:
     ```cs
     public class SampleJob : IExternalJobWithProgress
-   {
+    {
        /// <summary>
        ///
        /// </summary>
@@ -78,9 +81,11 @@ The `CurrentUserID` Property is identical to the user under which the API is run
        }
  
        public void JobCanceled(object sender, EventArgs e) { }
-   }
+    }
     ```
-* We extended the [OpenProjectPackageEvent](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Events.OpenProjectPackageEvent.yml) and [CreateReturnPackageEvent](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Events.CreateReturnPackageEvent.yml) to allow you to inject wiard pages in the **Open Package** or **Create Return Package** wizards. The pages are added either as the first, or the last pages before processing the page.
+
+### Ability to inject custom wizard pages in the standard *Open Package* and *Create Return Package* wizards
+We extended the [OpenProjectPackageEvent](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Events.OpenProjectPackageEvent.yml) and [CreateReturnPackageEvent](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Events.CreateReturnPackageEvent.yml) to allow you to inject wizard pages in the **Open Package** or **Create Return Package** wizards. The pages are added either as the first, or the last pages before processing the page.
 
     Example: 
     ```cs

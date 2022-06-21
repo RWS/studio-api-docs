@@ -1,8 +1,8 @@
 Introduction
 ====
-The Trados Studio Integration API enables third-party developers to extend and integrate their own UI functionalities inside the Trados Studio application.
+The <Var:ProductName>Integration API enables third-party developers to extend and integrate their own UI functionalities inside the <Var:ProductName> application.
 
-Make sure the following references are added to your project, you will find them in the installation folder of Trados Studio.
+Make sure the following references are added to your project, you will find them in the installation folder of <Var:ProductName>.
 
 * Sdl.Desktop.IntegrationApi.dll
 * Sdl.Desktop.IntegrationApi.Extensions.dll

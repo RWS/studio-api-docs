@@ -24,6 +24,7 @@ The [FilesController](../../api/integration/Sdl.TranslationStudioAutomation.Inte
 
 * Operations on the project files and folders
 * Operations on the selected files
+* Operations on the user selected tasks
 
 For more information: [About project files](../projectautomation/about_project_files.md)
 
