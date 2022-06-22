@@ -121,14 +121,14 @@
 </li>
 </ul>
 <section id="tabpanel_RIMpy9AxT4-1_tabid-2" role="tabpanel" data-tab="tabid-2">
-<pre><code class="lang-cs">ServerBasedTranslationMemory newTM = new ServerBasedTranslationMemory(tmServer);
+<pre><code class="lang-cs">var newTM = new ServerBasedTranslationMemory(tmServer);
 newTM.Name = tmName;
 newTM.Description = &quot;Programmatically created sample TM&quot;;
 newTM.Copyright = &quot;(c) 2021 RWS Group&quot;;
 </code></pre></section>
 </div>
 <h2 id="select-the-container">Select the Container</h2>
-<p>In the next step, select the container database in which the new TM should be created. To do this retrieve the containers available on the TM Server. The container is referenced by using the nice name and the container properties as parameters.</p>
+<p>In the next step, select the container database in which the new TM should be created. To do this, retrieve the containers available on the TM Server. The container is referenced by using the friendly name and the container properties as parameters.</p>
 <div class="tabGroup" id="tabgroup_RIMpy9AxT4-2">
 <ul role="tablist">
 <li role="presentation">
@@ -151,9 +151,7 @@ newTM.Container = container;
 <section id="tabpanel_RIMpy9AxT4-3_tabid-4" role="tabpanel" data-tab="tabid-4">
 <pre><code class="lang-cs">private ContainerProperties GetContainerProperties()
 {
-    ContainerProperties props = new ContainerProperties();
-
-    return props;
+    return new ContainerProperties();
 }
 </code></pre></section>
 </div>
@@ -177,20 +175,19 @@ newTM.Container = container;
 </li>
 </ul>
 <section id="tabpanel_RIMpy9AxT4-5_tabid-6" role="tabpanel" data-tab="tabid-6">
-<pre><code class="lang-cs">private void CreateLanguageDirections(ServerBasedTranslationMemoryLanguageDirectionCollection directionsCollection)
+<pre><code class="lang-cs">private void CreateLanguageDirections(ServerBasedTranslationMemoryLanguageDirectionCollection languageDirectionsCollection)
 {
-    ServerBasedTranslationMemoryLanguageDirection direction = new ServerBasedTranslationMemoryLanguageDirection();
-    direction.SourceLanguage = CultureInfo.GetCultureInfo(&quot;en-US&quot;);
-    direction.TargetLanguage = CultureInfo.GetCultureInfo(&quot;de-DE&quot;);
+    var languageDirection = new ServerBasedTranslationMemoryLanguageDirection();
+    languageDirection.SourceLanguage = CultureInfo.GetCultureInfo(&quot;en-US&quot;);
+    languageDirection.TargetLanguage = CultureInfo.GetCultureInfo(&quot;de-DE&quot;);
 
-    directionsCollection.Add(direction);
+    languageDirectionsCollection.Add(languageDirection);
 }
 </code></pre></section>
 </div>
-<p>Note that while file-based translation memories can only be bilingual, server TMs can be multilingual. This means that you can add multiple directions to the languages directions collection. However, in this example we only add one direction to the language directions collection.</p>
+<p>Note that while file-based translation memories can only be bilingual, server TMs can be multilingual. This means that you can add multiple language directions to the languages directions collection. However, in this example we only add one direction to the language directions collection.</p>
 <h2 id="field-and-language-resources-templates">Field and Language Resources Templates</h2>
-<p>When creating a TM you can select a field and language resources template. Field templates store the fields that can be added to a TU (e.g. <em>Customer, Project id</em>, etc.). Language resource templates can store custom abbreviation lists, variables, etc. For more information on these kinds of templates, please see <a href="configuring_translation_memories.html">Configuring Translation Memories</a>. In order to select a fields template during creation of a TM, you need to apply the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.html#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationProviderServer_GetFieldsTemplates_Sdl_LanguagePlatform_TranslationMemoryApi_FieldsTemplateProperties_System_Boolean_">GetFieldsTemplates</a> method to the TM server object. This method requires the template name and the template properties (<a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.FieldsTemplateProperties.html">FieldsTemplateProperties</a>) as parameters. In the same way you can select the language resources templates by applying the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.html#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationProviderServer_GetLanguageResourcesTemplates_Sdl_LanguagePlatform_TranslationMemoryApi_LanguageResourcesTemplateProperties_System_Boolean_">GetLanguageResourcesTemplates</a> method, which also takes the template name and the template properties (<a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourcesTemplateProperties.html">LanguageResourcesTemplateProperties</a>) as parameters
-:</p>
+<p>When creating a TM you can select a field and language resources template. Field templates store the fields that can be added to a TU (e.g. <em>Customer, Project id</em>, etc.). Language resource templates can store custom abbreviation lists, variables, etc. For more information on these kinds of templates, please see <a href="configuring_translation_memories.html">Configuring Translation Memories</a>. In order to select a fields template during creation of a TM, you need to apply the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.html#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationProviderServer_GetFieldsTemplates_Sdl_LanguagePlatform_TranslationMemoryApi_FieldsTemplateProperties_System_Boolean_">GetFieldsTemplates</a> method to the TM server object. This method requires the template name and the template properties (<a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.FieldsTemplateProperties.html">FieldsTemplateProperties</a>) as parameters. In the same way you can select the language resources templates by applying the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.html#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationProviderServer_GetLanguageResourcesTemplates_Sdl_LanguagePlatform_TranslationMemoryApi_LanguageResourcesTemplateProperties_System_Boolean_">GetLanguageResourcesTemplates</a> method, which also takes the template name and the template properties (<a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourcesTemplateProperties.html">LanguageResourcesTemplateProperties</a>) as parameters.</p>
 <div class="tabGroup" id="tabgroup_RIMpy9AxT4-6">
 <ul role="tablist">
 <li role="presentation">
@@ -225,7 +222,7 @@ foreach (ServerBasedLanguageResourcesTemplate template in tmServer.GetLanguageRe
 <div class="NOTE"><h5>Note</h5><p>Field templates are only available for server TMs. For file-based TMs, fields need to be configured for each TM individually, and cannot be centralized in a field template.</p>
 </div>
 <h2 id="select-the-organization">Select the Organization</h2>
-<p>TMs are assigned to organizations, by default the <em>Root Organization</em>. Organizations make it easier to manage large numbers of TMs. For example, if you want to create TMs for a specific customer, you can first define an organization called e.g. <em>Microsoft</em>, and then create all Microsoft-related TMs within this organization. It is also possible to define that only particular users should have access to this organization, and thus to the TMs created therein. In our implementation we create the new TM within the <em>organization</em> passed in through the organization parameter.</p>
+<p>TMs are assigned to organizations, by default to the <em>Root Organization</em>. Organizations make it easier to manage large numbers of TMs. For example, if you want to create TMs for a specific customer, you can first define an organization called e.g. <em>Microsoft</em>, and then create all Microsoft-related TMs within this organization. It is also possible to define that only particular users should have access to this organization, and thus to the TMs created therein. In our implementation we create the new TM within the <em>organization</em> passed in through the organization parameter.</p>
 <div class="NOTE"><h5>Note</h5><p>If you have not defined organizations, and want to use the Root Organization, the path would simply be:
  /</p>
 <p>If you take a <em>sub-ordinate organization</em>, the path to the organization would look as follows:</p>
@@ -247,7 +244,9 @@ sub-divides into departments), the path would look as shown below:</p>
 {
     string tmPath = organizationPath;
     if (!tmPath.EndsWith(&quot;/&quot;))
+    {
         tmPath += &quot;/&quot;;
+    }
 
     ServerBasedTranslationMemory tm = tmServer.GetTranslationMemory(tmPath + tmName, TranslationMemoryProperties.All);
     tm.Delete();
@@ -285,7 +284,7 @@ sub-divides into departments), the path would look as shown below:</p>
             #endregion
 
             #region &quot;TM&quot;
-            ServerBasedTranslationMemory newTM = new ServerBasedTranslationMemory(tmServer);
+            var newTM = new ServerBasedTranslationMemory(tmServer);
             newTM.Name = tmName;
             newTM.Description = &quot;Programmatically created sample TM&quot;;
             newTM.Copyright = &quot;(c) 2021 RWS Group&quot;;
@@ -293,7 +292,9 @@ sub-divides into departments), the path would look as shown below:</p>
 
             string containerPath = organizationPath;
             if (!containerPath.EndsWith(&quot;/&quot;))
+            {
                 containerPath += &quot;/&quot;;
+            }
 
             #region &quot;container&quot;
             containerPath += containerName;
@@ -311,7 +312,9 @@ sub-divides into departments), the path would look as shown below:</p>
 
             string templatePath = organizationPath;
             if (!templatePath.EndsWith(&quot;/&quot;))
+            {
                 templatePath += &quot;/&quot;;
+            }
 
             #region &quot;templates&quot;
             string sampleFieldTemplateName = &quot;MyFieldTemplate&quot;;
@@ -346,20 +349,18 @@ sub-divides into departments), the path would look as shown below:</p>
         #region &quot;ContainerProps&quot;
         private ContainerProperties GetContainerProperties()
         {
-            ContainerProperties props = new ContainerProperties();
-
-            return props;
+            return new ContainerProperties();
         }
         #endregion
 
         #region &quot;languages&quot;
-        private void CreateLanguageDirections(ServerBasedTranslationMemoryLanguageDirectionCollection directionsCollection)
+        private void CreateLanguageDirections(ServerBasedTranslationMemoryLanguageDirectionCollection languageDirectionsCollection)
         {
-            ServerBasedTranslationMemoryLanguageDirection direction = new ServerBasedTranslationMemoryLanguageDirection();
-            direction.SourceLanguage = CultureInfo.GetCultureInfo(&quot;en-US&quot;);
-            direction.TargetLanguage = CultureInfo.GetCultureInfo(&quot;de-DE&quot;);
+            ServerBasedTranslationMemoryLanguageDirection languageDirection = new ServerBasedTranslationMemoryLanguageDirection();
+            languageDirection.SourceLanguage = CultureInfo.GetCultureInfo(&quot;en-US&quot;);
+            languageDirection.TargetLanguage = CultureInfo.GetCultureInfo(&quot;de-DE&quot;);
 
-            directionsCollection.Add(direction);
+            languageDirectionsCollection.Add(languageDirection);
         }
         #endregion
 
@@ -368,7 +369,9 @@ sub-divides into departments), the path would look as shown below:</p>
         {
             string tmPath = organizationPath;
             if (!tmPath.EndsWith(&quot;/&quot;))
+            {
                 tmPath += &quot;/&quot;;
+            }
 
             ServerBasedTranslationMemory tm = tmServer.GetTranslationMemory(tmPath + tmName, TranslationMemoryProperties.All);
             tm.Delete();

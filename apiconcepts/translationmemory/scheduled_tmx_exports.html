@@ -108,7 +108,7 @@ ServerBasedTranslationMemory tm = tmServer.GetTranslationMemory(
 </li>
 </ul>
 <section id="tabpanel_-ec90A1J-T-1_tabid-2" role="tabpanel" data-tab="tabid-2">
-<pre><code class="lang-cs">ScheduledTranslationMemoryExportOperation exporter = new ScheduledTranslationMemoryExportOperation(
+<pre><code class="lang-cs">var exporter = new ScheduledServerTranslationMemoryExport(
     this.GetLanguageDirection(tm, CultureInfo.GetCultureInfo(&quot;en-US&quot;), CultureInfo.GetCultureInfo(&quot;de-DE&quot;)));
 </code></pre></section>
 </div>
@@ -203,7 +203,7 @@ while (continueWaiting)
 {
     using (Stream outputStream  = new FileStream(exportFilePath, FileMode.Create))
     {
-        exporter.DownloadExport(outputStream, exporter_Downloaded);
+        exporter.DownloadExport(outputStream);
     }
     MessageBox.Show(&quot;Export successfuly finished.&quot;);
 }
@@ -246,7 +246,7 @@ else
             #endregion
 
             #region &quot;exporter&quot;
-            ScheduledTranslationMemoryExportOperation exporter = new ScheduledTranslationMemoryExportOperation(
+            var exporter = new ScheduledServerTranslationMemoryExport(
                 this.GetLanguageDirection(tm, CultureInfo.GetCultureInfo(&quot;en-US&quot;), CultureInfo.GetCultureInfo(&quot;de-DE&quot;)));
             #endregion
 
@@ -295,7 +295,7 @@ else
             {
                 using (Stream outputStream  = new FileStream(exportFilePath, FileMode.Create))
                 {
-                    exporter.DownloadExport(outputStream, exporter_Downloaded);
+                    exporter.DownloadExport(outputStream);
                 }
                 MessageBox.Show(&quot;Export successfuly finished.&quot;);
             }
@@ -324,23 +324,14 @@ else
             throw new Exception(&quot;Requested direction doesn&#39;t exist.&quot;);
         }
         #endregion
-
-        private void exporter_Downloaded(object sender, FileTransferEventArgs e)
-        {
-            MessageBox.Show(&quot;Transferred - &quot; + e.BytesTransferred.ToString() + &quot; out of &quot; + e.TotalBytes.ToString() + &quot; bytes\r\n&quot;);
-            e.Cancel = false;
-        }
-
     }
 }
-</code></pre></section>
-</div>
-<div class="NOTE"><h5>Note</h5><p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
-</div>
-<h2 id="see-also">See Also</h2>
+</code></pre><h2 id="see-also">See Also</h2>
 <p><a href="scheduled_tmx_imports.html">Scheduled TMX Imports</a></p>
 <p><a href="exporting_to_a_tmx_file.html">Exporting to a TMX File</a></p>
 <p><a href="importing_a_tmx_file.html">Importing a TMX File</a></p>
+</section>
+</div>
 </article>
           </div>
           
