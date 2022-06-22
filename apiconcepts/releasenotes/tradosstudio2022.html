@@ -82,37 +82,38 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="release-notes-for-varproductnamewithedition">Release Notes for Trados Studio 2022</h1>
 
-<h1 id="project-api">Project API</h1>
-<h2 id="sdlprojectapiimplementation">Sdl.ProjectApi.Implementation</h2>
-<p>We removed all GroupShare 2015 references from the API since GroupShare 2015 is EOL. This means that the checkbox for the due date is always visible since all support for GroupShare 2015 was removed.</p>
+<h1 id="groupshare-2015-integration">Groupshare 2015 Integration</h1>
+<p>As of Trados Studio 2022 the integration with Groupshare 2015 is EOL. Therefore the our public APIs no longer offer the support and any code references have been removed.</p>
 <h1 id="project-automation-api">Project Automation API</h1>
-<h2 id="sdlprojectautomationcore">Sdl.ProjectAutomation.Core</h2>
-<ul>
-<li><p>We expanded the <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.ProjectInfo.html">ProjectInfo</a> class to include information regarding the current user associated to the project.
+<h3 id="new-properties-on-projectinfoapiprojectautomationsdlprojectautomationcoreprojectinfoyml">New properties on <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.ProjectInfo.html">ProjectInfo</a></h3>
+<p>We expanded the <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.ProjectInfo.html">ProjectInfo</a> class to include information regarding the current user associated to the project.
 The <code>CurrentUserID</code> Property is identical to the user under which the API is running locally. For server-based projects this represents the ID of the user that is currently logged on to the server.</p>
-<p>  Example: </p>
-<pre><code class="lang-cs">var projectInfo = filesController.CurrentProject.GetProjectInfo();
+<pre><code>Example: 
+```cs
+var projectInfo = filesController.CurrentProject.GetProjectInfo();
 
 Console.WriteLine(projectInfo.CurrentUserId);
-</code></pre></li>
-<li>Added the <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.CommonFileExtensions.html">CommonFieExtensions</a> class which returns constants for Studio&#39;s most common file extensions.</li>
-</ul>
+```
+</code></pre><h3 id="studio-supported-extensions">Studio supported extensions</h3>
+<p>Added the <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.CommonFileExtensions.html">CommonFileExtensions</a> class which returns constants for Studio&#39;s most common file extensions.</p>
 <h1 id="integration-api">Integration API</h1>
-<h2 id="sdltranslationstudioautomationintegrationapi">Sdl.TranslationStudioAutomation.IntegrationApi</h2>
-<ul>
-<li><p>The <a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.FilesController.html">FilesController</a> class now exposesa property called <code>SelectedTasks</code> which returns the list of tasks currently selected by the user on the UI.</p>
-<p>  This allows the developers to interact with the selected tasks and not just the selected files on the Files View</p>
-<p>  Example:</p>
-<pre><code class="lang-cs">var filesController = SdlTradosStudio.Application.GetController&lt;FilesController&gt;();
+<h3 id="extended-filescontrollerapiintegrationsdltranslationstudioautomationintegrationapifilescontrolleryml">Extended <a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.FilesController.html">FilesController</a></h3>
+<p>The <a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.FilesController.html">FilesController</a> class now exposes a property called <code>SelectedTasks</code> which returns the list of tasks currently selected by the user on the UI.</p>
+<p>This allows the developers to interact with the selected tasks and not just the selected files on the Files View.</p>
+<p>Example:</p>
+<pre><code>```cs
+var filesController = SdlTradosStudio.Application.GetController&lt;FilesController&gt;();
 var noTasksSelected = filesController.SelectedTasks.Count() == 0;
-</code></pre></li>
-<li><p>The Integration API introduces the concept of external package converter. This allows you to create package converters for integrations between different systems, for example WorldServer and TMS. </p>
-<p>  Along with the external package extension, the <code>IProject</code> interface now can now return the <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.ProjectFileTypeConfiguration.html">ProjectFileTypeConfiguration</a> of that project.</p>
-<p>  For more information see <a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.html">Packaging</a>.</p>
-</li>
-<li><p>The <code>Execute()</code> method of the <a href="../../api/integration/Sdl.Desktop.IntegrationApi.Jobs.IExternalJob.html">IExternalJob</a> interface now receives an <code>IexternalJobExecutionContext</code> which allows you to see if the job was cancelled by the user or report the progress.</p>
-<p>  Example:</p>
-<pre><code class="lang-cs">public class SampleJob : IExternalJobWithProgress
+```
+</code></pre><h3 id="package-conversion-support">Package conversion support</h3>
+<p>The Integration API introduces the concept of external package converter. This allows you to create package converters for integrations between different systems, for example WorldServer and TMS. </p>
+<p>Along with the external package extension, the <code>IProject</code> interface now can now return the <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.ProjectFileTypeConfiguration.html">ProjectFileTypeConfiguration</a> of that project.</p>
+<p>For more information see <a href="../integration/extend_standard_packaging_support.html">Extend default packaging functionality</a>.</p>
+<h3 id="better-control-through-iexternaljobapiintegrationsdldesktopintegrationapijobsiexternaljobyml">Better control through <a href="../../api/integration/Sdl.Desktop.IntegrationApi.Jobs.IExternalJob.html">IExternalJob</a></h3>
+<p>The <code>Execute()</code> method of the <a href="../../api/integration/Sdl.Desktop.IntegrationApi.Jobs.IExternalJob.html">IExternalJob</a> interface now receives an <code>IexternalJobExecutionContext</code> which allows you to see if the job was cancelled by the user or report the progress.</p>
+<pre><code>Example:
+```cs
+public class SampleJob : IExternalJobWithProgress
 {
    /// &lt;summary&gt;
    ///
@@ -149,10 +150,12 @@ var noTasksSelected = filesController.SelectedTasks.Count() == 0;
 
    public void JobCanceled(object sender, EventArgs e) { }
 }
-</code></pre></li>
-<li><p>We extended the <a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Events.OpenProjectPackageEvent.html">OpenProjectPackageEvent</a> and <a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Events.CreateReturnPackageEvent.html">CreateReturnPackageEvent</a> to allow you to inject wiard pages in the <strong>Open Package</strong> or <strong>Create Return Package</strong> wizards. The pages are added either as the first, or the last pages before processing the page.</p>
-<p>  Example: </p>
-<pre><code class="lang-cs">var customPages = new List&lt;StudioWizardPage&gt;
+```
+</code></pre><h3 id="ability-to-inject-custom-wizard-pages-in-the-standard-open-package-and-create-return-package-wizards">Ability to inject custom wizard pages in the standard <em>Open Package</em> and <em>Create Return Package</em> wizards</h3>
+<p>We extended the <a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Events.OpenProjectPackageEvent.html">OpenProjectPackageEvent</a> and <a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Events.CreateReturnPackageEvent.html">CreateReturnPackageEvent</a> to allow you to inject wizard pages in the <strong>Open Package</strong> or <strong>Create Return Package</strong> wizards. The pages are added either as the first, or the last pages before processing the page.</p>
+<pre><code>Example: 
+```cs
+var customPages = new List&lt;StudioWizardPage&gt;
     {
         new WsSettingsWizardPage(settingsProvider, pageLogger),
     };
@@ -166,9 +169,8 @@ var noTasksSelected = filesController.SelectedTasks.Count() == 0;
 
     var eventAggregatorService = SdlTradosStudio.Application.GetService&lt;IStudioEventAggregator&gt;();
     eventAggregatorService.Publish(command);
-</code></pre></li>
-</ul>
-</article>
+```
+</code></pre></article>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">

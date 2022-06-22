@@ -82,7 +82,7 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="retrieving-licensing-information">Retrieving Licensing Information</h1>
 
-<p>An TM Server is licensed for a certain number of concurrent users and the number of translation units that it can store at maximum. It may sometimes be necessary to retrieve the maximum number of TUs allowed, and the number of TUs currently stored. This chapter provides an example of how to retrieve this information programmatically.</p>
+<p>A TM Server is licensed for a certain number of concurrent users and the number of translation units that it can store at maximum. It may sometimes be necessary to retrieve the maximum number of TUs allowed, and the number of TUs currently stored. This chapter provides an example of how to retrieve this information programmatically.</p>
 <h2 id="add-a-new-class">Add a New Class</h2>
 <p>Start by adding a class called <code>ServerLicensing</code> to your project. Then implement a public function called <code>GetLicensingInformation</code>, which takes a <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.html">TranslationProviderServer</a> object as parameter. This function can be called as shown below:</p>
 <div class="tabGroup" id="tabgroup_uylP7GlFci">
@@ -92,11 +92,11 @@
 </li>
 </ul>
 <section id="tabpanel_uylP7GlFci_tabid-1" role="tabpanel" data-tab="tabid-1">
-<pre><code class="lang-cs">ServerLicensing license = new ServerLicensing();
+<pre><code class="lang-cs">var license = new ServerLicensing();
 license.GetLicensingInformation(tmServer);
 </code></pre></section>
 </div>
-<p>By applying the <code>GetLicensingStatusInformation</code> method to the server you create a <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.LicensingStatusInformation.html">LicensingStatusInformation</a> object, through which we retrieve the required information, such as the maximum allowed number of concurrent users, the maximum allowed numbers of TUs as well as the current TU count:</p>
+<p>By applying the <code>GetLicensingStatusInformation</code> method to the server you create a <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.LicensingStatusInformation.html">LicensingStatusInformation</a> object, through which you retrieve the required information, such as the maximum  number of concurrent users allowed, the maximum numbers of TUs, as well as the current TU count:</p>
 <div class="tabGroup" id="tabgroup_uylP7GlFci-1">
 <ul role="tablist">
 <li role="presentation">
@@ -113,6 +113,7 @@ license.GetLicensingInformation(tmServer);
     licInfo += &quot;Max. concurrent users: &quot; + info.MaxConcurrentUsers.ToString();
     licInfo += &quot;Max. TU count: &quot; + info.MaxTranslationUnitCount.ToString();
     licInfo += &quot;Current TU count: &quot; + info.CurrentTranslationUnitCount.ToString();
+    licInfo += &quot;Current concurrent users: &quot; + info.CurrentConcurrentUsers.ToString();
 
     MessageBox.Show(licInfo, &quot;Licensing Information&quot;);
 }
@@ -145,6 +146,7 @@ license.GetLicensingInformation(tmServer);
             licInfo += &quot;Max. concurrent users: &quot; + info.MaxConcurrentUsers.ToString();
             licInfo += &quot;Max. TU count: &quot; + info.MaxTranslationUnitCount.ToString();
             licInfo += &quot;Current TU count: &quot; + info.CurrentTranslationUnitCount.ToString();
+            licInfo += &quot;Current concurrent users: &quot; + info.CurrentConcurrentUsers.ToString();
 
             MessageBox.Show(licInfo, &quot;Licensing Information&quot;);
         }

@@ -95,7 +95,7 @@
 </li>
 </ul>
 <section id="tabpanel_FwYJme1HpJ_tabid-1" role="tabpanel" data-tab="tabid-1">
-<pre><code class="lang-cs">StringBuilder templateList = new StringBuilder();
+<pre><code class="lang-cs">var templateList = new StringBuilder();
 
 foreach (ServerBasedFieldsTemplate template in tmServer.GetFieldsTemplates(FieldsTemplateProperties.All))
 </code></pre></section>
@@ -140,7 +140,7 @@ templateList.AppendLine(string.Empty);
 <pre><code class="lang-cs">public void GetFieldTemplates(TranslationProviderServer tmServer)
 {
     #region &quot;LoopTemplates&quot;
-    StringBuilder templateList = new StringBuilder();
+    var templateList = new StringBuilder();
 
     foreach (ServerBasedFieldsTemplate template in tmServer.GetFieldsTemplates(FieldsTemplateProperties.All))
     #endregion
@@ -165,7 +165,7 @@ templateList.AppendLine(string.Empty);
 }
 </code></pre></section>
 </div>
-<h2 id="retrieve-the-tms-that-use-a-given-fields-template">Retrieve the TMs that Use a Given Fields Template</h2>
+<h2 id="retrieve-the-tms-that-use-a-given-fields-template">Retrieve the TMs that use a given Fields Template</h2>
 <p>When creating server TMs you can specify a field template. The TM will then &#39;inherit&#39; the fields defined in the template. Imagine that you want to know which server TMs use a particular template. To do this, add a function called <code>GetTmsForTemplate</code>, which takes the translation provider server and the fields template name as parameters. First, retrieve the fields template that you want to select. The template can be referenced using the template name:</p>
 <div class="tabGroup" id="tabgroup_FwYJme1HpJ-4">
 <ul role="tablist">
@@ -185,7 +185,7 @@ templateList.AppendLine(string.Empty);
 </li>
 </ul>
 <section id="tabpanel_FwYJme1HpJ-5_tabid-6" role="tabpanel" data-tab="tabid-6">
-<pre><code class="lang-cs">StringBuilder tmList = new StringBuilder();
+<pre><code class="lang-cs">var tmList = new StringBuilder();
 
 foreach (ServerBasedTranslationMemory tm in template.TranslationMemories)
 {
@@ -210,7 +210,7 @@ MessageBox.Show(tmList.ToString());
     #endregion
 
     #region &quot;TmLoop&quot;
-    StringBuilder tmList = new StringBuilder();
+    var tmList = new StringBuilder();
 
     foreach (ServerBasedTranslationMemory tm in template.TranslationMemories)
     {
@@ -223,7 +223,7 @@ MessageBox.Show(tmList.ToString());
 </code></pre></section>
 </div>
 <h2 id="create-a-new-fields-template">Create a New Fields Template</h2>
-<p>In this step you will learn how to create a new server-based fields template. Imagine that you need to create a template that contains a text field called <em>Project id</em> and a list field called <em>Client</em>. Implement a function called <code>CreateTemplate</code>, which takes the translation provider server as parameter. Next, create a template object for the given server as shown below. Here, you also specify the general template information, i.e. the name and the (optional) description.</p>
+<p>In this step you will learn how to create a new server-based fields template. Imagine that you need to create a template that contains a text field called <em>Project Id</em> and a list field called <em>Client</em>. Implement a function called <code>CreateTemplate</code>, which takes the translation provider server as parameter. Next, create a template object for the given server as shown below. Here, you also specify the general template information, i.e. the name and the (optional) description.</p>
 <div class="tabGroup" id="tabgroup_FwYJme1HpJ-7">
 <ul role="tablist">
 <li role="presentation">
@@ -231,12 +231,12 @@ MessageBox.Show(tmList.ToString());
 </li>
 </ul>
 <section id="tabpanel_FwYJme1HpJ-7_tabid-8" role="tabpanel" data-tab="tabid-8">
-<pre><code class="lang-cs">ServerBasedFieldsTemplate template = new ServerBasedFieldsTemplate(tmServer);
+<pre><code class="lang-cs">var template = new ServerBasedFieldsTemplate(tmServer);
 template.Name = &quot;Sample Template&quot;;
 template.Description = &quot;Fields template created by API&quot;;
 </code></pre></section>
 </div>
-<p>In the next step, create the field definition object for the text field <em>Project id</em> by providing the field name and the field type (i.e. <strong>MultipleString</strong>):</p>
+<p>In the next step, create the field definition object for the text field <em>Project Id</em> by providing the field name and the field type (i.e. <strong>MultipleString</strong>):</p>
 <div class="tabGroup" id="tabgroup_FwYJme1HpJ-8">
 <ul role="tablist">
 <li role="presentation">
@@ -244,7 +244,7 @@ template.Description = &quot;Fields template created by API&quot;;
 </li>
 </ul>
 <section id="tabpanel_FwYJme1HpJ-8_tabid-9" role="tabpanel" data-tab="tabid-9">
-<pre><code class="lang-cs">FieldDefinition projField = new FieldDefinition(&quot;Project id&quot;, FieldValueType.MultipleString);
+<pre><code class="lang-cs">var projectIdField = new FieldDefinition(&quot;Project id&quot;, FieldValueType.MultipleString);
 </code></pre></section>
 </div>
 <p>Similarly, you create the list field called <em>Client</em>, which should allow for multiple picklist values. Since a list field needs to be associated with one or several pre-defined values, add two sample values to the field definition:</p>
@@ -255,7 +255,7 @@ template.Description = &quot;Fields template created by API&quot;;
 </li>
 </ul>
 <section id="tabpanel_FwYJme1HpJ-9_tabid-10" role="tabpanel" data-tab="tabid-10">
-<pre><code class="lang-cs">FieldDefinition clientField = new FieldDefinition(&quot;Client&quot;, FieldValueType.MultiplePicklist);
+<pre><code class="lang-cs">var clientField = new FieldDefinition(&quot;Client&quot;, FieldValueType.MultiplePicklist);
 clientField.PicklistItems.Add(&quot;Microsoft&quot;);
 clientField.PicklistItems.Add(&quot;SAP&quot;);
 </code></pre></section>
@@ -268,7 +268,7 @@ clientField.PicklistItems.Add(&quot;SAP&quot;);
 </li>
 </ul>
 <section id="tabpanel_FwYJme1HpJ-10_tabid-11" role="tabpanel" data-tab="tabid-11">
-<pre><code class="lang-cs">template.FieldDefinitions.Add(projField);
+<pre><code class="lang-cs">template.FieldDefinitions.Add(projectIdField);
 template.FieldDefinitions.Add(clientField);
 </code></pre></section>
 </div>
@@ -306,23 +306,23 @@ MessageBox.Show(&quot;Unsaved changes? &quot; + template.IsDirty.ToString());
 <pre><code class="lang-cs">public void CreateTemplate(TranslationProviderServer tmServer)
 {
     #region &quot;CreateTemplate&quot;
-    ServerBasedFieldsTemplate template = new ServerBasedFieldsTemplate(tmServer);
+    var template = new ServerBasedFieldsTemplate(tmServer);
     template.Name = &quot;Sample Template&quot;;
     template.Description = &quot;Fields template created by API&quot;;
     #endregion
 
     #region &quot;AddTextField&quot;
-    FieldDefinition projField = new FieldDefinition(&quot;Project id&quot;, FieldValueType.MultipleString);
+    var projectIdField = new FieldDefinition(&quot;Project id&quot;, FieldValueType.MultipleString);
     #endregion
 
     #region &quot;AddListField&quot;
-    FieldDefinition clientField = new FieldDefinition(&quot;Client&quot;, FieldValueType.MultiplePicklist);
+    var clientField = new FieldDefinition(&quot;Client&quot;, FieldValueType.MultiplePicklist);
     clientField.PicklistItems.Add(&quot;Microsoft&quot;);
     clientField.PicklistItems.Add(&quot;SAP&quot;);
     #endregion
 
     #region &quot;AddFieldsToTemplate&quot;
-    template.FieldDefinitions.Add(projField);
+    template.FieldDefinitions.Add(projectIdField);
     template.FieldDefinitions.Add(clientField);
     #endregion
 
@@ -359,7 +359,7 @@ MessageBox.Show(&quot;Unsaved changes? &quot; + template.IsDirty.ToString());
         public void GetFieldTemplates(TranslationProviderServer tmServer)
         {
             #region &quot;LoopTemplates&quot;
-            StringBuilder templateList = new StringBuilder();
+            var templateList = new StringBuilder();
 
             foreach (ServerBasedFieldsTemplate template in tmServer.GetFieldsTemplates(FieldsTemplateProperties.All))
             #endregion
@@ -392,7 +392,7 @@ MessageBox.Show(&quot;Unsaved changes? &quot; + template.IsDirty.ToString());
             #endregion
 
             #region &quot;TmLoop&quot;
-            StringBuilder tmList = new StringBuilder();
+            var tmList = new StringBuilder();
 
             foreach (ServerBasedTranslationMemory tm in template.TranslationMemories)
             {
@@ -408,23 +408,23 @@ MessageBox.Show(&quot;Unsaved changes? &quot; + template.IsDirty.ToString());
         public void CreateTemplate(TranslationProviderServer tmServer)
         {
             #region &quot;CreateTemplate&quot;
-            ServerBasedFieldsTemplate template = new ServerBasedFieldsTemplate(tmServer);
+            var template = new ServerBasedFieldsTemplate(tmServer);
             template.Name = &quot;Sample Template&quot;;
             template.Description = &quot;Fields template created by API&quot;;
             #endregion
 
             #region &quot;AddTextField&quot;
-            FieldDefinition projField = new FieldDefinition(&quot;Project id&quot;, FieldValueType.MultipleString);
+            var projectIdField = new FieldDefinition(&quot;Project id&quot;, FieldValueType.MultipleString);
             #endregion
 
             #region &quot;AddListField&quot;
-            FieldDefinition clientField = new FieldDefinition(&quot;Client&quot;, FieldValueType.MultiplePicklist);
+            var clientField = new FieldDefinition(&quot;Client&quot;, FieldValueType.MultiplePicklist);
             clientField.PicklistItems.Add(&quot;Microsoft&quot;);
             clientField.PicklistItems.Add(&quot;SAP&quot;);
             #endregion
 
             #region &quot;AddFieldsToTemplate&quot;
-            template.FieldDefinitions.Add(projField);
+            template.FieldDefinitions.Add(projectIdField);
             template.FieldDefinitions.Add(clientField);
             #endregion
 
