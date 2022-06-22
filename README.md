@@ -42,4 +42,5 @@ In order for you to make a contribution directly please follow the next steps:
       <var:PluginUnpackedPath> - the location where plugins are unpacked, for example '%AppData%\Roaming\SDL\SDL Trados Studio\16\Plugins\Unpacked\'
       <var:InstallationFolder> - the current installation folder of our product, for example 'C:\Program Files\SDL\SDL Trados Studio\Studio16\'
       
-      
+### Writing guidelines
+For consistency and ease of use we recommend you read [Writing Guidelines](writing_guidelines.md) before making any contribution. This helps keep a consistency across the reading material as well facilitate good writing and straightforward expression of concepts.
