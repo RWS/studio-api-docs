@@ -23,15 +23,15 @@ You can add the nuget package to your project via the package manager user inter
   
 ## Remarks
 The Useful Tips service first checks for already existing tips before attempting to add new ones. If tips exist in the Useful Tips collection, only those identified as new are added.  
-If Trados Studio was not launched as administrator, the user may receive a message from the service asking to elevate the user rights before updating the Useful Tips collection in Trados Studio with the new tips from the plugin.
+If <Var:ProductName> was not launched as administrator, the user may receive a message from the service asking to elevate the user rights before updating the Useful Tips collection in <Var:ProductName> with the new tips from the plugin.
 > [!Note]
-> Administrator rights are required, as the local tip files that manage the Useful Tips collection in Trados Studio reside in the <var:ProductName> installation directory.
+> Administrator rights are required, as the local tip files that manage the Useful Tips collection in <Var:ProductName> reside in the <var:ProductName> installation directory.
 > Only a user with administrator access rights can modify files from the installation directory.  
 
 
 ### Settings
 The Useful Tips service enables the user to hide the message that is displayed when new Tips are available for installation, by selecting the option '**Don't show this message again**'.  
-This is necessary if the user did not update the Useful Tips collection when prompted in Trados Studio; in this case, the decision from the user will be persisted and no further attempt is made to add those tips for that version of Trados Studio.
+This is necessary if the user did not update the Useful Tips collection when prompted in <Var:ProductName>; in this case, the decision from the user will be persisted and no further attempt is made to add those tips for that version of <Var:ProductName>.
 <img style="display:block; " src="images/PromptInstallUsefulTipsMessage.png" />
 
 **Q:** Where can I locate the _Settings.xml_ files of the Useful Tips service?  
@@ -40,7 +40,7 @@ _C:\Users\\**[username]**\AppData\Roaming\RWS Community\UsefulTipsService\Settin
 > [!NOTE]
 > Replace **[username]** with your OS login account name  
 
-**Q:** How can the user add tips from the plugin to the Useful Tips collection in Trados Studio if they previously opted-out to adding them?  
+**Q:** How can the user add tips from the plugin to the Useful Tips collection in <Var:ProductName> if they previously opted-out to adding them?  
 **A:** The decision taken by the user to prevent the prompt message from being displayed is persisted in the _Settings.xml_ file. To manually update this setting, simply open the _Settings.xml_ file in a text editor, search for the entry associated with the application and change the boolean value associated with the **HidePromptMessage** property to 'false'.
 
 ~~~xml

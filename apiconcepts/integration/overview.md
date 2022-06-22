@@ -1,4 +1,4 @@
-Trados Studio Integration API
+<Var:ProductName> Integration API
 ====
 
 Welcome to the <Var:ProductName> Integration API. This API provides access to <Var:ProductName> application functionality.

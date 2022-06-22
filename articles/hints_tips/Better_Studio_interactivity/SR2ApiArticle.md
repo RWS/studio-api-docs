@@ -1,7 +1,7 @@
 # Better Studio interactivity in day to day flow
-Together with the release of Trados Studio 2019 SR2 we decided to make some improvements to our public APIs and give our 3<sup>rd</sup> Party developers more access to Studio's functional flows as well as user interface styling. Throughout this article we will present the functionality we exposed in our APIs and the means by which you can make the most out of it.
+Together with the release of <Var:ProductName> 2019 SR2 we decided to make some improvements to our public APIs and give our 3<sup>rd</sup> Party developers more access to Studio's functional flows as well as user interface styling. Throughout this article we will present the functionality we exposed in our APIs and the means by which you can make the most out of it.
 ## Improved Notification System
-The notification system in Trados Studio, which can be accessed via the Notification View pane (on the right-hand side), was intended as a mechanism allowing us to promote notifications in a non-intrusive manner, while translators interact with Studio. We continued to take advantage of it, but while developing new features, we realized  it had some short-comings that needed to be addressed. After we fixed the issues, we decided to make them available in the public APIs.
+The notification system in <Var:ProductName>, which can be accessed via the Notification View pane (on the right-hand side), was intended as a mechanism allowing us to promote notifications in a non-intrusive manner, while translators interact with Studio. We continued to take advantage of it, but while developing new features, we realized  it had some short-comings that needed to be addressed. After we fixed the issues, we decided to make them available in the public APIs.
 
 In order to allow translators to remove a specific notification, we introduced two new properties on the `IStudioNotification` interface. As developers, you will have full control over which notifications can be removed by translators and which not, as well as over what should happen within the remove logic.
 
@@ -79,7 +79,7 @@ If you are unclear about which properties need to be set in order to control var
 
 
 ## Improved interactivity with projects
-In this section we will present some of the new API events and interfaces that we exposed to help your plugins integrate better with Trados Studio's project and package flows. 
+In this section we will present some of the new API events and interfaces that we exposed to help your plugins integrate better with <Var:ProductName>'s project and package flows. 
 
 #### Accessing the ***New Project*** wizard
 
@@ -92,7 +92,7 @@ With Studio 2019 SR2 you can now request for **New Project** wizard to be opened
 | `ProjectTemplate` | Set this property to the full path of a project template file (*.sdltpl) that will be used by the wizard for creating the project. |
 | `ProjectReference` | Set this property to the full path of a project file (*.sdlproj) that will be used by the wizard for creating the project. |
 
-Please note that you can either pass a project template or a project reference template. In the event you pass values for both, Trados Studio will use the project template file.
+Please note that you can either pass a project template or a project reference template. In the event you pass values for both, <Var:ProductName> will use the project template file.
 
 Here is a small code sample on how to implement the event publishing:
 ```cs
@@ -153,7 +153,7 @@ if (project != null)
     eventAggregator.Publish(new CreateReturnPackageEvent(selectedProjectid, sampleJob));
 }
 ```
-The `IExternalJob` and `IExternalJobWithProgress` interfaces are the bridge that will allow you to inject custom code into the wizards as well as into Trados Studio's job mechanism. This gives you the advantage to achieve the same look and feel for long processing jobs besides helping you complete your work faster. Once you have an implementation ready all you need to do is publish  `ExecuteExternalJobEvent` using `IStudioEventAggregator`. As a result, Trados Studio will pick the job and execute it on a background thread or inject it into the previously-mentioned events. If the job is cancelled for any reason, you can handle that from the `JobCanceled` method.
+The `IExternalJob` and `IExternalJobWithProgress` interfaces are the bridge that will allow you to inject custom code into the wizards as well as into <Var:ProductName>'s job mechanism. This gives you the advantage to achieve the same look and feel for long processing jobs besides helping you complete your work faster. Once you have an implementation ready all you need to do is publish  `ExecuteExternalJobEvent` using `IStudioEventAggregator`. As a result, <Var:ProductName> will pick the job and execute it on a background thread or inject it into the previously-mentioned events. If the job is cancelled for any reason, you can handle that from the `JobCanceled` method.
 
 | Interface        |  Purpose  |
 | ------------- | -----|
@@ -194,16 +194,16 @@ public class SampleJob : IExternalJobWithProgress
     }
 }
 ```
-> Please note that the `JobData` property acts as a bridge between Trados Studio and your plugin in case of using the job inside the **Open Package** and **Create Return Package** wizards. Trados Studio will set the file path on the property as follows:
-> - the file path to the project that was just imported into Trados Studio, in the case of the **Open Package** wizard
+> Please note that the `JobData` property acts as a bridge between <Var:ProductName> and your plugin in case of using the job inside the **Open Package** and **Create Return Package** wizards. <Var:ProductName> will set the file path on the property as follows:
+> - the file path to the project that was just imported into <Var:ProductName>, in the case of the **Open Package** wizard
 > - the file path for the created package, in the case of the **Create Return Package** wizard.
 
 ## Other improvements
 
 In this section we will present some additional changes which we consider useful for plugin development.
 
-#### Knowing when the Trados Studio main window was created
-There are situations when you want to know when your application has completed loading in order to perform a specific user operation. For example, you want to display a log-in prompt for the translators from your plugin. For such a scenario (but not only), we exposed the `StudioWindowCreatedNotificationEvent` which will be published from Trados Studio once it completes loading. Now you only need to subscribe to this event and you are set to go. 
+#### Knowing when the <Var:ProductName> main window was created
+There are situations when you want to know when your application has completed loading in order to perform a specific user operation. For example, you want to display a log-in prompt for the translators from your plugin. For such a scenario (but not only), we exposed the `StudioWindowCreatedNotificationEvent` which will be published from <Var:ProductName> once it completes loading. Now you only need to subscribe to this event and you are set to go. 
 
 ```cs
     protected override void Initialize(IViewContext context)
@@ -218,7 +218,7 @@ There are situations when you want to know when your application has completed l
     }
 ```
 #### Refreshing the Projects view
-For situations where you would like to have the list of Trados Studio projects refreshed in the Projects view you can now publish a `RefreshProjectsEvent` object via the event aggregator.
+For situations where you would like to have the list of <Var:ProductName> projects refreshed in the Projects view you can now publish a `RefreshProjectsEvent` object via the event aggregator.
 
 ```cs
    eventAggregator.Publish(new RefreshProjectsEvent());
