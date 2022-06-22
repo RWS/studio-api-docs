@@ -46,15 +46,43 @@ To engage and educate readers, choose precise, strong, specific verbs. Reduce im
 * forms of be: is, are, am, was, were, etc.
 * occur
 * happen
+
 For example, consider how strengthening the weak verb in the following sentences ignites a more engaging sentence:
 
 | Weak Verb | Strong Verb |
-| The exception occurs when dividing by zero. | Dividing by zero raises the exception. |
+|-----------|-------------|
+| The exception occurs when dividing by zero. | Dividing by zero **raises** the exception. |
+| This error message happens when... | 	The system **generates** this error message when... |
+| We are very careful to ensure... | We carefully **ensure**... |
 
-
+<br/>
 Many writers rely on forms of be as if they were the only spices on the rack. Sprinkle in different verbs and watch your prose become more appetizing. That said, a form of be is sometimes the best choice of verb, so don't feel that you have to eliminate every form of be from your writing.
 
 Note that generic verbs often signal other ailments, such as:
 
 * an imprecise or missing actor in a sentence
 * a passive voice sentence
+
+## Short sentences
+Software engineers generally try to minimize the number of lines of code in an implementation for the following reasons:
+
+* Shorter code is typically easier for others to read.
+* Shorter code is typically easier to maintain than longer code.
+* Extra lines of code introduce additional points of failure.
+
+In fact, the same rules apply to technical writing:
+
+* Shorter documentation reads faster than longer documentation.
+* Shorter documentation is typically easier to maintain than longer documentation.
+* Extra lines of documentation introduce additional points of failure.
+
+Finding the shortest documentation implementation takes time but is ultimately worthwhile. Short sentences communicate more powerfully than long sentences, and short sentences are usually easier to understand than long sentences.
+
+### Focus each sentence on a single idea
+Focus each sentence on a single idea, thought, or concept. Just as statements in a program execute a single task, sentences should execute a single idea. For example, the following very long sentence contains multiple thoughts:
+
+> The late 1950s was a key era for programming languages because IBM introduced Fortran in 1957 and John McCarthy introduced Lisp the following year, which gave programmers both an iterative way of solving problems and a recursive way.
+
+Breaking the long sentence into a succession of single-idea sentences yields the following result:
+
+> The late 1950s was a key era for programming languages. IBM introduced Fortran in 1957. John McCarthy invented Lisp the following year. Consequently, by the late 1950s, programmers could solve problems iteratively or recursively.
