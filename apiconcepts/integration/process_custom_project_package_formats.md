@@ -22,7 +22,7 @@ The first step in creating a custom package converter is the declaration:
     | `Description` | Description for the converter |
     | `PackageFileFilter` | The filter to be used by the Windows OS File Opener dialog. This allows the user to see only files that match the given extension and thus pick a valid file. |
     |`PackageFileExtension`| The file extension of the package to be imported into <Var:ProductName>.|
-    |`ReturnPackageFileExtension`|the file extension of the return package.|
+    |`ReturnPackageFileExtension`|The file extension of the return package.|
 
 The bellow sample provides a visual to the elements described above:
 
@@ -58,7 +58,7 @@ public class SamplePackageConverter : IExternalPackageConverter
 ```
 
 > [!NOTE]
-> The __Open Package__ and __Create Return Package__ wizards `Data` object is available in the custom package converter as well, via the [ExternalPackageConversionInfo.CustomData](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.ExternalPackageConversionInfo.yml#Sdl_TranslationStudioAutomation_IntegrationApi_Packaging_ExternalPackageConversionInfo_CustomData) property, allowing third party developers to use inside the converter data that has been captured in their custom wizard pages .
+> The __Open Package__ and __Create Return Package__ wizard's `Data` object is available in the custom package converter as well, via the [ExternalPackageConversionInfo.CustomData](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.ExternalPackageConversionInfo.yml#Sdl_TranslationStudioAutomation_IntegrationApi_Packaging_ExternalPackageConversionInfo_CustomData) property, allowing third party developers to use inside the converter data that has been captured in their custom wizard pages .
 
 ## Importing a custom package
 Importing a custom package is done by implementing the `ConvertPackage(IConversionContext context, ExternalPackageConversionInfo externalPackageConversionInfo)` method. The usual steps within the implementation are as follows:
