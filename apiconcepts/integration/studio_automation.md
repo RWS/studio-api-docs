@@ -2,6 +2,8 @@ Introduction
 ====
 The <Var:ProductName> Integration API enables third-party developers to extend, customize and integrate their own functionalities inside the <Var:ProductName> application.
 
+![Automation plug-ins](images/Automation.png)
+
 Make sure the following references are added to your project, you will find them in the installation folder <Var:ProductName>.
 
 * Sdl.Desktop.IntegrationApi.dll
