@@ -8,7 +8,7 @@
     <title>Exporting to TMX </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Exporting to TMX ">
-    <meta name="generator" content="docfx 2.59.2.0">
+    <meta name="generator" content="docfx 2.59.3.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
@@ -99,8 +99,8 @@
 public void Export(string translationMemoryPath)
 {
     this.exportProgress = 0;
-    FileBasedTranslationMemory tm = new FileBasedTranslationMemory(translationMemoryPath);
-    TranslationMemoryExporter exporter = new TranslationMemoryExporter(tm.LanguageDirection);
+    var tm = new FileBasedTranslationMemory(translationMemoryPath);
+    var exporter = new TranslationMemoryExporter(tm.LanguageDirection);
 
     // set event handler
     exporter.BatchExported += new EventHandler&lt;BatchExportedEventArgs&gt;(this.Exporter_BatchExported);
@@ -139,16 +139,16 @@ private void Exporter_BatchExported(object sender, BatchExportedEventArgs e)
 </li>
 </ul>
 <section id="tabpanel_e0mbQcXkqq-1_tabid-2" role="tabpanel" data-tab="tabid-2">
-<pre><code class="lang-cs">namespace SDK.LanguagePlatform.Samples.BatchExport
-{
-    using System;
-    using System.Globalization;
-    using Sdl.LanguagePlatform.TranslationMemoryApi;
+<pre><code class="lang-cs">using System;
+using System.Globalization;
+using Sdl.LanguagePlatform.TranslationMemoryApi;
 
+namespace SDK.LanguagePlatform.Samples.BatchExport
+{
     /// &lt;summary&gt;
     /// Represents functionality for exporting *.tmx files.
     /// &lt;/summary&gt;
-    public class TMExporter
+    public class TmExporter
     {
         /// &lt;summary&gt;
         /// Represents current export progress in persents.
@@ -165,8 +165,8 @@ private void Exporter_BatchExported(object sender, BatchExportedEventArgs e)
         public void Export(string translationMemoryPath)
         {
             this.exportProgress = 0;
-            FileBasedTranslationMemory tm = new FileBasedTranslationMemory(translationMemoryPath);
-            TranslationMemoryExporter exporter = new TranslationMemoryExporter(tm.LanguageDirection);
+            var tm = new FileBasedTranslationMemory(translationMemoryPath);
+            var exporter = new TranslationMemoryExporter(tm.LanguageDirection);
 
             // set event handler
             exporter.BatchExported += new EventHandler&lt;BatchExportedEventArgs&gt;(this.Exporter_BatchExported);

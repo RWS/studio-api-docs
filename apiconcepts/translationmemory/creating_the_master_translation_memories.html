@@ -8,7 +8,7 @@
     <title>Creating the Master Translation Memories </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Creating the Master Translation Memories ">
-    <meta name="generator" content="docfx 2.59.2.0">
+    <meta name="generator" content="docfx 2.59.3.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
@@ -84,7 +84,7 @@
 
 <p>Remember that all *.tmx files of the same language direction need to be consolidated in a master TM. If the importer class (see <a href="importing_into_the_master_translation_memories.html">Importing into the Master Translation Memories</a>) determines that the corresponding master TM does not yet exist, it should be created through a separate class. On this page you will learn how to implement the class for creating the master TMs.</p>
 <h2 id="add-a-new-class">Add a New Class</h2>
-<p>Start by adding a new class called TmCreator to your project. Add a public function called <code>CreateMasterTm</code>, which takes the path in which the master TMs should be created and the source/target language locales as string parameters.</p>
+<p>Start by adding a new class called <code>TmCreator</code> to your project. Add a public function called <code>CreateMasterTm</code>, which takes the path in which the master TMs should be created and the source/target language locales as string parameters.</p>
 <h2 id="create-the-master-tm">Create the Master TM</h2>
 <p>In the next step, implement the logic required for creating the master TM file. Note that for simplicity&#39;s sake, the file name is a combination of a hard-coded string <em>(MasterTM_)</em>, the language direction string, and the extension *.sdltm.</p>
 <div class="tabGroup" id="tabgroup_dUeq3gVtwC">
@@ -110,7 +110,8 @@ public void CreateMasterTm(string sourceLanguage, string targetLanguage, string 
         masterPath,
         sourceLanguage,
         targetLanguage);
-    FileBasedTranslationMemory translationMemory = new FileBasedTranslationMemory(
+
+    var translationMemory = new FileBasedTranslationMemory(
         path,
         &quot;Master TM&quot;,
         CultureInfo.GetCultureInfo(sourceLanguage),
@@ -186,17 +187,17 @@ private BuiltinRecognizers GetRecognizers()
 </li>
 </ul>
 <section id="tabpanel_dUeq3gVtwC-3_tabid-4" role="tabpanel" data-tab="tabid-4">
-<pre><code class="lang-cs">namespace SDK.LanguagePlatform.Samples.BatchImporter
-{
-    using System.Globalization;
-    using Sdl.LanguagePlatform.Core.Tokenization;
-    using Sdl.LanguagePlatform.TranslationMemory;
-    using Sdl.LanguagePlatform.TranslationMemoryApi;
+<pre><code class="lang-cs">using System.Globalization;
+using Sdl.LanguagePlatform.Core.Tokenization;
+using Sdl.LanguagePlatform.TranslationMemory;
+using Sdl.LanguagePlatform.TranslationMemoryApi;
 
+namespace SDK.LanguagePlatform.Samples.BatchImporter
+{
     /// &lt;summary&gt;
     /// Represents functionality for creating Translation Memories.
     /// &lt;/summary&gt;
-    public class TMCreator
+    public class TmCreator
     {
         #region &quot;createTM&quot;
 
@@ -216,7 +217,8 @@ private BuiltinRecognizers GetRecognizers()
                 masterPath,
                 sourceLanguage,
                 targetLanguage);
-            FileBasedTranslationMemory translationMemory = new FileBasedTranslationMemory(
+
+            var translationMemory = new FileBasedTranslationMemory(
                 path,
                 &quot;Master TM&quot;,
                 CultureInfo.GetCultureInfo(sourceLanguage),

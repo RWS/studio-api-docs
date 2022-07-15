@@ -8,7 +8,7 @@
     <title>Creating the Log File </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Creating the Log File ">
-    <meta name="generator" content="docfx 2.59.2.0">
+    <meta name="generator" content="docfx 2.59.3.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
@@ -93,7 +93,7 @@
 </li>
 </ul>
 <section id="tabpanel_-UBHGaqlYS_tabid-1" role="tabpanel" data-tab="tabid-1">
-<pre><code class="lang-cs">TextWriter log = new StreamWriter(translationMemoryPath + @&quot;\log.txt&quot;);
+<pre><code class="lang-cs">var log = new StreamWriter(translationMemoryPath + @&quot;\log.txt&quot;);
 </code></pre></section>
 </div>
 <p>In the next step, loop through the master TM files and output the master TM names and the total translation unit count:</p>
@@ -108,7 +108,7 @@
 foreach (string file in translationMemoryFiles)
 {
     log.WriteLine(file);
-    FileBasedTranslationMemory tm = new FileBasedTranslationMemory(file);
+    var tm = new FileBasedTranslationMemory(file);
     log.WriteLine(&quot;TU Count: &quot; + tm.GetTranslationUnitCount().ToString());
     log.WriteLine();
 }
@@ -134,15 +134,15 @@ foreach (string file in translationMemoryFiles)
 </li>
 </ul>
 <section id="tabpanel_-UBHGaqlYS-3_tabid-4" role="tabpanel" data-tab="tabid-4">
-<pre><code class="lang-cs">namespace SDK.LanguagePlatform.Samples.BatchImporter
-{
-    using System.IO;
-    using Sdl.LanguagePlatform.TranslationMemoryApi;
+<pre><code class="lang-cs"> using System.IO;
+using Sdl.LanguagePlatform.TranslationMemoryApi;
 
+namespace SDK.LanguagePlatform.Samples.BatchImporter
+{
     /// &lt;summary&gt;
     /// Represents file logging functionality.
     /// &lt;/summary&gt;
-    public class TMLog
+    public class TmLog
     {
         /// &lt;summary&gt;
         /// This function is used to create a log file after
@@ -154,7 +154,7 @@ foreach (string file in translationMemoryFiles)
         public void CreateLogFile(string translationMemoryPath)
         {
             #region &quot;CreateLog&quot;
-            TextWriter log = new StreamWriter(translationMemoryPath + @&quot;\log.txt&quot;);
+            var log = new StreamWriter(translationMemoryPath + @&quot;\log.txt&quot;);
             #endregion
 
             #region &quot;LoopMasterTms&quot;
@@ -162,7 +162,7 @@ foreach (string file in translationMemoryFiles)
             foreach (string file in translationMemoryFiles)
             {
                 log.WriteLine(file);
-                FileBasedTranslationMemory tm = new FileBasedTranslationMemory(file);
+                var tm = new FileBasedTranslationMemory(file);
                 log.WriteLine(&quot;TU Count: &quot; + tm.GetTranslationUnitCount().ToString());
                 log.WriteLine();
             }
