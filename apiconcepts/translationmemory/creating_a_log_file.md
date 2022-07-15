@@ -9,7 +9,7 @@ Add a class called `TmLog`, which includes the function `CreateLogFile`. This fu
 First, create the log text file as follows:
 # [C#](#tab/tabid-1)
 ```cs
-TextWriter log = new StreamWriter(translationMemoryPath + @"\log.txt");
+var log = new StreamWriter(translationMemoryPath + @"\log.txt");
 ```
 ****
 
@@ -20,7 +20,7 @@ string[] translationMemoryFiles = Directory.GetFiles(@"c:\MasterTMs");
 foreach (string file in translationMemoryFiles)
 {
     log.WriteLine(file);
-    FileBasedTranslationMemory tm = new FileBasedTranslationMemory(file);
+    var tm = new FileBasedTranslationMemory(file);
     log.WriteLine("TU Count: " + tm.GetTranslationUnitCount().ToString());
     log.WriteLine();
 }
@@ -39,15 +39,15 @@ Putting it All Together
 The complete class should look as shown below:
 # [C#](#tab/tabid-4)
 ```cs
+ using System.IO;
+using Sdl.LanguagePlatform.TranslationMemoryApi;
+
 namespace SDK.LanguagePlatform.Samples.BatchImporter
 {
-    using System.IO;
-    using Sdl.LanguagePlatform.TranslationMemoryApi;
-
     /// <summary>
     /// Represents file logging functionality.
     /// </summary>
-    public class TMLog
+    public class TmLog
     {
         /// <summary>
         /// This function is used to create a log file after
@@ -59,7 +59,7 @@ namespace SDK.LanguagePlatform.Samples.BatchImporter
         public void CreateLogFile(string translationMemoryPath)
         {
             #region "CreateLog"
-            TextWriter log = new StreamWriter(translationMemoryPath + @"\log.txt");
+            var log = new StreamWriter(translationMemoryPath + @"\log.txt");
             #endregion
 
             #region "LoopMasterTms"
@@ -67,7 +67,7 @@ namespace SDK.LanguagePlatform.Samples.BatchImporter
             foreach (string file in translationMemoryFiles)
             {
                 log.WriteLine(file);
-                FileBasedTranslationMemory tm = new FileBasedTranslationMemory(file);
+                var tm = new FileBasedTranslationMemory(file);
                 log.WriteLine("TU Count: " + tm.GetTranslationUnitCount().ToString());
                 log.WriteLine();
             }

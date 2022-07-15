@@ -21,7 +21,7 @@ private const int RecursionLevel = 1;
 ******
 
 
-Then add a public function called `ProcessDir`:
+Then add a public function called `ProcessDirectory`:
 # [C#](#tab/tabid-2)
 ```cs
 /// <summary>
@@ -29,7 +29,7 @@ Then add a public function called `ProcessDir`:
 /// </summary>
 /// <param name="sourceDirectory">Directory to search in.</param>
 /// <param name="processSubFolders">True if subfolder processing required.</param>
-public void ProcessDir(string sourceDirectory, bool processSubFolders)
+public void ProcessDirectory(string sourceDirectory, bool processSubFolders)
 ```
 ****
 
@@ -48,7 +48,7 @@ if (RecursionLevel <= Depth)
 *****
 
 
-Next, you iterate through the files found in a given directory. However, the files should only be processed if they match the provided extension, i.e. *.tmx. If the extension tmx is encountered, an import will be triggered, which we will implement in a separate class in a later step (see [Importing into the Master Translation Memories](importing_into_the_master_translation_memories.md)).
+Next, you iterate through the files found in a given directory. However, the files should only be processed if they match the provided extension, i.e. *.tmx. If the extension tmx is encountered, an import operation will be triggered, which we will implement in a separate class in a later step (see [Importing into the Master Translation Memories](importing_into_the_master_translation_memories.md)).
 # [C#](#tab/tabid-4)
 ```cs
 // Retrieve the names of the files found in the given folder.
@@ -59,8 +59,8 @@ foreach (string fileName in fileEntries)
     if (fileName.ToLower().EndsWith(".tmx"))
     {
         Console.WriteLine("Importing " + fileName);
-        TMImporter importTmx = new TMImporter();
-        importTmx.Import(fileName);
+        var tmImporter = new TmImporter();
+        tmImporter.Import(fileName);
     }
 }
 ```
@@ -87,7 +87,7 @@ if (processSubFolders)
 
 Trigger the Function
 ------
-The `ProcessDir` function needs to be called from `Main` in the `Program` class as shown below. The user provides two parameters:
+The `ProcessDirectory` function needs to be called from `Main` in the `Program` class as shown below. The user provides two parameters:
 
 * The main TMX file path
 * the `/y` parameter to indicate that sub-folders (if any) should be processed
@@ -138,8 +138,8 @@ public static void Main(string[] args)
 
     try
     {
-        TMIterator it = new TMIterator();
-        it.ProcessDir(mainPath, processSubFolders);
+        var tmIterator = new TmIterator();
+        tmIterator.ProcessDirectory(mainPath, processSubFolders);
         Console.WriteLine();
         Console.WriteLine("Batch import finished. Press ENTER to exit.");
         Console.ReadLine();
@@ -159,15 +159,15 @@ Putting it All Together
 The complete class should now look as shown below:
 # [C#](#tab/tabid-8)
 ```cs
+using System;
+using System.IO;
+
 namespace SDK.LanguagePlatform.Samples.BatchImporter
 {
-    using System;
-    using System.IO;
-
     /// <summary>
     /// Represents class able to iterate thru disk directory tree.
     /// </summary>
-    public class TMIterator
+    public class TmIterator
     {
         #region "constants"
 
@@ -189,7 +189,7 @@ namespace SDK.LanguagePlatform.Samples.BatchImporter
         /// </summary>
         /// <param name="sourceDirectory">Directory to search in.</param>
         /// <param name="processSubFolders">True if subfolder processing required.</param>
-        public void ProcessDir(string sourceDirectory, bool processSubFolders)
+        public void ProcessDirectory(string sourceDirectory, bool processSubFolders)
         #endregion
         {
             #region "scan"
@@ -207,8 +207,8 @@ namespace SDK.LanguagePlatform.Samples.BatchImporter
                     if (fileName.ToLower().EndsWith(".tmx"))
                     {
                         Console.WriteLine("Importing " + fileName);
-                        TMImporter importTmx = new TMImporter();
-                        importTmx.Import(fileName);
+                        var tmImporter = new TmImporter();
+                        tmImporter.Import(fileName);
                     }
                 }
                 #endregion

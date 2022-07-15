@@ -14,8 +14,8 @@ Add a class called `TmExporter` to your project. Then implement a function calle
 public void Export(string translationMemoryPath)
 {
     this.exportProgress = 0;
-    FileBasedTranslationMemory tm = new FileBasedTranslationMemory(translationMemoryPath);
-    TranslationMemoryExporter exporter = new TranslationMemoryExporter(tm.LanguageDirection);
+    var tm = new FileBasedTranslationMemory(translationMemoryPath);
+    var exporter = new TranslationMemoryExporter(tm.LanguageDirection);
 
     // set event handler
     exporter.BatchExported += new EventHandler<BatchExportedEventArgs>(this.Exporter_BatchExported);
@@ -52,16 +52,16 @@ Putting it All Together
 The complete class should look as shown below:
 # [C#](#tab/tabid-2)
 ```cs
+using System;
+using System.Globalization;
+using Sdl.LanguagePlatform.TranslationMemoryApi;
+
 namespace SDK.LanguagePlatform.Samples.BatchExport
 {
-    using System;
-    using System.Globalization;
-    using Sdl.LanguagePlatform.TranslationMemoryApi;
-
     /// <summary>
     /// Represents functionality for exporting *.tmx files.
     /// </summary>
-    public class TMExporter
+    public class TmExporter
     {
         /// <summary>
         /// Represents current export progress in persents.
@@ -78,8 +78,8 @@ namespace SDK.LanguagePlatform.Samples.BatchExport
         public void Export(string translationMemoryPath)
         {
             this.exportProgress = 0;
-            FileBasedTranslationMemory tm = new FileBasedTranslationMemory(translationMemoryPath);
-            TranslationMemoryExporter exporter = new TranslationMemoryExporter(tm.LanguageDirection);
+            var tm = new FileBasedTranslationMemory(translationMemoryPath);
+            var exporter = new TranslationMemoryExporter(tm.LanguageDirection);
 
             // set event handler
             exporter.BatchExported += new EventHandler<BatchExportedEventArgs>(this.Exporter_BatchExported);

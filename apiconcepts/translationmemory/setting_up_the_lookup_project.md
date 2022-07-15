@@ -2,27 +2,22 @@ Setting up the Project
 =====
 On this page you will learn how to set up the project for designing our custom TM lookup application in C#.
 
-Create a new Windows Forms application in <var:VisualStudioEdition> called **Sdl.SDK.LanguagePlatform.Samples.TmLookup**.
+Create a new WPF application in <var:VisualStudioEdition> called **Sdl.SDK.LanguagePlatform.Samples.TmLookup**.
 
 
 <img style="display:block; " src="images/CreateLookupProject.jpg"/>
 
 Then add the following references to your project:
 
-* Sdl.Core.Api
+* Sdl.LanguagePlatform.Core
 * Sdl.LanguagePlatform.TranslationMemory
 * Sdl.LanguagePlatform.TranslationMemoryApi
-WindowsBase
 
 <img style="display:block; " src="images/ReferencesLookupApp.jpg"/>
 
 >[!Note]
 >
 > At the time of writing of this version of the SDK it was required to set the build path folder to the directory that contains the <Var:ProductName> debug build.
-
-> [!NOTE]
-> 
-> This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.
 
 See Also
 ------

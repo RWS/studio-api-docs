@@ -11,7 +11,7 @@ The simple C# application which we are going to develop should allow for the fol
 * Perform concordance searches in the source or target language
 
 
-This simplified sample application is a case in point of how to implement TM search functionality in other applications, e.g. integrate TM lookup functions in a 3rd party application or design custom TM lookup user interfaces.
+This simplified sample application is a case in point of how to implement TM search functionality in other applications, e.g. integrate TM lookup functions into a 3rd party application or design custom TM lookup user interfaces.
 
 See Also
 ------

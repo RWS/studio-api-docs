@@ -10,7 +10,7 @@ The translation provider factory component provides the functionality to instant
 * [CreateTranslationProvider](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderFactory.yml#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderFactory_CreateTranslationProvider_System_Uri_System_String_Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderCredentialStore_): Creates a new translation provider identified by the specified URI and loads previously serialized state information.
 * [GetTranslationProviderInfo](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderFactory.yml#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderFactory_GetTranslationProviderInfo_System_Uri_System_String_): Provides a lightweight way to determine the translation method used by translation providers created by the factory without having to create a translation provider instance.
 
-<img style="display:block; " src="images/TranslationProviderFactory.png"/>
+<img style="display:block; " src="images/cd-TranslationProviderFactory.jpg"/>
 
 Registering the Extension
 -----

@@ -4,7 +4,7 @@ Remember that all *.tmx files of the same language direction need to be consolid
 
 Add a New Class
 -----
-Start by adding a new class called TmCreator to your project. Add a public function called `CreateMasterTm`, which takes the path in which the master TMs should be created and the source/target language locales as string parameters.
+Start by adding a new class called `TmCreator` to your project. Add a public function called `CreateMasterTm`, which takes the path in which the master TMs should be created and the source/target language locales as string parameters.
 
 Create the Master TM
 ------
@@ -28,7 +28,8 @@ public void CreateMasterTm(string sourceLanguage, string targetLanguage, string 
         masterPath,
         sourceLanguage,
         targetLanguage);
-    FileBasedTranslationMemory translationMemory = new FileBasedTranslationMemory(
+
+    var translationMemory = new FileBasedTranslationMemory(
         path,
         "Master TM",
         CultureInfo.GetCultureInfo(sourceLanguage),
@@ -97,17 +98,17 @@ Putting it All Together
 The complete class should look as shown below:
 # [C#](#tab/tabid-4)
 ```cs
+using System.Globalization;
+using Sdl.LanguagePlatform.Core.Tokenization;
+using Sdl.LanguagePlatform.TranslationMemory;
+using Sdl.LanguagePlatform.TranslationMemoryApi;
+
 namespace SDK.LanguagePlatform.Samples.BatchImporter
 {
-    using System.Globalization;
-    using Sdl.LanguagePlatform.Core.Tokenization;
-    using Sdl.LanguagePlatform.TranslationMemory;
-    using Sdl.LanguagePlatform.TranslationMemoryApi;
-
     /// <summary>
     /// Represents functionality for creating Translation Memories.
     /// </summary>
-    public class TMCreator
+    public class TmCreator
     {
         #region "createTM"
 
@@ -127,7 +128,8 @@ namespace SDK.LanguagePlatform.Samples.BatchImporter
                 masterPath,
                 sourceLanguage,
                 targetLanguage);
-            FileBasedTranslationMemory translationMemory = new FileBasedTranslationMemory(
+
+            var translationMemory = new FileBasedTranslationMemory(
                 path,
                 "Master TM",
                 CultureInfo.GetCultureInfo(sourceLanguage),

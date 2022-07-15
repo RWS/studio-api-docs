@@ -4,9 +4,9 @@ The application is required to merge multiple *.tmx files of the same language d
 
 Add a New Class
 -----
-Start by adding a class called `TmImport`. The main purpose of this class is to import the *.tmx files into master TMs and to trigger a separate function for creating the master TMs with the corresponding language direction if they are not yet available.
+Start by adding a class called `TmImporter`. The main purpose of this class is to import the *.tmx files into master TMs and to trigger a separate function for creating the master TMs with the corresponding language direction if they are not yet available.
 
-Implement a public function called `Import`, which takes the *.tmx file name and path as parameter. Like the export functionality, this function, too, is called from the `ProcessDir` function of the `TmIterator` class (see [Looping through the Folder(s)](looping_through_the_folders.md)).
+Implement a public function called `Import`, which takes the *.tmx file name and path as parameter. Like the export functionality, this function, too, is called from the `ProcessDirectory` function of the `TmIterator` class (see [Looping through the Folder(s)](looping_through_the_folders.md)).
 
 Create the Master TM Path
 ------
@@ -58,7 +58,7 @@ We therefore proceed as follows: We select the first tu element, and then retrie
 // tu element.
 string srcLang = string.Empty;
 string trgLang = string.Empty;
-XmlDocument xmlDoc = new XmlDocument();
+var xmlDoc = new XmlDocument();
 xmlDoc.Load(tmxPath);
 
 try
@@ -85,8 +85,8 @@ Next, check whether a master TM for the language direction of the current *.tmx 
 string translationMemoryPath = string.Format("{0}MasterTM_{1}_{2}.sdltm", masterPath, srcLang, trgLang);
 if (!System.IO.File.Exists(translationMemoryPath))
 {
-    TMCreator create = new TMCreator();
-    create.CreateMasterTm(srcLang, trgLang, masterPath);
+    var tmCreator = new TmCreator();
+    tmCreator.CreateMasterTm(srcLang, trgLang, masterPath);
 }
 ```
 ****
@@ -97,8 +97,8 @@ Now import the given *.tmx file into the master TM:
 # [C#](#tab/tabid-5)
 ```cs
 // Open the appropriate master TM and do the import.
-FileBasedTranslationMemory tm = new FileBasedTranslationMemory(translationMemoryPath);
-TranslationMemoryImporter importer = new TranslationMemoryImporter(tm.LanguageDirection);
+var tm = new FileBasedTranslationMemory(translationMemoryPath);
+var importer = new TranslationMemoryImporter(tm.LanguageDirection);
 this.GetImportSettings(importer.ImportSettings);
 importer.Import(tmxPath);
 ```
@@ -128,17 +128,18 @@ Putting it All Together
 The complete class should look as shown below:
 # [C#](#tab/tabid-7)
 ```cs
+using System;
+using System.Xml;
+using Sdl.LanguagePlatform.TranslationMemory;
+using Sdl.LanguagePlatform.TranslationMemoryApi;
+
 namespace SDK.LanguagePlatform.Samples.BatchImporter
 {
-    using System;
-    using System.Xml;
-    using Sdl.LanguagePlatform.TranslationMemory;
-    using Sdl.LanguagePlatform.TranslationMemoryApi;
 
     /// <summary>
     /// Represents functionality for emporting *.tmx files into translation memory.
     /// </summary>
-    public class TMImporter
+    public class TmImporter
     {
         #region "ImportTmx"
 
@@ -164,7 +165,7 @@ namespace SDK.LanguagePlatform.Samples.BatchImporter
             // tu element.
             string srcLang = string.Empty;
             string trgLang = string.Empty;
-            XmlDocument xmlDoc = new XmlDocument();
+            var xmlDoc = new XmlDocument();
             xmlDoc.Load(tmxPath);
 
             try
@@ -186,15 +187,15 @@ namespace SDK.LanguagePlatform.Samples.BatchImporter
             string translationMemoryPath = string.Format("{0}MasterTM_{1}_{2}.sdltm", masterPath, srcLang, trgLang);
             if (!System.IO.File.Exists(translationMemoryPath))
             {
-                TMCreator create = new TMCreator();
+                var tmCreator = new TmCreator();
                 create.CreateMasterTm(srcLang, trgLang, masterPath);
             }
             #endregion
 
             #region "DoImport"
             // Open the appropriate master TM and do the import.
-            FileBasedTranslationMemory tm = new FileBasedTranslationMemory(translationMemoryPath);
-            TranslationMemoryImporter importer = new TranslationMemoryImporter(tm.LanguageDirection);
+            var tm = new FileBasedTranslationMemory(translationMemoryPath);
+            var importer = new TranslationMemoryImporter(tm.LanguageDirection);
             this.GetImportSettings(importer.ImportSettings);
             importer.Import(tmxPath);
             #endregion

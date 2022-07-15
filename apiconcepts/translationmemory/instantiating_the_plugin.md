@@ -13,7 +13,7 @@ The class is preceded by the following declaration, which defines it as an exten
 ```cs
 [TranslationProviderFactory(
     Id = "ListTranslationProviderFactory",
-    Name = "ListTranslationProviderFactory",
+    Name = "Delimited list translation provider",
     Description = "Searches in delimited text files.")]
 ```
 ***

@@ -13,7 +13,7 @@ Examples of translation provider implementations are RWS Translation Memory, whi
 * During project preparation, in the Analyze, Populate Project Translation Memory and Pre-translate batch tasks.
 * During interactive translation, when the user performs lookups for segments in a document that is being translated in the <Var:ProductName> editor.
 * During project finalization, in the TM Update task.
-* 
+
 As mentioned above, <Var:ProductName> comes with a number of built-in translation provider implementations. In addition, <Var:ProductName> provides a plug-in mechanism that allows third-parties to create translation provider plug-ins. In order to create a translation provider plug-in, you need to create a number of classes:
 
 1. **Translation Provider**: This class represents the multilingual translation provider, which allows getting a Translation Provider Language Direction for a specific source-target language direction, which, in turn, exposes the translation functionality for that language direction. This translation provider class should implement the [ITranslationProvider](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider.yml) interface.
