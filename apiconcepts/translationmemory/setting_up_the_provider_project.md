@@ -10,7 +10,7 @@ Please also refer to [Setting up a Development Machine](../../articles/gettingst
 
 Set up your Translation Provider Plug-in Project
 ----
-Start by creating a new project in <var:VisualStudioEdition>. In the **New Project** dialog box select the **Translation Provider Plug-in** template. Rename the project to **Sdl.Sdk.LanguagePlatform.Samples.ListProvider**:
+Start by creating a new project in <var:VisualStudioEdition>. In the **New Project** dialog box select the **Translation Provider Plug-in** template. Rename the project to **Sdk.LanguagePlatform.Samples.ListProvider**:
 
 <img style="display:block; " src="images/TranslationProviderProject.jpg"/>
 

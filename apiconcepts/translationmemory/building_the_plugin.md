@@ -4,11 +4,9 @@ At this point, it is already possible to build the project - although, of course
 
 Building the project will generate a *.sdlplugin* file, in our example *Sdl.Sdk.LanguagePlatform.Samples.ListProvider.csproj.sdlplugin*, which will be placed inside your build output path. The *.sdlplugin* file is technically speaking a ZIP archive that contains the required plug-in components such as the plug-in binary (*.dll itself), the resources file, the manifest etc. For our example, the **.sdlplugin* file will contain the following:
 
-* The plug-in assembly, e.g. **Sdl.Sdk.LanguagePlatform.Samples.ListProvider.dll**
-* The plug-in manifest, e.g. **Sdl.Sdk.LanguagePlatform.Samples.ListProvider.plugin.xml**. The manifest lists information on any extension classes that the plug-in contains. It is this manifest, which will be created during the build process, that declares the assembly and the corresponding extension classes to <Var:ProductName>. By deleting this manifest **.xml* file you would actually deactivate the plug-in and 'hide' it from the application.
-* The plug-in resources file, e.g. **Sdl.Sdk.LanguagePlatform.Samples.ListProvider.plugin.resources.** This resources file contains all the localizable strings and images referred to within the plug-in manifest, and is compiled from **PluginResources.resx** (see also [The Resources File](the_resources_file.md)).
-
-<img style="display:block; " src="images/SdlpluginContent.jpg"/>
+* The plug-in assembly, e.g. **Sdk.LanguagePlatform.Samples.ListProvider.dll**
+* The plug-in manifest, e.g. **Sdk.LanguagePlatform.Samples.ListProvider.plugin.xml**. The manifest lists information on any extension classes that the plug-in contains. It is this manifest, which will be created during the build process, that declares the assembly and the corresponding extension classes to <Var:ProductName>. By deleting this manifest **.xml* file you would actually deactivate the plug-in and 'hide' it from the application.
+* The plug-in resources file, e.g. **Sdk.LanguagePlatform.Samples.ListProvider.plugin.resources.** This resources file contains all the localizable strings and images referred to within the plug-in manifest, and is compiled from **PluginResources.resx** (see also [The Resources File](the_resources_file.md)).
 
 In order for <Var:ProductName> to pick up the plug-in package and to extract it, the following folders need to be available on your hard drive:
 

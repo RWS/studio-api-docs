@@ -1,6 +1,6 @@
 Introduction to the Batch Import Tool
 ====
-In this chapter you will learn how to build a simple command-line application that loops through a folder/sub-folder structure to find *.tmx files that are then imported into file-based translation memories. The aim is to consolidate all *.tmx files of a particular language direction in one *.sdltm file.
+In this chapter you will learn how to build a simple command-line application that loops through a folder/sub-folder structure to find *.tmx files that are then imported into file-based translation memories. The aim is to consolidate all *.tmx files of a particular language direction into one *.sdltm file.
 
 Scope of the Batch Import Application
 ------

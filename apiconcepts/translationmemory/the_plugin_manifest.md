@@ -7,11 +7,11 @@ Below you see what the manifest of our sample plug-in looks like:
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <PluginPackage xmlns="http://www.sdl.com/Plugins/PluginPackage/1.0">
-  <PlugInName>Sdl.Sdk.LanguagePlatform.Samples.ListProvider</PlugInName>
-  <Version>1.0</Version>
+  <PlugInName>Sdk.LanguagePlatform.Samples.ListProvider</PlugInName>
+  <Version>1.0.0.0</Version>
   <Description>Delimited List Translation Provider</Description>
   <Author>SDK Sample Provider</Author>
-  <RequiredProduct name="SDLTradosStudio" minversion="10.0" />
+  <RequiredProduct name="TradosStudio" minversion="17.0" maxversion="17.9" />
 </PluginPackage>
 ```
 ***

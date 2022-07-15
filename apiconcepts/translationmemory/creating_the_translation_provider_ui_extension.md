@@ -11,7 +11,7 @@ The translation provider UI component is essentially optional, depending on wher
 The translation provider UI component has to implement the [ITranslationProviderWinFormsUI](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderWinFormsUI.yml) interface.
 
 
-<img style="display:block; " src="images/TranslationProviderWinFormsUI.png"/>
+<img style="display:block; " src="images/cd-TranslationProviderWinFormsUI.jpg"/>
 
 Registering the Extension
 ---
@@ -21,7 +21,7 @@ The Name, Description and Icon values of the extension attribute are for informa
 
 Browsing for Translation Providers
 ----
-One of the responsibilities of the translation provider UI component is to allow the user to select translation providers through a user interface. The [Browse](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderWinFormsUI.yml#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderWinFormsUI_Browse_System_Windows_Forms_IWin32Window_Sdl_LanguagePlatform_Core_LanguagePair___Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderCredentialStore_) method is called by <Var:ProductName> when the user selects the corresponding *"Add -> Translation provider X..."* menu item in the translation providers list.
+One of the responsibilities of the translation provider UI component is to allow the user to select translation providers through a user interface. The [Browse](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderWinFormsUI.yml#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderWinFormsUI_Browse_System_Windows_Forms_IWin32Window_Sdl_LanguagePlatform_Core_LanguagePair___Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderCredentialStore_) method is called by <Var:ProductName> when the user selects the corresponding *"Use... -> Translation provider X..."* menu item in the translation providers list.
 
 Editing Translation Provider Settings
 ----

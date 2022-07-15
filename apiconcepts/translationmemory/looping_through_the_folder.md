@@ -1,6 +1,6 @@
 Looping through the Folder(s)
 ====
-The user of your sample application is required to enter a main path. The application then loops through the files in that path and any files contained in sub-folders of the main path. The application logic for traversing the folders and sub-folders will be implemented in a dedicated iterator class. This class will be used both for looping through all *.sdltm, which then need to be exported to *.tmx.
+The user of your sample application is required to enter a main path. The application then loops through the files in that path and any files contained in sub-folders of the main path. The application logic for traversing the folders and sub-folders will be implemented in a dedicated iterator class. This class will be used both for looping through all *.sdltm files, the content of which then need to be exported to *.tmx.
 
 Add a New Class
 -----
@@ -20,7 +20,7 @@ public const int RecursionLevel = 1;
 ```
 ******
 
-Then add a public function called ProcessDir:
+Then add a public function called ProcessDirectory:
 # [C#](#tab/tabid-2)
 ```cs
 /// <summary>
@@ -58,8 +58,8 @@ foreach (string fileName in fileEntries)
     {
         // Only process file if it is a TMX import file.
         Console.WriteLine("Exporting " + fileName);
-        TMExporter exportTm = new TMExporter();
-        exportTm.Export(fileName);
+        var tmExporter = new TmExporter();
+        tmExporter.Export(fileName);
     }
 }
 ```
@@ -77,7 +77,7 @@ if (processSubFolders)
     {
         if ((File.GetAttributes(subdir) & FileAttributes.ReparsePoint) != FileAttributes.ReparsePoint)
         {
-            this.ProcessDirectory(subdir, processSubFolders);
+            ProcessDirectory(subdir, processSubFolders);
         }
     }
 }
@@ -87,7 +87,7 @@ if (processSubFolders)
 
 Trigger the Function
 -----
-The `ProcessDir` function needs to be called from `Main` in the `Program` class as shown below. The user provides two parameters:
+The `ProcessDirectory` function needs to be called from `Main` in the `Program` class as shown below. The user provides two parameters:
 
 * The main translation memory path
 * the `/y` parameter to indicate that sub-folders (if any) should be processed
@@ -137,8 +137,8 @@ public static void Main(string[] args)
 
     try
     {
-        TMIterator it = new TMIterator();
-        it.ProcessDirectory(mainPath, processSubFolders);
+        var tmIterator = new TmIterator();
+        tmIterator.ProcessDirectory(mainPath, processSubFolders);
         Console.WriteLine();
         Console.WriteLine("Batch export finished. Press ENTER to exit.");
         Console.ReadLine();
@@ -159,15 +159,15 @@ Putting it All Together
 The complete class should now look as shown below:
 # [C#](#tab/tabid-8)
 ```cs
+using System;
+using System.IO;
+
 namespace SDK.LanguagePlatform.Samples.BatchExport
 {
-    using System;
-    using System.IO;
-
     /// <summary>
     /// Represents functionality for importing *.tmx files into FileBasedTranslationMemory.
     /// </summary>
-    public class TMIterator
+    public class TmIterator
     {
         #region "Constants"
 
@@ -211,8 +211,8 @@ namespace SDK.LanguagePlatform.Samples.BatchExport
                     {
                         // Only process file if it is a TMX import file.
                         Console.WriteLine("Exporting " + fileName);
-                        TMExporter exportTm = new TMExporter();
-                        exportTm.Export(fileName);
+                        var tmExporter = new TmExporter();
+                        tmExporter.Export(fileName);
                     }
                 }
 

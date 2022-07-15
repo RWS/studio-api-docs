@@ -8,19 +8,18 @@ Start by creating a new Console Application called Sdl.**SDK.LanguagePlatform.Sa
 
 The project requires the following libraries as references:
 
-* Sdl.Core.Api
+* Sdl.Core.TM.ImportExport
 * Sdl.LanguagePlatform.Core
 * Sdl.LanguagePlatform.TranslationMemory
 * Sdl.LanguagePlatform.TranslationMemoryApi
 
-<img style="display:block; " src="images/BatchExportProjectReferences.jpg"/>
+<img style="display:block; " src="images/BatchImportProjectReferences.jpg"/>
 
 The classes in your project should use the following namespaces:
 
 * System.IO
 * System.Xml
 * System.Globalization
-* Sdl.LanguagePlatform.Core
 * Sdl.LanguagePlatform.Core.Tokenization
 * Sdl.LanguagePlatform.TranslationMemory
 * Sdl.LanguagePlatform.TranslationMemoryApi
@@ -28,10 +27,6 @@ The classes in your project should use the following namespaces:
 > [!NOTE]
 > 
 > We require the XML API to retrieve information from the *.tmx files, i.e. the source and the target language locale.
-
-> [!NOTE]
-> 
-> This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.
 
 See Also
 -----------
