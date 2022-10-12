@@ -8,7 +8,7 @@
     <title>Importing into the Master Translation Memories </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Importing into the Master Translation Memories ">
-    <meta name="generator" content="docfx 2.59.2.0">
+    <meta name="generator" content="docfx 2.59.3.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
@@ -84,8 +84,8 @@
 
 <p>The application is required to merge multiple *.tmx files of the same language direction into one master TM. If the master TM with the required language direction does not exist, the application needs to create one before it starts the import.</p>
 <h2 id="add-a-new-class">Add a New Class</h2>
-<p>Start by adding a class called <code>TmImport</code>. The main purpose of this class is to import the *.tmx files into master TMs and to trigger a separate function for creating the master TMs with the corresponding language direction if they are not yet available.</p>
-<p>Implement a public function called <code>Import</code>, which takes the *.tmx file name and path as parameter. Like the export functionality, this function, too, is called from the <code>ProcessDir</code> function of the <code>TmIterator</code> class (see <a href="looping_through_the_folders.html">Looping through the Folder(s)</a>).</p>
+<p>Start by adding a class called <code>TmImporter</code>. The main purpose of this class is to import the *.tmx files into master TMs and to trigger a separate function for creating the master TMs with the corresponding language direction if they are not yet available.</p>
+<p>Implement a public function called <code>Import</code>, which takes the *.tmx file name and path as parameter. Like the export functionality, this function, too, is called from the <code>ProcessDirectory</code> function of the <code>TmIterator</code> class (see <a href="looping_through_the_folders.html">Looping through the Folder(s)</a>).</p>
 <h2 id="create-the-master-tm-path">Create the Master TM Path</h2>
 <p>In the next step, set up the path in which the master TMs should be created. To keep this implementation as simple as possible, we will just hard-code the path name. The path should only be created when it does not yet exist:</p>
 <div class="tabGroup" id="tabgroup_kAXHQlzIKF">
@@ -145,7 +145,7 @@ if (!System.IO.Directory.Exists(masterPath))
 // tu element.
 string srcLang = string.Empty;
 string trgLang = string.Empty;
-XmlDocument xmlDoc = new XmlDocument();
+var xmlDoc = new XmlDocument();
 xmlDoc.Load(tmxPath);
 
 try
@@ -175,8 +175,8 @@ catch
 string translationMemoryPath = string.Format(&quot;{0}MasterTM_{1}_{2}.sdltm&quot;, masterPath, srcLang, trgLang);
 if (!System.IO.File.Exists(translationMemoryPath))
 {
-    TMCreator create = new TMCreator();
-    create.CreateMasterTm(srcLang, trgLang, masterPath);
+    var tmCreator = new TmCreator();
+    tmCreator.CreateMasterTm(srcLang, trgLang, masterPath);
 }
 </code></pre></section>
 </div>
@@ -190,8 +190,8 @@ if (!System.IO.File.Exists(translationMemoryPath))
 </ul>
 <section id="tabpanel_kAXHQlzIKF-4_tabid-5" role="tabpanel" data-tab="tabid-5">
 <pre><code class="lang-cs">// Open the appropriate master TM and do the import.
-FileBasedTranslationMemory tm = new FileBasedTranslationMemory(translationMemoryPath);
-TranslationMemoryImporter importer = new TranslationMemoryImporter(tm.LanguageDirection);
+var tm = new FileBasedTranslationMemory(translationMemoryPath);
+var importer = new TranslationMemoryImporter(tm.LanguageDirection);
 this.GetImportSettings(importer.ImportSettings);
 importer.Import(tmxPath);
 </code></pre></section>
@@ -226,17 +226,18 @@ private void GetImportSettings(ImportSettings importSettings)
 </li>
 </ul>
 <section id="tabpanel_kAXHQlzIKF-6_tabid-7" role="tabpanel" data-tab="tabid-7">
-<pre><code class="lang-cs">namespace SDK.LanguagePlatform.Samples.BatchImporter
+<pre><code class="lang-cs">using System;
+using System.Xml;
+using Sdl.LanguagePlatform.TranslationMemory;
+using Sdl.LanguagePlatform.TranslationMemoryApi;
+
+namespace SDK.LanguagePlatform.Samples.BatchImporter
 {
-    using System;
-    using System.Xml;
-    using Sdl.LanguagePlatform.TranslationMemory;
-    using Sdl.LanguagePlatform.TranslationMemoryApi;
 
     /// &lt;summary&gt;
     /// Represents functionality for emporting *.tmx files into translation memory.
     /// &lt;/summary&gt;
-    public class TMImporter
+    public class TmImporter
     {
         #region &quot;ImportTmx&quot;
 
@@ -262,7 +263,7 @@ private void GetImportSettings(ImportSettings importSettings)
             // tu element.
             string srcLang = string.Empty;
             string trgLang = string.Empty;
-            XmlDocument xmlDoc = new XmlDocument();
+            var xmlDoc = new XmlDocument();
             xmlDoc.Load(tmxPath);
 
             try
@@ -284,15 +285,15 @@ private void GetImportSettings(ImportSettings importSettings)
             string translationMemoryPath = string.Format(&quot;{0}MasterTM_{1}_{2}.sdltm&quot;, masterPath, srcLang, trgLang);
             if (!System.IO.File.Exists(translationMemoryPath))
             {
-                TMCreator create = new TMCreator();
+                var tmCreator = new TmCreator();
                 create.CreateMasterTm(srcLang, trgLang, masterPath);
             }
             #endregion
 
             #region &quot;DoImport&quot;
             // Open the appropriate master TM and do the import.
-            FileBasedTranslationMemory tm = new FileBasedTranslationMemory(translationMemoryPath);
-            TranslationMemoryImporter importer = new TranslationMemoryImporter(tm.LanguageDirection);
+            var tm = new FileBasedTranslationMemory(translationMemoryPath);
+            var importer = new TranslationMemoryImporter(tm.LanguageDirection);
             this.GetImportSettings(importer.ImportSettings);
             importer.Import(tmxPath);
             #endregion
@@ -327,7 +328,7 @@ private void GetImportSettings(ImportSettings importSettings)
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/RWS/studio-api-docs/blob/main/apiconcepts/translationmemory/importing_into_the_master_translation_memories.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/im_main_test/apiconcepts/translationmemory/importing_into_the_master_translation_memories.md/#L1" class="contribution-link">Improve this Doc</a>
                   </li>
                 </ul>
               </div>
