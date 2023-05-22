@@ -6,12 +6,13 @@ items:
   parent: Sdl.Core.FineGrainedAlignment
   children:
   - Sdl.Core.FineGrainedAlignment.TrainedModelAligner.#ctor(Sdl.Core.FineGrainedAlignment.TrainedTranslationModel)
-  - Sdl.Core.FineGrainedAlignment.TrainedModelAligner.Align(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair})
-  - Sdl.Core.FineGrainedAlignment.TrainedModelAligner.Align(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair},System.Threading.CancellationToken,System.IProgress{System.Int32})
-  - Sdl.Core.FineGrainedAlignment.TrainedModelAligner.AlignEx(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair})
-  - Sdl.Core.FineGrainedAlignment.TrainedModelAligner.AlignEx(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair},System.Threading.CancellationToken,System.IProgress{System.Int32})
-  - Sdl.Core.FineGrainedAlignment.TrainedModelAligner.BulkMode
+  - Sdl.Core.FineGrainedAlignment.TrainedModelAligner.AlignAsync(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair})
+  - Sdl.Core.FineGrainedAlignment.TrainedModelAligner.AlignAsync(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair},System.Threading.CancellationToken,System.IProgress{System.Int32})
+  - Sdl.Core.FineGrainedAlignment.TrainedModelAligner.AlignExAsync(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair})
+  - Sdl.Core.FineGrainedAlignment.TrainedModelAligner.AlignExAsync(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair},System.Threading.CancellationToken,System.IProgress{System.Int32})
   - Sdl.Core.FineGrainedAlignment.TrainedModelAligner.CanAlign(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair})
+  - Sdl.Core.FineGrainedAlignment.TrainedModelAligner.GetBulkMode
+  - Sdl.Core.FineGrainedAlignment.TrainedModelAligner.SetBulkModeAsync(System.Boolean)
   - Sdl.Core.FineGrainedAlignment.TrainedModelAligner.SetErrorLogger(System.Action{System.Exception,System.String})
   langs:
   - csharp
@@ -70,16 +71,16 @@ items:
   - public
   modifiers.vb:
   - Public
-- uid: Sdl.Core.FineGrainedAlignment.TrainedModelAligner.AlignEx(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair},System.Threading.CancellationToken,System.IProgress{System.Int32})
-  commentId: M:Sdl.Core.FineGrainedAlignment.TrainedModelAligner.AlignEx(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair},System.Threading.CancellationToken,System.IProgress{System.Int32})
-  id: AlignEx(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair},System.Threading.CancellationToken,System.IProgress{System.Int32})
+- uid: Sdl.Core.FineGrainedAlignment.TrainedModelAligner.AlignExAsync(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair},System.Threading.CancellationToken,System.IProgress{System.Int32})
+  commentId: M:Sdl.Core.FineGrainedAlignment.TrainedModelAligner.AlignExAsync(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair},System.Threading.CancellationToken,System.IProgress{System.Int32})
+  id: AlignExAsync(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair},System.Threading.CancellationToken,System.IProgress{System.Int32})
   parent: Sdl.Core.FineGrainedAlignment.TrainedModelAligner
   langs:
   - csharp
   - vb
-  name: AlignEx(IEnumerable<IAlignableContentPair>, CancellationToken, IProgress<Int32>)
-  nameWithType: TrainedModelAligner.AlignEx(IEnumerable<IAlignableContentPair>, CancellationToken, IProgress<Int32>)
-  fullName: Sdl.Core.FineGrainedAlignment.TrainedModelAligner.AlignEx(System.Collections.Generic.IEnumerable<Sdl.Core.FineGrainedAlignment.IAlignableContentPair>, System.Threading.CancellationToken, System.IProgress<System.Int32>)
+  name: AlignExAsync(IEnumerable<IAlignableContentPair>, CancellationToken, IProgress<Int32>)
+  nameWithType: TrainedModelAligner.AlignExAsync(IEnumerable<IAlignableContentPair>, CancellationToken, IProgress<Int32>)
+  fullName: Sdl.Core.FineGrainedAlignment.TrainedModelAligner.AlignExAsync(System.Collections.Generic.IEnumerable<Sdl.Core.FineGrainedAlignment.IAlignableContentPair>, System.Threading.CancellationToken, System.IProgress<System.Int32>)
   type: Method
   source:
     path: Sdl.Core.FineGrainedAlignment
@@ -88,7 +89,7 @@ items:
   - Sdl.Core.FineGrainedAlignment
   namespace: Sdl.Core.FineGrainedAlignment
   syntax:
-    content: public AlignResult[] AlignEx(IEnumerable<IAlignableContentPair> pairs, CancellationToken token, IProgress<int> progress)
+    content: public Task<AlignResult[]> AlignExAsync(IEnumerable<IAlignableContentPair> pairs, CancellationToken token, IProgress<int> progress)
     parameters:
     - id: pairs
       type: System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair}
@@ -97,18 +98,53 @@ items:
     - id: progress
       type: System.IProgress{System.Int32}
     return:
-      type: Sdl.Core.FineGrainedAlignment.AlignResult[]
-    content.vb: Public Function AlignEx(pairs As IEnumerable(Of IAlignableContentPair), token As CancellationToken, progress As IProgress(Of Integer)) As AlignResult()
-  overload: Sdl.Core.FineGrainedAlignment.TrainedModelAligner.AlignEx*
+      type: System.Threading.Tasks.Task{Sdl.Core.FineGrainedAlignment.AlignResult[]}
+    content.vb: Public Function AlignExAsync(pairs As IEnumerable(Of IAlignableContentPair), token As CancellationToken, progress As IProgress(Of Integer)) As Task(Of AlignResult())
+  overload: Sdl.Core.FineGrainedAlignment.TrainedModelAligner.AlignExAsync*
   implements:
-  - Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.AlignEx(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair},System.Threading.CancellationToken,System.IProgress{System.Int32})
-  nameWithType.vb: TrainedModelAligner.AlignEx(IEnumerable(Of IAlignableContentPair), CancellationToken, IProgress(Of Int32))
+  - Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.AlignExAsync(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair},System.Threading.CancellationToken,System.IProgress{System.Int32})
+  nameWithType.vb: TrainedModelAligner.AlignExAsync(IEnumerable(Of IAlignableContentPair), CancellationToken, IProgress(Of Int32))
   modifiers.csharp:
   - public
   modifiers.vb:
   - Public
-  fullName.vb: Sdl.Core.FineGrainedAlignment.TrainedModelAligner.AlignEx(System.Collections.Generic.IEnumerable(Of Sdl.Core.FineGrainedAlignment.IAlignableContentPair), System.Threading.CancellationToken, System.IProgress(Of System.Int32))
-  name.vb: AlignEx(IEnumerable(Of IAlignableContentPair), CancellationToken, IProgress(Of Int32))
+  fullName.vb: Sdl.Core.FineGrainedAlignment.TrainedModelAligner.AlignExAsync(System.Collections.Generic.IEnumerable(Of Sdl.Core.FineGrainedAlignment.IAlignableContentPair), System.Threading.CancellationToken, System.IProgress(Of System.Int32))
+  name.vb: AlignExAsync(IEnumerable(Of IAlignableContentPair), CancellationToken, IProgress(Of Int32))
+- uid: Sdl.Core.FineGrainedAlignment.TrainedModelAligner.AlignExAsync(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair})
+  commentId: M:Sdl.Core.FineGrainedAlignment.TrainedModelAligner.AlignExAsync(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair})
+  id: AlignExAsync(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair})
+  parent: Sdl.Core.FineGrainedAlignment.TrainedModelAligner
+  langs:
+  - csharp
+  - vb
+  name: AlignExAsync(IEnumerable<IAlignableContentPair>)
+  nameWithType: TrainedModelAligner.AlignExAsync(IEnumerable<IAlignableContentPair>)
+  fullName: Sdl.Core.FineGrainedAlignment.TrainedModelAligner.AlignExAsync(System.Collections.Generic.IEnumerable<Sdl.Core.FineGrainedAlignment.IAlignableContentPair>)
+  type: Method
+  source:
+    path: Sdl.Core.FineGrainedAlignment
+    isExternal: true
+  assemblies:
+  - Sdl.Core.FineGrainedAlignment
+  namespace: Sdl.Core.FineGrainedAlignment
+  syntax:
+    content: public Task<AlignResult[]> AlignExAsync(IEnumerable<IAlignableContentPair> pairs)
+    parameters:
+    - id: pairs
+      type: System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair}
+    return:
+      type: System.Threading.Tasks.Task{Sdl.Core.FineGrainedAlignment.AlignResult[]}
+    content.vb: Public Function AlignExAsync(pairs As IEnumerable(Of IAlignableContentPair)) As Task(Of AlignResult())
+  overload: Sdl.Core.FineGrainedAlignment.TrainedModelAligner.AlignExAsync*
+  implements:
+  - Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.AlignExAsync(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair})
+  nameWithType.vb: TrainedModelAligner.AlignExAsync(IEnumerable(Of IAlignableContentPair))
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: Sdl.Core.FineGrainedAlignment.TrainedModelAligner.AlignExAsync(System.Collections.Generic.IEnumerable(Of Sdl.Core.FineGrainedAlignment.IAlignableContentPair))
+  name.vb: AlignExAsync(IEnumerable(Of IAlignableContentPair))
 - uid: Sdl.Core.FineGrainedAlignment.TrainedModelAligner.CanAlign(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair})
   commentId: M:Sdl.Core.FineGrainedAlignment.TrainedModelAligner.CanAlign(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair})
   id: CanAlign(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair})
@@ -177,16 +213,16 @@ items:
   - Public
   fullName.vb: Sdl.Core.FineGrainedAlignment.TrainedModelAligner.SetErrorLogger(System.Action(Of System.Exception, System.String))
   name.vb: SetErrorLogger(Action(Of Exception, String))
-- uid: Sdl.Core.FineGrainedAlignment.TrainedModelAligner.Align(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair})
-  commentId: M:Sdl.Core.FineGrainedAlignment.TrainedModelAligner.Align(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair})
-  id: Align(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair})
+- uid: Sdl.Core.FineGrainedAlignment.TrainedModelAligner.AlignAsync(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair},System.Threading.CancellationToken,System.IProgress{System.Int32})
+  commentId: M:Sdl.Core.FineGrainedAlignment.TrainedModelAligner.AlignAsync(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair},System.Threading.CancellationToken,System.IProgress{System.Int32})
+  id: AlignAsync(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair},System.Threading.CancellationToken,System.IProgress{System.Int32})
   parent: Sdl.Core.FineGrainedAlignment.TrainedModelAligner
   langs:
   - csharp
   - vb
-  name: Align(IEnumerable<IAlignableContentPair>)
-  nameWithType: TrainedModelAligner.Align(IEnumerable<IAlignableContentPair>)
-  fullName: Sdl.Core.FineGrainedAlignment.TrainedModelAligner.Align(System.Collections.Generic.IEnumerable<Sdl.Core.FineGrainedAlignment.IAlignableContentPair>)
+  name: AlignAsync(IEnumerable<IAlignableContentPair>, CancellationToken, IProgress<Int32>)
+  nameWithType: TrainedModelAligner.AlignAsync(IEnumerable<IAlignableContentPair>, CancellationToken, IProgress<Int32>)
+  fullName: Sdl.Core.FineGrainedAlignment.TrainedModelAligner.AlignAsync(System.Collections.Generic.IEnumerable<Sdl.Core.FineGrainedAlignment.IAlignableContentPair>, System.Threading.CancellationToken, System.IProgress<System.Int32>)
   type: Method
   source:
     path: Sdl.Core.FineGrainedAlignment
@@ -195,42 +231,7 @@ items:
   - Sdl.Core.FineGrainedAlignment
   namespace: Sdl.Core.FineGrainedAlignment
   syntax:
-    content: public bool Align(IEnumerable<IAlignableContentPair> pairs)
-    parameters:
-    - id: pairs
-      type: System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair}
-    return:
-      type: System.Boolean
-    content.vb: Public Function Align(pairs As IEnumerable(Of IAlignableContentPair)) As Boolean
-  overload: Sdl.Core.FineGrainedAlignment.TrainedModelAligner.Align*
-  implements:
-  - Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.Align(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair})
-  nameWithType.vb: TrainedModelAligner.Align(IEnumerable(Of IAlignableContentPair))
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
-  fullName.vb: Sdl.Core.FineGrainedAlignment.TrainedModelAligner.Align(System.Collections.Generic.IEnumerable(Of Sdl.Core.FineGrainedAlignment.IAlignableContentPair))
-  name.vb: Align(IEnumerable(Of IAlignableContentPair))
-- uid: Sdl.Core.FineGrainedAlignment.TrainedModelAligner.Align(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair},System.Threading.CancellationToken,System.IProgress{System.Int32})
-  commentId: M:Sdl.Core.FineGrainedAlignment.TrainedModelAligner.Align(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair},System.Threading.CancellationToken,System.IProgress{System.Int32})
-  id: Align(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair},System.Threading.CancellationToken,System.IProgress{System.Int32})
-  parent: Sdl.Core.FineGrainedAlignment.TrainedModelAligner
-  langs:
-  - csharp
-  - vb
-  name: Align(IEnumerable<IAlignableContentPair>, CancellationToken, IProgress<Int32>)
-  nameWithType: TrainedModelAligner.Align(IEnumerable<IAlignableContentPair>, CancellationToken, IProgress<Int32>)
-  fullName: Sdl.Core.FineGrainedAlignment.TrainedModelAligner.Align(System.Collections.Generic.IEnumerable<Sdl.Core.FineGrainedAlignment.IAlignableContentPair>, System.Threading.CancellationToken, System.IProgress<System.Int32>)
-  type: Method
-  source:
-    path: Sdl.Core.FineGrainedAlignment
-    isExternal: true
-  assemblies:
-  - Sdl.Core.FineGrainedAlignment
-  namespace: Sdl.Core.FineGrainedAlignment
-  syntax:
-    content: public bool Align(IEnumerable<IAlignableContentPair> pairs, CancellationToken token, IProgress<int> progress)
+    content: public Task<bool> AlignAsync(IEnumerable<IAlignableContentPair> pairs, CancellationToken token, IProgress<int> progress)
     parameters:
     - id: pairs
       type: System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair}
@@ -239,28 +240,28 @@ items:
     - id: progress
       type: System.IProgress{System.Int32}
     return:
-      type: System.Boolean
-    content.vb: Public Function Align(pairs As IEnumerable(Of IAlignableContentPair), token As CancellationToken, progress As IProgress(Of Integer)) As Boolean
-  overload: Sdl.Core.FineGrainedAlignment.TrainedModelAligner.Align*
+      type: System.Threading.Tasks.Task{System.Boolean}
+    content.vb: Public Function AlignAsync(pairs As IEnumerable(Of IAlignableContentPair), token As CancellationToken, progress As IProgress(Of Integer)) As Task(Of Boolean)
+  overload: Sdl.Core.FineGrainedAlignment.TrainedModelAligner.AlignAsync*
   implements:
-  - Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.Align(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair},System.Threading.CancellationToken,System.IProgress{System.Int32})
-  nameWithType.vb: TrainedModelAligner.Align(IEnumerable(Of IAlignableContentPair), CancellationToken, IProgress(Of Int32))
+  - Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.AlignAsync(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair},System.Threading.CancellationToken,System.IProgress{System.Int32})
+  nameWithType.vb: TrainedModelAligner.AlignAsync(IEnumerable(Of IAlignableContentPair), CancellationToken, IProgress(Of Int32))
   modifiers.csharp:
   - public
   modifiers.vb:
   - Public
-  fullName.vb: Sdl.Core.FineGrainedAlignment.TrainedModelAligner.Align(System.Collections.Generic.IEnumerable(Of Sdl.Core.FineGrainedAlignment.IAlignableContentPair), System.Threading.CancellationToken, System.IProgress(Of System.Int32))
-  name.vb: Align(IEnumerable(Of IAlignableContentPair), CancellationToken, IProgress(Of Int32))
-- uid: Sdl.Core.FineGrainedAlignment.TrainedModelAligner.AlignEx(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair})
-  commentId: M:Sdl.Core.FineGrainedAlignment.TrainedModelAligner.AlignEx(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair})
-  id: AlignEx(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair})
+  fullName.vb: Sdl.Core.FineGrainedAlignment.TrainedModelAligner.AlignAsync(System.Collections.Generic.IEnumerable(Of Sdl.Core.FineGrainedAlignment.IAlignableContentPair), System.Threading.CancellationToken, System.IProgress(Of System.Int32))
+  name.vb: AlignAsync(IEnumerable(Of IAlignableContentPair), CancellationToken, IProgress(Of Int32))
+- uid: Sdl.Core.FineGrainedAlignment.TrainedModelAligner.AlignAsync(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair})
+  commentId: M:Sdl.Core.FineGrainedAlignment.TrainedModelAligner.AlignAsync(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair})
+  id: AlignAsync(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair})
   parent: Sdl.Core.FineGrainedAlignment.TrainedModelAligner
   langs:
   - csharp
   - vb
-  name: AlignEx(IEnumerable<IAlignableContentPair>)
-  nameWithType: TrainedModelAligner.AlignEx(IEnumerable<IAlignableContentPair>)
-  fullName: Sdl.Core.FineGrainedAlignment.TrainedModelAligner.AlignEx(System.Collections.Generic.IEnumerable<Sdl.Core.FineGrainedAlignment.IAlignableContentPair>)
+  name: AlignAsync(IEnumerable<IAlignableContentPair>)
+  nameWithType: TrainedModelAligner.AlignAsync(IEnumerable<IAlignableContentPair>)
+  fullName: Sdl.Core.FineGrainedAlignment.TrainedModelAligner.AlignAsync(System.Collections.Generic.IEnumerable<Sdl.Core.FineGrainedAlignment.IAlignableContentPair>)
   type: Method
   source:
     path: Sdl.Core.FineGrainedAlignment
@@ -269,34 +270,34 @@ items:
   - Sdl.Core.FineGrainedAlignment
   namespace: Sdl.Core.FineGrainedAlignment
   syntax:
-    content: public AlignResult[] AlignEx(IEnumerable<IAlignableContentPair> pairs)
+    content: public Task<bool> AlignAsync(IEnumerable<IAlignableContentPair> pairs)
     parameters:
     - id: pairs
       type: System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair}
     return:
-      type: Sdl.Core.FineGrainedAlignment.AlignResult[]
-    content.vb: Public Function AlignEx(pairs As IEnumerable(Of IAlignableContentPair)) As AlignResult()
-  overload: Sdl.Core.FineGrainedAlignment.TrainedModelAligner.AlignEx*
+      type: System.Threading.Tasks.Task{System.Boolean}
+    content.vb: Public Function AlignAsync(pairs As IEnumerable(Of IAlignableContentPair)) As Task(Of Boolean)
+  overload: Sdl.Core.FineGrainedAlignment.TrainedModelAligner.AlignAsync*
   implements:
-  - Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.AlignEx(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair})
-  nameWithType.vb: TrainedModelAligner.AlignEx(IEnumerable(Of IAlignableContentPair))
+  - Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.AlignAsync(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair})
+  nameWithType.vb: TrainedModelAligner.AlignAsync(IEnumerable(Of IAlignableContentPair))
   modifiers.csharp:
   - public
   modifiers.vb:
   - Public
-  fullName.vb: Sdl.Core.FineGrainedAlignment.TrainedModelAligner.AlignEx(System.Collections.Generic.IEnumerable(Of Sdl.Core.FineGrainedAlignment.IAlignableContentPair))
-  name.vb: AlignEx(IEnumerable(Of IAlignableContentPair))
-- uid: Sdl.Core.FineGrainedAlignment.TrainedModelAligner.BulkMode
-  commentId: P:Sdl.Core.FineGrainedAlignment.TrainedModelAligner.BulkMode
-  id: BulkMode
+  fullName.vb: Sdl.Core.FineGrainedAlignment.TrainedModelAligner.AlignAsync(System.Collections.Generic.IEnumerable(Of Sdl.Core.FineGrainedAlignment.IAlignableContentPair))
+  name.vb: AlignAsync(IEnumerable(Of IAlignableContentPair))
+- uid: Sdl.Core.FineGrainedAlignment.TrainedModelAligner.GetBulkMode
+  commentId: M:Sdl.Core.FineGrainedAlignment.TrainedModelAligner.GetBulkMode
+  id: GetBulkMode
   parent: Sdl.Core.FineGrainedAlignment.TrainedModelAligner
   langs:
   - csharp
   - vb
-  name: BulkMode
-  nameWithType: TrainedModelAligner.BulkMode
-  fullName: Sdl.Core.FineGrainedAlignment.TrainedModelAligner.BulkMode
-  type: Property
+  name: GetBulkMode()
+  nameWithType: TrainedModelAligner.GetBulkMode()
+  fullName: Sdl.Core.FineGrainedAlignment.TrainedModelAligner.GetBulkMode()
+  type: Method
   source:
     path: Sdl.Core.FineGrainedAlignment
     isExternal: true
@@ -304,18 +305,47 @@ items:
   - Sdl.Core.FineGrainedAlignment
   namespace: Sdl.Core.FineGrainedAlignment
   syntax:
-    content: public bool BulkMode { get; set; }
-    parameters: []
+    content: public bool GetBulkMode()
     return:
       type: System.Boolean
-    content.vb: Public Property BulkMode As Boolean
-  overload: Sdl.Core.FineGrainedAlignment.TrainedModelAligner.BulkMode*
+    content.vb: Public Function GetBulkMode As Boolean
+  overload: Sdl.Core.FineGrainedAlignment.TrainedModelAligner.GetBulkMode*
   implements:
-  - Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.BulkMode
+  - Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.GetBulkMode
   modifiers.csharp:
   - public
-  - get
-  - set
+  modifiers.vb:
+  - Public
+- uid: Sdl.Core.FineGrainedAlignment.TrainedModelAligner.SetBulkModeAsync(System.Boolean)
+  commentId: M:Sdl.Core.FineGrainedAlignment.TrainedModelAligner.SetBulkModeAsync(System.Boolean)
+  id: SetBulkModeAsync(System.Boolean)
+  parent: Sdl.Core.FineGrainedAlignment.TrainedModelAligner
+  langs:
+  - csharp
+  - vb
+  name: SetBulkModeAsync(Boolean)
+  nameWithType: TrainedModelAligner.SetBulkModeAsync(Boolean)
+  fullName: Sdl.Core.FineGrainedAlignment.TrainedModelAligner.SetBulkModeAsync(System.Boolean)
+  type: Method
+  source:
+    path: Sdl.Core.FineGrainedAlignment
+    isExternal: true
+  assemblies:
+  - Sdl.Core.FineGrainedAlignment
+  namespace: Sdl.Core.FineGrainedAlignment
+  syntax:
+    content: public Task SetBulkModeAsync(bool bulkMode)
+    parameters:
+    - id: bulkMode
+      type: System.Boolean
+    return:
+      type: System.Threading.Tasks.Task
+    content.vb: Public Function SetBulkModeAsync(bulkMode As Boolean) As Task
+  overload: Sdl.Core.FineGrainedAlignment.TrainedModelAligner.SetBulkModeAsync*
+  implements:
+  - Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.SetBulkModeAsync(System.Boolean)
+  modifiers.csharp:
+  - public
   modifiers.vb:
   - Public
 references:
@@ -358,27 +388,27 @@ references:
   name: TrainedTranslationModel
   nameWithType: TrainedTranslationModel
   fullName: Sdl.Core.FineGrainedAlignment.TrainedTranslationModel
-- uid: Sdl.Core.FineGrainedAlignment.TrainedModelAligner.AlignEx*
-  commentId: Overload:Sdl.Core.FineGrainedAlignment.TrainedModelAligner.AlignEx
+- uid: Sdl.Core.FineGrainedAlignment.TrainedModelAligner.AlignExAsync*
+  commentId: Overload:Sdl.Core.FineGrainedAlignment.TrainedModelAligner.AlignExAsync
   isExternal: true
-  name: AlignEx
-  nameWithType: TrainedModelAligner.AlignEx
-  fullName: Sdl.Core.FineGrainedAlignment.TrainedModelAligner.AlignEx
-- uid: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.AlignEx(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair},System.Threading.CancellationToken,System.IProgress{System.Int32})
-  commentId: M:Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.AlignEx(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair},System.Threading.CancellationToken,System.IProgress{System.Int32})
+  name: AlignExAsync
+  nameWithType: TrainedModelAligner.AlignExAsync
+  fullName: Sdl.Core.FineGrainedAlignment.TrainedModelAligner.AlignExAsync
+- uid: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.AlignExAsync(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair},System.Threading.CancellationToken,System.IProgress{System.Int32})
+  commentId: M:Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.AlignExAsync(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair},System.Threading.CancellationToken,System.IProgress{System.Int32})
   parent: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner
   isExternal: true
-  name: AlignEx(IEnumerable<IAlignableContentPair>, CancellationToken, IProgress<Int32>)
-  nameWithType: IFineGrainedAligner.AlignEx(IEnumerable<IAlignableContentPair>, CancellationToken, IProgress<Int32>)
-  fullName: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.AlignEx(System.Collections.Generic.IEnumerable<Sdl.Core.FineGrainedAlignment.IAlignableContentPair>, System.Threading.CancellationToken, System.IProgress<System.Int32>)
-  nameWithType.vb: IFineGrainedAligner.AlignEx(IEnumerable(Of IAlignableContentPair), CancellationToken, IProgress(Of Int32))
-  fullName.vb: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.AlignEx(System.Collections.Generic.IEnumerable(Of Sdl.Core.FineGrainedAlignment.IAlignableContentPair), System.Threading.CancellationToken, System.IProgress(Of System.Int32))
-  name.vb: AlignEx(IEnumerable(Of IAlignableContentPair), CancellationToken, IProgress(Of Int32))
+  name: AlignExAsync(IEnumerable<IAlignableContentPair>, CancellationToken, IProgress<Int32>)
+  nameWithType: IFineGrainedAligner.AlignExAsync(IEnumerable<IAlignableContentPair>, CancellationToken, IProgress<Int32>)
+  fullName: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.AlignExAsync(System.Collections.Generic.IEnumerable<Sdl.Core.FineGrainedAlignment.IAlignableContentPair>, System.Threading.CancellationToken, System.IProgress<System.Int32>)
+  nameWithType.vb: IFineGrainedAligner.AlignExAsync(IEnumerable(Of IAlignableContentPair), CancellationToken, IProgress(Of Int32))
+  fullName.vb: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.AlignExAsync(System.Collections.Generic.IEnumerable(Of Sdl.Core.FineGrainedAlignment.IAlignableContentPair), System.Threading.CancellationToken, System.IProgress(Of System.Int32))
+  name.vb: AlignExAsync(IEnumerable(Of IAlignableContentPair), CancellationToken, IProgress(Of Int32))
   spec.csharp:
-  - uid: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.AlignEx(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair},System.Threading.CancellationToken,System.IProgress{System.Int32})
-    name: AlignEx
-    nameWithType: IFineGrainedAligner.AlignEx
-    fullName: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.AlignEx
+  - uid: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.AlignExAsync(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair},System.Threading.CancellationToken,System.IProgress{System.Int32})
+    name: AlignExAsync
+    nameWithType: IFineGrainedAligner.AlignExAsync
+    fullName: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.AlignExAsync
     isExternal: true
   - name: (
     nameWithType: (
@@ -430,10 +460,10 @@ references:
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.AlignEx(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair},System.Threading.CancellationToken,System.IProgress{System.Int32})
-    name: AlignEx
-    nameWithType: IFineGrainedAligner.AlignEx
-    fullName: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.AlignEx
+  - uid: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.AlignExAsync(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair},System.Threading.CancellationToken,System.IProgress{System.Int32})
+    name: AlignExAsync
+    nameWithType: IFineGrainedAligner.AlignExAsync
+    fullName: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.AlignExAsync
     isExternal: true
   - name: (
     nameWithType: (
@@ -578,15 +608,24 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: Sdl.Core.FineGrainedAlignment.AlignResult[]
-  isExternal: true
-  name: AlignResult[]
-  nameWithType: AlignResult[]
-  fullName: Sdl.Core.FineGrainedAlignment.AlignResult[]
-  nameWithType.vb: AlignResult()
-  fullName.vb: Sdl.Core.FineGrainedAlignment.AlignResult()
-  name.vb: AlignResult()
+- uid: System.Threading.Tasks.Task{Sdl.Core.FineGrainedAlignment.AlignResult[]}
+  commentId: '!:System.Threading.Tasks.Task{Sdl.Core.FineGrainedAlignment.AlignResult[]}'
+  definition: System.Threading.Tasks.Task`1
+  name: Task<AlignResult[]>
+  nameWithType: Task<AlignResult[]>
+  fullName: System.Threading.Tasks.Task<Sdl.Core.FineGrainedAlignment.AlignResult[]>
+  nameWithType.vb: Task(Of AlignResult())
+  fullName.vb: System.Threading.Tasks.Task(Of Sdl.Core.FineGrainedAlignment.AlignResult())
+  name.vb: Task(Of AlignResult())
   spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
   - uid: Sdl.Core.FineGrainedAlignment.AlignResult
     name: AlignResult
     nameWithType: AlignResult
@@ -595,7 +634,18 @@ references:
   - name: '[]'
     nameWithType: '[]'
     fullName: '[]'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
   spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
   - uid: Sdl.Core.FineGrainedAlignment.AlignResult
     name: AlignResult
     nameWithType: AlignResult
@@ -604,6 +654,9 @@ references:
   - name: ()
     nameWithType: ()
     fullName: ()
+  - name: )
+    nameWithType: )
+    fullName: )
 - uid: System.Collections.Generic.IEnumerable`1
   commentId: T:System.Collections.Generic.IEnumerable`1
   isExternal: true
@@ -685,6 +738,111 @@ references:
   - name: ''
     nameWithType: ''
     fullName: ''
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Threading.Tasks.Task`1
+  commentId: T:System.Threading.Tasks.Task`1
+  isExternal: true
+  name: Task<>
+  nameWithType: Task<>
+  fullName: System.Threading.Tasks.Task<>
+  nameWithType.vb: Task(Of )
+  fullName.vb: System.Threading.Tasks.Task(Of )
+  name.vb: Task(Of )
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: ''
+    nameWithType: ''
+    fullName: ''
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: ''
+    nameWithType: ''
+    fullName: ''
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.AlignExAsync(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair})
+  commentId: M:Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.AlignExAsync(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair})
+  parent: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner
+  isExternal: true
+  name: AlignExAsync(IEnumerable<IAlignableContentPair>)
+  nameWithType: IFineGrainedAligner.AlignExAsync(IEnumerable<IAlignableContentPair>)
+  fullName: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.AlignExAsync(System.Collections.Generic.IEnumerable<Sdl.Core.FineGrainedAlignment.IAlignableContentPair>)
+  nameWithType.vb: IFineGrainedAligner.AlignExAsync(IEnumerable(Of IAlignableContentPair))
+  fullName.vb: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.AlignExAsync(System.Collections.Generic.IEnumerable(Of Sdl.Core.FineGrainedAlignment.IAlignableContentPair))
+  name.vb: AlignExAsync(IEnumerable(Of IAlignableContentPair))
+  spec.csharp:
+  - uid: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.AlignExAsync(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair})
+    name: AlignExAsync
+    nameWithType: IFineGrainedAligner.AlignExAsync
+    fullName: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.AlignExAsync
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Sdl.Core.FineGrainedAlignment.IAlignableContentPair
+    name: IAlignableContentPair
+    nameWithType: IAlignableContentPair
+    fullName: Sdl.Core.FineGrainedAlignment.IAlignableContentPair
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.AlignExAsync(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair})
+    name: AlignExAsync
+    nameWithType: IFineGrainedAligner.AlignExAsync
+    fullName: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.AlignExAsync
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Sdl.Core.FineGrainedAlignment.IAlignableContentPair
+    name: IAlignableContentPair
+    nameWithType: IAlignableContentPair
+    fullName: Sdl.Core.FineGrainedAlignment.IAlignableContentPair
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
   - name: )
     nameWithType: )
     fullName: )
@@ -983,27 +1141,197 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: Sdl.Core.FineGrainedAlignment.TrainedModelAligner.Align*
-  commentId: Overload:Sdl.Core.FineGrainedAlignment.TrainedModelAligner.Align
+- uid: Sdl.Core.FineGrainedAlignment.TrainedModelAligner.AlignAsync*
+  commentId: Overload:Sdl.Core.FineGrainedAlignment.TrainedModelAligner.AlignAsync
   isExternal: true
-  name: Align
-  nameWithType: TrainedModelAligner.Align
-  fullName: Sdl.Core.FineGrainedAlignment.TrainedModelAligner.Align
-- uid: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.Align(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair})
-  commentId: M:Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.Align(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair})
+  name: AlignAsync
+  nameWithType: TrainedModelAligner.AlignAsync
+  fullName: Sdl.Core.FineGrainedAlignment.TrainedModelAligner.AlignAsync
+- uid: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.AlignAsync(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair},System.Threading.CancellationToken,System.IProgress{System.Int32})
+  commentId: M:Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.AlignAsync(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair},System.Threading.CancellationToken,System.IProgress{System.Int32})
   parent: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner
   isExternal: true
-  name: Align(IEnumerable<IAlignableContentPair>)
-  nameWithType: IFineGrainedAligner.Align(IEnumerable<IAlignableContentPair>)
-  fullName: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.Align(System.Collections.Generic.IEnumerable<Sdl.Core.FineGrainedAlignment.IAlignableContentPair>)
-  nameWithType.vb: IFineGrainedAligner.Align(IEnumerable(Of IAlignableContentPair))
-  fullName.vb: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.Align(System.Collections.Generic.IEnumerable(Of Sdl.Core.FineGrainedAlignment.IAlignableContentPair))
-  name.vb: Align(IEnumerable(Of IAlignableContentPair))
+  name: AlignAsync(IEnumerable<IAlignableContentPair>, CancellationToken, IProgress<Int32>)
+  nameWithType: IFineGrainedAligner.AlignAsync(IEnumerable<IAlignableContentPair>, CancellationToken, IProgress<Int32>)
+  fullName: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.AlignAsync(System.Collections.Generic.IEnumerable<Sdl.Core.FineGrainedAlignment.IAlignableContentPair>, System.Threading.CancellationToken, System.IProgress<System.Int32>)
+  nameWithType.vb: IFineGrainedAligner.AlignAsync(IEnumerable(Of IAlignableContentPair), CancellationToken, IProgress(Of Int32))
+  fullName.vb: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.AlignAsync(System.Collections.Generic.IEnumerable(Of Sdl.Core.FineGrainedAlignment.IAlignableContentPair), System.Threading.CancellationToken, System.IProgress(Of System.Int32))
+  name.vb: AlignAsync(IEnumerable(Of IAlignableContentPair), CancellationToken, IProgress(Of Int32))
   spec.csharp:
-  - uid: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.Align(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair})
-    name: Align
-    nameWithType: IFineGrainedAligner.Align
-    fullName: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.Align
+  - uid: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.AlignAsync(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair},System.Threading.CancellationToken,System.IProgress{System.Int32})
+    name: AlignAsync
+    nameWithType: IFineGrainedAligner.AlignAsync
+    fullName: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.AlignAsync
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Sdl.Core.FineGrainedAlignment.IAlignableContentPair
+    name: IAlignableContentPair
+    nameWithType: IAlignableContentPair
+    fullName: Sdl.Core.FineGrainedAlignment.IAlignableContentPair
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.IProgress`1
+    name: IProgress
+    nameWithType: IProgress
+    fullName: System.IProgress
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.AlignAsync(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair},System.Threading.CancellationToken,System.IProgress{System.Int32})
+    name: AlignAsync
+    nameWithType: IFineGrainedAligner.AlignAsync
+    fullName: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.AlignAsync
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Sdl.Core.FineGrainedAlignment.IAlignableContentPair
+    name: IAlignableContentPair
+    nameWithType: IAlignableContentPair
+    fullName: Sdl.Core.FineGrainedAlignment.IAlignableContentPair
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.IProgress`1
+    name: IProgress
+    nameWithType: IProgress
+    fullName: System.IProgress
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Threading.Tasks.Task{System.Boolean}
+  commentId: '!:System.Threading.Tasks.Task{System.Boolean}'
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  name: Task<Boolean>
+  nameWithType: Task<Boolean>
+  fullName: System.Threading.Tasks.Task<System.Boolean>
+  nameWithType.vb: Task(Of Boolean)
+  fullName.vb: System.Threading.Tasks.Task(Of System.Boolean)
+  name.vb: Task(Of Boolean)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks
+- uid: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.AlignAsync(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair})
+  commentId: M:Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.AlignAsync(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair})
+  parent: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner
+  isExternal: true
+  name: AlignAsync(IEnumerable<IAlignableContentPair>)
+  nameWithType: IFineGrainedAligner.AlignAsync(IEnumerable<IAlignableContentPair>)
+  fullName: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.AlignAsync(System.Collections.Generic.IEnumerable<Sdl.Core.FineGrainedAlignment.IAlignableContentPair>)
+  nameWithType.vb: IFineGrainedAligner.AlignAsync(IEnumerable(Of IAlignableContentPair))
+  fullName.vb: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.AlignAsync(System.Collections.Generic.IEnumerable(Of Sdl.Core.FineGrainedAlignment.IAlignableContentPair))
+  name.vb: AlignAsync(IEnumerable(Of IAlignableContentPair))
+  spec.csharp:
+  - uid: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.AlignAsync(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair})
+    name: AlignAsync
+    nameWithType: IFineGrainedAligner.AlignAsync
+    fullName: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.AlignAsync
     isExternal: true
   - name: (
     nameWithType: (
@@ -1028,10 +1356,10 @@ references:
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.Align(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair})
-    name: Align
-    nameWithType: IFineGrainedAligner.Align
-    fullName: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.Align
+  - uid: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.AlignAsync(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair})
+    name: AlignAsync
+    nameWithType: IFineGrainedAligner.AlignAsync
+    fullName: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.AlignAsync
     isExternal: true
   - name: (
     nameWithType: (
@@ -1052,6 +1380,43 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Sdl.Core.FineGrainedAlignment.TrainedModelAligner.GetBulkMode*
+  commentId: Overload:Sdl.Core.FineGrainedAlignment.TrainedModelAligner.GetBulkMode
+  isExternal: true
+  name: GetBulkMode
+  nameWithType: TrainedModelAligner.GetBulkMode
+  fullName: Sdl.Core.FineGrainedAlignment.TrainedModelAligner.GetBulkMode
+- uid: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.GetBulkMode
+  commentId: M:Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.GetBulkMode
+  parent: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner
+  isExternal: true
+  name: GetBulkMode()
+  nameWithType: IFineGrainedAligner.GetBulkMode()
+  fullName: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.GetBulkMode()
+  spec.csharp:
+  - uid: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.GetBulkMode
+    name: GetBulkMode
+    nameWithType: IFineGrainedAligner.GetBulkMode
+    fullName: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.GetBulkMode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.GetBulkMode
+    name: GetBulkMode
+    nameWithType: IFineGrainedAligner.GetBulkMode
+    fullName: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.GetBulkMode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
   - name: )
     nameWithType: )
     fullName: )
@@ -1062,202 +1427,57 @@ references:
   name: Boolean
   nameWithType: Boolean
   fullName: System.Boolean
-- uid: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.Align(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair},System.Threading.CancellationToken,System.IProgress{System.Int32})
-  commentId: M:Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.Align(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair},System.Threading.CancellationToken,System.IProgress{System.Int32})
+- uid: Sdl.Core.FineGrainedAlignment.TrainedModelAligner.SetBulkModeAsync*
+  commentId: Overload:Sdl.Core.FineGrainedAlignment.TrainedModelAligner.SetBulkModeAsync
+  isExternal: true
+  name: SetBulkModeAsync
+  nameWithType: TrainedModelAligner.SetBulkModeAsync
+  fullName: Sdl.Core.FineGrainedAlignment.TrainedModelAligner.SetBulkModeAsync
+- uid: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.SetBulkModeAsync(System.Boolean)
+  commentId: M:Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.SetBulkModeAsync(System.Boolean)
   parent: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner
   isExternal: true
-  name: Align(IEnumerable<IAlignableContentPair>, CancellationToken, IProgress<Int32>)
-  nameWithType: IFineGrainedAligner.Align(IEnumerable<IAlignableContentPair>, CancellationToken, IProgress<Int32>)
-  fullName: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.Align(System.Collections.Generic.IEnumerable<Sdl.Core.FineGrainedAlignment.IAlignableContentPair>, System.Threading.CancellationToken, System.IProgress<System.Int32>)
-  nameWithType.vb: IFineGrainedAligner.Align(IEnumerable(Of IAlignableContentPair), CancellationToken, IProgress(Of Int32))
-  fullName.vb: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.Align(System.Collections.Generic.IEnumerable(Of Sdl.Core.FineGrainedAlignment.IAlignableContentPair), System.Threading.CancellationToken, System.IProgress(Of System.Int32))
-  name.vb: Align(IEnumerable(Of IAlignableContentPair), CancellationToken, IProgress(Of Int32))
+  name: SetBulkModeAsync(Boolean)
+  nameWithType: IFineGrainedAligner.SetBulkModeAsync(Boolean)
+  fullName: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.SetBulkModeAsync(System.Boolean)
   spec.csharp:
-  - uid: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.Align(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair},System.Threading.CancellationToken,System.IProgress{System.Int32})
-    name: Align
-    nameWithType: IFineGrainedAligner.Align
-    fullName: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.Align
+  - uid: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.SetBulkModeAsync(System.Boolean)
+    name: SetBulkModeAsync
+    nameWithType: IFineGrainedAligner.SetBulkModeAsync
+    fullName: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.SetBulkModeAsync
     isExternal: true
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Collections.Generic.IEnumerable`1
-    name: IEnumerable
-    nameWithType: IEnumerable
-    fullName: System.Collections.Generic.IEnumerable
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
     isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
-  - uid: Sdl.Core.FineGrainedAlignment.IAlignableContentPair
-    name: IAlignableContentPair
-    nameWithType: IAlignableContentPair
-    fullName: Sdl.Core.FineGrainedAlignment.IAlignableContentPair
-    isExternal: true
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: System.Threading.CancellationToken
-    name: CancellationToken
-    nameWithType: CancellationToken
-    fullName: System.Threading.CancellationToken
-    isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: System.IProgress`1
-    name: IProgress
-    nameWithType: IProgress
-    fullName: System.IProgress
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
-  - uid: System.Int32
-    name: Int32
-    nameWithType: Int32
-    fullName: System.Int32
-    isExternal: true
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   - name: )
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.Align(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair},System.Threading.CancellationToken,System.IProgress{System.Int32})
-    name: Align
-    nameWithType: IFineGrainedAligner.Align
-    fullName: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.Align
+  - uid: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.SetBulkModeAsync(System.Boolean)
+    name: SetBulkModeAsync
+    nameWithType: IFineGrainedAligner.SetBulkModeAsync
+    fullName: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.SetBulkModeAsync
     isExternal: true
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Collections.Generic.IEnumerable`1
-    name: IEnumerable
-    nameWithType: IEnumerable
-    fullName: System.Collections.Generic.IEnumerable
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - uid: Sdl.Core.FineGrainedAlignment.IAlignableContentPair
-    name: IAlignableContentPair
-    nameWithType: IAlignableContentPair
-    fullName: Sdl.Core.FineGrainedAlignment.IAlignableContentPair
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
     isExternal: true
   - name: )
     nameWithType: )
     fullName: )
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: System.Threading.CancellationToken
-    name: CancellationToken
-    nameWithType: CancellationToken
-    fullName: System.Threading.CancellationToken
-    isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: System.IProgress`1
-    name: IProgress
-    nameWithType: IProgress
-    fullName: System.IProgress
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - uid: System.Int32
-    name: Int32
-    nameWithType: Int32
-    fullName: System.Int32
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.AlignEx(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair})
-  commentId: M:Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.AlignEx(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair})
-  parent: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner
+- uid: System.Threading.Tasks.Task
+  commentId: T:System.Threading.Tasks.Task
+  parent: System.Threading.Tasks
   isExternal: true
-  name: AlignEx(IEnumerable<IAlignableContentPair>)
-  nameWithType: IFineGrainedAligner.AlignEx(IEnumerable<IAlignableContentPair>)
-  fullName: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.AlignEx(System.Collections.Generic.IEnumerable<Sdl.Core.FineGrainedAlignment.IAlignableContentPair>)
-  nameWithType.vb: IFineGrainedAligner.AlignEx(IEnumerable(Of IAlignableContentPair))
-  fullName.vb: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.AlignEx(System.Collections.Generic.IEnumerable(Of Sdl.Core.FineGrainedAlignment.IAlignableContentPair))
-  name.vb: AlignEx(IEnumerable(Of IAlignableContentPair))
-  spec.csharp:
-  - uid: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.AlignEx(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair})
-    name: AlignEx
-    nameWithType: IFineGrainedAligner.AlignEx
-    fullName: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.AlignEx
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: System.Collections.Generic.IEnumerable`1
-    name: IEnumerable
-    nameWithType: IEnumerable
-    fullName: System.Collections.Generic.IEnumerable
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
-  - uid: Sdl.Core.FineGrainedAlignment.IAlignableContentPair
-    name: IAlignableContentPair
-    nameWithType: IAlignableContentPair
-    fullName: Sdl.Core.FineGrainedAlignment.IAlignableContentPair
-    isExternal: true
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.AlignEx(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair})
-    name: AlignEx
-    nameWithType: IFineGrainedAligner.AlignEx
-    fullName: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.AlignEx
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: System.Collections.Generic.IEnumerable`1
-    name: IEnumerable
-    nameWithType: IEnumerable
-    fullName: System.Collections.Generic.IEnumerable
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - uid: Sdl.Core.FineGrainedAlignment.IAlignableContentPair
-    name: IAlignableContentPair
-    nameWithType: IAlignableContentPair
-    fullName: Sdl.Core.FineGrainedAlignment.IAlignableContentPair
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: Sdl.Core.FineGrainedAlignment.TrainedModelAligner.BulkMode*
-  commentId: Overload:Sdl.Core.FineGrainedAlignment.TrainedModelAligner.BulkMode
-  isExternal: true
-  name: BulkMode
-  nameWithType: TrainedModelAligner.BulkMode
-  fullName: Sdl.Core.FineGrainedAlignment.TrainedModelAligner.BulkMode
-- uid: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.BulkMode
-  commentId: P:Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.BulkMode
-  parent: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner
-  isExternal: true
-  name: BulkMode
-  nameWithType: IFineGrainedAligner.BulkMode
-  fullName: Sdl.Core.FineGrainedAlignment.IFineGrainedAligner.BulkMode
+  name: Task
+  nameWithType: Task
+  fullName: System.Threading.Tasks.Task

@@ -6,6 +6,7 @@ items:
   parent: Sdl.LanguagePlatform.TranslationMemoryApi
   children:
   - Sdl.LanguagePlatform.TranslationMemoryApi.FieldDefinition.#ctor
+  - Sdl.LanguagePlatform.TranslationMemoryApi.FieldDefinition.#ctor(Sdl.LanguagePlatform.TranslationMemory.Field)
   - Sdl.LanguagePlatform.TranslationMemoryApi.FieldDefinition.#ctor(Sdl.LanguagePlatform.TranslationMemory.Field,System.Boolean)
   - Sdl.LanguagePlatform.TranslationMemoryApi.FieldDefinition.#ctor(System.String,Sdl.LanguagePlatform.TranslationMemory.FieldValueType)
   - Sdl.LanguagePlatform.TranslationMemoryApi.FieldDefinition.#ctor(System.String,Sdl.LanguagePlatform.TranslationMemory.FieldValueType,System.String[])
@@ -259,7 +260,10 @@ items:
   namespace: Sdl.LanguagePlatform.TranslationMemoryApi
   summary: "\nInitializes a new instance of the <xref href=\"Sdl.LanguagePlatform.TranslationMemoryApi.FieldDefinition\" data-throw-if-not-resolved=\"false\"></xref> class.\n"
   syntax:
-    content: public FieldDefinition(Field field, bool isReadOnly)
+    content: >-
+      [Obsolete("Please use FieldDefinition(Field field) constructor ")]
+
+      public FieldDefinition(Field field, bool isReadOnly)
     parameters:
     - id: field
       type: Sdl.LanguagePlatform.TranslationMemory.Field
@@ -267,7 +271,44 @@ items:
     - id: isReadOnly
       type: System.Boolean
       description: if set to <code>true</code> [is read only].
-    content.vb: Public Sub New(field As Field, isReadOnly As Boolean)
+    content.vb: >-
+      <Obsolete("Please use FieldDefinition(Field field) constructor ")>
+
+      Public Sub New(field As Field, isReadOnly As Boolean)
+  overload: Sdl.LanguagePlatform.TranslationMemoryApi.FieldDefinition.#ctor*
+  attributes:
+  - type: System.ObsoleteAttribute
+    ctor: System.ObsoleteAttribute.#ctor(System.String)
+    arguments:
+    - type: System.String
+      value: 'Please use FieldDefinition(Field field) constructor '
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Sdl.LanguagePlatform.TranslationMemoryApi.FieldDefinition.#ctor(Sdl.LanguagePlatform.TranslationMemory.Field)
+  commentId: M:Sdl.LanguagePlatform.TranslationMemoryApi.FieldDefinition.#ctor(Sdl.LanguagePlatform.TranslationMemory.Field)
+  id: '#ctor(Sdl.LanguagePlatform.TranslationMemory.Field)'
+  parent: Sdl.LanguagePlatform.TranslationMemoryApi.FieldDefinition
+  langs:
+  - csharp
+  - vb
+  name: FieldDefinition(Field)
+  nameWithType: FieldDefinition.FieldDefinition(Field)
+  fullName: Sdl.LanguagePlatform.TranslationMemoryApi.FieldDefinition.FieldDefinition(Sdl.LanguagePlatform.TranslationMemory.Field)
+  type: Constructor
+  source:
+    path: Sdl.LanguagePlatform.TranslationMemoryApi
+    isExternal: true
+  assemblies:
+  - Sdl.LanguagePlatform.TranslationMemoryApi
+  namespace: Sdl.LanguagePlatform.TranslationMemoryApi
+  syntax:
+    content: public FieldDefinition(Field field)
+    parameters:
+    - id: field
+      type: Sdl.LanguagePlatform.TranslationMemory.Field
+    content.vb: Public Sub New(field As Field)
   overload: Sdl.LanguagePlatform.TranslationMemoryApi.FieldDefinition.#ctor*
   modifiers.csharp:
   - public

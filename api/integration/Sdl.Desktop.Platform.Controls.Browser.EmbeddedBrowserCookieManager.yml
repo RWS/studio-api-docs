@@ -21,8 +21,13 @@ items:
   - Sdl.Desktop.Platform.Controls
   namespace: Sdl.Desktop.Platform.Controls.Browser
   syntax:
-    content: 'public class EmbeddedBrowserCookieManager : ICookieManager'
+    content: >-
+      [Obsolete("Use WebView2 instead of WebBrowser and its own CookieManager.")]
+
+      public class EmbeddedBrowserCookieManager : ICookieManager
     content.vb: >-
+      <Obsolete("Use WebView2 instead of WebBrowser and its own CookieManager.")>
+
       Public Class EmbeddedBrowserCookieManager
           Implements ICookieManager
   inheritance:
@@ -39,6 +44,12 @@ items:
   - System.Object.MemberwiseClone
   extensionMethods:
   - System.Object.Sdl.Desktop.Platform.Controls.Controls.WindowsControlUtils.ForWindowFromFrameworkElement(System.Action{System.Windows.Window})
+  attributes:
+  - type: System.ObsoleteAttribute
+    ctor: System.ObsoleteAttribute.#ctor(System.String)
+    arguments:
+    - type: System.String
+      value: Use WebView2 instead of WebBrowser and its own CookieManager.
   modifiers.csharp:
   - public
   - class

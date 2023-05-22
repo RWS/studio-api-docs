@@ -34,7 +34,6 @@ items:
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.IntegrationApi
-  summary: "\nImplement this class for single file previews. Override the required properties and methods\n"
   syntax:
     content: 'public abstract class AbstractSingleFileRefreshablePreviewController : AbstractSettingsBundleAware, ISingleFileRefreshablePreview, ISingleFilePreviewControl, IAbstractPreviewControl, IAbstractPreviewController, ISingleFilePreviewController, INavigablePreview, IDisposable, IFileTypeDefinitionAware, IPreviewUpdatedViaSegmentFile, IPreviewUpdatedViaRefresh, IAbstractUpdatablePreview'
     content.vb: >-
@@ -80,8 +79,6 @@ items:
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.IntegrationApi
-  summary: "\nCalled when a document preview first needs to be been displayed and \nsubsequently each time the document preview needs to be been updated.\n"
-  remarks: "\nThis preview control may also need to call the contained preview generator object&apos;s IAbstractPreviewGenerator.Refresh() method\nto ensure that a new preview file has been created or has been updated, and is ready to be viewed.\n"
   syntax:
     content: public virtual void Refresh()
     content.vb: Public Overridable Sub Refresh
@@ -111,8 +108,6 @@ items:
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.IntegrationApi
-  summary: "\nCalled by the host application to request that \nthe preview should scroll to the specified segment.\n"
-  remarks: "\n<p>\nThe implementation may specifically highlight\nthe segment in the preview (if possible).\n</p>\n"
   syntax:
     content: public virtual void NavigateToSegment(SegmentReference segment)
     parameters:
@@ -145,7 +140,6 @@ items:
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.IntegrationApi
-  summary: "\nDispose\n"
   syntax:
     content: public virtual void Dispose()
     content.vb: Public Overridable Sub Dispose
@@ -175,7 +169,6 @@ items:
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.IntegrationApi
-  summary: "\nCalled when a segment file should be created\n"
   syntax:
     content: public virtual TempFileManager CreateSegmentFile(SegmentReference segment)
     parameters:
@@ -210,7 +203,6 @@ items:
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.IntegrationApi
-  summary: "\nCalled when the Preview should be updated from a segment file\n"
   syntax:
     content: public virtual void UpdatePreviewFromSegmentFile(SegmentReference segment, TempFileManager translatedSegmentFile)
     parameters:
@@ -245,8 +237,6 @@ items:
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.IntegrationApi
-  summary: "\nCalled by the host application when the preview is about to be updated,\nbefore the file at <xref href=\"Sdl.FileTypeSupport.Framework.IntegrationApi.AbstractSingleFileRefreshablePreviewController.TargetFilePath\" data-throw-if-not-resolved=\"false\"></xref> is overwritten.\n"
-  remarks: "\n<p>\nThis call allows the implementation to release\nany file locks and/or try to &apos;remember&apos; the current location of the file\nbefore it is overwritten.\n</p>\n"
   syntax:
     content: public virtual void BeforeFileRefresh()
     content.vb: Public Overridable Sub BeforeFileRefresh
@@ -276,8 +266,6 @@ items:
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.IntegrationApi
-  summary: "\nCalled by the host application after the preview file has been successfully\noverwritten.\n"
-  remarks: "\n<p>\nThe implementation typically re-loads (refreshes) the file in the preview\nand (if necessary) navigates to the previously displaying content.\n</p>\n"
   syntax:
     content: public virtual void AfterFileRefresh()
     content.vb: Public Overridable Sub AfterFileRefresh
@@ -307,7 +295,6 @@ items:
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.IntegrationApi
-  summary: "\nCalled to fire the SegmentSelected event\n"
   syntax:
     content: public void OnSegmentSelected(SegmentSelectedEventArgs args)
     parameters:
@@ -361,8 +348,6 @@ items:
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.IntegrationApi
-  summary: "\nThe actual Windows Forms control for the preview display\n"
-  remarks: "\n<p>\nThis property provides direct access to the control. It \nis used by host applications that host the control to set\nits size and other standard properties.\n</p>\n"
   syntax:
     content: public virtual Control Control { get; }
     parameters: []
@@ -397,7 +382,6 @@ items:
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.IntegrationApi
-  summary: "\nRefreshPreview should be set to true in the controller if a full preview regeneration is needed\n"
   syntax:
     content: public bool RefreshPreview { get; set; }
     parameters: []
@@ -430,8 +414,6 @@ items:
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.IntegrationApi
-  summary: "\nFull path to the file that should be displayed in the preview\n"
-  remarks: "\n<p>\nThe host application sets this path after generating the preview file before\ncalling <xref href=\"Sdl.FileTypeSupport.Framework.IntegrationApi.IAbstractPreviewControl.Refresh\" data-throw-if-not-resolved=\"false\"></xref> or <xref href=\"Sdl.FileTypeSupport.Framework.IntegrationApi.IAbstractPreviewApplication.Launch\" data-throw-if-not-resolved=\"false\"></xref> in order to display the file.\n</p>\n<p>\nThe file is passed through a temporary file manager, which means that it should \nbe deleted automatically when it is no longer needed.\n</p>\n"
   syntax:
     content: public virtual TempFileManager PreviewFile { get; set; }
     parameters: []
@@ -466,8 +448,6 @@ items:
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.IntegrationApi
-  summary: "\nSet by the host application to indicate the preferred color\nto be used for highlighting the current segment in the preview\nwhen <xref href=\"Sdl.FileTypeSupport.Framework.IntegrationApi.AbstractSingleFileRefreshablePreviewController.NavigateToSegment(Sdl.FileTypeSupport.Framework.IntegrationApi.SegmentReference)\" data-throw-if-not-resolved=\"false\"></xref> is called.\n"
-  remarks: "\n<p>\nUsing the highlight color is optional, but leads to an enhanced\nuser experience. This will typically be the same\ncolor as the background color that is used for the active segment row\nin the editor, which makes it easier for the user to see that\nthe two segments (i.e. from the bilingual document and the preview) relate to each other.\n</p>\n"
   syntax:
     content: public virtual Color PreferredHighlightColor { get; set; }
     parameters: []
@@ -502,7 +482,6 @@ items:
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.IntegrationApi
-  summary: "\nFileTypeDefinition\n"
   syntax:
     content: public IFileTypeDefinition FileTypeDefinition { get; set; }
     parameters: []
@@ -535,7 +514,6 @@ items:
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.IntegrationApi
-  summary: "\nFull path to the target language file that is overwritten when\nthe preview is refreshed. This path is typically set once and stays unchanged during\nthe lifetime of the preview.\n"
   syntax:
     content: public virtual TempFileManager TargetFilePath { get; set; }
     parameters: []
@@ -570,8 +548,6 @@ items:
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.IntegrationApi
-  summary: "\nRaised when the user interacts with the preview, selecting\na different segment than the one that is currently highlighted.\n"
-  remarks: "\n<p>\nThe host application typically handles this event by \nchanging the active segment in the editor to the one that the\nuser has selected in the preview.\n</p>\n"
   syntax:
     content: public event EventHandler<SegmentSelectedEventArgs> SegmentSelected
     return:

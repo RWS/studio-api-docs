@@ -5,13 +5,13 @@ items:
   id: ChiSquaredTranslationModelStoreReadOnly
   parent: Sdl.Core.FineGrainedAlignment
   children:
-  - Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.#ctor(Sdl.Core.FineGrainedAlignment.ITranslationModelDataService,Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelId)
-  - Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.LoadMatrixData(System.Collections.Generic.HashSet{System.Int32},System.Collections.Generic.HashSet{System.Int32},System.Boolean)
-  - Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.LoadMatrixData(System.Int32@,System.Int32,System.Boolean)
-  - Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.LoadVocab(System.Boolean,System.Collections.Generic.IEnumerable{System.String})
-  - Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.SampleCount
-  - Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.TotalVocabSize(System.Boolean)
-  - Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.TranslationModelDate
+  - Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.#ctor(Sdl.Core.FineGrainedAlignment.ITranslationModelDataService,Sdl.Core.FineGrainedAlignment.TranslationModelDetails,Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelId)
+  - Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.GetSampleCountAsync
+  - Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.GetTranslationModelDateAsync
+  - Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.LoadMatrixDataAsync(System.Collections.Generic.HashSet{System.Int32},System.Collections.Generic.HashSet{System.Int32},System.Boolean)
+  - Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.LoadMatrixDataAsync(System.Int32,System.Int32,System.Boolean)
+  - Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.LoadVocabAsync(System.Boolean,System.Collections.Generic.IEnumerable{System.String})
+  - Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.TotalVocabSizeAsync(System.Boolean)
   langs:
   - csharp
   - vb
@@ -41,16 +41,16 @@ items:
   modifiers.vb:
   - Public
   - Class
-- uid: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.#ctor(Sdl.Core.FineGrainedAlignment.ITranslationModelDataService,Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelId)
-  commentId: M:Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.#ctor(Sdl.Core.FineGrainedAlignment.ITranslationModelDataService,Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelId)
-  id: '#ctor(Sdl.Core.FineGrainedAlignment.ITranslationModelDataService,Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelId)'
+- uid: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.#ctor(Sdl.Core.FineGrainedAlignment.ITranslationModelDataService,Sdl.Core.FineGrainedAlignment.TranslationModelDetails,Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelId)
+  commentId: M:Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.#ctor(Sdl.Core.FineGrainedAlignment.ITranslationModelDataService,Sdl.Core.FineGrainedAlignment.TranslationModelDetails,Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelId)
+  id: '#ctor(Sdl.Core.FineGrainedAlignment.ITranslationModelDataService,Sdl.Core.FineGrainedAlignment.TranslationModelDetails,Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelId)'
   parent: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly
   langs:
   - csharp
   - vb
-  name: ChiSquaredTranslationModelStoreReadOnly(ITranslationModelDataService, ChiSquaredTranslationModelId)
-  nameWithType: ChiSquaredTranslationModelStoreReadOnly.ChiSquaredTranslationModelStoreReadOnly(ITranslationModelDataService, ChiSquaredTranslationModelId)
-  fullName: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.ChiSquaredTranslationModelStoreReadOnly(Sdl.Core.FineGrainedAlignment.ITranslationModelDataService, Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelId)
+  name: ChiSquaredTranslationModelStoreReadOnly(ITranslationModelDataService, TranslationModelDetails, ChiSquaredTranslationModelId)
+  nameWithType: ChiSquaredTranslationModelStoreReadOnly.ChiSquaredTranslationModelStoreReadOnly(ITranslationModelDataService, TranslationModelDetails, ChiSquaredTranslationModelId)
+  fullName: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.ChiSquaredTranslationModelStoreReadOnly(Sdl.Core.FineGrainedAlignment.ITranslationModelDataService, Sdl.Core.FineGrainedAlignment.TranslationModelDetails, Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelId)
   type: Constructor
   source:
     path: Sdl.Core.FineGrainedAlignment
@@ -59,28 +59,30 @@ items:
   - Sdl.Core.FineGrainedAlignment
   namespace: Sdl.Core.FineGrainedAlignment
   syntax:
-    content: public ChiSquaredTranslationModelStoreReadOnly(ITranslationModelDataService service, ChiSquaredTranslationModelId modelId)
+    content: public ChiSquaredTranslationModelStoreReadOnly(ITranslationModelDataService service, TranslationModelDetails modelDetails, ChiSquaredTranslationModelId modelId)
     parameters:
     - id: service
       type: Sdl.Core.FineGrainedAlignment.ITranslationModelDataService
+    - id: modelDetails
+      type: Sdl.Core.FineGrainedAlignment.TranslationModelDetails
     - id: modelId
       type: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelId
-    content.vb: Public Sub New(service As ITranslationModelDataService, modelId As ChiSquaredTranslationModelId)
+    content.vb: Public Sub New(service As ITranslationModelDataService, modelDetails As TranslationModelDetails, modelId As ChiSquaredTranslationModelId)
   overload: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.#ctor*
   modifiers.csharp:
   - public
   modifiers.vb:
   - Public
-- uid: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.LoadMatrixData(System.Int32@,System.Int32,System.Boolean)
-  commentId: M:Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.LoadMatrixData(System.Int32@,System.Int32,System.Boolean)
-  id: LoadMatrixData(System.Int32@,System.Int32,System.Boolean)
+- uid: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.LoadMatrixDataAsync(System.Int32,System.Int32,System.Boolean)
+  commentId: M:Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.LoadMatrixDataAsync(System.Int32,System.Int32,System.Boolean)
+  id: LoadMatrixDataAsync(System.Int32,System.Int32,System.Boolean)
   parent: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly
   langs:
   - csharp
   - vb
-  name: LoadMatrixData(ref Int32, Int32, Boolean)
-  nameWithType: ChiSquaredTranslationModelStoreReadOnly.LoadMatrixData(ref Int32, Int32, Boolean)
-  fullName: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.LoadMatrixData(ref System.Int32, System.Int32, System.Boolean)
+  name: LoadMatrixDataAsync(Int32, Int32, Boolean)
+  nameWithType: ChiSquaredTranslationModelStoreReadOnly.LoadMatrixDataAsync(Int32, Int32, Boolean)
+  fullName: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.LoadMatrixDataAsync(System.Int32, System.Int32, System.Boolean)
   type: Method
   source:
     path: Sdl.Core.FineGrainedAlignment
@@ -89,7 +91,7 @@ items:
   - Sdl.Core.FineGrainedAlignment
   namespace: Sdl.Core.FineGrainedAlignment
   syntax:
-    content: public List<TranslationModelMatrixEntry> LoadMatrixData(ref int startAfter, int count, bool isReversedMatrix)
+    content: public Task<(List<TranslationModelMatrixEntry>, int)> LoadMatrixDataAsync(int startAfter, int count, bool isReversedMatrix)
     parameters:
     - id: startAfter
       type: System.Int32
@@ -98,28 +100,25 @@ items:
     - id: isReversedMatrix
       type: System.Boolean
     return:
-      type: System.Collections.Generic.List{Sdl.Core.FineGrainedAlignment.TranslationModelMatrixEntry}
-    content.vb: Public Function LoadMatrixData(ByRef startAfter As Integer, count As Integer, isReversedMatrix As Boolean) As List(Of TranslationModelMatrixEntry)
-  overload: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.LoadMatrixData*
+      type: System.Threading.Tasks.Task{System.ValueTuple{System.Collections.Generic.List{Sdl.Core.FineGrainedAlignment.TranslationModelMatrixEntry},System.Int32}}
+    content.vb: Public Function LoadMatrixDataAsync(startAfter As Integer, count As Integer, isReversedMatrix As Boolean) As Task(Of(List(Of TranslationModelMatrixEntry), Integer)(Of List(Of TranslationModelMatrixEntry), Integer)
+  overload: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.LoadMatrixDataAsync*
   implements:
-  - Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.LoadMatrixData(System.Int32@,System.Int32,System.Boolean)
-  nameWithType.vb: ChiSquaredTranslationModelStoreReadOnly.LoadMatrixData(ByRef Int32, Int32, Boolean)
+  - Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.LoadMatrixDataAsync(System.Int32,System.Int32,System.Boolean)
   modifiers.csharp:
   - public
   modifiers.vb:
   - Public
-  fullName.vb: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.LoadMatrixData(ByRef System.Int32, System.Int32, System.Boolean)
-  name.vb: LoadMatrixData(ByRef Int32, Int32, Boolean)
-- uid: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.LoadMatrixData(System.Collections.Generic.HashSet{System.Int32},System.Collections.Generic.HashSet{System.Int32},System.Boolean)
-  commentId: M:Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.LoadMatrixData(System.Collections.Generic.HashSet{System.Int32},System.Collections.Generic.HashSet{System.Int32},System.Boolean)
-  id: LoadMatrixData(System.Collections.Generic.HashSet{System.Int32},System.Collections.Generic.HashSet{System.Int32},System.Boolean)
+- uid: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.LoadMatrixDataAsync(System.Collections.Generic.HashSet{System.Int32},System.Collections.Generic.HashSet{System.Int32},System.Boolean)
+  commentId: M:Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.LoadMatrixDataAsync(System.Collections.Generic.HashSet{System.Int32},System.Collections.Generic.HashSet{System.Int32},System.Boolean)
+  id: LoadMatrixDataAsync(System.Collections.Generic.HashSet{System.Int32},System.Collections.Generic.HashSet{System.Int32},System.Boolean)
   parent: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly
   langs:
   - csharp
   - vb
-  name: LoadMatrixData(HashSet<Int32>, HashSet<Int32>, Boolean)
-  nameWithType: ChiSquaredTranslationModelStoreReadOnly.LoadMatrixData(HashSet<Int32>, HashSet<Int32>, Boolean)
-  fullName: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.LoadMatrixData(System.Collections.Generic.HashSet<System.Int32>, System.Collections.Generic.HashSet<System.Int32>, System.Boolean)
+  name: LoadMatrixDataAsync(HashSet<Int32>, HashSet<Int32>, Boolean)
+  nameWithType: ChiSquaredTranslationModelStoreReadOnly.LoadMatrixDataAsync(HashSet<Int32>, HashSet<Int32>, Boolean)
+  fullName: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.LoadMatrixDataAsync(System.Collections.Generic.HashSet<System.Int32>, System.Collections.Generic.HashSet<System.Int32>, System.Boolean)
   type: Method
   source:
     path: Sdl.Core.FineGrainedAlignment
@@ -128,7 +127,7 @@ items:
   - Sdl.Core.FineGrainedAlignment
   namespace: Sdl.Core.FineGrainedAlignment
   syntax:
-    content: public List<TranslationModelMatrixEntry> LoadMatrixData(HashSet<int> sourceKeys, HashSet<int> targetKeys, bool isReversedMatrix)
+    content: public Task<List<TranslationModelMatrixEntry>> LoadMatrixDataAsync(HashSet<int> sourceKeys, HashSet<int> targetKeys, bool isReversedMatrix)
     parameters:
     - id: sourceKeys
       type: System.Collections.Generic.HashSet{System.Int32}
@@ -137,28 +136,28 @@ items:
     - id: isReversedMatrix
       type: System.Boolean
     return:
-      type: System.Collections.Generic.List{Sdl.Core.FineGrainedAlignment.TranslationModelMatrixEntry}
-    content.vb: Public Function LoadMatrixData(sourceKeys As HashSet(Of Integer), targetKeys As HashSet(Of Integer), isReversedMatrix As Boolean) As List(Of TranslationModelMatrixEntry)
-  overload: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.LoadMatrixData*
+      type: System.Threading.Tasks.Task{System.Collections.Generic.List{Sdl.Core.FineGrainedAlignment.TranslationModelMatrixEntry}}
+    content.vb: Public Function LoadMatrixDataAsync(sourceKeys As HashSet(Of Integer), targetKeys As HashSet(Of Integer), isReversedMatrix As Boolean) As Task(Of List(Of TranslationModelMatrixEntry))
+  overload: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.LoadMatrixDataAsync*
   implements:
-  - Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.LoadMatrixData(System.Collections.Generic.HashSet{System.Int32},System.Collections.Generic.HashSet{System.Int32},System.Boolean)
-  nameWithType.vb: ChiSquaredTranslationModelStoreReadOnly.LoadMatrixData(HashSet(Of Int32), HashSet(Of Int32), Boolean)
+  - Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.LoadMatrixDataAsync(System.Collections.Generic.HashSet{System.Int32},System.Collections.Generic.HashSet{System.Int32},System.Boolean)
+  nameWithType.vb: ChiSquaredTranslationModelStoreReadOnly.LoadMatrixDataAsync(HashSet(Of Int32), HashSet(Of Int32), Boolean)
   modifiers.csharp:
   - public
   modifiers.vb:
   - Public
-  fullName.vb: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.LoadMatrixData(System.Collections.Generic.HashSet(Of System.Int32), System.Collections.Generic.HashSet(Of System.Int32), System.Boolean)
-  name.vb: LoadMatrixData(HashSet(Of Int32), HashSet(Of Int32), Boolean)
-- uid: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.LoadVocab(System.Boolean,System.Collections.Generic.IEnumerable{System.String})
-  commentId: M:Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.LoadVocab(System.Boolean,System.Collections.Generic.IEnumerable{System.String})
-  id: LoadVocab(System.Boolean,System.Collections.Generic.IEnumerable{System.String})
+  fullName.vb: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.LoadMatrixDataAsync(System.Collections.Generic.HashSet(Of System.Int32), System.Collections.Generic.HashSet(Of System.Int32), System.Boolean)
+  name.vb: LoadMatrixDataAsync(HashSet(Of Int32), HashSet(Of Int32), Boolean)
+- uid: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.LoadVocabAsync(System.Boolean,System.Collections.Generic.IEnumerable{System.String})
+  commentId: M:Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.LoadVocabAsync(System.Boolean,System.Collections.Generic.IEnumerable{System.String})
+  id: LoadVocabAsync(System.Boolean,System.Collections.Generic.IEnumerable{System.String})
   parent: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly
   langs:
   - csharp
   - vb
-  name: LoadVocab(Boolean, IEnumerable<String>)
-  nameWithType: ChiSquaredTranslationModelStoreReadOnly.LoadVocab(Boolean, IEnumerable<String>)
-  fullName: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.LoadVocab(System.Boolean, System.Collections.Generic.IEnumerable<System.String>)
+  name: LoadVocabAsync(Boolean, IEnumerable<String>)
+  nameWithType: ChiSquaredTranslationModelStoreReadOnly.LoadVocabAsync(Boolean, IEnumerable<String>)
+  fullName: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.LoadVocabAsync(System.Boolean, System.Collections.Generic.IEnumerable<System.String>)
   type: Method
   source:
     path: Sdl.Core.FineGrainedAlignment
@@ -167,35 +166,35 @@ items:
   - Sdl.Core.FineGrainedAlignment
   namespace: Sdl.Core.FineGrainedAlignment
   syntax:
-    content: public List<TranslationModelVocabEntry> LoadVocab(bool target, IEnumerable<string> tokensToLoad)
+    content: public Task<List<TranslationModelVocabEntry>> LoadVocabAsync(bool target, IEnumerable<string> tokensToLoad)
     parameters:
     - id: target
       type: System.Boolean
     - id: tokensToLoad
       type: System.Collections.Generic.IEnumerable{System.String}
     return:
-      type: System.Collections.Generic.List{Sdl.Core.FineGrainedAlignment.TranslationModelVocabEntry}
-    content.vb: Public Function LoadVocab(target As Boolean, tokensToLoad As IEnumerable(Of String)) As List(Of TranslationModelVocabEntry)
-  overload: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.LoadVocab*
+      type: System.Threading.Tasks.Task{System.Collections.Generic.List{Sdl.Core.FineGrainedAlignment.TranslationModelVocabEntry}}
+    content.vb: Public Function LoadVocabAsync(target As Boolean, tokensToLoad As IEnumerable(Of String)) As Task(Of List(Of TranslationModelVocabEntry))
+  overload: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.LoadVocabAsync*
   implements:
-  - Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.LoadVocab(System.Boolean,System.Collections.Generic.IEnumerable{System.String})
-  nameWithType.vb: ChiSquaredTranslationModelStoreReadOnly.LoadVocab(Boolean, IEnumerable(Of String))
+  - Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.LoadVocabAsync(System.Boolean,System.Collections.Generic.IEnumerable{System.String})
+  nameWithType.vb: ChiSquaredTranslationModelStoreReadOnly.LoadVocabAsync(Boolean, IEnumerable(Of String))
   modifiers.csharp:
   - public
   modifiers.vb:
   - Public
-  fullName.vb: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.LoadVocab(System.Boolean, System.Collections.Generic.IEnumerable(Of System.String))
-  name.vb: LoadVocab(Boolean, IEnumerable(Of String))
-- uid: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.TotalVocabSize(System.Boolean)
-  commentId: M:Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.TotalVocabSize(System.Boolean)
-  id: TotalVocabSize(System.Boolean)
+  fullName.vb: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.LoadVocabAsync(System.Boolean, System.Collections.Generic.IEnumerable(Of System.String))
+  name.vb: LoadVocabAsync(Boolean, IEnumerable(Of String))
+- uid: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.GetSampleCountAsync
+  commentId: M:Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.GetSampleCountAsync
+  id: GetSampleCountAsync
   parent: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly
   langs:
   - csharp
   - vb
-  name: TotalVocabSize(Boolean)
-  nameWithType: ChiSquaredTranslationModelStoreReadOnly.TotalVocabSize(Boolean)
-  fullName: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.TotalVocabSize(System.Boolean)
+  name: GetSampleCountAsync()
+  nameWithType: ChiSquaredTranslationModelStoreReadOnly.GetSampleCountAsync()
+  fullName: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.GetSampleCountAsync()
   type: Method
   source:
     path: Sdl.Core.FineGrainedAlignment
@@ -204,31 +203,60 @@ items:
   - Sdl.Core.FineGrainedAlignment
   namespace: Sdl.Core.FineGrainedAlignment
   syntax:
-    content: public int TotalVocabSize(bool target)
+    content: public Task<int> GetSampleCountAsync()
+    return:
+      type: System.Threading.Tasks.Task{System.Int32}
+    content.vb: Public Function GetSampleCountAsync As Task(Of Integer)
+  overload: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.GetSampleCountAsync*
+  implements:
+  - Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.GetSampleCountAsync
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.TotalVocabSizeAsync(System.Boolean)
+  commentId: M:Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.TotalVocabSizeAsync(System.Boolean)
+  id: TotalVocabSizeAsync(System.Boolean)
+  parent: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly
+  langs:
+  - csharp
+  - vb
+  name: TotalVocabSizeAsync(Boolean)
+  nameWithType: ChiSquaredTranslationModelStoreReadOnly.TotalVocabSizeAsync(Boolean)
+  fullName: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.TotalVocabSizeAsync(System.Boolean)
+  type: Method
+  source:
+    path: Sdl.Core.FineGrainedAlignment
+    isExternal: true
+  assemblies:
+  - Sdl.Core.FineGrainedAlignment
+  namespace: Sdl.Core.FineGrainedAlignment
+  syntax:
+    content: public Task<int> TotalVocabSizeAsync(bool target)
     parameters:
     - id: target
       type: System.Boolean
     return:
-      type: System.Int32
-    content.vb: Public Function TotalVocabSize(target As Boolean) As Integer
-  overload: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.TotalVocabSize*
+      type: System.Threading.Tasks.Task{System.Int32}
+    content.vb: Public Function TotalVocabSizeAsync(target As Boolean) As Task(Of Integer)
+  overload: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.TotalVocabSizeAsync*
   implements:
-  - Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.TotalVocabSize(System.Boolean)
+  - Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.TotalVocabSizeAsync(System.Boolean)
   modifiers.csharp:
   - public
   modifiers.vb:
   - Public
-- uid: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.SampleCount
-  commentId: P:Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.SampleCount
-  id: SampleCount
+- uid: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.GetTranslationModelDateAsync
+  commentId: M:Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.GetTranslationModelDateAsync
+  id: GetTranslationModelDateAsync
   parent: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly
   langs:
   - csharp
   - vb
-  name: SampleCount
-  nameWithType: ChiSquaredTranslationModelStoreReadOnly.SampleCount
-  fullName: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.SampleCount
-  type: Property
+  name: GetTranslationModelDateAsync()
+  nameWithType: ChiSquaredTranslationModelStoreReadOnly.GetTranslationModelDateAsync()
+  fullName: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.GetTranslationModelDateAsync()
+  type: Method
   source:
     path: Sdl.Core.FineGrainedAlignment
     isExternal: true
@@ -236,52 +264,17 @@ items:
   - Sdl.Core.FineGrainedAlignment
   namespace: Sdl.Core.FineGrainedAlignment
   syntax:
-    content: public int SampleCount { get; }
-    parameters: []
+    content: public Task<Nullable<DateTime>> GetTranslationModelDateAsync()
     return:
-      type: System.Int32
-    content.vb: Public ReadOnly Property SampleCount As Integer
-  overload: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.SampleCount*
+      type: System.Threading.Tasks.Task{System.Nullable{System.DateTime}}
+    content.vb: Public Function GetTranslationModelDateAsync As Task(Of Nullable(Of DateTime))
+  overload: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.GetTranslationModelDateAsync*
   implements:
-  - Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.SampleCount
+  - Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.GetTranslationModelDateAsync
   modifiers.csharp:
   - public
-  - get
   modifiers.vb:
   - Public
-  - ReadOnly
-- uid: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.TranslationModelDate
-  commentId: P:Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.TranslationModelDate
-  id: TranslationModelDate
-  parent: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly
-  langs:
-  - csharp
-  - vb
-  name: TranslationModelDate
-  nameWithType: ChiSquaredTranslationModelStoreReadOnly.TranslationModelDate
-  fullName: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.TranslationModelDate
-  type: Property
-  source:
-    path: Sdl.Core.FineGrainedAlignment
-    isExternal: true
-  assemblies:
-  - Sdl.Core.FineGrainedAlignment
-  namespace: Sdl.Core.FineGrainedAlignment
-  syntax:
-    content: public Nullable<DateTime> TranslationModelDate { get; }
-    parameters: []
-    return:
-      type: System.Nullable{System.DateTime}
-    content.vb: Public ReadOnly Property TranslationModelDate As Nullable(Of DateTime)
-  overload: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.TranslationModelDate*
-  implements:
-  - Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.TranslationModelDate
-  modifiers.csharp:
-  - public
-  - get
-  modifiers.vb:
-  - Public
-  - ReadOnly
 references:
 - uid: Sdl.Core.FineGrainedAlignment
   commentId: N:Sdl.Core.FineGrainedAlignment
@@ -322,6 +315,13 @@ references:
   name: ITranslationModelDataService
   nameWithType: ITranslationModelDataService
   fullName: Sdl.Core.FineGrainedAlignment.ITranslationModelDataService
+- uid: Sdl.Core.FineGrainedAlignment.TranslationModelDetails
+  commentId: T:Sdl.Core.FineGrainedAlignment.TranslationModelDetails
+  parent: Sdl.Core.FineGrainedAlignment
+  isExternal: true
+  name: TranslationModelDetails
+  nameWithType: TranslationModelDetails
+  fullName: Sdl.Core.FineGrainedAlignment.TranslationModelDetails
 - uid: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelId
   commentId: T:Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelId
   parent: Sdl.Core.FineGrainedAlignment
@@ -329,24 +329,24 @@ references:
   name: ChiSquaredTranslationModelId
   nameWithType: ChiSquaredTranslationModelId
   fullName: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelId
-- uid: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.LoadMatrixData*
-  commentId: Overload:Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.LoadMatrixData
+- uid: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.LoadMatrixDataAsync*
+  commentId: Overload:Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.LoadMatrixDataAsync
   isExternal: true
-  name: LoadMatrixData
-  nameWithType: ChiSquaredTranslationModelStoreReadOnly.LoadMatrixData
-  fullName: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.LoadMatrixData
-- uid: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.LoadMatrixData(System.Int32@,System.Int32,System.Boolean)
-  commentId: M:Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.LoadMatrixData(System.Int32@,System.Int32,System.Boolean)
+  name: LoadMatrixDataAsync
+  nameWithType: ChiSquaredTranslationModelStoreReadOnly.LoadMatrixDataAsync
+  fullName: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.LoadMatrixDataAsync
+- uid: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.LoadMatrixDataAsync(System.Int32,System.Int32,System.Boolean)
+  commentId: M:Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.LoadMatrixDataAsync(System.Int32,System.Int32,System.Boolean)
   parent: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly
   isExternal: true
-  name: LoadMatrixData(Int32, Int32, Boolean)
-  nameWithType: IChiSquaredTranslationModelStoreReadOnly.LoadMatrixData(Int32, Int32, Boolean)
-  fullName: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.LoadMatrixData(System.Int32, System.Int32, System.Boolean)
+  name: LoadMatrixDataAsync(Int32, Int32, Boolean)
+  nameWithType: IChiSquaredTranslationModelStoreReadOnly.LoadMatrixDataAsync(Int32, Int32, Boolean)
+  fullName: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.LoadMatrixDataAsync(System.Int32, System.Int32, System.Boolean)
   spec.csharp:
-  - uid: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.LoadMatrixData(System.Int32@,System.Int32,System.Boolean)
-    name: LoadMatrixData
-    nameWithType: IChiSquaredTranslationModelStoreReadOnly.LoadMatrixData
-    fullName: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.LoadMatrixData
+  - uid: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.LoadMatrixDataAsync(System.Int32,System.Int32,System.Boolean)
+    name: LoadMatrixDataAsync
+    nameWithType: IChiSquaredTranslationModelStoreReadOnly.LoadMatrixDataAsync
+    fullName: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.LoadMatrixDataAsync
     isExternal: true
   - name: (
     nameWithType: (
@@ -376,10 +376,10 @@ references:
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.LoadMatrixData(System.Int32@,System.Int32,System.Boolean)
-    name: LoadMatrixData
-    nameWithType: IChiSquaredTranslationModelStoreReadOnly.LoadMatrixData
-    fullName: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.LoadMatrixData
+  - uid: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.LoadMatrixDataAsync(System.Int32,System.Int32,System.Boolean)
+    name: LoadMatrixDataAsync
+    nameWithType: IChiSquaredTranslationModelStoreReadOnly.LoadMatrixDataAsync
+    fullName: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.LoadMatrixDataAsync
     isExternal: true
   - name: (
     nameWithType: (
@@ -422,16 +422,32 @@ references:
   name: Boolean
   nameWithType: Boolean
   fullName: System.Boolean
-- uid: System.Collections.Generic.List{Sdl.Core.FineGrainedAlignment.TranslationModelMatrixEntry}
-  commentId: '!:System.Collections.Generic.List{Sdl.Core.FineGrainedAlignment.TranslationModelMatrixEntry}'
-  definition: System.Collections.Generic.List`1
-  name: List<TranslationModelMatrixEntry>
-  nameWithType: List<TranslationModelMatrixEntry>
-  fullName: System.Collections.Generic.List<Sdl.Core.FineGrainedAlignment.TranslationModelMatrixEntry>
-  nameWithType.vb: List(Of TranslationModelMatrixEntry)
-  fullName.vb: System.Collections.Generic.List(Of Sdl.Core.FineGrainedAlignment.TranslationModelMatrixEntry)
-  name.vb: List(Of TranslationModelMatrixEntry)
+- uid: System.Threading.Tasks.Task{System.ValueTuple{System.Collections.Generic.List{Sdl.Core.FineGrainedAlignment.TranslationModelMatrixEntry},System.Int32}}
+  commentId: '!:System.Threading.Tasks.Task{System.ValueTuple{System.Collections.Generic.List{Sdl.Core.FineGrainedAlignment.TranslationModelMatrixEntry},System.Int32}}'
+  definition: System.Threading.Tasks.Task`1
+  name: Task<(, )<List<TranslationModelMatrixEntry>, Int32>>
+  nameWithType: Task<(, )<List<TranslationModelMatrixEntry>, Int32>>
+  fullName: System.Threading.Tasks.Task<System.ValueTuple<System.Collections.Generic.List<Sdl.Core.FineGrainedAlignment.TranslationModelMatrixEntry>, System.Int32>>
+  nameWithType.vb: Task(Of (, )(Of List(Of TranslationModelMatrixEntry), Int32))
+  fullName.vb: System.Threading.Tasks.Task(Of System.ValueTuple(Of System.Collections.Generic.List(Of Sdl.Core.FineGrainedAlignment.TranslationModelMatrixEntry), System.Int32))
+  name.vb: Task(Of (, )(Of List(Of TranslationModelMatrixEntry), Int32))
   spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.ValueTuple`2
+    name: (, )
+    nameWithType: (, )
+    fullName: System.ValueTuple
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
   - uid: System.Collections.Generic.List`1
     name: List
     nameWithType: List
@@ -448,7 +464,37 @@ references:
   - name: '>'
     nameWithType: '>'
     fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
   spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.ValueTuple`2
+    name: (, )
+    nameWithType: (, )
+    fullName: System.ValueTuple
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
   - uid: System.Collections.Generic.List`1
     name: List
     nameWithType: List
@@ -465,20 +511,34 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: System.Collections.Generic.List`1
-  commentId: T:System.Collections.Generic.List`1
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Threading.Tasks.Task`1
+  commentId: T:System.Threading.Tasks.Task`1
   isExternal: true
-  name: List<>
-  nameWithType: List<>
-  fullName: System.Collections.Generic.List<>
-  nameWithType.vb: List(Of )
-  fullName.vb: System.Collections.Generic.List(Of )
-  name.vb: List(Of )
+  name: Task<>
+  nameWithType: Task<>
+  fullName: System.Threading.Tasks.Task<>
+  nameWithType.vb: Task(Of )
+  fullName.vb: System.Threading.Tasks.Task(Of )
+  name.vb: Task(Of )
   spec.csharp:
-  - uid: System.Collections.Generic.List`1
-    name: List
-    nameWithType: List
-    fullName: System.Collections.Generic.List
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
     isExternal: true
   - name: <
     nameWithType: <
@@ -490,10 +550,10 @@ references:
     nameWithType: '>'
     fullName: '>'
   spec.vb:
-  - uid: System.Collections.Generic.List`1
-    name: List
-    nameWithType: List
-    fullName: System.Collections.Generic.List
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
@@ -504,21 +564,21 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.LoadMatrixData(System.Collections.Generic.HashSet{System.Int32},System.Collections.Generic.HashSet{System.Int32},System.Boolean)
-  commentId: M:Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.LoadMatrixData(System.Collections.Generic.HashSet{System.Int32},System.Collections.Generic.HashSet{System.Int32},System.Boolean)
+- uid: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.LoadMatrixDataAsync(System.Collections.Generic.HashSet{System.Int32},System.Collections.Generic.HashSet{System.Int32},System.Boolean)
+  commentId: M:Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.LoadMatrixDataAsync(System.Collections.Generic.HashSet{System.Int32},System.Collections.Generic.HashSet{System.Int32},System.Boolean)
   parent: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly
   isExternal: true
-  name: LoadMatrixData(HashSet<Int32>, HashSet<Int32>, Boolean)
-  nameWithType: IChiSquaredTranslationModelStoreReadOnly.LoadMatrixData(HashSet<Int32>, HashSet<Int32>, Boolean)
-  fullName: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.LoadMatrixData(System.Collections.Generic.HashSet<System.Int32>, System.Collections.Generic.HashSet<System.Int32>, System.Boolean)
-  nameWithType.vb: IChiSquaredTranslationModelStoreReadOnly.LoadMatrixData(HashSet(Of Int32), HashSet(Of Int32), Boolean)
-  fullName.vb: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.LoadMatrixData(System.Collections.Generic.HashSet(Of System.Int32), System.Collections.Generic.HashSet(Of System.Int32), System.Boolean)
-  name.vb: LoadMatrixData(HashSet(Of Int32), HashSet(Of Int32), Boolean)
+  name: LoadMatrixDataAsync(HashSet<Int32>, HashSet<Int32>, Boolean)
+  nameWithType: IChiSquaredTranslationModelStoreReadOnly.LoadMatrixDataAsync(HashSet<Int32>, HashSet<Int32>, Boolean)
+  fullName: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.LoadMatrixDataAsync(System.Collections.Generic.HashSet<System.Int32>, System.Collections.Generic.HashSet<System.Int32>, System.Boolean)
+  nameWithType.vb: IChiSquaredTranslationModelStoreReadOnly.LoadMatrixDataAsync(HashSet(Of Int32), HashSet(Of Int32), Boolean)
+  fullName.vb: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.LoadMatrixDataAsync(System.Collections.Generic.HashSet(Of System.Int32), System.Collections.Generic.HashSet(Of System.Int32), System.Boolean)
+  name.vb: LoadMatrixDataAsync(HashSet(Of Int32), HashSet(Of Int32), Boolean)
   spec.csharp:
-  - uid: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.LoadMatrixData(System.Collections.Generic.HashSet{System.Int32},System.Collections.Generic.HashSet{System.Int32},System.Boolean)
-    name: LoadMatrixData
-    nameWithType: IChiSquaredTranslationModelStoreReadOnly.LoadMatrixData
-    fullName: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.LoadMatrixData
+  - uid: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.LoadMatrixDataAsync(System.Collections.Generic.HashSet{System.Int32},System.Collections.Generic.HashSet{System.Int32},System.Boolean)
+    name: LoadMatrixDataAsync
+    nameWithType: IChiSquaredTranslationModelStoreReadOnly.LoadMatrixDataAsync
+    fullName: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.LoadMatrixDataAsync
     isExternal: true
   - name: (
     nameWithType: (
@@ -570,10 +630,10 @@ references:
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.LoadMatrixData(System.Collections.Generic.HashSet{System.Int32},System.Collections.Generic.HashSet{System.Int32},System.Boolean)
-    name: LoadMatrixData
-    nameWithType: IChiSquaredTranslationModelStoreReadOnly.LoadMatrixData
-    fullName: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.LoadMatrixData
+  - uid: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.LoadMatrixDataAsync(System.Collections.Generic.HashSet{System.Int32},System.Collections.Generic.HashSet{System.Int32},System.Boolean)
+    name: LoadMatrixDataAsync
+    nameWithType: IChiSquaredTranslationModelStoreReadOnly.LoadMatrixDataAsync
+    fullName: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.LoadMatrixDataAsync
     isExternal: true
   - name: (
     nameWithType: (
@@ -667,6 +727,71 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+- uid: System.Threading.Tasks.Task{System.Collections.Generic.List{Sdl.Core.FineGrainedAlignment.TranslationModelMatrixEntry}}
+  commentId: '!:System.Threading.Tasks.Task{System.Collections.Generic.List{Sdl.Core.FineGrainedAlignment.TranslationModelMatrixEntry}}'
+  definition: System.Threading.Tasks.Task`1
+  name: Task<List<TranslationModelMatrixEntry>>
+  nameWithType: Task<List<TranslationModelMatrixEntry>>
+  fullName: System.Threading.Tasks.Task<System.Collections.Generic.List<Sdl.Core.FineGrainedAlignment.TranslationModelMatrixEntry>>
+  nameWithType.vb: Task(Of List(Of TranslationModelMatrixEntry))
+  fullName.vb: System.Threading.Tasks.Task(Of System.Collections.Generic.List(Of Sdl.Core.FineGrainedAlignment.TranslationModelMatrixEntry))
+  name.vb: Task(Of List(Of TranslationModelMatrixEntry))
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Collections.Generic.List`1
+    name: List
+    nameWithType: List
+    fullName: System.Collections.Generic.List
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Sdl.Core.FineGrainedAlignment.TranslationModelMatrixEntry
+    name: TranslationModelMatrixEntry
+    nameWithType: TranslationModelMatrixEntry
+    fullName: Sdl.Core.FineGrainedAlignment.TranslationModelMatrixEntry
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Collections.Generic.List`1
+    name: List
+    nameWithType: List
+    fullName: System.Collections.Generic.List
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Sdl.Core.FineGrainedAlignment.TranslationModelMatrixEntry
+    name: TranslationModelMatrixEntry
+    nameWithType: TranslationModelMatrixEntry
+    fullName: Sdl.Core.FineGrainedAlignment.TranslationModelMatrixEntry
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
 - uid: System.Collections.Generic.HashSet`1
   isExternal: true
   name: HashSet<>
@@ -705,27 +830,27 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.LoadVocab*
-  commentId: Overload:Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.LoadVocab
+- uid: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.LoadVocabAsync*
+  commentId: Overload:Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.LoadVocabAsync
   isExternal: true
-  name: LoadVocab
-  nameWithType: ChiSquaredTranslationModelStoreReadOnly.LoadVocab
-  fullName: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.LoadVocab
-- uid: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.LoadVocab(System.Boolean,System.Collections.Generic.IEnumerable{System.String})
-  commentId: M:Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.LoadVocab(System.Boolean,System.Collections.Generic.IEnumerable{System.String})
+  name: LoadVocabAsync
+  nameWithType: ChiSquaredTranslationModelStoreReadOnly.LoadVocabAsync
+  fullName: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.LoadVocabAsync
+- uid: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.LoadVocabAsync(System.Boolean,System.Collections.Generic.IEnumerable{System.String})
+  commentId: M:Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.LoadVocabAsync(System.Boolean,System.Collections.Generic.IEnumerable{System.String})
   parent: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly
   isExternal: true
-  name: LoadVocab(Boolean, IEnumerable<String>)
-  nameWithType: IChiSquaredTranslationModelStoreReadOnly.LoadVocab(Boolean, IEnumerable<String>)
-  fullName: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.LoadVocab(System.Boolean, System.Collections.Generic.IEnumerable<System.String>)
-  nameWithType.vb: IChiSquaredTranslationModelStoreReadOnly.LoadVocab(Boolean, IEnumerable(Of String))
-  fullName.vb: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.LoadVocab(System.Boolean, System.Collections.Generic.IEnumerable(Of System.String))
-  name.vb: LoadVocab(Boolean, IEnumerable(Of String))
+  name: LoadVocabAsync(Boolean, IEnumerable<String>)
+  nameWithType: IChiSquaredTranslationModelStoreReadOnly.LoadVocabAsync(Boolean, IEnumerable<String>)
+  fullName: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.LoadVocabAsync(System.Boolean, System.Collections.Generic.IEnumerable<System.String>)
+  nameWithType.vb: IChiSquaredTranslationModelStoreReadOnly.LoadVocabAsync(Boolean, IEnumerable(Of String))
+  fullName.vb: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.LoadVocabAsync(System.Boolean, System.Collections.Generic.IEnumerable(Of System.String))
+  name.vb: LoadVocabAsync(Boolean, IEnumerable(Of String))
   spec.csharp:
-  - uid: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.LoadVocab(System.Boolean,System.Collections.Generic.IEnumerable{System.String})
-    name: LoadVocab
-    nameWithType: IChiSquaredTranslationModelStoreReadOnly.LoadVocab
-    fullName: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.LoadVocab
+  - uid: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.LoadVocabAsync(System.Boolean,System.Collections.Generic.IEnumerable{System.String})
+    name: LoadVocabAsync
+    nameWithType: IChiSquaredTranslationModelStoreReadOnly.LoadVocabAsync
+    fullName: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.LoadVocabAsync
     isExternal: true
   - name: (
     nameWithType: (
@@ -758,10 +883,10 @@ references:
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.LoadVocab(System.Boolean,System.Collections.Generic.IEnumerable{System.String})
-    name: LoadVocab
-    nameWithType: IChiSquaredTranslationModelStoreReadOnly.LoadVocab
-    fullName: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.LoadVocab
+  - uid: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.LoadVocabAsync(System.Boolean,System.Collections.Generic.IEnumerable{System.String})
+    name: LoadVocabAsync
+    nameWithType: IChiSquaredTranslationModelStoreReadOnly.LoadVocabAsync
+    fullName: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.LoadVocabAsync
     isExternal: true
   - name: (
     nameWithType: (
@@ -837,16 +962,24 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: System.Collections.Generic.List{Sdl.Core.FineGrainedAlignment.TranslationModelVocabEntry}
-  commentId: '!:System.Collections.Generic.List{Sdl.Core.FineGrainedAlignment.TranslationModelVocabEntry}'
-  definition: System.Collections.Generic.List`1
-  name: List<TranslationModelVocabEntry>
-  nameWithType: List<TranslationModelVocabEntry>
-  fullName: System.Collections.Generic.List<Sdl.Core.FineGrainedAlignment.TranslationModelVocabEntry>
-  nameWithType.vb: List(Of TranslationModelVocabEntry)
-  fullName.vb: System.Collections.Generic.List(Of Sdl.Core.FineGrainedAlignment.TranslationModelVocabEntry)
-  name.vb: List(Of TranslationModelVocabEntry)
+- uid: System.Threading.Tasks.Task{System.Collections.Generic.List{Sdl.Core.FineGrainedAlignment.TranslationModelVocabEntry}}
+  commentId: '!:System.Threading.Tasks.Task{System.Collections.Generic.List{Sdl.Core.FineGrainedAlignment.TranslationModelVocabEntry}}'
+  definition: System.Threading.Tasks.Task`1
+  name: Task<List<TranslationModelVocabEntry>>
+  nameWithType: Task<List<TranslationModelVocabEntry>>
+  fullName: System.Threading.Tasks.Task<System.Collections.Generic.List<Sdl.Core.FineGrainedAlignment.TranslationModelVocabEntry>>
+  nameWithType.vb: Task(Of List(Of TranslationModelVocabEntry))
+  fullName.vb: System.Threading.Tasks.Task(Of System.Collections.Generic.List(Of Sdl.Core.FineGrainedAlignment.TranslationModelVocabEntry))
+  name.vb: Task(Of List(Of TranslationModelVocabEntry))
   spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
   - uid: System.Collections.Generic.List`1
     name: List
     nameWithType: List
@@ -863,7 +996,18 @@ references:
   - name: '>'
     nameWithType: '>'
     fullName: '>'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
   spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
   - uid: System.Collections.Generic.List`1
     name: List
     nameWithType: List
@@ -877,6 +1021,9 @@ references:
     nameWithType: TranslationModelVocabEntry
     fullName: Sdl.Core.FineGrainedAlignment.TranslationModelVocabEntry
     isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
   - name: )
     nameWithType: )
     fullName: )
@@ -925,24 +1072,104 @@ references:
   name: System.Collections.Generic
   nameWithType: System.Collections.Generic
   fullName: System.Collections.Generic
-- uid: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.TotalVocabSize*
-  commentId: Overload:Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.TotalVocabSize
+- uid: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.GetSampleCountAsync*
+  commentId: Overload:Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.GetSampleCountAsync
   isExternal: true
-  name: TotalVocabSize
-  nameWithType: ChiSquaredTranslationModelStoreReadOnly.TotalVocabSize
-  fullName: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.TotalVocabSize
-- uid: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.TotalVocabSize(System.Boolean)
-  commentId: M:Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.TotalVocabSize(System.Boolean)
+  name: GetSampleCountAsync
+  nameWithType: ChiSquaredTranslationModelStoreReadOnly.GetSampleCountAsync
+  fullName: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.GetSampleCountAsync
+- uid: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.GetSampleCountAsync
+  commentId: M:Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.GetSampleCountAsync
   parent: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly
   isExternal: true
-  name: TotalVocabSize(Boolean)
-  nameWithType: IChiSquaredTranslationModelStoreReadOnly.TotalVocabSize(Boolean)
-  fullName: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.TotalVocabSize(System.Boolean)
+  name: GetSampleCountAsync()
+  nameWithType: IChiSquaredTranslationModelStoreReadOnly.GetSampleCountAsync()
+  fullName: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.GetSampleCountAsync()
   spec.csharp:
-  - uid: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.TotalVocabSize(System.Boolean)
-    name: TotalVocabSize
-    nameWithType: IChiSquaredTranslationModelStoreReadOnly.TotalVocabSize
-    fullName: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.TotalVocabSize
+  - uid: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.GetSampleCountAsync
+    name: GetSampleCountAsync
+    nameWithType: IChiSquaredTranslationModelStoreReadOnly.GetSampleCountAsync
+    fullName: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.GetSampleCountAsync
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.GetSampleCountAsync
+    name: GetSampleCountAsync
+    nameWithType: IChiSquaredTranslationModelStoreReadOnly.GetSampleCountAsync
+    fullName: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.GetSampleCountAsync
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Threading.Tasks.Task{System.Int32}
+  commentId: '!:System.Threading.Tasks.Task{System.Int32}'
+  definition: System.Threading.Tasks.Task`1
+  name: Task<Int32>
+  nameWithType: Task<Int32>
+  fullName: System.Threading.Tasks.Task<System.Int32>
+  nameWithType.vb: Task(Of Int32)
+  fullName.vb: System.Threading.Tasks.Task(Of System.Int32)
+  name.vb: Task(Of Int32)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.TotalVocabSizeAsync*
+  commentId: Overload:Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.TotalVocabSizeAsync
+  isExternal: true
+  name: TotalVocabSizeAsync
+  nameWithType: ChiSquaredTranslationModelStoreReadOnly.TotalVocabSizeAsync
+  fullName: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.TotalVocabSizeAsync
+- uid: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.TotalVocabSizeAsync(System.Boolean)
+  commentId: M:Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.TotalVocabSizeAsync(System.Boolean)
+  parent: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly
+  isExternal: true
+  name: TotalVocabSizeAsync(Boolean)
+  nameWithType: IChiSquaredTranslationModelStoreReadOnly.TotalVocabSizeAsync(Boolean)
+  fullName: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.TotalVocabSizeAsync(System.Boolean)
+  spec.csharp:
+  - uid: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.TotalVocabSizeAsync(System.Boolean)
+    name: TotalVocabSizeAsync
+    nameWithType: IChiSquaredTranslationModelStoreReadOnly.TotalVocabSizeAsync
+    fullName: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.TotalVocabSizeAsync
     isExternal: true
   - name: (
     nameWithType: (
@@ -956,10 +1183,10 @@ references:
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.TotalVocabSize(System.Boolean)
-    name: TotalVocabSize
-    nameWithType: IChiSquaredTranslationModelStoreReadOnly.TotalVocabSize
-    fullName: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.TotalVocabSize
+  - uid: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.TotalVocabSizeAsync(System.Boolean)
+    name: TotalVocabSizeAsync
+    nameWithType: IChiSquaredTranslationModelStoreReadOnly.TotalVocabSizeAsync
+    fullName: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.TotalVocabSizeAsync
     isExternal: true
   - name: (
     nameWithType: (
@@ -972,43 +1199,61 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.SampleCount*
-  commentId: Overload:Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.SampleCount
+- uid: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.GetTranslationModelDateAsync*
+  commentId: Overload:Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.GetTranslationModelDateAsync
   isExternal: true
-  name: SampleCount
-  nameWithType: ChiSquaredTranslationModelStoreReadOnly.SampleCount
-  fullName: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.SampleCount
-- uid: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.SampleCount
-  commentId: P:Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.SampleCount
+  name: GetTranslationModelDateAsync
+  nameWithType: ChiSquaredTranslationModelStoreReadOnly.GetTranslationModelDateAsync
+  fullName: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.GetTranslationModelDateAsync
+- uid: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.GetTranslationModelDateAsync
+  commentId: M:Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.GetTranslationModelDateAsync
   parent: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly
   isExternal: true
-  name: SampleCount
-  nameWithType: IChiSquaredTranslationModelStoreReadOnly.SampleCount
-  fullName: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.SampleCount
-- uid: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.TranslationModelDate*
-  commentId: Overload:Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.TranslationModelDate
-  isExternal: true
-  name: TranslationModelDate
-  nameWithType: ChiSquaredTranslationModelStoreReadOnly.TranslationModelDate
-  fullName: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModelStoreReadOnly.TranslationModelDate
-- uid: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.TranslationModelDate
-  commentId: P:Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.TranslationModelDate
-  parent: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly
-  isExternal: true
-  name: TranslationModelDate
-  nameWithType: IChiSquaredTranslationModelStoreReadOnly.TranslationModelDate
-  fullName: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.TranslationModelDate
-- uid: System.Nullable{System.DateTime}
-  commentId: '!:System.Nullable{System.DateTime}'
-  parent: System
-  definition: System.Nullable`1
-  name: Nullable<DateTime>
-  nameWithType: Nullable<DateTime>
-  fullName: System.Nullable<System.DateTime>
-  nameWithType.vb: Nullable(Of DateTime)
-  fullName.vb: System.Nullable(Of System.DateTime)
-  name.vb: Nullable(Of DateTime)
+  name: GetTranslationModelDateAsync()
+  nameWithType: IChiSquaredTranslationModelStoreReadOnly.GetTranslationModelDateAsync()
+  fullName: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.GetTranslationModelDateAsync()
   spec.csharp:
+  - uid: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.GetTranslationModelDateAsync
+    name: GetTranslationModelDateAsync
+    nameWithType: IChiSquaredTranslationModelStoreReadOnly.GetTranslationModelDateAsync
+    fullName: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.GetTranslationModelDateAsync
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.GetTranslationModelDateAsync
+    name: GetTranslationModelDateAsync
+    nameWithType: IChiSquaredTranslationModelStoreReadOnly.GetTranslationModelDateAsync
+    fullName: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStoreReadOnly.GetTranslationModelDateAsync
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Threading.Tasks.Task{System.Nullable{System.DateTime}}
+  commentId: '!:System.Threading.Tasks.Task{System.Nullable{System.DateTime}}'
+  definition: System.Threading.Tasks.Task`1
+  name: Task<Nullable<DateTime>>
+  nameWithType: Task<Nullable<DateTime>>
+  fullName: System.Threading.Tasks.Task<System.Nullable<System.DateTime>>
+  nameWithType.vb: Task(Of Nullable(Of DateTime))
+  fullName.vb: System.Threading.Tasks.Task(Of System.Nullable(Of System.DateTime))
+  name.vb: Task(Of Nullable(Of DateTime))
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
   - uid: System.Nullable`1
     name: Nullable
     nameWithType: Nullable
@@ -1025,7 +1270,18 @@ references:
   - name: '>'
     nameWithType: '>'
     fullName: '>'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
   spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
   - uid: System.Nullable`1
     name: Nullable
     nameWithType: Nullable
@@ -1042,42 +1298,6 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: System.Nullable`1
-  commentId: T:System.Nullable`1
-  isExternal: true
-  name: Nullable<>
-  nameWithType: Nullable<>
-  fullName: System.Nullable<>
-  nameWithType.vb: Nullable(Of )
-  fullName.vb: System.Nullable(Of )
-  name.vb: Nullable(Of )
-  spec.csharp:
-  - uid: System.Nullable`1
-    name: Nullable
-    nameWithType: Nullable
-    fullName: System.Nullable
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
-  - name: ''
-    nameWithType: ''
-    fullName: ''
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  spec.vb:
-  - uid: System.Nullable`1
-    name: Nullable
-    nameWithType: Nullable
-    fullName: System.Nullable
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - name: ''
-    nameWithType: ''
-    fullName: ''
   - name: )
     nameWithType: )
     fullName: )
