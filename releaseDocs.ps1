@@ -25,7 +25,7 @@ if($checkBranch){
 
 git checkout -b gh-pages_temp
 git rm  ".\16.2\*" -r
-md "16.2"
+mkdir "16.2"
 write-host "Copy documentation into the repo"
 Copy-Item "$SOURCE_DIR\_site\16.2\*" .\16.2\ -Recurse -force
 
