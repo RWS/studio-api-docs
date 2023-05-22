@@ -1,0 +1,185 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Trados Studio application initializers </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Trados Studio application initializers ">
+    <meta name="generator" content="docfx 2.59.3.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="varproductname-application-initializers">Trados Studio application initializers</h1>
+
+<p>Integration API makes it easy to execute code when Trados Studio starts, so you can initialize your plugin. All you need to do is implement <a href="../../api/integration/Sdl.Desktop.IntegrationApi.IApplicationInitializer.html">IApplicationInitializer</a> interface, from <code>Sdl.Desktop.IntegrationApi</code> namespace and decorate your class with <a href="../../api/integration/Sdl.Desktop.IntegrationApi.Extensions.ApplicationInitializerAttribute.html">ApplicationInitializerAttribute</a>. If you fail to implement <a href="../../api/integration/Sdl.Desktop.IntegrationApi.IApplicationInitializer.html">IApplicationInitializer</a>, an exception will be thrown, but if you omit the <a href="../../api/integration/Sdl.Desktop.IntegrationApi.Extensions.ApplicationInitializerAttribute.html">ApplicationInitializerAttribute</a>, your plugin will simply be ignored when Trados Studio Starts.</p>
+<h2 id="example">Example</h2>
+<p>The following example demonstrates a simple plugin data initialization. This plugin measures the time since Trados Studio has been opened and if you worked less than required, it displays a warning MessageBox.</p>
+<p>This example also demonstrates how to cleanup when Trados Studio exits. All you have to do is subscribe to <code>Application.Closing</code> event. You can use <code>CancelEventArgs</code> to prevent Trados Studio from closing.</p>
+<div class="tabGroup" id="tabgroup_RTeALsqP0v">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_RTeALsqP0v_tabid-1" role="tab" aria-controls="tabpanel_RTeALsqP0v_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">Simple Plugin Initializer</a>
+</li>
+</ul>
+<section id="tabpanel_RTeALsqP0v_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-cs">using System;
+using System.Windows.Forms;
+using Sdl.Desktop.IntegrationApi;
+using Sdl.Desktop.IntegrationApi.Extensions;
+using Sdl.TranslationStudioAutomation.IntegrationApi;
+
+namespace StudioInitializer.Sample
+{    
+    /// &lt;summary&gt;
+    /// Implements an application initializer which will keep track of the application startup and closing time.    
+    /// &lt;/summary&gt;
+    [ApplicationInitializer]
+    class PluginInitializer : IApplicationInitializer
+    {
+        private const int MinimumWorkTime = 4;
+
+        /// &lt;summary&gt;
+        /// This method is executed when the application is starting.
+        /// &lt;/summary&gt;
+        public void Execute()
+        {
+            StudioTracking.Start();
+
+            // Setting up a check at the application closure verifying if the user has worked less then the minimum amount of time 
+            // If the time passed since Studio opening and Studio closing is less than the MinimumWorkTime(4h) than
+            // request a confirmation from the user for the application closure otherwise just exit.
+            SdlTradosStudio.Application.Closing += (s, e) =&gt;
+                {
+                    TimeSpan elapsedTime = StudioTracking.Elapsed;
+                    if (elapsedTime.Hours &lt; MinimumWorkTime)
+                    {
+                        DialogResult dialogResult =
+                            MessageBox.Show(
+                                string.Format(&quot;You have been working for {0:dd\\.hh\\:mm\\:ss} and spending less than {1} hours. Are you sure you want to quit ?&quot;, StudioTracking.Elapsed, MinimumWorkTime)
+                                , string.Format(&quot;Total work time is {0} minutes&quot;, elapsedTime.Minutes)
+                                , MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        if (dialogResult == DialogResult.No)
+                        {
+                            //Cancel the the application closing
+                            e.Cancel = true;
+                            return;
+                        }
+                    }
+                    StudioTracking.Stop();
+                };
+        }
+    }    
+}
+</code></pre></section>
+</div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/17.0/apiconcepts/integration/trados_studio_application_initializers.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

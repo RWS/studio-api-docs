@@ -1,0 +1,273 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Implementing the UI Controller Class </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Implementing the UI Controller Class ">
+    <meta name="generator" content="docfx 2.59.3.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="implementing-the-ui-controller-class">Implementing the UI Controller Class</h1>
+
+<p>In this chapter you will learn how to implement the class that manages the relationship between the host application, the user settings and the user interface.</p>
+<p>When implementing a settings page for the plug-in user interface you need to cover the following scenarios:</p>
+<ul>
+<li>The user clicks the <strong>Reset to Defaults</strong> button, thereby restoring all control elements to their intended default settings.</li>
+<li>The user clicks <strong>OK</strong>, thereby applying (saving) the settings.</li>
+<li>After changing the control element settings, the user goes to another settings page, which should also save any changes to the form control elements.</li>
+<li>The user clicks the <strong>Cancel</strong> button, any changes to the control settings should be discarded.
+A settings page does not implement its own <strong>OK</strong>, <strong>Cancel</strong>, <strong>Reset</strong> buttons, but will rely on the control elements that are provided by the dialog box of the framework, which is made possible through this class.
+Below you see an example of a settings page as it is implemented for one of the default file types in Trados Studio:</li>
+</ul>
+<p><img src="images/SampleSettingsPage.jpg" alt="SampleSettingsPage"></p>
+<h2 id="add-the-settings-page">Add the Settings Page</h2>
+<p>Now you need to add another class, e.g. called <strong>SettingsPage.cs</strong> to your project. This class is used to manage the functions of the user control UI, e.g. it triggers the reset function of the UI when a user clicks the <strong>Reset</strong> button. It is this class that will be registered as a plug-in UI page in the File Type Component Builder (i.e. not the actual user control).</p>
+<p>Reference the following namespace in this class:</p>
+<ul>
+<li>Sdl.FileTypeSupport.Framework.Core.Settings</li>
+</ul>
+<p>Your <code>SettingsPage</code> class then needs be derived from the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage-2.html">AbstractFileTypeSettingsPage&lt; SettingsControlType, SettingsType&gt;</a> class providing the types of the settings and the UI control:</p>
+<div class="tabGroup" id="tabgroup_jG9ZUUDHrw">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_jG9ZUUDHrw_tabid-1" role="tab" aria-controls="tabpanel_jG9ZUUDHrw_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_jG9ZUUDHrw_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-cs">class SettingsPage : AbstractFileTypeSettingsPage&lt;SettingsUI, UserSettings&gt;
+</code></pre></section>
+</div>
+<h2 id="declaring-the-page-as-a-plug-in">Declaring the Page as a Plug-In.</h2>
+<p>The <strong>Plugin Framework</strong> requires all plug-in pages to be marked with a C# attribute. The plugin framework will then generate a plug-in definition for the assembly based on these attributes which can then be used by other applications.</p>
+<p>As we are creating a Filter Settings Page we will use the <code>FileTypeSettingsPage</code> attribute. This attribute requires a unique ID, which will be used to identify this plug-in page at runtime, a name, and a description. If the page needs be localised into other languages, the name and description should be key mappings to the related <strong>PluginResources.resx</strong> file in your assembly.</p>
+<div class="tabGroup" id="tabgroup_jG9ZUUDHrw-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_jG9ZUUDHrw-1_tabid-2" role="tab" aria-controls="tabpanel_jG9ZUUDHrw-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_jG9ZUUDHrw-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<pre><code class="lang-cs">[FileTypeSettingsPage(Id=&quot;SimpleText_Settings&quot;, Name=&quot;Settings_Name&quot;, Description=&quot;Settings_Description&quot;)]
+</code></pre></section>
+</div>
+<h2 id="implementing-the-base-class">Implementing the Base Class</h2>
+<p>The <code>FileTypeSettingsPage</code> base class takes care of a lot of the plumbing required to make sure all the objects are loaded correctly and updated at the correct points. However, because we are not using data binding in our control, the UI must manually be told when settings have been changed. The two methods that make settings changes are <code>ResetToDefaults</code> and Refresh so we need to override them and make a call to our <code>UpdateControl</code> method on the UI to inform it that the underlying settings data has changed.</p>
+<div class="tabGroup" id="tabgroup_jG9ZUUDHrw-2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_jG9ZUUDHrw-2_tabid-3" role="tab" aria-controls="tabpanel_jG9ZUUDHrw-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_jG9ZUUDHrw-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<pre><code class="lang-cs">public override void ResetToDefaults()
+{
+    base.ResetToDefaults();
+    Control.UpdateControl();
+}
+</code></pre></section>
+</div>
+<div class="tabGroup" id="tabgroup_jG9ZUUDHrw-3">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_jG9ZUUDHrw-3_tabid-4" role="tab" aria-controls="tabpanel_jG9ZUUDHrw-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_jG9ZUUDHrw-3_tabid-4" role="tabpanel" data-tab="tabid-4">
+<pre><code class="lang-cs">public override void Refresh()
+{
+    base.Refresh();
+    Control.UpdateControl();
+}
+</code></pre></section>
+</div>
+<h2 id="add-the-file-type-settings-page-to-the-file-type-plug-in">Add the file type settings page to the file type plug-in</h2>
+<p>To associate your sample file type plug-in with this file type settings page the following code was used in the class <strong>SimpleTextFilterComponentBuilder</strong> within the method <strong>BuildFileTypeInformation</strong>.</p>
+<div class="tabGroup" id="tabgroup_jG9ZUUDHrw-4">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_jG9ZUUDHrw-4_tabid-5" role="tab" aria-controls="tabpanel_jG9ZUUDHrw-4_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_jG9ZUUDHrw-4_tabid-5" role="tabpanel" data-tab="tabid-5">
+<pre><code class="lang-cs">info.WinFormSettingsPageIds = new string[]
+{
+    &quot;SimpleText_Settings&quot;,
+    &quot;QuickInserts_Settings&quot;,
+};
+</code></pre></section>
+</div>
+<p><strong>WinFormSettingsPageIds</strong> specifies the ids of the settings pages to be associated with a file type plug-in. Here we added <strong>SimpleText_Settings</strong> so that this file type settings page is associated with this file type plug-in. This code was added in an earlier chapter and so should not be added again.</p>
+<p>After adding this file type settings page, the file type plug-in UI becomes available in the File Type Manager.</p>
+<p><img src="images/LockProdCodesPage.jpg" alt="LockProdCodesPage"></p>
+<h2 id="putting-it-all-together">Putting it All Together</h2>
+<p>All put together, your user interface controller class should now look as shown below:</p>
+<div class="tabGroup" id="tabgroup_jG9ZUUDHrw-5">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_jG9ZUUDHrw-5_tabid-6" role="tab" aria-controls="tabpanel_jG9ZUUDHrw-5_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_jG9ZUUDHrw-5_tabid-6" role="tabpanel" data-tab="tabid-6">
+<pre><code class="lang-cs">using Sdl.FileTypeSupport.Framework.Core.Settings;
+
+namespace Sdk.FileTypeSupport.Samples.SimpleText.WinUI
+{
+    /// &lt;summary&gt;
+    /// This class controls the plug-in user interface. It controls what happens, for example,
+    /// when the user clicks the button in the user interface for resetting the control elements
+    /// to their default values. This class is referenced in the file type definition. Without
+    /// this reference in the SDLFILETPYE file, the plug-in user interface would not be available
+    /// to the end user.
+    /// &lt;/summary&gt;
+    #region &quot;SettingsPagePlugin&quot;
+    [FileTypeSettingsPage(Id=&quot;SimpleText_Settings&quot;, Name=&quot;Settings_Name&quot;, Description=&quot;Settings_Description&quot;)]
+    #endregion
+    #region &quot;ClassDeclaration&quot;
+    class SettingsPage : AbstractFileTypeSettingsPage&lt;SettingsUI, UserSettings&gt;
+    #endregion
+    {
+        /// &lt;summary&gt;
+        /// Triggered, when the user clicks the button Reset to Defaults button in 
+        /// Trados Studio. Restores the default check box state, which should
+        /// be Checked (i.e. product code strings should be locked).
+        /// &lt;/summary&gt;
+        #region &quot;ResetToDefaults&quot;
+        public override void ResetToDefaults()
+        {
+            base.ResetToDefaults();
+            Control.UpdateControl();
+        }
+        #endregion
+
+        /// &lt;summary&gt;
+        /// Triggered when the user raises the plug-in UI, whose controls (in this case the check box
+        /// for locking product code strings) will then be set according to the values stored in 
+        /// the settings bundle.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;settingsBundle&quot;&gt;&lt;/param&gt;
+        #region &quot;Refresh&quot;
+        public override void Refresh()
+        {
+            base.Refresh();
+            Control.UpdateControl();
+        }
+        #endregion
+    }
+}
+</code></pre></section>
+</div>
+<div class="NOTE"><h5>Note</h5><p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+</div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/17.0/apiconcepts/filetypesupport/implementing_the_ui_controller_class.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

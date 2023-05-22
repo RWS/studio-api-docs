@@ -1,0 +1,398 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Better Studio interactivity in day to day flow </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Better Studio interactivity in day to day flow ">
+    <meta name="generator" content="docfx 2.59.3.0">
+    
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+    
+    <meta property="docfx:rel" content="../../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="better-studio-interactivity-in-day-to-day-flow">Better Studio interactivity in day to day flow</h1>
+
+<p>Together with the release of Trados Studio 2019 SR2 we decided to make some improvements to our public APIs and give our 3<sup>rd</sup> Party developers more access to Studio&#39;s functional flows as well as user interface styling. Throughout this article we will present the functionality we exposed in our APIs and the means by which you can make the most out of it.</p>
+<h2 id="improved-notification-system">Improved Notification System</h2>
+<p>The notification system in Trados Studio, which can be accessed via the Notification View pane (on the right-hand side), was intended as a mechanism allowing us to promote notifications in a non-intrusive manner, while translators interact with Studio. We continued to take advantage of it, but while developing new features, we realized  it had some short-comings that needed to be addressed. After we fixed the issues, we decided to make them available in the public APIs.</p>
+<p>In order to allow translators to remove a specific notification, we introduced two new properties on the <code>IStudioNotification</code> interface. As developers, you will have full control over which notifications can be removed by translators and which not, as well as over what should happen within the remove logic.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th style="text-align:left">Type</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AllowsUserToDismiss</code></td>
+<td style="text-align:left"><code>bool</code></td>
+<td>Set this to <em>true</em> for the user to see a <em>dismiss</em> button when hovering over a notification.</td>
+</tr>
+<tr>
+<td><code>ClearNotificationAction</code></td>
+<td style="text-align:left"><code>IStudioNotificationCommand</code></td>
+<td>Assign an instance of the implemented interface to this property. The <em>dismiss</em> button will trigger the behavior specified in your implementation.</td>
+</tr>
+</tbody>
+</table>
+<p>We also enhanced the control over the notification system by exposing additional events. With the help of these events we now give full access to creating and removing notification groups, but also to what happens inside a group: remove a notification from a group, add a specific notification to a group or create that group if it does not exist.</p>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AddStudioNotificationOrCreateGroupEvent</code></td>
+<td>Trigger this event to add an <code>IStudioNotification</code> instance to an existing group or create a new group if the group with the given key already exists. The event expects the unique identifier of the group, the notification to be added and a group title in case it needs to create a new group.</td>
+</tr>
+<tr>
+<td><code>RemoveStudioNotificationFromGroupEvent</code></td>
+<td>Trigger this event via the <strong>EventAggregator</strong> to remove a specific notification identified by its unique id from the group with the given key.</td>
+</tr>
+</tbody>
+</table>
+<p>The following code snippet demonstrates how to publish dismissible notifications via the <code>IStudioEventAggregator</code></p>
+<pre><code class="lang-cs">    //create a unique identifier for the notification
+    var notificationId = Guid.NewGuid();
+    //create an instance of IStudioNotification
+    var sampleNotification = new StudioTestNotification(notificationId)
+    {
+        Title = &quot;Sample Notification Title&quot;,
+        AlwaysVisibleDetails = new List&lt;string&gt; 
+        { 
+            &quot;Will be added to an existing group or will create a new one.&quot; 
+        },
+        AllowsUserToDismiss = true,
+        ClearNotificationAction = new ClearNotificationAction(GroupId, notificationId),
+        IsExpanderVisible = false,
+        IsLinkVisible = true,
+        LinkAction = new OpenLinkCommand(&quot;https://appstore.sdl.com/language/developers/sdk.html&quot;)
+        {
+            CommandText = &quot;Learn more on the Studio 2019 SDK&quot;,
+            CommandToolTip = &quot;Learn more on the Studio 2019 SDK&quot;
+        },
+        IsActionVisible = false
+    };
+
+    //create an instance of the event
+    var addTestGroup = new AddStudioNotificationOrCreateGroupEvent(
+                                GroupId, 
+                                sampleNotification, 
+                                NotificationGroupTitle);
+    //publish the event via the Event Aggregator
+    var ea = SdlTradosStudio.Application.GetService&lt;IStudioEventAggregator&gt;();
+    ea.Publish(addTestGroup);
+</code></pre><p>The <code>ClearNotificationAction</code> class implements the logic required to remove the notification from the group. It implements the <code>IStudioNotificationCommand</code> interface which is just an extension over the standard WPF <code>ICommand</code>.</p>
+<pre><code class="lang-cs">public class ClearNotificationAction : IStudioNotificationCommand
+{
+    private readonly string _groupId;
+    private readonly Guid _notificationId;
+
+    public ClearNotificationAction(string groupNotificationKey, Guid notificationId)
+    {
+        .......//some constructor logic
+    }
+
+    ....... //Interface implementation (properties and methods)       
+
+    public void Execute(object parameter)
+    {
+        var ea = SdlTradosStudio.Application.GetService&lt;IStudioEventAggregator&gt;();
+        ea.Publish(new RemoveStudioNotificationFromGroupEvent(_groupId, _notificationId));
+    }
+}
+</code></pre><p>If you are unclear about which properties need to be set in order to control various UI elements and inject custom behavior, we created a diagram mapping the elements of a <strong>Notification Group</strong> and a <strong>Notification</strong> to the properties of the <code>IStudioNotificationGroup</code> and <code>IStudioNotification</code> interfaces.</p>
+<p><img style="display:block; " src="images/NotificationDiagram.png"></p>
+<h2 id="improved-interactivity-with-projects">Improved interactivity with projects</h2>
+<p>In this section we will present some of the new API events and interfaces that we exposed to help your plugins integrate better with Trados Studio&#39;s project and package flows. </p>
+<h4 id="accessing-the-new-project-wizard">Accessing the <strong><em>New Project</em></strong> wizard</h4>
+<p>With Studio 2019 SR2 you can now request for <strong>New Project</strong> wizard to be opened from your code by publishing the <code>OpenNewProjectWizardEvent</code> via the <code>IStudioEventAggregator</code>. This event will also allow you to pre-specify data for the new project in a <code>ProjectWizardData</code> object.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ProjectName</code></td>
+<td>Use this property to pre-set a value for your project name.</td>
+</tr>
+<tr>
+<td><code>Content</code></td>
+<td>Use this enumeration to send a list of files or folders given by their full path.</td>
+</tr>
+<tr>
+<td><code>ProjectTemplate</code></td>
+<td>Set this property to the full path of a project template file (*.sdltpl) that will be used by the wizard for creating the project.</td>
+</tr>
+<tr>
+<td><code>ProjectReference</code></td>
+<td>Set this property to the full path of a project file (*.sdlproj) that will be used by the wizard for creating the project.</td>
+</tr>
+</tbody>
+</table>
+<p>Please note that you can either pass a project template or a project reference template. In the event you pass values for both, Trados Studio will use the project template file.</p>
+<p>Here is a small code sample on how to implement the event publishing:</p>
+<pre><code class="lang-cs">var wizardData = new ProjectWizardData()
+{
+    ProjectName = &quot;My Project&quot;,
+    Content = new List&lt;string&gt;() { &quot;C:\MySample.doc&quot; }
+};
+_eventAggregator.Publish(new OpenNewProjectWizardEvent(wizardData));
+</code></pre><p>And this is how it should behave in Studio:</p>
+<p><img style="display:block; " src="images/NewProject.gif"></p>
+<h4 id="executing-custom-logic-within-package-flows">Executing custom logic within package flows</h4>
+<p>Up until Studio 2019 SR2 the only option you had to invoke the <strong>Open Package</strong> wizard  from a plugin was similar to this:</p>
+<pre><code class="lang-cs"> var app = new StudioApplication();
+ app.ExecuteAction&lt;OpenPackageAction&gt;();
+</code></pre><p>Going forward, you will now be able to trigger the same <strong>Open Package</strong> wizard and pass along additional details such as the package file path, the project icon and even a custom job to be executed after the package is imported in Studio. Same as above, all you need to do is publish an <code>OpenProjectPackageEvent</code> object with your desired data.</p>
+<p><img style="display:block; " src="images/ProjectsList.png"></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>packageFilePath</code></td>
+<td>Use this parameter to specify a path to the package to be opened.</td>
+</tr>
+<tr>
+<td><code>job</code></td>
+<td>Use this parameter to pass an <code>IExternalJobWithProgress</code> object to be executed once the package was loaded in Studio. Leave this <code>null</code> if you do not wish to execute a custom job.</td>
+</tr>
+<tr>
+<td><code>iconPath</code></td>
+<td>Use this parameter to set an icon for your project. This allows you to customize the Projects View and have project icons specific to your plugin.</td>
+</tr>
+<tr>
+<td><code>projectOrigin</code></td>
+<td>Use this parameter to set a project type. This allows you to customize the Projects View and have the project type specific to your plugin.</td>
+</tr>
+</tbody>
+</table>
+<p><img style="display:block; " src="images/OpenProject.gif"></p>
+<p>Here is a code sample from the above capture. The details on how to implement a custom job will be presented later on in this article.</p>
+<pre><code class="lang-cs">  var sampleJob = new SampleJob() { JobName = &quot;Sample&quot; };
+  eventAggregator.Publish(new OpenProjectPackageEvent(packagePath, sampleJob, iconPath, projectType));
+</code></pre><p>The same improvements were added for creating return packages, where you can specify a custom job to be executed when triggering the <strong>Create Return Package</strong> wizard. You might find these usefull if your plugin needs to upload the package to a server, as everything will be processed together within the wizard. To achieve this, publish the <code>CreateReturnPackageEvent</code> using the <code>IStudioEventAggregator</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>This is the project <code>Guid</code> which you can obtain from the <code>ProjectInfo</code> class.</td>
+</tr>
+<tr>
+<td><code>job</code></td>
+<td>Use this parameter to pass an <code>IExternalJobWithProgress</code> object to be executed once the return package was created. Leave this <code>null</code> if you do not wish to execute a custom job.</td>
+</tr>
+</tbody>
+</table>
+<p><img style="display:block; " src="images/CreateReturnPackage.gif"></p>
+<p>And this is the code sample:</p>
+<pre><code class="lang-cs">var sampleJob = new SampleJob() { JobName = &quot;Sample&quot; };
+var project = SdlTradosStudio.Application.GetController&lt;ProjectsController&gt;().CurrentProject;
+if (project != null)
+{
+    var selectedProjectId = project.GetProjectInfo().Id.ToString();
+    eventAggregator.Publish(new CreateReturnPackageEvent(selectedProjectid, sampleJob));
+}
+</code></pre><p>The <code>IExternalJob</code> and <code>IExternalJobWithProgress</code> interfaces are the bridge that will allow you to inject custom code into the wizards as well as into Trados Studio&#39;s job mechanism. This gives you the advantage to achieve the same look and feel for long processing jobs besides helping you complete your work faster. Once you have an implementation ready all you need to do is publish  <code>ExecuteExternalJobEvent</code> using <code>IStudioEventAggregator</code>. As a result, Trados Studio will pick the job and execute it on a background thread or inject it into the previously-mentioned events. If the job is cancelled for any reason, you can handle that from the <code>JobCanceled</code> method.</p>
+<table>
+<thead>
+<tr>
+<th>Interface</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>IExternalJob</code></td>
+<td>Implement this interface when you want to run a long processing job. The logic will be automatically executed on a background thread.</td>
+</tr>
+<tr>
+<td><code>IExternalJobWithProgress</code></td>
+<td>Implement this interface when you want to run a long processing job that can also report progress to the user. Triggering the <code>ProgressReported</code> event handler will allow you to report progress on the execution of your job to the user.</td>
+</tr>
+</tbody>
+</table>
+<p>Here is a code sample on how such an implementation should look like:</p>
+<pre><code class="lang-cs">public class SampleJob : IExternalJobWithProgress
+{
+    //Use this property to hold any type of data required for your job
+    public object JobData { get; set; }
+
+    public string JobName { get; set; }
+
+    public event EventHandler&lt;JobProgressArgs&gt; ProgressReported;
+
+    public void JobCanceled(object sender, EventArgs e)
+    {
+        //Job canceled...do something
+    }
+
+    public void Execute()
+    {
+        ProgressReported?.Invoke(this, new JobProgressArgs()
+        {
+             PercentComplete = 0,
+             StatusMessage = &quot;Sample Job started&quot;
+        });
+
+        //some long running operation
+        ProgressReported?.Invoke(this, new JobProgressArgs()
+        {
+            PercentComplete = 100,
+            StatusMessage = &quot;Sample Job done&quot;
+        });
+    }
+}
+</code></pre><blockquote><p>Please note that the <code>JobData</code> property acts as a bridge between Trados Studio and your plugin in case of using the job inside the <strong>Open Package</strong> and <strong>Create Return Package</strong> wizards. Trados Studio will set the file path on the property as follows:</p>
+<ul>
+<li>the file path to the project that was just imported into Trados Studio, in the case of the <strong>Open Package</strong> wizard</li>
+<li>the file path for the created package, in the case of the <strong>Create Return Package</strong> wizard.</li>
+</ul>
+</blockquote>
+<h2 id="other-improvements">Other improvements</h2>
+<p>In this section we will present some additional changes which we consider useful for plugin development.</p>
+<h4 id="knowing-when-the-varproductname-main-window-was-created">Knowing when the Trados Studio main window was created</h4>
+<p>There are situations when you want to know when your application has completed loading in order to perform a specific user operation. For example, you want to display a log-in prompt for the translators from your plugin. For such a scenario (but not only), we exposed the <code>StudioWindowCreatedNotificationEvent</code> which will be published from Trados Studio once it completes loading. Now you only need to subscribe to this event and you are set to go. </p>
+<pre><code class="lang-cs">    protected override void Initialize(IViewContext context)
+    {
+        var ea = SdlTradosStudio.Application.GetService&lt;IStudioEventAggregator&gt;();
+        ea.GetEvent&lt;StudioWindowCreatedNotificationEvent&gt;().Subscribe(OnStudioWindowCreated);
+    }
+
+    private void OnStudioWindowCreated(StudioWindowCreatedNotificationEvent e)
+    {
+        MessageBox.Show(&quot;Studio was loaded&quot;);
+    }
+</code></pre><h4 id="refreshing-the-projects-view">Refreshing the Projects view</h4>
+<p>For situations where you would like to have the list of Trados Studio projects refreshed in the Projects view you can now publish a <code>RefreshProjectsEvent</code> object via the event aggregator.</p>
+<pre><code class="lang-cs">   eventAggregator.Publish(new RefreshProjectsEvent());
+</code></pre><p>With this we bring to an end our improvements for Studio 2019 SR2 public APIs. You can find more code examples on <a href="https://github.com/sdl/trados-studio-api-samples">GitHub</a>, and make sure to checkout our other article on the exposed <a href="../Studio_Styles/StudioStyles.html">WPF Styles</a>.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/17.0/articles/hints_tips/Better_Studio_interactivity/SR2ApiArticle.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

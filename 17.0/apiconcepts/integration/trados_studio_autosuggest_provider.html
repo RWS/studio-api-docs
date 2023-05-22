@@ -1,0 +1,272 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Trados Studio AutoSuggest provider </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Trados Studio AutoSuggest provider ">
+    <meta name="generator" content="docfx 2.59.3.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="varproductname-autosuggest-provider">Trados Studio AutoSuggest provider</h1>
+
+<p>Integration API makes it easy to to create your own AutoSuggest provider. All you need to do is implement the <a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.AutoSuggest.AbstractAutoSuggestProvider.html">AbstractAutoSuggestProvider</a> abstract class, from <code>Sdl.TranslationStudioAutomation.IntegrationApi.AutoSuggest</code> namespace and decorate your class with <code>AutoSuggestProvider</code> attribute. If you fail to implement <a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.AutoSuggest.AbstractAutoSuggestProvider.html">AbstractAutoSuggestProvider</a>,  an exception will be thrown, but if you omit the `<a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Extensions.AutoSuggestProviderAttribute.html">AutoSuggestProviderAttribute</a>, your plugin will simply be ignored when Trados Studio starts.</p>
+<h2 id="example">Example</h2>
+<p>The following example demonstrates how to implement a custom AutoSuggest provider.</p>
+<p>The plugin implements the required abstract methods of the <a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.AutoSuggest.AbstractAutoSuggestProvider.html">AbstractAutoSuggestProvider</a> base class.</p>
+<ul>
+<li><strong>GetSuggestions</strong> to return the list of the items for auto suggestion list box</li>
+<li><strong>OnActiveSegmentChanged</strong> to be able to prepare the list of suggested items for the new selected segment</li>
+<li><strong>OnSettingsChanged</strong> to react to any change of the document settings</li>
+<li><strong>OnActiveDocumentChanged</strong> to react to changing of the active document</li>
+</ul>
+<div class="tabGroup" id="tabgroup_lFoQ0lbvup">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_lFoQ0lbvup_tabid-1" role="tab" aria-controls="tabpanel_lFoQ0lbvup_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">Sample AutoSuggest Provider</a>
+</li>
+</ul>
+<section id="tabpanel_lFoQ0lbvup_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-cs">using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using Sdl.FileTypeSupport.Framework.BilingualApi;
+using Sdl.TranslationStudioAutomation.IntegrationApi.AutoSuggest;
+using Sdl.TranslationStudioAutomation.IntegrationApi.Extensions;
+
+namespace AutoSuggest.Sample
+{
+    [AutoSuggestProvider(Id = &quot;SourceCopyAutoSuggestProvider&quot;, Name = &quot;AutoSuggest provider for copying the source words&quot;)]
+    public class SourceCopyAutoSuggestProvider : AbstractAutoSuggestProvider
+    {
+        private List&lt;string&gt; _segmentWordSuggestCandidates;
+
+        public SourceCopyAutoSuggestProvider()
+        {
+            // Set the default icon for the suggestions from this provider
+            Icon = new Icon(SystemIcons.Exclamation, 16, 16);
+        }
+
+        #region AutoSuggestProvider Implementation
+        /// &lt;summary&gt;
+        /// This function is not necessary for this sample. It just shows in case you need dictionary or some other language specific action, you can do it here.
+        /// &lt;/summary&gt;
+        protected override void OnActiveDocumentChanged()
+        {
+            if (ActiveDocument != null)
+            {
+                var sourceLanguage = ActiveDocument.Project.GetProjectInfo().SourceLanguage;
+                var targetLanguage = ActiveDocument.Files.First().Language;
+
+                System.Diagnostics.Debug.WriteLine(&quot;SourceCopyAutoSuggestProvider Language pair: {0}-&gt;{1}&quot;, sourceLanguage.DisplayName, targetLanguage.DisplayName);
+
+                // in case you need prepare the dictionary for this language pair, do it here
+            }
+            else
+            {
+                _segmentWordSuggestCandidates = null;
+            }
+
+            System.Diagnostics.Debug.WriteLine(&quot;OnActiveDocumentChanged  {0}&quot;, ActiveDocument != null);
+        }
+
+        // when user goes to a segment, we want to prepare the AutoSuggest Candidate first. 
+        // when it takes long, for performance reason, the execution might be done in a separate thread.
+        protected override void OnActiveSegmentChanged()
+        {
+            if (Settings.Enabled)
+            {
+                PrepareSegmentSuggestCandiates();
+            }
+            else
+            {
+                _segmentWordSuggestCandidates = null;
+            }
+            System.Diagnostics.Debug.WriteLine(&quot;OnActiveSegmentChanged  {0}&quot;, ActiveSegmentPair != null);
+        }
+
+        /// &lt;summary&gt;
+        /// We only provide the AutoSuggest when the candidate is available. The user might have the change from disabled to enabled, we need preapre the candidate.
+        /// &lt;/summary&gt;
+        protected override void OnSettingsChanged()
+        {
+            if (Settings.Enabled)
+            {
+                PrepareSegmentSuggestCandiates();
+            }
+            else
+            {
+                _segmentWordSuggestCandidates = null;
+            }
+        }
+
+        protected override IEnumerable&lt;AbstractAutoSuggestResult&gt; GetSuggestions(AbstractEditingContext context)
+        {
+            if (Settings.Enabled)
+            {
+                string suffix = context.GetAllPrefixes().First();
+                if (!string.IsNullOrEmpty(suffix) &amp;&amp; _segmentWordSuggestCandidates != null &amp;&amp; _segmentWordSuggestCandidates.Count &gt; 0)
+                {
+                    return _segmentWordSuggestCandidates
+                        .Where(item =&gt; item.StartsWith(suffix, Settings.CaseSensitive ? StringComparison.InvariantCulture : StringComparison.InvariantCultureIgnoreCase))
+                        .Select(item =&gt;
+                            {
+                                var result = new AutoSuggestTextResult(context, item);
+                                result.Priority = Settings.Priority;
+
+                                // Set different icon for suggestions starting with &quot;a&quot;. For the rest set the default provider icon
+                                result.Icon = result.Text.StartsWith(&quot;a&quot;) ? new Icon(SystemIcons.Question, 16, 16) : Icon;
+
+                                return result;
+                            });
+                }
+
+            }
+            return null;
+        }
+
+        #endregion
+
+        private void PrepareSegmentSuggestCandiates()
+        {
+            if (ActiveSegmentPair != null)
+            {
+                var stringBuilder = new StringBuilder();
+                foreach (var item in ActiveSegmentPair.Source.AllSubItems)
+                {
+                    var text = item as IText;
+                    if (text != null)
+                    {
+                        stringBuilder.Append(text.Properties.Text);
+                    }
+                }
+
+                // Split the sentence to words in a naive way, in practice a better way is needed to to tokenize the sentence.
+                // As a sample we will show the source words in the AutoSuggest, in practice, translation to the target language are needed
+                _segmentWordSuggestCandidates = Regex.Split(stringBuilder.ToString(), @&quot;\W+&quot;).ToList();
+
+                System.Diagnostics.Debug.WriteLine(&quot;PrepareSegmentSuggestCandiates: {0}&quot;, stringBuilder.ToString());
+                System.Diagnostics.Debug.WriteLine(&quot;{0}&quot;, _segmentWordSuggestCandidates == null);
+            }
+        }
+
+    }
+}
+</code></pre></section>
+</div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/17.0/apiconcepts/integration/trados_studio_autosuggest_provider.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

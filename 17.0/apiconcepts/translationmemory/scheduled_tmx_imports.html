@@ -1,0 +1,415 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Scheduled TMX Imports </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Scheduled TMX Imports ">
+    <meta name="generator" content="docfx 2.59.3.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="scheduled-tmx-imports">Scheduled TMX Imports</h1>
+
+<p>Like file-based TMs, you can import <em>*.tmx</em> documents into server-based TMs (see <a href="importing_a_tmx_file.html">Importing a TMX File</a>). However, in contrast to file TMs, you need to consider the following: If a large <em>.tmx</em> file needs to be imported over a WAN connection, there is a risk that the Internet connection breaks down, thus failing the import. It is therefore preferable to upload the import file to the server, and then schedule the import to take place once the file has been fully uploaded, so that the import can take place locally on the server, and not through an Internet connection. In this chapter you will learn how to upload a <em>*.tmx</em> file for a scheduled import.</p>
+<h2 id="add-a-new-class">Add a New Class</h2>
+<p>Start by adding a class called <code>ServerImporter</code> to your project. Then implement a public function called <code>ImportTmx</code>, which takes a TM Server object, the organization and TM name, and the file name and path of the import file as parameters.</p>
+<h2 id="open-the-tm">Open the TM</h2>
+<p>First, open the server TM into which the TMX content should be imported by creating a server TM object. You do this applying the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.html#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationProviderServer_GetTranslationMemory_System_Guid_Sdl_LanguagePlatform_TranslationMemoryApi_TranslationMemoryProperties_">GetTranslationMemory</a> method to the TM Server and provide the organization name and the TM name as string parameters. Note that selecting a server TM requires the full TM path name including the organization, e.g. <em>/Organization Name/TM Name</em>.</p>
+<div class="tabGroup" id="tabgroup_VyQEufxil0">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_VyQEufxil0_tabid-1" role="tab" aria-controls="tabpanel_VyQEufxil0_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_VyQEufxil0_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-cs">ServerBasedTranslationMemory tm = tmServer.GetTranslationMemory(
+    orgName + tmName, TranslationMemoryProperties.All);
+</code></pre></section>
+</div>
+<h2 id="create-an-importer-object-and-set-the-language-direction">Create an Importer Object and Set the Language Direction</h2>
+<p>Next, create an object for the scheduled TMX import. The language direction of the TMX import file must, of course, match the language direction of the target TM. If you try to import, for example, an English-French TMX file into a server TM that does not offer this language pair, the import cannot work. When creating the object for the scheduled import you need to provide the language direction object.</p>
+<div class="tabGroup" id="tabgroup_VyQEufxil0-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_VyQEufxil0-1_tabid-2" role="tab" aria-controls="tabpanel_VyQEufxil0-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_VyQEufxil0-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<pre><code class="lang-cs">var importer = new ScheduledServerTranslationMemoryImport(
+    this.GetLanguageDirection(tm, CultureInfo.GetCultureInfo(&quot;en-US&quot;), CultureInfo.GetCultureInfo(&quot;de-DE&quot;)));
+</code></pre></section>
+</div>
+<p>In our example, we create the language direction object through a separate function called <code>GetLanguageDirection</code>, which takes the TM object as well as the source and target culture info (i.e. the locales) as parameters. To make your application robust you should check whether the TM actually supports the language direction for the import. To do this we loop through the language directions available in the TM. In the next step, we determine whether TM actually offers the required language direction. If this is not the case, an error will be thrown.</p>
+<div class="tabGroup" id="tabgroup_VyQEufxil0-2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_VyQEufxil0-2_tabid-3" role="tab" aria-controls="tabpanel_VyQEufxil0-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_VyQEufxil0-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<pre><code class="lang-cs">private ServerBasedTranslationMemoryLanguageDirection GetLanguageDirection(ServerBasedTranslationMemory tm, CultureInfo source, CultureInfo target)
+{
+    foreach (ServerBasedTranslationMemoryLanguageDirection item in tm.LanguageDirections)
+    {
+        if (item.SourceLanguage == source &amp;&amp; item.TargetLanguage == target)
+        {
+            return item;
+        }
+    }
+
+    throw new Exception(&quot;Requested direction doesn&#39;t exist.&quot;);
+}
+</code></pre></section>
+</div>
+<h2 id="specify-the-import-settings">Specify the Import Settings</h2>
+<p>In the next step, specify the settings to apply to the import. There are various parameters that you can configure such as the <a href="../../api/translationmemory/Sdl.Core.TM.ImportExport.Importer.html#Sdl_Core_TM_ImportExport_Importer_ChunkSize">ChunkSize</a>, which specifies the maximum amount of units that should be imported in one go. This can help to achieve a more steady, uninterrupted import process, as you limit the number of units that are read into the memory at a given time. The minimum value here is 25. Note that the default value is 50 (<a href="../../api/translationmemory/Sdl.Core.TM.ImportExport.Importer.html#Sdl_Core_TM_ImportExport_Importer_DefaultTranslationUnitChunkSize">DefaultTranslationUnitChunkSize</a>), the maximum value is 200 (<a href="../../api/translationmemory/Sdl.Core.TM.ImportExport.Importer.html#Sdl_Core_TM_ImportExport_Importer_MaxTranslationUnitChunkSize">MaxTranslationUnitChunkSize</a>). You can also specify whether the import should continue if an error has occurred. You can set the <code>ContinueOnError</code> property to True if you want to prevent one faulty unit to stop the entire import. If, for example, among 10,000 units an invalid unit is encountered, this particular unit will not be imported, but the remaining (valid) units will. The most important piece of information is, of course, the import file and path, which is provided as a <code>FileInfo</code> object.</p>
+<div class="tabGroup" id="tabgroup_VyQEufxil0-3">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_VyQEufxil0-3_tabid-4" role="tab" aria-controls="tabpanel_VyQEufxil0-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_VyQEufxil0-3_tabid-4" role="tabpanel" data-tab="tabid-4">
+<pre><code class="lang-cs">importer.ChunkSize = 25;
+importer.ContinueOnError = true;
+importer.Source = new FileInfo(importFilePath);
+this.GetImportSettings(importer.ImportSettings);
+</code></pre></section>
+</div>
+<p>There are various other import settings that you may configure related to the way TUs should be treated during import. In our example we use a separate <code>GetImportSettings</code> helper function to configure these settings:</p>
+<div class="tabGroup" id="tabgroup_VyQEufxil0-4">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_VyQEufxil0-4_tabid-5" role="tab" aria-controls="tabpanel_VyQEufxil0-4_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_VyQEufxil0-4_tabid-5" role="tabpanel" data-tab="tabid-5">
+<pre><code class="lang-cs">private void GetImportSettings(Sdl.LanguagePlatform.TranslationMemory.ImportSettings importSettings)
+{
+    if (importSettings == null)
+    {
+        importSettings = new ImportSettings();
+    }
+
+    importSettings.CheckMatchingSublanguages = true;
+    importSettings.ExistingTUsUpdateMode = ImportSettings.TUUpdateMode.Overwrite;
+}
+</code></pre></section>
+</div>
+<p>Here, you can, for example, specify whether sub-languages should be checked or not. If you set, for example, <code>CheckMatchingSublanguages</code> to True, any English (UK) TUs in an import file will not be accepted by a TM that uses English (US). If sub-languages are not checked, then, in our example, UK TUs would be treated as if they had a US locale.
+Through the settings, you may also specify whether any existing TUs should be overwritten. For example, if the TMX file contains a TU with the same source segment, but with a different translation, the TU in the TM can be overwritten by the import TU. You may also specify what should happen to any TM fields associated with a TU. Example: A TU in a TM has the field value <em>Customer: Microsoft</em>. The same TU exists in the TMX import file, but there the same field has the value <em>Apple</em>. Through the <code>ExistingFieldsUpdateMode</code> property you can set whether existing field values should be overwritten, left unchanged, or merged.</p>
+<h2 id="upload-and-queue-for-import">Upload and Queue for Import</h2>
+<p>Now apply the <code>Queue</code> method to the importer object. This will create an import task on the server and then will schedule the actual import operation.</p>
+<div class="tabGroup" id="tabgroup_VyQEufxil0-5">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_VyQEufxil0-5_tabid-6" role="tab" aria-controls="tabpanel_VyQEufxil0-5_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_VyQEufxil0-5_tabid-6" role="tabpanel" data-tab="tabid-6">
+<pre><code class="lang-cs">importer.Queue();
+</code></pre></section>
+</div>
+<h2 id="track-the-operation-status">Track the Operation Status</h2>
+<p>The import task can have a number of statuses that should cause the operation to stop such as aborted, canceled, error, or completed. There are also various statuses that should cause the import operation to be refreshed such as recovering, queued, allocated, etc. Through the following <code>while</code> loop you can determine based on the current scheduled operation status whether to refresh or to stop the import. For example, if the status is <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ScheduledOperationStatus.html">Recovering</a>, you apply the Refresh method to the importer object. Statuses such as <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ScheduledOperationStatus.html">CancelledOn</a> should not cause a refresh.</p>
+<div class="tabGroup" id="tabgroup_VyQEufxil0-6">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_VyQEufxil0-6_tabid-8" role="tab" aria-controls="tabpanel_VyQEufxil0-6_tabid-8" data-tab="tabid-8" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_VyQEufxil0-6_tabid-8" role="tabpanel" data-tab="tabid-8">
+<pre><code class="lang-cs">bool continueWaiting = true;
+while (continueWaiting)
+{
+    switch (importer.Status)
+    {
+        case ScheduledOperationStatus.Abort:
+        case ScheduledOperationStatus.Aborted:
+        case ScheduledOperationStatus.Cancel:
+        case ScheduledOperationStatus.Cancelled:
+        case ScheduledOperationStatus.Completed:
+        case ScheduledOperationStatus.Error:
+            continueWaiting = false;
+            break;
+        case ScheduledOperationStatus.Aborting:
+        case ScheduledOperationStatus.Allocated:
+        case ScheduledOperationStatus.Cancelling:
+        case ScheduledOperationStatus.NotSet:
+        case ScheduledOperationStatus.Queued:
+        case ScheduledOperationStatus.Recovered:
+        case ScheduledOperationStatus.Recovering:
+        case ScheduledOperationStatus.Recovery:
+            continueWaiting = true;
+            importer.Refresh(); 
+            break;
+        default:
+            continueWaiting = false;
+            break;
+    }
+}
+</code></pre></section>
+</div>
+<h2 id="check-whether-the-import-completed-successfully">Check Whether the Import Completed Successfully</h2>
+<p>At the end, you should check whether the import completed successfully indeed. For this, too, you can use the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ScheduledOperationStatus.html">ScheduledOperationStatus</a>. If the value is <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ScheduledOperationStatus.html">Completed</a>, you can output a success message. If the value is <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ScheduledOperationStatus.html">Error</a>, you output an error message.</p>
+<div class="tabGroup" id="tabgroup_VyQEufxil0-7">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_VyQEufxil0-7_tabid-9" role="tab" aria-controls="tabpanel_VyQEufxil0-7_tabid-9" data-tab="tabid-9" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_VyQEufxil0-7_tabid-9" role="tabpanel" data-tab="tabid-9">
+<pre><code class="lang-cs">if (importer.Status == ScheduledOperationStatus.Completed)
+{
+    MessageBox.Show(&quot;Import successfuly finished.&quot;);
+}
+else if (importer.Status == ScheduledOperationStatus.Error)
+{
+    MessageBox.Show(importer.ErrorMessage);
+}
+else
+{
+    MessageBox.Show(&quot;Import didn&#39;t finish.&quot;);
+}
+</code></pre></section>
+</div>
+<h2 id="putting-it-all-together">Putting it All Together</h2>
+<p>The complete class should look as shown below:</p>
+<div class="tabGroup" id="tabgroup_VyQEufxil0-8">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_VyQEufxil0-8_tabid-10" role="tab" aria-controls="tabpanel_VyQEufxil0-8_tabid-10" data-tab="tabid-10" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_VyQEufxil0-8_tabid-10" role="tabpanel" data-tab="tabid-10">
+<pre><code class="lang-cs">namespace SDK.LanguagePlatform.Samples.TmAutomation
+{
+    using System;
+    using System.Globalization;
+    using System.IO;
+    using System.Windows.Forms;
+    using Sdl.LanguagePlatform.TranslationMemory;
+    using Sdl.LanguagePlatform.TranslationMemoryApi;
+
+    public class ServerImporter
+    {
+        public void ImportTmx(TranslationProviderServer tmServer, string orgName, string tmName, string importFilePath)
+        {
+            if (!orgName.StartsWith(&quot;/&quot;)) orgName = &quot;/&quot; + orgName;
+            if (!orgName.EndsWith(&quot;/&quot;)) orgName += &quot;/&quot;;
+            #region &quot;OpenTm&quot;
+            ServerBasedTranslationMemory tm = tmServer.GetTranslationMemory(
+                orgName + tmName, TranslationMemoryProperties.All);
+            #endregion
+
+            #region &quot;importer&quot;
+            var importer = new ScheduledServerTranslationMemoryImport(
+                this.GetLanguageDirection(tm, CultureInfo.GetCultureInfo(&quot;en-US&quot;), CultureInfo.GetCultureInfo(&quot;de-DE&quot;)));
+            #endregion
+
+            #region &quot;params&quot;
+            importer.ChunkSize = 25;
+            importer.ContinueOnError = true;
+            importer.Source = new FileInfo(importFilePath);
+            this.GetImportSettings(importer.ImportSettings);
+            #endregion
+
+            #region &quot;upload&quot;
+            importer.Queue();
+            #endregion
+
+            #region &quot;wait&quot;
+            bool continueWaiting = true;
+            while (continueWaiting)
+            {
+                switch (importer.Status)
+                {
+                    case ScheduledOperationStatus.Abort:
+                    case ScheduledOperationStatus.Aborted:
+                    case ScheduledOperationStatus.Cancel:
+                    case ScheduledOperationStatus.Cancelled:
+                    case ScheduledOperationStatus.Completed:
+                    case ScheduledOperationStatus.Error:
+                        continueWaiting = false;
+                        break;
+                    case ScheduledOperationStatus.Aborting:
+                    case ScheduledOperationStatus.Allocated:
+                    case ScheduledOperationStatus.Cancelling:
+                    case ScheduledOperationStatus.NotSet:
+                    case ScheduledOperationStatus.Queued:
+                    case ScheduledOperationStatus.Recovered:
+                    case ScheduledOperationStatus.Recovering:
+                    case ScheduledOperationStatus.Recovery:
+                        continueWaiting = true;
+                        importer.Refresh(); 
+                        break;
+                    default:
+                        continueWaiting = false;
+                        break;
+                }
+            }
+            #endregion
+
+            #region &quot;completed&quot;
+            if (importer.Status == ScheduledOperationStatus.Completed)
+            {
+                MessageBox.Show(&quot;Import successfuly finished.&quot;);
+            }
+            else if (importer.Status == ScheduledOperationStatus.Error)
+            {
+                MessageBox.Show(importer.ErrorMessage);
+            }
+            else
+            {
+                MessageBox.Show(&quot;Import didn&#39;t finish.&quot;);
+            }
+            #endregion
+        }
+
+        #region &quot;settings&quot;
+        private void GetImportSettings(Sdl.LanguagePlatform.TranslationMemory.ImportSettings importSettings)
+        {
+            if (importSettings == null)
+            {
+                importSettings = new ImportSettings();
+            }
+
+            importSettings.CheckMatchingSublanguages = true;
+            importSettings.ExistingTUsUpdateMode = ImportSettings.TUUpdateMode.Overwrite;
+        }
+        #endregion
+
+        #region &quot;LanguageDirection&quot;
+        private ServerBasedTranslationMemoryLanguageDirection GetLanguageDirection(ServerBasedTranslationMemory tm, CultureInfo source, CultureInfo target)
+        {
+            foreach (ServerBasedTranslationMemoryLanguageDirection item in tm.LanguageDirections)
+            {
+                if (item.SourceLanguage == source &amp;&amp; item.TargetLanguage == target)
+                {
+                    return item;
+                }
+            }
+
+            throw new Exception(&quot;Requested direction doesn&#39;t exist.&quot;);
+        }
+        #endregion
+    }
+}
+</code></pre><h2 id="see-also">See Also</h2>
+<p><a href="scheduled_tmx_exports.html">Scheduled TMX Exports</a></p>
+<p><a href="importing_a_tmx_file.html">Importing a TMX File</a></p>
+<p><a href="exporting_to_a_tmx_file.html">Exporting to a TMX File</a></p>
+</section>
+</div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/17.0/apiconcepts/translationmemory/scheduled_tmx_imports.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,142 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Connecting to TM Server </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Connecting to TM Server ">
+    <meta name="generator" content="docfx 2.59.3.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="connecting-to-tm-server">Connecting to TM Server</h1>
+
+<p>This section describes how to connect to a TM server.</p>
+<h2 id="connecting-to-tm-server-1">Connecting to TM Server</h2>
+<p>The central class that allows connecting to TM server is <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.html">TranslationProviderServer</a>. The constructor of <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.html">TranslationProviderServer</a> accepts two parameters:</p>
+<ul>
+<li><strong>Uri</strong>: the Uri representing the server. This should always be of the form http://SERVERNAME:PORT, where SERVERNAME is the IP address or DNS name of the web server that serves as the access point for the TM Server. The initial communication is always done via HTTP, but the system automatically detects the most optimal protocol and uses a TCP connection if that is possible in that particular scenario.</li>
+<li><p><strong>Credentials</strong>: one of the supported types of credentials, representing a valid user, defined on the TM Server.
+The <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.html">TranslationProviderServer</a> class provides a number of methods to get the following objects by id (Guid) or name or to get a list of all available objects (visible to the current user) of that type:</p>
+</li>
+<li><p><a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.DatabaseServer.html">DatabaseServer</a></p>
+</li>
+<li><a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryContainer.html">TranslationMemoryContainer</a></li>
+<li><a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedTranslationMemory.html">ServerBasedTranslationMemory</a></li>
+<li><a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedFieldsTemplate.html">ServerBasedFieldsTemplate</a></li>
+<li><a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedLanguageResourcesTemplate.html">ServerBasedLanguageResourcesTemplate</a></li>
+</ul>
+<p>Each method that retrieves one of these objects accepts an <code>additionalProperties</code> parameter. This parameter allows the caller to specify how much data to retrieve about the object or objects that are being retrieved. Any data that is not initially retrieved, will be retrieved on demand through lazily initialized properties, but it is generally advisable to retrieve all the necessary data upfront to reduce the number of roundtrips to the server if it is known in advance that all that data will be required. For example the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.html#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationProviderServer_GetDatabaseServers_Sdl_LanguagePlatform_TranslationMemoryApi_DatabaseServerProperties_">GetDatabaseServers</a>  method accepts a parameter of type <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.DatabaseServerProperties.html">DatabaseServerProperties</a> which allows the caller to specify whether to just retrieve the data for the database servers themselves, or to also return all the containers contained in the every database server and optionally all the translation memories in every container.</p>
+<p>Another general feature that reduces the chattiness of the API is saving changes. Each of the top-level objects has a <code>Save</code> method. When setting properties on the object, these do not result in the property change being communicated to the server immediately. Only when the called calls <code>Save</code> explicitly are all the changes sent back to the server. This allows making a number of changes in one go, without every single change resulting in a roundtrip to the server.</p>
+<p><img style="display:block; " src="images/cd-TranslationProviderServer.jpg"></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/17.0/apiconcepts/translationmemory/connecting_to_tm_server.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

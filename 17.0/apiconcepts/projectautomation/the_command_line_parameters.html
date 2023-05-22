@@ -1,0 +1,379 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>The Command-line Parameters </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="The Command-line Parameters ">
+    <meta name="generator" content="docfx 2.59.3.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="the-command-line-parameters">The Command-line Parameters</h1>
+
+<p>This chapter explains which parameters are used in the command-line application, how to set them in the Program.cs class, and check for the validity of the parameters.</p>
+<h2 id="add-the-required-variables">Add the Required Variables</h2>
+<p>Within main declare the three following variables for setting the following parameters:</p>
+<ul>
+<li>The main document path</li>
+<li>The TM (*.sdltm) file or name of the TM on a server if the /p parameter is used)</li>
+<li>A boolean parameter to set whether sub-folders should be processed as well (False by default)</li>
+<li>Boolean parameters to set whether cross-file repetitions and the internal fuzzy match leverage should be reported (False by default)</li>
+<li>A boolean parameter that specifies whether the project files should be kept on the hard disk (False by default)</li>
+<li>A boolean parameter that specifies whether the project files should be published to a server (False by default)</li>
+</ul>
+<div class="tabGroup" id="tabgroup_8Dl2lXvCZS">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_8Dl2lXvCZS_tabid-1" role="tab" aria-controls="tabpanel_8Dl2lXvCZS_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_8Dl2lXvCZS_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-cs">string mainPath = string.Empty;
+string tmFile = string.Empty;
+bool processSubFolders = false;
+bool reportCrossFileRepetitions = false;
+bool reportInternalFuzzyMatchLeverage = false;
+bool keepProjectFiles = false;
+bool publishToServer = false;
+</code></pre></section>
+</div>
+<p>If the two parameters, main file path and TM have not been entered, the application should output some explanation on the usage:</p>
+<div class="tabGroup" id="tabgroup_8Dl2lXvCZS-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_8Dl2lXvCZS-1_tabid-2" role="tab" aria-controls="tabpanel_8Dl2lXvCZS-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_8Dl2lXvCZS-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<pre><code class="lang-cs">if (args.Length &lt; 2)
+{
+    Console.WriteLine(&quot;Usage:&quot;);
+    Console.WriteLine(&quot;Sdl.SDK.ProjectAutomation.Samples.BatchAnalyze.exe &lt;source&gt; &lt;tm&gt; [/c] [/i] [/k] [/s]&quot;);
+    Console.WriteLine(&quot;&lt;source&gt; Path to a folder that contains the source files to process.&quot;);
+    Console.WriteLine(&quot;&lt;tm&gt; Path to a TM file or server TM name&quot;);
+    Console.WriteLine(&quot;/c   cross-file repetitions should be reported&quot;);
+    Console.WriteLine(&quot;/i   internal fuzzy match leverage should be reported&quot;);
+    Console.WriteLine(&quot;/k   keep project files&quot;);
+    Console.WriteLine(&quot;/s   sub-folders should be processed&quot;);
+    Console.WriteLine(&quot;/p   publish to a server&quot;);
+    return;
+}
+</code></pre></section>
+</div>
+<p>In the next step, we need to verify whether the main path entered and a TM has been entered (at this point we do not know if the tm is a file or server tm)</p>
+<div class="tabGroup" id="tabgroup_8Dl2lXvCZS-2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_8Dl2lXvCZS-2_tabid-3" role="tab" aria-controls="tabpanel_8Dl2lXvCZS-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_8Dl2lXvCZS-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<pre><code class="lang-cs">if (!String.IsNullOrEmpty(args[0]) &amp;&amp; !Directory.Exists(args[0])
+    &amp;&amp; !String.IsNullOrEmpty(args[1]) )
+{
+    Console.WriteLine(&quot;Please specify a valid input directory and a valid TM. Press ENTER to exit.&quot;);
+    return;
+}
+</code></pre></section>
+</div>
+<p>After the validity check set the variables as shown below:</p>
+<div class="tabGroup" id="tabgroup_8Dl2lXvCZS-3">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_8Dl2lXvCZS-3_tabid-4" role="tab" aria-controls="tabpanel_8Dl2lXvCZS-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_8Dl2lXvCZS-3_tabid-4" role="tabpanel" data-tab="tabid-4">
+<pre><code class="lang-cs">mainPath = args[0];
+tmFile = args[1];
+
+for (int i = 2; i &lt; args.Length; ++i)
+{
+    switch (args[i])
+    {
+        case &quot;/c&quot;:
+            reportCrossFileRepetitions = true;
+            break;
+        case &quot;/i&quot;:
+            reportInternalFuzzyMatchLeverage = true;
+            break;
+        case &quot;/k&quot;:
+            keepProjectFiles = true;
+            break;
+        case &quot;/s&quot;:
+            processSubFolders = true;
+            break;
+        case &quot;/p&quot;:
+            publishToServer = true;
+            break;
+    }
+}
+</code></pre></section>
+</div>
+<p>If you do not wish to publish to a server if must be a file based TM so check it exists</p>
+<div class="tabGroup" id="tabgroup_8Dl2lXvCZS-4">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_8Dl2lXvCZS-4_tabid-5" role="tab" aria-controls="tabpanel_8Dl2lXvCZS-4_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_8Dl2lXvCZS-4_tabid-5" role="tabpanel" data-tab="tabid-5">
+<pre><code class="lang-cs">if (!publishToServer &amp;&amp; !File.Exists(args[1]))
+{
+    Console.WriteLine(&quot;Please specify a valid file TM. Press ENTER to exit.&quot;);
+    return;
+}
+</code></pre></section>
+</div>
+<p>Start by creating the project and output a success message if the task has been executed successfully. Remember that after running the application the analysis result should be presented in the console.</p>
+<div class="tabGroup" id="tabgroup_8Dl2lXvCZS-5">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_8Dl2lXvCZS-5_tabid-6" role="tab" aria-controls="tabpanel_8Dl2lXvCZS-5_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_8Dl2lXvCZS-5_tabid-6" role="tabpanel" data-tab="tabid-6">
+<pre><code class="lang-cs">try
+{
+    ProjectCreator process = new ProjectCreator();
+    process.Create(
+        mainPath, 
+        tmFile, 
+        processSubFolders,
+        reportCrossFileRepetitions,
+        reportInternalFuzzyMatchLeverage,
+        keepProjectFiles, publishToServer);
+
+    Console.WriteLine();
+    Console.WriteLine(&quot;Analyze files report created successfully. Press ENTER to exit.&quot;);
+    Console.ReadLine();
+}
+catch (Exception ex)
+{
+    Console.WriteLine(ex.Message);
+    Console.ReadLine();
+}
+</code></pre></section>
+</div>
+<h2 id="putting-it-all-together">Putting it All Together</h2>
+<p>The full implementation should look as shown below:</p>
+<div class="tabGroup" id="tabgroup_8Dl2lXvCZS-6">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_8Dl2lXvCZS-6_tabid-7" role="tab" aria-controls="tabpanel_8Dl2lXvCZS-6_tabid-7" data-tab="tabid-7" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_8Dl2lXvCZS-6_tabid-7" role="tabpanel" data-tab="tabid-7">
+<pre><code class="lang-cs">public static void Main(string[] args)
+{
+    #region &quot;DeclareVariables&quot;
+    string mainPath = string.Empty;
+    string tmFile = string.Empty;
+    bool processSubFolders = false;
+    bool reportCrossFileRepetitions = false;
+    bool reportInternalFuzzyMatchLeverage = false;
+    bool keepProjectFiles = false;
+    bool publishToServer = false;
+    #endregion
+
+    #region &quot;Usage&quot;
+    if (args.Length &lt; 2)
+    {
+        Console.WriteLine(&quot;Usage:&quot;);
+        Console.WriteLine(&quot;Sdl.SDK.ProjectAutomation.Samples.BatchAnalyze.exe &lt;source&gt; &lt;tm&gt; [/c] [/i] [/k] [/s]&quot;);
+        Console.WriteLine(&quot;&lt;source&gt; Path to a folder that contains the source files to process.&quot;);
+        Console.WriteLine(&quot;&lt;tm&gt; Path to a TM file or server TM name&quot;);
+        Console.WriteLine(&quot;/c   cross-file repetitions should be reported&quot;);
+        Console.WriteLine(&quot;/i   internal fuzzy match leverage should be reported&quot;);
+        Console.WriteLine(&quot;/k   keep project files&quot;);
+        Console.WriteLine(&quot;/s   sub-folders should be processed&quot;);
+        Console.WriteLine(&quot;/p   publish to a server&quot;);
+        return;
+    }
+    #endregion
+
+    #region &quot;CheckPath&quot;
+    if (!String.IsNullOrEmpty(args[0]) &amp;&amp; !Directory.Exists(args[0])
+        &amp;&amp; !String.IsNullOrEmpty(args[1]) )
+    {
+        Console.WriteLine(&quot;Please specify a valid input directory and a valid TM. Press ENTER to exit.&quot;);
+        return;
+    }
+    #endregion
+
+    #region &quot;SetVariables&quot;
+    mainPath = args[0];
+    tmFile = args[1];
+
+    for (int i = 2; i &lt; args.Length; ++i)
+    {
+        switch (args[i])
+        {
+            case &quot;/c&quot;:
+                reportCrossFileRepetitions = true;
+                break;
+            case &quot;/i&quot;:
+                reportInternalFuzzyMatchLeverage = true;
+                break;
+            case &quot;/k&quot;:
+                keepProjectFiles = true;
+                break;
+            case &quot;/s&quot;:
+                processSubFolders = true;
+                break;
+            case &quot;/p&quot;:
+                publishToServer = true;
+                break;
+        }
+    }
+
+    #endregion
+
+    #region &quot;CheckTMPathIfFileTM&quot;
+
+    if (!publishToServer &amp;&amp; !File.Exists(args[1]))
+    {
+        Console.WriteLine(&quot;Please specify a valid file TM. Press ENTER to exit.&quot;);
+        return;
+    }
+    #endregion
+
+    #region &quot;ProcessTask&quot;
+    try
+    {
+        ProjectCreator process = new ProjectCreator();
+        process.Create(
+            mainPath, 
+            tmFile, 
+            processSubFolders,
+            reportCrossFileRepetitions,
+            reportInternalFuzzyMatchLeverage,
+            keepProjectFiles, publishToServer);
+
+        Console.WriteLine();
+        Console.WriteLine(&quot;Analyze files report created successfully. Press ENTER to exit.&quot;);
+        Console.ReadLine();
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine(ex.Message);
+        Console.ReadLine();
+    }
+    #endregion
+}
+</code></pre></section>
+</div>
+<h2 id="see-also">See Also</h2>
+<p><a href="configuring_the_project_properties.html">Configuring the Project Properties</a></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/17.0/apiconcepts/projectautomation/the_command_line_parameters.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

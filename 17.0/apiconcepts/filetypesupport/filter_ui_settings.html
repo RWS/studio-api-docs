@@ -1,0 +1,164 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Filter UI Settings </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Filter UI Settings ">
+    <meta name="generator" content="docfx 2.59.3.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="filter-ui-settings">Filter UI Settings</h1>
+
+<p>To configure the filter functionality you may need a user interface through which any parameters can be set in a convenient way.</p>
+<h2 id="file-type-settings-pages">File Type Settings Pages</h2>
+<p>File type settings pages can be defined in the File Type Component Builder while building the File Type Information. The example below shows how to do this inside the FilterComponentBuilder class inside the BuildFileTypeInformation method.</p>
+<div class="tabGroup" id="tabgroup_vA8Gi0vpJv">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_vA8Gi0vpJv_tabid-1" role="tab" aria-controls="tabpanel_vA8Gi0vpJv_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_vA8Gi0vpJv_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-cs">   public IFileTypeInformation BuildFileTypeInformation(string name)
+{
+    var info = this.FileTypeManager.BuildFileTypeInformation();
+
+    info.FileTypeDefinitionId = new FileTypeDefinitionId(&quot;Simple Text Filter 1.0.0.0&quot;);
+    info.FileTypeName = new LocalizableString(&quot;Simple text files&quot;);
+    info.FileTypeDocumentName = new LocalizableString(&quot;Test text files&quot;);
+    info.FileTypeDocumentsName = new LocalizableString(&quot;Simple text files&quot;);
+    info.Description = new LocalizableString(&quot;This sample filter is used to process simple text files.&quot;);
+    info.FileDialogWildcardExpression = &quot;*.text&quot;;
+    info.DefaultFileExtension = &quot;text&quot;;
+    info.Icon = new IconDescriptor(&quot;assembly://Sdl.Sdk.FileTypeSupport.Samples.SimpleText/Sdl.Sdk.FileTypeSupport.Samples.SimpleText.SimpleText.ico&quot;);
+
+    // Define setting pages.
+    info.WinFormSettingsPageIds = new string[]
+    {
+        &quot;SimpleText_Settings&quot;,
+        &quot;QuickInserts_Settings&quot;,
+    };
+
+    return info;
+}
+</code></pre></section>
+</div>
+<p>The ID of the settings page is defined within the settings page class itself. The <strong>Plugin Framework</strong> is used to locate the plug-in with this ID and display it to the user in the host application at runtime.</p>
+<h2 id="see-also">See Also</h2>
+<p><a href="implementing_the_ui_controller_class.html">Implementing the UI Controller Class</a></p>
+<p><a href="implementing_the_settings_ui.html">Implementing the Settings UI</a></p>
+<div class="NOTE"><h5>Note</h5><p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+</div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/17.0/apiconcepts/filetypesupport/filter_ui_settings.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

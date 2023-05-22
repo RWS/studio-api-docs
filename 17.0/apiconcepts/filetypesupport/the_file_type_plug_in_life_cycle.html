@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>The File Type Plug-in Lifecycle </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="The File Type Plug-in Lifecycle ">
+    <meta name="generator" content="docfx 2.59.3.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="the-file-type-plug-in-lifecycle">The File Type Plug-in Lifecycle</h1>
+
+<p>This section describes the lifecycle and in particular the initialization process for components in the  File Type Support Framework.</p>
+<p>During its lifecycle a filter component may go through the following steps:</p>
+<ol>
+<li><p>The component is instantiated.
+The components are explicitly created and initialized using PocoFilterManger (see <a href="initializing_the_file_type_manager.html">Initializing the File Type Manager</a>).</p>
+</li>
+<li><p>If the component implements the <code>IComponentsAware</code> interface, the <code>SetComponents()</code> method will be called before the component is used. Every time the set of components change, this component will be included in the changes.
+This allows the component to retrieve information on other components with which it is being used. This may be useful e.g. to determine if it should synchronize its settings with any other known components.</p>
+</li>
+<li><p>If the component implements the <code>INativeFilterComponent</code> interface the <code>PropertiesFactory</code> and <code>MessageReporter</code> properties will be set. Components should only create property objects through the property factory. This ensures that all filter components that are used together use the same type of property objects.</p>
+<p> Normally the  File Type Support Framework provides a default factory. However, it is possible for the parser to set the factory that should be used by all the components. If a native parser exposes an existing properties factory through the <code>INativeFilterComponent</code> interface at initialization time, that factory will be used.</p>
+</li>
+<li><p>If the component implements the <code>IBilingualFilterComponent</code> interface, the <code>ItemsFactory</code> property will be set. Components should only create bilingual content model items through this factory.</p>
+<p> Normally the  File Type Support Framework provides a default factory. However, it is possible for the parser to set the factory that should be used by all the components. If a bilingual parser implements the <code>IBilingualFilterComponent</code> and returns a non-null value from the <code>ItemsFactory</code> property, it is that factory that will be used.</p>
+</li>
+<li><p>If the component implements the <code>INativeContentCycleAware</code> interface, the <code>SetFileProperties()</code> method will be called. The file conversion properties (a member of the file properties), among other things, contain the name of the native file that is being processed (in the OriginalFilePath property). Native file parsers must implement this interface and obtain the name of the file to parse from this property.</p>
+<p> The file conversion properties can be changed by the filter components at any time. Since the same object is referenced by all components, changes to the object immediately affect all other components.</p>
+<p> Bilingual processor components normally should not implement this interface. They will obtain the corresponding information (and more) through the <code>SetFileProperties()</code> call on the <code>IBilingualContentProcessor</code> interface.
+ For some components this method may be called several times during their lifetime, due to the fact that an XLIFF document may contain content from multiple native files. The method will be invoked before content originating from each native file is processed.</p>
+<p> The file conversion properties will be serialized into the bilingual document format and de-serialized and applied applied to filter components as part of the initialization.</p>
+<p> Filter components can store dynamically configured settings and any other type of information in this object. They rely on this information being available the next time the same content is processed. Settings are stored and retrieved as key/value pairs. To avoid conflicts with other components each filter component should use a unique prefix for their settings keys. Built-in framework components use the &quot;SDL:&quot; prefix for all their settings keys.</p>
+</li>
+<li><p>If a native component implements the <code>INativeOutputSettingsAware</code> interface, the <code>SetOutputProperties()</code> method is invoked.
+This allows components to find out about the purpose of the conversion, whether it will be processing source or target content, what the file path to the output file is, the preferred encoding for the output file, etc.</p>
+</li>
+<li><p>If a native filter component implements the INativeContentCycleAware interface, the <code>StartOfInput()</code> method will be called immediately before parsing begins.
+Bilingual processors receive calls to <code>Initialize()</code> and <code>SetFileProperties</code>() on the IBilingualContentProcessor interface before content is passed through them.</p>
+</li>
+<li><p>The components will now be used to process actual content.</p>
+</li>
+<li>If a native filter component implements the INativeContentCycleAware interface, the <code>EndOfInput()</code> method will be called immediately after the parsing has completed.
+Bilingual processor components receive calls to <code>FileComplete()</code> and <code>Complete()</code> as appropriate.</li>
+</ol>
+<div class="NOTE"><h5>Note</h5><p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+</div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/17.0/apiconcepts/filetypesupport/the_file_type_plug_in_life_cycle.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>
