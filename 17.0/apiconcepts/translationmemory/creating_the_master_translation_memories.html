@@ -1,0 +1,322 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Creating the Master Translation Memories </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Creating the Master Translation Memories ">
+    <meta name="generator" content="docfx 2.59.3.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="creating-the-master-translation-memories">Creating the Master Translation Memories</h1>
+
+<p>Remember that all *.tmx files of the same language direction need to be consolidated in a master TM. If the importer class (see <a href="importing_into_the_master_translation_memories.html">Importing into the Master Translation Memories</a>) determines that the corresponding master TM does not yet exist, it should be created through a separate class. On this page you will learn how to implement the class for creating the master TMs.</p>
+<h2 id="add-a-new-class">Add a New Class</h2>
+<p>Start by adding a new class called <code>TmCreator</code> to your project. Add a public function called <code>CreateMasterTm</code>, which takes the path in which the master TMs should be created and the source/target language locales as string parameters.</p>
+<h2 id="create-the-master-tm">Create the Master TM</h2>
+<p>In the next step, implement the logic required for creating the master TM file. Note that for simplicity&#39;s sake, the file name is a combination of a hard-coded string <em>(MasterTM_)</em>, the language direction string, and the extension *.sdltm.</p>
+<div class="tabGroup" id="tabgroup_dUeq3gVtwC">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_dUeq3gVtwC_tabid-1" role="tab" aria-controls="tabpanel_dUeq3gVtwC_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_dUeq3gVtwC_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-cs">/// &lt;summary&gt;
+/// Create the master TM based on the source and target locales found in the current TMX file.
+/// &lt;/summary&gt;
+/// &lt;param name=&quot;sourceLanguage&quot;&gt;String representation of translation memory source language.&lt;/param&gt;
+/// &lt;param name=&quot;targetLanguage&quot;&gt;String representation of translation memory target language.&lt;/param&gt;
+/// &lt;param name=&quot;masterPath&quot;&gt;Path to translation memory.&lt;/param&gt;
+public void CreateMasterTm(string sourceLanguage, string targetLanguage, string masterPath)
+{
+    #region &quot;Create Translation Memory&quot;
+
+    string path = string.Format(
+        CultureInfo.CurrentCulture,
+        &quot;{0}MasterTm_{1}_{2}.sdltm&quot;,
+        masterPath,
+        sourceLanguage,
+        targetLanguage);
+
+    var translationMemory = new FileBasedTranslationMemory(
+        path,
+        &quot;Master TM&quot;,
+        CultureInfo.GetCultureInfo(sourceLanguage),
+        CultureInfo.GetCultureInfo(targetLanguage),
+        this.GetFuzzyIndexes(),
+        this.GetRecognizers(),
+        TokenizerFlags.AllFlags,
+        WordCountFlags.AllFlags
+        );
+
+    #endregion
+
+    #region &quot;Save&quot;
+
+    translationMemory.LanguageResourceBundles.Clear();
+    translationMemory.Save();
+
+    #endregion
+}
+</code></pre></section>
+</div>
+<p>The fuzzy indexes are determined through a separate helper function:</p>
+<div class="tabGroup" id="tabgroup_dUeq3gVtwC-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_dUeq3gVtwC-1_tabid-2" role="tab" aria-controls="tabpanel_dUeq3gVtwC-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_dUeq3gVtwC-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<pre><code class="lang-cs">/// &lt;summary&gt;
+/// Configure the fuzzy indexes, to determine, for example,
+/// that the master TM should support concordance searching 
+/// in the target language.
+/// The fuzzy indexes for source and target should be word-based only
+/// i.e. not character-based for performance reasons. (Master TMs
+/// can be assumed to be big, and therefore slow on character-based searches.)
+/// &lt;/summary&gt;
+/// &lt;returns&gt;Hard-coded SourceWordBased and TargetWordBased FuzzyIndexes type&lt;/returns&gt;
+private FuzzyIndexes GetFuzzyIndexes()
+{
+    return FuzzyIndexes.SourceWordBased | FuzzyIndexes.TargetWordBased;
+}
+</code></pre></section>
+</div>
+<p>Also, the recognition settings are set in a distinct helper function:</p>
+<div class="tabGroup" id="tabgroup_dUeq3gVtwC-2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_dUeq3gVtwC-2_tabid-3" role="tab" aria-controls="tabpanel_dUeq3gVtwC-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_dUeq3gVtwC-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<pre><code class="lang-cs">/// &lt;summary&gt;
+/// Configure the recognition settings for the TM.
+/// Here, we simply activate all recognition settings 
+/// through RecognizeAll, which includes recognition
+/// of variables, dates, numbers, acronyms, measurements, and times.
+/// &lt;/summary&gt;
+/// &lt;returns&gt;Hard-coded RecognizeAll BuiltinRecognizer.&lt;/returns&gt;
+private BuiltinRecognizers GetRecognizers()
+{
+    return BuiltinRecognizers.RecognizeAll;
+}
+</code></pre></section>
+</div>
+<p>For more information, on these settings and on TM creation see also <a href="creating_a_file_based_translation_memory.html">Creating a File-based Translation Memory</a>.</p>
+<h2 id="putting-it-all-together">Putting it All Together</h2>
+<p>The complete class should look as shown below:</p>
+<div class="tabGroup" id="tabgroup_dUeq3gVtwC-3">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_dUeq3gVtwC-3_tabid-4" role="tab" aria-controls="tabpanel_dUeq3gVtwC-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_dUeq3gVtwC-3_tabid-4" role="tabpanel" data-tab="tabid-4">
+<pre><code class="lang-cs">using System.Globalization;
+using Sdl.LanguagePlatform.Core.Tokenization;
+using Sdl.LanguagePlatform.TranslationMemory;
+using Sdl.LanguagePlatform.TranslationMemoryApi;
+
+namespace SDK.LanguagePlatform.Samples.BatchImporter
+{
+    /// &lt;summary&gt;
+    /// Represents functionality for creating Translation Memories.
+    /// &lt;/summary&gt;
+    public class TmCreator
+    {
+        #region &quot;createTM&quot;
+
+        /// &lt;summary&gt;
+        /// Create the master TM based on the source and target locales found in the current TMX file.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;sourceLanguage&quot;&gt;String representation of translation memory source language.&lt;/param&gt;
+        /// &lt;param name=&quot;targetLanguage&quot;&gt;String representation of translation memory target language.&lt;/param&gt;
+        /// &lt;param name=&quot;masterPath&quot;&gt;Path to translation memory.&lt;/param&gt;
+        public void CreateMasterTm(string sourceLanguage, string targetLanguage, string masterPath)
+        {
+            #region &quot;Create Translation Memory&quot;
+
+            string path = string.Format(
+                CultureInfo.CurrentCulture,
+                &quot;{0}MasterTm_{1}_{2}.sdltm&quot;,
+                masterPath,
+                sourceLanguage,
+                targetLanguage);
+
+            var translationMemory = new FileBasedTranslationMemory(
+                path,
+                &quot;Master TM&quot;,
+                CultureInfo.GetCultureInfo(sourceLanguage),
+                CultureInfo.GetCultureInfo(targetLanguage),
+                this.GetFuzzyIndexes(),
+                this.GetRecognizers(),
+                TokenizerFlags.AllFlags,
+                WordCountFlags.AllFlags
+                );
+
+            #endregion
+
+            #region &quot;Save&quot;
+
+            translationMemory.LanguageResourceBundles.Clear();
+            translationMemory.Save();
+
+            #endregion
+        }
+        #endregion
+
+        #region &quot;Get fuzzy indexes&quot;
+
+        /// &lt;summary&gt;
+        /// Configure the fuzzy indexes, to determine, for example,
+        /// that the master TM should support concordance searching 
+        /// in the target language.
+        /// The fuzzy indexes for source and target should be word-based only
+        /// i.e. not character-based for performance reasons. (Master TMs
+        /// can be assumed to be big, and therefore slow on character-based searches.)
+        /// &lt;/summary&gt;
+        /// &lt;returns&gt;Hard-coded SourceWordBased and TargetWordBased FuzzyIndexes type&lt;/returns&gt;
+        private FuzzyIndexes GetFuzzyIndexes()
+        {
+            return FuzzyIndexes.SourceWordBased | FuzzyIndexes.TargetWordBased;
+        }
+
+        #endregion
+
+        #region &quot;get recognizers&quot;
+
+        /// &lt;summary&gt;
+        /// Configure the recognition settings for the TM.
+        /// Here, we simply activate all recognition settings 
+        /// through RecognizeAll, which includes recognition
+        /// of variables, dates, numbers, acronyms, measurements, and times.
+        /// &lt;/summary&gt;
+        /// &lt;returns&gt;Hard-coded RecognizeAll BuiltinRecognizer.&lt;/returns&gt;
+        private BuiltinRecognizers GetRecognizers()
+        {
+            return BuiltinRecognizers.RecognizeAll;
+        }
+
+        #endregion
+    }
+}
+</code></pre></section>
+</div>
+<h2 id="see-also">See Also</h2>
+<p><a href="creating_a_log_file.html">Creating the Log File</a></p>
+<p><a href="creating_a_file_based_translation_memory.html">Creating a File-based Translation Memory</a></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/17.0/apiconcepts/translationmemory/creating_the_master_translation_memories.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

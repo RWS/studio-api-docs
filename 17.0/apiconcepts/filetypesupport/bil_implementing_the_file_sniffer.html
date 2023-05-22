@@ -1,0 +1,400 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Implementing the File Sniffer </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Implementing the File Sniffer ">
+    <meta name="generator" content="docfx 2.59.3.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="implementing-the-file-sniffer">Implementing the File Sniffer</h1>
+
+<p>In this chapter, we implement the functionality required for determining whether a given BIL file is valid and can be processed by our sample file type plug-in.</p>
+<h2 id="identify-the-file-validation-criteria">Identify the File Validation Criteria</h2>
+<p>For determining whether a given file can be processed by a filter or not, you can, of course, use the file extension, which is also specified in the File Type Component Builder. However, this criterion is not very reliable. Even if the file extension does match, the file might still not be valid for some reason, and can therefore not be processed by the file type plug-in. Moreover, different file types might share the same extension, which is another reason for not relying on file name extensions only.</p>
+<p>It is therefore important to determine one more reliable criteria that tell you whether the file is valid or not. The most obvious criterion for an XML file is, of course, the root element, which in this case is <code>bilingualdocument</code>. Let us proceed on the assumption that if a given document has this root element, the file should be considered valid. If not, the file type plug-in should tell the user that the file is not supported. It is recommended that you implement the validation functionality in a distinct file sniffer component.</p>
+<h2 id="add-the-file-sniffer-class">Add the File Sniffer Class</h2>
+<p>Add a new class called e.g. <strong>BilSniffer.cs</strong> to your project. This class needs to implement the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileSniffer.html">INativeFileSniffer</a> interface. Note that even though we are developing a bilingual file type plug-in (and not a native file type plug-in), we require the above-mentioned interface. The sniffer component determines the validity of the file based on file-specific (native) criteria (in our example the root element).</p>
+<p>The interface implements a <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileSniffer.html#Sdl_FileTypeSupport_Framework_NativeApi_INativeFileSniffer_Sniff_System_String_Sdl_Core_Globalization_Language_Sdl_Core_Globalization_Codepage_Sdl_FileTypeSupport_Framework_NativeApi_INativeTextLocationMessageReporter_Sdl_Core_Settings_ISettingsGroup_">Sniff</a> method, which returns a <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.SniffInfo.html">SniffInfo</a> object. Through this object you can, for example, set whether a given file is supported or not. The minimum amount of code required to build a file sniffer component looks as shown below:</p>
+<div class="tabGroup" id="tabgroup_i9t-KMMbLI">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_i9t-KMMbLI_tabid-1" role="tab" aria-controls="tabpanel_i9t-KMMbLI_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_i9t-KMMbLI_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-cs">using Sdl.Core.Settings;
+using Sdl.FileTypeSupport.Framework.NativeApi;
+using Sdl.Core.Globalization;
+
+namespace Sdk.Snippets.Bilingual
+{
+    class BilSniffer : INativeFileSniffer
+    {
+
+        public SniffInfo Sniff(
+            string nativeFilePath,
+            Language language,
+            Codepage suggestedCodepage,     
+            INativeTextLocationMessageReporter messageReporter,
+             ISettingsGroup settingsGroup)
+
+        {
+            SniffInfo fileInfo = new SniffInfo();    
+            return fileInfo;
+        }
+    }
+}
+</code></pre></section>
+</div>
+<h2 id="implement-the-sniffer-logic">Implement the Sniffer Logic</h2>
+<p>Now you implement the actual logic required to determine whether a given file is supported or not. Remember, that if you have specific settings which need to be applied to the file sniffer, these can be populated using the <code>ISettingsGroup</code> which is passed in via the Sniff method. Please see <a href="the_file_sniffer.html">The File Sniffer</a> for more details. The file sniffer reads the root element name from a given document. In our sample format, the root element also contains the source and target language information, e.g.:</p>
+<div class="tabGroup" id="tabgroup_i9t-KMMbLI-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_i9t-KMMbLI-1_tabid-2" role="tab" aria-controls="tabpanel_i9t-KMMbLI-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">Xml</a>
+</li>
+</ul>
+<section id="tabpanel_i9t-KMMbLI-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<pre><code class="lang-xml">&lt;bilingualdocument source-language=&quot;en-US&quot; target-language=&quot;de-DE&quot;&gt;
+</code></pre></section>
+</div>
+<p>As we are going to retrieve these three items from the root element, it makes sense to add the root element name to search for as well as the source/target language attribute names as constants to our sniffer class:</p>
+<div class="tabGroup" id="tabgroup_i9t-KMMbLI-2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_i9t-KMMbLI-2_tabid-3" role="tab" aria-controls="tabpanel_i9t-KMMbLI-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_i9t-KMMbLI-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<pre><code class="lang-cs">static string _BilingualDocument = &quot;bilingualdocument&quot;;
+static string _SourceLanguage = &quot;source-language&quot;;
+static string _TargetLanguage = &quot;target-language&quot;;
+</code></pre></section>
+</div>
+<p>The <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileSniffer.html#Sdl_FileTypeSupport_Framework_NativeApi_INativeFileSniffer_Sniff_System_String_Sdl_Core_Globalization_Language_Sdl_Core_Globalization_Codepage_Sdl_FileTypeSupport_Framework_NativeApi_INativeTextLocationMessageReporter_Sdl_Core_Settings_ISettingsGroup_">Sniff</a> method then calls two separate helper functions to read the root element name and the source/target language values. Depending on the result returned by the <code>IsFileSupported()</code> helper function, the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.SniffInfo.html#Sdl_FileTypeSupport_Framework_NativeApi_SniffInfo_IsSupported">IsSupported</a> property is set to True or to False:</p>
+<div class="tabGroup" id="tabgroup_i9t-KMMbLI-3">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_i9t-KMMbLI-3_tabid-4" role="tab" aria-controls="tabpanel_i9t-KMMbLI-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_i9t-KMMbLI-3_tabid-4" role="tabpanel" data-tab="tabid-4">
+<pre><code class="lang-cs">public SniffInfo Sniff(string nativeFilePath, Language suggestedSourceLanguage, 
+    Codepage suggestedCodepage, INativeTextLocationMessageReporter messageReporter, 
+    ISettingsGroup settingsGroup)
+{
+    SniffInfo info = new SniffInfo();
+
+    if (System.IO.File.Exists(nativeFilePath))
+    {
+        // call method to check if file is supported
+        info.IsSupported = IsFileSupported(nativeFilePath);
+        // call method to determine the file language pair
+        GetFileLanguages(ref info, nativeFilePath);
+    }
+    else
+    {
+        info.IsSupported = false;
+    }
+
+    return info;
+}
+</code></pre></section>
+</div>
+<p>The <code>IsFileSupported()</code> helper function receives the file name and path from the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileSniffer.html#Sdl_FileTypeSupport_Framework_NativeApi_INativeFileSniffer_Sniff_System_String_Sdl_Core_Globalization_Language_Sdl_Core_Globalization_Codepage_Sdl_FileTypeSupport_Framework_NativeApi_INativeTextLocationMessageReporter_Sdl_Core_Settings_ISettingsGroup_">Sniff</a> method. It then loads the document into an XML DOM object to determine the root element, and returns True or False.</p>
+<div class="tabGroup" id="tabgroup_i9t-KMMbLI-4">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_i9t-KMMbLI-4_tabid-5" role="tab" aria-controls="tabpanel_i9t-KMMbLI-4_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_i9t-KMMbLI-4_tabid-5" role="tabpanel" data-tab="tabid-5">
+<pre><code class="lang-cs">// determine whether a given file is supported based on the
+// root element
+private bool IsFileSupported(string nativeFilePath)
+{
+    bool result = false;
+    XmlDocument doc = new XmlDocument();
+    doc.Load(nativeFilePath);
+    if (doc.DocumentElement.Name == _BilingualDocument)
+    {
+        result = true;
+    }
+
+    return result;
+}
+</code></pre></section>
+</div>
+<p>The <code>GetFileLanguages()</code> helper function retrieves the file info object as well as the file name and path from the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileSniffer.html#Sdl_FileTypeSupport_Framework_NativeApi_INativeFileSniffer_Sniff_System_String_Sdl_Core_Globalization_Language_Sdl_Core_Globalization_Codepage_Sdl_FileTypeSupport_Framework_NativeApi_INativeTextLocationMessageReporter_Sdl_Core_Settings_ISettingsGroup_">Sniff</a> method. It then loads the document into an XML DOM object to read the source and target language attribute values. After that, it sets the properties for the detected source and target languages to the values that were retrieved from the root element attributes. In our example the root element attributes clearly state the source and target language. This is why we can set the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.DetectionLevel.html">DetectionLevel</a> property to <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.DetectionLevel.html#fields">Certain</a>. For document types in which the languages have to be determined, for example, based on heuristics, you may want to set the detection level to one of the other possible values, e.g. <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.DetectionLevel.html#fields">Likely</a> or <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.DetectionLevel.html#fields">Guess</a>.</p>
+<div class="tabGroup" id="tabgroup_i9t-KMMbLI-5">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_i9t-KMMbLI-5_tabid-6" role="tab" aria-controls="tabpanel_i9t-KMMbLI-5_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_i9t-KMMbLI-5_tabid-6" role="tabpanel" data-tab="tabid-6">
+<pre><code class="lang-cs">// retrieve the source and target language
+// from the file header
+private void GetFileLanguages(ref SniffInfo info, string nativeFilePath)
+{
+    XmlDocument doc = new XmlDocument();
+    doc.Load(nativeFilePath);
+    if (doc.DocumentElement.HasAttributes)
+    {
+        XmlAttribute source = doc.DocumentElement.Attributes[_SourceLanguage];
+        if (source != null)
+        {
+            info.DetectedSourceLanguage =
+                new Sdl.FileTypeSupport.Framework.Pair&lt;Language, DetectionLevel&gt;(new Language(source.Value),
+                    DetectionLevel.Certain);
+        }
+
+        XmlAttribute target = doc.DocumentElement.Attributes[_TargetLanguage];
+        if (source != null)
+        {
+            info.DetectedTargetLanguage =
+                new Sdl.FileTypeSupport.Framework.Pair&lt;Language, DetectionLevel&gt;(new Language(target.Value),
+                    DetectionLevel.Certain);
+        }
+    }
+}
+</code></pre></section>
+</div>
+<p>If the detection level is set to <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.DetectionLevel.html#fields">Certain</a>, the language dropdown lists in the <strong>Open Document</strong> dialog box will be disabled, and thus cannot be changed by the user. Otherwise, end users can change the proposed language combination at their discretion.</p>
+<p><img src="images/LanguagesAutoDeteced.jpg" alt="LanguagesAutoDeteced"></p>
+<p>When the language pair has been programmatically determined by the sniffer, the user does not have to select the source/target language combination manually upon opening the file. The language pair will be displayed in the status bar of Trados Studio, e.g.:</p>
+<p><img src="images/LanguagePair.jpg" alt="LanguagePair"></p>
+<div class="NOTE"><h5>Note</h5><p>If the sniffer determines that the file is not supported, you should communicate this to the user. This is done in the same way as in a native file type plug-in. See chapter <a href="user_communication_through_messaging.html">User Communication Through Messaging</a> for more information and for an example on how to provide users with information on why a given file cannot be processed.</p>
+</div>
+<h2 id="add-the-component-reference-to-the-component-builder">Add the Component Reference to the Component Builder</h2>
+<p>Do not forget to reference the file sniffer component to the File Type Component Builder by inserting the following code to your implementation of the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilder.html">IFileTypeComponentBuilder</a> interface. Remember that failure to do so will mean that this component will never be used by the file type plug-in, even if the sniffer has been implemented in the assembly.</p>
+<div class="tabGroup" id="tabgroup_i9t-KMMbLI-6">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_i9t-KMMbLI-6_tabid-7" role="tab" aria-controls="tabpanel_i9t-KMMbLI-6_tabid-7" data-tab="tabid-7" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_i9t-KMMbLI-6_tabid-7" role="tabpanel" data-tab="tabid-7">
+<pre><code class="lang-cs">public INativeFileSniffer BuildFileSniffer(string name)
+{
+    return new BilSniffer();
+}
+</code></pre></section>
+</div>
+<h2 id="putting-it-all-together">Putting it All Together</h2>
+<p>The complete sniffer class should now look as shown below:</p>
+<div class="tabGroup" id="tabgroup_i9t-KMMbLI-7">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_i9t-KMMbLI-7_tabid-8" role="tab" aria-controls="tabpanel_i9t-KMMbLI-7_tabid-8" data-tab="tabid-8" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_i9t-KMMbLI-7_tabid-8" role="tabpanel" data-tab="tabid-8">
+<pre><code class="lang-cs">using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Xml;
+using Sdl.FileTypeSupport.Framework.NativeApi;
+using Sdl.Core.Globalization;
+using Sdl.Core.Settings;
+
+namespace Sdk.FileTypeSupport.Samples.Bil
+{
+    class BilSniffer : INativeFileSniffer
+    {
+        #region &quot;constants&quot;
+        static string _BilingualDocument = &quot;bilingualdocument&quot;;
+        static string _SourceLanguage = &quot;source-language&quot;;
+        static string _TargetLanguage = &quot;target-language&quot;;
+        #endregion
+
+        #region &quot;sniff&quot;
+        public SniffInfo Sniff(string nativeFilePath, Language suggestedSourceLanguage, 
+            Codepage suggestedCodepage, INativeTextLocationMessageReporter messageReporter, 
+            ISettingsGroup settingsGroup)
+        {
+            SniffInfo info = new SniffInfo();
+
+            if (System.IO.File.Exists(nativeFilePath))
+            {
+                // call method to check if file is supported
+                info.IsSupported = IsFileSupported(nativeFilePath);
+                // call method to determine the file language pair
+                GetFileLanguages(ref info, nativeFilePath);
+            }
+            else
+            {
+                info.IsSupported = false;
+            }
+
+            return info;
+        }
+        #endregion
+
+        #region &quot;issupported&quot;
+        // determine whether a given file is supported based on the
+        // root element
+        private bool IsFileSupported(string nativeFilePath)
+        {
+            bool result = false;
+            XmlDocument doc = new XmlDocument();
+            doc.Load(nativeFilePath);
+            if (doc.DocumentElement.Name == _BilingualDocument)
+            {
+                result = true;
+            }
+
+            return result;
+        }
+        #endregion
+
+        #region &quot;get languages&quot;
+        // retrieve the source and target language
+        // from the file header
+        private void GetFileLanguages(ref SniffInfo info, string nativeFilePath)
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.Load(nativeFilePath);
+            if (doc.DocumentElement.HasAttributes)
+            {
+                XmlAttribute source = doc.DocumentElement.Attributes[_SourceLanguage];
+                if (source != null)
+                {
+                    info.DetectedSourceLanguage =
+                        new Sdl.FileTypeSupport.Framework.Pair&lt;Language, DetectionLevel&gt;(new Language(source.Value),
+                            DetectionLevel.Certain);
+                }
+
+                XmlAttribute target = doc.DocumentElement.Attributes[_TargetLanguage];
+                if (source != null)
+                {
+                    info.DetectedTargetLanguage =
+                        new Sdl.FileTypeSupport.Framework.Pair&lt;Language, DetectionLevel&gt;(new Language(target.Value),
+                            DetectionLevel.Certain);
+                }
+            }
+        }
+        #endregion
+    }
+}
+</code></pre></section>
+</div>
+<h2 id="see-also">See Also</h2>
+<p><a href="user_communication_through_messaging.html">User Communication Through Messaging</a></p>
+<div class="NOTE"><h5>Note</h5><p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+</div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/17.0/apiconcepts/filetypesupport/bil_implementing_the_file_sniffer.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

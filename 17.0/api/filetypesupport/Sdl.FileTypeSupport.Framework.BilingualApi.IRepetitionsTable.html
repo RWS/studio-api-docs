@@ -1,0 +1,469 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Interface IRepetitionsTable
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Interface IRepetitionsTable
+   ">
+    <meta name="generator" content="docfx 2.59.3.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../../apiconcepts/toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable">
+  
+  
+  <h1 id="Sdl_FileTypeSupport_Framework_BilingualApi_IRepetitionsTable" data-uid="Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable" class="text-break">Interface IRepetitionsTable
+  </h1>
+  <div class="markdown level0 summary"><p>Used in <a class="xref" href="Sdl.FileTypeSupport.Framework.BilingualApi.IDocumentProperties.html#Sdl_FileTypeSupport_Framework_BilingualApi_IDocumentProperties_Repetitions">Repetitions</a> to keep track
+of segments with the same source language content that appear in multiple 
+locations within the document (potentially in different files).</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">System.ICloneable.Clone()</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Sdl.FileTypeSupport.Framework.BilingualApi.html">Sdl.FileTypeSupport.Framework.BilingualApi</a></h6>
+  <h6><strong>Assembly</strong>: Sdl.FileTypeSupport.Framework.Core.dll</h6>
+  <h5 id="Sdl_FileTypeSupport_Framework_BilingualApi_IRepetitionsTable_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface IRepetitionsTable : ICloneable</code></pre>
+  </div>
+  <h5 id="Sdl_FileTypeSupport_Framework_BilingualApi_IRepetitionsTable_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>
+This table is built by a dedicated component during initial content processing.
+Assuming that the source content does not change, the table should remain valid 
+as long as the document contains the same files.
+</p>
+<p>
+The table is used during editing to implement the auto-propagation feature,
+whereby the translation of a repeated segment can be immediately propagated
+to other locations in the same document.
+</p>
+<p>
+A <a class="xref" href="Sdl.FileTypeSupport.Framework.NativeApi.RepetitionId.html">RepetitionId</a> is used to identify a set 
+of source segments with the same content (repetitions) in the table. The actual
+segments that are associated with the repetition can be retrieved by 
+calling <a class="xref" href="Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.html#Sdl_FileTypeSupport_Framework_BilingualApi_IRepetitionsTable_GetRepetitions_Sdl_FileTypeSupport_Framework_NativeApi_RepetitionId_">GetRepetitions(RepetitionId)</a>. A segment is referenced as a paragraph unit id
+and the associated segment id (this is necessary since the same segment ids can be re-used
+in multiple files in the document (in fact, it is only guaranteed to be unique within
+a paragraph unit).
+</p>
+<p>
+It is left to the implementation to determine how repetitions are calculated
+and propagated. Sophisticated algorithms can apply repetitions also when
+the source content differs, for example, with regards to tagging and placeables.
+Very often, a temporary translation memory is used to build the repetition table.
+</p>
+<p>
+When a translation is applied using auto-propagation, the corresponding 
+repetition id should be stored in the <a class="xref" href="Sdl.FileTypeSupport.Framework.NativeApi.ITranslationOrigin.html#Sdl_FileTypeSupport_Framework_NativeApi_ITranslationOrigin_RepetitionTableId">RepetitionTableId</a>
+property. This allows the editor to better track auto-propagated segments.
+</p>
+</div>
+  <h3 id="properties">Properties
+  </h3>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_BilingualApi_IRepetitionsTable_Count_" data-uid="Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.Count*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_BilingualApi_IRepetitionsTable_Count" data-uid="Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.Count">Count</h4>
+  <div class="markdown level1 summary"><p>The number of repetition ids in the table</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">int Count { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_BilingualApi_IRepetitionsTable_RepetitionIds_" data-uid="Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.RepetitionIds*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_BilingualApi_IRepetitionsTable_RepetitionIds" data-uid="Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.RepetitionIds">RepetitionIds</h4>
+  <div class="markdown level1 summary"><p>Use this iterator to iterate over the pepetition ids in the repetitions table.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IEnumerable&lt;RepetitionId&gt; RepetitionIds { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<a class="xref" href="Sdl.FileTypeSupport.Framework.NativeApi.RepetitionId.html">RepetitionId</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_BilingualApi_IRepetitionsTable_Add_" data-uid="Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.Add*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_BilingualApi_IRepetitionsTable_Add_Sdl_FileTypeSupport_Framework_NativeApi_RepetitionId_Sdl_FileTypeSupport_Framework_NativeApi_ParagraphUnitId_Sdl_FileTypeSupport_Framework_NativeApi_SegmentId_" data-uid="Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.Add(Sdl.FileTypeSupport.Framework.NativeApi.RepetitionId,Sdl.FileTypeSupport.Framework.NativeApi.ParagraphUnitId,Sdl.FileTypeSupport.Framework.NativeApi.SegmentId)">Add(RepetitionId, ParagraphUnitId, SegmentId)</h4>
+  <div class="markdown level1 summary"><p>Adds a repeated segment to the table.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool Add(RepetitionId key, ParagraphUnitId pu, SegmentId newRepetition)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.NativeApi.RepetitionId.html">RepetitionId</a></td>
+        <td><span class="parametername">key</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.NativeApi.ParagraphUnitId.html">ParagraphUnitId</a></td>
+        <td><span class="parametername">pu</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.NativeApi.SegmentId.html">SegmentId</a></td>
+        <td><span class="parametername">newRepetition</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_BilingualApi_IRepetitionsTable_Clear_" data-uid="Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.Clear*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_BilingualApi_IRepetitionsTable_Clear" data-uid="Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.Clear">Clear()</h4>
+  <div class="markdown level1 summary"><p>Remove all entries from the table.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void Clear()</code></pre>
+  </div>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_BilingualApi_IRepetitionsTable_DeleteKey_" data-uid="Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.DeleteKey*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_BilingualApi_IRepetitionsTable_DeleteKey_Sdl_FileTypeSupport_Framework_NativeApi_RepetitionId_" data-uid="Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.DeleteKey(Sdl.FileTypeSupport.Framework.NativeApi.RepetitionId)">DeleteKey(RepetitionId)</h4>
+  <div class="markdown level1 summary"><p>Removes all repetitions with the specified id from the table.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void DeleteKey(RepetitionId repetitions)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.NativeApi.RepetitionId.html">RepetitionId</a></td>
+        <td><span class="parametername">repetitions</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_BilingualApi_IRepetitionsTable_GetRepetitionId_" data-uid="Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.GetRepetitionId*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_BilingualApi_IRepetitionsTable_GetRepetitionId_Sdl_FileTypeSupport_Framework_NativeApi_ParagraphUnitId_Sdl_FileTypeSupport_Framework_NativeApi_SegmentId_" data-uid="Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.GetRepetitionId(Sdl.FileTypeSupport.Framework.NativeApi.ParagraphUnitId,Sdl.FileTypeSupport.Framework.NativeApi.SegmentId)">GetRepetitionId(ParagraphUnitId, SegmentId)</h4>
+  <div class="markdown level1 summary"><p>Finds the repetition id of a segment.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">RepetitionId GetRepetitionId(ParagraphUnitId paragraphUnitId, SegmentId segmentId)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.NativeApi.ParagraphUnitId.html">ParagraphUnitId</a></td>
+        <td><span class="parametername">paragraphUnitId</span></td>
+        <td><p><a class="xref" href="Sdl.FileTypeSupport.Framework.NativeApi.IParagraphUnitProperties.html#Sdl_FileTypeSupport_Framework_NativeApi_IParagraphUnitProperties_ParagraphUnitId">ParagraphUnitId</a> for the paragraph in which the segment appears</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.NativeApi.SegmentId.html">SegmentId</a></td>
+        <td><span class="parametername">segmentId</span></td>
+        <td><p><a class="xref" href="Sdl.FileTypeSupport.Framework.NativeApi.ISegmentPairProperties.html#Sdl_FileTypeSupport_Framework_NativeApi_ISegmentPairProperties_Id">Id</a> for the segment</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.NativeApi.RepetitionId.html">RepetitionId</a></td>
+        <td><p>The repetition id for the specified segment, or <code>default (RepetitionId)</code> if 
+the table has no entry for this segment.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_BilingualApi_IRepetitionsTable_GetRepetitions_" data-uid="Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.GetRepetitions*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_BilingualApi_IRepetitionsTable_GetRepetitions_Sdl_FileTypeSupport_Framework_NativeApi_RepetitionId_" data-uid="Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.GetRepetitions(Sdl.FileTypeSupport.Framework.NativeApi.RepetitionId)">GetRepetitions(RepetitionId)</h4>
+  <div class="markdown level1 summary"><p>Returns the repetition list relating to a specific RepetitionId.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IList&lt;Pair&lt;ParagraphUnitId, SegmentId&gt;&gt; GetRepetitions(RepetitionId repetitions)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.NativeApi.RepetitionId.html">RepetitionId</a></td>
+        <td><span class="parametername">repetitions</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IList</span>&lt;<a class="xref" href="Sdl.FileTypeSupport.Framework.Pair-2.html">Pair</a>&lt;<a class="xref" href="Sdl.FileTypeSupport.Framework.NativeApi.ParagraphUnitId.html">ParagraphUnitId</a>, <a class="xref" href="Sdl.FileTypeSupport.Framework.NativeApi.SegmentId.html">SegmentId</a>&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_BilingualApi_IRepetitionsTable_Remove_" data-uid="Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.Remove*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_BilingualApi_IRepetitionsTable_Remove_Sdl_FileTypeSupport_Framework_NativeApi_ParagraphUnitId_Sdl_FileTypeSupport_Framework_NativeApi_SegmentId_" data-uid="Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.Remove(Sdl.FileTypeSupport.Framework.NativeApi.ParagraphUnitId,Sdl.FileTypeSupport.Framework.NativeApi.SegmentId)">Remove(ParagraphUnitId, SegmentId)</h4>
+  <div class="markdown level1 summary"><p>Remove a repeated segment from the table.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool Remove(ParagraphUnitId paragraphUnitId, SegmentId segmentId)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.NativeApi.ParagraphUnitId.html">ParagraphUnitId</a></td>
+        <td><span class="parametername">paragraphUnitId</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.NativeApi.SegmentId.html">SegmentId</a></td>
+        <td><span class="parametername">segmentId</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>True if the segment was removed, otherwise false</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Sdl_FileTypeSupport_Framework_BilingualApi_IRepetitionsTable_Remove_Sdl_FileTypeSupport_Framework_NativeApi_ParagraphUnitId_Sdl_FileTypeSupport_Framework_NativeApi_SegmentId__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>When the last segment for a repetition id is removed, the repetition id is also removed.</p>
+</div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

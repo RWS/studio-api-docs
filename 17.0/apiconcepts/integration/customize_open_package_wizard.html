@@ -1,0 +1,189 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Customize the Open Package wizard </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Customize the Open Package wizard ">
+    <meta name="generator" content="docfx 2.59.3.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="customize-the-open-package-wizard">Customize the <em>Open Package</em> wizard</h1>
+
+<p>Trados Studio Integration API provides support for third-party developers to trigger the <strong>Open Project Package</strong> wizard from their own custom logic or actions and extend it&#39;s basic functionality by</p>
+<ul>
+<li>providing the physical location of the package</li>
+<li>providing a custom icon for the final imported project</li>
+<li>specifying the origin of the imported project</li>
+<li>injecting additional wizard pages at the beginning of the wizard</li>
+<li>injecting additional wizard pages before the final processing of the package</li>
+<li>injecting specific processing logic during the package processing phase</li>
+</ul>
+<p>All above details are passed into an instance of <a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Events.OpenProjectPackageEvent.html">OpenProjectPackageEvent</a> and published via the <a href="../../api/integration/Sdl.Desktop.IntegrationApi.Interfaces.IStudioEventAggregator.html">IStudioEventAggregator</a>. The exact purpose of each parameter is explained in the table bellow:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>packageFilePath</code></td>
+<td>Used to specify a path to the package to be opened.</td>
+</tr>
+<tr>
+<td><code>job</code></td>
+<td>Used to pass an <a href="../../api/integration/Sdl.Desktop.IntegrationApi.Jobs.IExternalJobWithProgress.html">IExternalJobWithProgress</a> object to be executed once the package was loaded in Studio. Should be left <code>null</code> if no custom job needs to be executed. Details on how to create a custom execution job can be found <a href="implementing_custom_job.html">here</a>.</td>
+</tr>
+<tr>
+<td><code>iconPath</code></td>
+<td>Used to set an icon for your project. This allows you to customize the Projects View and have project icons specific to your plugin.</td>
+</tr>
+<tr>
+<td><code>projectOrigin</code></td>
+<td>Used to set a project type. This allows you to customize the Projects View and have the project type specific to your plugin.</td>
+</tr>
+<tr>
+<td><code>firstpages</code></td>
+<td>A collection of <a href="../../api/integration/Sdl.Desktop.IntegrationApi.Wizard.StudioWizardPage.html">StudioWizardPage</a> objects to be displayed at the start of the wizard. Details on how to implement a custom wizard page can be found <a href="adding_custom_wizard_steps.html">here</a></td>
+</tr>
+<tr>
+<td><code>lastpages</code></td>
+<td>A collection of <a href="../../api/integration/Sdl.Desktop.IntegrationApi.Wizard.StudioWizardPage.html">StudioWizardPage</a> objects to be displayed at the end of the wizard. Details on how to implement a custom wizard page can be found <a href="adding_custom_wizard_steps.html">here</a>. The pages will be inserted before the processing step in the wizard.</td>
+</tr>
+</tbody>
+</table>
+<p>Bellow you can see a sample of how a custom call to open the <strong>Open Package</strong> wizard should look like.</p>
+<pre><code class="lang-cs">var initialWizardSteps = new List&lt;StudioWizardPage&gt;
+  {
+    new FirstPage(),
+    new SecondPage()
+  };
+
+var finalWizardSteps = new List&lt;StudioWizardPage&gt;
+  {
+    new LastPage()
+  };
+
+_eventAggregator.Publish(
+            new OpenProjectPackageEvent(
+                    packageFilePath: filePath, 
+                    job: null, 
+                    iconPath: null, 
+                    projectOrigin: null,
+                    firstPages: initialWizardSteps,
+                    lastPages: finalWizardSteps));
+</code></pre><p>See also: <a href="https://github.com/RWS/trados-studio-api-samples/tree/master/TranslationStudioAutomation/Sdl.CustomWizardSteps.Sample">Full sample application with source code</a> (on GitHub).</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/17.0/apiconcepts/integration/customize_open_package_wizard.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

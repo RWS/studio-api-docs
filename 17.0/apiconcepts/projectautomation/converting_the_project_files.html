@@ -1,0 +1,218 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Converting the Project Files </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Converting the Project Files ">
+    <meta name="generator" content="docfx 2.59.3.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="converting-the-project-files">Converting the Project Files</h1>
+
+<p>In this step we will generate translatable, bilingual documents (i.e. SDLXliff files) from all translatable documents that have previously been added to our project. After that, we will create target copies of the translatable files, which will then be used for further processing, i.e. for the file analysis.</p>
+<p>Implement another helper function called <code>ConvertFiles</code>, which takes a <a href="../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.html">FileBasedProject</a> object as parameter. First, we need to retrieve the ids of the files to which the two automatic tasks (i.e. conversion and copy to a target-language folder) should be applies. To do this we use the <a href="../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.html#Sdl_ProjectAutomation_FileBased_FileBasedProject_GetSourceLanguageFiles">GetSourceLanguageFiles</a> method on the project:</p>
+<div class="tabGroup" id="tabgroup_uz+jB0iJja">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_uz+jB0iJja_tabid-1" role="tab" aria-controls="tabpanel_uz+jB0iJja_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_uz+jB0iJja_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-cs">ProjectFile[] files = project.GetSourceLanguageFiles();
+</code></pre></section>
+</div>
+<p>In the next step we apply the <a href="../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.html#Sdl_ProjectAutomation_FileBased_FileBasedProject_RunAutomaticTask_System_Guid___System_String_">RunAutomaticTask</a> method to the project in order to run the task that generates the SDLXliff files from the translatable source documents. This method requires the ids of the files to process as well as the task id, here <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.AutomaticTaskTemplateIds.html#Sdl_ProjectAutomation_Core_AutomaticTaskTemplateIds_ConvertToTranslatableFormat">ConvertToTranslatableFormat</a> as parameters. Before we actually convert the source files to a translatable format, we need to make sure that this task is only applied to translatable files. If you try to convert a file for which no file type definition exists (i.e. a reference file), an exception will be thrown. For this reason, we loop through the source documents and only apply the convert task if the <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.FileRole.html">FileRole</a> equals <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.FileRole.html#fields">Translatable</a>:</p>
+<div class="tabGroup" id="tabgroup_uz+jB0iJja-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_uz+jB0iJja-1_tabid-2" role="tab" aria-controls="tabpanel_uz+jB0iJja-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_uz+jB0iJja-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<pre><code class="lang-cs">for (int i = 0; i &lt; project.GetSourceLanguageFiles().Length; i++)
+{
+    if (files[i].Role == FileRole.Translatable)
+    {
+        Guid[] currentFileId = { files[i].Id };
+        AutomaticTask convertTask = project.RunAutomaticTask(
+            currentFileId,
+            AutomaticTaskTemplateIds.ConvertToTranslatableFormat);
+
+        #region &quot;CopyToTarget&quot;
+        AutomaticTask copyTask = project.RunAutomaticTask(
+            currentFileId,
+            AutomaticTaskTemplateIds.CopyToTargetLanguages);
+        #endregion
+    }
+}
+</code></pre></section>
+</div>
+<p>Note that the <a href="../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.html#Sdl_ProjectAutomation_FileBased_FileBasedProject_RunAutomaticTask_System_Guid___System_String_">RunAutomaticTask</a> method requires an array of file guids, even if we process only one file at a time. For this reason, we create an array of file ids and fill it with just the id of the current file. Within this loop, we also run the <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.AutomaticTaskTemplateIds.html#Sdl_ProjectAutomation_Core_AutomaticTaskTemplateIds_CopyToTargetLanguages">CopyToTargetLanguages</a> task, which means that the SDLXliff files that we created during the conversion step are copied into a target language sub-folder, i.e.:</p>
+<div class="tabGroup" id="tabgroup_uz+jB0iJja-2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_uz+jB0iJja-2_tabid-3" role="tab" aria-controls="tabpanel_uz+jB0iJja-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_uz+jB0iJja-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<pre><code class="lang-cs">AutomaticTask copyTask = project.RunAutomaticTask(
+    currentFileId,
+    AutomaticTaskTemplateIds.CopyToTargetLanguages);
+</code></pre></section>
+</div>
+<p>For example, when the target language is German, a sub-folder called <em>de-DE</em> will be automatically created by this task. The SDLXliff files will then be copied into this sub-folder. Note that you could run the copy task also on untranslatable files, as this involves only copying the files to a different sub-folder of the project. Apart from that no further processing is performed on the files. So, if you try to copy an untranslatable file, no exception will be thrown. Copying untranslatable files to the target sub-folder is often required, as translators also need any untranslatable files as reference material. However, in our implementation, copying reference files would only create files that are not required for the batch analysis anyway, and would therefore only take hard disk space unnecessarily. Also, the subsequent analyze task will be facilitated by only copying the translatable files, as we then do not need to check on the file usage before running the analyze files task.</p>
+<p>The complete function should look as shown below:</p>
+<div class="tabGroup" id="tabgroup_uz+jB0iJja-3">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_uz+jB0iJja-3_tabid-4" role="tab" aria-controls="tabpanel_uz+jB0iJja-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_uz+jB0iJja-3_tabid-4" role="tabpanel" data-tab="tabid-4">
+<pre><code class="lang-cs">/// &lt;summary&gt;
+/// Runs the two automatic tasks: Convert translatable files to a translatable format (i.e. SDLXliff)
+/// and creates target file copies.
+/// &lt;/summary&gt; 
+private void ConvertFiles(FileBasedProject project)
+{
+    #region &quot;GetFilesForProcessing&quot;
+    ProjectFile[] files = project.GetSourceLanguageFiles();
+    #endregion
+
+    #region &quot;RunConversion&quot;
+    for (int i = 0; i &lt; project.GetSourceLanguageFiles().Length; i++)
+    {
+        if (files[i].Role == FileRole.Translatable)
+        {
+            Guid[] currentFileId = { files[i].Id };
+            AutomaticTask convertTask = project.RunAutomaticTask(
+                currentFileId,
+                AutomaticTaskTemplateIds.ConvertToTranslatableFormat);
+
+            #region &quot;CopyToTarget&quot;
+            AutomaticTask copyTask = project.RunAutomaticTask(
+                currentFileId,
+                AutomaticTaskTemplateIds.CopyToTargetLanguages);
+            #endregion
+        }
+    }
+    #endregion
+}
+</code></pre></section>
+</div>
+<h2 id="see-also">See Also</h2>
+<p><a href="running_tasks_on_project_files.html">Running Tasks on the Project Files</a></p>
+<p><a href="automatic_tasks_and_task_settings.html">Automatic Tasks and Task Settings</a></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/17.0/apiconcepts/projectautomation/converting_the_project_files.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>
