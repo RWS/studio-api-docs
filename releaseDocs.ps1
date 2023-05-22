@@ -24,20 +24,16 @@ if($checkBranch){
 }
 
 git checkout -b gh-pages_temp
-$items = ls
-foreach ($item in $items){
- if (($item.Name -ne "15.2") -and ($item.Name -ne "16.1") -and ($item.Name -ne "16.2")){
-  git rm $item -r
- }
-}
+git rm  ".\17.0\*" -r
+mkdir "17.0"
 write-host "Copy documentation into the repo"
+Copy-Item "$SOURCE_DIR\_site\17.0\*" .\17.0\ -Recurse -force
 
-Copy-Item "$SOURCE_DIR\_site\*" .\ -Recurse -force
 
 write-host "Push the new docs to the remote branch"
 git config --local user.email "github-actions[bot]@users.noreply.sdl.com"
 git config --local user.name "github-actions[bot]"
-git add .\ -A
+git add .\17.0 -A
 git commit -m "Update generated documentation"
 git push "$remote_repo" HEAD:gh-pages_temp
 Write-Output (${TOKEN}) | gh auth login --with-token
