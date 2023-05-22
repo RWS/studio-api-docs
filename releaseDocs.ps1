@@ -26,7 +26,7 @@ if($checkBranch){
 git checkout -b gh-pages_temp
 $items = ls
 foreach ($item in $items){
- if (($item.Name -ne "15.2") -and ($item.Name -ne "16.1") -and ($item.Name -ne "16.2")){
+ if (($item.Name -ne "15.2") -and ($item.Name -ne "16.1") -and ($item.Name -ne "16.2") -and ($item.Name -ne "17.0")){
   git rm $item -r
  }
 }
