@@ -25,9 +25,9 @@ items:
   namespace: Sdl.DesktopEditor.EditorApi.Implementation
   summary: "\nMark painter that fills the entire content rectangle with a solid color,\nand is meant to be used for highlighting text using background color.\n"
   syntax:
-    content: 'public class BackgroundColourPainter : ITextMarkPainter'
+    content: 'public sealed class BackgroundColourPainter : ITextMarkPainter'
     content.vb: >-
-      Public Class BackgroundColourPainter
+      Public NotInheritable Class BackgroundColourPainter
           Implements ITextMarkPainter
   inheritance:
   - System.Object
@@ -45,9 +45,11 @@ items:
   - System.Object.Sdl.Desktop.Platform.Controls.Controls.WindowsControlUtils.ForWindowFromFrameworkElement(System.Action{System.Windows.Window})
   modifiers.csharp:
   - public
+  - sealed
   - class
   modifiers.vb:
   - Public
+  - NotInheritable
   - Class
 - uid: Sdl.DesktopEditor.EditorApi.Implementation.BackgroundColourPainter.#ctor
   commentId: M:Sdl.DesktopEditor.EditorApi.Implementation.BackgroundColourPainter.#ctor
@@ -123,7 +125,7 @@ items:
   namespace: Sdl.DesktopEditor.EditorApi.Implementation
   summary: "\nThe bounds are the same as the content rectangle.\n"
   syntax:
-    content: public virtual Rectangle GetMarkPartBounds(Graphics g, ITextMark mark, Rectangle contentRectangle, bool isFirstLine, bool isLastLine)
+    content: public Rectangle GetMarkPartBounds(Graphics g, ITextMark mark, Rectangle contentRectangle, bool isFirstLine, bool isLastLine)
     parameters:
     - id: g
       type: System.Drawing.Graphics
@@ -137,16 +139,14 @@ items:
       type: System.Boolean
     return:
       type: System.Drawing.Rectangle
-    content.vb: Public Overridable Function GetMarkPartBounds(g As Graphics, mark As ITextMark, contentRectangle As Rectangle, isFirstLine As Boolean, isLastLine As Boolean) As Rectangle
+    content.vb: Public Function GetMarkPartBounds(g As Graphics, mark As ITextMark, contentRectangle As Rectangle, isFirstLine As Boolean, isLastLine As Boolean) As Rectangle
   overload: Sdl.DesktopEditor.EditorApi.Implementation.BackgroundColourPainter.GetMarkPartBounds*
   implements:
   - Sdl.DesktopEditor.EditorApi.ITextMarkPainter.GetMarkPartBounds(System.Drawing.Graphics,Sdl.DesktopEditor.EditorApi.ITextMark,System.Drawing.Rectangle,System.Boolean,System.Boolean)
   modifiers.csharp:
   - public
-  - virtual
   modifiers.vb:
   - Public
-  - Overridable
 - uid: Sdl.DesktopEditor.EditorApi.Implementation.BackgroundColourPainter.DrawMarkPart(System.Drawing.Graphics,Sdl.DesktopEditor.EditorApi.ITextMark,System.Drawing.Rectangle,System.Drawing.Rectangle,System.Boolean,System.Boolean)
   commentId: M:Sdl.DesktopEditor.EditorApi.Implementation.BackgroundColourPainter.DrawMarkPart(System.Drawing.Graphics,Sdl.DesktopEditor.EditorApi.ITextMark,System.Drawing.Rectangle,System.Drawing.Rectangle,System.Boolean,System.Boolean)
   id: DrawMarkPart(System.Drawing.Graphics,Sdl.DesktopEditor.EditorApi.ITextMark,System.Drawing.Rectangle,System.Drawing.Rectangle,System.Boolean,System.Boolean)
@@ -166,7 +166,7 @@ items:
   namespace: Sdl.DesktopEditor.EditorApi.Implementation
   summary: "\nFills the content rectangle with the background color.\n"
   syntax:
-    content: public virtual void DrawMarkPart(Graphics g, ITextMark mark, Rectangle boundingRectangle, Rectangle contentRectangle, bool isFirstLine, bool isLastLine)
+    content: public void DrawMarkPart(Graphics g, ITextMark mark, Rectangle boundingRectangle, Rectangle contentRectangle, bool isFirstLine, bool isLastLine)
     parameters:
     - id: g
       type: System.Drawing.Graphics
@@ -180,16 +180,14 @@ items:
       type: System.Boolean
     - id: isLastLine
       type: System.Boolean
-    content.vb: Public Overridable Sub DrawMarkPart(g As Graphics, mark As ITextMark, boundingRectangle As Rectangle, contentRectangle As Rectangle, isFirstLine As Boolean, isLastLine As Boolean)
+    content.vb: Public Sub DrawMarkPart(g As Graphics, mark As ITextMark, boundingRectangle As Rectangle, contentRectangle As Rectangle, isFirstLine As Boolean, isLastLine As Boolean)
   overload: Sdl.DesktopEditor.EditorApi.Implementation.BackgroundColourPainter.DrawMarkPart*
   implements:
   - Sdl.DesktopEditor.EditorApi.ITextMarkPainter.DrawMarkPart(System.Drawing.Graphics,Sdl.DesktopEditor.EditorApi.ITextMark,System.Drawing.Rectangle,System.Drawing.Rectangle,System.Boolean,System.Boolean)
   modifiers.csharp:
   - public
-  - virtual
   modifiers.vb:
   - Public
-  - Overridable
 - uid: Sdl.DesktopEditor.EditorApi.Implementation.BackgroundColourPainter.Color
   commentId: P:Sdl.DesktopEditor.EditorApi.Implementation.BackgroundColourPainter.Color
   id: Color
