@@ -7,6 +7,8 @@ items:
   children:
   - Sdl.LanguagePlatform.TranslationMemory.PlaceableComputer.ComputePlaceables(Sdl.LanguagePlatform.Core.Segment,Sdl.LanguagePlatform.Core.Segment)
   - Sdl.LanguagePlatform.TranslationMemory.PlaceableComputer.ComputePlaceables(Sdl.LanguagePlatform.TranslationMemory.TranslationUnit)
+  - Sdl.LanguagePlatform.TranslationMemory.PlaceableComputer.ComputePlaceablesAsync(Sdl.LanguagePlatform.Core.Segment,Sdl.LanguagePlatform.Core.Segment)
+  - Sdl.LanguagePlatform.TranslationMemory.PlaceableComputer.ComputePlaceablesAsync(Sdl.LanguagePlatform.TranslationMemory.TranslationUnit)
   - Sdl.LanguagePlatform.TranslationMemory.PlaceableComputer.ConvertPlaceablesToAlignments(System.Collections.Generic.List{Sdl.LanguagePlatform.TranslationMemory.Placeable},Sdl.Core.FineGrainedAlignment.Core.LiftAlignedSpanPairSet,System.Collections.Generic.List{Sdl.LanguagePlatform.Core.Tokenization.Token},System.Collections.Generic.List{Sdl.LanguagePlatform.Core.Tokenization.Token})
   langs:
   - csharp
@@ -61,7 +63,10 @@ items:
   namespace: Sdl.LanguagePlatform.TranslationMemory
   summary: "\nComputes the list of placeables and their alignment, given the provided \ntranslation unit.\n"
   syntax:
-    content: public static List<Placeable> ComputePlaceables(TranslationUnit tu)
+    content: >-
+      [Obsolete("Use ComputePlaceablesAsync")]
+
+      public static List<Placeable> ComputePlaceables(TranslationUnit tu)
     parameters:
     - id: tu
       type: Sdl.LanguagePlatform.TranslationMemory.TranslationUnit
@@ -69,8 +74,17 @@ items:
     return:
       type: System.Collections.Generic.List{Sdl.LanguagePlatform.TranslationMemory.Placeable}
       description: A list of placeables
-    content.vb: Public Shared Function ComputePlaceables(tu As TranslationUnit) As List(Of Placeable)
+    content.vb: >-
+      <Obsolete("Use ComputePlaceablesAsync")>
+
+      Public Shared Function ComputePlaceables(tu As TranslationUnit) As List(Of Placeable)
   overload: Sdl.LanguagePlatform.TranslationMemory.PlaceableComputer.ComputePlaceables*
+  attributes:
+  - type: System.ObsoleteAttribute
+    ctor: System.ObsoleteAttribute.#ctor(System.String)
+    arguments:
+    - type: System.String
+      value: Use ComputePlaceablesAsync
   modifiers.csharp:
   - public
   - static
@@ -94,9 +108,89 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
+  summary: "\nSee <xref href=\"Sdl.LanguagePlatform.TranslationMemory.PlaceableComputer.ComputePlaceablesAsync(Sdl.LanguagePlatform.Core.Segment%2cSdl.LanguagePlatform.Core.Segment)\" data-throw-if-not-resolved=\"false\"></xref>\n"
+  syntax:
+    content: >-
+      [Obsolete("Use ComputePlaceablesAsync")]
+
+      public static List<Placeable> ComputePlaceables(Segment srcSegment, Segment trgSegment)
+    parameters:
+    - id: srcSegment
+      type: Sdl.LanguagePlatform.Core.Segment
+    - id: trgSegment
+      type: Sdl.LanguagePlatform.Core.Segment
+    return:
+      type: System.Collections.Generic.List{Sdl.LanguagePlatform.TranslationMemory.Placeable}
+    content.vb: >-
+      <Obsolete("Use ComputePlaceablesAsync")>
+
+      Public Shared Function ComputePlaceables(srcSegment As Segment, trgSegment As Segment) As List(Of Placeable)
+  overload: Sdl.LanguagePlatform.TranslationMemory.PlaceableComputer.ComputePlaceables*
+  attributes:
+  - type: System.ObsoleteAttribute
+    ctor: System.ObsoleteAttribute.#ctor(System.String)
+    arguments:
+    - type: System.String
+      value: Use ComputePlaceablesAsync
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: Sdl.LanguagePlatform.TranslationMemory.PlaceableComputer.ComputePlaceablesAsync(Sdl.LanguagePlatform.TranslationMemory.TranslationUnit)
+  commentId: M:Sdl.LanguagePlatform.TranslationMemory.PlaceableComputer.ComputePlaceablesAsync(Sdl.LanguagePlatform.TranslationMemory.TranslationUnit)
+  id: ComputePlaceablesAsync(Sdl.LanguagePlatform.TranslationMemory.TranslationUnit)
+  parent: Sdl.LanguagePlatform.TranslationMemory.PlaceableComputer
+  langs:
+  - csharp
+  - vb
+  name: ComputePlaceablesAsync(TranslationUnit)
+  nameWithType: PlaceableComputer.ComputePlaceablesAsync(TranslationUnit)
+  fullName: Sdl.LanguagePlatform.TranslationMemory.PlaceableComputer.ComputePlaceablesAsync(Sdl.LanguagePlatform.TranslationMemory.TranslationUnit)
+  type: Method
+  source:
+    path: Sdl.LanguagePlatform.TranslationMemory
+    isExternal: true
+  assemblies:
+  - Sdl.LanguagePlatform.TranslationMemory
+  namespace: Sdl.LanguagePlatform.TranslationMemory
   summary: "\nComputes the list of placeables and their alignment, given the provided \nsegments.\n"
   syntax:
-    content: public static List<Placeable> ComputePlaceables(Segment srcSegment, Segment trgSegment)
+    content: public static Task<List<Placeable>> ComputePlaceablesAsync(TranslationUnit tu)
+    parameters:
+    - id: tu
+      type: Sdl.LanguagePlatform.TranslationMemory.TranslationUnit
+    return:
+      type: System.Threading.Tasks.Task{System.Collections.Generic.List{Sdl.LanguagePlatform.TranslationMemory.Placeable}}
+    content.vb: Public Shared Function ComputePlaceablesAsync(tu As TranslationUnit) As Task(Of List(Of Placeable))
+  overload: Sdl.LanguagePlatform.TranslationMemory.PlaceableComputer.ComputePlaceablesAsync*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: Sdl.LanguagePlatform.TranslationMemory.PlaceableComputer.ComputePlaceablesAsync(Sdl.LanguagePlatform.Core.Segment,Sdl.LanguagePlatform.Core.Segment)
+  commentId: M:Sdl.LanguagePlatform.TranslationMemory.PlaceableComputer.ComputePlaceablesAsync(Sdl.LanguagePlatform.Core.Segment,Sdl.LanguagePlatform.Core.Segment)
+  id: ComputePlaceablesAsync(Sdl.LanguagePlatform.Core.Segment,Sdl.LanguagePlatform.Core.Segment)
+  parent: Sdl.LanguagePlatform.TranslationMemory.PlaceableComputer
+  langs:
+  - csharp
+  - vb
+  name: ComputePlaceablesAsync(Segment, Segment)
+  nameWithType: PlaceableComputer.ComputePlaceablesAsync(Segment, Segment)
+  fullName: Sdl.LanguagePlatform.TranslationMemory.PlaceableComputer.ComputePlaceablesAsync(Sdl.LanguagePlatform.Core.Segment, Sdl.LanguagePlatform.Core.Segment)
+  type: Method
+  source:
+    path: Sdl.LanguagePlatform.TranslationMemory
+    isExternal: true
+  assemblies:
+  - Sdl.LanguagePlatform.TranslationMemory
+  namespace: Sdl.LanguagePlatform.TranslationMemory
+  summary: "\nComputes the list of placeables and their alignment, given the provided \nsegments.\n"
+  syntax:
+    content: public static Task<List<Placeable>> ComputePlaceablesAsync(Segment srcSegment, Segment trgSegment)
     parameters:
     - id: srcSegment
       type: Sdl.LanguagePlatform.Core.Segment
@@ -105,10 +199,10 @@ items:
       type: Sdl.LanguagePlatform.Core.Segment
       description: The target segment
     return:
-      type: System.Collections.Generic.List{Sdl.LanguagePlatform.TranslationMemory.Placeable}
+      type: System.Threading.Tasks.Task{System.Collections.Generic.List{Sdl.LanguagePlatform.TranslationMemory.Placeable}}
       description: A list of placeables
-    content.vb: Public Shared Function ComputePlaceables(srcSegment As Segment, trgSegment As Segment) As List(Of Placeable)
-  overload: Sdl.LanguagePlatform.TranslationMemory.PlaceableComputer.ComputePlaceables*
+    content.vb: Public Shared Function ComputePlaceablesAsync(srcSegment As Segment, trgSegment As Segment) As Task(Of List(Of Placeable))
+  overload: Sdl.LanguagePlatform.TranslationMemory.PlaceableComputer.ComputePlaceablesAsync*
   modifiers.csharp:
   - public
   - static
@@ -573,6 +667,123 @@ references:
   name: Sdl.LanguagePlatform.Core
   nameWithType: Sdl.LanguagePlatform.Core
   fullName: Sdl.LanguagePlatform.Core
+- uid: Sdl.LanguagePlatform.TranslationMemory.PlaceableComputer.ComputePlaceablesAsync*
+  commentId: Overload:Sdl.LanguagePlatform.TranslationMemory.PlaceableComputer.ComputePlaceablesAsync
+  isExternal: true
+  name: ComputePlaceablesAsync
+  nameWithType: PlaceableComputer.ComputePlaceablesAsync
+  fullName: Sdl.LanguagePlatform.TranslationMemory.PlaceableComputer.ComputePlaceablesAsync
+- uid: System.Threading.Tasks.Task{System.Collections.Generic.List{Sdl.LanguagePlatform.TranslationMemory.Placeable}}
+  commentId: T:System.Threading.Tasks.Task{System.Collections.Generic.List{Sdl.LanguagePlatform.TranslationMemory.Placeable}}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  name: Task<List<Placeable>>
+  nameWithType: Task<List<Placeable>>
+  fullName: System.Threading.Tasks.Task<System.Collections.Generic.List<Sdl.LanguagePlatform.TranslationMemory.Placeable>>
+  nameWithType.vb: Task(Of List(Of Placeable))
+  fullName.vb: System.Threading.Tasks.Task(Of System.Collections.Generic.List(Of Sdl.LanguagePlatform.TranslationMemory.Placeable))
+  name.vb: Task(Of List(Of Placeable))
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Collections.Generic.List`1
+    name: List
+    nameWithType: List
+    fullName: System.Collections.Generic.List
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Sdl.LanguagePlatform.TranslationMemory.Placeable
+    name: Placeable
+    nameWithType: Placeable
+    fullName: Sdl.LanguagePlatform.TranslationMemory.Placeable
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Collections.Generic.List`1
+    name: List
+    nameWithType: List
+    fullName: System.Collections.Generic.List
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Sdl.LanguagePlatform.TranslationMemory.Placeable
+    name: Placeable
+    nameWithType: Placeable
+    fullName: Sdl.LanguagePlatform.TranslationMemory.Placeable
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Threading.Tasks.Task`1
+  commentId: T:System.Threading.Tasks.Task`1
+  isExternal: true
+  name: Task<>
+  nameWithType: Task<>
+  fullName: System.Threading.Tasks.Task<>
+  nameWithType.vb: Task(Of )
+  fullName.vb: System.Threading.Tasks.Task(Of )
+  name.vb: Task(Of )
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: ''
+    nameWithType: ''
+    fullName: ''
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: ''
+    nameWithType: ''
+    fullName: ''
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks
 - uid: Sdl.LanguagePlatform.TranslationMemory.PlaceableComputer.ConvertPlaceablesToAlignments*
   commentId: Overload:Sdl.LanguagePlatform.TranslationMemory.PlaceableComputer.ConvertPlaceablesToAlignments
   isExternal: true

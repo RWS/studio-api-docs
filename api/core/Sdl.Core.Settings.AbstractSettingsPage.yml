@@ -32,7 +32,6 @@ items:
   assemblies:
   - Sdl.Core.Settings
   namespace: Sdl.Core.Settings
-  summary: "\nAbstract base representing an page that can configure settings within an application.\n"
   syntax:
     content: 'public abstract class AbstractSettingsPage : ISettingsPage, IDisposable'
     content.vb: >-
@@ -76,16 +75,10 @@ items:
   assemblies:
   - Sdl.Core.Settings
   namespace: Sdl.Core.Settings
-  summary: "\nCalled by the framework to retrieve the control that displays the user interface for the\nsettings page.\n"
-  remarks: "\n<p>\nThe derived class must initialise and return the control.\n</p>\n"
   syntax:
     content: public abstract object GetControl()
     return:
       type: System.Object
-      description: >
-        The control that displays the user interface for the settings page.
-
-        The implementor is also responsible for disposing of this control in their implementation of <xref href="Sdl.Core.Settings.AbstractSettingsPage.Dispose" data-throw-if-not-resolved="false"></xref>
     content.vb: Public MustOverride Function GetControl As Object
   overload: Sdl.Core.Settings.AbstractSettingsPage.GetControl*
   implements:
@@ -113,7 +106,6 @@ items:
   assemblies:
   - Sdl.Core.Settings
   namespace: Sdl.Core.Settings
-  summary: "\nCalled when this settings page is activated.\n"
   syntax:
     content: public virtual void OnActivate()
     content.vb: Public Overridable Sub OnActivate
@@ -143,7 +135,6 @@ items:
   assemblies:
   - Sdl.Core.Settings
   namespace: Sdl.Core.Settings
-  summary: "\nCalled when this settings page is deactivated.\n"
   syntax:
     content: public virtual void OnDeactivate()
     content.vb: Public Overridable Sub OnDeactivate
@@ -173,13 +164,10 @@ items:
   assemblies:
   - Sdl.Core.Settings
   namespace: Sdl.Core.Settings
-  summary: "\nReturns true if the input on this settings page is valid.\n"
-  remarks: This method is called when navigating away from a page and before <xref href="Sdl.Core.Settings.AbstractSettingsPage.Save" data-throw-if-not-resolved="false"></xref> is called.
   syntax:
     content: public virtual bool ValidateInput()
     return:
       type: System.Boolean
-      description: True if the input on this settings page is valid.
     content.vb: Public Overridable Function ValidateInput As Boolean
   overload: Sdl.Core.Settings.AbstractSettingsPage.ValidateInput*
   implements:
@@ -207,8 +195,6 @@ items:
   assemblies:
   - Sdl.Core.Settings
   namespace: Sdl.Core.Settings
-  summary: "\nCalled when settings should be saved. The implementation is responsible for persisting the settings.\n"
-  remarks: This method is called once, after <xref href="Sdl.Core.Settings.AbstractSettingsPage.ValidateInput" data-throw-if-not-resolved="false"></xref> has been called.
   syntax:
     content: public virtual void Save()
     content.vb: Public Overridable Sub Save
@@ -238,7 +224,6 @@ items:
   assemblies:
   - Sdl.Core.Settings
   namespace: Sdl.Core.Settings
-  summary: "\nCalled after all settings pages shown on the settings dialog have been saved.\n"
   syntax:
     content: public virtual void AfterSave()
     content.vb: Public Overridable Sub AfterSave
@@ -268,7 +253,6 @@ items:
   assemblies:
   - Sdl.Core.Settings
   namespace: Sdl.Core.Settings
-  summary: "\nCalled when the settings dialog is canceled.\n"
   syntax:
     content: public virtual void Cancel()
     content.vb: Public Overridable Sub Cancel
@@ -298,7 +282,6 @@ items:
   assemblies:
   - Sdl.Core.Settings
   namespace: Sdl.Core.Settings
-  summary: "\nCalled after all settings pages shown on the settings dialog have been canceled.\n"
   syntax:
     content: public virtual void AfterCancel()
     content.vb: Public Overridable Sub AfterCancel
@@ -328,8 +311,6 @@ items:
   assemblies:
   - Sdl.Core.Settings
   namespace: Sdl.Core.Settings
-  summary: "\nCalled to reset settings to default values. The implementation is responsible for\nresetting the settings and updating the user interface accordingly.\n"
-  remarks: "\n<p>\nThis method should not save the settings yet. This should be done in <xref href=\"Sdl.Core.Settings.AbstractSettingsPage.Save\" data-throw-if-not-resolved=\"false\"></xref>.\n</p>\n<p>This method will not be called if <xref href=\"Sdl.Core.Settings.AbstractSettingsPage.HasDefaultSettings\" data-throw-if-not-resolved=\"false\"></xref> returns <code>false</code>.</p>\n"
   syntax:
     content: public virtual void ResetToDefaults()
     content.vb: Public Overridable Sub ResetToDefaults
@@ -359,7 +340,6 @@ items:
   assemblies:
   - Sdl.Core.Settings
   namespace: Sdl.Core.Settings
-  summary: "\nCalled to refresh the page to the current <xref href=\"Sdl.Core.Settings.AbstractSettingsPage.DataSource\" data-throw-if-not-resolved=\"false\"></xref> if it has been changed externally. This\ncan happen when a user imports external settings that affect the data source.\n"
   syntax:
     content: public virtual void Refresh()
     content.vb: Public Overridable Sub Refresh
@@ -387,7 +367,6 @@ items:
   assemblies:
   - Sdl.Core.Settings
   namespace: Sdl.Core.Settings
-  summary: "\nDerived classes must implement <xref href=\"Sdl.Core.Settings.AbstractSettingsPage.Dispose\" data-throw-if-not-resolved=\"false\"></xref> to ensure that controls created by <xref href=\"Sdl.Core.Settings.AbstractSettingsPage.GetControl\" data-throw-if-not-resolved=\"false\"></xref> are disposed of.\n"
   syntax:
     content: public abstract void Dispose()
     content.vb: Public MustOverride Sub Dispose
@@ -442,7 +421,6 @@ items:
   assemblies:
   - Sdl.Core.Settings
   namespace: Sdl.Core.Settings
-  summary: "\nThe object which the settings page will manipulate the values upon. This is typically an ISettingsBundle.\n"
   syntax:
     content: public object DataSource { get; set; }
     parameters: []
@@ -475,8 +453,6 @@ items:
   assemblies:
   - Sdl.Core.Settings
   namespace: Sdl.Core.Settings
-  summary: "\nCalled to determine whether the settings page supports the <xref href=\"Sdl.Core.Settings.AbstractSettingsPage.ResetToDefaults\" data-throw-if-not-resolved=\"false\"></xref> method.\n"
-  remarks: "\n<p>\nDetermines whether a &apos;Reset To Default&apos; button should be displayed/enabled in the host application.\n</p>\n"
   syntax:
     content: public virtual bool HasDefaultSettings { get; }
     parameters: []

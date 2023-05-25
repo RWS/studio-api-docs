@@ -6,10 +6,12 @@ items:
   parent: Sdl.Core.TM.ImportExport
   children:
   - Sdl.Core.TM.ImportExport.TmApiImportExport.#ctor(Sdl.LanguagePlatform.TranslationMemoryImpl.ITranslationMemoryServiceAsync,Sdl.LanguagePlatform.TranslationMemoryImpl.Container,Sdl.LanguagePlatform.TranslationMemory.PersistentObjectToken)
+  - Sdl.Core.TM.ImportExport.TmApiImportExport.#ctor(Sdl.LanguagePlatform.TranslationMemoryImpl.ITranslationMemoryServiceAsync,Sdl.LanguagePlatform.TranslationMemoryImpl.Container,Sdl.LanguagePlatform.TranslationMemoryImpl.TranslationMemorySetup)
   - Sdl.Core.TM.ImportExport.TmApiImportExport.AddTranslationUnits(Sdl.LanguagePlatform.TranslationMemory.TranslationUnit[],Sdl.LanguagePlatform.TranslationMemory.ImportSettings)
   - Sdl.Core.TM.ImportExport.TmApiImportExport.AddTranslationUnitsMask(Sdl.LanguagePlatform.TranslationMemory.TranslationUnit[],Sdl.LanguagePlatform.TranslationMemory.ImportSettings,System.Boolean[])
   - Sdl.Core.TM.ImportExport.TmApiImportExport.AddTranslationUnitsMaskedAsync(Sdl.LanguagePlatform.TranslationMemory.TranslationUnit[],Sdl.LanguagePlatform.TranslationMemory.ImportSettings,System.Boolean[])
   - Sdl.Core.TM.ImportExport.TmApiImportExport.BuiltinRecognizers
+  - Sdl.Core.TM.ImportExport.TmApiImportExport.CreateAsync(Sdl.LanguagePlatform.TranslationMemoryImpl.ITranslationMemoryServiceAsync,Sdl.LanguagePlatform.TranslationMemoryImpl.Container,Sdl.LanguagePlatform.TranslationMemory.PersistentObjectToken)
   - Sdl.Core.TM.ImportExport.TmApiImportExport.CreationDate
   - Sdl.Core.TM.ImportExport.TmApiImportExport.CreationUserName
   - Sdl.Core.TM.ImportExport.TmApiImportExport.FieldDefinitions
@@ -71,6 +73,43 @@ items:
   modifiers.vb:
   - Public
   - Class
+- uid: Sdl.Core.TM.ImportExport.TmApiImportExport.CreateAsync(Sdl.LanguagePlatform.TranslationMemoryImpl.ITranslationMemoryServiceAsync,Sdl.LanguagePlatform.TranslationMemoryImpl.Container,Sdl.LanguagePlatform.TranslationMemory.PersistentObjectToken)
+  commentId: M:Sdl.Core.TM.ImportExport.TmApiImportExport.CreateAsync(Sdl.LanguagePlatform.TranslationMemoryImpl.ITranslationMemoryServiceAsync,Sdl.LanguagePlatform.TranslationMemoryImpl.Container,Sdl.LanguagePlatform.TranslationMemory.PersistentObjectToken)
+  id: CreateAsync(Sdl.LanguagePlatform.TranslationMemoryImpl.ITranslationMemoryServiceAsync,Sdl.LanguagePlatform.TranslationMemoryImpl.Container,Sdl.LanguagePlatform.TranslationMemory.PersistentObjectToken)
+  parent: Sdl.Core.TM.ImportExport.TmApiImportExport
+  langs:
+  - csharp
+  - vb
+  name: CreateAsync(ITranslationMemoryServiceAsync, Container, PersistentObjectToken)
+  nameWithType: TmApiImportExport.CreateAsync(ITranslationMemoryServiceAsync, Container, PersistentObjectToken)
+  fullName: Sdl.Core.TM.ImportExport.TmApiImportExport.CreateAsync(Sdl.LanguagePlatform.TranslationMemoryImpl.ITranslationMemoryServiceAsync, Sdl.LanguagePlatform.TranslationMemoryImpl.Container, Sdl.LanguagePlatform.TranslationMemory.PersistentObjectToken)
+  type: Method
+  source:
+    path: Sdl.Core.TM.ImportExport
+    isExternal: true
+  assemblies:
+  - Sdl.Core.TM.ImportExport
+  namespace: Sdl.Core.TM.ImportExport
+  summary: "\n\n"
+  syntax:
+    content: public static Task<TmApiImportExport> CreateAsync(ITranslationMemoryServiceAsync service, Container container, PersistentObjectToken tmId)
+    parameters:
+    - id: service
+      type: Sdl.LanguagePlatform.TranslationMemoryImpl.ITranslationMemoryServiceAsync
+    - id: container
+      type: Sdl.LanguagePlatform.TranslationMemoryImpl.Container
+    - id: tmId
+      type: Sdl.LanguagePlatform.TranslationMemory.PersistentObjectToken
+    return:
+      type: System.Threading.Tasks.Task{Sdl.Core.TM.ImportExport.TmApiImportExport}
+    content.vb: Public Shared Function CreateAsync(service As ITranslationMemoryServiceAsync, container As Container, tmId As PersistentObjectToken) As Task(Of TmApiImportExport)
+  overload: Sdl.Core.TM.ImportExport.TmApiImportExport.CreateAsync*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
 - uid: Sdl.Core.TM.ImportExport.TmApiImportExport.#ctor(Sdl.LanguagePlatform.TranslationMemoryImpl.ITranslationMemoryServiceAsync,Sdl.LanguagePlatform.TranslationMemoryImpl.Container,Sdl.LanguagePlatform.TranslationMemory.PersistentObjectToken)
   commentId: M:Sdl.Core.TM.ImportExport.TmApiImportExport.#ctor(Sdl.LanguagePlatform.TranslationMemoryImpl.ITranslationMemoryServiceAsync,Sdl.LanguagePlatform.TranslationMemoryImpl.Container,Sdl.LanguagePlatform.TranslationMemory.PersistentObjectToken)
   id: '#ctor(Sdl.LanguagePlatform.TranslationMemoryImpl.ITranslationMemoryServiceAsync,Sdl.LanguagePlatform.TranslationMemoryImpl.Container,Sdl.LanguagePlatform.TranslationMemory.PersistentObjectToken)'
@@ -88,9 +127,11 @@ items:
   assemblies:
   - Sdl.Core.TM.ImportExport
   namespace: Sdl.Core.TM.ImportExport
-  summary: "\n\n"
   syntax:
-    content: public TmApiImportExport(ITranslationMemoryServiceAsync service, Container container, PersistentObjectToken tmId)
+    content: >-
+      [Obsolete("Use CreateAsync")]
+
+      public TmApiImportExport(ITranslationMemoryServiceAsync service, Container container, PersistentObjectToken tmId)
     parameters:
     - id: service
       type: Sdl.LanguagePlatform.TranslationMemoryImpl.ITranslationMemoryServiceAsync
@@ -98,7 +139,48 @@ items:
       type: Sdl.LanguagePlatform.TranslationMemoryImpl.Container
     - id: tmId
       type: Sdl.LanguagePlatform.TranslationMemory.PersistentObjectToken
-    content.vb: Public Sub New(service As ITranslationMemoryServiceAsync, container As Container, tmId As PersistentObjectToken)
+    content.vb: >-
+      <Obsolete("Use CreateAsync")>
+
+      Public Sub New(service As ITranslationMemoryServiceAsync, container As Container, tmId As PersistentObjectToken)
+  overload: Sdl.Core.TM.ImportExport.TmApiImportExport.#ctor*
+  attributes:
+  - type: System.ObsoleteAttribute
+    ctor: System.ObsoleteAttribute.#ctor(System.String)
+    arguments:
+    - type: System.String
+      value: Use CreateAsync
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Sdl.Core.TM.ImportExport.TmApiImportExport.#ctor(Sdl.LanguagePlatform.TranslationMemoryImpl.ITranslationMemoryServiceAsync,Sdl.LanguagePlatform.TranslationMemoryImpl.Container,Sdl.LanguagePlatform.TranslationMemoryImpl.TranslationMemorySetup)
+  commentId: M:Sdl.Core.TM.ImportExport.TmApiImportExport.#ctor(Sdl.LanguagePlatform.TranslationMemoryImpl.ITranslationMemoryServiceAsync,Sdl.LanguagePlatform.TranslationMemoryImpl.Container,Sdl.LanguagePlatform.TranslationMemoryImpl.TranslationMemorySetup)
+  id: '#ctor(Sdl.LanguagePlatform.TranslationMemoryImpl.ITranslationMemoryServiceAsync,Sdl.LanguagePlatform.TranslationMemoryImpl.Container,Sdl.LanguagePlatform.TranslationMemoryImpl.TranslationMemorySetup)'
+  parent: Sdl.Core.TM.ImportExport.TmApiImportExport
+  langs:
+  - csharp
+  - vb
+  name: TmApiImportExport(ITranslationMemoryServiceAsync, Container, TranslationMemorySetup)
+  nameWithType: TmApiImportExport.TmApiImportExport(ITranslationMemoryServiceAsync, Container, TranslationMemorySetup)
+  fullName: Sdl.Core.TM.ImportExport.TmApiImportExport.TmApiImportExport(Sdl.LanguagePlatform.TranslationMemoryImpl.ITranslationMemoryServiceAsync, Sdl.LanguagePlatform.TranslationMemoryImpl.Container, Sdl.LanguagePlatform.TranslationMemoryImpl.TranslationMemorySetup)
+  type: Constructor
+  source:
+    path: Sdl.Core.TM.ImportExport
+    isExternal: true
+  assemblies:
+  - Sdl.Core.TM.ImportExport
+  namespace: Sdl.Core.TM.ImportExport
+  syntax:
+    content: public TmApiImportExport(ITranslationMemoryServiceAsync service, Container container, TranslationMemorySetup tm)
+    parameters:
+    - id: service
+      type: Sdl.LanguagePlatform.TranslationMemoryImpl.ITranslationMemoryServiceAsync
+    - id: container
+      type: Sdl.LanguagePlatform.TranslationMemoryImpl.Container
+    - id: tm
+      type: Sdl.LanguagePlatform.TranslationMemoryImpl.TranslationMemorySetup
+    content.vb: Public Sub New(service As ITranslationMemoryServiceAsync, container As Container, tm As TranslationMemorySetup)
   overload: Sdl.Core.TM.ImportExport.TmApiImportExport.#ctor*
   modifiers.csharp:
   - public
@@ -182,7 +264,10 @@ items:
   - Sdl.Core.TM.ImportExport
   namespace: Sdl.Core.TM.ImportExport
   syntax:
-    content: public ImportResult[] AddTranslationUnits(TranslationUnit[] tus, ImportSettings settings)
+    content: >-
+      [Obsolete("Use AddTranslationUnitsMaskedAsync")]
+
+      public ImportResult[] AddTranslationUnits(TranslationUnit[] tus, ImportSettings settings)
     parameters:
     - id: tus
       type: Sdl.LanguagePlatform.TranslationMemory.TranslationUnit[]
@@ -190,10 +275,19 @@ items:
       type: Sdl.LanguagePlatform.TranslationMemory.ImportSettings
     return:
       type: Sdl.LanguagePlatform.TranslationMemory.ImportResult[]
-    content.vb: Public Function AddTranslationUnits(tus As TranslationUnit(), settings As ImportSettings) As ImportResult()
+    content.vb: >-
+      <Obsolete("Use AddTranslationUnitsMaskedAsync")>
+
+      Public Function AddTranslationUnits(tus As TranslationUnit(), settings As ImportSettings) As ImportResult()
   overload: Sdl.Core.TM.ImportExport.TmApiImportExport.AddTranslationUnits*
   implements:
   - Sdl.Core.TM.ImportExport.IImportDestination.AddTranslationUnits(Sdl.LanguagePlatform.TranslationMemory.TranslationUnit[],Sdl.LanguagePlatform.TranslationMemory.ImportSettings)
+  attributes:
+  - type: System.ObsoleteAttribute
+    ctor: System.ObsoleteAttribute.#ctor(System.String)
+    arguments:
+    - type: System.String
+      value: Use AddTranslationUnitsMaskedAsync
   nameWithType.vb: TmApiImportExport.AddTranslationUnits(TranslationUnit(), ImportSettings)
   modifiers.csharp:
   - public
@@ -219,7 +313,10 @@ items:
   - Sdl.Core.TM.ImportExport
   namespace: Sdl.Core.TM.ImportExport
   syntax:
-    content: public ImportResult[] AddTranslationUnitsMask(TranslationUnit[] tus, ImportSettings settings, bool[] mask)
+    content: >-
+      [Obsolete("Use AddTranslationUnitsMaskedAsync")]
+
+      public ImportResult[] AddTranslationUnitsMask(TranslationUnit[] tus, ImportSettings settings, bool[] mask)
     parameters:
     - id: tus
       type: Sdl.LanguagePlatform.TranslationMemory.TranslationUnit[]
@@ -229,10 +326,19 @@ items:
       type: System.Boolean[]
     return:
       type: Sdl.LanguagePlatform.TranslationMemory.ImportResult[]
-    content.vb: Public Function AddTranslationUnitsMask(tus As TranslationUnit(), settings As ImportSettings, mask As Boolean()) As ImportResult()
+    content.vb: >-
+      <Obsolete("Use AddTranslationUnitsMaskedAsync")>
+
+      Public Function AddTranslationUnitsMask(tus As TranslationUnit(), settings As ImportSettings, mask As Boolean()) As ImportResult()
   overload: Sdl.Core.TM.ImportExport.TmApiImportExport.AddTranslationUnitsMask*
   implements:
   - Sdl.Core.TM.ImportExport.IImportDestination.AddTranslationUnitsMask(Sdl.LanguagePlatform.TranslationMemory.TranslationUnit[],Sdl.LanguagePlatform.TranslationMemory.ImportSettings,System.Boolean[])
+  attributes:
+  - type: System.ObsoleteAttribute
+    ctor: System.ObsoleteAttribute.#ctor(System.String)
+    arguments:
+    - type: System.String
+      value: Use AddTranslationUnitsMaskedAsync
   nameWithType.vb: TmApiImportExport.AddTranslationUnitsMask(TranslationUnit(), ImportSettings, Boolean())
   modifiers.csharp:
   - public
@@ -494,11 +600,11 @@ items:
   - Sdl.Core.TM.ImportExport
   namespace: Sdl.Core.TM.ImportExport
   syntax:
-    content: public CultureInfo SourceLanguage { get; }
+    content: public CultureCode SourceLanguage { get; }
     parameters: []
     return:
-      type: System.Globalization.CultureInfo
-    content.vb: Public ReadOnly Property SourceLanguage As CultureInfo
+      type: Sdl.Core.Globalization.CultureCode
+    content.vb: Public ReadOnly Property SourceLanguage As CultureCode
   overload: Sdl.Core.TM.ImportExport.TmApiImportExport.SourceLanguage*
   implements:
   - Sdl.Core.TM.ImportExport.IImportDestination.SourceLanguage
@@ -527,11 +633,11 @@ items:
   - Sdl.Core.TM.ImportExport
   namespace: Sdl.Core.TM.ImportExport
   syntax:
-    content: public CultureInfo TargetLanguage { get; }
+    content: public CultureCode TargetLanguage { get; }
     parameters: []
     return:
-      type: System.Globalization.CultureInfo
-    content.vb: Public ReadOnly Property TargetLanguage As CultureInfo
+      type: Sdl.Core.Globalization.CultureCode
+    content.vb: Public ReadOnly Property TargetLanguage As CultureCode
   overload: Sdl.Core.TM.ImportExport.TmApiImportExport.TargetLanguage*
   implements:
   - Sdl.Core.TM.ImportExport.IImportDestination.TargetLanguage
@@ -1257,20 +1363,18 @@ references:
   name: System
   nameWithType: System
   fullName: System
-- uid: Sdl.Core.TM.ImportExport.TmApiImportExport.#ctor*
-  commentId: Overload:Sdl.Core.TM.ImportExport.TmApiImportExport.#ctor
+- uid: Sdl.Core.TM.ImportExport.TmApiImportExport.CreateAsync*
+  commentId: Overload:Sdl.Core.TM.ImportExport.TmApiImportExport.CreateAsync
   isExternal: true
-  name: TmApiImportExport
-  nameWithType: TmApiImportExport.TmApiImportExport
-  fullName: Sdl.Core.TM.ImportExport.TmApiImportExport.TmApiImportExport
+  name: CreateAsync
+  nameWithType: TmApiImportExport.CreateAsync
+  fullName: Sdl.Core.TM.ImportExport.TmApiImportExport.CreateAsync
 - uid: Sdl.LanguagePlatform.TranslationMemoryImpl.ITranslationMemoryServiceAsync
-  commentId: '!:Sdl.LanguagePlatform.TranslationMemoryImpl.ITranslationMemoryServiceAsync'
   isExternal: true
   name: ITranslationMemoryServiceAsync
   nameWithType: ITranslationMemoryServiceAsync
   fullName: Sdl.LanguagePlatform.TranslationMemoryImpl.ITranslationMemoryServiceAsync
 - uid: Sdl.LanguagePlatform.TranslationMemoryImpl.Container
-  commentId: '!:Sdl.LanguagePlatform.TranslationMemoryImpl.Container'
   isExternal: true
   name: Container
   nameWithType: Container
@@ -1282,12 +1386,113 @@ references:
   name: PersistentObjectToken
   nameWithType: PersistentObjectToken
   fullName: Sdl.LanguagePlatform.TranslationMemory.PersistentObjectToken
+- uid: System.Threading.Tasks.Task{Sdl.Core.TM.ImportExport.TmApiImportExport}
+  commentId: T:System.Threading.Tasks.Task{Sdl.Core.TM.ImportExport.TmApiImportExport}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  name: Task<TmApiImportExport>
+  nameWithType: Task<TmApiImportExport>
+  fullName: System.Threading.Tasks.Task<Sdl.Core.TM.ImportExport.TmApiImportExport>
+  nameWithType.vb: Task(Of TmApiImportExport)
+  fullName.vb: System.Threading.Tasks.Task(Of Sdl.Core.TM.ImportExport.TmApiImportExport)
+  name.vb: Task(Of TmApiImportExport)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Sdl.Core.TM.ImportExport.TmApiImportExport
+    name: TmApiImportExport
+    nameWithType: TmApiImportExport
+    fullName: Sdl.Core.TM.ImportExport.TmApiImportExport
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Sdl.Core.TM.ImportExport.TmApiImportExport
+    name: TmApiImportExport
+    nameWithType: TmApiImportExport
+    fullName: Sdl.Core.TM.ImportExport.TmApiImportExport
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
 - uid: Sdl.LanguagePlatform.TranslationMemory
   commentId: N:Sdl.LanguagePlatform.TranslationMemory
   isExternal: true
   name: Sdl.LanguagePlatform.TranslationMemory
   nameWithType: Sdl.LanguagePlatform.TranslationMemory
   fullName: Sdl.LanguagePlatform.TranslationMemory
+- uid: System.Threading.Tasks.Task`1
+  commentId: T:System.Threading.Tasks.Task`1
+  isExternal: true
+  name: Task<>
+  nameWithType: Task<>
+  fullName: System.Threading.Tasks.Task<>
+  nameWithType.vb: Task(Of )
+  fullName.vb: System.Threading.Tasks.Task(Of )
+  name.vb: Task(Of )
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: ''
+    nameWithType: ''
+    fullName: ''
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: ''
+    nameWithType: ''
+    fullName: ''
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks
+- uid: Sdl.Core.TM.ImportExport.TmApiImportExport.#ctor*
+  commentId: Overload:Sdl.Core.TM.ImportExport.TmApiImportExport.#ctor
+  isExternal: true
+  name: TmApiImportExport
+  nameWithType: TmApiImportExport.TmApiImportExport
+  fullName: Sdl.Core.TM.ImportExport.TmApiImportExport.TmApiImportExport
+- uid: Sdl.LanguagePlatform.TranslationMemoryImpl.TranslationMemorySetup
+  commentId: '!:Sdl.LanguagePlatform.TranslationMemoryImpl.TranslationMemorySetup'
+  isExternal: true
+  name: TranslationMemorySetup
+  nameWithType: TranslationMemorySetup
+  fullName: Sdl.LanguagePlatform.TranslationMemoryImpl.TranslationMemorySetup
 - uid: Sdl.Core.TM.ImportExport.TmApiImportExport.GetFieldDefinitionsAsync*
   commentId: Overload:Sdl.Core.TM.ImportExport.TmApiImportExport.GetFieldDefinitionsAsync
   isExternal: true
@@ -1400,51 +1605,6 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: System.Threading.Tasks.Task`1
-  commentId: T:System.Threading.Tasks.Task`1
-  isExternal: true
-  name: Task<>
-  nameWithType: Task<>
-  fullName: System.Threading.Tasks.Task<>
-  nameWithType.vb: Task(Of )
-  fullName.vb: System.Threading.Tasks.Task(Of )
-  name.vb: Task(Of )
-  spec.csharp:
-  - uid: System.Threading.Tasks.Task`1
-    name: Task
-    nameWithType: Task
-    fullName: System.Threading.Tasks.Task
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
-  - name: ''
-    nameWithType: ''
-    fullName: ''
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  spec.vb:
-  - uid: System.Threading.Tasks.Task`1
-    name: Task
-    nameWithType: Task
-    fullName: System.Threading.Tasks.Task
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - name: ''
-    nameWithType: ''
-    fullName: ''
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Threading.Tasks
-  commentId: N:System.Threading.Tasks
-  isExternal: true
-  name: System.Threading.Tasks
-  nameWithType: System.Threading.Tasks
-  fullName: System.Threading.Tasks
 - uid: Sdl.Core.TM.ImportExport.TmApiImportExport.GetLanguageResourcesAsync*
   commentId: Overload:Sdl.Core.TM.ImportExport.TmApiImportExport.GetLanguageResourcesAsync
   isExternal: true
@@ -2470,19 +2630,11 @@ references:
   name: SourceLanguage
   nameWithType: IExportOrigin.SourceLanguage
   fullName: Sdl.Core.TM.ImportExport.IExportOrigin.SourceLanguage
-- uid: System.Globalization.CultureInfo
-  commentId: T:System.Globalization.CultureInfo
-  parent: System.Globalization
+- uid: Sdl.Core.Globalization.CultureCode
   isExternal: true
-  name: CultureInfo
-  nameWithType: CultureInfo
-  fullName: System.Globalization.CultureInfo
-- uid: System.Globalization
-  commentId: N:System.Globalization
-  isExternal: true
-  name: System.Globalization
-  nameWithType: System.Globalization
-  fullName: System.Globalization
+  name: CultureCode
+  nameWithType: CultureCode
+  fullName: Sdl.Core.Globalization.CultureCode
 - uid: Sdl.Core.TM.ImportExport.TmApiImportExport.TargetLanguage*
   commentId: Overload:Sdl.Core.TM.ImportExport.TmApiImportExport.TargetLanguage
   isExternal: true

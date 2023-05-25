@@ -40,7 +40,6 @@ items:
   assemblies:
   - Sdl.Core.Settings
   namespace: Sdl.Core.Settings
-  summary: "\nAbstract class providing common functionality for settings group\nconcrete implementations\n"
   syntax:
     content: 'public abstract class SettingsGroup : AbstractSettingsGroupBase, ISettingsGroup'
     content.vb: >-
@@ -100,7 +99,6 @@ items:
   assemblies:
   - Sdl.Core.Settings
   namespace: Sdl.Core.Settings
-  summary: "\n\n"
   syntax:
     content: protected override void parent_SettingsChanged(object sender, SettingsChangedEventArgs e)
     parameters:
@@ -134,7 +132,6 @@ items:
   assemblies:
   - Sdl.Core.Settings
   namespace: Sdl.Core.Settings
-  summary: "\n\n"
   syntax:
     content: protected override void CollectSettings(ISettingsGroup settingsGroup, List<string> keys)
     parameters:
@@ -171,13 +168,11 @@ items:
   assemblies:
   - Sdl.Core.Settings
   namespace: Sdl.Core.Settings
-  summary: "\nCalled when SettingsBungle is set.\n"
   syntax:
     content: protected virtual void OnInit(ISettingsBundle settingsBundle)
     parameters:
     - id: settingsBundle
       type: Sdl.Core.Settings.ISettingsBundle
-      description: the value of the new ISettingsBundle
     content.vb: Protected Overridable Sub OnInit(settingsBundle As ISettingsBundle)
   overload: Sdl.Core.Settings.SettingsGroup.OnInit*
   modifiers.csharp:
@@ -203,16 +198,13 @@ items:
   assemblies:
   - Sdl.Core.Settings
   namespace: Sdl.Core.Settings
-  summary: "\nReturns true if settingId is found in the current settings collection\nor in any ancestor&apos;s settings collection\n"
   syntax:
     content: public override bool ContainsSetting(string settingId)
     parameters:
     - id: settingId
       type: System.String
-      description: the settingsId to find
     return:
       type: System.Boolean
-      description: true if settingId is found in the current settings collection or in any ancestor&apos;s settings collection
     content.vb: Public Overrides Function ContainsSetting(settingId As String) As Boolean
   overridden: Sdl.Core.Settings.AbstractSettingsGroupBase.ContainsSetting(System.String)
   overload: Sdl.Core.Settings.SettingsGroup.ContainsSetting*
@@ -241,12 +233,10 @@ items:
   assemblies:
   - Sdl.Core.Settings
   namespace: Sdl.Core.Settings
-  summary: "\nGets the setting ids from the current settings group.\n"
   syntax:
     content: public override IEnumerable<string> GetSettingIds()
     return:
       type: System.Collections.Generic.IEnumerable{System.String}
-      description: The setting ids.
     content.vb: Public Overrides Function GetSettingIds As IEnumerable(Of String)
   overridden: Sdl.Core.Settings.AbstractSettingsGroupBase.GetSettingIds
   overload: Sdl.Core.Settings.SettingsGroup.GetSettingIds*
@@ -275,23 +265,15 @@ items:
   assemblies:
   - Sdl.Core.Settings
   namespace: Sdl.Core.Settings
-  summary: "\nGets the setting with the specified id.\n"
-  remarks: >
-    When no value is defined in the settings group itself, the parent chain is searched
-
-    for an inherited value. If no inherited value can be found, the default value provided by the settings group implementation is returned.
   syntax:
     content: public override Setting<T> GetSetting<T>(string id)
     parameters:
     - id: id
       type: System.String
-      description: The id of the setting.
     typeParameters:
     - id: T
-      description: The type of the setting value.
     return:
       type: Sdl.Core.Settings.Setting{{T}}
-      description: The setting.
     content.vb: Public Overrides Function GetSetting(Of T)(id As String) As Setting(Of T)
   overridden: Sdl.Core.Settings.AbstractSettingsGroupBase.GetSetting``1(System.String)
   overload: Sdl.Core.Settings.SettingsGroup.GetSetting*
@@ -323,26 +305,17 @@ items:
   assemblies:
   - Sdl.Core.Settings
   namespace: Sdl.Core.Settings
-  summary: "\nGets the setting with the specified id.\n"
-  remarks: >
-    When no value is defined in the settings group itself, the parent chain is searched
-
-    for an inherited value. If no inherited value can be found, null is returned.
   syntax:
     content: public override bool GetSetting<T>(string settingId, out Setting<T> setting)
     parameters:
     - id: settingId
       type: System.String
-      description: The id of the setting.
     - id: setting
       type: Sdl.Core.Settings.Setting{{T}}
-      description: The setting, or null if no value was defined.
     typeParameters:
     - id: T
-      description: The type of the setting value.
     return:
       type: System.Boolean
-      description: "\nTrue if a setting value has been returned.\n"
     content.vb: Public Overrides Function GetSetting(Of T)(settingId As String, ByRef setting As Setting(Of T)) As Boolean
   overridden: Sdl.Core.Settings.AbstractSettingsGroupBase.GetSetting``1(System.String,Sdl.Core.Settings.Setting{{T}}@)
   overload: Sdl.Core.Settings.SettingsGroup.GetSetting*
@@ -374,26 +347,17 @@ items:
   assemblies:
   - Sdl.Core.Settings
   namespace: Sdl.Core.Settings
-  summary: "\nGets the setting with the specified id.\n"
-  remarks: >
-    When no value is defined in the settings group itself, the parent chain is searched
-
-    for an inherited value. If no inherited value can be found, null is returned.
   syntax:
     content: public override bool GetSetting<T>(string settingId, out T value)
     parameters:
     - id: settingId
       type: System.String
-      description: The id of the setting.
     - id: value
       type: '{T}'
-      description: The value of the setting.
     typeParameters:
     - id: T
-      description: The type of the setting value.
     return:
       type: System.Boolean
-      description: "\nTrue if a setting value has been returned.\n"
     content.vb: Public Overrides Function GetSetting(Of T)(settingId As String, ByRef value As T) As Boolean
   overridden: Sdl.Core.Settings.AbstractSettingsGroupBase.GetSetting``1(System.String,{T}@)
   overload: Sdl.Core.Settings.SettingsGroup.GetSetting*
@@ -425,26 +389,17 @@ items:
   assemblies:
   - Sdl.Core.Settings
   namespace: Sdl.Core.Settings
-  summary: "\nGets the setting with the specified id.\n"
-  remarks: >
-    When no value is defined in the settings group itself, the parent chain is searched
-
-    for an inherited value. If no inherited value can be found, the default value provided by the settings group implementation is returned.
   syntax:
     content: public override Setting<T> GetSetting<T>(string settingId, T defaultValue)
     parameters:
     - id: settingId
       type: System.String
-      description: The id of the setting.
     - id: defaultValue
       type: '{T}'
-      description: The default value for the setting if no value can be found.
     typeParameters:
     - id: T
-      description: The type of the setting value.
     return:
       type: Sdl.Core.Settings.Setting{{T}}
-      description: The setting.
     content.vb: Public Overrides Function GetSetting(Of T)(settingId As String, defaultValue As T) As Setting(Of T)
   overridden: Sdl.Core.Settings.AbstractSettingsGroupBase.GetSetting``1(System.String,{T})
   overload: Sdl.Core.Settings.SettingsGroup.GetSetting*
@@ -476,16 +431,13 @@ items:
   assemblies:
   - Sdl.Core.Settings
   namespace: Sdl.Core.Settings
-  summary: "\nRemoves a local setting from the this group. Returns true if the setting was successfully removed, false otherwise.\ni.e. if the setting doesn&apos;t exist, false is returned.\n"
   syntax:
     content: public override bool RemoveSetting(string settingId)
     parameters:
     - id: settingId
       type: System.String
-      description: The id of the setting to remove
     return:
       type: System.Boolean
-      description: boolean indicating whether the setting was successfully removed
     content.vb: Public Overrides Function RemoveSetting(settingId As String) As Boolean
   overridden: Sdl.Core.Settings.AbstractSettingsGroupBase.RemoveSetting(System.String)
   overload: Sdl.Core.Settings.SettingsGroup.RemoveSetting*
@@ -514,7 +466,6 @@ items:
   assemblies:
   - Sdl.Core.Settings
   namespace: Sdl.Core.Settings
-  summary: "\nResets all settings locally defined in this settings group.\n"
   syntax:
     content: public override void Reset()
     content.vb: Public Overrides Sub Reset
@@ -545,13 +496,11 @@ items:
   assemblies:
   - Sdl.Core.Settings
   namespace: Sdl.Core.Settings
-  summary: "\nImports the settings from another group into this one. Resets the current settings before\nimporting the settings from the other group.\n"
   syntax:
     content: public override void ImportSettings(ISettingsGroup otherGroup)
     parameters:
     - id: otherGroup
       type: Sdl.Core.Settings.ISettingsGroup
-      description: The group which the settings are imported from
     content.vb: Public Overrides Sub ImportSettings(otherGroup As ISettingsGroup)
   overridden: Sdl.Core.Settings.AbstractSettingsGroupBase.ImportSettings(Sdl.Core.Settings.ISettingsGroup)
   overload: Sdl.Core.Settings.SettingsGroup.ImportSettings*
@@ -580,7 +529,6 @@ items:
   assemblies:
   - Sdl.Core.Settings
   namespace: Sdl.Core.Settings
-  summary: "\n\n"
   syntax:
     content: protected override void parent_PropertyChanged(object sender, PropertyChangedEventArgs e)
     parameters:
@@ -614,7 +562,6 @@ items:
   assemblies:
   - Sdl.Core.Settings
   namespace: Sdl.Core.Settings
-  summary: "\nBegins and edit on an object\n"
   syntax:
     content: public override void BeginEdit()
     content.vb: Public Overrides Sub BeginEdit
@@ -643,7 +590,6 @@ items:
   assemblies:
   - Sdl.Core.Settings
   namespace: Sdl.Core.Settings
-  summary: "\nDiscards changes since the last System.ComponentModel.IEditableObject.BeginEdit() call.\n"
   syntax:
     content: public override void CancelEdit()
     content.vb: Public Overrides Sub CancelEdit
@@ -672,7 +618,6 @@ items:
   assemblies:
   - Sdl.Core.Settings
   namespace: Sdl.Core.Settings
-  summary: "\nPushes changes since the last System.ComponentModel.IEditableObject.BeginEdit() or \nSystem.ComponentModel.IBindingList.AddNew() call into the underlying object.\n"
   syntax:
     content: public override void EndEdit()
     content.vb: Public Overrides Sub
@@ -701,16 +646,13 @@ items:
   assemblies:
   - Sdl.Core.Settings
   namespace: Sdl.Core.Settings
-  summary: "\nGets the default value for the sepcified settings. Always returns null.\nOverride this method in extending classes to define default setting values.\n"
   syntax:
     content: protected virtual object GetDefaultValue(string settingId)
     parameters:
     - id: settingId
       type: System.String
-      description: The setting id.
     return:
       type: System.Object
-      description: The default value, or null if no default value is available.
     content.vb: Protected Overridable Function GetDefaultValue(settingId As String) As Object
   overload: Sdl.Core.Settings.SettingsGroup.GetDefaultValue*
   modifiers.csharp:
@@ -761,7 +703,6 @@ items:
   assemblies:
   - Sdl.Core.Settings
   namespace: Sdl.Core.Settings
-  summary: "\nGets the id of the settings group.\n"
   syntax:
     content: public override string Id { get; set; }
     parameters: []
@@ -797,7 +738,6 @@ items:
   assemblies:
   - Sdl.Core.Settings
   namespace: Sdl.Core.Settings
-  summary: "\nGets the parent settings group in the parent bundle, or null if this settings group belongs to the root settings bundle.\n"
   syntax:
     content: public override ISettingsGroup Parent { get; }
     parameters: []
@@ -833,7 +773,6 @@ items:
   assemblies:
   - Sdl.Core.Settings
   namespace: Sdl.Core.Settings
-  summary: "\nThe settings bundle this group belongs to\n"
   syntax:
     content: public override ISettingsBundle SettingsBundle { get; set; }
     parameters: []
@@ -869,7 +808,6 @@ items:
   assemblies:
   - Sdl.Core.Settings
   namespace: Sdl.Core.Settings
-  summary: "\nRaised when a property value changes.\n"
   syntax:
     content: public event PropertyChangedEventHandler PropertyChanged
     return:
@@ -1679,12 +1617,12 @@ references:
 - uid: System.Collections.Generic.List`1
   commentId: T:System.Collections.Generic.List`1
   isExternal: true
-  name: List<T>
-  nameWithType: List<T>
-  fullName: System.Collections.Generic.List<T>
-  nameWithType.vb: List(Of T)
-  fullName.vb: System.Collections.Generic.List(Of T)
-  name.vb: List(Of T)
+  name: List<>
+  nameWithType: List<>
+  fullName: System.Collections.Generic.List<>
+  nameWithType.vb: List(Of )
+  fullName.vb: System.Collections.Generic.List(Of )
+  name.vb: List(Of )
   spec.csharp:
   - uid: System.Collections.Generic.List`1
     name: List
@@ -1694,9 +1632,9 @@ references:
   - name: <
     nameWithType: <
     fullName: <
-  - name: T
-    nameWithType: T
-    fullName: T
+  - name: ''
+    nameWithType: ''
+    fullName: ''
   - name: '>'
     nameWithType: '>'
     fullName: '>'
@@ -1709,9 +1647,9 @@ references:
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - name: T
-    nameWithType: T
-    fullName: T
+  - name: ''
+    nameWithType: ''
+    fullName: ''
   - name: )
     nameWithType: )
     fullName: )
