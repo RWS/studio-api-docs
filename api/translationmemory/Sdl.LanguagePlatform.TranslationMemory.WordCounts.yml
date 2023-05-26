@@ -12,6 +12,7 @@ items:
   - Sdl.LanguagePlatform.TranslationMemory.WordCounts.#ctor(System.Collections.Generic.IList{Sdl.LanguagePlatform.Core.Tokenization.Token},System.Boolean,System.Boolean,System.Boolean,System.Boolean)
   - Sdl.LanguagePlatform.TranslationMemory.WordCounts.Assign(Sdl.LanguagePlatform.TranslationMemory.WordCounts)
   - Sdl.LanguagePlatform.TranslationMemory.WordCounts.Characters
+  - Sdl.LanguagePlatform.TranslationMemory.WordCounts.CreateWordCountsAsync(System.Collections.Generic.IList{Sdl.LanguagePlatform.Core.Tokenization.Token},Sdl.LanguagePlatform.TranslationMemory.WordCountsOptions,Sdl.Core.Globalization.CultureCode,Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager)
   - Sdl.LanguagePlatform.TranslationMemory.WordCounts.Duplicate
   - Sdl.LanguagePlatform.TranslationMemory.WordCounts.Inc(Sdl.LanguagePlatform.TranslationMemory.WordCounts)
   - Sdl.LanguagePlatform.TranslationMemory.WordCounts.IsZero
@@ -205,7 +206,10 @@ items:
   namespace: Sdl.LanguagePlatform.TranslationMemory
   summary: "\n\n"
   syntax:
-    content: public WordCounts(IList<Token> tokens, WordCountsOptions options, CultureInfo culture)
+    content: >-
+      [Obsolete("Use CreateWordCountsAsync")]
+
+      public WordCounts(IList<Token> tokens, WordCountsOptions options, CultureInfo culture)
     parameters:
     - id: tokens
       type: System.Collections.Generic.IList{Sdl.LanguagePlatform.Core.Tokenization.Token}
@@ -213,8 +217,17 @@ items:
       type: Sdl.LanguagePlatform.TranslationMemory.WordCountsOptions
     - id: culture
       type: System.Globalization.CultureInfo
-    content.vb: Public Sub New(tokens As IList(Of Token), options As WordCountsOptions, culture As CultureInfo)
+    content.vb: >-
+      <Obsolete("Use CreateWordCountsAsync")>
+
+      Public Sub New(tokens As IList(Of Token), options As WordCountsOptions, culture As CultureInfo)
   overload: Sdl.LanguagePlatform.TranslationMemory.WordCounts.#ctor*
+  attributes:
+  - type: System.ObsoleteAttribute
+    ctor: System.ObsoleteAttribute.#ctor(System.String)
+    arguments:
+    - type: System.String
+      value: Use CreateWordCountsAsync
   nameWithType.vb: WordCounts.WordCounts(IList(Of Token), WordCountsOptions, CultureInfo)
   modifiers.csharp:
   - public
@@ -222,6 +235,48 @@ items:
   - Public
   fullName.vb: Sdl.LanguagePlatform.TranslationMemory.WordCounts.WordCounts(System.Collections.Generic.IList(Of Sdl.LanguagePlatform.Core.Tokenization.Token), Sdl.LanguagePlatform.TranslationMemory.WordCountsOptions, System.Globalization.CultureInfo)
   name.vb: WordCounts(IList(Of Token), WordCountsOptions, CultureInfo)
+- uid: Sdl.LanguagePlatform.TranslationMemory.WordCounts.CreateWordCountsAsync(System.Collections.Generic.IList{Sdl.LanguagePlatform.Core.Tokenization.Token},Sdl.LanguagePlatform.TranslationMemory.WordCountsOptions,Sdl.Core.Globalization.CultureCode,Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager)
+  commentId: M:Sdl.LanguagePlatform.TranslationMemory.WordCounts.CreateWordCountsAsync(System.Collections.Generic.IList{Sdl.LanguagePlatform.Core.Tokenization.Token},Sdl.LanguagePlatform.TranslationMemory.WordCountsOptions,Sdl.Core.Globalization.CultureCode,Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager)
+  id: CreateWordCountsAsync(System.Collections.Generic.IList{Sdl.LanguagePlatform.Core.Tokenization.Token},Sdl.LanguagePlatform.TranslationMemory.WordCountsOptions,Sdl.Core.Globalization.CultureCode,Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager)
+  parent: Sdl.LanguagePlatform.TranslationMemory.WordCounts
+  langs:
+  - csharp
+  - vb
+  name: CreateWordCountsAsync(IList<Token>, WordCountsOptions, CultureCode, ICultureMetadataManager)
+  nameWithType: WordCounts.CreateWordCountsAsync(IList<Token>, WordCountsOptions, CultureCode, ICultureMetadataManager)
+  fullName: Sdl.LanguagePlatform.TranslationMemory.WordCounts.CreateWordCountsAsync(System.Collections.Generic.IList<Sdl.LanguagePlatform.Core.Tokenization.Token>, Sdl.LanguagePlatform.TranslationMemory.WordCountsOptions, Sdl.Core.Globalization.CultureCode, Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager)
+  type: Method
+  source:
+    path: Sdl.LanguagePlatform.TranslationMemory
+    isExternal: true
+  assemblies:
+  - Sdl.LanguagePlatform.TranslationMemory
+  namespace: Sdl.LanguagePlatform.TranslationMemory
+  summary: "\n\n"
+  syntax:
+    content: public static Task<WordCounts> CreateWordCountsAsync(IList<Token> tokens, WordCountsOptions options, CultureCode cultureCode, ICultureMetadataManager cultureMetadataManager)
+    parameters:
+    - id: tokens
+      type: System.Collections.Generic.IList{Sdl.LanguagePlatform.Core.Tokenization.Token}
+    - id: options
+      type: Sdl.LanguagePlatform.TranslationMemory.WordCountsOptions
+    - id: cultureCode
+      type: Sdl.Core.Globalization.CultureCode
+    - id: cultureMetadataManager
+      type: Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager
+    return:
+      type: System.Threading.Tasks.Task{Sdl.LanguagePlatform.TranslationMemory.WordCounts}
+    content.vb: Public Shared Function CreateWordCountsAsync(tokens As IList(Of Token), options As WordCountsOptions, cultureCode As CultureCode, cultureMetadataManager As ICultureMetadataManager) As Task(Of WordCounts)
+  overload: Sdl.LanguagePlatform.TranslationMemory.WordCounts.CreateWordCountsAsync*
+  nameWithType.vb: WordCounts.CreateWordCountsAsync(IList(Of Token), WordCountsOptions, CultureCode, ICultureMetadataManager)
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+  fullName.vb: Sdl.LanguagePlatform.TranslationMemory.WordCounts.CreateWordCountsAsync(System.Collections.Generic.IList(Of Sdl.LanguagePlatform.Core.Tokenization.Token), Sdl.LanguagePlatform.TranslationMemory.WordCountsOptions, Sdl.Core.Globalization.CultureCode, Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager)
+  name.vb: CreateWordCountsAsync(IList(Of Token), WordCountsOptions, CultureCode, ICultureMetadataManager)
 - uid: Sdl.LanguagePlatform.TranslationMemory.WordCounts.Duplicate
   commentId: M:Sdl.LanguagePlatform.TranslationMemory.WordCounts.Duplicate
   id: Duplicate
@@ -925,6 +980,111 @@ references:
   name: System.Globalization
   nameWithType: System.Globalization
   fullName: System.Globalization
+- uid: Sdl.LanguagePlatform.TranslationMemory.WordCounts.CreateWordCountsAsync*
+  commentId: Overload:Sdl.LanguagePlatform.TranslationMemory.WordCounts.CreateWordCountsAsync
+  isExternal: true
+  name: CreateWordCountsAsync
+  nameWithType: WordCounts.CreateWordCountsAsync
+  fullName: Sdl.LanguagePlatform.TranslationMemory.WordCounts.CreateWordCountsAsync
+- uid: Sdl.Core.Globalization.CultureCode
+  isExternal: true
+  name: CultureCode
+  nameWithType: CultureCode
+  fullName: Sdl.Core.Globalization.CultureCode
+- uid: Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager
+  isExternal: true
+  name: ICultureMetadataManager
+  nameWithType: ICultureMetadataManager
+  fullName: Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager
+- uid: System.Threading.Tasks.Task{Sdl.LanguagePlatform.TranslationMemory.WordCounts}
+  commentId: T:System.Threading.Tasks.Task{Sdl.LanguagePlatform.TranslationMemory.WordCounts}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  name: Task<WordCounts>
+  nameWithType: Task<WordCounts>
+  fullName: System.Threading.Tasks.Task<Sdl.LanguagePlatform.TranslationMemory.WordCounts>
+  nameWithType.vb: Task(Of WordCounts)
+  fullName.vb: System.Threading.Tasks.Task(Of Sdl.LanguagePlatform.TranslationMemory.WordCounts)
+  name.vb: Task(Of WordCounts)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Sdl.LanguagePlatform.TranslationMemory.WordCounts
+    name: WordCounts
+    nameWithType: WordCounts
+    fullName: Sdl.LanguagePlatform.TranslationMemory.WordCounts
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Sdl.LanguagePlatform.TranslationMemory.WordCounts
+    name: WordCounts
+    nameWithType: WordCounts
+    fullName: Sdl.LanguagePlatform.TranslationMemory.WordCounts
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Threading.Tasks.Task`1
+  commentId: T:System.Threading.Tasks.Task`1
+  isExternal: true
+  name: Task<>
+  nameWithType: Task<>
+  fullName: System.Threading.Tasks.Task<>
+  nameWithType.vb: Task(Of )
+  fullName.vb: System.Threading.Tasks.Task(Of )
+  name.vb: Task(Of )
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: ''
+    nameWithType: ''
+    fullName: ''
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: ''
+    nameWithType: ''
+    fullName: ''
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks
 - uid: Sdl.LanguagePlatform.TranslationMemory.WordCounts.Duplicate*
   commentId: Overload:Sdl.LanguagePlatform.TranslationMemory.WordCounts.Duplicate
   isExternal: true

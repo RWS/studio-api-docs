@@ -30,7 +30,6 @@ items:
   assemblies:
   - Sdl.Core.Settings
   namespace: Sdl.Core.Settings
-  summary: "\nA collection of settings groups, which belongs to a settings hierarchy.\n"
   syntax:
     content: public interface ISettingsBundle
     content.vb: Public Interface ISettingsBundle
@@ -57,8 +56,6 @@ items:
   assemblies:
   - Sdl.Core.Settings
   namespace: Sdl.Core.Settings
-  summary: "\nGet a strongly typed settings group class by ID.\n"
-  remarks: Creates a new instance of the settings group if it does not exist within this bundle yet.
   syntax:
     content: >-
       T GetSettingsGroup<T>(string id)
@@ -66,13 +63,10 @@ items:
     parameters:
     - id: id
       type: System.String
-      description: The ID of the settings group to retrieve.
     typeParameters:
     - id: T
-      description: The static type to retrieve
     return:
       type: '{T}'
-      description: An instance of the type, or null if no relevant settings group type could be found
     content.vb: Function GetSettingsGroup(Of T As {ISettingsGroup, New})(id As String) As T
   overload: Sdl.Core.Settings.ISettingsBundle.GetSettingsGroup*
   nameWithType.vb: ISettingsBundle.GetSettingsGroup(Of T)(String)
@@ -95,17 +89,14 @@ items:
   assemblies:
   - Sdl.Core.Settings
   namespace: Sdl.Core.Settings
-  summary: "\nGeneric method to return a strongly typed instance of\nISettingsGroup representing a single type of group, using the type&apos;s name as the unique id.\nThe class must implement ISettingsGroup and have a default\nconstructor.\n"
   syntax:
     content: >-
       T GetSettingsGroup<T>()
           where T : ISettingsGroup, new()
     typeParameters:
     - id: T
-      description: The type of group to instantiate
     return:
       type: '{T}'
-      description: An instance of the settings group, or null if no suitable type found
     content.vb: Function GetSettingsGroup(Of T As {ISettingsGroup, New}) As T
   overload: Sdl.Core.Settings.ISettingsBundle.GetSettingsGroup*
   nameWithType.vb: ISettingsBundle.GetSettingsGroup(Of T)()
@@ -128,17 +119,13 @@ items:
   assemblies:
   - Sdl.Core.Settings
   namespace: Sdl.Core.Settings
-  summary: "\nProvides untyped access to a settings group by ID.\n"
-  remarks: Creates a new instance of the settings group if it does not exist within this bundle yet.
   syntax:
     content: ISettingsGroup GetSettingsGroup(string id)
     parameters:
     - id: id
       type: System.String
-      description: The ID of the settings group to retrieve.
     return:
       type: Sdl.Core.Settings.ISettingsGroup
-      description: The settings group, or null if no relevant settings group type could be found.
     content.vb: Function GetSettingsGroup(id As String) As ISettingsGroup
   overload: Sdl.Core.Settings.ISettingsBundle.GetSettingsGroup*
 - uid: Sdl.Core.Settings.ISettingsBundle.AddSettingsGroup(Sdl.Core.Settings.ISettingsGroup)
@@ -158,7 +145,6 @@ items:
   assemblies:
   - Sdl.Core.Settings
   namespace: Sdl.Core.Settings
-  summary: "\nAdds an existing settings group to the Settings Bundle - the given group must not already be part of the Settings Bundle.\n"
   syntax:
     content: bool AddSettingsGroup(ISettingsGroup settingsGroup)
     parameters:
@@ -166,7 +152,6 @@ items:
       type: Sdl.Core.Settings.ISettingsGroup
     return:
       type: System.Boolean
-      description: true if the SettingsGroup was successfully added, false otherwise
     content.vb: Function AddSettingsGroup(settingsGroup As ISettingsGroup) As Boolean
   overload: Sdl.Core.Settings.ISettingsBundle.AddSettingsGroup*
 - uid: Sdl.Core.Settings.ISettingsBundle.RemoveSettingsGroup(System.String)
@@ -186,13 +171,11 @@ items:
   assemblies:
   - Sdl.Core.Settings
   namespace: Sdl.Core.Settings
-  summary: "\nRemoves the settings group with the provided ID from this settings bundle.\n"
   syntax:
     content: void RemoveSettingsGroup(string id)
     parameters:
     - id: id
       type: System.String
-      description: The ID of the settings group to remove.
     content.vb: Sub RemoveSettingsGroup(id As String)
   overload: Sdl.Core.Settings.ISettingsBundle.RemoveSettingsGroup*
 - uid: Sdl.Core.Settings.ISettingsBundle.GetSettingsGroupIds
@@ -212,12 +195,10 @@ items:
   assemblies:
   - Sdl.Core.Settings
   namespace: Sdl.Core.Settings
-  summary: "\nThe IDs of all settings groups currently contained in this settings bundle and any ancestors.\n"
   syntax:
     content: IEnumerable<string> GetSettingsGroupIds()
     return:
       type: System.Collections.Generic.IEnumerable{System.String}
-      description: The IDs of all settings groups contained in the settings bundle, including parent bundles.
     content.vb: Function GetSettingsGroupIds As IEnumerable(Of String)
   overload: Sdl.Core.Settings.ISettingsBundle.GetSettingsGroupIds*
 - uid: Sdl.Core.Settings.ISettingsBundle.ContainsSettingsGroup(System.String)
@@ -237,16 +218,13 @@ items:
   assemblies:
   - Sdl.Core.Settings
   namespace: Sdl.Core.Settings
-  summary: "\nReturns true if this group exists in the current bundle (searches the ancestor chain\nas well)\n"
   syntax:
     content: bool ContainsSettingsGroup(string id)
     parameters:
     - id: id
       type: System.String
-      description: The id of the settings group to check for
     return:
       type: System.Boolean
-      description: true if this group exists in the current or any ancestor bundle
     content.vb: Function ContainsSettingsGroup(id As String) As Boolean
   overload: Sdl.Core.Settings.ISettingsBundle.ContainsSettingsGroup*
 - uid: Sdl.Core.Settings.ISettingsBundle.Reset
@@ -266,7 +244,6 @@ items:
   assemblies:
   - Sdl.Core.Settings
   namespace: Sdl.Core.Settings
-  summary: "\nResets all settings locally defined in this settings bundle.\n"
   syntax:
     content: void Reset()
     content.vb: Sub Reset
@@ -288,13 +265,11 @@ items:
   assemblies:
   - Sdl.Core.Settings
   namespace: Sdl.Core.Settings
-  summary: "\nAssigns existing setting to a new setting bundle.\n"
   syntax:
     content: void Assign(ISettingsBundle settings)
     parameters:
     - id: settings
       type: Sdl.Core.Settings.ISettingsBundle
-      description: The settings.
     content.vb: Sub Assign(settings As ISettingsBundle)
   overload: Sdl.Core.Settings.ISettingsBundle.Assign*
 - uid: Sdl.Core.Settings.ISettingsBundle.IsDefault
@@ -314,7 +289,6 @@ items:
   assemblies:
   - Sdl.Core.Settings
   namespace: Sdl.Core.Settings
-  summary: "\nReturns true if this settings bundle defines default settings.\n"
   syntax:
     content: bool IsDefault { get; }
     parameters: []
@@ -343,7 +317,6 @@ items:
   assemblies:
   - Sdl.Core.Settings
   namespace: Sdl.Core.Settings
-  summary: "\nThe settings bundle the groups within inherit from\nor null if this is a top level bundle.\n"
   syntax:
     content: ISettingsBundle Parent { get; set; }
     parameters: []
@@ -371,7 +344,6 @@ items:
   assemblies:
   - Sdl.Core.Settings
   namespace: Sdl.Core.Settings
-  summary: "\nTrue if all settings groups in the setting bundle are empty.\n"
   syntax:
     content: bool IsEmpty { get; }
     parameters: []

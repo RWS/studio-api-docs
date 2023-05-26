@@ -18,7 +18,7 @@ items:
   - Sdl.Core.FineGrainedAlignment.VocabularyFile3.Dump(System.String)
   - Sdl.Core.FineGrainedAlignment.VocabularyFile3.GetIDs(System.Collections.Generic.IEnumerable{System.String})
   - Sdl.Core.FineGrainedAlignment.VocabularyFile3.GetIntSegment(System.Collections.Generic.List{Sdl.LanguagePlatform.Core.Tokenization.Token})
-  - Sdl.Core.FineGrainedAlignment.VocabularyFile3.GetStopwordIDs(System.Globalization.CultureInfo,Sdl.LanguagePlatform.Core.Resources.IResourceDataAccessor)
+  - Sdl.Core.FineGrainedAlignment.VocabularyFile3.GetStopwordIDsAsync(Sdl.Core.Globalization.CultureCode,Sdl.LanguagePlatform.Core.Resources.IResourceDataAccessorAsync)
   - Sdl.Core.FineGrainedAlignment.VocabularyFile3.GetTokenString(Sdl.LanguagePlatform.Core.Tokenization.Token)
   - Sdl.Core.FineGrainedAlignment.VocabularyFile3.HasAllSpecialIDs
   - Sdl.Core.FineGrainedAlignment.VocabularyFile3.LoadAsync
@@ -349,7 +349,6 @@ items:
   assemblies:
   - Sdl.Core.FineGrainedAlignment
   namespace: Sdl.Core.FineGrainedAlignment
-  summary: "\nLookup string s in the vocabulary. Returns -1 if not found. \n"
   syntax:
     content: public int Lookup(string s)
     parameters:
@@ -380,7 +379,6 @@ items:
   assemblies:
   - Sdl.Core.FineGrainedAlignment
   namespace: Sdl.Core.FineGrainedAlignment
-  summary: "\nNOTE IDs are not in the order of the words but in order of the IDs\n"
   syntax:
     content: public List<int> GetIDs(IEnumerable<string> words)
     parameters:
@@ -397,16 +395,16 @@ items:
   - Public
   fullName.vb: Sdl.Core.FineGrainedAlignment.VocabularyFile3.GetIDs(System.Collections.Generic.IEnumerable(Of System.String))
   name.vb: GetIDs(IEnumerable(Of String))
-- uid: Sdl.Core.FineGrainedAlignment.VocabularyFile3.GetStopwordIDs(System.Globalization.CultureInfo,Sdl.LanguagePlatform.Core.Resources.IResourceDataAccessor)
-  commentId: M:Sdl.Core.FineGrainedAlignment.VocabularyFile3.GetStopwordIDs(System.Globalization.CultureInfo,Sdl.LanguagePlatform.Core.Resources.IResourceDataAccessor)
-  id: GetStopwordIDs(System.Globalization.CultureInfo,Sdl.LanguagePlatform.Core.Resources.IResourceDataAccessor)
+- uid: Sdl.Core.FineGrainedAlignment.VocabularyFile3.GetStopwordIDsAsync(Sdl.Core.Globalization.CultureCode,Sdl.LanguagePlatform.Core.Resources.IResourceDataAccessorAsync)
+  commentId: M:Sdl.Core.FineGrainedAlignment.VocabularyFile3.GetStopwordIDsAsync(Sdl.Core.Globalization.CultureCode,Sdl.LanguagePlatform.Core.Resources.IResourceDataAccessorAsync)
+  id: GetStopwordIDsAsync(Sdl.Core.Globalization.CultureCode,Sdl.LanguagePlatform.Core.Resources.IResourceDataAccessorAsync)
   parent: Sdl.Core.FineGrainedAlignment.VocabularyFile3
   langs:
   - csharp
   - vb
-  name: GetStopwordIDs(CultureInfo, IResourceDataAccessor)
-  nameWithType: VocabularyFile3.GetStopwordIDs(CultureInfo, IResourceDataAccessor)
-  fullName: Sdl.Core.FineGrainedAlignment.VocabularyFile3.GetStopwordIDs(System.Globalization.CultureInfo, Sdl.LanguagePlatform.Core.Resources.IResourceDataAccessor)
+  name: GetStopwordIDsAsync(CultureCode, IResourceDataAccessorAsync)
+  nameWithType: VocabularyFile3.GetStopwordIDsAsync(CultureCode, IResourceDataAccessorAsync)
+  fullName: Sdl.Core.FineGrainedAlignment.VocabularyFile3.GetStopwordIDsAsync(Sdl.Core.Globalization.CultureCode, Sdl.LanguagePlatform.Core.Resources.IResourceDataAccessorAsync)
   type: Method
   source:
     path: Sdl.Core.FineGrainedAlignment
@@ -415,16 +413,16 @@ items:
   - Sdl.Core.FineGrainedAlignment
   namespace: Sdl.Core.FineGrainedAlignment
   syntax:
-    content: public List<int> GetStopwordIDs(CultureInfo culture, IResourceDataAccessor accessor)
+    content: public Task<List<int>> GetStopwordIDsAsync(CultureCode culture, IResourceDataAccessorAsync accessor)
     parameters:
     - id: culture
-      type: System.Globalization.CultureInfo
+      type: Sdl.Core.Globalization.CultureCode
     - id: accessor
-      type: Sdl.LanguagePlatform.Core.Resources.IResourceDataAccessor
+      type: Sdl.LanguagePlatform.Core.Resources.IResourceDataAccessorAsync
     return:
-      type: System.Collections.Generic.List{System.Int32}
-    content.vb: Public Function GetStopwordIDs(culture As CultureInfo, accessor As IResourceDataAccessor) As List(Of Integer)
-  overload: Sdl.Core.FineGrainedAlignment.VocabularyFile3.GetStopwordIDs*
+      type: System.Threading.Tasks.Task{System.Collections.Generic.List{System.Int32}}
+    content.vb: Public Function GetStopwordIDsAsync(culture As CultureCode, accessor As IResourceDataAccessorAsync) As Task(Of List(Of Integer))
+  overload: Sdl.Core.FineGrainedAlignment.VocabularyFile3.GetStopwordIDsAsync*
   modifiers.csharp:
   - public
   modifiers.vb:
@@ -534,7 +532,6 @@ items:
   assemblies:
   - Sdl.Core.FineGrainedAlignment
   namespace: Sdl.Core.FineGrainedAlignment
-  summary: "\nKeeps ID for unknown words (won&apos;t add)\n"
   syntax:
     content: public IntSegment GetIntSegment(List<Token> tokens)
     parameters:
@@ -600,16 +597,13 @@ items:
   assemblies:
   - Sdl.Core.FineGrainedAlignment
   namespace: Sdl.Core.FineGrainedAlignment
-  summary: "\nLooks up the word with id key in the vocabulary. Returns null if not found. \n"
   syntax:
     content: public string Lookup(int key)
     parameters:
     - id: key
       type: System.Int32
-      description: The key of the word to look up
     return:
       type: System.String
-      description: The word, or null if not found
     content.vb: Public Function Lookup(key As Integer) As String
   overload: Sdl.Core.FineGrainedAlignment.VocabularyFile3.Lookup*
   modifiers.csharp:
@@ -723,7 +717,6 @@ items:
   assemblies:
   - Sdl.Core.FineGrainedAlignment
   namespace: Sdl.Core.FineGrainedAlignment
-  summary: "\nTrue iff words were added since loading\n"
   syntax:
     content: public bool Dirty { get; }
     parameters: []
@@ -1115,38 +1108,134 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: Sdl.Core.FineGrainedAlignment.VocabularyFile3.GetStopwordIDs*
-  commentId: Overload:Sdl.Core.FineGrainedAlignment.VocabularyFile3.GetStopwordIDs
+- uid: Sdl.Core.FineGrainedAlignment.VocabularyFile3.GetStopwordIDsAsync*
+  commentId: Overload:Sdl.Core.FineGrainedAlignment.VocabularyFile3.GetStopwordIDsAsync
   isExternal: true
-  name: GetStopwordIDs
-  nameWithType: VocabularyFile3.GetStopwordIDs
-  fullName: Sdl.Core.FineGrainedAlignment.VocabularyFile3.GetStopwordIDs
-- uid: System.Globalization.CultureInfo
-  commentId: T:System.Globalization.CultureInfo
-  parent: System.Globalization
+  name: GetStopwordIDsAsync
+  nameWithType: VocabularyFile3.GetStopwordIDsAsync
+  fullName: Sdl.Core.FineGrainedAlignment.VocabularyFile3.GetStopwordIDsAsync
+- uid: Sdl.Core.Globalization.CultureCode
   isExternal: true
-  name: CultureInfo
-  nameWithType: CultureInfo
-  fullName: System.Globalization.CultureInfo
-- uid: Sdl.LanguagePlatform.Core.Resources.IResourceDataAccessor
-  commentId: T:Sdl.LanguagePlatform.Core.Resources.IResourceDataAccessor
+  name: CultureCode
+  nameWithType: CultureCode
+  fullName: Sdl.Core.Globalization.CultureCode
+- uid: Sdl.LanguagePlatform.Core.Resources.IResourceDataAccessorAsync
+  commentId: T:Sdl.LanguagePlatform.Core.Resources.IResourceDataAccessorAsync
   parent: Sdl.LanguagePlatform.Core.Resources
   isExternal: true
-  name: IResourceDataAccessor
-  nameWithType: IResourceDataAccessor
-  fullName: Sdl.LanguagePlatform.Core.Resources.IResourceDataAccessor
-- uid: System.Globalization
-  commentId: N:System.Globalization
-  isExternal: true
-  name: System.Globalization
-  nameWithType: System.Globalization
-  fullName: System.Globalization
+  name: IResourceDataAccessorAsync
+  nameWithType: IResourceDataAccessorAsync
+  fullName: Sdl.LanguagePlatform.Core.Resources.IResourceDataAccessorAsync
+- uid: System.Threading.Tasks.Task{System.Collections.Generic.List{System.Int32}}
+  commentId: '!:System.Threading.Tasks.Task{System.Collections.Generic.List{System.Int32}}'
+  definition: System.Threading.Tasks.Task`1
+  name: Task<List<Int32>>
+  nameWithType: Task<List<Int32>>
+  fullName: System.Threading.Tasks.Task<System.Collections.Generic.List<System.Int32>>
+  nameWithType.vb: Task(Of List(Of Int32))
+  fullName.vb: System.Threading.Tasks.Task(Of System.Collections.Generic.List(Of System.Int32))
+  name.vb: Task(Of List(Of Int32))
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Collections.Generic.List`1
+    name: List
+    nameWithType: List
+    fullName: System.Collections.Generic.List
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Collections.Generic.List`1
+    name: List
+    nameWithType: List
+    fullName: System.Collections.Generic.List
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
 - uid: Sdl.LanguagePlatform.Core.Resources
   commentId: N:Sdl.LanguagePlatform.Core.Resources
   isExternal: true
   name: Sdl.LanguagePlatform.Core.Resources
   nameWithType: Sdl.LanguagePlatform.Core.Resources
   fullName: Sdl.LanguagePlatform.Core.Resources
+- uid: System.Threading.Tasks.Task`1
+  commentId: T:System.Threading.Tasks.Task`1
+  isExternal: true
+  name: Task<>
+  nameWithType: Task<>
+  fullName: System.Threading.Tasks.Task<>
+  nameWithType.vb: Task(Of )
+  fullName.vb: System.Threading.Tasks.Task(Of )
+  name.vb: Task(Of )
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: ''
+    nameWithType: ''
+    fullName: ''
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: ''
+    nameWithType: ''
+    fullName: ''
+  - name: )
+    nameWithType: )
+    fullName: )
 - uid: Sdl.Core.FineGrainedAlignment.VocabularyFile3.Dump*
   commentId: Overload:Sdl.Core.FineGrainedAlignment.VocabularyFile3.Dump
   isExternal: true
