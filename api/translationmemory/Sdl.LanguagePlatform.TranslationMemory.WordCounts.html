@@ -171,7 +171,10 @@
   <a id="Sdl_LanguagePlatform_TranslationMemory_WordCounts__ctor_" data-uid="Sdl.LanguagePlatform.TranslationMemory.WordCounts.#ctor*"></a>
   <h4 id="Sdl_LanguagePlatform_TranslationMemory_WordCounts__ctor_System_Collections_Generic_IList_Sdl_LanguagePlatform_Core_Tokenization_Token__" data-uid="Sdl.LanguagePlatform.TranslationMemory.WordCounts.#ctor(System.Collections.Generic.IList{Sdl.LanguagePlatform.Core.Tokenization.Token})">WordCounts(IList&lt;Token&gt;)</h4>
   <div class="markdown level1 summary"><p>Initializes a new instance from the values in the provided token collection.
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul></p>
+<ul><li>Word and abbreviation tokens increment the character count by the length of the 
+token text and increment the word count by one, </li><li>Char sequence tokens (used in far-east tokenization) increment the word and character
+count by the length of the token text,</li><li>Punctuation tokens only increment the character count, by the length of the token text,</li><li>Date, time, variable, number, measurement, acronym, uri, and other text placeable tokens
+increment the word and character count like words do, but also increment the placeables count,</li><li>Tag tokens increment the tag and placeable counts, but not the word or character counts,</li><li>Whitespace tokens do not increment any counts (even not the character count),</li><li>All other token types do not increment any counts.</li><li>The segment count is set to 1, independent on the number and type of the tokens.</li></ul></p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -204,7 +207,8 @@
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public WordCounts(IList&lt;Token&gt; tokens, WordCountsOptions options, CultureInfo culture)</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use CreateWordCountsAsync&quot;)]
+public WordCounts(IList&lt;Token&gt; tokens, WordCountsOptions options, CultureInfo culture)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -238,7 +242,10 @@
   <a id="Sdl_LanguagePlatform_TranslationMemory_WordCounts__ctor_" data-uid="Sdl.LanguagePlatform.TranslationMemory.WordCounts.#ctor*"></a>
   <h4 id="Sdl_LanguagePlatform_TranslationMemory_WordCounts__ctor_System_Collections_Generic_IList_Sdl_LanguagePlatform_Core_Tokenization_Token__System_Boolean_System_Boolean_System_Boolean_System_Boolean_" data-uid="Sdl.LanguagePlatform.TranslationMemory.WordCounts.#ctor(System.Collections.Generic.IList{Sdl.LanguagePlatform.Core.Tokenization.Token},System.Boolean,System.Boolean,System.Boolean,System.Boolean)">WordCounts(IList&lt;Token&gt;, Boolean, Boolean, Boolean, Boolean)</h4>
   <div class="markdown level1 summary"><p>Initializes a new instance from the values in the provided token collection.
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul></p>
+<ul><li>Word and abbreviation tokens increment the character count by the length of the 
+token text and increment the word count by one, </li><li>Char sequence tokens (used in far-east tokenization) increment the word and character
+count by the length of the token text,</li><li>Punctuation tokens only increment the character count, by the length of the token text,</li><li>Date, time, variable, number, measurement, acronym, uri, and other text placeable tokens
+increment the word and character count like words do, but also increment the placeables count,</li><li>Tag tokens increment the tag and placeable counts, but not the word or character counts,</li><li>Whitespace tokens do not increment any counts (even not the character count),</li><li>All other token types do not increment any counts.</li><li>The segment count is set to 1, independent on the number and type of the tokens.</li></ul></p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -473,6 +480,63 @@
         <td><span class="parametername">other</span></td>
         <td><p>The instance which values to assign to this instance</p>
 </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_LanguagePlatform_TranslationMemory_WordCounts_CreateWordCountsAsync_" data-uid="Sdl.LanguagePlatform.TranslationMemory.WordCounts.CreateWordCountsAsync*"></a>
+  <h4 id="Sdl_LanguagePlatform_TranslationMemory_WordCounts_CreateWordCountsAsync_System_Collections_Generic_IList_Sdl_LanguagePlatform_Core_Tokenization_Token__Sdl_LanguagePlatform_TranslationMemory_WordCountsOptions_Sdl_Core_Globalization_CultureCode_Sdl_Core_Globalization_CultureMetadataManager_ICultureMetadataManager_" data-uid="Sdl.LanguagePlatform.TranslationMemory.WordCounts.CreateWordCountsAsync(System.Collections.Generic.IList{Sdl.LanguagePlatform.Core.Tokenization.Token},Sdl.LanguagePlatform.TranslationMemory.WordCountsOptions,Sdl.Core.Globalization.CultureCode,Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager)">CreateWordCountsAsync(IList&lt;Token&gt;, WordCountsOptions, CultureCode, ICultureMetadataManager)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Task&lt;WordCounts&gt; CreateWordCountsAsync(IList&lt;Token&gt; tokens, WordCountsOptions options, CultureCode cultureCode, ICultureMetadataManager cultureMetadataManager)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IList</span>&lt;<a class="xref" href="Sdl.LanguagePlatform.Core.Tokenization.Token.html">Token</a>&gt;</td>
+        <td><span class="parametername">tokens</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.WordCountsOptions.html">WordCountsOptions</a></td>
+        <td><span class="parametername">options</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">Sdl.Core.Globalization.CultureCode</span></td>
+        <td><span class="parametername">cultureCode</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager</span></td>
+        <td><span class="parametername">cultureMetadataManager</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.WordCounts.html">WordCounts</a>&gt;</td>
+        <td></td>
       </tr>
     </tbody>
   </table>
