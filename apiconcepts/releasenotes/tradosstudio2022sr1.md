@@ -99,9 +99,9 @@ Recommended replacements for deprecated API. Please refer to the following table
 | GetLanguageResourcesTemplates(LanguageResourcesTemplateProperties additionalProperties,bool includeTmSpecific = true)| GetLanguageResourcesTemplates(bool includeTmSpecific = true)|
 
 # General API changes 
-To move away from OS generated languge registry we crated an internal langauge registry where we can control the languages provided to RWS applciation. 
+Third party developers now have access to Trados Studio's custom language registry, which offers finer control over language management than the language registry provided by Microsoft.
 
-We removed the usage of CultureInfo from our public API's and replace it with a custom object called [CultureCode](../../api/core/Sdl.Core.Globalization.CultureCode.yml). 
+Following this change, [CultureCode](../../api/core/Sdl.Core.Globalization.CultureCode.yml) is now the recommended alternative to the standard CultureInfo. 
 
 To ensure compatibility with Studio and other RWS system interfacing with Studio please fetch the language info using our internal language registry : 
 
@@ -117,28 +117,28 @@ Example:
         // language is not suported
     }
     ```
-This method will return a [Language](../../api/core/Sdl.Core.Globalization.Language.yml) object. 
-In case the language is not found or the language code is incorrect it will throw an [UnsupportedLanguageException](../../api/core/Sdl.Core.Globalization.UnsupportedLanguageException.yml) exception.
+This method returns a [Language](../../api/core/Sdl.Core.Globalization.Language.yml) object. 
+If the language is not found or the language code is incorrect [UnsupportedLanguageException](../../api/core/Sdl.Core.Globalization.UnsupportedLanguageException.yml) is thrown.
 
-In case you need the CultureInfo for that language you can retrieve it like this :
+CultureInfo objects are still accessible via the following call:
 
 Example:
 
     ```cs
     var ci = LanguageRegistryApi.Instance.GetLanguage("fr-FR").CultureInfo;        
     ```
-> [!NOTE]
-> Avoid using the .NET runtime language registry, see below :
->
->Example: 
->
->    ```cs
->    // These lines create CultureInfo from .NET runtime, so results can vary across platforms and Windows OS versions
->    var ci = new CultureInfo("en-US");
->    ci = CultureInfo.GetCultureInfo("en-US");      
->    ```
 
-To create a wrapper arround the lanugage code avoid possible error when comparing codes you can use [CultureCode](../../api/core/Sdl.Core.Globalization.CultureCode.yml)
+ Use of the .NET runtime language registry, such as the following example, is not recommended as it may have unexpected results.
+
+Example: 
+
+    ```cs
+    // These lines create CultureInfo from .NET runtime, so results can vary across platforms and Windows OS versions
+    var ci = new CultureInfo("en-US");
+    ci = CultureInfo.GetCultureInfo("en-US");      
+    ```
+                                                        ??
+To ensure consistency across the application when comparing the string representation of the language codes, it is recommended to use the [CultureCode](../../api/core/Sdl.Core.Globalization.CultureCode.yml) wrapper.
 
 Example: 
 
