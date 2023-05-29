@@ -5,11 +5,10 @@ items:
   id: TrainedTranslationModelBuilder
   parent: Sdl.Core.FineGrainedAlignment
   children:
-  - Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.#ctor(Sdl.Core.FineGrainedAlignment.TrainedTranslationModel,Sdl.Core.FineGrainedAlignment.IAlignableCorpusManager)
-  - Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.BuildModel
-  - Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.CanBuildModel
-  - Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.Progress
-  - Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.ShouldBuildModel
+  - Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.#ctor(Sdl.Core.FineGrainedAlignment.TrainedTranslationModel,Sdl.Core.FineGrainedAlignment.IAlignableCorpusManagerAsync,Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager)
+  - Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.BuildModelAsync(Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStore)
+  - Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.CanBuildModelAsync
+  - Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.ShouldBuildModelAsync
   langs:
   - csharp
   - vb
@@ -36,16 +35,16 @@ items:
   modifiers.vb:
   - Public
   - Class
-- uid: Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.#ctor(Sdl.Core.FineGrainedAlignment.TrainedTranslationModel,Sdl.Core.FineGrainedAlignment.IAlignableCorpusManager)
-  commentId: M:Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.#ctor(Sdl.Core.FineGrainedAlignment.TrainedTranslationModel,Sdl.Core.FineGrainedAlignment.IAlignableCorpusManager)
-  id: '#ctor(Sdl.Core.FineGrainedAlignment.TrainedTranslationModel,Sdl.Core.FineGrainedAlignment.IAlignableCorpusManager)'
+- uid: Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.#ctor(Sdl.Core.FineGrainedAlignment.TrainedTranslationModel,Sdl.Core.FineGrainedAlignment.IAlignableCorpusManagerAsync,Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager)
+  commentId: M:Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.#ctor(Sdl.Core.FineGrainedAlignment.TrainedTranslationModel,Sdl.Core.FineGrainedAlignment.IAlignableCorpusManagerAsync,Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager)
+  id: '#ctor(Sdl.Core.FineGrainedAlignment.TrainedTranslationModel,Sdl.Core.FineGrainedAlignment.IAlignableCorpusManagerAsync,Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager)'
   parent: Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder
   langs:
   - csharp
   - vb
-  name: TrainedTranslationModelBuilder(TrainedTranslationModel, IAlignableCorpusManager)
-  nameWithType: TrainedTranslationModelBuilder.TrainedTranslationModelBuilder(TrainedTranslationModel, IAlignableCorpusManager)
-  fullName: Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.TrainedTranslationModelBuilder(Sdl.Core.FineGrainedAlignment.TrainedTranslationModel, Sdl.Core.FineGrainedAlignment.IAlignableCorpusManager)
+  name: TrainedTranslationModelBuilder(TrainedTranslationModel, IAlignableCorpusManagerAsync, ICultureMetadataManager)
+  nameWithType: TrainedTranslationModelBuilder.TrainedTranslationModelBuilder(TrainedTranslationModel, IAlignableCorpusManagerAsync, ICultureMetadataManager)
+  fullName: Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.TrainedTranslationModelBuilder(Sdl.Core.FineGrainedAlignment.TrainedTranslationModel, Sdl.Core.FineGrainedAlignment.IAlignableCorpusManagerAsync, Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager)
   type: Constructor
   source:
     path: Sdl.Core.FineGrainedAlignment
@@ -54,28 +53,30 @@ items:
   - Sdl.Core.FineGrainedAlignment
   namespace: Sdl.Core.FineGrainedAlignment
   syntax:
-    content: public TrainedTranslationModelBuilder(TrainedTranslationModel translationModel, IAlignableCorpusManager corpusManager)
+    content: public TrainedTranslationModelBuilder(TrainedTranslationModel translationModel, IAlignableCorpusManagerAsync corpusManager, ICultureMetadataManager cultureMetadataManager)
     parameters:
     - id: translationModel
       type: Sdl.Core.FineGrainedAlignment.TrainedTranslationModel
     - id: corpusManager
-      type: Sdl.Core.FineGrainedAlignment.IAlignableCorpusManager
-    content.vb: Public Sub New(translationModel As TrainedTranslationModel, corpusManager As IAlignableCorpusManager)
+      type: Sdl.Core.FineGrainedAlignment.IAlignableCorpusManagerAsync
+    - id: cultureMetadataManager
+      type: Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager
+    content.vb: Public Sub New(translationModel As TrainedTranslationModel, corpusManager As IAlignableCorpusManagerAsync, cultureMetadataManager As ICultureMetadataManager)
   overload: Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.#ctor*
   modifiers.csharp:
   - public
   modifiers.vb:
   - Public
-- uid: Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.CanBuildModel
-  commentId: M:Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.CanBuildModel
-  id: CanBuildModel
+- uid: Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.CanBuildModelAsync
+  commentId: M:Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.CanBuildModelAsync
+  id: CanBuildModelAsync
   parent: Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder
   langs:
   - csharp
   - vb
-  name: CanBuildModel()
-  nameWithType: TrainedTranslationModelBuilder.CanBuildModel()
-  fullName: Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.CanBuildModel()
+  name: CanBuildModelAsync()
+  nameWithType: TrainedTranslationModelBuilder.CanBuildModelAsync()
+  fullName: Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.CanBuildModelAsync()
   type: Method
   source:
     path: Sdl.Core.FineGrainedAlignment
@@ -84,25 +85,25 @@ items:
   - Sdl.Core.FineGrainedAlignment
   namespace: Sdl.Core.FineGrainedAlignment
   syntax:
-    content: public bool CanBuildModel()
+    content: public Task<bool> CanBuildModelAsync()
     return:
-      type: System.Boolean
-    content.vb: Public Function CanBuildModel As Boolean
-  overload: Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.CanBuildModel*
+      type: System.Threading.Tasks.Task{System.Boolean}
+    content.vb: Public Function CanBuildModelAsync As Task(Of Boolean)
+  overload: Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.CanBuildModelAsync*
   modifiers.csharp:
   - public
   modifiers.vb:
   - Public
-- uid: Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.ShouldBuildModel
-  commentId: M:Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.ShouldBuildModel
-  id: ShouldBuildModel
+- uid: Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.ShouldBuildModelAsync
+  commentId: M:Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.ShouldBuildModelAsync
+  id: ShouldBuildModelAsync
   parent: Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder
   langs:
   - csharp
   - vb
-  name: ShouldBuildModel()
-  nameWithType: TrainedTranslationModelBuilder.ShouldBuildModel()
-  fullName: Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.ShouldBuildModel()
+  name: ShouldBuildModelAsync()
+  nameWithType: TrainedTranslationModelBuilder.ShouldBuildModelAsync()
+  fullName: Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.ShouldBuildModelAsync()
   type: Method
   source:
     path: Sdl.Core.FineGrainedAlignment
@@ -111,25 +112,25 @@ items:
   - Sdl.Core.FineGrainedAlignment
   namespace: Sdl.Core.FineGrainedAlignment
   syntax:
-    content: public bool ShouldBuildModel()
+    content: public Task<bool> ShouldBuildModelAsync()
     return:
-      type: System.Boolean
-    content.vb: Public Function ShouldBuildModel As Boolean
-  overload: Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.ShouldBuildModel*
+      type: System.Threading.Tasks.Task{System.Boolean}
+    content.vb: Public Function ShouldBuildModelAsync As Task(Of Boolean)
+  overload: Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.ShouldBuildModelAsync*
   modifiers.csharp:
   - public
   modifiers.vb:
   - Public
-- uid: Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.BuildModel
-  commentId: M:Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.BuildModel
-  id: BuildModel
+- uid: Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.BuildModelAsync(Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStore)
+  commentId: M:Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.BuildModelAsync(Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStore)
+  id: BuildModelAsync(Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStore)
   parent: Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder
   langs:
   - csharp
   - vb
-  name: BuildModel()
-  nameWithType: TrainedTranslationModelBuilder.BuildModel()
-  fullName: Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.BuildModel()
+  name: BuildModelAsync(IChiSquaredTranslationModelStore)
+  nameWithType: TrainedTranslationModelBuilder.BuildModelAsync(IChiSquaredTranslationModelStore)
+  fullName: Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.BuildModelAsync(Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStore)
   type: Method
   source:
     path: Sdl.Core.FineGrainedAlignment
@@ -138,37 +139,14 @@ items:
   - Sdl.Core.FineGrainedAlignment
   namespace: Sdl.Core.FineGrainedAlignment
   syntax:
-    content: public TrainedModelBuildResults BuildModel()
+    content: public Task<TrainedModelBuildResults> BuildModelAsync(IChiSquaredTranslationModelStore store)
+    parameters:
+    - id: store
+      type: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStore
     return:
-      type: Sdl.Core.FineGrainedAlignment.TrainedModelBuildResults
-    content.vb: Public Function BuildModel As TrainedModelBuildResults
-  overload: Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.BuildModel*
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
-- uid: Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.Progress
-  commentId: E:Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.Progress
-  id: Progress
-  parent: Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder
-  langs:
-  - csharp
-  - vb
-  name: Progress
-  nameWithType: TrainedTranslationModelBuilder.Progress
-  fullName: Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.Progress
-  type: Event
-  source:
-    path: Sdl.Core.FineGrainedAlignment
-    isExternal: true
-  assemblies:
-  - Sdl.Core.FineGrainedAlignment
-  namespace: Sdl.Core.FineGrainedAlignment
-  syntax:
-    content: public event EventHandler<TranslationModelProgressEventArgs> Progress
-    return:
-      type: System.EventHandler{Sdl.Core.FineGrainedAlignment.TranslationModelProgressEventArgs}
-    content.vb: Public Event Progress As EventHandler(Of TranslationModelProgressEventArgs)
+      type: System.Threading.Tasks.Task{Sdl.Core.FineGrainedAlignment.TrainedModelBuildResults}
+    content.vb: Public Function BuildModelAsync(store As IChiSquaredTranslationModelStore) As Task(Of TrainedModelBuildResults)
+  overload: Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.BuildModelAsync*
   modifiers.csharp:
   - public
   modifiers.vb:
@@ -206,103 +184,82 @@ references:
   name: TrainedTranslationModel
   nameWithType: TrainedTranslationModel
   fullName: Sdl.Core.FineGrainedAlignment.TrainedTranslationModel
-- uid: Sdl.Core.FineGrainedAlignment.IAlignableCorpusManager
-  commentId: T:Sdl.Core.FineGrainedAlignment.IAlignableCorpusManager
+- uid: Sdl.Core.FineGrainedAlignment.IAlignableCorpusManagerAsync
+  commentId: T:Sdl.Core.FineGrainedAlignment.IAlignableCorpusManagerAsync
   parent: Sdl.Core.FineGrainedAlignment
   isExternal: true
-  name: IAlignableCorpusManager
-  nameWithType: IAlignableCorpusManager
-  fullName: Sdl.Core.FineGrainedAlignment.IAlignableCorpusManager
-- uid: Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.CanBuildModel*
-  commentId: Overload:Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.CanBuildModel
+  name: IAlignableCorpusManagerAsync
+  nameWithType: IAlignableCorpusManagerAsync
+  fullName: Sdl.Core.FineGrainedAlignment.IAlignableCorpusManagerAsync
+- uid: Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager
   isExternal: true
-  name: CanBuildModel
-  nameWithType: TrainedTranslationModelBuilder.CanBuildModel
-  fullName: Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.CanBuildModel
-- uid: System.Boolean
-  commentId: T:System.Boolean
-  parent: System
+  name: ICultureMetadataManager
+  nameWithType: ICultureMetadataManager
+  fullName: Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager
+- uid: Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.CanBuildModelAsync*
+  commentId: Overload:Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.CanBuildModelAsync
   isExternal: true
-  name: Boolean
-  nameWithType: Boolean
-  fullName: System.Boolean
-- uid: Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.ShouldBuildModel*
-  commentId: Overload:Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.ShouldBuildModel
-  isExternal: true
-  name: ShouldBuildModel
-  nameWithType: TrainedTranslationModelBuilder.ShouldBuildModel
-  fullName: Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.ShouldBuildModel
-- uid: Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.BuildModel*
-  commentId: Overload:Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.BuildModel
-  isExternal: true
-  name: BuildModel
-  nameWithType: TrainedTranslationModelBuilder.BuildModel
-  fullName: Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.BuildModel
-- uid: Sdl.Core.FineGrainedAlignment.TrainedModelBuildResults
-  commentId: T:Sdl.Core.FineGrainedAlignment.TrainedModelBuildResults
-  parent: Sdl.Core.FineGrainedAlignment
-  isExternal: true
-  name: TrainedModelBuildResults
-  nameWithType: TrainedModelBuildResults
-  fullName: Sdl.Core.FineGrainedAlignment.TrainedModelBuildResults
-- uid: System.EventHandler{Sdl.Core.FineGrainedAlignment.TranslationModelProgressEventArgs}
-  commentId: '!:System.EventHandler{Sdl.Core.FineGrainedAlignment.TranslationModelProgressEventArgs}'
-  parent: System
-  definition: System.EventHandler`1
-  name: EventHandler<TranslationModelProgressEventArgs>
-  nameWithType: EventHandler<TranslationModelProgressEventArgs>
-  fullName: System.EventHandler<Sdl.Core.FineGrainedAlignment.TranslationModelProgressEventArgs>
-  nameWithType.vb: EventHandler(Of TranslationModelProgressEventArgs)
-  fullName.vb: System.EventHandler(Of Sdl.Core.FineGrainedAlignment.TranslationModelProgressEventArgs)
-  name.vb: EventHandler(Of TranslationModelProgressEventArgs)
+  name: CanBuildModelAsync
+  nameWithType: TrainedTranslationModelBuilder.CanBuildModelAsync
+  fullName: Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.CanBuildModelAsync
+- uid: System.Threading.Tasks.Task{System.Boolean}
+  commentId: '!:System.Threading.Tasks.Task{System.Boolean}'
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  name: Task<Boolean>
+  nameWithType: Task<Boolean>
+  fullName: System.Threading.Tasks.Task<System.Boolean>
+  nameWithType.vb: Task(Of Boolean)
+  fullName.vb: System.Threading.Tasks.Task(Of System.Boolean)
+  name.vb: Task(Of Boolean)
   spec.csharp:
-  - uid: System.EventHandler`1
-    name: EventHandler
-    nameWithType: EventHandler
-    fullName: System.EventHandler
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
     isExternal: true
   - name: <
     nameWithType: <
     fullName: <
-  - uid: Sdl.Core.FineGrainedAlignment.TranslationModelProgressEventArgs
-    name: TranslationModelProgressEventArgs
-    nameWithType: TranslationModelProgressEventArgs
-    fullName: Sdl.Core.FineGrainedAlignment.TranslationModelProgressEventArgs
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
     isExternal: true
   - name: '>'
     nameWithType: '>'
     fullName: '>'
   spec.vb:
-  - uid: System.EventHandler`1
-    name: EventHandler
-    nameWithType: EventHandler
-    fullName: System.EventHandler
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - uid: Sdl.Core.FineGrainedAlignment.TranslationModelProgressEventArgs
-    name: TranslationModelProgressEventArgs
-    nameWithType: TranslationModelProgressEventArgs
-    fullName: Sdl.Core.FineGrainedAlignment.TranslationModelProgressEventArgs
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
     isExternal: true
   - name: )
     nameWithType: )
     fullName: )
-- uid: System.EventHandler`1
-  commentId: T:System.EventHandler`1
+- uid: System.Threading.Tasks.Task`1
+  commentId: T:System.Threading.Tasks.Task`1
   isExternal: true
-  name: EventHandler<>
-  nameWithType: EventHandler<>
-  fullName: System.EventHandler<>
-  nameWithType.vb: EventHandler(Of )
-  fullName.vb: System.EventHandler(Of )
-  name.vb: EventHandler(Of )
+  name: Task<>
+  nameWithType: Task<>
+  fullName: System.Threading.Tasks.Task<>
+  nameWithType.vb: Task(Of )
+  fullName.vb: System.Threading.Tasks.Task(Of )
+  name.vb: Task(Of )
   spec.csharp:
-  - uid: System.EventHandler`1
-    name: EventHandler
-    nameWithType: EventHandler
-    fullName: System.EventHandler
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
     isExternal: true
   - name: <
     nameWithType: <
@@ -314,10 +271,10 @@ references:
     nameWithType: '>'
     fullName: '>'
   spec.vb:
-  - uid: System.EventHandler`1
-    name: EventHandler
-    nameWithType: EventHandler
-    fullName: System.EventHandler
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
@@ -325,6 +282,74 @@ references:
   - name: ''
     nameWithType: ''
     fullName: ''
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks
+- uid: Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.ShouldBuildModelAsync*
+  commentId: Overload:Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.ShouldBuildModelAsync
+  isExternal: true
+  name: ShouldBuildModelAsync
+  nameWithType: TrainedTranslationModelBuilder.ShouldBuildModelAsync
+  fullName: Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.ShouldBuildModelAsync
+- uid: Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.BuildModelAsync*
+  commentId: Overload:Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.BuildModelAsync
+  isExternal: true
+  name: BuildModelAsync
+  nameWithType: TrainedTranslationModelBuilder.BuildModelAsync
+  fullName: Sdl.Core.FineGrainedAlignment.TrainedTranslationModelBuilder.BuildModelAsync
+- uid: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStore
+  commentId: T:Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStore
+  parent: Sdl.Core.FineGrainedAlignment
+  isExternal: true
+  name: IChiSquaredTranslationModelStore
+  nameWithType: IChiSquaredTranslationModelStore
+  fullName: Sdl.Core.FineGrainedAlignment.IChiSquaredTranslationModelStore
+- uid: System.Threading.Tasks.Task{Sdl.Core.FineGrainedAlignment.TrainedModelBuildResults}
+  commentId: '!:System.Threading.Tasks.Task{Sdl.Core.FineGrainedAlignment.TrainedModelBuildResults}'
+  definition: System.Threading.Tasks.Task`1
+  name: Task<TrainedModelBuildResults>
+  nameWithType: Task<TrainedModelBuildResults>
+  fullName: System.Threading.Tasks.Task<Sdl.Core.FineGrainedAlignment.TrainedModelBuildResults>
+  nameWithType.vb: Task(Of TrainedModelBuildResults)
+  fullName.vb: System.Threading.Tasks.Task(Of Sdl.Core.FineGrainedAlignment.TrainedModelBuildResults)
+  name.vb: Task(Of TrainedModelBuildResults)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Sdl.Core.FineGrainedAlignment.TrainedModelBuildResults
+    name: TrainedModelBuildResults
+    nameWithType: TrainedModelBuildResults
+    fullName: Sdl.Core.FineGrainedAlignment.TrainedModelBuildResults
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Sdl.Core.FineGrainedAlignment.TrainedModelBuildResults
+    name: TrainedModelBuildResults
+    nameWithType: TrainedModelBuildResults
+    fullName: Sdl.Core.FineGrainedAlignment.TrainedModelBuildResults
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )

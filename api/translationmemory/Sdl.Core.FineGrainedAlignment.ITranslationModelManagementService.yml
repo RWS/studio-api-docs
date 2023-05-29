@@ -5,7 +5,7 @@ items:
   id: ITranslationModelManagementService
   parent: Sdl.Core.FineGrainedAlignment
   children:
-  - Sdl.Core.FineGrainedAlignment.ITranslationModelManagementService.AddModelAsync(System.String,System.Collections.Generic.List{Sdl.Core.FineGrainedAlignment.AlignableCorpusId},System.Globalization.CultureInfo,System.Globalization.CultureInfo,Sdl.Core.FineGrainedAlignment.TranslationModelTypes)
+  - Sdl.Core.FineGrainedAlignment.ITranslationModelManagementService.AddModelAsync(System.String,System.Collections.Generic.List{Sdl.Core.FineGrainedAlignment.AlignableCorpusId},Sdl.Core.Globalization.CultureCode,Sdl.Core.Globalization.CultureCode,Sdl.Core.FineGrainedAlignment.TranslationModelTypes)
   - Sdl.Core.FineGrainedAlignment.ITranslationModelManagementService.BuildModelAsync(Sdl.Core.FineGrainedAlignment.TranslationModelId)
   - Sdl.Core.FineGrainedAlignment.ITranslationModelManagementService.CanBuildModelAsync(Sdl.Core.FineGrainedAlignment.TranslationModelId)
   - Sdl.Core.FineGrainedAlignment.ITranslationModelManagementService.ClearModelAsync(Sdl.Core.FineGrainedAlignment.TranslationModelId)
@@ -38,22 +38,23 @@ items:
   - Sdl.Core.FineGrainedAlignment.ITranslationModelDataService.LoadVocabAsync(Sdl.Core.FineGrainedAlignment.TranslationModelId,System.Boolean,System.Collections.Generic.IEnumerable{System.String})
   - Sdl.Core.FineGrainedAlignment.ITranslationModelDataService.GetModelDetailsAsync(Sdl.Core.FineGrainedAlignment.TranslationModelId)
   - Sdl.Core.FineGrainedAlignment.ITranslationModelDataService.GetAllModelDetailsAsync
+  - Sdl.Core.FineGrainedAlignment.ITranslationModelDataService.TotalVocabSizeAsync(Sdl.Core.FineGrainedAlignment.TranslationModelId,System.Boolean)
   modifiers.csharp:
   - public
   - interface
   modifiers.vb:
   - Public
   - Interface
-- uid: Sdl.Core.FineGrainedAlignment.ITranslationModelManagementService.AddModelAsync(System.String,System.Collections.Generic.List{Sdl.Core.FineGrainedAlignment.AlignableCorpusId},System.Globalization.CultureInfo,System.Globalization.CultureInfo,Sdl.Core.FineGrainedAlignment.TranslationModelTypes)
-  commentId: M:Sdl.Core.FineGrainedAlignment.ITranslationModelManagementService.AddModelAsync(System.String,System.Collections.Generic.List{Sdl.Core.FineGrainedAlignment.AlignableCorpusId},System.Globalization.CultureInfo,System.Globalization.CultureInfo,Sdl.Core.FineGrainedAlignment.TranslationModelTypes)
-  id: AddModelAsync(System.String,System.Collections.Generic.List{Sdl.Core.FineGrainedAlignment.AlignableCorpusId},System.Globalization.CultureInfo,System.Globalization.CultureInfo,Sdl.Core.FineGrainedAlignment.TranslationModelTypes)
+- uid: Sdl.Core.FineGrainedAlignment.ITranslationModelManagementService.AddModelAsync(System.String,System.Collections.Generic.List{Sdl.Core.FineGrainedAlignment.AlignableCorpusId},Sdl.Core.Globalization.CultureCode,Sdl.Core.Globalization.CultureCode,Sdl.Core.FineGrainedAlignment.TranslationModelTypes)
+  commentId: M:Sdl.Core.FineGrainedAlignment.ITranslationModelManagementService.AddModelAsync(System.String,System.Collections.Generic.List{Sdl.Core.FineGrainedAlignment.AlignableCorpusId},Sdl.Core.Globalization.CultureCode,Sdl.Core.Globalization.CultureCode,Sdl.Core.FineGrainedAlignment.TranslationModelTypes)
+  id: AddModelAsync(System.String,System.Collections.Generic.List{Sdl.Core.FineGrainedAlignment.AlignableCorpusId},Sdl.Core.Globalization.CultureCode,Sdl.Core.Globalization.CultureCode,Sdl.Core.FineGrainedAlignment.TranslationModelTypes)
   parent: Sdl.Core.FineGrainedAlignment.ITranslationModelManagementService
   langs:
   - csharp
   - vb
-  name: AddModelAsync(String, List<AlignableCorpusId>, CultureInfo, CultureInfo, TranslationModelTypes)
-  nameWithType: ITranslationModelManagementService.AddModelAsync(String, List<AlignableCorpusId>, CultureInfo, CultureInfo, TranslationModelTypes)
-  fullName: Sdl.Core.FineGrainedAlignment.ITranslationModelManagementService.AddModelAsync(System.String, System.Collections.Generic.List<Sdl.Core.FineGrainedAlignment.AlignableCorpusId>, System.Globalization.CultureInfo, System.Globalization.CultureInfo, Sdl.Core.FineGrainedAlignment.TranslationModelTypes)
+  name: AddModelAsync(String, List<AlignableCorpusId>, CultureCode, CultureCode, TranslationModelTypes)
+  nameWithType: ITranslationModelManagementService.AddModelAsync(String, List<AlignableCorpusId>, CultureCode, CultureCode, TranslationModelTypes)
+  fullName: Sdl.Core.FineGrainedAlignment.ITranslationModelManagementService.AddModelAsync(System.String, System.Collections.Generic.List<Sdl.Core.FineGrainedAlignment.AlignableCorpusId>, Sdl.Core.Globalization.CultureCode, Sdl.Core.Globalization.CultureCode, Sdl.Core.FineGrainedAlignment.TranslationModelTypes)
   type: Method
   source:
     path: Sdl.Core.FineGrainedAlignment
@@ -62,25 +63,25 @@ items:
   - Sdl.Core.FineGrainedAlignment
   namespace: Sdl.Core.FineGrainedAlignment
   syntax:
-    content: Task<TranslationModelId> AddModelAsync(string name, List<AlignableCorpusId> corpora, CultureInfo sourceCulture, CultureInfo targetCulture, TranslationModelTypes modelType)
+    content: Task<TranslationModelId> AddModelAsync(string name, List<AlignableCorpusId> corpora, CultureCode sourceCulture, CultureCode targetCulture, TranslationModelTypes modelType)
     parameters:
     - id: name
       type: System.String
     - id: corpora
       type: System.Collections.Generic.List{Sdl.Core.FineGrainedAlignment.AlignableCorpusId}
     - id: sourceCulture
-      type: System.Globalization.CultureInfo
+      type: Sdl.Core.Globalization.CultureCode
     - id: targetCulture
-      type: System.Globalization.CultureInfo
+      type: Sdl.Core.Globalization.CultureCode
     - id: modelType
       type: Sdl.Core.FineGrainedAlignment.TranslationModelTypes
     return:
       type: System.Threading.Tasks.Task{Sdl.Core.FineGrainedAlignment.TranslationModelId}
-    content.vb: Function AddModelAsync(name As String, corpora As List(Of AlignableCorpusId), sourceCulture As CultureInfo, targetCulture As CultureInfo, modelType As TranslationModelTypes) As Task(Of TranslationModelId)
+    content.vb: Function AddModelAsync(name As String, corpora As List(Of AlignableCorpusId), sourceCulture As CultureCode, targetCulture As CultureCode, modelType As TranslationModelTypes) As Task(Of TranslationModelId)
   overload: Sdl.Core.FineGrainedAlignment.ITranslationModelManagementService.AddModelAsync*
-  nameWithType.vb: ITranslationModelManagementService.AddModelAsync(String, List(Of AlignableCorpusId), CultureInfo, CultureInfo, TranslationModelTypes)
-  fullName.vb: Sdl.Core.FineGrainedAlignment.ITranslationModelManagementService.AddModelAsync(System.String, System.Collections.Generic.List(Of Sdl.Core.FineGrainedAlignment.AlignableCorpusId), System.Globalization.CultureInfo, System.Globalization.CultureInfo, Sdl.Core.FineGrainedAlignment.TranslationModelTypes)
-  name.vb: AddModelAsync(String, List(Of AlignableCorpusId), CultureInfo, CultureInfo, TranslationModelTypes)
+  nameWithType.vb: ITranslationModelManagementService.AddModelAsync(String, List(Of AlignableCorpusId), CultureCode, CultureCode, TranslationModelTypes)
+  fullName.vb: Sdl.Core.FineGrainedAlignment.ITranslationModelManagementService.AddModelAsync(System.String, System.Collections.Generic.List(Of Sdl.Core.FineGrainedAlignment.AlignableCorpusId), Sdl.Core.Globalization.CultureCode, Sdl.Core.Globalization.CultureCode, Sdl.Core.FineGrainedAlignment.TranslationModelTypes)
+  name.vb: AddModelAsync(String, List(Of AlignableCorpusId), CultureCode, CultureCode, TranslationModelTypes)
 - uid: Sdl.Core.FineGrainedAlignment.ITranslationModelManagementService.CanBuildModelAsync(Sdl.Core.FineGrainedAlignment.TranslationModelId)
   commentId: M:Sdl.Core.FineGrainedAlignment.ITranslationModelManagementService.CanBuildModelAsync(Sdl.Core.FineGrainedAlignment.TranslationModelId)
   id: CanBuildModelAsync(Sdl.Core.FineGrainedAlignment.TranslationModelId)
@@ -692,6 +693,63 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+- uid: Sdl.Core.FineGrainedAlignment.ITranslationModelDataService.TotalVocabSizeAsync(Sdl.Core.FineGrainedAlignment.TranslationModelId,System.Boolean)
+  commentId: M:Sdl.Core.FineGrainedAlignment.ITranslationModelDataService.TotalVocabSizeAsync(Sdl.Core.FineGrainedAlignment.TranslationModelId,System.Boolean)
+  parent: Sdl.Core.FineGrainedAlignment.ITranslationModelDataService
+  isExternal: true
+  name: TotalVocabSizeAsync(TranslationModelId, Boolean)
+  nameWithType: ITranslationModelDataService.TotalVocabSizeAsync(TranslationModelId, Boolean)
+  fullName: Sdl.Core.FineGrainedAlignment.ITranslationModelDataService.TotalVocabSizeAsync(Sdl.Core.FineGrainedAlignment.TranslationModelId, System.Boolean)
+  spec.csharp:
+  - uid: Sdl.Core.FineGrainedAlignment.ITranslationModelDataService.TotalVocabSizeAsync(Sdl.Core.FineGrainedAlignment.TranslationModelId,System.Boolean)
+    name: TotalVocabSizeAsync
+    nameWithType: ITranslationModelDataService.TotalVocabSizeAsync
+    fullName: Sdl.Core.FineGrainedAlignment.ITranslationModelDataService.TotalVocabSizeAsync
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Sdl.Core.FineGrainedAlignment.TranslationModelId
+    name: TranslationModelId
+    nameWithType: TranslationModelId
+    fullName: Sdl.Core.FineGrainedAlignment.TranslationModelId
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Sdl.Core.FineGrainedAlignment.ITranslationModelDataService.TotalVocabSizeAsync(Sdl.Core.FineGrainedAlignment.TranslationModelId,System.Boolean)
+    name: TotalVocabSizeAsync
+    nameWithType: ITranslationModelDataService.TotalVocabSizeAsync
+    fullName: Sdl.Core.FineGrainedAlignment.ITranslationModelDataService.TotalVocabSizeAsync
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Sdl.Core.FineGrainedAlignment.TranslationModelId
+    name: TranslationModelId
+    nameWithType: TranslationModelId
+    fullName: Sdl.Core.FineGrainedAlignment.TranslationModelId
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
 - uid: Sdl.Core.FineGrainedAlignment.ITranslationModelDataService
   commentId: T:Sdl.Core.FineGrainedAlignment.ITranslationModelDataService
   parent: Sdl.Core.FineGrainedAlignment
@@ -755,13 +813,11 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: System.Globalization.CultureInfo
-  commentId: T:System.Globalization.CultureInfo
-  parent: System.Globalization
+- uid: Sdl.Core.Globalization.CultureCode
   isExternal: true
-  name: CultureInfo
-  nameWithType: CultureInfo
-  fullName: System.Globalization.CultureInfo
+  name: CultureCode
+  nameWithType: CultureCode
+  fullName: Sdl.Core.Globalization.CultureCode
 - uid: Sdl.Core.FineGrainedAlignment.TranslationModelTypes
   commentId: T:Sdl.Core.FineGrainedAlignment.TranslationModelTypes
   parent: Sdl.Core.FineGrainedAlignment
@@ -857,12 +913,6 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: System.Globalization
-  commentId: N:System.Globalization
-  isExternal: true
-  name: System.Globalization
-  nameWithType: System.Globalization
-  fullName: System.Globalization
 - uid: System.Threading.Tasks.Task`1
   commentId: T:System.Threading.Tasks.Task`1
   isExternal: true

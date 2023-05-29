@@ -5,7 +5,7 @@ items:
   id: ChiSquaredLiftAligner
   parent: Sdl.Core.FineGrainedAlignment
   children:
-  - Sdl.Core.FineGrainedAlignment.ChiSquaredLiftAligner.#ctor(Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModel)
+  - Sdl.Core.FineGrainedAlignment.ChiSquaredLiftAligner.#ctor(Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModel,Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager)
   - Sdl.Core.FineGrainedAlignment.ChiSquaredLiftAligner.AlignInternalAsync(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair},System.Threading.CancellationToken,System.IProgress{System.Int32})
   langs:
   - csharp
@@ -33,6 +33,7 @@ items:
   - Sdl.Core.FineGrainedAlignment.IFineGrainedAligner
   inheritedMembers:
   - Sdl.Core.FineGrainedAlignment.ChiSquaredAligner._model
+  - Sdl.Core.FineGrainedAlignment.ChiSquaredAligner._cultureMetadataManager
   - Sdl.Core.FineGrainedAlignment.ChiSquaredAligner.CanAlign(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair})
   - Sdl.Core.FineGrainedAlignment.ChiSquaredAligner.SetErrorLogger(System.Action{System.Exception,System.String})
   - Sdl.Core.FineGrainedAlignment.ChiSquaredAligner.AlignAsync(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair})
@@ -42,23 +43,22 @@ items:
   - Sdl.Core.FineGrainedAlignment.ChiSquaredAligner.GetBulkMode
   - Sdl.Core.FineGrainedAlignment.ChiSquaredAligner.SetBulkModeAsync(System.Boolean)
   - Sdl.Core.FineGrainedAlignment.ChiSquaredAligner.SupportsSynchronousAlign
-  - Sdl.Core.FineGrainedAlignment.ChiSquaredAligner.Progress
   modifiers.csharp:
   - public
   - class
   modifiers.vb:
   - Public
   - Class
-- uid: Sdl.Core.FineGrainedAlignment.ChiSquaredLiftAligner.#ctor(Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModel)
-  commentId: M:Sdl.Core.FineGrainedAlignment.ChiSquaredLiftAligner.#ctor(Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModel)
-  id: '#ctor(Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModel)'
+- uid: Sdl.Core.FineGrainedAlignment.ChiSquaredLiftAligner.#ctor(Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModel,Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager)
+  commentId: M:Sdl.Core.FineGrainedAlignment.ChiSquaredLiftAligner.#ctor(Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModel,Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager)
+  id: '#ctor(Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModel,Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager)'
   parent: Sdl.Core.FineGrainedAlignment.ChiSquaredLiftAligner
   langs:
   - csharp
   - vb
-  name: ChiSquaredLiftAligner(ChiSquaredTranslationModel)
-  nameWithType: ChiSquaredLiftAligner.ChiSquaredLiftAligner(ChiSquaredTranslationModel)
-  fullName: Sdl.Core.FineGrainedAlignment.ChiSquaredLiftAligner.ChiSquaredLiftAligner(Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModel)
+  name: ChiSquaredLiftAligner(ChiSquaredTranslationModel, ICultureMetadataManager)
+  nameWithType: ChiSquaredLiftAligner.ChiSquaredLiftAligner(ChiSquaredTranslationModel, ICultureMetadataManager)
+  fullName: Sdl.Core.FineGrainedAlignment.ChiSquaredLiftAligner.ChiSquaredLiftAligner(Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModel, Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager)
   type: Constructor
   source:
     path: Sdl.Core.FineGrainedAlignment
@@ -67,11 +67,13 @@ items:
   - Sdl.Core.FineGrainedAlignment
   namespace: Sdl.Core.FineGrainedAlignment
   syntax:
-    content: public ChiSquaredLiftAligner(ChiSquaredTranslationModel model)
+    content: public ChiSquaredLiftAligner(ChiSquaredTranslationModel model, ICultureMetadataManager cultureMetadataManager)
     parameters:
     - id: model
       type: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModel
-    content.vb: Public Sub New(model As ChiSquaredTranslationModel)
+    - id: cultureMetadataManager
+      type: Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager
+    content.vb: Public Sub New(model As ChiSquaredTranslationModel, cultureMetadataManager As ICultureMetadataManager)
   overload: Sdl.Core.FineGrainedAlignment.ChiSquaredLiftAligner.#ctor*
   modifiers.csharp:
   - public
@@ -152,6 +154,13 @@ references:
   name: _model
   nameWithType: ChiSquaredAligner._model
   fullName: Sdl.Core.FineGrainedAlignment.ChiSquaredAligner._model
+- uid: Sdl.Core.FineGrainedAlignment.ChiSquaredAligner._cultureMetadataManager
+  commentId: F:Sdl.Core.FineGrainedAlignment.ChiSquaredAligner._cultureMetadataManager
+  parent: Sdl.Core.FineGrainedAlignment.ChiSquaredAligner
+  isExternal: true
+  name: _cultureMetadataManager
+  nameWithType: ChiSquaredAligner._cultureMetadataManager
+  fullName: Sdl.Core.FineGrainedAlignment.ChiSquaredAligner._cultureMetadataManager
 - uid: Sdl.Core.FineGrainedAlignment.ChiSquaredAligner.CanAlign(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair})
   commentId: M:Sdl.Core.FineGrainedAlignment.ChiSquaredAligner.CanAlign(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair})
   parent: Sdl.Core.FineGrainedAlignment.ChiSquaredAligner
@@ -751,13 +760,6 @@ references:
   name: SupportsSynchronousAlign
   nameWithType: ChiSquaredAligner.SupportsSynchronousAlign
   fullName: Sdl.Core.FineGrainedAlignment.ChiSquaredAligner.SupportsSynchronousAlign
-- uid: Sdl.Core.FineGrainedAlignment.ChiSquaredAligner.Progress
-  commentId: E:Sdl.Core.FineGrainedAlignment.ChiSquaredAligner.Progress
-  parent: Sdl.Core.FineGrainedAlignment.ChiSquaredAligner
-  isExternal: true
-  name: Progress
-  nameWithType: ChiSquaredAligner.Progress
-  fullName: Sdl.Core.FineGrainedAlignment.ChiSquaredAligner.Progress
 - uid: System
   commentId: N:System
   isExternal: true
@@ -777,6 +779,11 @@ references:
   name: ChiSquaredTranslationModel
   nameWithType: ChiSquaredTranslationModel
   fullName: Sdl.Core.FineGrainedAlignment.ChiSquaredTranslationModel
+- uid: Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager
+  isExternal: true
+  name: ICultureMetadataManager
+  nameWithType: ICultureMetadataManager
+  fullName: Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager
 - uid: Sdl.Core.FineGrainedAlignment.ChiSquaredAligner.AlignInternalAsync(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair},System.Threading.CancellationToken,System.IProgress{System.Int32})
   commentId: M:Sdl.Core.FineGrainedAlignment.ChiSquaredAligner.AlignInternalAsync(System.Collections.Generic.IEnumerable{Sdl.Core.FineGrainedAlignment.IAlignableContentPair},System.Threading.CancellationToken,System.IProgress{System.Int32})
   parent: Sdl.Core.FineGrainedAlignment.ChiSquaredAligner

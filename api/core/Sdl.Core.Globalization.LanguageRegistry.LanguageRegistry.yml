@@ -7,7 +7,6 @@ items:
   children:
   - Sdl.Core.Globalization.LanguageRegistry.LanguageRegistry.#ctor
   - Sdl.Core.Globalization.LanguageRegistry.LanguageRegistry.AllLanguages
-  - Sdl.Core.Globalization.LanguageRegistry.LanguageRegistry.Version
   langs:
   - csharp
   - vb
@@ -16,10 +15,10 @@ items:
   fullName: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistry
   type: Class
   source:
-    path: Sdl.Core.Globalization
+    path: Sdl.Core.Globalization.Async
     isExternal: true
   assemblies:
-  - Sdl.Core.Globalization
+  - Sdl.Core.Globalization.Async
   namespace: Sdl.Core.Globalization.LanguageRegistry
   summary: "\nLanguage Registry model\n"
   syntax:
@@ -53,17 +52,17 @@ items:
   fullName: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistry.AllLanguages
   type: Field
   source:
-    path: Sdl.Core.Globalization
+    path: Sdl.Core.Globalization.Async
     isExternal: true
   assemblies:
-  - Sdl.Core.Globalization
+  - Sdl.Core.Globalization.Async
   namespace: Sdl.Core.Globalization.LanguageRegistry
   summary: "\nAll Languages are stored here\n"
   syntax:
-    content: public IList<Language> AllLanguages
+    content: public IList<LanguageBase> AllLanguages
     return:
-      type: System.Collections.Generic.IList{Sdl.Core.Globalization.Language}
-    content.vb: Public AllLanguages As IList(Of Language)
+      type: System.Collections.Generic.IList{Sdl.Core.Globalization.LanguageBase}
+    content.vb: Public AllLanguages As IList(Of LanguageBase)
   modifiers.csharp:
   - public
   modifiers.vb:
@@ -80,10 +79,10 @@ items:
   fullName: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistry.LanguageRegistry()
   type: Constructor
   source:
-    path: Sdl.Core.Globalization
+    path: Sdl.Core.Globalization.Async
     isExternal: true
   assemblies:
-  - Sdl.Core.Globalization
+  - Sdl.Core.Globalization.Async
   namespace: Sdl.Core.Globalization.LanguageRegistry
   syntax:
     content: public LanguageRegistry()
@@ -93,37 +92,6 @@ items:
   - public
   modifiers.vb:
   - Public
-- uid: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistry.Version
-  commentId: P:Sdl.Core.Globalization.LanguageRegistry.LanguageRegistry.Version
-  id: Version
-  parent: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistry
-  langs:
-  - csharp
-  - vb
-  name: Version
-  nameWithType: LanguageRegistry.Version
-  fullName: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistry.Version
-  type: Property
-  source:
-    path: Sdl.Core.Globalization
-    isExternal: true
-  assemblies:
-  - Sdl.Core.Globalization
-  namespace: Sdl.Core.Globalization.LanguageRegistry
-  summary: "\nCurrent version of the Language Registry, in order to be serialized\n"
-  syntax:
-    content: public string Version { get; }
-    parameters: []
-    return:
-      type: System.String
-    content.vb: Public ReadOnly Property Version As String
-  overload: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistry.Version*
-  modifiers.csharp:
-  - public
-  - get
-  modifiers.vb:
-  - Public
-  - ReadOnly
 references:
 - uid: Sdl.Core.Globalization.LanguageRegistry
   commentId: N:Sdl.Core.Globalization.LanguageRegistry
@@ -423,16 +391,16 @@ references:
   name: System
   nameWithType: System
   fullName: System
-- uid: System.Collections.Generic.IList{Sdl.Core.Globalization.Language}
-  commentId: T:System.Collections.Generic.IList{Sdl.Core.Globalization.Language}
+- uid: System.Collections.Generic.IList{Sdl.Core.Globalization.LanguageBase}
+  commentId: T:System.Collections.Generic.IList{Sdl.Core.Globalization.LanguageBase}
   parent: System.Collections.Generic
   definition: System.Collections.Generic.IList`1
-  name: IList<Language>
-  nameWithType: IList<Language>
-  fullName: System.Collections.Generic.IList<Sdl.Core.Globalization.Language>
-  nameWithType.vb: IList(Of Language)
-  fullName.vb: System.Collections.Generic.IList(Of Sdl.Core.Globalization.Language)
-  name.vb: IList(Of Language)
+  name: IList<LanguageBase>
+  nameWithType: IList<LanguageBase>
+  fullName: System.Collections.Generic.IList<Sdl.Core.Globalization.LanguageBase>
+  nameWithType.vb: IList(Of LanguageBase)
+  fullName.vb: System.Collections.Generic.IList(Of Sdl.Core.Globalization.LanguageBase)
+  name.vb: IList(Of LanguageBase)
   spec.csharp:
   - uid: System.Collections.Generic.IList`1
     name: IList
@@ -442,10 +410,10 @@ references:
   - name: <
     nameWithType: <
     fullName: <
-  - uid: Sdl.Core.Globalization.Language
-    name: Language
-    nameWithType: Language
-    fullName: Sdl.Core.Globalization.Language
+  - uid: Sdl.Core.Globalization.LanguageBase
+    name: LanguageBase
+    nameWithType: LanguageBase
+    fullName: Sdl.Core.Globalization.LanguageBase
     isExternal: true
   - name: '>'
     nameWithType: '>'
@@ -459,10 +427,10 @@ references:
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - uid: Sdl.Core.Globalization.Language
-    name: Language
-    nameWithType: Language
-    fullName: Sdl.Core.Globalization.Language
+  - uid: Sdl.Core.Globalization.LanguageBase
+    name: LanguageBase
+    nameWithType: LanguageBase
+    fullName: Sdl.Core.Globalization.LanguageBase
     isExternal: true
   - name: )
     nameWithType: )
@@ -518,16 +486,3 @@ references:
   name: LanguageRegistry
   nameWithType: LanguageRegistry.LanguageRegistry
   fullName: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistry.LanguageRegistry
-- uid: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistry.Version*
-  commentId: Overload:Sdl.Core.Globalization.LanguageRegistry.LanguageRegistry.Version
-  isExternal: true
-  name: Version
-  nameWithType: LanguageRegistry.Version
-  fullName: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistry.Version
-- uid: System.String
-  commentId: T:System.String
-  parent: System
-  isExternal: true
-  name: String
-  nameWithType: String
-  fullName: System.String

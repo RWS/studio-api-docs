@@ -5,19 +5,19 @@ items:
   id: LanguageRegistryApi
   parent: Sdl.Core.Globalization.LanguageRegistry
   children:
-  - Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.DeserializeObject(System.String)
   - Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetAllLanguages
   - Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetAllNeutralLanguages
   - Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetAllRegisteredProducts
   - Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetAllSpecificLanguages
   - Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetAlternativeLanguageCodes(System.String,System.String)
+  - Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetApplicableLanguageMetadata(System.String[])
   - Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetLanguage(System.String)
   - Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetLanguage(System.String,System.String)
+  - Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetLanguageMetadata(System.String[])
+  - Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetLanguages(System.String[])
   - Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetProductSpecificCodeWithFallback(System.String,System.String,System.String,Sdl.Core.Globalization.LanguageRegistry.MappingType@)
   - Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetSupportedLanguages(System.String)
-  - Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.Initialize
   - Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.Instance
-  - Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.SerializeObject
   langs:
   - csharp
   - vb
@@ -33,18 +33,13 @@ items:
   namespace: Sdl.Core.Globalization.LanguageRegistry
   summary: "\nApi providing all the LanguageRegistry operations\n"
   syntax:
-    content: public sealed class LanguageRegistryApi
-    content.vb: Public NotInheritable Class LanguageRegistryApi
+    content: 'public sealed class LanguageRegistryApi : LanguageRegistryApiAsync'
+    content.vb: >-
+      Public NotInheritable Class LanguageRegistryApi
+
+          Inherits LanguageRegistryApiAsync
   inheritance:
   - System.Object
-  inheritedMembers:
-  - System.Object.ToString
-  - System.Object.Equals(System.Object)
-  - System.Object.Equals(System.Object,System.Object)
-  - System.Object.ReferenceEquals(System.Object,System.Object)
-  - System.Object.GetHashCode
-  - System.Object.GetType
-  - System.Object.MemberwiseClone
   modifiers.csharp:
   - public
   - sealed
@@ -53,32 +48,6 @@ items:
   - Public
   - NotInheritable
   - Class
-- uid: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.Initialize
-  commentId: M:Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.Initialize
-  id: Initialize
-  parent: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi
-  langs:
-  - csharp
-  - vb
-  name: Initialize()
-  nameWithType: LanguageRegistryApi.Initialize()
-  fullName: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.Initialize()
-  type: Method
-  source:
-    path: Sdl.Core.Globalization
-    isExternal: true
-  assemblies:
-  - Sdl.Core.Globalization
-  namespace: Sdl.Core.Globalization.LanguageRegistry
-  summary: "\nInitializer of the Registry\n"
-  syntax:
-    content: public void Initialize()
-    content.vb: Public Sub Initialize
-  overload: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.Initialize*
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
 - uid: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetAllLanguages
   commentId: M:Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetAllLanguages
   id: GetAllLanguages
@@ -96,7 +65,7 @@ items:
   assemblies:
   - Sdl.Core.Globalization
   namespace: Sdl.Core.Globalization.LanguageRegistry
-  summary: "\nGets all the languages registered\n"
+  summary: "\nGets all the languages registered, except for the invariant culture\n(language code: empty string) which is not expected in legacy flows\n"
   syntax:
     content: public IList<Language> GetAllLanguages()
     return:
@@ -125,7 +94,7 @@ items:
   assemblies:
   - Sdl.Core.Globalization
   namespace: Sdl.Core.Globalization.LanguageRegistry
-  summary: "\nGets all the neutral languages registered\n"
+  summary: "\nGets all the neutral languages registered, except for the invariant culture\n(language code: empty string) which is not expected in legacy flows\n"
   syntax:
     content: public IList<Language> GetAllNeutralLanguages()
     return:
@@ -154,18 +123,51 @@ items:
   assemblies:
   - Sdl.Core.Globalization
   namespace: Sdl.Core.Globalization.LanguageRegistry
-  summary: "\nGets all the specific languages registered, these are cultures not neutral\n"
+  summary: "\nSee <xref href=\"Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApiAsync.GetAllSpecificLanguagesAsync\" data-throw-if-not-resolved=\"false\"></xref>\n"
   syntax:
     content: public IList<Language> GetAllSpecificLanguages()
     return:
       type: System.Collections.Generic.IList{Sdl.Core.Globalization.Language}
-      description: List with all specific languages
     content.vb: Public Function GetAllSpecificLanguages As IList(Of Language)
   overload: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetAllSpecificLanguages*
   modifiers.csharp:
   - public
   modifiers.vb:
   - Public
+- uid: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetLanguages(System.String[])
+  commentId: M:Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetLanguages(System.String[])
+  id: GetLanguages(System.String[])
+  parent: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi
+  langs:
+  - csharp
+  - vb
+  name: GetLanguages(String[])
+  nameWithType: LanguageRegistryApi.GetLanguages(String[])
+  fullName: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetLanguages(System.String[])
+  type: Method
+  source:
+    path: Sdl.Core.Globalization
+    isExternal: true
+  assemblies:
+  - Sdl.Core.Globalization
+  namespace: Sdl.Core.Globalization.LanguageRegistry
+  summary: "\nGets a selection of languages\n"
+  syntax:
+    content: public IList<Language> GetLanguages(string[] languageCodes)
+    parameters:
+    - id: languageCodes
+      type: System.String[]
+    return:
+      type: System.Collections.Generic.IList{Sdl.Core.Globalization.Language}
+    content.vb: Public Function GetLanguages(languageCodes As String()) As IList(Of Language)
+  overload: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetLanguages*
+  nameWithType.vb: LanguageRegistryApi.GetLanguages(String())
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetLanguages(System.String())
+  name.vb: GetLanguages(String())
 - uid: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetLanguage(System.String)
   commentId: M:Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetLanguage(System.String)
   id: GetLanguage(System.String)
@@ -235,6 +237,74 @@ items:
   - public
   modifiers.vb:
   - Public
+- uid: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetLanguageMetadata(System.String[])
+  commentId: M:Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetLanguageMetadata(System.String[])
+  id: GetLanguageMetadata(System.String[])
+  parent: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi
+  langs:
+  - csharp
+  - vb
+  name: GetLanguageMetadata(String[])
+  nameWithType: LanguageRegistryApi.GetLanguageMetadata(String[])
+  fullName: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetLanguageMetadata(System.String[])
+  type: Method
+  source:
+    path: Sdl.Core.Globalization
+    isExternal: true
+  assemblies:
+  - Sdl.Core.Globalization
+  namespace: Sdl.Core.Globalization.LanguageRegistry
+  summary: "\nGet <xref href=\"Sdl.Core.Globalization.LanguageMetadata.LanguageMetadata\" data-throw-if-not-resolved=\"false\"></xref> for the exact codes \nspecified only, or all available if <code data-dev-comment-type=\"paramref\" class=\"paramref\">languageCodes</code> is null\n"
+  syntax:
+    content: public LanguageMetadata[] GetLanguageMetadata(string[] languageCodes)
+    parameters:
+    - id: languageCodes
+      type: System.String[]
+    return:
+      type: Sdl.Core.Globalization.LanguageMetadata.LanguageMetadata[]
+    content.vb: Public Function GetLanguageMetadata(languageCodes As String()) As LanguageMetadata()
+  overload: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetLanguageMetadata*
+  nameWithType.vb: LanguageRegistryApi.GetLanguageMetadata(String())
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetLanguageMetadata(System.String())
+  name.vb: GetLanguageMetadata(String())
+- uid: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetApplicableLanguageMetadata(System.String[])
+  commentId: M:Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetApplicableLanguageMetadata(System.String[])
+  id: GetApplicableLanguageMetadata(System.String[])
+  parent: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi
+  langs:
+  - csharp
+  - vb
+  name: GetApplicableLanguageMetadata(String[])
+  nameWithType: LanguageRegistryApi.GetApplicableLanguageMetadata(String[])
+  fullName: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetApplicableLanguageMetadata(System.String[])
+  type: Method
+  source:
+    path: Sdl.Core.Globalization
+    isExternal: true
+  assemblies:
+  - Sdl.Core.Globalization
+  namespace: Sdl.Core.Globalization.LanguageRegistry
+  summary: "\nSee <xref href=\"Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApiAsync.GetApplicableLanguageMetadataAsync(System.String%5b%5d)\" data-throw-if-not-resolved=\"false\"></xref>\n"
+  syntax:
+    content: public LanguageMetadata[] GetApplicableLanguageMetadata(string[] languageCodes)
+    parameters:
+    - id: languageCodes
+      type: System.String[]
+    return:
+      type: Sdl.Core.Globalization.LanguageMetadata.LanguageMetadata[]
+    content.vb: Public Function GetApplicableLanguageMetadata(languageCodes As String()) As LanguageMetadata()
+  overload: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetApplicableLanguageMetadata*
+  nameWithType.vb: LanguageRegistryApi.GetApplicableLanguageMetadata(String())
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetApplicableLanguageMetadata(System.String())
+  name.vb: GetApplicableLanguageMetadata(String())
 - uid: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetSupportedLanguages(System.String)
   commentId: M:Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetSupportedLanguages(System.String)
   id: GetSupportedLanguages(System.String)
@@ -314,7 +384,7 @@ items:
   assemblies:
   - Sdl.Core.Globalization
   namespace: Sdl.Core.Globalization.LanguageRegistry
-  summary: "\nGets an alternative language code for the language represented by languageCode and for product represented by productId\n"
+  summary: "\nReturns the languages code(s) used by the product specified for the\nlanguage code specified - which may be the same as the language code specified,\nor may be one or more alternative codes - or an empty list if the language\nspecified is not supported by the product. \n"
   syntax:
     content: public IList<AlternativeLanguageCode> GetAlternativeLanguageCodes(string productId, string languageCode)
     parameters:
@@ -371,63 +441,6 @@ items:
   - Public
   fullName.vb: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetProductSpecificCodeWithFallback(System.String, System.String, System.String, ByRef Sdl.Core.Globalization.LanguageRegistry.MappingType)
   name.vb: GetProductSpecificCodeWithFallback(String, String, String, ByRef MappingType)
-- uid: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.SerializeObject
-  commentId: M:Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.SerializeObject
-  id: SerializeObject
-  parent: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi
-  langs:
-  - csharp
-  - vb
-  name: SerializeObject()
-  nameWithType: LanguageRegistryApi.SerializeObject()
-  fullName: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.SerializeObject()
-  type: Method
-  source:
-    path: Sdl.Core.Globalization
-    isExternal: true
-  assemblies:
-  - Sdl.Core.Globalization
-  namespace: Sdl.Core.Globalization.LanguageRegistry
-  summary: "\nSerialization of the object to JSON\n"
-  syntax:
-    content: public string SerializeObject()
-    return:
-      type: System.String
-    content.vb: Public Function SerializeObject As String
-  overload: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.SerializeObject*
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
-- uid: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.DeserializeObject(System.String)
-  commentId: M:Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.DeserializeObject(System.String)
-  id: DeserializeObject(System.String)
-  parent: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi
-  langs:
-  - csharp
-  - vb
-  name: DeserializeObject(String)
-  nameWithType: LanguageRegistryApi.DeserializeObject(String)
-  fullName: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.DeserializeObject(System.String)
-  type: Method
-  source:
-    path: Sdl.Core.Globalization
-    isExternal: true
-  assemblies:
-  - Sdl.Core.Globalization
-  namespace: Sdl.Core.Globalization.LanguageRegistry
-  summary: "\nDeserialize object from JSON\n"
-  syntax:
-    content: public void DeserializeObject(string value)
-    parameters:
-    - id: value
-      type: System.String
-    content.vb: Public Sub DeserializeObject(value As String)
-  overload: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.DeserializeObject*
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
 - uid: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.Instance
   commentId: P:Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.Instance
   id: Instance
@@ -475,297 +488,12 @@ references:
   name: Object
   nameWithType: Object
   fullName: System.Object
-- uid: System.Object.ToString
-  commentId: M:System.Object.ToString
-  parent: System.Object
-  isExternal: true
-  name: ToString()
-  nameWithType: Object.ToString()
-  fullName: System.Object.ToString()
-  spec.csharp:
-  - uid: System.Object.ToString
-    name: ToString
-    nameWithType: Object.ToString
-    fullName: System.Object.ToString
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: System.Object.ToString
-    name: ToString
-    nameWithType: Object.ToString
-    fullName: System.Object.ToString
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Object.Equals(System.Object)
-  commentId: M:System.Object.Equals(System.Object)
-  parent: System.Object
-  isExternal: true
-  name: Equals(Object)
-  nameWithType: Object.Equals(Object)
-  fullName: System.Object.Equals(System.Object)
-  spec.csharp:
-  - uid: System.Object.Equals(System.Object)
-    name: Equals
-    nameWithType: Object.Equals
-    fullName: System.Object.Equals
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: System.Object.Equals(System.Object)
-    name: Equals
-    nameWithType: Object.Equals
-    fullName: System.Object.Equals
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Object.Equals(System.Object,System.Object)
-  commentId: M:System.Object.Equals(System.Object,System.Object)
-  parent: System.Object
-  isExternal: true
-  name: Equals(Object, Object)
-  nameWithType: Object.Equals(Object, Object)
-  fullName: System.Object.Equals(System.Object, System.Object)
-  spec.csharp:
-  - uid: System.Object.Equals(System.Object,System.Object)
-    name: Equals
-    nameWithType: Object.Equals
-    fullName: System.Object.Equals
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: System.Object.Equals(System.Object,System.Object)
-    name: Equals
-    nameWithType: Object.Equals
-    fullName: System.Object.Equals
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Object.ReferenceEquals(System.Object,System.Object)
-  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
-  parent: System.Object
-  isExternal: true
-  name: ReferenceEquals(Object, Object)
-  nameWithType: Object.ReferenceEquals(Object, Object)
-  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
-  spec.csharp:
-  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
-    name: ReferenceEquals
-    nameWithType: Object.ReferenceEquals
-    fullName: System.Object.ReferenceEquals
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
-    name: ReferenceEquals
-    nameWithType: Object.ReferenceEquals
-    fullName: System.Object.ReferenceEquals
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Object.GetHashCode
-  commentId: M:System.Object.GetHashCode
-  parent: System.Object
-  isExternal: true
-  name: GetHashCode()
-  nameWithType: Object.GetHashCode()
-  fullName: System.Object.GetHashCode()
-  spec.csharp:
-  - uid: System.Object.GetHashCode
-    name: GetHashCode
-    nameWithType: Object.GetHashCode
-    fullName: System.Object.GetHashCode
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: System.Object.GetHashCode
-    name: GetHashCode
-    nameWithType: Object.GetHashCode
-    fullName: System.Object.GetHashCode
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Object.GetType
-  commentId: M:System.Object.GetType
-  parent: System.Object
-  isExternal: true
-  name: GetType()
-  nameWithType: Object.GetType()
-  fullName: System.Object.GetType()
-  spec.csharp:
-  - uid: System.Object.GetType
-    name: GetType
-    nameWithType: Object.GetType
-    fullName: System.Object.GetType
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: System.Object.GetType
-    name: GetType
-    nameWithType: Object.GetType
-    fullName: System.Object.GetType
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Object.MemberwiseClone
-  commentId: M:System.Object.MemberwiseClone
-  parent: System.Object
-  isExternal: true
-  name: MemberwiseClone()
-  nameWithType: Object.MemberwiseClone()
-  fullName: System.Object.MemberwiseClone()
-  spec.csharp:
-  - uid: System.Object.MemberwiseClone
-    name: MemberwiseClone
-    nameWithType: Object.MemberwiseClone
-    fullName: System.Object.MemberwiseClone
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: System.Object.MemberwiseClone
-    name: MemberwiseClone
-    nameWithType: Object.MemberwiseClone
-    fullName: System.Object.MemberwiseClone
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
 - uid: System
   commentId: N:System
   isExternal: true
   name: System
   nameWithType: System
   fullName: System
-- uid: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.Initialize*
-  commentId: Overload:Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.Initialize
-  isExternal: true
-  name: Initialize
-  nameWithType: LanguageRegistryApi.Initialize
-  fullName: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.Initialize
 - uid: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetAllLanguages*
   commentId: Overload:Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetAllLanguages
   isExternal: true
@@ -873,6 +601,38 @@ references:
   name: GetAllSpecificLanguages
   nameWithType: LanguageRegistryApi.GetAllSpecificLanguages
   fullName: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetAllSpecificLanguages
+- uid: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetLanguages*
+  commentId: Overload:Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetLanguages
+  isExternal: true
+  name: GetLanguages
+  nameWithType: LanguageRegistryApi.GetLanguages
+  fullName: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetLanguages
+- uid: System.String[]
+  isExternal: true
+  name: String[]
+  nameWithType: String[]
+  fullName: System.String[]
+  nameWithType.vb: String()
+  fullName.vb: System.String()
+  name.vb: String()
+  spec.csharp:
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: '[]'
+    nameWithType: '[]'
+    fullName: '[]'
+  spec.vb:
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: ()
+    nameWithType: ()
+    fullName: ()
 - uid: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetLanguage*
   commentId: Overload:Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetLanguage
   isExternal: true
@@ -899,6 +659,44 @@ references:
   name: Sdl.Core.Globalization
   nameWithType: Sdl.Core.Globalization
   fullName: Sdl.Core.Globalization
+- uid: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetLanguageMetadata*
+  commentId: Overload:Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetLanguageMetadata
+  isExternal: true
+  name: GetLanguageMetadata
+  nameWithType: LanguageRegistryApi.GetLanguageMetadata
+  fullName: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetLanguageMetadata
+- uid: Sdl.Core.Globalization.LanguageMetadata.LanguageMetadata[]
+  isExternal: true
+  name: LanguageMetadata[]
+  nameWithType: LanguageMetadata[]
+  fullName: Sdl.Core.Globalization.LanguageMetadata.LanguageMetadata[]
+  nameWithType.vb: LanguageMetadata()
+  fullName.vb: Sdl.Core.Globalization.LanguageMetadata.LanguageMetadata()
+  name.vb: LanguageMetadata()
+  spec.csharp:
+  - uid: Sdl.Core.Globalization.LanguageMetadata.LanguageMetadata
+    name: LanguageMetadata
+    nameWithType: LanguageMetadata
+    fullName: Sdl.Core.Globalization.LanguageMetadata.LanguageMetadata
+    isExternal: true
+  - name: '[]'
+    nameWithType: '[]'
+    fullName: '[]'
+  spec.vb:
+  - uid: Sdl.Core.Globalization.LanguageMetadata.LanguageMetadata
+    name: LanguageMetadata
+    nameWithType: LanguageMetadata
+    fullName: Sdl.Core.Globalization.LanguageMetadata.LanguageMetadata
+    isExternal: true
+  - name: ()
+    nameWithType: ()
+    fullName: ()
+- uid: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetApplicableLanguageMetadata*
+  commentId: Overload:Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetApplicableLanguageMetadata
+  isExternal: true
+  name: GetApplicableLanguageMetadata
+  nameWithType: LanguageRegistryApi.GetApplicableLanguageMetadata
+  fullName: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetApplicableLanguageMetadata
 - uid: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetSupportedLanguages*
   commentId: Overload:Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetSupportedLanguages
   isExternal: true
@@ -1018,18 +816,6 @@ references:
   name: MappingType
   nameWithType: MappingType
   fullName: Sdl.Core.Globalization.LanguageRegistry.MappingType
-- uid: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.SerializeObject*
-  commentId: Overload:Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.SerializeObject
-  isExternal: true
-  name: SerializeObject
-  nameWithType: LanguageRegistryApi.SerializeObject
-  fullName: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.SerializeObject
-- uid: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.DeserializeObject*
-  commentId: Overload:Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.DeserializeObject
-  isExternal: true
-  name: DeserializeObject
-  nameWithType: LanguageRegistryApi.DeserializeObject
-  fullName: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.DeserializeObject
 - uid: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.Instance*
   commentId: Overload:Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.Instance
   isExternal: true

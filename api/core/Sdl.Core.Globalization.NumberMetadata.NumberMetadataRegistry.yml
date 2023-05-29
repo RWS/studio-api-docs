@@ -5,8 +5,8 @@ items:
   id: NumberMetadataRegistry
   parent: Sdl.Core.Globalization.NumberMetadata
   children:
-  - Sdl.Core.Globalization.NumberMetadata.NumberMetadataRegistry.#ctor
-  - Sdl.Core.Globalization.NumberMetadata.NumberMetadataRegistry.FindMetadata(System.String)
+  - Sdl.Core.Globalization.NumberMetadata.NumberMetadataRegistry.#ctor(Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager)
+  - Sdl.Core.Globalization.NumberMetadata.NumberMetadataRegistry.FindMetadataAsync(System.String)
   langs:
   - csharp
   - vb
@@ -15,10 +15,10 @@ items:
   fullName: Sdl.Core.Globalization.NumberMetadata.NumberMetadataRegistry
   type: Class
   source:
-    path: Sdl.Core.Globalization
+    path: Sdl.Core.Globalization.Async
     isExternal: true
   assemblies:
-  - Sdl.Core.Globalization
+  - Sdl.Core.Globalization.Async
   namespace: Sdl.Core.Globalization.NumberMetadata
   summary: "\nManages the available <xref href=\"Sdl.Core.Globalization.NumberMetadata.NumberMetadata\" data-throw-if-not-resolved=\"false\"></xref> data \n"
   syntax:
@@ -40,58 +40,62 @@ items:
   modifiers.vb:
   - Public
   - Class
-- uid: Sdl.Core.Globalization.NumberMetadata.NumberMetadataRegistry.FindMetadata(System.String)
-  commentId: M:Sdl.Core.Globalization.NumberMetadata.NumberMetadataRegistry.FindMetadata(System.String)
-  id: FindMetadata(System.String)
+- uid: Sdl.Core.Globalization.NumberMetadata.NumberMetadataRegistry.#ctor(Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager)
+  commentId: M:Sdl.Core.Globalization.NumberMetadata.NumberMetadataRegistry.#ctor(Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager)
+  id: '#ctor(Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager)'
   parent: Sdl.Core.Globalization.NumberMetadata.NumberMetadataRegistry
   langs:
   - csharp
   - vb
-  name: FindMetadata(String)
-  nameWithType: NumberMetadataRegistry.FindMetadata(String)
-  fullName: Sdl.Core.Globalization.NumberMetadata.NumberMetadataRegistry.FindMetadata(System.String)
-  type: Method
+  name: NumberMetadataRegistry(ICultureMetadataManager)
+  nameWithType: NumberMetadataRegistry.NumberMetadataRegistry(ICultureMetadataManager)
+  fullName: Sdl.Core.Globalization.NumberMetadata.NumberMetadataRegistry.NumberMetadataRegistry(Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager)
+  type: Constructor
   source:
-    path: Sdl.Core.Globalization
+    path: Sdl.Core.Globalization.Async
     isExternal: true
   assemblies:
-  - Sdl.Core.Globalization
+  - Sdl.Core.Globalization.Async
   namespace: Sdl.Core.Globalization.NumberMetadata
-  summary: "\nReturns the <xref href=\"Sdl.Core.Globalization.NumberMetadata.NumberMetadata\" data-throw-if-not-resolved=\"false\"></xref> defined\nfor the culture <code data-dev-comment-type=\"paramref\" class=\"paramref\">languageCode</code>, or if none found, for the parent\nculture if available, or default metadata if no match is found.\n"
+  summary: "\n\n"
   syntax:
-    content: public NumberMetadata FindMetadata(string languageCode)
+    content: public NumberMetadataRegistry(ICultureMetadataManager cultureMetadataManager)
     parameters:
-    - id: languageCode
-      type: System.String
-    return:
-      type: Sdl.Core.Globalization.NumberMetadata.NumberMetadata
-    content.vb: Public Function FindMetadata(languageCode As String) As NumberMetadata
-  overload: Sdl.Core.Globalization.NumberMetadata.NumberMetadataRegistry.FindMetadata*
+    - id: cultureMetadataManager
+      type: Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager
+    content.vb: Public Sub New(cultureMetadataManager As ICultureMetadataManager)
+  overload: Sdl.Core.Globalization.NumberMetadata.NumberMetadataRegistry.#ctor*
   modifiers.csharp:
   - public
   modifiers.vb:
   - Public
-- uid: Sdl.Core.Globalization.NumberMetadata.NumberMetadataRegistry.#ctor
-  commentId: M:Sdl.Core.Globalization.NumberMetadata.NumberMetadataRegistry.#ctor
-  id: '#ctor'
+- uid: Sdl.Core.Globalization.NumberMetadata.NumberMetadataRegistry.FindMetadataAsync(System.String)
+  commentId: M:Sdl.Core.Globalization.NumberMetadata.NumberMetadataRegistry.FindMetadataAsync(System.String)
+  id: FindMetadataAsync(System.String)
   parent: Sdl.Core.Globalization.NumberMetadata.NumberMetadataRegistry
   langs:
   - csharp
   - vb
-  name: NumberMetadataRegistry()
-  nameWithType: NumberMetadataRegistry.NumberMetadataRegistry()
-  fullName: Sdl.Core.Globalization.NumberMetadata.NumberMetadataRegistry.NumberMetadataRegistry()
-  type: Constructor
+  name: FindMetadataAsync(String)
+  nameWithType: NumberMetadataRegistry.FindMetadataAsync(String)
+  fullName: Sdl.Core.Globalization.NumberMetadata.NumberMetadataRegistry.FindMetadataAsync(System.String)
+  type: Method
   source:
-    path: Sdl.Core.Globalization
+    path: Sdl.Core.Globalization.Async
     isExternal: true
   assemblies:
-  - Sdl.Core.Globalization
+  - Sdl.Core.Globalization.Async
   namespace: Sdl.Core.Globalization.NumberMetadata
+  summary: "\nReturns the <xref href=\"Sdl.Core.Globalization.NumberMetadata.NumberMetadata\" data-throw-if-not-resolved=\"false\"></xref> defined\nfor the culture <code data-dev-comment-type=\"paramref\" class=\"paramref\">languageCode</code>, or if none found, for the parent\nculture if available, or default metadata if no match is found.\n"
   syntax:
-    content: public NumberMetadataRegistry()
-    content.vb: Public Sub New
-  overload: Sdl.Core.Globalization.NumberMetadata.NumberMetadataRegistry.#ctor*
+    content: public Task<NumberMetadata> FindMetadataAsync(string languageCode)
+    parameters:
+    - id: languageCode
+      type: System.String
+    return:
+      type: System.Threading.Tasks.Task{Sdl.Core.Globalization.NumberMetadata.NumberMetadata}
+    content.vb: Public Function FindMetadataAsync(languageCode As String) As Task(Of NumberMetadata)
+  overload: Sdl.Core.Globalization.NumberMetadata.NumberMetadataRegistry.FindMetadataAsync*
   modifiers.csharp:
   - public
   modifiers.vb:
@@ -395,12 +399,31 @@ references:
   name: System
   nameWithType: System
   fullName: System
-- uid: Sdl.Core.Globalization.NumberMetadata.NumberMetadataRegistry.FindMetadata*
-  commentId: Overload:Sdl.Core.Globalization.NumberMetadata.NumberMetadataRegistry.FindMetadata
+- uid: Sdl.Core.Globalization.NumberMetadata.NumberMetadataRegistry.#ctor*
+  commentId: Overload:Sdl.Core.Globalization.NumberMetadata.NumberMetadataRegistry.#ctor
   isExternal: true
-  name: FindMetadata
-  nameWithType: NumberMetadataRegistry.FindMetadata
-  fullName: Sdl.Core.Globalization.NumberMetadata.NumberMetadataRegistry.FindMetadata
+  name: NumberMetadataRegistry
+  nameWithType: NumberMetadataRegistry.NumberMetadataRegistry
+  fullName: Sdl.Core.Globalization.NumberMetadata.NumberMetadataRegistry.NumberMetadataRegistry
+- uid: Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager
+  commentId: T:Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager
+  parent: Sdl.Core.Globalization.CultureMetadataManager
+  isExternal: true
+  name: ICultureMetadataManager
+  nameWithType: ICultureMetadataManager
+  fullName: Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager
+- uid: Sdl.Core.Globalization.CultureMetadataManager
+  commentId: N:Sdl.Core.Globalization.CultureMetadataManager
+  isExternal: true
+  name: Sdl.Core.Globalization.CultureMetadataManager
+  nameWithType: Sdl.Core.Globalization.CultureMetadataManager
+  fullName: Sdl.Core.Globalization.CultureMetadataManager
+- uid: Sdl.Core.Globalization.NumberMetadata.NumberMetadataRegistry.FindMetadataAsync*
+  commentId: Overload:Sdl.Core.Globalization.NumberMetadata.NumberMetadataRegistry.FindMetadataAsync
+  isExternal: true
+  name: FindMetadataAsync
+  nameWithType: NumberMetadataRegistry.FindMetadataAsync
+  fullName: Sdl.Core.Globalization.NumberMetadata.NumberMetadataRegistry.FindMetadataAsync
 - uid: System.String
   commentId: T:System.String
   parent: System
@@ -408,16 +431,92 @@ references:
   name: String
   nameWithType: String
   fullName: System.String
-- uid: Sdl.Core.Globalization.NumberMetadata.NumberMetadata
-  commentId: T:Sdl.Core.Globalization.NumberMetadata.NumberMetadata
-  parent: Sdl.Core.Globalization.NumberMetadata
+- uid: System.Threading.Tasks.Task{Sdl.Core.Globalization.NumberMetadata.NumberMetadata}
+  commentId: T:System.Threading.Tasks.Task{Sdl.Core.Globalization.NumberMetadata.NumberMetadata}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  name: Task<NumberMetadata>
+  nameWithType: Task<NumberMetadata>
+  fullName: System.Threading.Tasks.Task<Sdl.Core.Globalization.NumberMetadata.NumberMetadata>
+  nameWithType.vb: Task(Of NumberMetadata)
+  fullName.vb: System.Threading.Tasks.Task(Of Sdl.Core.Globalization.NumberMetadata.NumberMetadata)
+  name.vb: Task(Of NumberMetadata)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Sdl.Core.Globalization.NumberMetadata.NumberMetadata
+    name: NumberMetadata
+    nameWithType: NumberMetadata
+    fullName: Sdl.Core.Globalization.NumberMetadata.NumberMetadata
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Sdl.Core.Globalization.NumberMetadata.NumberMetadata
+    name: NumberMetadata
+    nameWithType: NumberMetadata
+    fullName: Sdl.Core.Globalization.NumberMetadata.NumberMetadata
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Threading.Tasks.Task`1
+  commentId: T:System.Threading.Tasks.Task`1
   isExternal: true
-  name: NumberMetadata
-  nameWithType: NumberMetadata
-  fullName: Sdl.Core.Globalization.NumberMetadata.NumberMetadata
-- uid: Sdl.Core.Globalization.NumberMetadata.NumberMetadataRegistry.#ctor*
-  commentId: Overload:Sdl.Core.Globalization.NumberMetadata.NumberMetadataRegistry.#ctor
+  name: Task<TResult>
+  nameWithType: Task<TResult>
+  fullName: System.Threading.Tasks.Task<TResult>
+  nameWithType.vb: Task(Of TResult)
+  fullName.vb: System.Threading.Tasks.Task(Of TResult)
+  name.vb: Task(Of TResult)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
   isExternal: true
-  name: NumberMetadataRegistry
-  nameWithType: NumberMetadataRegistry.NumberMetadataRegistry
-  fullName: Sdl.Core.Globalization.NumberMetadata.NumberMetadataRegistry.NumberMetadataRegistry
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks
