@@ -23,8 +23,6 @@ items:
   assemblies:
   - Sdl.Core.Globalization
   namespace: Sdl.Core.Globalization
-  summary: "\nData type used for strings in Spring configuration files that may need to be localized.\n"
-  remarks: "\n<p>\nIf this object is constructed from a plain text string it works like a normal <code>System.String</code>.\n</p>\n<p>\nTo reference a resource ID, create this object from a resource identifier string, in the following format:\n<code>resource://[AssemblyPath\\AssemblyName]/[resource ID]</code>, where <code>[AssemblyPath\\AssemblyName]</code>\nis the name of the base assembly (with optional path) that the string resource is located in and\n<code>[resource ID]</code> is the ID of the string resource from which the localized string should be loaded.\n</p>\n<p>\nThe <code>ResourceManager</code> is used to load the string from the assembly, so a localized\nversion of the string (depending on the current thread locale) should be returned if available.\n</p>\n"
   syntax:
     content: public class LocalizableString
     content.vb: Public Class LocalizableString
@@ -60,14 +58,11 @@ items:
   assemblies:
   - Sdl.Core.Globalization
   namespace: Sdl.Core.Globalization
-  summary: "\nCreate from a literal string or resource identifier. \n"
-  remarks: "\n<p>\nIf the content starts with &quot;assembly://&quot; it is deemed to be a resource identifier.\n</p>\n<p>\nResource identifiers use the following format:\n<code>assembly://[AssemblyPath\\AssemblyName]/[resource ID]</code>, where <code>[AssemblyPath\\AssemblyName]</code>\nis the name of the base assembly that the string resource is located in (with an optional path, \nspecify this only for assemblies not located in the default application folder) and \n<code>[resource ID]</code> is the ID of the string resource from which the localized string should be loaded.\n</p>\n"
   syntax:
     content: public LocalizableString(string content)
     parameters:
     - id: content
       type: System.String
-      description: the literal string to use in the construction
     content.vb: Public Sub New(content As String)
   overload: Sdl.Core.Globalization.LocalizableString.#ctor*
   modifiers.csharp:
@@ -91,12 +86,10 @@ items:
   assemblies:
   - Sdl.Core.Globalization
   namespace: Sdl.Core.Globalization
-  summary: "\nReturns the localized text this string represents.\n"
   syntax:
     content: public override string ToString()
     return:
       type: System.String
-      description: The localized text this string represents.
     content.vb: Public Overrides Function ToString As String
   overridden: System.Object.ToString
   overload: Sdl.Core.Globalization.LocalizableString.ToString*
@@ -123,8 +116,6 @@ items:
   assemblies:
   - Sdl.Core.Globalization
   namespace: Sdl.Core.Globalization
-  summary: "\nReturns the localized text this string represents.\n"
-  remarks: Throws exceptions if using a resource ID and the assembly or string cannot be loaded.
   syntax:
     content: public string Content { get; }
     parameters: []
@@ -155,7 +146,6 @@ items:
   assemblies:
   - Sdl.Core.Globalization
   namespace: Sdl.Core.Globalization
-  summary: "\nReturns the string or resource ID this localizable string uses to get the localized text.\n"
   syntax:
     content: public string RawContent { get; }
     parameters: []
@@ -186,7 +176,6 @@ items:
   assemblies:
   - Sdl.Core.Globalization
   namespace: Sdl.Core.Globalization
-  summary: "\n<code>true</code> if the localizable text is retrieved from an assembly.\n"
   syntax:
     content: public bool IsResource { get; }
     parameters: []

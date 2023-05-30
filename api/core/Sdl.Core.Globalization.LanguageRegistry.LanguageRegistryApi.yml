@@ -11,8 +11,11 @@ items:
   - Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetAllSpecificLanguages
   - Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetAlternativeLanguageCodes(System.String,System.String)
   - Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetApplicableLanguageMetadata(System.String[])
+  - Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetApplicableLanguageMetadata(System.String[])
   - Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetLanguage(System.String)
   - Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetLanguage(System.String,System.String)
+  - Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetLanguageMetadata(System.String[])
+  - Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetLanguages(System.String[])
   - Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetLanguageMetadata(System.String[])
   - Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetLanguages(System.String[])
   - Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetProductSpecificCodeWithFallback(System.String,System.String,System.String,Sdl.Core.Globalization.LanguageRegistry.MappingType@)
@@ -31,7 +34,6 @@ items:
   assemblies:
   - Sdl.Core.Globalization
   namespace: Sdl.Core.Globalization.LanguageRegistry
-  summary: "\nApi providing all the LanguageRegistry operations\n"
   syntax:
     content: 'public sealed class LanguageRegistryApi : LanguageRegistryApiAsync'
     content.vb: >-
@@ -70,7 +72,6 @@ items:
     content: public IList<Language> GetAllLanguages()
     return:
       type: System.Collections.Generic.IList{Sdl.Core.Globalization.Language}
-      description: List with all available languages
     content.vb: Public Function GetAllLanguages As IList(Of Language)
   overload: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetAllLanguages*
   modifiers.csharp:
@@ -99,7 +100,6 @@ items:
     content: public IList<Language> GetAllNeutralLanguages()
     return:
       type: System.Collections.Generic.IList{Sdl.Core.Globalization.Language}
-      description: List with all the neutral languages
     content.vb: Public Function GetAllNeutralLanguages As IList(Of Language)
   overload: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetAllNeutralLanguages*
   modifiers.csharp:
@@ -185,16 +185,13 @@ items:
   assemblies:
   - Sdl.Core.Globalization
   namespace: Sdl.Core.Globalization.LanguageRegistry
-  summary: "\nGets a language based on a code\n"
   syntax:
     content: public Language GetLanguage(string languageCode)
     parameters:
     - id: languageCode
       type: System.String
-      description: Searched code
     return:
       type: Sdl.Core.Globalization.Language
-      description: Language having the languageCode Code/null if such language is not found
     content.vb: Public Function GetLanguage(languageCode As String) As Language
   overload: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetLanguage*
   modifiers.csharp:
@@ -218,19 +215,15 @@ items:
   assemblies:
   - Sdl.Core.Globalization
   namespace: Sdl.Core.Globalization.LanguageRegistry
-  summary: "\nGets a language based on an alternative code and product ID\n"
   syntax:
     content: public Language GetLanguage(string alternativeLanguageCode, string productId)
     parameters:
     - id: alternativeLanguageCode
       type: System.String
-      description: Searched alternative code
     - id: productId
       type: System.String
-      description: Searched product ID
     return:
       type: Sdl.Core.Globalization.Language
-      description: Language that has the given alternative code for the given product
     content.vb: Public Function GetLanguage(alternativeLanguageCode As String, productId As String) As Language
   overload: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetLanguage*
   modifiers.csharp:
@@ -322,16 +315,13 @@ items:
   assemblies:
   - Sdl.Core.Globalization
   namespace: Sdl.Core.Globalization.LanguageRegistry
-  summary: "\nGets all supported languages for a given product\n"
   syntax:
     content: public IList<Language> GetSupportedLanguages(string productId)
     parameters:
     - id: productId
       type: System.String
-      description: Id of the searched product
     return:
       type: System.Collections.Generic.IList{Sdl.Core.Globalization.Language}
-      description: Array of all supported languages for a product
     content.vb: Public Function GetSupportedLanguages(productId As String) As IList(Of Language)
   overload: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetSupportedLanguages*
   modifiers.csharp:
@@ -355,12 +345,10 @@ items:
   assemblies:
   - Sdl.Core.Globalization
   namespace: Sdl.Core.Globalization.LanguageRegistry
-  summary: "\nPresents a list of all the products supported by the model\n"
   syntax:
     content: public IList<Product> GetAllRegisteredProducts()
     return:
       type: System.Collections.Generic.IList{Sdl.Core.Globalization.LanguageRegistry.Product}
-      description: list of Product objects
     content.vb: Public Function GetAllRegisteredProducts As IList(Of Product)
   overload: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetAllRegisteredProducts*
   modifiers.csharp:
@@ -394,7 +382,6 @@ items:
       type: System.String
     return:
       type: System.Collections.Generic.IList{Sdl.Core.Globalization.LanguageRegistry.AlternativeLanguageCode}
-      description: string that represents the alternative language code for the language and the product given
     content.vb: Public Function GetAlternativeLanguageCodes(productId As String, languageCode As String) As IList(Of AlternativeLanguageCode)
   overload: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetAlternativeLanguageCodes*
   modifiers.csharp:
@@ -418,7 +405,6 @@ items:
   assemblies:
   - Sdl.Core.Globalization
   namespace: Sdl.Core.Globalization.LanguageRegistry
-  summary: "\nReturns the best available mapping from sourceProduct to targetProduct for sourceLanguageCode.\nIf sourceLanguage doesn&apos;t have a mapping, it falls back to its parent and the parent&apos;s defaultSpecificLanguage\n"
   syntax:
     content: public IList<AlternativeLanguageCode> GetProductSpecificCodeWithFallback(string sourceProductId, string sourceLanguageCode, string targetProductId, out MappingType mappingType)
     parameters:
@@ -458,7 +444,6 @@ items:
   assemblies:
   - Sdl.Core.Globalization
   namespace: Sdl.Core.Globalization.LanguageRegistry
-  summary: "\nReturns an instance of the LanguageRegistryApi singleton\n"
   syntax:
     content: public static LanguageRegistryApi Instance { get; }
     parameters: []
@@ -633,6 +618,38 @@ references:
   - name: ()
     nameWithType: ()
     fullName: ()
+- uid: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetLanguages*
+  commentId: Overload:Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetLanguages
+  isExternal: true
+  name: GetLanguages
+  nameWithType: LanguageRegistryApi.GetLanguages
+  fullName: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetLanguages
+- uid: System.String[]
+  isExternal: true
+  name: String[]
+  nameWithType: String[]
+  fullName: System.String[]
+  nameWithType.vb: String()
+  fullName.vb: System.String()
+  name.vb: String()
+  spec.csharp:
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: '[]'
+    nameWithType: '[]'
+    fullName: '[]'
+  spec.vb:
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: ()
+    nameWithType: ()
+    fullName: ()
 - uid: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetLanguage*
   commentId: Overload:Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetLanguage
   isExternal: true
@@ -659,6 +676,44 @@ references:
   name: Sdl.Core.Globalization
   nameWithType: Sdl.Core.Globalization
   fullName: Sdl.Core.Globalization
+- uid: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetLanguageMetadata*
+  commentId: Overload:Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetLanguageMetadata
+  isExternal: true
+  name: GetLanguageMetadata
+  nameWithType: LanguageRegistryApi.GetLanguageMetadata
+  fullName: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetLanguageMetadata
+- uid: Sdl.Core.Globalization.LanguageMetadata.LanguageMetadata[]
+  isExternal: true
+  name: LanguageMetadata[]
+  nameWithType: LanguageMetadata[]
+  fullName: Sdl.Core.Globalization.LanguageMetadata.LanguageMetadata[]
+  nameWithType.vb: LanguageMetadata()
+  fullName.vb: Sdl.Core.Globalization.LanguageMetadata.LanguageMetadata()
+  name.vb: LanguageMetadata()
+  spec.csharp:
+  - uid: Sdl.Core.Globalization.LanguageMetadata.LanguageMetadata
+    name: LanguageMetadata
+    nameWithType: LanguageMetadata
+    fullName: Sdl.Core.Globalization.LanguageMetadata.LanguageMetadata
+    isExternal: true
+  - name: '[]'
+    nameWithType: '[]'
+    fullName: '[]'
+  spec.vb:
+  - uid: Sdl.Core.Globalization.LanguageMetadata.LanguageMetadata
+    name: LanguageMetadata
+    nameWithType: LanguageMetadata
+    fullName: Sdl.Core.Globalization.LanguageMetadata.LanguageMetadata
+    isExternal: true
+  - name: ()
+    nameWithType: ()
+    fullName: ()
+- uid: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetApplicableLanguageMetadata*
+  commentId: Overload:Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetApplicableLanguageMetadata
+  isExternal: true
+  name: GetApplicableLanguageMetadata
+  nameWithType: LanguageRegistryApi.GetApplicableLanguageMetadata
+  fullName: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetApplicableLanguageMetadata
 - uid: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetLanguageMetadata*
   commentId: Overload:Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetLanguageMetadata
   isExternal: true
@@ -810,8 +865,7 @@ references:
   nameWithType: LanguageRegistryApi.GetProductSpecificCodeWithFallback
   fullName: Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi.GetProductSpecificCodeWithFallback
 - uid: Sdl.Core.Globalization.LanguageRegistry.MappingType
-  commentId: T:Sdl.Core.Globalization.LanguageRegistry.MappingType
-  parent: Sdl.Core.Globalization.LanguageRegistry
+  commentId: '!:Sdl.Core.Globalization.LanguageRegistry.MappingType'
   isExternal: true
   name: MappingType
   nameWithType: MappingType

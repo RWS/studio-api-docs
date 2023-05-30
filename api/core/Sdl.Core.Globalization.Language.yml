@@ -39,14 +39,11 @@ items:
   assemblies:
   - Sdl.Core.Globalization
   namespace: Sdl.Core.Globalization
-  summary: "\nLegacy implementation of <xref href=\"Sdl.Core.Globalization.LanguageBase\" data-throw-if-not-resolved=\"false\"></xref> exposing sync methods and other deprecated functionality.\n"
   syntax:
     content: 'public class Language : LanguageBase, ICloneable, IDeserializationCallback'
     content.vb: >-
       Public Class Language
-
           Inherits LanguageBase
-
           Implements ICloneable, IDeserializationCallback
   inheritance:
   - System.Object
@@ -76,7 +73,6 @@ items:
   assemblies:
   - Sdl.Core.Globalization
   namespace: Sdl.Core.Globalization
-  summary: "\nConstruction from an existing CultureInfo instance.\n"
   syntax:
     content: >-
       [Obsolete("Use GetLanguageAsync")]
@@ -117,8 +113,6 @@ items:
   assemblies:
   - Sdl.Core.Globalization
   namespace: Sdl.Core.Globalization
-  summary: "\nConstruction from an ISO abbreviation string.\n\nof the string.\n"
-  remarks: "\nThis constructor is intended mainly for serialization purposes. \nUnder normal circumstances language objects should be created from <xref href=\"Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApi\" data-throw-if-not-resolved=\"false\"></xref>\n"
   syntax:
     content: public Language(string isoAbbreviation)
     parameters:
@@ -147,7 +141,6 @@ items:
   assemblies:
   - Sdl.Core.Globalization
   namespace: Sdl.Core.Globalization
-  summary: "\nDefault constructor, creates an invalid language object.\n"
   syntax:
     content: public Language()
     content.vb: Public Sub New
@@ -173,7 +166,6 @@ items:
   assemblies:
   - Sdl.Core.Globalization
   namespace: Sdl.Core.Globalization
-  summary: "\nCovnerts <xref href=\"Sdl.Core.Globalization.LanguageBase\" data-throw-if-not-resolved=\"false\"></xref> to legacy <xref href=\"Sdl.Core.Globalization.Language\" data-throw-if-not-resolved=\"false\"></xref> object\n"
   syntax:
     content: public static Language ToLanguage(LanguageBase l)
     parameters:
@@ -206,19 +198,15 @@ items:
   assemblies:
   - Sdl.Core.Globalization
   namespace: Sdl.Core.Globalization
-  summary: "\nReturns a name of the language that may be displayed to users.\n"
   syntax:
     content: public string GetDisplayName(LanguageFormat languageFormat, bool includeCountry)
     parameters:
     - id: languageFormat
       type: Sdl.Core.Globalization.LanguageFormat
-      description: the TeamWorks LanguageFormat
     - id: includeCountry
       type: System.Boolean
-      description: whether to include the country in the returned name
     return:
       type: System.String
-      description: A name of the language that may be displayed to users.
     content.vb: Public Function GetDisplayName(languageFormat As LanguageFormat, includeCountry As Boolean) As String
   overload: Sdl.Core.Globalization.Language.GetDisplayName*
   modifiers.csharp:
@@ -281,7 +269,6 @@ items:
   assemblies:
   - Sdl.Core.Globalization
   namespace: Sdl.Core.Globalization
-  summary: "\nCreates a copy of the object\n"
   syntax:
     content: public object Clone()
     return:
@@ -311,7 +298,6 @@ items:
   assemblies:
   - Sdl.Core.Globalization
   namespace: Sdl.Core.Globalization
-  summary: "\nPerform required post-deserialization steps\n"
   syntax:
     content: public void OnDeserialization(object sender)
     parameters:
@@ -342,7 +328,6 @@ items:
   assemblies:
   - Sdl.Core.Globalization
   namespace: Sdl.Core.Globalization
-  summary: "\nGets an alternative language code for the language, based on the product ID\n"
   syntax:
     content: >-
       [Obsolete("Obsolete, use  LanguageRegistryApi.GetAlternativeLanguageCodes")]
@@ -353,7 +338,6 @@ items:
       type: System.String
     return:
       type: System.String[]
-      description: string that represents the alternative language code for the language and the product given
     content.vb: >-
       <Obsolete("Obsolete, use  LanguageRegistryApi.GetAlternativeLanguageCodes")>
 
@@ -431,7 +415,6 @@ items:
   assemblies:
   - Sdl.Core.Globalization
   namespace: Sdl.Core.Globalization
-  summary: "\nThe CultureInfo for this language.\n\nIf this language is not supported on this machine an \n<xref href=\"Sdl.Core.Globalization.UnsupportedLanguageException\" data-throw-if-not-resolved=\"false\"></xref> is thrown.\n\nIf the ISO abbreviation is null this property returns null.\n"
   syntax:
     content: public CultureInfo CultureInfo { get; }
     parameters: []
@@ -439,9 +422,6 @@ items:
       type: System.Globalization.CultureInfo
     content.vb: Public ReadOnly Property CultureInfo As CultureInfo
   overload: Sdl.Core.Globalization.Language.CultureInfo*
-  exceptions:
-  - type: Sdl.Core.Globalization.UnsupportedLanguageException
-    commentId: T:Sdl.Core.Globalization.UnsupportedLanguageException
   modifiers.csharp:
   - public
   - get
@@ -465,7 +445,6 @@ items:
   assemblies:
   - Sdl.Core.Globalization
   namespace: Sdl.Core.Globalization
-  summary: "\n<code>true</code> if the language is valid and supported on this system.\n"
   syntax:
     content: public bool IsSupported { get; }
     parameters: []
@@ -496,7 +475,6 @@ items:
   assemblies:
   - Sdl.Core.Globalization
   namespace: Sdl.Core.Globalization
-  summary: "\nList of the regional variants of the language\n"
   syntax:
     content: public IList<Language> RegionalVariants { get; }
     parameters: []
@@ -527,7 +505,6 @@ items:
   assemblies:
   - Sdl.Core.Globalization
   namespace: Sdl.Core.Globalization
-  summary: "\nParent language\n"
   syntax:
     content: public Language ParentLanguage { get; }
     parameters: []
@@ -558,7 +535,6 @@ items:
   assemblies:
   - Sdl.Core.Globalization
   namespace: Sdl.Core.Globalization
-  summary: "\nParent language\n"
   syntax:
     content: public Language DefaultSpecificLanguage { get; set; }
     parameters: []
@@ -589,7 +565,6 @@ items:
   assemblies:
   - Sdl.Core.Globalization
   namespace: Sdl.Core.Globalization
-  summary: "\nLdml Data for the language\n"
   syntax:
     content: public string LdmlData { get; }
     parameters: []
@@ -620,7 +595,6 @@ items:
   assemblies:
   - Sdl.Core.Globalization
   namespace: Sdl.Core.Globalization
-  summary: "\nReturns the name of the language as it should be displayed to users.\n"
   syntax:
     content: public string DisplayName { get; }
     parameters: []
@@ -651,7 +625,6 @@ items:
   assemblies:
   - Sdl.Core.Globalization
   namespace: Sdl.Core.Globalization
-  summary: "\nISO code of the default specific culture, used mostly in serialization/deserialization\n"
   syntax:
     content: >-
       [Obsolete("Obsolete, use DefaultSpecificLanguageCode")]
@@ -694,7 +667,6 @@ items:
   assemblies:
   - Sdl.Core.Globalization
   namespace: Sdl.Core.Globalization
-  summary: "\nDefault specific language\n"
   syntax:
     content: >-
       [Obsolete("Obsolete, use DefaultSpecificLanguage")]
@@ -737,7 +709,6 @@ items:
   assemblies:
   - Sdl.Core.Globalization
   namespace: Sdl.Core.Globalization
-  summary: "\nOBSOLETE,use ParentLanguageCode \n"
   syntax:
     content: >-
       [Obsolete("Obsolete, use  ParentLanguageCode")]
@@ -879,8 +850,7 @@ references:
   nameWithType: Language.ToLanguage
   fullName: Sdl.Core.Globalization.Language.ToLanguage
 - uid: Sdl.Core.Globalization.LanguageBase
-  commentId: T:Sdl.Core.Globalization.LanguageBase
-  parent: Sdl.Core.Globalization
+  commentId: '!:Sdl.Core.Globalization.LanguageBase'
   isExternal: true
   name: LanguageBase
   nameWithType: LanguageBase
@@ -899,8 +869,6 @@ references:
   nameWithType: Language.GetDisplayName
   fullName: Sdl.Core.Globalization.Language.GetDisplayName
 - uid: Sdl.Core.Globalization.LanguageFormat
-  commentId: T:Sdl.Core.Globalization.LanguageFormat
-  parent: Sdl.Core.Globalization
   isExternal: true
   name: LanguageFormat
   nameWithType: LanguageFormat
@@ -1065,12 +1033,6 @@ references:
   name: CultureInfo
   nameWithType: Language.CultureInfo
   fullName: Sdl.Core.Globalization.Language.CultureInfo
-- uid: Sdl.Core.Globalization.UnsupportedLanguageException
-  commentId: T:Sdl.Core.Globalization.UnsupportedLanguageException
-  isExternal: true
-  name: UnsupportedLanguageException
-  nameWithType: UnsupportedLanguageException
-  fullName: Sdl.Core.Globalization.UnsupportedLanguageException
 - uid: Sdl.Core.Globalization.Language.IsSupported*
   commentId: Overload:Sdl.Core.Globalization.Language.IsSupported
   isExternal: true
