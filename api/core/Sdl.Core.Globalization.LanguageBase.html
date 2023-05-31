@@ -1,0 +1,1182 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class LanguageBase
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class LanguageBase
+   ">
+    <meta name="generator" content="docfx 2.59.3.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../../apiconcepts/toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Sdl.Core.Globalization.LanguageBase">
+  
+  
+  <h1 id="Sdl_Core_Globalization_LanguageBase" data-uid="Sdl.Core.Globalization.LanguageBase" class="text-break">Class LanguageBase
+  </h1>
+  <div class="markdown level0 summary"><p>Represents a language in the sense of a <span class="xref">System.Globalization.CultureInfo</span>
+object, using a mechanism that allows basic manipulations and adds metadata not
+available in <span class="xref">System.Globalization.CultureInfo</span> such as
+<a class="xref" href="Sdl.Core.Globalization.LanguageBase.html#Sdl_Core_Globalization_LanguageBase_UseBlankAsWordSeparator">UseBlankAsWordSeparator</a>.</p>
+
+<p>This class was originally introduced as an alternative to the <span class="xref">System.Globalization.CultureInfo</span> class
+in the .NET Framework so that when working with files we could convert
+the file on a system that supported a particular language (i.e. the<span class="xref">System.Globalization.CultureInfo</span>
+for this language abbreviation was known), and still allow the file to subsequently
+be opened on a system that did not yet have support for this language.</p>
+
+<p>Depending on what processing is to be done this may be a perfectly
+valid use case, and it would have been too harsh a restriction to require support
+for the language to be installed on all systems that may ever look at the file.</p>
+
+<p>Now, we no longer require a <span class="xref">System.Globalization.CultureInfo</span> to be installed
+on a system for this kind of use, since instead of creating it direcly from .NET, 
+a <a class="xref" href="Sdl.Core.Globalization.StableCultureInfo.html">StableCultureInfo</a> should instead be retrieved, which is built from metadata
+we control, such that the same set of languages is available on all platforms. 
+A <a class="xref" href="Sdl.Core.Globalization.StableCultureInfo.html">StableCultureInfo</a> can be retrieved either from <a class="xref" href="Sdl.Core.Globalization.LanguageBase.html#Sdl_Core_Globalization_LanguageBase_GetCultureInfoAsync">GetCultureInfoAsync()</a>
+or <a class="xref" href="Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager.html#Sdl_Core_Globalization_CultureMetadataManager_ICultureMetadataManager_GetStableCultureInfoAsync_System_String_">GetStableCultureInfoAsync(String)</a>.</p>
+<p>Under normal circumstances the language should be retrieved via <a class="xref" href="Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApiAsync.html#Sdl_Core_Globalization_LanguageRegistry_LanguageRegistryApiAsync_GetLanguageAsync_System_String_System_Boolean_">GetLanguageAsync(String, Boolean)</a>
+or other <a class="xref" href="Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApiAsync.html">LanguageRegistryApiAsync</a> method.</p>
+
+<p>In addition, in the past this wrapper allowed a language to be represented by a plain string
+when no <span class="xref">System.Globalization.CultureInfo</span> for this language is supported on the system, and thus
+allowed the language to be represented until some truly language specific 
+processing is needed (i.e. when the corresponding <span class="xref">System.Globalization.CultureInfo</span> is required). Such an object
+could be created with the Language(string) constructor. However, this is now
+deprecated, since all supported cultures can now be used on all platforms, as <a class="xref" href="Sdl.Core.Globalization.StableCultureInfo.html">StableCultureInfo</a>. 
+Flows like that should be adjusted either just to use a string, or to use a <a class="xref" href="Sdl.Core.Globalization.CultureCode.html">CultureCode</a>, or to use
+<a class="xref" href="Sdl.Core.Globalization.StableCultureInfo.html">StableCultureInfo</a>.</p>
+
+<p>When supported by our products the corresponding <code>CultureInfo</code> can be obtained 
+directly from the <span class="xref">System.Globalization.CultureInfo</span> property. If not supported this will throw an
+<a class="xref" href="Sdl.Core.Globalization.UnsupportedLanguageException.html">UnsupportedLanguageException</a>.</p> 
+
+<p>Use the <a class="xref" href="Sdl.Core.Globalization.LanguageBase.html#Sdl_Core_Globalization_LanguageBase_IsValid">IsValid</a> and <a class="xref" href="Sdl.Core.Globalization.LanguageBase.html#Sdl_Core_Globalization_LanguageBase_GetIsSupportedAsync">GetIsSupportedAsync()</a> properties to determine
+if the language has been set and whether it is supported by our products.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><a class="xref" href="Sdl.Core.Globalization.LanguageData.html">LanguageData</a></div>
+    <div class="level2"><span class="xref">LanguageBase</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Sdl.Core.Globalization.LanguageData.html#Sdl_Core_Globalization_LanguageData_EnglishName">LanguageData.EnglishName</a>
+    </div>
+    <div>
+      <a class="xref" href="Sdl.Core.Globalization.LanguageData.html#Sdl_Core_Globalization_LanguageData_IsNeutral">LanguageData.IsNeutral</a>
+    </div>
+    <div>
+      <a class="xref" href="Sdl.Core.Globalization.LanguageData.html#Sdl_Core_Globalization_LanguageData_Direction">LanguageData.Direction</a>
+    </div>
+    <div>
+      <a class="xref" href="Sdl.Core.Globalization.LanguageData.html#Sdl_Core_Globalization_LanguageData_ParentLanguageCode">LanguageData.ParentLanguageCode</a>
+    </div>
+    <div>
+      <a class="xref" href="Sdl.Core.Globalization.LanguageData.html#Sdl_Core_Globalization_LanguageData_DefaultSpecificLanguageCode">LanguageData.DefaultSpecificLanguageCode</a>
+    </div>
+    <div>
+      <a class="xref" href="Sdl.Core.Globalization.LanguageData.html#Sdl_Core_Globalization_LanguageData_Script">LanguageData.Script</a>
+    </div>
+    <div>
+      <a class="xref" href="Sdl.Core.Globalization.LanguageData.html#Sdl_Core_Globalization_LanguageData_SupportedProducts">LanguageData.SupportedProducts</a>
+    </div>
+    <div>
+      <a class="xref" href="Sdl.Core.Globalization.LanguageData.html#Sdl_Core_Globalization_LanguageData_LanguageGroup">LanguageData.LanguageGroup</a>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Sdl.Core.Globalization.html">Sdl.Core.Globalization</a></h6>
+  <h6><strong>Assembly</strong>: Sdl.Core.Globalization.Async.dll</h6>
+  <h5 id="Sdl_Core_Globalization_LanguageBase_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class LanguageBase : LanguageData</code></pre>
+  </div>
+  <h5 id="Sdl_Core_Globalization_LanguageBase_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>This class is only marked Serializable to support legacy binary serialization in the legacy
+Sdl.Core Language class. The Serializable attribute here should be removed in future - the class is
+not intended for serialization</p>
+</div>
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  
+  <a id="Sdl_Core_Globalization_LanguageBase__ctor_" data-uid="Sdl.Core.Globalization.LanguageBase.#ctor*"></a>
+  <h4 id="Sdl_Core_Globalization_LanguageBase__ctor_Sdl_Core_Globalization_CultureMetadataManager_ICultureMetadataManager_" data-uid="Sdl.Core.Globalization.LanguageBase.#ctor(Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager)">LanguageBase(ICultureMetadataManager)</h4>
+  <div class="markdown level1 summary"><p>Default constructor, creates an invalid language object.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected LanguageBase(ICultureMetadataManager cultureMetadataManager)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager.html">ICultureMetadataManager</a></td>
+        <td><span class="parametername">cultureMetadataManager</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="fields">Fields
+  </h3>
+  
+  
+  <h4 id="Sdl_Core_Globalization_LanguageBase__defaultSpecificLanguageResult" data-uid="Sdl.Core.Globalization.LanguageBase._defaultSpecificLanguageResult">_defaultSpecificLanguageResult</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected LanguageBase _defaultSpecificLanguageResult</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.Core.Globalization.LanguageBase.html">LanguageBase</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Sdl_Core_Globalization_LanguageBase__defaultSpecificLanguageRetrievalAttempted" data-uid="Sdl.Core.Globalization.LanguageBase._defaultSpecificLanguageRetrievalAttempted">_defaultSpecificLanguageRetrievalAttempted</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected bool _defaultSpecificLanguageRetrievalAttempted</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Sdl_Core_Globalization_LanguageBase__evaluationResult" data-uid="Sdl.Core.Globalization.LanguageBase._evaluationResult">_evaluationResult</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected LanguageBase.EvaluationResult _evaluationResult</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.Core.Globalization.LanguageBase.EvaluationResult.html">LanguageBase.EvaluationResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Sdl_Core_Globalization_LanguageBase__isoAbbreviation" data-uid="Sdl.Core.Globalization.LanguageBase._isoAbbreviation">_isoAbbreviation</h4>
+  <div class="markdown level1 summary"><p>the ISO language abbreviation, as explained in the documentation comments below</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected string _isoAbbreviation</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Sdl_Core_Globalization_LanguageBase__lazyCultureInfo" data-uid="Sdl.Core.Globalization.LanguageBase._lazyCultureInfo">_lazyCultureInfo</h4>
+  <div class="markdown level1 summary"><p>cached, lazy evaluated corresponding culture info</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected CultureInfo _lazyCultureInfo</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Globalization.CultureInfo</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Sdl_Core_Globalization_LanguageBase__regionalVariantsResult" data-uid="Sdl.Core.Globalization.LanguageBase._regionalVariantsResult">_regionalVariantsResult</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected IList&lt;LanguageBase&gt; _regionalVariantsResult</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IList</span>&lt;<a class="xref" href="Sdl.Core.Globalization.LanguageBase.html">LanguageBase</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Sdl_Core_Globalization_LanguageBase_CultureMetadataManager" data-uid="Sdl.Core.Globalization.LanguageBase.CultureMetadataManager">CultureMetadataManager</h4>
+  <div class="markdown level1 summary"><p>The required <a class="xref" href="Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager.html">ICultureMetadataManager</a> is set in the constructor in non-legacy flows,
+but for the moment needs to be settable by the derived legacy Language class to support binary
+serialization.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected ICultureMetadataManager CultureMetadataManager</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager.html">ICultureMetadataManager</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  
+  
+  <a id="Sdl_Core_Globalization_LanguageBase_DefaultDisplaySettings_" data-uid="Sdl.Core.Globalization.LanguageBase.DefaultDisplaySettings*"></a>
+  <h4 id="Sdl_Core_Globalization_LanguageBase_DefaultDisplaySettings" data-uid="Sdl.Core.Globalization.LanguageBase.DefaultDisplaySettings">DefaultDisplaySettings</h4>
+  <div class="markdown level1 summary"><p>Default settings for how languages should be shown to users.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static LanguageDisplaySettings DefaultDisplaySettings { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.Core.Globalization.LanguageDisplaySettings.html">LanguageDisplaySettings</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Sdl_Core_Globalization_LanguageBase_DefaultDisplaySettings_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>
+Since this is a static property, changing its values means changing 
+the language display for the entire process.
+</p>
+<p>
+If you are interested to know when these properties change,
+attach a handler to the <a class="xref" href="Sdl.Core.Globalization.LanguageDisplaySettings.html#Sdl_Core_Globalization_LanguageDisplaySettings_SettingsChanged">SettingsChanged</a> event of this object.
+</p>
+</div>
+  
+  
+  <a id="Sdl_Core_Globalization_LanguageBase_IsoAbbreviation_" data-uid="Sdl.Core.Globalization.LanguageBase.IsoAbbreviation*"></a>
+  <h4 id="Sdl_Core_Globalization_LanguageBase_IsoAbbreviation" data-uid="Sdl.Core.Globalization.LanguageBase.IsoAbbreviation">IsoAbbreviation</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string IsoAbbreviation { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_Core_Globalization_LanguageBase_IsValid_" data-uid="Sdl.Core.Globalization.LanguageBase.IsValid*"></a>
+  <h4 id="Sdl_Core_Globalization_LanguageBase_IsValid" data-uid="Sdl.Core.Globalization.LanguageBase.IsValid">IsValid</h4>
+  <div class="markdown level1 summary"><p><code>true</code> if an ISO abbreviation has been set for the language.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsValid { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Sdl_Core_Globalization_LanguageBase_IsValid_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This does not mean that the language code is actual a valid code.
+Since the ISO code could be unsupported on this system there is no easy
+way to ensure that the code actually is valid.
+To check if the code is supported on this system test the <a class="xref" href="Sdl.Core.Globalization.LanguageBase.html#Sdl_Core_Globalization_LanguageBase_GetIsSupportedAsync">GetIsSupportedAsync()</a> property.</p>
+</div>
+  
+  
+  <a id="Sdl_Core_Globalization_LanguageBase_LanguageCode_" data-uid="Sdl.Core.Globalization.LanguageBase.LanguageCode*"></a>
+  <h4 id="Sdl_Core_Globalization_LanguageBase_LanguageCode" data-uid="Sdl.Core.Globalization.LanguageBase.LanguageCode">LanguageCode</h4>
+  <div class="markdown level1 summary"><p>The ISO formatted code corresponding to the Language</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string LanguageCode { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Sdl.Core.Globalization.LanguageData.html#Sdl_Core_Globalization_LanguageData_LanguageCode">LanguageData.LanguageCode</a></div>
+  
+  
+  <a id="Sdl_Core_Globalization_LanguageBase_UseBlankAsSentenceSeparator_" data-uid="Sdl.Core.Globalization.LanguageBase.UseBlankAsSentenceSeparator*"></a>
+  <h4 id="Sdl_Core_Globalization_LanguageBase_UseBlankAsSentenceSeparator" data-uid="Sdl.Core.Globalization.LanguageBase.UseBlankAsSentenceSeparator">UseBlankAsSentenceSeparator</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool UseBlankAsSentenceSeparator { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ArgumentNullException</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_Core_Globalization_LanguageBase_UseBlankAsWordSeparator_" data-uid="Sdl.Core.Globalization.LanguageBase.UseBlankAsWordSeparator*"></a>
+  <h4 id="Sdl_Core_Globalization_LanguageBase_UseBlankAsWordSeparator" data-uid="Sdl.Core.Globalization.LanguageBase.UseBlankAsWordSeparator">UseBlankAsWordSeparator</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool UseBlankAsWordSeparator { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ArgumentNullException</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_Core_Globalization_LanguageBase_UsesCharacterCounts_" data-uid="Sdl.Core.Globalization.LanguageBase.UsesCharacterCounts*"></a>
+  <h4 id="Sdl_Core_Globalization_LanguageBase_UsesCharacterCounts" data-uid="Sdl.Core.Globalization.LanguageBase.UsesCharacterCounts">UsesCharacterCounts</h4>
+  <div class="markdown level1 summary"><p><code>true</code> if the language uses character counts rather than word counts.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool UsesCharacterCounts { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="Sdl_Core_Globalization_LanguageBase_Equals_" data-uid="Sdl.Core.Globalization.LanguageBase.Equals*"></a>
+  <h4 id="Sdl_Core_Globalization_LanguageBase_Equals_Sdl_Core_Globalization_LanguageBase_Sdl_Core_Globalization_LanguageBase_" data-uid="Sdl.Core.Globalization.LanguageBase.Equals(Sdl.Core.Globalization.LanguageBase,Sdl.Core.Globalization.LanguageBase)">Equals(LanguageBase, LanguageBase)</h4>
+  <div class="markdown level1 summary"><p><code>true</code> if both objects are null or if they represent the same language.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool Equals(LanguageBase language1, LanguageBase language2)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.Core.Globalization.LanguageBase.html">LanguageBase</a></td>
+        <td><span class="parametername">language1</span></td>
+        <td><p>the first Language to compare</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Sdl.Core.Globalization.LanguageBase.html">LanguageBase</a></td>
+        <td><span class="parametername">language2</span></td>
+        <td><p>the second Language to compare</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p><code>true</code> if both objects are null or if they represent the same language.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_Core_Globalization_LanguageBase_Equals_" data-uid="Sdl.Core.Globalization.LanguageBase.Equals*"></a>
+  <h4 id="Sdl_Core_Globalization_LanguageBase_Equals_System_Object_" data-uid="Sdl.Core.Globalization.LanguageBase.Equals(System.Object)">Equals(Object)</h4>
+  <div class="markdown level1 summary"><p><code>true</code> if the ISO abbreviation for the two languages correspond.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override bool Equals(object obj)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Object</span></td>
+        <td><span class="parametername">obj</span></td>
+        <td><p>the object to compare this language to </p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p><code>true</code> if the ISO abbreviation for the two languages correspond.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">System.Object.Equals(System.Object)</span></div>
+  <h5 id="Sdl_Core_Globalization_LanguageBase_Equals_System_Object__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>The comparison is not case sensitive.</p>
+</div>
+  
+  
+  <a id="Sdl_Core_Globalization_LanguageBase_Equals_" data-uid="Sdl.Core.Globalization.LanguageBase.Equals*"></a>
+  <h4 id="Sdl_Core_Globalization_LanguageBase_Equals_System_String_System_String_" data-uid="Sdl.Core.Globalization.LanguageBase.Equals(System.String,System.String)">Equals(String, String)</h4>
+  <div class="markdown level1 summary"><p><code>true</code> if the two strings are the same, ignoring case.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool Equals(string isoAbbreviation1, string isoAbbreviation2)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">isoAbbreviation1</span></td>
+        <td><p>the string of the first isoAbbreviation to compare</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">isoAbbreviation2</span></td>
+        <td><p>the string of the second isoAbbreviation to compare</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p><code>true</code> if the two strings are the same, ignoring case.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_Core_Globalization_LanguageBase_FormatIsoCode_" data-uid="Sdl.Core.Globalization.LanguageBase.FormatIsoCode*"></a>
+  <h4 id="Sdl_Core_Globalization_LanguageBase_FormatIsoCode_System_String_System_Boolean_" data-uid="Sdl.Core.Globalization.LanguageBase.FormatIsoCode(System.String,System.Boolean)">FormatIsoCode(String, Boolean)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected static string FormatIsoCode(string isoCode, bool includeCountry)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">isoCode</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">includeCountry</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_Core_Globalization_LanguageBase_GetCultureInfoAsync_" data-uid="Sdl.Core.Globalization.LanguageBase.GetCultureInfoAsync*"></a>
+  <h4 id="Sdl_Core_Globalization_LanguageBase_GetCultureInfoAsync" data-uid="Sdl.Core.Globalization.LanguageBase.GetCultureInfoAsync">GetCultureInfoAsync()</h4>
+  <div class="markdown level1 summary"><p>See <span class="xref">System.Globalization.CultureInfo</span> property</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;CultureInfo&gt; GetCultureInfoAsync()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.Globalization.CultureInfo</span>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.Core.Globalization.UnsupportedLanguageException.html">UnsupportedLanguageException</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_Core_Globalization_LanguageBase_GetDefaultSpecificLanguageAsync_" data-uid="Sdl.Core.Globalization.LanguageBase.GetDefaultSpecificLanguageAsync*"></a>
+  <h4 id="Sdl_Core_Globalization_LanguageBase_GetDefaultSpecificLanguageAsync" data-uid="Sdl.Core.Globalization.LanguageBase.GetDefaultSpecificLanguageAsync">GetDefaultSpecificLanguageAsync()</h4>
+  <div class="markdown level1 summary"><p>Default specific language</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;LanguageBase&gt; GetDefaultSpecificLanguageAsync()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Sdl.Core.Globalization.LanguageBase.html">LanguageBase</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_Core_Globalization_LanguageBase_GetDisplayNameAsync_" data-uid="Sdl.Core.Globalization.LanguageBase.GetDisplayNameAsync*"></a>
+  <h4 id="Sdl_Core_Globalization_LanguageBase_GetDisplayNameAsync" data-uid="Sdl.Core.Globalization.LanguageBase.GetDisplayNameAsync">GetDisplayNameAsync()</h4>
+  <div class="markdown level1 summary"><p>Returns a name of the language that may be displayed to users, with default settings</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;string&gt; GetDisplayNameAsync()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.String</span>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_Core_Globalization_LanguageBase_GetDisplayNameAsync_" data-uid="Sdl.Core.Globalization.LanguageBase.GetDisplayNameAsync*"></a>
+  <h4 id="Sdl_Core_Globalization_LanguageBase_GetDisplayNameAsync_Sdl_Core_Globalization_LanguageFormat_System_Boolean_" data-uid="Sdl.Core.Globalization.LanguageBase.GetDisplayNameAsync(Sdl.Core.Globalization.LanguageFormat,System.Boolean)">GetDisplayNameAsync(LanguageFormat, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Returns a name of the language that may be displayed to users.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;string&gt; GetDisplayNameAsync(LanguageFormat languageFormat, bool includeCountry)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.Core.Globalization.LanguageFormat.html">LanguageFormat</a></td>
+        <td><span class="parametername">languageFormat</span></td>
+        <td><p>the TeamWorks LanguageFormat</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">includeCountry</span></td>
+        <td><p>whether to include the country in the returned name</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.String</span>&gt;</td>
+        <td><p>A name of the language that may be displayed to users.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_Core_Globalization_LanguageBase_GetHashCode_" data-uid="Sdl.Core.Globalization.LanguageBase.GetHashCode*"></a>
+  <h4 id="Sdl_Core_Globalization_LanguageBase_GetHashCode" data-uid="Sdl.Core.Globalization.LanguageBase.GetHashCode">GetHashCode()</h4>
+  <div class="markdown level1 summary"><p>Hash code based on the ISO abbreviation for the language.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override int GetHashCode()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><p>Hash code based on the ISO abbreviation for the language.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">System.Object.GetHashCode()</span></div>
+  
+  
+  <a id="Sdl_Core_Globalization_LanguageBase_GetIsSupportedAsync_" data-uid="Sdl.Core.Globalization.LanguageBase.GetIsSupportedAsync*"></a>
+  <h4 id="Sdl_Core_Globalization_LanguageBase_GetIsSupportedAsync" data-uid="Sdl.Core.Globalization.LanguageBase.GetIsSupportedAsync">GetIsSupportedAsync()</h4>
+  <div class="markdown level1 summary"><p><code>true</code> if the language is valid and supported on this system.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;bool&gt; GetIsSupportedAsync()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.Boolean</span>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_Core_Globalization_LanguageBase_GetParentLanguageAsync_" data-uid="Sdl.Core.Globalization.LanguageBase.GetParentLanguageAsync*"></a>
+  <h4 id="Sdl_Core_Globalization_LanguageBase_GetParentLanguageAsync" data-uid="Sdl.Core.Globalization.LanguageBase.GetParentLanguageAsync">GetParentLanguageAsync()</h4>
+  <div class="markdown level1 summary"><p>Parent language</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;LanguageBase&gt; GetParentLanguageAsync()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Sdl.Core.Globalization.LanguageBase.html">LanguageBase</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_Core_Globalization_LanguageBase_GetRegionalVariantsAsync_" data-uid="Sdl.Core.Globalization.LanguageBase.GetRegionalVariantsAsync*"></a>
+  <h4 id="Sdl_Core_Globalization_LanguageBase_GetRegionalVariantsAsync" data-uid="Sdl.Core.Globalization.LanguageBase.GetRegionalVariantsAsync">GetRegionalVariantsAsync()</h4>
+  <div class="markdown level1 summary"><p>List of the regional variants of the language</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;IList&lt;LanguageBase&gt;&gt; GetRegionalVariantsAsync()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.Collections.Generic.IList</span>&lt;<a class="xref" href="Sdl.Core.Globalization.LanguageBase.html">LanguageBase</a>&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_Core_Globalization_LanguageBase_IsNullOrInvalid_" data-uid="Sdl.Core.Globalization.LanguageBase.IsNullOrInvalid*"></a>
+  <h4 id="Sdl_Core_Globalization_LanguageBase_IsNullOrInvalid_Sdl_Core_Globalization_LanguageBase_" data-uid="Sdl.Core.Globalization.LanguageBase.IsNullOrInvalid(Sdl.Core.Globalization.LanguageBase)">IsNullOrInvalid(LanguageBase)</h4>
+  <div class="markdown level1 summary"><p><code>true</code> if the language object is <code>null</code> or not initialized.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool IsNullOrInvalid(LanguageBase language)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.Core.Globalization.LanguageBase.html">LanguageBase</a></td>
+        <td><span class="parametername">language</span></td>
+        <td><p>the Language to test</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p><code>true</code> if the language object is <code>null</code> or not initialized.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_Core_Globalization_LanguageBase_ToString_" data-uid="Sdl.Core.Globalization.LanguageBase.ToString*"></a>
+  <h4 id="Sdl_Core_Globalization_LanguageBase_ToString" data-uid="Sdl.Core.Globalization.LanguageBase.ToString">ToString()</h4>
+  <div class="markdown level1 summary"><p>The ISO abbreviation for the language.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string ToString()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><p>The ISO abbreviation for the language.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">System.Object.ToString()</span></div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

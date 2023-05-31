@@ -92,16 +92,81 @@
   </h3>
       <h4><a class="xref" href="Sdl.Core.Globalization.Codepage.html">Codepage</a></h4>
       <section></section>
+      <h4><a class="xref" href="Sdl.Core.Globalization.CoreCultureInfoExtensions.html">CoreCultureInfoExtensions</a></h4>
+      <section><p>Helper functions for <span class="xref">System.Globalization.CultureInfo</span></p>
+</section>
+      <h4><a class="xref" href="Sdl.Core.Globalization.CultureCode.html">CultureCode</a></h4>
+      <section><p>Provides a thin wrapper around a culture code string
+such as &quot;en-US&quot;, in such a way as to replace the many
+occurrences of <span class="xref">System.Globalization.CultureInfo</span> parameters
+and properties where only <span class="xref">System.Globalization.CultureInfo.Name</span>
+is actually needed. </p>
+</section>
       <h4><a class="xref" href="Sdl.Core.Globalization.Language.html">Language</a></h4>
       <section></section>
+      <h4><a class="xref" href="Sdl.Core.Globalization.LanguageBase.html">LanguageBase</a></h4>
+      <section><p>Represents a language in the sense of a <span class="xref">System.Globalization.CultureInfo</span>
+object, using a mechanism that allows basic manipulations and adds metadata not
+available in <span class="xref">System.Globalization.CultureInfo</span> such as
+<a class="xref" href="Sdl.Core.Globalization.LanguageBase.html#Sdl_Core_Globalization_LanguageBase_UseBlankAsWordSeparator">UseBlankAsWordSeparator</a>.</p>
+
+<p>This class was originally introduced as an alternative to the <span class="xref">System.Globalization.CultureInfo</span> class
+in the .NET Framework so that when working with files we could convert
+the file on a system that supported a particular language (i.e. the<span class="xref">System.Globalization.CultureInfo</span>
+for this language abbreviation was known), and still allow the file to subsequently
+be opened on a system that did not yet have support for this language.</p>
+
+<p>Depending on what processing is to be done this may be a perfectly
+valid use case, and it would have been too harsh a restriction to require support
+for the language to be installed on all systems that may ever look at the file.</p>
+
+<p>Now, we no longer require a <span class="xref">System.Globalization.CultureInfo</span> to be installed
+on a system for this kind of use, since instead of creating it direcly from .NET, 
+a <a class="xref" href="Sdl.Core.Globalization.StableCultureInfo.html">StableCultureInfo</a> should instead be retrieved, which is built from metadata
+we control, such that the same set of languages is available on all platforms. 
+A <a class="xref" href="Sdl.Core.Globalization.StableCultureInfo.html">StableCultureInfo</a> can be retrieved either from <a class="xref" href="Sdl.Core.Globalization.LanguageBase.html#Sdl_Core_Globalization_LanguageBase_GetCultureInfoAsync">GetCultureInfoAsync()</a>
+or <a class="xref" href="Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager.html#Sdl_Core_Globalization_CultureMetadataManager_ICultureMetadataManager_GetStableCultureInfoAsync_System_String_">GetStableCultureInfoAsync(String)</a>.</p>
+<p>Under normal circumstances the language should be retrieved via <a class="xref" href="Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApiAsync.html#Sdl_Core_Globalization_LanguageRegistry_LanguageRegistryApiAsync_GetLanguageAsync_System_String_System_Boolean_">GetLanguageAsync(String, Boolean)</a>
+or other <a class="xref" href="Sdl.Core.Globalization.LanguageRegistry.LanguageRegistryApiAsync.html">LanguageRegistryApiAsync</a> method.</p>
+
+<p>In addition, in the past this wrapper allowed a language to be represented by a plain string
+when no <span class="xref">System.Globalization.CultureInfo</span> for this language is supported on the system, and thus
+allowed the language to be represented until some truly language specific 
+processing is needed (i.e. when the corresponding <span class="xref">System.Globalization.CultureInfo</span> is required). Such an object
+could be created with the Language(string) constructor. However, this is now
+deprecated, since all supported cultures can now be used on all platforms, as <a class="xref" href="Sdl.Core.Globalization.StableCultureInfo.html">StableCultureInfo</a>. 
+Flows like that should be adjusted either just to use a string, or to use a <a class="xref" href="Sdl.Core.Globalization.CultureCode.html">CultureCode</a>, or to use
+<a class="xref" href="Sdl.Core.Globalization.StableCultureInfo.html">StableCultureInfo</a>.</p>
+
+<p>When supported by our products the corresponding <code>CultureInfo</code> can be obtained 
+directly from the <span class="xref">System.Globalization.CultureInfo</span> property. If not supported this will throw an
+<a class="xref" href="Sdl.Core.Globalization.UnsupportedLanguageException.html">UnsupportedLanguageException</a>.</p> 
+
+<p>Use the <a class="xref" href="Sdl.Core.Globalization.LanguageBase.html#Sdl_Core_Globalization_LanguageBase_IsValid">IsValid</a> and <a class="xref" href="Sdl.Core.Globalization.LanguageBase.html#Sdl_Core_Globalization_LanguageBase_GetIsSupportedAsync">GetIsSupportedAsync()</a> properties to determine
+if the language has been set and whether it is supported by our products.</p>
+</section>
       <h4><a class="xref" href="Sdl.Core.Globalization.LanguageCancelEventArgs.html">LanguageCancelEventArgs</a></h4>
       <section></section>
+      <h4><a class="xref" href="Sdl.Core.Globalization.LanguageData.html">LanguageData</a></h4>
+      <section><p>Allows serialization of data exposed by <a class="xref" href="Sdl.Core.Globalization.LanguageBase.html">LanguageBase</a></p>
+</section>
+      <h4><a class="xref" href="Sdl.Core.Globalization.LanguageDataContainer.html">LanguageDataContainer</a></h4>
+      <section><p>Helper for serializing existing <a class="xref" href="Sdl.Core.Globalization.LanguageBase.html">LanguageBase</a> data</p>
+</section>
       <h4><a class="xref" href="Sdl.Core.Globalization.LanguageEventArgs.html">LanguageEventArgs</a></h4>
       <section></section>
+      <h4><a class="xref" href="Sdl.Core.Globalization.LegacyAsyncHelpers.html">LegacyAsyncHelpers</a></h4>
+      <section><p>Supports exposing legacy sync methods that can still be called by
+(say) a WinForms UI thread without causing a deadlock</p>
+</section>
       <h4><a class="xref" href="Sdl.Core.Globalization.LegacySdlxLanguage.html">LegacySdlxLanguage</a></h4>
       <section></section>
       <h4><a class="xref" href="Sdl.Core.Globalization.LocalizableString.html">LocalizableString</a></h4>
       <section></section>
+      <h4><a class="xref" href="Sdl.Core.Globalization.StableCultureInfo.html">StableCultureInfo</a></h4>
+      <section><p>Implements a <span class="xref">System.Globalization.CultureInfo</span> with overrides to provide consistent
+behaviour across platforms</p>
+</section>
       <h4><a class="xref" href="Sdl.Core.Globalization.UnsupportedCodepageException.html">UnsupportedCodepageException</a></h4>
       <section></section>
     <h3 id="structs">Structs
@@ -112,6 +177,12 @@
   </h3>
       <h4><a class="xref" href="Sdl.Core.Globalization.ConfirmationLevel.html">ConfirmationLevel</a></h4>
       <section></section>
+      <h4><a class="xref" href="Sdl.Core.Globalization.LanguageBase.EvaluationResult.html">LanguageBase.EvaluationResult</a></h4>
+      <section><p>this member is used to avoid unnecessary attempts at resolving unsupported languages</p>
+</section>
+      <h4><a class="xref" href="Sdl.Core.Globalization.LanguageFormat.html">LanguageFormat</a></h4>
+      <section><p>Exposes the various acceptable values language format can take in TeamWorks.</p>
+</section>
 </article>
           </div>
           
