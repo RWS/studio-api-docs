@@ -11,8 +11,6 @@ At the time of this release, the retargeted assemblies are as follows:
 | LanguageCloud Identity API           | `Sdl.LanguageCloud.IdentityAPI.dll`                  |
 
 
-[ProjectsController](../..//api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.ProjectsController.yml)
-
 # ProjectAutomation API
 These changes are included in the `Sdl.ProjectAutomation.Settings` assembly
 
@@ -26,7 +24,7 @@ These changes are included in the `Sdl.ProjectAutomation.Settings` assembly
 
 
 # LanguageCloud Identity API 
-These changes are included in the `Sdl.LanguageCloud.IdentityAPI` assembly
+These changes are included in the `Sdl.LanguageCloud.IdentityAPI` assembly.
 
 Completely removed the following property marked as obsolete in previous versions:
 
@@ -34,7 +32,7 @@ Completely removed the following property marked as obsolete in previous version
 
 
 # TranslationMemory API 
-These changes are included in the `Sdl.LanguagePlatfrom.TranslationMemoryAPI` assembly
+These changes are included in the `Sdl.LanguagePlatfrom.TranslationMemoryAPI` assembly.
 
 The following unused classes were removed: 
 * ImportExportResponse
@@ -99,11 +97,11 @@ Recommended replacements for deprecated API. Please refer to the following table
 | GetLanguageResourcesTemplates(LanguageResourcesTemplateProperties additionalProperties,bool includeTmSpecific = true)| GetLanguageResourcesTemplates(bool includeTmSpecific = true)|
 
 # General API changes 
-Third party developers now have access to Trados Studio's custom language registry, which offers finer control over language management than the language registry provided by Microsoft.
+Third-party developers now have access to Trados Studio's custom language registry, which offers finer control over language management than the language registry provided by Microsoft.
 
 Following this change, [CultureCode](../../api/core/Sdl.Core.Globalization.CultureCode.yml) is now the recommended alternative to the standard CultureInfo. 
 
-To ensure compatibility with Studio and other RWS system interfacing with Studio please fetch the language info using our internal language registry : 
+To ensure compatibility with Studio and other RWS system interfacing with Studio, fetch the language info using our internal language registry: 
 
 Example:
 
@@ -138,7 +136,7 @@ Example:
     ci = CultureInfo.GetCultureInfo("en-US");      
     ```
                                                         ??
-To ensure consistency across the application when comparing the string representation of the language codes, it is recommended to use the [CultureCode](../../api/core/Sdl.Core.Globalization.CultureCode.yml) wrapper.
+To ensure consistency across the application when comparing the string representation of the language codes, we recommend using the [CultureCode](../../api/core/Sdl.Core.Globalization.CultureCode.yml) wrapper.
 
 Example: 
 
