@@ -1,4 +1,4 @@
-Release Notes for <Var:ProductNameWithEdition>
+Release Notes for <Var:ProductNameWithEdition> SR1
 ===================
 
 # Retargeted assemblies
@@ -143,3 +143,32 @@ Example:
     ```cs
     var cultureCode = new CultureCode("fr-FR");
     ```
+
+# Dependency version changes
+
+The following is a list of known dependency version changes that may influence your integration with the latest <Var:ProductNameWithEdition> APIs; this is typically seen from standalone applications that are running outside of the Trados Studio context.  To resolve these references, include the following binding redirects in the configuration file of the project.
+
+``` xml
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <startup useLegacyV2RuntimeActivationPolicy="true">
+    <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.8" />
+  </startup>
+  <runtime>
+    <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
+      <dependentAssembly>
+        <assemblyIdentity name="System.Memory" publicKeyToken="cc7b13ffcd2ddd51" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-4.0.1.1" newVersion="4.0.1.1" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="icu.net" publicKeyToken="416fdd914afa6b66" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-2.7.0.0" newVersion="2.7.0.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Microsoft.Data.SqlClient" publicKeyToken="23ec7fc2d6eaa4a5" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-5.0.0.0" newVersion="5.0.0.0" />
+      </dependentAssembly>
+    </assemblyBinding>
+  </runtime>
+</configuration>
+```

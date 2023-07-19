@@ -8,7 +8,7 @@ Start by adding a new class called `ServerLanguageResourceTemplates` to your pro
 
 Retrieve the Available Language Resources Templates
 ----
-The first task will be to generate a list of all language resources templates that are hosted on a specified TM Server. To do this implement a function called `GetTemplates`, which takes the translation provider server as parameter. Use a `foreach` loop to iterate through all language resources templates by applying the [GetLanguageResourcesTemplates](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.yml#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationProviderServer_GetLanguageResourcesTemplates_Sdl_LanguagePlatform_TranslationMemoryApi_LanguageResourcesTemplateProperties_System_Boolean_) method:
+The first task will be to generate a list of all language resources templates that are hosted on a specified TM Server. To do this implement a function called `GetTemplates`, which takes the translation provider server as parameter. Use a `foreach` loop to iterate through all language resources templates by applying the [GetLanguageResourcesTemplates](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.yml#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationProviderServer_GetLanguageResourcesTemplates_System_Boolean_) method:
 
 # [C#](#tab/tabid-1)
 ```cs
@@ -65,10 +65,10 @@ Retrieve the TMs that use a given Language Resources Template
 When creating server TMs you can specify a language resource template. The TM will then 'inherit' the language resources (e.g. variable lists) defined in the template. Imagine that you want to know which server TMs use a particular template. To do this implement a function called `GetTmsForTemplate`, which takes the translation provider server as and the language resources template name as parameters. First, retrieve the template that you want to select. The template can be referenced using the template name:
 # [C#](#tab/tabid-5)
 ```cs
-ServerBasedLanguageResourcesTemplate template = tmServer.GetLanguageResourcesTemplate(templateName, LanguageResourcesTemplateProperties.All);
+ServerBasedLanguageResourcesTemplate template = tmServer.GetLanguageResourcesTemplate(templatePath);
 ```
 ****
-Next apply the [TranslationMemories](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourcesTemplateProperties.yml) property to the selected template and loop through all TMs associated with the template:
+Next loop through all TMs associated with the template:
 # [C#](#tab/tabid-6)
 ```cs
 string tmList = string.Empty;
@@ -83,10 +83,10 @@ MessageBox.Show(tmList);
 The complete function should look as shown below:
 # [C#](#tab/tabid-7)
 ```cs
-public void GetTmsForTemplate(TranslationProviderServer tmServer, string templateName)
+public void GetTmsForTemplate(TranslationProviderServer tmServer, string templatePath)
 {
     #region "SelectTemplate"
-    ServerBasedLanguageResourcesTemplate template = tmServer.GetLanguageResourcesTemplate(templateName, LanguageResourcesTemplateProperties.All);
+    ServerBasedLanguageResourcesTemplate template = tmServer.GetLanguageResourcesTemplate(templatePath);
     #endregion
 
     #region "LoopTms"

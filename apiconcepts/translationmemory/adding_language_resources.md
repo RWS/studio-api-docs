@@ -37,7 +37,7 @@ var defaultBundle = new DefaultLanguageResourceProvider();
 ```
 ***
 
-Next, create a new language resources bundle object, which is added on top of the default bundle. That way, you leverage all the default resources, and add your own abbreviations, variables, etc. To do this apply the [GetDefaultLanguageResources](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.DefaultLanguageResourceProvider.yml#Sdl_LanguagePlatform_TranslationMemoryApi_DefaultLanguageResourceProvider_GetDefaultLanguageResources_System_Globalization_CultureInfo_) method to the default resources bundle object. This method takes the source language culture information as parameter, e.g. *en-US*.
+Next, create a new language resources bundle object, which is added on top of the default bundle. That way, you leverage all the default resources, and add your own abbreviations, variables, etc. To do this apply the [GetDefaultLanguageResources](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.DefaultLanguageResourceProvider.yml#Sdl_LanguagePlatform_TranslationMemoryApi_DefaultLanguageResourceProvider_GetDefaultLanguageResources_Sdl_Core_Globalization_CultureCode_) method to the default resources bundle object. This method takes the source language culture information as parameter, e.g. *en-US*.
 
 # [C#](#tab/tabid-4)
 ```cs
