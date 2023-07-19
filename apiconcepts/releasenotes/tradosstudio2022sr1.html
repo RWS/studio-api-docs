@@ -80,10 +80,10 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-<h1 id="release-notes-for-varproductnamewithedition">Release Notes for Trados Studio 2022 SR1</h1>
+<h1 id="release-notes-for-varproductnamewithedition-sr1">Release Notes for Trados Studio 2022 SR1</h1>
 
 <h1 id="retargeted-assemblies">Retargeted assemblies</h1>
-<p>Some of the available APIs provided along with Trados Studio 2022 SR1 have been retargeted from .NET Framework 4.8 to .NET Standard for better compatibility options and richer overall support.</p>
+<p>Some of the available APIs provided along with Trados Studio 2022 have been retargeted from .NET Framework 4.8 to .NET Standard for better compatibility options and richer overall support.</p>
 <p>At the time of this release, the retargeted assemblies are as follows:</p>
 <table>
 <thead>
@@ -236,7 +236,7 @@
 </table>
 <h1 id="general-api-changes">General API changes</h1>
 <p>Third-party developers now have access to Trados Studio&#39;s custom language registry, which offers finer control over language management than the language registry provided by Microsoft.</p>
-<p>Following this change, <a href="../../api/core/Sdl.Core.Globalization.CultureCode.yml">CultureCode</a> is now the recommended alternative to the standard CultureInfo. </p>
+<p>Following this change, <a href="../../api/core/Sdl.Core.Globalization.CultureCode.html">CultureCode</a> is now the recommended alternative to the standard CultureInfo. </p>
 <p>To ensure compatibility with Studio and other RWS system interfacing with Studio, fetch the language info using our internal language registry: </p>
 <p>Example:</p>
 <pre><code>```cs
@@ -250,7 +250,7 @@ catch(UnsupportedLanguageException ex)
 }
 ```
 </code></pre><p>This method returns a <a href="../../api/core/Sdl.Core.Globalization.Language.html">Language</a> object. 
-If the language is not found or the language code is incorrect <a href="../../api/core/Sdl.Core.Globalization.UnsupportedLanguageException.yml">UnsupportedLanguageException</a> is thrown.</p>
+If the language is not found or the language code is incorrect <a href="../../api/core/Sdl.Core.Globalization.UnsupportedLanguageException.html">UnsupportedLanguageException</a> is thrown.</p>
 <p>CultureInfo objects are still accessible via the following call:</p>
 <p>Example:</p>
 <pre><code>```cs
@@ -264,11 +264,35 @@ var ci = new CultureInfo(&quot;en-US&quot;);
 ci = CultureInfo.GetCultureInfo(&quot;en-US&quot;);      
 ```
                                                     ??
-</code></pre><p>To ensure consistency across the application when comparing the string representation of the language codes, we recommend using the <a href="../../api/core/Sdl.Core.Globalization.CultureCode.yml">CultureCode</a> wrapper.</p>
+</code></pre><p>To ensure consistency across the application when comparing the string representation of the language codes, we recommend using the <a href="../../api/core/Sdl.Core.Globalization.CultureCode.html">CultureCode</a> wrapper.</p>
 <p>Example: </p>
 <pre><code>```cs
 var cultureCode = new CultureCode(&quot;fr-FR&quot;);
 ```
+</code></pre><h1 id="dependency-version-changes">Dependency version changes</h1>
+<p>The following is a list of known dependency version changes that may influence your integration with the latest Trados Studio 2022 APIs; this is typically seen from standalone applications that are running outside of the Trados Studio context.  To resolve these references, include the following binding redirects in the configuration file of the project.</p>
+<pre><code class="lang-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;configuration&gt;
+  &lt;startup useLegacyV2RuntimeActivationPolicy=&quot;true&quot;&gt;
+    &lt;supportedRuntime version=&quot;v4.0&quot; sku=&quot;.NETFramework,Version=v4.8&quot; /&gt;
+  &lt;/startup&gt;
+  &lt;runtime&gt;
+    &lt;assemblyBinding xmlns=&quot;urn:schemas-microsoft-com:asm.v1&quot;&gt;
+      &lt;dependentAssembly&gt;
+        &lt;assemblyIdentity name=&quot;System.Memory&quot; publicKeyToken=&quot;cc7b13ffcd2ddd51&quot; culture=&quot;neutral&quot; /&gt;
+        &lt;bindingRedirect oldVersion=&quot;0.0.0.0-4.0.1.1&quot; newVersion=&quot;4.0.1.1&quot; /&gt;
+      &lt;/dependentAssembly&gt;
+      &lt;dependentAssembly&gt;
+        &lt;assemblyIdentity name=&quot;icu.net&quot; publicKeyToken=&quot;416fdd914afa6b66&quot; culture=&quot;neutral&quot; /&gt;
+        &lt;bindingRedirect oldVersion=&quot;0.0.0.0-2.7.0.0&quot; newVersion=&quot;2.7.0.0&quot; /&gt;
+      &lt;/dependentAssembly&gt;
+      &lt;dependentAssembly&gt;
+        &lt;assemblyIdentity name=&quot;Microsoft.Data.SqlClient&quot; publicKeyToken=&quot;23ec7fc2d6eaa4a5&quot; culture=&quot;neutral&quot; /&gt;
+        &lt;bindingRedirect oldVersion=&quot;0.0.0.0-5.0.0.0&quot; newVersion=&quot;5.0.0.0&quot; /&gt;
+      &lt;/dependentAssembly&gt;
+    &lt;/assemblyBinding&gt;
+  &lt;/runtime&gt;
+&lt;/configuration&gt;
 </code></pre></article>
           </div>
           
