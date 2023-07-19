@@ -86,7 +86,7 @@
 <h2 id="add-a-new-class">Add a New Class</h2>
 <p>Start by adding a new class called <code>ServerLanguageResourceTemplates</code> to your project. This class should contain the functionality to retrieve existing language resource templates and create new ones.</p>
 <h2 id="retrieve-the-available-language-resources-templates">Retrieve the Available Language Resources Templates</h2>
-<p>The first task will be to generate a list of all language resources templates that are hosted on a specified TM Server. To do this implement a function called <code>GetTemplates</code>, which takes the translation provider server as parameter. Use a <code>foreach</code> loop to iterate through all language resources templates by applying the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.html#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationProviderServer_GetLanguageResourcesTemplates_Sdl_LanguagePlatform_TranslationMemoryApi_LanguageResourcesTemplateProperties_System_Boolean_">GetLanguageResourcesTemplates</a> method:</p>
+<p>The first task will be to generate a list of all language resources templates that are hosted on a specified TM Server. To do this implement a function called <code>GetTemplates</code>, which takes the translation provider server as parameter. Use a <code>foreach</code> loop to iterate through all language resources templates by applying the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.html#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationProviderServer_GetLanguageResourcesTemplates_System_Boolean_">GetLanguageResourcesTemplates</a> method:</p>
 <div class="tabGroup" id="tabgroup_p8Kb2vpZA4">
 <ul role="tablist">
 <li role="presentation">
@@ -160,10 +160,10 @@ templateList += &quot;Number of variables in template: &quot; + bundle.Variables
 </li>
 </ul>
 <section id="tabpanel_p8Kb2vpZA4-4_tabid-5" role="tabpanel" data-tab="tabid-5">
-<pre><code class="lang-cs">ServerBasedLanguageResourcesTemplate template = tmServer.GetLanguageResourcesTemplate(templateName, LanguageResourcesTemplateProperties.All);
+<pre><code class="lang-cs">ServerBasedLanguageResourcesTemplate template = tmServer.GetLanguageResourcesTemplate(templatePath);
 </code></pre></section>
 </div>
-<p>Next apply the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.LanguageResourcesTemplateProperties.yml">TranslationMemories</a> property to the selected template and loop through all TMs associated with the template:</p>
+<p>Next loop through all TMs associated with the template:</p>
 <div class="tabGroup" id="tabgroup_p8Kb2vpZA4-5">
 <ul role="tablist">
 <li role="presentation">
@@ -188,10 +188,10 @@ MessageBox.Show(tmList);
 </li>
 </ul>
 <section id="tabpanel_p8Kb2vpZA4-6_tabid-7" role="tabpanel" data-tab="tabid-7">
-<pre><code class="lang-cs">public void GetTmsForTemplate(TranslationProviderServer tmServer, string templateName)
+<pre><code class="lang-cs">public void GetTmsForTemplate(TranslationProviderServer tmServer, string templatePath)
 {
     #region &quot;SelectTemplate&quot;
-    ServerBasedLanguageResourcesTemplate template = tmServer.GetLanguageResourcesTemplate(templateName, LanguageResourcesTemplateProperties.All);
+    ServerBasedLanguageResourcesTemplate template = tmServer.GetLanguageResourcesTemplate(templatePath);
     #endregion
 
     #region &quot;LoopTms&quot;
