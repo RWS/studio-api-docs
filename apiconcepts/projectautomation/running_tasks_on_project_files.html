@@ -1,29 +1,29 @@
 ﻿<!DOCTYPE html>
 <!--[if IE]><![endif]-->
 <html>
-  
+
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>Running Tasks on the Project Files </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Running Tasks on the Project Files ">
-    <meta name="generator" content="docfx 2.59.3.0">
-    
+    <meta name="generator" content="docfx ">
+  
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../../styles/docfx.css">
     <link rel="stylesheet" href="../../styles/main.css">
     <meta property="docfx:navrel" content="../../toc.html">
     <meta property="docfx:tocrel" content="../toc.html">
-    
-    <meta property="docfx:rel" content="../../">
-    
+  
+  <meta property="docfx:rel" content="../../">
+  
   </head>
   <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
       <header>
-        
+
         <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
           <div class="container">
             <div class="navbar-header">
@@ -33,7 +33,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              
+
               <a class="navbar-brand" href="../../index.html">
                 <img id="logo" class="svg" src="../../logo.svg" alt="">
               </a>
@@ -48,7 +48,7 @@
             </div>
           </div>
         </nav>
-        
+
         <div class="subnav navbar-default">
           <div class="container hide-when-search">
             <div class="breadcrumb-container" id="breadcrumb">
@@ -60,7 +60,7 @@
         </div>
       </header>
       <div class="container body-content">
-        
+
         <div id="search-results">
           <div class="search-list">Search Results for <span></span></div>
           <div class="sr-items">
@@ -70,7 +70,7 @@
         </div>
       </div>
       <div role="main" class="container body-content hide-when-search">
-        
+
         <div class="sidenav hide-when-search">
           <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
           <div class="sidetoggle collapse" id="sidetoggle">
@@ -82,55 +82,62 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="running-tasks-on-the-project-files">Running Tasks on the Project Files</h1>
 
-<p>For further processing of the project files a number of so-called automated batch tasks is executed. Batch tasks are used, for example, to convert the native files into the bilingual (SDLXliff) format for further processing. Other examples include word count, file analysis, and pre-translation. Trados Studio allows you to put compile single tasks into a task sequence, which can then be run on the entire project. This chapter demonstrates how to programmatically run batch tasks on project files. There are separate chapters deal with tasks in more detail, e.g. provide they further information on the various configuration settings that you can choose before executing a task.</p>
+<p>For further processing of the project files a number of so-called automated batch tasks is executed. Batch tasks are used, for example, to convert the native files into the bilingual (SDLXliff) format for further processing. Other examples include word count, file analysis, and pre-translation. <a href="Var:ProductName">Var:ProductName</a> allows you to put compile single tasks into a task sequence, which can then be run on the entire project. This chapter demonstrates how to programmatically run batch tasks on project files. There are separate chapters deal with tasks in more detail, e.g. provide they further information on the various configuration settings that you can choose before executing a task.</p>
 <h2 id="general-information-on-tasks">General Information on Tasks</h2>
 <p>The screenshot below shows the standard Prepare compound tasks and the sub-tasks that it contains:</p>
 <p><img src="images/NewProject06.jpg" alt="NewProject06"></p>
 <p>The preparation of the project files involves the following tasks:</p>
 <ul>
 <li><strong>Convert to Translatable Format</strong>: This task generates bilingual, intermediary (SDLXliff) files from the native input files (e.g. DOC, PPT, etc.). These intermediary files are then used further processing. The conversion step is actually the pre-requisite for any other tasks such as analyze files, pre-translation, etc.</li>
-<li><strong>Copy to Target Languages</strong>: This task creates working copies of the bilingual (original) files per target language. In this step Trados Studio also creates target language sub-folders in which the copied bilingual files are stored, e.g. de-DE for German, fr-FR for French, etc.</li>
+<li><strong>Copy to Target Languages</strong>: This task creates working copies of the bilingual (original) files per target language. In this step <a href="Var:ProductName">Var:ProductName</a> also creates target language sub-folders in which the copied bilingual files are stored, e.g. de-DE for German, fr-FR for French, etc.</li>
 <li><strong>Apply Perfect Match</strong>: This task inserts pre-translated segments from previous versions of the files directly into the project files.</li>
 <li><strong>Analyze Files</strong>: Probably the single most important project management task. During execution of this task the project files are analyzed against any main TM(s) that were added to the project in order to determine the TM leverage, i.e. the number of matches that can be used for a particular set of documents, the segment repetition rate, etc.</li>
 <li><strong>Pre-translate Files</strong>: Any existing translations found in the main TM(s) are inserted automatically into the project files.</li>
 <li><strong>Populate Project Translation Memories</strong>: Creates project TMs from the main TMs. A project TM constitutes a subset of the its corresponding main TM. Project TMs only contain the TUs that are relevant for the current project. That way project managers can make sure that they do not have to forward the entire TM content to e.g. freelance translators, but only those TUs that match the project files.</li>
 </ul>
 <h2 id="add-the-function-for-running-the-tasks">Add the Function for Running the Tasks</h2>
-<p>The aim of this example is to show how to run the tasks that are described above programmatically. Implement a helper function called PrepareFiles. This function is the programmatic equivalent to the <strong>Prepare</strong> task used in Trados Studio. This function takes a <a href="../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.html">FileBasedProject</a> object as parameter. The function can thus be called as follows:</p>
-<div class="tabGroup" id="tabgroup_rUVDtJsOqU">
+<p>The aim of this example is to show how to run the tasks that are described above programmatically. Implement a helper function called PrepareFiles. This function is the programmatic equivalent to the <strong>Prepare</strong> task used in <a href="Var:ProductName">Var:ProductName</a>. This function takes a <a href="../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.html">FileBasedProject</a> object as parameter. The function can thus be called as follows:</p>
+<div class="tabGroup" id="tabgroup_bHGHmlrG6S">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_rUVDtJsOqU_tabid-1" role="tab" aria-controls="tabpanel_rUVDtJsOqU_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_bHGHmlrG6S_tabid-1" role="tab" aria-controls="tabpanel_bHGHmlrG6S_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_rUVDtJsOqU_tabid-1" role="tabpanel" data-tab="tabid-1">
+<section id="tabpanel_bHGHmlrG6S_tabid-1" role="tabpanel" data-tab="tabid-1">
+
 <pre><code class="lang-CS">this.PrepareFiles(newProject);
-</code></pre></section>
+</code></pre>
+</section>
 </div>
+
 <p>Note that in this chapter we will simply run the tasks without configuring any task options. Configuring the available options for each task will be shown in the subsequent chapters. Note that the first two tasks do the following:</p>
 <ul>
 <li>Generation of bilingual SDLXliff files from the native project documents</li>
 <li>Creation of working copies from the previously created bilingual documents for each target language</li>
 </ul>
 <p>These two tasks are performed on the source files. Therefore, we will first retrieve the source files by applying the <a href="../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.html#Sdl_ProjectAutomation_FileBased_FileBasedProject_GetSourceLanguageFiles">GetSourceLanguageFiles</a> method to the project object, thereby creating an object (array) based on the <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.ProjectFile.html">ProjectFile</a> class, which holds the source documents:</p>
-<div class="tabGroup" id="tabgroup_rUVDtJsOqU-1">
+<div class="tabGroup" id="tabgroup_bHGHmlrG6S-1">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_rUVDtJsOqU-1_tabid-2" role="tab" aria-controls="tabpanel_rUVDtJsOqU-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_bHGHmlrG6S-1_tabid-2" role="tab" aria-controls="tabpanel_bHGHmlrG6S-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_rUVDtJsOqU-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<section id="tabpanel_bHGHmlrG6S-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+
 <pre><code class="lang-CS">ProjectFile[] sourceFiles = project.GetSourceLanguageFiles();
-</code></pre></section>
+</code></pre>
+</section>
 </div>
+
 <p>In the next step we run the task by applying the <a href="../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.html#Sdl_ProjectAutomation_FileBased_FileBasedProject_RunAutomaticTask_System_Guid___System_String_">RunAutomaticTask</a> method to the project. This method requires the file ids (i.e. the ids of the source files) and the id of the task to run as parameters. You can retrieve the task id easily using the <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.AutomaticTaskTemplateIds.html">AutomaticTaskTemplateIds</a> class as shown in the example below:</p>
-<div class="tabGroup" id="tabgroup_rUVDtJsOqU-2">
+<div class="tabGroup" id="tabgroup_bHGHmlrG6S-2">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_rUVDtJsOqU-2_tabid-3" role="tab" aria-controls="tabpanel_rUVDtJsOqU-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_bHGHmlrG6S-2_tabid-3" role="tab" aria-controls="tabpanel_bHGHmlrG6S-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_rUVDtJsOqU-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<section id="tabpanel_bHGHmlrG6S-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+
 <pre><code class="lang-CS">for (int i = 0; i &lt; sourceFiles.Length; i++)
 {
     if (sourceFiles[i].Role == FileRole.Translatable)
@@ -145,31 +152,37 @@
             AutomaticTaskTemplateIds.CopyToTargetLanguages);
     }
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
-<p>Note that in a &#39;real-life&#39; implementation you need to make certain not to run the conversion task on any files that are marked as reference, e.g. pixel graphic files that are provided as reference or any documents that you have manually or programmatically set to reference. The conversion task will throw an error when trying to convert such file to a bilingual format. You should therefore make certain to only retrieve the ids of the files that are marked as translatable.
+
+<p>Note that in a 'real-life' implementation you need to make certain not to run the conversion task on any files that are marked as reference, e.g. pixel graphic files that are provided as reference or any documents that you have manually or programmatically set to reference. The conversion task will throw an error when trying to convert such file to a bilingual format. You should therefore make certain to only retrieve the ids of the files that are marked as translatable.
 After running the conversion task the source language sub-folder of your project should contain the files that you originally added plus the bilingual SDLXliff versions as shown in the screenshot below:</p>
 <p><img src="images/TargetFolders.jpg" alt="TargetFolders"></p>
-<p>All subsequent tasks such as pre-translate are run on the target file copies of the bilingual (SDLXliff) files. As projects can involve multiple target files, we &#39;outsource&#39; all other tasks to a separate helper function called <code>ProcessTargetLanguageFiles</code>, which also takes a <a href="../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.html">FileBasedProject</a> object and the target language locale string as parameters. For processing the target languages German and French this separate helper function is called as shown below:</p>
-<div class="tabGroup" id="tabgroup_rUVDtJsOqU-3">
+<p>All subsequent tasks such as pre-translate are run on the target file copies of the bilingual (SDLXliff) files. As projects can involve multiple target files, we 'outsource' all other tasks to a separate helper function called <code>ProcessTargetLanguageFiles</code>, which also takes a <a href="../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.html">FileBasedProject</a> object and the target language locale string as parameters. For processing the target languages German and French this separate helper function is called as shown below:</p>
+<div class="tabGroup" id="tabgroup_bHGHmlrG6S-3">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_rUVDtJsOqU-3_tabid-4" role="tab" aria-controls="tabpanel_rUVDtJsOqU-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_bHGHmlrG6S-3_tabid-4" role="tab" aria-controls="tabpanel_bHGHmlrG6S-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_rUVDtJsOqU-3_tabid-4" role="tabpanel" data-tab="tabid-4">
+<section id="tabpanel_bHGHmlrG6S-3_tabid-4" role="tabpanel" data-tab="tabid-4">
+
 <pre><code class="lang-CS">this.ProcessTargetLanguageFiles(project, &quot;de-DE&quot;);
 this.ProcessTargetLanguageFiles(project, &quot;fr-FR&quot;);
-</code></pre></section>
+</code></pre>
+</section>
 </div>
+
 <p>The helper function gets the project target files for the specified language by applying the <a href="../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.html#Sdl_ProjectAutomation_FileBased_FileBasedProject_GetTargetLanguageFiles">GetTargetLanguageFiles</a> method to the project object providing the required <a href="https://docs.microsoft.com/en-us/dotnet/api/system.globalization.cultureinfo?redirectedfrom=MSDN&amp;view=net-5.0">CultureInfo</a> as parameter. It then runs the tasks analyze files, pre-translate, and populate project TMs as outlined below:</p>
-<div class="tabGroup" id="tabgroup_rUVDtJsOqU-4">
+<div class="tabGroup" id="tabgroup_bHGHmlrG6S-4">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_rUVDtJsOqU-4_tabid-5" role="tab" aria-controls="tabpanel_rUVDtJsOqU-4_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_bHGHmlrG6S-4_tabid-5" role="tab" aria-controls="tabpanel_bHGHmlrG6S-4_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_rUVDtJsOqU-4_tabid-5" role="tabpanel" data-tab="tabid-5">
+<section id="tabpanel_bHGHmlrG6S-4_tabid-5" role="tabpanel" data-tab="tabid-5">
+
 <pre><code class="lang-CS">public void ProcessTargetLanguageFiles(FileBasedProject project, string locale)
 { 
     #region &quot;PerfectMatchSetupAndTask&quot;
@@ -196,17 +209,19 @@ this.ProcessTargetLanguageFiles(project, &quot;fr-FR&quot;);
         targetFiles.GetIds(),
         AutomaticTaskTemplateIds.PopulateProjectTranslationMemories);
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
 <h2 id="check-for-task-events">Check for Task Events</h2>
 <p>Tasks might fail due to particular circumstances. For example, Microsoft Word files that contain unaccepted changes can by default not be processed. Therefore, when you try to convert such a DOC file to SDLXliff, the task will fail with an error message. Therefore, it is recommended that you check for the status of the current task and act accordingly, e.g. when the current task has the status <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.TaskStatus.html#fields">Failed</a>. You could then, for example, output a message to alert the user and suggest a way of fixing this problem (if applicable). In this step we will implement another helper function called CheckEvents. It uses the <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.TaskStatus.html">TaskStatus</a> class to check the current task status. In this simple implementation we just use a break statement regardless of the current status. In a real-life implementation you would, for example, output an error message when the status is <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.TaskStatus.html#fields">Failed</a>. The helper function for checking the task status should look as shown below:</p>
-<div class="tabGroup" id="tabgroup_rUVDtJsOqU-5">
+<div class="tabGroup" id="tabgroup_bHGHmlrG6S-5">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_rUVDtJsOqU-5_tabid-6" role="tab" aria-controls="tabpanel_rUVDtJsOqU-5_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_bHGHmlrG6S-5_tabid-6" role="tab" aria-controls="tabpanel_bHGHmlrG6S-5_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_rUVDtJsOqU-5_tabid-6" role="tabpanel" data-tab="tabid-6">
+<section id="tabpanel_bHGHmlrG6S-5_tabid-6" role="tabpanel" data-tab="tabid-6">
+
 <pre><code class="lang-CS">private void CheckEvents(List&lt;TaskStatusEventArgs&gt; taskStatusEventArgsList, List&lt;MessageEventArgs&gt; messageEventArgsList)
 {
     // loop through the available statuses and messages
@@ -241,40 +256,48 @@ this.ProcessTargetLanguageFiles(project, &quot;fr-FR&quot;);
     taskStatusEventArgsList.Clear();
     messageEventArgsList.Clear();
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
+
 <p>To trigger the above helper function you need to enhance the <code>PrepareFiles</code> function by adding the two following lines:</p>
-<div class="tabGroup" id="tabgroup_rUVDtJsOqU-6">
+<div class="tabGroup" id="tabgroup_bHGHmlrG6S-6">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_rUVDtJsOqU-6_tabid-7" role="tab" aria-controls="tabpanel_rUVDtJsOqU-6_tabid-7" data-tab="tabid-7" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_bHGHmlrG6S-6_tabid-7" role="tab" aria-controls="tabpanel_bHGHmlrG6S-6_tabid-7" data-tab="tabid-7" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_rUVDtJsOqU-6_tabid-7" role="tabpanel" data-tab="tabid-7">
+<section id="tabpanel_bHGHmlrG6S-6_tabid-7" role="tabpanel" data-tab="tabid-7">
+
 <pre><code class="lang-CS">List&lt;TaskStatusEventArgs&gt; taskStatusEventArgsList = new List&lt;TaskStatusEventArgs&gt;();
 List&lt;MessageEventArgs&gt; messageEventArgsList = new List&lt;MessageEventArgs&gt;();
-</code></pre></section>
+</code></pre>
+</section>
 </div>
+
 <p>Then, each time after applying the <a href="../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.html#Sdl_ProjectAutomation_FileBased_FileBasedProject_RunAutomaticTask_System_Guid___System_String_">RunAutomaticTasks</a> method, you fire the <code>CheckEvents</code> helper function, e.g.:</p>
-<div class="tabGroup" id="tabgroup_rUVDtJsOqU-7">
+<div class="tabGroup" id="tabgroup_bHGHmlrG6S-7">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_rUVDtJsOqU-7_tabid-8" role="tab" aria-controls="tabpanel_rUVDtJsOqU-7_tabid-8" data-tab="tabid-8" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_bHGHmlrG6S-7_tabid-8" role="tab" aria-controls="tabpanel_bHGHmlrG6S-7_tabid-8" data-tab="tabid-8" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_rUVDtJsOqU-7_tabid-8" role="tabpanel" data-tab="tabid-8">
+<section id="tabpanel_bHGHmlrG6S-7_tabid-8" role="tabpanel" data-tab="tabid-8">
+
 <pre><code class="lang-CS">CheckEvents(taskStatusEventArgsList, messageEventArgsList);
-</code></pre></section>
+</code></pre>
+</section>
 </div>
 <h2 id="putting-it-all-together">Putting it All Together</h2>
 <p>Below you see what the above mentioned functions should look like when all is put together:</p>
-<div class="tabGroup" id="tabgroup_rUVDtJsOqU-8">
+<div class="tabGroup" id="tabgroup_bHGHmlrG6S-8">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_rUVDtJsOqU-8_tabid-9" role="tab" aria-controls="tabpanel_rUVDtJsOqU-8_tabid-9" data-tab="tabid-9" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_bHGHmlrG6S-8_tabid-9" role="tab" aria-controls="tabpanel_bHGHmlrG6S-8_tabid-9" data-tab="tabid-9" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_rUVDtJsOqU-8_tabid-9" role="tabpanel" data-tab="tabid-9">
+<section id="tabpanel_bHGHmlrG6S-8_tabid-9" role="tabpanel" data-tab="tabid-9">
+
 <pre><code class="lang-CS">public void PrepareFiles(FileBasedProject project)
 {
     #region &quot;EventArgs&quot;
@@ -304,15 +327,17 @@ List&lt;MessageEventArgs&gt; messageEventArgsList = new List&lt;MessageEventArgs
     this.ProcessTargetLanguageFilesExtended(project, &quot;de-DE&quot;);
     this.ProcessTargetLanguageFilesExtended(project, &quot;fr-FR&quot;);
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
-<div class="tabGroup" id="tabgroup_rUVDtJsOqU-9">
+<div class="tabGroup" id="tabgroup_bHGHmlrG6S-9">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_rUVDtJsOqU-9_tabid-10" role="tab" aria-controls="tabpanel_rUVDtJsOqU-9_tabid-10" data-tab="tabid-10" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_bHGHmlrG6S-9_tabid-10" role="tab" aria-controls="tabpanel_bHGHmlrG6S-9_tabid-10" data-tab="tabid-10" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_rUVDtJsOqU-9_tabid-10" role="tabpanel" data-tab="tabid-10">
+<section id="tabpanel_bHGHmlrG6S-9_tabid-10" role="tabpanel" data-tab="tabid-10">
+
 <pre><code class="lang-CS">public void ProcessTargetLanguageFilesExtended(FileBasedProject project, string locale)
 {
     List&lt;TaskStatusEventArgs&gt; taskStatusEventArgsList = new List&lt;TaskStatusEventArgs&gt;();
@@ -340,15 +365,17 @@ List&lt;MessageEventArgs&gt; messageEventArgsList = new List&lt;MessageEventArgs
         AutomaticTaskTemplateIds.PopulateProjectTranslationMemories);
     this.CheckEvents(taskStatusEventArgsList, messageEventArgsList);
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
-<div class="tabGroup" id="tabgroup_rUVDtJsOqU-10">
+<div class="tabGroup" id="tabgroup_bHGHmlrG6S-10">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_rUVDtJsOqU-10_tabid-11" role="tab" aria-controls="tabpanel_rUVDtJsOqU-10_tabid-11" data-tab="tabid-11" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_bHGHmlrG6S-10_tabid-11" role="tab" aria-controls="tabpanel_bHGHmlrG6S-10_tabid-11" data-tab="tabid-11" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_rUVDtJsOqU-10_tabid-11" role="tabpanel" data-tab="tabid-11">
+<section id="tabpanel_bHGHmlrG6S-10_tabid-11" role="tabpanel" data-tab="tabid-11">
+
 <pre><code class="lang-CS">private void CheckEvents(List&lt;TaskStatusEventArgs&gt; taskStatusEventArgsList, List&lt;MessageEventArgs&gt; messageEventArgsList)
 {
     // loop through the available statuses and messages
@@ -383,7 +410,8 @@ List&lt;MessageEventArgs&gt; messageEventArgsList = new List&lt;MessageEventArgs
     taskStatusEventArgsList.Clear();
     messageEventArgsList.Clear();
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
 <h2 id="see-also">See Also</h2>
 <p><a href="automatic_tasks_and_task_settings.html">Automatic Tasks and Task Settings</a></p>
@@ -400,13 +428,13 @@ List&lt;MessageEventArgs&gt; messageEventArgsList = new List&lt;MessageEventArgs
 <p><a href="saving_task_reports.html">Saving Task Reports</a></p>
 </article>
           </div>
-          
+
           <div class="hidden-sm col-md-2" role="complementary">
             <div class="sideaffix">
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/RWS/studio-api-docs/blob/main/apiconcepts/projectautomation/running_tasks_on_project_files.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/im_main_LG-35978_Update_docfx_plugin/apiconcepts/projectautomation/running_tasks_on_project_files.md/#L1" class="contribution-link">Improve this Doc</a>
                   </li>
                 </ul>
               </div>
@@ -418,7 +446,7 @@ List&lt;MessageEventArgs&gt; messageEventArgsList = new List&lt;MessageEventArgs
           </div>
         </div>
       </div>
-      
+
       <footer>
         <div class="grad-bottom"></div>
         <div class="footer">
@@ -426,13 +454,13 @@ List&lt;MessageEventArgs&gt; messageEventArgsList = new List&lt;MessageEventArgs
             <span class="pull-right">
               <a href="#top">Back to top</a>
             </span>
-            
-            <span>Generated by <strong>DocFX</strong></span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
           </div>
         </div>
       </footer>
     </div>
-    
+
     <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
     <script type="text/javascript" src="../../styles/docfx.js"></script>
     <script type="text/javascript" src="../../styles/main.js"></script>

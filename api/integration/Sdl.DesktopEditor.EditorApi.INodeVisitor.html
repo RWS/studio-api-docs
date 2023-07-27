@@ -1,31 +1,31 @@
 ﻿<!DOCTYPE html>
 <!--[if IE]><![endif]-->
 <html>
-  
+
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>Interface INodeVisitor
-   </title>
+ </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Interface INodeVisitor
-   ">
-    <meta name="generator" content="docfx 2.59.3.0">
-    
+ ">
+    <meta name="generator" content="docfx ">
+  
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../../styles/docfx.css">
     <link rel="stylesheet" href="../../styles/main.css">
     <meta property="docfx:navrel" content="../../toc.html">
     <meta property="docfx:tocrel" content="../../apiconcepts/toc.html">
-    
-    <meta property="docfx:rel" content="../../">
-    
+  
+  <meta property="docfx:rel" content="../../">
+  
   </head>
   <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
       <header>
-        
+
         <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
           <div class="container">
             <div class="navbar-header">
@@ -35,7 +35,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              
+
               <a class="navbar-brand" href="../../index.html">
                 <img id="logo" class="svg" src="../../logo.svg" alt="">
               </a>
@@ -50,7 +50,7 @@
             </div>
           </div>
         </nav>
-        
+
         <div class="subnav navbar-default">
           <div class="container hide-when-search">
             <div class="breadcrumb-container" id="breadcrumb">
@@ -62,7 +62,7 @@
         </div>
       </header>
       <div class="container body-content">
-        
+
         <div id="search-results">
           <div class="search-list">Search Results for <span></span></div>
           <div class="sr-items">
@@ -72,7 +72,7 @@
         </div>
       </div>
       <div role="main" class="container body-content hide-when-search">
-        
+
         <div class="sidenav hide-when-search">
           <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
           <div class="sidetoggle collapse" id="sidetoggle">
@@ -82,10 +82,10 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="Sdl.DesktopEditor.EditorApi.INodeVisitor">
-  
-  
+
+
   <h1 id="Sdl_DesktopEditor_EditorApi_INodeVisitor" data-uid="Sdl.DesktopEditor.EditorApi.INodeVisitor" class="text-break">Interface INodeVisitor
-  </h1>
+</h1>
   <div class="markdown level0 summary"><p>Visitor interface for all types of filter framework editor specific nodes.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
@@ -93,7 +93,7 @@
   <h6><strong>Assembly</strong>: Sdl.DesktopEditor.EditorApi.dll</h6>
   <h5 id="Sdl_DesktopEditor_EditorApi_INodeVisitor_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public interface INodeVisitor</code></pre>
+    <pre><code class="lang- hljs">public interface INodeVisitor</code></pre>
   </div>
   <h5 id="Sdl_DesktopEditor_EditorApi_INodeVisitor_remarks"><strong>Remarks</strong></h5>
   <div class="markdown level0 remarks"><p>
@@ -113,9 +113,9 @@ the editor evolves much easier.
 </p>
 </div>
   <h3 id="methods">Methods
-  </h3>
-  
-  
+</h3>
+
+
   <a id="Sdl_DesktopEditor_EditorApi_INodeVisitor_VisitBookmarkNode_" data-uid="Sdl.DesktopEditor.EditorApi.INodeVisitor.VisitBookmarkNode*"></a>
   <h4 id="Sdl_DesktopEditor_EditorApi_INodeVisitor_VisitBookmarkNode_Sdl_DesktopEditor_EditorApi_IBookmarkNode_" data-uid="Sdl.DesktopEditor.EditorApi.INodeVisitor.VisitBookmarkNode(Sdl.DesktopEditor.EditorApi.IBookmarkNode)">VisitBookmarkNode(IBookmarkNode)</h4>
   <div class="markdown level1 summary"><p>Called by bookmark nodes.</p>
@@ -123,7 +123,7 @@ the editor evolves much easier.
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">void VisitBookmarkNode(IBookmarkNode node)</code></pre>
+    <pre><code class="lang- hljs">void VisitBookmarkNode(IBookmarkNode node)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -142,8 +142,25 @@ the editor evolves much easier.
       </tr>
     </tbody>
   </table>
-  
-  
+  <h5 id="Sdl_DesktopEditor_EditorApi_INodeVisitor_VisitBookmarkNode_Sdl_DesktopEditor_EditorApi_IBookmarkNode__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>
+To take advantage of the visitor pattern, create a visitor class
+that implements this interface, instantiate an object, and pass it 
+to <a class="xref" href="Sdl.DesktopEditor.EditorApi.INode.html#Sdl_DesktopEditor_EditorApi_INode_AcceptNodeVisitor_Sdl_DesktopEditor_EditorApi_INodeVisitor_">AcceptNodeVisitor(INodeVisitor)</a> on any <a class="xref" href="Sdl.DesktopEditor.EditorApi.INode.html">INode</a> instance.
+</p>
+<p>
+The node will call back on the function in this interface that corresponds to its type.
+</p>
+<p>
+This mechanism is very useful to avoid large switch/if/else tests for node types when
+processing nodes from collections (e.g. node containers). Not only do you avoid having
+to write these complex switches, the compiler will also tell you if the interface has
+been extended with new node types. That makes keeping the functionality up-to-date when
+the editor evolves much easier.
+</p>
+</div>
+
+
   <a id="Sdl_DesktopEditor_EditorApi_INodeVisitor_VisitCommentContainerNode_" data-uid="Sdl.DesktopEditor.EditorApi.INodeVisitor.VisitCommentContainerNode*"></a>
   <h4 id="Sdl_DesktopEditor_EditorApi_INodeVisitor_VisitCommentContainerNode_Sdl_DesktopEditor_EditorApi_ICommentContainerNode_" data-uid="Sdl.DesktopEditor.EditorApi.INodeVisitor.VisitCommentContainerNode(Sdl.DesktopEditor.EditorApi.ICommentContainerNode)">VisitCommentContainerNode(ICommentContainerNode)</h4>
   <div class="markdown level1 summary"><p>Called by comment container nodes.</p>
@@ -151,7 +168,7 @@ the editor evolves much easier.
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">void VisitCommentContainerNode(ICommentContainerNode node)</code></pre>
+    <pre><code class="lang- hljs">void VisitCommentContainerNode(ICommentContainerNode node)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -170,8 +187,25 @@ the editor evolves much easier.
       </tr>
     </tbody>
   </table>
-  
-  
+  <h5 id="Sdl_DesktopEditor_EditorApi_INodeVisitor_VisitCommentContainerNode_Sdl_DesktopEditor_EditorApi_ICommentContainerNode__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>
+To take advantage of the visitor pattern, create a visitor class
+that implements this interface, instantiate an object, and pass it 
+to <a class="xref" href="Sdl.DesktopEditor.EditorApi.INode.html#Sdl_DesktopEditor_EditorApi_INode_AcceptNodeVisitor_Sdl_DesktopEditor_EditorApi_INodeVisitor_">AcceptNodeVisitor(INodeVisitor)</a> on any <a class="xref" href="Sdl.DesktopEditor.EditorApi.INode.html">INode</a> instance.
+</p>
+<p>
+The node will call back on the function in this interface that corresponds to its type.
+</p>
+<p>
+This mechanism is very useful to avoid large switch/if/else tests for node types when
+processing nodes from collections (e.g. node containers). Not only do you avoid having
+to write these complex switches, the compiler will also tell you if the interface has
+been extended with new node types. That makes keeping the functionality up-to-date when
+the editor evolves much easier.
+</p>
+</div>
+
+
   <a id="Sdl_DesktopEditor_EditorApi_INodeVisitor_VisitDocumentContainerNode_" data-uid="Sdl.DesktopEditor.EditorApi.INodeVisitor.VisitDocumentContainerNode*"></a>
   <h4 id="Sdl_DesktopEditor_EditorApi_INodeVisitor_VisitDocumentContainerNode_Sdl_DesktopEditor_EditorApi_IDocumentContainerNode_" data-uid="Sdl.DesktopEditor.EditorApi.INodeVisitor.VisitDocumentContainerNode(Sdl.DesktopEditor.EditorApi.IDocumentContainerNode)">VisitDocumentContainerNode(IDocumentContainerNode)</h4>
   <div class="markdown level1 summary"><p>Called by document container nodes.</p>
@@ -179,7 +213,7 @@ the editor evolves much easier.
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">void VisitDocumentContainerNode(IDocumentContainerNode node)</code></pre>
+    <pre><code class="lang- hljs">void VisitDocumentContainerNode(IDocumentContainerNode node)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -198,8 +232,25 @@ the editor evolves much easier.
       </tr>
     </tbody>
   </table>
-  
-  
+  <h5 id="Sdl_DesktopEditor_EditorApi_INodeVisitor_VisitDocumentContainerNode_Sdl_DesktopEditor_EditorApi_IDocumentContainerNode__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>
+To take advantage of the visitor pattern, create a visitor class
+that implements this interface, instantiate an object, and pass it 
+to <a class="xref" href="Sdl.DesktopEditor.EditorApi.INode.html#Sdl_DesktopEditor_EditorApi_INode_AcceptNodeVisitor_Sdl_DesktopEditor_EditorApi_INodeVisitor_">AcceptNodeVisitor(INodeVisitor)</a> on any <a class="xref" href="Sdl.DesktopEditor.EditorApi.INode.html">INode</a> instance.
+</p>
+<p>
+The node will call back on the function in this interface that corresponds to its type.
+</p>
+<p>
+This mechanism is very useful to avoid large switch/if/else tests for node types when
+processing nodes from collections (e.g. node containers). Not only do you avoid having
+to write these complex switches, the compiler will also tell you if the interface has
+been extended with new node types. That makes keeping the functionality up-to-date when
+the editor evolves much easier.
+</p>
+</div>
+
+
   <a id="Sdl_DesktopEditor_EditorApi_INodeVisitor_VisitFileContainerNode_" data-uid="Sdl.DesktopEditor.EditorApi.INodeVisitor.VisitFileContainerNode*"></a>
   <h4 id="Sdl_DesktopEditor_EditorApi_INodeVisitor_VisitFileContainerNode_Sdl_DesktopEditor_EditorApi_IFileContainerNode_" data-uid="Sdl.DesktopEditor.EditorApi.INodeVisitor.VisitFileContainerNode(Sdl.DesktopEditor.EditorApi.IFileContainerNode)">VisitFileContainerNode(IFileContainerNode)</h4>
   <div class="markdown level1 summary"><p>Called by file container nodes.</p>
@@ -207,7 +258,7 @@ the editor evolves much easier.
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">void VisitFileContainerNode(IFileContainerNode node)</code></pre>
+    <pre><code class="lang- hljs">void VisitFileContainerNode(IFileContainerNode node)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -226,8 +277,25 @@ the editor evolves much easier.
       </tr>
     </tbody>
   </table>
-  
-  
+  <h5 id="Sdl_DesktopEditor_EditorApi_INodeVisitor_VisitFileContainerNode_Sdl_DesktopEditor_EditorApi_IFileContainerNode__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>
+To take advantage of the visitor pattern, create a visitor class
+that implements this interface, instantiate an object, and pass it 
+to <a class="xref" href="Sdl.DesktopEditor.EditorApi.INode.html#Sdl_DesktopEditor_EditorApi_INode_AcceptNodeVisitor_Sdl_DesktopEditor_EditorApi_INodeVisitor_">AcceptNodeVisitor(INodeVisitor)</a> on any <a class="xref" href="Sdl.DesktopEditor.EditorApi.INode.html">INode</a> instance.
+</p>
+<p>
+The node will call back on the function in this interface that corresponds to its type.
+</p>
+<p>
+This mechanism is very useful to avoid large switch/if/else tests for node types when
+processing nodes from collections (e.g. node containers). Not only do you avoid having
+to write these complex switches, the compiler will also tell you if the interface has
+been extended with new node types. That makes keeping the functionality up-to-date when
+the editor evolves much easier.
+</p>
+</div>
+
+
   <a id="Sdl_DesktopEditor_EditorApi_INodeVisitor_VisitLocationMarkerNode_" data-uid="Sdl.DesktopEditor.EditorApi.INodeVisitor.VisitLocationMarkerNode*"></a>
   <h4 id="Sdl_DesktopEditor_EditorApi_INodeVisitor_VisitLocationMarkerNode_Sdl_DesktopEditor_EditorApi_ILocationMarkerNode_" data-uid="Sdl.DesktopEditor.EditorApi.INodeVisitor.VisitLocationMarkerNode(Sdl.DesktopEditor.EditorApi.ILocationMarkerNode)">VisitLocationMarkerNode(ILocationMarkerNode)</h4>
   <div class="markdown level1 summary"><p>Called by location marker nodes.</p>
@@ -235,7 +303,7 @@ the editor evolves much easier.
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">void VisitLocationMarkerNode(ILocationMarkerNode node)</code></pre>
+    <pre><code class="lang- hljs">void VisitLocationMarkerNode(ILocationMarkerNode node)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -254,8 +322,25 @@ the editor evolves much easier.
       </tr>
     </tbody>
   </table>
-  
-  
+  <h5 id="Sdl_DesktopEditor_EditorApi_INodeVisitor_VisitLocationMarkerNode_Sdl_DesktopEditor_EditorApi_ILocationMarkerNode__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>
+To take advantage of the visitor pattern, create a visitor class
+that implements this interface, instantiate an object, and pass it 
+to <a class="xref" href="Sdl.DesktopEditor.EditorApi.INode.html#Sdl_DesktopEditor_EditorApi_INode_AcceptNodeVisitor_Sdl_DesktopEditor_EditorApi_INodeVisitor_">AcceptNodeVisitor(INodeVisitor)</a> on any <a class="xref" href="Sdl.DesktopEditor.EditorApi.INode.html">INode</a> instance.
+</p>
+<p>
+The node will call back on the function in this interface that corresponds to its type.
+</p>
+<p>
+This mechanism is very useful to avoid large switch/if/else tests for node types when
+processing nodes from collections (e.g. node containers). Not only do you avoid having
+to write these complex switches, the compiler will also tell you if the interface has
+been extended with new node types. That makes keeping the functionality up-to-date when
+the editor evolves much easier.
+</p>
+</div>
+
+
   <a id="Sdl_DesktopEditor_EditorApi_INodeVisitor_VisitLockedContentContainerNode_" data-uid="Sdl.DesktopEditor.EditorApi.INodeVisitor.VisitLockedContentContainerNode*"></a>
   <h4 id="Sdl_DesktopEditor_EditorApi_INodeVisitor_VisitLockedContentContainerNode_Sdl_DesktopEditor_EditorApi_ILockedContentContainerNode_" data-uid="Sdl.DesktopEditor.EditorApi.INodeVisitor.VisitLockedContentContainerNode(Sdl.DesktopEditor.EditorApi.ILockedContentContainerNode)">VisitLockedContentContainerNode(ILockedContentContainerNode)</h4>
   <div class="markdown level1 summary"><p>Called by locked content container nodes.</p>
@@ -263,7 +348,7 @@ the editor evolves much easier.
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">void VisitLockedContentContainerNode(ILockedContentContainerNode node)</code></pre>
+    <pre><code class="lang- hljs">void VisitLockedContentContainerNode(ILockedContentContainerNode node)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -282,8 +367,25 @@ the editor evolves much easier.
       </tr>
     </tbody>
   </table>
-  
-  
+  <h5 id="Sdl_DesktopEditor_EditorApi_INodeVisitor_VisitLockedContentContainerNode_Sdl_DesktopEditor_EditorApi_ILockedContentContainerNode__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>
+To take advantage of the visitor pattern, create a visitor class
+that implements this interface, instantiate an object, and pass it 
+to <a class="xref" href="Sdl.DesktopEditor.EditorApi.INode.html#Sdl_DesktopEditor_EditorApi_INode_AcceptNodeVisitor_Sdl_DesktopEditor_EditorApi_INodeVisitor_">AcceptNodeVisitor(INodeVisitor)</a> on any <a class="xref" href="Sdl.DesktopEditor.EditorApi.INode.html">INode</a> instance.
+</p>
+<p>
+The node will call back on the function in this interface that corresponds to its type.
+</p>
+<p>
+This mechanism is very useful to avoid large switch/if/else tests for node types when
+processing nodes from collections (e.g. node containers). Not only do you avoid having
+to write these complex switches, the compiler will also tell you if the interface has
+been extended with new node types. That makes keeping the functionality up-to-date when
+the editor evolves much easier.
+</p>
+</div>
+
+
   <a id="Sdl_DesktopEditor_EditorApi_INodeVisitor_VisitMarkerContainerNode_" data-uid="Sdl.DesktopEditor.EditorApi.INodeVisitor.VisitMarkerContainerNode*"></a>
   <h4 id="Sdl_DesktopEditor_EditorApi_INodeVisitor_VisitMarkerContainerNode_Sdl_DesktopEditor_EditorApi_IOtherMarkerContainerNode_" data-uid="Sdl.DesktopEditor.EditorApi.INodeVisitor.VisitMarkerContainerNode(Sdl.DesktopEditor.EditorApi.IOtherMarkerContainerNode)">VisitMarkerContainerNode(IOtherMarkerContainerNode)</h4>
   <div class="markdown level1 summary"><p>Called by generic marker nodes.</p>
@@ -291,7 +393,7 @@ the editor evolves much easier.
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">void VisitMarkerContainerNode(IOtherMarkerContainerNode node)</code></pre>
+    <pre><code class="lang- hljs">void VisitMarkerContainerNode(IOtherMarkerContainerNode node)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -310,8 +412,25 @@ the editor evolves much easier.
       </tr>
     </tbody>
   </table>
-  
-  
+  <h5 id="Sdl_DesktopEditor_EditorApi_INodeVisitor_VisitMarkerContainerNode_Sdl_DesktopEditor_EditorApi_IOtherMarkerContainerNode__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>
+To take advantage of the visitor pattern, create a visitor class
+that implements this interface, instantiate an object, and pass it 
+to <a class="xref" href="Sdl.DesktopEditor.EditorApi.INode.html#Sdl_DesktopEditor_EditorApi_INode_AcceptNodeVisitor_Sdl_DesktopEditor_EditorApi_INodeVisitor_">AcceptNodeVisitor(INodeVisitor)</a> on any <a class="xref" href="Sdl.DesktopEditor.EditorApi.INode.html">INode</a> instance.
+</p>
+<p>
+The node will call back on the function in this interface that corresponds to its type.
+</p>
+<p>
+This mechanism is very useful to avoid large switch/if/else tests for node types when
+processing nodes from collections (e.g. node containers). Not only do you avoid having
+to write these complex switches, the compiler will also tell you if the interface has
+been extended with new node types. That makes keeping the functionality up-to-date when
+the editor evolves much easier.
+</p>
+</div>
+
+
   <a id="Sdl_DesktopEditor_EditorApi_INodeVisitor_VisitParagraphUnitContainerNode_" data-uid="Sdl.DesktopEditor.EditorApi.INodeVisitor.VisitParagraphUnitContainerNode*"></a>
   <h4 id="Sdl_DesktopEditor_EditorApi_INodeVisitor_VisitParagraphUnitContainerNode_Sdl_DesktopEditor_EditorApi_IParagraphUnitContainerNode_" data-uid="Sdl.DesktopEditor.EditorApi.INodeVisitor.VisitParagraphUnitContainerNode(Sdl.DesktopEditor.EditorApi.IParagraphUnitContainerNode)">VisitParagraphUnitContainerNode(IParagraphUnitContainerNode)</h4>
   <div class="markdown level1 summary"><p>Called by ParagraphUnit container nodes.</p>
@@ -319,7 +438,7 @@ the editor evolves much easier.
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">void VisitParagraphUnitContainerNode(IParagraphUnitContainerNode node)</code></pre>
+    <pre><code class="lang- hljs">void VisitParagraphUnitContainerNode(IParagraphUnitContainerNode node)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -338,8 +457,25 @@ the editor evolves much easier.
       </tr>
     </tbody>
   </table>
-  
-  
+  <h5 id="Sdl_DesktopEditor_EditorApi_INodeVisitor_VisitParagraphUnitContainerNode_Sdl_DesktopEditor_EditorApi_IParagraphUnitContainerNode__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>
+To take advantage of the visitor pattern, create a visitor class
+that implements this interface, instantiate an object, and pass it 
+to <a class="xref" href="Sdl.DesktopEditor.EditorApi.INode.html#Sdl_DesktopEditor_EditorApi_INode_AcceptNodeVisitor_Sdl_DesktopEditor_EditorApi_INodeVisitor_">AcceptNodeVisitor(INodeVisitor)</a> on any <a class="xref" href="Sdl.DesktopEditor.EditorApi.INode.html">INode</a> instance.
+</p>
+<p>
+The node will call back on the function in this interface that corresponds to its type.
+</p>
+<p>
+This mechanism is very useful to avoid large switch/if/else tests for node types when
+processing nodes from collections (e.g. node containers). Not only do you avoid having
+to write these complex switches, the compiler will also tell you if the interface has
+been extended with new node types. That makes keeping the functionality up-to-date when
+the editor evolves much easier.
+</p>
+</div>
+
+
   <a id="Sdl_DesktopEditor_EditorApi_INodeVisitor_VisitPlaceholderTagNode_" data-uid="Sdl.DesktopEditor.EditorApi.INodeVisitor.VisitPlaceholderTagNode*"></a>
   <h4 id="Sdl_DesktopEditor_EditorApi_INodeVisitor_VisitPlaceholderTagNode_Sdl_DesktopEditor_EditorApi_IPlaceholderTagNode_" data-uid="Sdl.DesktopEditor.EditorApi.INodeVisitor.VisitPlaceholderTagNode(Sdl.DesktopEditor.EditorApi.IPlaceholderTagNode)">VisitPlaceholderTagNode(IPlaceholderTagNode)</h4>
   <div class="markdown level1 summary"><p>Called by placeholder tag nodes.</p>
@@ -347,7 +483,7 @@ the editor evolves much easier.
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">void VisitPlaceholderTagNode(IPlaceholderTagNode node)</code></pre>
+    <pre><code class="lang- hljs">void VisitPlaceholderTagNode(IPlaceholderTagNode node)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -366,8 +502,25 @@ the editor evolves much easier.
       </tr>
     </tbody>
   </table>
-  
-  
+  <h5 id="Sdl_DesktopEditor_EditorApi_INodeVisitor_VisitPlaceholderTagNode_Sdl_DesktopEditor_EditorApi_IPlaceholderTagNode__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>
+To take advantage of the visitor pattern, create a visitor class
+that implements this interface, instantiate an object, and pass it 
+to <a class="xref" href="Sdl.DesktopEditor.EditorApi.INode.html#Sdl_DesktopEditor_EditorApi_INode_AcceptNodeVisitor_Sdl_DesktopEditor_EditorApi_INodeVisitor_">AcceptNodeVisitor(INodeVisitor)</a> on any <a class="xref" href="Sdl.DesktopEditor.EditorApi.INode.html">INode</a> instance.
+</p>
+<p>
+The node will call back on the function in this interface that corresponds to its type.
+</p>
+<p>
+This mechanism is very useful to avoid large switch/if/else tests for node types when
+processing nodes from collections (e.g. node containers). Not only do you avoid having
+to write these complex switches, the compiler will also tell you if the interface has
+been extended with new node types. That makes keeping the functionality up-to-date when
+the editor evolves much easier.
+</p>
+</div>
+
+
   <a id="Sdl_DesktopEditor_EditorApi_INodeVisitor_VisitRevisionMarkerContainerNode_" data-uid="Sdl.DesktopEditor.EditorApi.INodeVisitor.VisitRevisionMarkerContainerNode*"></a>
   <h4 id="Sdl_DesktopEditor_EditorApi_INodeVisitor_VisitRevisionMarkerContainerNode_Sdl_DesktopEditor_EditorApi_IRevisionMarkerContainerNode_" data-uid="Sdl.DesktopEditor.EditorApi.INodeVisitor.VisitRevisionMarkerContainerNode(Sdl.DesktopEditor.EditorApi.IRevisionMarkerContainerNode)">VisitRevisionMarkerContainerNode(IRevisionMarkerContainerNode)</h4>
   <div class="markdown level1 summary"><p>Called by revision marker container nodes.</p>
@@ -375,7 +528,7 @@ the editor evolves much easier.
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">void VisitRevisionMarkerContainerNode(IRevisionMarkerContainerNode node)</code></pre>
+    <pre><code class="lang- hljs">void VisitRevisionMarkerContainerNode(IRevisionMarkerContainerNode node)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -394,8 +547,25 @@ the editor evolves much easier.
       </tr>
     </tbody>
   </table>
-  
-  
+  <h5 id="Sdl_DesktopEditor_EditorApi_INodeVisitor_VisitRevisionMarkerContainerNode_Sdl_DesktopEditor_EditorApi_IRevisionMarkerContainerNode__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>
+To take advantage of the visitor pattern, create a visitor class
+that implements this interface, instantiate an object, and pass it 
+to <a class="xref" href="Sdl.DesktopEditor.EditorApi.INode.html#Sdl_DesktopEditor_EditorApi_INode_AcceptNodeVisitor_Sdl_DesktopEditor_EditorApi_INodeVisitor_">AcceptNodeVisitor(INodeVisitor)</a> on any <a class="xref" href="Sdl.DesktopEditor.EditorApi.INode.html">INode</a> instance.
+</p>
+<p>
+The node will call back on the function in this interface that corresponds to its type.
+</p>
+<p>
+This mechanism is very useful to avoid large switch/if/else tests for node types when
+processing nodes from collections (e.g. node containers). Not only do you avoid having
+to write these complex switches, the compiler will also tell you if the interface has
+been extended with new node types. That makes keeping the functionality up-to-date when
+the editor evolves much easier.
+</p>
+</div>
+
+
   <a id="Sdl_DesktopEditor_EditorApi_INodeVisitor_VisitSegmentContainerNode_" data-uid="Sdl.DesktopEditor.EditorApi.INodeVisitor.VisitSegmentContainerNode*"></a>
   <h4 id="Sdl_DesktopEditor_EditorApi_INodeVisitor_VisitSegmentContainerNode_Sdl_DesktopEditor_EditorApi_ISegmentContainerNode_" data-uid="Sdl.DesktopEditor.EditorApi.INodeVisitor.VisitSegmentContainerNode(Sdl.DesktopEditor.EditorApi.ISegmentContainerNode)">VisitSegmentContainerNode(ISegmentContainerNode)</h4>
   <div class="markdown level1 summary"><p>Called by segment container nodes.</p>
@@ -403,7 +573,7 @@ the editor evolves much easier.
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">void VisitSegmentContainerNode(ISegmentContainerNode node)</code></pre>
+    <pre><code class="lang- hljs">void VisitSegmentContainerNode(ISegmentContainerNode node)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -422,8 +592,25 @@ the editor evolves much easier.
       </tr>
     </tbody>
   </table>
-  
-  
+  <h5 id="Sdl_DesktopEditor_EditorApi_INodeVisitor_VisitSegmentContainerNode_Sdl_DesktopEditor_EditorApi_ISegmentContainerNode__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>
+To take advantage of the visitor pattern, create a visitor class
+that implements this interface, instantiate an object, and pass it 
+to <a class="xref" href="Sdl.DesktopEditor.EditorApi.INode.html#Sdl_DesktopEditor_EditorApi_INode_AcceptNodeVisitor_Sdl_DesktopEditor_EditorApi_INodeVisitor_">AcceptNodeVisitor(INodeVisitor)</a> on any <a class="xref" href="Sdl.DesktopEditor.EditorApi.INode.html">INode</a> instance.
+</p>
+<p>
+The node will call back on the function in this interface that corresponds to its type.
+</p>
+<p>
+This mechanism is very useful to avoid large switch/if/else tests for node types when
+processing nodes from collections (e.g. node containers). Not only do you avoid having
+to write these complex switches, the compiler will also tell you if the interface has
+been extended with new node types. That makes keeping the functionality up-to-date when
+the editor evolves much easier.
+</p>
+</div>
+
+
   <a id="Sdl_DesktopEditor_EditorApi_INodeVisitor_VisitStartEndNode_" data-uid="Sdl.DesktopEditor.EditorApi.INodeVisitor.VisitStartEndNode*"></a>
   <h4 id="Sdl_DesktopEditor_EditorApi_INodeVisitor_VisitStartEndNode_Sdl_DesktopEditor_EditorApi_IStartEndNode_" data-uid="Sdl.DesktopEditor.EditorApi.INodeVisitor.VisitStartEndNode(Sdl.DesktopEditor.EditorApi.IStartEndNode)">VisitStartEndNode(IStartEndNode)</h4>
   <div class="markdown level1 summary"><p>Called by start/end nodes.</p>
@@ -431,7 +618,7 @@ the editor evolves much easier.
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">void VisitStartEndNode(IStartEndNode node)</code></pre>
+    <pre><code class="lang- hljs">void VisitStartEndNode(IStartEndNode node)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -450,8 +637,25 @@ the editor evolves much easier.
       </tr>
     </tbody>
   </table>
-  
-  
+  <h5 id="Sdl_DesktopEditor_EditorApi_INodeVisitor_VisitStartEndNode_Sdl_DesktopEditor_EditorApi_IStartEndNode__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>
+To take advantage of the visitor pattern, create a visitor class
+that implements this interface, instantiate an object, and pass it 
+to <a class="xref" href="Sdl.DesktopEditor.EditorApi.INode.html#Sdl_DesktopEditor_EditorApi_INode_AcceptNodeVisitor_Sdl_DesktopEditor_EditorApi_INodeVisitor_">AcceptNodeVisitor(INodeVisitor)</a> on any <a class="xref" href="Sdl.DesktopEditor.EditorApi.INode.html">INode</a> instance.
+</p>
+<p>
+The node will call back on the function in this interface that corresponds to its type.
+</p>
+<p>
+This mechanism is very useful to avoid large switch/if/else tests for node types when
+processing nodes from collections (e.g. node containers). Not only do you avoid having
+to write these complex switches, the compiler will also tell you if the interface has
+been extended with new node types. That makes keeping the functionality up-to-date when
+the editor evolves much easier.
+</p>
+</div>
+
+
   <a id="Sdl_DesktopEditor_EditorApi_INodeVisitor_VisitTagPairContainerNode_" data-uid="Sdl.DesktopEditor.EditorApi.INodeVisitor.VisitTagPairContainerNode*"></a>
   <h4 id="Sdl_DesktopEditor_EditorApi_INodeVisitor_VisitTagPairContainerNode_Sdl_DesktopEditor_EditorApi_ITagPairContainerNode_" data-uid="Sdl.DesktopEditor.EditorApi.INodeVisitor.VisitTagPairContainerNode(Sdl.DesktopEditor.EditorApi.ITagPairContainerNode)">VisitTagPairContainerNode(ITagPairContainerNode)</h4>
   <div class="markdown level1 summary"><p>Called by tag pair container nodes.</p>
@@ -459,7 +663,7 @@ the editor evolves much easier.
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">void VisitTagPairContainerNode(ITagPairContainerNode node)</code></pre>
+    <pre><code class="lang- hljs">void VisitTagPairContainerNode(ITagPairContainerNode node)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -478,8 +682,25 @@ the editor evolves much easier.
       </tr>
     </tbody>
   </table>
-  
-  
+  <h5 id="Sdl_DesktopEditor_EditorApi_INodeVisitor_VisitTagPairContainerNode_Sdl_DesktopEditor_EditorApi_ITagPairContainerNode__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>
+To take advantage of the visitor pattern, create a visitor class
+that implements this interface, instantiate an object, and pass it 
+to <a class="xref" href="Sdl.DesktopEditor.EditorApi.INode.html#Sdl_DesktopEditor_EditorApi_INode_AcceptNodeVisitor_Sdl_DesktopEditor_EditorApi_INodeVisitor_">AcceptNodeVisitor(INodeVisitor)</a> on any <a class="xref" href="Sdl.DesktopEditor.EditorApi.INode.html">INode</a> instance.
+</p>
+<p>
+The node will call back on the function in this interface that corresponds to its type.
+</p>
+<p>
+This mechanism is very useful to avoid large switch/if/else tests for node types when
+processing nodes from collections (e.g. node containers). Not only do you avoid having
+to write these complex switches, the compiler will also tell you if the interface has
+been extended with new node types. That makes keeping the functionality up-to-date when
+the editor evolves much easier.
+</p>
+</div>
+
+
   <a id="Sdl_DesktopEditor_EditorApi_INodeVisitor_VisitTextNode_" data-uid="Sdl.DesktopEditor.EditorApi.INodeVisitor.VisitTextNode*"></a>
   <h4 id="Sdl_DesktopEditor_EditorApi_INodeVisitor_VisitTextNode_Sdl_DesktopEditor_EditorApi_ITextNode_" data-uid="Sdl.DesktopEditor.EditorApi.INodeVisitor.VisitTextNode(Sdl.DesktopEditor.EditorApi.ITextNode)">VisitTextNode(ITextNode)</h4>
   <div class="markdown level1 summary"><p>Called by text nodes.</p>
@@ -487,7 +708,7 @@ the editor evolves much easier.
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">void VisitTextNode(ITextNode node)</code></pre>
+    <pre><code class="lang- hljs">void VisitTextNode(ITextNode node)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -506,13 +727,30 @@ the editor evolves much easier.
       </tr>
     </tbody>
   </table>
+  <h5 id="Sdl_DesktopEditor_EditorApi_INodeVisitor_VisitTextNode_Sdl_DesktopEditor_EditorApi_ITextNode__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>
+To take advantage of the visitor pattern, create a visitor class
+that implements this interface, instantiate an object, and pass it 
+to <a class="xref" href="Sdl.DesktopEditor.EditorApi.INode.html#Sdl_DesktopEditor_EditorApi_INode_AcceptNodeVisitor_Sdl_DesktopEditor_EditorApi_INodeVisitor_">AcceptNodeVisitor(INodeVisitor)</a> on any <a class="xref" href="Sdl.DesktopEditor.EditorApi.INode.html">INode</a> instance.
+</p>
+<p>
+The node will call back on the function in this interface that corresponds to its type.
+</p>
+<p>
+This mechanism is very useful to avoid large switch/if/else tests for node types when
+processing nodes from collections (e.g. node containers). Not only do you avoid having
+to write these complex switches, the compiler will also tell you if the interface has
+been extended with new node types. That makes keeping the functionality up-to-date when
+the editor evolves much easier.
+</p>
+</div>
   <h3 id="extensionmethods">Extension Methods</h3>
   <div>
       <a class="xref" href="Sdl.Desktop.Platform.Controls.Controls.WindowsControlUtils.html#Sdl_Desktop_Platform_Controls_Controls_WindowsControlUtils_ForWindowFromFrameworkElement_System_Object_System_Action_System_Windows_Window__">WindowsControlUtils.ForWindowFromFrameworkElement(Object, Action&lt;Window&gt;)</a>
   </div>
 </article>
           </div>
-          
+
           <div class="hidden-sm col-md-2" role="complementary">
             <div class="sideaffix">
               <div class="contribution">
@@ -527,7 +765,7 @@ the editor evolves much easier.
           </div>
         </div>
       </div>
-      
+
       <footer>
         <div class="grad-bottom"></div>
         <div class="footer">
@@ -535,13 +773,13 @@ the editor evolves much easier.
             <span class="pull-right">
               <a href="#top">Back to top</a>
             </span>
-            
-            <span>Generated by <strong>DocFX</strong></span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
           </div>
         </div>
       </footer>
     </div>
-    
+
     <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
     <script type="text/javascript" src="../../styles/docfx.js"></script>
     <script type="text/javascript" src="../../styles/main.js"></script>

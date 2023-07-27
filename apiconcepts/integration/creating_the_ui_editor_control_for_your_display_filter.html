@@ -1,29 +1,29 @@
 ﻿<!DOCTYPE html>
 <!--[if IE]><![endif]-->
 <html>
-  
+
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>Creating the UI Editor Control for your Display Filter </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Creating the UI Editor Control for your Display Filter ">
-    <meta name="generator" content="docfx 2.59.3.0">
-    
+    <meta name="generator" content="docfx ">
+  
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../../styles/docfx.css">
     <link rel="stylesheet" href="../../styles/main.css">
     <meta property="docfx:navrel" content="../../toc.html">
     <meta property="docfx:tocrel" content="../toc.html">
-    
-    <meta property="docfx:rel" content="../../">
-    
+  
+  <meta property="docfx:rel" content="../../">
+  
   </head>
   <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
       <header>
-        
+
         <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
           <div class="container">
             <div class="navbar-header">
@@ -33,7 +33,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              
+
               <a class="navbar-brand" href="../../index.html">
                 <img id="logo" class="svg" src="../../logo.svg" alt="">
               </a>
@@ -48,7 +48,7 @@
             </div>
           </div>
         </nav>
-        
+
         <div class="subnav navbar-default">
           <div class="container hide-when-search">
             <div class="breadcrumb-container" id="breadcrumb">
@@ -60,7 +60,7 @@
         </div>
       </header>
       <div class="container body-content">
-        
+
         <div id="search-results">
           <div class="search-list">Search Results for <span></span></div>
           <div class="sr-items">
@@ -70,7 +70,7 @@
         </div>
       </div>
       <div role="main" class="container body-content hide-when-search">
-        
+
         <div class="sidenav hide-when-search">
           <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
           <div class="sidetoggle collapse" id="sidetoggle">
@@ -82,8 +82,8 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="creating-the-ui-editor-control-for-your-display-filter">Creating the UI Editor Control for your Display Filter</h1>
 
-<p>To apply your implementation of the <a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.DisplayFilters.IDisplayFilter.html">IDisplayFilter</a>, get a reference to the active document and from there, apply the filter through the <code>ApplyFilterOnSegments</code> method. This will invoke a filter action on the document and while iterating over each of the segments, the API will call back into your implementation where you can assert whether or not the segment should be visible in the Trados Studio Editor.</p>
-<p>For a more complete solution, it would be useful to make this type of functionality available from the Trados Studio Editor, so that the end-user can choose which criteria they would like to include in the filter.</p>
+<p>To apply your implementation of the <a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.DisplayFilters.IDisplayFilter.html">IDisplayFilter</a>, get a reference to the active document and from there, apply the filter through the <code>ApplyFilterOnSegments</code> method. This will invoke a filter action on the document and while iterating over each of the segments, the API will call back into your implementation where you can assert whether or not the segment should be visible in the <a href="Var:ProductName">Var:ProductName</a> Editor.</p>
+<p>For a more complete solution, it would be useful to make this type of functionality available from the <a href="Var:ProductName">Var:ProductName</a> Editor, so that the end-user can choose which criteria they would like to include in the filter.</p>
 <p>Add two files to the project that permit the user to view the control in the Studio Editor and then select and apply the filter criteria on the document:</p>
 <ul>
 <li>User Control - The user control will contain the code related to the filter criteria that will be applied on the document</li>
@@ -91,18 +91,21 @@
 </ul>
 <p>Add a new user control to the project and name it <code>DisplayFilterControl</code>, as shown in the example below:</p>
 <p>Include UI design elements to the user control that permit the user to choose the appropriate criteria settings for the filter that will be applied on the document. Make reference to the following images an example of how this might look in your control. For the purpose of this example we will be concentrating more on how to apply the display filter as opposed to how the UI design elements are presented in the control.</p>
-<div class="NOTE"><h5>Note</h5><p>The code related to the design controls is available in the SDK so that you can eventually make reference to it.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The code related to the design controls is available in the SDK so that you can eventually make reference to it.</p>
 </div>
 <p>Once you have added the UI design elements, open the user control in code view. In order to apply your implementation of the <a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.DisplayFilters.IDisplayFilter.html">IDisplayFilter</a> on the active document, you will first need to get a reference to the <a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.html">EditorController</a>, and then subscribe to the <a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.html#Sdl_TranslationStudioAutomation_IntegrationApi_EditorController_ActiveDocumentChanged">ActiveDocumentChanged</a> event to ensure that you are always working with the active document from the editor. Making reference to the example code underneath, you can see that we subscribe to this event in the constructor to ensure that we have a handle on this when the control is instantiated in the Editor.</p>
 <p>Once you have a reference to the active document, you only need to call the method <a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument.html#Sdl_TranslationStudioAutomation_IntegrationApi_IStudioDocument_ApplyFilterOnSegments_Sdl_TranslationStudioAutomation_IntegrationApi_DisplayFilters_IDisplayFilter_">ApplyFilterOnSegments</a> with your implementation of the <a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.DisplayFilters.IDisplayFilter.html">IDisplayFilter</a>, as follows: <code>ActiveDocument.ApplyFilterOnSegments(new DisplayFilter(filterSettings););</code> This will then invoke a filter action on the document and while iterating over each of the segments, the API will call back into to the method <code>EvaluateRow</code> of your implementation.</p>
 <p>Subscribing to the <a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument.html#Sdl_TranslationStudioAutomation_IntegrationApi_IStudioDocument_DocumentFilterChanged">DocumentFilterChanged</a> event is quite useful as it permits you to understand when a filter has been applied on the document and then further deduct whether or not that filter is derived from you implementation of the interface.</p>
-<div class="tabGroup" id="tabgroup_XlR9V6h1wT">
+<div class="tabGroup" id="tabgroup_bHGHmlrG6S">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_XlR9V6h1wT_tabid-1" role="tab" aria-controls="tabpanel_XlR9V6h1wT_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_bHGHmlrG6S_tabid-1" role="tab" aria-controls="tabpanel_bHGHmlrG6S_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_XlR9V6h1wT_tabid-1" role="tabpanel" data-tab="tabid-1">
+<section id="tabpanel_bHGHmlrG6S_tabid-1" role="tabpanel" data-tab="tabid-1">
+
 <pre><code class="lang-cs">using System;
 using System.CodeDom;
 using System.Collections.Generic;
@@ -1436,18 +1439,21 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
 
 
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
-<p>To load the user control in the Trados Studio Editor, you will need to add a controller and decorate it with the appropriate extensions that will provide the API with enough information to identify and then load it.</p>
+
+<p>To load the user control in the <a href="Var:ProductName">Var:ProductName</a> Editor, you will need to add a controller and decorate it with the appropriate extensions that will provide the API with enough information to identify and then load it.</p>
 <p>Create a new class and name it <code>DisplayFilterController</code>.</p>
 <p>Add the following code to the <code>DisplayFilterController.cs</code> class; it will provide the API with the required information to identify the control and load it in the Editor, docking it at the bottom of the view.</p>
-<div class="tabGroup" id="tabgroup_XlR9V6h1wT-1">
+<div class="tabGroup" id="tabgroup_bHGHmlrG6S-1">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_XlR9V6h1wT-1_tabid-2" role="tab" aria-controls="tabpanel_XlR9V6h1wT-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_bHGHmlrG6S-1_tabid-2" role="tab" aria-controls="tabpanel_bHGHmlrG6S-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_XlR9V6h1wT-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<section id="tabpanel_bHGHmlrG6S-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+
 <pre><code class="lang-cs">using System;
 using System.Linq;
 using System.Windows.Forms;
@@ -1478,17 +1484,18 @@ namespace Community.AdvancedDisplayFilter.Controls
         }
     }
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
 </article>
           </div>
-          
+
           <div class="hidden-sm col-md-2" role="complementary">
             <div class="sideaffix">
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/RWS/studio-api-docs/blob/main/apiconcepts/integration/creating_the_ui_editor_control_for_your_display_filter.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/im_main_LG-35978_Update_docfx_plugin/apiconcepts/integration/creating_the_ui_editor_control_for_your_display_filter.md/#L1" class="contribution-link">Improve this Doc</a>
                   </li>
                 </ul>
               </div>
@@ -1500,7 +1507,7 @@ namespace Community.AdvancedDisplayFilter.Controls
           </div>
         </div>
       </div>
-      
+
       <footer>
         <div class="grad-bottom"></div>
         <div class="footer">
@@ -1508,13 +1515,13 @@ namespace Community.AdvancedDisplayFilter.Controls
             <span class="pull-right">
               <a href="#top">Back to top</a>
             </span>
-            
-            <span>Generated by <strong>DocFX</strong></span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
           </div>
         </div>
       </footer>
     </div>
-    
+
     <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
     <script type="text/javascript" src="../../styles/docfx.js"></script>
     <script type="text/javascript" src="../../styles/main.js"></script>

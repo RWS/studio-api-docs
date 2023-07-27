@@ -1,29 +1,29 @@
 ﻿<!DOCTYPE html>
 <!--[if IE]><![endif]-->
 <html>
-  
+
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>Creating a Project Package </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Creating a Project Package ">
-    <meta name="generator" content="docfx 2.59.3.0">
-    
+    <meta name="generator" content="docfx ">
+  
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../../styles/docfx.css">
     <link rel="stylesheet" href="../../styles/main.css">
     <meta property="docfx:navrel" content="../../toc.html">
     <meta property="docfx:tocrel" content="../toc.html">
-    
-    <meta property="docfx:rel" content="../../">
-    
+  
+  <meta property="docfx:rel" content="../../">
+  
   </head>
   <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
       <header>
-        
+
         <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
           <div class="container">
             <div class="navbar-header">
@@ -33,7 +33,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              
+
               <a class="navbar-brand" href="../../index.html">
                 <img id="logo" class="svg" src="../../logo.svg" alt="">
               </a>
@@ -48,7 +48,7 @@
             </div>
           </div>
         </nav>
-        
+
         <div class="subnav navbar-default">
           <div class="container hide-when-search">
             <div class="breadcrumb-container" id="breadcrumb">
@@ -60,7 +60,7 @@
         </div>
       </header>
       <div class="container body-content">
-        
+
         <div id="search-results">
           <div class="search-list">Search Results for <span></span></div>
           <div class="sr-items">
@@ -70,7 +70,7 @@
         </div>
       </div>
       <div role="main" class="container body-content hide-when-search">
-        
+
         <div class="sidenav hide-when-search">
           <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
           <div class="sidetoggle collapse" id="sidetoggle">
@@ -82,9 +82,9 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="creating-a-project-package">Creating a Project Package</h1>
 
-<p>When assigning tasks to e.g. translators and freelancers you will create so-called project packages. These are technically speaking ZIP files that carry the extension <em>*.sdlppx</em>. Project package files contain the elements of a project that are relevant for a particular translator/editor, i.e. the files to translate or localize (e.g. 3 particular files out of a total of 10), project TMs, reference documents, and potentially also termbase files, AutoSuggest Dictionaries. Through packages you can also split up a project between several translators/editors, e.g. assign the package for the French translation to translator A, the German translation to translator B, or assign only some files to a translator, if one person cannot handle all files for a particular language direction.</p>
+<p>When assigning tasks to e.g. translators and freelancers you will create so-called project packages. These are technically speaking ZIP files that carry the extension *<em>.sdlppx</em>. Project package files contain the elements of a project that are relevant for a particular translator/editor, i.e. the files to translate or localize (e.g. 3 particular files out of a total of 10), project TMs, reference documents, and potentially also termbase files, AutoSuggest Dictionaries. Through packages you can also split up a project between several translators/editors, e.g. assign the package for the French translation to translator A, the German translation to translator B, or assign only some files to a translator, if one person cannot handle all files for a particular language direction.</p>
 <h2 id="assign-a-manual-task-and-create-a-project-package">Assign a Manual Task and Create a Project Package</h2>
-<p>The screenshot below illustrates how a project package is created from Trados Studio.</p>
+<p>The screenshot below illustrates how a project package is created from <a href="Var:ProductName">Var:ProductName</a>.</p>
 <p><img src="images/CreateProjectPackage.jpg" alt="CreateProjectPackage"></p>
 <p>Creating a project package involves assigning a manual task (e.g. Translate, Edit, Proofread) to a user. When assigning the task you define the following parameters:</p>
 <ul>
@@ -100,21 +100,24 @@
 <li>The due date for this package (e.g. 3 days from the current date). Note that the package due date should not be later than the project due date. The package usually has to be delivered earlier, so that there is enough time for the project manager for e.g. sign-off, finalization, delivery.</li>
 <li>The ids of the files that this manual task involves. In the example below we assign all files for the target language German to this task.</li>
 </ul>
-<div class="tabGroup" id="tabgroup_kNUyS+UwVn">
+<div class="tabGroup" id="tabgroup_bHGHmlrG6S">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_kNUyS+UwVn_tabid-1" role="tab" aria-controls="tabpanel_kNUyS+UwVn_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_bHGHmlrG6S_tabid-1" role="tab" aria-controls="tabpanel_bHGHmlrG6S_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_kNUyS+UwVn_tabid-1" role="tabpanel" data-tab="tabid-1">
+<section id="tabpanel_bHGHmlrG6S_tabid-1" role="tabpanel" data-tab="tabid-1">
+
 <pre><code class="lang-cs">ProjectFile[] packageFiles = project.GetTargetLanguageFiles(new Language(CultureInfo.GetCultureInfo(&quot;de-DE&quot;)));
 ManualTask newTask = project.CreateManualTask(
     &quot;Translate&quot;,
     &quot;Fred&quot;,
     DateTime.Now.AddDays(3), 
     packageFiles.GetIds());9
-</code></pre></section>
+</code></pre>
+</section>
 </div>
+
 <p>To actually create the project package, apply the <a href="../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.html#Sdl_ProjectAutomation_FileBased_FileBasedProject_CreateProjectPackage_System_Guid_System_String_System_String_Sdl_ProjectAutomation_Core_ProjectPackageCreationOptions_System_EventHandler_Sdl_ProjectAutomation_Core_ProgressEventArgs__System_EventHandler_Sdl_ProjectAutomation_Core_MessageEventArgs__">CreateProjectPackage</a> method to the project object. This method requires the following parameters:</p>
 <ul>
 <li>The id (guid) of the manual task that you created previously</li>
@@ -123,82 +126,101 @@ An optional comment (can be an empty string)</li>
 <li>The package options, which we retrieve by calling a separate helper function.</li>
 </ul>
 <p>Below is an example that shows how to use the <a href="../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.html#Sdl_ProjectAutomation_FileBased_FileBasedProject_CreateProjectPackage_System_Guid_System_String_System_String_Sdl_ProjectAutomation_Core_ProjectPackageCreationOptions_System_EventHandler_Sdl_ProjectAutomation_Core_ProgressEventArgs__System_EventHandler_Sdl_ProjectAutomation_Core_MessageEventArgs__">CreateProjectPackage</a> method in order to create a package, which is programmatically an object based on the <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.ProjectPackageCreation.html">ProjectPackageCreation</a> class:</p>
-<div class="tabGroup" id="tabgroup_kNUyS+UwVn-1">
+<div class="tabGroup" id="tabgroup_bHGHmlrG6S-1">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_kNUyS+UwVn-1_tabid-2" role="tab" aria-controls="tabpanel_kNUyS+UwVn-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_bHGHmlrG6S-1_tabid-2" role="tab" aria-controls="tabpanel_bHGHmlrG6S-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_kNUyS+UwVn-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<section id="tabpanel_bHGHmlrG6S-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+
 <pre><code class="lang-cs">ProjectPackageCreation projectPackage = project.CreateProjectPackage(
     newTask.Id,
     &quot;Sample Package&quot;,
     &quot;Please hurry up, this is job is urgent!&quot;, 
     this.GetPackageOptions());
-</code></pre></section>
+</code></pre>
+</section>
 </div>
+
 <p>Afterwards, apply the <a href="../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.html#Sdl_ProjectAutomation_FileBased_FileBasedProject_SavePackageAs_System_Guid_System_String_">SavePackageAs</a> method to physically save the project package file at a specific location. This method requires the package id (which you can retrieve from the <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.ProjectPackageCreation.html">ProjectPackageCreation</a> object and the full file name and path as parameters.</p>
-<div class="tabGroup" id="tabgroup_kNUyS+UwVn-2">
+<div class="tabGroup" id="tabgroup_bHGHmlrG6S-2">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_kNUyS+UwVn-2_tabid-3" role="tab" aria-controls="tabpanel_kNUyS+UwVn-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_bHGHmlrG6S-2_tabid-3" role="tab" aria-controls="tabpanel_bHGHmlrG6S-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_kNUyS+UwVn-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<section id="tabpanel_bHGHmlrG6S-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+
 <pre><code class="lang-cs">project.SavePackageAs(projectPackage.PackageId, packageFile);
-</code></pre></section>
+</code></pre>
+</section>
 </div>
-<div class="NOTE"><h5>Note</h5><p>Even if you save the project package to a specific location, the package file will still be automatically created within the project folder strcture. Outgoing packages will be stored in a sub-folder called <em>Packaged/Out</em>.</p>
+
+<div class="NOTE">
+<h5>Note</h5>
+<p>Even if you save the project package to a specific location, the package file will still be automatically created within the project folder strcture. Outgoing packages will be stored in a sub-folder called <em>Packaged/Out</em>.</p>
 </div>
-<div class="NOTE"><h5>Note</h5><p>After creating a package, the manual task will be shown in Trados Studio as sent and assigned as illustrated in the screenshot below:</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>After creating a package, the manual task will be shown in <a href="Var:ProductName">Var:ProductName</a> as sent and assigned as illustrated in the screenshot below:</p>
 </div>
 <p><img src="images/ToFred.jpg" alt="ToFred"></p>
 <h2 id="configure-the-project-package-options">Configure the Project Package Options</h2>
-<p>Apart from the above mentioned parameters there are various other options that you may configure for a project package, e.g. whether or not to include termbases and/or AutoSuggest Dictionaries. The screenshot below shows the project package options that you can set in Trados Studio:</p>
+<p>Apart from the above mentioned parameters there are various other options that you may configure for a project package, e.g. whether or not to include termbases and/or AutoSuggest Dictionaries. The screenshot below shows the project package options that you can set in <a href="Var:ProductName">Var:ProductName</a>:</p>
 <p><img src="images/ProjectPackageOptions.jpg" alt="ProjectPackageOptions"></p>
 <p>To configure the project package options programmatically, implement a separate helper function called <code>GetPackageOptions</code>, which returns a <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.ProjectPackageCreationOptions.html">ProjectPackageCreationOptions</a> object:</p>
-<div class="tabGroup" id="tabgroup_kNUyS+UwVn-3">
+<div class="tabGroup" id="tabgroup_bHGHmlrG6S-3">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_kNUyS+UwVn-3_tabid-4" role="tab" aria-controls="tabpanel_kNUyS+UwVn-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_bHGHmlrG6S-3_tabid-4" role="tab" aria-controls="tabpanel_bHGHmlrG6S-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_kNUyS+UwVn-3_tabid-4" role="tabpanel" data-tab="tabid-4">
+<section id="tabpanel_bHGHmlrG6S-3_tabid-4" role="tabpanel" data-tab="tabid-4">
+
 <pre><code class="lang-cs">ProjectPackageCreationOptions options = new ProjectPackageCreationOptions();
-</code></pre></section>
+</code></pre>
+</section>
 </div>
+
 <p><strong>Resources to Include</strong></p>
 <p>The properties in the code example below demonstrate which resources you can optionally include in a package:</p>
 <ul>
 <li>You may have the main TM(s) included alongside or instead of the project TMs. The main TMs usually yield more results during concordance searches, however, as these TMs tend to be very big they will usually increase the package size considerably.</li>
 <li>You may also decide to include any AutoSuggest dictionaries for subsegment matching. Note that there are no project AutoSuggest dictionaries. If you provide this resource, the full AutoSuggest dictionaries will be included, which usually increased the package size considerably.</li>
-<li>If your project is associated with any file-based termbases, they can be included in the package as well. Here, the same applies as for the AutoSuggest dictionaries, i.e. there are no project termbases, which means that you will always include the full termbase (<em>*.sdltb</em>) files.</li>
+<li>If your project is associated with any file-based termbases, they can be included in the package as well. Here, the same applies as for the AutoSuggest dictionaries, i.e. there are no project termbases, which means that you will always include the full termbase (**.sdltb*) files.</li>
 </ul>
-<div class="tabGroup" id="tabgroup_kNUyS+UwVn-4">
+<div class="tabGroup" id="tabgroup_bHGHmlrG6S-4">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_kNUyS+UwVn-4_tabid-5" role="tab" aria-controls="tabpanel_kNUyS+UwVn-4_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_bHGHmlrG6S-4_tabid-5" role="tab" aria-controls="tabpanel_bHGHmlrG6S-4_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_kNUyS+UwVn-4_tabid-5" role="tabpanel" data-tab="tabid-5">
+<section id="tabpanel_bHGHmlrG6S-4_tabid-5" role="tabpanel" data-tab="tabid-5">
+
 <pre><code class="lang-cs">options.IncludeAutoSuggestDictionaries = false;
 options.IncludeMainTranslationMemories = false;
 options.RemoveServerBasedTranslationMemories = false;
 options.IncludeTermbases = true;
-</code></pre></section>
+</code></pre>
+</section>
 </div>
+
 <p><strong>Remove Automated Translation Providers</strong></p>
 <p>If your project is associated with any automated online translation providers (e.g. Google Translate), you may to decide not to include the links to those online resources in the project package. The reason is that translators tend to download the package and then process its content while not connected to the Internet, which means that they cannot use any online resources.</p>
-<div class="tabGroup" id="tabgroup_kNUyS+UwVn-5">
+<div class="tabGroup" id="tabgroup_bHGHmlrG6S-5">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_kNUyS+UwVn-5_tabid-6" role="tab" aria-controls="tabpanel_kNUyS+UwVn-5_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_bHGHmlrG6S-5_tabid-6" role="tab" aria-controls="tabpanel_bHGHmlrG6S-5_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_kNUyS+UwVn-5_tabid-6" role="tabpanel" data-tab="tabid-6">
+<section id="tabpanel_bHGHmlrG6S-5_tabid-6" role="tabpanel" data-tab="tabid-6">
+
 <pre><code class="lang-cs">options.RemoveAutomatedTranslationProviders = true;
-</code></pre></section>
+</code></pre>
+</section>
 </div>
+
 <p><strong>Recompute Analysis Statistics and Project TM Options</strong></p>
 <p>The following sample code demonstrates the use of two further options:</p>
 <p>You may decide to recompute the analysis statistics, if a translator only receives part of the files for a particular target language. Example: Your project contains 10 files to translate. There are repeated segments between files 1 and 7. However, the translator who receives this package will only get files 1 to 5, i.e. <em>not</em> file 7. This means that for this package the cross-file repetition analysis for the whole set of 10 files will not be correct. In this case, it makes sense to re-compute the analysis statistics, so that only the cross-file repetitions of the 5 package files are taken into account.</p>
@@ -208,38 +230,44 @@ options.IncludeTermbases = true;
 <li><a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.ProjectTranslationMemoryPackageOptions.html#fields">UseExisting</a>: Simply include the project TM(s) that were created during the project set-up (i.e. the project TMs as they exist currently)</li>
 <li><a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.ProjectTranslationMemoryPackageOptions.html#fields">None</a>: Do not include any project TMs at all</li>
 </ul>
-<div class="tabGroup" id="tabgroup_kNUyS+UwVn-6">
+<div class="tabGroup" id="tabgroup_bHGHmlrG6S-6">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_kNUyS+UwVn-6_tabid-7" role="tab" aria-controls="tabpanel_kNUyS+UwVn-6_tabid-7" data-tab="tabid-7" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_bHGHmlrG6S-6_tabid-7" role="tab" aria-controls="tabpanel_bHGHmlrG6S-6_tabid-7" data-tab="tabid-7" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_kNUyS+UwVn-6_tabid-7" role="tabpanel" data-tab="tabid-7">
+<section id="tabpanel_bHGHmlrG6S-6_tabid-7" role="tabpanel" data-tab="tabid-7">
+
 <pre><code class="lang-cs">options.RecomputeAnalysisStatistics = true;
 options.ProjectTranslationMemoryOptions = ProjectTranslationMemoryPackageOptions.CreateNew;
-</code></pre></section>
+</code></pre>
+</section>
 </div>
+
 <p>Finally, do not forget to return the <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.ProjectTranslationMemoryPackageOptions.html">ProjectPackageCreationOptions</a> object:</p>
-<div class="tabGroup" id="tabgroup_kNUyS+UwVn-7">
+<div class="tabGroup" id="tabgroup_bHGHmlrG6S-7">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_kNUyS+UwVn-7_tabid-8" role="tab" aria-controls="tabpanel_kNUyS+UwVn-7_tabid-8" data-tab="tabid-8" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_bHGHmlrG6S-7_tabid-8" role="tab" aria-controls="tabpanel_bHGHmlrG6S-7_tabid-8" data-tab="tabid-8" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_kNUyS+UwVn-7_tabid-8" role="tabpanel" data-tab="tabid-8">
+<section id="tabpanel_bHGHmlrG6S-7_tabid-8" role="tabpanel" data-tab="tabid-8">
+
 <pre><code class="lang-cs">return options;
-</code></pre></section>
+</code></pre>
+</section>
 </div>
 <h2 id="check-the-project-package-creation-status">Check the Project Package Creation Status</h2>
 <p>It may happen that the package creation fails for some reason (e.g. the project TMs cannot be created, or any files to include in the package have accidentally been deleted or have became corrupted). This is why you should check for any events during the project package creation, and output a message to the user if required.</p>
 <p>The following sample code leverages the <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.PackageStatus.html">PackageStatus</a> class to check the project package status. It throws an error message if in the end the package status is not <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.PackageStatus.html#fields">Completed</a>:</p>
-<div class="tabGroup" id="tabgroup_kNUyS+UwVn-8">
+<div class="tabGroup" id="tabgroup_bHGHmlrG6S-8">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_kNUyS+UwVn-8_tabid-9" role="tab" aria-controls="tabpanel_kNUyS+UwVn-8_tabid-9" data-tab="tabid-9" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_bHGHmlrG6S-8_tabid-9" role="tab" aria-controls="tabpanel_bHGHmlrG6S-8_tabid-9" data-tab="tabid-9" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_kNUyS+UwVn-8_tabid-9" role="tabpanel" data-tab="tabid-9">
+<section id="tabpanel_bHGHmlrG6S-8_tabid-9" role="tabpanel" data-tab="tabid-9">
+
 <pre><code class="lang-cs">bool packageIsCreated = false;
 while (!packageIsCreated)
 {
@@ -266,17 +294,19 @@ if (projectPackage.Status != PackageStatus.Completed)
 {
     throw new Exception(&quot;A problem occurred during package creation.&quot;);
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
 <h2 id="putting-it-all-together">Putting it All Together</h2>
 <p>The complete functions should now look as shown below:</p>
-<div class="tabGroup" id="tabgroup_kNUyS+UwVn-9">
+<div class="tabGroup" id="tabgroup_bHGHmlrG6S-9">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_kNUyS+UwVn-9_tabid-10" role="tab" aria-controls="tabpanel_kNUyS+UwVn-9_tabid-10" data-tab="tabid-10" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_bHGHmlrG6S-9_tabid-10" role="tab" aria-controls="tabpanel_bHGHmlrG6S-9_tabid-10" data-tab="tabid-10" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_kNUyS+UwVn-9_tabid-10" role="tabpanel" data-tab="tabid-10">
+<section id="tabpanel_bHGHmlrG6S-9_tabid-10" role="tabpanel" data-tab="tabid-10">
+
 <pre><code class="lang-cs">public void CreatePackage(FileBasedProject project, string packageFile)
 {
     #region &quot;CreateManualTask&quot;
@@ -330,15 +360,17 @@ if (projectPackage.Status != PackageStatus.Completed)
     project.SavePackageAs(projectPackage.PackageId, packageFile);
     #endregion
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
-<div class="tabGroup" id="tabgroup_kNUyS+UwVn-10">
+<div class="tabGroup" id="tabgroup_bHGHmlrG6S-10">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_kNUyS+UwVn-10_tabid-11" role="tab" aria-controls="tabpanel_kNUyS+UwVn-10_tabid-11" data-tab="tabid-11" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_bHGHmlrG6S-10_tabid-11" role="tab" aria-controls="tabpanel_bHGHmlrG6S-10_tabid-11" data-tab="tabid-11" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_kNUyS+UwVn-10_tabid-11" role="tabpanel" data-tab="tabid-11">
+<section id="tabpanel_bHGHmlrG6S-10_tabid-11" role="tabpanel" data-tab="tabid-11">
+
 <pre><code class="lang-cs">private ProjectPackageCreationOptions GetPackageOptions()
 {
     #region &quot;ProjectPackageCreationOptions&quot;
@@ -365,20 +397,21 @@ if (projectPackage.Status != PackageStatus.Completed)
     return options;
     #endregion
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
 <h2 id="see-also">See Also</h2>
 <p><a href="creating_a_return_package.html">Creating a Return Package</a></p>
 <p><a href="about_packages.html">About Packages</a></p>
 </article>
           </div>
-          
+
           <div class="hidden-sm col-md-2" role="complementary">
             <div class="sideaffix">
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/RWS/studio-api-docs/blob/main/apiconcepts/projectautomation/creating_a_project_package.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/im_main_LG-35978_Update_docfx_plugin/apiconcepts/projectautomation/creating_a_project_package.md/#L1" class="contribution-link">Improve this Doc</a>
                   </li>
                 </ul>
               </div>
@@ -390,7 +423,7 @@ if (projectPackage.Status != PackageStatus.Completed)
           </div>
         </div>
       </div>
-      
+
       <footer>
         <div class="grad-bottom"></div>
         <div class="footer">
@@ -398,13 +431,13 @@ if (projectPackage.Status != PackageStatus.Completed)
             <span class="pull-right">
               <a href="#top">Back to top</a>
             </span>
-            
-            <span>Generated by <strong>DocFX</strong></span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
           </div>
         </div>
       </footer>
     </div>
-    
+
     <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
     <script type="text/javascript" src="../../styles/docfx.js"></script>
     <script type="text/javascript" src="../../styles/main.js"></script>

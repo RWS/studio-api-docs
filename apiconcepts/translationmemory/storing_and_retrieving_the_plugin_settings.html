@@ -1,29 +1,29 @@
 ﻿<!DOCTYPE html>
 <!--[if IE]><![endif]-->
 <html>
-  
+
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>Storing and Retrieving the Plug-in Settings </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Storing and Retrieving the Plug-in Settings ">
-    <meta name="generator" content="docfx 2.59.3.0">
-    
+    <meta name="generator" content="docfx ">
+  
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../../styles/docfx.css">
     <link rel="stylesheet" href="../../styles/main.css">
     <meta property="docfx:navrel" content="../../toc.html">
     <meta property="docfx:tocrel" content="../toc.html">
-    
-    <meta property="docfx:rel" content="../../">
-    
+  
+  <meta property="docfx:rel" content="../../">
+  
   </head>
   <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
       <header>
-        
+
         <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
           <div class="container">
             <div class="navbar-header">
@@ -33,7 +33,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              
+
               <a class="navbar-brand" href="../../index.html">
                 <img id="logo" class="svg" src="../../logo.svg" alt="">
               </a>
@@ -48,7 +48,7 @@
             </div>
           </div>
         </nav>
-        
+
         <div class="subnav navbar-default">
           <div class="container hide-when-search">
             <div class="breadcrumb-container" id="breadcrumb">
@@ -60,7 +60,7 @@
         </div>
       </header>
       <div class="container body-content">
-        
+
         <div id="search-results">
           <div class="search-list">Search Results for <span></span></div>
           <div class="sr-items">
@@ -70,7 +70,7 @@
         </div>
       </div>
       <div role="main" class="container body-content hide-when-search">
-        
+
         <div class="sidenav hide-when-search">
           <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
           <div class="sidetoggle collapse" id="sidetoggle">
@@ -82,30 +82,33 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="storing-and-retrieving-the-plug-in-settings">Storing and Retrieving the Plug-in Settings</h1>
 
-<p>The settings that are configured through the plug-in user interface (see <a href="implementing_the_plugin_user_interface.html">Implementing the Plug-in User Interface</a>) need to be programmatically set and retrieved. This chapter describes how to implement a separate class for storing the plug-in settings. These settings are physically stored in an <em>*.sdlproj</em> or in an <em>*.sdltlp</em> file.</p>
+<p>The settings that are configured through the plug-in user interface (see <a href="implementing_the_plugin_user_interface.html">Implementing the Plug-in User Interface</a>) need to be programmatically set and retrieved. This chapter describes how to implement a separate class for storing the plug-in settings. These settings are physically stored in an *<em>.sdlproj</em> or in an *<em>.sdltlp</em> file.</p>
 <h2 id="implement-the-class-for-handling-the-plug-in-settings">Implement the Class for Handling the Plug-in Settings</h2>
 <p>Add a helper class called <code>ListTranslationOptions</code> to the project. This class is not included in the plug-in template.</p>
 <h2 id="define-the-translation-method">Define the Translation Method</h2>
-<p>First, we define the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMethod.html">TranslationMethod</a> that best applies to our translation provider source. The translation method could, for example, be translation memory, machine translation, pseudo-translation, etc. A delimited list is basically like a rudimentary TM. Therefore you could, for example, select <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMethod.html">TranslationMemory</a>. However, to set our plug-in apart from a &#39;normal&#39; TM we select the option Other:</p>
-<div class="tabGroup" id="tabgroup_qFbPLeV317">
+<p>First, we define the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMethod.html">TranslationMethod</a> that best applies to our translation provider source. The translation method could, for example, be translation memory, machine translation, pseudo-translation, etc. A delimited list is basically like a rudimentary TM. Therefore you could, for example, select <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMethod.html">TranslationMemory</a>. However, to set our plug-in apart from a 'normal' TM we select the option Other:</p>
+<div class="tabGroup" id="tabgroup_bHGHmlrG6S">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_qFbPLeV317_tabid-1" role="tab" aria-controls="tabpanel_qFbPLeV317_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_bHGHmlrG6S_tabid-1" role="tab" aria-controls="tabpanel_bHGHmlrG6S_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_qFbPLeV317_tabid-1" role="tabpanel" data-tab="tabid-1">
+<section id="tabpanel_bHGHmlrG6S_tabid-1" role="tabpanel" data-tab="tabid-1">
+
 <pre><code class="lang-cs">public static readonly TranslationMethod ProviderTranslationMethod = TranslationMethod.Other;
-</code></pre></section>
+</code></pre>
+</section>
 </div>
 <h2 id="create-the-plug-in-uri-builder">Create the Plug-in URI Builder</h2>
 <p>Each plug-in uses a URI to store and retrieve settings. Through the following code we create the URI builder object, which is used to store and persist the plug-in settings:</p>
-<div class="tabGroup" id="tabgroup_qFbPLeV317-1">
+<div class="tabGroup" id="tabgroup_bHGHmlrG6S-1">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_qFbPLeV317-1_tabid-2" role="tab" aria-controls="tabpanel_qFbPLeV317-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_bHGHmlrG6S-1_tabid-2" role="tab" aria-controls="tabpanel_bHGHmlrG6S-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_qFbPLeV317-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<section id="tabpanel_bHGHmlrG6S-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+
 <pre><code class="lang-cs">TranslationProviderUriBuilder _uriBuilder;        
 
 public ListTranslationOptions()
@@ -117,16 +120,19 @@ public ListTranslationOptions(Uri uri)
 {
     _uriBuilder = new TranslationProviderUriBuilder(uri);
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
+
 <p>At the end we return the URI as shown below:</p>
-<div class="tabGroup" id="tabgroup_qFbPLeV317-2">
+<div class="tabGroup" id="tabgroup_bHGHmlrG6S-2">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_qFbPLeV317-2_tabid-3" role="tab" aria-controls="tabpanel_qFbPLeV317-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_bHGHmlrG6S-2_tabid-3" role="tab" aria-controls="tabpanel_bHGHmlrG6S-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_qFbPLeV317-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<section id="tabpanel_bHGHmlrG6S-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+
 <pre><code class="lang-cs">public Uri Uri
 {            
     get
@@ -134,86 +140,103 @@ public ListTranslationOptions(Uri uri)
         return _uriBuilder.Uri;                
     }
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
 <h2 id="set-and-retrieve-the-plug-in-parameters">Set and Retrieve the Plug-in Parameters</h2>
 <p>Our plug-in implements two string settings, i.e. the list file name and path and the delimiter character. In the following we declare the two public string properties which are set by the plug-in user form. The properties call on two separate private functions to get and to set the corresponding values:</p>
-<div class="tabGroup" id="tabgroup_qFbPLeV317-3">
+<div class="tabGroup" id="tabgroup_bHGHmlrG6S-3">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_qFbPLeV317-3_tabid-4" role="tab" aria-controls="tabpanel_qFbPLeV317-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_bHGHmlrG6S-3_tabid-4" role="tab" aria-controls="tabpanel_bHGHmlrG6S-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_qFbPLeV317-3_tabid-4" role="tabpanel" data-tab="tabid-4">
+<section id="tabpanel_bHGHmlrG6S-3_tabid-4" role="tabpanel" data-tab="tabid-4">
+
 <pre><code class="lang-cs">public string ListFileName
 {
     get { return GetStringParameter(&quot;listfile&quot;); }
     set { SetStringParameter(&quot;listfile&quot;, value); }            
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
-<div class="tabGroup" id="tabgroup_qFbPLeV317-4">
+<div class="tabGroup" id="tabgroup_bHGHmlrG6S-4">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_qFbPLeV317-4_tabid-5" role="tab" aria-controls="tabpanel_qFbPLeV317-4_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_bHGHmlrG6S-4_tabid-5" role="tab" aria-controls="tabpanel_bHGHmlrG6S-4_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_qFbPLeV317-4_tabid-5" role="tabpanel" data-tab="tabid-5">
+<section id="tabpanel_bHGHmlrG6S-4_tabid-5" role="tabpanel" data-tab="tabid-5">
+
 <pre><code class="lang-cs">public string Delimiter
 {
     get { return GetStringParameter(&quot;delimiter&quot;);}
     set {SetStringParameter(&quot;delimiter&quot;, value);}
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
+
 <p>The following function sets the string parameter. It takes the property name and the corresponding value as string parameters:</p>
-<div class="tabGroup" id="tabgroup_qFbPLeV317-5">
+<div class="tabGroup" id="tabgroup_bHGHmlrG6S-5">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_qFbPLeV317-5_tabid-6" role="tab" aria-controls="tabpanel_qFbPLeV317-5_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_bHGHmlrG6S-5_tabid-6" role="tab" aria-controls="tabpanel_bHGHmlrG6S-5_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_qFbPLeV317-5_tabid-6" role="tabpanel" data-tab="tabid-6">
+<section id="tabpanel_bHGHmlrG6S-5_tabid-6" role="tabpanel" data-tab="tabid-6">
+
 <pre><code class="lang-cs">private void SetStringParameter(string p, string value)
 {
     _uriBuilder[p] = value;
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
+
 <p>The following function is used to retrieve the value for a specified URI property:</p>
-<div class="tabGroup" id="tabgroup_qFbPLeV317-6">
+<div class="tabGroup" id="tabgroup_bHGHmlrG6S-6">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_qFbPLeV317-6_tabid-7" role="tab" aria-controls="tabpanel_qFbPLeV317-6_tabid-7" data-tab="tabid-7" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_bHGHmlrG6S-6_tabid-7" role="tab" aria-controls="tabpanel_bHGHmlrG6S-6_tabid-7" data-tab="tabid-7" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_qFbPLeV317-6_tabid-7" role="tabpanel" data-tab="tabid-7">
+<section id="tabpanel_bHGHmlrG6S-6_tabid-7" role="tabpanel" data-tab="tabid-7">
+
 <pre><code class="lang-cs">private string GetStringParameter(string p)
 {
     string paramString = _uriBuilder[p];
     return paramString;
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
+
 <p>The following is an example of what a URI string will look like in our implementation:</p>
 <pre><code>listprovider:///?delimiter=;&amp;listfile=C:\temp\sample_list.txt&quot; Enabled=&quot;true&quot;
-</code></pre><p>The translation provider plug-in settings are physically stored in the project file (<em>.sdlproj) or in the project template (</em>.sdltpl) file. These are XML-compliant files that store project- or project-template specific information. The file excerpt below provides an example of how a translation provider is listed in a project or template file alongside with its respective settings:</p>
+</code></pre>
+<p>The translation provider plug-in settings are physically stored in the project file (<em>.sdlproj) or in the project template (</em>.sdltpl) file. These are XML-compliant files that store project- or project-template specific information. The file excerpt below provides an example of how a translation provider is listed in a project or template file alongside with its respective settings:</p>
 <pre><code class="lang-xml">&lt;CascadeItem OverrideParent=&quot;true&quot; StopSearchingWhenResultsFound=&quot;false&quot;&gt;
   &lt;CascadeEntryItem PerformConcordanceSearch=&quot;true&quot; Penalty=&quot;0&quot; PerformUpdate=&quot;false&quot; PerformNormalSearch=&quot;true&quot;&gt;
     &lt;MainTranslationProviderItem Uri=&quot;listprovider:///?delimiter=;&amp;listfile=C:\temp\sample_list.txt&quot; Enabled=&quot;true&quot; /&gt;
   &lt;/CascadeEntryItem&gt;
 &lt;/CascadeItem&gt;
-</code></pre><div class="NOTE"><h5>Note</h5><p>For every project that is created in Trados Studio as well as for each single file that is opened for translation, an <em>*.sdlproj</em> file will be created, which contains the translation providers used for the given project or document, the document(s) to translate, the termbase(s) used, etc.</p>
+</code></pre>
+<div class="NOTE">
+<h5>Note</h5>
+<p>For every project that is created in <a href="Var:ProductName">Var:ProductName</a> as well as for each single file that is opened for translation, an *<em>.sdlproj</em> file will be created, which contains the translation providers used for the given project or document, the document(s) to translate, the termbase(s) used, etc.</p>
 </div>
 <h2 id="putting-it-all-together">Putting it all Together</h2>
 <p>The complete class should look as shown below:</p>
-<div class="tabGroup" id="tabgroup_qFbPLeV317-7">
+<div class="tabGroup" id="tabgroup_bHGHmlrG6S-7">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_qFbPLeV317-7_tabid-10" role="tab" aria-controls="tabpanel_qFbPLeV317-7_tabid-10" data-tab="tabid-10" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_bHGHmlrG6S-7_tabid-10" role="tab" aria-controls="tabpanel_bHGHmlrG6S-7_tabid-10" data-tab="tabid-10" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_qFbPLeV317-7_tabid-10" role="tabpanel" data-tab="tabid-10">
+<section id="tabpanel_bHGHmlrG6S-7_tabid-10" role="tabpanel" data-tab="tabid-10">
+
 <pre><code class="lang-cs">using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -296,20 +319,21 @@ namespace Sdk.LanguagePlatform.Samples.ListProvider
         #endregion
     }
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
 <h2 id="see-also">See Also</h2>
 <p><a href="implementing_the_plugin_user_interface.html">Implementing the Plug-in User Interface</a></p>
 <p><a href="controlling_the_plugin_user_interface.html">Controlling the Plug-in User Interface</a></p>
 </article>
           </div>
-          
+
           <div class="hidden-sm col-md-2" role="complementary">
             <div class="sideaffix">
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/RWS/studio-api-docs/blob/main/apiconcepts/translationmemory/storing_and_retrieving_the_plugin_settings.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/im_main_LG-35978_Update_docfx_plugin/apiconcepts/translationmemory/storing_and_retrieving_the_plugin_settings.md/#L1" class="contribution-link">Improve this Doc</a>
                   </li>
                 </ul>
               </div>
@@ -321,7 +345,7 @@ namespace Sdk.LanguagePlatform.Samples.ListProvider
           </div>
         </div>
       </div>
-      
+
       <footer>
         <div class="grad-bottom"></div>
         <div class="footer">
@@ -329,13 +353,13 @@ namespace Sdk.LanguagePlatform.Samples.ListProvider
             <span class="pull-right">
               <a href="#top">Back to top</a>
             </span>
-            
-            <span>Generated by <strong>DocFX</strong></span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
           </div>
         </div>
       </footer>
     </div>
-    
+
     <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
     <script type="text/javascript" src="../../styles/docfx.js"></script>
     <script type="text/javascript" src="../../styles/main.js"></script>

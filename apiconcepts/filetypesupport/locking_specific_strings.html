@@ -1,29 +1,29 @@
 ﻿<!DOCTYPE html>
 <!--[if IE]><![endif]-->
 <html>
-  
+
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>Locking Specific Strings </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Locking Specific Strings ">
-    <meta name="generator" content="docfx 2.59.3.0">
-    
+    <meta name="generator" content="docfx ">
+  
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../../styles/docfx.css">
     <link rel="stylesheet" href="../../styles/main.css">
     <meta property="docfx:navrel" content="../../toc.html">
     <meta property="docfx:tocrel" content="../toc.html">
-    
-    <meta property="docfx:rel" content="../../">
-    
+  
+  <meta property="docfx:rel" content="../../">
+  
   </head>
   <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
       <header>
-        
+
         <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
           <div class="container">
             <div class="navbar-header">
@@ -33,7 +33,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              
+
               <a class="navbar-brand" href="../../index.html">
                 <img id="logo" class="svg" src="../../logo.svg" alt="">
               </a>
@@ -48,7 +48,7 @@
             </div>
           </div>
         </nav>
-        
+
         <div class="subnav navbar-default">
           <div class="container hide-when-search">
             <div class="breadcrumb-container" id="breadcrumb">
@@ -60,7 +60,7 @@
         </div>
       </header>
       <div class="container body-content">
-        
+
         <div id="search-results">
           <div class="search-list">Search Results for <span></span></div>
           <div class="sr-items">
@@ -70,7 +70,7 @@
         </div>
       </div>
       <div role="main" class="container body-content hide-when-search">
-        
+
         <div class="sidenav hide-when-search">
           <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
           <div class="sidetoggle collapse" id="sidetoggle">
@@ -86,14 +86,15 @@
 <h2 id="locking-particular-strings-during-parsing">Locking Particular Strings During Parsing</h2>
 <p>Sometimes you may want to create segments, text selections, or paragraph units that are locked, i.e. whose content users cannot edit. This might be the case, for example, if a paragraph unit contains script code, which should not be altered or accidentally modified by the translator. However, translators should be able to view such strings, as they may contain relevant information, which assists during the translation process.</p>
 <p>Let us assume that our text files contain single lines that start with a product code prefix, e.g. <em>Prd-Code NCC1504</em>. If these strings must not be localized, you can lock them during parsing of the file.</p>
-<p>To do this enhance your file parser by adding a<code>WriteLockedContent()</code> helper function:</p>
-<div class="tabGroup" id="tabgroup_bJ6mvp4ddw">
+<p>To do this enhance your file parser by adding a<code> WriteLockedContent()</code> helper function:</p>
+<div class="tabGroup" id="tabgroup_bHGHmlrG6S">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_bJ6mvp4ddw_tabid-1" role="tab" aria-controls="tabpanel_bJ6mvp4ddw_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_bHGHmlrG6S_tabid-1" role="tab" aria-controls="tabpanel_bHGHmlrG6S_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_bJ6mvp4ddw_tabid-1" role="tabpanel" data-tab="tabid-1">
+<section id="tabpanel_bHGHmlrG6S_tabid-1" role="tabpanel" data-tab="tabid-1">
+
 <pre><code class="lang-cs">// protect text from being altered during translation 
 // by locking it
 private void WriteLockedContent(string LockedContent)
@@ -109,17 +110,20 @@ private void WriteLockedContent(string LockedContent)
     //close locked content
     Output.LockedContentEnd();
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
+
 <p>Here, the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IDocumentItemFactory.html#Sdl_FileTypeSupport_Framework_BilingualApi_IDocumentItemFactory_CreateLockedContent_Sdl_FileTypeSupport_Framework_NativeApi_ILockedContentProperties_">CreateLockedContent</a> method is used to create a mark-up container that can wrap all the other containers and mark-up of a target paragraph in a paragraph unit. However, you must first create an <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ILockedContentProperties.html">ILockedContentProperties</a> object by calling <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPropertiesFactory.html#Sdl_FileTypeSupport_Framework_NativeApi_IPropertiesFactory_CreateLockedContentProperties_Sdl_FileTypeSupport_Framework_NativeApi_LockTypeFlags_">CreateLockedContentProperties</a> with a parameter of <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.LockTypeFlags.html">LockTypeFlags</a>. Then, the resulting locked content properties can be passed to the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPropertiesFactory.html#Sdl_FileTypeSupport_Framework_NativeApi_IPropertiesFactory_CreateLockedContentProperties_Sdl_FileTypeSupport_Framework_NativeApi_LockTypeFlags_">CreateLockedContentProperties</a> method. Once an object derived from <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ILockedContentProperties.html">ILockedContentProperties</a> object has been created, it can be used to wrap all the mark-up in the target paragraph of the paragraph unit.</p>
 <p>All you need to do in our example is to extend the <code>ProcessLine()</code> helper function to call <code>WriteLockedContent()</code> whenever a line that starts with a product code prefix has been found:</p>
-<div class="tabGroup" id="tabgroup_bJ6mvp4ddw-1">
+<div class="tabGroup" id="tabgroup_bHGHmlrG6S-1">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_bJ6mvp4ddw-1_tabid-2" role="tab" aria-controls="tabpanel_bJ6mvp4ddw-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_bHGHmlrG6S-1_tabid-2" role="tab" aria-controls="tabpanel_bHGHmlrG6S-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_bJ6mvp4ddw-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<section id="tabpanel_bHGHmlrG6S-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+
 <pre><code class="lang-cs">// determines whether a given line is
 // translatable or not
 // if not, a structure tag is output
@@ -141,20 +145,23 @@ private void ProcessLine(string sLine)
         WriteText(ProcessFormatting(sLine));
     }
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
+
 <p>After making this enhancement to the file parser, the lines that contain product code strings will be locked as shown below:</p>
 <p><img src="images/LockedContent.jpg" alt="LockedContent"></p>
-<p>Note that you may not be able to see the locked units in our example. If you do not see the locked content activate the <strong>Display Filter</strong> toolbar in Trados Studio through the menu command <strong>View</strong> &gt; <strong>Toolbars</strong> &gt; <strong>Display Filter</strong>. Then choose <strong>All content</strong> from the <strong>Display</strong> dropdown list.</p>
+<p>Note that you may not be able to see the locked units in our example. If you do not see the locked content activate the <strong>Display Filter</strong> toolbar in <a href="Var:ProductName">Var:ProductName</a> through the menu command <strong>View</strong> &gt; <strong>Toolbars</strong> &gt; <strong>Display Filter</strong>. Then choose <strong>All content</strong> from the <strong>Display</strong> dropdown list.</p>
 <h2 id="putting-it-all-together">Putting it All Together</h2>
 <p>Your enhanced file parser should now look as shown below:</p>
-<div class="tabGroup" id="tabgroup_bJ6mvp4ddw-2">
+<div class="tabGroup" id="tabgroup_bHGHmlrG6S-2">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_bJ6mvp4ddw-2_tabid-3" role="tab" aria-controls="tabpanel_bJ6mvp4ddw-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_bHGHmlrG6S-2_tabid-3" role="tab" aria-controls="tabpanel_bHGHmlrG6S-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_bJ6mvp4ddw-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<section id="tabpanel_bHGHmlrG6S-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+
 <pre><code class="lang-cs">using System.Drawing;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -312,7 +319,7 @@ namespace Sdk.Snippets.Native
 
         #region &quot;process formatting&quot;
         // this function uses regular expressions to identify
-        // what is &#39;normal&#39; translatable content and which strings
+        // what is 'normal' translatable content and which strings
         // need to be marked up as inline tags, e.g. &lt;b&gt;
         private string ProcessFormatting(string sLine)
         {
@@ -367,19 +374,23 @@ namespace Sdk.Snippets.Native
         #endregion
     }
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
-<div class="NOTE"><h5>Note</h5><p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+
+<div class="NOTE">
+<h5>Note</h5>
+<p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
 </div>
 </article>
           </div>
-          
+
           <div class="hidden-sm col-md-2" role="complementary">
             <div class="sideaffix">
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/RWS/studio-api-docs/blob/main/apiconcepts/filetypesupport/locking_specific_strings.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/im_main_LG-35978_Update_docfx_plugin/apiconcepts/filetypesupport/locking_specific_strings.md/#L1" class="contribution-link">Improve this Doc</a>
                   </li>
                 </ul>
               </div>
@@ -391,7 +402,7 @@ namespace Sdk.Snippets.Native
           </div>
         </div>
       </div>
-      
+
       <footer>
         <div class="grad-bottom"></div>
         <div class="footer">
@@ -399,13 +410,13 @@ namespace Sdk.Snippets.Native
             <span class="pull-right">
               <a href="#top">Back to top</a>
             </span>
-            
-            <span>Generated by <strong>DocFX</strong></span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
           </div>
         </div>
       </footer>
     </div>
-    
+
     <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
     <script type="text/javascript" src="../../styles/docfx.js"></script>
     <script type="text/javascript" src="../../styles/main.js"></script>
