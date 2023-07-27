@@ -1,29 +1,29 @@
 ﻿<!DOCTYPE html>
 <!--[if IE]><![endif]-->
 <html>
-  
+
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>Native and Bilingual Content </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Native and Bilingual Content ">
-    <meta name="generator" content="docfx 2.59.3.0">
-    
+    <meta name="generator" content="docfx ">
+  
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../../styles/docfx.css">
     <link rel="stylesheet" href="../../styles/main.css">
     <meta property="docfx:navrel" content="../../toc.html">
     <meta property="docfx:tocrel" content="../toc.html">
-    
-    <meta property="docfx:rel" content="../../">
-    
+  
+  <meta property="docfx:rel" content="../../">
+  
   </head>
   <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
       <header>
-        
+
         <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
           <div class="container">
             <div class="navbar-header">
@@ -33,7 +33,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              
+
               <a class="navbar-brand" href="../../index.html">
                 <img id="logo" class="svg" src="../../logo.svg" alt="">
               </a>
@@ -48,7 +48,7 @@
             </div>
           </div>
         </nav>
-        
+
         <div class="subnav navbar-default">
           <div class="container hide-when-search">
             <div class="breadcrumb-container" id="breadcrumb">
@@ -60,7 +60,7 @@
         </div>
       </header>
       <div class="container body-content">
-        
+
         <div id="search-results">
           <div class="search-list">Search Results for <span></span></div>
           <div class="sr-items">
@@ -70,7 +70,7 @@
         </div>
       </div>
       <div role="main" class="container body-content hide-when-search">
-        
+
         <div class="sidenav hide-when-search">
           <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
           <div class="sidetoggle collapse" id="sidetoggle">
@@ -81,9 +81,9 @@
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
 
-<p>The Trados File Type Support Framework 2 API (from now File Type Support Framework), is one of the core parts of Trados Studio. The File Type Support Framework allows developers to develop file type plug-ins that extract translatable text from various file formats such as MS Word Doc files, HTML, XML, Text etc. The translatable source and (optionally) target text can then be imported and converted into an intermediate file format that is designed to be compatible with the OASIS XLIFF format (with SDL extensions) - <a href="#sdlxliff">SDLXliff</a>.</p>
+<p>The Trados File Type Support Framework 2 API (from now File Type Support Framework), is one of the core parts of <a href="var:ProductName">var:ProductName</a>. The File Type Support Framework allows developers to develop file type plug-ins that extract translatable text from various file formats such as MS Word Doc files, HTML, XML, Text etc. The translatable source and (optionally) target text can then be imported and converted into an intermediate file format that is designed to be compatible with the OASIS XLIFF format (with SDL extensions) - <a href="#sdlxliff">SDLXliff</a>.</p>
 <p>This data format contains both source and target text and any mark-up data or tags that the file filter has found. These tags can be either paired or placeholder tags, which can be moved deleted or cloned in the translation. They can also be structure tags that represent fixed non-translatable elements in the original file format, which must be preserved. Other applications such as the editor or the translation memory subsystems also use this framework to interact with the given file formats and can read and update these structures as required.</p>
-<p>The core APIs of the File Type Support Framework consist of the following .Net Framework 4.8 assemblies:</p>
+<p>The core APIs of the File Type Support Framework consist of the following <a href="Var:DotNetVersion">Var:DotNetVersion</a> assemblies:</p>
 <p><img src="images/Implementation_Diagram__CoreModules.jpg" alt="Implementation_Diagram__CoreModules"></p>
 <p>Below you find a brief description of what each assembly contains:</p>
 <ul>
@@ -95,9 +95,9 @@
 <h2 id="native-and-bilingual-content">Native and Bilingual Content</h2>
 <p>Filtered content can be processed in two different ways, depending on the phase of the conversion process:</p>
 <ul>
-<li>As a stream of monolingual &#39;native&#39; content items such as tags and text.</li>
-<li>As bilingual (source and target language) content in an object model, delivered as a stream of &#39;paragraph units&#39;.
-The native components are used to read and write content in a single (source or target) language from/to the original (&#39;native&#39;) file type and to perform associated pre- and post processing tasks.</li>
+<li>As a stream of monolingual 'native' content items such as tags and text.</li>
+<li>As bilingual (source and target language) content in an object model, delivered as a stream of 'paragraph units'.
+The native components are used to read and write content in a single (source or target) language from/to the original ('native') file type and to perform associated pre- and post processing tasks.</li>
 </ul>
 <p>The bilingual content model is used for all processing of data during the localization phase. In the bilingual content localization-specific information such as segment boundaries, word counts and TM matches can be directly associated with the content.</p>
 <p>The transition between native and bilingual content processing is handled by specific converters. The conversion from native to bilingual content involves building source language paragraph units from the stream of content. The conversion from bilingual to native involves converting the source or target language annotated data into a stream of content.</p>
@@ -111,18 +111,20 @@ The native components are used to read and write content in a single (source or 
 <p>These two types of processing can be combined as part of performing conversions to and from the original file type. The File Type Component Builder specifies which native and bilingual processing components should be applied during conversion. When reading a file in native format the native processing components are applied to the content stream before the bilingual components. When converting back from the bilingual representation into the native format the order is reversed, i.e. bilingual components are applied to the content stream before the native components.</p>
 <h2 id="bilingual-file-formats">Bilingual File Formats</h2>
 <p>The framework can also be used for reading and writing data stored in bilingual formats. Bilingual file types can be treated like any other file type by the framework, they simply process data directly in the bilingual content model.</p>
-<p>The ability to write file type plug-ins for bilingual file formats means that you can support file types such as partially translated TTX, ITD, BIF, Workbench RTF, generic XLIFF or any types of &#39;home grown&#39; file formats used for storing multilingual content.</p>
+<p>The ability to write file type plug-ins for bilingual file formats means that you can support file types such as partially translated TTX, ITD, BIF, Workbench RTF, generic XLIFF or any types of 'home grown' file formats used for storing multilingual content.</p>
 <p>At the time of writing, standard file type plug-ins for TTX, ITD and XLIFF are available.</p>
 <p>We also use a default bilingual file format for serializing the entire bilingual content model during the localization process.</p>
 <h2 id="sdlxliff">SDLXliff</h2>
 <p>This file format is fully based on and compliant with the OASIS XLIFF 1.2 standard. SDLXliff can store all metadata available in the bilingual content model of the File Type Support Framework. Standard XLIFF constructs are used whenever possible, and valid XLIFF extension points are used when necessary to store the additional information.</p>
 <p>The SDL extensions to the XLIFF 1.2 schema are defined in a separate schema file, which is embedded as a resource in the assembly and used for validation of the XLIFF files when this option is enabled in the file type plug-in.</p>
 <p>The SDLXliff file type plug-in is defined in the assembly <code>Sdl.FileTypeSupport.Bilingual.SdlXliff</code>. Note that this is treated like any other file type plug-in. Applications should not need to reference this assembly.</p>
-<div class="NOTE"><h5>Note</h5><p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
 </div>
 </article>
           </div>
-          
+
           <div class="hidden-sm col-md-2" role="complementary">
             <div class="sideaffix">
               <div class="contribution">
@@ -140,7 +142,7 @@ The native components are used to read and write content in a single (source or 
           </div>
         </div>
       </div>
-      
+
       <footer>
         <div class="grad-bottom"></div>
         <div class="footer">
@@ -148,13 +150,13 @@ The native components are used to read and write content in a single (source or 
             <span class="pull-right">
               <a href="#top">Back to top</a>
             </span>
-            
-            <span>Generated by <strong>DocFX</strong></span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
           </div>
         </div>
       </footer>
     </div>
-    
+
     <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
     <script type="text/javascript" src="../../styles/docfx.js"></script>
     <script type="text/javascript" src="../../styles/main.js"></script>

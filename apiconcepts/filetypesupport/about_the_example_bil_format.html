@@ -1,29 +1,29 @@
 ﻿<!DOCTYPE html>
 <!--[if IE]><![endif]-->
 <html>
-  
+
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>About the Example BIL Format </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="About the Example BIL Format ">
-    <meta name="generator" content="docfx 2.59.3.0">
-    
+    <meta name="generator" content="docfx ">
+  
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../../styles/docfx.css">
     <link rel="stylesheet" href="../../styles/main.css">
     <meta property="docfx:navrel" content="../../toc.html">
     <meta property="docfx:tocrel" content="../toc.html">
-    
-    <meta property="docfx:rel" content="../../">
-    
+  
+  <meta property="docfx:rel" content="../../">
+  
   </head>
   <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
       <header>
-        
+
         <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
           <div class="container">
             <div class="navbar-header">
@@ -33,7 +33,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              
+
               <a class="navbar-brand" href="../../index.html">
                 <img id="logo" class="svg" src="../../logo.svg" alt="">
               </a>
@@ -48,7 +48,7 @@
             </div>
           </div>
         </nav>
-        
+
         <div class="subnav navbar-default">
           <div class="container hide-when-search">
             <div class="breadcrumb-container" id="breadcrumb">
@@ -60,7 +60,7 @@
         </div>
       </header>
       <div class="container body-content">
-        
+
         <div id="search-results">
           <div class="search-list">Search Results for <span></span></div>
           <div class="sr-items">
@@ -70,7 +70,7 @@
         </div>
       </div>
       <div role="main" class="container body-content hide-when-search">
-        
+
         <div class="sidenav hide-when-search">
           <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
           <div class="sidetoggle collapse" id="sidetoggle">
@@ -82,16 +82,17 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="about-the-example-bil-format">About the Example BIL Format</h1>
 
-<p>In order to demonstrate the main features that can be used when developing a bilingual file type plug-in, we have created an example format with the extension <em>*.bil</em> (from now on BIL). This file type is not used in any 3rd party application. It is a fictitious document format, which was created only for this SDK sample project.</p>
+<p>In order to demonstrate the main features that can be used when developing a bilingual file type plug-in, we have created an example format with the extension *<em>.bil</em> (from now on BIL). This file type is not used in any 3rd party application. It is a fictitious document format, which was created only for this SDK sample project.</p>
 <h2 id="format-description">Format Description</h2>
 <p>BIL is custom a XML based format which looks as shown below:</p>
-<div class="tabGroup" id="tabgroup_26VSu8fZxL">
+<div class="tabGroup" id="tabgroup_bHGHmlrG6S">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_26VSu8fZxL_tabid-1" role="tab" aria-controls="tabpanel_26VSu8fZxL_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">Xml</a>
+<a href="#tabpanel_bHGHmlrG6S_tabid-1" role="tab" aria-controls="tabpanel_bHGHmlrG6S_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">Xml</a>
 </li>
 </ul>
-<section id="tabpanel_26VSu8fZxL_tabid-1" role="tabpanel" data-tab="tabid-1">
+<section id="tabpanel_bHGHmlrG6S_tabid-1" role="tabpanel" data-tab="tabid-1">
+
 <pre><code class="lang-xml">&lt;bilingualdocument source-language=&quot;en-US&quot; target-language=&quot;de-DE&quot;&gt;
   &lt;unit id=&quot;1&quot; status=&quot;exact&quot;&gt;
     &lt;source&gt;
@@ -107,8 +108,10 @@
    &lt;comment id=&quot;1&quot;&gt;This segment was translated using web translator.&lt;/comment&gt;
     &lt;type spec=&quot;Heading&quot;/&gt;
 &lt;/bilingualdocument&gt;
-</code></pre></section>
+</code></pre>
+</section>
 </div>
+
 <p>The BIL format contains the following elements:</p>
 <ul>
 <li><code>bilingualdocument</code>: The root element, in which the source and the target languages are specified within element attributes.</li>
@@ -123,24 +126,25 @@
 <p>Your file type plug-in needs to fulfill the following requirements:</p>
 <ul>
 <li>Generate an SDLXliff file from a given BIL document</li>
-<li>Traverse the BIL file and extract all units; each unit shall represent a paragraph in the translation editor of Trados Studio</li>
+<li>Traverse the BIL file and extract all units; each unit shall represent a paragraph in the translation editor of <a href="Var:ProductName">Var:ProductName</a></li>
 <li>Expose all source segments for translation</li>
 <li>Expose all target segments (if available)</li>
 <li>Markup inline tags such as <em>&lt; b&gt;</em> as tag pairs within the segments and apply the appropriate display formatting</li>
 <li>Generate (untranslatable) contexts from the type attribute values (e.g. heading)</li>
-<li>Map the BIL unit status values to the appropriate confirmation levels found in the intermediary format used by Trados Studio (i.e. SDLXliff), e.g. translated, draft, approved, etc.</li>
+<li>Map the BIL unit status values to the appropriate confirmation levels found in the intermediary format used by <a href="Var:ProductName">Var:ProductName</a> (i.e. SDLXliff), e.g. translated, draft, approved, etc.</li>
 <li>Back conversion, i.e. writing back the content from the intermediary document (SDLXliff)into a target BIL file</li>
 </ul>
 <p>When developing the sample file type plug-in we fill primarily focus on extraction (file parser) and generation (file writer) as well as ways of mapping BIL features to SDLXliff features. We will not implement additional functionality such as QuickInsert, user-configurable settings, or document preview, as this is already covered in the chapter on developing a native file type plug-in.</p>
 <p>Example Document
 Below you see an example of a more comprehensive document, which you can use for testing your BIL file type plug-in:</p>
-<div class="tabGroup" id="tabgroup_26VSu8fZxL-1">
+<div class="tabGroup" id="tabgroup_bHGHmlrG6S-1">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_26VSu8fZxL-1_tabid-2" role="tab" aria-controls="tabpanel_26VSu8fZxL-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">Xml</a>
+<a href="#tabpanel_bHGHmlrG6S-1_tabid-2" role="tab" aria-controls="tabpanel_bHGHmlrG6S-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">Xml</a>
 </li>
 </ul>
-<section id="tabpanel_26VSu8fZxL-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<section id="tabpanel_bHGHmlrG6S-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+
 <pre><code class="lang-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
 &lt;bilingualdocument source-language=&quot;en-US&quot; target-language=&quot;de-DE&quot;&gt;
   &lt;unit id=&quot;1&quot; status=&quot;exact&quot;&gt;
@@ -204,13 +208,17 @@ Below you see an example of a more comprehensive document, which you can use for
 &lt;comment id=&quot;1&quot;&gt;This is the original comment&lt;/comment&gt;
   &lt;/unit&gt;
 &lt;/bilingualdocument&gt;
-</code></pre></section>
+</code></pre>
+</section>
 </div>
-<div class="NOTE"><h5>Note</h5><p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+
+<div class="NOTE">
+<h5>Note</h5>
+<p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
 </div>
 </article>
           </div>
-          
+
           <div class="hidden-sm col-md-2" role="complementary">
             <div class="sideaffix">
               <div class="contribution">
@@ -228,7 +236,7 @@ Below you see an example of a more comprehensive document, which you can use for
           </div>
         </div>
       </div>
-      
+
       <footer>
         <div class="grad-bottom"></div>
         <div class="footer">
@@ -236,13 +244,13 @@ Below you see an example of a more comprehensive document, which you can use for
             <span class="pull-right">
               <a href="#top">Back to top</a>
             </span>
-            
-            <span>Generated by <strong>DocFX</strong></span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
           </div>
         </div>
       </footer>
     </div>
-    
+
     <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
     <script type="text/javascript" src="../../styles/docfx.js"></script>
     <script type="text/javascript" src="../../styles/main.js"></script>

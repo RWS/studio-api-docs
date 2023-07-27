@@ -1,29 +1,29 @@
 ﻿<!DOCTYPE html>
 <!--[if IE]><![endif]-->
 <html>
-  
+
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>Implement the User Interface </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Implement the User Interface ">
-    <meta name="generator" content="docfx 2.59.3.0">
-    
+    <meta name="generator" content="docfx ">
+  
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../../styles/docfx.css">
     <link rel="stylesheet" href="../../styles/main.css">
     <meta property="docfx:navrel" content="../../toc.html">
     <meta property="docfx:tocrel" content="../toc.html">
-    
-    <meta property="docfx:rel" content="../../">
-    
+  
+  <meta property="docfx:rel" content="../../">
+  
   </head>
   <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
       <header>
-        
+
         <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
           <div class="container">
             <div class="navbar-header">
@@ -33,7 +33,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              
+
               <a class="navbar-brand" href="../../index.html">
                 <img id="logo" class="svg" src="../../logo.svg" alt="">
               </a>
@@ -48,7 +48,7 @@
             </div>
           </div>
         </nav>
-        
+
         <div class="subnav navbar-default">
           <div class="container hide-when-search">
             <div class="breadcrumb-container" id="breadcrumb">
@@ -60,7 +60,7 @@
         </div>
       </header>
       <div class="container body-content">
-        
+
         <div id="search-results">
           <div class="search-list">Search Results for <span></span></div>
           <div class="sr-items">
@@ -70,7 +70,7 @@
         </div>
       </div>
       <div role="main" class="container body-content hide-when-search">
-        
+
         <div class="sidenav hide-when-search">
           <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
           <div class="sidetoggle collapse" id="sidetoggle">
@@ -84,7 +84,7 @@
 
 <p>In this step you will learn how to add a user interface to your plug-in, through which end users can configure the verification settings at runtime.</p>
 <h2 id="add-a-user-control">Add a User Control</h2>
-<p>Implement the graphical user interface by adding a user control, which you can name e.g. <strong>SettingsUI.cs</strong>. This is the interface that users will see when configuring the file type plug-in in Trados Studio through e.g. <strong>File</strong> &gt; <strong>Options</strong> &gt; <strong>File Types</strong>. Our simple bilingual verifier will implement two settings through with users can enable/disable the word count check and specify the maximum number of words. First, add a check box to the user control, which you call <code>cb_CheckWordArt</code>.</p>
+<p>Implement the graphical user interface by adding a user control, which you can name e.g. <strong>SettingsUI.cs</strong>. This is the interface that users will see when configuring the file type plug-in in <a href="Var:ProductName">Var:ProductName</a> through e.g. <strong>File</strong> &gt; <strong>Options</strong> &gt; <strong>File Types</strong>. Our simple bilingual verifier will implement two settings through with users can enable/disable the word count check and specify the maximum number of words. First, add a check box to the user control, which you call <code>cb_CheckWordArt</code>.</p>
 <p>Furthermore, add a text field control element (named <code>txt_MaxWordCount</code>) into which users can enter the maximum number of words allowed for WordArt objects at runtime. The default value should be 3.</p>
 <p>The user control should look as shown below:</p>
 <p><img src="images/excel_verifier_simplified_gui.jpg" alt="excel_verifier_simplified_gui"></p>
@@ -94,25 +94,28 @@
 </ul>
 <h2 id="the-settings-bundle">The Settings Bundle</h2>
 <p>Each plug-in uses a settings bundle to store and retrieve settings. The mechanism for doing that is provided in a separate class called <code>VerifierSettings</code>, which we will implement later (see <a href="loading_and_saving_the_settings_bil.html">Loading and Saving the Settings</a>). For now, we create an object based on the <code>VerifierSettings</code> class, through which we access the plug-in properties:</p>
-<div class="tabGroup" id="tabgroup_agDQxxz8Pk">
+<div class="tabGroup" id="tabgroup_bHGHmlrG6S">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_agDQxxz8Pk_tabid-1" role="tab" aria-controls="tabpanel_agDQxxz8Pk_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_bHGHmlrG6S_tabid-1" role="tab" aria-controls="tabpanel_bHGHmlrG6S_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_agDQxxz8Pk_tabid-1" role="tabpanel" data-tab="tabid-1">
+<section id="tabpanel_bHGHmlrG6S_tabid-1" role="tabpanel" data-tab="tabid-1">
+
 <pre><code class="lang-cs">VerifierSettings _settings;
-</code></pre></section>
+</code></pre>
+</section>
 </div>
 <h2 id="initialize-the-plug-in-user-interface">Initialize the Plug-in User Interface</h2>
 <p>When the user raises the plug-in user interface, the control element should be set according to what is stored in the settings bundle, which is handled through the <code>_settings</code> object (which we declared previously).</p>
-<div class="tabGroup" id="tabgroup_agDQxxz8Pk-1">
+<div class="tabGroup" id="tabgroup_bHGHmlrG6S-1">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_agDQxxz8Pk-1_tabid-2" role="tab" aria-controls="tabpanel_agDQxxz8Pk-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_bHGHmlrG6S-1_tabid-2" role="tab" aria-controls="tabpanel_bHGHmlrG6S-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_agDQxxz8Pk-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<section id="tabpanel_bHGHmlrG6S-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+
 <pre><code class="lang-cs">public VerifierSettings Settings
 {
     get
@@ -125,47 +128,55 @@
         UpdateControl();
     }
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
+
 <p>During initialization the <code>UpdateControl</code> method is invoked, which sets the state of the enabled check box (checked or unchecked) to the value of the CheckWordArt member of the <code>VerifierSettings</code> class as shown below. The other setting that needs to be retrieved from the bundle is the maximum word count, i.e. <code>MaxWordCount</code>.</p>
-<div class="tabGroup" id="tabgroup_agDQxxz8Pk-2">
+<div class="tabGroup" id="tabgroup_bHGHmlrG6S-2">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_agDQxxz8Pk-2_tabid-3" role="tab" aria-controls="tabpanel_agDQxxz8Pk-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_bHGHmlrG6S-2_tabid-3" role="tab" aria-controls="tabpanel_bHGHmlrG6S-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_agDQxxz8Pk-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<section id="tabpanel_bHGHmlrG6S-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+
 <pre><code class="lang-cs">public void UpdateControl()
 {
     cb_CheckWordArt.Checked = _settings.CheckWordArt;
     txt_MaxWordCount.Text = _settings.MaxWordCount.ToString();
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
 <h2 id="save-the-settings-to-the-settings-bundle">Save the Settings to the Settings Bundle</h2>
 <p>Conversely, the user interface needs to save the check box setting to the settings bundle, e.g. when the user raises the plug-in UI, changes the check box setting, and then clicks <strong>OK</strong> to apply the changed setting to the settings bundle.</p>
 <p>The first setting to save is the state of the check box (checked or unchecked). According to the check box the <code>CheckWordArt</code> property will be set to True or False:</p>
-<div class="tabGroup" id="tabgroup_agDQxxz8Pk-3">
+<div class="tabGroup" id="tabgroup_bHGHmlrG6S-3">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_agDQxxz8Pk-3_tabid-4" role="tab" aria-controls="tabpanel_agDQxxz8Pk-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_bHGHmlrG6S-3_tabid-4" role="tab" aria-controls="tabpanel_bHGHmlrG6S-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_agDQxxz8Pk-3_tabid-4" role="tabpanel" data-tab="tabid-4">
+<section id="tabpanel_bHGHmlrG6S-3_tabid-4" role="tabpanel" data-tab="tabid-4">
+
 <pre><code class="lang-cs">private void cb_CheckWordArt_CheckedChanged(object sender, EventArgs e)
 {
     _settings.CheckWordArt = cb_CheckWordArt.Checked;
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
+
 <p>The second setting is the maximum word count, which is entered into the UI as a string value. The following function converts the text value to an integer, and sets the <code>MaxWordCount</code> property of the <code>VerifierSettings</code> class, if the value is greater than zero:</p>
-<div class="tabGroup" id="tabgroup_agDQxxz8Pk-4">
+<div class="tabGroup" id="tabgroup_bHGHmlrG6S-4">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_agDQxxz8Pk-4_tabid-5" role="tab" aria-controls="tabpanel_agDQxxz8Pk-4_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_bHGHmlrG6S-4_tabid-5" role="tab" aria-controls="tabpanel_bHGHmlrG6S-4_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_agDQxxz8Pk-4_tabid-5" role="tabpanel" data-tab="tabid-5">
+<section id="tabpanel_bHGHmlrG6S-4_tabid-5" role="tabpanel" data-tab="tabid-5">
+
 <pre><code class="lang-cs">private void txt_MaxWordCount_TextChanged(object sender, EventArgs e)
 {
     int tempvalue = 0;
@@ -175,17 +186,19 @@
         _settings.MaxWordCount = tempvalue;
     }
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
 <h2 id="putting-it-all-together">Putting it all Together</h2>
 <p>The complete class should look as shown below:</p>
-<div class="tabGroup" id="tabgroup_agDQxxz8Pk-5">
+<div class="tabGroup" id="tabgroup_bHGHmlrG6S-5">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_agDQxxz8Pk-5_tabid-6" role="tab" aria-controls="tabpanel_agDQxxz8Pk-5_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_bHGHmlrG6S-5_tabid-6" role="tab" aria-controls="tabpanel_bHGHmlrG6S-5_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_agDQxxz8Pk-5_tabid-6" role="tabpanel" data-tab="tabid-6">
+<section id="tabpanel_bHGHmlrG6S-5_tabid-6" role="tabpanel" data-tab="tabid-6">
+
 <pre><code class="lang-cs">using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -285,16 +298,19 @@ namespace Sdk.FileTypeSupport.Samples.WordArtVerifier
         #endregion
     }
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
 <h2 id="see-also">See Also</h2>
 <p><a href="implement_the_ui_controller_class_bil.html">Implement the UI Controller Class</a></p>
 <p><a href="loading_and_saving_the_settings_bil.html">Loading and Saving the Settings</a></p>
-<div class="NOTE"><h5>Note</h5><p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
 </div>
 </article>
           </div>
-          
+
           <div class="hidden-sm col-md-2" role="complementary">
             <div class="sideaffix">
               <div class="contribution">
@@ -312,7 +328,7 @@ namespace Sdk.FileTypeSupport.Samples.WordArtVerifier
           </div>
         </div>
       </div>
-      
+
       <footer>
         <div class="grad-bottom"></div>
         <div class="footer">
@@ -320,13 +336,13 @@ namespace Sdk.FileTypeSupport.Samples.WordArtVerifier
             <span class="pull-right">
               <a href="#top">Back to top</a>
             </span>
-            
-            <span>Generated by <strong>DocFX</strong></span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
           </div>
         </div>
       </footer>
     </div>
-    
+
     <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
     <script type="text/javascript" src="../../styles/docfx.js"></script>
     <script type="text/javascript" src="../../styles/main.js"></script>

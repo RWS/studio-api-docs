@@ -1,29 +1,29 @@
 ﻿<!DOCTYPE html>
 <!--[if IE]><![endif]-->
 <html>
-  
+
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>Overview </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Overview ">
-    <meta name="generator" content="docfx 2.59.3.0">
-    
+    <meta name="generator" content="docfx ">
+  
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../../styles/docfx.css">
     <link rel="stylesheet" href="../../styles/main.css">
     <meta property="docfx:navrel" content="../../toc.html">
     <meta property="docfx:tocrel" content="../toc.html">
-    
-    <meta property="docfx:rel" content="../../">
-    
+  
+  <meta property="docfx:rel" content="../../">
+  
   </head>
   <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
       <header>
-        
+
         <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
           <div class="container">
             <div class="navbar-header">
@@ -33,7 +33,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              
+
               <a class="navbar-brand" href="../../index.html">
                 <img id="logo" class="svg" src="../../logo.svg" alt="">
               </a>
@@ -48,7 +48,7 @@
             </div>
           </div>
         </nav>
-        
+
         <div class="subnav navbar-default">
           <div class="container hide-when-search">
             <div class="breadcrumb-container" id="breadcrumb">
@@ -60,7 +60,7 @@
         </div>
       </header>
       <div class="container body-content">
-        
+
         <div id="search-results">
           <div class="search-list">Search Results for <span></span></div>
           <div class="sr-items">
@@ -70,7 +70,7 @@
         </div>
       </div>
       <div role="main" class="container body-content hide-when-search">
-        
+
         <div class="sidenav hide-when-search">
           <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
           <div class="sidetoggle collapse" id="sidetoggle">
@@ -84,31 +84,31 @@
 
 <p>This section contains a quick overview of the Bilingual API. For detailed documentation on individual interfaces, properties, methods etc., see the reference documentation.</p>
 <p>Bilingual processor components implement the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentProcessor.html">IBilingualContentProcessor</a> interface, which the framework calls to let the component process content in a bilingual object model one paragraph unit at a time.</p>
-<p><img style="display:block; " src="images/Bilingual%20Filter%20Component.jpg"></p>
+<img style="display:block; " src="images/Bilingual%20Filter%20Component.jpg">
 <p>The content is delivered to the components through calls to <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.html#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentHandler_ProcessParagraphUnit_Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_">ProcessParagraphUnit</a>. The Initialize method is invoked before any content is passed through the component, and it communicates the document properties which are common for all files in the document. For each native file in the bilingual document, the framework calls <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.html#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentHandler_SetFileProperties_Sdl_FileTypeSupport_Framework_BilingualApi_IFileProperties_">SetFileProperties</a> before the content of the file is processed. When all content in a file has been processed, the framework calls <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.html#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentHandler_FileComplete">FileComplete</a> and when all files in a document have been processed, the framework calls <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.html#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentHandler_Complete">Complete</a>.</p>
 <p>The file properties passed through the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.html#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentHandler_SetFileProperties_Sdl_FileTypeSupport_Framework_BilingualApi_IFileProperties_">SetFileProperties</a> call can be used to retrieve the persistant file conversion settings, where components can store and retrieve important settings related to the data being processed.</p>
-<p><img style="display:block; " src="images/File%20Properties.jpg"></p>
+<img style="display:block; " src="images/File%20Properties.jpg">
 <p>The <code>EventFiringBilingualProcessor</code> is an implementation of the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentProcessor.html">IBilingualContentProcessor</a> interface that is convenient to use when you are only interested in processing one or two of these calls. That implementation simply fires events for each of the calls and you can hook up your event handler to the one you are interested in. (This is very handy, especially when writing unit tests.)</p>
-<p><img style="display:block; " src="images/Event%20Driven%20Bilingual%20Processing.jpg"></p>
+<img style="display:block; " src="images/Event%20Driven%20Bilingual%20Processing.jpg">
 <p>Paragraph units can be divided into two types: structure paragraph units and localizable paragraph units. Structure paragraph units contain only structural data (i.e. structure tags), they have no directly localizable content. Localizable paragraph units contain text and tags that are modified during translation. Both types of paragraph units are processed in the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.html#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentHandler_ProcessParagraphUnit_Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_">ProcessParagraphUnit</a> call, the implementation must check the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.html#Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_IsStructure">IsStructure</a> property to determine which type each is.</p>
-<p><img style="display:block; " src="images/Structure%20Paragraph%20Unit.jpg"></p>
+<img style="display:block; " src="images/Structure%20Paragraph%20Unit.jpg">
 <p>A localizable paragraph unit can have the following main properties:</p>
-<p><img style="display:block; " src="images/Localizable%20Paragraph%20Unit.jpg"></p>
+<img style="display:block; " src="images/Localizable%20Paragraph%20Unit.jpg">
 <p>The source and target language content in a paragraph is comprised of objects that implement <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IMarkupDataVisitor.html">IMarkupDataVisitor</a> derived interfaces:</p>
-<p><img style="display:block; " src="images/Paragraph.jpg"></p>
+<img style="display:block; " src="images/Paragraph.jpg">
 <p>Below is a diagram with some more details on the inline tags:</p>
-<p><img style="display:block; " src="images/Inline%20Tags.jpg"></p>
+<img style="display:block; " src="images/Inline%20Tags.jpg">
 <p>Tags and text inside a paragraph can be annotated with different types of markup, represented with <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarker.html">IAbstractMarker</a> as base interface:</p>
-<p><img style="display:block; " src="images/Markers.jpg"></p>
+<img style="display:block; " src="images/Markers.jpg">
 <p>The most important type of markup is segments. A segment is uniquely identified within the paragraph unit through its segment ID. As segment in a localized paragraph unit always has a source/target language counterpart. The source and target language segments reference the same <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.ISegmentPair.html">ISegmentPair</a> object, and thus implicitly will always have the same segment ID. The corresponding source/target segment can be easily retrieved through the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.html#Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_GetSourceSegment_Sdl_FileTypeSupport_Framework_NativeApi_SegmentId_">GetSourceSegment</a> and <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.html#Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_GetTargetSegment_Sdl_FileTypeSupport_Framework_NativeApi_SegmentId_">GetTargetSegment</a> methods, which take the segment ID as parameter and returns the corresponding object.</p>
 <p>Navigation and iteration through the bilingual content in a paragraph or other markup data container can be achieved in a number of different ways. Perhaps the most intuitive is to use the <code>Parent</code>, <code>IndexInParent</code> and <code>Items</code> properties to directly access related nodes, or by iterating over all items in an <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.html">IAbstractMarkupDataContainer</a>, either directly or through the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.html##Sdl_FileTypeSupport_Framework_BilingualApi_IAbstractMarkupDataContainer_AllSubItems">AllSubItems</a> property of the container, or by calling the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupDataContainer.html##Sdl_FileTypeSupport_Framework_BilingualApi_IAbstractMarkupDataContainer_ForEachSubItem_System_Action_Sdl_FileTypeSupport_Framework_BilingualApi_IAbstractMarkupData__">ForEachSubItem</a> method passing in an action object.</p>
 <p>The <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.Location.html">Location</a> class provides another flexible way of iterating through and working with the localizable content in a paragraph:</p>
-<p><img style="display:block; " src="images/Locations.jpg"></p>
-<p>Localizable content can also be processed through a visitor pattern. This is often useful when dealing with collections of objects (e.g. in markup data containers), as the use of a visitor avoids having to construct awkward and difficult to maintain switch/if statements to test for different object types. Simply call AcceptVisitor on the object, and the object will call back to its corresponding method on the visitor. For more information about the Visitor pattern, see Design Patters by the “Gang of Four” (Gamma, Helm, Johnson, Vlissides), a book that should be on every developer&#39;s desk.</p>
-<p><img style="display:block; " src="images/Visitor%20Pattern.jpg"></p>
+<img style="display:block; " src="images/Locations.jpg">
+<p>Localizable content can also be processed through a visitor pattern. This is often useful when dealing with collections of objects (e.g. in markup data containers), as the use of a visitor avoids having to construct awkward and difficult to maintain switch/if statements to test for different object types. Simply call AcceptVisitor on the object, and the object will call back to its corresponding method on the visitor. For more information about the Visitor pattern, see Design Patters by the “Gang of Four” (Gamma, Helm, Johnson, Vlissides), a book that should be on every developer's desk.</p>
+<img style="display:block; " src="images/Visitor%20Pattern.jpg">
 </article>
           </div>
-          
+
           <div class="hidden-sm col-md-2" role="complementary">
             <div class="sideaffix">
               <div class="contribution">
@@ -126,7 +126,7 @@
           </div>
         </div>
       </div>
-      
+
       <footer>
         <div class="grad-bottom"></div>
         <div class="footer">
@@ -134,13 +134,13 @@
             <span class="pull-right">
               <a href="#top">Back to top</a>
             </span>
-            
-            <span>Generated by <strong>DocFX</strong></span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
           </div>
         </div>
       </footer>
     </div>
-    
+
     <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
     <script type="text/javascript" src="../../styles/docfx.js"></script>
     <script type="text/javascript" src="../../styles/main.js"></script>

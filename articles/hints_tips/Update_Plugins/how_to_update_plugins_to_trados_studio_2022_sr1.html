@@ -1,29 +1,29 @@
 ﻿<!DOCTYPE html>
 <!--[if IE]><![endif]-->
 <html>
-  
+
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>How to update plugins to Trados Studio 2022 SR1 </title>
+    <title>How to update plugins to var:ProductNameWithEdition SR1 </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="How to update plugins to Trados Studio 2022 SR1 ">
-    <meta name="generator" content="docfx 2.59.3.0">
-    
+    <meta name="title" content="How to update plugins to var:ProductNameWithEdition SR1 ">
+    <meta name="generator" content="docfx ">
+  
     <link rel="shortcut icon" href="../../../favicon.ico">
     <link rel="stylesheet" href="../../../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../../../styles/docfx.css">
     <link rel="stylesheet" href="../../../styles/main.css">
     <meta property="docfx:navrel" content="../../../toc.html">
     <meta property="docfx:tocrel" content="../../toc.html">
-    
-    <meta property="docfx:rel" content="../../../">
-    
+  
+  <meta property="docfx:rel" content="../../../">
+  
   </head>
   <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
       <header>
-        
+
         <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
           <div class="container">
             <div class="navbar-header">
@@ -33,7 +33,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              
+
               <a class="navbar-brand" href="../../../index.html">
                 <img id="logo" class="svg" src="../../../logo.svg" alt="">
               </a>
@@ -48,7 +48,7 @@
             </div>
           </div>
         </nav>
-        
+
         <div class="subnav navbar-default">
           <div class="container hide-when-search">
             <div class="breadcrumb-container" id="breadcrumb">
@@ -60,7 +60,7 @@
         </div>
       </header>
       <div class="container body-content">
-        
+
         <div id="search-results">
           <div class="search-list">Search Results for <span></span></div>
           <div class="sr-items">
@@ -70,7 +70,7 @@
         </div>
       </div>
       <div role="main" class="container body-content hide-when-search">
-        
+
         <div class="sidenav hide-when-search">
           <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
           <div class="sidetoggle collapse" id="sidetoggle">
@@ -80,10 +80,10 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-<h1 id="how-to-update-plugins-to-varproductnamewithedition-sr1">How to update plugins to Trados Studio 2022 SR1</h1>
+<h1 id="how-to-update-plugins-to-varproductnamewithedition-sr1">How to update plugins to <a href="var:ProductNameWithEdition">var:ProductNameWithEdition</a> SR1</h1>
 
 <p>In an effort to achieve consistent behaviour across a range of platforms and applications, some changes have been made to control the way in which language metadata is used in our software.  These changes may affect your plugin or application integration with the public APIs, especially if <a href="../../../api/core/Sdl.Core.Globalization.Language.html">Sdl.Core.Globalization.Language</a> referenced in the project.</p>
-<p>The following are a list of changes and known issues to consider when updating your plugin to be compatible with  Trados Studio 2022 SR1</p>
+<p>The following are a list of changes and known issues to consider when updating your plugin to be compatible with  <a href="var:ProductNameWithEdition">var:ProductNameWithEdition</a> SR1</p>
 <ul>
 <li>Plugin Manifest</li>
 <li>Project References</li>
@@ -93,8 +93,8 @@
 <p>The manifest file <strong>pluginpackage.manifest.xml</strong> is located at the root of your project solution.  The values of the <strong>RequiredProduct</strong> should be updated to align with the latest release.</p>
 <h3 id="requiredproduct">RequiredProduct</h3>
 <ul>
-<li>Min version should be set to: 17.1. If your plugin has been updated to support this latest release of Trados Studio, then you should reflect this by setting the minimum supported version to 17.1</li>
-<li>Max version should be set to 17.9. It is recommended to also set this value, as it will provide the AppStore with sufficient information in correctly identifying plugins that are compatible with the version of Trados Studio that is launched.</li>
+<li>Min version should be set to: 17.1. If your plugin has been updated to support this latest release of <a href="var:ProductName">var:ProductName</a>, then you should reflect this by setting the minimum supported version to 17.1</li>
+<li>Max version should be set to 17.9. It is recommended to also set this value, as it will provide the AppStore with sufficient information in correctly identifying plugins that are compatible with the version of <a href="var:ProductName">var:ProductName</a> that is launched.</li>
 <li>Name should be set to: <em>TradosStudio</em></li>
 </ul>
 <p>Example</p>
@@ -106,7 +106,8 @@
   &lt;Author&gt;Trados AppStore Team&lt;/Author&gt;
   &lt;RequiredProduct name=&quot;TradosStudio&quot; minversion=&quot;17.1&quot; maxversion=&quot;17.9&quot; /&gt;
 &lt;/PluginPackage&gt;
-</code></pre><h2 id="project-references">Project References</h2>
+</code></pre>
+<h2 id="project-references">Project References</h2>
 <p>The following changes should be applied in the project file (.csproj)</p>
 <ul>
 <li>Add a reference to Sdl.Core.Globalization.Async, if your code is making reference to <a href="../../../api/core/Sdl.Core.Globalization.Language.html">Sdl.Core.Globalization.Language</a></li>
@@ -114,22 +115,27 @@
 <pre><code class="lang-xml">&lt;Reference Include=&quot;Sdl.Core.Globalization.Async&quot;&gt;
     &lt;HintPath&gt;$(MSBuildProgramFiles32)\Trados\Trados Studio\Studio17\Sdl.Core.Globalization.Async.dll&lt;/HintPath&gt;
 &lt;/Reference&gt;
-</code></pre><div class="NOTE"><h5>Note</h5><p>It is recommended that you use the reserved and well-known MSBuild property <em>*$(MSBuildProgramFiles32) ** as opposed to *$(ProgramFiles)</em> to define the location of the 32-bit program folder *C:\Program Files (x86)*</p>
+</code></pre>
+<div class="NOTE">
+<h5>Note</h5>
+<p>It is recommended that you use the reserved and well-known MSBuild property *<em><span class="math">\((MSBuildProgramFiles32) ** as opposed to *\)</span>(ProgramFiles)</em> to define the location of the 32-bit program folder *C:\Program Files (x86)*</p>
 </div>
 <ul>
-<li>To update settings directly in the project file from Visual Studio<ul>
+<li>To update settings directly in the project file from Visual Studio
+<ul>
 <li>Right-click on the project node in the Solution Explorer and select Unload Project.</li>
 <li>Then, right-click on the project and choose Edit <projectname></projectname></li>
 </ul>
 </li>
-<li>Once you have applied your changes in the project file, then reload project<ul>
+<li>Once you have applied your changes in the project file, then reload project
+<ul>
 <li>In the Solution Explorer, select the projects you want to load (press Ctrl while clicking to select more than one project)</li>
 <li>Then right-click on the project and choose Reload Project.</li>
 </ul>
 </li>
 </ul>
 <h2 id="language-registry-api">Language Registry API</h2>
-<p>Third party developers now have access to Trados Studio&#39;s custom language registry, which offers finer control over language management than the language registry provided by Microsoft. Following this change, [CultureCode] is now the recommended alternative to the standard CultureInfo.</p>
+<p>Third party developers now have access to Trados Studio's custom language registry, which offers finer control over language management than the language registry provided by Microsoft. Following this change, [CultureCode] is now the recommended alternative to the standard CultureInfo.</p>
 <p>To ensure compatibility with Studio and other RWS system interfacing with Studio please recover the language info using our internal language registry</p>
 <pre><code class="lang-cs">private CultureCode GetCultureCode(string cultureIsoCode)
 {
@@ -145,12 +151,14 @@
         return null;
     }
 }
-</code></pre><p>Use <strong>LanguageRegistryApi.Instance</strong> to recover all langauges</p>
+</code></pre>
+<p>Use <strong>LanguageRegistryApi.Instance</strong> to recover all langauges</p>
 <pre><code class="lang-cs">private IList&lt;Language&gt; GetAllLanguages()
 {  
     return LanguageRegistryApi.Instance.GetAllLanguages()
 }
-</code></pre><h2 id="known-issues">Known Issues</h2>
+</code></pre>
+<h2 id="known-issues">Known Issues</h2>
 <p>The following are a list of known issues and solutions that you might encounter depending on your settings and configuration:</p>
 <h3 id="tradoscommunitytoolkit-formally-sdlcommunitytoolkit">Trados.Community.Toolkit (formally SDL.Community.Toolkit)</h3>
 <p>A new version of the Trados Community Toolkit, version 4.1.0, has been released to support the latest version of Trados Studio 2022 SR1.  This includes the following assemblies:</p>
@@ -183,9 +191,10 @@
         &lt;bindingRedirect oldVersion=&quot;0.0.0.0-5.0.0.0&quot; newVersion=&quot;5.0.0.0&quot; /&gt;
       &lt;/dependentAssembly&gt;
     &lt;/assemblyBinding&gt;
-</code></pre></article>
+</code></pre>
+</article>
           </div>
-          
+
           <div class="hidden-sm col-md-2" role="complementary">
             <div class="sideaffix">
               <div class="contribution">
@@ -203,7 +212,7 @@
           </div>
         </div>
       </div>
-      
+
       <footer>
         <div class="grad-bottom"></div>
         <div class="footer">
@@ -211,13 +220,13 @@
             <span class="pull-right">
               <a href="#top">Back to top</a>
             </span>
-            
-            <span>Generated by <strong>DocFX</strong></span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
           </div>
         </div>
       </footer>
     </div>
-    
+
     <script type="text/javascript" src="../../../styles/docfx.vendor.js"></script>
     <script type="text/javascript" src="../../../styles/docfx.js"></script>
     <script type="text/javascript" src="../../../styles/main.js"></script>

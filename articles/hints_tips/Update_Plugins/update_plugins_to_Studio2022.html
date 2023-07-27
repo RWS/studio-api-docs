@@ -1,29 +1,29 @@
 ﻿<!DOCTYPE html>
 <!--[if IE]><![endif]-->
 <html>
-  
+
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>How to update plugins to Trados Studio 2022 </title>
+    <title>How to update plugins to var:ProductNameWithEdition </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="How to update plugins to Trados Studio 2022 ">
-    <meta name="generator" content="docfx 2.59.3.0">
-    
+    <meta name="title" content="How to update plugins to var:ProductNameWithEdition ">
+    <meta name="generator" content="docfx ">
+  
     <link rel="shortcut icon" href="../../../favicon.ico">
     <link rel="stylesheet" href="../../../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../../../styles/docfx.css">
     <link rel="stylesheet" href="../../../styles/main.css">
     <meta property="docfx:navrel" content="../../../toc.html">
     <meta property="docfx:tocrel" content="../../toc.html">
-    
-    <meta property="docfx:rel" content="../../../">
-    
+  
+  <meta property="docfx:rel" content="../../../">
+  
   </head>
   <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
       <header>
-        
+
         <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
           <div class="container">
             <div class="navbar-header">
@@ -33,7 +33,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              
+
               <a class="navbar-brand" href="../../../index.html">
                 <img id="logo" class="svg" src="../../../logo.svg" alt="">
               </a>
@@ -48,7 +48,7 @@
             </div>
           </div>
         </nav>
-        
+
         <div class="subnav navbar-default">
           <div class="container hide-when-search">
             <div class="breadcrumb-container" id="breadcrumb">
@@ -60,7 +60,7 @@
         </div>
       </header>
       <div class="container body-content">
-        
+
         <div id="search-results">
           <div class="search-list">Search Results for <span></span></div>
           <div class="sr-items">
@@ -70,7 +70,7 @@
         </div>
       </div>
       <div role="main" class="container body-content hide-when-search">
-        
+
         <div class="sidenav hide-when-search">
           <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
           <div class="sidetoggle collapse" id="sidetoggle">
@@ -80,19 +80,22 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-<h1 id="how-to-update-plugins-to-varproductnamewithedition">How to update plugins to Trados Studio 2022</h1>
+<h1 id="how-to-update-plugins-to-varproductnamewithedition">How to update plugins to <a href="var:ProductNameWithEdition">var:ProductNameWithEdition</a></h1>
 
-<p>Plugins built for previous releases of Trados Studio are not compatible with Trados Studio 2022.  While the main reason for this is due to the assembly versions increased to align with the latest product release, there are also other breaking changes to take in to consideration. </p>
-<p>The following are a list of changes and known issues to consider when updating your plugin to be compatible with Trados Studio 2022.</p>
-<div class="NOTE"><h5>Note</h5><p>In order to migrate a plugin to be compatible with Trados Studio 2022 we need to install:
+<p>Plugins built for previous releases of <a href="var:ProductName">var:ProductName</a> are not compatible with <a href="var:ProductNameWithEdition">var:ProductNameWithEdition</a>.  While the main reason for this is due to the assembly versions increased to align with the latest product release, there are also other breaking changes to take in to consideration.</p>
+<p>The following are a list of changes and known issues to consider when updating your plugin to be compatible with <a href="var:ProductNameWithEdition">var:ProductNameWithEdition</a>.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>In order to migrate a plugin to be compatible with <a href="var:ProductNameWithEdition">var:ProductNameWithEdition</a> we need to install:
 .NET Framework <em>4.8</em>. It can be installed form <a href="https://dotnet.microsoft.com/download/dotnet-framework/net48">https://dotnet.microsoft.com/download/dotnet-framework/net48</a>. After you install the framework a restart is required.</p>
 </div>
 <h3 id="how-check-if-the-net-framework-was-installed-correctly">How check if the .Net Framework was installed correctly</h3>
 <p>After restart, you can check if the version was installed correctly using Powershell (opened as Administrator) by typing following command.</p>
 <pre><code class="lang-sh">gci ‘HKLM:\SOFTWARE\Microsoft\NET Framework Setup\NDP’ -recurse | gp -name Version -EA 0 | where { $_.PSChildName -match ‘^(?!S)\p{L}’} | select PSChildName, Version
-</code></pre><p>Make sure that version <em>4.8</em> is displayed in the list.
+</code></pre>
+<p>Make sure that version <em>4.8</em> is displayed in the list.
 <img style="display:block; margin: 0px" src="images/CheckInstalledNetFramework.png"></p>
-<p><br></p>
+<br>
 <h2 id="plugin-framework">Plugin Framework</h2>
 <p>The latest version of the plugin framework packages should be installed. You can add/update the plugin framework nuget packages in your project via the package manager user interface or console.</p>
 <h3 id="package-manager-ui">Package Manager UI</h3>
@@ -100,7 +103,8 @@
 <li>In <strong>Solution Explorer</strong>, right-click <strong>References</strong> and choose <strong>Manage NuGet Packages</strong>.</li>
 <li>Select nuget.org as the <strong>Package source</strong>.</li>
 <li>Search for <code>Sdl.Core.PluginFramework</code> from the <strong>Browse</strong> tab.</li>
-<li>Select the package from the list and click <strong>Install</strong> or <strong>Update</strong>.<ul>
+<li>Select the package from the list and click <strong>Install</strong> or <strong>Update</strong>.
+<ul>
 <li><code>Sdl.Core.PluginFramework</code>, version <em>2.1.0</em></li>
 <li><code>Sdl.Core.PluginFramework.Build</code>, version <em>17.0.0</em></li>
 </ul>
@@ -108,13 +112,13 @@
 <li>Accept any license prompts to finnish the installation.
 <img style="display:block; margin: 0px" src="images/UpdatePluginFrameworkPackages.gif"></li>
 </ul>
-<p><br></p>
+<br>
 <h2 id="plugin-manifest">Plugin Manifest</h2>
 <p>The manifest file pluginpackage.manifest.xml is located at the root of your project solution.  The values of the <code>RequiredProduct</code> should be updated to align with the latest release.</p>
 <p><b>RequiredProduct</b></p>
 <ul>
 <li>Min version should be set to: <em>17.0</em></li>
-<li>Max version should be set to <em>17.9</em>.  It is recommend to also set this value, as it will provide the RWS AppStore with sufficient information in correctly identifying plugins that are compatible with the version of Trados Studio that is launched.</li>
+<li>Max version should be set to <em>17.9</em>.  It is recommend to also set this value, as it will provide the RWS AppStore with sufficient information in correctly identifying plugins that are compatible with the version of <a href="var:ProductName">var:ProductName</a> that is launched.</li>
 <li>Name should be set to: <em>TradosStudio</em></li>
 </ul>
 <p><strong>Example:</strong></p>
@@ -125,35 +129,36 @@
   &lt;Author&gt;My author name&lt;/Author&gt;
   &lt;RequiredProduct name=&quot;TradosStudio&quot; minversion=&quot;17.0&quot; maxversion=&quot;17.9&quot; /&gt;
 &lt;/PluginPackage&gt;
-</code></pre><p><img style="display:block; margin: 0px" src="images/UpdatePluginManifestFile.gif"></p>
-<p><br></p>
+</code></pre>
+<img style="display:block; margin: 0px" src="images/UpdatePluginManifestFile.gif">
+<br>
 <h2 id="project-references--deployment-path">Project References &amp; Deployment Path</h2>
 <p>The following changes should be applied in the project file (.csproj)</p>
-<p>All Trados Studio references should point to the new installation path <em>$(ProgramFiles)\Trados\Trados Studio\Studio17</em>. For example:</p>
+<p>All <a href="var:ProductName">var:ProductName</a> references should point to the new installation path <em>$(ProgramFiles)\Trados\Trados Studio\Studio17</em>. For example:</p>
 <pre><code class="lang-xml">&lt;Reference Include=&quot;Sdl.Desktop.IntegrationApi.Extensions&quot;&gt;
   &lt;HintPath&gt;$(ProgramFiles)\Trados\Trados Studio\Studio17\Sdl.Desktop.IntegrationApi.Extensions.dll&lt;/HintPath&gt;
 &lt;/Reference&gt;
-</code></pre><p>The plugin deployment path should point to the new location <em>$(AppData)\Trados\Trados Studio\17\Plugins</em>.  For example:</p>
+</code></pre>
+<p>The plugin deployment path should point to the new location <em>$(AppData)\Trados\Trados Studio\17\Plugins</em>.  For example:</p>
 <pre><code class="lang-xml">&lt;PluginDeploymentPath&gt;$(AppData)\Trados\Trados Studio\17\Plugins&lt;/PluginDeploymentPath&gt;
-</code></pre><p><img style="display:block; margin: 0px" src="images/UpdateProjectReferences.gif"></p>
-<div class="NOTE"><h5>Note</h5><p>To update settings directly in the project file from Visual Studio</p>
-<ul>
-<li>Right-click on the project node in the <strong>Solution Explorer</strong> and select <strong>Unload Project</strong>.</li>
-<li>Then, right-click on the project and choose <strong>Edit</strong> <projectname></projectname></li>
-</ul>
-<p>Once you have applied your changes in the project file, then reload project</p>
-<ul>
-<li>In the <strong>Solution Explorer</strong>, select the projects you want to load (press <strong>Ctrl</strong> while clicking to select more than one project)</li>
-<li>Then right-click on the project and choose <strong>Reload Project</strong>.</li>
-</ul>
-</div>
-<p><br></p>
-<hr>
-<p><br></p>
+</code></pre>
+<img style="display:block; margin: 0px" src="images/UpdateProjectReferences.gif">
+> [!NOTE]
+>
+> To update settings directly in the project file from Visual Studio
+> * Right-click on the project node in the **Solution Explorer** and select **Unload Project**.
+> * Then, right-click on the project and choose **Edit** <projectname>
+> 
+> Once you have applied your changes in the project file, then reload project
+> * In the **Solution Explorer**, select the projects you want to load (press **Ctrl** while clicking to select more than one project)
+> * Then right-click on the project and choose **Reload Project**.
+<br>
+***
+<br>
 <h2 id="known-issues">Known Issues</h2>
 <p>The following are a list of known issues and solutions that you might encounter depending on your settings and configuration</p>
 <h3 id="project-reference-private--false-issue">Project Reference, Private = false issue</h3>
-<p>We have discovered a new symptom while building plugins with the latest plugin framework against Trados Studio 2022. If the reference option (private = false) is present in the Trados Studio assembly reference of the project, then the plugin will not be built correctly. </p>
+<p>We have discovered a new symptom while building plugins with the latest plugin framework against <a href="var:ProductNameWithEdition">var:ProductNameWithEdition</a>. If the reference option (private = false) is present in the <a href="var:ProductName">var:ProductName</a> assembly reference of the project, then the plugin will not be built correctly.</p>
 <p>You will noticed that the API extension context is missing from the *.plugin.xml file. This is needed by the desktop platform to recognize and load the plugin in the studio context.</p>
 <p><strong>Solution</strong></p>
 <p>Remove this declaration or setting its value to true (default) will resolve the problem.</p>
@@ -163,22 +168,24 @@
     &lt;Private&gt;False&lt;/Private&gt;
     &lt;HintPath&gt;$(ProgramFiles)\Trados\Trados Studio\17\Sdl.Desktop.IntegrationApi.Extensions.dll&lt;/HintPath&gt;
 &lt;/Reference&gt;
-</code></pre><p><br></p>
+</code></pre>
+<br>
 <h3 id="migrate-packagesconfig-to-packagereference">Migrate packages.config to PackageReference</h3>
 <p>If you project is still using a packages.config file to reference the nuget packages, then we need to migrate it to PackageReference from the Visual Studio solution.  Right-click on the <strong>packages.config</strong> file from the project solution and select <strong>Migrate packages.config to PackageReference...</strong> from the context menu.
 <img style="display:block; margin: 0px" src="images/MigratePackagesConfig.png"></p>
-<p><br></p>
+<br>
 <h3 id="remove-redundant-references-to-the-plugin-framework">Remove redundant references to the plugin framework</h3>
 <p>Unload the project from Visual Studio and remove the redundant references to the plugin framework as highlighted underneath:
 <img style="display:block; margin: 0px" src="images/RedundantFrameworkReference.png"></p>
-<p><br></p>
+<br>
 <h3 id="netframework-is-higher-than-the-current-targeted-framework-error">.NetFramework is higher than the current targeted framework error</h3>
 <p>Unload the project and search in .csproj file for <code>TargetFrameworkVersion</code>. Make sure you have only one <code>TargetFrameworkVersion</code> version in the file and is pointing to <em>v4.8</em>. For example:</p>
 <pre><code class="lang-xml">&lt;TargetFrameworkVersion&gt;v4.8&lt;/TargetFrameworkVersion&gt;
-</code></pre><p><strong>Note:</strong> If there is a second reference in the file please remove that version.</p>
-</article>
+</code></pre>
+<p><strong>Note:</strong> If there is a second reference in the file please remove that version.</p>
+</projectname></article>
           </div>
-          
+
           <div class="hidden-sm col-md-2" role="complementary">
             <div class="sideaffix">
               <div class="contribution">
@@ -196,7 +203,7 @@
           </div>
         </div>
       </div>
-      
+
       <footer>
         <div class="grad-bottom"></div>
         <div class="footer">
@@ -204,13 +211,13 @@
             <span class="pull-right">
               <a href="#top">Back to top</a>
             </span>
-            
-            <span>Generated by <strong>DocFX</strong></span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
           </div>
         </div>
       </footer>
     </div>
-    
+
     <script type="text/javascript" src="../../../styles/docfx.vendor.js"></script>
     <script type="text/javascript" src="../../../styles/docfx.js"></script>
     <script type="text/javascript" src="../../../styles/main.js"></script>

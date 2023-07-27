@@ -1,29 +1,29 @@
 ﻿<!DOCTYPE html>
 <!--[if IE]><![endif]-->
 <html>
-  
+
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>Implementing the Settings UI </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Implementing the Settings UI ">
-    <meta name="generator" content="docfx 2.59.3.0">
-    
+    <meta name="generator" content="docfx ">
+  
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../../styles/docfx.css">
     <link rel="stylesheet" href="../../styles/main.css">
     <meta property="docfx:navrel" content="../../toc.html">
     <meta property="docfx:tocrel" content="../toc.html">
-    
-    <meta property="docfx:rel" content="../../">
-    
+  
+  <meta property="docfx:rel" content="../../">
+  
   </head>
   <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
       <header>
-        
+
         <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
           <div class="container">
             <div class="navbar-header">
@@ -33,7 +33,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              
+
               <a class="navbar-brand" href="../../index.html">
                 <img id="logo" class="svg" src="../../logo.svg" alt="">
               </a>
@@ -48,7 +48,7 @@
             </div>
           </div>
         </nav>
-        
+
         <div class="subnav navbar-default">
           <div class="container hide-when-search">
             <div class="breadcrumb-container" id="breadcrumb">
@@ -60,7 +60,7 @@
         </div>
       </header>
       <div class="container body-content">
-        
+
         <div id="search-results">
           <div class="search-list">Search Results for <span></span></div>
           <div class="sr-items">
@@ -70,7 +70,7 @@
         </div>
       </div>
       <div role="main" class="container body-content hide-when-search">
-        
+
         <div class="sidenav hide-when-search">
           <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
           <div class="sidetoggle collapse" id="sidetoggle">
@@ -93,36 +93,43 @@
 </ul>
 <h2 id="the-settings-bundle">The Settings Bundle</h2>
 <p>Each plug-in uses a settings bundle to store and retrieve settings. The mechanism for doing that is provided in a separate class called <strong>UserSettings</strong>, which we will implement later (<a href="loading_and_saving_settings.html">Loading and Saving the Settings</a>). For now, we create an object based on the <strong>UserSettings</strong> class:</p>
-<div class="tabGroup" id="tabgroup_rHJMqfXTnT">
+<div class="tabGroup" id="tabgroup_bHGHmlrG6S">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_rHJMqfXTnT_tabid-1" role="tab" aria-controls="tabpanel_rHJMqfXTnT_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_bHGHmlrG6S_tabid-1" role="tab" aria-controls="tabpanel_bHGHmlrG6S_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_rHJMqfXTnT_tabid-1" role="tabpanel" data-tab="tabid-1">
+<section id="tabpanel_bHGHmlrG6S_tabid-1" role="tabpanel" data-tab="tabid-1">
+
 <pre><code class="lang-cs">private UserSettings _userSettings;
-</code></pre></section>
+</code></pre>
+</section>
 </div>
+
 <p>So that we can obtain the correct user settings for this settings page from the Filter Framework, we need to tell the framework which settings we need. We can do this by implementing <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Settings.IFileTypeSettingsAware-1.html">IFileTypeSettingsAware</a>:</p>
-<div class="tabGroup" id="tabgroup_rHJMqfXTnT-1">
+<div class="tabGroup" id="tabgroup_bHGHmlrG6S-1">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_rHJMqfXTnT-1_tabid-2" role="tab" aria-controls="tabpanel_rHJMqfXTnT-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_bHGHmlrG6S-1_tabid-2" role="tab" aria-controls="tabpanel_bHGHmlrG6S-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_rHJMqfXTnT-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<section id="tabpanel_bHGHmlrG6S-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+
 <pre><code class="lang-cs">public partial class SettingsUI : UserControl, IFileTypeSettingsAware&lt;UserSettings&gt;
-</code></pre></section>
+</code></pre>
+</section>
 </div>
+
 <p>Initialize the Plug-in User Interface Settings
 When the user raises the plug-in user interface, the control element should be set according to what is stored in the settings bundle. This is handled by setting the _userSettings object (which we declared previously) and implementing the Settings property from <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Settings.IFileTypeSettingsAware-1.html">IFileTypeSettingsAware</a>.</p>
-<div class="tabGroup" id="tabgroup_rHJMqfXTnT-2">
+<div class="tabGroup" id="tabgroup_bHGHmlrG6S-2">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_rHJMqfXTnT-2_tabid-3" role="tab" aria-controls="tabpanel_rHJMqfXTnT-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_bHGHmlrG6S-2_tabid-3" role="tab" aria-controls="tabpanel_bHGHmlrG6S-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_rHJMqfXTnT-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<section id="tabpanel_bHGHmlrG6S-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+
 <pre><code class="lang-cs">public UserSettings Settings
 {
     get
@@ -135,46 +142,53 @@ When the user raises the plug-in user interface, the control element should be s
         UpdateControl();
     }
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
+
 <p>During initialization the <code>UpdateControl</code> method is invoked, which sets the state of the check box (checked or unchecked) to the value of the LockPrdCodes member of the <code>UserSettings</code> class as shown below:</p>
-<div class="tabGroup" id="tabgroup_rHJMqfXTnT-3">
+<div class="tabGroup" id="tabgroup_bHGHmlrG6S-3">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_rHJMqfXTnT-3_tabid-4" role="tab" aria-controls="tabpanel_rHJMqfXTnT-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_bHGHmlrG6S-3_tabid-4" role="tab" aria-controls="tabpanel_bHGHmlrG6S-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_rHJMqfXTnT-3_tabid-4" role="tabpanel" data-tab="tabid-4">
+<section id="tabpanel_bHGHmlrG6S-3_tabid-4" role="tabpanel" data-tab="tabid-4">
+
 <pre><code class="lang-cs">public void UpdateControl()
 {
     cb_LockPrdCodes.Checked = _userSettings.LockPrdCodes;
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
 <h2 id="save-the-settings-to-the-settings-bundle">Save the Settings to the Settings Bundle</h2>
 <p>Conversely, the user interface needs to save the check box setting to the settings bundle, e.g. when the user raises the plug-in UI, changes the check box setting, and then clicks <strong>OK</strong> to apply the changed setting to the settings bundle:</p>
-<div class="tabGroup" id="tabgroup_rHJMqfXTnT-4">
+<div class="tabGroup" id="tabgroup_bHGHmlrG6S-4">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_rHJMqfXTnT-4_tabid-5" role="tab" aria-controls="tabpanel_rHJMqfXTnT-4_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_bHGHmlrG6S-4_tabid-5" role="tab" aria-controls="tabpanel_bHGHmlrG6S-4_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_rHJMqfXTnT-4_tabid-5" role="tabpanel" data-tab="tabid-5">
+<section id="tabpanel_bHGHmlrG6S-4_tabid-5" role="tabpanel" data-tab="tabid-5">
+
 <pre><code class="lang-cs">private void cb_LockPrdCodes_CheckedChanged(object sender, EventArgs e)
 {
     _userSettings.LockPrdCodes = cb_LockPrdCodes.Checked;
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
 <h2 id="putting-it-all-together">Putting it All Together</h2>
 <p>The full code of your user control looks as shown below:</p>
-<div class="tabGroup" id="tabgroup_rHJMqfXTnT-5">
+<div class="tabGroup" id="tabgroup_bHGHmlrG6S-5">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_rHJMqfXTnT-5_tabid-6" role="tab" aria-controls="tabpanel_rHJMqfXTnT-5_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_bHGHmlrG6S-5_tabid-6" role="tab" aria-controls="tabpanel_bHGHmlrG6S-5_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_rHJMqfXTnT-5_tabid-6" role="tabpanel" data-tab="tabid-6">
+<section id="tabpanel_bHGHmlrG6S-5_tabid-6" role="tabpanel" data-tab="tabid-6">
+
 <pre><code class="lang-cs">using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -259,18 +273,21 @@ namespace Sdk.FileTypeSupport.Samples.SimpleText.WinUI
         #endregion
     }
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
 <h2 id="see-also">See Also</h2>
 <p><a href="creating_a_new_assembly_for_the_settings_ui.html">Creating a New Assembly for the Settings UI</a></p>
 <p><a href="implementing_the_ui_controller_class.html">Implementing the UI Controller Class</a></p>
 <p><a href="file_type_settings.html">File type settings</a></p>
 <p><a href="loading_and_saving_settings.html">Loading and Saving the Settings</a></p>
-<div class="NOTE"><h5>Note</h5><p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
 </div>
 </article>
           </div>
-          
+
           <div class="hidden-sm col-md-2" role="complementary">
             <div class="sideaffix">
               <div class="contribution">
@@ -288,7 +305,7 @@ namespace Sdk.FileTypeSupport.Samples.SimpleText.WinUI
           </div>
         </div>
       </div>
-      
+
       <footer>
         <div class="grad-bottom"></div>
         <div class="footer">
@@ -296,13 +313,13 @@ namespace Sdk.FileTypeSupport.Samples.SimpleText.WinUI
             <span class="pull-right">
               <a href="#top">Back to top</a>
             </span>
-            
-            <span>Generated by <strong>DocFX</strong></span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
           </div>
         </div>
       </footer>
     </div>
-    
+
     <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
     <script type="text/javascript" src="../../styles/docfx.js"></script>
     <script type="text/javascript" src="../../styles/main.js"></script>
