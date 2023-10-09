@@ -6,7 +6,8 @@ items:
   parent: Sdl.LanguagePlatform.IO.TMX
   children:
   - Sdl.LanguagePlatform.IO.TMX.TMXWriter.#ctor(System.IO.Stream)
-  - Sdl.LanguagePlatform.IO.TMX.TMXWriter.#ctor(System.IO.Stream,Sdl.LanguagePlatform.IO.TMX.TMXWriterSettings)
+  - Sdl.LanguagePlatform.IO.TMX.TMXWriter.#ctor(System.IO.Stream,Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager)
+  - Sdl.LanguagePlatform.IO.TMX.TMXWriter.#ctor(System.IO.Stream,Sdl.LanguagePlatform.IO.TMX.TMXWriterSettings,Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager)
   - Sdl.LanguagePlatform.IO.TMX.TMXWriter.#ctor(System.String)
   - Sdl.LanguagePlatform.IO.TMX.TMXWriter.#ctor(System.String,Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager)
   - Sdl.LanguagePlatform.IO.TMX.TMXWriter.#ctor(System.String,Sdl.LanguagePlatform.IO.TMX.TMXWriterSettings)
@@ -121,6 +122,7 @@ items:
       description: The file name.
     - id: cultureMetadataManager
       type: Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager
+      description: Language culture meta-data source.
     content.vb: Public Sub New(filename As String, cultureMetadataManager As ICultureMetadataManager)
   overload: Sdl.LanguagePlatform.IO.TMX.TMXWriter.#ctor*
   modifiers.csharp:
@@ -144,14 +146,59 @@ items:
   assemblies:
   - Sdl.LanguagePlatform.IO
   namespace: Sdl.LanguagePlatform.IO.TMX
-  summary: "\nInitializes a new instance of the TMXWriter class with the specified output stream and UTF8 encoding.\n"
+  summary: "\nInitializes a new instance of the TMXWriter class with the specified output stream and UTF8 encoding.\nThe ICultureMetadataManager instance used is the obsolete LanguageRegistryApi.Instance.CultureMetadataManager.\n"
   syntax:
-    content: public TMXWriter(Stream stream)
+    content: >-
+      [Obsolete("Use version providing ICultureMetadataManager")]
+
+      public TMXWriter(Stream stream)
     parameters:
     - id: stream
       type: System.IO.Stream
       description: The output stream.
-    content.vb: Public Sub New(stream As Stream)
+    content.vb: >-
+      <Obsolete("Use version providing ICultureMetadataManager")>
+
+      Public Sub New(stream As Stream)
+  overload: Sdl.LanguagePlatform.IO.TMX.TMXWriter.#ctor*
+  attributes:
+  - type: System.ObsoleteAttribute
+    ctor: System.ObsoleteAttribute.#ctor(System.String)
+    arguments:
+    - type: System.String
+      value: Use version providing ICultureMetadataManager
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Sdl.LanguagePlatform.IO.TMX.TMXWriter.#ctor(System.IO.Stream,Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager)
+  commentId: M:Sdl.LanguagePlatform.IO.TMX.TMXWriter.#ctor(System.IO.Stream,Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager)
+  id: '#ctor(System.IO.Stream,Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager)'
+  parent: Sdl.LanguagePlatform.IO.TMX.TMXWriter
+  langs:
+  - csharp
+  - vb
+  name: TMXWriter(Stream, ICultureMetadataManager)
+  nameWithType: TMXWriter.TMXWriter(Stream, ICultureMetadataManager)
+  fullName: Sdl.LanguagePlatform.IO.TMX.TMXWriter.TMXWriter(System.IO.Stream, Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager)
+  type: Constructor
+  source:
+    path: Sdl.LanguagePlatform.IO
+    isExternal: true
+  assemblies:
+  - Sdl.LanguagePlatform.IO
+  namespace: Sdl.LanguagePlatform.IO.TMX
+  summary: "\nInitializes a new instance of the TMXWriter class with the specified output stream and UTF8 encoding.\n"
+  syntax:
+    content: public TMXWriter(Stream stream, ICultureMetadataManager cultureMetadataManager)
+    parameters:
+    - id: stream
+      type: System.IO.Stream
+      description: The output stream.
+    - id: cultureMetadataManager
+      type: Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager
+      description: Language culture meta-data source.
+    content.vb: Public Sub New(stream As Stream, cultureMetadataManager As ICultureMetadataManager)
   overload: Sdl.LanguagePlatform.IO.TMX.TMXWriter.#ctor*
   modifiers.csharp:
   - public
@@ -231,22 +278,23 @@ items:
       description: The <xref href="Sdl.LanguagePlatform.IO.TMX.TMXWriterSettings" data-throw-if-not-resolved="false"></xref>TMX writer settings to apply.
     - id: cultureMetadataManager
       type: Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager
+      description: Language culture meta-data source.
     content.vb: Public Sub New(filename As String, writerSettings As TMXWriterSettings, cultureMetadataManager As ICultureMetadataManager)
   overload: Sdl.LanguagePlatform.IO.TMX.TMXWriter.#ctor*
   modifiers.csharp:
   - public
   modifiers.vb:
   - Public
-- uid: Sdl.LanguagePlatform.IO.TMX.TMXWriter.#ctor(System.IO.Stream,Sdl.LanguagePlatform.IO.TMX.TMXWriterSettings)
-  commentId: M:Sdl.LanguagePlatform.IO.TMX.TMXWriter.#ctor(System.IO.Stream,Sdl.LanguagePlatform.IO.TMX.TMXWriterSettings)
-  id: '#ctor(System.IO.Stream,Sdl.LanguagePlatform.IO.TMX.TMXWriterSettings)'
+- uid: Sdl.LanguagePlatform.IO.TMX.TMXWriter.#ctor(System.IO.Stream,Sdl.LanguagePlatform.IO.TMX.TMXWriterSettings,Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager)
+  commentId: M:Sdl.LanguagePlatform.IO.TMX.TMXWriter.#ctor(System.IO.Stream,Sdl.LanguagePlatform.IO.TMX.TMXWriterSettings,Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager)
+  id: '#ctor(System.IO.Stream,Sdl.LanguagePlatform.IO.TMX.TMXWriterSettings,Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager)'
   parent: Sdl.LanguagePlatform.IO.TMX.TMXWriter
   langs:
   - csharp
   - vb
-  name: TMXWriter(Stream, TMXWriterSettings)
-  nameWithType: TMXWriter.TMXWriter(Stream, TMXWriterSettings)
-  fullName: Sdl.LanguagePlatform.IO.TMX.TMXWriter.TMXWriter(System.IO.Stream, Sdl.LanguagePlatform.IO.TMX.TMXWriterSettings)
+  name: TMXWriter(Stream, TMXWriterSettings, ICultureMetadataManager)
+  nameWithType: TMXWriter.TMXWriter(Stream, TMXWriterSettings, ICultureMetadataManager)
+  fullName: Sdl.LanguagePlatform.IO.TMX.TMXWriter.TMXWriter(System.IO.Stream, Sdl.LanguagePlatform.IO.TMX.TMXWriterSettings, Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager)
   type: Constructor
   source:
     path: Sdl.LanguagePlatform.IO
@@ -256,7 +304,7 @@ items:
   namespace: Sdl.LanguagePlatform.IO.TMX
   summary: "\nInitializes a new instance of the TMXWriter class with the specified output stream and encoding.\n"
   syntax:
-    content: public TMXWriter(Stream outStream, TMXWriterSettings writerSettings)
+    content: public TMXWriter(Stream outStream, TMXWriterSettings writerSettings, ICultureMetadataManager cultureMetadataManager)
     parameters:
     - id: outStream
       type: System.IO.Stream
@@ -264,7 +312,10 @@ items:
     - id: writerSettings
       type: Sdl.LanguagePlatform.IO.TMX.TMXWriterSettings
       description: The <xref href="Sdl.LanguagePlatform.IO.TMX.TMXWriterSettings" data-throw-if-not-resolved="false"></xref>TMX writer settings to apply.
-    content.vb: Public Sub New(outStream As Stream, writerSettings As TMXWriterSettings)
+    - id: cultureMetadataManager
+      type: Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager
+      description: Language culture meta-data source.
+    content.vb: Public Sub New(outStream As Stream, writerSettings As TMXWriterSettings, cultureMetadataManager As ICultureMetadataManager)
   overload: Sdl.LanguagePlatform.IO.TMX.TMXWriter.#ctor*
   modifiers.csharp:
   - public
