@@ -9,6 +9,7 @@ items:
   - Sdl.Desktop.IntegrationApi.AbstractViewPartController.Activate
   - Sdl.Desktop.IntegrationApi.AbstractViewPartController.ActivationChanged
   - Sdl.Desktop.IntegrationApi.AbstractViewPartController.Dispose
+  - Sdl.Desktop.IntegrationApi.AbstractViewPartController.Dispose(System.Boolean)
   - Sdl.Desktop.IntegrationApi.AbstractViewPartController.GetContentControl
   - Sdl.Desktop.IntegrationApi.AbstractViewPartController.Hide
   - Sdl.Desktop.IntegrationApi.AbstractViewPartController.Initialize
@@ -33,13 +34,16 @@ items:
   namespace: Sdl.Desktop.IntegrationApi
   summary: "\nBase class used in the implementation and integration of a view part in desktop applications. \n"
   syntax:
-    content: 'public abstract class AbstractViewPartController : AbstractController'
+    content: 'public abstract class AbstractViewPartController : AbstractController, IDisposable'
     content.vb: >-
       Public MustInherit Class AbstractViewPartController
           Inherits AbstractController
+          Implements IDisposable
   inheritance:
   - System.Object
   - Sdl.Desktop.IntegrationApi.Extensions.Internal.AbstractController
+  implements:
+  - System.IDisposable
   inheritedMembers:
   - System.Object.ToString
   - System.Object.Equals(System.Object)
@@ -221,6 +225,38 @@ items:
   syntax:
     content: public virtual void Dispose()
     content.vb: Public Overridable Sub Dispose
+  overload: Sdl.Desktop.IntegrationApi.AbstractViewPartController.Dispose*
+  implements:
+  - System.IDisposable.Dispose
+  modifiers.csharp:
+  - public
+  - virtual
+  modifiers.vb:
+  - Public
+  - Overridable
+- uid: Sdl.Desktop.IntegrationApi.AbstractViewPartController.Dispose(System.Boolean)
+  commentId: M:Sdl.Desktop.IntegrationApi.AbstractViewPartController.Dispose(System.Boolean)
+  id: Dispose(System.Boolean)
+  parent: Sdl.Desktop.IntegrationApi.AbstractViewPartController
+  langs:
+  - csharp
+  - vb
+  name: Dispose(Boolean)
+  nameWithType: AbstractViewPartController.Dispose(Boolean)
+  fullName: Sdl.Desktop.IntegrationApi.AbstractViewPartController.Dispose(System.Boolean)
+  type: Method
+  source:
+    path: Sdl.Desktop.IntegrationApi
+    isExternal: true
+  assemblies:
+  - Sdl.Desktop.IntegrationApi
+  namespace: Sdl.Desktop.IntegrationApi
+  syntax:
+    content: public virtual void Dispose(bool disposing)
+    parameters:
+    - id: disposing
+      type: System.Boolean
+    content.vb: Public Overridable Sub Dispose(disposing As Boolean)
   overload: Sdl.Desktop.IntegrationApi.AbstractViewPartController.Dispose*
   modifiers.csharp:
   - public
@@ -448,6 +484,13 @@ references:
   name: AbstractController
   nameWithType: AbstractController
   fullName: Sdl.Desktop.IntegrationApi.Extensions.Internal.AbstractController
+- uid: System.IDisposable
+  commentId: T:System.IDisposable
+  parent: System
+  isExternal: true
+  name: IDisposable
+  nameWithType: IDisposable
+  fullName: System.IDisposable
 - uid: System.Object.ToString
   commentId: M:System.Object.ToString
   parent: System.Object
@@ -1063,6 +1106,44 @@ references:
   name: Dispose
   nameWithType: AbstractViewPartController.Dispose
   fullName: Sdl.Desktop.IntegrationApi.AbstractViewPartController.Dispose
+- uid: System.IDisposable.Dispose
+  commentId: M:System.IDisposable.Dispose
+  parent: System.IDisposable
+  isExternal: true
+  name: Dispose()
+  nameWithType: IDisposable.Dispose()
+  fullName: System.IDisposable.Dispose()
+  spec.csharp:
+  - uid: System.IDisposable.Dispose
+    name: Dispose
+    nameWithType: IDisposable.Dispose
+    fullName: System.IDisposable.Dispose
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.IDisposable.Dispose
+    name: Dispose
+    nameWithType: IDisposable.Dispose
+    fullName: System.IDisposable.Dispose
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  name: Boolean
+  nameWithType: Boolean
+  fullName: System.Boolean
 - uid: Sdl.Desktop.IntegrationApi.AbstractViewPartController.Activate*
   commentId: Overload:Sdl.Desktop.IntegrationApi.AbstractViewPartController.Activate
   isExternal: true
@@ -1093,13 +1174,6 @@ references:
   name: IsInView
   nameWithType: AbstractViewPartController.IsInView
   fullName: Sdl.Desktop.IntegrationApi.AbstractViewPartController.IsInView
-- uid: System.Boolean
-  commentId: T:System.Boolean
-  parent: System
-  isExternal: true
-  name: Boolean
-  nameWithType: Boolean
-  fullName: System.Boolean
 - uid: Sdl.Desktop.IntegrationApi.AbstractViewPartController.IsActive*
   commentId: Overload:Sdl.Desktop.IntegrationApi.AbstractViewPartController.IsActive
   isExternal: true

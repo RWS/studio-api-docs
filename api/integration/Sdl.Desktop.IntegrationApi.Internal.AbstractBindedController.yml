@@ -8,7 +8,6 @@ items:
   - Sdl.Desktop.IntegrationApi.Internal.AbstractBindedController.#ctor
   - Sdl.Desktop.IntegrationApi.Internal.AbstractBindedController.Activate
   - Sdl.Desktop.IntegrationApi.Internal.AbstractBindedController.BeginInvoke(System.Delegate)
-  - Sdl.Desktop.IntegrationApi.Internal.AbstractBindedController.Dispose
   - Sdl.Desktop.IntegrationApi.Internal.AbstractBindedController.GetContentControl
   - Sdl.Desktop.IntegrationApi.Internal.AbstractBindedController.GetExplorerBarControl
   - Sdl.Desktop.IntegrationApi.Internal.AbstractBindedController.Invoke(System.Delegate)
@@ -29,11 +28,11 @@ items:
   namespace: Sdl.Desktop.IntegrationApi.Internal
   summary: "\nBase class for the binded controllers\n"
   syntax:
-    content: 'public abstract class AbstractBindedController : AbstractViewController, IBindedController'
+    content: 'public abstract class AbstractBindedController : AbstractViewController, IDisposable, IBindedController'
     content.vb: >-
       Public MustInherit Class AbstractBindedController
           Inherits AbstractViewController
-          Implements IBindedController
+          Implements IDisposable, IBindedController
   inheritance:
   - System.Object
   - Sdl.Desktop.IntegrationApi.Extensions.Internal.AbstractController
@@ -46,10 +45,13 @@ items:
   - Sdl.TranslationStudioAutomation.IntegrationApi.TranslationMemoriesViewController
   - Sdl.TranslationStudioAutomation.IntegrationApi.WelcomeViewController
   implements:
+  - System.IDisposable
   - Sdl.Desktop.IntegrationApi.Extensions.Internal.IBindedController
   inheritedMembers:
   - Sdl.Desktop.IntegrationApi.AbstractViewController.Initialize(Sdl.Desktop.IntegrationApi.IViewContext)
   - Sdl.Desktop.IntegrationApi.AbstractViewController.Refresh
+  - Sdl.Desktop.IntegrationApi.AbstractViewController.Dispose
+  - Sdl.Desktop.IntegrationApi.AbstractViewController.Dispose(System.Boolean)
   - Sdl.Desktop.IntegrationApi.AbstractViewController.Context
   - Sdl.Desktop.IntegrationApi.AbstractViewController.ActivationChanged
   - System.Object.ToString
@@ -69,36 +71,6 @@ items:
   - Public
   - MustInherit
   - Class
-- uid: Sdl.Desktop.IntegrationApi.Internal.AbstractBindedController.Dispose
-  commentId: M:Sdl.Desktop.IntegrationApi.Internal.AbstractBindedController.Dispose
-  id: Dispose
-  parent: Sdl.Desktop.IntegrationApi.Internal.AbstractBindedController
-  langs:
-  - csharp
-  - vb
-  name: Dispose()
-  nameWithType: AbstractBindedController.Dispose()
-  fullName: Sdl.Desktop.IntegrationApi.Internal.AbstractBindedController.Dispose()
-  type: Method
-  source:
-    path: Sdl.Desktop.IntegrationApi
-    isExternal: true
-  assemblies:
-  - Sdl.Desktop.IntegrationApi
-  namespace: Sdl.Desktop.IntegrationApi.Internal
-  summary: "\nEnsure the disposing of the controller resources.        \n"
-  remarks: This doesn&apos;t need to be implemented because the actual controller will dispose the resources.
-  syntax:
-    content: public override void Dispose()
-    content.vb: Public Overrides Sub Dispose
-  overridden: Sdl.Desktop.IntegrationApi.AbstractViewController.Dispose
-  overload: Sdl.Desktop.IntegrationApi.Internal.AbstractBindedController.Dispose*
-  modifiers.csharp:
-  - public
-  - override
-  modifiers.vb:
-  - Public
-  - Overrides
 - uid: Sdl.Desktop.IntegrationApi.Internal.AbstractBindedController.Activate
   commentId: M:Sdl.Desktop.IntegrationApi.Internal.AbstractBindedController.Activate
   id: Activate
@@ -367,6 +339,13 @@ references:
   name: AbstractViewController
   nameWithType: AbstractViewController
   fullName: Sdl.Desktop.IntegrationApi.AbstractViewController
+- uid: System.IDisposable
+  commentId: T:System.IDisposable
+  parent: System
+  isExternal: true
+  name: IDisposable
+  nameWithType: IDisposable
+  fullName: System.IDisposable
 - uid: Sdl.Desktop.IntegrationApi.Extensions.Internal.IBindedController
   commentId: T:Sdl.Desktop.IntegrationApi.Extensions.Internal.IBindedController
   parent: Sdl.Desktop.IntegrationApi.Extensions.Internal
@@ -443,6 +422,78 @@ references:
   - name: (
     nameWithType: (
     fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Sdl.Desktop.IntegrationApi.AbstractViewController.Dispose
+  commentId: M:Sdl.Desktop.IntegrationApi.AbstractViewController.Dispose
+  parent: Sdl.Desktop.IntegrationApi.AbstractViewController
+  isExternal: true
+  name: Dispose()
+  nameWithType: AbstractViewController.Dispose()
+  fullName: Sdl.Desktop.IntegrationApi.AbstractViewController.Dispose()
+  spec.csharp:
+  - uid: Sdl.Desktop.IntegrationApi.AbstractViewController.Dispose
+    name: Dispose
+    nameWithType: AbstractViewController.Dispose
+    fullName: Sdl.Desktop.IntegrationApi.AbstractViewController.Dispose
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Sdl.Desktop.IntegrationApi.AbstractViewController.Dispose
+    name: Dispose
+    nameWithType: AbstractViewController.Dispose
+    fullName: Sdl.Desktop.IntegrationApi.AbstractViewController.Dispose
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Sdl.Desktop.IntegrationApi.AbstractViewController.Dispose(System.Boolean)
+  commentId: M:Sdl.Desktop.IntegrationApi.AbstractViewController.Dispose(System.Boolean)
+  parent: Sdl.Desktop.IntegrationApi.AbstractViewController
+  isExternal: true
+  name: Dispose(Boolean)
+  nameWithType: AbstractViewController.Dispose(Boolean)
+  fullName: Sdl.Desktop.IntegrationApi.AbstractViewController.Dispose(System.Boolean)
+  spec.csharp:
+  - uid: Sdl.Desktop.IntegrationApi.AbstractViewController.Dispose(System.Boolean)
+    name: Dispose
+    nameWithType: AbstractViewController.Dispose
+    fullName: Sdl.Desktop.IntegrationApi.AbstractViewController.Dispose
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Sdl.Desktop.IntegrationApi.AbstractViewController.Dispose(System.Boolean)
+    name: Dispose
+    nameWithType: AbstractViewController.Dispose
+    fullName: Sdl.Desktop.IntegrationApi.AbstractViewController.Dispose
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
@@ -917,43 +968,6 @@ references:
   name: Sdl.Desktop.Platform.Controls.Controls
   nameWithType: Sdl.Desktop.Platform.Controls.Controls
   fullName: Sdl.Desktop.Platform.Controls.Controls
-- uid: Sdl.Desktop.IntegrationApi.AbstractViewController.Dispose
-  commentId: M:Sdl.Desktop.IntegrationApi.AbstractViewController.Dispose
-  parent: Sdl.Desktop.IntegrationApi.AbstractViewController
-  isExternal: true
-  name: Dispose()
-  nameWithType: AbstractViewController.Dispose()
-  fullName: Sdl.Desktop.IntegrationApi.AbstractViewController.Dispose()
-  spec.csharp:
-  - uid: Sdl.Desktop.IntegrationApi.AbstractViewController.Dispose
-    name: Dispose
-    nameWithType: AbstractViewController.Dispose
-    fullName: Sdl.Desktop.IntegrationApi.AbstractViewController.Dispose
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: Sdl.Desktop.IntegrationApi.AbstractViewController.Dispose
-    name: Dispose
-    nameWithType: AbstractViewController.Dispose
-    fullName: Sdl.Desktop.IntegrationApi.AbstractViewController.Dispose
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: Sdl.Desktop.IntegrationApi.Internal.AbstractBindedController.Dispose*
-  commentId: Overload:Sdl.Desktop.IntegrationApi.Internal.AbstractBindedController.Dispose
-  isExternal: true
-  name: Dispose
-  nameWithType: AbstractBindedController.Dispose
-  fullName: Sdl.Desktop.IntegrationApi.Internal.AbstractBindedController.Dispose
 - uid: Sdl.Desktop.IntegrationApi.AbstractViewController.Activate
   commentId: M:Sdl.Desktop.IntegrationApi.AbstractViewController.Activate
   parent: Sdl.Desktop.IntegrationApi.AbstractViewController
