@@ -18,3 +18,15 @@ The Project Automation API is concerned with the automation of common project ma
 > [!NOTE]
 >
 > Note that the Project Automation API might sometimes have to be used in conjunction with the Translation Memory API to cover specific use-cases, e.g. when certain information such as the number of translation units, the TM languages, etc. needs to be read from a TM. This SDK contains an example of how to retrieve the languages of a specified TM using the Translation Memory API and then create a project based on the TM language direction.
+
+> [!IMPORTANT]
+>
+> If you are building a standalone application that consumes Project Automation APIs that require a license, you must call `LicenseManager.ReleaseLicense()` before the application exits.
+> 
+> Failure to do so will cause a license to be blocked on the user's machine for an additional amount of time after your application is closed. The amount of time depends on the license type: 
+> * When using a network license, the license will be blocked for an additional 5 minutes.
+> * When using a subscription license, the license will be blocked for an additional 30 minutes. 
+> * When using a standalone local license (license key) this limitation does not apply.
+>
+> The `LicenseManager` class is located in the assembly Sdl.TranslationStudioAutomation.Licensing.
+
