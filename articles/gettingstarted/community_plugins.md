@@ -2,7 +2,7 @@
 
 ## Intro
 
-This repository contains around 80 plugins developed for <Var:ProductName>. Most of the plugins were developed by RWS, but you might also find a few of them which were initially developed by someone else. For all these plugins we now have full source code ownership according to our [License agreement](https://github.com/RWS/Sdl-Community/blob/master/License.md). You can find the complete list of plugins [here](#list-of-plugins).
+This repository contains around 80 plugins developed for <Var:ProductName>. Most of the plugins were developed by RWS, but you might also find a few of them which were initially developed by someone else. For all these plugins we now have full source code ownership according to our [License agreement](https://github.com/RWS/Sdl-Community/blob/master/LICENSE). You can find the complete list of plugins [here](#list-of-plugins).
 
 We encourage everyone who is interested to contribute, either by fixing some issues, implementing new features or improving the documentation. To contribute, clone this repository, make the changes and send us a [pull request](https://www.codenewbie.org/blogs/how-to-make-a-pull-request) with your changes.
 
@@ -14,7 +14,7 @@ If you have any questions, don’t hesitate to ask on the [RWS Language Develope
 
 Once you have [set up your development machine](setting_up_a_developer_machine.md), follow the steps below:
 
-- Clone this repository (more details [here](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository)). In order to clone the repository using Source Tree, from menu select “Clone/New”. In source path paste this path: “https://github.com/sdl/Sdl-Community.git”. In destination path, select a path where you want to store the repository on your drive:
+- Clone this repository (more details [here](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository)). In order to clone the repository using Source Tree, from menu select “Clone/New”. In source path paste this path: https://github.com/RWS/Sdl-Community.git. In destination path, select a path where you want to store the repository on your drive:
 
 - After the repository was cloned, navigate to the repository path you’ve specified when cloning the repository. Each plugin has a dedicated folder. All you need to do is to find the plugin you’re looking for, enter the folder and open the solution file using Microsoft Visual Studio.
 

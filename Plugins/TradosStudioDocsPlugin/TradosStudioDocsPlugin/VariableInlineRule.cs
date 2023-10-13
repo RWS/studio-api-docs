@@ -39,7 +39,7 @@ namespace TradosStudioDocsPlugin
             var replacementValues = new Dictionary<string, string>
             {
                 { "ProductName", "Trados Studio" },
-                { "ProductNameWithEdition", "Trados Studio 2022 SR2" },
+                { "ProductNameWithEdition", "Trados Studio 2022" },
                 { "ProductVersion", "Studio17" },
                 { "VersionNumber", "17" },
                 { "VisualStudioEdition", "Microsoft Visual Studio 2022" },
