@@ -4,7 +4,8 @@ This documentation provides practical examples of how to use the Project Automat
 
 What you can do with this SDK
 ----
-The Project Automation API is concerned with the automation of common project management tasks such as file analysis, pre-translation, generation of finalized target documents, etc. Based on this API you could potentially build fully-fledged, customized workflow systems. Below you find examples of applications for the API:
+The Project Automation API is concerned with the automation of common project management tasks such as file analysis, pre-translation, generation of finalized target documents, etc. Based on this API you could potentially build fully-fledged, customized workflow systems. Below you can find examples of applications for the API:
+
 
 * Developing a Command-line application that traverses a folder / sub-folder structure to analyze or pre-translate the translatable documents contained therein.
 * Develop an application that creates custom analysis reports for importing into an accounting system.
