@@ -19,7 +19,8 @@ The Project Automation API is concerned with the automation of common project ma
 
 > [!NOTE]
 >
-> Note that the Project Automation API might sometimes have to be used in conjunction with the Translation Memory API to cover specific use-cases, e.g. when certain information such as the number of translation units, the TM languages, etc. needs to be read from a TM. This SDK contains an example of how to retrieve the languages of a specified TM using the Translation Memory API and then create a project based on the TM language direction.
+> In specific use-cases, you may need to use  the Project Automation API  in conjunction with the Translation Memory API.  For instance, when extracting information like the number of translation units and the languages supported by the translation memory.  
+You can find a practical example of how to use the Translation Memory API to retrieve such details and then create a project based on the TM language direction.
 
 > [!IMPORTANT]
 >
