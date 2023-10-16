@@ -26,7 +26,8 @@ You can find a practical example of how to use the Translation Memory API to ret
 >
 > If you are building a standalone application that consumes Project Automation APIs that require a license, you must call `LicenseManager.ReleaseLicense()` before the application exits.
 > 
-> Failure to do so will cause a license to be blocked on the user's machine for an additional amount of time after your application is closed. The amount of time depends on the license type: 
+>Otherwise, a license will be blocked on the user's machine for additional time after the application is closed. The duration of this extension varies depending  on the license type: 
+
 > * When using a network license, the license will be blocked for an additional 5 minutes.
 > * When using a subscription license, the license will be blocked for an additional 30 minutes. 
 > * When using a standalone local license (license key) this limitation does not apply.
