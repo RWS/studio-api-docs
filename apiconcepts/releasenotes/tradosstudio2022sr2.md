@@ -1,7 +1,7 @@
 Release Notes for <Var:ProductNameWithEdition> SR2
 ===================
 
-# Added API licensing support for subscription
+# Added API licensing support for subscriptions
 When creating standalone apps, you can now use Project automation API calls that need a license even if <Var:ProductName> is licensed through a subscription. This expands the list of supported scenarios where <Var:ProductName> is licensed through a perpetual license, or through a network server license.
 
 > [!NOTE]
