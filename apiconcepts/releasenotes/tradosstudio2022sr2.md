@@ -6,4 +6,4 @@ When creating standalone apps, you can now use Project automation API calls that
 
 > [!NOTE]
 >
-> Starting with <Var:ProductNameWithEdition> SR2, if you are building a standalone application that consumes Project Automation APIs that require a license, you must call `LicenseManager.ReleaseLicense()` before the application exits. See [Project Automation Overview](../projectautomation/overview.md) for more details.
+> Starting with <Var:ProductNameWithEdition> SR2, when developing a standalone application using Project Automation APIs that require a license, make sure to call `LicenseManager.ReleaseLicense()` before the application exits. See [Project Automation Overview](../projectautomation/overview.md) for more details.
