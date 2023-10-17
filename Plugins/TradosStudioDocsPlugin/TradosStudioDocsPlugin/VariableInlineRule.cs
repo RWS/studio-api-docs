@@ -39,13 +39,13 @@ namespace TradosStudioDocsPlugin
             var replacementValues = new Dictionary<string, string>
             {
                 { "ProductName", "Trados Studio" },
-                { "ProductNameWithEdition", "Trados Studio 2021" },
-                { "ProductVersion", "Studio16" },
-                { "VersionNumber", "16" },
-                { "VisualStudioEdition", "Microsoft Visual Studio 2019" },
-                { "PluginPackedPath", "%AppData%\\SDL\\SDL Trados Studio\\16\\Plugins\\Packages\\" },
-                { "PluginUnpackedPath", "%AppData%\\SDL\\SDL Trados Studio\\16\\Plugins\\Unpacked\\" },
-                { "InstallationFolder", "C:\\Program Files\\SDL\\SDL Trados Studio\\Studio16" },
+                { "ProductNameWithEdition", "Trados Studio 2022" },
+                { "ProductVersion", "Studio17" },
+                { "VersionNumber", "17" },
+                { "VisualStudioEdition", "Microsoft Visual Studio 2022" },
+                { "PluginPackedPath", "%AppData%\\SDL\\SDL Trados Studio\\17\\Plugins\\Packages\\" },
+                { "PluginUnpackedPath", "%AppData%\\SDL\\SDL Trados Studio\\17\\Plugins\\Unpacked\\" },
+                { "InstallationFolder", "C:\\Program Files\\SDL\\SDL Trados Studio\\Studio17" },
                 { "AppSigningEmail", "app-signing@sdl.com" }
             };
 
