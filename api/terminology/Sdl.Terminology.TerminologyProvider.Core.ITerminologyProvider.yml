@@ -5,18 +5,25 @@ items:
   id: ITerminologyProvider
   parent: Sdl.Terminology.TerminologyProvider.Core
   children:
+  - Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.ActiveFilter
   - Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.Definition
   - Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.Description
   - Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.GetEntry(System.Int32)
   - Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.GetEntry(System.Int32,System.Collections.Generic.IEnumerable{Sdl.Terminology.TerminologyProvider.Core.ILanguage})
+  - Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.GetFilters
   - Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.GetLanguages
   - Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.Id
+  - Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.Initialize
+  - Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.Initialize(Sdl.Terminology.TerminologyProvider.Core.TerminologyProviderCredential)
+  - Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.IsInitialized
+  - Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.IsProviderUpToDate
   - Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.IsReadOnly
   - Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.Name
   - Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.Search(System.String,Sdl.Terminology.TerminologyProvider.Core.ILanguage,Sdl.Terminology.TerminologyProvider.Core.ILanguage,System.Int32,Sdl.Terminology.TerminologyProvider.Core.SearchMode,System.Boolean)
   - Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.SearchEnabled
   - Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.SetDefault(System.Boolean)
   - Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.Type
+  - Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.Uninitialize
   - Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.Uri
   langs:
   - csharp
@@ -116,15 +123,15 @@ items:
   namespace: Sdl.Terminology.TerminologyProvider.Core
   summary: "\nGet an entry definition from the terminology provider\n"
   syntax:
-    content: IEntry GetEntry(int id)
+    content: Entry GetEntry(int id)
     parameters:
     - id: id
       type: System.Int32
       description: The entry id to get.
     return:
-      type: Sdl.Terminology.TerminologyProvider.Core.IEntry
+      type: Sdl.Terminology.TerminologyProvider.Core.Entry
       description: The entry object. Returns null if an entry with the specified id does not exists in the terminology provider.
-    content.vb: Function GetEntry(id As Integer) As IEntry
+    content.vb: Function GetEntry(id As Integer) As Entry
   overload: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.GetEntry*
 - uid: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.GetEntry(System.Int32,System.Collections.Generic.IEnumerable{Sdl.Terminology.TerminologyProvider.Core.ILanguage})
   commentId: M:Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.GetEntry(System.Int32,System.Collections.Generic.IEnumerable{Sdl.Terminology.TerminologyProvider.Core.ILanguage})
@@ -145,7 +152,7 @@ items:
   namespace: Sdl.Terminology.TerminologyProvider.Core
   summary: "\nGet an entry from the terminology provider\n"
   syntax:
-    content: IEntry GetEntry(int id, IEnumerable<ILanguage> languages)
+    content: Entry GetEntry(int id, IEnumerable<ILanguage> languages)
     parameters:
     - id: id
       type: System.Int32
@@ -154,9 +161,9 @@ items:
       type: System.Collections.Generic.IEnumerable{Sdl.Terminology.TerminologyProvider.Core.ILanguage}
       description: The languages to fill for the requested entry.
     return:
-      type: Sdl.Terminology.TerminologyProvider.Core.IEntry
+      type: Sdl.Terminology.TerminologyProvider.Core.Entry
       description: The entry object. Returns null if an entry with the specified id does not exists in the terminology provider.
-    content.vb: Function GetEntry(id As Integer, languages As IEnumerable(Of ILanguage)) As IEntry
+    content.vb: Function GetEntry(id As Integer, languages As IEnumerable(Of ILanguage)) As Entry
   overload: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.GetEntry*
   nameWithType.vb: ITerminologyProvider.GetEntry(Int32, IEnumerable(Of ILanguage))
   fullName.vb: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.GetEntry(System.Int32, System.Collections.Generic.IEnumerable(Of Sdl.Terminology.TerminologyProvider.Core.ILanguage))
@@ -180,7 +187,7 @@ items:
   namespace: Sdl.Terminology.TerminologyProvider.Core
   summary: "\nPerforms a search over the current terminology provider\n"
   syntax:
-    content: IList<ISearchResult> Search(string text, ILanguage source, ILanguage destination, int maxResultsCount, SearchMode mode, bool targetRequired)
+    content: IList<SearchResult> Search(string text, ILanguage source, ILanguage destination, int maxResultsCount, SearchMode mode, bool targetRequired)
     parameters:
     - id: text
       type: System.String
@@ -201,10 +208,135 @@ items:
       type: System.Boolean
       description: True to return only term with target language term definition
     return:
-      type: System.Collections.Generic.IList{Sdl.Terminology.TerminologyProvider.Core.ISearchResult}
+      type: System.Collections.Generic.IList{Sdl.Terminology.TerminologyProvider.Core.SearchResult}
       description: The list of found terms
-    content.vb: Function Search(text As String, source As ILanguage, destination As ILanguage, maxResultsCount As Integer, mode As SearchMode, targetRequired As Boolean) As IList(Of ISearchResult)
+    content.vb: Function Search(text As String, source As ILanguage, destination As ILanguage, maxResultsCount As Integer, mode As SearchMode, targetRequired As Boolean) As IList(Of SearchResult)
   overload: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.Search*
+- uid: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.Initialize
+  commentId: M:Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.Initialize
+  id: Initialize
+  parent: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider
+  langs:
+  - csharp
+  - vb
+  name: Initialize()
+  nameWithType: ITerminologyProvider.Initialize()
+  fullName: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.Initialize()
+  type: Method
+  source:
+    path: Sdl.Terminology.TerminologyProvider.Core
+    isExternal: true
+  assemblies:
+  - Sdl.Terminology.TerminologyProvider.Core
+  namespace: Sdl.Terminology.TerminologyProvider.Core
+  summary: "\nInitialize the provider\n"
+  syntax:
+    content: bool Initialize()
+    return:
+      type: System.Boolean
+      description: True for success
+    content.vb: Function Initialize As Boolean
+  overload: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.Initialize*
+- uid: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.Initialize(Sdl.Terminology.TerminologyProvider.Core.TerminologyProviderCredential)
+  commentId: M:Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.Initialize(Sdl.Terminology.TerminologyProvider.Core.TerminologyProviderCredential)
+  id: Initialize(Sdl.Terminology.TerminologyProvider.Core.TerminologyProviderCredential)
+  parent: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider
+  langs:
+  - csharp
+  - vb
+  name: Initialize(TerminologyProviderCredential)
+  nameWithType: ITerminologyProvider.Initialize(TerminologyProviderCredential)
+  fullName: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.Initialize(Sdl.Terminology.TerminologyProvider.Core.TerminologyProviderCredential)
+  type: Method
+  source:
+    path: Sdl.Terminology.TerminologyProvider.Core
+    isExternal: true
+  assemblies:
+  - Sdl.Terminology.TerminologyProvider.Core
+  namespace: Sdl.Terminology.TerminologyProvider.Core
+  summary: "\nInitialize the provider using the specified credentials\n"
+  syntax:
+    content: bool Initialize(TerminologyProviderCredential credential)
+    parameters:
+    - id: credential
+      type: Sdl.Terminology.TerminologyProvider.Core.TerminologyProviderCredential
+    return:
+      type: System.Boolean
+      description: True for success
+    content.vb: Function Initialize(credential As TerminologyProviderCredential) As Boolean
+  overload: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.Initialize*
+- uid: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.IsProviderUpToDate
+  commentId: M:Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.IsProviderUpToDate
+  id: IsProviderUpToDate
+  parent: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider
+  langs:
+  - csharp
+  - vb
+  name: IsProviderUpToDate()
+  nameWithType: ITerminologyProvider.IsProviderUpToDate()
+  fullName: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.IsProviderUpToDate()
+  type: Method
+  source:
+    path: Sdl.Terminology.TerminologyProvider.Core
+    isExternal: true
+  assemblies:
+  - Sdl.Terminology.TerminologyProvider.Core
+  namespace: Sdl.Terminology.TerminologyProvider.Core
+  summary: "\nIndicates whether the provider information is up-to-date\n"
+  syntax:
+    content: bool IsProviderUpToDate()
+    return:
+      type: System.Boolean
+    content.vb: Function IsProviderUpToDate As Boolean
+  overload: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.IsProviderUpToDate*
+- uid: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.GetFilters
+  commentId: M:Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.GetFilters
+  id: GetFilters
+  parent: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider
+  langs:
+  - csharp
+  - vb
+  name: GetFilters()
+  nameWithType: ITerminologyProvider.GetFilters()
+  fullName: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.GetFilters()
+  type: Method
+  source:
+    path: Sdl.Terminology.TerminologyProvider.Core
+    isExternal: true
+  assemblies:
+  - Sdl.Terminology.TerminologyProvider.Core
+  namespace: Sdl.Terminology.TerminologyProvider.Core
+  summary: "\nReturns a list of filter definitions available for this terminology provider\n"
+  syntax:
+    content: IList<FilterDefinition> GetFilters()
+    return:
+      type: System.Collections.Generic.IList{Sdl.Terminology.TerminologyProvider.Core.FilterDefinition}
+    content.vb: Function GetFilters As IList(Of FilterDefinition)
+  overload: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.GetFilters*
+- uid: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.Uninitialize
+  commentId: M:Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.Uninitialize
+  id: Uninitialize
+  parent: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider
+  langs:
+  - csharp
+  - vb
+  name: Uninitialize()
+  nameWithType: ITerminologyProvider.Uninitialize()
+  fullName: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.Uninitialize()
+  type: Method
+  source:
+    path: Sdl.Terminology.TerminologyProvider.Core
+    isExternal: true
+  assemblies:
+  - Sdl.Terminology.TerminologyProvider.Core
+  namespace: Sdl.Terminology.TerminologyProvider.Core
+  summary: "\nUninitialize the provider\n"
+  syntax:
+    content: bool Uninitialize()
+    return:
+      type: System.Boolean
+    content.vb: Function Uninitialize As Boolean
+  overload: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.Uninitialize*
 - uid: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.Name
   commentId: P:Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.Name
   id: Name
@@ -425,14 +557,71 @@ items:
   assemblies:
   - Sdl.Terminology.TerminologyProvider.Core
   namespace: Sdl.Terminology.TerminologyProvider.Core
-  summary: "\nGet a list of terminology provider definition objects\n"
+  summary: "\nGet the terminology provider&apos;s definition\n"
   syntax:
-    content: IDefinition Definition { get; }
+    content: Definition Definition { get; }
     parameters: []
     return:
-      type: Sdl.Terminology.TerminologyProvider.Core.IDefinition
-    content.vb: ReadOnly Property Definition As IDefinition
+      type: Sdl.Terminology.TerminologyProvider.Core.Definition
+    content.vb: ReadOnly Property Definition As Definition
   overload: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.Definition*
+  modifiers.csharp:
+  - get
+  modifiers.vb:
+  - ReadOnly
+- uid: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.ActiveFilter
+  commentId: P:Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.ActiveFilter
+  id: ActiveFilter
+  parent: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider
+  langs:
+  - csharp
+  - vb
+  name: ActiveFilter
+  nameWithType: ITerminologyProvider.ActiveFilter
+  fullName: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.ActiveFilter
+  type: Property
+  source:
+    path: Sdl.Terminology.TerminologyProvider.Core
+    isExternal: true
+  assemblies:
+  - Sdl.Terminology.TerminologyProvider.Core
+  namespace: Sdl.Terminology.TerminologyProvider.Core
+  summary: "\nGets or sets the active filter definition\n"
+  syntax:
+    content: FilterDefinition ActiveFilter { get; set; }
+    parameters: []
+    return:
+      type: Sdl.Terminology.TerminologyProvider.Core.FilterDefinition
+    content.vb: Property ActiveFilter As FilterDefinition
+  overload: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.ActiveFilter*
+  modifiers.csharp:
+  - get
+  - set
+- uid: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.IsInitialized
+  commentId: P:Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.IsInitialized
+  id: IsInitialized
+  parent: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider
+  langs:
+  - csharp
+  - vb
+  name: IsInitialized
+  nameWithType: ITerminologyProvider.IsInitialized
+  fullName: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.IsInitialized
+  type: Property
+  source:
+    path: Sdl.Terminology.TerminologyProvider.Core
+    isExternal: true
+  assemblies:
+  - Sdl.Terminology.TerminologyProvider.Core
+  namespace: Sdl.Terminology.TerminologyProvider.Core
+  summary: "\nFlag to track whether the provider has been initialized.\n"
+  syntax:
+    content: bool IsInitialized { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: ReadOnly Property IsInitialized As Boolean
+  overload: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.IsInitialized*
   modifiers.csharp:
   - get
   modifiers.vb:
@@ -609,13 +798,13 @@ references:
   name: Int32
   nameWithType: Int32
   fullName: System.Int32
-- uid: Sdl.Terminology.TerminologyProvider.Core.IEntry
-  commentId: T:Sdl.Terminology.TerminologyProvider.Core.IEntry
+- uid: Sdl.Terminology.TerminologyProvider.Core.Entry
+  commentId: T:Sdl.Terminology.TerminologyProvider.Core.Entry
   parent: Sdl.Terminology.TerminologyProvider.Core
   isExternal: true
-  name: IEntry
-  nameWithType: IEntry
-  fullName: Sdl.Terminology.TerminologyProvider.Core.IEntry
+  name: Entry
+  nameWithType: Entry
+  fullName: Sdl.Terminology.TerminologyProvider.Core.Entry
 - uid: System.Collections.Generic.IEnumerable{Sdl.Terminology.TerminologyProvider.Core.ILanguage}
   commentId: T:System.Collections.Generic.IEnumerable{Sdl.Terminology.TerminologyProvider.Core.ILanguage}
   parent: System.Collections.Generic
@@ -726,16 +915,16 @@ references:
   name: SearchMode
   nameWithType: SearchMode
   fullName: Sdl.Terminology.TerminologyProvider.Core.SearchMode
-- uid: System.Collections.Generic.IList{Sdl.Terminology.TerminologyProvider.Core.ISearchResult}
-  commentId: T:System.Collections.Generic.IList{Sdl.Terminology.TerminologyProvider.Core.ISearchResult}
+- uid: System.Collections.Generic.IList{Sdl.Terminology.TerminologyProvider.Core.SearchResult}
+  commentId: T:System.Collections.Generic.IList{Sdl.Terminology.TerminologyProvider.Core.SearchResult}
   parent: System.Collections.Generic
   definition: System.Collections.Generic.IList`1
-  name: IList<ISearchResult>
-  nameWithType: IList<ISearchResult>
-  fullName: System.Collections.Generic.IList<Sdl.Terminology.TerminologyProvider.Core.ISearchResult>
-  nameWithType.vb: IList(Of ISearchResult)
-  fullName.vb: System.Collections.Generic.IList(Of Sdl.Terminology.TerminologyProvider.Core.ISearchResult)
-  name.vb: IList(Of ISearchResult)
+  name: IList<SearchResult>
+  nameWithType: IList<SearchResult>
+  fullName: System.Collections.Generic.IList<Sdl.Terminology.TerminologyProvider.Core.SearchResult>
+  nameWithType.vb: IList(Of SearchResult)
+  fullName.vb: System.Collections.Generic.IList(Of Sdl.Terminology.TerminologyProvider.Core.SearchResult)
+  name.vb: IList(Of SearchResult)
   spec.csharp:
   - uid: System.Collections.Generic.IList`1
     name: IList
@@ -745,10 +934,10 @@ references:
   - name: <
     nameWithType: <
     fullName: <
-  - uid: Sdl.Terminology.TerminologyProvider.Core.ISearchResult
-    name: ISearchResult
-    nameWithType: ISearchResult
-    fullName: Sdl.Terminology.TerminologyProvider.Core.ISearchResult
+  - uid: Sdl.Terminology.TerminologyProvider.Core.SearchResult
+    name: SearchResult
+    nameWithType: SearchResult
+    fullName: Sdl.Terminology.TerminologyProvider.Core.SearchResult
     isExternal: true
   - name: '>'
     nameWithType: '>'
@@ -762,14 +951,89 @@ references:
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - uid: Sdl.Terminology.TerminologyProvider.Core.ISearchResult
-    name: ISearchResult
-    nameWithType: ISearchResult
-    fullName: Sdl.Terminology.TerminologyProvider.Core.ISearchResult
+  - uid: Sdl.Terminology.TerminologyProvider.Core.SearchResult
+    name: SearchResult
+    nameWithType: SearchResult
+    fullName: Sdl.Terminology.TerminologyProvider.Core.SearchResult
     isExternal: true
   - name: )
     nameWithType: )
     fullName: )
+- uid: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.Initialize*
+  commentId: Overload:Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.Initialize
+  isExternal: true
+  name: Initialize
+  nameWithType: ITerminologyProvider.Initialize
+  fullName: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.Initialize
+- uid: Sdl.Terminology.TerminologyProvider.Core.TerminologyProviderCredential
+  commentId: T:Sdl.Terminology.TerminologyProvider.Core.TerminologyProviderCredential
+  parent: Sdl.Terminology.TerminologyProvider.Core
+  isExternal: true
+  name: TerminologyProviderCredential
+  nameWithType: TerminologyProviderCredential
+  fullName: Sdl.Terminology.TerminologyProvider.Core.TerminologyProviderCredential
+- uid: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.IsProviderUpToDate*
+  commentId: Overload:Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.IsProviderUpToDate
+  isExternal: true
+  name: IsProviderUpToDate
+  nameWithType: ITerminologyProvider.IsProviderUpToDate
+  fullName: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.IsProviderUpToDate
+- uid: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.GetFilters*
+  commentId: Overload:Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.GetFilters
+  isExternal: true
+  name: GetFilters
+  nameWithType: ITerminologyProvider.GetFilters
+  fullName: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.GetFilters
+- uid: System.Collections.Generic.IList{Sdl.Terminology.TerminologyProvider.Core.FilterDefinition}
+  commentId: T:System.Collections.Generic.IList{Sdl.Terminology.TerminologyProvider.Core.FilterDefinition}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IList`1
+  name: IList<FilterDefinition>
+  nameWithType: IList<FilterDefinition>
+  fullName: System.Collections.Generic.IList<Sdl.Terminology.TerminologyProvider.Core.FilterDefinition>
+  nameWithType.vb: IList(Of FilterDefinition)
+  fullName.vb: System.Collections.Generic.IList(Of Sdl.Terminology.TerminologyProvider.Core.FilterDefinition)
+  name.vb: IList(Of FilterDefinition)
+  spec.csharp:
+  - uid: System.Collections.Generic.IList`1
+    name: IList
+    nameWithType: IList
+    fullName: System.Collections.Generic.IList
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Sdl.Terminology.TerminologyProvider.Core.FilterDefinition
+    name: FilterDefinition
+    nameWithType: FilterDefinition
+    fullName: Sdl.Terminology.TerminologyProvider.Core.FilterDefinition
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IList`1
+    name: IList
+    nameWithType: IList
+    fullName: System.Collections.Generic.IList
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Sdl.Terminology.TerminologyProvider.Core.FilterDefinition
+    name: FilterDefinition
+    nameWithType: FilterDefinition
+    fullName: Sdl.Terminology.TerminologyProvider.Core.FilterDefinition
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.Uninitialize*
+  commentId: Overload:Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.Uninitialize
+  isExternal: true
+  name: Uninitialize
+  nameWithType: ITerminologyProvider.Uninitialize
+  fullName: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.Uninitialize
 - uid: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.Name*
   commentId: Overload:Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.Name
   isExternal: true
@@ -830,10 +1094,29 @@ references:
   name: Definition
   nameWithType: ITerminologyProvider.Definition
   fullName: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.Definition
-- uid: Sdl.Terminology.TerminologyProvider.Core.IDefinition
-  commentId: T:Sdl.Terminology.TerminologyProvider.Core.IDefinition
+- uid: Sdl.Terminology.TerminologyProvider.Core.Definition
+  commentId: T:Sdl.Terminology.TerminologyProvider.Core.Definition
   parent: Sdl.Terminology.TerminologyProvider.Core
   isExternal: true
-  name: IDefinition
-  nameWithType: IDefinition
-  fullName: Sdl.Terminology.TerminologyProvider.Core.IDefinition
+  name: Definition
+  nameWithType: Definition
+  fullName: Sdl.Terminology.TerminologyProvider.Core.Definition
+- uid: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.ActiveFilter*
+  commentId: Overload:Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.ActiveFilter
+  isExternal: true
+  name: ActiveFilter
+  nameWithType: ITerminologyProvider.ActiveFilter
+  fullName: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.ActiveFilter
+- uid: Sdl.Terminology.TerminologyProvider.Core.FilterDefinition
+  commentId: T:Sdl.Terminology.TerminologyProvider.Core.FilterDefinition
+  parent: Sdl.Terminology.TerminologyProvider.Core
+  isExternal: true
+  name: FilterDefinition
+  nameWithType: FilterDefinition
+  fullName: Sdl.Terminology.TerminologyProvider.Core.FilterDefinition
+- uid: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.IsInitialized*
+  commentId: Overload:Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.IsInitialized
+  isExternal: true
+  name: IsInitialized
+  nameWithType: ITerminologyProvider.IsInitialized
+  fullName: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.IsInitialized
