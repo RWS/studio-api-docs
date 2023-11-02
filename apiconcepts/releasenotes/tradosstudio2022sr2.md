@@ -98,7 +98,7 @@ The changes are included in `Sdl.Terminology.TerminologyProvider.Core`.
 * Type of property `Locale` was changed to [CultureCode](../../api/core/Sdl.Core.Globalization.CultureCode.yml).
 
 #### [ITerminologyMarkupProvider](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.ITerminologyMarkupProvider.yml)
-* Is no longer extented by interfaces `IConnectionAwareTerminologyProvider`, `ITerminologyProvider` and `IDisposable`
+* Is no longer extended by interfaces `IConnectionAwareTerminologyProvider`, `ITerminologyProvider` and `IDisposable`
 * Return type for method `SearchAndMarkup(string text, ILanguage source, ILanguage destination, int maxResultsCount, SearchMode mode, bool targetRequired)` was changed to *IList<[SearchMarkupResult](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.SearchMarkupResult.yml)>*
 
 #### [ITerminologyProvider](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.yml)
