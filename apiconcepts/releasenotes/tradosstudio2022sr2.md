@@ -104,7 +104,7 @@ The changes are included in `Sdl.Terminology.TerminologyProvider.Core`.
 #### [ITerminologyProvider](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.yml)
 * Added property `ActiveFilter { get; set; }` used to manage the active filter definition, it returns [FilterDefinition](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.FilterDefinition.yml).
 * Added property `IsInitialized { get; }` used to track where the provider has been initialized, it returns a `boolean` value.
-* Added method `GetFilters()` to get all the filters definitions availabe for the terminology provider, it returns *IList<[FilterDefinition](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.FilterDefinition.yml)>*.
+* Added method `GetFilters()` to get all the filters definitions available for the terminology provider, it returns *IList<[FilterDefinition](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.FilterDefinition.yml)>*.
 * Added method `Initialize()` to be used for provider initialization, it returns a `boolean` value.
 * Added method `Initialize(TerminologyProviderCredential credential)` to be used to initialize providers with credentials, it returns a `boolean` value.
 * Added method `IsProviderUpToDate()` to be used to check if the provider information is up-to-date, it returns a `boolean` value.
