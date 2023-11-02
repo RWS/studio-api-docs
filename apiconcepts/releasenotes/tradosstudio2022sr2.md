@@ -108,7 +108,7 @@ The changes are included in `Sdl.Terminology.TerminologyProvider.Core`.
 * Added method `Initialize()` to be used for provider initialization, it returns a `boolean` value.
 * Added method `Initialize(TerminologyProviderCredential credential)` to be used to initialize providers with credentials, it returns a `boolean` value.
 * Added method `IsProviderUpToDate()` to be used to check if the provider information is up-to-date, it returns a `boolean` value.
-* Added method `Uninitialize()` to be uninitialize the terminology provider, it returns a `boolean` value.
+* Added method `Uninitialize()` to be used to uninitialize the terminology provider, it returns a `boolean` value.
 * Type of property `Definition` was changed to [Definition](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.Definition.yml). 
 * Type returned by method `GetEntry(int)` was changed to [Entry](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.Entry.yml).
 * Type returned by method `GetEntry(int id, IEnumerable<ILanguage> languages)` was changed to [Entry](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.Entry.yml). 
