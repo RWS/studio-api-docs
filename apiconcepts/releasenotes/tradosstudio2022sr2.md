@@ -151,7 +151,7 @@ The changes are included in `Sdl.Terminology.TerminologyProvider.Core`.
 #### [ITerminologyProviderWinFormsUIWithEdit](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.ITerminologyProviderWinFormsUIWithEdit.yml)
 * Adds the capability to edit settings.
 * Extends interface [ITerminologyProviderWinFormsUI](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.ITerminologyProviderWinFormsUI.yml).
-* Has method [Edit(IWin32Window owner, ITerminologyProvider terminologyProvider)](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.ITerminologyProviderWinFormsUIWithEdit.yml#Sdl_Terminology_TerminologyProvider_Core_ITerminologyProviderWinFormsUIWithEdit_Edit_System_Windows_Forms_IWin32Window_Sdl_Terminology_TerminologyProvider_Core_ITerminologyProvider_) used to displays a dialog to interactively change any of the terminology provider settings.
+* Has method [Edit(IWin32Window owner, ITerminologyProvider terminologyProvider)](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.ITerminologyProviderWinFormsUIWithEdit.yml#Sdl_Terminology_TerminologyProvider_Core_ITerminologyProviderWinFormsUIWithEdit_Edit_System_Windows_Forms_IWin32Window_Sdl_Terminology_TerminologyProvider_Core_ITerminologyProvider_) used to display a dialog to interactively change any of the terminology provider settings.
 
 ## Enums
 
