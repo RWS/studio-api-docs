@@ -116,7 +116,7 @@ The changes are included in `Sdl.Terminology.TerminologyProvider.Core`.
 
 #### [ITerminologyProviderViewerWinFormsUI](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.ITerminologyProviderViewerWinFormsUI.yml)
 * Added property `CanAddTerm { get; }` that returns a `boolean` value, true if this component supports adding a term; otherwise, false.
-* Added property `IsEditing { get; }` used to indicate wether the component TerminologyProviderViewerWinFormsUI is in edit mode, it returns a `boolean` value.
+* Added property `IsEditing { get; }` used to indicate whether the component TerminologyProviderViewerWinFormsUI is in edit mode, it returns a `boolean` value.
 * Added method `CancelTerm()` used to cancel the current term editing operation.
 * Added method `SaveTerm()` used to save the current state of a term.
 * Type of property `SelectedTerm` was changed to [Entry](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.Entry.yml).
