@@ -144,12 +144,12 @@ The changes are included in `Sdl.Terminology.TerminologyProvider.Core`.
 
 
 #### [ITerminologyProviderWinFormsUIWithCreate](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.ITerminologyProviderWinFormsUIWithCreate.yml)
-* Adds the capability to create a `ITerminologyProvider` for a [ITerminologyProviderWinFormsUI](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.ITerminologyProviderWinFormsUI.yml) interface.
+* Adds the capability to create a `ITerminologyProvider`.
 * Extends interface [ITerminologyProviderWinFormsUI](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.ITerminologyProviderWinFormsUI.yml).
 * Has method [Create()](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.ITerminologyProviderWinFormsUIWithCreate.yml#Sdl_Terminology_TerminologyProvider_Core_ITerminologyProviderWinFormsUIWithCreate_Create) that allows the creation of an `ITerminologyProvider` from the UI. It returns a [ITerminologyProvider](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.yml)
 
 #### [ITerminologyProviderWinFormsUIWithEdit](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.ITerminologyProviderWinFormsUIWithEdit.yml)
-* Adds the capability to edit settings for a [ITerminologyProviderWinFormsUI](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.ITerminologyProviderWinFormsUI.yml) interface.
+* Adds the capability to edit settings.
 * Extends interface [ITerminologyProviderWinFormsUI](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.ITerminologyProviderWinFormsUI.yml).
 * Has method [Edit(IWin32Window owner, ITerminologyProvider terminologyProvider)](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.ITerminologyProviderWinFormsUIWithEdit.yml#Sdl_Terminology_TerminologyProvider_Core_ITerminologyProviderWinFormsUIWithEdit_Edit_System_Windows_Forms_IWin32Window_Sdl_Terminology_TerminologyProvider_Core_ITerminologyProvider_) used to displays a dialog to interactively change any of the terminology provider settings.
 
