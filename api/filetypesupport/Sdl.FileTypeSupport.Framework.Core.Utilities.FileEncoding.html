@@ -130,9 +130,10 @@
   
   <a id="Sdl_FileTypeSupport_Framework_Core_Utilities_FileEncoding_Detect_" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.FileEncoding.Detect*"></a>
   <h4 id="Sdl_FileTypeSupport_Framework_Core_Utilities_FileEncoding_Detect_System_String_System_Text_Encoding_System_String__" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.FileEncoding.Detect(System.String,System.Text.Encoding,System.String@)">Detect(String, Encoding, out String)</h4>
-  <div class="markdown level1 summary"><p>Is used for code page detection. First, the file is searched for a BOM. If a BOM exists
-and points to UNICODE, the appropriate code page is returned with the level Certain.
-Otherwise, the encoding tools are used to return the code page with the level Likely.</p>
+  <div class="markdown level1 summary"><p>Is used for code page detection. First, the file is searched for a UTF BOM. 
+If a BOM is found, it is used to detect the appropriate code page.
+If a BOM is NOT found, the encoding detector is used to retrieve the code page.
+LineBreak is also retrieved after the encoding information is solved</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -189,9 +190,10 @@ Otherwise, the encoding tools are used to return the code page with the level Li
   
   <a id="Sdl_FileTypeSupport_Framework_Core_Utilities_FileEncoding_Detect_" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.FileEncoding.Detect*"></a>
   <h4 id="Sdl_FileTypeSupport_Framework_Core_Utilities_FileEncoding_Detect_System_String_System_Text_Encoding_System_String__System_Boolean__" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.FileEncoding.Detect(System.String,System.Text.Encoding,System.String@,System.Boolean@)">Detect(String, Encoding, out String, out Boolean)</h4>
-  <div class="markdown level1 summary"><p>Is used for code page detection. First, the file is searched for a BOM. If a BOM exists
-and points to UNICODE, the appropriate code page is returned with the level Certain.
-Otherwise, the encoding tools are used to return the code page with the level Likely.</p>
+  <div class="markdown level1 summary"><p>Is used for code page detection. First, the file is searched for a UTF BOM. 
+If a BOM is found, it is used to detect the appropriate code page.
+If a BOM is NOT found, the encoding detector is used to retrieve the code page.
+LineBreak is also retrieved after the encoding information is solved</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -211,26 +213,22 @@ Otherwise, the encoding tools are used to return the code page with the level Li
       <tr>
         <td><span class="xref">System.String</span></td>
         <td><span class="parametername">filePath</span></td>
-        <td><p>Path to file for code page detection</p>
-</td>
+        <td></td>
       </tr>
       <tr>
         <td><span class="xref">System.Text.Encoding</span></td>
         <td><span class="parametername">suggestedEncoding</span></td>
-        <td><p>A suggested codepage that may be used if it is a valid option.</p>
-</td>
+        <td></td>
       </tr>
       <tr>
         <td><span class="xref">System.String</span></td>
         <td><span class="parametername">lineBreakType</span></td>
-        <td><p>String for the line break type.</p>
-</td>
+        <td></td>
       </tr>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
         <td><span class="parametername">hasUTF8BOM</span></td>
-        <td><p>bool to indicate if UTF-8 BOM present</p>
-</td>
+        <td></td>
       </tr>
     </tbody>
   </table>
@@ -245,8 +243,84 @@ Otherwise, the encoding tools are used to return the code page with the level Li
     <tbody>
       <tr>
         <td><a class="xref" href="Sdl.FileTypeSupport.Framework.Pair-2.html">Pair</a>&lt;<a class="xref" href="../core/Sdl.Core.Globalization.Codepage.html">Codepage</a>, <a class="xref" href="Sdl.FileTypeSupport.Framework.NativeApi.DetectionLevel.html">DetectionLevel</a>&gt;</td>
-        <td><p>A Pair container that holds the detected codepage and the information on how likely it is to be the correct one.</p>
-</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_Core_Utilities_FileEncoding_DetectEncoding_" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.FileEncoding.DetectEncoding*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_Core_Utilities_FileEncoding_DetectEncoding_Sdl_FileTypeSupport_Framework_Pair_Sdl_Core_Globalization_Codepage_Sdl_FileTypeSupport_Framework_NativeApi_DetectionLevel__System_String_System_Text_Encoding_" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.FileEncoding.DetectEncoding(Sdl.FileTypeSupport.Framework.Pair{Sdl.Core.Globalization.Codepage,Sdl.FileTypeSupport.Framework.NativeApi.DetectionLevel},System.String,System.Text.Encoding)">DetectEncoding(Pair&lt;Codepage, DetectionLevel&gt;, String, Encoding)</h4>
+  <div class="markdown level1 summary"><p>Is used to find the encoding of a file using the EncodingDetector class</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void DetectEncoding(Pair&lt;Codepage, DetectionLevel&gt; detectedEncoding, string filePath, Encoding suggestedEncoding)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.Pair-2.html">Pair</a>&lt;<a class="xref" href="../core/Sdl.Core.Globalization.Codepage.html">Codepage</a>, <a class="xref" href="Sdl.FileTypeSupport.Framework.NativeApi.DetectionLevel.html">DetectionLevel</a>&gt;</td>
+        <td><span class="parametername">detectedEncoding</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">filePath</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Text.Encoding</span></td>
+        <td><span class="parametername">suggestedEncoding</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_Core_Utilities_FileEncoding_DetectUtfEncoding_" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.FileEncoding.DetectUtfEncoding*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_Core_Utilities_FileEncoding_DetectUtfEncoding_System_Byte___Sdl_FileTypeSupport_Framework_Pair_Sdl_Core_Globalization_Codepage_Sdl_FileTypeSupport_Framework_NativeApi_DetectionLevel__System_Boolean__" data-uid="Sdl.FileTypeSupport.Framework.Core.Utilities.FileEncoding.DetectUtfEncoding(System.Byte[],Sdl.FileTypeSupport.Framework.Pair{Sdl.Core.Globalization.Codepage,Sdl.FileTypeSupport.Framework.NativeApi.DetectionLevel},System.Boolean@)">DetectUtfEncoding(Byte[], Pair&lt;Codepage, DetectionLevel&gt;, out Boolean)</h4>
+  <div class="markdown level1 summary"><p>Is used to check if file has BOM present 
+and decides on UTF Encoding if rules are matched</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void DetectUtfEncoding(byte[] bom, Pair&lt;Codepage, DetectionLevel&gt; detectedEncoding, out bool hasUtf8Bom)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Byte</span>[]</td>
+        <td><span class="parametername">bom</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.Pair-2.html">Pair</a>&lt;<a class="xref" href="../core/Sdl.Core.Globalization.Codepage.html">Codepage</a>, <a class="xref" href="Sdl.FileTypeSupport.Framework.NativeApi.DetectionLevel.html">DetectionLevel</a>&gt;</td>
+        <td><span class="parametername">detectedEncoding</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">hasUtf8Bom</span></td>
+        <td></td>
       </tr>
     </tbody>
   </table>

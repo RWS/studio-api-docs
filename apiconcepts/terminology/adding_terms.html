@@ -100,36 +100,43 @@
 </li>
 </ul>
 <section id="tabpanel_YCOi8mkj4B_tabid-1" role="tabpanel" data-tab="tabid-1">
-<pre><code class="lang-csharp" name="MyTerminologyProvider">    {
-        return PluginResources.My_Terminology_Provider_Description;
-    }
-}
+<pre><code class="lang-csharp" name="MyTerminologyProvider">#region &quot;Enable term adding and editing 
+public bool CanAddTerm =&gt; true;
 
-public override string Name
-{
-    get
-    {
-        return PluginResources.My_Terminology_Provider_Name;
-    }
-}
-
-public override Uri Uri
-{
-    get
-    {
-        return new Uri(fileName);
-    }
-}
+public bool IsEditing =&gt; true;
 #endregion
 
-#region &quot;GetEntry&quot;
-// Returns the entry for a search result. The entries are associated with the search results
-// through the entry id.
-public override IEntry GetEntry(int id)
+#region &quot;AddTerms&quot;
+//Triggered when the Studio user selects a source (and target) term, and then clicks the
+//corresponding button for adding the term or term pair to the glossary.
+//We loop through all existing term pairs to retrieve the next possible entry id, 
+//then we append the term or term pair to the text file.
+public void AddTerm(string source, string target)
 {
-    return _entry.FirstOrDefault(_entry =&gt; _entry.Id == id);
+    string fileName = _terminologyProvider.fileName.Replace(&quot;file:///&quot;, &quot;&quot;);
+    StreamReader glossaryFile = new StreamReader(fileName);
+    int i = 0;
+    while (!glossaryFile.EndOfStream)
+    {
+        i++;
+        glossaryFile.ReadLine();
+    }
+    glossaryFile.Close();
+    int newEntryId = i + 1;
+    StreamWriter outFile = new StreamWriter(fileName, true);
+    outFile.WriteLine((newEntryId.ToString() + &quot;;&quot; + source + &quot;;&quot; + target + &quot;;&quot;));
+    outFile.Close();
+
+    //Show added entry in web browser control of the Termbase Viewer window
+    string tmpFile = System.IO.Path.GetTempPath() + &quot;simple_list_entry.htm&quot;;
+    StreamWriter previewFile = new StreamWriter(tmpFile);
+    previewFile.Write(&quot;&lt;html&gt;&lt;body&gt;&lt;b&gt;Entry id:&lt;/b&gt; &quot; + newEntryId.ToString() +
+        &quot;&lt;br/&gt;&lt;b&gt;Source term:&lt;/b&gt; &quot; + source +
+        &quot;&lt;br/&gt;&lt;b&gt;Target term:&lt;/b&gt; &quot; + target +
+        &quot;&lt;/body&gt;&lt;/html&gt;&quot;);
+    previewFile.Close();
+    termControl.SetNavigation(tmpFile);
 }
-#endregion
 </code></pre></section>
 </div>
 <p>When a new source/target term pair has been added, the following will, for example, be displayed in the <strong>Termbase Viewer</strong> window:</p>
@@ -142,10 +149,12 @@ public override IEntry GetEntry(int id)
 </li>
 </ul>
 <section id="tabpanel_YCOi8mkj4B-1_tabid-2" role="tabpanel" data-tab="tabid-2">
-<pre><code class="lang-csharp" name="MyTerminologyProviderViewerWinFormsUI">public void AddAndEditTerm(IEntry term, string source, string target)
+<pre><code class="lang-csharp" name="MyTerminologyProviderViewerWinFormsUI">#region &quot;AddEditTerm&quot;
+public void AddAndEditTerm(Entry term, string source, string target)
 {
     MessageBox.Show(&quot;Sorry, editing terms is currently not implemented :-(&quot;, &quot;&quot;, MessageBoxButtons.OK, MessageBoxIcon.Warning);
 }
+#endregion
 </code></pre></section>
 </div>
 <p>When you try to add a term that has already been added, Trados Studio throws the following message that prompts you to:</p>

@@ -97,27 +97,27 @@
 <pre><code class="lang-csharp" name="MyTerminologyProvider">//We parse the first line of the glossary text file to retrieve the the source and target language.
 //Then we create two language objects that we return as source and target language to populate the
 //termbase language dropdown lists in Studio.
-public override IList&lt;ILanguage&gt; GetLanguages()
+public IList&lt;ILanguage&gt; GetLanguages()
 {
     StreamReader _inFile = new StreamReader(fileName.Replace(&quot;file:///&quot;, &quot;&quot;));
     string[] languages = _inFile.ReadLine().Split(&#39;;&#39;);
-    string srgLanguage = languages[1], trgLanguage = languages[2];
+    string srgLanguage = languages[0], trgLanguage = languages[1];
     string srcLabel = srgLanguage.Split(&#39;,&#39;)[0], srcLocale = srgLanguage.Split(&#39;,&#39;)[1];
     string trgLabel = trgLanguage.Split(&#39;,&#39;)[0], trgLocale = trgLanguage.Split(&#39;,&#39;)[1];
     _inFile.Close();
 
-    var result = new List&lt;IDefinitionLanguage&gt;();
+    var result = new List&lt;DefinitionLanguage&gt;();
 
     var tbSrcLanguage = new DefinitionLanguage
     {
         Name = srcLabel,
-        Locale = new System.Globalization.CultureInfo(srcLocale)
+        Locale = new Sdl.Core.Globalization.CultureCode(srcLocale)
     };
 
     var tbTrgLanguage = new DefinitionLanguage
     {
         Name = trgLabel,
-        Locale = new System.Globalization.CultureInfo(trgLocale)
+        Locale = new Sdl.Core.Globalization.CultureCode(trgLocale)
     };
 
 

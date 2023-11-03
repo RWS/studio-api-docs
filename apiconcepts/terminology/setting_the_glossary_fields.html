@@ -101,9 +101,9 @@
 <pre><code class="lang-csharp" name="MyTerminologyProvider">// Creates the termbase definition by declaring the Definition text field.
 // This allows our terminology provider to also display the Definition field content
 // in the Termbase Search and Terminology Recognition windows.
-public IList&lt;IDescriptiveField&gt; GetDescriptiveFields()
+public IList&lt;DescriptiveField&gt; GetDescriptiveFields()
 {
-    var result = new List&lt;IDescriptiveField&gt;();
+    var result = new List&lt;DescriptiveField&gt;();
 
     var definitionField = new DescriptiveField
     {
@@ -127,11 +127,11 @@ public IList&lt;IDescriptiveField&gt; GetDescriptiveFields()
 <section id="tabpanel_9C6CMmTLoK-1_tabid-2" role="tabpanel" data-tab="tabid-2">
 <pre><code class="lang-csharp" name="MyTerminologyProvider">//Creates the terminology source definition, i.e. the languages in the glossary and any
 //additional descriptive fields, in this case the &#39;Definition&#39; field
-public override IDefinition Definition
+public Definition Definition
 {
     get
     {
-        return new Definition(GetDescriptiveFields(), GetLanguages().Cast&lt;IDefinitionLanguage&gt;().ToList());
+        return new Definition(GetDescriptiveFields(), GetLanguages().Cast&lt;DefinitionLanguage&gt;().ToList());
     }
 }
 </code></pre></section>
