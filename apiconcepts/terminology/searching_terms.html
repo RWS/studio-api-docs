@@ -114,8 +114,8 @@
 <section id="tabpanel_3H82O7WGLk_tabid-1" role="tabpanel" data-tab="tabid-1">
 <pre><code class="lang-csharp" name="MyTerminologyProvider">//Is executed when the user launches a lookup operation in the Termbase Search window, 
 //or when the user moves to a segment in the Editor of Studio. Moving to a segment
-//automatically launches a fuzzy search to retrieve any known terminology.
-public override IList&lt;ISearchResult&gt; Search(string text, ILanguage source, ILanguage destination, int maxResultsCount, SearchMode mode, bool targetRequired)
+//automatically launches a fuzzy search to retrieve any known terminology.               
+public IList&lt;SearchResult&gt; Search(string text, ILanguage source, ILanguage destination, int maxResultsCount, SearchMode mode, bool targetRequired)
 {
     string[] chunks;
     List&lt;string&gt; hits = new List&lt;string&gt;();
@@ -145,7 +145,7 @@ public override IList&lt;ISearchResult&gt; Search(string text, ILanguage source,
     }
 
     // Create search results object (hitlist)
-    var results = new List&lt;ISearchResult&gt;();
+    var results = new List&lt;SearchResult&gt;();
 
     for (int i = 0; i &lt; hits.Count; i++)
     {
@@ -166,7 +166,7 @@ public override IList&lt;ISearchResult&gt; Search(string text, ILanguage source,
 
         results.Add(result);
     }
-    return results;            
+    return results;
 }
 </code></pre></section>
 </div>
@@ -180,22 +180,22 @@ public override IList&lt;ISearchResult&gt; Search(string text, ILanguage source,
 <section id="tabpanel_3H82O7WGLk-1_tabid-2" role="tabpanel" data-tab="tabid-2">
 <pre><code class="lang-csharp" name="MyTerminologyProvider">// This helper function is used to construct the entry content with entry id, source and target term, and
 // definition (if applicable)
-private IEntry CreateEntry(string id, string sourceTerm, string targetTerm, string definitionText, string targetLanguage)
+private Entry CreateEntry(string id, string sourceTerm, string targetTerm, string definitionText, string targetLanguage)
 {
     // Assign the entry id
-    IEntry thisEntry = new Entry
+    Entry thisEntry = new Entry
     {
         Id = Convert.ToInt32(id)
     };
 
     // Add the target language
-    IEntryLanguage trgLanguage = new EntryLanguage
+    EntryLanguage trgLanguage = new EntryLanguage
     {
         Name = targetLanguage
     };
 
     // Create the target term
-    IEntryTerm _term = new EntryTerm
+    EntryTerm _term = new EntryTerm
     {
         Value = targetTerm
     };
@@ -204,14 +204,14 @@ private IEntry CreateEntry(string id, string sourceTerm, string targetTerm, stri
 
     // Also add the definition (if available)
     if (definitionText != &quot;&quot;)
-    { 
-        IEntryField _definition = new EntryField
+    {
+        EntryField _definition = new EntryField
         {
             Name = &quot;Definition&quot;,
             Value = definitionText
         };
         thisEntry.Fields.Add(_definition);
-    }            
+    }
 
     return thisEntry;
 }
@@ -226,7 +226,7 @@ private IEntry CreateEntry(string id, string sourceTerm, string targetTerm, stri
 </ul>
 <section id="tabpanel_3H82O7WGLk-2_tabid-3" role="tabpanel" data-tab="tabid-3">
 <pre><code class="lang-csharp" name="MyTerminologyProvider">
-private List&lt;IEntry&gt; _entry = new List&lt;IEntry&gt;();
+private List&lt;Entry&gt; _entry = new List&lt;Entry&gt;();
 
 </code></pre></section>
 </div>
@@ -240,7 +240,7 @@ private List&lt;IEntry&gt; _entry = new List&lt;IEntry&gt;();
 <section id="tabpanel_3H82O7WGLk-3_tabid-4" role="tabpanel" data-tab="tabid-4">
 <pre><code class="lang-csharp" name="MyTerminologyProvider">// Returns the entry for a search result. The entries are associated with the search results
 // through the entry id.
-public override IEntry GetEntry(int id)
+public Entry GetEntry(int id)
 {
     return _entry.FirstOrDefault(_entry =&gt; _entry.Id == id);
 }

@@ -104,24 +104,8 @@ public readonly string fileName;
 </li>
 </ul>
 <section id="tabpanel_PWhwqYwkI3-1_tabid-2" role="tabpanel" data-tab="tabid-2">
-<pre><code class="lang-csharp" name="MyTerminologyProvider">//Return the terminology provider name, uri, and description to show in the Studio UI
-public override string Description
-{
-    get
-    {
-        return PluginResources.My_Terminology_Provider_Description;
-    }
-}
-
-public override string Name
-{
-    get
-    {
-        return PluginResources.My_Terminology_Provider_Name;
-    }
-}
-
-public override Uri Uri
+<pre><code class="lang-csharp" name="MyTerminologyProvider">
+public Uri Uri
 {
     get
     {
@@ -154,7 +138,7 @@ public MyTerminologyProvider(string providerSettings)
 </ul>
 <section id="tabpanel_PWhwqYwkI3-3_tabid-4" role="tabpanel" data-tab="tabid-4">
 <pre><code class="lang-csharp" name="MyTerminologyProvider">//Return the terminology provider name, uri, and description to show in the Studio UI
-public override string Description
+public string Description
 {
     get
     {
@@ -162,7 +146,7 @@ public override string Description
     }
 }
 
-public override string Name
+public string Name
 {
     get
     {
@@ -170,7 +154,7 @@ public override string Name
     }
 }
 
-public override Uri Uri
+public Uri Uri
 {
     get
     {
@@ -179,15 +163,65 @@ public override Uri Uri
 }
 </code></pre></section>
 </div>
-<h2 id="how-to-select-the-glossary-file">How to select the Glossary File</h2>
-<p>Open the <strong>MyTerminologyProviderWinFormsUI.cs</strong> class and modify the <strong>Browse()</strong> method as shown below. This method allows you to raise the UI in which the user selects the text file, that is the <strong>Open File</strong> dialog box. Create a terminology provider object based on the <strong>MyTerminologyProvider</strong> class and set the <strong>fileName</strong> variable to the selected file name and path.</p>
 <div class="tabGroup" id="tabgroup_PWhwqYwkI3-4">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_PWhwqYwkI3-4_tabid-5" role="tab" aria-controls="tabpanel_PWhwqYwkI3-4_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">Browsing for the Glossary</a>
+<a href="#tabpanel_PWhwqYwkI3-4_tabid-4" role="tab" aria-controls="tabpanel_PWhwqYwkI3-4_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">The Term Provider Initialization</a>
 </li>
 </ul>
-<section id="tabpanel_PWhwqYwkI3-4_tabid-5" role="tabpanel" data-tab="tabid-5">
+<section id="tabpanel_PWhwqYwkI3-4_tabid-4" role="tabpanel" data-tab="tabid-4">
+<pre><code class="lang-csharp" name="MyTerminologyProvider">public bool Initialize()
+{
+    return true;
+}
+
+public bool Initialize(TerminologyProviderCredential credential)
+{
+    return true;
+}
+
+public bool IsProviderUpToDate()
+{
+    return true;
+}
+
+public IList&lt;FilterDefinition&gt; GetFilters()
+{
+    return new List&lt;FilterDefinition&gt;();
+}
+
+public bool Uninitialize()
+{
+    throw new NotImplementedException();
+}
+
+public string Id =&gt; &quot;id&quot;;
+
+public TerminologyProviderType Type =&gt; TerminologyProviderType.Custom;
+
+public bool IsReadOnly =&gt; false;
+
+public bool SearchEnabled =&gt; true;
+
+public FilterDefinition ActiveFilter
+{
+    get { return null; }
+    set { value = new FilterDefinition(); }
+}
+
+public bool IsInitialized =&gt; true;
+
+</code></pre></section>
+</div>
+<h2 id="how-to-select-the-glossary-file">How to select the Glossary File</h2>
+<p>Open the <strong>MyTerminologyProviderWinFormsUI.cs</strong> class and modify the <strong>Browse()</strong> method as shown below. This method allows you to raise the UI in which the user selects the text file, that is the <strong>Open File</strong> dialog box. Create a terminology provider object based on the <strong>MyTerminologyProvider</strong> class and set the <strong>fileName</strong> variable to the selected file name and path.</p>
+<div class="tabGroup" id="tabgroup_PWhwqYwkI3-5">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_PWhwqYwkI3-5_tabid-5" role="tab" aria-controls="tabpanel_PWhwqYwkI3-5_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">Browsing for the Glossary</a>
+</li>
+</ul>
+<section id="tabpanel_PWhwqYwkI3-5_tabid-5" role="tabpanel" data-tab="tabid-5">
 <pre><code class="lang-csharp" name="MyTerminologyProviderWinFormsUI">//Raises the File Open dialog in which the user selects the glossary text file.
 //The file name and path is then passed to the terminology provider object.
 public ITerminologyProvider[] Browse(IWin32Window owner, ITerminologyProviderCredentialStore credentialStore)
@@ -207,38 +241,38 @@ public ITerminologyProvider[] Browse(IWin32Window owner, ITerminologyProviderCre
 </code></pre></section>
 </div>
 <p>Go to the <strong>MyTerminologyProviderViewerWinFormsUI.cs</strong> class and create a terminology provider object. Make sure that your provider object is initialized as follows:</p>
-<div class="tabGroup" id="tabgroup_PWhwqYwkI3-5">
+<div class="tabGroup" id="tabgroup_PWhwqYwkI3-6">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_PWhwqYwkI3-5_tabid-6" role="tab" aria-controls="tabpanel_PWhwqYwkI3-5_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">The Term Provider Object</a>
+<a href="#tabpanel_PWhwqYwkI3-6_tabid-6" role="tab" aria-controls="tabpanel_PWhwqYwkI3-6_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">The Term Provider Object</a>
 </li>
 </ul>
-<section id="tabpanel_PWhwqYwkI3-5_tabid-6" role="tabpanel" data-tab="tabid-6">
+<section id="tabpanel_PWhwqYwkI3-6_tabid-6" role="tabpanel" data-tab="tabid-6">
 <pre><code class="lang-csharp" name="MyTerminologyProviderViewerWinFormsUI">
 private MyTerminologyProvider _terminologyProvider;
 
 </code></pre></section>
 </div>
-<div class="tabGroup" id="tabgroup_PWhwqYwkI3-6">
+<div class="tabGroup" id="tabgroup_PWhwqYwkI3-7">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_PWhwqYwkI3-6_tabid-7" role="tab" aria-controls="tabpanel_PWhwqYwkI3-6_tabid-7" data-tab="tabid-7" tabindex="0" aria-selected="true">Initializing the Provider</a>
+<a href="#tabpanel_PWhwqYwkI3-7_tabid-7" role="tab" aria-controls="tabpanel_PWhwqYwkI3-7_tabid-7" data-tab="tabid-7" tabindex="0" aria-selected="true">Initializing the Provider</a>
 </li>
 </ul>
-<section id="tabpanel_PWhwqYwkI3-6_tabid-7" role="tabpanel" data-tab="tabid-7">
-<pre><code class="lang-csharp" name="MyTerminologyProviderViewerWinFormsUI">public void Initialize(ITerminologyProvider terminologyProvider, CultureInfo source, CultureInfo target)
+<section id="tabpanel_PWhwqYwkI3-7_tabid-7" role="tabpanel" data-tab="tabid-7">
+<pre><code class="lang-csharp" name="MyTerminologyProviderViewerWinFormsUI">public void Initialize(ITerminologyProvider terminologyProvider, CultureCode source, CultureCode target)
 {
     _terminologyProvider = (MyTerminologyProvider)terminologyProvider;
 }
 </code></pre></section>
 </div>
-<div class="tabGroup" id="tabgroup_PWhwqYwkI3-7">
+<div class="tabGroup" id="tabgroup_PWhwqYwkI3-8">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_PWhwqYwkI3-7_tabid-8" role="tab" aria-controls="tabpanel_PWhwqYwkI3-7_tabid-8" data-tab="tabid-8" tabindex="0" aria-selected="true">Provider is Initialized</a>
+<a href="#tabpanel_PWhwqYwkI3-8_tabid-8" role="tab" aria-controls="tabpanel_PWhwqYwkI3-8_tabid-8" data-tab="tabid-8" tabindex="0" aria-selected="true">Provider is Initialized</a>
 </li>
 </ul>
-<section id="tabpanel_PWhwqYwkI3-7_tabid-8" role="tabpanel" data-tab="tabid-8">
+<section id="tabpanel_PWhwqYwkI3-8_tabid-8" role="tabpanel" data-tab="tabid-8">
 <pre><code class="lang-csharp" name="MyTerminologyProviderViewerWinFormsUI">public bool Initialized
 {
     get
@@ -252,13 +286,13 @@ private MyTerminologyProvider _terminologyProvider;
 <p>We will implement the required language retrieval functionality in the next chapter.</p>
 <h2 id="the-terminology-provider-factory-class">The Terminology Provider Factory Class</h2>
 <p>Open the class <strong>MyTerminologyProviderFactory.cs</strong> and create your term provider object as show below. Only then will Trados Studio be able to access and display your provider in the UI:</p>
-<div class="tabGroup" id="tabgroup_PWhwqYwkI3-8">
+<div class="tabGroup" id="tabgroup_PWhwqYwkI3-9">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_PWhwqYwkI3-8_tabid-9" role="tab" aria-controls="tabpanel_PWhwqYwkI3-8_tabid-9" data-tab="tabid-9" tabindex="0" aria-selected="true">Creating the Terminology Provider Object</a>
+<a href="#tabpanel_PWhwqYwkI3-9_tabid-9" role="tab" aria-controls="tabpanel_PWhwqYwkI3-9_tabid-9" data-tab="tabid-9" tabindex="0" aria-selected="true">Creating the Terminology Provider Object</a>
 </li>
 </ul>
-<section id="tabpanel_PWhwqYwkI3-8_tabid-9" role="tabpanel" data-tab="tabid-9">
+<section id="tabpanel_PWhwqYwkI3-9_tabid-9" role="tabpanel" data-tab="tabid-9">
 <pre><code class="lang-csharp" name="MyTerminologyProviderFactory">//Create the terminology provider and pass the provider uri, which is the glossary text file name and path
 public ITerminologyProvider CreateTerminologyProvider(Uri terminologyProviderUri, ITerminologyProviderCredentialStore credentials)
 {

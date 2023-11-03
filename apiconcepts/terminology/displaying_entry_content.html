@@ -131,45 +131,45 @@ public MyTerminologyProvider(string providerSettings)
 </li>
 </ul>
 <section id="tabpanel_Y0GnbkQpcP-2_tabid-3" role="tabpanel" data-tab="tabid-3">
-<pre><code class="lang-csharp" name="MyTerminologyProvider">    string[] languages = _inFile.ReadLine().Split(&#39;;&#39;);
-    string srgLanguage = languages[1], trgLanguage = languages[2];
-    string srcLabel = srgLanguage.Split(&#39;,&#39;)[0], srcLocale = srgLanguage.Split(&#39;,&#39;)[1];
-    string trgLabel = trgLanguage.Split(&#39;,&#39;)[0], trgLocale = trgLanguage.Split(&#39;,&#39;)[1];
-    _inFile.Close();
-
-    var result = new List&lt;IDefinitionLanguage&gt;();
-
-    var tbSrcLanguage = new DefinitionLanguage
-    {
-        Name = srcLabel,
-        Locale = new System.Globalization.CultureInfo(srcLocale)
-    };
-
-    var tbTrgLanguage = new DefinitionLanguage
-    {
-        Name = trgLabel,
-        Locale = new System.Globalization.CultureInfo(trgLocale)
-    };
-
-
-    result.Add(tbSrcLanguage);
-    result.Add(tbTrgLanguage);
-
-    return result.Cast&lt;ILanguage&gt;().ToList();
-}
-#endregion
-
-
-#region &quot;Search&quot;
-//Is executed when the user launches a lookup operation in the Termbase Search window, 
-//or when the user moves to a segment in the Editor of Studio. Moving to a segment
-//automatically launches a fuzzy search to retrieve any known terminology.
-public override IList&lt;ISearchResult&gt; Search(string text, ILanguage source, ILanguage destination, int maxResultsCount, SearchMode mode, bool targetRequired)
+<pre><code class="lang-csharp" name="MyTerminologyProvider">// this function outputs the full entry content in the Internet Explorer control
+// of the Termbase Viewer window
+public void JumpToTerm(Entry entry)
 {
+    // Load the glossary file
+    string fileName = _terminologyProvider.fileName.Replace(&quot;file:///&quot;, &quot;&quot;);
+    StreamReader glossaryFile = new StreamReader(fileName);
     string[] chunks;
-    List&lt;string&gt; hits = new List&lt;string&gt;();
+    string entryContent = String.Empty;
+    glossaryFile.ReadLine();
+    // Loop through all lines of the file and find the line that has the current entry id
+    while (!glossaryFile.EndOfStream)
+    {
+        string thisLine = glossaryFile.ReadLine();
+        chunks = thisLine.Split(&#39;;&#39;);
+        string thisId = chunks[0];
+        if (thisId == entry.Id.ToString())
+        {
+            entryContent = thisLine;
+            break;
+        }
+    }
 
-    // open the glossary text file
+    // Parse the line alongside the semi-colon
+    chunks = entryContent.Split(&#39;;&#39;);
+
+    // Generate a small HTML file to display in the Termbase Viewer control
+    string tmpFile = System.IO.Path.GetTempPath() + &quot;simple_list_entry.htm&quot;;
+    StreamWriter previewFile = new StreamWriter(tmpFile);
+    previewFile.Write(&quot;&lt;html&gt;&lt;body&gt;&lt;b&gt;Entry id:&lt;/b&gt; &quot; + chunks[0] +
+        &quot;&lt;br/&gt;&lt;b&gt;Source term:&lt;/b&gt; &quot; + chunks[1] +
+        &quot;&lt;br/&gt;&lt;b&gt;Target term:&lt;/b&gt; &quot; + chunks[2] +
+        &quot;&lt;br/&gt;&lt;b&gt;Definition:&lt;/b&gt; &quot; + chunks[3] +
+        &quot;&lt;/body&gt;&lt;/html&gt;&quot;);
+    previewFile.Close();
+    termControl.SetNavigation(tmpFile);
+
+    glossaryFile.Close();
+}
 </code></pre></section>
 </div>
 </article>
