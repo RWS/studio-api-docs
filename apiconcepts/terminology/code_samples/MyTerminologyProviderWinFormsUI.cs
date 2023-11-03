@@ -65,12 +65,12 @@ namespace SDL_Terminology_Provider_Plug_in
 
         public TerminologyProviderDisplayInfo GetDisplayInfo(Uri terminologyProviderUri)
         {
-            throw new NotImplementedException();
+            return null;
         }
 
         public bool SupportsTerminologyProviderUri(Uri terminologyProviderUri)
         {
-            throw new NotImplementedException();
+            return true;
         }
     }
 }

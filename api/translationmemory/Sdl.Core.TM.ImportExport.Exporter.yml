@@ -9,9 +9,7 @@ items:
   - Sdl.Core.TM.ImportExport.Exporter.#ctor(Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager)
   - Sdl.Core.TM.ImportExport.Exporter.BatchExported
   - Sdl.Core.TM.ImportExport.Exporter.Export(Sdl.Core.TM.ImportExport.IExportOrigin,System.String,System.Boolean)
-  - Sdl.Core.TM.ImportExport.Exporter.ExportAsync(Sdl.Core.TM.ImportExport.IExportOriginAsync,System.String,System.Boolean)
-  - Sdl.Core.TM.ImportExport.Exporter.FilterExpression
-  - Sdl.Core.TM.ImportExport.Exporter.TmxExportFormat
+  - Sdl.Core.TM.ImportExport.Exporter.OnBatchExportedAsync(System.Int32,System.Int32)
   langs:
   - csharp
   - vb
@@ -26,13 +24,24 @@ items:
   - Sdl.Core.TM.ImportExport
   namespace: Sdl.Core.TM.ImportExport
   syntax:
-    content: public class Exporter
-    content.vb: Public Class Exporter
+    content: >-
+      [Obsolete("Use ExporterAsync")]
+
+      public class Exporter : ExporterAsync
+    content.vb: >-
+      <Obsolete("Use ExporterAsync")>
+
+      Public Class Exporter
+          Inherits ExporterAsync
   inheritance:
   - System.Object
+  - Sdl.Core.TM.ImportExport.ExporterAsync
   derivedClasses:
   - Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryExporter
   inheritedMembers:
+  - Sdl.Core.TM.ImportExport.ExporterAsync.ExportAsync(Sdl.Core.TM.ImportExport.IExportOriginAsync,System.String,System.Boolean)
+  - Sdl.Core.TM.ImportExport.ExporterAsync.TmxExportFormat
+  - Sdl.Core.TM.ImportExport.ExporterAsync.FilterExpression
   - System.Object.ToString
   - System.Object.Equals(System.Object)
   - System.Object.Equals(System.Object,System.Object)
@@ -40,6 +49,12 @@ items:
   - System.Object.GetHashCode
   - System.Object.GetType
   - System.Object.MemberwiseClone
+  attributes:
+  - type: System.ObsoleteAttribute
+    ctor: System.ObsoleteAttribute.#ctor(System.String)
+    arguments:
+    - type: System.String
+      value: Use ExporterAsync
   modifiers.csharp:
   - public
   - class
@@ -111,6 +126,41 @@ items:
   - public
   modifiers.vb:
   - Public
+- uid: Sdl.Core.TM.ImportExport.Exporter.OnBatchExportedAsync(System.Int32,System.Int32)
+  commentId: M:Sdl.Core.TM.ImportExport.Exporter.OnBatchExportedAsync(System.Int32,System.Int32)
+  id: OnBatchExportedAsync(System.Int32,System.Int32)
+  parent: Sdl.Core.TM.ImportExport.Exporter
+  langs:
+  - csharp
+  - vb
+  name: OnBatchExportedAsync(Int32, Int32)
+  nameWithType: Exporter.OnBatchExportedAsync(Int32, Int32)
+  fullName: Sdl.Core.TM.ImportExport.Exporter.OnBatchExportedAsync(System.Int32, System.Int32)
+  type: Method
+  source:
+    path: Sdl.Core.TM.ImportExport
+    isExternal: true
+  assemblies:
+  - Sdl.Core.TM.ImportExport
+  namespace: Sdl.Core.TM.ImportExport
+  syntax:
+    content: protected override Task<bool> OnBatchExportedAsync(int totalProcessed, int totalExported)
+    parameters:
+    - id: totalProcessed
+      type: System.Int32
+    - id: totalExported
+      type: System.Int32
+    return:
+      type: System.Threading.Tasks.Task{System.Boolean}
+    content.vb: Protected Overrides Function OnBatchExportedAsync(totalProcessed As Integer, totalExported As Integer) As Task(Of Boolean)
+  overridden: Sdl.Core.TM.ImportExport.ExporterAsync.OnBatchExportedAsync(System.Int32,System.Int32)
+  overload: Sdl.Core.TM.ImportExport.Exporter.OnBatchExportedAsync*
+  modifiers.csharp:
+  - protected
+  - override
+  modifiers.vb:
+  - Protected
+  - Overrides
 - uid: Sdl.Core.TM.ImportExport.Exporter.Export(Sdl.Core.TM.ImportExport.IExportOrigin,System.String,System.Boolean)
   commentId: M:Sdl.Core.TM.ImportExport.Exporter.Export(Sdl.Core.TM.ImportExport.IExportOrigin,System.String,System.Boolean)
   id: Export(Sdl.Core.TM.ImportExport.IExportOrigin,System.String,System.Boolean)
@@ -146,109 +196,6 @@ items:
   - public
   modifiers.vb:
   - Public
-- uid: Sdl.Core.TM.ImportExport.Exporter.ExportAsync(Sdl.Core.TM.ImportExport.IExportOriginAsync,System.String,System.Boolean)
-  commentId: M:Sdl.Core.TM.ImportExport.Exporter.ExportAsync(Sdl.Core.TM.ImportExport.IExportOriginAsync,System.String,System.Boolean)
-  id: ExportAsync(Sdl.Core.TM.ImportExport.IExportOriginAsync,System.String,System.Boolean)
-  parent: Sdl.Core.TM.ImportExport.Exporter
-  langs:
-  - csharp
-  - vb
-  name: ExportAsync(IExportOriginAsync, String, Boolean)
-  nameWithType: Exporter.ExportAsync(IExportOriginAsync, String, Boolean)
-  fullName: Sdl.Core.TM.ImportExport.Exporter.ExportAsync(Sdl.Core.TM.ImportExport.IExportOriginAsync, System.String, System.Boolean)
-  type: Method
-  source:
-    path: Sdl.Core.TM.ImportExport
-    isExternal: true
-  assemblies:
-  - Sdl.Core.TM.ImportExport
-  namespace: Sdl.Core.TM.ImportExport
-  summary: "\nSee <xref href=\"Sdl.Core.TM.ImportExport.Exporter.Export(Sdl.Core.TM.ImportExport.IExportOrigin%2cSystem.String%2cSystem.Boolean)\" data-throw-if-not-resolved=\"false\"></xref>\n"
-  syntax:
-    content: public Task ExportAsync(IExportOriginAsync exportOrigin, string fileName, bool overwriteExisting)
-    parameters:
-    - id: exportOrigin
-      type: Sdl.Core.TM.ImportExport.IExportOriginAsync
-    - id: fileName
-      type: System.String
-    - id: overwriteExisting
-      type: System.Boolean
-    return:
-      type: System.Threading.Tasks.Task
-    content.vb: Public Function ExportAsync(exportOrigin As IExportOriginAsync, fileName As String, overwriteExisting As Boolean) As Task
-  overload: Sdl.Core.TM.ImportExport.Exporter.ExportAsync*
-  exceptions:
-  - type: System.ArgumentNullException
-    commentId: T:System.ArgumentNullException
-  - type: System.InvalidOperationException
-    commentId: T:System.InvalidOperationException
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
-- uid: Sdl.Core.TM.ImportExport.Exporter.TmxExportFormat
-  commentId: P:Sdl.Core.TM.ImportExport.Exporter.TmxExportFormat
-  id: TmxExportFormat
-  parent: Sdl.Core.TM.ImportExport.Exporter
-  langs:
-  - csharp
-  - vb
-  name: TmxExportFormat
-  nameWithType: Exporter.TmxExportFormat
-  fullName: Sdl.Core.TM.ImportExport.Exporter.TmxExportFormat
-  type: Property
-  source:
-    path: Sdl.Core.TM.ImportExport
-    isExternal: true
-  assemblies:
-  - Sdl.Core.TM.ImportExport
-  namespace: Sdl.Core.TM.ImportExport
-  summary: "\nGets or sets the flavour of the exported TMX.\n"
-  syntax:
-    content: public TranslationUnitFormat TmxExportFormat { get; set; }
-    parameters: []
-    return:
-      type: Sdl.LanguagePlatform.TranslationMemory.TranslationUnitFormat
-    content.vb: Public Property TmxExportFormat As TranslationUnitFormat
-  overload: Sdl.Core.TM.ImportExport.Exporter.TmxExportFormat*
-  modifiers.csharp:
-  - public
-  - get
-  - set
-  modifiers.vb:
-  - Public
-- uid: Sdl.Core.TM.ImportExport.Exporter.FilterExpression
-  commentId: P:Sdl.Core.TM.ImportExport.Exporter.FilterExpression
-  id: FilterExpression
-  parent: Sdl.Core.TM.ImportExport.Exporter
-  langs:
-  - csharp
-  - vb
-  name: FilterExpression
-  nameWithType: Exporter.FilterExpression
-  fullName: Sdl.Core.TM.ImportExport.Exporter.FilterExpression
-  type: Property
-  source:
-    path: Sdl.Core.TM.ImportExport
-    isExternal: true
-  assemblies:
-  - Sdl.Core.TM.ImportExport
-  namespace: Sdl.Core.TM.ImportExport
-  summary: "\nGets or sets the filter expression.\n"
-  syntax:
-    content: public FilterExpression FilterExpression { get; set; }
-    parameters: []
-    return:
-      type: Sdl.LanguagePlatform.TranslationMemory.FilterExpression
-      description: The filter expression.
-    content.vb: Public Property FilterExpression As FilterExpression
-  overload: Sdl.Core.TM.ImportExport.Exporter.FilterExpression*
-  modifiers.csharp:
-  - public
-  - get
-  - set
-  modifiers.vb:
-  - Public
 - uid: Sdl.Core.TM.ImportExport.Exporter.BatchExported
   commentId: E:Sdl.Core.TM.ImportExport.Exporter.BatchExported
   id: BatchExported
@@ -266,12 +213,21 @@ items:
   assemblies:
   - Sdl.Core.TM.ImportExport
   namespace: Sdl.Core.TM.ImportExport
-  summary: "\nOccurs when ever a batch is imported, set Cancel = True to stop the export.\n"
   syntax:
-    content: public event EventHandler<BatchExportedEventArgs> BatchExported
+    content: >-
+      [Obsolete]
+
+      public event EventHandler<BatchExportedEventArgs> BatchExported
     return:
       type: System.EventHandler{Sdl.Core.TM.ImportExport.BatchExportedEventArgs}
-    content.vb: Public Event BatchExported As EventHandler(Of BatchExportedEventArgs)
+    content.vb: >-
+      <Obsolete>
+
+      Public Event BatchExported As EventHandler(Of BatchExportedEventArgs)
+  attributes:
+  - type: System.ObsoleteAttribute
+    ctor: System.ObsoleteAttribute.#ctor
+    arguments: []
   modifiers.csharp:
   - public
   modifiers.vb:
@@ -290,6 +246,100 @@ references:
   name: Object
   nameWithType: Object
   fullName: System.Object
+- uid: Sdl.Core.TM.ImportExport.ExporterAsync
+  commentId: T:Sdl.Core.TM.ImportExport.ExporterAsync
+  parent: Sdl.Core.TM.ImportExport
+  isExternal: true
+  name: ExporterAsync
+  nameWithType: ExporterAsync
+  fullName: Sdl.Core.TM.ImportExport.ExporterAsync
+- uid: Sdl.Core.TM.ImportExport.ExporterAsync.ExportAsync(Sdl.Core.TM.ImportExport.IExportOriginAsync,System.String,System.Boolean)
+  commentId: M:Sdl.Core.TM.ImportExport.ExporterAsync.ExportAsync(Sdl.Core.TM.ImportExport.IExportOriginAsync,System.String,System.Boolean)
+  parent: Sdl.Core.TM.ImportExport.ExporterAsync
+  isExternal: true
+  name: ExportAsync(IExportOriginAsync, String, Boolean)
+  nameWithType: ExporterAsync.ExportAsync(IExportOriginAsync, String, Boolean)
+  fullName: Sdl.Core.TM.ImportExport.ExporterAsync.ExportAsync(Sdl.Core.TM.ImportExport.IExportOriginAsync, System.String, System.Boolean)
+  spec.csharp:
+  - uid: Sdl.Core.TM.ImportExport.ExporterAsync.ExportAsync(Sdl.Core.TM.ImportExport.IExportOriginAsync,System.String,System.Boolean)
+    name: ExportAsync
+    nameWithType: ExporterAsync.ExportAsync
+    fullName: Sdl.Core.TM.ImportExport.ExporterAsync.ExportAsync
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Sdl.Core.TM.ImportExport.IExportOriginAsync
+    name: IExportOriginAsync
+    nameWithType: IExportOriginAsync
+    fullName: Sdl.Core.TM.ImportExport.IExportOriginAsync
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Sdl.Core.TM.ImportExport.ExporterAsync.ExportAsync(Sdl.Core.TM.ImportExport.IExportOriginAsync,System.String,System.Boolean)
+    name: ExportAsync
+    nameWithType: ExporterAsync.ExportAsync
+    fullName: Sdl.Core.TM.ImportExport.ExporterAsync.ExportAsync
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Sdl.Core.TM.ImportExport.IExportOriginAsync
+    name: IExportOriginAsync
+    nameWithType: IExportOriginAsync
+    fullName: Sdl.Core.TM.ImportExport.IExportOriginAsync
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Sdl.Core.TM.ImportExport.ExporterAsync.TmxExportFormat
+  commentId: P:Sdl.Core.TM.ImportExport.ExporterAsync.TmxExportFormat
+  parent: Sdl.Core.TM.ImportExport.ExporterAsync
+  isExternal: true
+  name: TmxExportFormat
+  nameWithType: ExporterAsync.TmxExportFormat
+  fullName: Sdl.Core.TM.ImportExport.ExporterAsync.TmxExportFormat
+- uid: Sdl.Core.TM.ImportExport.ExporterAsync.FilterExpression
+  commentId: P:Sdl.Core.TM.ImportExport.ExporterAsync.FilterExpression
+  parent: Sdl.Core.TM.ImportExport.ExporterAsync
+  isExternal: true
+  name: FilterExpression
+  nameWithType: ExporterAsync.FilterExpression
+  fullName: Sdl.Core.TM.ImportExport.ExporterAsync.FilterExpression
 - uid: System.Object.ToString
   commentId: M:System.Object.ToString
   parent: System.Object
@@ -586,6 +636,165 @@ references:
   name: ICultureMetadataManager
   nameWithType: ICultureMetadataManager
   fullName: Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager
+- uid: Sdl.Core.TM.ImportExport.ExporterAsync.OnBatchExportedAsync(System.Int32,System.Int32)
+  commentId: M:Sdl.Core.TM.ImportExport.ExporterAsync.OnBatchExportedAsync(System.Int32,System.Int32)
+  parent: Sdl.Core.TM.ImportExport.ExporterAsync
+  isExternal: true
+  name: OnBatchExportedAsync(Int32, Int32)
+  nameWithType: ExporterAsync.OnBatchExportedAsync(Int32, Int32)
+  fullName: Sdl.Core.TM.ImportExport.ExporterAsync.OnBatchExportedAsync(System.Int32, System.Int32)
+  spec.csharp:
+  - uid: Sdl.Core.TM.ImportExport.ExporterAsync.OnBatchExportedAsync(System.Int32,System.Int32)
+    name: OnBatchExportedAsync
+    nameWithType: ExporterAsync.OnBatchExportedAsync
+    fullName: Sdl.Core.TM.ImportExport.ExporterAsync.OnBatchExportedAsync
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Sdl.Core.TM.ImportExport.ExporterAsync.OnBatchExportedAsync(System.Int32,System.Int32)
+    name: OnBatchExportedAsync
+    nameWithType: ExporterAsync.OnBatchExportedAsync
+    fullName: Sdl.Core.TM.ImportExport.ExporterAsync.OnBatchExportedAsync
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Sdl.Core.TM.ImportExport.Exporter.OnBatchExportedAsync*
+  commentId: Overload:Sdl.Core.TM.ImportExport.Exporter.OnBatchExportedAsync
+  isExternal: true
+  name: OnBatchExportedAsync
+  nameWithType: Exporter.OnBatchExportedAsync
+  fullName: Sdl.Core.TM.ImportExport.Exporter.OnBatchExportedAsync
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  name: Int32
+  nameWithType: Int32
+  fullName: System.Int32
+- uid: System.Threading.Tasks.Task{System.Boolean}
+  commentId: '!:System.Threading.Tasks.Task{System.Boolean}'
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  name: Task<Boolean>
+  nameWithType: Task<Boolean>
+  fullName: System.Threading.Tasks.Task<System.Boolean>
+  nameWithType.vb: Task(Of Boolean)
+  fullName.vb: System.Threading.Tasks.Task(Of System.Boolean)
+  name.vb: Task(Of Boolean)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Threading.Tasks.Task`1
+  commentId: T:System.Threading.Tasks.Task`1
+  isExternal: true
+  name: Task<>
+  nameWithType: Task<>
+  fullName: System.Threading.Tasks.Task<>
+  nameWithType.vb: Task(Of )
+  fullName.vb: System.Threading.Tasks.Task(Of )
+  name.vb: Task(Of )
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: ''
+    nameWithType: ''
+    fullName: ''
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: ''
+    nameWithType: ''
+    fullName: ''
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks
 - uid: Sdl.Core.TM.ImportExport.Exporter.Export*
   commentId: Overload:Sdl.Core.TM.ImportExport.Exporter.Export
   isExternal: true
@@ -613,74 +822,6 @@ references:
   name: Boolean
   nameWithType: Boolean
   fullName: System.Boolean
-- uid: Sdl.Core.TM.ImportExport.Exporter.ExportAsync*
-  commentId: Overload:Sdl.Core.TM.ImportExport.Exporter.ExportAsync
-  isExternal: true
-  name: ExportAsync
-  nameWithType: Exporter.ExportAsync
-  fullName: Sdl.Core.TM.ImportExport.Exporter.ExportAsync
-- uid: System.ArgumentNullException
-  commentId: T:System.ArgumentNullException
-  isExternal: true
-- uid: System.InvalidOperationException
-  commentId: T:System.InvalidOperationException
-  parent: System
-  isExternal: true
-  name: InvalidOperationException
-  nameWithType: InvalidOperationException
-  fullName: System.InvalidOperationException
-- uid: Sdl.Core.TM.ImportExport.IExportOriginAsync
-  commentId: T:Sdl.Core.TM.ImportExport.IExportOriginAsync
-  parent: Sdl.Core.TM.ImportExport
-  isExternal: true
-  name: IExportOriginAsync
-  nameWithType: IExportOriginAsync
-  fullName: Sdl.Core.TM.ImportExport.IExportOriginAsync
-- uid: System.Threading.Tasks.Task
-  commentId: T:System.Threading.Tasks.Task
-  parent: System.Threading.Tasks
-  isExternal: true
-  name: Task
-  nameWithType: Task
-  fullName: System.Threading.Tasks.Task
-- uid: System.Threading.Tasks
-  commentId: N:System.Threading.Tasks
-  isExternal: true
-  name: System.Threading.Tasks
-  nameWithType: System.Threading.Tasks
-  fullName: System.Threading.Tasks
-- uid: Sdl.Core.TM.ImportExport.Exporter.TmxExportFormat*
-  commentId: Overload:Sdl.Core.TM.ImportExport.Exporter.TmxExportFormat
-  isExternal: true
-  name: TmxExportFormat
-  nameWithType: Exporter.TmxExportFormat
-  fullName: Sdl.Core.TM.ImportExport.Exporter.TmxExportFormat
-- uid: Sdl.LanguagePlatform.TranslationMemory.TranslationUnitFormat
-  commentId: T:Sdl.LanguagePlatform.TranslationMemory.TranslationUnitFormat
-  parent: Sdl.LanguagePlatform.TranslationMemory
-  isExternal: true
-  name: TranslationUnitFormat
-  nameWithType: TranslationUnitFormat
-  fullName: Sdl.LanguagePlatform.TranslationMemory.TranslationUnitFormat
-- uid: Sdl.LanguagePlatform.TranslationMemory
-  commentId: N:Sdl.LanguagePlatform.TranslationMemory
-  isExternal: true
-  name: Sdl.LanguagePlatform.TranslationMemory
-  nameWithType: Sdl.LanguagePlatform.TranslationMemory
-  fullName: Sdl.LanguagePlatform.TranslationMemory
-- uid: Sdl.Core.TM.ImportExport.Exporter.FilterExpression*
-  commentId: Overload:Sdl.Core.TM.ImportExport.Exporter.FilterExpression
-  isExternal: true
-  name: FilterExpression
-  nameWithType: Exporter.FilterExpression
-  fullName: Sdl.Core.TM.ImportExport.Exporter.FilterExpression
-- uid: Sdl.LanguagePlatform.TranslationMemory.FilterExpression
-  commentId: T:Sdl.LanguagePlatform.TranslationMemory.FilterExpression
-  parent: Sdl.LanguagePlatform.TranslationMemory
-  isExternal: true
-  name: FilterExpression
-  nameWithType: FilterExpression
-  fullName: Sdl.LanguagePlatform.TranslationMemory.FilterExpression
 - uid: System.EventHandler{Sdl.Core.TM.ImportExport.BatchExportedEventArgs}
   commentId: T:System.EventHandler{Sdl.Core.TM.ImportExport.BatchExportedEventArgs}
   parent: System

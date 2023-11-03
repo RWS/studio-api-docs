@@ -7,6 +7,8 @@ items:
   children:
   - Sdl.FileTypeSupport.Framework.Core.Utilities.FileEncoding.Detect(System.String,System.Text.Encoding,System.String@)
   - Sdl.FileTypeSupport.Framework.Core.Utilities.FileEncoding.Detect(System.String,System.Text.Encoding,System.String@,System.Boolean@)
+  - Sdl.FileTypeSupport.Framework.Core.Utilities.FileEncoding.DetectEncoding(Sdl.FileTypeSupport.Framework.Pair{Sdl.Core.Globalization.Codepage,Sdl.FileTypeSupport.Framework.NativeApi.DetectionLevel},System.String,System.Text.Encoding)
+  - Sdl.FileTypeSupport.Framework.Core.Utilities.FileEncoding.DetectUtfEncoding(System.Byte[],Sdl.FileTypeSupport.Framework.Pair{Sdl.Core.Globalization.Codepage,Sdl.FileTypeSupport.Framework.NativeApi.DetectionLevel},System.Boolean@)
   - Sdl.FileTypeSupport.Framework.Core.Utilities.FileEncoding.GetDefaultAnsiCodepage(System.Globalization.CultureInfo)
   langs:
   - csharp
@@ -94,7 +96,7 @@ items:
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core.Utilities
   namespace: Sdl.FileTypeSupport.Framework.Core.Utilities
-  summary: "\nIs used for code page detection. First, the file is searched for a BOM. If a BOM exists\nand points to UNICODE, the appropriate code page is returned with the level Certain.\nOtherwise, the encoding tools are used to return the code page with the level Likely.\n"
+  summary: "\nIs used for code page detection. First, the file is searched for a UTF BOM. \nIf a BOM is found, it is used to detect the appropriate code page.\nIf a BOM is NOT found, the encoding detector is used to retrieve the code page.\nLineBreak is also retrieved after the encoding information is solved\n"
   syntax:
     content: public static Pair<Codepage, DetectionLevel> Detect(string filePath, Encoding suggestedEncoding, out string lineBreakType)
     parameters:
@@ -138,25 +140,20 @@ items:
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core.Utilities
   namespace: Sdl.FileTypeSupport.Framework.Core.Utilities
-  summary: "\nIs used for code page detection. First, the file is searched for a BOM. If a BOM exists\nand points to UNICODE, the appropriate code page is returned with the level Certain.\nOtherwise, the encoding tools are used to return the code page with the level Likely.\n"
+  summary: "\nIs used for code page detection. First, the file is searched for a UTF BOM. \nIf a BOM is found, it is used to detect the appropriate code page.\nIf a BOM is NOT found, the encoding detector is used to retrieve the code page.\nLineBreak is also retrieved after the encoding information is solved\n"
   syntax:
     content: public static Pair<Codepage, DetectionLevel> Detect(string filePath, Encoding suggestedEncoding, out string lineBreakType, out bool hasUTF8BOM)
     parameters:
     - id: filePath
       type: System.String
-      description: Path to file for code page detection
     - id: suggestedEncoding
       type: System.Text.Encoding
-      description: A suggested codepage that may be used if it is a valid option.
     - id: lineBreakType
       type: System.String
-      description: String for the line break type.
     - id: hasUTF8BOM
       type: System.Boolean
-      description: bool to indicate if UTF-8 BOM present
     return:
       type: Sdl.FileTypeSupport.Framework.Pair{Sdl.Core.Globalization.Codepage,Sdl.FileTypeSupport.Framework.NativeApi.DetectionLevel}
-      description: "\nA Pair container that holds the detected codepage and the information on how likely it is to be the correct one.\n"
     content.vb: Public Shared Function Detect(filePath As String, suggestedEncoding As Encoding, ByRef lineBreakType As String, ByRef hasUTF8BOM As Boolean) As Pair(Of Codepage, DetectionLevel)
   overload: Sdl.FileTypeSupport.Framework.Core.Utilities.FileEncoding.Detect*
   nameWithType.vb: FileEncoding.Detect(String, Encoding, ByRef String, ByRef Boolean)
@@ -168,6 +165,82 @@ items:
   - Shared
   fullName.vb: Sdl.FileTypeSupport.Framework.Core.Utilities.FileEncoding.Detect(System.String, System.Text.Encoding, ByRef System.String, ByRef System.Boolean)
   name.vb: Detect(String, Encoding, ByRef String, ByRef Boolean)
+- uid: Sdl.FileTypeSupport.Framework.Core.Utilities.FileEncoding.DetectUtfEncoding(System.Byte[],Sdl.FileTypeSupport.Framework.Pair{Sdl.Core.Globalization.Codepage,Sdl.FileTypeSupport.Framework.NativeApi.DetectionLevel},System.Boolean@)
+  commentId: M:Sdl.FileTypeSupport.Framework.Core.Utilities.FileEncoding.DetectUtfEncoding(System.Byte[],Sdl.FileTypeSupport.Framework.Pair{Sdl.Core.Globalization.Codepage,Sdl.FileTypeSupport.Framework.NativeApi.DetectionLevel},System.Boolean@)
+  id: DetectUtfEncoding(System.Byte[],Sdl.FileTypeSupport.Framework.Pair{Sdl.Core.Globalization.Codepage,Sdl.FileTypeSupport.Framework.NativeApi.DetectionLevel},System.Boolean@)
+  parent: Sdl.FileTypeSupport.Framework.Core.Utilities.FileEncoding
+  langs:
+  - csharp
+  - vb
+  name: DetectUtfEncoding(Byte[], Pair<Codepage, DetectionLevel>, out Boolean)
+  nameWithType: FileEncoding.DetectUtfEncoding(Byte[], Pair<Codepage, DetectionLevel>, out Boolean)
+  fullName: Sdl.FileTypeSupport.Framework.Core.Utilities.FileEncoding.DetectUtfEncoding(System.Byte[], Sdl.FileTypeSupport.Framework.Pair<Sdl.Core.Globalization.Codepage, Sdl.FileTypeSupport.Framework.NativeApi.DetectionLevel>, out System.Boolean)
+  type: Method
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core.Utilities
+    isExternal: true
+  assemblies:
+  - Sdl.FileTypeSupport.Framework.Core.Utilities
+  namespace: Sdl.FileTypeSupport.Framework.Core.Utilities
+  summary: "\nIs used to check if file has BOM present \nand decides on UTF Encoding if rules are matched\n"
+  syntax:
+    content: public static void DetectUtfEncoding(byte[] bom, Pair<Codepage, DetectionLevel> detectedEncoding, out bool hasUtf8Bom)
+    parameters:
+    - id: bom
+      type: System.Byte[]
+    - id: detectedEncoding
+      type: Sdl.FileTypeSupport.Framework.Pair{Sdl.Core.Globalization.Codepage,Sdl.FileTypeSupport.Framework.NativeApi.DetectionLevel}
+    - id: hasUtf8Bom
+      type: System.Boolean
+    content.vb: Public Shared Sub DetectUtfEncoding(bom As Byte(), detectedEncoding As Pair(Of Codepage, DetectionLevel), ByRef hasUtf8Bom As Boolean)
+  overload: Sdl.FileTypeSupport.Framework.Core.Utilities.FileEncoding.DetectUtfEncoding*
+  nameWithType.vb: FileEncoding.DetectUtfEncoding(Byte(), Pair(Of Codepage, DetectionLevel), ByRef Boolean)
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+  fullName.vb: Sdl.FileTypeSupport.Framework.Core.Utilities.FileEncoding.DetectUtfEncoding(System.Byte(), Sdl.FileTypeSupport.Framework.Pair(Of Sdl.Core.Globalization.Codepage, Sdl.FileTypeSupport.Framework.NativeApi.DetectionLevel), ByRef System.Boolean)
+  name.vb: DetectUtfEncoding(Byte(), Pair(Of Codepage, DetectionLevel), ByRef Boolean)
+- uid: Sdl.FileTypeSupport.Framework.Core.Utilities.FileEncoding.DetectEncoding(Sdl.FileTypeSupport.Framework.Pair{Sdl.Core.Globalization.Codepage,Sdl.FileTypeSupport.Framework.NativeApi.DetectionLevel},System.String,System.Text.Encoding)
+  commentId: M:Sdl.FileTypeSupport.Framework.Core.Utilities.FileEncoding.DetectEncoding(Sdl.FileTypeSupport.Framework.Pair{Sdl.Core.Globalization.Codepage,Sdl.FileTypeSupport.Framework.NativeApi.DetectionLevel},System.String,System.Text.Encoding)
+  id: DetectEncoding(Sdl.FileTypeSupport.Framework.Pair{Sdl.Core.Globalization.Codepage,Sdl.FileTypeSupport.Framework.NativeApi.DetectionLevel},System.String,System.Text.Encoding)
+  parent: Sdl.FileTypeSupport.Framework.Core.Utilities.FileEncoding
+  langs:
+  - csharp
+  - vb
+  name: DetectEncoding(Pair<Codepage, DetectionLevel>, String, Encoding)
+  nameWithType: FileEncoding.DetectEncoding(Pair<Codepage, DetectionLevel>, String, Encoding)
+  fullName: Sdl.FileTypeSupport.Framework.Core.Utilities.FileEncoding.DetectEncoding(Sdl.FileTypeSupport.Framework.Pair<Sdl.Core.Globalization.Codepage, Sdl.FileTypeSupport.Framework.NativeApi.DetectionLevel>, System.String, System.Text.Encoding)
+  type: Method
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core.Utilities
+    isExternal: true
+  assemblies:
+  - Sdl.FileTypeSupport.Framework.Core.Utilities
+  namespace: Sdl.FileTypeSupport.Framework.Core.Utilities
+  summary: "\nIs used to find the encoding of a file using the EncodingDetector class\n"
+  syntax:
+    content: public static void DetectEncoding(Pair<Codepage, DetectionLevel> detectedEncoding, string filePath, Encoding suggestedEncoding)
+    parameters:
+    - id: detectedEncoding
+      type: Sdl.FileTypeSupport.Framework.Pair{Sdl.Core.Globalization.Codepage,Sdl.FileTypeSupport.Framework.NativeApi.DetectionLevel}
+    - id: filePath
+      type: System.String
+    - id: suggestedEncoding
+      type: System.Text.Encoding
+    content.vb: Public Shared Sub DetectEncoding(detectedEncoding As Pair(Of Codepage, DetectionLevel), filePath As String, suggestedEncoding As Encoding)
+  overload: Sdl.FileTypeSupport.Framework.Core.Utilities.FileEncoding.DetectEncoding*
+  nameWithType.vb: FileEncoding.DetectEncoding(Pair(Of Codepage, DetectionLevel), String, Encoding)
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+  fullName.vb: Sdl.FileTypeSupport.Framework.Core.Utilities.FileEncoding.DetectEncoding(Sdl.FileTypeSupport.Framework.Pair(Of Sdl.Core.Globalization.Codepage, Sdl.FileTypeSupport.Framework.NativeApi.DetectionLevel), System.String, System.Text.Encoding)
+  name.vb: DetectEncoding(Pair(Of Codepage, DetectionLevel), String, Encoding)
 references:
 - uid: Sdl.FileTypeSupport.Framework.Core.Utilities
   commentId: N:Sdl.FileTypeSupport.Framework.Core.Utilities
@@ -643,3 +716,41 @@ references:
   name: Boolean
   nameWithType: Boolean
   fullName: System.Boolean
+- uid: Sdl.FileTypeSupport.Framework.Core.Utilities.FileEncoding.DetectUtfEncoding*
+  commentId: Overload:Sdl.FileTypeSupport.Framework.Core.Utilities.FileEncoding.DetectUtfEncoding
+  isExternal: true
+  name: DetectUtfEncoding
+  nameWithType: FileEncoding.DetectUtfEncoding
+  fullName: Sdl.FileTypeSupport.Framework.Core.Utilities.FileEncoding.DetectUtfEncoding
+- uid: System.Byte[]
+  isExternal: true
+  name: Byte[]
+  nameWithType: Byte[]
+  fullName: System.Byte[]
+  nameWithType.vb: Byte()
+  fullName.vb: System.Byte()
+  name.vb: Byte()
+  spec.csharp:
+  - uid: System.Byte
+    name: Byte
+    nameWithType: Byte
+    fullName: System.Byte
+    isExternal: true
+  - name: '[]'
+    nameWithType: '[]'
+    fullName: '[]'
+  spec.vb:
+  - uid: System.Byte
+    name: Byte
+    nameWithType: Byte
+    fullName: System.Byte
+    isExternal: true
+  - name: ()
+    nameWithType: ()
+    fullName: ()
+- uid: Sdl.FileTypeSupport.Framework.Core.Utilities.FileEncoding.DetectEncoding*
+  commentId: Overload:Sdl.FileTypeSupport.Framework.Core.Utilities.FileEncoding.DetectEncoding
+  isExternal: true
+  name: DetectEncoding
+  nameWithType: FileEncoding.DetectEncoding
+  fullName: Sdl.FileTypeSupport.Framework.Core.Utilities.FileEncoding.DetectEncoding

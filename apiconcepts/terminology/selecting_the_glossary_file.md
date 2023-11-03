@@ -14,7 +14,7 @@ Open the **MyTerminologyProvider.cs** class. Add the following public string var
 Modify the following members to return the term provider URI, which includes the text file name:
 
 # [The Term Provider Uri](#tab/tabid-2)
-[!code-csharp[MyTerminologyProvider](code_samples/MyTerminologyProvider.cs#L63-L86)]
+[!code-csharp[MyTerminologyProvider](code_samples/MyTerminologyProvider.cs#L79-L86)]
 ***
 
 Then add the following member, which allows us to pass any settings to the term provider. In our implementation, this will be the path to the glossary file:
@@ -27,6 +27,10 @@ Modify the two following members to return the term provider name and definition
 
 # [The Term Provider Name and Definition](#tab/tabid-4)
 [!code-csharp[MyTerminologyProvider](code_samples/MyTerminologyProvider.cs#L63-L86)]
+***
+
+# [The Term Provider Initialization](#tab/tabid-4)
+[!code-csharp[MyTerminologyProvider](code_samples/MyTerminologyProvider.cs#L246-L286)]
 ***
 
 How to select the Glossary File
@@ -44,7 +48,7 @@ Go to the **MyTerminologyProviderViewerWinFormsUI.cs** class and create a termin
 ***
 
 # [Initializing the Provider](#tab/tabid-7)
-[!code-csharp[MyTerminologyProviderViewerWinFormsUI](code_samples/MyTerminologyProviderViewerWinFormsUI.cs#L105-L108)]
+[!code-csharp[MyTerminologyProviderViewerWinFormsUI](code_samples/MyTerminologyProviderViewerWinFormsUI.cs#L116-L119)]
 ***
 
 # [Provider is Initialized](#tab/tabid-8)

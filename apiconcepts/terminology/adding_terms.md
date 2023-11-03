@@ -16,7 +16,7 @@ Open the **MyTerminologyProviderViewerWinFormsUI.cs** class and go to the **AddT
 * Display the newly-created entry in the Internet Explorer control of the **Termbase Viewer** window.
 
 # [Adding Terms Functionality](#tab/tabid-1)
-[!code-csharp[MyTerminologyProvider](code_samples/MyTerminologyProvider.cs#L67-L96)]
+[!code-csharp[MyTerminologyProvider](code_samples/MyTerminologyProviderViewerWinFormsUI.cs#L66-L102)]
 ***
 
 When a new source/target term pair has been added, the following will, for example, be displayed in the **Termbase Viewer** window:
@@ -27,7 +27,7 @@ You can also implement your terminology provider to support editing. However, in
 
 
 # [Adding and Editing Terms](#tab/tabid-2)
-[!code-csharp[MyTerminologyProviderViewerWinFormsUI](code_samples/MyTerminologyProviderViewerWinFormsUI.cs#L60-L63)]
+[!code-csharp[MyTerminologyProviderViewerWinFormsUI](code_samples/MyTerminologyProviderViewerWinFormsUI.cs#L59-L64)]
 ***
 
 When you try to add a term that has already been added, <Var:ProductName> throws the following message that prompts you to:

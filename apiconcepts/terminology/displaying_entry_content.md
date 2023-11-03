@@ -28,5 +28,5 @@ You need to modify the **JumpToTerm()** method as shown below. <Var:ProductName>
 * Parse the line and generate the HTML output for the Internet Explorer controller object.
 
 # [Jumping to a Term](#tab/tabid-3)
-[!code-csharp[MyTerminologyProvider](code_samples/MyTerminologyProvider.cs#L112-L150)]
+[!code-csharp[MyTerminologyProvider](code_samples/MyTerminologyProviderViewerWinFormsUI.cs#L123-L161)]
 ***

@@ -9,9 +9,9 @@ namespace SDL_Terminology_Provider_Plug_in
     [TerminologyProviderViewerWinFormsUI]
     public class MyTerminologyProviderViewerWinFormsUI : ITerminologyProviderViewerWinFormsUI
     {
-        
+
         private MyTerminologyProvider _terminologyProvider;
-       
+
 
         #region "ControlObject"
         private TermProviderControl termControl;
@@ -40,7 +40,7 @@ namespace SDL_Terminology_Provider_Plug_in
         }
         #endregion
 
-        public IEntry SelectedTerm
+        public Entry SelectedTerm
         {
             get
             {
@@ -57,10 +57,16 @@ namespace SDL_Terminology_Provider_Plug_in
         public event EventHandler TermChanged;
 
         #region "AddEditTerm"
-        public void AddAndEditTerm(IEntry term, string source, string target)
+        public void AddAndEditTerm(Entry term, string source, string target)
         {
             MessageBox.Show("Sorry, editing terms is currently not implemented :-(", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
+        #endregion
+
+        #region "Enable term adding and editing 
+        public bool CanAddTerm => true;
+
+        public bool IsEditing => true;
         #endregion
 
         #region "AddTerms"
@@ -87,22 +93,27 @@ namespace SDL_Terminology_Provider_Plug_in
             //Show added entry in web browser control of the Termbase Viewer window
             string tmpFile = System.IO.Path.GetTempPath() + "simple_list_entry.htm";
             StreamWriter previewFile = new StreamWriter(tmpFile);
-            previewFile.Write("<html><body><b>Entry id:</b> " + newEntryId.ToString() + 
-                "<br/><b>Source term:</b> " + source + 
-                "<br/><b>Target term:</b> " + target + 
+            previewFile.Write("<html><body><b>Entry id:</b> " + newEntryId.ToString() +
+                "<br/><b>Source term:</b> " + source +
+                "<br/><b>Target term:</b> " + target +
                 "</body></html>");
             previewFile.Close();
-            termControl.webBrowser.Navigate(tmpFile);
+            termControl.SetNavigation(tmpFile);
+        }
+
+        public void CancelTerm()
+        {
+            throw new NotImplementedException();
         }
         #endregion
 
-        public void EditTerm(IEntry term)
+        public void EditTerm(Entry term)
         {
             // Not used in this implementation.
         }
 
         #region "InitializeProvider"
-        public void Initialize(ITerminologyProvider terminologyProvider, CultureInfo source, CultureInfo target)
+        public void Initialize(ITerminologyProvider terminologyProvider, CultureCode source, CultureCode target)
         {
             _terminologyProvider = (MyTerminologyProvider)terminologyProvider;
         }
@@ -111,7 +122,7 @@ namespace SDL_Terminology_Provider_Plug_in
         #region "JumpToTerm"
         // this function outputs the full entry content in the Internet Explorer control
         // of the Termbase Viewer window
-        public void JumpToTerm(IEntry entry)
+        public void JumpToTerm(Entry entry)
         {
             // Load the glossary file
             string fileName = _terminologyProvider.fileName.Replace("file:///", "");
@@ -125,11 +136,11 @@ namespace SDL_Terminology_Provider_Plug_in
                 string thisLine = glossaryFile.ReadLine();
                 chunks = thisLine.Split(';');
                 string thisId = chunks[0];
-                if(thisId==entry.Id.ToString())
+                if (thisId == entry.Id.ToString())
                 {
                     entryContent = thisLine;
                     break;
-                }                    
+                }
             }
 
             // Parse the line alongside the semi-colon
@@ -144,7 +155,7 @@ namespace SDL_Terminology_Provider_Plug_in
                 "<br/><b>Definition:</b> " + chunks[3] +
                 "</body></html>");
             previewFile.Close();
-            termControl.webBrowser.Navigate(tmpFile);
+            termControl.SetNavigation(tmpFile);
 
             glossaryFile.Close();
         }
@@ -155,8 +166,14 @@ namespace SDL_Terminology_Provider_Plug_in
         {
             _terminologyProvider = null;
         }
+
+        public void SaveTerm()
+        {
+            return;
+        }
         #endregion
 
+        /// Check if this component supports the specified terminology provider URI
         public bool SupportsTerminologyProviderUri(Uri terminologyProviderUri)
         {
             return true;

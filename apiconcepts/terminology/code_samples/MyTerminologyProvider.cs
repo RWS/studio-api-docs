@@ -7,12 +7,12 @@ using System.IO;
 
 namespace SDL_Terminology_Provider_Plug_in
 {
-    public class MyTerminologyProvider : AbstractTerminologyProvider
+    public class MyTerminologyProvider : ITerminologyProvider
     {
 
-        
-        private List<IEntry> _entry = new List<IEntry>();
-        
+
+        private List<Entry> _entry = new List<Entry>();
+
 
         #region "FileName"
         //Stores the glossary text file name and path
@@ -30,11 +30,11 @@ namespace SDL_Terminology_Provider_Plug_in
         #region "Definition"
         //Creates the terminology source definition, i.e. the languages in the glossary and any
         //additional descriptive fields, in this case the 'Definition' field
-        public override IDefinition Definition
+        public Definition Definition
         {
             get
             {
-                return new Definition(GetDescriptiveFields(), GetLanguages().Cast<IDefinitionLanguage>().ToList());
+                return new Definition(GetDescriptiveFields(), GetLanguages().Cast<DefinitionLanguage>().ToList());
             }
         }
         #endregion
@@ -43,9 +43,9 @@ namespace SDL_Terminology_Provider_Plug_in
         // Creates the termbase definition by declaring the Definition text field.
         // This allows our terminology provider to also display the Definition field content
         // in the Termbase Search and Terminology Recognition windows.
-        public IList<IDescriptiveField> GetDescriptiveFields()
+        public IList<DescriptiveField> GetDescriptiveFields()
         {
-            var result = new List<IDescriptiveField>();
+            var result = new List<DescriptiveField>();
 
             var definitionField = new DescriptiveField
             {
@@ -61,7 +61,7 @@ namespace SDL_Terminology_Provider_Plug_in
 
         #region "NameDescrptionUri"
         //Return the terminology provider name, uri, and description to show in the Studio UI
-        public override string Description
+        public string Description
         {
             get
             {
@@ -69,7 +69,7 @@ namespace SDL_Terminology_Provider_Plug_in
             }
         }
 
-        public override string Name
+        public string Name
         {
             get
             {
@@ -77,7 +77,7 @@ namespace SDL_Terminology_Provider_Plug_in
             }
         }
 
-        public override Uri Uri
+        public Uri Uri
         {
             get
             {
@@ -89,14 +89,14 @@ namespace SDL_Terminology_Provider_Plug_in
         #region "GetEntry"
         // Returns the entry for a search result. The entries are associated with the search results
         // through the entry id.
-        public override IEntry GetEntry(int id)
+        public Entry GetEntry(int id)
         {
             return _entry.FirstOrDefault(_entry => _entry.Id == id);
         }
         #endregion
 
         #region GetEntryExt"
-        public override IEntry GetEntry(int id, IEnumerable<ILanguage> languages)
+        public Entry GetEntry(int id, IEnumerable<ILanguage> languages)
         {
             return _entry.FirstOrDefault(_entry => _entry.Id == id);
         }
@@ -106,27 +106,27 @@ namespace SDL_Terminology_Provider_Plug_in
         //We parse the first line of the glossary text file to retrieve the the source and target language.
         //Then we create two language objects that we return as source and target language to populate the
         //termbase language dropdown lists in Studio.
-        public override IList<ILanguage> GetLanguages()
+        public IList<ILanguage> GetLanguages()
         {
             StreamReader _inFile = new StreamReader(fileName.Replace("file:///", ""));
             string[] languages = _inFile.ReadLine().Split(';');
-            string srgLanguage = languages[1], trgLanguage = languages[2];
+            string srgLanguage = languages[0], trgLanguage = languages[1];
             string srcLabel = srgLanguage.Split(',')[0], srcLocale = srgLanguage.Split(',')[1];
             string trgLabel = trgLanguage.Split(',')[0], trgLocale = trgLanguage.Split(',')[1];
             _inFile.Close();
 
-            var result = new List<IDefinitionLanguage>();
+            var result = new List<DefinitionLanguage>();
 
             var tbSrcLanguage = new DefinitionLanguage
             {
                 Name = srcLabel,
-                Locale = new System.Globalization.CultureInfo(srcLocale)
+                Locale = new Sdl.Core.Globalization.CultureCode(srcLocale)
             };
 
             var tbTrgLanguage = new DefinitionLanguage
             {
                 Name = trgLabel,
-                Locale = new System.Globalization.CultureInfo(trgLocale)
+                Locale = new Sdl.Core.Globalization.CultureCode(trgLocale)
             };
 
 
@@ -141,8 +141,8 @@ namespace SDL_Terminology_Provider_Plug_in
         #region "Search"
         //Is executed when the user launches a lookup operation in the Termbase Search window, 
         //or when the user moves to a segment in the Editor of Studio. Moving to a segment
-        //automatically launches a fuzzy search to retrieve any known terminology.
-        public override IList<ISearchResult> Search(string text, ILanguage source, ILanguage destination, int maxResultsCount, SearchMode mode, bool targetRequired)
+        //automatically launches a fuzzy search to retrieve any known terminology.               
+        public IList<SearchResult> Search(string text, ILanguage source, ILanguage destination, int maxResultsCount, SearchMode mode, bool targetRequired)
         {
             string[] chunks;
             List<string> hits = new List<string>();
@@ -170,9 +170,9 @@ namespace SDL_Terminology_Provider_Plug_in
                         hits.Add(thisLine);
                 }
             }
-    
+
             // Create search results object (hitlist)
-            var results = new List<ISearchResult>();
+            var results = new List<SearchResult>();
 
             for (int i = 0; i < hits.Count; i++)
             {
@@ -193,29 +193,29 @@ namespace SDL_Terminology_Provider_Plug_in
 
                 results.Add(result);
             }
-            return results;            
+            return results;
         }
         #endregion
 
         #region "ConstructEntryContent"
         // This helper function is used to construct the entry content with entry id, source and target term, and
         // definition (if applicable)
-        private IEntry CreateEntry(string id, string sourceTerm, string targetTerm, string definitionText, string targetLanguage)
+        private Entry CreateEntry(string id, string sourceTerm, string targetTerm, string definitionText, string targetLanguage)
         {
             // Assign the entry id
-            IEntry thisEntry = new Entry
+            Entry thisEntry = new Entry
             {
                 Id = Convert.ToInt32(id)
             };
 
             // Add the target language
-            IEntryLanguage trgLanguage = new EntryLanguage
+            EntryLanguage trgLanguage = new EntryLanguage
             {
                 Name = targetLanguage
             };
 
             // Create the target term
-            IEntryTerm _term = new EntryTerm
+            EntryTerm _term = new EntryTerm
             {
                 Value = targetTerm
             };
@@ -224,16 +224,69 @@ namespace SDL_Terminology_Provider_Plug_in
 
             // Also add the definition (if available)
             if (definitionText != "")
-            { 
-                IEntryField _definition = new EntryField
+            {
+                EntryField _definition = new EntryField
                 {
                     Name = "Definition",
                     Value = definitionText
                 };
                 thisEntry.Fields.Add(_definition);
-            }            
+            }
 
             return thisEntry;
+        }
+        #endregion
+
+        #region "Initialize provider"
+        public void SetDefault(bool value)
+        {
+            return;
+        }
+
+        public bool Initialize()
+        {
+            return true;
+        }
+
+        public bool Initialize(TerminologyProviderCredential credential)
+        {
+            return true;
+        }
+
+        public bool IsProviderUpToDate()
+        {
+            return true;
+        }
+
+        public IList<FilterDefinition> GetFilters()
+        {
+            return new List<FilterDefinition>();
+        }
+
+        public bool Uninitialize()
+        {
+            throw new NotImplementedException();
+        }
+
+        public string Id => "id";
+
+        public TerminologyProviderType Type => TerminologyProviderType.Custom;
+
+        public bool IsReadOnly => false;
+
+        public bool SearchEnabled => true;
+
+        public FilterDefinition ActiveFilter
+        {
+            get { return null; }
+            set { value = new FilterDefinition(); }
+        }
+
+        public bool IsInitialized => true;
+
+        public void Dispose()
+        {
+
         }
         #endregion
     }
