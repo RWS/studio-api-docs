@@ -16,54 +16,70 @@ The changes are included in `Sdl.Terminology.TerminologyProvider.Core`.
 * AbstractTerminologyProvider
 
 ### Updated classes
+
 #### [Definition](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.Definition.yml) 
 * No longer implements interface `IDefinition`.
 * Constructor definition changed. The new constructor definition: `public Definition(IEnumerable<DescriptiveField> fields, IEnumerable<DefinitionLanguage> languages)`  
+
 #### [DefinitionLanguage](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.DefinitionLanguage.yml)
 * No longer implements interface `IDefinitionLanguage`.
 * The type of property `Local` was changed to [CultureCode](../../api/core/Sdl.Core.Globalization.CultureCode.yml)
+
 #### [DescriptiveField](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.DescriptiveField.yml)
 * No longer implements interface `IDescriptiveField`.
+
 #### [Entry](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.Entry.yml)
 * No longer implements interface `IEntry`.
 * The type of property `Languages` was changed to *IList<[EntryLanguage](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.EntryLanguage.yml)>*.
 * The type of property `Transactions` was changed to *IList<[EntryTransaction](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.EntryTransaction.yml)>*.
+
 #### [EntryEventArgs](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.EntryEventArgs.yml)
 * Constructor definition changed to `EntryEventArgs(Entry entry)`
 * The type of property `Entry` changed to [Entry](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.Entry.yml)
+
 #### [EntryField](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.EntryField.yml)
 * No longer implements interface `IEntryField`.
 * Type of property `Fields` was changed to *IList<[EntryField](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.EntryField.yml)>*. 
+
 #### [EntryLanguage](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.EntryLanguage.yml)
 * No longer implements interface `IEntryLanguage`.
 * Type of property `Fields` was changed to *IList<[EntryField](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.EntryField.yml)>*
 * Type of property `Locale` was changed to [CultureCode](../../api/core/Sdl.Core.Globalization.CultureCode.yml).
 * Type of property `ParentEntry` was changed to [Entry](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.Entry.yml).
 * Type of property `Terms` was changed to *IList<[EntryTerm](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.EntryTerm.yml)>*
+
 #### [EntryTerm](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.EntryTerm.yml)
 * No longer implements interface `IEntryTerm`.
 * Type of property `Fields` was changed to *IList<[EntryField](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.EntryField.yml)>*. 
 * Type of property `ParentLanguage` was changed to [EntryLanguage](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.EntryLanguage.yml)
 * Type of property `Transactions` was changed to *IList<[EntryTransaction](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.EntryTransaction.yml)>*
+
 #### [EntryTransaction](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.EntryTransaction.yml)
 * No longer implements interface `IEntryTransaction`.
+
 #### [MarkupPosition](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.MarkupPosition.yml)
 * No longer implements interface `IMarkupPosition`.
+
 #### [SearchMarkupResult](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.SearchMarkupResult.yml)
 * No longer implements interface `ISearchMarkupResult`.
 * No longer implements interface `ISearchResult`.
 * Type of property `Positions` was changed to *IList<[MarkupPosition](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.MarkupPosition.yml)>*
+
 #### [SearchMarkupResultWithTermbaseName](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.SearchMarkupResultWithTermbaseName.yml)
 * No longer implements interface `ISearchResultWithTermbaseName`.
 * No longer implements interface `ISearchResult`. 
+
 #### [SearchResult](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.SearchResult.yml)
 * No longer implements interface `ISearchResult`.
+
 #### [SearchResultWithTermbaseName](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.SearchResultWithTermbaseName.yml)
 * No longer implements interface `ISearchResultWithTermbaseName`.
 * No longer implements interface `ISearchResult`.
+
 #### [TerminologyProviderManager](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.TerminologyProviderManager.yml)
 * Implements interface `ITerminologyProviderManager`
 * New method added `RemoveTerminologyProvider(Uri)` used to remove a terminology provider based on the provider [Uri](https://learn.microsoft.com/dotnet/api/system.uri)
+
 #### [TerminologyProviderStatus](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.TerminologyProviderStatus.yml)
 * No longer implements interface `ITerminologyProviderStatus`
 
