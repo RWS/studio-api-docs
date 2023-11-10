@@ -129,6 +129,10 @@ The changes are included in `Sdl.Terminology.TerminologyProvider.Core`.
 * Type returned by method `GetEntry(int)` was changed to [Entry](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.Entry.yml).
 * Type returned by method `GetEntry(int id, IEnumerable<ILanguage> languages)` was changed to [Entry](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.Entry.yml). 
 * Type returned by method `Search(string, ILanguage, ILanguage, int, SearchMode, bool)` was changed to *IList<[SearchResult](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.SearchResult.yml)>*. 
+#### [IFind](../../api/integration/Sdl.DesktopEditor.EditorApi.IFind.yml)
+* The Match property of type [ContentRange](../../api/integration/Sdl.DesktopEditor.EditorApi.ContentRange.yml), on the IFind interface was renamed to `MatchRange`
+* A new property was added named `Match` of type `System.Text.RegularExpressions.Match`
+
 
 #### [ITerminologyProviderViewerWinFormsUI](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.ITerminologyProviderViewerWinFormsUI.yml)
 * Added property `CanAddTerm { get; }` that returns a `boolean` value, true if this component supports adding a term; otherwise, false.
