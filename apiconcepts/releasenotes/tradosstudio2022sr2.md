@@ -131,7 +131,7 @@ The changes are included in `Sdl.Terminology.TerminologyProvider.Core`.
 * Type returned by method `Search(string, ILanguage, ILanguage, int, SearchMode, bool)` was changed to *IList<[SearchResult](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.SearchResult.yml)>*. 
 #### [IFind](../../api/integration/Sdl.DesktopEditor.EditorApi.IFind.yml)
 * Renamed `Match` property of type [ContentRange](../../api/integration/Sdl.DesktopEditor.EditorApi.ContentRange.yml), on the IFind interface to `MatchRange`.
-* A new property was added named `Match` of type `System.Text.RegularExpressions.Match`
+* Added new property named `Match` of type `System.Text.RegularExpressions.Match`.
 
 
 #### [ITerminologyProviderViewerWinFormsUI](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.ITerminologyProviderViewerWinFormsUI.yml)
