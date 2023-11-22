@@ -4,12 +4,12 @@ There will be significant changes to the Terminology provider API with the relea
 
 Unfortunately, this will introduce breaking changes for plugin and project automation integrations with the Terminology provider API. The following are a list of changes and known issues to consider when updating your plugin to be compatible with <var:ProductNameWithEdition> SR2
 
-# Terminology Provider API
+## Terminology Provider API
 
-Make reference to the [release notes](http://localhost:8080/apiconcepts/releasenotes/tradosstudio2022sr2.html) for <var:ProductNameWithEdition> SR2 when updating your plugin integrations with the Terminology Provider API. It includes all of the API changes that will facilitate better management, customization, and extensibility of terminology providers, providing more flexibility and control for developers and users. 
+Make reference to the [release notes](https://developers.rws.com/studio-api-docs/apiconcepts/releasenotes/tradosstudio2022sr2.html) for <var:ProductNameWithEdition> SR2 when updating your plugin integrations with the Terminology Provider API. It includes all of the API changes that will facilitate better management, customization, and extensibility of terminology providers, providing more flexibility and control for developers and users. 
 - **Removed Classes and Interfaces**: Several classes and interfaces have been removed, such as _AbstractTerminologyProvider_, _IDefinition_, _IDefinitionLanguage_, and others.
 - **Updated Classes**: Major changes include the Definition class, _Entry_, _EntryField_, _EntryLanguage_, and others. These updates involve changes in property types, constructors, and interfaces.
-- **TerminologyProviderManager**: Now implements ITerminologyProviderManager, offering new methods for managing terminology providers, such as _RemoveTerminologyProvider_.
+- **TerminologyProviderManager**: Now implements _ITerminologyProviderManager_, offering new methods for managing terminology providers, such as _RemoveTerminologyProvider_.
 - **ITerminologyProvider Updates**: The _ITerminologyProvider_ interface has several new properties and methods for managing active filters, initialization, and more. The type of returned values for methods like _GetEntry_ and _Search_ has changed.
 - **New Interfaces**: Several new interfaces have been added, including _ITerminologyProviderManager_, _ITerminologyProviderWinFormsUIWithCreate_, and _ITerminologyProviderWinFormsUIWithEdit_.
 
@@ -20,7 +20,7 @@ Make reference to the [release notes](http://localhost:8080/apiconcepts/releasen
 The *AbstractTerminologyProvider* is no longer available & in its place you must implement the *ITerminologyProvider* interface, which has some new properties & methods such as *ActiveFilter* property & associated method *GetFilters()* that enable a user to add filters to restrict the results that provider displays when searching a termbase during translation.
 <img style="display:block; margin: 0px" src="images/TermbaseSettingsCustomProvider.png" />
 ```cs
-public class IATETerminologyProvider : ITerminologyProvider
+public class MyTerminologyProvider : ITerminologyProvider
 {
     public FilterDefinition ActiveFilter { get; set; }
  
@@ -36,11 +36,20 @@ public class IATETerminologyProvider : ITerminologyProvider
 }
 ```
 
-## Definition
-Its important to fully describe the *DescriptiveFields* to the *Definition* property of the provider to provide sufficient information when integrating with other services, such as the **Terminology Verifier**.  For example: to enable integration with the feature to check for forbidden terms, you should include the *DescriptiveField* at the *TermLevel*, as shown here (e.g. *var statusField*)
+### Terminology Provider Type
+Set the *Type* to *TerminologyProviderType.Custom* for Third-party terminology providers
+```cs
+public class MyTerminologyProvider : ITerminologyProvider
+{
+    public TerminologyProviderType Type => TerminologyProviderType.Custom;
+}
+```
+
+### Definition
+Its important to fully describe the *DescriptiveFields* to the *Definition* property of the provider to provide sufficient information when integrating with other services, such as the **Terminology Verifier**.  For example: to enable integration with the feature to check for forbidden terms, you should include the *DescriptiveField* at the *TermLevel*, as shown here:
 <img style="display:block; margin: 0px" src="images/VerficationSettingsCustomProvider.png" />
 ```cs
-public class IATETerminologyProvider : ITerminologyProvider
+public class MyTerminologyProvider : ITerminologyProvider
 {
     public Definition Definition => new Definition(GetDescriptiveFields(), 
                                                     GetDefinitionLanguages());
