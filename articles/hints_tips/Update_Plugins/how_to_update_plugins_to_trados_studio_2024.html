@@ -1,0 +1,230 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>How to update plugins to Trados Studio 2024 </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="How to update plugins to Trados Studio 2024 ">
+    <meta name="generator" content="docfx 2.59.3.0">
+    
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+    
+    <meta property="docfx:rel" content="../../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="how-to-update-plugins-to-trados-studio-2024">How to update plugins to Trados Studio 2024</h1>
+
+<p>The following are a list of changes and known issues to consider when updating your plugin to be compatible with Trados Studio 2024.</p>
+<h2 id="plugin-framework">Plugin Framework</h2>
+<p>The latest version of the plugin framework packages should be installed. You can add/update the plugin framework nuget packages in your project via the package manager user interface or console.</p>
+<h3 id="package-manager-ui">Package Manager UI</h3>
+<ul>
+<li>In <strong>Solution Explorer</strong>, right-click <strong>References</strong> and choose <strong>Manage NuGet Packages</strong>.</li>
+<li>Select nuget.org as the <strong>Package source</strong>.</li>
+<li>Search for <code>Sdl.Core.PluginFramework</code> from the <strong>Browse</strong> tab.</li>
+<li>Select the package from the list and click <strong>Install</strong> or <strong>Update</strong>.<ul>
+<li><code>Sdl.Core.PluginFramework</code>, version <em>2.1.0</em></li>
+<li><code>Sdl.Core.PluginFramework.Build</code>, version <em>18.0.1</em></li>
+</ul>
+</li>
+<li>Accept any license prompts to finnish the installation.</li>
+</ul>
+<p><br></p>
+<h2 id="plugin-manifest">Plugin Manifest</h2>
+<p>The manifest file <strong>pluginpackage.manifest.xml</strong> is located at the root of your project solution.  The values of the <strong>RequiredProduct</strong> should be updated to align with the latest release.</p>
+<h3 id="requiredproduct">RequiredProduct</h3>
+<ul>
+<li>Min version should be set to: 18.0. </li>
+<li>Max version should be set to 18.9. It is recommended to also set this value, as it will provide the AppStore with sufficient information in correctly identifying plugins that are compatible with the version of Trados Studio that is launched.</li>
+<li>Name should be set to: <em>TradosStudio</em></li>
+</ul>
+<p>Example</p>
+<pre><code class="lang-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;PluginPackage xmlns=&quot;http://www.sdl.com/Plugins/PluginPackage/1.0&quot;&gt;
+  &lt;PlugInName&gt;My plugin name&lt;/PlugInName&gt;
+  &lt;Version&gt;1.1.0.0&lt;/Version&gt;
+  &lt;Description&gt;My plugin description&lt;/Description&gt;
+  &lt;Author&gt;Trados AppStore Team&lt;/Author&gt;
+  &lt;RequiredProduct name=&quot;TradosStudio&quot; minversion=&quot;18.0&quot; maxversion=&quot;18.9&quot; /&gt;
+&lt;/PluginPackage&gt;
+</code></pre><h2 id="project-references--deployment-path">Project References &amp; Deployment Path</h2>
+<p>The references in the project file (.csproj) should be mapped to the new installation path for Trados Studio 2024. Make reference to the following examples for both the production and beta releases.</p>
+<div class="tabGroup" id="tabgroup_uvUciZ2JdT">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_uvUciZ2JdT_standard" role="tab" aria-controls="tabpanel_uvUciZ2JdT_standard" data-tab="standard" tabindex="0" aria-selected="true">Production</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_uvUciZ2JdT_beta" role="tab" aria-controls="tabpanel_uvUciZ2JdT_beta" data-tab="beta" tabindex="-1">BETA</a>
+</li>
+</ul>
+<section id="tabpanel_uvUciZ2JdT_standard" role="tabpanel" data-tab="standard">
+<p>Installation path: <em>$(MSBuildProgramFiles32)\Trados\Trados Studio\Studio18</em>:</p>
+<pre><code class="lang-xml">&lt;Reference Include=&quot;Sdl.Desktop.IntegrationApi.Extensions&quot;&gt;
+    &lt;HintPath&gt;$(MSBuildProgramFiles32)\Trados\Trados Studio\Studio18\Sdl.Desktop.IntegrationApi.Extensions.dll&lt;/HintPath&gt;
+&lt;/Reference&gt;
+</code></pre><p><br></p>
+<p>Plugin deployment path: <em>$(AppData)\Trados\Trados Studio\18\Plugins</em>:</p>
+<pre><code class="lang-xml">&lt;PluginDeploymentPath&gt;$(AppData)\Trados\Trados Studio\18\Plugins&lt;/PluginDeploymentPath&gt;
+</code></pre></section>
+<section id="tabpanel_uvUciZ2JdT_beta" role="tabpanel" data-tab="beta" aria-hidden="true" hidden="hidden">
+<p>Installation path: <em>$(MSBuildProgramFiles32)\Trados\Trados Studio\Studio18Beta</em>:</p>
+<pre><code class="lang-xml">&lt;Reference Include=&quot;Sdl.Desktop.IntegrationApi.Extensions&quot;&gt;
+    &lt;HintPath&gt;$(MSBuildProgramFiles32)\Trados\Trados Studio\Studio18Beta\Sdl.Desktop.IntegrationApi.Extensions.dll&lt;/HintPath&gt;
+&lt;/Reference&gt;
+</code></pre><p><br></p>
+<p>Plugin deployment path: <em>$(AppData)\Trados\Trados Studio\18Beta\Plugins</em>:</p>
+<pre><code class="lang-xml">&lt;PluginDeploymentPath&gt;$(AppData)\Trados\Trados Studio\18Beta\Plugins&lt;/PluginDeploymentPath&gt;
+</code></pre></section>
+</div>
+<div class="NOTE"><h5>Note</h5><p>To update settings directly in the project file from Visual Studio</p>
+<ul>
+<li>Right-click on the project node in the <strong>Solution Explorer</strong> and select <strong>Unload Project</strong>.</li>
+<li>Then, right-click on the project and choose <strong>Edit</strong> <projectname></projectname></li>
+</ul>
+<p>Once you have applied your changes in the project file, then reload project</p>
+<ul>
+<li>In the <strong>Solution Explorer</strong>, select the projects you want to load (press <strong>Ctrl</strong> while clicking to select more than one project)</li>
+<li>Then right-click on the project and choose <strong>Reload Project</strong>.</li>
+</ul>
+</div>
+<p><br>
+<br></p>
+<h2 id="known-issues">Known Issues</h2>
+<p>The following are a list of known issues and solutions that you might encounter depending on your settings and configuration:</p>
+<h3 id="tradoscommunitytoolkit-formally-sdlcommunitytoolkit">Trados.Community.Toolkit (formally SDL.Community.Toolkit)</h3>
+<p>A new version of the Trados Community Toolkit, version 5.0.1, has been released to support the latest version of Trados Studio 2024.  This includes the following assemblies:</p>
+<ul>
+<li><a href="https://www.nuget.org/packages/Trados.Community.Toolkit.Core">Trados.Community.Toolkit.Core</a></li>
+<li><a href="https://www.nuget.org/packages/Trados.Community.Toolkit.LanguagePlatform">Trados.Community.Toolkit.LanguagePlatform</a></li>
+<li><a href="https://www.nuget.org/packages/Trados.Community.Toolkit.Integration">Trados.Community.Toolkit.Integration</a></li>
+<li><a href="https://www.nuget.org/packages/Trados.Community.Toolkit.FileType">Trados.Community.Toolkit.FileType</a></li>
+<li><a href="https://www.nuget.org/packages/Trados.Community.Toolkit.ProjectAutomation">Trados.Community.Toolkit.ProjectAutomation</a></li>
+</ul>
+<h3 id="dependency-version-changes">Dependency version changes</h3>
+<p>There is a list of known dependency version changes that may influence your integration with the latest Trados Studio 2024 APIs; this is typically seen from standalone applications that are running outside of the Trados Studio context.  To resolve these references, include the following binding redirects in the configuration file of the project.</p>
+<pre><code class="lang-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
+&lt;configuration&gt;
+  &lt;startup&gt;
+    &lt;supportedRuntime version=&quot;v4.0&quot; sku=&quot;.NETFramework,Version=v4.8&quot; /&gt;
+  &lt;/startup&gt;
+  &lt;runtime&gt;
+    &lt;NetFx40_PInvokeStackResilience enabled=&quot;1&quot; /&gt;
+    &lt;legacyCorruptedStateExceptionsPolicy enabled=&quot;true&quot; /&gt;
+    &lt;ThrowUnobservedTaskException enabled=&quot;true&quot; /&gt;
+    &lt;assemblyBinding xmlns=&quot;urn:schemas-microsoft-com:asm.v1&quot;&gt;
+      &lt;dependentAssembly&gt;
+        &lt;assemblyIdentity name=&quot;Microsoft.Extensions.DependencyModel&quot; publicKeyToken=&quot;adb9793829ddae60&quot; culture=&quot;neutral&quot; /&gt;
+        &lt;bindingRedirect oldVersion=&quot;0.0.0.0-7.0.0.0&quot; newVersion=&quot;7.0.0.0&quot; /&gt;
+      &lt;/dependentAssembly&gt;
+    &lt;/assemblyBinding&gt;
+  &lt;/runtime&gt;
+&lt;/configuration&gt;
+</code></pre></article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/main/articles/hints_tips/Update_Plugins/how_to_update_plugins_to_trados_studio_2024.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>
