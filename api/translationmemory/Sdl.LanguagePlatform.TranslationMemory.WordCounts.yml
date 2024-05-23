@@ -27,16 +27,20 @@ items:
   nameWithType: WordCounts
   fullName: Sdl.LanguagePlatform.TranslationMemory.WordCounts
   type: Class
-  source:
-    path: Sdl.LanguagePlatform.TranslationMemory
-    isExternal: true
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nRepresents the result of a word count.\n"
+  summary: Represents the result of a word count.
+  example: []
   syntax:
-    content: public class WordCounts
-    content.vb: Public Class WordCounts
+    content: >-
+      [DataContract]
+
+      public class WordCounts
+    content.vb: >-
+      <DataContract>
+
+      Public Class WordCounts
   inheritance:
   - System.Object
   inheritedMembers:
@@ -47,12 +51,10 @@ items:
   - System.Object.GetHashCode
   - System.Object.GetType
   - System.Object.MemberwiseClone
-  modifiers.csharp:
-  - public
-  - class
-  modifiers.vb:
-  - Public
-  - Class
+  attributes:
+  - type: System.Runtime.Serialization.DataContractAttribute
+    ctor: System.Runtime.Serialization.DataContractAttribute.#ctor
+    arguments: []
 - uid: Sdl.LanguagePlatform.TranslationMemory.WordCounts.#ctor
   commentId: M:Sdl.LanguagePlatform.TranslationMemory.WordCounts.#ctor
   id: '#ctor'
@@ -64,21 +66,18 @@ items:
   nameWithType: WordCounts.WordCounts()
   fullName: Sdl.LanguagePlatform.TranslationMemory.WordCounts.WordCounts()
   type: Constructor
-  source:
-    path: Sdl.LanguagePlatform.TranslationMemory
-    isExternal: true
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nInitializes a new instance with default values. All counts will be set to 0.\n"
+  summary: Initializes a new instance with default values. All counts will be set to 0.
+  example: []
   syntax:
     content: public WordCounts()
-    content.vb: Public Sub New
+    content.vb: Public Sub New()
   overload: Sdl.LanguagePlatform.TranslationMemory.WordCounts.#ctor*
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
+  nameWithType.vb: WordCounts.New()
+  fullName.vb: Sdl.LanguagePlatform.TranslationMemory.WordCounts.New()
+  name.vb: New()
 - uid: Sdl.LanguagePlatform.TranslationMemory.WordCounts.#ctor(Sdl.LanguagePlatform.TranslationMemory.WordCounts)
   commentId: M:Sdl.LanguagePlatform.TranslationMemory.WordCounts.#ctor(Sdl.LanguagePlatform.TranslationMemory.WordCounts)
   id: '#ctor(Sdl.LanguagePlatform.TranslationMemory.WordCounts)'
@@ -90,13 +89,11 @@ items:
   nameWithType: WordCounts.WordCounts(WordCounts)
   fullName: Sdl.LanguagePlatform.TranslationMemory.WordCounts.WordCounts(Sdl.LanguagePlatform.TranslationMemory.WordCounts)
   type: Constructor
-  source:
-    path: Sdl.LanguagePlatform.TranslationMemory
-    isExternal: true
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nInitializes a new instance with the values of another instance, creating a deep copy.\n"
+  summary: Initializes a new instance with the values of another instance, creating a deep copy.
+  example: []
   syntax:
     content: public WordCounts(WordCounts other)
     parameters:
@@ -105,10 +102,9 @@ items:
       description: The instance to copy
     content.vb: Public Sub New(other As WordCounts)
   overload: Sdl.LanguagePlatform.TranslationMemory.WordCounts.#ctor*
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
+  nameWithType.vb: WordCounts.New(WordCounts)
+  fullName.vb: Sdl.LanguagePlatform.TranslationMemory.WordCounts.New(Sdl.LanguagePlatform.TranslationMemory.WordCounts)
+  name.vb: New(WordCounts)
 - uid: Sdl.LanguagePlatform.TranslationMemory.WordCounts.#ctor(System.Collections.Generic.IList{Sdl.LanguagePlatform.Core.Tokenization.Token})
   commentId: M:Sdl.LanguagePlatform.TranslationMemory.WordCounts.#ctor(System.Collections.Generic.IList{Sdl.LanguagePlatform.Core.Tokenization.Token})
   id: '#ctor(System.Collections.Generic.IList{Sdl.LanguagePlatform.Core.Tokenization.Token})'
@@ -120,13 +116,20 @@ items:
   nameWithType: WordCounts.WordCounts(IList<Token>)
   fullName: Sdl.LanguagePlatform.TranslationMemory.WordCounts.WordCounts(System.Collections.Generic.IList<Sdl.LanguagePlatform.Core.Tokenization.Token>)
   type: Constructor
-  source:
-    path: Sdl.LanguagePlatform.TranslationMemory
-    isExternal: true
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nInitializes a new instance from the values in the provided token collection.\n<ul><li>Word and abbreviation tokens increment the character count by the length of the \ntoken text and increment the word count by one, </li><li>Char sequence tokens (used in far-east tokenization) increment the word and character\ncount by the length of the token text,</li><li>Punctuation tokens only increment the character count, by the length of the token text,</li><li>Date, time, variable, number, measurement, acronym, uri, and other text placeable tokens\nincrement the word and character count like words do, but also increment the placeables count,</li><li>Tag tokens increment the tag and placeable counts, but not the word or character counts,</li><li>Whitespace tokens do not increment any counts (even not the character count),</li><li>All other token types do not increment any counts.</li><li>The segment count is set to 1, independent on the number and type of the tokens.</li></ul>\n"
+  summary: >-
+    Initializes a new instance from the values in the provided token collection.
+
+    <ul><li>Word and abbreviation tokens increment the character count by the length of the 
+
+    token text and increment the word count by one, </li><li>Char sequence tokens (used in far-east tokenization) increment the word and character
+
+    count by the length of the token text,</li><li>Punctuation tokens only increment the character count, by the length of the token text,</li><li>Date, time, variable, number, measurement, acronym, uri, and other text placeable tokens
+
+    increment the word and character count like words do, but also increment the placeables count,</li><li>Tag tokens increment the tag and placeable counts, but not the word or character counts,</li><li>Whitespace tokens do not increment any counts (even not the character count),</li><li>All other token types do not increment any counts.</li><li>The segment count is set to 1, independent on the number and type of the tokens.</li></ul>
+  example: []
   syntax:
     content: public WordCounts(IList<Token> tokens)
     parameters:
@@ -135,13 +138,9 @@ items:
       description: The token collection
     content.vb: Public Sub New(tokens As IList(Of Token))
   overload: Sdl.LanguagePlatform.TranslationMemory.WordCounts.#ctor*
-  nameWithType.vb: WordCounts.WordCounts(IList(Of Token))
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
-  fullName.vb: Sdl.LanguagePlatform.TranslationMemory.WordCounts.WordCounts(System.Collections.Generic.IList(Of Sdl.LanguagePlatform.Core.Tokenization.Token))
-  name.vb: WordCounts(IList(Of Token))
+  nameWithType.vb: WordCounts.New(IList(Of Token))
+  fullName.vb: Sdl.LanguagePlatform.TranslationMemory.WordCounts.New(System.Collections.Generic.IList(Of Sdl.LanguagePlatform.Core.Tokenization.Token))
+  name.vb: New(IList(Of Token))
 - uid: Sdl.LanguagePlatform.TranslationMemory.WordCounts.#ctor(System.Collections.Generic.IList{Sdl.LanguagePlatform.Core.Tokenization.Token},System.Boolean,System.Boolean,System.Boolean,System.Boolean)
   commentId: M:Sdl.LanguagePlatform.TranslationMemory.WordCounts.#ctor(System.Collections.Generic.IList{Sdl.LanguagePlatform.Core.Tokenization.Token},System.Boolean,System.Boolean,System.Boolean,System.Boolean)
   id: '#ctor(System.Collections.Generic.IList{Sdl.LanguagePlatform.Core.Tokenization.Token},System.Boolean,System.Boolean,System.Boolean,System.Boolean)'
@@ -149,17 +148,24 @@ items:
   langs:
   - csharp
   - vb
-  name: WordCounts(IList<Token>, Boolean, Boolean, Boolean, Boolean)
-  nameWithType: WordCounts.WordCounts(IList<Token>, Boolean, Boolean, Boolean, Boolean)
-  fullName: Sdl.LanguagePlatform.TranslationMemory.WordCounts.WordCounts(System.Collections.Generic.IList<Sdl.LanguagePlatform.Core.Tokenization.Token>, System.Boolean, System.Boolean, System.Boolean, System.Boolean)
+  name: WordCounts(IList<Token>, bool, bool, bool, bool)
+  nameWithType: WordCounts.WordCounts(IList<Token>, bool, bool, bool, bool)
+  fullName: Sdl.LanguagePlatform.TranslationMemory.WordCounts.WordCounts(System.Collections.Generic.IList<Sdl.LanguagePlatform.Core.Tokenization.Token>, bool, bool, bool, bool)
   type: Constructor
-  source:
-    path: Sdl.LanguagePlatform.TranslationMemory
-    isExternal: true
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nInitializes a new instance from the values in the provided token collection.\n<ul><li>Word and abbreviation tokens increment the character count by the length of the \ntoken text and increment the word count by one, </li><li>Char sequence tokens (used in far-east tokenization) increment the word and character\ncount by the length of the token text,</li><li>Punctuation tokens only increment the character count, by the length of the token text,</li><li>Date, time, variable, number, measurement, acronym, uri, and other text placeable tokens\nincrement the word and character count like words do, but also increment the placeables count,</li><li>Tag tokens increment the tag and placeable counts, but not the word or character counts,</li><li>Whitespace tokens do not increment any counts (even not the character count),</li><li>All other token types do not increment any counts.</li><li>The segment count is set to 1, independent on the number and type of the tokens.</li></ul>\n"
+  summary: >-
+    Initializes a new instance from the values in the provided token collection.
+
+    <ul><li>Word and abbreviation tokens increment the character count by the length of the 
+
+    token text and increment the word count by one, </li><li>Char sequence tokens (used in far-east tokenization) increment the word and character
+
+    count by the length of the token text,</li><li>Punctuation tokens only increment the character count, by the length of the token text,</li><li>Date, time, variable, number, measurement, acronym, uri, and other text placeable tokens
+
+    increment the word and character count like words do, but also increment the placeables count,</li><li>Tag tokens increment the tag and placeable counts, but not the word or character counts,</li><li>Whitespace tokens do not increment any counts (even not the character count),</li><li>All other token types do not increment any counts.</li><li>The segment count is set to 1, independent on the number and type of the tokens.</li></ul>
+  example: []
   syntax:
     content: public WordCounts(IList<Token> tokens, bool breakOnHyphen, bool breakOnDash, bool breakOnTag, bool breakOnApostrophe)
     parameters:
@@ -180,13 +186,9 @@ items:
       description: If false, 2 words separated by an apostrophe count as 1
     content.vb: Public Sub New(tokens As IList(Of Token), breakOnHyphen As Boolean, breakOnDash As Boolean, breakOnTag As Boolean, breakOnApostrophe As Boolean)
   overload: Sdl.LanguagePlatform.TranslationMemory.WordCounts.#ctor*
-  nameWithType.vb: WordCounts.WordCounts(IList(Of Token), Boolean, Boolean, Boolean, Boolean)
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
-  fullName.vb: Sdl.LanguagePlatform.TranslationMemory.WordCounts.WordCounts(System.Collections.Generic.IList(Of Sdl.LanguagePlatform.Core.Tokenization.Token), System.Boolean, System.Boolean, System.Boolean, System.Boolean)
-  name.vb: WordCounts(IList(Of Token), Boolean, Boolean, Boolean, Boolean)
+  nameWithType.vb: WordCounts.New(IList(Of Token), Boolean, Boolean, Boolean, Boolean)
+  fullName.vb: Sdl.LanguagePlatform.TranslationMemory.WordCounts.New(System.Collections.Generic.IList(Of Sdl.LanguagePlatform.Core.Tokenization.Token), Boolean, Boolean, Boolean, Boolean)
+  name.vb: New(IList(Of Token), Boolean, Boolean, Boolean, Boolean)
 - uid: Sdl.LanguagePlatform.TranslationMemory.WordCounts.#ctor(System.Collections.Generic.IList{Sdl.LanguagePlatform.Core.Tokenization.Token},Sdl.LanguagePlatform.TranslationMemory.WordCountsOptions,Sdl.Core.Globalization.CultureCode)
   commentId: M:Sdl.LanguagePlatform.TranslationMemory.WordCounts.#ctor(System.Collections.Generic.IList{Sdl.LanguagePlatform.Core.Tokenization.Token},Sdl.LanguagePlatform.TranslationMemory.WordCountsOptions,Sdl.Core.Globalization.CultureCode)
   id: '#ctor(System.Collections.Generic.IList{Sdl.LanguagePlatform.Core.Tokenization.Token},Sdl.LanguagePlatform.TranslationMemory.WordCountsOptions,Sdl.Core.Globalization.CultureCode)'
@@ -198,27 +200,28 @@ items:
   nameWithType: WordCounts.WordCounts(IList<Token>, WordCountsOptions, CultureCode)
   fullName: Sdl.LanguagePlatform.TranslationMemory.WordCounts.WordCounts(System.Collections.Generic.IList<Sdl.LanguagePlatform.Core.Tokenization.Token>, Sdl.LanguagePlatform.TranslationMemory.WordCountsOptions, Sdl.Core.Globalization.CultureCode)
   type: Constructor
-  source:
-    path: Sdl.LanguagePlatform.TranslationMemory
-    isExternal: true
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\n\n"
+  summary: ''
+  example: []
   syntax:
     content: >-
-      [Obsolete("Use CreateWordCountsAsync")]
+      [Obsolete("Use WordCounter")]
 
       public WordCounts(IList<Token> tokens, WordCountsOptions options, CultureCode culture)
     parameters:
     - id: tokens
       type: System.Collections.Generic.IList{Sdl.LanguagePlatform.Core.Tokenization.Token}
+      description: ''
     - id: options
       type: Sdl.LanguagePlatform.TranslationMemory.WordCountsOptions
+      description: ''
     - id: culture
       type: Sdl.Core.Globalization.CultureCode
+      description: ''
     content.vb: >-
-      <Obsolete("Use CreateWordCountsAsync")>
+      <Obsolete("Use WordCounter")>
 
       Public Sub New(tokens As IList(Of Token), options As WordCountsOptions, culture As CultureCode)
   overload: Sdl.LanguagePlatform.TranslationMemory.WordCounts.#ctor*
@@ -227,14 +230,10 @@ items:
     ctor: System.ObsoleteAttribute.#ctor(System.String)
     arguments:
     - type: System.String
-      value: Use CreateWordCountsAsync
-  nameWithType.vb: WordCounts.WordCounts(IList(Of Token), WordCountsOptions, CultureCode)
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
-  fullName.vb: Sdl.LanguagePlatform.TranslationMemory.WordCounts.WordCounts(System.Collections.Generic.IList(Of Sdl.LanguagePlatform.Core.Tokenization.Token), Sdl.LanguagePlatform.TranslationMemory.WordCountsOptions, Sdl.Core.Globalization.CultureCode)
-  name.vb: WordCounts(IList(Of Token), WordCountsOptions, CultureCode)
+      value: Use WordCounter
+  nameWithType.vb: WordCounts.New(IList(Of Token), WordCountsOptions, CultureCode)
+  fullName.vb: Sdl.LanguagePlatform.TranslationMemory.WordCounts.New(System.Collections.Generic.IList(Of Sdl.LanguagePlatform.Core.Tokenization.Token), Sdl.LanguagePlatform.TranslationMemory.WordCountsOptions, Sdl.Core.Globalization.CultureCode)
+  name.vb: New(IList(Of Token), WordCountsOptions, CultureCode)
 - uid: Sdl.LanguagePlatform.TranslationMemory.WordCounts.CreateWordCountsAsync(System.Collections.Generic.IList{Sdl.LanguagePlatform.Core.Tokenization.Token},Sdl.LanguagePlatform.TranslationMemory.WordCountsOptions,Sdl.Core.Globalization.CultureCode,Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager)
   commentId: M:Sdl.LanguagePlatform.TranslationMemory.WordCounts.CreateWordCountsAsync(System.Collections.Generic.IList{Sdl.LanguagePlatform.Core.Tokenization.Token},Sdl.LanguagePlatform.TranslationMemory.WordCountsOptions,Sdl.Core.Globalization.CultureCode,Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager)
   id: CreateWordCountsAsync(System.Collections.Generic.IList{Sdl.LanguagePlatform.Core.Tokenization.Token},Sdl.LanguagePlatform.TranslationMemory.WordCountsOptions,Sdl.Core.Globalization.CultureCode,Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager)
@@ -246,35 +245,44 @@ items:
   nameWithType: WordCounts.CreateWordCountsAsync(IList<Token>, WordCountsOptions, CultureCode, ICultureMetadataManager)
   fullName: Sdl.LanguagePlatform.TranslationMemory.WordCounts.CreateWordCountsAsync(System.Collections.Generic.IList<Sdl.LanguagePlatform.Core.Tokenization.Token>, Sdl.LanguagePlatform.TranslationMemory.WordCountsOptions, Sdl.Core.Globalization.CultureCode, Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager)
   type: Method
-  source:
-    path: Sdl.LanguagePlatform.TranslationMemory
-    isExternal: true
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\n\n"
+  summary: ''
+  example: []
   syntax:
-    content: public static Task<WordCounts> CreateWordCountsAsync(IList<Token> tokens, WordCountsOptions options, CultureCode cultureCode, ICultureMetadataManager cultureMetadataManager)
+    content: >-
+      [Obsolete("Use WordCounter")]
+
+      public static Task<WordCounts> CreateWordCountsAsync(IList<Token> tokens, WordCountsOptions options, CultureCode cultureCode, ICultureMetadataManager cultureMetadataManager)
     parameters:
     - id: tokens
       type: System.Collections.Generic.IList{Sdl.LanguagePlatform.Core.Tokenization.Token}
+      description: ''
     - id: options
       type: Sdl.LanguagePlatform.TranslationMemory.WordCountsOptions
+      description: ''
     - id: cultureCode
       type: Sdl.Core.Globalization.CultureCode
+      description: ''
     - id: cultureMetadataManager
       type: Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager
+      description: ''
     return:
       type: System.Threading.Tasks.Task{Sdl.LanguagePlatform.TranslationMemory.WordCounts}
-    content.vb: Public Shared Function CreateWordCountsAsync(tokens As IList(Of Token), options As WordCountsOptions, cultureCode As CultureCode, cultureMetadataManager As ICultureMetadataManager) As Task(Of WordCounts)
+      description: ''
+    content.vb: >-
+      <Obsolete("Use WordCounter")>
+
+      Public Shared Function CreateWordCountsAsync(tokens As IList(Of Token), options As WordCountsOptions, cultureCode As CultureCode, cultureMetadataManager As ICultureMetadataManager) As Task(Of WordCounts)
   overload: Sdl.LanguagePlatform.TranslationMemory.WordCounts.CreateWordCountsAsync*
+  attributes:
+  - type: System.ObsoleteAttribute
+    ctor: System.ObsoleteAttribute.#ctor(System.String)
+    arguments:
+    - type: System.String
+      value: Use WordCounter
   nameWithType.vb: WordCounts.CreateWordCountsAsync(IList(Of Token), WordCountsOptions, CultureCode, ICultureMetadataManager)
-  modifiers.csharp:
-  - public
-  - static
-  modifiers.vb:
-  - Public
-  - Shared
   fullName.vb: Sdl.LanguagePlatform.TranslationMemory.WordCounts.CreateWordCountsAsync(System.Collections.Generic.IList(Of Sdl.LanguagePlatform.Core.Tokenization.Token), Sdl.LanguagePlatform.TranslationMemory.WordCountsOptions, Sdl.Core.Globalization.CultureCode, Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager)
   name.vb: CreateWordCountsAsync(IList(Of Token), WordCountsOptions, CultureCode, ICultureMetadataManager)
 - uid: Sdl.LanguagePlatform.TranslationMemory.WordCounts.Duplicate
@@ -288,24 +296,18 @@ items:
   nameWithType: WordCounts.Duplicate()
   fullName: Sdl.LanguagePlatform.TranslationMemory.WordCounts.Duplicate()
   type: Method
-  source:
-    path: Sdl.LanguagePlatform.TranslationMemory
-    isExternal: true
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nCreates a new instance that is a deep copy of this instance.\n"
+  summary: Creates a new instance that is a deep copy of this instance.
+  example: []
   syntax:
     content: public WordCounts Duplicate()
     return:
       type: Sdl.LanguagePlatform.TranslationMemory.WordCounts
       description: A new instance that is a deep copy of this instance.
-    content.vb: Public Function Duplicate As WordCounts
+    content.vb: Public Function Duplicate() As WordCounts
   overload: Sdl.LanguagePlatform.TranslationMemory.WordCounts.Duplicate*
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
 - uid: Sdl.LanguagePlatform.TranslationMemory.WordCounts.Inc(Sdl.LanguagePlatform.TranslationMemory.WordCounts)
   commentId: M:Sdl.LanguagePlatform.TranslationMemory.WordCounts.Inc(Sdl.LanguagePlatform.TranslationMemory.WordCounts)
   id: Inc(Sdl.LanguagePlatform.TranslationMemory.WordCounts)
@@ -317,13 +319,11 @@ items:
   nameWithType: WordCounts.Inc(WordCounts)
   fullName: Sdl.LanguagePlatform.TranslationMemory.WordCounts.Inc(Sdl.LanguagePlatform.TranslationMemory.WordCounts)
   type: Method
-  source:
-    path: Sdl.LanguagePlatform.TranslationMemory
-    isExternal: true
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nIncrements the count values of this instance with the count values of another instance.\n"
+  summary: Increments the count values of this instance with the count values of another instance.
+  example: []
   syntax:
     content: public void Inc(WordCounts other)
     parameters:
@@ -332,10 +332,6 @@ items:
       description: The other instance
     content.vb: Public Sub Inc(other As WordCounts)
   overload: Sdl.LanguagePlatform.TranslationMemory.WordCounts.Inc*
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
 - uid: Sdl.LanguagePlatform.TranslationMemory.WordCounts.Assign(Sdl.LanguagePlatform.TranslationMemory.WordCounts)
   commentId: M:Sdl.LanguagePlatform.TranslationMemory.WordCounts.Assign(Sdl.LanguagePlatform.TranslationMemory.WordCounts)
   id: Assign(Sdl.LanguagePlatform.TranslationMemory.WordCounts)
@@ -347,13 +343,11 @@ items:
   nameWithType: WordCounts.Assign(WordCounts)
   fullName: Sdl.LanguagePlatform.TranslationMemory.WordCounts.Assign(Sdl.LanguagePlatform.TranslationMemory.WordCounts)
   type: Method
-  source:
-    path: Sdl.LanguagePlatform.TranslationMemory
-    isExternal: true
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nOverwrites the count values of this instance with the values of another instance.\n"
+  summary: Overwrites the count values of this instance with the values of another instance.
+  example: []
   syntax:
     content: public void Assign(WordCounts other)
     parameters:
@@ -362,10 +356,6 @@ items:
       description: The instance which values to assign to this instance
     content.vb: Public Sub Assign(other As WordCounts)
   overload: Sdl.LanguagePlatform.TranslationMemory.WordCounts.Assign*
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
 - uid: Sdl.LanguagePlatform.TranslationMemory.WordCounts.Segments
   commentId: P:Sdl.LanguagePlatform.TranslationMemory.WordCounts.Segments
   id: Segments
@@ -377,26 +367,28 @@ items:
   nameWithType: WordCounts.Segments
   fullName: Sdl.LanguagePlatform.TranslationMemory.WordCounts.Segments
   type: Property
-  source:
-    path: Sdl.LanguagePlatform.TranslationMemory
-    isExternal: true
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nGets or sets the segment count.\n"
+  summary: Gets or sets the segment count.
+  example: []
   syntax:
-    content: public int Segments { get; set; }
+    content: >-
+      [DataMember]
+
+      public int Segments { get; set; }
     parameters: []
     return:
       type: System.Int32
-    content.vb: Public Property Segments As Integer
+    content.vb: >-
+      <DataMember>
+
+      Public Property Segments As Integer
   overload: Sdl.LanguagePlatform.TranslationMemory.WordCounts.Segments*
-  modifiers.csharp:
-  - public
-  - get
-  - set
-  modifiers.vb:
-  - Public
+  attributes:
+  - type: System.Runtime.Serialization.DataMemberAttribute
+    ctor: System.Runtime.Serialization.DataMemberAttribute.#ctor
+    arguments: []
 - uid: Sdl.LanguagePlatform.TranslationMemory.WordCounts.Words
   commentId: P:Sdl.LanguagePlatform.TranslationMemory.WordCounts.Words
   id: Words
@@ -408,26 +400,28 @@ items:
   nameWithType: WordCounts.Words
   fullName: Sdl.LanguagePlatform.TranslationMemory.WordCounts.Words
   type: Property
-  source:
-    path: Sdl.LanguagePlatform.TranslationMemory
-    isExternal: true
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nGets or sets the word count.\n"
+  summary: Gets or sets the word count.
+  example: []
   syntax:
-    content: public int Words { get; set; }
+    content: >-
+      [DataMember]
+
+      public int Words { get; set; }
     parameters: []
     return:
       type: System.Int32
-    content.vb: Public Property Words As Integer
+    content.vb: >-
+      <DataMember>
+
+      Public Property Words As Integer
   overload: Sdl.LanguagePlatform.TranslationMemory.WordCounts.Words*
-  modifiers.csharp:
-  - public
-  - get
-  - set
-  modifiers.vb:
-  - Public
+  attributes:
+  - type: System.Runtime.Serialization.DataMemberAttribute
+    ctor: System.Runtime.Serialization.DataMemberAttribute.#ctor
+    arguments: []
 - uid: Sdl.LanguagePlatform.TranslationMemory.WordCounts.Characters
   commentId: P:Sdl.LanguagePlatform.TranslationMemory.WordCounts.Characters
   id: Characters
@@ -439,26 +433,28 @@ items:
   nameWithType: WordCounts.Characters
   fullName: Sdl.LanguagePlatform.TranslationMemory.WordCounts.Characters
   type: Property
-  source:
-    path: Sdl.LanguagePlatform.TranslationMemory
-    isExternal: true
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nGets or sets the character count.\n"
+  summary: Gets or sets the character count.
+  example: []
   syntax:
-    content: public int Characters { get; set; }
+    content: >-
+      [DataMember]
+
+      public int Characters { get; set; }
     parameters: []
     return:
       type: System.Int32
-    content.vb: Public Property Characters As Integer
+    content.vb: >-
+      <DataMember>
+
+      Public Property Characters As Integer
   overload: Sdl.LanguagePlatform.TranslationMemory.WordCounts.Characters*
-  modifiers.csharp:
-  - public
-  - get
-  - set
-  modifiers.vb:
-  - Public
+  attributes:
+  - type: System.Runtime.Serialization.DataMemberAttribute
+    ctor: System.Runtime.Serialization.DataMemberAttribute.#ctor
+    arguments: []
 - uid: Sdl.LanguagePlatform.TranslationMemory.WordCounts.Placeables
   commentId: P:Sdl.LanguagePlatform.TranslationMemory.WordCounts.Placeables
   id: Placeables
@@ -470,26 +466,28 @@ items:
   nameWithType: WordCounts.Placeables
   fullName: Sdl.LanguagePlatform.TranslationMemory.WordCounts.Placeables
   type: Property
-  source:
-    path: Sdl.LanguagePlatform.TranslationMemory
-    isExternal: true
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nGets or sets the placeable count.\n"
+  summary: Gets or sets the placeable count.
+  example: []
   syntax:
-    content: public int Placeables { get; set; }
+    content: >-
+      [DataMember]
+
+      public int Placeables { get; set; }
     parameters: []
     return:
       type: System.Int32
-    content.vb: Public Property Placeables As Integer
+    content.vb: >-
+      <DataMember>
+
+      Public Property Placeables As Integer
   overload: Sdl.LanguagePlatform.TranslationMemory.WordCounts.Placeables*
-  modifiers.csharp:
-  - public
-  - get
-  - set
-  modifiers.vb:
-  - Public
+  attributes:
+  - type: System.Runtime.Serialization.DataMemberAttribute
+    ctor: System.Runtime.Serialization.DataMemberAttribute.#ctor
+    arguments: []
 - uid: Sdl.LanguagePlatform.TranslationMemory.WordCounts.Tags
   commentId: P:Sdl.LanguagePlatform.TranslationMemory.WordCounts.Tags
   id: Tags
@@ -501,26 +499,28 @@ items:
   nameWithType: WordCounts.Tags
   fullName: Sdl.LanguagePlatform.TranslationMemory.WordCounts.Tags
   type: Property
-  source:
-    path: Sdl.LanguagePlatform.TranslationMemory
-    isExternal: true
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nGets or sets the tag count.\n"
+  summary: Gets or sets the tag count.
+  example: []
   syntax:
-    content: public int Tags { get; set; }
+    content: >-
+      [DataMember]
+
+      public int Tags { get; set; }
     parameters: []
     return:
       type: System.Int32
-    content.vb: Public Property Tags As Integer
+    content.vb: >-
+      <DataMember>
+
+      Public Property Tags As Integer
   overload: Sdl.LanguagePlatform.TranslationMemory.WordCounts.Tags*
-  modifiers.csharp:
-  - public
-  - get
-  - set
-  modifiers.vb:
-  - Public
+  attributes:
+  - type: System.Runtime.Serialization.DataMemberAttribute
+    ctor: System.Runtime.Serialization.DataMemberAttribute.#ctor
+    arguments: []
 - uid: Sdl.LanguagePlatform.TranslationMemory.WordCounts.IsZero
   commentId: P:Sdl.LanguagePlatform.TranslationMemory.WordCounts.IsZero
   id: IsZero
@@ -532,13 +532,11 @@ items:
   nameWithType: WordCounts.IsZero
   fullName: Sdl.LanguagePlatform.TranslationMemory.WordCounts.IsZero
   type: Property
-  source:
-    path: Sdl.LanguagePlatform.TranslationMemory
-    isExternal: true
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nGets a boolean value which indicates whether all count values are zero or not.\n"
+  summary: Gets a boolean value which indicates whether all count values are zero or not.
+  example: []
   syntax:
     content: public bool IsZero { get; }
     parameters: []
@@ -546,321 +544,296 @@ items:
       type: System.Boolean
     content.vb: Public ReadOnly Property IsZero As Boolean
   overload: Sdl.LanguagePlatform.TranslationMemory.WordCounts.IsZero*
-  modifiers.csharp:
-  - public
-  - get
-  modifiers.vb:
-  - Public
-  - ReadOnly
 references:
 - uid: Sdl.LanguagePlatform.TranslationMemory
   commentId: N:Sdl.LanguagePlatform.TranslationMemory
   isExternal: true
+  href: Sdl.html
   name: Sdl.LanguagePlatform.TranslationMemory
   nameWithType: Sdl.LanguagePlatform.TranslationMemory
   fullName: Sdl.LanguagePlatform.TranslationMemory
+  spec.csharp:
+  - uid: Sdl
+    name: Sdl
+    isExternal: true
+    href: Sdl.html
+  - name: .
+  - uid: Sdl.LanguagePlatform
+    name: LanguagePlatform
+    isExternal: true
+    href: Sdl.LanguagePlatform.html
+  - name: .
+  - uid: Sdl.LanguagePlatform.TranslationMemory
+    name: TranslationMemory
+    isExternal: true
+    href: Sdl.LanguagePlatform.TranslationMemory.html
+  spec.vb:
+  - uid: Sdl
+    name: Sdl
+    isExternal: true
+    href: Sdl.html
+  - name: .
+  - uid: Sdl.LanguagePlatform
+    name: LanguagePlatform
+    isExternal: true
+    href: Sdl.LanguagePlatform.html
+  - name: .
+  - uid: Sdl.LanguagePlatform.TranslationMemory
+    name: TranslationMemory
+    isExternal: true
+    href: Sdl.LanguagePlatform.TranslationMemory.html
 - uid: System.Object
   commentId: T:System.Object
   parent: System
   isExternal: true
-  name: Object
-  nameWithType: Object
-  fullName: System.Object
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
 - uid: System.Object.ToString
   commentId: M:System.Object.ToString
   parent: System.Object
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
   name: ToString()
-  nameWithType: Object.ToString()
-  fullName: System.Object.ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
   spec.csharp:
   - uid: System.Object.ToString
     name: ToString
-    nameWithType: Object.ToString
-    fullName: System.Object.ToString
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
   - name: (
-    nameWithType: (
-    fullName: (
   - name: )
-    nameWithType: )
-    fullName: )
   spec.vb:
   - uid: System.Object.ToString
     name: ToString
-    nameWithType: Object.ToString
-    fullName: System.Object.ToString
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
   - name: (
-    nameWithType: (
-    fullName: (
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Object.Equals(System.Object)
   commentId: M:System.Object.Equals(System.Object)
   parent: System.Object
   isExternal: true
-  name: Equals(Object)
-  nameWithType: Object.Equals(Object)
-  fullName: System.Object.Equals(System.Object)
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
   spec.csharp:
   - uid: System.Object.Equals(System.Object)
     name: Equals
-    nameWithType: Object.Equals
-    fullName: System.Object.Equals
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
   - name: (
-    nameWithType: (
-    fullName: (
   - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
+    name: object
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
-    nameWithType: )
-    fullName: )
   spec.vb:
   - uid: System.Object.Equals(System.Object)
     name: Equals
-    nameWithType: Object.Equals
-    fullName: System.Object.Equals
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
   - name: (
-    nameWithType: (
-    fullName: (
   - uid: System.Object
     name: Object
-    nameWithType: Object
-    fullName: System.Object
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Object.Equals(System.Object,System.Object)
   commentId: M:System.Object.Equals(System.Object,System.Object)
   parent: System.Object
   isExternal: true
-  name: Equals(Object, Object)
-  nameWithType: Object.Equals(Object, Object)
-  fullName: System.Object.Equals(System.Object, System.Object)
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
   spec.csharp:
   - uid: System.Object.Equals(System.Object,System.Object)
     name: Equals
-    nameWithType: Object.Equals
-    fullName: System.Object.Equals
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
   - name: (
-    nameWithType: (
-    fullName: (
   - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
+    name: object
     isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
   - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
+    name: object
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
-    nameWithType: )
-    fullName: )
   spec.vb:
   - uid: System.Object.Equals(System.Object,System.Object)
     name: Equals
-    nameWithType: Object.Equals
-    fullName: System.Object.Equals
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
   - name: (
-    nameWithType: (
-    fullName: (
   - uid: System.Object
     name: Object
-    nameWithType: Object
-    fullName: System.Object
     isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
   - uid: System.Object
     name: Object
-    nameWithType: Object
-    fullName: System.Object
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Object.ReferenceEquals(System.Object,System.Object)
   commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
   parent: System.Object
   isExternal: true
-  name: ReferenceEquals(Object, Object)
-  nameWithType: Object.ReferenceEquals(Object, Object)
-  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
   spec.csharp:
   - uid: System.Object.ReferenceEquals(System.Object,System.Object)
     name: ReferenceEquals
-    nameWithType: Object.ReferenceEquals
-    fullName: System.Object.ReferenceEquals
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
   - name: (
-    nameWithType: (
-    fullName: (
   - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
+    name: object
     isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
   - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
+    name: object
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
-    nameWithType: )
-    fullName: )
   spec.vb:
   - uid: System.Object.ReferenceEquals(System.Object,System.Object)
     name: ReferenceEquals
-    nameWithType: Object.ReferenceEquals
-    fullName: System.Object.ReferenceEquals
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
   - name: (
-    nameWithType: (
-    fullName: (
   - uid: System.Object
     name: Object
-    nameWithType: Object
-    fullName: System.Object
     isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
   - uid: System.Object
     name: Object
-    nameWithType: Object
-    fullName: System.Object
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Object.GetHashCode
   commentId: M:System.Object.GetHashCode
   parent: System.Object
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
   name: GetHashCode()
-  nameWithType: Object.GetHashCode()
-  fullName: System.Object.GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
   spec.csharp:
   - uid: System.Object.GetHashCode
     name: GetHashCode
-    nameWithType: Object.GetHashCode
-    fullName: System.Object.GetHashCode
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
   - name: (
-    nameWithType: (
-    fullName: (
   - name: )
-    nameWithType: )
-    fullName: )
   spec.vb:
   - uid: System.Object.GetHashCode
     name: GetHashCode
-    nameWithType: Object.GetHashCode
-    fullName: System.Object.GetHashCode
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
   - name: (
-    nameWithType: (
-    fullName: (
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Object.GetType
   commentId: M:System.Object.GetType
   parent: System.Object
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
   name: GetType()
-  nameWithType: Object.GetType()
-  fullName: System.Object.GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
   spec.csharp:
   - uid: System.Object.GetType
     name: GetType
-    nameWithType: Object.GetType
-    fullName: System.Object.GetType
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
   - name: (
-    nameWithType: (
-    fullName: (
   - name: )
-    nameWithType: )
-    fullName: )
   spec.vb:
   - uid: System.Object.GetType
     name: GetType
-    nameWithType: Object.GetType
-    fullName: System.Object.GetType
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
   - name: (
-    nameWithType: (
-    fullName: (
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Object.MemberwiseClone
   commentId: M:System.Object.MemberwiseClone
   parent: System.Object
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
   name: MemberwiseClone()
-  nameWithType: Object.MemberwiseClone()
-  fullName: System.Object.MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
   spec.csharp:
   - uid: System.Object.MemberwiseClone
     name: MemberwiseClone
-    nameWithType: Object.MemberwiseClone
-    fullName: System.Object.MemberwiseClone
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
   - name: (
-    nameWithType: (
-    fullName: (
   - name: )
-    nameWithType: )
-    fullName: )
   spec.vb:
   - uid: System.Object.MemberwiseClone
     name: MemberwiseClone
-    nameWithType: Object.MemberwiseClone
-    fullName: System.Object.MemberwiseClone
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
   - name: (
-    nameWithType: (
-    fullName: (
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System
   commentId: N:System
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
   name: System
   nameWithType: System
   fullName: System
 - uid: Sdl.LanguagePlatform.TranslationMemory.WordCounts.#ctor*
   commentId: Overload:Sdl.LanguagePlatform.TranslationMemory.WordCounts.#ctor
   isExternal: true
+  href: Sdl.LanguagePlatform.TranslationMemory.WordCounts.html#Sdl_LanguagePlatform_TranslationMemory_WordCounts__ctor
   name: WordCounts
   nameWithType: WordCounts.WordCounts
   fullName: Sdl.LanguagePlatform.TranslationMemory.WordCounts.WordCounts
+  nameWithType.vb: WordCounts.New
+  fullName.vb: Sdl.LanguagePlatform.TranslationMemory.WordCounts.New
+  name.vb: New
 - uid: Sdl.LanguagePlatform.TranslationMemory.WordCounts
   commentId: T:Sdl.LanguagePlatform.TranslationMemory.WordCounts
   parent: Sdl.LanguagePlatform.TranslationMemory
   isExternal: true
+  href: Sdl.LanguagePlatform.TranslationMemory.WordCounts.html
   name: WordCounts
   nameWithType: WordCounts
   fullName: Sdl.LanguagePlatform.TranslationMemory.WordCounts
@@ -868,6 +841,7 @@ references:
   commentId: T:System.Collections.Generic.IList{Sdl.LanguagePlatform.Core.Tokenization.Token}
   parent: System.Collections.Generic
   definition: System.Collections.Generic.IList`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1
   name: IList<Token>
   nameWithType: IList<Token>
   fullName: System.Collections.Generic.IList<Sdl.LanguagePlatform.Core.Tokenization.Token>
@@ -877,40 +851,29 @@ references:
   spec.csharp:
   - uid: System.Collections.Generic.IList`1
     name: IList
-    nameWithType: IList
-    fullName: System.Collections.Generic.IList
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1
   - name: <
-    nameWithType: <
-    fullName: <
   - uid: Sdl.LanguagePlatform.Core.Tokenization.Token
     name: Token
-    nameWithType: Token
-    fullName: Sdl.LanguagePlatform.Core.Tokenization.Token
     isExternal: true
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: System.Collections.Generic.IList`1
     name: IList
-    nameWithType: IList
-    fullName: System.Collections.Generic.IList
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1
+  - name: (
+  - name: Of
+  - name: " "
   - uid: Sdl.LanguagePlatform.Core.Tokenization.Token
     name: Token
-    nameWithType: Token
-    fullName: Sdl.LanguagePlatform.Core.Tokenization.Token
     isExternal: true
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Collections.Generic.IList`1
   commentId: T:System.Collections.Generic.IList`1
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1
   name: IList<T>
   nameWithType: IList<T>
   fullName: System.Collections.Generic.IList<T>
@@ -920,65 +883,124 @@ references:
   spec.csharp:
   - uid: System.Collections.Generic.IList`1
     name: IList
-    nameWithType: IList
-    fullName: System.Collections.Generic.IList
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1
   - name: <
-    nameWithType: <
-    fullName: <
   - name: T
-    nameWithType: T
-    fullName: T
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: System.Collections.Generic.IList`1
     name: IList
-    nameWithType: IList
-    fullName: System.Collections.Generic.IList
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1
+  - name: (
+  - name: Of
+  - name: " "
   - name: T
-    nameWithType: T
-    fullName: T
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Collections.Generic
   commentId: N:System.Collections.Generic
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
   name: System.Collections.Generic
   nameWithType: System.Collections.Generic
   fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
 - uid: System.Boolean
   commentId: T:System.Boolean
   parent: System
   isExternal: true
-  name: Boolean
-  nameWithType: Boolean
-  fullName: System.Boolean
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
 - uid: Sdl.LanguagePlatform.TranslationMemory.WordCountsOptions
   commentId: T:Sdl.LanguagePlatform.TranslationMemory.WordCountsOptions
   parent: Sdl.LanguagePlatform.TranslationMemory
   isExternal: true
+  href: Sdl.LanguagePlatform.TranslationMemory.WordCountsOptions.html
   name: WordCountsOptions
   nameWithType: WordCountsOptions
   fullName: Sdl.LanguagePlatform.TranslationMemory.WordCountsOptions
 - uid: Sdl.Core.Globalization.CultureCode
+  commentId: T:Sdl.Core.Globalization.CultureCode
+  parent: Sdl.Core.Globalization
   isExternal: true
   name: CultureCode
   nameWithType: CultureCode
   fullName: Sdl.Core.Globalization.CultureCode
+- uid: Sdl.Core.Globalization
+  commentId: N:Sdl.Core.Globalization
+  isExternal: true
+  name: Sdl.Core.Globalization
+  nameWithType: Sdl.Core.Globalization
+  fullName: Sdl.Core.Globalization
+  spec.csharp:
+  - uid: Sdl
+    name: Sdl
+    isExternal: true
+  - name: .
+  - uid: Sdl.Core
+    name: Core
+    isExternal: true
+  - name: .
+  - uid: Sdl.Core.Globalization
+    name: Globalization
+    isExternal: true
+  spec.vb:
+  - uid: Sdl
+    name: Sdl
+    isExternal: true
+  - name: .
+  - uid: Sdl.Core
+    name: Core
+    isExternal: true
+  - name: .
+  - uid: Sdl.Core.Globalization
+    name: Globalization
+    isExternal: true
 - uid: Sdl.LanguagePlatform.TranslationMemory.WordCounts.CreateWordCountsAsync*
   commentId: Overload:Sdl.LanguagePlatform.TranslationMemory.WordCounts.CreateWordCountsAsync
   isExternal: true
+  href: Sdl.LanguagePlatform.TranslationMemory.WordCounts.html#Sdl_LanguagePlatform_TranslationMemory_WordCounts_CreateWordCountsAsync_System_Collections_Generic_IList_Sdl_LanguagePlatform_Core_Tokenization_Token__Sdl_LanguagePlatform_TranslationMemory_WordCountsOptions_Sdl_Core_Globalization_CultureCode_Sdl_Core_Globalization_CultureMetadataManager_ICultureMetadataManager_
   name: CreateWordCountsAsync
   nameWithType: WordCounts.CreateWordCountsAsync
   fullName: Sdl.LanguagePlatform.TranslationMemory.WordCounts.CreateWordCountsAsync
 - uid: Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager
+  commentId: T:Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager
+  parent: Sdl.Core.Globalization.CultureMetadataManager
   isExternal: true
   name: ICultureMetadataManager
   nameWithType: ICultureMetadataManager
@@ -987,6 +1009,7 @@ references:
   commentId: T:System.Threading.Tasks.Task{Sdl.LanguagePlatform.TranslationMemory.WordCounts}
   parent: System.Threading.Tasks
   definition: System.Threading.Tasks.Task`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
   name: Task<WordCounts>
   nameWithType: Task<WordCounts>
   fullName: System.Threading.Tasks.Task<Sdl.LanguagePlatform.TranslationMemory.WordCounts>
@@ -996,103 +1019,155 @@ references:
   spec.csharp:
   - uid: System.Threading.Tasks.Task`1
     name: Task
-    nameWithType: Task
-    fullName: System.Threading.Tasks.Task
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
   - name: <
-    nameWithType: <
-    fullName: <
   - uid: Sdl.LanguagePlatform.TranslationMemory.WordCounts
     name: WordCounts
-    nameWithType: WordCounts
-    fullName: Sdl.LanguagePlatform.TranslationMemory.WordCounts
     isExternal: true
+    href: Sdl.LanguagePlatform.TranslationMemory.WordCounts.html
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: System.Threading.Tasks.Task`1
     name: Task
-    nameWithType: Task
-    fullName: System.Threading.Tasks.Task
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
   - uid: Sdl.LanguagePlatform.TranslationMemory.WordCounts
     name: WordCounts
-    nameWithType: WordCounts
-    fullName: Sdl.LanguagePlatform.TranslationMemory.WordCounts
     isExternal: true
+    href: Sdl.LanguagePlatform.TranslationMemory.WordCounts.html
   - name: )
-    nameWithType: )
-    fullName: )
+- uid: Sdl.Core.Globalization.CultureMetadataManager
+  commentId: N:Sdl.Core.Globalization.CultureMetadataManager
+  isExternal: true
+  name: Sdl.Core.Globalization.CultureMetadataManager
+  nameWithType: Sdl.Core.Globalization.CultureMetadataManager
+  fullName: Sdl.Core.Globalization.CultureMetadataManager
+  spec.csharp:
+  - uid: Sdl
+    name: Sdl
+    isExternal: true
+  - name: .
+  - uid: Sdl.Core
+    name: Core
+    isExternal: true
+  - name: .
+  - uid: Sdl.Core.Globalization
+    name: Globalization
+    isExternal: true
+  - name: .
+  - uid: Sdl.Core.Globalization.CultureMetadataManager
+    name: CultureMetadataManager
+    isExternal: true
+  spec.vb:
+  - uid: Sdl
+    name: Sdl
+    isExternal: true
+  - name: .
+  - uid: Sdl.Core
+    name: Core
+    isExternal: true
+  - name: .
+  - uid: Sdl.Core.Globalization
+    name: Globalization
+    isExternal: true
+  - name: .
+  - uid: Sdl.Core.Globalization.CultureMetadataManager
+    name: CultureMetadataManager
+    isExternal: true
 - uid: System.Threading.Tasks.Task`1
   commentId: T:System.Threading.Tasks.Task`1
   isExternal: true
-  name: Task<>
-  nameWithType: Task<>
-  fullName: System.Threading.Tasks.Task<>
-  nameWithType.vb: Task(Of )
-  fullName.vb: System.Threading.Tasks.Task(Of )
-  name.vb: Task(Of )
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<TResult>
+  nameWithType: Task<TResult>
+  fullName: System.Threading.Tasks.Task<TResult>
+  nameWithType.vb: Task(Of TResult)
+  fullName.vb: System.Threading.Tasks.Task(Of TResult)
+  name.vb: Task(Of TResult)
   spec.csharp:
   - uid: System.Threading.Tasks.Task`1
     name: Task
-    nameWithType: Task
-    fullName: System.Threading.Tasks.Task
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
   - name: <
-    nameWithType: <
-    fullName: <
-  - name: ''
-    nameWithType: ''
-    fullName: ''
+  - name: TResult
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: System.Threading.Tasks.Task`1
     name: Task
-    nameWithType: Task
-    fullName: System.Threading.Tasks.Task
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - name: ''
-    nameWithType: ''
-    fullName: ''
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Threading.Tasks
   commentId: N:System.Threading.Tasks
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
   name: System.Threading.Tasks
   nameWithType: System.Threading.Tasks
   fullName: System.Threading.Tasks
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
 - uid: Sdl.LanguagePlatform.TranslationMemory.WordCounts.Duplicate*
   commentId: Overload:Sdl.LanguagePlatform.TranslationMemory.WordCounts.Duplicate
   isExternal: true
+  href: Sdl.LanguagePlatform.TranslationMemory.WordCounts.html#Sdl_LanguagePlatform_TranslationMemory_WordCounts_Duplicate
   name: Duplicate
   nameWithType: WordCounts.Duplicate
   fullName: Sdl.LanguagePlatform.TranslationMemory.WordCounts.Duplicate
 - uid: Sdl.LanguagePlatform.TranslationMemory.WordCounts.Inc*
   commentId: Overload:Sdl.LanguagePlatform.TranslationMemory.WordCounts.Inc
   isExternal: true
+  href: Sdl.LanguagePlatform.TranslationMemory.WordCounts.html#Sdl_LanguagePlatform_TranslationMemory_WordCounts_Inc_Sdl_LanguagePlatform_TranslationMemory_WordCounts_
   name: Inc
   nameWithType: WordCounts.Inc
   fullName: Sdl.LanguagePlatform.TranslationMemory.WordCounts.Inc
 - uid: Sdl.LanguagePlatform.TranslationMemory.WordCounts.Assign*
   commentId: Overload:Sdl.LanguagePlatform.TranslationMemory.WordCounts.Assign
   isExternal: true
+  href: Sdl.LanguagePlatform.TranslationMemory.WordCounts.html#Sdl_LanguagePlatform_TranslationMemory_WordCounts_Assign_Sdl_LanguagePlatform_TranslationMemory_WordCounts_
   name: Assign
   nameWithType: WordCounts.Assign
   fullName: Sdl.LanguagePlatform.TranslationMemory.WordCounts.Assign
 - uid: Sdl.LanguagePlatform.TranslationMemory.WordCounts.Segments*
   commentId: Overload:Sdl.LanguagePlatform.TranslationMemory.WordCounts.Segments
   isExternal: true
+  href: Sdl.LanguagePlatform.TranslationMemory.WordCounts.html#Sdl_LanguagePlatform_TranslationMemory_WordCounts_Segments
   name: Segments
   nameWithType: WordCounts.Segments
   fullName: Sdl.LanguagePlatform.TranslationMemory.WordCounts.Segments
@@ -1100,36 +1175,45 @@ references:
   commentId: T:System.Int32
   parent: System
   isExternal: true
-  name: Int32
-  nameWithType: Int32
-  fullName: System.Int32
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
 - uid: Sdl.LanguagePlatform.TranslationMemory.WordCounts.Words*
   commentId: Overload:Sdl.LanguagePlatform.TranslationMemory.WordCounts.Words
   isExternal: true
+  href: Sdl.LanguagePlatform.TranslationMemory.WordCounts.html#Sdl_LanguagePlatform_TranslationMemory_WordCounts_Words
   name: Words
   nameWithType: WordCounts.Words
   fullName: Sdl.LanguagePlatform.TranslationMemory.WordCounts.Words
 - uid: Sdl.LanguagePlatform.TranslationMemory.WordCounts.Characters*
   commentId: Overload:Sdl.LanguagePlatform.TranslationMemory.WordCounts.Characters
   isExternal: true
+  href: Sdl.LanguagePlatform.TranslationMemory.WordCounts.html#Sdl_LanguagePlatform_TranslationMemory_WordCounts_Characters
   name: Characters
   nameWithType: WordCounts.Characters
   fullName: Sdl.LanguagePlatform.TranslationMemory.WordCounts.Characters
 - uid: Sdl.LanguagePlatform.TranslationMemory.WordCounts.Placeables*
   commentId: Overload:Sdl.LanguagePlatform.TranslationMemory.WordCounts.Placeables
   isExternal: true
+  href: Sdl.LanguagePlatform.TranslationMemory.WordCounts.html#Sdl_LanguagePlatform_TranslationMemory_WordCounts_Placeables
   name: Placeables
   nameWithType: WordCounts.Placeables
   fullName: Sdl.LanguagePlatform.TranslationMemory.WordCounts.Placeables
 - uid: Sdl.LanguagePlatform.TranslationMemory.WordCounts.Tags*
   commentId: Overload:Sdl.LanguagePlatform.TranslationMemory.WordCounts.Tags
   isExternal: true
+  href: Sdl.LanguagePlatform.TranslationMemory.WordCounts.html#Sdl_LanguagePlatform_TranslationMemory_WordCounts_Tags
   name: Tags
   nameWithType: WordCounts.Tags
   fullName: Sdl.LanguagePlatform.TranslationMemory.WordCounts.Tags
 - uid: Sdl.LanguagePlatform.TranslationMemory.WordCounts.IsZero*
   commentId: Overload:Sdl.LanguagePlatform.TranslationMemory.WordCounts.IsZero
   isExternal: true
+  href: Sdl.LanguagePlatform.TranslationMemory.WordCounts.html#Sdl_LanguagePlatform_TranslationMemory_WordCounts_IsZero
   name: IsZero
   nameWithType: WordCounts.IsZero
   fullName: Sdl.LanguagePlatform.TranslationMemory.WordCounts.IsZero

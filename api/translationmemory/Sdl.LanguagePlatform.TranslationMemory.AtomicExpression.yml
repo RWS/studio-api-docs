@@ -18,18 +18,23 @@ items:
   nameWithType: AtomicExpression
   fullName: Sdl.LanguagePlatform.TranslationMemory.AtomicExpression
   type: Class
-  source:
-    path: Sdl.LanguagePlatform.TranslationMemory
-    isExternal: true
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nRepresents an atomic expression, where a field must be in a specified relationship to a value.\n<remarks>The operands should be initialized before the operator, so that the class can ensure type compatibility.</remarks>\n"
+  summary: >-
+    Base class for filter expressions.
+
+    <remarks>Expressions can be atomic or composed.</remarks>
+  example: []
   syntax:
-    content: 'public class AtomicExpression : FilterExpression'
+    content: >-
+      [DataContract]
+
+      public class AtomicExpression : FilterExpression
     content.vb: >-
-      Public Class AtomicExpression
-          Inherits FilterExpression
+      <DataContract>
+
+      Public Class AtomicExpression Inherits FilterExpression
   inheritance:
   - System.Object
   - Sdl.LanguagePlatform.TranslationMemory.FilterExpression
@@ -40,12 +45,10 @@ items:
   - System.Object.GetHashCode
   - System.Object.GetType
   - System.Object.MemberwiseClone
-  modifiers.csharp:
-  - public
-  - class
-  modifiers.vb:
-  - Public
-  - Class
+  attributes:
+  - type: System.Runtime.Serialization.DataContractAttribute
+    ctor: System.Runtime.Serialization.DataContractAttribute.#ctor
+    arguments: []
 - uid: Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.#ctor(Sdl.LanguagePlatform.TranslationMemory.FieldValue,Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.Operator)
   commentId: M:Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.#ctor(Sdl.LanguagePlatform.TranslationMemory.FieldValue,Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.Operator)
   id: '#ctor(Sdl.LanguagePlatform.TranslationMemory.FieldValue,Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.Operator)'
@@ -53,17 +56,18 @@ items:
   langs:
   - csharp
   - vb
-  name: AtomicExpression(FieldValue, AtomicExpression.Operator)
+  name: AtomicExpression(FieldValue, Operator)
   nameWithType: AtomicExpression.AtomicExpression(FieldValue, AtomicExpression.Operator)
   fullName: Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.AtomicExpression(Sdl.LanguagePlatform.TranslationMemory.FieldValue, Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.Operator)
   type: Constructor
-  source:
-    path: Sdl.LanguagePlatform.TranslationMemory
-    isExternal: true
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nInitializes a new instance of the AtomicExpression class with the given field, value and operator.\n<remarks>Throws an error if the field type is not compatible with the operator.</remarks>\n"
+  summary: >-
+    Initializes a new instance of the AtomicExpression class with the given field, value and operator.
+
+    <remarks>Throws an error if the field type is not compatible with the operator.</remarks>
+  example: []
   syntax:
     content: public AtomicExpression(FieldValue value, AtomicExpression.Operator op)
     parameters:
@@ -75,10 +79,9 @@ items:
       description: The operator.
     content.vb: Public Sub New(value As FieldValue, op As AtomicExpression.Operator)
   overload: Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.#ctor*
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
+  nameWithType.vb: AtomicExpression.New(FieldValue, AtomicExpression.Operator)
+  fullName.vb: Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.New(Sdl.LanguagePlatform.TranslationMemory.FieldValue, Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.Operator)
+  name.vb: New(FieldValue, Operator)
 - uid: Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.ToString
   commentId: M:Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.ToString
   id: ToString
@@ -90,27 +93,19 @@ items:
   nameWithType: AtomicExpression.ToString()
   fullName: Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.ToString()
   type: Method
-  source:
-    path: Sdl.LanguagePlatform.TranslationMemory
-    isExternal: true
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\n<xref href=\"System.Object.ToString\" data-throw-if-not-resolved=\"false\"></xref>\n"
+  summary: <xref href="System.Object.ToString" data-throw-if-not-resolved="false"></xref>
+  example: []
   syntax:
     content: public override string ToString()
     return:
       type: System.String
       description: A string representation of the object, for display purposes.
-    content.vb: Public Overrides Function ToString As String
+    content.vb: Public Overrides Function ToString() As String
   overridden: System.Object.ToString
   overload: Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.ToString*
-  modifiers.csharp:
-  - public
-  - override
-  modifiers.vb:
-  - Public
-  - Overrides
 - uid: Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.Validate(Sdl.LanguagePlatform.TranslationMemory.IFieldDefinitions,System.Boolean)
   commentId: M:Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.Validate(Sdl.LanguagePlatform.TranslationMemory.IFieldDefinitions,System.Boolean)
   id: Validate(Sdl.LanguagePlatform.TranslationMemory.IFieldDefinitions,System.Boolean)
@@ -118,17 +113,15 @@ items:
   langs:
   - csharp
   - vb
-  name: Validate(IFieldDefinitions, Boolean)
-  nameWithType: AtomicExpression.Validate(IFieldDefinitions, Boolean)
-  fullName: Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.Validate(Sdl.LanguagePlatform.TranslationMemory.IFieldDefinitions, System.Boolean)
+  name: Validate(IFieldDefinitions, bool)
+  nameWithType: AtomicExpression.Validate(IFieldDefinitions, bool)
+  fullName: Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.Validate(Sdl.LanguagePlatform.TranslationMemory.IFieldDefinitions, bool)
   type: Method
-  source:
-    path: Sdl.LanguagePlatform.TranslationMemory
-    isExternal: true
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nSee <xref href=\"Sdl.LanguagePlatform.TranslationMemory.FilterExpression.Validate(Sdl.LanguagePlatform.TranslationMemory.IFieldDefinitions%2cSystem.Boolean)\" data-throw-if-not-resolved=\"false\"></xref>\n"
+  summary: Validates the filter expression against the provided field definitions.
+  example: []
   syntax:
     content: public override bool Validate(IFieldDefinitions fields, bool throwIfInvalid)
     parameters:
@@ -139,25 +132,19 @@ items:
       type: System.Boolean
       description: >-
         If true, an exception will be thrown if invalid field names
-
-        are encountered. If false, the return value will be set to false without an exception
-
-        being thrown.
+                    are encountered. If false, the return value will be set to false without an exception
+                    being thrown.
     return:
       type: System.Boolean
       description: >-
         true if the filter expression is valid, given the provided field definitions. false
-
-        otherwise.
+                    otherwise.
     content.vb: Public Overrides Function Validate(fields As IFieldDefinitions, throwIfInvalid As Boolean) As Boolean
   overridden: Sdl.LanguagePlatform.TranslationMemory.FilterExpression.Validate(Sdl.LanguagePlatform.TranslationMemory.IFieldDefinitions,System.Boolean)
   overload: Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.Validate*
-  modifiers.csharp:
-  - public
-  - override
-  modifiers.vb:
-  - Public
-  - Overrides
+  nameWithType.vb: AtomicExpression.Validate(IFieldDefinitions, Boolean)
+  fullName.vb: Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.Validate(Sdl.LanguagePlatform.TranslationMemory.IFieldDefinitions, Boolean)
+  name.vb: Validate(IFieldDefinitions, Boolean)
 - uid: Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.Evaluate(Sdl.LanguagePlatform.TranslationMemory.ITypedKeyValueContainer)
   commentId: M:Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.Evaluate(Sdl.LanguagePlatform.TranslationMemory.ITypedKeyValueContainer)
   id: Evaluate(Sdl.LanguagePlatform.TranslationMemory.ITypedKeyValueContainer)
@@ -169,13 +156,11 @@ items:
   nameWithType: AtomicExpression.Evaluate(ITypedKeyValueContainer)
   fullName: Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.Evaluate(Sdl.LanguagePlatform.TranslationMemory.ITypedKeyValueContainer)
   type: Method
-  source:
-    path: Sdl.LanguagePlatform.TranslationMemory
-    isExternal: true
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nSee <xref href=\"Sdl.LanguagePlatform.TranslationMemory.FilterExpression.Evaluate(Sdl.LanguagePlatform.TranslationMemory.ITypedKeyValueContainer)\" data-throw-if-not-resolved=\"false\"></xref>\n"
+  summary: Evaluates a filter expression for a given a set of field values.
+  example: []
   syntax:
     content: public override bool Evaluate(ITypedKeyValueContainer values)
     parameters:
@@ -188,12 +173,6 @@ items:
     content.vb: Public Overrides Function Evaluate(values As ITypedKeyValueContainer) As Boolean
   overridden: Sdl.LanguagePlatform.TranslationMemory.FilterExpression.Evaluate(Sdl.LanguagePlatform.TranslationMemory.ITypedKeyValueContainer)
   overload: Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.Evaluate*
-  modifiers.csharp:
-  - public
-  - override
-  modifiers.vb:
-  - Public
-  - Overrides
 - uid: Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.Value
   commentId: P:Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.Value
   id: Value
@@ -205,26 +184,39 @@ items:
   nameWithType: AtomicExpression.Value
   fullName: Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.Value
   type: Property
-  source:
-    path: Sdl.LanguagePlatform.TranslationMemory
-    isExternal: true
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nGets or sets the Value for this atomic expression.\n<remarks>This property contains both the left and right operands. The Name property of the field represents the left operand\nand the Value property represents the right operand.\n<p>This property should be set before the operator Op property.</p></remarks>\n"
+  summary: >-
+    Gets or sets the Value for this atomic expression.
+
+    <remarks>This property contains both the left and right operands. The Name property of the field represents the left operand
+
+    and the Value property represents the right operand.
+
+    <p>This property should be set before the operator Op property.</p></remarks>
+  example: []
   syntax:
-    content: public FieldValue Value { get; set; }
+    content: >-
+      [DataMember(Order = 0)]
+
+      public FieldValue Value { get; set; }
     parameters: []
     return:
       type: Sdl.LanguagePlatform.TranslationMemory.FieldValue
-    content.vb: Public Property Value As FieldValue
+    content.vb: >-
+      <DataMember(Order:=0)>
+
+      Public Property Value As FieldValue
   overload: Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.Value*
-  modifiers.csharp:
-  - public
-  - get
-  - set
-  modifiers.vb:
-  - Public
+  attributes:
+  - type: System.Runtime.Serialization.DataMemberAttribute
+    ctor: System.Runtime.Serialization.DataMemberAttribute.#ctor
+    arguments: []
+    namedArguments:
+    - name: Order
+      type: System.Int32
+      value: 0
 - uid: Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.Op
   commentId: P:Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.Op
   id: Op
@@ -236,44 +228,91 @@ items:
   nameWithType: AtomicExpression.Op
   fullName: Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.Op
   type: Property
-  source:
-    path: Sdl.LanguagePlatform.TranslationMemory
-    isExternal: true
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
-  summary: "\nGets or sets the operator for this atomic expression.\n<remarks> Throws an error if the field type is not compatible with a specific operator.\n<p>See description of enum Operator values for a list of compatible types and operators.</p></remarks>\n"
+  summary: >-
+    Gets or sets the operator for this atomic expression.
+
+    <remarks> Throws an error if the field type is not compatible with a specific operator.
+
+    <p>See description of enum Operator values for a list of compatible types and operators.</p></remarks>
+  example: []
   syntax:
-    content: public AtomicExpression.Operator Op { get; set; }
+    content: >-
+      [DataMember(Order = 1)]
+
+      public AtomicExpression.Operator Op { get; set; }
     parameters: []
     return:
       type: Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.Operator
-    content.vb: Public Property Op As AtomicExpression.Operator
+    content.vb: >-
+      <DataMember(Order:=1)>
+
+      Public Property Op As AtomicExpression.Operator
   overload: Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.Op*
-  modifiers.csharp:
-  - public
-  - get
-  - set
-  modifiers.vb:
-  - Public
+  attributes:
+  - type: System.Runtime.Serialization.DataMemberAttribute
+    ctor: System.Runtime.Serialization.DataMemberAttribute.#ctor
+    arguments: []
+    namedArguments:
+    - name: Order
+      type: System.Int32
+      value: 1
 references:
 - uid: Sdl.LanguagePlatform.TranslationMemory
   commentId: N:Sdl.LanguagePlatform.TranslationMemory
   isExternal: true
+  href: Sdl.html
   name: Sdl.LanguagePlatform.TranslationMemory
   nameWithType: Sdl.LanguagePlatform.TranslationMemory
   fullName: Sdl.LanguagePlatform.TranslationMemory
+  spec.csharp:
+  - uid: Sdl
+    name: Sdl
+    isExternal: true
+    href: Sdl.html
+  - name: .
+  - uid: Sdl.LanguagePlatform
+    name: LanguagePlatform
+    isExternal: true
+    href: Sdl.LanguagePlatform.html
+  - name: .
+  - uid: Sdl.LanguagePlatform.TranslationMemory
+    name: TranslationMemory
+    isExternal: true
+    href: Sdl.LanguagePlatform.TranslationMemory.html
+  spec.vb:
+  - uid: Sdl
+    name: Sdl
+    isExternal: true
+    href: Sdl.html
+  - name: .
+  - uid: Sdl.LanguagePlatform
+    name: LanguagePlatform
+    isExternal: true
+    href: Sdl.LanguagePlatform.html
+  - name: .
+  - uid: Sdl.LanguagePlatform.TranslationMemory
+    name: TranslationMemory
+    isExternal: true
+    href: Sdl.LanguagePlatform.TranslationMemory.html
 - uid: System.Object
   commentId: T:System.Object
   parent: System
   isExternal: true
-  name: Object
-  nameWithType: Object
-  fullName: System.Object
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
 - uid: Sdl.LanguagePlatform.TranslationMemory.FilterExpression
   commentId: T:Sdl.LanguagePlatform.TranslationMemory.FilterExpression
   parent: Sdl.LanguagePlatform.TranslationMemory
   isExternal: true
+  href: Sdl.LanguagePlatform.TranslationMemory.FilterExpression.html
   name: FilterExpression
   nameWithType: FilterExpression
   fullName: Sdl.LanguagePlatform.TranslationMemory.FilterExpression
@@ -281,266 +320,219 @@ references:
   commentId: M:System.Object.Equals(System.Object)
   parent: System.Object
   isExternal: true
-  name: Equals(Object)
-  nameWithType: Object.Equals(Object)
-  fullName: System.Object.Equals(System.Object)
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
   spec.csharp:
   - uid: System.Object.Equals(System.Object)
     name: Equals
-    nameWithType: Object.Equals
-    fullName: System.Object.Equals
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
   - name: (
-    nameWithType: (
-    fullName: (
   - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
+    name: object
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
-    nameWithType: )
-    fullName: )
   spec.vb:
   - uid: System.Object.Equals(System.Object)
     name: Equals
-    nameWithType: Object.Equals
-    fullName: System.Object.Equals
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
   - name: (
-    nameWithType: (
-    fullName: (
   - uid: System.Object
     name: Object
-    nameWithType: Object
-    fullName: System.Object
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Object.Equals(System.Object,System.Object)
   commentId: M:System.Object.Equals(System.Object,System.Object)
   parent: System.Object
   isExternal: true
-  name: Equals(Object, Object)
-  nameWithType: Object.Equals(Object, Object)
-  fullName: System.Object.Equals(System.Object, System.Object)
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
   spec.csharp:
   - uid: System.Object.Equals(System.Object,System.Object)
     name: Equals
-    nameWithType: Object.Equals
-    fullName: System.Object.Equals
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
   - name: (
-    nameWithType: (
-    fullName: (
   - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
+    name: object
     isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
   - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
+    name: object
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
-    nameWithType: )
-    fullName: )
   spec.vb:
   - uid: System.Object.Equals(System.Object,System.Object)
     name: Equals
-    nameWithType: Object.Equals
-    fullName: System.Object.Equals
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
   - name: (
-    nameWithType: (
-    fullName: (
   - uid: System.Object
     name: Object
-    nameWithType: Object
-    fullName: System.Object
     isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
   - uid: System.Object
     name: Object
-    nameWithType: Object
-    fullName: System.Object
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Object.ReferenceEquals(System.Object,System.Object)
   commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
   parent: System.Object
   isExternal: true
-  name: ReferenceEquals(Object, Object)
-  nameWithType: Object.ReferenceEquals(Object, Object)
-  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
   spec.csharp:
   - uid: System.Object.ReferenceEquals(System.Object,System.Object)
     name: ReferenceEquals
-    nameWithType: Object.ReferenceEquals
-    fullName: System.Object.ReferenceEquals
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
   - name: (
-    nameWithType: (
-    fullName: (
   - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
+    name: object
     isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
   - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
+    name: object
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
-    nameWithType: )
-    fullName: )
   spec.vb:
   - uid: System.Object.ReferenceEquals(System.Object,System.Object)
     name: ReferenceEquals
-    nameWithType: Object.ReferenceEquals
-    fullName: System.Object.ReferenceEquals
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
   - name: (
-    nameWithType: (
-    fullName: (
   - uid: System.Object
     name: Object
-    nameWithType: Object
-    fullName: System.Object
     isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
   - uid: System.Object
     name: Object
-    nameWithType: Object
-    fullName: System.Object
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Object.GetHashCode
   commentId: M:System.Object.GetHashCode
   parent: System.Object
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
   name: GetHashCode()
-  nameWithType: Object.GetHashCode()
-  fullName: System.Object.GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
   spec.csharp:
   - uid: System.Object.GetHashCode
     name: GetHashCode
-    nameWithType: Object.GetHashCode
-    fullName: System.Object.GetHashCode
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
   - name: (
-    nameWithType: (
-    fullName: (
   - name: )
-    nameWithType: )
-    fullName: )
   spec.vb:
   - uid: System.Object.GetHashCode
     name: GetHashCode
-    nameWithType: Object.GetHashCode
-    fullName: System.Object.GetHashCode
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
   - name: (
-    nameWithType: (
-    fullName: (
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Object.GetType
   commentId: M:System.Object.GetType
   parent: System.Object
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
   name: GetType()
-  nameWithType: Object.GetType()
-  fullName: System.Object.GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
   spec.csharp:
   - uid: System.Object.GetType
     name: GetType
-    nameWithType: Object.GetType
-    fullName: System.Object.GetType
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
   - name: (
-    nameWithType: (
-    fullName: (
   - name: )
-    nameWithType: )
-    fullName: )
   spec.vb:
   - uid: System.Object.GetType
     name: GetType
-    nameWithType: Object.GetType
-    fullName: System.Object.GetType
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
   - name: (
-    nameWithType: (
-    fullName: (
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Object.MemberwiseClone
   commentId: M:System.Object.MemberwiseClone
   parent: System.Object
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
   name: MemberwiseClone()
-  nameWithType: Object.MemberwiseClone()
-  fullName: System.Object.MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
   spec.csharp:
   - uid: System.Object.MemberwiseClone
     name: MemberwiseClone
-    nameWithType: Object.MemberwiseClone
-    fullName: System.Object.MemberwiseClone
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
   - name: (
-    nameWithType: (
-    fullName: (
   - name: )
-    nameWithType: )
-    fullName: )
   spec.vb:
   - uid: System.Object.MemberwiseClone
     name: MemberwiseClone
-    nameWithType: Object.MemberwiseClone
-    fullName: System.Object.MemberwiseClone
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
   - name: (
-    nameWithType: (
-    fullName: (
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System
   commentId: N:System
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
   name: System
   nameWithType: System
   fullName: System
 - uid: Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.#ctor*
   commentId: Overload:Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.#ctor
   isExternal: true
+  href: Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.html#Sdl_LanguagePlatform_TranslationMemory_AtomicExpression__ctor_Sdl_LanguagePlatform_TranslationMemory_FieldValue_Sdl_LanguagePlatform_TranslationMemory_AtomicExpression_Operator_
   name: AtomicExpression
   nameWithType: AtomicExpression.AtomicExpression
   fullName: Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.AtomicExpression
+  nameWithType.vb: AtomicExpression.New
+  fullName.vb: Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.New
+  name.vb: New
 - uid: Sdl.LanguagePlatform.TranslationMemory.FieldValue
   commentId: T:Sdl.LanguagePlatform.TranslationMemory.FieldValue
   parent: Sdl.LanguagePlatform.TranslationMemory
   isExternal: true
+  href: Sdl.LanguagePlatform.TranslationMemory.FieldValue.html
   name: FieldValue
   nameWithType: FieldValue
   fullName: Sdl.LanguagePlatform.TranslationMemory.FieldValue
@@ -548,43 +540,58 @@ references:
   commentId: T:Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.Operator
   parent: Sdl.LanguagePlatform.TranslationMemory
   isExternal: true
+  href: Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.html
   name: AtomicExpression.Operator
   nameWithType: AtomicExpression.Operator
   fullName: Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.Operator
+  spec.csharp:
+  - uid: Sdl.LanguagePlatform.TranslationMemory.AtomicExpression
+    name: AtomicExpression
+    isExternal: true
+    href: Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.html
+  - name: .
+  - uid: Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.Operator
+    name: Operator
+    isExternal: true
+    href: Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.Operator.html
+  spec.vb:
+  - uid: Sdl.LanguagePlatform.TranslationMemory.AtomicExpression
+    name: AtomicExpression
+    isExternal: true
+    href: Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.html
+  - name: .
+  - uid: Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.Operator
+    name: Operator
+    isExternal: true
+    href: Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.Operator.html
 - uid: System.Object.ToString
   commentId: M:System.Object.ToString
   parent: System.Object
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
   name: ToString()
-  nameWithType: Object.ToString()
-  fullName: System.Object.ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
   spec.csharp:
   - uid: System.Object.ToString
     name: ToString
-    nameWithType: Object.ToString
-    fullName: System.Object.ToString
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
   - name: (
-    nameWithType: (
-    fullName: (
   - name: )
-    nameWithType: )
-    fullName: )
   spec.vb:
   - uid: System.Object.ToString
     name: ToString
-    nameWithType: Object.ToString
-    fullName: System.Object.ToString
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
   - name: (
-    nameWithType: (
-    fullName: (
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.ToString*
   commentId: Overload:Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.ToString
   isExternal: true
+  href: Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.html#Sdl_LanguagePlatform_TranslationMemory_AtomicExpression_ToString
   name: ToString
   nameWithType: AtomicExpression.ToString
   fullName: Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.ToString
@@ -592,69 +599,62 @@ references:
   commentId: T:System.String
   parent: System
   isExternal: true
-  name: String
-  nameWithType: String
-  fullName: System.String
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
 - uid: Sdl.LanguagePlatform.TranslationMemory.FilterExpression.Validate(Sdl.LanguagePlatform.TranslationMemory.IFieldDefinitions,System.Boolean)
   commentId: M:Sdl.LanguagePlatform.TranslationMemory.FilterExpression.Validate(Sdl.LanguagePlatform.TranslationMemory.IFieldDefinitions,System.Boolean)
   parent: Sdl.LanguagePlatform.TranslationMemory.FilterExpression
   isExternal: true
-  name: Validate(IFieldDefinitions, Boolean)
-  nameWithType: FilterExpression.Validate(IFieldDefinitions, Boolean)
-  fullName: Sdl.LanguagePlatform.TranslationMemory.FilterExpression.Validate(Sdl.LanguagePlatform.TranslationMemory.IFieldDefinitions, System.Boolean)
+  href: Sdl.LanguagePlatform.TranslationMemory.FilterExpression.html#Sdl_LanguagePlatform_TranslationMemory_FilterExpression_Validate_Sdl_LanguagePlatform_TranslationMemory_IFieldDefinitions_System_Boolean_
+  name: Validate(IFieldDefinitions, bool)
+  nameWithType: FilterExpression.Validate(IFieldDefinitions, bool)
+  fullName: Sdl.LanguagePlatform.TranslationMemory.FilterExpression.Validate(Sdl.LanguagePlatform.TranslationMemory.IFieldDefinitions, bool)
+  nameWithType.vb: FilterExpression.Validate(IFieldDefinitions, Boolean)
+  fullName.vb: Sdl.LanguagePlatform.TranslationMemory.FilterExpression.Validate(Sdl.LanguagePlatform.TranslationMemory.IFieldDefinitions, Boolean)
+  name.vb: Validate(IFieldDefinitions, Boolean)
   spec.csharp:
   - uid: Sdl.LanguagePlatform.TranslationMemory.FilterExpression.Validate(Sdl.LanguagePlatform.TranslationMemory.IFieldDefinitions,System.Boolean)
     name: Validate
-    nameWithType: FilterExpression.Validate
-    fullName: Sdl.LanguagePlatform.TranslationMemory.FilterExpression.Validate
     isExternal: true
+    href: Sdl.LanguagePlatform.TranslationMemory.FilterExpression.html#Sdl_LanguagePlatform_TranslationMemory_FilterExpression_Validate_Sdl_LanguagePlatform_TranslationMemory_IFieldDefinitions_System_Boolean_
   - name: (
-    nameWithType: (
-    fullName: (
   - uid: Sdl.LanguagePlatform.TranslationMemory.IFieldDefinitions
     name: IFieldDefinitions
-    nameWithType: IFieldDefinitions
-    fullName: Sdl.LanguagePlatform.TranslationMemory.IFieldDefinitions
     isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+    href: Sdl.LanguagePlatform.TranslationMemory.IFieldDefinitions.html
+  - name: ','
+  - name: " "
   - uid: System.Boolean
-    name: Boolean
-    nameWithType: Boolean
-    fullName: System.Boolean
+    name: bool
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
   - name: )
-    nameWithType: )
-    fullName: )
   spec.vb:
   - uid: Sdl.LanguagePlatform.TranslationMemory.FilterExpression.Validate(Sdl.LanguagePlatform.TranslationMemory.IFieldDefinitions,System.Boolean)
     name: Validate
-    nameWithType: FilterExpression.Validate
-    fullName: Sdl.LanguagePlatform.TranslationMemory.FilterExpression.Validate
     isExternal: true
+    href: Sdl.LanguagePlatform.TranslationMemory.FilterExpression.html#Sdl_LanguagePlatform_TranslationMemory_FilterExpression_Validate_Sdl_LanguagePlatform_TranslationMemory_IFieldDefinitions_System_Boolean_
   - name: (
-    nameWithType: (
-    fullName: (
   - uid: Sdl.LanguagePlatform.TranslationMemory.IFieldDefinitions
     name: IFieldDefinitions
-    nameWithType: IFieldDefinitions
-    fullName: Sdl.LanguagePlatform.TranslationMemory.IFieldDefinitions
     isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+    href: Sdl.LanguagePlatform.TranslationMemory.IFieldDefinitions.html
+  - name: ','
+  - name: " "
   - uid: System.Boolean
     name: Boolean
-    nameWithType: Boolean
-    fullName: System.Boolean
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.Validate*
   commentId: Overload:Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.Validate
   isExternal: true
+  href: Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.html#Sdl_LanguagePlatform_TranslationMemory_AtomicExpression_Validate_Sdl_LanguagePlatform_TranslationMemory_IFieldDefinitions_System_Boolean_
   name: Validate
   nameWithType: AtomicExpression.Validate
   fullName: Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.Validate
@@ -662,6 +662,7 @@ references:
   commentId: T:Sdl.LanguagePlatform.TranslationMemory.IFieldDefinitions
   parent: Sdl.LanguagePlatform.TranslationMemory
   isExternal: true
+  href: Sdl.LanguagePlatform.TranslationMemory.IFieldDefinitions.html
   name: IFieldDefinitions
   nameWithType: IFieldDefinitions
   fullName: Sdl.LanguagePlatform.TranslationMemory.IFieldDefinitions
@@ -669,53 +670,47 @@ references:
   commentId: T:System.Boolean
   parent: System
   isExternal: true
-  name: Boolean
-  nameWithType: Boolean
-  fullName: System.Boolean
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
 - uid: Sdl.LanguagePlatform.TranslationMemory.FilterExpression.Evaluate(Sdl.LanguagePlatform.TranslationMemory.ITypedKeyValueContainer)
   commentId: M:Sdl.LanguagePlatform.TranslationMemory.FilterExpression.Evaluate(Sdl.LanguagePlatform.TranslationMemory.ITypedKeyValueContainer)
   parent: Sdl.LanguagePlatform.TranslationMemory.FilterExpression
   isExternal: true
+  href: Sdl.LanguagePlatform.TranslationMemory.FilterExpression.html#Sdl_LanguagePlatform_TranslationMemory_FilterExpression_Evaluate_Sdl_LanguagePlatform_TranslationMemory_ITypedKeyValueContainer_
   name: Evaluate(ITypedKeyValueContainer)
   nameWithType: FilterExpression.Evaluate(ITypedKeyValueContainer)
   fullName: Sdl.LanguagePlatform.TranslationMemory.FilterExpression.Evaluate(Sdl.LanguagePlatform.TranslationMemory.ITypedKeyValueContainer)
   spec.csharp:
   - uid: Sdl.LanguagePlatform.TranslationMemory.FilterExpression.Evaluate(Sdl.LanguagePlatform.TranslationMemory.ITypedKeyValueContainer)
     name: Evaluate
-    nameWithType: FilterExpression.Evaluate
-    fullName: Sdl.LanguagePlatform.TranslationMemory.FilterExpression.Evaluate
     isExternal: true
+    href: Sdl.LanguagePlatform.TranslationMemory.FilterExpression.html#Sdl_LanguagePlatform_TranslationMemory_FilterExpression_Evaluate_Sdl_LanguagePlatform_TranslationMemory_ITypedKeyValueContainer_
   - name: (
-    nameWithType: (
-    fullName: (
   - uid: Sdl.LanguagePlatform.TranslationMemory.ITypedKeyValueContainer
     name: ITypedKeyValueContainer
-    nameWithType: ITypedKeyValueContainer
-    fullName: Sdl.LanguagePlatform.TranslationMemory.ITypedKeyValueContainer
     isExternal: true
+    href: Sdl.LanguagePlatform.TranslationMemory.ITypedKeyValueContainer.html
   - name: )
-    nameWithType: )
-    fullName: )
   spec.vb:
   - uid: Sdl.LanguagePlatform.TranslationMemory.FilterExpression.Evaluate(Sdl.LanguagePlatform.TranslationMemory.ITypedKeyValueContainer)
     name: Evaluate
-    nameWithType: FilterExpression.Evaluate
-    fullName: Sdl.LanguagePlatform.TranslationMemory.FilterExpression.Evaluate
     isExternal: true
+    href: Sdl.LanguagePlatform.TranslationMemory.FilterExpression.html#Sdl_LanguagePlatform_TranslationMemory_FilterExpression_Evaluate_Sdl_LanguagePlatform_TranslationMemory_ITypedKeyValueContainer_
   - name: (
-    nameWithType: (
-    fullName: (
   - uid: Sdl.LanguagePlatform.TranslationMemory.ITypedKeyValueContainer
     name: ITypedKeyValueContainer
-    nameWithType: ITypedKeyValueContainer
-    fullName: Sdl.LanguagePlatform.TranslationMemory.ITypedKeyValueContainer
     isExternal: true
+    href: Sdl.LanguagePlatform.TranslationMemory.ITypedKeyValueContainer.html
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.Evaluate*
   commentId: Overload:Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.Evaluate
   isExternal: true
+  href: Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.html#Sdl_LanguagePlatform_TranslationMemory_AtomicExpression_Evaluate_Sdl_LanguagePlatform_TranslationMemory_ITypedKeyValueContainer_
   name: Evaluate
   nameWithType: AtomicExpression.Evaluate
   fullName: Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.Evaluate
@@ -723,18 +718,21 @@ references:
   commentId: T:Sdl.LanguagePlatform.TranslationMemory.ITypedKeyValueContainer
   parent: Sdl.LanguagePlatform.TranslationMemory
   isExternal: true
+  href: Sdl.LanguagePlatform.TranslationMemory.ITypedKeyValueContainer.html
   name: ITypedKeyValueContainer
   nameWithType: ITypedKeyValueContainer
   fullName: Sdl.LanguagePlatform.TranslationMemory.ITypedKeyValueContainer
 - uid: Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.Value*
   commentId: Overload:Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.Value
   isExternal: true
+  href: Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.html#Sdl_LanguagePlatform_TranslationMemory_AtomicExpression_Value
   name: Value
   nameWithType: AtomicExpression.Value
   fullName: Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.Value
 - uid: Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.Op*
   commentId: Overload:Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.Op
   isExternal: true
+  href: Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.html#Sdl_LanguagePlatform_TranslationMemory_AtomicExpression_Op
   name: Op
   nameWithType: AtomicExpression.Op
   fullName: Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.Op

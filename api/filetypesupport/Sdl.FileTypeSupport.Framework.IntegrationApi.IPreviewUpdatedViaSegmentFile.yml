@@ -14,25 +14,35 @@ items:
   nameWithType: IPreviewUpdatedViaSegmentFile
   fullName: Sdl.FileTypeSupport.Framework.IntegrationApi.IPreviewUpdatedViaSegmentFile
   type: Interface
-  source:
-    path: Sdl.FileTypeSupport.Framework.Core
-    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.IntegrationApi
-  summary: "\nImplemented by the real-time preview controls and applications that can be updated using a &quot;segment file protocol&quot;,\ni.e. via a file in the orignal document format that contains a single segment.\n"
-  remarks: "\n<p>\nComponents that implement this interface typically also implement <xref href=\"Sdl.FileTypeSupport.Framework.IntegrationApi.INavigablePreview\" data-throw-if-not-resolved=\"false\"></xref>.\n</p>\n<p>\nThis interface is used by the real-time preview for Microsoft Word documents.\n</p>\n<p>\nThe protocol works as follows:\n</p>\n\n"
+  summary: >-
+    Implemented by the real-time preview controls and applications that can be updated using a "segment file protocol",
+
+    i.e. via a file in the orignal document format that contains a single segment.
+  remarks: >-
+    <p>
+
+    Components that implement this interface typically also implement <xref href="Sdl.FileTypeSupport.Framework.IntegrationApi.INavigablePreview" data-throw-if-not-resolved="false"></xref>.
+
+    </p>
+
+    <p>
+
+    This interface is used by the real-time preview for Microsoft Word documents.
+
+    </p>
+
+    <p>
+
+    The protocol works as follows:
+
+    </p>
+  example: []
   syntax:
     content: 'public interface IPreviewUpdatedViaSegmentFile : IAbstractUpdatablePreview'
-    content.vb: >-
-      Public Interface IPreviewUpdatedViaSegmentFile
-          Inherits IAbstractUpdatablePreview
-  modifiers.csharp:
-  - public
-  - interface
-  modifiers.vb:
-  - Public
-  - Interface
+    content.vb: Public Interface IPreviewUpdatedViaSegmentFile Inherits IAbstractUpdatablePreview
 - uid: Sdl.FileTypeSupport.Framework.IntegrationApi.IPreviewUpdatedViaSegmentFile.CreateSegmentFile(Sdl.FileTypeSupport.Framework.IntegrationApi.SegmentReference)
   commentId: M:Sdl.FileTypeSupport.Framework.IntegrationApi.IPreviewUpdatedViaSegmentFile.CreateSegmentFile(Sdl.FileTypeSupport.Framework.IntegrationApi.SegmentReference)
   id: CreateSegmentFile(Sdl.FileTypeSupport.Framework.IntegrationApi.SegmentReference)
@@ -44,13 +54,14 @@ items:
   nameWithType: IPreviewUpdatedViaSegmentFile.CreateSegmentFile(SegmentReference)
   fullName: Sdl.FileTypeSupport.Framework.IntegrationApi.IPreviewUpdatedViaSegmentFile.CreateSegmentFile(Sdl.FileTypeSupport.Framework.IntegrationApi.SegmentReference)
   type: Method
-  source:
-    path: Sdl.FileTypeSupport.Framework.Core
-    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.IntegrationApi
-  summary: "\nCalled by the host application to create a native source document containing the source language\ncontent of the specified segment. The implementation returns the full path to the file created.\n"
+  summary: >-
+    Called by the host application to create a native source document containing the source language
+
+    content of the specified segment. The implementation returns the full path to the file created.
+  example: []
   syntax:
     content: TempFileManager CreateSegmentFile(SegmentReference segment)
     parameters:
@@ -59,7 +70,10 @@ items:
       description: Identifies the segment to create a file for.
     return:
       type: Sdl.FileTypeSupport.Framework.TempFileManager
-      description: "Temporary file that has been created. The lifetime of the file is controlled by the \nreturned manager instance. All components that need access to the file should reference this.\nThe file will automatically be deleted when this instance is disposed or garbage collection takes place."
+      description: >-
+        Temporary file that has been created. The lifetime of the file is controlled by the 
+                    returned manager instance. All components that need access to the file should reference this.
+                    The file will automatically be deleted when this instance is disposed or garbage collection takes place.
     content.vb: Function CreateSegmentFile(segment As SegmentReference) As TempFileManager
   overload: Sdl.FileTypeSupport.Framework.IntegrationApi.IPreviewUpdatedViaSegmentFile.CreateSegmentFile*
 - uid: Sdl.FileTypeSupport.Framework.IntegrationApi.IPreviewUpdatedViaSegmentFile.UpdatePreviewFromSegmentFile(Sdl.FileTypeSupport.Framework.IntegrationApi.SegmentReference,Sdl.FileTypeSupport.Framework.TempFileManager)
@@ -73,33 +87,90 @@ items:
   nameWithType: IPreviewUpdatedViaSegmentFile.UpdatePreviewFromSegmentFile(SegmentReference, TempFileManager)
   fullName: Sdl.FileTypeSupport.Framework.IntegrationApi.IPreviewUpdatedViaSegmentFile.UpdatePreviewFromSegmentFile(Sdl.FileTypeSupport.Framework.IntegrationApi.SegmentReference, Sdl.FileTypeSupport.Framework.TempFileManager)
   type: Method
-  source:
-    path: Sdl.FileTypeSupport.Framework.Core
-    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.IntegrationApi
-  summary: "\nCalled by the host application to update the preview with the content of a segment file.\nThe implementation should update the preview by replacing the segment content with the\ncontent in the segment file.\n"
+  summary: >-
+    Called by the host application to update the preview with the content of a segment file.
+
+    The implementation should update the preview by replacing the segment content with the
+
+    content in the segment file.
+  example: []
   syntax:
     content: void UpdatePreviewFromSegmentFile(SegmentReference segment, TempFileManager translatedSegmentFile)
     parameters:
     - id: segment
       type: Sdl.FileTypeSupport.Framework.IntegrationApi.SegmentReference
+      description: ''
     - id: translatedSegmentFile
       type: Sdl.FileTypeSupport.Framework.TempFileManager
-      description: "Reference to a native file containing the updated \ntarget language version of the segment. The implementation may dispose of this when it \nis no longer needed."
+      description: >-
+        Reference to a native file containing the updated 
+                    target language version of the segment. The implementation may dispose of this when it 
+                    is no longer needed.
     content.vb: Sub UpdatePreviewFromSegmentFile(segment As SegmentReference, translatedSegmentFile As TempFileManager)
   overload: Sdl.FileTypeSupport.Framework.IntegrationApi.IPreviewUpdatedViaSegmentFile.UpdatePreviewFromSegmentFile*
 references:
+- uid: Sdl.FileTypeSupport.Framework.IntegrationApi.INavigablePreview
+  commentId: T:Sdl.FileTypeSupport.Framework.IntegrationApi.INavigablePreview
+  parent: Sdl.FileTypeSupport.Framework.IntegrationApi
+  isExternal: true
+  href: Sdl.FileTypeSupport.Framework.IntegrationApi.INavigablePreview.html
+  name: INavigablePreview
+  nameWithType: INavigablePreview
+  fullName: Sdl.FileTypeSupport.Framework.IntegrationApi.INavigablePreview
 - uid: Sdl.FileTypeSupport.Framework.IntegrationApi
   commentId: N:Sdl.FileTypeSupport.Framework.IntegrationApi
   isExternal: true
+  href: Sdl.html
   name: Sdl.FileTypeSupport.Framework.IntegrationApi
   nameWithType: Sdl.FileTypeSupport.Framework.IntegrationApi
   fullName: Sdl.FileTypeSupport.Framework.IntegrationApi
+  spec.csharp:
+  - uid: Sdl
+    name: Sdl
+    isExternal: true
+    href: Sdl.html
+  - name: .
+  - uid: Sdl.FileTypeSupport
+    name: FileTypeSupport
+    isExternal: true
+    href: Sdl.FileTypeSupport.html
+  - name: .
+  - uid: Sdl.FileTypeSupport.Framework
+    name: Framework
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.html
+  - name: .
+  - uid: Sdl.FileTypeSupport.Framework.IntegrationApi
+    name: IntegrationApi
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.IntegrationApi.html
+  spec.vb:
+  - uid: Sdl
+    name: Sdl
+    isExternal: true
+    href: Sdl.html
+  - name: .
+  - uid: Sdl.FileTypeSupport
+    name: FileTypeSupport
+    isExternal: true
+    href: Sdl.FileTypeSupport.html
+  - name: .
+  - uid: Sdl.FileTypeSupport.Framework
+    name: Framework
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.html
+  - name: .
+  - uid: Sdl.FileTypeSupport.Framework.IntegrationApi
+    name: IntegrationApi
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.IntegrationApi.html
 - uid: Sdl.FileTypeSupport.Framework.IntegrationApi.IPreviewUpdatedViaSegmentFile.CreateSegmentFile*
   commentId: Overload:Sdl.FileTypeSupport.Framework.IntegrationApi.IPreviewUpdatedViaSegmentFile.CreateSegmentFile
   isExternal: true
+  href: Sdl.FileTypeSupport.Framework.IntegrationApi.IPreviewUpdatedViaSegmentFile.html#Sdl_FileTypeSupport_Framework_IntegrationApi_IPreviewUpdatedViaSegmentFile_CreateSegmentFile_Sdl_FileTypeSupport_Framework_IntegrationApi_SegmentReference_
   name: CreateSegmentFile
   nameWithType: IPreviewUpdatedViaSegmentFile.CreateSegmentFile
   fullName: Sdl.FileTypeSupport.Framework.IntegrationApi.IPreviewUpdatedViaSegmentFile.CreateSegmentFile
@@ -107,6 +178,7 @@ references:
   commentId: T:Sdl.FileTypeSupport.Framework.IntegrationApi.SegmentReference
   parent: Sdl.FileTypeSupport.Framework.IntegrationApi
   isExternal: true
+  href: Sdl.FileTypeSupport.Framework.IntegrationApi.SegmentReference.html
   name: SegmentReference
   nameWithType: SegmentReference
   fullName: Sdl.FileTypeSupport.Framework.IntegrationApi.SegmentReference
@@ -114,18 +186,51 @@ references:
   commentId: T:Sdl.FileTypeSupport.Framework.TempFileManager
   parent: Sdl.FileTypeSupport.Framework
   isExternal: true
+  href: Sdl.FileTypeSupport.Framework.TempFileManager.html
   name: TempFileManager
   nameWithType: TempFileManager
   fullName: Sdl.FileTypeSupport.Framework.TempFileManager
 - uid: Sdl.FileTypeSupport.Framework
   commentId: N:Sdl.FileTypeSupport.Framework
   isExternal: true
+  href: Sdl.html
   name: Sdl.FileTypeSupport.Framework
   nameWithType: Sdl.FileTypeSupport.Framework
   fullName: Sdl.FileTypeSupport.Framework
+  spec.csharp:
+  - uid: Sdl
+    name: Sdl
+    isExternal: true
+    href: Sdl.html
+  - name: .
+  - uid: Sdl.FileTypeSupport
+    name: FileTypeSupport
+    isExternal: true
+    href: Sdl.FileTypeSupport.html
+  - name: .
+  - uid: Sdl.FileTypeSupport.Framework
+    name: Framework
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.html
+  spec.vb:
+  - uid: Sdl
+    name: Sdl
+    isExternal: true
+    href: Sdl.html
+  - name: .
+  - uid: Sdl.FileTypeSupport
+    name: FileTypeSupport
+    isExternal: true
+    href: Sdl.FileTypeSupport.html
+  - name: .
+  - uid: Sdl.FileTypeSupport.Framework
+    name: Framework
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.html
 - uid: Sdl.FileTypeSupport.Framework.IntegrationApi.IPreviewUpdatedViaSegmentFile.UpdatePreviewFromSegmentFile*
   commentId: Overload:Sdl.FileTypeSupport.Framework.IntegrationApi.IPreviewUpdatedViaSegmentFile.UpdatePreviewFromSegmentFile
   isExternal: true
+  href: Sdl.FileTypeSupport.Framework.IntegrationApi.IPreviewUpdatedViaSegmentFile.html#Sdl_FileTypeSupport_Framework_IntegrationApi_IPreviewUpdatedViaSegmentFile_UpdatePreviewFromSegmentFile_Sdl_FileTypeSupport_Framework_IntegrationApi_SegmentReference_Sdl_FileTypeSupport_Framework_TempFileManager_
   name: UpdatePreviewFromSegmentFile
   nameWithType: IPreviewUpdatedViaSegmentFile.UpdatePreviewFromSegmentFile
   fullName: Sdl.FileTypeSupport.Framework.IntegrationApi.IPreviewUpdatedViaSegmentFile.UpdatePreviewFromSegmentFile

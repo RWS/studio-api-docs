@@ -13,26 +13,23 @@ items:
   nameWithType: INativeContentStreamMessageReporter
   fullName: Sdl.FileTypeSupport.Framework.NativeApi.INativeContentStreamMessageReporter
   type: Interface
-  source:
-    path: Sdl.FileTypeSupport.Framework.Core
-    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.NativeApi
-  summary: "\nMessage reporting mechanism intended for native content processors. Allows\nexplicit locations to be associated with messages. The corresponding locations\nshould be output on the native content stream through calls to \n<xref href=\"Sdl.FileTypeSupport.Framework.NativeApi.IAbstractNativeContentHandler.LocationMark(Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId)\" data-throw-if-not-resolved=\"false\"></xref>.\n"
+  summary: >-
+    Message reporting mechanism intended for native content processors. Allows
+
+    explicit locations to be associated with messages. The corresponding locations
+
+    should be output on the native content stream through calls to 
+
+    <xref href="Sdl.FileTypeSupport.Framework.NativeApi.IAbstractNativeContentHandler.LocationMark(Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId)" data-throw-if-not-resolved="false"></xref>.
+  example: []
   syntax:
     content: 'public interface INativeContentStreamMessageReporter : IBasicMessageReporter'
-    content.vb: >-
-      Public Interface INativeContentStreamMessageReporter
-          Inherits IBasicMessageReporter
+    content.vb: Public Interface INativeContentStreamMessageReporter Inherits IBasicMessageReporter
   inheritedMembers:
   - Sdl.FileTypeSupport.Framework.NativeApi.IBasicMessageReporter.ReportMessage(System.Object,System.String,Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel,System.String,System.String)
-  modifiers.csharp:
-  - public
-  - interface
-  modifiers.vb:
-  - Public
-  - Interface
 - uid: Sdl.FileTypeSupport.Framework.NativeApi.INativeContentStreamMessageReporter.ReportMessage(System.Object,System.String,Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel,System.String,Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId,Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId)
   commentId: M:Sdl.FileTypeSupport.Framework.NativeApi.INativeContentStreamMessageReporter.ReportMessage(System.Object,System.String,Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel,System.String,Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId,Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId)
   id: ReportMessage(System.Object,System.String,Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel,System.String,Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId,Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId)
@@ -40,20 +37,31 @@ items:
   langs:
   - csharp
   - vb
-  name: ReportMessage(Object, String, ErrorLevel, String, LocationMarkerId, LocationMarkerId)
-  nameWithType: INativeContentStreamMessageReporter.ReportMessage(Object, String, ErrorLevel, String, LocationMarkerId, LocationMarkerId)
-  fullName: Sdl.FileTypeSupport.Framework.NativeApi.INativeContentStreamMessageReporter.ReportMessage(System.Object, System.String, Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel, System.String, Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId, Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId)
+  name: ReportMessage(object, string, ErrorLevel, string, LocationMarkerId, LocationMarkerId)
+  nameWithType: INativeContentStreamMessageReporter.ReportMessage(object, string, ErrorLevel, string, LocationMarkerId, LocationMarkerId)
+  fullName: Sdl.FileTypeSupport.Framework.NativeApi.INativeContentStreamMessageReporter.ReportMessage(object, string, Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel, string, Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId, Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId)
   type: Method
-  source:
-    path: Sdl.FileTypeSupport.Framework.Core
-    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.NativeApi
-  summary: "\nUsed by native content processors to report a non-critical issue with an associated range or location\nidentified by location marker ids passed around through <xref href=\"Sdl.FileTypeSupport.Framework.NativeApi.IAbstractNativeContentHandler.LocationMark(Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId)\" data-throw-if-not-resolved=\"false\"></xref> calls\nin the native content stream.\n"
-  remarks: "\n"
+  summary: >-
+    Used by native content processors to report a non-critical issue with an associated range or location
+
+    identified by location marker ids passed around through <xref href="Sdl.FileTypeSupport.Framework.NativeApi.IAbstractNativeContentHandler.LocationMark(Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId)" data-throw-if-not-resolved="false"></xref> calls
+
+    in the native content stream.
+  remarks: ''
   example:
-  - "\nThe following code shows an example of how to report a message with a location from a native content processor:\n<pre><code>void ReportWarning(string message)\n{\n   LocationMarkerId location = new LocationMarkerId();\n   Output.LocationMark(location);\n   MessageReporter.ReportMessage(this, &quot;Origin of error&quot;, ErrorLevel.Warning, message, location, null);\n}</code></pre>\n"
+  - >-
+    The following code shows an example of how to report a message with a location from a native content processor:
+
+    <pre><code class="lang-csharp">void ReportWarning(string message)
+
+    {
+       LocationMarkerId location = new LocationMarkerId();
+       Output.LocationMark(location);
+       MessageReporter.ReportMessage(this, "Origin of error", ErrorLevel.Warning, message, location, null);
+    }</code></pre>
   syntax:
     content: void ReportMessage(object source, string origin, ErrorLevel level, string message, LocationMarkerId fromLocation, LocationMarkerId uptoLocation)
     parameters:
@@ -71,139 +79,199 @@ items:
       description: The actual message text
     - id: fromLocation
       type: Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId
-      description: "The start of the content location that the location the message refers to. \nNative content processors normally create a new location marker, and insert it into the content stream."
+      description: >-
+        The start of the content location that the location the message refers to. 
+                    Native content processors normally create a new location marker, and insert it into the content stream.
     - id: uptoLocation
       type: Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId
       description: >-
         The end of the content location that the message refers to. May be <code>null</code> or the
-
-        same as the <code>fromLocation</code>, in which case the message is interpreted to refer to a single location,
-
-        and not a range of content.
+                    same as the <code>fromLocation</code>, in which case the message is interpreted to refer to a single location,
+                    and not a range of content.
     content.vb: Sub ReportMessage(source As Object, origin As String, level As ErrorLevel, message As String, fromLocation As LocationMarkerId, uptoLocation As LocationMarkerId)
   overload: Sdl.FileTypeSupport.Framework.NativeApi.INativeContentStreamMessageReporter.ReportMessage*
+  nameWithType.vb: INativeContentStreamMessageReporter.ReportMessage(Object, String, ErrorLevel, String, LocationMarkerId, LocationMarkerId)
+  fullName.vb: Sdl.FileTypeSupport.Framework.NativeApi.INativeContentStreamMessageReporter.ReportMessage(Object, String, Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel, String, Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId, Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId)
+  name.vb: ReportMessage(Object, String, ErrorLevel, String, LocationMarkerId, LocationMarkerId)
 references:
+- uid: Sdl.FileTypeSupport.Framework.NativeApi.IAbstractNativeContentHandler.LocationMark(Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId)
+  commentId: M:Sdl.FileTypeSupport.Framework.NativeApi.IAbstractNativeContentHandler.LocationMark(Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId)
+  parent: Sdl.FileTypeSupport.Framework.NativeApi.IAbstractNativeContentHandler
+  isExternal: true
+  href: Sdl.FileTypeSupport.Framework.NativeApi.IAbstractNativeContentHandler.html#Sdl_FileTypeSupport_Framework_NativeApi_IAbstractNativeContentHandler_LocationMark_Sdl_FileTypeSupport_Framework_NativeApi_LocationMarkerId_
+  name: LocationMark(LocationMarkerId)
+  nameWithType: IAbstractNativeContentHandler.LocationMark(LocationMarkerId)
+  fullName: Sdl.FileTypeSupport.Framework.NativeApi.IAbstractNativeContentHandler.LocationMark(Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId)
+  spec.csharp:
+  - uid: Sdl.FileTypeSupport.Framework.NativeApi.IAbstractNativeContentHandler.LocationMark(Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId)
+    name: LocationMark
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.NativeApi.IAbstractNativeContentHandler.html#Sdl_FileTypeSupport_Framework_NativeApi_IAbstractNativeContentHandler_LocationMark_Sdl_FileTypeSupport_Framework_NativeApi_LocationMarkerId_
+  - name: (
+  - uid: Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId
+    name: LocationMarkerId
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId.html
+  - name: )
+  spec.vb:
+  - uid: Sdl.FileTypeSupport.Framework.NativeApi.IAbstractNativeContentHandler.LocationMark(Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId)
+    name: LocationMark
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.NativeApi.IAbstractNativeContentHandler.html#Sdl_FileTypeSupport_Framework_NativeApi_IAbstractNativeContentHandler_LocationMark_Sdl_FileTypeSupport_Framework_NativeApi_LocationMarkerId_
+  - name: (
+  - uid: Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId
+    name: LocationMarkerId
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId.html
+  - name: )
 - uid: Sdl.FileTypeSupport.Framework.NativeApi
   commentId: N:Sdl.FileTypeSupport.Framework.NativeApi
   isExternal: true
+  href: Sdl.html
   name: Sdl.FileTypeSupport.Framework.NativeApi
   nameWithType: Sdl.FileTypeSupport.Framework.NativeApi
   fullName: Sdl.FileTypeSupport.Framework.NativeApi
+  spec.csharp:
+  - uid: Sdl
+    name: Sdl
+    isExternal: true
+    href: Sdl.html
+  - name: .
+  - uid: Sdl.FileTypeSupport
+    name: FileTypeSupport
+    isExternal: true
+    href: Sdl.FileTypeSupport.html
+  - name: .
+  - uid: Sdl.FileTypeSupport.Framework
+    name: Framework
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.html
+  - name: .
+  - uid: Sdl.FileTypeSupport.Framework.NativeApi
+    name: NativeApi
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.NativeApi.html
+  spec.vb:
+  - uid: Sdl
+    name: Sdl
+    isExternal: true
+    href: Sdl.html
+  - name: .
+  - uid: Sdl.FileTypeSupport
+    name: FileTypeSupport
+    isExternal: true
+    href: Sdl.FileTypeSupport.html
+  - name: .
+  - uid: Sdl.FileTypeSupport.Framework
+    name: Framework
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.html
+  - name: .
+  - uid: Sdl.FileTypeSupport.Framework.NativeApi
+    name: NativeApi
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.NativeApi.html
 - uid: Sdl.FileTypeSupport.Framework.NativeApi.IBasicMessageReporter.ReportMessage(System.Object,System.String,Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel,System.String,System.String)
   commentId: M:Sdl.FileTypeSupport.Framework.NativeApi.IBasicMessageReporter.ReportMessage(System.Object,System.String,Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel,System.String,System.String)
   parent: Sdl.FileTypeSupport.Framework.NativeApi.IBasicMessageReporter
   isExternal: true
-  name: ReportMessage(Object, String, ErrorLevel, String, String)
-  nameWithType: IBasicMessageReporter.ReportMessage(Object, String, ErrorLevel, String, String)
-  fullName: Sdl.FileTypeSupport.Framework.NativeApi.IBasicMessageReporter.ReportMessage(System.Object, System.String, Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel, System.String, System.String)
+  href: Sdl.FileTypeSupport.Framework.NativeApi.IBasicMessageReporter.html#Sdl_FileTypeSupport_Framework_NativeApi_IBasicMessageReporter_ReportMessage_System_Object_System_String_Sdl_FileTypeSupport_Framework_NativeApi_ErrorLevel_System_String_System_String_
+  name: ReportMessage(object, string, ErrorLevel, string, string)
+  nameWithType: IBasicMessageReporter.ReportMessage(object, string, ErrorLevel, string, string)
+  fullName: Sdl.FileTypeSupport.Framework.NativeApi.IBasicMessageReporter.ReportMessage(object, string, Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel, string, string)
+  nameWithType.vb: IBasicMessageReporter.ReportMessage(Object, String, ErrorLevel, String, String)
+  fullName.vb: Sdl.FileTypeSupport.Framework.NativeApi.IBasicMessageReporter.ReportMessage(Object, String, Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel, String, String)
+  name.vb: ReportMessage(Object, String, ErrorLevel, String, String)
   spec.csharp:
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.IBasicMessageReporter.ReportMessage(System.Object,System.String,Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel,System.String,System.String)
     name: ReportMessage
-    nameWithType: IBasicMessageReporter.ReportMessage
-    fullName: Sdl.FileTypeSupport.Framework.NativeApi.IBasicMessageReporter.ReportMessage
     isExternal: true
+    href: Sdl.FileTypeSupport.Framework.NativeApi.IBasicMessageReporter.html#Sdl_FileTypeSupport_Framework_NativeApi_IBasicMessageReporter_ReportMessage_System_Object_System_String_Sdl_FileTypeSupport_Framework_NativeApi_ErrorLevel_System_String_System_String_
   - name: (
-    nameWithType: (
-    fullName: (
   - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
+    name: object
     isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
   - uid: System.String
-    name: String
-    nameWithType: String
-    fullName: System.String
+    name: string
     isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel
     name: ErrorLevel
-    nameWithType: ErrorLevel
-    fullName: Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel
     isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+    href: Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel.html
+  - name: ','
+  - name: " "
   - uid: System.String
-    name: String
-    nameWithType: String
-    fullName: System.String
+    name: string
     isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
   - uid: System.String
-    name: String
-    nameWithType: String
-    fullName: System.String
+    name: string
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
   - name: )
-    nameWithType: )
-    fullName: )
   spec.vb:
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.IBasicMessageReporter.ReportMessage(System.Object,System.String,Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel,System.String,System.String)
     name: ReportMessage
-    nameWithType: IBasicMessageReporter.ReportMessage
-    fullName: Sdl.FileTypeSupport.Framework.NativeApi.IBasicMessageReporter.ReportMessage
     isExternal: true
+    href: Sdl.FileTypeSupport.Framework.NativeApi.IBasicMessageReporter.html#Sdl_FileTypeSupport_Framework_NativeApi_IBasicMessageReporter_ReportMessage_System_Object_System_String_Sdl_FileTypeSupport_Framework_NativeApi_ErrorLevel_System_String_System_String_
   - name: (
-    nameWithType: (
-    fullName: (
   - uid: System.Object
     name: Object
-    nameWithType: Object
-    fullName: System.Object
     isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
   - uid: System.String
     name: String
-    nameWithType: String
-    fullName: System.String
     isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel
     name: ErrorLevel
-    nameWithType: ErrorLevel
-    fullName: Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel
     isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+    href: Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel.html
+  - name: ','
+  - name: " "
   - uid: System.String
     name: String
-    nameWithType: String
-    fullName: System.String
     isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
   - uid: System.String
     name: String
-    nameWithType: String
-    fullName: System.String
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
   - name: )
-    nameWithType: )
-    fullName: )
+- uid: Sdl.FileTypeSupport.Framework.NativeApi.IAbstractNativeContentHandler
+  commentId: T:Sdl.FileTypeSupport.Framework.NativeApi.IAbstractNativeContentHandler
+  parent: Sdl.FileTypeSupport.Framework.NativeApi
+  isExternal: true
+  href: Sdl.FileTypeSupport.Framework.NativeApi.IAbstractNativeContentHandler.html
+  name: IAbstractNativeContentHandler
+  nameWithType: IAbstractNativeContentHandler
+  fullName: Sdl.FileTypeSupport.Framework.NativeApi.IAbstractNativeContentHandler
 - uid: Sdl.FileTypeSupport.Framework.NativeApi.IBasicMessageReporter
   commentId: T:Sdl.FileTypeSupport.Framework.NativeApi.IBasicMessageReporter
   parent: Sdl.FileTypeSupport.Framework.NativeApi
   isExternal: true
+  href: Sdl.FileTypeSupport.Framework.NativeApi.IBasicMessageReporter.html
   name: IBasicMessageReporter
   nameWithType: IBasicMessageReporter
   fullName: Sdl.FileTypeSupport.Framework.NativeApi.IBasicMessageReporter
 - uid: Sdl.FileTypeSupport.Framework.NativeApi.INativeContentStreamMessageReporter.ReportMessage*
   commentId: Overload:Sdl.FileTypeSupport.Framework.NativeApi.INativeContentStreamMessageReporter.ReportMessage
   isExternal: true
+  href: Sdl.FileTypeSupport.Framework.NativeApi.INativeContentStreamMessageReporter.html#Sdl_FileTypeSupport_Framework_NativeApi_INativeContentStreamMessageReporter_ReportMessage_System_Object_System_String_Sdl_FileTypeSupport_Framework_NativeApi_ErrorLevel_System_String_Sdl_FileTypeSupport_Framework_NativeApi_LocationMarkerId_Sdl_FileTypeSupport_Framework_NativeApi_LocationMarkerId_
   name: ReportMessage
   nameWithType: INativeContentStreamMessageReporter.ReportMessage
   fullName: Sdl.FileTypeSupport.Framework.NativeApi.INativeContentStreamMessageReporter.ReportMessage
@@ -211,20 +279,29 @@ references:
   commentId: T:System.Object
   parent: System
   isExternal: true
-  name: Object
-  nameWithType: Object
-  fullName: System.Object
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
 - uid: System.String
   commentId: T:System.String
   parent: System
   isExternal: true
-  name: String
-  nameWithType: String
-  fullName: System.String
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
 - uid: Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel
   commentId: T:Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel
   parent: Sdl.FileTypeSupport.Framework.NativeApi
   isExternal: true
+  href: Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel.html
   name: ErrorLevel
   nameWithType: ErrorLevel
   fullName: Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel
@@ -232,12 +309,14 @@ references:
   commentId: T:Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId
   parent: Sdl.FileTypeSupport.Framework.NativeApi
   isExternal: true
+  href: Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId.html
   name: LocationMarkerId
   nameWithType: LocationMarkerId
   fullName: Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId
 - uid: System
   commentId: N:System
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
   name: System
   nameWithType: System
   fullName: System
