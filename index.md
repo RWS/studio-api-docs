@@ -20,8 +20,9 @@ Find more of our code samples on [GitHub](https://github.com/RWS/trados-studio-a
 
 ## <Var:ProductName> API versions
 
-### [<Var:ProductName> 2022 - API 17.1](http://developers.rws.com/studio-api-docs/17.1/index.html)
+### [<Var:ProductName> 2024 - API 18.0](http://developers.rws.com/studio-api-docs/index.html)
 
+### [<Var:ProductName> 2022 - API 17.1](http://developers.rws.com/studio-api-docs/17.1/index.html)
 
 ### [<Var:ProductName> 2022 - API 17.0](http://developers.rws.com/studio-api-docs/17.0/index.html)
 
