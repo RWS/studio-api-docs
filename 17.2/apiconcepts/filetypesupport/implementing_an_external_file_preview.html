@@ -1,0 +1,190 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Implementing an External File Preview </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Implementing an External File Preview ">
+    <meta name="generator" content="docfx 2.59.3.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="implementing-an-external-file-preview">Implementing an External File Preview</h1>
+
+<p>In this chapter you will learn how to add a simple document preview function based on the standard Windows Notepad application.</p>
+<h2 id="extend-the-file-type-component-builder">Extend the File Type Component Builder</h2>
+<p>Our aim is to enable the file type plug-in to generate an ad-hoc preview in an external application. This allows users to view the file in its native format.</p>
+<p>When processing DOC files, for example, Trados Studio launches Microsoft Word as external preview application. Since we are dealing with a simple text format, we can use a common text editor such Notepad as external preview application.</p>
+<p>What makes implementing the external preview easy is the fact that the application logic required for generating an external preview already exists in our sample file type plug-in - to be more precise, in the file writer class, which you implemented in the previous chapter (see <a href="implementing_the_file_writer.html">Implementing the File Writer</a>). Therefore, all you need to do is register the external preview application in the File Type Component Builder.</p>
+<p>First, we recommend that you add the name of the preview application to the resources file of your project properties. This is the application name that users will see when accessing the external preview menu command in Trados Studio.</p>
+<p><img src="images/ExternalPreview_Name.jpg" alt="ExternalPreview_Name"></p>
+<p>Now add the method shown below to the File Type Component Builder. Note how the external preview application name is referenced. Also note that this implements the external preview both for the source and the target content.</p>
+<div class="tabGroup" id="tabgroup_OcmO7uBCb0">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_OcmO7uBCb0_tabid-1" role="tab" aria-controls="tabpanel_OcmO7uBCb0_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_OcmO7uBCb0_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-cs">IPreviewSet externalPreviewSet = previewFactory.CreatePreviewSet();
+externalPreviewSet.Id = new PreviewSetId(&quot;ExternalPreview&quot;);
+externalPreviewSet.Name = new LocalizableString(Resources.ExternalPreview_Name);
+
+IApplicationPreviewType sourceAppPreviewType = previewFactory.CreatePreviewType&lt;IApplicationPreviewType&gt;() as IApplicationPreviewType;
+
+if (sourceAppPreviewType != null)
+{
+    sourceAppPreviewType.SourceGeneratorId = new GeneratorId(&quot;DefaultPreview&quot;);
+    sourceAppPreviewType.SingleFilePreviewApplicationId = new PreviewApplicationId(&quot;ExternalPreview&quot;);
+    externalPreviewSet.Source = sourceAppPreviewType;
+}
+
+IApplicationPreviewType targetAppPreviewType = previewFactory.CreatePreviewType&lt;IApplicationPreviewType&gt;() as IApplicationPreviewType;
+if (targetAppPreviewType != null)
+{
+    targetAppPreviewType.TargetGeneratorId = new GeneratorId(&quot;DefaultPreview&quot;);
+    targetAppPreviewType.SingleFilePreviewApplicationId = new PreviewApplicationId(&quot;ExternalPreview&quot;);
+    externalPreviewSet.Target = targetAppPreviewType;
+}
+
+previewFactory.GetPreviewSets(null).Add(externalPreviewSet);
+</code></pre></section>
+</div>
+<p>Now change the File Type Component Builder to include the external preview. Here the Microsoft Notepad application is used by <code>GenericExternalPreviewApplication</code></p>
+<div class="tabGroup" id="tabgroup_OcmO7uBCb0-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_OcmO7uBCb0-1_tabid-2" role="tab" aria-controls="tabpanel_OcmO7uBCb0-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_OcmO7uBCb0-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<pre><code class="lang-cs">public IAbstractPreviewApplication BuildPreviewApplication(string name)
+{
+    if (name == &quot;PreviewApplication_ExternalPreview&quot;)
+    {
+        Sdl.FileTypeSupport.Framework.PreviewControls.GenericExteralPreviewApplication genericExteralPreviewApplication = new Sdl.FileTypeSupport.Framework.PreviewControls.GenericExteralPreviewApplication();
+        genericExteralPreviewApplication.ApplicationPath = @&quot;c:\Windows\System32\notepad.exe&quot;;
+        return genericExteralPreviewApplication;
+    }
+    return null;
+}
+</code></pre></section>
+</div>
+<p>You will also need to add an assembly reference to Sdl.FileTypeSupport.Framework.PreviewControls.</p>
+<div class="NOTE"><h5>Note</h5><p>You can also pass an empty string to the ApplicationPath property. In this case the external preview will call the application that is registered in the OS for this particular file type.</p>
+</div>
+<p>When accessing the <strong>File</strong> &gt; <strong>View</strong> In menu command of Trados Studio you should now see the following:</p>
+<p><img src="images/PreviewApplication.jpg" alt="PreviewApplication"></p>
+<div class="NOTE"><h5>Note</h5><p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+</div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/17.2/apiconcepts/filetypesupport/implementing_an_external_file_preview.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,564 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Implementing the Search Logic </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Implementing the Search Logic ">
+    <meta name="generator" content="docfx 2.59.3.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="implementing-the-search-logic">Implementing the Search Logic</h1>
+
+<p>The actual search functionality is implemented in a separate component. The plug-in template contains a class called <code>MyTranslationProviderLanguageDirection</code>, which - in our sample implementation - we will re-name to <code>ListTranslationProviderLanguageDirection</code>. This class implements the ITranslationProviderLanguageDirection interface, which contains numerous members. In this chapter we will focus on the members that are actually used for implementing the functionality of our plug-in. Members used for updating and adding translation units are not required for our implementation.</p>
+<h2 id="implement-the-private-class-members">Implement the Private Class Members</h2>
+<p>The class that hosts the logic for the actual search functionality requires access to, for example, the plug-in options, as it needs to &#39;know&#39; the name and path of the list file as well as the delimiter. This is done by creating an object based on the <code>ListTranslationOptions</code> class (see <a href="storing_and_retrieving_the_plugin_settings.html">Storing and Retrieving the Plug-in Settings</a>).</p>
+<p>Also, the <code>ListTranslationProviderElementVisitor</code> helper class (which we will implement in the next chapter, see <a href="implementing_the_element_visitor.html">Implementing the Element Visitor</a>) provides functionality necessary for making sure that we retrieve the required plain segment text information for carrying out the search in the delimited text lists.</p>
+<p>Also, we declare a <code>_listOfTranslations</code> object based on the <code>Dictionary</code> class. We will later load the content of the delimited list file into this object. At the beginning of our class we therefore declare the following private members:</p>
+<div class="tabGroup" id="tabgroup_gLzdfg8Ci3">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_gLzdfg8Ci3_tabid-1" role="tab" aria-controls="tabpanel_gLzdfg8Ci3_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_gLzdfg8Ci3_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-cs">private ListTranslationProvider _provider;
+private LanguagePair _languageDirection;
+private ListTranslationOptions _options;
+private ListTranslationProviderElementVisitor _visitor;
+private Dictionary&lt;string, string&gt; _listOfTranslations;
+</code></pre></section>
+</div>
+<p>These members are then instantiated in the <code>ListTranslationProviderLanguageDirection</code> constructor method, which also creates the <code>_listOfTranslations</code> object to hold the segment pair collection:</p>
+<div class="tabGroup" id="tabgroup_gLzdfg8Ci3-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_gLzdfg8Ci3-1_tabid-2" role="tab" aria-controls="tabpanel_gLzdfg8Ci3-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_gLzdfg8Ci3-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<pre><code class="lang-cs">_provider = provider;
+_languageDirection = languages;
+_options = _provider.Options;
+_visitor = new ListTranslationProviderElementVisitor(_options);
+_listOfTranslations = new Dictionary&lt;string, string&gt;();
+</code></pre></section>
+</div>
+<p>In the next step we open the list file. Note that the file name and path is provided through the plug-in options, as is the delimiter character. The first line, which holds the language direction information should not be put into the collection, which is why before looping through the segment pairs we apply the ReadLine method, so that this line is skipped.</p>
+<p>Within the loop we split the following lines into segment pairs. If the split is successful and generates a source and a target segment, we add the pair to the collection.</p>
+<div class="tabGroup" id="tabgroup_gLzdfg8Ci3-2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_gLzdfg8Ci3-2_tabid-3" role="tab" aria-controls="tabpanel_gLzdfg8Ci3-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_gLzdfg8Ci3-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<pre><code class="lang-cs">// Load the content of the specified list file and fill it
+// into the multiple identical sources are not allowed
+using (StreamReader sourceFile = new StreamReader(_options.ListFileName))
+{   
+    sourceFile.ReadLine(); // Skip the first line as it contains the language direction.
+
+    char fileDelimiter = Convert.ToChar(_options.Delimiter);
+    while (!sourceFile.EndOfStream)
+    {
+        string[] currentPair = sourceFile.ReadLine().Split(fileDelimiter);
+        if (currentPair.Count&lt;string&gt;() != 2)
+        { 
+            // The current line does not contain a proper source/target segment pair.
+            continue;
+        }
+
+        // Add the source/target segment pair to the collection
+        // after checking that the current source segment does not
+        // already exist in the Dictionary.
+        if (!_listOfTranslations.ContainsKey(currentPair[0]))
+        { 
+            _listOfTranslations.Add(currentPair[0] ,currentPair[1]);
+        }
+    }
+    sourceFile.Close();
+}
+</code></pre></section>
+</div>
+<p>The complete method should now look as shown below:</p>
+<div class="tabGroup" id="tabgroup_gLzdfg8Ci3-3">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_gLzdfg8Ci3-3_tabid-4" role="tab" aria-controls="tabpanel_gLzdfg8Ci3-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_gLzdfg8Ci3-3_tabid-4" role="tabpanel" data-tab="tabid-4">
+<pre><code class="lang-cs">public ListTranslationProviderLanguageDirection(ListTranslationProvider provider, LanguagePair languages)
+{
+    #region &quot;Instantiate&quot;
+    _provider = provider;
+    _languageDirection = languages;
+    _options = _provider.Options;
+    _visitor = new ListTranslationProviderElementVisitor(_options);
+    _listOfTranslations = new Dictionary&lt;string, string&gt;();
+    #endregion
+
+    #region &quot;CompileCollection&quot;
+    // Load the content of the specified list file and fill it
+    // into the multiple identical sources are not allowed
+    using (StreamReader sourceFile = new StreamReader(_options.ListFileName))
+    {   
+        sourceFile.ReadLine(); // Skip the first line as it contains the language direction.
+
+        char fileDelimiter = Convert.ToChar(_options.Delimiter);
+        while (!sourceFile.EndOfStream)
+        {
+            string[] currentPair = sourceFile.ReadLine().Split(fileDelimiter);
+            if (currentPair.Count&lt;string&gt;() != 2)
+            { 
+                // The current line does not contain a proper source/target segment pair.
+                continue;
+            }
+
+            // Add the source/target segment pair to the collection
+            // after checking that the current source segment does not
+            // already exist in the Dictionary.
+            if (!_listOfTranslations.ContainsKey(currentPair[0]))
+            { 
+                _listOfTranslations.Add(currentPair[0] ,currentPair[1]);
+            }
+        }
+        sourceFile.Close();
+    }
+    #endregion
+}
+</code></pre></section>
+</div>
+<h2 id="search-the-current-segment">Search the Current Segment</h2>
+<p>A segment lookup is (by default) triggered in Trados Studio when the user moves the cursor into a particular target cell. This will search for a match for the current source segment in the selected translation provider source. The screenshot below shows two source segments as they are displayed in the editor of Trados Studio and the empty target cells next to them:</p>
+<p><img style="display:block; " src="images/Segments.jpg"></p>
+<p>When moving into a target cell the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderLanguageDirection.html#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderLanguageDirection_SearchSegment_Sdl_LanguagePlatform_TranslationMemory_SearchSettings_Sdl_LanguagePlatform_Core_Segment_">SearchSegment</a> method of the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderLanguageDirection.html">ITranslationProviderLanguageDirection</a> interface is invoked. This method takes the current segment object and the search settings as parameters. Search settings include, for example, the maximum number of matches that a search should return. These settings can be configured by the user of Trados Studio at runtime. The screenshot below shows the search settings that users can configure. If a user, for example, limits the number of concordance matches that a translation provider should return to 5, then the this is the maximum number of concordance hits that your provider will return. There is no need for you to implement the logic for applying the settings yourself.
+<img style="display:block; " src="images/SearchSettings.jpg"></p>
+<div class="NOTE"><h5>Note</h5><p>Depending on your translation provider, some of the search settings that Trados Studio offers may or may not be relevant for your implementation. For example, since our provider will only support exact matches, the <strong>Minimum match value</strong> setting will not be relevant for the delimited list translation provider, as our logic will only implement searches for 100% matches.</p>
+</div>
+<p>Also, our implementation only support plain text searches. The segment pairs in the delimited list files are plain text, i.e. they do not contain any text., it is likely that a document that is opened in Trados Studio contains inline tags, e.g. for character formatting as shown in the example below:</p>
+<p><img style="display:block; " src="images/NotPlainText.jpg"></p>
+<p>We therefore loop through all elements in the current segment and make sure that only plain text is returned. Note that the functionality for returning only the plain source segment text is implemented in a separate component, which we will add later (see <a href="implementing_the_element_visitor.html">Implementing the Element Visitor</a>).</p>
+<div class="tabGroup" id="tabgroup_gLzdfg8Ci3-4">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_gLzdfg8Ci3-4_tabid-5" role="tab" aria-controls="tabpanel_gLzdfg8Ci3-4_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_gLzdfg8Ci3-4_tabid-5" role="tabpanel" data-tab="tabid-5">
+<pre><code class="lang-cs">_visitor.Reset();
+foreach (var element in segment.Elements)
+{
+    element.AcceptSegmentElementVisitor(_visitor);
+}
+</code></pre></section>
+</div>
+<h2 id="create-the-search-results-object">Create the Search Results Object</h2>
+<p>In the next step we create an object based on the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemory.SearchResults.html">SearchResults</a> class. This object holds the results of our search, which we will fill with the information found in our list translation provider (if any). A search result usually consists of the source and the target segments that were found in the translation provider (and potentially further information data such as context information, TM fields - e.g. Client, Project -, which, however will not be the case for our simplified implementation).</p>
+<p>Therefore <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemory.SearchResults.html#Sdl_LanguagePlatform_TranslationMemory_SearchResults_SourceSegment">SourceSegment</a> property, which we set to the current segment as shown below:</p>
+<div class="tabGroup" id="tabgroup_gLzdfg8Ci3-5">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_gLzdfg8Ci3-5_tabid-6" role="tab" aria-controls="tabpanel_gLzdfg8Ci3-5_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_gLzdfg8Ci3-5_tabid-6" role="tabpanel" data-tab="tabid-6">
+<pre><code class="lang-cs">SearchResults results = new SearchResults();
+results.SourceSegment = segment.Duplicate();
+</code></pre></section>
+</div>
+<p>Note that we apply the <a href="../../api/translationmemory/Sdl.LanguagePlatform.Core.Segment.html#Sdl_LanguagePlatform_Core_Segment_Duplicate">Duplicate</a> method, which creates an instance that is a deep copy of the segment object instance.</p>
+<h2 id="the-search-types-supported-by-the-plug-in">The Search Types Supported by the Plug-in</h2>
+<p>Remember that our plug-in needs to implement the following search types:</p>
+<ul>
+<li>(source) segment lookup</li>
+<li>source concordance search</li>
+<li>target concordance search</li>
+</ul>
+<p>A concordance search can be triggered by, for example, selecting a source or target string in the editor and by pressing <strong>F3</strong>. The type of search that was called by the user from the editor can be determined using the <code>SearchMode</code> property, whose value can be retrieved through the search settings object.</p>
+<h2 id="implement-the-segment-lookup">Implement the Segment Lookup</h2>
+<p>The following code snippet shows how we handle the normal segment lookup. If the search mode equals <strong>NormalSearch</strong>, and if a source segment match is found for the plain text version of the current source segment from the editor, then a target segment object should be created using the target segment string (i.e. the key value) from our segment pair collection. The current source segment and the target segment will be used to construct a search result, which will be displayed in the <strong>Translation Results</strong> window of Trados Studio. The result will be generated through a separate <code>CreateSearchResult</code> helper function, which we will implement later.</p>
+<div class="tabGroup" id="tabgroup_gLzdfg8Ci3-6">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_gLzdfg8Ci3-6_tabid-7" role="tab" aria-controls="tabpanel_gLzdfg8Ci3-6_tabid-7" data-tab="tabid-7" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_gLzdfg8Ci3-6_tabid-7" role="tabpanel" data-tab="tabid-7">
+<pre><code class="lang-cs">if (settings.Mode == SearchMode.NormalSearch &amp;&amp;
+    _listOfTranslations.ContainsKey(_visitor.PlainText))
+{
+    Segment translation = new Segment(_languageDirection.TargetCulture);
+    translation.Add(_listOfTranslations[_visitor.PlainText]);
+    results.Add(CreateSearchResult(segment, translation, _visitor.PlainText, segment.HasTags));
+}
+</code></pre></section>
+</div>
+<h2 id="implement-the-concordance-search">Implement the Concordance Search</h2>
+<p>In the same manner we implement the source/target concordance search: If the search mode equals <strong>ConcordanceSearch</strong>, we loop through all the items in our segment pair collection. If items contain the search string, then a search result shall be generated for each matching segment. Note that for concordance searches we can have multiple hits.</p>
+<p>For concordance searches, the search segment returned from the editor will usually not be an entire segment, but part of a segment, i.e. the string that the user selected for the concordance search. Note that in our implementation we apply ToLower to the search string and the hit from our segment pair collection, which makes the concordance search case-insensitive:</p>
+<div class="tabGroup" id="tabgroup_gLzdfg8Ci3-7">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_gLzdfg8Ci3-7_tabid-8" role="tab" aria-controls="tabpanel_gLzdfg8Ci3-7_tabid-8" data-tab="tabid-8" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_gLzdfg8Ci3-7_tabid-8" role="tabpanel" data-tab="tabid-8">
+<pre><code class="lang-cs">if (settings.Mode == SearchMode.ConcordanceSearch)
+{
+    foreach (var item in _listOfTranslations.Keys)
+    {
+        if (item.ToLower().Contains(_visitor.PlainText.ToLower()))
+        {
+            Segment translation = new Segment(_languageDirection.TargetCulture);
+            translation.Add(_listOfTranslations[item]);
+            results.Add(CreateSearchResult(segment, translation, item, false));
+        }
+    }
+}
+</code></pre></section>
+</div>
+<p>The target concordance search works almost the same way. The only difference is that we check for the search mode <strong>TargetConcordanceSearch</strong> and whether the current search string is contained in any of the target segments from the collection:</p>
+<div class="tabGroup" id="tabgroup_gLzdfg8Ci3-8">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_gLzdfg8Ci3-8_tabid-9" role="tab" aria-controls="tabpanel_gLzdfg8Ci3-8_tabid-9" data-tab="tabid-9" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_gLzdfg8Ci3-8_tabid-9" role="tabpanel" data-tab="tabid-9">
+<pre><code class="lang-cs">if (settings.Mode == SearchMode.TargetConcordanceSearch)
+{
+    foreach (var item in _listOfTranslations.Keys)
+    {
+        if (_listOfTranslations[item].ToLower().Contains(_visitor.PlainText.ToLower()))
+        {
+            Segment translation = new Segment(_languageDirection.TargetCulture);
+            translation.Add(_listOfTranslations[item]);
+            results.Add(CreateSearchResult(segment, translation, item, false));
+        }
+    }
+}
+</code></pre></section>
+</div>
+<p>At the end of the loop we return the search result:</p>
+<div class="tabGroup" id="tabgroup_gLzdfg8Ci3-9">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_gLzdfg8Ci3-9_tabid-10" role="tab" aria-controls="tabpanel_gLzdfg8Ci3-9_tabid-10" data-tab="tabid-10" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_gLzdfg8Ci3-9_tabid-10" role="tabpanel" data-tab="tabid-10">
+<pre><code class="lang-cs">return results;
+</code></pre></section>
+</div>
+<p>The complete function should look as shown below:</p>
+<div class="tabGroup" id="tabgroup_gLzdfg8Ci3-10">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_gLzdfg8Ci3-10_tabid-11" role="tab" aria-controls="tabpanel_gLzdfg8Ci3-10_tabid-11" data-tab="tabid-11" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_gLzdfg8Ci3-10_tabid-11" role="tabpanel" data-tab="tabid-11">
+<pre><code class="lang-cs">public SearchResults SearchSegment(SearchSettings settings, Segment segment)
+{
+    // Loop through segment elements to &#39;filter out&#39; e.g. tags in order to 
+    // make certain that only plain text information is retrieved for
+    // this simplified implementation.            
+    #region &quot;SegmentElements&quot;
+    _visitor.Reset();
+    foreach (var element in segment.Elements)
+    {
+        element.AcceptSegmentElementVisitor(_visitor);
+    }
+    #endregion
+
+    #region &quot;SearchResultsObject&quot;
+    SearchResults results = new SearchResults();
+    results.SourceSegment = segment.Duplicate();
+    #endregion
+
+
+    // Look up the currently selected segment in the collection (normal segment lookup).
+    #region &quot;SegmentLookup&quot;
+    if (settings.Mode == SearchMode.NormalSearch &amp;&amp;
+        _listOfTranslations.ContainsKey(_visitor.PlainText))
+    {
+        Segment translation = new Segment(_languageDirection.TargetCulture);
+        translation.Add(_listOfTranslations[_visitor.PlainText]);
+        results.Add(CreateSearchResult(segment, translation, _visitor.PlainText, segment.HasTags));
+    }
+    #endregion
+
+    // Source concordance search
+    // In this implementation the concordance search should be case-insensitive,
+    // therefore ToLower() is applied.
+    #region &quot;SourceConcordanceSearch&quot;
+    if (settings.Mode == SearchMode.ConcordanceSearch)
+    {
+        foreach (var item in _listOfTranslations.Keys)
+        {
+            if (item.ToLower().Contains(_visitor.PlainText.ToLower()))
+            {
+                Segment translation = new Segment(_languageDirection.TargetCulture);
+                translation.Add(_listOfTranslations[item]);
+                results.Add(CreateSearchResult(segment, translation, item, false));
+            }
+        }
+    }
+    #endregion
+
+    // Target concordance search
+    // In this implementation the concordance search should be case-insensitive,
+    // therefore ToLower() is applied.
+    #region &quot;TargetConcordanceSearch&quot;
+    if (settings.Mode == SearchMode.TargetConcordanceSearch)
+    {
+        foreach (var item in _listOfTranslations.Keys)
+        {
+            if (_listOfTranslations[item].ToLower().Contains(_visitor.PlainText.ToLower()))
+            {
+                Segment translation = new Segment(_languageDirection.TargetCulture);
+                translation.Add(_listOfTranslations[item]);
+                results.Add(CreateSearchResult(segment, translation, item, false));
+            }
+        }
+    }
+    #endregion
+
+    #region &quot;Close&quot;
+    return results;
+    #endregion
+}
+</code></pre></section>
+</div>
+<h2 id="generate-the-search-result-translation-unit">Generate the Search Result Translation Unit</h2>
+<p>In the next step, implement the <code>CreateSearchResult</code> helper function, which generates the search result if a match has been found in the translation list provider.</p>
+<p>The search result that we construct is basically a translation unit with the following information:</p>
+<ul>
+<li>The source/target segment from the translation provider</li>
+<li>The match value</li>
+<li>The confirmation status, i.e. <strong>Draft</strong> or <strong>Translated</strong></li>
+<li>Potentially a formatting/tag penalty</li>
+</ul>
+<p>The function looks as shown below:</p>
+<div class="tabGroup" id="tabgroup_gLzdfg8Ci3-11">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_gLzdfg8Ci3-11_tabid-12" role="tab" aria-controls="tabpanel_gLzdfg8Ci3-11_tabid-12" data-tab="tabid-12" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_gLzdfg8Ci3-11_tabid-12" role="tabpanel" data-tab="tabid-12">
+<pre><code class="lang-cs"> private SearchResult CreateSearchResult(Segment searchSegment, Segment translation, string sourceSegment, bool formattingPenalty)
+</code></pre></section>
+</div>
+<p>It takes the source segment (<em>searchSegment</em>), the target segment (<em>translation</em>) as segment parameters. In addition it takes the source segment as it was found in the list file as string parameter. The reason for using this additional parameter in our implementation: When finding a match during a normal source segment lookup, the source segment from the list file will be identical to the source segment from the document that was looked up. In this case, there would be no need for this additional string parameter, as the source segment could be already retrieved from the <code>searchSegment</code> parameter.
+However, for a concordance search, the search segment would not be the whole segment, but only part of it. But since we want to display the full segment in the <strong>Concordance</strong> window, and not only the concordance search string, we provide the full string as it was found in the list file as an additional string parameter.</p>
+<p>Another parameter that we use is the <code>formattingPenalty</code>, which is a boolean value. This parameter communicates to the function whether the original segment contained any inline tags (<code>segment.HasTags</code>). It may happen that an original source segment inline character formatting or any other tags. Our simple list provider only provides plain text, i.e. it does not insert any kind of tags or formatting information. This could lead to the fact that a segment with tags is translated by using a plain text target segment. Applying a slightly lower than 100% match value and a draft confirmation status alerts the translator to the fact that the suggested translation might require some editing. The translator then has to decide whether to apply the tags/formatting manually. Based on this parameter we lower match the match value for the TU to 99%. Also, we apply the confirmation level <a href="../../api/core/Sdl.Core.Globalization.ConfirmationLevel.html">Draft</a> instead of <a href="../../api/core/Sdl.Core.Globalization.ConfirmationLevel.html">Translated</a>.</p>
+<div class="NOTE"><h5>Note</h5><p>For concordance searches this formatting penalty parameter is always set to False as in our implementation formatting is not relevant for concordance searches.</p>
+</div>
+<p>Below are some examples that illustrate how search results will be displayed in Trados Studio:</p>
+<p>The following result would be displayed in the <strong>Translation Results</strong> window when an exact (100%) match has been found in the delimited list:</p>
+<p><img style="display:block; " src="images/SearchResultNormalSearch.jpg"></p>
+<p>The following result would be displayed in the <strong>Concordance</strong> window for the search string photo printer. Note that when doing a concordance search in a translation memory, the corresponding search string is highlighted in the matching segments. This is not done in our simplified implementation.</p>
+<p><img style="display:block; " src="images/SearchResultConcordance.jpg"></p>
+<p>The above result is achieved by creating a translation unit based on the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemory.TranslationUnit.html">TranslationUnit</a> class. To this <code>tu</code> object we apply the source and target segment as shown below. Remember that in order to make sure that the TU always shows the full source segment for concordance searches (instead of just the search string), we create a new <a href="../../api/translationmemory/Sdl.LanguagePlatform.Core.Segment.html">Segment</a> object based on the full source segment string as it is provided from the list file:</p>
+<div class="tabGroup" id="tabgroup_gLzdfg8Ci3-12">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_gLzdfg8Ci3-12_tabid-13" role="tab" aria-controls="tabpanel_gLzdfg8Ci3-12_tabid-13" data-tab="tabid-13" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_gLzdfg8Ci3-12_tabid-13" role="tabpanel" data-tab="tabid-13">
+<pre><code class="lang-cs">TranslationUnit tu = new TranslationUnit();
+Segment orgSegment = new Segment();
+orgSegment.Add(sourceSegment);
+tu.SourceSegment = orgSegment;
+tu.TargetSegment = translation;
+</code></pre></section>
+</div>
+<p>Next, we set some properties for the TU:</p>
+<ul>
+<li>The match value, which should be 100, but which might be reduced through a penalty to 99% in order to alert the user to the fact that tags/inline formatting information is missing.</li>
+<li>The <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemory.TranslationUnitOrigin.html">TranslationUnitOrigin</a>, which indicates that the translation came from. TU origins could be, for example, translation memories, machine translation providers, Context TM, or an alignment of existing documents. A delimited list is similar in nature to a very rudimentary translation memory, therefore we chose <strong>TM</strong> as the TU origin value. Note that information such as the name of the provider and the TU origin is stored in the SDLXliff document as illustrated in the screenshot below. The user can make such information visible in a tooltip.</li>
+</ul>
+<p><img style="display:block; " src="images/TuInfoTooltip.jpg"></p>
+<ul>
+<li><p>The <a href="../../api/core/Sdl.Core.Globalization.ConfirmationLevel.html">ConfirmationLevel</a>, which could be, for example, draft, signed-off, translated, etc. As an exact match from a delimited list file can be assumed to be quite reliable, we will give it the status <code>Translated</code>, or <code>Draft</code> if the suggested translation is missing tags. The confirmation status is displayed in the editor as shown in the above screenshot. The code snippet below shows how the draft status is applied to the TU:</p>
+<pre><code class="lang-cs">tu.ConfirmationLevel = ConfirmationLevel.Draft;
+</code></pre></li>
+<li><p>If the boolean <code>formattingPenalty</code> parameter equals True, the TU should also receive a formatting penalty of 1%. To do this you first have to create a penalty object based on the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemory.Penalty.html">Penalty</a> class. This penalty is then applied to the scoring result by using the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemory.ScoringResult.html#Sdl_LanguagePlatform_TranslationMemory_ScoringResult_ApplyPenalty_Sdl_LanguagePlatform_TranslationMemory_Penalty_">ApplyPenalty</a> method. This method takes the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemory.Penalty.html">Penalty</a> as parameter. Penalties can be applied for various reasons. In our example the cause of the penalty is the lacking formatting tags. Therefore, the applicable penalty type is <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemory.PenaltyType.html">TagMismatch</a>. Another parameter is the &#39;malus&#39;, i.e. the percentage point(s) to subtract from the base score, which we set to 1 as shown in the code snippet below:</p>
+<pre><code class="lang-cs">Penalty penalty = new Penalty(PenaltyType.TagMismatch, 1);
+searchResult.ScoringResult.ApplyPenalty(penalty);
+</code></pre></li>
+<li><p>When a formatting (i.e. tag) penalty is applied to a TU, it will be shown in Trados Studio as illustrated in the screenshot below:</p>
+<p>  <img style="display:block; " src="images/FormattingPenalty.jpg"></p>
+</li>
+</ul>
+<p>The complete function should now look as shown below:</p>
+<div class="tabGroup" id="tabgroup_gLzdfg8Ci3-13">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_gLzdfg8Ci3-13_tabid-14" role="tab" aria-controls="tabpanel_gLzdfg8Ci3-13_tabid-14" data-tab="tabid-14" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_gLzdfg8Ci3-13_tabid-14" role="tabpanel" data-tab="tabid-14">
+<pre><code class="lang-cs">private SearchResult CreateSearchResult(Segment searchSegment, Segment translation, 
+    string sourceSegment, bool formattingPenalty)
+{                
+        #region &quot;TranslationUnit&quot;
+        TranslationUnit tu = new TranslationUnit();
+        Segment orgSegment = new Segment();
+        orgSegment.Add(sourceSegment);
+        tu.SourceSegment = orgSegment;
+        tu.TargetSegment = translation; 
+        #endregion           
+
+        tu.ResourceId = new PersistentObjectToken(tu.GetHashCode(), Guid.Empty);
+
+        #region &quot;TuProperties&quot;
+        int score = 100;
+        tu.Origin = TranslationUnitOrigin.TM;           
+
+
+        SearchResult searchResult = new SearchResult(tu);
+        searchResult.ScoringResult = new ScoringResult();
+        searchResult.ScoringResult.BaseScore = score;
+
+        if (formattingPenalty)
+        {
+            #region &quot;Draft&quot;
+            tu.ConfirmationLevel = ConfirmationLevel.Draft;
+            #endregion
+
+            #region &quot;FormattingPenalty&quot;
+            Penalty penalty = new Penalty(PenaltyType.TagMismatch, 1);
+            searchResult.ScoringResult.ApplyPenalty(penalty);
+            #endregion
+        }
+        else
+        {
+            tu.ConfirmationLevel = ConfirmationLevel.Translated;
+        }
+        #endregion
+
+        return searchResult;
+}
+</code></pre></section>
+</div>
+<h2 id="see-also">See Also</h2>
+<p><a href="implementing_the_element_visitor.html">Implementing the Element Visitor</a>
+<a href="performing_translation_memory_lookups.html">Performing Translation Memory Lookups</a>
+<a href="doing_translation_memory_lookups.html">Doing Translation Memory Lookups</a></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/17.2/apiconcepts/translationmemory/implementing_the_search_logic.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

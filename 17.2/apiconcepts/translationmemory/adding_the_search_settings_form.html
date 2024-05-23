@@ -1,0 +1,240 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Implement the GUI Functionality </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Implement the GUI Functionality ">
+    <meta name="generator" content="docfx 2.59.3.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+
+<p>Adding the Search Settings Form
+This page shows how to implement the user interface for configuring the search settings. The sample application should allow users to set the maximum number of search results as well as the minimum fuzziness value.</p>
+<p>Add the Form Control Elements
+The form configuring the search options needs to have the following control elements:</p>
+<ul>
+<li><strong>txtMaxHits</strong>: text box in which the maximum number of hits can be entered; set the <em>MaxLength</em> property to 2, so that only values up to 99 can be entered (note that in this simplified application we will not implement any functionality that checks whether the input in this field is numerical)</li>
+<li><strong>trackFuzzy</strong>: slider to set the fuzziness value anywhere between 30 and 100; the minimum value should therefore be 30, the maximum 100, the default value 70</li>
+<li><strong>lblFuzzyValue</strong>: label that shows the fuzziness value set by the slider</li>
+<li><strong>btnDefaults</strong>: restores the settings back to their 8 default values</li>
+<li><strong>btnOK</strong>: closes the form and applies the settings changes</li>
+<li><strong>btnCancel</strong>: closes the form without applying settings changes</li>
+</ul>
+<p><img style="display:block; " src="images/frmSearchSettings.jpg"></p>
+<h2 id="implement-the-gui-functionality">Implement the GUI Functionality</h2>
+<h3 id="setting-the-fuzziness-value">Setting the Fuzziness Value</h3>
+<p>Through the slider users can set the minimum fuzziness value between 30 and 100. When changing the slider position, the value should be updated in the label element:</p>
+<div class="tabGroup" id="tabgroup_FjPjiMQb2S">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_FjPjiMQb2S_tabid-1" role="tab" aria-controls="tabpanel_FjPjiMQb2S_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_FjPjiMQb2S_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-cs">private void trackFuzzy_Scroll(object sender, EventArgs e)
+{
+    this.lblFuzzyValue.Text = this.trackFuzzy.Value.ToString();
+}
+</code></pre></section>
+</div>
+<h3 id="resetting-to-default-values">Resetting to Default Values</h3>
+<p>The default settings should be restored as follows by clicking the corresponding button:</p>
+<div class="tabGroup" id="tabgroup_FjPjiMQb2S-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_FjPjiMQb2S-1_tabid-2" role="tab" aria-controls="tabpanel_FjPjiMQb2S-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_FjPjiMQb2S-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<pre><code class="lang-cs">// Reset the control elements to the corresponding default values.
+private void btnDefaults_Click(object sender, EventArgs e)
+{
+    this.trackFuzzy.Value = 70;
+    this.lblFuzzyValue.Text = &quot;70&quot;;
+    this.txtMaxHits.Text = &quot;30&quot;;            
+}
+</code></pre></section>
+</div>
+<h3 id="applying-the-settings">Applying the Settings</h3>
+<p>Add two public properties that represent the search settings:</p>
+<div class="tabGroup" id="tabgroup_FjPjiMQb2S-2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_FjPjiMQb2S-2_tabid-3" role="tab" aria-controls="tabpanel_FjPjiMQb2S-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_FjPjiMQb2S-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<pre><code class="lang-cs">// Property for setting the minimum fuzzy match value
+// that should be used during the search.
+public static int minFuzzy
+{
+    get;
+    set;
+}
+</code></pre></section>
+</div>
+<div class="tabGroup" id="tabgroup_FjPjiMQb2S-3">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_FjPjiMQb2S-3_tabid-4" role="tab" aria-controls="tabpanel_FjPjiMQb2S-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_FjPjiMQb2S-3_tabid-4" role="tabpanel" data-tab="tabid-4">
+<pre><code class="lang-cs">// Property for setting the maximum amount of hits to return
+// from the TM.
+public static int maxHits
+{
+    get;
+    set;
+}
+</code></pre></section>
+</div>
+<p>Clicking the <strong>OK</strong> button should hide the form and apply the settings.</p>
+<div class="tabGroup" id="tabgroup_FjPjiMQb2S-4">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_FjPjiMQb2S-4_tabid-5" role="tab" aria-controls="tabpanel_FjPjiMQb2S-4_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_FjPjiMQb2S-4_tabid-5" role="tabpanel" data-tab="tabid-5">
+<pre><code class="lang-cs">// Apply the setting values from the form.
+private void btnOK_Click(object sender, EventArgs e)
+{            
+    maxHits = Convert.ToInt32(this.txtMaxHits.Text.ToString());
+    minFuzzy = this.trackFuzzy.Value;
+
+    this.Hide();
+}
+</code></pre></section>
+</div>
+<h3 id="cancelling">Cancelling</h3>
+<p>Clicking the <strong>Cancel</strong> button should hide the form without applying the settings.</p>
+<div class="tabGroup" id="tabgroup_FjPjiMQb2S-5">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_FjPjiMQb2S-5_tabid-6" role="tab" aria-controls="tabpanel_FjPjiMQb2S-5_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_FjPjiMQb2S-5_tabid-6" role="tabpanel" data-tab="tabid-6">
+<pre><code class="lang-cs">private void btnCancel_Click(object sender, EventArgs e)
+{
+    this.Hide();
+}
+</code></pre></section>
+</div>
+<h2 id="see-also">See Also</h2>
+<p><a href="adding_the_connector_class.html">Adding the Connector Class</a></p>
+<p><a href="implementing_the_search_functionality.html">Implementing the Search Functionality</a></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/17.2/apiconcepts/translationmemory/adding_the_search_settings_form.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

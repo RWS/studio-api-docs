@@ -1,0 +1,495 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Exporting to a TMX File </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Exporting to a TMX File ">
+    <meta name="generator" content="docfx 2.59.3.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="exporting-to-a-tmx-file">Exporting to a TMX File</h1>
+
+<p>Sometimes you may want to export the content of a TM to an external TMX file, for example, for generating backups, importing the TMX file into another TM, thereby merging different TMs, etc.</p>
+<h2 id="add-a-new-class">Add a New Class</h2>
+<p>Add a new class called <code>TmExporter</code> to your project. Then, implement a function called <code>ExportTMXFile</code>. This function can be called as shown below:</p>
+<div class="tabGroup" id="tabgroup_HR2jPdkYBA">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_HR2jPdkYBA_tabid-1" role="tab" aria-controls="tabpanel_HR2jPdkYBA_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_HR2jPdkYBA_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-cs">var tmExporter = new TmExporter();
+tmExporter.ExportTMXFile(_translationMemoryFilePath, _exportFilePath);
+tmExporter.RunFilteredExport(_translationMemoryFilePath, _exportFilePath);
+</code></pre></section>
+</div>
+<p>The function requires the file name and path of the TM and the TMX export file as parameters.</p>
+<p>Start by opening the TM and by creating an exporter object:</p>
+<div class="tabGroup" id="tabgroup_HR2jPdkYBA-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_HR2jPdkYBA-1_tabid-2" role="tab" aria-controls="tabpanel_HR2jPdkYBA-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_HR2jPdkYBA-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<pre><code class="lang-cs">var tm = new FileBasedTranslationMemory(tmPath);
+
+var exporter = new TranslationMemoryExporter(tm.LanguageDirection);
+</code></pre></section>
+</div>
+<p>Note that the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryExporter.html">TranslationMemoryExporter</a> object requires the TM language direction as parameter. Like a TM, a TMX file too, is bilingual with a dedicated language direction, which will match the TM language direction. That is why you need to provide the TM language direction when creating a new <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryExporter.html">TranslationMemoryExporter</a> object.</p>
+<p>In the next step, you may specify the <a href="../../api/translationmemory/Sdl.Core.TM.ImportExport.Importer.html#Sdl_Core_TM_ImportExport_Importer_ChunkSize">ChunkSize</a>. With the chunk size you determine the maximum amount of units that should be read from the TM. As long as the TM file resides on a local disk, the chunk size can be large, as the whole TM could be read in one go. If the export is going over e.g. an Internet line, then the chunk size should be small enough for the packages to be sent over the WAN. In our example, the chunk size is set to 20, which corresponds roughly to the size of our small sample TM:</p>
+<div class="tabGroup" id="tabgroup_HR2jPdkYBA-2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_HR2jPdkYBA-2_tabid-3" role="tab" aria-controls="tabpanel_HR2jPdkYBA-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_HR2jPdkYBA-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<pre><code class="lang-cs">exporter.ChunkSize = 20;
+</code></pre></section>
+</div>
+<p>Note that the default chunk size is 50 (<a href="../../api/translationmemory/Sdl.Core.TM.ImportExport.Importer.html#Sdl_Core_TM_ImportExport_Importer_DefaultTranslationUnitChunkSize">DefaultTranslationUnitChunkSize</a>), the maximum chunk size is 200 (<a href="../../api/translationmemory/Sdl.Core.TM.ImportExport.Importer.html#Sdl_Core_TM_ImportExport_Importer_MaxTranslationUnitChunkSize">MaxTranslationUnitChunkSize</a>).</p>
+<p>Before executing the export, we fire an event after each batch (as specified by the chunk size) has been performed:</p>
+<div class="tabGroup" id="tabgroup_HR2jPdkYBA-3">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_HR2jPdkYBA-3_tabid-4" role="tab" aria-controls="tabpanel_HR2jPdkYBA-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_HR2jPdkYBA-3_tabid-4" role="tabpanel" data-tab="tabid-4">
+<pre><code class="lang-cs">exporter.BatchExported += new EventHandler&lt;BatchExportedEventArgs&gt;(this.exporter_BatchExported);
+</code></pre></section>
+</div>
+<p>Add the following member to your class, which is triggered from the <code>ExportTMXFile</code> function:</p>
+<div class="tabGroup" id="tabgroup_HR2jPdkYBA-4">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_HR2jPdkYBA-4_tabid-5" role="tab" aria-controls="tabpanel_HR2jPdkYBA-4_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_HR2jPdkYBA-4_tabid-5" role="tabpanel" data-tab="tabid-5">
+<pre><code class="lang-cs">private void exporter_BatchExported(object sender, BatchExportedEventArgs e)
+{
+    string info;
+    info = &quot;Total TUs processed: &quot; + e.TotalProcessed + &quot;\n&quot;;
+    info += &quot;Total TUs exported: &quot; + e.TotalExported + &quot;\n&quot;;
+
+    MessageBox.Show(info, &quot;Export statistics for batch&quot;);
+    e.Cancel = false;
+}
+</code></pre></section>
+</div>
+<p>After each batch has been processed, the total number of units processed and the total number of units that have actually been exported is determined and output.</p>
+<p>Finally, you apply the <code>Export</code> method to carry out the actual export operation. This method requires the full name and path of the TMX import file. With the second boolean parameter you can determine whether any existing export file should be overwritten or not.</p>
+<div class="tabGroup" id="tabgroup_HR2jPdkYBA-5">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_HR2jPdkYBA-5_tabid-6" role="tab" aria-controls="tabpanel_HR2jPdkYBA-5_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_HR2jPdkYBA-5_tabid-6" role="tabpanel" data-tab="tabid-6">
+<pre><code class="lang-cs">exporter.Export(exportFilePath, true);
+</code></pre></section>
+</div>
+<p>In the above code example the overwrite parameter is set to True. Note that when you set this parameter to False, and an export file with the same name already exists, an error will be thrown, which has to be caught by your implementation.</p>
+<p>The full <code>ExportTMXFile</code> function looks as shown below:</p>
+<div class="tabGroup" id="tabgroup_HR2jPdkYBA-6">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_HR2jPdkYBA-6_tabid-7" role="tab" aria-controls="tabpanel_HR2jPdkYBA-6_tabid-7" data-tab="tabid-7" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_HR2jPdkYBA-6_tabid-7" role="tabpanel" data-tab="tabid-7">
+<pre><code class="lang-cs">public void ExportTMXFile(string tmPath, string exportFilePath)
+{
+    #region &quot;open&quot;
+    var tm = new FileBasedTranslationMemory(tmPath);
+
+    var exporter = new TranslationMemoryExporter(tm.LanguageDirection);
+    #endregion
+
+    #region &quot;chunk&quot;
+    exporter.ChunkSize = 20;
+
+    #endregion
+
+    #region &quot;FireEvent&quot;
+    exporter.BatchExported += new EventHandler&lt;BatchExportedEventArgs&gt;(this.exporter_BatchExported);
+    #endregion
+
+    #region &quot;execute&quot;
+    exporter.Export(exportFilePath, true);
+    #endregion
+}
+</code></pre></section>
+</div>
+<h2 id="run-a-filtered-export">Run a Filtered Export</h2>
+<p>If you do not want to export the entire TM database content into a TMX file, but only a small part of it, you can run a filtered export. This allows you to export only a subset of the TM content, e.g. all translation units that have a <em>Customer</em> field with the value <em>Microsoft</em>, or all TUs that were created after 1st January 2010, etc. Running such an export is basically the same as the procedure described above. You just have to add a filter before the export is executed. Start by implementing another function called <code>RunFilteredExport</code>, which also takes the TM file name and path as well as the export file name and path as string parameters. First, open the TM and create a TM exporter object as shown below:</p>
+<div class="tabGroup" id="tabgroup_HR2jPdkYBA-7">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_HR2jPdkYBA-7_tabid-8" role="tab" aria-controls="tabpanel_HR2jPdkYBA-7_tabid-8" data-tab="tabid-8" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_HR2jPdkYBA-7_tabid-8" role="tabpanel" data-tab="tabid-8">
+<pre><code class="lang-cs">var tm = new FileBasedTranslationMemory(tmPath);
+var exporter = new TranslationMemoryExporter(tm.LanguageDirection);
+</code></pre></section>
+</div>
+<p>The main difference to the full export from the example above is that you set the <strong>FilterExpression</strong> property of the TM exporter object. The actual filter expression is generated by a separate helper function, which we will implement in a later step.</p>
+<div class="tabGroup" id="tabgroup_HR2jPdkYBA-8">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_HR2jPdkYBA-8_tabid-9" role="tab" aria-controls="tabpanel_HR2jPdkYBA-8_tabid-9" data-tab="tabid-9" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_HR2jPdkYBA-8_tabid-9" role="tabpanel" data-tab="tabid-9">
+<pre><code class="lang-cs">exporter.FilterExpression = this.GetFilterSimple();
+</code></pre></section>
+</div>
+<p>Like before, we fire the event that outputs the number of exported units in a batch and apply the Export method to carry out the actual export. The complete <code>RunFilteredExport</code> function looks as shown below:</p>
+<div class="tabGroup" id="tabgroup_HR2jPdkYBA-9">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_HR2jPdkYBA-9_tabid-10" role="tab" aria-controls="tabpanel_HR2jPdkYBA-9_tabid-10" data-tab="tabid-10" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_HR2jPdkYBA-9_tabid-10" role="tabpanel" data-tab="tabid-10">
+<pre><code class="lang-cs">public void RunFilteredExport(string tmPath, string exportFilePath)
+{
+    #region &quot;OpenForFilter&quot;
+    var tm = new FileBasedTranslationMemory(tmPath);
+    var exporter = new TranslationMemoryExporter(tm.LanguageDirection);
+    #endregion
+
+    #region &quot;FilterDefinition&quot;
+    exporter.FilterExpression = this.GetFilterSimple();
+    #endregion
+
+    #region &quot;DoFilteredExport&quot;
+    exporter.BatchExported += new EventHandler&lt;BatchExportedEventArgs&gt;(this.exporter_BatchExported);
+    exporter.Export(exportFilePath, true);
+    #endregion
+}
+</code></pre></section>
+</div>
+<h2 id="define-the-filter-for-the-export-simple">Define the Filter for the Export (Simple)</h2>
+<p>In this step, you will see how to implement the helper function that creates the filter for the export. Implement a new helper function called <code>GetFilterSimple</code>, which returns a <strong>FilterExpression</strong> object, i.e.:</p>
+<div class="tabGroup" id="tabgroup_HR2jPdkYBA-10">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_HR2jPdkYBA-10_tabid-11" role="tab" aria-controls="tabpanel_HR2jPdkYBA-10_tabid-11" data-tab="tabid-11" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_HR2jPdkYBA-10_tabid-11" role="tabpanel" data-tab="tabid-11">
+<pre><code class="lang-cs">private FilterExpression GetFilterSimple()
+</code></pre></section>
+</div>
+<p>Suppose that you want the export to only output TUs where the <em>Customer</em> field is equal to the value Microsoft. Note that in this example, <em>Customer</em> is a picklist field that allows multiple values. The following sample code shows you how to set the field name and value and how to build a filter criterion:</p>
+<div class="tabGroup" id="tabgroup_HR2jPdkYBA-11">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_HR2jPdkYBA-11_tabid-12" role="tab" aria-controls="tabpanel_HR2jPdkYBA-11_tabid-12" data-tab="tabid-12" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_HR2jPdkYBA-11_tabid-12" role="tabpanel" data-tab="tabid-12">
+<pre><code class="lang-cs">var fieldName = new PicklistItem(&quot;Customer&quot;);
+var fieldValue = new MultiplePicklistFieldValue(&quot;Microsoft&quot;);
+fieldValue.Add(fieldName);
+</code></pre></section>
+</div>
+<p>In the next step you use the <strong>AtomicExpression</strong> class to create the filter expression to return to the export function. The parameters required are the field value and the operator. In our case, the filter calls for an <strong>Equal</strong> value. (Other possible values could be <strong>Contains</strong>, <strong>ContainsNot</strong>, <strong>Greater</strong>, <strong>Smaller</strong>, etc.)</p>
+<div class="tabGroup" id="tabgroup_HR2jPdkYBA-12">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_HR2jPdkYBA-12_tabid-13" role="tab" aria-controls="tabpanel_HR2jPdkYBA-12_tabid-13" data-tab="tabid-13" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_HR2jPdkYBA-12_tabid-13" role="tabpanel" data-tab="tabid-13">
+<pre><code class="lang-cs">var filter = new AtomicExpression(fieldValue, AtomicExpression.Operator.Equal);
+return filter;
+</code></pre></section>
+</div>
+<h2 id="define-the-filter-for-the-export-advanced">Define the Filter for the Export (Advanced)</h2>
+<p>Suppose you want to create a more advanced filter that has two (or more) criteria, e.g. export all TUs where the Customer field value equals Microsoft <strong>OR</strong> in which the <em>Project id</em> text field contains the string <em>2010</em>. Implement another helper function called <code>GetFilterAdvanced</code>, i.e.:</p>
+<div class="tabGroup" id="tabgroup_HR2jPdkYBA-13">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_HR2jPdkYBA-13_tabid-14" role="tab" aria-controls="tabpanel_HR2jPdkYBA-13_tabid-14" data-tab="tabid-14" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_HR2jPdkYBA-13_tabid-14" role="tabpanel" data-tab="tabid-14">
+<pre><code class="lang-cs">private FilterExpression GetFilterAdvanced()
+</code></pre></section>
+</div>
+<p>The first step is almost identical to the previous example, i.e. you define the first filter criterion and create the first filter 
+expression using the <strong>AtomicExpression</strong> class.</p>
+<div class="tabGroup" id="tabgroup_HR2jPdkYBA-14">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_HR2jPdkYBA-14_tabid-15" role="tab" aria-controls="tabpanel_HR2jPdkYBA-14_tabid-15" data-tab="tabid-15" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_HR2jPdkYBA-14_tabid-15" role="tabpanel" data-tab="tabid-15">
+<pre><code class="lang-cs">var fieldName1 = new PicklistItem(&quot;Customer&quot;);
+var fieldValue1 = new MultiplePicklistFieldValue(&quot;Microsoft&quot;);
+fieldValue1.Add(fieldName1);
+var expression1 = new AtomicExpression(fieldValue1, AtomicExpression.Operator.Equal);
+</code></pre></section>
+</div>
+<p>Then, you set up the second filter criterion, i.e. <em>Project id</em> contains <em>2010</em> and use the <strong>AtomicExpression</strong> class to construct the second filter expression:</p>
+<div class="tabGroup" id="tabgroup_HR2jPdkYBA-15">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_HR2jPdkYBA-15_tabid-16" role="tab" aria-controls="tabpanel_HR2jPdkYBA-15_tabid-16" data-tab="tabid-16" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_HR2jPdkYBA-15_tabid-16" role="tabpanel" data-tab="tabid-16">
+<pre><code class="lang-cs">var fieldName2 = new MultipleStringFieldValue(&quot;Project id&quot;);
+fieldName2.Add(&quot;2010&quot;);
+var expression2 = new AtomicExpression(fieldName2, AtomicExpression.Operator.Contains);
+</code></pre></section>
+</div>
+<p>The actual filter object that is returned to the export function is based on the <strong>ComposedExpression</strong> class, which combines expression1 and expression2 with an OR operator, and finally returns the complete filter expression.</p>
+<div class="tabGroup" id="tabgroup_HR2jPdkYBA-16">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_HR2jPdkYBA-16_tabid-17" role="tab" aria-controls="tabpanel_HR2jPdkYBA-16_tabid-17" data-tab="tabid-17" tabindex="0" aria-selected="true">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_HR2jPdkYBA-16_tabid-18" role="tab" aria-controls="tabpanel_HR2jPdkYBA-16_tabid-18" data-tab="tabid-18" tabindex="-1">C#</a>
+</li>
+</ul>
+<section id="tabpanel_HR2jPdkYBA-16_tabid-17" role="tabpanel" data-tab="tabid-17">
+<pre><code class="lang-cs">var filter = new ComposedExpression(expression1, ComposedExpression.Operator.Or, expression2);
+return filter;
+</code></pre><p>**</p>
+<h2 id="putting-it-all-together">Putting it All Together</h2>
+<p>The complete class should now look as shown below:</p>
+</section>
+<section id="tabpanel_HR2jPdkYBA-16_tabid-18" role="tabpanel" data-tab="tabid-18" aria-hidden="true" hidden="hidden">
+<pre><code class="lang-cs">namespace SDK.LanguagePlatform.Samples.TmAutomation
+{
+    using System;
+    using System.Windows.Forms;
+    using Sdl.LanguagePlatform.TranslationMemory;
+    using Sdl.LanguagePlatform.TranslationMemoryApi;
+
+    public class TmExporter
+    {
+        #region &quot;export&quot;
+        public void ExportTMXFile(string tmPath, string exportFilePath)
+        {
+            #region &quot;open&quot;
+            var tm = new FileBasedTranslationMemory(tmPath);
+
+            var exporter = new TranslationMemoryExporter(tm.LanguageDirection);
+            #endregion
+
+            #region &quot;chunk&quot;
+            exporter.ChunkSize = 20;
+
+            #endregion
+
+            #region &quot;FireEvent&quot;
+            exporter.BatchExported += new EventHandler&lt;BatchExportedEventArgs&gt;(this.exporter_BatchExported);
+            #endregion
+
+            #region &quot;execute&quot;
+            exporter.Export(exportFilePath, true);
+            #endregion
+        }
+        #endregion
+
+        #region &quot;event&quot;
+        private void exporter_BatchExported(object sender, BatchExportedEventArgs e)
+        {
+            string info;
+            info = &quot;Total TUs processed: &quot; + e.TotalProcessed + &quot;\n&quot;;
+            info += &quot;Total TUs exported: &quot; + e.TotalExported + &quot;\n&quot;;
+
+            MessageBox.Show(info, &quot;Export statistics for batch&quot;);
+            e.Cancel = false;
+        }
+        #endregion
+
+        #region &quot;RunFilteredExport&quot;
+        public void RunFilteredExport(string tmPath, string exportFilePath)
+        {
+            #region &quot;OpenForFilter&quot;
+            var tm = new FileBasedTranslationMemory(tmPath);
+            var exporter = new TranslationMemoryExporter(tm.LanguageDirection);
+            #endregion
+
+            #region &quot;FilterDefinition&quot;
+            exporter.FilterExpression = this.GetFilterSimple();
+            #endregion
+
+            #region &quot;DoFilteredExport&quot;
+            exporter.BatchExported += new EventHandler&lt;BatchExportedEventArgs&gt;(this.exporter_BatchExported);
+            exporter.Export(exportFilePath, true);
+            #endregion
+        }
+        #endregion
+
+        #region &quot;GetFilterSimple&quot;
+        private FilterExpression GetFilterSimple()
+        {
+            #region &quot;SimpleCriterion&quot;
+            var fieldName = new PicklistItem(&quot;Customer&quot;);
+            var fieldValue = new MultiplePicklistFieldValue(&quot;Microsoft&quot;);
+            fieldValue.Add(fieldName);
+            #endregion
+
+            #region &quot;SimpleFilter&quot;
+            var filter = new AtomicExpression(fieldValue, AtomicExpression.Operator.Equal);
+            return filter;
+            #endregion
+        }
+        #endregion
+
+        #region &quot;GetFilterAdvanced&quot;
+        private FilterExpression GetFilterAdvanced()
+        {
+            #region &quot;AdvancedCriterion1&quot;
+            var fieldName1 = new PicklistItem(&quot;Customer&quot;);
+            var fieldValue1 = new MultiplePicklistFieldValue(&quot;Microsoft&quot;);
+            fieldValue1.Add(fieldName1);
+            var expression1 = new AtomicExpression(fieldValue1, AtomicExpression.Operator.Equal);
+            #endregion
+
+            #region &quot;AdvancedCriterion2&quot;
+            var fieldName2 = new MultipleStringFieldValue(&quot;Project id&quot;);
+            fieldName2.Add(&quot;2010&quot;);
+            var expression2 = new AtomicExpression(fieldName2, AtomicExpression.Operator.Contains);
+            #endregion
+
+            #region &quot;AdvancedFilter&quot;
+            var filter = new ComposedExpression(expression1, ComposedExpression.Operator.Or, expression2);
+            return filter;
+            #endregion
+        }
+        #endregion
+    }
+}
+</code></pre></section>
+</div>
+<h2 id="see-also">See Also</h2>
+<p><a href="importing_a_tmx_file.html">Importing a TMX File</a></p>
+<p><a href="introduction_to_the_tm_batch_export_tool.html">Introduction to the Batch Export Tool</a></p>
+<p><a href="scheduled_tmx_exports.html">Scheduled TMX Exports</a></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/17.2/apiconcepts/translationmemory/exporting_to_a_tmx_file.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,152 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>The Plug-in Manifest Generator </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="The Plug-in Manifest Generator ">
+    <meta name="generator" content="docfx 2.59.3.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="the_plugin_manifest_generator.md">
+<h1 id="the-plug-in-manifest-generator">The Plug-in Manifest Generator</h1>
+
+<p>The section describes how plug-in projects are built and how the plug-in manifest is generated.</p>
+<h2 id="plug-in-manifest-generator">Plug-in Manifest Generator</h2>
+<p>The purpose of the plug-in manifest is to avoid loading all the plug-in assemblies at runtime and reflecting over them to discover the available extensions, which would affect startup performance, an important aspect of desktop applications.</p>
+<p> The plug-in manifest generator is implemented as an MSBuild task, which runs as part of the standard Microsoft Visual Studio 2022 build. This build task is contained in <a href="https://www.nuget.org/packages/Sdl.Core.PluginFramework.Build/">Sdl.Core.PluginFramework.Build</a> package that needs to be refreneced by the project.</p>
+<pre><code class="lang-xml">&lt;Project xmlns=&quot;http://schemas.microsoft.com/developer/msbuild/2003&quot;&gt;
+  &lt;UsingTask TaskName=&quot;Sdl.Core.PluginFramework.Build.CreatePluginManifestTask&quot; AssemblyFile=&quot;Sdl.Core.PluginFramework.BuildTasks.dll&quot; /&gt;
+
+  &lt;Target Name=&quot;GeneratePluginManifestTarget&quot; AfterTargets=&quot;AfterBuild&quot;&gt;
+    &lt;CreatePluginManifestTask
+      ProjectDirectory=&quot;$(ProjectDir)&quot;
+      AssemblyFilePath=&quot;$(TargetPath)&quot;
+      PluginResxFilePath=&quot;$(ProjectDir)PluginResources.resx&quot;
+      ReferenceCopyLocalPaths=&quot;@(ReferenceCopyLocalPaths)&quot;
+      ReferenceSatellitePaths=&quot;@(ReferenceSatellitePaths)&quot;
+      CreatePluginPackage=&quot;$(CreatePluginPackage)&quot;
+      DeployPluginPackage=&quot;$(DeployPluginPackage)&quot;
+      PluginDeploymentPath=&quot;$(PluginDeploymentPath)&quot;
+      /&gt;
+  &lt;/Target&gt;
+&lt;/Project&gt;
+</code></pre><p>This task will use .Net reflection to enumerate all the types in the assembly and identify types that are annotated with an attribute deriving from <a href="../../api/core/Sdl.Core.PluginFramework.ExtensionAttribute.html">ExtensionAttribute</a>, i.e. the extensions. It will write the type name of the extensions accompanied by the serialized extension attribute to the plug-in manifest file, which is created in a &quot;plugins&quot; subfolder of the project output folder and is named <code>ASSEMBLYNAME.plugin.xml</code>.</p>
+<p>On top of creating the plug-in manifest, the task will also create .Net resource files for resources defined in the <code>PluginResources.resx</code> file. This resource file contains all strings and images referred to by extension attribute declarations in the plug-in assembly. When multiple language version of the <code>PluginResources.resx</code> file are present, it the task will also create resource files for those, all in the &quot;plugins&quot; folder.</p>
+<p>The <code>CreatePluginManifestTask</code> also performs validation of the extension attribute declarations, checking for instance whether a value has been specified for all required properties and whether the all extensions implement the interface imposed by the extension point they are targeting. See also <a href="extensions.html#compile-time-validation">Compile-time Validation</a>.</p>
+<p>When creating a plug-in project using the project template from the SDK, the project file will contain the following pieces of custom content:</p>
+<ul>
+<li><code>CreatePluginPackage</code> - if set to true will generate the <code>*.sdlplugin</code></li>
+<li><code>PluginDeploymentPath</code> - path to the root folder where the <code>Packages</code> and <code>Unpacked</code> folders are present, default path is set to <em>%AppData%\Trados\Trados Studio\17\Plugins\Packages\</em></li>
+</ul>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/17.2/apiconcepts/core/the_plugin_manifest_generator.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

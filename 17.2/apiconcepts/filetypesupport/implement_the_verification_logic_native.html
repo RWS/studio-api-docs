@@ -1,0 +1,404 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Implement the Verification Logic </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Implement the Verification Logic ">
+    <meta name="generator" content="docfx 2.59.3.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="implement-the-verification-logic">Implement the Verification Logic</h1>
+
+<p>In this chapter you will learn how to implement the actual verification logic of our native verifier plug-in.</p>
+<h2 id="add-the-verification-class">Add the Verification Class</h2>
+<p>In this chapter, we implement the verification functionality. Start by adding a class called e.g. <strong>XMLCheckerMain.cs</strong>. This class needs to use the following namespaces:</p>
+<ul>
+<li><strong>Sdl.FileTypeSupport.Framework.NativeApi</strong>: Provides access the functionality to be applied to native file types:</li>
+<li><strong>Sdl.Core.Settings</strong>: Provides the functionality for initializing and using the plug-in settings.</li>
+<li><strong>System.Xml</strong>: As the native file type is XML, this namespace is required for accessing the methods used for XML node processing.</li>
+</ul>
+<p>Moreover, the class needs to use the following interfaces:</p>
+<ul>
+<li><a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileVerifier.html">INativeFileVerifier</a>: Provides the methods required for implementing a native verification.</li>
+<li><a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.ISettingsAware.html">ISettingsAware</a>: Provides the functionality for initializing the plug-in settings.</li>
+</ul>
+<h2 id="provide-access-to-the-native-file-to-verify">Provide Access to the Native File to Verify</h2>
+<p>Add the following member to the class, which provides access to important information on the native file such as the name of the file, which you will later load into an XML DOM object.</p>
+<div class="tabGroup" id="tabgroup_T8q4Gl0LrF">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_T8q4Gl0LrF_tabid-1" role="tab" aria-controls="tabpanel_T8q4Gl0LrF_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_T8q4Gl0LrF_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-cs">private INativeOutputFileProperties _outputFileProperties;
+</code></pre></section>
+</div>
+<h2 id="provide-access-to-the-verification-settings">Provide Access to the Verification Settings</h2>
+<p>Now add the following boolean property, which provides programmatic access to the setting of the plug-in settings page according to which the verification logic should be applied or not.</p>
+<div class="tabGroup" id="tabgroup_T8q4Gl0LrF-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_T8q4Gl0LrF-1_tabid-2" role="tab" aria-controls="tabpanel_T8q4Gl0LrF-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_T8q4Gl0LrF-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<pre><code class="lang-cs">public bool Enabled
+{
+    get;
+    set;
+}
+</code></pre></section>
+</div>
+<p>Next, implement the <code>InitializeSettings</code> method of the <strong>ISettingsAware</strong> interface. Here, we call on the <code>VerifierSettings</code> class and use the <code>PopulateFromSettingsBundle</code> method to retrieve the setting from the physically stored settings bundle. To do this, we need to provide the settings bundle object and the file type id (here <em>Length Check XML v 1.0.0.0</em>) as parameters. The <code>Enabled</code> property used in our main verification logic will then be set according to the value retrieved from the settings bundle.</p>
+<div class="tabGroup" id="tabgroup_T8q4Gl0LrF-2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_T8q4Gl0LrF-2_tabid-3" role="tab" aria-controls="tabpanel_T8q4Gl0LrF-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_T8q4Gl0LrF-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<pre><code class="lang-cs">public void InitializeSettings(ISettingsBundle settingsBundle, string configurationId)
+{
+    VerifierSettings _settings = new VerifierSettings();
+    _settings.PopulateFromSettingsBundle(settingsBundle, &quot;Length Check XML v 1.0.0.0&quot;);
+    Enabled = _settings.Enable;
+}
+</code></pre></section>
+</div>
+<h2 id="provide-access-to-the-verification-message-reporter">Provide Access to the Verification Message Reporter</h2>
+<p>If your verifier finds any errors in the file, the user should be notified. For this, add the following message reporter member to your class:</p>
+<div class="tabGroup" id="tabgroup_T8q4Gl0LrF-3">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_T8q4Gl0LrF-3_tabid-4" role="tab" aria-controls="tabpanel_T8q4Gl0LrF-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_T8q4Gl0LrF-3_tabid-4" role="tabpanel" data-tab="tabid-4">
+<pre><code class="lang-cs">public INativeTextLocationMessageReporter MessageReporter
+{
+    get;
+    set;
+}
+</code></pre></section>
+</div>
+<p>Through the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileVerifier.html#Sdl_FileTypeSupport_Framework_NativeApi_INativeFileVerifier_MessageReporter">MessageReporter</a> you can output error messages (if any) to the <strong>Messages</strong> window of Trados Studio. Users can view these messages and resolve the problem.</p>
+<h2 id="implement-the-actual-verification-logic">Implement the Actual Verification Logic</h2>
+<p>Add the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileVerifier.html#Sdl_FileTypeSupport_Framework_NativeApi_INativeFileVerifier_Verify">Verify</a> method, which is triggered when the user starts the plug-in through trough the menu command <strong>Tools</strong> &gt; <strong>Verify</strong> or by pressing <strong>F8</strong>. This function uses the standard XML API (i.e. the API of the native format) to perform the verification. It loops through all <code>displaytext</code> elements and checks for the presence of a <code>maxlength</code> attribute. If this attribute is found, the element content is compared against the maximum length value. If the text exceeds the maximum length, the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IBasicMessageReporter.html#Sdl_FileTypeSupport_Framework_NativeApi_IBasicMessageReporter_ReportMessage_System_Object_System_String_Sdl_FileTypeSupport_Framework_NativeApi_ErrorLevel_System_String_System_String_">ReportMessage</a> method is used to add an error message (i.e. a message with the highest <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel.html">ErrorLevel</a>) to the <strong>Messages</strong> window of Trados Studio.</p>
+<div class="tabGroup" id="tabgroup_T8q4Gl0LrF-4">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_T8q4Gl0LrF-4_tabid-5" role="tab" aria-controls="tabpanel_T8q4Gl0LrF-4_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_T8q4Gl0LrF-4_tabid-5" role="tabpanel" data-tab="tabid-5">
+<pre><code class="lang-cs">public void Verify()
+{
+    if (!Enabled)
+    {
+        return;
+    }
+
+    XmlDocument doc = new XmlDocument();
+    doc.Load(_outputFileProperties.OutputFilePath);
+    foreach (XmlNode item in doc.SelectNodes(&quot;//displaytext&quot;))
+    {
+        // if has a max length attribute
+        XmlAttribute maxlengthAttribute = item.Attributes[&quot;maxlength&quot;];
+        if ((maxlengthAttribute != null) &amp;&amp; (!string.IsNullOrEmpty(maxlengthAttribute.Value)))
+        {
+            // if can parse max length and display text length greater than max length
+            int lengthLimit;
+            if (int.TryParse(maxlengthAttribute.Value, out lengthLimit) &amp;&amp; (item.InnerText.Length &gt; lengthLimit))
+            {
+                // report problem
+                MessageReporter.ReportMessage(this, StringResources.VerifierName, ErrorLevel.Error,
+                    String.Format(StringResources.ErrorText, item.InnerText.Length.ToString(), lengthLimit.ToString()),
+                    String.Format(StringResources.LocationDescription, item.InnerText));
+            }
+        }
+    }
+}
+</code></pre></section>
+</div>
+<p>The <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IBasicMessageReporter.html#Sdl_FileTypeSupport_Framework_NativeApi_IBasicMessageReporter_ReportMessage_System_Object_System_String_Sdl_FileTypeSupport_Framework_NativeApi_ErrorLevel_System_String_System_String_">ReportMessage</a> method takes the following parameters:</p>
+<ul>
+<li>The name of the verifier plug-in that has thrown the message</li>
+<li>The <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel.html">ErrorLevel</a>, which in this case we set to <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel.html#fields">Error</a>, which is the highest severity level.</li>
+<li>A detailed description of the problem, which helps the user ascertain what the problem is and take corrective action.</li>
+<li>The location, i.e. the target segment that was found to exceed the specified length limit. Double-clicking the message in the <strong>Messages</strong> window of Trados Studio will display the segment string in a message box.</li>
+</ul>
+<p><img src="images/Error_Message_Maxlength_XML_Exceeded.jpg" alt="Error_Message_Maxlength_XML_Exceeded"></p>
+<h2 id="provide-access-to-the-native-output-file">Provide Access to the Native Output File</h2>
+<p>Last, add the following members, which provide programmatic access to the native output file, and thus to information such as the file output path and name, the file encoding, creation date, file type info, etc. These members are not actually required for our sample plug-in, as our simple implementation just checks for adherence to the length limit, but does not do any processing on the native output file. However, these members need to be present in our class according the the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileVerifier.html">INativeFileVerifier</a> interface.</p>
+<div class="tabGroup" id="tabgroup_T8q4Gl0LrF-5">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_T8q4Gl0LrF-5_tabid-6" role="tab" aria-controls="tabpanel_T8q4Gl0LrF-5_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_T8q4Gl0LrF-5_tabid-6" role="tabpanel" data-tab="tabid-6">
+<pre><code class="lang-cs">public void GetProposedOutputFileInfo(IPersistentFileConversionProperties fileProperties, IOutputFileInfo proposedFileInfo)
+{
+    // Not required for this implementation
+}
+
+
+/// &lt;summary&gt;
+/// Provides information on output file.
+/// &lt;/summary&gt;
+/// &lt;param name=&quot;properties&quot;&gt;&lt;/param&gt;
+public void SetOutputProperties(INativeOutputFileProperties properties)
+{
+    _outputFileProperties = properties;
+}
+</code></pre></section>
+</div>
+<h2 id="putting-it-all-together">Putting it all Together</h2>
+<p>All put together your main verification class should now look as shown below:</p>
+<div class="tabGroup" id="tabgroup_T8q4Gl0LrF-6">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_T8q4Gl0LrF-6_tabid-7" role="tab" aria-controls="tabpanel_T8q4Gl0LrF-6_tabid-7" data-tab="tabid-7" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_T8q4Gl0LrF-6_tabid-7" role="tabpanel" data-tab="tabid-7">
+<pre><code class="lang-cs">using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Xml;
+
+using Sdl.Core.Settings;
+using Sdl.FileTypeSupport.Framework.NativeApi;
+using Sdl.FileTypeSupport.Framework.IntegrationApi;
+
+
+namespace Sdk.FileTypeSupport.Samples.XMLChecker
+{
+    /// &lt;summary&gt;
+    /// This class implements the verification logic. Depending on whether the 
+    /// verification plug-in is enabled or not, a verification will be performed
+    /// when the user of Trados Studio presses F8 or invokes the menu command
+    /// Tools -&gt; Verify.
+    /// This class is referenced in the file type definition.
+    /// &lt;/summary&gt;
+    class XMLCheckerMain : INativeFileVerifier, ISettingsAware
+    {
+        #region &quot;_outputFileProperties&quot;
+        private INativeOutputFileProperties _outputFileProperties;
+        #endregion
+
+        #region &quot;UISettingsRepresentation&quot;
+        public bool Enabled
+        {
+            get;
+            set;
+        }
+        #endregion
+
+        /// &lt;summary&gt;
+        /// Initializes the plug-in settings, so that they can be used during the actual verification.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;settingsBundle&quot;&gt;&lt;/param&gt;
+        /// &lt;param name=&quot;configurationId&quot;&gt;&lt;/param&gt;
+        #region &quot;InitializeSettings&quot;
+        public void InitializeSettings(ISettingsBundle settingsBundle, string configurationId)
+        {
+            VerifierSettings _settings = new VerifierSettings();
+            _settings.PopulateFromSettingsBundle(settingsBundle, &quot;Length Check XML v 1.0.0.0&quot;);
+            Enabled = _settings.Enable;
+        }
+        #endregion
+
+
+
+        #region &quot;message reporter&quot;
+        public INativeTextLocationMessageReporter MessageReporter
+        {
+            get;
+            set;
+        }
+        #endregion
+
+
+        /// &lt;summary&gt;
+        /// This method implements the main verification logic.
+        /// First, the XML document is loaded into a DOM object.
+        /// Then, the method loops through all the &#39;displaytext&#39; elements, and
+        /// checks for the presence of a &#39;maxlength&#39; attribute, which indicates
+        /// the maximum length in characters. If the target segment text exceeds the
+        /// length limit specified by the attribute, an error message will be reported.
+        /// Any length limit violations will be reported through the message reporter,
+        /// which will fill the Messages window of Trados Studio with the error
+        /// messages that will be displayed to the end user.
+        /// &lt;/summary&gt;
+        #region &quot;verification logic&quot;
+        public void Verify()
+        {
+            if (!Enabled)
+            {
+                return;
+            }
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(_outputFileProperties.OutputFilePath);
+            foreach (XmlNode item in doc.SelectNodes(&quot;//displaytext&quot;))
+            {
+                // if has a max length attribute
+                XmlAttribute maxlengthAttribute = item.Attributes[&quot;maxlength&quot;];
+                if ((maxlengthAttribute != null) &amp;&amp; (!string.IsNullOrEmpty(maxlengthAttribute.Value)))
+                {
+                    // if can parse max length and display text length greater than max length
+                    int lengthLimit;
+                    if (int.TryParse(maxlengthAttribute.Value, out lengthLimit) &amp;&amp; (item.InnerText.Length &gt; lengthLimit))
+                    {
+                        // report problem
+                        MessageReporter.ReportMessage(this, StringResources.VerifierName, ErrorLevel.Error,
+                            String.Format(StringResources.ErrorText, item.InnerText.Length.ToString(), lengthLimit.ToString()),
+                            String.Format(StringResources.LocationDescription, item.InnerText));
+                    }
+                }
+            }
+        }
+        #endregion
+
+
+
+        #region &quot;INativeOutputSettingsAware Members&quot;
+        public void GetProposedOutputFileInfo(IPersistentFileConversionProperties fileProperties, IOutputFileInfo proposedFileInfo)
+        {
+            // Not required for this implementation
+        }
+
+
+        /// &lt;summary&gt;
+        /// Provides information on output file.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;properties&quot;&gt;&lt;/param&gt;
+        public void SetOutputProperties(INativeOutputFileProperties properties)
+        {
+            _outputFileProperties = properties;
+        }
+        #endregion
+    }
+}
+</code></pre></section>
+</div>
+<h2 id="using-the-main-verifier-class">Using the Main Verifier Class</h2>
+<p>To use this verifier, a new file type definition based upon the XML file type definition needs to be created (see <a href="extending_existing_file_type_component_builder.html">Extending existing File Type Component Builder</a>).</p>
+<div class="NOTE"><h5>Note</h5><p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+</div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/17.2/apiconcepts/filetypesupport/implement_the_verification_logic_native.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

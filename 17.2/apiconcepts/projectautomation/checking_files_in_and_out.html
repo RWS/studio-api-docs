@@ -1,0 +1,257 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Checking Files In and Out </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Checking Files In and Out ">
+    <meta name="generator" content="docfx 2.59.3.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="checking-files-in-and-out">Checking Files In and Out</h1>
+
+<p>To modify a file on a server project you will need to check it out from the server so that you have exclusive access. Once you have performed any modifications you will need to check in the file again to make a new version of the file available to other users of the project.</p>
+<p>You will need to check in files when you have:</p>
+<ul>
+<li>Modified an existing project file.</li>
+<li>Added a new file to the project</li>
+</ul>
+<p>The <a href="../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.html">FileBasedProject</a> object provides methods to check files in and out.</p>
+<h2 id="local-file-state">Local file state</h2>
+<p>As you work on files in a server project the local file state will change do indicate the status of the local copy in relation to the file on the server. The file can be in one of the following states. These are represented in the enumeration <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.LocalFileState.html">LocalFileState</a></p>
+<ul>
+<li><strong>Conflict</strong></li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The file on the server is in conflict with the local copy for example you have modified an older version of a file without first downloading the latest version.</p>
+<ul>
+<li><strong>Missing</strong></li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;There is a file on the server but the file is not available in the local copy. To use this file you will need to check it out or download the latest version from the server.</p>
+<ul>
+<li><strong>Modified</strong></li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The file on the local copy has been modified. To keep the changes you should check the file in to the server. To revert your changes you can download the latest version from the server.</p>
+<ul>
+<li><strong>New</strong></li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The file is new and not yet copied to the server. To keep the file, you need to check it into the server.</p>
+<ul>
+<li><strong>None</strong></li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This status is for file based projects only.</p>
+<ul>
+<li><strong>OutOfDate</strong> </li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A newer version of the file is available on the server. Download the latest version from the server to resolve this.</p>
+<ul>
+<li><strong>UpToDate</strong></li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The file on the server matches the file on the local copy.</p>
+<div class="NOTE"><h5>Note</h5><p>The <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.ProjectFile.html#Sdl_ProjectAutomation_Core_ProjectFile_LocalFileState">LocalFileState</a> can be accessed from the <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.ProjectFile.html">ProjectFile</a> object. As Project Automation API works on a snapshot, you must get the file information from the project again to update the status.</p>
+</div>
+<h2 id="checking-out-files">Checking out files</h2>
+<p>When you open files for translation or review, run a batch task or create a package, you must check the files out first. Use the <a href="../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.html#Sdl_ProjectAutomation_FileBased_FileBasedProject_CheckoutFiles_System_Guid___System_Boolean_System_EventHandler_Sdl_ProjectAutomation_Core_ProgressEventArgs__">CheckoutFiles</a> method to check out the file. If the local copy of the file is out of date or missing then it will be automatically downloaded from the server. If the local file has been modified it will not be downloaded unless the override parameter is set to true.</p>
+<div class="tabGroup" id="tabgroup_WX6fWOI6F6">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_WX6fWOI6F6_tabid-1" role="tab" aria-controls="tabpanel_WX6fWOI6F6_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_WX6fWOI6F6_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-cs">project.CheckoutFiles(fileIds, false, 
+    (obj, evt) =&gt;
+{
+    Console.WriteLine(evt.StatusMessage + &quot; &quot; + evt.PercentComplete + &quot;% complete&quot;);
+
+    if (cancelledByUser)
+    {
+        evt.Cancel = true;
+    }
+});
+</code></pre></section>
+</div>
+<div class="NOTE"><h5>Note</h5><p>You only need to check out files once the project has been published. You can process files without check out before that.</p>
+</div>
+<h2 id="checking-in-a-new-version-of-a-file">Checking in a new version of a file</h2>
+<p>When you open a file for translation or review, run a batch task or create a package, you must first check out the files from the Project Server. Once complete, you need to update the files on the Project Server with your locally modified files by checking them in.</p>
+<div class="tabGroup" id="tabgroup_WX6fWOI6F6-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_WX6fWOI6F6-1_tabid-2" role="tab" aria-controls="tabpanel_WX6fWOI6F6-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_WX6fWOI6F6-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<pre><code class="lang-cs">project.CheckinFiles(fileIds, &quot;This is where you add a check in comment&quot;,
+     (obj, evt) =&gt;
+     {
+         Console.WriteLine(evt.StatusMessage + &quot; &quot; + evt.PercentComplete + &quot;% complete&quot;);
+
+         if (cancelledByUser)
+         {
+             evt.Cancel = true;
+         }
+     });
+</code></pre></section>
+</div>
+<div class="NOTE"><h5>Note</h5><p>Use the <a href="../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.html#Sdl_ProjectAutomation_FileBased_FileBasedProject_CheckinFiles_System_Guid___System_String_System_EventHandler_Sdl_ProjectAutomation_Core_ProgressEventArgs__">CheckinFiles</a> method when checking in a new or modified file. This will make sure that a new version of the file is created on the server and that it is available for other users to check out.</p>
+</div>
+<h2 id="adding-new-files-to-the-server">Adding new files to the server</h2>
+<p>If you add a new file to a server project, checking in the file uploads it to the Project Server so other users can work with the file. The steps to add a new file are identical to adding a file to a local project but with the one extra step of checking in the files and uploading them to the server.</p>
+<p>The following example uploads and checks in all the new source files that have been added to the project.</p>
+<div class="tabGroup" id="tabgroup_WX6fWOI6F6-2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_WX6fWOI6F6-2_tabid-3" role="tab" aria-controls="tabpanel_WX6fWOI6F6-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_WX6fWOI6F6-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<pre><code class="lang-cs">Guid[] sourceFileIds = project.GetSourceLanguageFiles()
+    .Where(file =&gt; file.LocalFileState == LocalFileState.New)
+    .GetIds();
+
+project.CheckinFiles(sourceFileIds, &quot;New Source Files&quot;,
+     (obj, evt) =&gt;
+     {
+         Console.WriteLine(evt.StatusMessage + &quot; &quot; + evt.PercentComplete + &quot;% complete&quot;);
+
+         if (cancelledByUser)
+         {
+             evt.Cancel = true;
+         }
+     });
+</code></pre></section>
+</div>
+<div class="NOTE"><h5>Note</h5><p>Use the <a href="../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.html#Sdl_ProjectAutomation_FileBased_FileBasedProject_CheckinFiles_System_Guid___System_String_System_EventHandler_Sdl_ProjectAutomation_Core_ProgressEventArgs__">CheckinFiles</a> method when checking in a new or modified file. This will make sure that a new version of the file is created on the server and that it is available for other users to check out.</p>
+</div>
+<h2 id="undo-file-check-out">Undo file check out</h2>
+<p>To cancel the checkout of one or more files use the <a href="../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.html#Sdl_ProjectAutomation_FileBased_FileBasedProject_CheckoutFiles_System_Guid___System_Boolean_System_EventHandler_Sdl_ProjectAutomation_Core_ProgressEventArgs__">UndoCheckoutFiles</a> method. This unlocks the file on the server without changing the version and leaves the local copy untouched.</p>
+<div class="tabGroup" id="tabgroup_WX6fWOI6F6-3">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_WX6fWOI6F6-3_tabid-4" role="tab" aria-controls="tabpanel_WX6fWOI6F6-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_WX6fWOI6F6-3_tabid-4" role="tabpanel" data-tab="tabid-4">
+<pre><code class="lang-cs">project.UndoCheckoutFiles(fileIds);
+</code></pre></section>
+</div>
+<div class="NOTE"><h5>Note</h5><p>You can only undo the check out for a file if it was previously checked out. If a file is checked out to another user you must have the &quot;Cancel Checkout of Other Users Project Files&quot; permission on the server.</p>
+</div>
+<h2 id="see-also">See Also</h2>
+<p><a href="about_server_based_projects.html">About Server Based Projects</a></p>
+<p><a href="connecting_a_project_to_a_project_server.html">Connecting a Project to a Project Server</a></p>
+<p><a href="viewing_and_deleting_published_projects.html">Viewing and Deleting Published Projects</a></p>
+<p><a href="downloading_and_uploading_files.html">Downloading and Uploading Files</a></p>
+<p><a href="putting_it_all_together.html">Putting it All Together</a></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/17.2/apiconcepts/projectautomation/checking_files_in_and_out.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>
