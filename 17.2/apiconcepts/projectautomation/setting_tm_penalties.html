@@ -1,0 +1,151 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Setting TM Penalties </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Setting TM Penalties ">
+    <meta name="generator" content="docfx 2.59.3.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="setting-tm-penalties">Setting TM Penalties</h1>
+
+<p>It can happen that a match that was found in a translation memory is linguistically speaking an exact match for the current segment. However, it should not be shown as a 100% match to the user, for example, because of formatting differences. In this case a penalty should be applied to alert the user to the fact that event though an exact match has been retrieved, the suggested translation still requires editing. If the penalty value is e.g. 1%, one percentage point will be deducted from the original score for each formatting difference. Example: If the TM contains a 100% match with two formatting differences, the 100% match will be reduced to a 98% match. Translators are thereby made aware that they should not accept the translation suggestion as is without adapting the formatting in the target segment.</p>
+<p>The screenshot below illustrates the various penalties that can be configured through the user interface of Trados Studio:</p>
+<p><img src="images/Penalties.jpg" alt="Penalties"></p>
+<p>The sample code below highlights some of the properties that can be used to configure the penalty values for your project. For example, here we set the penalties for missing or different formatting from the default 1 to 0. This can be done e.g. if the project involves files in which formatting is not important. In this case you can get a higher TM leverage by ignoring (i.e. by not penalizing) formatting differences.</p>
+<p>At the same time, for example, we increase the <a href="../../api/projectautomation/Sdl.ProjectAutomation.Settings.TranslationMemorySettings.html#Sdl_ProjectAutomation_Settings_TranslationMemorySettings_MultipleTranslationsPenalty">MultipleTranslationsPenalty</a> from the default value 1 to 2. This common penalty is applied when more than one exact match is found for a segment. This can happen when the TM contains different translations for the same source segment, which may be necessary as different translations can apply in different contexts. To alert translators to the fact that the TM contains several possible translations and that they need to check which one applies in the current context, a penalty is applied.</p>
+<p>Additionally we can set <a href="../../api/projectautomation/Sdl.ProjectAutomation.Settings.TranslationMemorySettings.html#Sdl_ProjectAutomation_Settings_TranslationMemorySettings_AutoLocalizationPenalty">AutoLocalizationPenalty</a> when auto localization took place to create a translation proposal, default being 0. TextReplacementPenalty is applied when variable auto-substitutions applied, or text placeholder values copied from the document tag into the translation proposal with default 0. The penalty for character-width difference can be enabled as well (in case of asian-source langauges), it&#39;s default value being 1.</p>
+<div class="tabGroup" id="tabgroup_CmqwurqD+k">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CmqwurqD+k_tabid-1" role="tab" aria-controls="tabpanel_CmqwurqD+k_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_CmqwurqD+k_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-CS">tmSettings.MissingFormattingPenalty.Value = 0;
+tmSettings.DifferentFormattingPenalty.Value = 0;
+tmSettings.MultipleTranslationsPenalty.Value = 2;
+tmSettings.AutoLocalizationPenalty.Value = 1;
+tmSettings.TextReplacementPenalty.Value = 1;
+tmSettings.CharacterWidthDifferencePenaltyEnabled.Value = true;
+tmSettings.CharacterWidthDifferencePenalty.Value = 2;
+</code></pre></section>
+</div>
+<h2 id="see-also">See Also</h2>
+<p><a href="translation_memory_search_settings.html">Translation Memory Search Settings</a></p>
+<p><a href="translation_memory_field_update.html">Translation Memory Fields Update</a></p>
+<p><a href="translation_memory_filter_settings.html">Translation Memory Filter Settings</a></p>
+<p><a href="auto_substitution_settings.html">Auto-Substitution Settings</a></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/17.2/apiconcepts/projectautomation/setting_tm_penalties.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

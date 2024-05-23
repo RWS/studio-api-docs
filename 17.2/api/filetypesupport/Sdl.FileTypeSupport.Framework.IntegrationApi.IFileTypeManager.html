@@ -1,0 +1,3139 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Interface IFileTypeManager
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Interface IFileTypeManager
+   ">
+    <meta name="generator" content="docfx 2.59.3.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../../apiconcepts/toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager">
+  
+  
+  <h1 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager" class="text-break">Interface IFileTypeManager
+  </h1>
+  <div class="markdown level0 summary"><p>
+This is the main access point for file conversion operations.
+</p>
+<p>
+The file type manager holds a prioritized list of file type definitions.
+The order of file type definitions is important, as it determines
+which file types take precedence over others in case multiple file type
+definitions could be used to process the same file.
+The most significant file type definition appears first in the list.
+</p>
+<p>
+In implementations, the file type manager is often pre-configured with a 
+set of file type definitions in the host application. However, the list can also 
+be explicitly manipulated by calling <a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.html#Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_AddFileTypeDefinition_Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeDefinition_">AddFileTypeDefinition(IFileTypeDefinition)</a>,
+<a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.html#Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_InsertFileTypeDefinition_System_Int32_Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeDefinition_">InsertFileTypeDefinition(Int32, IFileTypeDefinition)</a> or <a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.html#Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_RemoveFileTypeDefinition_Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeDefinition_">RemoveFileTypeDefinition(IFileTypeDefinition)</a>.
+File type definitions can be instantiated from existing files or resources 
+using the <a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.html#Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_FileTypeDefinitionFactory">FileTypeDefinitionFactory</a>.
+</p>
+<p>
+Call one of the overloaded <code>GetConverter...()</code> methods to use the file type definitions to
+automatically detect file types and initialize a <a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IMultiFileConverter.html">IMultiFileConverter</a> to process the content.
+</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.html">Sdl.FileTypeSupport.Framework.IntegrationApi</a></h6>
+  <h6><strong>Assembly</strong>: Sdl.FileTypeSupport.Framework.Core.dll</h6>
+  <h5 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface IFileTypeManager</code></pre>
+  </div>
+  <h5 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>
+Actual file type manager instances are often provided by the application that hosts the
+framework, in which case they are often pre-configured from some configuration (e.g.
+through the spring framework).
+</p>
+</div>
+  <h3 id="properties">Properties
+  </h3>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_AutoLoadedFileTypes_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.AutoLoadedFileTypes*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_AutoLoadedFileTypes" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.AutoLoadedFileTypes">AutoLoadedFileTypes</h4>
+  <div class="markdown level1 summary"><p>Gets a list of filetypes which should be auto-loaded by the Host. This is used to indicate
+new file types in this particular version of the FileTypeManager</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">List&lt;string&gt; AutoLoadedFileTypes { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.List</span>&lt;<span class="xref">System.String</span>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_ConfigurationVersionInformation_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.ConfigurationVersionInformation*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_ConfigurationVersionInformation" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.ConfigurationVersionInformation">ConfigurationVersionInformation</h4>
+  <div class="markdown level1 summary"><p>
+Provides information on the version of the configuration information that is used to instantiate the current
+instance of the IFileTypeManager. This can be used to determine whether the instance is working with the 
+latest version of configuration information that the host application requires.
+</p>
+<p>
+For instance, applications may transfer their file type manager configuration information from one system to another.
+By checking this property the application can determine the state of the configuration, and perform additional
+tasks to ensure the configuration is in the format that the application requires (e.g. deploy additional filters
+that have only been released in the latest version of the application).
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">string ConfigurationVersionInformation { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_DefaultBilingualFileTypeDefinition_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.DefaultBilingualFileTypeDefinition*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_DefaultBilingualFileTypeDefinition" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.DefaultBilingualFileTypeDefinition">DefaultBilingualFileTypeDefinition</h4>
+  <div class="markdown level1 summary"><p>The file type definitions that should be used as the default bilingual file type, or <code>null</code> if none.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IFileTypeDefinition DefaultBilingualFileTypeDefinition { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeDefinition.html">IFileTypeDefinition</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_DefaultBilingualFileTypeDefinition_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>
+By default, this property returns the first file type definition in the list for which the 
+<a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeInformation.html#Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeInformation_IsBilingualDocumentFileType">IsBilingualDocumentFileType</a> is true.
+</p>
+<p>
+The default bilingual file type can be explicitly changed by setting this property to another
+file type definition in the list that is also a bilingual document file type.
+</p>
+<p>
+Attempting to set this property to a file type definition that is not in the list will yield 
+a <a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeDefinitionNotFoundException.html">FileTypeDefinitionNotFoundException</a>.
+</p>
+<p>
+Attempting to set this property to a file type definition that is not a bilingual document file type will
+yield a <a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.NotBilingualFileTypeException.html">NotBilingualFileTypeException</a>.
+</p>
+</div>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_FileTypeDefinitionFactory_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.FileTypeDefinitionFactory*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_FileTypeDefinitionFactory" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.FileTypeDefinitionFactory">FileTypeDefinitionFactory</h4>
+  <div class="markdown level1 summary"><p>Provides access to the implementation used to instantiate file type
+definitions. Can be used to explicitly create a file type definition
+that can be added to the manager by calling <a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.html#Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_AddFileTypeDefinition_Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeDefinition_">AddFileTypeDefinition(IFileTypeDefinition)</a>
+or <a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.html#Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_InsertFileTypeDefinition_System_Int32_Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeDefinition_">InsertFileTypeDefinition(Int32, IFileTypeDefinition)</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IFileTypeDefinitionFactory FileTypeDefinitionFactory { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeDefinitionFactory.html">IFileTypeDefinitionFactory</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_FileTypeDefinitions_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.FileTypeDefinitions*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_FileTypeDefinitions" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.FileTypeDefinitions">FileTypeDefinitions</h4>
+  <div class="markdown level1 summary"><p>
+The file type definitions that are currently known to this instance of the file type manager.
+</p>
+<p>
+The order of the file type definitions defines their relative priority, with 
+the most significant file type definition appearing first.
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IFileTypeDefinition[] FileTypeDefinitions { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeDefinition.html">IFileTypeDefinition</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_SettingsBundle_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.SettingsBundle*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_SettingsBundle" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.SettingsBundle">SettingsBundle</h4>
+  <div class="markdown level1 summary"><p>The settings bundle containing the settings used by components of the
+FileTypeManager. This property should be set before any operations
+requiring the use of settings are invoked (for example, <code>GetConverterToBilingual</code>
+implementations) or the operation may not work as expected.
+This property can return <code>null</code> if no settings bundle has been set.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">ISettingsBundle SettingsBundle { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="../core/Sdl.Core.Settings.ISettingsBundle.html">ISettingsBundle</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_AddFileTypeDefinition_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.AddFileTypeDefinition*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_AddFileTypeDefinition_Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeDefinition_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.AddFileTypeDefinition(Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeDefinition)">AddFileTypeDefinition(IFileTypeDefinition)</h4>
+  <div class="markdown level1 summary"><p>Appends a file type definition to the collection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void AddFileTypeDefinition(IFileTypeDefinition fileTypeDefinition)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeDefinition.html">IFileTypeDefinition</a></td>
+        <td><span class="parametername">fileTypeDefinition</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_AddFileTypeDefinition_Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeDefinition__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>The file type definition is added last in the list of known file type definitions.</p>
+</div>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_BuildAdditionalGeneratorsInfo_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.BuildAdditionalGeneratorsInfo*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_BuildAdditionalGeneratorsInfo_Sdl_FileTypeSupport_Framework_IntegrationApi_IGeneratorInfo___" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.BuildAdditionalGeneratorsInfo(Sdl.FileTypeSupport.Framework.IntegrationApi.IGeneratorInfo[])">BuildAdditionalGeneratorsInfo(IGeneratorInfo[])</h4>
+  <div class="markdown level1 summary"><p>Helper method to create additional generator information so that it can be used by filter component builders.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IAdditionalGeneratorsInfo BuildAdditionalGeneratorsInfo(params IGeneratorInfo[] generators)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IGeneratorInfo.html">IGeneratorInfo</a>[]</td>
+        <td><span class="parametername">generators</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IAdditionalGeneratorsInfo.html">IAdditionalGeneratorsInfo</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_BuildBilingualGenerator_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.BuildBilingualGenerator*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_BuildBilingualGenerator_Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualDocumentWriter_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.BuildBilingualGenerator(Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualDocumentWriter)">BuildBilingualGenerator(IBilingualDocumentWriter)</h4>
+  <div class="markdown level1 summary"><p>Helper function to create a bilingual generator for a bilingual document writer, so that
+it can be used with relevant overloads to <code>GetConverter</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IBilingualDocumentGenerator BuildBilingualGenerator(IBilingualDocumentWriter bilingualWriter)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualDocumentWriter.html">IBilingualDocumentWriter</a></td>
+        <td><span class="parametername">bilingualWriter</span></td>
+        <td><p>a bilingual document writer, capable of serializing the
+bilingual content model</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IBilingualDocumentGenerator.html">IBilingualDocumentGenerator</a></td>
+        <td><p>a bilingual document generator instance where the bilingual writer is assigned
+to the <a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IBilingualDocumentGenerator.html#Sdl_FileTypeSupport_Framework_IntegrationApi_IBilingualDocumentGenerator_Writer">Writer</a> property.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_BuildBilingualGenerator_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.BuildBilingualGenerator*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_BuildBilingualGenerator_Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeDefinition_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.BuildBilingualGenerator(Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeDefinition)">BuildBilingualGenerator(IFileTypeDefinition)</h4>
+  <div class="markdown level1 summary"><p>Helper function used by the file type manager implementation and other components that need to
+instantiate a bilingual generator for a specific file type.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IBilingualDocumentGenerator BuildBilingualGenerator(IFileTypeDefinition filterDefinitionToUse)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeDefinition.html">IFileTypeDefinition</a></td>
+        <td><span class="parametername">filterDefinitionToUse</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IBilingualDocumentGenerator.html">IBilingualDocumentGenerator</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_BuildDefaultBilingualGenerator_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.BuildDefaultBilingualGenerator*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_BuildDefaultBilingualGenerator" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.BuildDefaultBilingualGenerator">BuildDefaultBilingualGenerator()</h4>
+  <div class="markdown level1 summary"><p>Helper function that constructs an instance of a generator for the default bilingual file format,
+if set.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IBilingualDocumentGenerator BuildDefaultBilingualGenerator()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IBilingualDocumentGenerator.html">IBilingualDocumentGenerator</a></td>
+        <td><p><code>null</code> if no default bilingual file type has been set</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_BuildDefaultBilingualGenerator_seealso">See Also</h5>
+  <div class="seealso">
+      <div><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.html#Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_DefaultBilingualFileTypeDefinition">DefaultBilingualFileTypeDefinition</a></div>
+  </div>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_BuildExtractor_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.BuildExtractor*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_BuildExtractor_System_String_System_Globalization_CultureInfo_Sdl_Core_Globalization_Codepage_Sdl_FileTypeSupport_Framework_NativeApi_INativeTextLocationMessageReporter_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.BuildExtractor(System.String,System.Globalization.CultureInfo,Sdl.Core.Globalization.Codepage,Sdl.FileTypeSupport.Framework.NativeApi.INativeTextLocationMessageReporter)">BuildExtractor(String, CultureInfo, Codepage, INativeTextLocationMessageReporter)</h4>
+  <div class="markdown level1 summary"><p>Helper function used by the file type manager implementation and other components that need to 
+create components that are normally used through the file converters objects.
+<p>Determines the best matching file type for the specified file according to the rules
+described in the documentation of <a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.html#Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_GetConverter_System_String___System_Globalization_CultureInfo_Sdl_Core_Globalization_Codepage_System_EventHandler_Sdl_FileTypeSupport_Framework_IntegrationApi_MessageEventArgs__">GetConverter(String[], CultureInfo, Codepage, EventHandler&lt;MessageEventArgs&gt;)</a> and returns an initialized 
+file extractor that can be used to process the file.</p></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IFileExtractor BuildExtractor(string filePath, CultureInfo cultureInfo, Codepage suggestedCodepage, INativeTextLocationMessageReporter messageReporter)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">filePath</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Globalization.CultureInfo</span></td>
+        <td><span class="parametername">cultureInfo</span></td>
+        <td><p>Source CultureInfo of the file</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="../core/Sdl.Core.Globalization.Codepage.html">Codepage</a></td>
+        <td><span class="parametername">suggestedCodepage</span></td>
+        <td><p>Suggested codepage of the file</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.NativeApi.INativeTextLocationMessageReporter.html">INativeTextLocationMessageReporter</a></td>
+        <td><span class="parametername">messageReporter</span></td>
+        <td><p>(Optional) message reporter implementation that will be passed to file sniffers</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileExtractor.html">IFileExtractor</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.FileNotSupportedException.html">FileNotSupportedException</a></td>
+        <td><p>Thrown if none of the file type definitions can be used to process the file</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_BuildExtractorNoSniffing_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.BuildExtractorNoSniffing*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_BuildExtractorNoSniffing_System_String_System_String_System_Globalization_CultureInfo_Sdl_Core_Globalization_Codepage_Sdl_FileTypeSupport_Framework_NativeApi_INativeTextLocationMessageReporter_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.BuildExtractorNoSniffing(System.String,System.String,System.Globalization.CultureInfo,Sdl.Core.Globalization.Codepage,Sdl.FileTypeSupport.Framework.NativeApi.INativeTextLocationMessageReporter)">BuildExtractorNoSniffing(String, String, CultureInfo, Codepage, INativeTextLocationMessageReporter)</h4>
+  <div class="markdown level1 summary"><p>Builds a FileExtractor without sniffing - the FileType to use is defined by the fileTypeDefinitionId</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IFileExtractor BuildExtractorNoSniffing(string fileTypeDefinitionId, string filePath, CultureInfo suggestedSourceLanguage, Codepage suggestedCodepage, INativeTextLocationMessageReporter messageReporter)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">fileTypeDefinitionId</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">filePath</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Globalization.CultureInfo</span></td>
+        <td><span class="parametername">suggestedSourceLanguage</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="../core/Sdl.Core.Globalization.Codepage.html">Codepage</a></td>
+        <td><span class="parametername">suggestedCodepage</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.NativeApi.INativeTextLocationMessageReporter.html">INativeTextLocationMessageReporter</a></td>
+        <td><span class="parametername">messageReporter</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileExtractor.html">IFileExtractor</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_BuildFileExtractor_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.BuildFileExtractor*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_BuildFileExtractor_Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualParser_Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeComponentBuilder_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.BuildFileExtractor(Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualParser,Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilder)">BuildFileExtractor(IBilingualParser, IFileTypeComponentBuilder)</h4>
+  <div class="markdown level1 summary"><p>Helper method to create a file extractor so that it can be used by filter component builders.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IFileExtractor BuildFileExtractor(IBilingualParser fileReader, IFileTypeComponentBuilder componentBuilder)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualParser.html">IBilingualParser</a></td>
+        <td><span class="parametername">fileReader</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilder.html">IFileTypeComponentBuilder</a></td>
+        <td><span class="parametername">componentBuilder</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileExtractor.html">IFileExtractor</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_BuildFileExtractor_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.BuildFileExtractor*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_BuildFileExtractor_Sdl_FileTypeSupport_Framework_NativeApi_INativeExtractor_Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeComponentBuilder_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.BuildFileExtractor(Sdl.FileTypeSupport.Framework.NativeApi.INativeExtractor,Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilder)">BuildFileExtractor(INativeExtractor, IFileTypeComponentBuilder)</h4>
+  <div class="markdown level1 summary"><p>Helper method to create a file extractor so that it can be used by filter component builders.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IFileExtractor BuildFileExtractor(INativeExtractor fileReader, IFileTypeComponentBuilder componentBuilder)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.NativeApi.INativeExtractor.html">INativeExtractor</a></td>
+        <td><span class="parametername">fileReader</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilder.html">IFileTypeComponentBuilder</a></td>
+        <td><span class="parametername">componentBuilder</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileExtractor.html">IFileExtractor</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_BuildFileGenerator_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.BuildFileGenerator*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_BuildFileGenerator_Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualWriter_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.BuildFileGenerator(Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualWriter)">BuildFileGenerator(IBilingualWriter)</h4>
+  <div class="markdown level1 summary"><p>Helper method to create a file generator so that it can be used by filter component builders.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IFileGenerator BuildFileGenerator(IBilingualWriter bilingualWriter)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualWriter.html">IBilingualWriter</a></td>
+        <td><span class="parametername">bilingualWriter</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileGenerator.html">IFileGenerator</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_BuildFileGenerator_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.BuildFileGenerator*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_BuildFileGenerator_Sdl_FileTypeSupport_Framework_NativeApi_INativeGenerator_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.BuildFileGenerator(Sdl.FileTypeSupport.Framework.NativeApi.INativeGenerator)">BuildFileGenerator(INativeGenerator)</h4>
+  <div class="markdown level1 summary"><p>Helper method to create a file generator so that it can be used by filter component builders.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IFileGenerator BuildFileGenerator(INativeGenerator nativeGenerator)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.NativeApi.INativeGenerator.html">INativeGenerator</a></td>
+        <td><span class="parametername">nativeGenerator</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileGenerator.html">IFileGenerator</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_BuildFileTypeInformation_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.BuildFileTypeInformation*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_BuildFileTypeInformation" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.BuildFileTypeInformation">BuildFileTypeInformation()</h4>
+  <div class="markdown level1 summary"><p>Helper method to create file type information so that it can be used by filter component builders.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IFileTypeInformation BuildFileTypeInformation()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeInformation.html">IFileTypeInformation</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_BuildGeneratorInfo_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.BuildGeneratorInfo*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_BuildGeneratorInfo" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.BuildGeneratorInfo">BuildGeneratorInfo()</h4>
+  <div class="markdown level1 summary"><p>Helper method to create generator information so that it can be used by filter component builders.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IGeneratorInfo BuildGeneratorInfo()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IGeneratorInfo.html">IGeneratorInfo</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_BuildNativeExtractor_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.BuildNativeExtractor*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_BuildNativeExtractor_Sdl_FileTypeSupport_Framework_NativeApi_INativeFileParser_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.BuildNativeExtractor(Sdl.FileTypeSupport.Framework.NativeApi.INativeFileParser)">BuildNativeExtractor(INativeFileParser)</h4>
+  <div class="markdown level1 summary"><p>Helper method to create a native extractor so that it can be used by filter component builders.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">INativeExtractor BuildNativeExtractor(INativeFileParser nativeFileParser)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.NativeApi.INativeFileParser.html">INativeFileParser</a></td>
+        <td><span class="parametername">nativeFileParser</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.NativeApi.INativeExtractor.html">INativeExtractor</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_BuildNativeGenerator_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.BuildNativeGenerator*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_BuildNativeGenerator_Sdl_FileTypeSupport_Framework_NativeApi_INativeFileWriter_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.BuildNativeGenerator(Sdl.FileTypeSupport.Framework.NativeApi.INativeFileWriter)">BuildNativeGenerator(INativeFileWriter)</h4>
+  <div class="markdown level1 summary"><p>Helper method to create a native generator so that it can be used by filter component builders.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">INativeGenerator BuildNativeGenerator(INativeFileWriter nativeFileWriter)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.NativeApi.INativeFileWriter.html">INativeFileWriter</a></td>
+        <td><span class="parametername">nativeFileWriter</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.NativeApi.INativeGenerator.html">INativeGenerator</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_BuildNativeGenerator_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.BuildNativeGenerator*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_BuildNativeGenerator_Sdl_FileTypeSupport_Framework_NativeApi_IPersistentFileConversionProperties_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.BuildNativeGenerator(Sdl.FileTypeSupport.Framework.NativeApi.IPersistentFileConversionProperties)">BuildNativeGenerator(IPersistentFileConversionProperties)</h4>
+  <div class="markdown level1 summary"><p>Helper function used by the file type manager implementation and other components that need to
+create a file generator component from a specific file type definition.
+<p>
+Creates and initializes a file generator that can be used to write native output files.
+</p></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IFileGenerator BuildNativeGenerator(IPersistentFileConversionProperties fileConversionProperties)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.NativeApi.IPersistentFileConversionProperties.html">IPersistentFileConversionProperties</a></td>
+        <td><span class="parametername">fileConversionProperties</span></td>
+        <td><p>Properties with information on the file being generated,
+including the id of the file type definition used to convert the original native file. 
+This can either be the persistent file properties that were created when reading
+the original native file, or they can be retrieved from the bilingual parser.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileGenerator.html">IFileGenerator</a></td>
+        <td><p>A file generator object that can be used to create a single native file.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_BuildNativeGenerator_Sdl_FileTypeSupport_Framework_NativeApi_IPersistentFileConversionProperties__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This method may be used as a <a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.NativeGeneratorProvider.html">NativeGeneratorProvider</a> delegate in the <a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IMultiFileConverter.html">IMultiFileConverter</a>.
+<example>
+The following example shows how to use this method with a multi file converter:<p>
+<pre><code>void SetNativeGeneratorProvider(IFileTypeManager manager, IMultiFileConverter converter)
+{
+   converter.NativeGeneratorProvider = new NativeGeneratorProvider(manager.BuildFileGenerator);
+}</code></pre>
+<p></example></p>
+</div>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeDefinitionNotFoundException.html">FileTypeDefinitionNotFoundException</a></td>
+        <td><p>thrown if the specified file type definition ID is not 
+one of the file type definitions in the file type manager</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_BuildNativeGeneratorWithVerifiers_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.BuildNativeGeneratorWithVerifiers*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_BuildNativeGeneratorWithVerifiers_Sdl_FileTypeSupport_Framework_NativeApi_IPersistentFileConversionProperties_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.BuildNativeGeneratorWithVerifiers(Sdl.FileTypeSupport.Framework.NativeApi.IPersistentFileConversionProperties)">BuildNativeGeneratorWithVerifiers(IPersistentFileConversionProperties)</h4>
+  <div class="markdown level1 summary"><p>This is an alternative implementation of the <a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.html#Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_BuildNativeGenerator_Sdl_FileTypeSupport_Framework_NativeApi_IPersistentFileConversionProperties_">BuildNativeGenerator(IPersistentFileConversionProperties)</a> method, which creates a generator with
+objects that will perform native verification of the generated file.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IFileGenerator BuildNativeGeneratorWithVerifiers(IPersistentFileConversionProperties fileConversionProperties)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.NativeApi.IPersistentFileConversionProperties.html">IPersistentFileConversionProperties</a></td>
+        <td><span class="parametername">fileConversionProperties</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileGenerator.html">IFileGenerator</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_BuildNativeSubContentExtractor_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.BuildNativeSubContentExtractor*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_BuildNativeSubContentExtractor_Sdl_FileTypeSupport_Framework_NativeApi_INativeFileParser_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.BuildNativeSubContentExtractor(Sdl.FileTypeSupport.Framework.NativeApi.INativeFileParser)">BuildNativeSubContentExtractor(INativeFileParser)</h4>
+  <div class="markdown level1 summary"><p>Helper method to create a native sub-content extractor so that it can be used by filter component builders.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">INativeSubContentExtractor BuildNativeSubContentExtractor(INativeFileParser nativeFileParser)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.NativeApi.INativeFileParser.html">INativeFileParser</a></td>
+        <td><span class="parametername">nativeFileParser</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.NativeApi.INativeSubContentExtractor.html">INativeSubContentExtractor</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_BuildNativeSubContentGenerator_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.BuildNativeSubContentGenerator*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_BuildNativeSubContentGenerator_Sdl_FileTypeSupport_Framework_NativeApi_INativeFileWriter_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.BuildNativeSubContentGenerator(Sdl.FileTypeSupport.Framework.NativeApi.INativeFileWriter)">BuildNativeSubContentGenerator(INativeFileWriter)</h4>
+  <div class="markdown level1 summary"><p>Helper method to create a native sub content generator so that it can be used by filter component builders.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">INativeSubContentGenerator BuildNativeSubContentGenerator(INativeFileWriter nativeFileWriter)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.NativeApi.INativeFileWriter.html">INativeFileWriter</a></td>
+        <td><span class="parametername">nativeFileWriter</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.NativeApi.INativeSubContentGenerator.html">INativeSubContentGenerator</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_BuildPreviewSetsFactory_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.BuildPreviewSetsFactory*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_BuildPreviewSetsFactory" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.BuildPreviewSetsFactory">BuildPreviewSetsFactory()</h4>
+  <div class="markdown level1 summary"><p>Helper method to create a preview sets factory so that it can be used by filter compnent builders.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IPreviewSetsFactory BuildPreviewSetsFactory()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IPreviewSetsFactory.html">IPreviewSetsFactory</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_BuildQuickTagsFactory_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.BuildQuickTagsFactory*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_BuildQuickTagsFactory" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.BuildQuickTagsFactory">BuildQuickTagsFactory()</h4>
+  <div class="markdown level1 summary"><p>Helper method to create a QuickTags factory so that it can be used by filter component builders.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IQuickTagsFactory BuildQuickTagsFactory()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IQuickTagsFactory.html">IQuickTagsFactory</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_BuildSubContentExtractor_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.BuildSubContentExtractor*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_BuildSubContentExtractor_Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualParser_Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeComponentBuilder_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.BuildSubContentExtractor(Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualParser,Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilder)">BuildSubContentExtractor(IBilingualParser, IFileTypeComponentBuilder)</h4>
+  <div class="markdown level1 summary"><p>Helper method to create a sub-content extractor so that it can be used by filter component builders.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">ISubContentExtractor BuildSubContentExtractor(IBilingualParser fileReader, IFileTypeComponentBuilder componentBuilder)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualParser.html">IBilingualParser</a></td>
+        <td><span class="parametername">fileReader</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilder.html">IFileTypeComponentBuilder</a></td>
+        <td><span class="parametername">componentBuilder</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.ISubContentExtractor.html">ISubContentExtractor</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_BuildSubContentExtractor_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.BuildSubContentExtractor*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_BuildSubContentExtractor_Sdl_FileTypeSupport_Framework_NativeApi_INativeSubContentExtractor_Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeComponentBuilder_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.BuildSubContentExtractor(Sdl.FileTypeSupport.Framework.NativeApi.INativeSubContentExtractor,Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilder)">BuildSubContentExtractor(INativeSubContentExtractor, IFileTypeComponentBuilder)</h4>
+  <div class="markdown level1 summary"><p>Helper method to create a sub-content file extractor so that it can be used by filter component builders.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">ISubContentExtractor BuildSubContentExtractor(INativeSubContentExtractor subContentReader, IFileTypeComponentBuilder componentBuilder)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.NativeApi.INativeSubContentExtractor.html">INativeSubContentExtractor</a></td>
+        <td><span class="parametername">subContentReader</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilder.html">IFileTypeComponentBuilder</a></td>
+        <td><span class="parametername">componentBuilder</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.ISubContentExtractor.html">ISubContentExtractor</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_BuildSubContentGenerator_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.BuildSubContentGenerator*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_BuildSubContentGenerator_Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualWriter_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.BuildSubContentGenerator(Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualWriter)">BuildSubContentGenerator(IBilingualWriter)</h4>
+  <div class="markdown level1 summary"><p>Helper method to create a sub content generator so that it can be used by filter component builders. </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">ISubContentGenerator BuildSubContentGenerator(IBilingualWriter bilingualWriter)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualWriter.html">IBilingualWriter</a></td>
+        <td><span class="parametername">bilingualWriter</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.ISubContentGenerator.html">ISubContentGenerator</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_BuildSubContentGenerator_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.BuildSubContentGenerator*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_BuildSubContentGenerator_Sdl_FileTypeSupport_Framework_NativeApi_INativeSubContentGenerator_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.BuildSubContentGenerator(Sdl.FileTypeSupport.Framework.NativeApi.INativeSubContentGenerator)">BuildSubContentGenerator(INativeSubContentGenerator)</h4>
+  <div class="markdown level1 summary"><p>Helper method to create a sub content generator so that it can be used by filter component builders.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">ISubContentGenerator BuildSubContentGenerator(INativeSubContentGenerator nativeSubContentGenerator)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.NativeApi.INativeSubContentGenerator.html">INativeSubContentGenerator</a></td>
+        <td><span class="parametername">nativeSubContentGenerator</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.ISubContentGenerator.html">ISubContentGenerator</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_BuildVerifierCollection_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.BuildVerifierCollection*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_BuildVerifierCollection" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.BuildVerifierCollection">BuildVerifierCollection()</h4>
+  <div class="markdown level1 summary"><p>Helper method to create a verifier collection so that it can be used by filter component builders.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IVerifierCollection BuildVerifierCollection()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IVerifierCollection.html">IVerifierCollection</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_ClearFileTypeDefinitions_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.ClearFileTypeDefinitions*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_ClearFileTypeDefinitions" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.ClearFileTypeDefinitions">ClearFileTypeDefinitions()</h4>
+  <div class="markdown level1 summary"><p>Removes all file type definitions from the collection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void ClearFileTypeDefinitions()</code></pre>
+  </div>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_CreateFileTypeDefinition_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.CreateFileTypeDefinition*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_CreateFileTypeDefinition_Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeComponentBuilder_Sdl_FileTypeSupport_Framework_IntegrationApi_FileTypeProfile_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.CreateFileTypeDefinition(Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilder,Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile)">CreateFileTypeDefinition(IFileTypeComponentBuilder, FileTypeProfile)</h4>
+  <div class="markdown level1 summary"><p>Creates a file type definition based on component builder and overrides the FileTypeInformation with the supplied profile override.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IFileTypeDefinition CreateFileTypeDefinition(IFileTypeComponentBuilder componentBuilder, FileTypeProfile profileOverride)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilder.html">IFileTypeComponentBuilder</a></td>
+        <td><span class="parametername">componentBuilder</span></td>
+        <td><p>The component builder used to initialize the FileTypeDefinition</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.html">FileTypeProfile</a></td>
+        <td><span class="parametername">profileOverride</span></td>
+        <td><p>profile used to override the FileTypeInformation</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeDefinition.html">IFileTypeDefinition</a></td>
+        <td><p>The created IFileTypeDefinitionInstance</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_CreateFileTypeDefinition_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.CreateFileTypeDefinition*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_CreateFileTypeDefinition_System_String_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.CreateFileTypeDefinition(System.String)">CreateFileTypeDefinition(String)</h4>
+  <div class="markdown level1 summary"><p>Creates a file type definition based on the filter definition ID of component builder which should be used
+to create this filter.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IFileTypeDefinition CreateFileTypeDefinition(string fileTypeDefinitionId)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">fileTypeDefinitionId</span></td>
+        <td><p>ID of component builder which should be used to create this filter</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeDefinition.html">IFileTypeDefinition</a></td>
+        <td><p>The created IFileTypeDefinitionInstance</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_CreateFileTypeDefinition_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.CreateFileTypeDefinition*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_CreateFileTypeDefinition_System_String_Sdl_FileTypeSupport_Framework_IntegrationApi_FileTypeProfile_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.CreateFileTypeDefinition(System.String,Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile)">CreateFileTypeDefinition(String, FileTypeProfile)</h4>
+  <div class="markdown level1 summary"><p>Creates a file type definition based on the Id and a profile override.
+The FilterManager must discover the actual component builder associated with this definition and create a new definition based on it.
+If a profileOverride has been supplied, then this should override the FileTypeInformation for that definition.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IFileTypeDefinition CreateFileTypeDefinition(string fileTypeDefinitionId, FileTypeProfile profileOverride)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">fileTypeDefinitionId</span></td>
+        <td><p>ID of component builder which should be used to create this filter</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.html">FileTypeProfile</a></td>
+        <td><span class="parametername">profileOverride</span></td>
+        <td><p>profile used to override the FileTypeInformation</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeDefinition.html">IFileTypeDefinition</a></td>
+        <td><p>The created IFileTypeDefinitionInstance</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_FindFileTypeDefinition_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.FindFileTypeDefinition*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_FindFileTypeDefinition_Sdl_FileTypeSupport_Framework_FileTypeDefinitionId_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.FindFileTypeDefinition(Sdl.FileTypeSupport.Framework.FileTypeDefinitionId)">FindFileTypeDefinition(FileTypeDefinitionId)</h4>
+  <div class="markdown level1 summary"><p>Locates a file type definition from the collection using ids.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IFileTypeDefinition FindFileTypeDefinition(FileTypeDefinitionId id)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.FileTypeDefinitionId.html">FileTypeDefinitionId</a></td>
+        <td><span class="parametername">id</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeDefinition.html">IFileTypeDefinition</a></td>
+        <td><p>The corresponding file type definition, or <code>null</code> if none</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_GetAllMatchingFileTypeDefinitions_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.GetAllMatchingFileTypeDefinitions*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_GetAllMatchingFileTypeDefinitions_System_String_Sdl_Core_Globalization_Language_Sdl_Core_Globalization_Codepage_System_EventHandler_Sdl_FileTypeSupport_Framework_IntegrationApi_MessageEventArgs__" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.GetAllMatchingFileTypeDefinitions(System.String,Sdl.Core.Globalization.Language,Sdl.Core.Globalization.Codepage,System.EventHandler{Sdl.FileTypeSupport.Framework.IntegrationApi.MessageEventArgs})">GetAllMatchingFileTypeDefinitions(String, Language, Codepage, EventHandler&lt;MessageEventArgs&gt;)</h4>
+  <div class="markdown level1 summary"><p>Returns the file type definitions that can operate on the specified file.</p>
+<p>Each file type definition is evaluated in order to determine if it can process the file,
+which may involve invoking the corresponding file sniffer.</p>
+<p>Only file type definitions that are enabled and not hidden are evaluated.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IEnumerable&lt;Pair&lt;IFileTypeDefinition, SniffInfo&gt;&gt; GetAllMatchingFileTypeDefinitions(string nativeFilePath, Language suggestedSourceLanguage, Codepage suggestedCodepage, EventHandler&lt;MessageEventArgs&gt; messageHandler)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">nativeFilePath</span></td>
+        <td><p>The path to the file which is &apos;sniffed&apos; in order to determine applicable file type definitions.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="../core/Sdl.Core.Globalization.Language.html">Language</a></td>
+        <td><span class="parametername">suggestedSourceLanguage</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="../core/Sdl.Core.Globalization.Codepage.html">Codepage</a></td>
+        <td><span class="parametername">suggestedCodepage</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.EventHandler</span>&lt;<a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.MessageEventArgs.html">MessageEventArgs</a>&gt;</td>
+        <td><span class="parametername">messageHandler</span></td>
+        <td><p>Optional handler for messages reported by any file sniffers invoked in the process. 
+<param name="suggestedSourceLanguage">
+<param name="suggestedCodepage">
+You may pass <code>null</code> for this parameter.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<a class="xref" href="Sdl.FileTypeSupport.Framework.Pair-2.html">Pair</a>&lt;<a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeDefinition.html">IFileTypeDefinition</a>, <a class="xref" href="Sdl.FileTypeSupport.Framework.NativeApi.SniffInfo.html">SniffInfo</a>&gt;&gt;</td>
+        <td><p>File type definitions that can operate on the file specified, and the information
+from their file sniffers</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_GetAllMatchingFileTypeDefinitions_System_String_Sdl_Core_Globalization_Language_Sdl_Core_Globalization_Codepage_System_EventHandler_Sdl_FileTypeSupport_Framework_IntegrationApi_MessageEventArgs___remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>
+If more than one file type definition is returned, the order corresponds to the order 
+in which the definitions appear in the manager.
+</p>
+<p>
+If all file types are enabled, the first file type definition 
+returned is the one that is used if calling one of the <code>GetConverter</code> overloads.
+</p>
+<p>
+Any messages generated during file sniffing are reported to the optional <code data-dev-comment-type="paramref" class="paramref">messageHandler</code>.
+</p>
+</div>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_GetAllMatchingFileTypeDefinitions_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.GetAllMatchingFileTypeDefinitions*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_GetAllMatchingFileTypeDefinitions_System_String_System_EventHandler_Sdl_FileTypeSupport_Framework_IntegrationApi_MessageEventArgs__" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.GetAllMatchingFileTypeDefinitions(System.String,System.EventHandler{Sdl.FileTypeSupport.Framework.IntegrationApi.MessageEventArgs})">GetAllMatchingFileTypeDefinitions(String, EventHandler&lt;MessageEventArgs&gt;)</h4>
+  <div class="markdown level1 summary"><p>Returns the file type definitions that can operate on the specified file.</p>
+<p>Each file type definition is evaluated in order to determine if it can process the file,
+which may involve invoking the corresponding file sniffer.</p>
+<p>Only file type definitions that are enabled and not hidden are evaluated.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IEnumerable&lt;Pair&lt;IFileTypeDefinition, SniffInfo&gt;&gt; GetAllMatchingFileTypeDefinitions(string nativeFilePath, EventHandler&lt;MessageEventArgs&gt; messageHandler)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">nativeFilePath</span></td>
+        <td><p>The path to the file which is &apos;sniffed&apos; in order to determine applicable file type definitions.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.EventHandler</span>&lt;<a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.MessageEventArgs.html">MessageEventArgs</a>&gt;</td>
+        <td><span class="parametername">messageHandler</span></td>
+        <td><p>Optional handler for messages reported by any file sniffers invoked in the process. 
+You may pass <code>null</code> for this parameter.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<a class="xref" href="Sdl.FileTypeSupport.Framework.Pair-2.html">Pair</a>&lt;<a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeDefinition.html">IFileTypeDefinition</a>, <a class="xref" href="Sdl.FileTypeSupport.Framework.NativeApi.SniffInfo.html">SniffInfo</a>&gt;&gt;</td>
+        <td><p>File type definitions that can operate on the file specified, and the information
+from their file sniffers</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_GetAllMatchingFileTypeDefinitions_System_String_System_EventHandler_Sdl_FileTypeSupport_Framework_IntegrationApi_MessageEventArgs___remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>
+If more than one file type definition is returned, the order corresponds to the order 
+in which the definitions appear in the manager.
+</p>
+<p>
+If all file types are enabled, the first file type definition 
+returned is the one that is used if calling one of the <code>GetConverter</code> overloads.
+</p>
+<p>
+Any messages generated during file sniffing are reported to the optional <code data-dev-comment-type="paramref" class="paramref">messageHandler</code>.
+</p>
+</div>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_GetBestMatchingFileTypeDefinition_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.GetBestMatchingFileTypeDefinition*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_GetBestMatchingFileTypeDefinition_System_String_Sdl_Core_Globalization_Language_Sdl_Core_Globalization_Codepage_System_EventHandler_Sdl_FileTypeSupport_Framework_IntegrationApi_MessageEventArgs__" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.GetBestMatchingFileTypeDefinition(System.String,Sdl.Core.Globalization.Language,Sdl.Core.Globalization.Codepage,System.EventHandler{Sdl.FileTypeSupport.Framework.IntegrationApi.MessageEventArgs})">GetBestMatchingFileTypeDefinition(String, Language, Codepage, EventHandler&lt;MessageEventArgs&gt;)</h4>
+  <div class="markdown level1 summary"><p>Returns the first file type definition that can operate on the specified file.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Pair&lt;IFileTypeDefinition, SniffInfo&gt; GetBestMatchingFileTypeDefinition(string nativeFilePath, Language suggestedSourceLanguage, Codepage suggestedCodepage, EventHandler&lt;MessageEventArgs&gt; messageHandler)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">nativeFilePath</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="../core/Sdl.Core.Globalization.Language.html">Language</a></td>
+        <td><span class="parametername">suggestedSourceLanguage</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="../core/Sdl.Core.Globalization.Codepage.html">Codepage</a></td>
+        <td><span class="parametername">suggestedCodepage</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.EventHandler</span>&lt;<a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.MessageEventArgs.html">MessageEventArgs</a>&gt;</td>
+        <td><span class="parametername">messageHandler</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.Pair-2.html">Pair</a>&lt;<a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeDefinition.html">IFileTypeDefinition</a>, <a class="xref" href="Sdl.FileTypeSupport.Framework.NativeApi.SniffInfo.html">SniffInfo</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_GetBestMatchingFileTypeDefinition_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.GetBestMatchingFileTypeDefinition*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_GetBestMatchingFileTypeDefinition_System_String_System_EventHandler_Sdl_FileTypeSupport_Framework_IntegrationApi_MessageEventArgs__" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.GetBestMatchingFileTypeDefinition(System.String,System.EventHandler{Sdl.FileTypeSupport.Framework.IntegrationApi.MessageEventArgs})">GetBestMatchingFileTypeDefinition(String, EventHandler&lt;MessageEventArgs&gt;)</h4>
+  <div class="markdown level1 summary"><p>Returns the first file type definition that can operate on the specified file.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Pair&lt;IFileTypeDefinition, SniffInfo&gt; GetBestMatchingFileTypeDefinition(string nativeFilePath, EventHandler&lt;MessageEventArgs&gt; messageHandler)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">nativeFilePath</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.EventHandler</span>&lt;<a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.MessageEventArgs.html">MessageEventArgs</a>&gt;</td>
+        <td><span class="parametername">messageHandler</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.Pair-2.html">Pair</a>&lt;<a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeDefinition.html">IFileTypeDefinition</a>, <a class="xref" href="Sdl.FileTypeSupport.Framework.NativeApi.SniffInfo.html">SniffInfo</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_GetConverter_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.GetConverter*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_GetConverter_Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualParser_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.GetConverter(Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualParser)">GetConverter(IBilingualParser)</h4>
+  <div class="markdown level1 summary"><p>Creates and initializes a file converter to use a specific bilingual parser, and not output to anything in particular.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IMultiFileConverter GetConverter(IBilingualParser bilingualParser)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualParser.html">IBilingualParser</a></td>
+        <td><span class="parametername">bilingualParser</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IMultiFileConverter.html">IMultiFileConverter</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_GetConverter_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.GetConverter*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_GetConverter_System_String_System_EventHandler_Sdl_FileTypeSupport_Framework_IntegrationApi_MessageEventArgs__" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.GetConverter(System.String,System.EventHandler{Sdl.FileTypeSupport.Framework.IntegrationApi.MessageEventArgs})">GetConverter(String, EventHandler&lt;MessageEventArgs&gt;)</h4>
+  <div class="markdown level1 summary"><p>Creates and initializes a file converter that can be used to read a single bilingual file, without
+outputting content to anything in particular.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IMultiFileConverter GetConverter(string bilingualInputFilePath, EventHandler&lt;MessageEventArgs&gt; messageHandler)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">bilingualInputFilePath</span></td>
+        <td><p>Name of the bilingual file to read</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.EventHandler</span>&lt;<a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.MessageEventArgs.html">MessageEventArgs</a>&gt;</td>
+        <td><span class="parametername">messageHandler</span></td>
+        <td><p>An (optional) message handler implementation that will receive any messages reported
+from file sniffers invoked in the process. If a converter is returned, this message handler will also have
+been connected to the <a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IMultiFileConverter.html#Sdl_FileTypeSupport_Framework_IntegrationApi_IMultiFileConverter_Message">Message</a> event on the converter. You may specify <code>null</code> for this parameter.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IMultiFileConverter.html">IMultiFileConverter</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_GetConverter_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.GetConverter*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_GetConverter_System_String_System_String_System_Globalization_CultureInfo_Sdl_Core_Globalization_Codepage_System_EventHandler_Sdl_FileTypeSupport_Framework_IntegrationApi_MessageEventArgs__" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.GetConverter(System.String,System.String,System.Globalization.CultureInfo,Sdl.Core.Globalization.Codepage,System.EventHandler{Sdl.FileTypeSupport.Framework.IntegrationApi.MessageEventArgs})">GetConverter(String, String, CultureInfo, Codepage, EventHandler&lt;MessageEventArgs&gt;)</h4>
+  <div class="markdown level1 summary"><p>Creates and initializes a file converter in order to create a bilingual file.
+The native fileType used for parsing is defined by the fileTypeDefinitionId - no sniffing is done</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IMultiFileConverter GetConverter(string fileTypeDefinitionId, string filePath, CultureInfo sourceLanguage, Codepage suggestedCodepage, EventHandler&lt;MessageEventArgs&gt; messageHandler)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">fileTypeDefinitionId</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">filePath</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Globalization.CultureInfo</span></td>
+        <td><span class="parametername">sourceLanguage</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="../core/Sdl.Core.Globalization.Codepage.html">Codepage</a></td>
+        <td><span class="parametername">suggestedCodepage</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.EventHandler</span>&lt;<a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.MessageEventArgs.html">MessageEventArgs</a>&gt;</td>
+        <td><span class="parametername">messageHandler</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IMultiFileConverter.html">IMultiFileConverter</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_GetConverter_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.GetConverter*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_GetConverter_System_String___System_Globalization_CultureInfo_Sdl_Core_Globalization_Codepage_System_EventHandler_Sdl_FileTypeSupport_Framework_IntegrationApi_MessageEventArgs__" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.GetConverter(System.String[],System.Globalization.CultureInfo,Sdl.Core.Globalization.Codepage,System.EventHandler{Sdl.FileTypeSupport.Framework.IntegrationApi.MessageEventArgs})">GetConverter(String[], CultureInfo, Codepage, EventHandler&lt;MessageEventArgs&gt;)</h4>
+  <div class="markdown level1 summary"><p>Creates and initializes a file converter for reading native files, without passing the output to anything.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IMultiFileConverter GetConverter(string[] nativeFilePaths, CultureInfo sourceLanguage, Codepage suggestedCodepage, EventHandler&lt;MessageEventArgs&gt; messageHandler)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span>[]</td>
+        <td><span class="parametername">nativeFilePaths</span></td>
+        <td><p>The native files to be converted</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Globalization.CultureInfo</span></td>
+        <td><span class="parametername">sourceLanguage</span></td>
+        <td><p>Expected source language of the files. 
+<p>The same source (and target) language must be used for all the files processed with a single converter instance.</p>
+<p>If the language can be determined automatically
+from the content of the file (e.g. when reading a bilingual format such as TTX), this parameter may be ignored by the parser.
+If this parameter is left undefined, it is up to the file sniffer and/or parser to try to determine the
+language. Parser components may report an error or a warning if they cannot reliably identify the language.</p></p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="../core/Sdl.Core.Globalization.Codepage.html">Codepage</a></td>
+        <td><span class="parametername">suggestedCodepage</span></td>
+        <td><p>A rough guess of what encoding the files use. This is normally set to the default codepage
+for the language, but can also be <code>null</code>. This serves only as a hint. A file sniffer can be used to determine the actual encoding for each file. An 
+undefined codepage object can be used if no encoding can be guessed. It is then up to the file sniffer and/or parser 
+to best determine the encoding and report an error if they fail or a warning if the result is not definite.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.EventHandler</span>&lt;<a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.MessageEventArgs.html">MessageEventArgs</a>&gt;</td>
+        <td><span class="parametername">messageHandler</span></td>
+        <td><p>An (optional) message handler implementation that will receive any messages reported
+from file sniffers invoked in the process. If a converter is returned, this message handler will also be
+connected to the <a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IMultiFileConverter.html#Sdl_FileTypeSupport_Framework_IntegrationApi_IMultiFileConverter_Message">Message</a> event on the converter. You may specify <code>null</code> for this parameter.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IMultiFileConverter.html">IMultiFileConverter</a></td>
+        <td><p>A file converter object initialized to read the files, based on information from the best matching file type definitions.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.OneOrMoreFilesNotSupportedException.html">OneOrMoreFilesNotSupportedException</a></td>
+        <td><p>Thrown if there are files for which no file type definition in the file type manager can be used.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_GetConverterToBilingual_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.GetConverterToBilingual*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_GetConverterToBilingual_Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualParser_Sdl_FileTypeSupport_Framework_IntegrationApi_IBilingualDocumentGenerator_Sdl_FileTypeSupport_Framework_IntegrationApi_BilingualDocumentOutputPropertiesProvider_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.GetConverterToBilingual(Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualParser,Sdl.FileTypeSupport.Framework.IntegrationApi.IBilingualDocumentGenerator,Sdl.FileTypeSupport.Framework.IntegrationApi.BilingualDocumentOutputPropertiesProvider)">GetConverterToBilingual(IBilingualParser, IBilingualDocumentGenerator, BilingualDocumentOutputPropertiesProvider)</h4>
+  <div class="markdown level1 summary"><p>Creates and initializes a file converter for an existing bilingual parser and writer.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IMultiFileConverter GetConverterToBilingual(IBilingualParser bilingualParser, IBilingualDocumentGenerator writer, BilingualDocumentOutputPropertiesProvider outputSettingsProvider)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualParser.html">IBilingualParser</a></td>
+        <td><span class="parametername">bilingualParser</span></td>
+        <td><p>Bilingual parser to be used for input with the converter</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IBilingualDocumentGenerator.html">IBilingualDocumentGenerator</a></td>
+        <td><span class="parametername">writer</span></td>
+        <td><p>Bilingual writer to use as output with the converter</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.BilingualDocumentOutputPropertiesProvider.html">BilingualDocumentOutputPropertiesProvider</a></td>
+        <td><span class="parametername">outputSettingsProvider</span></td>
+        <td><p>Implementation of the output settings provider for bilingual
+document files. Will be passed to the multi-file converter and used for writing bilingual document files.
+If the bilingual document generator does not have a bilingual document file writer, you can pass <code>null</code>
+for this parameter.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IMultiFileConverter.html">IMultiFileConverter</a></td>
+        <td><p>A file converter object initialized to read content using the specified parser and output
+to the specified writer.
+To use the file converter, add your own bilingual processors to the converter, and call
+<a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IMultiFileConverter.html#Sdl_FileTypeSupport_Framework_IntegrationApi_IMultiFileConverter_Parse">Parse()</a> or <a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IMultiFileConverter.html#Sdl_FileTypeSupport_Framework_IntegrationApi_IMultiFileConverter_ParseNext">ParseNext()</a> to process the content.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_GetConverterToBilingual_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.GetConverterToBilingual*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_GetConverterToBilingual_System_String_Sdl_FileTypeSupport_Framework_IntegrationApi_IBilingualDocumentGenerator_Sdl_FileTypeSupport_Framework_IntegrationApi_BilingualDocumentOutputPropertiesProvider_System_EventHandler_Sdl_FileTypeSupport_Framework_IntegrationApi_MessageEventArgs__" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.GetConverterToBilingual(System.String,Sdl.FileTypeSupport.Framework.IntegrationApi.IBilingualDocumentGenerator,Sdl.FileTypeSupport.Framework.IntegrationApi.BilingualDocumentOutputPropertiesProvider,System.EventHandler{Sdl.FileTypeSupport.Framework.IntegrationApi.MessageEventArgs})">GetConverterToBilingual(String, IBilingualDocumentGenerator, BilingualDocumentOutputPropertiesProvider, EventHandler&lt;MessageEventArgs&gt;)</h4>
+  <div class="markdown level1 summary"><p>Creates and initializes a file converter for a single file, typically of the default bilingual file type.
+The specified bilingual document generator will be used for output.</p>
+<p>The file type definitions are tested in order, and the first file type definition that
+matches the input file is used. The following steps are used to determine if 
+a file type definition matches the file:
+<ol><li>The regular expression is evaluated against the name of the file to be converted. If it does not match,
+the file type definition is not used.</li><li>If a file sniffer is defined for the file type definition, it gets applied to the file. If the file sniffer
+does not indicate that the file is supported, the file type definition is not used.</li></ol>
+If no matching file type definition is found, a <a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.OneOrMoreFilesNotSupportedException.html">OneOrMoreFilesNotSupportedException</a> is thrown.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IMultiFileConverter GetConverterToBilingual(string bilingualInputFilePath, IBilingualDocumentGenerator writer, BilingualDocumentOutputPropertiesProvider outputSettingsProvider, EventHandler&lt;MessageEventArgs&gt; messageHandler)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">bilingualInputFilePath</span></td>
+        <td><p>The file to be converted. The language and code page of this file is expected
+to be automatically detected by the file sniffer, no external hints should be necessary.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IBilingualDocumentGenerator.html">IBilingualDocumentGenerator</a></td>
+        <td><span class="parametername">writer</span></td>
+        <td><p>Bilingual writer to use as output with the converter</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.BilingualDocumentOutputPropertiesProvider.html">BilingualDocumentOutputPropertiesProvider</a></td>
+        <td><span class="parametername">outputSettingsProvider</span></td>
+        <td><p>Implementation of the output settings provider for bilingual
+document files. Will be passed to the multi-file converter and used for writing bilingual document files.
+If the bilingual document generator does not have a bilingual document file writer, you can pass <code>null</code>
+for this parameter.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.EventHandler</span>&lt;<a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.MessageEventArgs.html">MessageEventArgs</a>&gt;</td>
+        <td><span class="parametername">messageHandler</span></td>
+        <td><p>An (optional) message handler implementation that will receive any messages reported
+from file sniffers invoked in the process. If a converter is returned, this message handler will also be
+connected to the <a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IMultiFileConverter.html#Sdl_FileTypeSupport_Framework_IntegrationApi_IMultiFileConverter_Message">Message</a> event on the converter. You may specify <code>null</code> for this parameter.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IMultiFileConverter.html">IMultiFileConverter</a></td>
+        <td><p>A file converter object initialized to read the file, based on information from the best matching file type definition.
+To use the file converter, add your own bilingual processors to the converter, and call
+<a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IMultiFileConverter.html#Sdl_FileTypeSupport_Framework_IntegrationApi_IMultiFileConverter_Parse">Parse()</a> or <a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IMultiFileConverter.html#Sdl_FileTypeSupport_Framework_IntegrationApi_IMultiFileConverter_ParseNext">ParseNext()</a> to process the file.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.OneOrMoreFilesNotSupportedException.html">OneOrMoreFilesNotSupportedException</a></td>
+        <td><p>Thrown if no file type definition in the file type manager can be used.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_GetConverterToBilingual_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.GetConverterToBilingual*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_GetConverterToBilingual_System_String___Sdl_FileTypeSupport_Framework_IntegrationApi_IBilingualDocumentGenerator_Sdl_FileTypeSupport_Framework_IntegrationApi_BilingualDocumentOutputPropertiesProvider_System_Globalization_CultureInfo_Sdl_Core_Globalization_Codepage_System_EventHandler_Sdl_FileTypeSupport_Framework_IntegrationApi_MessageEventArgs__" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.GetConverterToBilingual(System.String[],Sdl.FileTypeSupport.Framework.IntegrationApi.IBilingualDocumentGenerator,Sdl.FileTypeSupport.Framework.IntegrationApi.BilingualDocumentOutputPropertiesProvider,System.Globalization.CultureInfo,Sdl.Core.Globalization.Codepage,System.EventHandler{Sdl.FileTypeSupport.Framework.IntegrationApi.MessageEventArgs})">GetConverterToBilingual(String[], IBilingualDocumentGenerator, BilingualDocumentOutputPropertiesProvider, CultureInfo, Codepage, EventHandler&lt;MessageEventArgs&gt;)</h4>
+  <div class="markdown level1 summary"><p>Creates and initializes a file converter using the filters that best match a set of native files.
+The file converter can then be used to process all of the files as one document. The specified
+bilingual writer will be used for output.</p>
+<p>The file type definitions are tested in sequence, and the first file type definition that
+matches a file is used for each file. The following steps are used to determine if 
+a file type definition matches a file:
+<ol><li>The regular expression is evaluated against the name of the file to be converted. If it does not match,
+the file type definition is not used.</li><li>If a file sniffer is defined for the file type definition, it gets applied to the file. If the file sniffer
+does not indicate that the file is supported, the file type definition is not used.</li></ol>
+If no matching file type definition is found, a <a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.OneOrMoreFilesNotSupportedException.html">OneOrMoreFilesNotSupportedException</a> is thrown.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IMultiFileConverter GetConverterToBilingual(string[] nativeFilePaths, IBilingualDocumentGenerator writer, BilingualDocumentOutputPropertiesProvider outputSettingsProvider, CultureInfo sourceLanguage, Codepage suggestedCodepage, EventHandler&lt;MessageEventArgs&gt; messageHandler)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span>[]</td>
+        <td><span class="parametername">nativeFilePaths</span></td>
+        <td><p>The native files to be converted</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IBilingualDocumentGenerator.html">IBilingualDocumentGenerator</a></td>
+        <td><span class="parametername">writer</span></td>
+        <td><p>Bilingual writer to use as output with the converter</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.BilingualDocumentOutputPropertiesProvider.html">BilingualDocumentOutputPropertiesProvider</a></td>
+        <td><span class="parametername">outputSettingsProvider</span></td>
+        <td><p>Implementation of the output settings provider for bilingual
+document files. Will be passed to the multi-file converter and used for writing bilingual document files.
+If the bilingual document generator does not have a bilingual document file writer, you can pass <code>null</code>
+as parameter.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Globalization.CultureInfo</span></td>
+        <td><span class="parametername">sourceLanguage</span></td>
+        <td><p>Expected source language of the files. 
+<p>The same source (and target) language must be used for all the files processed with a single converter instance.</p>
+<p>If the language can be determined automatically
+from the content of the file (e.g. when reading a bilingual format such as TTX), this parameter may be ignored by the parser.
+If this parameter is left undefined, it is up to the file sniffer and/or parser to try to determine the
+language. Parser components may report an error or a warning if they cannot reliably identify the language.</p></p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="../core/Sdl.Core.Globalization.Codepage.html">Codepage</a></td>
+        <td><span class="parametername">suggestedCodepage</span></td>
+        <td><p>A rough guess on what encoding the files use. This is normally set to the default code page
+for the language, but can also be <code>null</code>. This serves only as a hint. A file sniffer can be used to determine the actual encoding for each file. An 
+undefined codepage object can be used if no encoding can be guessed. It is then up to the file sniffer and/or parser 
+to best determine the encoding, and report an error if they fail or a warning if the result is not definite.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.EventHandler</span>&lt;<a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.MessageEventArgs.html">MessageEventArgs</a>&gt;</td>
+        <td><span class="parametername">messageHandler</span></td>
+        <td><p>An (optional) message handler implementation that will receive any messages reported
+from file sniffers invoked in the process. If a converter is returned, this message handler will also 
+be connected to the <a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IMultiFileConverter.html#Sdl_FileTypeSupport_Framework_IntegrationApi_IMultiFileConverter_Message">Message</a> event on the converter. You may specify <code>null</code> for this parameter.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IMultiFileConverter.html">IMultiFileConverter</a></td>
+        <td><p>A file converter object initialized to read the files, based on information from the best matching file type definitions.
+To use the file converter, add your own bilingual processors to the converter and call
+<a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IMultiFileConverter.html#Sdl_FileTypeSupport_Framework_IntegrationApi_IMultiFileConverter_Parse">Parse()</a> or <a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IMultiFileConverter.html#Sdl_FileTypeSupport_Framework_IntegrationApi_IMultiFileConverter_ParseNext">ParseNext()</a> to process the native files.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_GetConverterToBilingual_System_String___Sdl_FileTypeSupport_Framework_IntegrationApi_IBilingualDocumentGenerator_Sdl_FileTypeSupport_Framework_IntegrationApi_BilingualDocumentOutputPropertiesProvider_System_Globalization_CultureInfo_Sdl_Core_Globalization_Codepage_System_EventHandler_Sdl_FileTypeSupport_Framework_IntegrationApi_MessageEventArgs___remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>To convert bilingual files to native, you would typically rather use <a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.html#Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_GetConverterToNative_System_String_Sdl_FileTypeSupport_Framework_IntegrationApi_OutputPropertiesProvider_System_EventHandler_Sdl_FileTypeSupport_Framework_IntegrationApi_MessageEventArgs__">GetConverterToNative(String, OutputPropertiesProvider, EventHandler&lt;MessageEventArgs&gt;)</a>.</p>
+</div>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.OneOrMoreFilesNotSupportedException.html">OneOrMoreFilesNotSupportedException</a></td>
+        <td><p>thrown if there are files for which no file type definition in the file type manager can be used.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_GetConverterToDefaultBilingual_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.GetConverterToDefaultBilingual*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_GetConverterToDefaultBilingual_Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualParser_System_String_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.GetConverterToDefaultBilingual(Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualParser,System.String)">GetConverterToDefaultBilingual(IBilingualParser, String)</h4>
+  <div class="markdown level1 summary"><p>Creates and initializes a file converter to write a bilingual output file in the default format, reading
+input from a specified bilingual parser.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IMultiFileConverter GetConverterToDefaultBilingual(IBilingualParser bilingualParser, string bilingualOutputFilePath)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualParser.html">IBilingualParser</a></td>
+        <td><span class="parametername">bilingualParser</span></td>
+        <td><p>The parser to be used for input</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">bilingualOutputFilePath</span></td>
+        <td><p>Full path to the bilingual file to be created</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IMultiFileConverter.html">IMultiFileConverter</a></td>
+        <td><p>A file converter object initialized to read content using the bilingual parser and write
+an output file in the default bilingual format with the specified name.
+To use the file converter, add your own bilingual processors to the converter and call
+<a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IMultiFileConverter.html#Sdl_FileTypeSupport_Framework_IntegrationApi_IMultiFileConverter_Parse">Parse()</a> or <a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IMultiFileConverter.html#Sdl_FileTypeSupport_Framework_IntegrationApi_IMultiFileConverter_ParseNext">ParseNext()</a>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_GetConverterToDefaultBilingual_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.GetConverterToDefaultBilingual*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_GetConverterToDefaultBilingual_System_String_System_String_System_EventHandler_Sdl_FileTypeSupport_Framework_IntegrationApi_MessageEventArgs__" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.GetConverterToDefaultBilingual(System.String,System.String,System.EventHandler{Sdl.FileTypeSupport.Framework.IntegrationApi.MessageEventArgs})">GetConverterToDefaultBilingual(String, String, EventHandler&lt;MessageEventArgs&gt;)</h4>
+  <div class="markdown level1 summary"><p>Creates and initializes a file converter in order to read a single (typically bilingual) input file and
+write a bilingual output file in the default format.
+<p>
+The converter will automatically use the file type that best matches the file to be converted.
+</p>
+<p>
+The file type definitions are each tested in sequence, and the first file type definition that
+matches the input file is used. The following steps are used to determine if 
+a file type definition matches:
+</p>
+<ol><li>The regular expression is evaluated against the name of the file to be converted. If it does not match,
+the file type definition is not used.</li><li>If a file sniffer is defined for the file type definition, it is applied to the file. If the file sniffer
+does not indicate that the file is supported, the file type definition is not used.</li></ol>
+If no matching file type definition is found, a <a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.OneOrMoreFilesNotSupportedException.html">OneOrMoreFilesNotSupportedException</a> is thrown.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IMultiFileConverter GetConverterToDefaultBilingual(string bilingualInputFilePath, string bilingualOutputFilePath, EventHandler&lt;MessageEventArgs&gt; messageHandler)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">bilingualInputFilePath</span></td>
+        <td><p>The native files to be converted</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">bilingualOutputFilePath</span></td>
+        <td><p>Full path to the bilingual file to be created</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.EventHandler</span>&lt;<a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.MessageEventArgs.html">MessageEventArgs</a>&gt;</td>
+        <td><span class="parametername">messageHandler</span></td>
+        <td><p>(optional) A message handler implementation that will receive any messages reported
+from file sniffers invoked in the process. If a converter is returned, this message handler will also be
+connected to the <a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IMultiFileConverter.html#Sdl_FileTypeSupport_Framework_IntegrationApi_IMultiFileConverter_Message">Message</a> event on the converter. You may specify <code>null</code> for this parameter.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IMultiFileConverter.html">IMultiFileConverter</a></td>
+        <td><p>A file converter object initialized to read the file, based on information from the best matching file type definition
+that will create an output file in the default bilingual format with the specified name.
+To use the file converter, add your own bilingual processors to the converter and call
+<a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IMultiFileConverter.html#Sdl_FileTypeSupport_Framework_IntegrationApi_IMultiFileConverter_Parse">Parse()</a> or <a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IMultiFileConverter.html#Sdl_FileTypeSupport_Framework_IntegrationApi_IMultiFileConverter_ParseNext">ParseNext()</a>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_GetConverterToDefaultBilingual_System_String_System_String_System_EventHandler_Sdl_FileTypeSupport_Framework_IntegrationApi_MessageEventArgs___remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>To convert bilingual files to native you would typically use <a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.html#Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_GetConverterToNative_System_String_Sdl_FileTypeSupport_Framework_IntegrationApi_OutputPropertiesProvider_System_EventHandler_Sdl_FileTypeSupport_Framework_IntegrationApi_MessageEventArgs__">GetConverterToNative(String, OutputPropertiesProvider, EventHandler&lt;MessageEventArgs&gt;)</a>.</p>
+</div>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.OneOrMoreFilesNotSupportedException.html">OneOrMoreFilesNotSupportedException</a></td>
+        <td><p>Thrown if no file type definition in the file type manager can be used.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_GetConverterToDefaultBilingual_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.GetConverterToDefaultBilingual*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_GetConverterToDefaultBilingual_System_String_System_String_System_String_System_Globalization_CultureInfo_Sdl_Core_Globalization_Codepage_System_EventHandler_Sdl_FileTypeSupport_Framework_IntegrationApi_MessageEventArgs__" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.GetConverterToDefaultBilingual(System.String,System.String,System.String,System.Globalization.CultureInfo,Sdl.Core.Globalization.Codepage,System.EventHandler{Sdl.FileTypeSupport.Framework.IntegrationApi.MessageEventArgs})">GetConverterToDefaultBilingual(String, String, String, CultureInfo, Codepage, EventHandler&lt;MessageEventArgs&gt;)</h4>
+  <div class="markdown level1 summary"><p>Creates and initializes a file converter in order to create a bilingual file in the default format.
+The converter will only use the file type specified by the fileTypeDefinitionId and bypasses the sniffer</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IMultiFileConverter GetConverterToDefaultBilingual(string fileTypeDefinitionId, string filePath, string bilingualOutputFilePath, CultureInfo sourceLanguage, Codepage suggestedCodepage, EventHandler&lt;MessageEventArgs&gt; messageHandler)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">fileTypeDefinitionId</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">filePath</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">bilingualOutputFilePath</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Globalization.CultureInfo</span></td>
+        <td><span class="parametername">sourceLanguage</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="../core/Sdl.Core.Globalization.Codepage.html">Codepage</a></td>
+        <td><span class="parametername">suggestedCodepage</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.EventHandler</span>&lt;<a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.MessageEventArgs.html">MessageEventArgs</a>&gt;</td>
+        <td><span class="parametername">messageHandler</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IMultiFileConverter.html">IMultiFileConverter</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_GetConverterToDefaultBilingual_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.GetConverterToDefaultBilingual*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_GetConverterToDefaultBilingual_System_String___System_String_System_Globalization_CultureInfo_Sdl_Core_Globalization_Codepage_System_EventHandler_Sdl_FileTypeSupport_Framework_IntegrationApi_MessageEventArgs__" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.GetConverterToDefaultBilingual(System.String[],System.String,System.Globalization.CultureInfo,Sdl.Core.Globalization.Codepage,System.EventHandler{Sdl.FileTypeSupport.Framework.IntegrationApi.MessageEventArgs})">GetConverterToDefaultBilingual(String[], String, CultureInfo, Codepage, EventHandler&lt;MessageEventArgs&gt;)</h4>
+  <div class="markdown level1 summary"><p>Creates and initializes a file converter in order to create a bilingual file in the default format.
+<p>
+The converter will automatically use the filters that best match the native files to be converted.
+These converters are selected as described below.
+</p>
+<p>
+The file type definitions are each tested in sequence, and the first file type definition that
+matches a file is used for each file. The following steps are used to determine if 
+a file type definition matches a file:
+</p>
+<ol><li>The regular expression is evaluated against the name of the file to be converted. If it does not match,
+the file type definition is not used.</li><li>If a file sniffer is defined for the file type definition, it is applied to the file. If the file sniffer
+does not indicate that the file is supported, the file type definition is not used.</li></ol>
+If no matching file type definition is found, a <a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.OneOrMoreFilesNotSupportedException.html">OneOrMoreFilesNotSupportedException</a> is thrown.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IMultiFileConverter GetConverterToDefaultBilingual(string[] nativeFilePaths, string bilingualOutputFilePath, CultureInfo sourceLanguage, Codepage suggestedCodepage, EventHandler&lt;MessageEventArgs&gt; messageHandler)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span>[]</td>
+        <td><span class="parametername">nativeFilePaths</span></td>
+        <td><p>The native files to be converted.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">bilingualOutputFilePath</span></td>
+        <td><p>Full path to the bilingual file to be created.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Globalization.CultureInfo</span></td>
+        <td><span class="parametername">sourceLanguage</span></td>
+        <td><p>Expected source language of the files. 
+<p>The same source (and target) language must be used for all the files processed with a single converter instance.</p>
+<p>If the language can be determined automatically
+from the content of the file (e.g. when reading a bilingual format such as TTX), this parameter may be ignored by the parser.
+If this parameter is left undefined, it is up to the file sniffer and/or parser to try to determine the
+language. Parser components may report an error or a warning if they cannot reliably identify the language.</p></p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="../core/Sdl.Core.Globalization.Codepage.html">Codepage</a></td>
+        <td><span class="parametername">suggestedCodepage</span></td>
+        <td><p>A rough guess of what encoding the files use. This is normally set to the default codepage
+for the language, but can also be <code>null</code>. This serves only as a hint. A file sniffer can be used to determine the actual encoding for each file. An 
+undefined codepage object can be used if no encoding can be guessed. It is then  up to the file sniffer and/or parser 
+to best determine the encoding and report an error if they fail, or a warning if the result is not definite.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.EventHandler</span>&lt;<a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.MessageEventArgs.html">MessageEventArgs</a>&gt;</td>
+        <td><span class="parametername">messageHandler</span></td>
+        <td><p>An (optional) message handler implementation that will receive any messages reported
+from file sniffers invoked in the process. If a converter is returned, this message handler will also have
+been connected to the <a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IMultiFileConverter.html#Sdl_FileTypeSupport_Framework_IntegrationApi_IMultiFileConverter_Message">Message</a> event on the converter. You may specify <code>null</code> for this parameter.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IMultiFileConverter.html">IMultiFileConverter</a></td>
+        <td><p>A file converter object initialized to read the files, based on information from the best matching file type definitions.
+To use the file converter, add your own bilingual processors to the converter and call
+<a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IMultiFileConverter.html#Sdl_FileTypeSupport_Framework_IntegrationApi_IMultiFileConverter_Parse">Parse()</a> or <a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IMultiFileConverter.html#Sdl_FileTypeSupport_Framework_IntegrationApi_IMultiFileConverter_ParseNext">ParseNext()</a> to process the native files.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_GetConverterToDefaultBilingual_System_String___System_String_System_Globalization_CultureInfo_Sdl_Core_Globalization_Codepage_System_EventHandler_Sdl_FileTypeSupport_Framework_IntegrationApi_MessageEventArgs___remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>To convert bilingual files to native you would typically use <a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.html#Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_GetConverterToNative_System_String_Sdl_FileTypeSupport_Framework_IntegrationApi_OutputPropertiesProvider_System_EventHandler_Sdl_FileTypeSupport_Framework_IntegrationApi_MessageEventArgs__">GetConverterToNative(String, OutputPropertiesProvider, EventHandler&lt;MessageEventArgs&gt;)</a>.</p>
+</div>
+  <h5 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_GetConverterToDefaultBilingual_System_String___System_String_System_Globalization_CultureInfo_Sdl_Core_Globalization_Codepage_System_EventHandler_Sdl_FileTypeSupport_Framework_IntegrationApi_MessageEventArgs___examples">Examples</h5>
+  <p>This example shows how this method could be used convert a bunch of native files into a single SDL XLIFF document.</p>
+<pre><code>void ConvertFilesToXliff(IFileTypeManager manager, string[] nativeFiles, CultureInfo language, Codepage suggestedCodepage, string xliffFilePath)
+{
+    IMultiFileConverter converter = manager.GetConverterToDefaultBilingual(nativeFiles[], xliffFilePath, language, suggestedCodepage, null, settingsBundle);
+    converter.Parse();
+}</code></pre>
+
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.OneOrMoreFilesNotSupportedException.html">OneOrMoreFilesNotSupportedException</a></td>
+        <td><p>thrown if there are files for which no file type definition in the file type manager can be used.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_GetConverterToNative_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.GetConverterToNative*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_GetConverterToNative_Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualParser_Sdl_FileTypeSupport_Framework_IntegrationApi_OutputPropertiesProvider_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.GetConverterToNative(Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualParser,Sdl.FileTypeSupport.Framework.IntegrationApi.OutputPropertiesProvider)">GetConverterToNative(IBilingualParser, OutputPropertiesProvider)</h4>
+  <div class="markdown level1 summary"><p>Creates a converter for writing native output files for content read by a specified bilingual parser.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IMultiFileConverter GetConverterToNative(IBilingualParser bilingualParser, OutputPropertiesProvider outputSettingsProvider)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualParser.html">IBilingualParser</a></td>
+        <td><span class="parametername">bilingualParser</span></td>
+        <td><p>The parser that will be used for input</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.OutputPropertiesProvider.html">OutputPropertiesProvider</a></td>
+        <td><span class="parametername">outputSettingsProvider</span></td>
+        <td><p>(Optional) implementation of the output settings provider
+that will be passed to the multi-file converter and used for writing files as native</p>
+<p>If this parameter is provided (i.e. not <code>null</code>), the returned converter will be 
+initialized to use this file type manager to create native file generators, and the specified
+output settings provider will be used to determine output properties for the native files
+when they are created.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IMultiFileConverter.html">IMultiFileConverter</a></td>
+        <td><p>A file converter that may be used to convert bilingual content to native output files</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_GetConverterToNative_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.GetConverterToNative*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_GetConverterToNative_System_String_Sdl_FileTypeSupport_Framework_IntegrationApi_OutputPropertiesProvider_System_EventHandler_Sdl_FileTypeSupport_Framework_IntegrationApi_MessageEventArgs__" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.GetConverterToNative(System.String,Sdl.FileTypeSupport.Framework.IntegrationApi.OutputPropertiesProvider,System.EventHandler{Sdl.FileTypeSupport.Framework.IntegrationApi.MessageEventArgs})">GetConverterToNative(String, OutputPropertiesProvider, EventHandler&lt;MessageEventArgs&gt;)</h4>
+  <div class="markdown level1 summary"><p>Creates a converter for parsing a single file and writing native output files.
+<p>This is intended for bilingual file types, in which the languages and codepage can be deducted
+automatically from the file content.</p></p>
+<p>This version is typically used for parsing SDL XLIFF documents (where support for these
+have been installed as another bilingual file type). However, it could also be used
+for processing individual native files in which source language (and codepage) can be deducted from 
+the file content.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IMultiFileConverter GetConverterToNative(string bilingualInputFilePath, OutputPropertiesProvider outputSettingsProvider, EventHandler&lt;MessageEventArgs&gt; messageHandler)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">bilingualInputFilePath</span></td>
+        <td><p>Full path to a bilingual (typically SDL XLIFF) file</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.OutputPropertiesProvider.html">OutputPropertiesProvider</a></td>
+        <td><span class="parametername">outputSettingsProvider</span></td>
+        <td><p>(Optional) implementation of the output settings provider
+that will be passed to the multi-file converter and used for writing files as native.</p>
+<p>If this parameter is provided (i.e. not null), the returned converter will be 
+initialized to use this file type manager to create native file generators, and the specified
+output settings provider will be used to determine output properties for the native files
+when they are created.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.EventHandler</span>&lt;<a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.MessageEventArgs.html">MessageEventArgs</a>&gt;</td>
+        <td><span class="parametername">messageHandler</span></td>
+        <td><p>An (optional) message handler implementation that will receive any messages reported
+from file sniffers invoked in the process. If a converter is returned, this message handler will also 
+be connected to the <a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IMultiFileConverter.html#Sdl_FileTypeSupport_Framework_IntegrationApi_IMultiFileConverter_Message">Message</a> event on the converter. You may specify <code>null</code> for this parameter.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IMultiFileConverter.html">IMultiFileConverter</a></td>
+        <td><p>A file converter that may be used to convert bilingual files to native output files</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_GetConverterToNative_System_String_Sdl_FileTypeSupport_Framework_IntegrationApi_OutputPropertiesProvider_System_EventHandler_Sdl_FileTypeSupport_Framework_IntegrationApi_MessageEventArgs___remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>If language (and/or codepage) cannot be successfully determined by the file type components, an exception
+should be thrown.</p>
+</div>
+  <h5 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_GetConverterToNative_System_String_Sdl_FileTypeSupport_Framework_IntegrationApi_OutputPropertiesProvider_System_EventHandler_Sdl_FileTypeSupport_Framework_IntegrationApi_MessageEventArgs___examples">Examples</h5>
+  <p>The following code example shows how to convert an SDL XLIFF file into native target language files.</p>
+<pre><code>void SaveAsTarget(IFileTypeManager manager, string xliffFilePath, string outputFolder)
+{
+   FolderPathProvider pathProvider = new FolderPathProvider(outputFolder);
+   IMultiFileConverter converter = manager.GetConverterToNative(xliffFilePath, pathProvider.Provider, settingsBundle);
+   converter.AddBilingualProcessor(new SourceToTargetCopier(ExistingContentHandling.Preserve));
+   converter.Parse();
+}</code></pre>
+<p>Note that a SourceToTargetCopier object is used to ensure that ParagraphUnits without target content are output as source
+(they would otherwise be emitted as nothing, which could lead to unexpected results).</p>
+
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_GetConverterToNative_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.GetConverterToNative*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_GetConverterToNative_System_String___Sdl_FileTypeSupport_Framework_IntegrationApi_OutputPropertiesProvider_System_Globalization_CultureInfo_Sdl_Core_Globalization_Codepage_System_EventHandler_Sdl_FileTypeSupport_Framework_IntegrationApi_MessageEventArgs__" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.GetConverterToNative(System.String[],Sdl.FileTypeSupport.Framework.IntegrationApi.OutputPropertiesProvider,System.Globalization.CultureInfo,Sdl.Core.Globalization.Codepage,System.EventHandler{Sdl.FileTypeSupport.Framework.IntegrationApi.MessageEventArgs})">GetConverterToNative(String[], OutputPropertiesProvider, CultureInfo, Codepage, EventHandler&lt;MessageEventArgs&gt;)</h4>
+  <div class="markdown level1 summary"><p>Creates and initializes a file converter for reading native files, doing processing on them and
+creating native files as output in one single pass.
+<p>
+The file type definitions are tested in sequence, and the first file type definition that
+matches a file is used for each file. The following steps are used to determine if 
+a file type definition matches a file:
+</p>
+<ol><li>The regular expression is evaluated against the name of the file to be converted. If it does not match,
+the file type definition is not used.</li><li>If a file sniffer is defined for the file type definition, it is applied to the file. If the file sniffer
+does not indicate that the file is supported, the file type definition is not used.</li></ol>
+If no matching file type definition is found, a <a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.OneOrMoreFilesNotSupportedException.html">OneOrMoreFilesNotSupportedException</a> is thrown.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IMultiFileConverter GetConverterToNative(string[] nativeFilePaths, OutputPropertiesProvider outputSettingsProvider, CultureInfo sourceLanguage, Codepage suggestedCodepage, EventHandler&lt;MessageEventArgs&gt; messageHandler)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span>[]</td>
+        <td><span class="parametername">nativeFilePaths</span></td>
+        <td><p>The native files to be converted</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.OutputPropertiesProvider.html">OutputPropertiesProvider</a></td>
+        <td><span class="parametername">outputSettingsProvider</span></td>
+        <td><p>Implementation of the output settings provider
+that will be passed to the multi-file converter and used for writing files as native.</p>
+<p>The returned converter will be 
+initialized to use this file type manager to create native file generators, and the specified
+output settings provider will be used to determine the output properties for the native files
+when they are created.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Globalization.CultureInfo</span></td>
+        <td><span class="parametername">sourceLanguage</span></td>
+        <td><p>Expected source language of the files.
+<p>The same source (and target) language must be used for all the files processed with a single converter instance.</p>
+<p>If the language can be determined automatically
+from the content of the file (e.g. when reading a bilingual format such as TTX), this parameter may be ignored by the parser.
+If this parameter is left undefined, it is up to the file sniffer and/or parser to try to determine the
+language. Parser components may report an error or a warning if they cannot reliably identify the language.</p></p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="../core/Sdl.Core.Globalization.Codepage.html">Codepage</a></td>
+        <td><span class="parametername">suggestedCodepage</span></td>
+        <td><p>A rough guess of what encoding the files use. This is normally set to the default codepage
+for the language, but can also be <code>null</code>. This serves only as a hint. A file sniffer can be used to determine the actual encoding for each file. An 
+undefined codepage object can be used if no encoding can be guessed. It is then up to the file sniffer and/or parser 
+to best determine the encoding, and report an error if they fail or a warning if the result is not definite.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.EventHandler</span>&lt;<a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.MessageEventArgs.html">MessageEventArgs</a>&gt;</td>
+        <td><span class="parametername">messageHandler</span></td>
+        <td><p>An (optional) message handler implementation that will receive any messages reported
+from file sniffers invoked in the process. If a converter is returned, this message handler will also be
+connected to the <a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IMultiFileConverter.html#Sdl_FileTypeSupport_Framework_IntegrationApi_IMultiFileConverter_Message">Message</a> event on the converter. You may specify <code>null</code> for this parameter.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IMultiFileConverter.html">IMultiFileConverter</a></td>
+        <td><p>A file converter object initialized to read the files and write corresponding output files based on the 
+output settings provider.
+To use the file converter, add your own bilingual processors to the converter and call
+<a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IMultiFileConverter.html#Sdl_FileTypeSupport_Framework_IntegrationApi_IMultiFileConverter_Parse">Parse()</a> or <a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IMultiFileConverter.html#Sdl_FileTypeSupport_Framework_IntegrationApi_IMultiFileConverter_ParseNext">ParseNext()</a> to process the native files.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.OneOrMoreFilesNotSupportedException.html">OneOrMoreFilesNotSupportedException</a></td>
+        <td><p>thrown if there are files for which no file type definition in the file type manager can be used.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_InsertFileTypeDefinition_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.InsertFileTypeDefinition*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_InsertFileTypeDefinition_System_Int32_Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeDefinition_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.InsertFileTypeDefinition(System.Int32,Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeDefinition)">InsertFileTypeDefinition(Int32, IFileTypeDefinition)</h4>
+  <div class="markdown level1 summary"><p>Inserts a file type definition into the collection at a specific priority position. </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void InsertFileTypeDefinition(int index, IFileTypeDefinition filterDefinition)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
+        <td><p>0-based index indicating the file type definition&apos;s priority in relation to the
+other currently known file type definitions.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeDefinition.html">IFileTypeDefinition</a></td>
+        <td><span class="parametername">filterDefinition</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_RemoveFileTypeDefinition_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.RemoveFileTypeDefinition*"></a>
+  <h4 id="Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeManager_RemoveFileTypeDefinition_Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeDefinition_" data-uid="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.RemoveFileTypeDefinition(Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeDefinition)">RemoveFileTypeDefinition(IFileTypeDefinition)</h4>
+  <div class="markdown level1 summary"><p>Removes a file type definition from the collection.
+If no such file type definition exists in the collection, nothing happens.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void RemoveFileTypeDefinition(IFileTypeDefinition filterDefinition)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeDefinition.html">IFileTypeDefinition</a></td>
+        <td><span class="parametername">filterDefinition</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

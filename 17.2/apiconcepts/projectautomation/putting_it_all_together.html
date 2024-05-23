@@ -1,0 +1,246 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Putting it All Together </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Putting it All Together ">
+    <meta name="generator" content="docfx 2.59.3.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="putting-it-all-together">Putting it All Together</h1>
+
+<p>The following example shows the following steps</p>
+<ul>
+<li>Opening a server project and creating a new local copy.</li>
+<li>Overriding files checked out by other users.</li>
+<li>Checking out and downloading files to process.</li>
+<li>Adding a server-based TM.</li>
+<li>Running batch tasks.</li>
+<li>Uploading the results back to the server and checking them in.</li>
+</ul>
+<div class="tabGroup" id="tabgroup_-fHa8m8IAM">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_-fHa8m8IAM_tabid-1" role="tab" aria-controls="tabpanel_-fHa8m8IAM_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_-fHa8m8IAM_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-cs">void ServerPuttingItAllTogether()
+{
+    const string tmServerPrefix =&quot;sdltm.&quot;;
+
+    string localcopylocation = @&quot;C:\Projects\&quot;;
+    string serverName = &quot;http://myServerAddress:80&quot;;
+    Uri serverAddress = new Uri(serverName);
+    string organizationPath = &quot;/MyOrganizationPath&quot;;
+
+    ProjectServer server = new ProjectServer(serverAddress, false, &quot;MyUser&quot;, &quot;MyPassword&quot;);
+    ServerProjectInfo projectInfo = server.GetServerProject(&quot;/MyOrganization/MyProject&quot;);
+
+    FileBasedProject project;
+
+    if (projectInfo != null)
+    {
+
+        project = server.OpenProject(projectInfo.ProjectId, localcopylocation + projectInfo.Name);
+
+        ProjectFile[] sourceFiles = project.GetSourceLanguageFiles();
+        project.UndoCheckoutFiles(sourceFiles.GetIds());
+
+        //Add a server based translation provider
+        Uri tmAddress = new Uri(String.Format(&quot;{0}{1}{2}/{3}&quot;, tmServerPrefix, serverAddress, organizationPath, &quot;UnitTestTm&quot;));
+        TranslationProviderConfiguration tmConfig = project.GetTranslationProviderConfiguration();
+        tmConfig.Entries.Add
+        (
+            new TranslationProviderCascadeEntry
+            (
+                      new TranslationProviderReference(tmAddress),
+                      true,
+                      true,
+                      true,
+                      0
+            )
+        );
+
+        //The credentials for a server based TM are keyed to the server address without path or tm name
+        project.Credentials.AddCredential(serverAddress, &quot;user=sa;password=sa;type=CustomUser&quot;);
+        project.UpdateTranslationProviderConfiguration(tmConfig);
+
+        List&lt;TaskStatusEventArgs&gt; taskStatusEventArgsList = new List&lt;TaskStatusEventArgs&gt;();
+        List&lt;MessageEventArgs&gt; messageEventArgsList = new List&lt;MessageEventArgs&gt;();
+
+        // Run tasks for source files to create target files
+        AutomaticTask scanTask = project.RunAutomaticTask(
+            sourceFiles.GetIds(),
+            AutomaticTaskTemplateIds.Scan,
+            (sender, taskStatusArgs) =&gt; taskStatusEventArgsList.Add(taskStatusArgs),
+            (sender, messageArgs) =&gt; messageEventArgsList.Add(messageArgs));
+
+        AutomaticTask convertTask = project.RunAutomaticTask(
+            sourceFiles.GetIds(),
+            AutomaticTaskTemplateIds.ConvertToTranslatableFormat,
+            (sender, taskStatusArgs) =&gt; taskStatusEventArgsList.Add(taskStatusArgs),
+            (sender, messageArgs) =&gt; messageEventArgsList.Add(messageArgs));
+
+        AutomaticTask copyToTargetTask = project.RunAutomaticTask(
+            sourceFiles.GetIds(),
+            AutomaticTaskTemplateIds.CopyToTargetLanguages,
+            (sender, taskStatusArgs) =&gt; taskStatusEventArgsList.Add(taskStatusArgs),
+            (sender, messageArgs) =&gt; messageEventArgsList.Add(messageArgs));
+
+        // Run tasks for target files
+        ProjectFile[] targetFiles = project.GetTargetLanguageFiles();
+
+        AutomaticTask perfectMatchTask = project.RunAutomaticTask(
+           targetFiles.GetIds(),
+           AutomaticTaskTemplateIds.PerfectMatch,
+           (sender, taskStatusArgs) =&gt; taskStatusEventArgsList.Add(taskStatusArgs),
+           (sender, messageArgs) =&gt; messageEventArgsList.Add(messageArgs));
+
+        AutomaticTask analyseTask = project.RunAutomaticTask(
+           targetFiles.GetIds(),
+           AutomaticTaskTemplateIds.AnalyzeFiles,
+           (sender, taskStatusArgs) =&gt; taskStatusEventArgsList.Add(taskStatusArgs),
+           (sender, messageArgs) =&gt; messageEventArgsList.Add(messageArgs));
+
+        AutomaticTask preTranslateTask = project.RunAutomaticTask(
+          targetFiles.GetIds(),
+          AutomaticTaskTemplateIds.PreTranslateFiles,
+          (sender, taskStatusArgs) =&gt; taskStatusEventArgsList.Add(taskStatusArgs),
+          (sender, messageArgs) =&gt; messageEventArgsList.Add(messageArgs));
+
+        AutomaticTask populateProjTmTask = project.RunAutomaticTask(
+           targetFiles.GetIds(),
+           AutomaticTaskTemplateIds.PopulateProjectTranslationMemories,
+           (sender, taskStatusArgs) =&gt; taskStatusEventArgsList.Add(taskStatusArgs),
+           (sender, messageArgs) =&gt; messageEventArgsList.Add(messageArgs));
+
+        //Check in the new target files
+        targetFiles = project.GetTargetLanguageFiles();
+        project.CheckinFiles(targetFiles.GetIds(), &quot;Target Files Created and Pre-translated&quot;, null);
+
+        //Save the project back to disk
+        project.Save();
+    }
+}
+</code></pre></section>
+</div>
+<h2 id="see-also">See Also</h2>
+<p><a href="about_server_based_projects.html">About Server Based Projects</a></p>
+<p><a href="connecting_a_project_to_a_project_server.html">Connecting a Project to a Project Server</a></p>
+<p><a href="viewing_and_deleting_published_projects.html">Viewing and Deleting Published Projects</a></p>
+<p><a href="checking_files_in_and_out.html">Checking Files In and Out</a></p>
+<p><a href="downloading_and_uploading_files.html">Downloading and Uploading Files</a></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/17.2/apiconcepts/projectautomation/putting_it_all_together.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

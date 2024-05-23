@@ -1,0 +1,208 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Adding Terms </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Adding Terms ">
+    <meta name="generator" content="docfx 2.59.3.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="adding-terms">Adding Terms</h1>
+
+<p>You can configure your custom terminology provider to support adding and editing of terminology entries. Learn how to implement some simplified functionality for adding source and target terms to your delimited text list.</p>
+<p>In Trados Studio, you can add source and target terms on the fly by marking them in the Editor and by then clicking either the <strong>Add New Term</strong> button, or the <strong>Quick Add New Term</strong> button.</p>
+<p><img style="display:block; " src="images/add_terms_buttons.jpg"></p>
+<p>The difference between these two buttons in the standard, MultiTerm-based implementation of Trados Studio is that <strong>Add New Term</strong> does not immediately save the term pair to the termbase, but opens up an editor control in the <strong>Termbase Viewer</strong> window that allows you to make changes to the terms before saving them. <strong>Quick Add New Term</strong> adds the term pair directly to the terminology source and displays the newly-created entry in the <strong>Termbase Viewer</strong> window. Our simplified implementation will not offer any editing function. This means that the same thing will happen in our implementation, regardless of whether you click Add New Term or Quick Add New Term.</p>
+<p>Open the <strong>MyTerminologyProviderViewerWinFormsUI.cs</strong> class and go to the <strong>AddTerm()</strong> function. Trados Studio passes the currently selected source and target term to this function through the <strong>source</strong> and <strong>target</strong> string parameters. We then implement the following functionality, which works like this:</p>
+<ul>
+<li>Open the glossary text file.</li>
+<li>Loop to the end of the text file, while counting the lines to determine the next entry id.</li>
+<li>Insert the new source and target term (with empty definition).</li>
+<li>Display the newly-created entry in the Internet Explorer control of the <strong>Termbase Viewer</strong> window.</li>
+</ul>
+<div class="tabGroup" id="tabgroup_YCOi8mkj4B">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_YCOi8mkj4B_tabid-1" role="tab" aria-controls="tabpanel_YCOi8mkj4B_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">Adding Terms Functionality</a>
+</li>
+</ul>
+<section id="tabpanel_YCOi8mkj4B_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-csharp" name="MyTerminologyProvider">#region &quot;Enable term adding and editing 
+public bool CanAddTerm =&gt; true;
+
+public bool IsEditing =&gt; true;
+#endregion
+
+#region &quot;AddTerms&quot;
+//Triggered when the Studio user selects a source (and target) term, and then clicks the
+//corresponding button for adding the term or term pair to the glossary.
+//We loop through all existing term pairs to retrieve the next possible entry id, 
+//then we append the term or term pair to the text file.
+public void AddTerm(string source, string target)
+{
+    string fileName = _terminologyProvider.fileName.Replace(&quot;file:///&quot;, &quot;&quot;);
+    StreamReader glossaryFile = new StreamReader(fileName);
+    int i = 0;
+    while (!glossaryFile.EndOfStream)
+    {
+        i++;
+        glossaryFile.ReadLine();
+    }
+    glossaryFile.Close();
+    int newEntryId = i + 1;
+    StreamWriter outFile = new StreamWriter(fileName, true);
+    outFile.WriteLine((newEntryId.ToString() + &quot;;&quot; + source + &quot;;&quot; + target + &quot;;&quot;));
+    outFile.Close();
+
+    //Show added entry in web browser control of the Termbase Viewer window
+    string tmpFile = System.IO.Path.GetTempPath() + &quot;simple_list_entry.htm&quot;;
+    StreamWriter previewFile = new StreamWriter(tmpFile);
+    previewFile.Write(&quot;&lt;html&gt;&lt;body&gt;&lt;b&gt;Entry id:&lt;/b&gt; &quot; + newEntryId.ToString() +
+        &quot;&lt;br/&gt;&lt;b&gt;Source term:&lt;/b&gt; &quot; + source +
+        &quot;&lt;br/&gt;&lt;b&gt;Target term:&lt;/b&gt; &quot; + target +
+        &quot;&lt;/body&gt;&lt;/html&gt;&quot;);
+    previewFile.Close();
+    termControl.SetNavigation(tmpFile);
+}
+</code></pre></section>
+</div>
+<p>When a new source/target term pair has been added, the following will, for example, be displayed in the <strong>Termbase Viewer</strong> window:</p>
+<p><img style="display:block; " src="images/entry_added.jpg"></p>
+<p>You can also implement your terminology provider to support editing. However, in this simplified example, we will not actually add any editing functionality. This would require us to implement an editing control in the <strong>Termbase Viewer</strong> window. All we are doing for the moment is to output a message in the <strong>AddAndEditTerm()</strong> function of the <strong>MyTerminologyProviderViewerWinFormsUI.cs</strong> class:</p>
+<div class="tabGroup" id="tabgroup_YCOi8mkj4B-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_YCOi8mkj4B-1_tabid-2" role="tab" aria-controls="tabpanel_YCOi8mkj4B-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">Adding and Editing Terms</a>
+</li>
+</ul>
+<section id="tabpanel_YCOi8mkj4B-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<pre><code class="lang-csharp" name="MyTerminologyProviderViewerWinFormsUI">#region &quot;AddEditTerm&quot;
+public void AddAndEditTerm(Entry term, string source, string target)
+{
+    MessageBox.Show(&quot;Sorry, editing terms is currently not implemented :-(&quot;, &quot;&quot;, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+}
+#endregion
+</code></pre></section>
+</div>
+<p>When you try to add a term that has already been added, Trados Studio throws the following message that prompts you to:</p>
+<ul>
+<li>Edit the entry by clicking <strong>Yes</strong>.</li>
+<li>Add the term again, thus risking creating a duplicate entry by clicking <strong>No</strong>.</li>
+<li>Abort the entire term add operation with <strong>Cancel</strong>.</li>
+</ul>
+<p><img style="display:block; " src="images/term_exists.jpg"></p>
+<p>If you click <strong>Yes</strong> to edit the entry, the following message box will be displayed in our implementation and the <strong>Termbase Viewer</strong> window remains empty. In a &#39;real&#39; implementation, the entry content will be shown in an edit control where you can still edit it.</p>
+<p><img style="display:block; " src="images/editing_not_implemented.jpg"></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/17.2/apiconcepts/terminology/adding_terms.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>
