@@ -24,15 +24,15 @@ if($checkBranch){
 }
 
 git checkout -b gh-pages_temp
-git rm  ".\17.2\*" -r
-mkdir "17.2"
+git rm  ".\17.1\*" -r
+mkdir "17.1"
 write-host "Copy documentation into the repo"
-Copy-Item "$SOURCE_DIR\_site\17.2\*" .\17.2\ -Recurse -force
+Copy-Item "$SOURCE_DIR\_site\17.1\*" .\17.1\ -Recurse -force
 
 write-host "Push the new docs to the remote branch"
 git config --local user.email "github-actions[bot]@users.noreply.sdl.com"
 git config --local user.name "github-actions[bot]"
-git add .\17.2 -A
+git add .\17.1 -A
 git commit -m "Update generated documentation"
 git push "$remote_repo" HEAD:gh-pages_temp
 Write-Output (${TOKEN}) | gh auth login --with-token
