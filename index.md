@@ -6,11 +6,8 @@ Read more on how you can write your first <Var:ProductName> plugin.
 ## [Learn more about <Var:ProductNameWithEdition> APIs](apiconcepts/overview.md) 
 Learn more about the APIs and what you can achieve with them.
 
-## [How to update plugins to <Var:ProductNameWithEdition> SR1](articles/hints_tips/Update_Plugins/how_to_update_plugins_to_trados_studio_2022_sr1.md) 
-Learn more about how you can make your plugin compatible with <Var:ProductNameWithEdition> SR1.
-
-## [How to update plugins to <Var:ProductNameWithEdition> SR2](articles/hints_tips/Update_Plugins/how_to_update_plugins_to_trados_studio_2022_sr2.md) 
-Learn more about how you can make your plugin compatible with <Var:ProductNameWithEdition> SR2.
+## [How to update plugins to <Var:ProductNameWithEdition>](articles/hints_tips/Update_Plugins/how_to_update_plugins_to_trados_studio_2024.md) 
+Learn more about how you can make your plugin compatible with <Var:ProductNameWithEdition>.
 
 ## [Articles](articles/intro.md)
 Read articles on how to get more out of <Var:ProductName>.
