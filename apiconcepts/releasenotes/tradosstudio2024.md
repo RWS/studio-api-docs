@@ -25,16 +25,19 @@ The changes are included in `Sdl.TranslationStudioAutomation.IntegrationApi`.
 
 # Terminology Provider
 The following changes are included in `Sdl.Terminology.TerminologyProvider.Core`.
+
 ## [DescriptiveField](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.DescriptiveField.yml)
 * Added new property `ShowInUI` to determine whether the field should be shown in the UI (e.g. term recognition results window).
+
 ## [ITerminologyExport](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.ITerminologyExport.yml)
 * Added new method `void Export(TerminologyExportType exportFormatType, string path, Dictionary<string, string> exportProperties)` to perform a termbase export to a specific format.
+
 ## [ITerminologyImport](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.ITerminologyImport.yml)
 * Added new method `void Import(TerminologyImportType importType, List<string> importFiles, Dictionary<string, string> importProperties = null)` to import multiple files in a single call.
+
 ## [TermbaseExportException](../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.Exceptions.TermbaseExportException.yml)
 * Added new exception to be used when a termbase export fails.
 
 # Editor API changes
 The following changes are included in `Sdl.DesktopEditor.EditorApi`:
 * Added new interface [IInteractiveAccessibleCustomColumn](../../api/integration/Sdl.DesktopEditor.EditorApi.IInteractiveAccessibleCustomColumn.yml) that exposes Accessibility Details.
-* 
