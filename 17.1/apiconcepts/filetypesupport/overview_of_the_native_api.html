@@ -1,0 +1,170 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Overview of the Native API </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Overview of the Native API ">
+    <meta name="generator" content="docfx 2.59.3.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="overview-of-the-native-api">Overview of the Native API</h1>
+
+<p>This section contains a quick overview of the Native API.</p>
+<p>The Native API contains the functionality needed to build filters and filter components for processing monolingual content in a native doucment format (e.g. Microsoft Word). Most file filters and file processing components can be built using only this API of the Trados Studio. The only exceptions where the native API is not sufficient are those in which you need to explicitly process content available in bilingual form, e.g. if working with bilingual file formats such as TTX or ITD.</p>
+<p>The core of the native API is the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IAbstractNativeContentHandler.html">IAbstractNativeContentHandler</a> interface. All the content processing (output, input or both) happens through this interface. (This interface is somewhat similar to the <code>IEvents</code> interface of  File Type Support Framework 1.) The following diagram provides and overview of the native content handler interface and components that are directly related to it:</p>
+<p><img src="images/NativeExtractor.png" alt="NativeExtractor"></p>
+<p>From the above diagram you can see that parsers use this interface to generate their output, while writers use the interface as input (???) (the writer implements the interface and receives calls on it from other filter components). The native content processor uses the content handler interface both as input and output. It receives calls on its implementation of the interface, and as a result of these calls, sends calls to another content handler.</p>
+<p>Localizable content that is processed in the framework is divided into <strong>text</strong> and <strong>tags</strong>. All localizable text processed by the framework is passed through the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IAbstractNativeContentHandler.html#Sdl_FileTypeSupport_Framework_NativeApi_IAbstractNativeContentHandler_Text_Sdl_FileTypeSupport_Framework_NativeApi_ITextProperties_">Text</a> method in this interface. Tags are passed as calls to either of the following methods:</p>
+<ul>
+<li><a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IAbstractNativeContentHandler.html#Sdl_FileTypeSupport_Framework_NativeApi_IAbstractNativeContentHandler_StructureTag_Sdl_FileTypeSupport_Framework_NativeApi_IStructureTagProperties_">StructureTag</a>: tags that represent structural information in the file. This is the equivalent of the external tags in  File Type Support Framework 1.</li>
+<li><a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IAbstractNativeContentHandler.html#Sdl_FileTypeSupport_Framework_NativeApi_IAbstractNativeContentHandler_InlinePlaceholderTag_Sdl_FileTypeSupport_Framework_NativeApi_IPlaceholderTagProperties_">InlinePlaceholderTag</a>: standalone tags that may appear inside localizable text and that may need to be placed and/or duplicated during translation, This is the equivalent of standalone inline tags in  File Type Support Framework 1.</li>
+<li><a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IAbstractNativeContentHandler.html#Sdl_FileTypeSupport_Framework_NativeApi_IAbstractNativeContentHandler_InlineStartTag_Sdl_FileTypeSupport_Framework_NativeApi_IStartTagProperties_">InlineStartTag</a> and InlineEndTag: paired tags, which can appear inside localizable text and which usually need to be placed and/or duplicated (as a pair) during translation. The framework requires these calls to be nested according to standard XML rules, i.e.:<ul>
+<li>Each call to <code>InlineStartTag()</code> must be matched by a call to InlineEndTag() at a later point during content processing. Note that text content will usually occur within a start and end tag, which may include other, similarly nested tag pairs.</li>
+<li>A call to <code>InlineEndTag()</code> <strong>must never</strong> occur before a (corresponding) call to InlineStartTag().</li>
+<li>A call to <code>InlineEndTag()</code> will always be interpreted by the framework as matching the last “unmatched” call to <code>InlineStartTag()</code>, i.e. the last of the previous calls to <code>InlineStartTag()</code> for which no other call to <code>InlineEndTag()</code> has been matched.</li>
+</ul>
+</li>
+</ul>
+<p>If the nesting rules are not followed to the letter, the framework will throw an exception. Note that these new rules did not apply in  File Type Support Framework 1. However, start and end tags in  File Type Support Framework 1 were always effectively nested this way by filters anyway.</p>
+<p>Each of the methods in the content handler interface take property objects, which describe the actual data passed through the call. The tag properties have the following relations and content:</p>
+<p><img src="images/TagProperties.png" alt="TagProperties"></p>
+<p>All the properties objects implement the <code>ICloneable</code> interface. They are cloned when inserted in bilingual content models and when inserted in a buffer. This ensures that the properties do not get implicitly changed.</p>
+<p>Information on the structure of the file and other relevant context information that may be relevant for the translation can also be communicated through the framework. For this purpose, the method <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IAbstractNativeContentHandler.html#Sdl_FileTypeSupport_Framework_NativeApi_IAbstractNativeContentHandler_ChangeContext_Sdl_FileTypeSupport_Framework_NativeApi_IContextProperties_">ChangeContext</a> is used.</p>
+<p>The context properties passed in the <code>ChangeContext()</code> method contains both the document structure information and the context information relevant for localization purposes:</p>
+<p><img src="images/Context.png" alt="Context"></p>
+<p>The localization context information is a prioritized list of individual contexts. The context that is most significant for the translation should be first in the list. Each context is structured as follows:</p>
+<p><img src="images/ContextInfo.png" alt="ContextInfo"></p>
+<p>If a context is intended to be used by localization tools to e.g. to impact recycling or disambiguate multiple matches in a translation memory its <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IContextInfo.html#Sdl_FileTypeSupport_Framework_NativeApi_IContextInfo_Purpose">Purpose</a> property should be set to <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ContextPurpose.html#fields">Match</a> . If the context is meant only as additional information to the translator its context purpose should be <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ContextPurpose.html#fields">Information</a>. The <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ContextPurpose.html#fields">Location</a> purpose is used by the framework in the bilingual <code>content</code> model to reference the location of the tag for paragraph units that hold any localizable tag content.</p>
+<p>The <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.StandardContextTypes.html">StandardContextTypes</a> is a list of well-known context types. These should be used by filters whenever appropriate in order to ensure the best possible tool support and cross-file type compatibility. If no context in the well-known list is appropriate, a custom context can be specified.</p>
+<p>Additional information on a context can be stored in the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IMetaDataContainer.html">IMetaDataContainer</a> key/value pair collection. The purpose of this information is to enable filters and filter components to use contexts for communication of document meta-data. This information is also serialized together with the context in the default bilingual file format.</p>
+<p>A context may also have semi-WYSIWYG formatting associated with it. If several contexts are associated with formatting information, the combined formatting should be used as base formatting for all paragraph units the contexts apply to. The combined formatting can be retrieved from the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IContextProperties.html#Sdl_FileTypeSupport_Framework_NativeApi_IContextProperties_EffectiveDefaultFormatting">EffectiveDefaultFormatting</a> property.</p>
+<p>Other properties of the context are used to specify how the context may be displayed to the user. Filter components should only set these for contexts that are not part of the <code>StandardContextTypes</code>.</p>
+<p>The document structure context can be used to generate an overview of the document content. It contains the following information:</p>
+<p><img src="images/StructureInfo.png" alt="StructureInfo"></p>
+<p>All property objects passed through the methods in the <code>IAbstractNativeContentHandler</code> are created through a property factory that is provided by the framework. The <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPropertiesFactory.html">IPropertiesFactory</a> interface looks like this:</p>
+<p><img src="images/PropertiesFactory.png" alt="PropertiesFactory"></p>
+<p>Filter components may implement <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileTypeComponent.html">INativeFileTypeComponent</a> , as shown in the following diagram:</p>
+<p><img src="images/NativeFileTypeComponent.png" alt="NativeFileTypeComponent"></p>
+<p>The framework uses this interface to provide facilities such as the properties factory and the message reporter to the filter components. When creating your own components you may choose to (but are not required to) derive them from the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileTypeComponent.html">AbstractNativeFileTypeComponent)</a> or one of its derived classes: <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileWriter.html">AbstractNativeFileWriter</a>, <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileParser.html">AbstractNativeFileParser</a>, <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeGenerationContentProcessor.html">AbstractNativeGenerationContentProcessor</a>, <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionContentProcessor.html">AbstractNativeExtractionGenerationContentProcessor</a>, which all 1implement this interface for you. You can then access the properties factory and the message reporter directly through their property names withouth any additional implementation work.</p>
+<p>Components may also implement the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.html">INativeContentCycleAware</a> interface, which the framework uses to communicate to the components when parsing starts and ends, and allows components to store and retrieve settings that will be persisted as part of the bilingual format:</p>
+<p><img src="images/PersistentFileConversionProperties.png" alt="PersistentFileConversionProperties"></p>
+<p>Native filter components can be grouped together to perform reading and writing operations through the Extractor and Generator converters:</p>
+<p><img src="images/ExtractorAndGenerator.png" alt="ExtractorAndGenerator"></p>
+<p>The forward converter manages a file parser and an associated set of content processors that work together to perform conversion from the native format. The backward converter in a similar way manages a collection of content processors and a writer that can be operated as one unit.</p>
+<p>Content processors typically apply specialized tasks to the content stream. Examples include detecting localizable content inside tags, marking up embedded HTML content in strings, conversion of XML/SGML/HTML entities, etc. When developing content processors it is sometimes necessary to examine content later in the stream in order to determine how to process preceding content. This means that the component must buffer streaming content until it has enough information to process it. The framework contains a buffer component that can be used for this purpose:</p>
+<p><img src="images/Buffer.png" alt="Buffer"></p>
+<div class="NOTE"><h5>Note</h5><p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+</div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/17.1/apiconcepts/filetypesupport/overview_of_the_native_api.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

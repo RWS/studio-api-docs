@@ -1,0 +1,206 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Setting and Retrieving TM Properties </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Setting and Retrieving TM Properties ">
+    <meta name="generator" content="docfx 2.59.3.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="setting-and-retrieving-tm-properties">Setting and Retrieving TM Properties</h1>
+
+<p>After creating a translation memory there are various properties that you can retrieve, set, or change such as the TM description, an expiration date, the translation unit count, etc.</p>
+<h2 id="add-a-new-class">Add a New Class</h2>
+<p>As we are going to implement the functionality for setting and retrieving the TM properties in a separate class. Create a new class called <code>TmProperties</code>. Next, add a function called <code>GetAndSetProperties</code>, which takes the TM file name and path as string parameter, and which can be called as shown below:</p>
+<div class="tabGroup" id="tabgroup_9xnwdq3GLJ">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_9xnwdq3GLJ_tabid-1" role="tab" aria-controls="tabpanel_9xnwdq3GLJ_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_9xnwdq3GLJ_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-cs">var tmProperties = new TmProperties();
+tmProperties.GetAndSetProperties(_translationMemoryFilePath);
+</code></pre></section>
+</div>
+<p>After opening the TM we set a number of properties. Note that there are many more properties that can be set. The code example only showcases a small selection:</p>
+<div class="tabGroup" id="tabgroup_9xnwdq3GLJ-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_9xnwdq3GLJ-1_tabid-2" role="tab" aria-controls="tabpanel_9xnwdq3GLJ-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_9xnwdq3GLJ-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<pre><code class="lang-cs">tm.Description = &quot;This is the TM description.&quot;;
+tm.Copyright = &quot;(c) 3021 RWS Group&quot;;
+tm.ExpirationDate = DateTime.Now.AddDays(7);
+</code></pre></section>
+</div>
+<p>The above part of the code sets a TM description and copyright string, and defines an expiry date for the TM. In this case, we select 7 days, after which the TM can no longer be used. By using an expiry date, you can &#39;time-bomb&#39; a TM, which is useful, for example, if you give the TM to a freelancer, and you want to prevent them from using it after the project deadline has passed.</p>
+<p>Below you see a few examples of properties that you can retrieve on a given TM and then output in a message box.</p>
+<div class="tabGroup" id="tabgroup_9xnwdq3GLJ-2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_9xnwdq3GLJ-2_tabid-3" role="tab" aria-controls="tabpanel_9xnwdq3GLJ-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_9xnwdq3GLJ-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<pre><code class="lang-cs">string tmInfo;
+tmInfo = &quot;TU count: &quot; + tm.GetTranslationUnitCount().ToString();
+tmInfo += &quot;; Password-protected: &quot; + tm.IsProtected.ToString();
+tmInfo += &quot;; Expires on: &quot; + tm.ExpirationDate.ToString();
+MessageBox.Show(tmInfo);
+</code></pre></section>
+</div>
+<h2 id="putting-it-all-together">Putting it All Together</h2>
+<p>The complete class should now look as shown below:</p>
+<div class="tabGroup" id="tabgroup_9xnwdq3GLJ-3">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_9xnwdq3GLJ-3_tabid-4" role="tab" aria-controls="tabpanel_9xnwdq3GLJ-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_9xnwdq3GLJ-3_tabid-4" role="tabpanel" data-tab="tabid-4">
+<pre><code class="lang-cs">namespace SDK.LanguagePlatform.Samples.TmAutomation
+{
+    using System;
+    using System.Windows.Forms;
+    using Sdl.LanguagePlatform.TranslationMemoryApi;
+
+    public class TmProperties
+    {
+        public void GetAndSetProperties(string tmPath)
+        {
+            var tm = new FileBasedTranslationMemory(tmPath);
+
+            #region &quot;set&quot;
+            tm.Description = &quot;This is the TM description.&quot;;
+            tm.Copyright = &quot;(c) 2021 RWS Group&quot;;
+            tm.ExpirationDate = DateTime.Now.AddDays(7);
+            #endregion
+
+            #region &quot;get&quot;
+            string tmInfo;
+            tmInfo = &quot;TU count: &quot; + tm.GetTranslationUnitCount().ToString();
+            tmInfo += &quot;; Password-protected: &quot; + tm.IsProtected.ToString();
+            tmInfo += &quot;; Expires on: &quot; + tm.ExpirationDate.ToString();
+            MessageBox.Show(tmInfo);
+            #endregion
+        }
+    }
+}
+</code></pre></section>
+</div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/17.1/apiconcepts/translationmemory/setting_and_retrieving_tm_properties.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,238 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Modifying the File Type Component Builder </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Modifying the File Type Component Builder ">
+    <meta name="generator" content="docfx 2.59.3.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="modifying-the-file-type-component-builder">Modifying the File Type Component Builder</h1>
+
+<p>This chapter outlines the quickest way to implement an internal static document preview function.</p>
+<h2 id="add-the-static-preview-name-to-the-resources">Add the Static Preview Name to the Resources</h2>
+<p>To implement the static preview we first need to make a few additions to the File Type Component Builder. In the first step, define the preview name in the resources file. This is the name that will be shown later in the combo box of the preview window of Trados Studio. Add the following entries to the resources file, which are going to be referenced in the File Type Component Builder later:</p>
+<p><img src="images/InternalStaticPreviewName.jpg" alt="InternalStaticPreviewName"></p>
+<h2 id="add-the-static-internal-preview-set-reference">Add the Static Internal Preview Set Reference</h2>
+<p>In the next step add the following preview set method for the static internal preview into the File Type Component Builder file. Note that the method references the preview name that you previously defined in the resources file.</p>
+<div class="tabGroup" id="tabgroup_ZeMDn1jwoO">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_ZeMDn1jwoO_tabid-1" role="tab" aria-controls="tabpanel_ZeMDn1jwoO_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_ZeMDn1jwoO_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-cs">IPreviewSet internalStaticPreviewSet = previewFactory.CreatePreviewSet();
+internalStaticPreviewSet.Id = new PreviewSetId(&quot;InternalStaticPreview&quot;);
+internalStaticPreviewSet.Name = new LocalizableString(Resources.InternalStaticPreview_Name);
+
+IControlPreviewType sourceControlPreviewType1 = previewFactory.CreatePreviewType&lt;IControlPreviewType&gt;() as IControlPreviewType;
+if (sourceControlPreviewType1 != null)
+{
+    sourceControlPreviewType1.SourceGeneratorId = new GeneratorId(&quot;StaticPreview&quot;);
+    sourceControlPreviewType1.SingleFilePreviewControlId = new PreviewControlId(&quot;InternalNavigablePreview&quot;);
+    internalStaticPreviewSet.Source = sourceControlPreviewType1;
+}
+
+IControlPreviewType targetControlPreviewType1 = previewFactory.CreatePreviewType&lt;IControlPreviewType&gt;() as IControlPreviewType;
+if (targetControlPreviewType1 != null)
+{
+    targetControlPreviewType1.TargetGeneratorId = new GeneratorId(&quot;StaticPreview&quot;);
+    targetControlPreviewType1.SingleFilePreviewControlId = new PreviewControlId(&quot;InternalNavigablePreview&quot;);
+    internalStaticPreviewSet.Target = targetControlPreviewType1;
+}
+previewFactory.GetPreviewSets(null).Add(internalStaticPreviewSet);
+</code></pre></section>
+</div>
+<h2 id="define-the-preview-control">Define the Preview Control</h2>
+<p>For an internal preview you require a control element that can display the document content. You could add your own custom preview control element. This is actually what we are going to do later, when we implement the dynamic real-time preview (see <a href="adding_a_preview_ui_control.html">Adding a Preview UI Control</a>). However, to keep things as simple as possible for now, we will leverage the built-in Web browser control that is integrated in Trados Studio. As we are dealing with a simple text format, we can easily use the built-in Web browser control to generate the preview output. To &#39;tell&#39; the file type plug-in that it should leverage the built-in Web browser control, make an addition to the File Type Component Builder. You can add the new method just below the Notepad preview control, which you defined for the external preview functionality (see <a href="implementing_an_external_file_preview.html">Implementing an External File Preview</a>). Note that the <strong>id</strong> of the object corresponds to the name of the preview set that you added in the previous step, and must be preceded by a <strong>PreviewControl_</strong> prefix to be properly recognized.</p>
+<div class="tabGroup" id="tabgroup_ZeMDn1jwoO-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_ZeMDn1jwoO-1_tabid-2" role="tab" aria-controls="tabpanel_ZeMDn1jwoO-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_ZeMDn1jwoO-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<pre><code class="lang-cs">/// &lt;summary&gt;
+/// Creates a new instance of the preview control with the specified name.
+/// &lt;/summary&gt;
+/// &lt;remarks&gt;
+/// &lt;para&gt;
+/// Should only be called from the main thread, as controls must always be
+/// instantiated on the same thread as the application message pump.
+/// &lt;/para&gt;
+/// &lt;/remarks&gt;
+/// &lt;param name=&quot;name&quot;&gt;not used here&lt;/param&gt;
+/// &lt;returns&gt;not implemented&lt;/returns&gt;
+public virtual IAbstractPreviewControl BuildPreviewControl(string name)
+{
+    if (name == &quot;PreviewControl_InternalStaticPreviewControl&quot;)
+    {
+        return new InternalPreviewController();
+    }
+    else if (name == &quot;PreviewControl_InternalNavigablePreview&quot;)
+    {
+        return new InternalPreviewController();
+    }
+    else
+    {
+        return null;
+    }
+}
+</code></pre></section>
+</div>
+<h2 id="define-the-preview-writer">Define the Preview Writer</h2>
+<p>Naturally, you need a writer component to fill the preview control element with content to display. You could, of course, use the file writer class, which you have already implemented in your file type plug-in and which you also leveraged for the external preview (see <a href="implementing_an_external_file_preview.html">Implementing an External File Preview</a>). However, if you did this, the output in the internal Web browser control would look as shown below:</p>
+<p><img src="images/StaticPreviewNotGood.jpg" alt="StaticPreviewNotGood"></p>
+<p>As you can see, if we re-used the existing file writer, the internal preview would not add much value to our file type plug-in. First, the inline tags are shown as normal text and no character formatting is applied in this preview. Also, the preview shows all non-translatable strings, which will usually not be very useful for this type of preview. We should therefore implement another writer component that generates a nicely layouted HTML output in the internal preview. This sound like a cosmetic issue, but the preview should be visually appealing to end users and ideally give them an idea of the document layout to provide additional value.</p>
+<p>Before we actually implement our new preview writer component (see <a href="implementing_the_preview_writer.html">Implementing the Preview Writer</a>), we add the method for this new component to the File Type Component Builder. You can make this addition below the object for the external preview writer (see chapter <a href="implementing_an_external_file_preview.html">Implementing an External File Preview</a>). In the next chapter you will learn how to implement the new preview file writer class, which generates the preview output.</p>
+<div class="tabGroup" id="tabgroup_ZeMDn1jwoO-2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_ZeMDn1jwoO-2_tabid-3" role="tab" aria-controls="tabpanel_ZeMDn1jwoO-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_ZeMDn1jwoO-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<pre><code class="lang-cs">/// &lt;summary&gt;
+/// Gets a native or bilingual document generator of the type
+/// defined for the specified name.
+/// &lt;/summary&gt;
+/// &lt;param name=&quot;name&quot;&gt;Abstract generator name&lt;/param&gt;
+/// &lt;returns&gt;not generator for default preview&lt;/returns&gt;
+public virtual IAbstractGenerator BuildAbstractGenerator(string name)
+{
+    if (name == &quot;Generator_DefaultPreview&quot;)
+    {
+        return FileTypeManager.BuildFileGenerator(FileTypeManager.BuildNativeGenerator(new SimpleTextWriter()));
+    }
+    if (name == &quot;Generator_StaticPreview&quot;)
+    {
+        return FileTypeManager.BuildFileGenerator(FileTypeManager.BuildNativeGenerator(new SimpleTextWriter()));
+    }
+    if (name == &quot;Generator_RealTimePreview&quot;)
+    {
+        return FileTypeManager.BuildFileGenerator(FileTypeManager.BuildNativeGenerator(new InternalPreviewWriter()));
+    }
+
+    return null;
+}
+</code></pre></section>
+</div>
+<h2 id="see-also">See Also</h2>
+<p><a href="implementing_the_preview_writer.html">Implementing the Preview Writer</a></p>
+<p><a href="implementing_the_file_writer.html">Implementing the File Writer</a></p>
+<div class="NOTE"><h5>Note</h5><p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+</div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/17.1/apiconcepts/filetypesupport/static_modifying_the_file_type_component_builder.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

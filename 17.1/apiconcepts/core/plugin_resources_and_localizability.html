@@ -1,0 +1,197 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Plug-in Resources and Localizability </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Plug-in Resources and Localizability ">
+    <meta name="generator" content="docfx 2.59.3.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="plug-in-resources-and-localizability">Plug-in Resources and Localizability</h1>
+
+<p>This section explains how to make extension meta-data localizable.</p>
+<h2 id="plug-in-resources-and-localizability-1">Plug-in Resources and Localizability</h2>
+<p>All the string metadata values used for the properties of the extension attributes shown in the example above are hard-coded strings. In reality these strings need to be localized.</p>
+<p>For that reason, the framework allows adding a specific plug-in resource file to a plug-in project. Instead of hard-coding the strings in code, you can specify the key of a resource string defined in the plug-in resources file. The framework resolves these resource strings at runtime based on the current UI culture and automatically populates the string properties of extension attributes with the corresponding localized values.</p>
+<p>To indicate that the value of a certain property needs to be retrieved from the plug-in resources file, the definition of that property within the extension attribute definition must be annotated with the <code>PluginResource</code> attribute. For instance, a plug-in button extension point, with a localizable <code>ToolTipText</code> property becomes:</p>
+<div class="tabGroup" id="tabgroup_vmrP5tuOGj">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_vmrP5tuOGj_tabid-1" role="tab" aria-controls="tabpanel_vmrP5tuOGj_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_vmrP5tuOGj_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-csharp" name="AdvancedPluginFramework">[ExtensionPointInfo(&quot;Plug-in Buttons&quot;, ExtensionPointTypes.Static)]
+public class PluginButtonAttribute : ExtensionAttribute
+{
+    public PluginButtonAttribute()
+    {
+    }
+
+    [PluginResource()]
+    public string ToolTipText { get; set; }
+}
+</code></pre></section>
+</div>
+<p><br></p>
+<p>An extension targeting this extension point, <code>MyPluginButton</code>:</p>
+<div class="tabGroup" id="tabgroup_vmrP5tuOGj-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_vmrP5tuOGj-1_tabid-2" role="tab" aria-controls="tabpanel_vmrP5tuOGj-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_vmrP5tuOGj-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<pre><code class="lang-csharp" name="AdvancedPluginFramework">[PluginButton(
+    Id = &quot;mypluginbutton&quot;,
+    Name = &quot;MyPluginButton_Name&quot;,
+    ToolTipText = &quot;MyPluginButton_ToolTipText&quot;)]
+public class MyPluginButton : IPluginButton
+{
+    public void OnClick()
+    {
+        // do something
+    }
+}
+</code></pre></section>
+</div>
+<p><br></p>
+<p>In the above code sample, <code>MyPluginButton_Name</code> and <code>MyPluginButton_ToolTipText</code> are keys of strings defined in the plugin resource file, <code>PluginResources.resx</code>.
+As mentioned before, the plug-in manifest generator requires that you pass the path to the plug-in resx file as the second parameter. To avoid having to load the plug-in assembly to get access to the embedded resource strings when the plug-in meta data is accessed, the plug-in manifest generator compiles an external .Net plug-in resource file. This compiled resource file is copied alongside the plug-in manifest file, so that it can be loaded separately from the plug-in assembly itself. For instance, for the plug-in assembly, PluginLibrary, this becomes:</p>
+<ul>
+<li><code>PluginLibrary.dll</code>: the plug-in assembly</li>
+<li><code>PluginLibrary.plugin.xml</code>: the plug-in manifest file</li>
+<li><code>PluginLibrary.plugin.resources</code>: the plug-in resources file containing strings for the neutral culture.</li>
+<li><code>PluginLibrary.plugin.*.resources</code>: any number of resource files containing the localized strings</li>
+</ul>
+<p>The use of the <code>PluginResource</code> attribute is supported in the following cases:</p>
+<ul>
+<li>Extension attribute string properties</li>
+<li>Auxiliary extension attribute string properties</li>
+<li>Assembly-level <code>PluginAttribute</code> string attributes
+For non-string properties, like for instance an icon, the plug-in resource file can also be used, however, because of the type difference, the value of these kinds of properties cannot be automatically resolved. Define the actual property as a string property, to which uses must assign a resource key. Then, when you need the actual icon, get it from the plug-in resource file using the <code>GetPluginResource&lt;T&gt;</code> method:</li>
+</ul>
+<div class="tabGroup" id="tabgroup_vmrP5tuOGj-2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_vmrP5tuOGj-2_tabid-3" role="tab" aria-controls="tabpanel_vmrP5tuOGj-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_vmrP5tuOGj-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<pre><code class="lang-csharp" name="AdvancedPluginFramework">ExtensionAttribute attribute = extension.ExtensionAttribute;
+Icon icon = extension.Plugin.GetPluginResource&lt;Icon&gt;(attribute.Icon);
+</code></pre></section>
+</div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/17.1/apiconcepts/core/plugin_resources_and_localizability.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

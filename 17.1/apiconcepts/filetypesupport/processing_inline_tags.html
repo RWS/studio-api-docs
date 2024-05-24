@@ -1,0 +1,242 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Processing Inline Tags </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Processing Inline Tags ">
+    <meta name="generator" content="docfx 2.59.3.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="processing-inline-tags">Processing Inline Tags</h1>
+
+<p>In this chapter you will learn how to parse inline tags and how to display character formatting in the side-by-side editing environment of Trados Studio.</p>
+<h2 id="enhance-the-helper-function-for-creating-segments">Enhance the Helper Function for Creating Segments</h2>
+<p>The segments in our bilingual sample format can contain the following inline tags: <em>&lt; b&gt;</em>, <em>&lt; i&gt;</em>, and <em>&lt; u&gt;</em>. To keep this example simple let us proceed on the assumption that only these three inline tag types can occur in a seg element.</p>
+<p>A segment with inline tags may look as follows:</p>
+<div class="tabGroup" id="tabgroup_MiitGsZP1Y">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_MiitGsZP1Y_tabid-1" role="tab" aria-controls="tabpanel_MiitGsZP1Y_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">HTML</a>
+</li>
+</ul>
+<section id="tabpanel_MiitGsZP1Y_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-html">Open the &lt;b&gt;dialog box&lt;/b&gt;.
+</code></pre></section>
+</div>
+<p>You need to enhance the <code>CreateSegment()</code> helper function to loop through the segment node and create a text object or a tag depending on whether a sub-node found in the segment is of the type <strong>text</strong> or of the type <strong>element</strong>. If a text node is found, you call another helper function (<code>CreateText()</code>) that adds the text to the segment or <code>CreateTagPair()</code> that creates a tag pair:</p>
+<div class="tabGroup" id="tabgroup_MiitGsZP1Y-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_MiitGsZP1Y-1_tabid-2" role="tab" aria-controls="tabpanel_MiitGsZP1Y-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_MiitGsZP1Y-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<pre><code class="lang-cs">// helper function for creating segment objects
+private ISegment CreateSegment(XmlNode segNode, ISegmentPairProperties pair)
+{
+    ISegment segment = ItemFactory.CreateSegment(pair);
+
+    foreach (XmlNode item in segNode.ChildNodes)
+    {
+        if (item.NodeType == XmlNodeType.Text)
+        {
+            segment.Add(CreateText(item.InnerText));
+        }
+
+        if (item.NodeType == XmlNodeType.Element)
+        {
+            segment.Add(CreateTagPair(item));
+        }
+    }
+    return segment;
+}
+</code></pre></section>
+</div>
+<h2 id="add-the-helper-function-for-generating-text">Add the Helper Function for Generating Text</h2>
+<p>For convenience reasons, &#39;outsource&#39; the generation of text items to a separate helper function, which looks as shown below:</p>
+<div class="tabGroup" id="tabgroup_MiitGsZP1Y-2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_MiitGsZP1Y-2_tabid-3" role="tab" aria-controls="tabpanel_MiitGsZP1Y-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_MiitGsZP1Y-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<pre><code class="lang-cs">private IText CreateText(string segText)
+{
+    ITextProperties textProperties = PropertiesFactory.CreateTextProperties(segText);
+    IText textContent = ItemFactory.CreateText(textProperties);
+
+    return textContent;
+}
+</code></pre></section>
+</div>
+<h2 id="add-the-helper-function-for-generating-tag-pairs">Add the Helper Function for Generating Tag Pairs</h2>
+<p>Now add the function for generating tag pairs. This function works as follows: The properties factory is leveraged to create the start and the end tag properties. The display text of the tags is the tag text that users see when the (default) partial tag text mode of Trados Studio is activated. Then we use the item factory to generate the actual tag pair object based on the start and end tag properties. Note that each opening tag requires a closing tag, i.e. the bilingual document needs to be well-formed in an XML sense. If that is not the case, the framework will raise a critical error.</p>
+<p>Do not forget to extract also the text that is enclosed in the tag pair. To this end we call the <code>CreateText()</code> helper function, which generates the text between the opening and the closing tag, which is then appended to the tag pair.</p>
+<div class="tabGroup" id="tabgroup_MiitGsZP1Y-3">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_MiitGsZP1Y-3_tabid-4" role="tab" aria-controls="tabpanel_MiitGsZP1Y-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_MiitGsZP1Y-3_tabid-4" role="tabpanel" data-tab="tabid-4">
+<pre><code class="lang-cs">private ITagPair CreateTagPair(XmlNode item)
+{
+    // create the start and the end tag
+    IStartTagProperties startTag = PropertiesFactory.CreateStartTagProperties(item.Name);
+    #region &quot;formatting&quot;
+    // apply character formatting to the start tag
+    IFormattingGroup formattingGroup = PropertiesFactory.FormattingItemFactory.CreateFormatting();
+    startTag.Formatting = new FormattingGroup();
+    switch (item.Name)
+    {
+        case &quot;b&quot;:
+            formattingGroup.Add(new Bold(true));
+            break;
+        case &quot;i&quot;:
+            formattingGroup.Add(new Italic(true));
+            break;
+        case &quot;u&quot;:
+            formattingGroup.Add(new Underline(true));
+            break;
+        default:
+            break;
+    }
+    startTag.Formatting = formattingGroup;
+    #endregion
+
+    startTag.DisplayText=item.Name;
+    startTag.CanHide = true;
+    IEndTagProperties endTag = PropertiesFactory.CreateEndTagProperties(item.Name);
+    endTag.DisplayText=item.Name;
+    endTag.CanHide = true;
+
+    // create a tag pair out of the start and the end tag
+    ITagPair tagPair = ItemFactory.CreateTagPair(startTag, endTag);
+
+    // add text enclosed in the tag pair
+    tagPair.Add(CreateText(item.InnerText));
+
+    return tagPair;
+}
+</code></pre></section>
+</div>
+<p>After you have enhanced your file type plug-in as described above, the BIL sample file should look as shown below in Trados Studio:</p>
+<p><img src="images/BilWithTags.jpg" alt="BilWithTags"></p>
+<h2 id="see-also">See Also</h2>
+<p><a href="applying_character_formatting.html">Applying Character Formatting</a></p>
+<div class="NOTE"><h5>Note</h5><p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+</div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/17.1/apiconcepts/filetypesupport/processing_inline_tags.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>
