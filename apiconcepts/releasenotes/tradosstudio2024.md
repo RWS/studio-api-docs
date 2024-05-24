@@ -12,6 +12,8 @@ The changes are included in `Sdl.TranslationStudioAutomation.IntegrationApi`.
     * New method `Task<WordCounts> GetWordCountAsync(ISegment segment, CultureCode cultureCode)`to retrieve the word count for a given segment and culture.
 * [TermRecognitionResultsController](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Editor.TermRecognitionResults.TermRecognitionResultsController.yml) to return the results displayed in Studio TermRecognition view.
 
+### Updated Classes
+* Added event handler `TranslationFinished` in [TranslationResultsController](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Editor.TranslationResults.TranslationResultsController.yml) to identify when a translation is done.
 
 ## Interfaces
 ### Added Interfaces
@@ -19,6 +21,7 @@ The changes are included in `Sdl.TranslationStudioAutomation.IntegrationApi`.
 
 ### Updated Interfaces
 * Added new event handler `SegmentTranslated` in [IStudioDocument](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument.yml) to identify when an Apply Translation action is executed.
+* Added new event handler `TranslationFinished` in [ITranslationResultsController](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Editor.TranslationResults.ITranslationResultsController.yml) to identify when a translation is done.
 
 # Terminology Provider
 The following changes are included in `Sdl.Terminology.TerminologyProvider.Core`.
@@ -34,3 +37,4 @@ The following changes are included in `Sdl.Terminology.TerminologyProvider.Core`
 # Editor API changes
 The following changes are included in `Sdl.DesktopEditor.EditorApi`:
 * Added new interface [IInteractiveAccessibleCustomColumn](../../api/integration/Sdl.DesktopEditor.EditorApi.IInteractiveAccessibleCustomColumn.yml) that exposes Accessibility Details.
+* 
