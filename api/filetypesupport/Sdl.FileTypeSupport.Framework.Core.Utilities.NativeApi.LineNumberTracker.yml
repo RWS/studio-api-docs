@@ -28,69 +28,20 @@ items:
   nameWithType: LineNumberTracker
   fullName: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker
   type: Class
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core.Utilities
+    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core.Utilities
   namespace: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi
-  summary: >-
-    Native content processor implementation that tracks line and offset number
-
-    for content passed through the native API.
-  remarks: >-
-    <p>
-
-    This is intended to be used for components related to native text location 
-
-    message reporting, where line and offset numbers is the means of specifying
-
-    a location for an error message.
-
-    </p>
-
-    <p>
-
-    Both line and offset numbers are 1-based, i.e. the first line in a file is line 1,
-
-    and the first character on a line is character offset 1.
-
-    </p>
-
-    <p>
-
-    Line and offsets are calculated by looking at the text and tag properties passed
-
-    through the content processor. Any text or tag content that contains a line break increments the
-
-    current line number. The offset is reset to 1 after each line break and is incremented by 1 for
-
-    each Unicode character after the line break.
-
-    </p>
-
-    <p>
-
-    Text and tags inside locked content are counted too.
-
-    </p>
-
-    <p>
-
-    The following is considered a line break character: a combination of CR+LF, a standalone LF,
-
-    or a standalone CR. A CR+LF is counted as one single line break (CR = 0x0d, LF = 0x0a).
-
-    </p>
-
-    <p>
-
-    The current line and offset numbers can be read from the <xref href="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.Line" data-throw-if-not-resolved="false"></xref> and <xref href="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.Offset" data-throw-if-not-resolved="false"></xref>
-
-    properties. These properties can also be written to, which could be useful if the values need to be adjusted.
-
-    </p>
-  example: []
+  summary: "\nNative content processor implementation that tracks line and offset number\nfor content passed through the native API.\n"
+  remarks: "\n<p>\nThis is intended to be used for components related to native text location \nmessage reporting, where line and offset numbers is the means of specifying\na location for an error message.\n</p>\n<p>\nBoth line and offset numbers are 1-based, i.e. the first line in a file is line 1,\nand the first character on a line is character offset 1.\n</p>\n<p>\nLine and offsets are calculated by looking at the text and tag properties passed\nthrough the content processor. Any text or tag content that contains a line break increments the\ncurrent line number. The offset is reset to 1 after each line break and is incremented by 1 for\neach Unicode character after the line break.\n</p>\n<p>\nText and tags inside locked content are counted too.\n</p>\n<p>\nThe following is considered a line break character: a combination of CR+LF, a standalone LF,\nor a standalone CR. A CR+LF is counted as one single line break (CR = 0x0d, LF = 0x0a).\n</p>\n<p>\nThe current line and offset numbers can be read from the <xref href=\"Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.Line\" data-throw-if-not-resolved=\"false\"></xref> and <xref href=\"Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.Offset\" data-throw-if-not-resolved=\"false\"></xref>\nproperties. These properties can also be written to, which could be useful if the values need to be adjusted.\n</p>\n"
   syntax:
     content: 'public class LineNumberTracker : AbstractNativeExtractionGenerationContentProcessor, INativeFileTypeComponent, INativeContentStreamMessageReporter, IBasicMessageReporter, INativeExtractionContentProcessor, INativeExtractionContentHandler, INativeGenerationContentProcessor, INativeGenerationContentHandler, IAbstractNativeContentHandler, INativeLocationTracker'
-    content.vb: Public Class LineNumberTracker Inherits AbstractNativeExtractionGenerationContentProcessor Implements INativeFileTypeComponent, INativeContentStreamMessageReporter, IBasicMessageReporter, INativeExtractionContentProcessor, INativeExtractionContentHandler, INativeGenerationContentProcessor, INativeGenerationContentHandler, IAbstractNativeContentHandler, INativeLocationTracker
+    content.vb: >-
+      Public Class LineNumberTracker
+          Inherits AbstractNativeExtractionGenerationContentProcessor
+          Implements INativeFileTypeComponent, INativeContentStreamMessageReporter, IBasicMessageReporter, INativeExtractionContentProcessor, INativeExtractionContentHandler, INativeGenerationContentProcessor, INativeGenerationContentHandler, IAbstractNativeContentHandler, INativeLocationTracker
   inheritance:
   - System.Object
   - Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileTypeComponent
@@ -123,6 +74,8 @@ items:
   - Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.Output
   - Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.ExtractionOutput
   - Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.GenerationOutput
+  - Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.Sdl#FileTypeSupport#Framework#NativeApi#INativeExtractionContentProcessor#Output
+  - Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.Sdl#FileTypeSupport#Framework#NativeApi#INativeGenerationContentProcessor#Output
   - Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileTypeComponent.ReportMessage(System.Object,System.String,Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel,System.String,Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId,Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId)
   - Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileTypeComponent.ReportMessage(System.Object,System.String,Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel,System.String,System.String)
   - Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileTypeComponent.PropertiesFactory
@@ -134,6 +87,12 @@ items:
   - System.Object.GetHashCode
   - System.Object.GetType
   - System.Object.MemberwiseClone
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
 - uid: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.GetCurrentLocation
   commentId: M:Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.GetCurrentLocation
   id: GetCurrentLocation
@@ -145,18 +104,23 @@ items:
   nameWithType: LineNumberTracker.GetCurrentLocation()
   fullName: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.GetCurrentLocation()
   type: Method
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core.Utilities
+    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core.Utilities
   namespace: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi
-  summary: Returns a text location that corresponds to the current line and offset numbers.
-  example: []
+  summary: "\nReturns a text location that corresponds to the current line and offset numbers.\n"
   syntax:
     content: public NativeTextLocation GetCurrentLocation()
     return:
       type: Sdl.FileTypeSupport.Framework.NativeApi.NativeTextLocation
-      description: ''
-    content.vb: Public Function GetCurrentLocation() As NativeTextLocation
+    content.vb: Public Function GetCurrentLocation As NativeTextLocation
   overload: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.GetCurrentLocation*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
 - uid: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.GetLocationBeforeCurrentContent
   commentId: M:Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.GetLocationBeforeCurrentContent
   id: GetLocationBeforeCurrentContent
@@ -168,20 +132,25 @@ items:
   nameWithType: LineNumberTracker.GetLocationBeforeCurrentContent()
   fullName: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.GetLocationBeforeCurrentContent()
   type: Method
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core.Utilities
+    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core.Utilities
   namespace: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi
-  summary: Gets the line and offset values as they were before the last increment.
-  example: []
+  summary: "\nGets the line and offset values as they were before the last increment.\n"
   syntax:
     content: public NativeTextLocation GetLocationBeforeCurrentContent()
     return:
       type: Sdl.FileTypeSupport.Framework.NativeApi.NativeTextLocation
-      description: ''
-    content.vb: Public Function GetLocationBeforeCurrentContent() As NativeTextLocation
+    content.vb: Public Function GetLocationBeforeCurrentContent As NativeTextLocation
   overload: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.GetLocationBeforeCurrentContent*
   implements:
   - Sdl.FileTypeSupport.Framework.NativeApi.INativeLocationTracker.GetLocationBeforeCurrentContent
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
 - uid: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.GetLocationAfterCurrentContent
   commentId: M:Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.GetLocationAfterCurrentContent
   id: GetLocationAfterCurrentContent
@@ -193,20 +162,25 @@ items:
   nameWithType: LineNumberTracker.GetLocationAfterCurrentContent()
   fullName: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.GetLocationAfterCurrentContent()
   type: Method
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core.Utilities
+    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core.Utilities
   namespace: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi
-  summary: Gets the current line and offset values, i.e. after the last increment.
-  example: []
+  summary: "\nGets the current line and offset values, i.e. after the last increment.\n"
   syntax:
     content: public NativeTextLocation GetLocationAfterCurrentContent()
     return:
       type: Sdl.FileTypeSupport.Framework.NativeApi.NativeTextLocation
-      description: ''
-    content.vb: Public Function GetLocationAfterCurrentContent() As NativeTextLocation
+    content.vb: Public Function GetLocationAfterCurrentContent As NativeTextLocation
   overload: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.GetLocationAfterCurrentContent*
   implements:
   - Sdl.FileTypeSupport.Framework.NativeApi.INativeLocationTracker.GetLocationAfterCurrentContent
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
 - uid: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.Text(Sdl.FileTypeSupport.Framework.NativeApi.ITextProperties)
   commentId: M:Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.Text(Sdl.FileTypeSupport.Framework.NativeApi.ITextProperties)
   id: Text(Sdl.FileTypeSupport.Framework.NativeApi.ITextProperties)
@@ -218,20 +192,27 @@ items:
   nameWithType: LineNumberTracker.Text(ITextProperties)
   fullName: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.Text(Sdl.FileTypeSupport.Framework.NativeApi.ITextProperties)
   type: Method
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core.Utilities
+    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core.Utilities
   namespace: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi
-  summary: Counts line breaks and characters inside normal text.
-  example: []
+  summary: "\nCounts line breaks and characters inside normal text.\n"
   syntax:
     content: public override void Text(ITextProperties textInfo)
     parameters:
     - id: textInfo
       type: Sdl.FileTypeSupport.Framework.NativeApi.ITextProperties
-      description: ''
     content.vb: Public Overrides Sub Text(textInfo As ITextProperties)
   overridden: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.Text(Sdl.FileTypeSupport.Framework.NativeApi.ITextProperties)
   overload: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.Text*
+  modifiers.csharp:
+  - public
+  - override
+  modifiers.vb:
+  - Public
+  - Overrides
 - uid: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.InlineStartTag(Sdl.FileTypeSupport.Framework.NativeApi.IStartTagProperties)
   commentId: M:Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.InlineStartTag(Sdl.FileTypeSupport.Framework.NativeApi.IStartTagProperties)
   id: InlineStartTag(Sdl.FileTypeSupport.Framework.NativeApi.IStartTagProperties)
@@ -243,20 +224,27 @@ items:
   nameWithType: LineNumberTracker.InlineStartTag(IStartTagProperties)
   fullName: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.InlineStartTag(Sdl.FileTypeSupport.Framework.NativeApi.IStartTagProperties)
   type: Method
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core.Utilities
+    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core.Utilities
   namespace: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi
-  summary: Counts line breaks and characters inside tags.
-  example: []
+  summary: "\nCounts line breaks and characters inside tags.\n"
   syntax:
     content: public override void InlineStartTag(IStartTagProperties tagInfo)
     parameters:
     - id: tagInfo
       type: Sdl.FileTypeSupport.Framework.NativeApi.IStartTagProperties
-      description: ''
     content.vb: Public Overrides Sub InlineStartTag(tagInfo As IStartTagProperties)
   overridden: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.InlineStartTag(Sdl.FileTypeSupport.Framework.NativeApi.IStartTagProperties)
   overload: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.InlineStartTag*
+  modifiers.csharp:
+  - public
+  - override
+  modifiers.vb:
+  - Public
+  - Overrides
 - uid: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.InlineEndTag(Sdl.FileTypeSupport.Framework.NativeApi.IEndTagProperties)
   commentId: M:Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.InlineEndTag(Sdl.FileTypeSupport.Framework.NativeApi.IEndTagProperties)
   id: InlineEndTag(Sdl.FileTypeSupport.Framework.NativeApi.IEndTagProperties)
@@ -268,20 +256,27 @@ items:
   nameWithType: LineNumberTracker.InlineEndTag(IEndTagProperties)
   fullName: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.InlineEndTag(Sdl.FileTypeSupport.Framework.NativeApi.IEndTagProperties)
   type: Method
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core.Utilities
+    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core.Utilities
   namespace: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi
-  summary: Counts line breaks and characters inside tags.
-  example: []
+  summary: "\nCounts line breaks and characters inside tags.\n"
   syntax:
     content: public override void InlineEndTag(IEndTagProperties tagInfo)
     parameters:
     - id: tagInfo
       type: Sdl.FileTypeSupport.Framework.NativeApi.IEndTagProperties
-      description: ''
     content.vb: Public Overrides Sub InlineEndTag(tagInfo As IEndTagProperties)
   overridden: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.InlineEndTag(Sdl.FileTypeSupport.Framework.NativeApi.IEndTagProperties)
   overload: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.InlineEndTag*
+  modifiers.csharp:
+  - public
+  - override
+  modifiers.vb:
+  - Public
+  - Overrides
 - uid: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.InlinePlaceholderTag(Sdl.FileTypeSupport.Framework.NativeApi.IPlaceholderTagProperties)
   commentId: M:Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.InlinePlaceholderTag(Sdl.FileTypeSupport.Framework.NativeApi.IPlaceholderTagProperties)
   id: InlinePlaceholderTag(Sdl.FileTypeSupport.Framework.NativeApi.IPlaceholderTagProperties)
@@ -293,20 +288,27 @@ items:
   nameWithType: LineNumberTracker.InlinePlaceholderTag(IPlaceholderTagProperties)
   fullName: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.InlinePlaceholderTag(Sdl.FileTypeSupport.Framework.NativeApi.IPlaceholderTagProperties)
   type: Method
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core.Utilities
+    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core.Utilities
   namespace: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi
-  summary: Counts line breaks and characters inside tags.
-  example: []
+  summary: "\nCounts line breaks and characters inside tags.\n"
   syntax:
     content: public override void InlinePlaceholderTag(IPlaceholderTagProperties tagInfo)
     parameters:
     - id: tagInfo
       type: Sdl.FileTypeSupport.Framework.NativeApi.IPlaceholderTagProperties
-      description: ''
     content.vb: Public Overrides Sub InlinePlaceholderTag(tagInfo As IPlaceholderTagProperties)
   overridden: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.InlinePlaceholderTag(Sdl.FileTypeSupport.Framework.NativeApi.IPlaceholderTagProperties)
   overload: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.InlinePlaceholderTag*
+  modifiers.csharp:
+  - public
+  - override
+  modifiers.vb:
+  - Public
+  - Overrides
 - uid: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.StructureTag(Sdl.FileTypeSupport.Framework.NativeApi.IStructureTagProperties)
   commentId: M:Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.StructureTag(Sdl.FileTypeSupport.Framework.NativeApi.IStructureTagProperties)
   id: StructureTag(Sdl.FileTypeSupport.Framework.NativeApi.IStructureTagProperties)
@@ -318,20 +320,27 @@ items:
   nameWithType: LineNumberTracker.StructureTag(IStructureTagProperties)
   fullName: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.StructureTag(Sdl.FileTypeSupport.Framework.NativeApi.IStructureTagProperties)
   type: Method
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core.Utilities
+    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core.Utilities
   namespace: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi
-  summary: Counts line breaks and characters inside structure tags.
-  example: []
+  summary: "\nCounts line breaks and characters inside structure tags.\n"
   syntax:
     content: public override void StructureTag(IStructureTagProperties tagInfo)
     parameters:
     - id: tagInfo
       type: Sdl.FileTypeSupport.Framework.NativeApi.IStructureTagProperties
-      description: ''
     content.vb: Public Overrides Sub StructureTag(tagInfo As IStructureTagProperties)
   overridden: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.StructureTag(Sdl.FileTypeSupport.Framework.NativeApi.IStructureTagProperties)
   overload: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.StructureTag*
+  modifiers.csharp:
+  - public
+  - override
+  modifiers.vb:
+  - Public
+  - Overrides
 - uid: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.ParseText(System.String)
   commentId: M:Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.ParseText(System.String)
   id: ParseText(System.String)
@@ -339,32 +348,32 @@ items:
   langs:
   - csharp
   - vb
-  name: ParseText(string)
-  nameWithType: LineNumberTracker.ParseText(string)
-  fullName: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.ParseText(string)
+  name: ParseText(String)
+  nameWithType: LineNumberTracker.ParseText(String)
+  fullName: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.ParseText(System.String)
   type: Method
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core.Utilities
+    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core.Utilities
   namespace: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi
-  summary: >-
-    Returns the number of lines and characters after the last line
-
-    break in the text. Does not update any of the member variables.
-  example: []
+  summary: "\nReturns the number of lines and characters after the last line\nbreak in the text. Does not update any of the member variables.\n"
   syntax:
     content: public virtual Pair<int, int> ParseText(string text)
     parameters:
     - id: text
       type: System.String
-      description: ''
     return:
       type: Sdl.FileTypeSupport.Framework.Pair{System.Int32,System.Int32}
-      description: ''
     content.vb: Public Overridable Function ParseText(text As String) As Pair(Of Integer, Integer)
   overload: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.ParseText*
-  nameWithType.vb: LineNumberTracker.ParseText(String)
-  fullName.vb: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.ParseText(String)
-  name.vb: ParseText(String)
+  modifiers.csharp:
+  - public
+  - virtual
+  modifiers.vb:
+  - Public
+  - Overridable
 - uid: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.IncrementLineAndOffsetNumbers(System.String)
   commentId: M:Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.IncrementLineAndOffsetNumbers(System.String)
   id: IncrementLineAndOffsetNumbers(System.String)
@@ -372,22 +381,17 @@ items:
   langs:
   - csharp
   - vb
-  name: IncrementLineAndOffsetNumbers(string)
-  nameWithType: LineNumberTracker.IncrementLineAndOffsetNumbers(string)
-  fullName: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.IncrementLineAndOffsetNumbers(string)
+  name: IncrementLineAndOffsetNumbers(String)
+  nameWithType: LineNumberTracker.IncrementLineAndOffsetNumbers(String)
+  fullName: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.IncrementLineAndOffsetNumbers(System.String)
   type: Method
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core.Utilities
+    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core.Utilities
   namespace: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi
-  summary: >-
-    This method gets called for each text and tag content that
-
-    is processed. The implementation parses text for CR and LF
-
-    and updates the <xref href="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.Line" data-throw-if-not-resolved="false"></xref> and <xref href="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.Offset" data-throw-if-not-resolved="false"></xref>
-
-    properties accordingly.
-  example: []
+  summary: "\nThis method gets called for each text and tag content that\nis processed. The implementation parses text for CR and LF\nand updates the <xref href=\"Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.Line\" data-throw-if-not-resolved=\"false\"></xref> and <xref href=\"Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.Offset\" data-throw-if-not-resolved=\"false\"></xref>\nproperties accordingly.\n"
   syntax:
     content: protected virtual void IncrementLineAndOffsetNumbers(string text)
     parameters:
@@ -396,9 +400,12 @@ items:
       description: The text or tag content to be processed
     content.vb: Protected Overridable Sub IncrementLineAndOffsetNumbers(text As String)
   overload: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.IncrementLineAndOffsetNumbers*
-  nameWithType.vb: LineNumberTracker.IncrementLineAndOffsetNumbers(String)
-  fullName.vb: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.IncrementLineAndOffsetNumbers(String)
-  name.vb: IncrementLineAndOffsetNumbers(String)
+  modifiers.csharp:
+  - protected
+  - virtual
+  modifiers.vb:
+  - Protected
+  - Overridable
 - uid: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.#ctor
   commentId: M:Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.#ctor
   id: '#ctor'
@@ -410,16 +417,20 @@ items:
   nameWithType: LineNumberTracker.LineNumberTracker()
   fullName: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.LineNumberTracker()
   type: Constructor
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core.Utilities
+    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core.Utilities
   namespace: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi
   syntax:
     content: public LineNumberTracker()
-    content.vb: Public Sub New()
+    content.vb: Public Sub New
   overload: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.#ctor*
-  nameWithType.vb: LineNumberTracker.New()
-  fullName.vb: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.New()
-  name.vb: New()
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
 - uid: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.Line
   commentId: P:Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.Line
   id: Line
@@ -431,16 +442,13 @@ items:
   nameWithType: LineNumberTracker.Line
   fullName: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.Line
   type: Property
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core.Utilities
+    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core.Utilities
   namespace: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi
-  summary: >-
-    1-based value that expresses the number of characters that
-
-    have passed through the tag and text content of this processor
-
-    since the last line break.
-  example: []
+  summary: "\n1-based value that expresses the number of characters that\nhave passed through the tag and text content of this processor\nsince the last line break.\n"
   syntax:
     content: public int Line { get; set; }
     parameters: []
@@ -448,6 +456,12 @@ items:
       type: System.Int32
     content.vb: Public Property Line As Integer
   overload: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.Line*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
 - uid: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.Offset
   commentId: P:Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.Offset
   id: Offset
@@ -459,14 +473,13 @@ items:
   nameWithType: LineNumberTracker.Offset
   fullName: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.Offset
   type: Property
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core.Utilities
+    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core.Utilities
   namespace: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi
-  summary: >-
-    1-based index that expresses the number of line break characters that
-
-    have passed through the tag and text content of this processor.
-  example: []
+  summary: "\n1-based index that expresses the number of line break characters that\nhave passed through the tag and text content of this processor.\n"
   syntax:
     content: public int Offset { get; set; }
     parameters: []
@@ -474,6 +487,12 @@ items:
       type: System.Int32
     content.vb: Public Property Offset As Integer
   overload: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.Offset*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
 - uid: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.LastCharacterWasCR
   commentId: P:Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.LastCharacterWasCR
   id: LastCharacterWasCR
@@ -485,18 +504,13 @@ items:
   nameWithType: LineNumberTracker.LastCharacterWasCR
   fullName: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.LastCharacterWasCR
   type: Property
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core.Utilities
+    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core.Utilities
   namespace: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi
-  summary: >-
-    If <code>true</code>, the last processed character was a CR (0x0d).
-
-    This flag is used to determine whether an LF character (0x0a) 
-
-    should increment the line count or not, since CR + LF is 
-
-    counted as a single line break character.
-  example: []
+  summary: "\nIf <code>true</code>, the last processed character was a CR (0x0d).\nThis flag is used to determine whether an LF character (0x0a) \nshould increment the line count or not, since CR + LF is \ncounted as a single line break character.\n"
   syntax:
     content: public bool LastCharacterWasCR { get; set; }
     parameters: []
@@ -504,6 +518,12 @@ items:
       type: System.Boolean
     content.vb: Public Property LastCharacterWasCR As Boolean
   overload: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.LastCharacterWasCR*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
 - uid: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.LineBeforeIncrement
   commentId: P:Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.LineBeforeIncrement
   id: LineBeforeIncrement
@@ -515,18 +535,13 @@ items:
   nameWithType: LineNumberTracker.LineBeforeIncrement
   fullName: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.LineBeforeIncrement
   type: Property
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core.Utilities
+    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core.Utilities
   namespace: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi
-  summary: >-
-    Accessor to the field holding the value that is set to the 
-
-    current line number before it is incremented in the <xref href="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.IncrementLineAndOffsetNumbers(System.String)" data-throw-if-not-resolved="false"></xref> implementation.
-
-    Implementations that override that method without calling the base class may need to set this property.
-
-    The value is used in the implementation of <xref href="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.GetLocationBeforeCurrentContent" data-throw-if-not-resolved="false"></xref>.
-  example: []
+  summary: "\nAccessor to the field holding the value that is set to the \ncurrent line number before it is incremented in the <xref href=\"Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.IncrementLineAndOffsetNumbers(System.String)\" data-throw-if-not-resolved=\"false\"></xref> implementation.\nImplementations that override that method without calling the base class may need to set this property.\nThe value is used in the implementation of <xref href=\"Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.GetLocationBeforeCurrentContent\" data-throw-if-not-resolved=\"false\"></xref>.\n"
   syntax:
     content: protected int LineBeforeIncrement { get; set; }
     parameters: []
@@ -534,6 +549,12 @@ items:
       type: System.Int32
     content.vb: Protected Property LineBeforeIncrement As Integer
   overload: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.LineBeforeIncrement*
+  modifiers.csharp:
+  - protected
+  - get
+  - set
+  modifiers.vb:
+  - Protected
 - uid: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.OffsetBeforeIncrement
   commentId: P:Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.OffsetBeforeIncrement
   id: OffsetBeforeIncrement
@@ -545,18 +566,13 @@ items:
   nameWithType: LineNumberTracker.OffsetBeforeIncrement
   fullName: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.OffsetBeforeIncrement
   type: Property
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core.Utilities
+    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core.Utilities
   namespace: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi
-  summary: >-
-    Accessor to the field holding the value that is set to the 
-
-    current offset number before it is incremented in the <xref href="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.IncrementLineAndOffsetNumbers(System.String)" data-throw-if-not-resolved="false"></xref> implementation.
-
-    Implementations that override that method without calling the base class may need to set this property.
-
-    The value is used in the implementation of <xref href="Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.GetLocationBeforeCurrentContent" data-throw-if-not-resolved="false"></xref>.
-  example: []
+  summary: "\nAccessor to the field holding the value that is set to the \ncurrent offset number before it is incremented in the <xref href=\"Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.IncrementLineAndOffsetNumbers(System.String)\" data-throw-if-not-resolved=\"false\"></xref> implementation.\nImplementations that override that method without calling the base class may need to set this property.\nThe value is used in the implementation of <xref href=\"Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.GetLocationBeforeCurrentContent\" data-throw-if-not-resolved=\"false\"></xref>.\n"
   syntax:
     content: protected int OffsetBeforeIncrement { get; set; }
     parameters: []
@@ -564,104 +580,30 @@ items:
       type: System.Int32
     content.vb: Protected Property OffsetBeforeIncrement As Integer
   overload: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.OffsetBeforeIncrement*
+  modifiers.csharp:
+  - protected
+  - get
+  - set
+  modifiers.vb:
+  - Protected
 references:
-- uid: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.Line
-  commentId: P:Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.Line
-  isExternal: true
-  href: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.html#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_LineNumberTracker_Line
-  name: Line
-  nameWithType: LineNumberTracker.Line
-  fullName: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.Line
-- uid: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.Offset
-  commentId: P:Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.Offset
-  isExternal: true
-  href: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.html#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_LineNumberTracker_Offset
-  name: Offset
-  nameWithType: LineNumberTracker.Offset
-  fullName: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.Offset
 - uid: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi
   commentId: N:Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi
   isExternal: true
-  href: Sdl.html
   name: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi
   nameWithType: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi
   fullName: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi
-  spec.csharp:
-  - uid: Sdl
-    name: Sdl
-    isExternal: true
-    href: Sdl.html
-  - name: .
-  - uid: Sdl.FileTypeSupport
-    name: FileTypeSupport
-    isExternal: true
-    href: Sdl.FileTypeSupport.html
-  - name: .
-  - uid: Sdl.FileTypeSupport.Framework
-    name: Framework
-    isExternal: true
-    href: Sdl.FileTypeSupport.Framework.html
-  - name: .
-  - uid: Sdl.FileTypeSupport.Framework.Core
-    name: Core
-    isExternal: true
-    href: Sdl.FileTypeSupport.Framework.Core.html
-  - name: .
-  - uid: Sdl.FileTypeSupport.Framework.Core.Utilities
-    name: Utilities
-    isExternal: true
-    href: Sdl.FileTypeSupport.Framework.Core.Utilities.html
-  - name: .
-  - uid: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi
-    name: NativeApi
-    isExternal: true
-    href: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.html
-  spec.vb:
-  - uid: Sdl
-    name: Sdl
-    isExternal: true
-    href: Sdl.html
-  - name: .
-  - uid: Sdl.FileTypeSupport
-    name: FileTypeSupport
-    isExternal: true
-    href: Sdl.FileTypeSupport.html
-  - name: .
-  - uid: Sdl.FileTypeSupport.Framework
-    name: Framework
-    isExternal: true
-    href: Sdl.FileTypeSupport.Framework.html
-  - name: .
-  - uid: Sdl.FileTypeSupport.Framework.Core
-    name: Core
-    isExternal: true
-    href: Sdl.FileTypeSupport.Framework.Core.html
-  - name: .
-  - uid: Sdl.FileTypeSupport.Framework.Core.Utilities
-    name: Utilities
-    isExternal: true
-    href: Sdl.FileTypeSupport.Framework.Core.Utilities.html
-  - name: .
-  - uid: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi
-    name: NativeApi
-    isExternal: true
-    href: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.html
 - uid: System.Object
   commentId: T:System.Object
   parent: System
   isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.object
-  name: object
-  nameWithType: object
-  fullName: object
-  nameWithType.vb: Object
-  fullName.vb: Object
-  name.vb: Object
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
 - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileTypeComponent
   commentId: T:Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileTypeComponent
   parent: Sdl.FileTypeSupport.Framework.NativeApi
   isExternal: true
-  href: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileTypeComponent.html
   name: AbstractNativeFileTypeComponent
   nameWithType: AbstractNativeFileTypeComponent
   fullName: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileTypeComponent
@@ -669,7 +611,6 @@ references:
   commentId: T:Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor
   parent: Sdl.FileTypeSupport.Framework.NativeApi
   isExternal: true
-  href: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.html
   name: AbstractNativeExtractionGenerationContentProcessor
   nameWithType: AbstractNativeExtractionGenerationContentProcessor
   fullName: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor
@@ -677,7 +618,6 @@ references:
   commentId: T:Sdl.FileTypeSupport.Framework.NativeApi.INativeFileTypeComponent
   parent: Sdl.FileTypeSupport.Framework.NativeApi
   isExternal: true
-  href: Sdl.FileTypeSupport.Framework.NativeApi.INativeFileTypeComponent.html
   name: INativeFileTypeComponent
   nameWithType: INativeFileTypeComponent
   fullName: Sdl.FileTypeSupport.Framework.NativeApi.INativeFileTypeComponent
@@ -685,7 +625,6 @@ references:
   commentId: T:Sdl.FileTypeSupport.Framework.NativeApi.INativeContentStreamMessageReporter
   parent: Sdl.FileTypeSupport.Framework.NativeApi
   isExternal: true
-  href: Sdl.FileTypeSupport.Framework.NativeApi.INativeContentStreamMessageReporter.html
   name: INativeContentStreamMessageReporter
   nameWithType: INativeContentStreamMessageReporter
   fullName: Sdl.FileTypeSupport.Framework.NativeApi.INativeContentStreamMessageReporter
@@ -693,7 +632,6 @@ references:
   commentId: T:Sdl.FileTypeSupport.Framework.NativeApi.IBasicMessageReporter
   parent: Sdl.FileTypeSupport.Framework.NativeApi
   isExternal: true
-  href: Sdl.FileTypeSupport.Framework.NativeApi.IBasicMessageReporter.html
   name: IBasicMessageReporter
   nameWithType: IBasicMessageReporter
   fullName: Sdl.FileTypeSupport.Framework.NativeApi.IBasicMessageReporter
@@ -701,7 +639,6 @@ references:
   commentId: T:Sdl.FileTypeSupport.Framework.NativeApi.INativeExtractionContentProcessor
   parent: Sdl.FileTypeSupport.Framework.NativeApi
   isExternal: true
-  href: Sdl.FileTypeSupport.Framework.NativeApi.INativeExtractionContentProcessor.html
   name: INativeExtractionContentProcessor
   nameWithType: INativeExtractionContentProcessor
   fullName: Sdl.FileTypeSupport.Framework.NativeApi.INativeExtractionContentProcessor
@@ -709,7 +646,6 @@ references:
   commentId: T:Sdl.FileTypeSupport.Framework.NativeApi.INativeExtractionContentHandler
   parent: Sdl.FileTypeSupport.Framework.NativeApi
   isExternal: true
-  href: Sdl.FileTypeSupport.Framework.NativeApi.INativeExtractionContentHandler.html
   name: INativeExtractionContentHandler
   nameWithType: INativeExtractionContentHandler
   fullName: Sdl.FileTypeSupport.Framework.NativeApi.INativeExtractionContentHandler
@@ -717,7 +653,6 @@ references:
   commentId: T:Sdl.FileTypeSupport.Framework.NativeApi.INativeGenerationContentProcessor
   parent: Sdl.FileTypeSupport.Framework.NativeApi
   isExternal: true
-  href: Sdl.FileTypeSupport.Framework.NativeApi.INativeGenerationContentProcessor.html
   name: INativeGenerationContentProcessor
   nameWithType: INativeGenerationContentProcessor
   fullName: Sdl.FileTypeSupport.Framework.NativeApi.INativeGenerationContentProcessor
@@ -725,7 +660,6 @@ references:
   commentId: T:Sdl.FileTypeSupport.Framework.NativeApi.INativeGenerationContentHandler
   parent: Sdl.FileTypeSupport.Framework.NativeApi
   isExternal: true
-  href: Sdl.FileTypeSupport.Framework.NativeApi.INativeGenerationContentHandler.html
   name: INativeGenerationContentHandler
   nameWithType: INativeGenerationContentHandler
   fullName: Sdl.FileTypeSupport.Framework.NativeApi.INativeGenerationContentHandler
@@ -733,7 +667,6 @@ references:
   commentId: T:Sdl.FileTypeSupport.Framework.NativeApi.IAbstractNativeContentHandler
   parent: Sdl.FileTypeSupport.Framework.NativeApi
   isExternal: true
-  href: Sdl.FileTypeSupport.Framework.NativeApi.IAbstractNativeContentHandler.html
   name: IAbstractNativeContentHandler
   nameWithType: IAbstractNativeContentHandler
   fullName: Sdl.FileTypeSupport.Framework.NativeApi.IAbstractNativeContentHandler
@@ -741,7 +674,6 @@ references:
   commentId: T:Sdl.FileTypeSupport.Framework.NativeApi.INativeLocationTracker
   parent: Sdl.FileTypeSupport.Framework.NativeApi
   isExternal: true
-  href: Sdl.FileTypeSupport.Framework.NativeApi.INativeLocationTracker.html
   name: INativeLocationTracker
   nameWithType: INativeLocationTracker
   fullName: Sdl.FileTypeSupport.Framework.NativeApi.INativeLocationTracker
@@ -755,21 +687,37 @@ references:
   spec.csharp:
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.CustomInfo(Sdl.FileTypeSupport.Framework.NativeApi.ICustomInfoProperties)
     name: CustomInfo
+    nameWithType: AbstractNativeExtractionGenerationContentProcessor.CustomInfo
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.CustomInfo
     isExternal: true
   - name: (
+    nameWithType: (
+    fullName: (
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.ICustomInfoProperties
     name: ICustomInfoProperties
+    nameWithType: ICustomInfoProperties
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.ICustomInfoProperties
     isExternal: true
   - name: )
+    nameWithType: )
+    fullName: )
   spec.vb:
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.CustomInfo(Sdl.FileTypeSupport.Framework.NativeApi.ICustomInfoProperties)
     name: CustomInfo
+    nameWithType: AbstractNativeExtractionGenerationContentProcessor.CustomInfo
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.CustomInfo
     isExternal: true
   - name: (
+    nameWithType: (
+    fullName: (
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.ICustomInfoProperties
     name: ICustomInfoProperties
+    nameWithType: ICustomInfoProperties
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.ICustomInfoProperties
     isExternal: true
   - name: )
+    nameWithType: )
+    fullName: )
 - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.LocationMark(Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId)
   commentId: M:Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.LocationMark(Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId)
   parent: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor
@@ -780,21 +728,37 @@ references:
   spec.csharp:
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.LocationMark(Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId)
     name: LocationMark
+    nameWithType: AbstractNativeExtractionGenerationContentProcessor.LocationMark
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.LocationMark
     isExternal: true
   - name: (
+    nameWithType: (
+    fullName: (
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId
     name: LocationMarkerId
+    nameWithType: LocationMarkerId
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId
     isExternal: true
   - name: )
+    nameWithType: )
+    fullName: )
   spec.vb:
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.LocationMark(Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId)
     name: LocationMark
+    nameWithType: AbstractNativeExtractionGenerationContentProcessor.LocationMark
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.LocationMark
     isExternal: true
   - name: (
+    nameWithType: (
+    fullName: (
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId
     name: LocationMarkerId
+    nameWithType: LocationMarkerId
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId
     isExternal: true
   - name: )
+    nameWithType: )
+    fullName: )
 - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.ChangeContext(Sdl.FileTypeSupport.Framework.NativeApi.IContextProperties)
   commentId: M:Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.ChangeContext(Sdl.FileTypeSupport.Framework.NativeApi.IContextProperties)
   parent: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor
@@ -805,21 +769,37 @@ references:
   spec.csharp:
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.ChangeContext(Sdl.FileTypeSupport.Framework.NativeApi.IContextProperties)
     name: ChangeContext
+    nameWithType: AbstractNativeExtractionGenerationContentProcessor.ChangeContext
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.ChangeContext
     isExternal: true
   - name: (
+    nameWithType: (
+    fullName: (
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.IContextProperties
     name: IContextProperties
+    nameWithType: IContextProperties
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.IContextProperties
     isExternal: true
   - name: )
+    nameWithType: )
+    fullName: )
   spec.vb:
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.ChangeContext(Sdl.FileTypeSupport.Framework.NativeApi.IContextProperties)
     name: ChangeContext
+    nameWithType: AbstractNativeExtractionGenerationContentProcessor.ChangeContext
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.ChangeContext
     isExternal: true
   - name: (
+    nameWithType: (
+    fullName: (
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.IContextProperties
     name: IContextProperties
+    nameWithType: IContextProperties
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.IContextProperties
     isExternal: true
   - name: )
+    nameWithType: )
+    fullName: )
 - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.LockedContentStart(Sdl.FileTypeSupport.Framework.NativeApi.ILockedContentProperties)
   commentId: M:Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.LockedContentStart(Sdl.FileTypeSupport.Framework.NativeApi.ILockedContentProperties)
   parent: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor
@@ -830,21 +810,37 @@ references:
   spec.csharp:
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.LockedContentStart(Sdl.FileTypeSupport.Framework.NativeApi.ILockedContentProperties)
     name: LockedContentStart
+    nameWithType: AbstractNativeExtractionGenerationContentProcessor.LockedContentStart
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.LockedContentStart
     isExternal: true
   - name: (
+    nameWithType: (
+    fullName: (
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.ILockedContentProperties
     name: ILockedContentProperties
+    nameWithType: ILockedContentProperties
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.ILockedContentProperties
     isExternal: true
   - name: )
+    nameWithType: )
+    fullName: )
   spec.vb:
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.LockedContentStart(Sdl.FileTypeSupport.Framework.NativeApi.ILockedContentProperties)
     name: LockedContentStart
+    nameWithType: AbstractNativeExtractionGenerationContentProcessor.LockedContentStart
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.LockedContentStart
     isExternal: true
   - name: (
+    nameWithType: (
+    fullName: (
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.ILockedContentProperties
     name: ILockedContentProperties
+    nameWithType: ILockedContentProperties
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.ILockedContentProperties
     isExternal: true
   - name: )
+    nameWithType: )
+    fullName: )
 - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.LockedContentEnd
   commentId: M:Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.LockedContentEnd
   parent: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor
@@ -855,15 +851,27 @@ references:
   spec.csharp:
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.LockedContentEnd
     name: LockedContentEnd
+    nameWithType: AbstractNativeExtractionGenerationContentProcessor.LockedContentEnd
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.LockedContentEnd
     isExternal: true
   - name: (
+    nameWithType: (
+    fullName: (
   - name: )
+    nameWithType: )
+    fullName: )
   spec.vb:
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.LockedContentEnd
     name: LockedContentEnd
+    nameWithType: AbstractNativeExtractionGenerationContentProcessor.LockedContentEnd
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.LockedContentEnd
     isExternal: true
   - name: (
+    nameWithType: (
+    fullName: (
   - name: )
+    nameWithType: )
+    fullName: )
 - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.RevisionStart(Sdl.FileTypeSupport.Framework.BilingualApi.IRevisionProperties)
   commentId: M:Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.RevisionStart(Sdl.FileTypeSupport.Framework.BilingualApi.IRevisionProperties)
   parent: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor
@@ -874,21 +882,37 @@ references:
   spec.csharp:
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.RevisionStart(Sdl.FileTypeSupport.Framework.BilingualApi.IRevisionProperties)
     name: RevisionStart
+    nameWithType: AbstractNativeExtractionGenerationContentProcessor.RevisionStart
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.RevisionStart
     isExternal: true
   - name: (
+    nameWithType: (
+    fullName: (
   - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IRevisionProperties
     name: IRevisionProperties
+    nameWithType: IRevisionProperties
+    fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IRevisionProperties
     isExternal: true
   - name: )
+    nameWithType: )
+    fullName: )
   spec.vb:
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.RevisionStart(Sdl.FileTypeSupport.Framework.BilingualApi.IRevisionProperties)
     name: RevisionStart
+    nameWithType: AbstractNativeExtractionGenerationContentProcessor.RevisionStart
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.RevisionStart
     isExternal: true
   - name: (
+    nameWithType: (
+    fullName: (
   - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IRevisionProperties
     name: IRevisionProperties
+    nameWithType: IRevisionProperties
+    fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IRevisionProperties
     isExternal: true
   - name: )
+    nameWithType: )
+    fullName: )
 - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.RevisionEnd
   commentId: M:Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.RevisionEnd
   parent: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor
@@ -899,15 +923,27 @@ references:
   spec.csharp:
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.RevisionEnd
     name: RevisionEnd
+    nameWithType: AbstractNativeExtractionGenerationContentProcessor.RevisionEnd
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.RevisionEnd
     isExternal: true
   - name: (
+    nameWithType: (
+    fullName: (
   - name: )
+    nameWithType: )
+    fullName: )
   spec.vb:
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.RevisionEnd
     name: RevisionEnd
+    nameWithType: AbstractNativeExtractionGenerationContentProcessor.RevisionEnd
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.RevisionEnd
     isExternal: true
   - name: (
+    nameWithType: (
+    fullName: (
   - name: )
+    nameWithType: )
+    fullName: )
 - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.CommentStart(Sdl.FileTypeSupport.Framework.NativeApi.ICommentProperties)
   commentId: M:Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.CommentStart(Sdl.FileTypeSupport.Framework.NativeApi.ICommentProperties)
   parent: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor
@@ -918,21 +954,37 @@ references:
   spec.csharp:
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.CommentStart(Sdl.FileTypeSupport.Framework.NativeApi.ICommentProperties)
     name: CommentStart
+    nameWithType: AbstractNativeExtractionGenerationContentProcessor.CommentStart
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.CommentStart
     isExternal: true
   - name: (
+    nameWithType: (
+    fullName: (
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.ICommentProperties
     name: ICommentProperties
+    nameWithType: ICommentProperties
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.ICommentProperties
     isExternal: true
   - name: )
+    nameWithType: )
+    fullName: )
   spec.vb:
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.CommentStart(Sdl.FileTypeSupport.Framework.NativeApi.ICommentProperties)
     name: CommentStart
+    nameWithType: AbstractNativeExtractionGenerationContentProcessor.CommentStart
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.CommentStart
     isExternal: true
   - name: (
+    nameWithType: (
+    fullName: (
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.ICommentProperties
     name: ICommentProperties
+    nameWithType: ICommentProperties
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.ICommentProperties
     isExternal: true
   - name: )
+    nameWithType: )
+    fullName: )
 - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.CommentEnd
   commentId: M:Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.CommentEnd
   parent: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor
@@ -943,45 +995,68 @@ references:
   spec.csharp:
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.CommentEnd
     name: CommentEnd
+    nameWithType: AbstractNativeExtractionGenerationContentProcessor.CommentEnd
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.CommentEnd
     isExternal: true
   - name: (
+    nameWithType: (
+    fullName: (
   - name: )
+    nameWithType: )
+    fullName: )
   spec.vb:
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.CommentEnd
     name: CommentEnd
+    nameWithType: AbstractNativeExtractionGenerationContentProcessor.CommentEnd
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.CommentEnd
     isExternal: true
   - name: (
+    nameWithType: (
+    fullName: (
   - name: )
+    nameWithType: )
+    fullName: )
 - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.ParagraphComments(Sdl.FileTypeSupport.Framework.NativeApi.ICommentProperties)
   commentId: M:Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.ParagraphComments(Sdl.FileTypeSupport.Framework.NativeApi.ICommentProperties)
   parent: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor
   isExternal: true
-  href: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.html#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeExtractionGenerationContentProcessor_ParagraphComments_Sdl_FileTypeSupport_Framework_NativeApi_ICommentProperties_
   name: ParagraphComments(ICommentProperties)
   nameWithType: AbstractNativeExtractionGenerationContentProcessor.ParagraphComments(ICommentProperties)
   fullName: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.ParagraphComments(Sdl.FileTypeSupport.Framework.NativeApi.ICommentProperties)
   spec.csharp:
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.ParagraphComments(Sdl.FileTypeSupport.Framework.NativeApi.ICommentProperties)
     name: ParagraphComments
+    nameWithType: AbstractNativeExtractionGenerationContentProcessor.ParagraphComments
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.ParagraphComments
     isExternal: true
-    href: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.html#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeExtractionGenerationContentProcessor_ParagraphComments_Sdl_FileTypeSupport_Framework_NativeApi_ICommentProperties_
   - name: (
+    nameWithType: (
+    fullName: (
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.ICommentProperties
     name: ICommentProperties
+    nameWithType: ICommentProperties
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.ICommentProperties
     isExternal: true
-    href: Sdl.FileTypeSupport.Framework.NativeApi.ICommentProperties.html
   - name: )
+    nameWithType: )
+    fullName: )
   spec.vb:
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.ParagraphComments(Sdl.FileTypeSupport.Framework.NativeApi.ICommentProperties)
     name: ParagraphComments
+    nameWithType: AbstractNativeExtractionGenerationContentProcessor.ParagraphComments
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.ParagraphComments
     isExternal: true
-    href: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.html#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeExtractionGenerationContentProcessor_ParagraphComments_Sdl_FileTypeSupport_Framework_NativeApi_ICommentProperties_
   - name: (
+    nameWithType: (
+    fullName: (
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.ICommentProperties
     name: ICommentProperties
+    nameWithType: ICommentProperties
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.ICommentProperties
     isExternal: true
-    href: Sdl.FileTypeSupport.Framework.NativeApi.ICommentProperties.html
   - name: )
+    nameWithType: )
+    fullName: )
 - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.ParagraphUnitStart(Sdl.FileTypeSupport.Framework.NativeApi.IParagraphUnitProperties)
   commentId: M:Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.ParagraphUnitStart(Sdl.FileTypeSupport.Framework.NativeApi.IParagraphUnitProperties)
   parent: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor
@@ -992,21 +1067,37 @@ references:
   spec.csharp:
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.ParagraphUnitStart(Sdl.FileTypeSupport.Framework.NativeApi.IParagraphUnitProperties)
     name: ParagraphUnitStart
+    nameWithType: AbstractNativeExtractionGenerationContentProcessor.ParagraphUnitStart
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.ParagraphUnitStart
     isExternal: true
   - name: (
+    nameWithType: (
+    fullName: (
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.IParagraphUnitProperties
     name: IParagraphUnitProperties
+    nameWithType: IParagraphUnitProperties
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.IParagraphUnitProperties
     isExternal: true
   - name: )
+    nameWithType: )
+    fullName: )
   spec.vb:
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.ParagraphUnitStart(Sdl.FileTypeSupport.Framework.NativeApi.IParagraphUnitProperties)
     name: ParagraphUnitStart
+    nameWithType: AbstractNativeExtractionGenerationContentProcessor.ParagraphUnitStart
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.ParagraphUnitStart
     isExternal: true
   - name: (
+    nameWithType: (
+    fullName: (
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.IParagraphUnitProperties
     name: IParagraphUnitProperties
+    nameWithType: IParagraphUnitProperties
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.IParagraphUnitProperties
     isExternal: true
   - name: )
+    nameWithType: )
+    fullName: )
 - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.ParagraphUnitEnd
   commentId: M:Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.ParagraphUnitEnd
   parent: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor
@@ -1017,15 +1108,27 @@ references:
   spec.csharp:
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.ParagraphUnitEnd
     name: ParagraphUnitEnd
+    nameWithType: AbstractNativeExtractionGenerationContentProcessor.ParagraphUnitEnd
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.ParagraphUnitEnd
     isExternal: true
   - name: (
+    nameWithType: (
+    fullName: (
   - name: )
+    nameWithType: )
+    fullName: )
   spec.vb:
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.ParagraphUnitEnd
     name: ParagraphUnitEnd
+    nameWithType: AbstractNativeExtractionGenerationContentProcessor.ParagraphUnitEnd
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.ParagraphUnitEnd
     isExternal: true
   - name: (
+    nameWithType: (
+    fullName: (
   - name: )
+    nameWithType: )
+    fullName: )
 - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.SegmentStart(Sdl.FileTypeSupport.Framework.NativeApi.ISegmentPairProperties)
   commentId: M:Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.SegmentStart(Sdl.FileTypeSupport.Framework.NativeApi.ISegmentPairProperties)
   parent: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor
@@ -1036,21 +1139,37 @@ references:
   spec.csharp:
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.SegmentStart(Sdl.FileTypeSupport.Framework.NativeApi.ISegmentPairProperties)
     name: SegmentStart
+    nameWithType: AbstractNativeExtractionGenerationContentProcessor.SegmentStart
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.SegmentStart
     isExternal: true
   - name: (
+    nameWithType: (
+    fullName: (
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.ISegmentPairProperties
     name: ISegmentPairProperties
+    nameWithType: ISegmentPairProperties
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.ISegmentPairProperties
     isExternal: true
   - name: )
+    nameWithType: )
+    fullName: )
   spec.vb:
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.SegmentStart(Sdl.FileTypeSupport.Framework.NativeApi.ISegmentPairProperties)
     name: SegmentStart
+    nameWithType: AbstractNativeExtractionGenerationContentProcessor.SegmentStart
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.SegmentStart
     isExternal: true
   - name: (
+    nameWithType: (
+    fullName: (
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.ISegmentPairProperties
     name: ISegmentPairProperties
+    nameWithType: ISegmentPairProperties
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.ISegmentPairProperties
     isExternal: true
   - name: )
+    nameWithType: )
+    fullName: )
 - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.SegmentEnd
   commentId: M:Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.SegmentEnd
   parent: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor
@@ -1061,20 +1180,31 @@ references:
   spec.csharp:
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.SegmentEnd
     name: SegmentEnd
+    nameWithType: AbstractNativeExtractionGenerationContentProcessor.SegmentEnd
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.SegmentEnd
     isExternal: true
   - name: (
+    nameWithType: (
+    fullName: (
   - name: )
+    nameWithType: )
+    fullName: )
   spec.vb:
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.SegmentEnd
     name: SegmentEnd
+    nameWithType: AbstractNativeExtractionGenerationContentProcessor.SegmentEnd
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.SegmentEnd
     isExternal: true
   - name: (
+    nameWithType: (
+    fullName: (
   - name: )
+    nameWithType: )
+    fullName: )
 - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.Output
   commentId: P:Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.Output
   parent: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor
   isExternal: true
-  href: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.html#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeExtractionGenerationContentProcessor_Output
   name: Output
   nameWithType: AbstractNativeExtractionGenerationContentProcessor.Output
   fullName: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.Output
@@ -1082,7 +1212,6 @@ references:
   commentId: P:Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.ExtractionOutput
   parent: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor
   isExternal: true
-  href: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.html#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeExtractionGenerationContentProcessor_ExtractionOutput
   name: ExtractionOutput
   nameWithType: AbstractNativeExtractionGenerationContentProcessor.ExtractionOutput
   fullName: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.ExtractionOutput
@@ -1090,189 +1219,257 @@ references:
   commentId: P:Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.GenerationOutput
   parent: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor
   isExternal: true
-  href: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.html#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeExtractionGenerationContentProcessor_GenerationOutput
   name: GenerationOutput
   nameWithType: AbstractNativeExtractionGenerationContentProcessor.GenerationOutput
   fullName: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.GenerationOutput
+- uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.Sdl#FileTypeSupport#Framework#NativeApi#INativeExtractionContentProcessor#Output
+  commentId: P:Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.Sdl#FileTypeSupport#Framework#NativeApi#INativeExtractionContentProcessor#Output
+  parent: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor
+  isExternal: true
+  name: INativeExtractionContentProcessor.Output
+  nameWithType: AbstractNativeExtractionGenerationContentProcessor.INativeExtractionContentProcessor.Output
+  fullName: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.Sdl.FileTypeSupport.Framework.NativeApi.INativeExtractionContentProcessor.Output
+  nameWithType.vb: AbstractNativeExtractionGenerationContentProcessor.Sdl.FileTypeSupport.Framework.NativeApi.INativeExtractionContentProcessor.Output
+  name.vb: Sdl.FileTypeSupport.Framework.NativeApi.INativeExtractionContentProcessor.Output
+- uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.Sdl#FileTypeSupport#Framework#NativeApi#INativeGenerationContentProcessor#Output
+  commentId: P:Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.Sdl#FileTypeSupport#Framework#NativeApi#INativeGenerationContentProcessor#Output
+  parent: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor
+  isExternal: true
+  name: INativeGenerationContentProcessor.Output
+  nameWithType: AbstractNativeExtractionGenerationContentProcessor.INativeGenerationContentProcessor.Output
+  fullName: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.Sdl.FileTypeSupport.Framework.NativeApi.INativeGenerationContentProcessor.Output
+  nameWithType.vb: AbstractNativeExtractionGenerationContentProcessor.Sdl.FileTypeSupport.Framework.NativeApi.INativeGenerationContentProcessor.Output
+  name.vb: Sdl.FileTypeSupport.Framework.NativeApi.INativeGenerationContentProcessor.Output
 - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileTypeComponent.ReportMessage(System.Object,System.String,Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel,System.String,Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId,Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId)
   commentId: M:Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileTypeComponent.ReportMessage(System.Object,System.String,Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel,System.String,Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId,Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId)
   parent: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileTypeComponent
   isExternal: true
-  href: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileTypeComponent.html#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileTypeComponent_ReportMessage_System_Object_System_String_Sdl_FileTypeSupport_Framework_NativeApi_ErrorLevel_System_String_Sdl_FileTypeSupport_Framework_NativeApi_LocationMarkerId_Sdl_FileTypeSupport_Framework_NativeApi_LocationMarkerId_
-  name: ReportMessage(object, string, ErrorLevel, string, LocationMarkerId, LocationMarkerId)
-  nameWithType: AbstractNativeFileTypeComponent.ReportMessage(object, string, ErrorLevel, string, LocationMarkerId, LocationMarkerId)
-  fullName: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileTypeComponent.ReportMessage(object, string, Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel, string, Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId, Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId)
-  nameWithType.vb: AbstractNativeFileTypeComponent.ReportMessage(Object, String, ErrorLevel, String, LocationMarkerId, LocationMarkerId)
-  fullName.vb: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileTypeComponent.ReportMessage(Object, String, Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel, String, Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId, Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId)
-  name.vb: ReportMessage(Object, String, ErrorLevel, String, LocationMarkerId, LocationMarkerId)
+  name: ReportMessage(Object, String, ErrorLevel, String, LocationMarkerId, LocationMarkerId)
+  nameWithType: AbstractNativeFileTypeComponent.ReportMessage(Object, String, ErrorLevel, String, LocationMarkerId, LocationMarkerId)
+  fullName: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileTypeComponent.ReportMessage(System.Object, System.String, Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel, System.String, Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId, Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId)
   spec.csharp:
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileTypeComponent.ReportMessage(System.Object,System.String,Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel,System.String,Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId,Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId)
     name: ReportMessage
+    nameWithType: AbstractNativeFileTypeComponent.ReportMessage
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileTypeComponent.ReportMessage
     isExternal: true
-    href: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileTypeComponent.html#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileTypeComponent_ReportMessage_System_Object_System_String_Sdl_FileTypeSupport_Framework_NativeApi_ErrorLevel_System_String_Sdl_FileTypeSupport_Framework_NativeApi_LocationMarkerId_Sdl_FileTypeSupport_Framework_NativeApi_LocationMarkerId_
   - name: (
+    nameWithType: (
+    fullName: (
   - uid: System.Object
-    name: object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
   - uid: System.String
-    name: string
+    name: String
+    nameWithType: String
+    fullName: System.String
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel
     name: ErrorLevel
+    nameWithType: ErrorLevel
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel
     isExternal: true
-    href: Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel.html
-  - name: ','
-  - name: " "
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
   - uid: System.String
-    name: string
+    name: String
+    nameWithType: String
+    fullName: System.String
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId
     name: LocationMarkerId
+    nameWithType: LocationMarkerId
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId
     isExternal: true
-    href: Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId.html
-  - name: ','
-  - name: " "
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId
     name: LocationMarkerId
+    nameWithType: LocationMarkerId
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId
     isExternal: true
-    href: Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId.html
   - name: )
+    nameWithType: )
+    fullName: )
   spec.vb:
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileTypeComponent.ReportMessage(System.Object,System.String,Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel,System.String,Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId,Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId)
     name: ReportMessage
+    nameWithType: AbstractNativeFileTypeComponent.ReportMessage
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileTypeComponent.ReportMessage
     isExternal: true
-    href: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileTypeComponent.html#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileTypeComponent_ReportMessage_System_Object_System_String_Sdl_FileTypeSupport_Framework_NativeApi_ErrorLevel_System_String_Sdl_FileTypeSupport_Framework_NativeApi_LocationMarkerId_Sdl_FileTypeSupport_Framework_NativeApi_LocationMarkerId_
   - name: (
+    nameWithType: (
+    fullName: (
   - uid: System.Object
     name: Object
+    nameWithType: Object
+    fullName: System.Object
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
   - uid: System.String
     name: String
+    nameWithType: String
+    fullName: System.String
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel
     name: ErrorLevel
+    nameWithType: ErrorLevel
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel
     isExternal: true
-    href: Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel.html
-  - name: ','
-  - name: " "
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
   - uid: System.String
     name: String
+    nameWithType: String
+    fullName: System.String
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId
     name: LocationMarkerId
+    nameWithType: LocationMarkerId
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId
     isExternal: true
-    href: Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId.html
-  - name: ','
-  - name: " "
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId
     name: LocationMarkerId
+    nameWithType: LocationMarkerId
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId
     isExternal: true
-    href: Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId.html
   - name: )
+    nameWithType: )
+    fullName: )
 - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileTypeComponent.ReportMessage(System.Object,System.String,Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel,System.String,System.String)
   commentId: M:Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileTypeComponent.ReportMessage(System.Object,System.String,Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel,System.String,System.String)
   parent: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileTypeComponent
   isExternal: true
-  href: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileTypeComponent.html#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileTypeComponent_ReportMessage_System_Object_System_String_Sdl_FileTypeSupport_Framework_NativeApi_ErrorLevel_System_String_System_String_
-  name: ReportMessage(object, string, ErrorLevel, string, string)
-  nameWithType: AbstractNativeFileTypeComponent.ReportMessage(object, string, ErrorLevel, string, string)
-  fullName: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileTypeComponent.ReportMessage(object, string, Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel, string, string)
-  nameWithType.vb: AbstractNativeFileTypeComponent.ReportMessage(Object, String, ErrorLevel, String, String)
-  fullName.vb: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileTypeComponent.ReportMessage(Object, String, Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel, String, String)
-  name.vb: ReportMessage(Object, String, ErrorLevel, String, String)
+  name: ReportMessage(Object, String, ErrorLevel, String, String)
+  nameWithType: AbstractNativeFileTypeComponent.ReportMessage(Object, String, ErrorLevel, String, String)
+  fullName: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileTypeComponent.ReportMessage(System.Object, System.String, Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel, System.String, System.String)
   spec.csharp:
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileTypeComponent.ReportMessage(System.Object,System.String,Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel,System.String,System.String)
     name: ReportMessage
+    nameWithType: AbstractNativeFileTypeComponent.ReportMessage
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileTypeComponent.ReportMessage
     isExternal: true
-    href: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileTypeComponent.html#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileTypeComponent_ReportMessage_System_Object_System_String_Sdl_FileTypeSupport_Framework_NativeApi_ErrorLevel_System_String_System_String_
   - name: (
+    nameWithType: (
+    fullName: (
   - uid: System.Object
-    name: object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
   - uid: System.String
-    name: string
+    name: String
+    nameWithType: String
+    fullName: System.String
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel
     name: ErrorLevel
+    nameWithType: ErrorLevel
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel
     isExternal: true
-    href: Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel.html
-  - name: ','
-  - name: " "
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
   - uid: System.String
-    name: string
+    name: String
+    nameWithType: String
+    fullName: System.String
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
   - uid: System.String
-    name: string
+    name: String
+    nameWithType: String
+    fullName: System.String
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
   - name: )
+    nameWithType: )
+    fullName: )
   spec.vb:
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileTypeComponent.ReportMessage(System.Object,System.String,Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel,System.String,System.String)
     name: ReportMessage
+    nameWithType: AbstractNativeFileTypeComponent.ReportMessage
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileTypeComponent.ReportMessage
     isExternal: true
-    href: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileTypeComponent.html#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileTypeComponent_ReportMessage_System_Object_System_String_Sdl_FileTypeSupport_Framework_NativeApi_ErrorLevel_System_String_System_String_
   - name: (
+    nameWithType: (
+    fullName: (
   - uid: System.Object
     name: Object
+    nameWithType: Object
+    fullName: System.Object
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
   - uid: System.String
     name: String
+    nameWithType: String
+    fullName: System.String
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel
     name: ErrorLevel
+    nameWithType: ErrorLevel
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel
     isExternal: true
-    href: Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel.html
-  - name: ','
-  - name: " "
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
   - uid: System.String
     name: String
+    nameWithType: String
+    fullName: System.String
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
   - uid: System.String
     name: String
+    nameWithType: String
+    fullName: System.String
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
   - name: )
+    nameWithType: )
+    fullName: )
 - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileTypeComponent.PropertiesFactory
   commentId: P:Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileTypeComponent.PropertiesFactory
   parent: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileTypeComponent
   isExternal: true
-  href: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileTypeComponent.html#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileTypeComponent_PropertiesFactory
   name: PropertiesFactory
   nameWithType: AbstractNativeFileTypeComponent.PropertiesFactory
   fullName: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileTypeComponent.PropertiesFactory
@@ -1280,7 +1477,6 @@ references:
   commentId: P:Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileTypeComponent.MessageReporter
   parent: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileTypeComponent
   isExternal: true
-  href: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileTypeComponent.html#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileTypeComponent_MessageReporter
   name: MessageReporter
   nameWithType: AbstractNativeFileTypeComponent.MessageReporter
   fullName: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileTypeComponent.MessageReporter
@@ -1288,279 +1484,296 @@ references:
   commentId: M:System.Object.ToString
   parent: System.Object
   isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
   name: ToString()
-  nameWithType: object.ToString()
-  fullName: object.ToString()
-  nameWithType.vb: Object.ToString()
-  fullName.vb: Object.ToString()
+  nameWithType: Object.ToString()
+  fullName: System.Object.ToString()
   spec.csharp:
   - uid: System.Object.ToString
     name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
   - name: (
+    nameWithType: (
+    fullName: (
   - name: )
+    nameWithType: )
+    fullName: )
   spec.vb:
   - uid: System.Object.ToString
     name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
   - name: (
+    nameWithType: (
+    fullName: (
   - name: )
+    nameWithType: )
+    fullName: )
 - uid: System.Object.Equals(System.Object)
   commentId: M:System.Object.Equals(System.Object)
   parent: System.Object
   isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
-  name: Equals(object)
-  nameWithType: object.Equals(object)
-  fullName: object.Equals(object)
-  nameWithType.vb: Object.Equals(Object)
-  fullName.vb: Object.Equals(Object)
-  name.vb: Equals(Object)
+  name: Equals(Object)
+  nameWithType: Object.Equals(Object)
+  fullName: System.Object.Equals(System.Object)
   spec.csharp:
   - uid: System.Object.Equals(System.Object)
     name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
   - name: (
+    nameWithType: (
+    fullName: (
   - uid: System.Object
-    name: object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
+    nameWithType: )
+    fullName: )
   spec.vb:
   - uid: System.Object.Equals(System.Object)
     name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
   - name: (
+    nameWithType: (
+    fullName: (
   - uid: System.Object
     name: Object
+    nameWithType: Object
+    fullName: System.Object
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
+    nameWithType: )
+    fullName: )
 - uid: System.Object.Equals(System.Object,System.Object)
   commentId: M:System.Object.Equals(System.Object,System.Object)
   parent: System.Object
   isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
-  name: Equals(object, object)
-  nameWithType: object.Equals(object, object)
-  fullName: object.Equals(object, object)
-  nameWithType.vb: Object.Equals(Object, Object)
-  fullName.vb: Object.Equals(Object, Object)
-  name.vb: Equals(Object, Object)
+  name: Equals(Object, Object)
+  nameWithType: Object.Equals(Object, Object)
+  fullName: System.Object.Equals(System.Object, System.Object)
   spec.csharp:
   - uid: System.Object.Equals(System.Object,System.Object)
     name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
   - name: (
+    nameWithType: (
+    fullName: (
   - uid: System.Object
-    name: object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
   - uid: System.Object
-    name: object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
+    nameWithType: )
+    fullName: )
   spec.vb:
   - uid: System.Object.Equals(System.Object,System.Object)
     name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
   - name: (
+    nameWithType: (
+    fullName: (
   - uid: System.Object
     name: Object
+    nameWithType: Object
+    fullName: System.Object
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
   - uid: System.Object
     name: Object
+    nameWithType: Object
+    fullName: System.Object
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
+    nameWithType: )
+    fullName: )
 - uid: System.Object.ReferenceEquals(System.Object,System.Object)
   commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
   parent: System.Object
   isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
-  name: ReferenceEquals(object, object)
-  nameWithType: object.ReferenceEquals(object, object)
-  fullName: object.ReferenceEquals(object, object)
-  nameWithType.vb: Object.ReferenceEquals(Object, Object)
-  fullName.vb: Object.ReferenceEquals(Object, Object)
-  name.vb: ReferenceEquals(Object, Object)
+  name: ReferenceEquals(Object, Object)
+  nameWithType: Object.ReferenceEquals(Object, Object)
+  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
   spec.csharp:
   - uid: System.Object.ReferenceEquals(System.Object,System.Object)
     name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
   - name: (
+    nameWithType: (
+    fullName: (
   - uid: System.Object
-    name: object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
   - uid: System.Object
-    name: object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
+    nameWithType: )
+    fullName: )
   spec.vb:
   - uid: System.Object.ReferenceEquals(System.Object,System.Object)
     name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
   - name: (
+    nameWithType: (
+    fullName: (
   - uid: System.Object
     name: Object
+    nameWithType: Object
+    fullName: System.Object
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
   - uid: System.Object
     name: Object
+    nameWithType: Object
+    fullName: System.Object
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
+    nameWithType: )
+    fullName: )
 - uid: System.Object.GetHashCode
   commentId: M:System.Object.GetHashCode
   parent: System.Object
   isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
   name: GetHashCode()
-  nameWithType: object.GetHashCode()
-  fullName: object.GetHashCode()
-  nameWithType.vb: Object.GetHashCode()
-  fullName.vb: Object.GetHashCode()
+  nameWithType: Object.GetHashCode()
+  fullName: System.Object.GetHashCode()
   spec.csharp:
   - uid: System.Object.GetHashCode
     name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
   - name: (
+    nameWithType: (
+    fullName: (
   - name: )
+    nameWithType: )
+    fullName: )
   spec.vb:
   - uid: System.Object.GetHashCode
     name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
   - name: (
+    nameWithType: (
+    fullName: (
   - name: )
+    nameWithType: )
+    fullName: )
 - uid: System.Object.GetType
   commentId: M:System.Object.GetType
   parent: System.Object
   isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
   name: GetType()
-  nameWithType: object.GetType()
-  fullName: object.GetType()
-  nameWithType.vb: Object.GetType()
-  fullName.vb: Object.GetType()
+  nameWithType: Object.GetType()
+  fullName: System.Object.GetType()
   spec.csharp:
   - uid: System.Object.GetType
     name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
   - name: (
+    nameWithType: (
+    fullName: (
   - name: )
+    nameWithType: )
+    fullName: )
   spec.vb:
   - uid: System.Object.GetType
     name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
   - name: (
+    nameWithType: (
+    fullName: (
   - name: )
+    nameWithType: )
+    fullName: )
 - uid: System.Object.MemberwiseClone
   commentId: M:System.Object.MemberwiseClone
   parent: System.Object
   isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
   name: MemberwiseClone()
-  nameWithType: object.MemberwiseClone()
-  fullName: object.MemberwiseClone()
-  nameWithType.vb: Object.MemberwiseClone()
-  fullName.vb: Object.MemberwiseClone()
+  nameWithType: Object.MemberwiseClone()
+  fullName: System.Object.MemberwiseClone()
   spec.csharp:
   - uid: System.Object.MemberwiseClone
     name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
   - name: (
+    nameWithType: (
+    fullName: (
   - name: )
+    nameWithType: )
+    fullName: )
   spec.vb:
   - uid: System.Object.MemberwiseClone
     name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
   - name: (
+    nameWithType: (
+    fullName: (
   - name: )
+    nameWithType: )
+    fullName: )
 - uid: System
   commentId: N:System
   isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system
   name: System
   nameWithType: System
   fullName: System
 - uid: Sdl.FileTypeSupport.Framework.NativeApi
   commentId: N:Sdl.FileTypeSupport.Framework.NativeApi
   isExternal: true
-  href: Sdl.html
   name: Sdl.FileTypeSupport.Framework.NativeApi
   nameWithType: Sdl.FileTypeSupport.Framework.NativeApi
   fullName: Sdl.FileTypeSupport.Framework.NativeApi
-  spec.csharp:
-  - uid: Sdl
-    name: Sdl
-    isExternal: true
-    href: Sdl.html
-  - name: .
-  - uid: Sdl.FileTypeSupport
-    name: FileTypeSupport
-    isExternal: true
-    href: Sdl.FileTypeSupport.html
-  - name: .
-  - uid: Sdl.FileTypeSupport.Framework
-    name: Framework
-    isExternal: true
-    href: Sdl.FileTypeSupport.Framework.html
-  - name: .
-  - uid: Sdl.FileTypeSupport.Framework.NativeApi
-    name: NativeApi
-    isExternal: true
-    href: Sdl.FileTypeSupport.Framework.NativeApi.html
-  spec.vb:
-  - uid: Sdl
-    name: Sdl
-    isExternal: true
-    href: Sdl.html
-  - name: .
-  - uid: Sdl.FileTypeSupport
-    name: FileTypeSupport
-    isExternal: true
-    href: Sdl.FileTypeSupport.html
-  - name: .
-  - uid: Sdl.FileTypeSupport.Framework
-    name: Framework
-    isExternal: true
-    href: Sdl.FileTypeSupport.Framework.html
-  - name: .
-  - uid: Sdl.FileTypeSupport.Framework.NativeApi
-    name: NativeApi
-    isExternal: true
-    href: Sdl.FileTypeSupport.Framework.NativeApi.html
 - uid: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.GetCurrentLocation*
   commentId: Overload:Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.GetCurrentLocation
   isExternal: true
-  href: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.html#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_LineNumberTracker_GetCurrentLocation
   name: GetCurrentLocation
   nameWithType: LineNumberTracker.GetCurrentLocation
   fullName: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.GetCurrentLocation
@@ -1568,14 +1781,12 @@ references:
   commentId: T:Sdl.FileTypeSupport.Framework.NativeApi.NativeTextLocation
   parent: Sdl.FileTypeSupport.Framework.NativeApi
   isExternal: true
-  href: Sdl.FileTypeSupport.Framework.NativeApi.NativeTextLocation.html
   name: NativeTextLocation
   nameWithType: NativeTextLocation
   fullName: Sdl.FileTypeSupport.Framework.NativeApi.NativeTextLocation
 - uid: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.GetLocationBeforeCurrentContent*
   commentId: Overload:Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.GetLocationBeforeCurrentContent
   isExternal: true
-  href: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.html#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_LineNumberTracker_GetLocationBeforeCurrentContent
   name: GetLocationBeforeCurrentContent
   nameWithType: LineNumberTracker.GetLocationBeforeCurrentContent
   fullName: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.GetLocationBeforeCurrentContent
@@ -1589,19 +1800,30 @@ references:
   spec.csharp:
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.INativeLocationTracker.GetLocationBeforeCurrentContent
     name: GetLocationBeforeCurrentContent
+    nameWithType: INativeLocationTracker.GetLocationBeforeCurrentContent
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.INativeLocationTracker.GetLocationBeforeCurrentContent
     isExternal: true
   - name: (
+    nameWithType: (
+    fullName: (
   - name: )
+    nameWithType: )
+    fullName: )
   spec.vb:
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.INativeLocationTracker.GetLocationBeforeCurrentContent
     name: GetLocationBeforeCurrentContent
+    nameWithType: INativeLocationTracker.GetLocationBeforeCurrentContent
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.INativeLocationTracker.GetLocationBeforeCurrentContent
     isExternal: true
   - name: (
+    nameWithType: (
+    fullName: (
   - name: )
+    nameWithType: )
+    fullName: )
 - uid: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.GetLocationAfterCurrentContent*
   commentId: Overload:Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.GetLocationAfterCurrentContent
   isExternal: true
-  href: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.html#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_LineNumberTracker_GetLocationAfterCurrentContent
   name: GetLocationAfterCurrentContent
   nameWithType: LineNumberTracker.GetLocationAfterCurrentContent
   fullName: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.GetLocationAfterCurrentContent
@@ -1615,15 +1837,27 @@ references:
   spec.csharp:
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.INativeLocationTracker.GetLocationAfterCurrentContent
     name: GetLocationAfterCurrentContent
+    nameWithType: INativeLocationTracker.GetLocationAfterCurrentContent
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.INativeLocationTracker.GetLocationAfterCurrentContent
     isExternal: true
   - name: (
+    nameWithType: (
+    fullName: (
   - name: )
+    nameWithType: )
+    fullName: )
   spec.vb:
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.INativeLocationTracker.GetLocationAfterCurrentContent
     name: GetLocationAfterCurrentContent
+    nameWithType: INativeLocationTracker.GetLocationAfterCurrentContent
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.INativeLocationTracker.GetLocationAfterCurrentContent
     isExternal: true
   - name: (
+    nameWithType: (
+    fullName: (
   - name: )
+    nameWithType: )
+    fullName: )
 - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.Text(Sdl.FileTypeSupport.Framework.NativeApi.ITextProperties)
   commentId: M:Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.Text(Sdl.FileTypeSupport.Framework.NativeApi.ITextProperties)
   parent: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor
@@ -1634,25 +1868,40 @@ references:
   spec.csharp:
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.Text(Sdl.FileTypeSupport.Framework.NativeApi.ITextProperties)
     name: Text
+    nameWithType: AbstractNativeExtractionGenerationContentProcessor.Text
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.Text
     isExternal: true
   - name: (
+    nameWithType: (
+    fullName: (
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.ITextProperties
     name: ITextProperties
+    nameWithType: ITextProperties
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.ITextProperties
     isExternal: true
   - name: )
+    nameWithType: )
+    fullName: )
   spec.vb:
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.Text(Sdl.FileTypeSupport.Framework.NativeApi.ITextProperties)
     name: Text
+    nameWithType: AbstractNativeExtractionGenerationContentProcessor.Text
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.Text
     isExternal: true
   - name: (
+    nameWithType: (
+    fullName: (
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.ITextProperties
     name: ITextProperties
+    nameWithType: ITextProperties
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.ITextProperties
     isExternal: true
   - name: )
+    nameWithType: )
+    fullName: )
 - uid: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.Text*
   commentId: Overload:Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.Text
   isExternal: true
-  href: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.html#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_LineNumberTracker_Text_Sdl_FileTypeSupport_Framework_NativeApi_ITextProperties_
   name: Text
   nameWithType: LineNumberTracker.Text
   fullName: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.Text
@@ -1660,7 +1909,6 @@ references:
   commentId: T:Sdl.FileTypeSupport.Framework.NativeApi.ITextProperties
   parent: Sdl.FileTypeSupport.Framework.NativeApi
   isExternal: true
-  href: Sdl.FileTypeSupport.Framework.NativeApi.ITextProperties.html
   name: ITextProperties
   nameWithType: ITextProperties
   fullName: Sdl.FileTypeSupport.Framework.NativeApi.ITextProperties
@@ -1674,25 +1922,40 @@ references:
   spec.csharp:
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.InlineStartTag(Sdl.FileTypeSupport.Framework.NativeApi.IStartTagProperties)
     name: InlineStartTag
+    nameWithType: AbstractNativeExtractionGenerationContentProcessor.InlineStartTag
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.InlineStartTag
     isExternal: true
   - name: (
+    nameWithType: (
+    fullName: (
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.IStartTagProperties
     name: IStartTagProperties
+    nameWithType: IStartTagProperties
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.IStartTagProperties
     isExternal: true
   - name: )
+    nameWithType: )
+    fullName: )
   spec.vb:
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.InlineStartTag(Sdl.FileTypeSupport.Framework.NativeApi.IStartTagProperties)
     name: InlineStartTag
+    nameWithType: AbstractNativeExtractionGenerationContentProcessor.InlineStartTag
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.InlineStartTag
     isExternal: true
   - name: (
+    nameWithType: (
+    fullName: (
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.IStartTagProperties
     name: IStartTagProperties
+    nameWithType: IStartTagProperties
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.IStartTagProperties
     isExternal: true
   - name: )
+    nameWithType: )
+    fullName: )
 - uid: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.InlineStartTag*
   commentId: Overload:Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.InlineStartTag
   isExternal: true
-  href: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.html#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_LineNumberTracker_InlineStartTag_Sdl_FileTypeSupport_Framework_NativeApi_IStartTagProperties_
   name: InlineStartTag
   nameWithType: LineNumberTracker.InlineStartTag
   fullName: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.InlineStartTag
@@ -1700,7 +1963,6 @@ references:
   commentId: T:Sdl.FileTypeSupport.Framework.NativeApi.IStartTagProperties
   parent: Sdl.FileTypeSupport.Framework.NativeApi
   isExternal: true
-  href: Sdl.FileTypeSupport.Framework.NativeApi.IStartTagProperties.html
   name: IStartTagProperties
   nameWithType: IStartTagProperties
   fullName: Sdl.FileTypeSupport.Framework.NativeApi.IStartTagProperties
@@ -1714,25 +1976,40 @@ references:
   spec.csharp:
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.InlineEndTag(Sdl.FileTypeSupport.Framework.NativeApi.IEndTagProperties)
     name: InlineEndTag
+    nameWithType: AbstractNativeExtractionGenerationContentProcessor.InlineEndTag
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.InlineEndTag
     isExternal: true
   - name: (
+    nameWithType: (
+    fullName: (
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.IEndTagProperties
     name: IEndTagProperties
+    nameWithType: IEndTagProperties
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.IEndTagProperties
     isExternal: true
   - name: )
+    nameWithType: )
+    fullName: )
   spec.vb:
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.InlineEndTag(Sdl.FileTypeSupport.Framework.NativeApi.IEndTagProperties)
     name: InlineEndTag
+    nameWithType: AbstractNativeExtractionGenerationContentProcessor.InlineEndTag
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.InlineEndTag
     isExternal: true
   - name: (
+    nameWithType: (
+    fullName: (
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.IEndTagProperties
     name: IEndTagProperties
+    nameWithType: IEndTagProperties
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.IEndTagProperties
     isExternal: true
   - name: )
+    nameWithType: )
+    fullName: )
 - uid: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.InlineEndTag*
   commentId: Overload:Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.InlineEndTag
   isExternal: true
-  href: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.html#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_LineNumberTracker_InlineEndTag_Sdl_FileTypeSupport_Framework_NativeApi_IEndTagProperties_
   name: InlineEndTag
   nameWithType: LineNumberTracker.InlineEndTag
   fullName: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.InlineEndTag
@@ -1740,7 +2017,6 @@ references:
   commentId: T:Sdl.FileTypeSupport.Framework.NativeApi.IEndTagProperties
   parent: Sdl.FileTypeSupport.Framework.NativeApi
   isExternal: true
-  href: Sdl.FileTypeSupport.Framework.NativeApi.IEndTagProperties.html
   name: IEndTagProperties
   nameWithType: IEndTagProperties
   fullName: Sdl.FileTypeSupport.Framework.NativeApi.IEndTagProperties
@@ -1754,25 +2030,40 @@ references:
   spec.csharp:
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.InlinePlaceholderTag(Sdl.FileTypeSupport.Framework.NativeApi.IPlaceholderTagProperties)
     name: InlinePlaceholderTag
+    nameWithType: AbstractNativeExtractionGenerationContentProcessor.InlinePlaceholderTag
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.InlinePlaceholderTag
     isExternal: true
   - name: (
+    nameWithType: (
+    fullName: (
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.IPlaceholderTagProperties
     name: IPlaceholderTagProperties
+    nameWithType: IPlaceholderTagProperties
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.IPlaceholderTagProperties
     isExternal: true
   - name: )
+    nameWithType: )
+    fullName: )
   spec.vb:
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.InlinePlaceholderTag(Sdl.FileTypeSupport.Framework.NativeApi.IPlaceholderTagProperties)
     name: InlinePlaceholderTag
+    nameWithType: AbstractNativeExtractionGenerationContentProcessor.InlinePlaceholderTag
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.InlinePlaceholderTag
     isExternal: true
   - name: (
+    nameWithType: (
+    fullName: (
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.IPlaceholderTagProperties
     name: IPlaceholderTagProperties
+    nameWithType: IPlaceholderTagProperties
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.IPlaceholderTagProperties
     isExternal: true
   - name: )
+    nameWithType: )
+    fullName: )
 - uid: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.InlinePlaceholderTag*
   commentId: Overload:Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.InlinePlaceholderTag
   isExternal: true
-  href: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.html#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_LineNumberTracker_InlinePlaceholderTag_Sdl_FileTypeSupport_Framework_NativeApi_IPlaceholderTagProperties_
   name: InlinePlaceholderTag
   nameWithType: LineNumberTracker.InlinePlaceholderTag
   fullName: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.InlinePlaceholderTag
@@ -1780,7 +2071,6 @@ references:
   commentId: T:Sdl.FileTypeSupport.Framework.NativeApi.IPlaceholderTagProperties
   parent: Sdl.FileTypeSupport.Framework.NativeApi
   isExternal: true
-  href: Sdl.FileTypeSupport.Framework.NativeApi.IPlaceholderTagProperties.html
   name: IPlaceholderTagProperties
   nameWithType: IPlaceholderTagProperties
   fullName: Sdl.FileTypeSupport.Framework.NativeApi.IPlaceholderTagProperties
@@ -1794,25 +2084,40 @@ references:
   spec.csharp:
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.StructureTag(Sdl.FileTypeSupport.Framework.NativeApi.IStructureTagProperties)
     name: StructureTag
+    nameWithType: AbstractNativeExtractionGenerationContentProcessor.StructureTag
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.StructureTag
     isExternal: true
   - name: (
+    nameWithType: (
+    fullName: (
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.IStructureTagProperties
     name: IStructureTagProperties
+    nameWithType: IStructureTagProperties
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.IStructureTagProperties
     isExternal: true
   - name: )
+    nameWithType: )
+    fullName: )
   spec.vb:
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.StructureTag(Sdl.FileTypeSupport.Framework.NativeApi.IStructureTagProperties)
     name: StructureTag
+    nameWithType: AbstractNativeExtractionGenerationContentProcessor.StructureTag
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeExtractionGenerationContentProcessor.StructureTag
     isExternal: true
   - name: (
+    nameWithType: (
+    fullName: (
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.IStructureTagProperties
     name: IStructureTagProperties
+    nameWithType: IStructureTagProperties
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.IStructureTagProperties
     isExternal: true
   - name: )
+    nameWithType: )
+    fullName: )
 - uid: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.StructureTag*
   commentId: Overload:Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.StructureTag
   isExternal: true
-  href: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.html#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_LineNumberTracker_StructureTag_Sdl_FileTypeSupport_Framework_NativeApi_IStructureTagProperties_
   name: StructureTag
   nameWithType: LineNumberTracker.StructureTag
   fullName: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.StructureTag
@@ -1820,14 +2125,12 @@ references:
   commentId: T:Sdl.FileTypeSupport.Framework.NativeApi.IStructureTagProperties
   parent: Sdl.FileTypeSupport.Framework.NativeApi
   isExternal: true
-  href: Sdl.FileTypeSupport.Framework.NativeApi.IStructureTagProperties.html
   name: IStructureTagProperties
   nameWithType: IStructureTagProperties
   fullName: Sdl.FileTypeSupport.Framework.NativeApi.IStructureTagProperties
 - uid: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.ParseText*
   commentId: Overload:Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.ParseText
   isExternal: true
-  href: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.html#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_LineNumberTracker_ParseText_System_String_
   name: ParseText
   nameWithType: LineNumberTracker.ParseText
   fullName: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.ParseText
@@ -1835,62 +2138,72 @@ references:
   commentId: T:System.String
   parent: System
   isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.string
-  name: string
-  nameWithType: string
-  fullName: string
-  nameWithType.vb: String
-  fullName.vb: String
-  name.vb: String
+  name: String
+  nameWithType: String
+  fullName: System.String
 - uid: Sdl.FileTypeSupport.Framework.Pair{System.Int32,System.Int32}
   commentId: T:Sdl.FileTypeSupport.Framework.Pair{System.Int32,System.Int32}
   parent: Sdl.FileTypeSupport.Framework
   definition: Sdl.FileTypeSupport.Framework.Pair`2
-  href: https://learn.microsoft.com/dotnet/api/system.int32
-  name: Pair<int, int>
-  nameWithType: Pair<int, int>
-  fullName: Sdl.FileTypeSupport.Framework.Pair<int, int>
-  nameWithType.vb: Pair(Of Integer, Integer)
-  fullName.vb: Sdl.FileTypeSupport.Framework.Pair(Of Integer, Integer)
-  name.vb: Pair(Of Integer, Integer)
+  name: Pair<Int32, Int32>
+  nameWithType: Pair<Int32, Int32>
+  fullName: Sdl.FileTypeSupport.Framework.Pair<System.Int32, System.Int32>
+  nameWithType.vb: Pair(Of Int32, Int32)
+  fullName.vb: Sdl.FileTypeSupport.Framework.Pair(Of System.Int32, System.Int32)
+  name.vb: Pair(Of Int32, Int32)
   spec.csharp:
   - uid: Sdl.FileTypeSupport.Framework.Pair`2
     name: Pair
+    nameWithType: Pair
+    fullName: Sdl.FileTypeSupport.Framework.Pair
     isExternal: true
   - name: <
+    nameWithType: <
+    fullName: <
   - uid: System.Int32
-    name: int
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.int32
-  - name: ','
-  - name: " "
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
   - uid: System.Int32
-    name: int
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.int32
   - name: '>'
+    nameWithType: '>'
+    fullName: '>'
   spec.vb:
   - uid: Sdl.FileTypeSupport.Framework.Pair`2
     name: Pair
+    nameWithType: Pair
+    fullName: Sdl.FileTypeSupport.Framework.Pair
     isExternal: true
-  - name: (
-  - name: Of
-  - name: " "
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
   - uid: System.Int32
-    name: Integer
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.int32
-  - name: ','
-  - name: " "
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
   - uid: System.Int32
-    name: Integer
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.int32
   - name: )
+    nameWithType: )
+    fullName: )
 - uid: Sdl.FileTypeSupport.Framework.Pair`2
   commentId: T:Sdl.FileTypeSupport.Framework.Pair`2
   isExternal: true
-  href: Sdl.FileTypeSupport.Framework.Pair-2.html
   name: Pair<FirstType, SecondType>
   nameWithType: Pair<FirstType, SecondType>
   fullName: Sdl.FileTypeSupport.Framework.Pair<FirstType, SecondType>
@@ -1900,85 +2213,66 @@ references:
   spec.csharp:
   - uid: Sdl.FileTypeSupport.Framework.Pair`2
     name: Pair
+    nameWithType: Pair
+    fullName: Sdl.FileTypeSupport.Framework.Pair
     isExternal: true
-    href: Sdl.FileTypeSupport.Framework.Pair-2.html
   - name: <
+    nameWithType: <
+    fullName: <
   - name: FirstType
-  - name: ','
-  - name: " "
+    nameWithType: FirstType
+    fullName: FirstType
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
   - name: SecondType
+    nameWithType: SecondType
+    fullName: SecondType
   - name: '>'
+    nameWithType: '>'
+    fullName: '>'
   spec.vb:
   - uid: Sdl.FileTypeSupport.Framework.Pair`2
     name: Pair
+    nameWithType: Pair
+    fullName: Sdl.FileTypeSupport.Framework.Pair
     isExternal: true
-    href: Sdl.FileTypeSupport.Framework.Pair-2.html
-  - name: (
-  - name: Of
-  - name: " "
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
   - name: FirstType
-  - name: ','
-  - name: " "
+    nameWithType: FirstType
+    fullName: FirstType
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
   - name: SecondType
+    nameWithType: SecondType
+    fullName: SecondType
   - name: )
+    nameWithType: )
+    fullName: )
 - uid: Sdl.FileTypeSupport.Framework
   commentId: N:Sdl.FileTypeSupport.Framework
   isExternal: true
-  href: Sdl.html
   name: Sdl.FileTypeSupport.Framework
   nameWithType: Sdl.FileTypeSupport.Framework
   fullName: Sdl.FileTypeSupport.Framework
-  spec.csharp:
-  - uid: Sdl
-    name: Sdl
-    isExternal: true
-    href: Sdl.html
-  - name: .
-  - uid: Sdl.FileTypeSupport
-    name: FileTypeSupport
-    isExternal: true
-    href: Sdl.FileTypeSupport.html
-  - name: .
-  - uid: Sdl.FileTypeSupport.Framework
-    name: Framework
-    isExternal: true
-    href: Sdl.FileTypeSupport.Framework.html
-  spec.vb:
-  - uid: Sdl
-    name: Sdl
-    isExternal: true
-    href: Sdl.html
-  - name: .
-  - uid: Sdl.FileTypeSupport
-    name: FileTypeSupport
-    isExternal: true
-    href: Sdl.FileTypeSupport.html
-  - name: .
-  - uid: Sdl.FileTypeSupport.Framework
-    name: Framework
-    isExternal: true
-    href: Sdl.FileTypeSupport.Framework.html
 - uid: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.IncrementLineAndOffsetNumbers*
   commentId: Overload:Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.IncrementLineAndOffsetNumbers
   isExternal: true
-  href: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.html#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_LineNumberTracker_IncrementLineAndOffsetNumbers_System_String_
   name: IncrementLineAndOffsetNumbers
   nameWithType: LineNumberTracker.IncrementLineAndOffsetNumbers
   fullName: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.IncrementLineAndOffsetNumbers
 - uid: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.#ctor*
   commentId: Overload:Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.#ctor
   isExternal: true
-  href: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.html#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_LineNumberTracker__ctor
   name: LineNumberTracker
   nameWithType: LineNumberTracker.LineNumberTracker
   fullName: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.LineNumberTracker
-  nameWithType.vb: LineNumberTracker.New
-  fullName.vb: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.New
-  name.vb: New
 - uid: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.Line*
   commentId: Overload:Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.Line
   isExternal: true
-  href: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.html#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_LineNumberTracker_Line
   name: Line
   nameWithType: LineNumberTracker.Line
   fullName: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.Line
@@ -1986,24 +2280,18 @@ references:
   commentId: T:System.Int32
   parent: System
   isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.int32
-  name: int
-  nameWithType: int
-  fullName: int
-  nameWithType.vb: Integer
-  fullName.vb: Integer
-  name.vb: Integer
+  name: Int32
+  nameWithType: Int32
+  fullName: System.Int32
 - uid: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.Offset*
   commentId: Overload:Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.Offset
   isExternal: true
-  href: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.html#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_LineNumberTracker_Offset
   name: Offset
   nameWithType: LineNumberTracker.Offset
   fullName: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.Offset
 - uid: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.LastCharacterWasCR*
   commentId: Overload:Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.LastCharacterWasCR
   isExternal: true
-  href: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.html#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_LineNumberTracker_LastCharacterWasCR
   name: LastCharacterWasCR
   nameWithType: LineNumberTracker.LastCharacterWasCR
   fullName: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.LastCharacterWasCR
@@ -2011,77 +2299,18 @@ references:
   commentId: T:System.Boolean
   parent: System
   isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.boolean
-  name: bool
-  nameWithType: bool
-  fullName: bool
-  nameWithType.vb: Boolean
-  fullName.vb: Boolean
-  name.vb: Boolean
-- uid: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.IncrementLineAndOffsetNumbers(System.String)
-  commentId: M:Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.IncrementLineAndOffsetNumbers(System.String)
-  isExternal: true
-  href: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.html#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_LineNumberTracker_IncrementLineAndOffsetNumbers_System_String_
-  name: IncrementLineAndOffsetNumbers(string)
-  nameWithType: LineNumberTracker.IncrementLineAndOffsetNumbers(string)
-  fullName: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.IncrementLineAndOffsetNumbers(string)
-  nameWithType.vb: LineNumberTracker.IncrementLineAndOffsetNumbers(String)
-  fullName.vb: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.IncrementLineAndOffsetNumbers(String)
-  name.vb: IncrementLineAndOffsetNumbers(String)
-  spec.csharp:
-  - uid: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.IncrementLineAndOffsetNumbers(System.String)
-    name: IncrementLineAndOffsetNumbers
-    isExternal: true
-    href: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.html#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_LineNumberTracker_IncrementLineAndOffsetNumbers_System_String_
-  - name: (
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: )
-  spec.vb:
-  - uid: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.IncrementLineAndOffsetNumbers(System.String)
-    name: IncrementLineAndOffsetNumbers
-    isExternal: true
-    href: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.html#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_LineNumberTracker_IncrementLineAndOffsetNumbers_System_String_
-  - name: (
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: )
-- uid: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.GetLocationBeforeCurrentContent
-  commentId: M:Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.GetLocationBeforeCurrentContent
-  isExternal: true
-  href: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.html#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_LineNumberTracker_GetLocationBeforeCurrentContent
-  name: GetLocationBeforeCurrentContent()
-  nameWithType: LineNumberTracker.GetLocationBeforeCurrentContent()
-  fullName: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.GetLocationBeforeCurrentContent()
-  spec.csharp:
-  - uid: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.GetLocationBeforeCurrentContent
-    name: GetLocationBeforeCurrentContent
-    isExternal: true
-    href: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.html#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_LineNumberTracker_GetLocationBeforeCurrentContent
-  - name: (
-  - name: )
-  spec.vb:
-  - uid: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.GetLocationBeforeCurrentContent
-    name: GetLocationBeforeCurrentContent
-    isExternal: true
-    href: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.html#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_LineNumberTracker_GetLocationBeforeCurrentContent
-  - name: (
-  - name: )
+  name: Boolean
+  nameWithType: Boolean
+  fullName: System.Boolean
 - uid: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.LineBeforeIncrement*
   commentId: Overload:Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.LineBeforeIncrement
   isExternal: true
-  href: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.html#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_LineNumberTracker_LineBeforeIncrement
   name: LineBeforeIncrement
   nameWithType: LineNumberTracker.LineBeforeIncrement
   fullName: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.LineBeforeIncrement
 - uid: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.OffsetBeforeIncrement*
   commentId: Overload:Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.OffsetBeforeIncrement
   isExternal: true
-  href: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.html#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_LineNumberTracker_OffsetBeforeIncrement
   name: OffsetBeforeIncrement
   nameWithType: LineNumberTracker.OffsetBeforeIncrement
   fullName: Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.LineNumberTracker.OffsetBeforeIncrement
