@@ -1,0 +1,254 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Sub Content Component Builder </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Sub Content Component Builder ">
+    <meta name="generator" content="docfx 2.59.3.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="sub-content-component-builder">Sub Content Component Builder</h1>
+
+<p>An example of a sub-content component builder is shown below - note the implementation of <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.ISubContentComponentBuilder.html">ISubContentComponentBuilder</a></p>
+<div class="tabGroup" id="tabgroup_sUTI5b6PSB">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_sUTI5b6PSB_tabid-1" role="tab" aria-controls="tabpanel_sUTI5b6PSB_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_sUTI5b6PSB_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-cs">using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Sdl.FileTypeSupport.Framework.IntegrationApi;
+using Sdl.FileTypeSupport.Framework;
+using Sdl.Core.Globalization;
+using Sdl.FileTypeSupport.Framework.NativeApi;
+
+namespace Sdk.Snippets.Native
+{
+    [FileTypeComponentBuilderAttribute(Id = &quot;SimpleText_SubContentComponentBuilder_Id&quot;,
+                                       Name = &quot;SimpleText_FilterComponentBuilderExtension_Name&quot;,
+                                       Description = &quot;SimpleText_FilterComponentBuilderExtension_Description&quot;)]
+    class SimpleTextSubContentComponentBuilder : IFileTypeComponentBuilder, ISubContentComponentBuilder
+    {
+        // AbstractGenerator not supported by SubContentComponentBuilder
+        public IAbstractGenerator BuildAbstractGenerator(string name)
+        {
+            return null;
+        }
+
+        // AdditionalGeneratorsInfo not supported by SubContentComponentBuilder
+        public IAdditionalGeneratorsInfo BuildAdditionalGeneratorsInfo(string name)
+        {
+            return null;
+        }
+
+        // BilingualGenerator not supported by SubContentComponentBuilder
+        public IBilingualDocumentGenerator BuildBilingualGenerator(string name)
+        {
+            return null;
+        }
+
+        // FileExtractor not supported by SubContentComponentBuilder
+        public IFileExtractor BuildFileExtractor(string name)
+        {
+            return null;
+        }
+
+        // FileGenerator not supported by SubContentComponentBuilder
+        public IFileGenerator BuildFileGenerator(string name)
+        {
+            return null;
+        }
+
+        // FileSniffer not supported by SubContentComponentBuilder
+        public INativeFileSniffer BuildFileSniffer(string name)
+        {
+            return null;
+        }
+
+        public IFileTypeInformation BuildFileTypeInformation(string name)
+        {
+            var info = this.FileTypeManager.BuildFileTypeInformation();
+
+            info.FileTypeDefinitionId = new FileTypeDefinitionId(&quot;Simple Text Embedded Content 1.0.0.0&quot;);
+            info.FileTypeName = new LocalizableString(&quot;Simple text embedded content&quot;);
+            info.FileTypeDocumentName = new LocalizableString(&quot;Test text embedded content&quot;);
+            info.FileTypeDocumentsName = new LocalizableString(&quot;Simple text embedded content&quot;);
+            info.Description = new LocalizableString(&quot;This sample sub-content processor handles simple text&quot;);
+            info.Icon = new IconDescriptor(&quot;assembly://Sdl.Sdk.FileTypeSupport.Samples.SimpleText/Sdl.Sdk.FileTypeSupport.Samples.SimpleText.SimpleText.ico&quot;);
+
+            info.WinFormSettingsPageIds = new string[]
+            {
+                &quot;SimpleText_Settings&quot;,
+            };
+
+            return info;
+        }
+
+        // PreviewApplication not supported by SubContentComponentBuilder
+        public IAbstractPreviewApplication BuildPreviewApplication(string name)
+        {
+            return null;
+        }
+
+        // PreviewControl not supported by SubContentComponentBuilder
+        public IAbstractPreviewControl BuildPreviewControl(string name)
+        {
+            return null;
+        }
+
+        // PreviewSetsFactory not supported by SubContentComponentBuilder
+        public IPreviewSetsFactory BuildPreviewSetsFactory(string name)
+        {
+            return null;
+        }
+
+        // QuickTagsFactory not supported by SubContentComponentBuilder
+        public IQuickTagsFactory BuildQuickTagsFactory(string name)
+        {
+            return null;
+        }
+
+        // VerifierCollection not supported by SubContentComponentBuilder
+        public IVerifierCollection BuildVerifierCollection(string name)
+        {
+            return null;
+        }
+
+        public IFileTypeManager FileTypeManager { get; set; }
+
+        public IFileTypeDefinition FileTypeDefinition { get; set; }
+
+        public ISubContentExtractor BuildSubContentExtractor(string name)
+        {
+            var parser = new SimpleSubContentTextParser();
+            var extractor = this.FileTypeManager.BuildSubContentExtractor(this.FileTypeManager.BuildNativeSubContentExtractor(parser), this);
+            return extractor;
+        }
+
+        public ISubContentGenerator BuildSubContentGenerator(string name)
+        {
+            return this.FileTypeManager.BuildSubContentGenerator(this.FileTypeManager.BuildNativeSubContentGenerator(new SimpleSubContentTextWriter()));
+        }
+    }
+}
+</code></pre></section>
+</div>
+<div class="NOTE"><h5>Note</h5><p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+</div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/17.1/apiconcepts/filetypesupport/sub_content_component_builder.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

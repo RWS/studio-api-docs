@@ -1,0 +1,352 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Studio Look  &amp; Feel in your 3rd party plugin </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Studio Look  &amp; Feel in your 3rd party plugin ">
+    <meta name="generator" content="docfx 2.59.3.0">
+    
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+    
+    <meta property="docfx:rel" content="../../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="studio-look---feel-in-your-3rd-party-plugin">Studio Look  &amp; Feel in your 3rd party plugin</h1>
+
+<p>Together with the release of Trados Studio 2019 SR2 two new APIs were exposed which will allows you to take advantage of Studio styles in your plugin:</p>
+<ul>
+<li><strong><code>Sdl.Desktop.Platform.Styles.dll</code></strong></li>
+<li><strong><code>Sdl.Desktop.Platform.Controls.dll</code></strong></li>
+</ul>
+<div class="NOTE"><h5>Note</h5><p>In order to use Studio styles your plugin <code>must be written in WPF</code>.</p>
+<p>Sample application can be found in public AppStore Community repository on <a href="https://github.com/RWS/Sdl-Community/tree/master/Code%20samples/StudioStyles/StudioStyles">GitHub</a>.</p>
+</div>
+<p>Throughout this article we will be presenting some Studio <code>styles</code> and <code>controls</code> and how you can use them in your application.</p>
+<h2 id="sdldesktopplatformstylesdll">Sdl.Desktop.Platform.Styles.dll</h2>
+<p>In this API were released following Studio resources:</p>
+<ul>
+<li>Buttons  </li>
+<li>Checkbox </li>
+<li>Combobox </li>
+<li>DataGrid </li>
+<li>Generic Error style</li>
+<li>Groupbox </li>
+<li>NumericUpDown </li>
+<li>Progress Ring (Asterisk)</li>
+<li>Radio Button</li>
+<li>TextBlock</li>
+<li>TextBox</li>
+<li>TreeView</li>
+</ul>
+<h2 id="how-to-use-resource-styles-in-your-plugin">How to use resource styles in your plugin?</h2>
+<p>First of all you have to import <code>all the .xaml files you want to use</code> in your application:</p>
+<pre><code class="lang-xml">&lt;ResourceDictionary&gt;
+    &lt;ResourceDictionary.MergedDictionaries&gt;
+        &lt;ResourceDictionary Source=&quot;/Sdl.Desktop.Platform.Styles;component/ButtonResources.xaml&quot;/&gt;
+        &lt;ResourceDictionary Source=&quot;/Sdl.Desktop.Platform.Styles;component/TextBoxResources.xaml&quot;/&gt;
+        &lt;ResourceDictionary Source=&quot;/Sdl.Desktop.Platform.Styles;component/TextBlockResources.xaml&quot;/&gt;
+        &lt;ResourceDictionary Source=&quot;/Sdl.Desktop.Platform.Styles;component/GroupboxResources.xaml&quot;/&gt;
+        &lt;/ResourceDictionary.MergedDictionaries&gt;
+&lt;/ResourceDictionary&gt;
+</code></pre><h4 id="buttons">Buttons</h4>
+<p>There are <code>several</code> buttons styles exposed:</p>
+<ul>
+<li>Sdl.Button.PrimaryStyle</li>
+<li>Sdl.Button.SecondaryStyle</li>
+<li>Sdl.Button.HyperLinkStyle</li>
+<li>Sdl.Button.GeneralStyle</li>
+<li>Sdl.Button.WindowControlStyle</li>
+</ul>
+<p><img style="display:block; " src="images/Buttons.png"></p>
+<p>After you import the resource you can use it as follows:</p>
+<pre><code class="lang-xml">&lt;Button Style=&quot;{DynamicResource Sdl.Button.PrimaryStyle}&quot; Command=&quot;{Binding AddCommand}&quot; Content=&quot;Add TM&quot; HorizontalAlignment=&quot;Right&quot;/&gt;
+</code></pre><h4 id="textboxes">Textboxes</h4>
+<p>There are <code>several</code> textbox styles exposed, bellow you can see few examples:</p>
+<ul>
+<li>Sdl.TextBlock.TitleStyle</li>
+<li>Sdl.TextBlock.InformationTextEmphasisStyle</li>
+<li>Sdl.TextBlock.HyperLinkTextStyle</li>
+<li>Sdl.TextBlock.InformationTitleStyle</li>
+<li>Sdl.TextBlock.SubtitleStyle</li>
+</ul>
+<p><img style="display:block; " src="images/TextBlock.png"></p>
+<p>After you import the resource you can use it as follows:</p>
+<pre><code class="lang-xml">&lt;TextBlock Style=&quot;{DynamicResource Sdl.TextBlock.TitleStyle}&quot; Text=&quot;Title style&quot; FontSize=&quot;14&quot;/&gt;
+</code></pre><h4 id="data-grid">Data grid</h4>
+<p><img style="display:block; " src="images/DataGrid.png"></p>
+<p>Bellow you can see an data grid code example</p>
+<pre><code class="lang-xml">&lt;DataGrid Style=&quot;{DynamicResource Sdl.DataGrid.GenericStyle}&quot; Margin=&quot;10&quot;
+    ItemsSource=&quot;{Binding PluginsCollection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}&quot;
+    SelectionUnit=&quot;FullRow&quot;
+    GridLinesVisibility=&quot;None&quot;&gt;
+        &lt;DataGrid.Columns&gt;
+            &lt;DataGridTextColumn Width=&quot;*&quot; Header=&quot;Plugin name&quot; Binding=&quot;{Binding PluginName}&quot;/&gt;
+            &lt;DataGridTextColumn Width=&quot;*&quot; Header=&quot;Studio versions&quot; Binding=&quot;{Binding StudioVersion}&quot;/&gt;
+        &lt;/DataGrid.Columns&gt;
+&lt;/DataGrid&gt;
+</code></pre><h4 id="groupbox-and-radiobuttons">Groupbox and RadioButtons</h4>
+<p><img style="display:block; " src="images/GroupBox.png"></p>
+<p>Code sample</p>
+<pre><code class="lang-xml">&lt;GroupBox Style=&quot;{DynamicResource Sdl.GroupBox.SingleLineStyle}&quot; Header=&quot;Studio versions&quot; Width=&quot;300&quot; Margin=&quot;10&quot;&gt;
+    &lt;StackPanel&gt;
+        &lt;RadioButton Style=&quot;{DynamicResource Sdl.RadioButton.GenericStyle}&quot; GroupName=&quot;Studio&quot; Content=&quot;Studio 2019&quot; Margin=&quot;5&quot;/&gt;
+        &lt;RadioButton Style=&quot;{DynamicResource Sdl.RadioButton.GenericStyle}&quot; GroupName=&quot;Studio&quot; Content=&quot;Studio 2021&quot; Margin=&quot;5&quot;/&gt;
+    &lt;/StackPanel&gt;
+&lt;/GroupBox&gt;
+</code></pre><h2 id="sdldesktopplatformcontrolsdll">Sdl.Desktop.Platform.Controls.dll</h2>
+<p>In this API were released following Studio <code>controls</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Studio Control</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Numeric UpDown</td>
+<td>Represents a Windows box that displays numeric values. <code>Up</code> and <code>Down</code> buttons are available to increase/decrease the value from the box.</td>
+</tr>
+<tr>
+<td>TextBoxWatermark</td>
+<td>Custom textbox which display a custom set text as watermark and has a <code>Clear</code> button.</td>
+</tr>
+<tr>
+<td>Bindable PasswordBox</td>
+<td>Custom password box which allows you to obtain the Password in your viewmodel.</td>
+</tr>
+<tr>
+<td>Uniform WrapPanel</td>
+<td>Represents a wrapPanel which set the width of all childs to be the higher width between them</td>
+</tr>
+<tr>
+<td>SortWise DataGrid</td>
+<td>DataGrid with sorting capability</td>
+</tr>
+</tbody>
+</table>
+<p>In this API were released following Studio <code>behaviours</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Studio Behaviour</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DragDrop</td>
+<td>This behaviour easily allows you to get the dropped files or directories. First thing you need to do is to import the behaviours exposed by the API in your project, and attach it to a grid for example. You need to add your own <code>implementation</code> for DragDropCommand.</td>
+</tr>
+<tr>
+<td>WebBrowser Content Source</td>
+<td>With this behaviour you can pass <code>HTML</code> code as source content to web browser.</td>
+</tr>
+<tr>
+<td>WebBrowser Bindable Source</td>
+<td>This behaviour allows you to easily set the navigation URI in your view model.</td>
+</tr>
+<tr>
+<td>TextBlock AutoToolTip</td>
+<td>Using this behaviour you can add a tooltip to a textblock.</td>
+</tr>
+<tr>
+<td>WindowLoaded</td>
+<td>With behaviour you can attach to your window loaded event.</td>
+</tr>
+<tr>
+<td>TreeView SelectedItem Changed</td>
+<td>With behaviour you can attachto SelectedItem Changed event of a treeview.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="how-to-use-studio-controls--in-your-plugin">How to use Studio Controls  in your plugin?</h2>
+<p>First of all you have to import <code>the api</code> in your application:</p>
+<pre><code class="lang-xml">&lt;xmlns:controls=&quot;clr-namespace:Sdl.Desktop.Platform.Controls.Controls;assembly=Sdl.Desktop.Platform.Controls&quot;/&gt;
+</code></pre><h4 id="watermark-textbox">Watermark TextBox</h4>
+<pre><code class="lang-xml">&lt;xmlns:watermarkTextBox=&quot;clr-namespace:Sdl.Desktop.Platform.Controls.Controls.WatermarkTextBox;assembly=Sdl.Desktop.Platform.Controls&quot;/&gt;
+
+&lt;TextBox 
+    Style=&quot;{DynamicResource WatermarkTextBox}&quot; 
+    Text=&quot;{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}&quot;
+    watermarkTextBox:TextBoxWatermarkHelper.WatermarkText =&quot;{Binding SearchWatermarkText}&quot;               
+/&gt;
+</code></pre><p>Above code is rendered as follows:</p>
+<p><img style="display:block; " src="images/TextBox.png"></p>
+<p>After you start to type, <code>Clear</code> button will appear in the textbox, you need to give your own implementetion for clear command. An example of the command can be found bellow (<a href="https://github.com/RWS/Sdl-Community/blob/master/Code%20samples/StudioStyles/StudioStyles/Commands/CommandHandler.cs">CommandHandler implementation</a>):</p>
+<pre><code class="lang-cs">private ICommand _clearCommand;
+
+public ICommand ClearCommand =&gt; _clearCommand ?? (_clearCommand = new CommandHandler(Clear, true));
+
+private void Clear()
+{
+    SearchText = string.Empty;
+    SearchWatermarkText = &quot;Trados Studio 2021&quot;;
+}
+</code></pre><h4 id="bindable-passwordbox">Bindable PasswordBox</h4>
+<p><img style="display:block; " src="images/Password.png"></p>
+<pre><code class="lang-xml">&lt;controls:BindablePasswordBox 
+    Style=&quot;{DynamicResource Sdl.BindablePasswordBox.GenericStyle}&quot; 
+    Password=&quot;{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}&quot;
+    PasswordMaxLength=&quot;64&quot;
+/&gt;
+</code></pre><p>In your view model you&#39;ll have <code>Password</code> property:</p>
+<pre><code class="lang-cs">private string _password;
+
+public string Password
+{
+    get =&gt; _password;
+    set
+    {
+        _password = value;
+        OnPropertyChanged(nameof(Password));
+    }
+}
+</code></pre><h4 id="numeric-updown">Numeric UpDown</h4>
+<p><img style="display:block; " src="images/Numeric.png"></p>
+<pre><code class="lang-xml">&lt;controls:NumericUpDown Style=&quot;{DynamicResource Sdl.NumericUpDown.Generic}&quot; Width=&quot;150&quot; HorizontalAlignment=&quot;Left&quot; Margin=&quot;10&quot;/&gt;
+</code></pre><h4 id="dragdrop-behaviour">Drag&amp;Drop Behaviour</h4>
+<pre><code class="lang-xml">&lt;xmlns:behaviours=&quot;clr-namespace:Sdl.Desktop.Platform.Controls.Behaviours;assembly=Sdl.Desktop.Platform.Controls&quot;/&gt;
+
+&lt;Grid Height=&quot;100&quot; Background=&quot;GhostWhite&quot; AllowDrop=&quot;True&quot; behaviours:DragDropBehaviour.DragDrop=&quot;{Binding DragDropCommand}&quot;/&gt;
+</code></pre><p>In the example bellow we implemented DragDropCommand command in view model <a href="https://github.com/RWS/Sdl-Community/blob/master/Code%20samples/StudioStyles/StudioStyles/Commands/RelayCommand.cs">RelayCommand implementation</a>:</p>
+<pre><code class="lang-cs">public ICommand DragDropCommand =&gt; _dragDropCommand ?? (_dragDropCommand = new RelayCommand(DragAndDrop));
+
+private void DragAndDrop(object parameter)
+{
+    if (parameter == null || !(parameter is DragEventArgs eventArgs)) return;
+
+    var fileDrop = eventArgs.Data.GetData(DataFormats.FileDrop, false);
+    if (fileDrop is string[] filesOrDirectories &amp;&amp; filesOrDirectories.Length &gt; 0)
+    {
+        foreach (var fullPath in filesOrDirectories)
+        {
+            var fileAttributes = File.GetAttributes(fullPath);
+            if (fileAttributes.HasFlag(FileAttributes.Directory))
+            {
+                //is directory
+            }
+            //is file
+        }
+    }
+}
+</code></pre><h4 id="window-loaded-behaviour">Window loaded Behaviour</h4>
+<pre><code class="lang-xml">&lt;behaviours:WindowLoadedBehaviour.Loaded =&quot;{Binding WindowLoadedCommand}&quot;/&gt;
+</code></pre><h4 id="webbrowser-bindablesource-behavior">WebBrowser BindableSource Behavior</h4>
+<pre><code class="lang-xml">&lt;WebBrowser behaviours:WebBrowserBindableSourceBehavior.BindableSource =&quot;{Binding Uri, UpdateSourceTrigger=PropertyChanged}&quot;/&gt;
+</code></pre><h4 id="textblock-autotooltip-behavior">TextBlock AutoToolTip Behavior</h4>
+<pre><code class="lang-xml">&lt;TextBox behaviours:TextBlockAutoToolTipBehavior.AutoTooltip=&quot;True&quot; ToolTip=&quot;This is a tooltip&quot; Text=&quot;Trados Studio 2021 /&gt;
+</code></pre><h4 id="webbrowser-content-source">WebBrowser Content Source</h4>
+<pre><code class="lang-xml">&lt;WebBrowser behaviours:WebBrowserContentSource.Html =&quot;{Binding Content, UpdateSourceTrigger=PropertyChanged}&quot;/&gt;
+</code></pre><pre><code class="lang-cs">Content =&quot;&lt;html&gt;\r\n&lt;body&gt;\r\n\r\n&lt;p&gt;This is a paragraph.&lt;/p&gt;\r\n&lt;p&gt;This is another paragraph.&lt;/p&gt;\r\n\r\n&lt;/body&gt;\r\n&lt;/html&gt;&quot;;
+</code></pre><p>Above code is rendered as follows:</p>
+<p><img style="display:block; " src="images/WebBrowser.png"></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/17.1/articles/hints_tips/Studio_Styles/StudioStyles.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

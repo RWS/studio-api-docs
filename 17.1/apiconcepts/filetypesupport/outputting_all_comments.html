@@ -1,0 +1,621 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Outputting all Comments </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Outputting all Comments ">
+    <meta name="generator" content="docfx 2.59.3.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="outputting-all-comments">Outputting all Comments</h1>
+
+<p>In this chapter we will finalize the writer class by making it write any comments attached to the units of the original BIL file as well as any comments that were added to the target segments during translation in Trados Studio.</p>
+<h2 id="about-comments">About Comments</h2>
+<p>According to the specifications of our fictitious BIL format (see <a href="about_the_example_bil_format.html">About the Example BIL Format</a>) a unit element may include one or more <code>comment</code> elements, each of which has its own id.</p>
+<p>In Trados Studio translators can add comments to target segments. The commented strings are then highlighted with a specific background colour. The comment text is visible, for example, when the user moves the mouse pointer over the commented string (see illustration below).</p>
+<p><img src="images/Comment.jpg" alt="Comment"></p>
+<p>In a BIL file comments are attached to the <code>unit</code> elements. This is where we will add any comments found in a segment pair when generating the native target file.</p>
+<h2 id="extend-the-text-extractor-class">Extend the Text Extractor Class</h2>
+<p>When we implemented the <code>BilTextExtractor</code> class (see <a href="adding_the_text_extractor_class.html">Adding the Text Extractor Class</a>) we did not process any comments attached to the segments. We want to change this behavior by making the following additions to this class. As a unit might contain more than one comment, you should create a global string list object. Then add a <code>GetSegmentComment()</code> helper function. This function first clears the comments list, and then calls the &#39;visitor&#39; members to collect the required information from a given segment. Note that this function will later be called through the writer class.</p>
+<p>The <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IMarkupDataVisitor.html#Sdl_FileTypeSupport_Framework_BilingualApi_IMarkupDataVisitor_VisitCommentMarker_Sdl_FileTypeSupport_Framework_BilingualApi_ICommentMarker_">VisitCommentMarker</a> member, which we originally left empty, should look as shown below:</p>
+<div class="tabGroup" id="tabgroup_zxT3hWeX7v">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_zxT3hWeX7v_tabid-1" role="tab" aria-controls="tabpanel_zxT3hWeX7v_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_zxT3hWeX7v_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-cs">public void VisitCommentMarker(ICommentMarker commentMarker)
+{
+    for (int i = 0; i &lt; commentMarker.Comments.Count; i++)
+    {
+        _Comments.Add(commentMarker.Comments.GetItem(i).Text);
+    }
+    VisitChildren(commentMarker);
+}
+</code></pre></section>
+</div>
+<p>This member actually &#39;visits&#39; the segments and adds any comments found to our comments string list.</p>
+<h2 id="enhance-the-writer-class">Enhance the Writer Class</h2>
+<p>Now we need to make some additions to our writer class. Start by adding yet another helper function called, e.g. <code>UpdateComments()</code>. This helper function needs to be invoked from <code>CreateParagraphUnit()</code> and takes the current paragraph unit and the <code>unit</code> XML node as parameters, i.e.:</p>
+<div class="tabGroup" id="tabgroup_zxT3hWeX7v-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_zxT3hWeX7v-1_tabid-2" role="tab" aria-controls="tabpanel_zxT3hWeX7v-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_zxT3hWeX7v-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<pre><code class="lang-cs">UpdateComments(paragraphUnit, xmlUnit);
+</code></pre></section>
+</div>
+<p>The <code>UpdateComments()</code> helper function first &#39;wipes the slate clean&#39; by removing any existing comments from the original BIL file:</p>
+<div class="tabGroup" id="tabgroup_zxT3hWeX7v-2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_zxT3hWeX7v-2_tabid-3" role="tab" aria-controls="tabpanel_zxT3hWeX7v-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_zxT3hWeX7v-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<pre><code class="lang-cs">// clear the original comments
+XmlNodeList comments = unitNode.SelectNodes(&quot;comment&quot;);
+foreach (XmlNode item in comments)
+{
+    ((XmlElement)unitNode).RemoveChild(item);
+}
+</code></pre></section>
+</div>
+<p>Now we need to compile a consolidated list of all comments (from the original BIL file) and of those comments that were added by the translator. Remember that each <code>comment</code> element in the BIL file requires an id, which we assign through a <code>commentID</code> integer variable.</p>
+<p>First, we retrieve the comments that we added from the original BIL file and that are attached to the paragraph units:</p>
+<div class="tabGroup" id="tabgroup_zxT3hWeX7v-3">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_zxT3hWeX7v-3_tabid-4" role="tab" aria-controls="tabpanel_zxT3hWeX7v-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_zxT3hWeX7v-3_tabid-4" role="tabpanel" data-tab="tabid-4">
+<pre><code class="lang-cs">int commentID = 1;
+if (paragraphUnit.Properties.Comments != null)
+{
+    for (int i = 0; i &lt; paragraphUnit.Properties.Comments.Count; i++)
+    {
+        IComment actualComment = paragraphUnit.Properties.Comments.GetItem(i);
+        AddComment(unitNode, actualComment.Text, commentID);
+        commentID++;
+    }
+}
+</code></pre></section>
+</div>
+<p>Next, we collect the comments that the translator added in the intermediary (SDLXliff) file to the target segments. Note that we invoke the corresponding function from our <code>BilTextExtractor</code> class, which &#39;visits&#39; the markup elements found within a segment.</p>
+<div class="tabGroup" id="tabgroup_zxT3hWeX7v-4">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_zxT3hWeX7v-4_tabid-5" role="tab" aria-controls="tabpanel_zxT3hWeX7v-4_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_zxT3hWeX7v-4_tabid-5" role="tabpanel" data-tab="tabid-5">
+<pre><code class="lang-cs">foreach (ISegmentPair segmentPair in paragraphUnit.SegmentPairs)
+{
+    foreach (string comment in _textExtractor.GetSegmentComment(segmentPair.Target))
+    {
+        AddComment(unitNode, comment, commentID);
+        commentID++;
+    }
+}
+</code></pre></section>
+</div>
+<p>The complete helper function looks as shown below:</p>
+<div class="tabGroup" id="tabgroup_zxT3hWeX7v-5">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_zxT3hWeX7v-5_tabid-6" role="tab" aria-controls="tabpanel_zxT3hWeX7v-5_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_zxT3hWeX7v-5_tabid-6" role="tabpanel" data-tab="tabid-6">
+<pre><code class="lang-cs">private void UpdateComments(IParagraphUnit paragraphUnit, XmlNode unitNode)
+{
+    #region &quot;clear&quot;
+    // clear the original comments
+    XmlNodeList comments = unitNode.SelectNodes(&quot;comment&quot;);
+    foreach (XmlNode item in comments)
+    {
+        ((XmlElement)unitNode).RemoveChild(item);
+    }
+    #endregion
+
+
+    // loop through the comments in the SDLXLIFF paragraph units (if available)
+    // these comments were added from the original BIL file 
+    // during parsing (i.e. forward conversion)
+    #region &quot;original comments&quot;
+    int commentID = 1;
+    if (paragraphUnit.Properties.Comments != null)
+    {
+        for (int i = 0; i &lt; paragraphUnit.Properties.Comments.Count; i++)
+        {
+            IComment actualComment = paragraphUnit.Properties.Comments.GetItem(i);
+            AddComment(unitNode, actualComment.Text, commentID);
+            commentID++;
+        }
+    }
+    #endregion
+
+
+    // generate the consolidated list of comments from the original 
+    // BIL file and any comments added by the translator in the SDLXLIFF file
+    #region &quot;tranlator comments&quot;
+    foreach (ISegmentPair segmentPair in paragraphUnit.SegmentPairs)
+    {
+        foreach (string comment in _textExtractor.GetSegmentComment(segmentPair.Target))
+        {
+            AddComment(unitNode, comment, commentID);
+            commentID++;
+        }
+    }
+    #endregion
+}
+</code></pre></section>
+</div>
+<p>Note that the above <code>UpdateComments()</code> function calls a separate <code>AddComment()</code> helper function, which generates the actual comment based on the comment text and the comment id, which is then added to the current <code>unit</code> element of the target BIL file. This helper function looks as shown below:</p>
+<div class="tabGroup" id="tabgroup_zxT3hWeX7v-6">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_zxT3hWeX7v-6_tabid-7" role="tab" aria-controls="tabpanel_zxT3hWeX7v-6_tabid-7" data-tab="tabid-7" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_zxT3hWeX7v-6_tabid-7" role="tabpanel" data-tab="tabid-7">
+<pre><code class="lang-cs">private void AddComment(XmlNode xmlUnit, string commentText, int commentID)
+{
+    XmlElement commentElement = _targetFile.CreateElement(&quot;comment&quot;);
+    XmlAttribute commentIdAttrib = _targetFile.CreateAttribute(&quot;id&quot;);
+    commentIdAttrib.Value = commentID.ToString();
+    commentElement.Attributes.Append(commentIdAttrib);
+    commentElement.InnerText = commentText;
+    xmlUnit.AppendChild(commentElement);
+}
+</code></pre></section>
+</div>
+<h2 id="putting-it-all-together">Putting it All Together</h2>
+<p>The complete and finished writer class should now look as shown below:</p>
+<div class="tabGroup" id="tabgroup_zxT3hWeX7v-7">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_zxT3hWeX7v-7_tabid-8" role="tab" aria-controls="tabpanel_zxT3hWeX7v-7_tabid-8" data-tab="tabid-8" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_zxT3hWeX7v-7_tabid-8" role="tabpanel" data-tab="tabid-8">
+<pre><code class="lang-cs">using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Xml;
+using Sdl.FileTypeSupport.Framework.BilingualApi;
+using Sdl.FileTypeSupport.Framework.NativeApi;
+using Sdl.Core.Globalization;
+
+namespace Sdk.FileTypeSupport.Samples.Bil
+{
+    class BilWriter : AbstractBilingualFileTypeComponent, IBilingualWriter, INativeOutputSettingsAware
+    {
+        #region &quot;global&quot;
+        private IPersistentFileConversionProperties _originalFileProperties;
+        private INativeOutputFileProperties _nativeFileProperties;
+        private XmlDocument _targetFile;
+        private BilTextExtractor _textExtractor;
+        #endregion
+
+        #region &quot;INativeOutputSettingsAware members&quot;
+        public void GetProposedOutputFileInfo(IPersistentFileConversionProperties fileProperties, IOutputFileInfo proposedFileInfo)
+        {
+            _originalFileProperties = fileProperties;
+        }
+
+        public void SetOutputProperties(INativeOutputFileProperties properties)
+        {
+            _nativeFileProperties = properties;
+        }
+        #endregion
+
+
+        #region &quot;IBilingualWriter members&quot;
+
+
+        #region &quot;load file&quot;
+        public void SetFileProperties(IFileProperties fileInfo)
+        {
+            _targetFile = new XmlDocument();
+            _targetFile.Load(_originalFileProperties.OriginalFilePath);
+        }
+
+        #region &quot;initialize&quot;
+        public void Initialize(IDocumentProperties documentInfo)
+        {
+            _textExtractor = new BilTextExtractor();
+        }
+        #endregion
+
+        #endregion
+
+        #region &quot;paragraphs&quot;
+        public void ProcessParagraphUnit(IParagraphUnit paragraphUnit)
+        {
+            //old: string unitId = paragraphUnit.Properties.Contexts.Contexts[1].MetaData[&quot;UnitID&quot;];
+            string unitId = paragraphUnit.Properties.Contexts.Contexts[1].GetMetaData(&quot;UnitID&quot;);
+            XmlNode xmlUnit = _targetFile.SelectSingleNode(&quot;//unit[@id=&#39;&quot; + unitId + &quot;&#39;]&quot;);
+
+            // call helper function to generate the paragraph unit
+            CreateParagraphUnit(paragraphUnit, xmlUnit);
+            // call helper function to consolidate all comments
+            UpdateComments(paragraphUnit, xmlUnit);
+        }
+        #endregion
+
+        #region &quot;helper functions&quot;
+
+        #region &quot;create paragraph&quot;
+        private void CreateParagraphUnit(IParagraphUnit paragraphUnit, XmlNode xmlUnit)
+        {
+            XmlNode source = xmlUnit.SelectSingleNode(&quot;source&quot;);
+            XmlNode target = xmlUnit.SelectSingleNode(&quot;target&quot;);
+
+            // iterate all segment pairs
+            foreach (ISegmentPair segmentPair in paragraphUnit.SegmentPairs)
+            {
+                source.InnerXml = _textExtractor.GetPlainText(segmentPair.Source);
+                target.InnerXml = _textExtractor.GetPlainText(segmentPair.Target);
+                // update unit status
+                xmlUnit.SelectSingleNode(&quot;./@status&quot;).Value = UpdateStatus(segmentPair.Properties.ConfirmationLevel);
+            }
+        }
+        #endregion
+
+        #region &quot;confirmation level&quot;
+        private string UpdateStatus(ConfirmationLevel unitLevel)
+        {
+            string status = &quot;&quot;;
+
+            switch (unitLevel)
+            {
+                case ConfirmationLevel.Translated:
+                    status = &quot;exact&quot;;
+                    break;
+                case ConfirmationLevel.Draft:
+                    status = &quot;fuzzy&quot;;
+                    break;
+                case ConfirmationLevel.Unspecified:
+                    status = &quot;new&quot;;
+                    break;
+                default:
+                    status = &quot;new&quot;;
+                    break;
+            }
+
+            return status;
+        }
+        #endregion
+
+        #region &quot;update comments&quot;
+        private void UpdateComments(IParagraphUnit paragraphUnit, XmlNode unitNode)
+        {
+            #region &quot;clear&quot;
+            // clear the original comments
+            XmlNodeList comments = unitNode.SelectNodes(&quot;comment&quot;);
+            foreach (XmlNode item in comments)
+            {
+                ((XmlElement)unitNode).RemoveChild(item);
+            }
+            #endregion
+
+
+            // loop through the comments in the SDLXLIFF paragraph units (if available)
+            // these comments were added from the original BIL file 
+            // during parsing (i.e. forward conversion)
+            #region &quot;original comments&quot;
+            int commentID = 1;
+            if (paragraphUnit.Properties.Comments != null)
+            {
+                for (int i = 0; i &lt; paragraphUnit.Properties.Comments.Count; i++)
+                {
+                    IComment actualComment = paragraphUnit.Properties.Comments.GetItem(i);
+                    AddComment(unitNode, actualComment.Text, commentID);
+                    commentID++;
+                }
+            }
+            #endregion
+
+
+            // generate the consolidated list of comments from the original 
+            // BIL file and any comments added by the translator in the SDLXLIFF file
+            #region &quot;tranlator comments&quot;
+            foreach (ISegmentPair segmentPair in paragraphUnit.SegmentPairs)
+            {
+                foreach (string comment in _textExtractor.GetSegmentComment(segmentPair.Target))
+                {
+                    AddComment(unitNode, comment, commentID);
+                    commentID++;
+                }
+            }
+            #endregion
+        }
+        #endregion
+
+        #region &quot;add comment&quot;
+        private void AddComment(XmlNode xmlUnit, string commentText, int commentID)
+        {
+            XmlElement commentElement = _targetFile.CreateElement(&quot;comment&quot;);
+            XmlAttribute commentIdAttrib = _targetFile.CreateAttribute(&quot;id&quot;);
+            commentIdAttrib.Value = commentID.ToString();
+            commentElement.Attributes.Append(commentIdAttrib);
+            commentElement.InnerText = commentText;
+            xmlUnit.AppendChild(commentElement);
+        }
+        #endregion
+
+        #region &quot;save file and complete&quot;
+        public void FileComplete()
+        {
+            _targetFile.Save(_nativeFileProperties.OutputFilePath);
+            _targetFile = null;
+        }
+
+        public void Complete()
+        {
+
+        }
+        #endregion
+        #endregion
+
+        #endregion
+
+        #region IDisposable implementation
+
+        public void Dispose()
+        {
+            //don&#39;t need to dispose of anthing
+        }
+
+        #endregion
+    }
+}
+</code></pre></section>
+</div>
+<p>Below you also see the complete and finished text extractor class:</p>
+<div class="tabGroup" id="tabgroup_zxT3hWeX7v-8">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_zxT3hWeX7v-8_tabid-9" role="tab" aria-controls="tabpanel_zxT3hWeX7v-8_tabid-9" data-tab="tabid-9" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_zxT3hWeX7v-8_tabid-9" role="tabpanel" data-tab="tabid-9">
+<pre><code class="lang-cs">using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Sdl.FileTypeSupport.Framework.BilingualApi;
+
+namespace Sdk.FileTypeSupport.Samples.Bil
+{
+    class BilTextExtractor : IMarkupDataVisitor
+    {
+        #region &quot;comment list&quot;
+        private List&lt;string&gt; _Comments = new List&lt;string&gt;();
+
+        public List&lt;string&gt; GetSegmentComment(ISegment segment)
+        {
+            _Comments.Clear();
+            VisitChildren(segment);
+            return _Comments;
+        }
+        #endregion
+
+        #region &quot;plain text&quot;
+        internal StringBuilder PlainText
+        {
+            get;
+            set;
+        }
+
+        public string GetPlainText(ISegment segment)
+        {
+            PlainText = new StringBuilder(&quot;&quot;);
+            VisitChildren(segment);
+            return PlainText.ToString();
+        }
+        #endregion
+
+        // loops through all sub items of the container (IMarkupDataContainer)
+        #region &quot;loop&quot;
+        private void VisitChildren(IAbstractMarkupDataContainer container)
+        {
+            foreach (var item in container)
+            {
+                item.AcceptVisitor(this);
+            }
+        }
+        #endregion
+
+        #region IMarkupDataVisitor Members
+
+        #region &quot;text&quot;
+        public void VisitText(IText text)
+        {
+            PlainText.Append(text.Properties.Text);
+        }
+        #endregion
+
+        #region &quot;tagpairs&quot;
+        public void VisitTagPair(ITagPair tagPair)
+        {
+            PlainText.Append(&quot;&lt;&quot; + tagPair.StartTagProperties.TagContent + &quot;&gt;&quot;);
+            VisitChildren(tagPair);
+            PlainText.Append(&quot;&lt;/&quot; + tagPair.EndTagProperties.TagContent + &quot;&gt;&quot;);
+        }
+        #endregion
+
+
+        #region &quot;comments&quot;
+        public void VisitCommentMarker(ICommentMarker commentMarker)
+        {
+            for (int i = 0; i &lt; commentMarker.Comments.Count; i++)
+            {
+                _Comments.Add(commentMarker.Comments.GetItem(i).Text);
+            }
+            VisitChildren(commentMarker);
+        }
+        #endregion
+
+        #region &quot;left empty&quot;
+        public void VisitSegment(ISegment segment)
+        {
+            VisitChildren(segment);
+        }
+
+        public void VisitLocationMarker(ILocationMarker location)
+        {
+
+        }
+
+        public void VisitLockedContent(ILockedContent lockedContent)
+        {
+
+        }
+
+        public void VisitOtherMarker(IOtherMarker marker)
+        {
+
+        }
+
+        public void VisitPlaceholderTag(IPlaceholderTag tag)
+        {
+
+        }
+
+        public void VisitRevisionMarker(IRevisionMarker revisionMarker)
+        {
+
+        }
+        #endregion
+
+        #endregion
+    }
+}
+</code></pre></section>
+</div>
+<h2 id="see-also">See Also</h2>
+<p><a href="extracting_comments.html">Extracting Comments</a></p>
+<p><a href="adding_the_file_writer_class.html">Adding the File Writer Class</a></p>
+<p><a href="adding_the_text_extractor_class.html">Adding the Text Extractor Class</a></p>
+<div class="NOTE"><h5>Note</h5><p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+</div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/17.1/apiconcepts/filetypesupport/outputting_all_comments.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

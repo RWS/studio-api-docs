@@ -1,0 +1,223 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Adding TM Fields </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Adding TM Fields ">
+    <meta name="generator" content="docfx 2.59.3.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="adding-tm-fields">Adding TM Fields</h1>
+
+<p>This page shows how to add fields to a translation memory. For more information on what TM fields are and what their purpose is, please refer to <a href="configuring_translation_memories.html">Configuring Translation Memories</a>.</p>
+<h2 id="add-a-new-class">Add a New Class</h2>
+<p>As we are going to implement the functionality for defining TM fields in a separate class, create a new class called <code>TmFieldGenerator</code>. Let us assume that you need to add a picklist field called Customer and a free text field called <em>Project id</em>. Picklist fields are always associated with a pre-defined list of values, which can later be selected as required at runtime. Text fields, on the other hand, can be filled with any text. Apart from picklist and text, fields can also be of the types number and date/time. However, since picklist and text fields constitute the most common types, we fill focus on those two.</p>
+<p>The first step is decide whether you want to configure a field as a free text field or a picklist field. Fields that should be associated with only a limited number of values that should be used consistently, will usually be of the type picklist. Common examples are <em>Subject, Document type, Customer</em>, etc. Free text fields should be used when at runtime there are virtually limitless possible values. Common examples here are <em>Project id, Comment</em>, etc.</p>
+<p>Start by adding a public function called <code>AddFields</code>, which takes the file path and name as string parameter. This function can be called as shown below:</p>
+<div class="tabGroup" id="tabgroup_9NMhShFYpL">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_9NMhShFYpL_tabid-1" role="tab" aria-controls="tabpanel_9NMhShFYpL_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_9NMhShFYpL_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-cs">var tmFieldGenerator = new TmFieldGenerator();
+tmFieldGenerator.AddFields(_translationMemoryFilePath);
+</code></pre></section>
+</div>
+<p>In the <code>AddFields</code> function start by opening the TM to which the fields should be added. Our first field should be called <em>Customer</em>, and should be of the type list. Create a list field object through the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemory.FieldDefinitions.html">FieldDefinition</a> class.</p>
+<p>Apply the <strong>ValueType</strong> property to define the field as a picklist that can hold multiple values. Finally, add two values, e.g. <em>Microsoft</em> and <em>RWS</em>:</p>
+<div class="tabGroup" id="tabgroup_9NMhShFYpL-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_9NMhShFYpL-1_tabid-2" role="tab" aria-controls="tabpanel_9NMhShFYpL-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_9NMhShFYpL-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<pre><code class="lang-cs">var tm = new FileBasedTranslationMemory(tmPath);
+
+var listField = new FieldDefinition();
+listField.Name = &quot;Customer&quot;;
+listField.ValueType = FieldValueType.MultiplePicklist;
+listField.PicklistItems.Add(&quot;RWS&quot;);
+listField.PicklistItems.Add(&quot;Microsoft&quot;);
+</code></pre></section>
+</div>
+<p>The second example should be a free text field, which we call <em>Project id</em>. Therefore, create a free text field object:</p>
+<div class="tabGroup" id="tabgroup_9NMhShFYpL-2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_9NMhShFYpL-2_tabid-3" role="tab" aria-controls="tabpanel_9NMhShFYpL-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_9NMhShFYpL-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<pre><code class="lang-cs">var textField = new FieldDefinition();
+textField.Name = &quot;Project id&quot;;
+textField.ValueType = FieldValueType.MultipleString;
+</code></pre></section>
+</div>
+<p>Note that picklist and text fields can allow for only a single value or for multiple values, e.g. if a translation unit can be associated with several customers or project ids. In the above example we define the fields as multiple.</p>
+<h2 id="putting-it-all-together">Putting it All Together</h2>
+<p>The complete class should now look as shown below:</p>
+<div class="tabGroup" id="tabgroup_9NMhShFYpL-3">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_9NMhShFYpL-3_tabid-4" role="tab" aria-controls="tabpanel_9NMhShFYpL-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_9NMhShFYpL-3_tabid-4" role="tabpanel" data-tab="tabid-4">
+<pre><code class="lang-cs">namespace SDK.LanguagePlatform.Samples.TmAutomation
+{
+    using Sdl.LanguagePlatform.TranslationMemory;
+    using Sdl.LanguagePlatform.TranslationMemoryApi;
+
+    public class TmFieldGenerator
+    {
+        #region &quot;AddFields&quot;
+        public void AddFields(string tmPath)
+        {
+            #region &quot;listField&quot;
+            var tm = new FileBasedTranslationMemory(tmPath);
+
+            var listField = new FieldDefinition();
+            listField.Name = &quot;Customer&quot;;
+            listField.ValueType = FieldValueType.MultiplePicklist;
+            listField.PicklistItems.Add(&quot;RWS&quot;);
+            listField.PicklistItems.Add(&quot;Microsoft&quot;);
+            #endregion
+
+            #region &quot;textField&quot;
+            var textField = new FieldDefinition();
+            textField.Name = &quot;Project id&quot;;
+            textField.ValueType = FieldValueType.MultipleString;
+            #endregion
+
+            #region &quot;add&quot;
+            tm.FieldDefinitions.Add(listField);
+            tm.FieldDefinitions.Add(textField);
+            #endregion
+
+            tm.Save();
+        }
+        #endregion
+    }
+}
+</code></pre></section>
+</div>
+<h2 id="see-also">See Also</h2>
+<p><a href="configuring_translation_memories.html">Configuring Translation Memories</a></p>
+<p><a href="creating_a_file_based_translation_memory.html">Creating a File-based Translation Memory</a></p>
+<p><a href="tm_fields_templates.html">TM Fields Templates</a></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/17.1/apiconcepts/translationmemory/adding_tm_fields.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

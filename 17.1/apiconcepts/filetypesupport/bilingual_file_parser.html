@@ -1,0 +1,190 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>The Bilingual File Parser </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="The Bilingual File Parser ">
+    <meta name="generator" content="docfx 2.59.3.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="the-bilingual-file-parser">The Bilingual File Parser</h1>
+
+<p>The bilingual parser is used for localizable content extraction. While the native parser allows you to extract source related localizable content, the bilingual parser allows you to set source and target related localizable content, group this content into the paragraph units and the segments.</p>
+<h2 id="writing-a-bilingual-parser">Writing a bilingual parser</h2>
+<p>When writing filters to use the Bilingual API you must first derive your parser class from the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualParser.html">IBilingualParser</a> and <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentProcessor.html">IBilingualContentProcessor</a> interfaces. These two interfaces form the core of the work that is done by a Bilingual parser.</p>
+<p>Some other interaces may be also required such as <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.AbstractBilingualFileTypeComponent.html">AbstractBilingualFileTypeComponent</a> or <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.html">INativeContentCycleAware</a>.</p>
+<p>However, the simplest way to implement a Bilingual parser is to derive from the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.AbstractBilingualFileTypeComponent.html">AbstractBilingualFileTypeComponent</a> class and the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualParser.html">IBilingualParser</a> and <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.html">INativeContentCycleAware</a> interface only and use the helper functions and properties of the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.AbstractBilingualFileTypeComponent.html">AbstractBilingualFileTypeComponent</a> class. A parser normally derives from the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.html">INativeContentCycleAware</a> interface which provides the parser with additional information such as the original file path name, source and target language and encoding and class methods that are called during key phases of the parsing process to enable your filter to manage its initialisation flow-control and clean-up. You should also derive from the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.ISettingsAware.html">ISettingsAware</a> interface if you have any settings associated with this parser. Of course, you will need to create a UI to set the settings as well. Please see <a href="filter_ui_settings.html">Filter UI Settings</a> for more information.</p>
+<h2 id="deriving-from-abstractbilingualfiletypecomponent">Deriving from AbstractBilingualFileTypeComponent</h2>
+<p>The <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.AbstractBilingualFileTypeComponent.html">AbstractBilingualFileTypeComponent</a> base class provides an implementation of the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilder.html">IFileTypeComponentBuilder</a> and <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualFileTypeComponent.html">IBilingualFileTypeComponent</a> interfaces leaving only the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualParser.html">IBilingualParser</a> and <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.html">INativeContentCycleAware</a> interfaces to be implemented by the derived class. If this class is used as a base class then most of the properties and methods that a required to implement a Bilingual parser will be implemented in this <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.AbstractBilingualFileTypeComponent.html">AbstractBilingualFileTypeComponent</a> class or its base class. This leaves the following interfaces that still need to have their interface members implemented in your bilingual parser class: <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualParser.html">IBilingualParser</a>, IParser and <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.html">INativeContentCycleAware</a>.</p>
+<h2 id="implementing-ibilingualparser">Implementing IBilingualParser</h2>
+<p>The <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualParser.html">IBilingualParser</a> interface contains two essential properties for the bilingual parser.</p>
+<p>The first property <code>DocumentProperties</code> contains an <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IDocumentProperties.html">IDocumentProperties</a> interface that is set by the Bilingual API during the parser initialisation. This document properties interface is used to initialise the source and target languages.</p>
+<p>The second property <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentProcessor.html#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentProcessor_Output">Output</a> of type <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentProcessor.html">IBilingualContentProcessor</a> is used to tell the Bilingual API of all major file processing events that are encountered during the parsing of a bilingual document. The <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentProcessor.html">IBilingualContentProcessor</a> interface is implemented by content processors within the Bilingual API that work on the bilingual content model. To facilitate processing in a streaming manner without requiring the entire document object in memory at any time the parser will need to feed paragraph-units one by one through calls to <code>Output.ProcessParagraphUnit()</code>. However, document and file properties will need to be provided by the parser to the framework by calls to <code>Output.Initialize()</code> and <code>Output.SetFileProperties()</code> before processing any paragraph-units in each document or file. These events are outlined in the next few sections below.</p>
+<p><strong>IBilingualParser.DocumentProperties</strong></p>
+<p>The <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualParser.html#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualParser_DocumentProperties">DocumentProperties</a> interface of type <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualParser.html">IBilingualParser</a> is set by the File Type Support Framework when calling a bilingual parser but you will need to define this property and a private member to store its value. This document properties interface is then later used for storing the source and target languages and then initialising the output stream of the bilingual content processes.</p>
+<p><strong>IBilingualContentProcessor.Output</strong></p>
+<p>The <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentProcessor.html#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentProcessor_Output">Output</a> interface of type <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentProcessor.html">IBilingualContentProcessor</a> is also initialised by the File Type Support Framework and provides a coupling between the Bilingual Parser and all Bilingual Content Processors down the processing chain during the extract conversion phase from a bilingual file format to the default bilingual SDLXliff (<em>.xliff</em>) persistent file format. The <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentProcessor.html#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentProcessor_Output">Output</a> interface has several methods that are called throughout the file parsing operation.</p>
+<p><strong>Output.Initialize()</strong></p>
+<p>The Bilingual Parser should call <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.html#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentHandler_Initialize_Sdl_FileTypeSupport_Framework_BilingualApi_IDocumentProperties_">Initialize</a> method to forward the reference to the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualParser.html#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualParser_DocumentProperties">DocumentProperties</a> object for the document being processed. This is normally done after the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IDocumentProperties.html#Sdl_FileTypeSupport_Framework_BilingualApi_IDocumentProperties_SourceLanguage">SourceLanguage</a> and <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IDocumentProperties.html#Sdl_FileTypeSupport_Framework_BilingualApi_IDocumentProperties_TargetLanguage">TargetLanguage</a> have been set using information from the source file being parsed.</p>
+<div class="NOTE"><h5>Note</h5><p>This method should always be called, and always before any other calls on the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentProcessor.html#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentProcessor_Output">Output</a> interface.</p>
+</div>
+<p><strong>Output.SetFileProperties()</strong></p>
+<p>The Bilingual Parser should call <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.html#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentHandler_SetFileProperties_Sdl_FileTypeSupport_Framework_BilingualApi_IFileProperties_">SetFileProperties</a> method to provide the framework with a reference to the properties for each file in the document, before the paragraph-units of the file are processed by calling <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.html#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentHandler_ProcessParagraphUnit_Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_">ProcessParagraphUnit</a> as outlined below.</p>
+<p>The <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.html#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentHandler_SetFileProperties_Sdl_FileTypeSupport_Framework_BilingualApi_IFileProperties_">SetFileProperties</a> method takes an interface reference of type <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IFileProperties.html">IFileProperties</a> that needs to be created by the Bilingual Parser its self. This can be done using the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IDocumentItemFactory.html#Sdl_FileTypeSupport_Framework_BilingualApi_IDocumentItemFactory_CreateFileProperties">CreateFileProperties</a> method. However, a Bilingual parser will normally need to set the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPersistentFileConversionProperties.html">IPersistentFileConversionProperties</a> property of the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IFileProperties.html">IFileProperties</a> created object before passing it to <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.html#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentHandler_SetFileProperties_Sdl_FileTypeSupport_Framework_BilingualApi_IFileProperties_">SetFileProperties</a>. This property however can normally be obtained from the parameter of <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.html#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentHandler_SetFileProperties_Sdl_FileTypeSupport_Framework_BilingualApi_IFileProperties_">SetFileProperties</a> when your parser class is derived from <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.html">INativeContentCycleAware</a>. You may also need to update other properties of the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IFileProperties.html">IFileProperties</a> object such as source and target language Tool name and version and creation date.</p>
+<p><strong>Output.ProcessParagraphUnit()</strong></p>
+<p>The Bilingual Parser should call <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.html#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentHandler_ProcessParagraphUnit_Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_">ProcessParagraphUnit</a> method for each paragraph-unit found in the source file being parsed. The parameter of type <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.html">IParagraphUnit</a> must be created using a call to <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IDocumentItemFactory.html#Sdl_FileTypeSupport_Framework_BilingualApi_IDocumentItemFactory_CreateParagraphUnit_Sdl_FileTypeSupport_Framework_NativeApi_LockTypeFlags_">CreateParagraphUnit</a>. When creating a paragraph-unit the source and target language is specified together with a lock type. Normally paragraph-units are created as structure paragraph-units with lock type <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.LockTypeFlags.html#fields">Structure</a> or translatable paragraph-unit of lock type <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.LockTypeFlags.html#fields">Unlocked</a>.</p>
+<p><strong>Output.FileComplete()</strong></p>
+<p>The Bilingual Processor should call <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.html#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentHandler_FileComplete">FileComplete</a> method after all paragraph-units in a file have been processed by calling <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.html#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentHandler_ProcessParagraphUnit_Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_">ProcessParagraphUnit</a> for each one. After calling <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.html#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentHandler_FileComplete">FileComplete</a> the file properties should not be changed any further.</p>
+<p><strong>Output.Complete()</strong></p>
+<p>The Bilingual Processor should call <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.html#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentHandler_Complete">Complete</a> method after all content in all files have been processed. After calling <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.html#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentHandler_Complete">Complete</a> the document properties should not be changed any further.</p>
+<h2 id="implementing-iparser">Implementing IParser</h2>
+<p><strong>IParser.OnProgress</strong></p>
+<p>The <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IParser.html">IParser</a> interface contains an event <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileParser.html#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileParser_OnProgress_System_Byte_">OnProgress</a> or type <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ProgressEventArgs.html">ProgressEventArgs</a> that must be defined in classes deriving from it. This event can be used to notify the framework and hence the user of the file parsing progress. As well as calling <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileParser.html#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileParser_OnProgress_System_Byte_">OnProgress</a> with a suitable percentage of the file currently being processed it is normally expected to be called with a parameter of 0% before opening a file and with a parameter of 100% when file reading is complete.</p>
+<p><strong>IParser.ParseNext()</strong></p>
+<p>The <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IParser.html">IParser</a> interface contains a <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IParser.html#Sdl_FileTypeSupport_Framework_NativeApi_IParser_ParseNext">ParseNext</a> method which must also be implemented. This method is called repeatedly by the framework to process the next chunk of input from the source bilingual document.</p>
+<p>The implementation should parse a suitable chunk (preferably not large) of the input and return a bool that indicates if there is more work to be done before this file is completely parsed. When there is no more of the source file to process then the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IParser.html#Sdl_FileTypeSupport_Framework_NativeApi_IParser_ParseNext">ParseNext</a> method should return false to indicate that there is no more file content to be processed.</p>
+<p>Typically it is in this method, or in methods called by this, that the Output property’s methods are called to inform the framework of the entire source files content.</p>
+<h2 id="implementing-inativecontentcycleaware">Implementing INativeContentCycleAware</h2>
+<p>If deriving from the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.html">INativeContentCycleAware</a> interface you must implement the following three methods.</p>
+<p><strong>SetFileProperties()</strong></p>
+<p><a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.html#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentHandler_SetFileProperties_Sdl_FileTypeSupport_Framework_BilingualApi_IFileProperties_">SetFileProperties</a> methods standard implementation is to save its parameter properties of type <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IFileProperties.html">IFileProperties</a> to a class variable. These file properties can then be used by the bilingual parser to supplement the information available from the source file contents where this information may not be known, such as the original file encoding.</p>
+<p><strong>StartOfInput()</strong></p>
+<p>Called by the framework after component initialisation i.e. after <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.html#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentHandler_SetFileProperties_Sdl_FileTypeSupport_Framework_BilingualApi_IFileProperties_">SetFileProperties</a> , but before any content is parsed and passed to any of the File Type Support Framework components.</p>
+<p><strong>EndOfInput()</strong></p>
+<p>This is called by the framework after processing of the bilingual content has finished.</p>
+<h2 id="implementing-isettingsaware">Implementing ISettingsAware</h2>
+<p>If deriving from the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.ISettingsAware.html">ISettingsAware</a> interface you must implement the following method.</p>
+<p><strong>InitializeSettings()</strong></p>
+<p><a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.ISettingsAware.html#Sdl_FileTypeSupport_Framework_IntegrationApi_ISettingsAware_InitializeSettings_Sdl_Core_Settings_ISettingsBundle_System_String_">InitializeSettings</a> Passes in an <a href="../../api/core/Sdl.Core.Settings.ISettingsBundle.html">ISettingsBundle</a> object and a <code>configurationId</code> <code>FileTypeConfigurationId</code>. These can be used to populate the required settings object used by the parser:</p>
+<div class="tabGroup" id="tabgroup_XdBH9ogLIS">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_XdBH9ogLIS_tabid-1" role="tab" aria-controls="tabpanel_XdBH9ogLIS_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_XdBH9ogLIS_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-cs">public void InitializeSettings(Sdl.Core.Settings.ISettingsBundle settingsBundle, string configurationId)
+{
+    UserSettings _userSettings = new UserSettings();
+    _userSettings.PopulateFromSettingsBundle(settingsBundle, configurationId);
+    LockPrdCodes = _userSettings.LockPrdCodes;
+}
+</code></pre></section>
+</div>
+<h2 id="see-also">See Also</h2>
+<p><a href="the_file_parser.html">The File Parser</a></p>
+<div class="NOTE"><h5>Note</h5><p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+</div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/17.1/apiconcepts/filetypesupport/bilingual_file_parser.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

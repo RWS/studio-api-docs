@@ -1,0 +1,301 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>How to update plugins to Trados Studio 2022 SR2 </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="How to update plugins to Trados Studio 2022 SR2 ">
+    <meta name="generator" content="docfx 2.59.3.0">
+    
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+    
+    <meta property="docfx:rel" content="../../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar-default">
+          <div class="container hide-when-search">
+            <div class="breadcrumb-container" id="breadcrumb">
+              <ul class="breadcrumb col-md-10">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="how-to-update-plugins-to-varproductnamewithedition-sr2">How to update plugins to Trados Studio 2022 SR2</h1>
+
+<p>There will be significant changes to the Terminology provider API with the release of Trados Studio 2022 SR2.  These changes are all geared towards decoupling the Multiterm integration from Trados Studio to promote independent development cycles and reduce the risk of compatibility issues. This means that updates, bug fixes, and new features can be developed and released separately and lead to faster development cycles for each product.</p>
+<p>Unfortunately, this will introduce breaking changes for plugin and project automation integrations with the Terminology provider API. The following are a list of changes and known issues to consider when updating your plugin to be compatible with Trados Studio 2022 SR2</p>
+<h2 id="terminology-provider-api">Terminology Provider API</h2>
+<p>Make reference to the <a href="https://developers.rws.com/studio-api-docs/apiconcepts/releasenotes/tradosstudio2022sr2.html">release notes</a> for Trados Studio 2022 SR2 when updating your plugin integrations with the Terminology Provider API. It includes all of the API changes that will facilitate better management, customization, and extensibility of terminology providers, providing more flexibility and control for developers and users. </p>
+<ul>
+<li><strong>Removed Classes and Interfaces</strong>: Several classes and interfaces have been removed, such as <em>AbstractTerminologyProvider</em>, <em>IDefinition</em>, <em>IDefinitionLanguage</em>, and others.</li>
+<li><strong>Updated Classes</strong>: Major changes include the Definition class, <em>Entry</em>, <em>EntryField</em>, <em>EntryLanguage</em>, and others. These updates involve changes in property types, constructors, and interfaces.</li>
+<li><strong>TerminologyProviderManager</strong>: Now implements <em>ITerminologyProviderManager</em>, offering new methods for managing terminology providers, such as <em>RemoveTerminologyProvider</em>.</li>
+<li><strong>ITerminologyProvider Updates</strong>: The <em>ITerminologyProvider</em> interface has several new properties and methods for managing active filters, initialization, and more. The type of returned values for methods like <em>GetEntry</em> and <em>Search</em> has changed.</li>
+<li><strong>New Interfaces</strong>: Several new interfaces have been added, including <em>ITerminologyProviderManager</em>, <em>ITerminologyProviderWinFormsUIWithCreate</em>, and <em>ITerminologyProviderWinFormsUIWithEdit</em>.</li>
+</ul>
+<p><strong>Note:</strong> A full integration of these new changes to the Terminology Provider API are available from the <a href="https://github.com/RWS/Sdl-Community/tree/master/IATETerminologyProvider">IATE Terminology Provider project</a> for reference.</p>
+<h2 id="iterminologyprovider">ITerminologyProvider</h2>
+<p>The <em>AbstractTerminologyProvider</em> is no longer available &amp; in its place you must implement the <em>ITerminologyProvider</em> interface, which has some new properties &amp; methods such as <em>ActiveFilter</em> property &amp; associated method <em>GetFilters()</em> that enable a user to add filters to restrict the results that provider displays when searching a termbase during translation.
+<img style="display:block; margin: 0px" src="images/TermbaseSettingsCustomProvider.png"></p>
+<pre><code class="lang-cs">public class MyTerminologyProvider : ITerminologyProvider
+{
+    public FilterDefinition ActiveFilter { get; set; }
+
+    public IList&lt;FilterDefinition&gt; GetFilters()
+    {
+        var filterDefinitions = new List&lt;FilterDefinition&gt;();
+        var filterDefinition = new FilterDefinition 
+                                { ID = 0, Name = &quot;Source contains synonyms&quot; };
+        filterDefinitions.Add(filterDefinition);
+
+        return filterDefinitions;
+    }
+}
+</code></pre><h3 id="terminology-provider-type">Terminology Provider Type</h3>
+<p>Set the <em>Type</em> to <em>TerminologyProviderType.Custom</em> for Third-party terminology providers</p>
+<pre><code class="lang-cs">public class MyTerminologyProvider : ITerminologyProvider
+{
+    public TerminologyProviderType Type =&gt; TerminologyProviderType.Custom;
+}
+</code></pre><h3 id="definition">Definition</h3>
+<p>Its important to fully describe the <em>DescriptiveFields</em> to the <em>Definition</em> property of the provider to provide sufficient information when integrating with other services, such as the <strong>Terminology Verifier</strong>.  For example: to enable integration with the feature to check for forbidden terms, you should include the <em>DescriptiveField</em> at the <em>TermLevel</em>, as shown here:
+<img style="display:block; margin: 0px" src="images/VerficationSettingsCustomProvider.png"></p>
+<pre><code class="lang-cs">public class MyTerminologyProvider : ITerminologyProvider
+{
+    public Definition Definition =&gt; new Definition(GetDescriptiveFields(), 
+                                                    GetDefinitionLanguages());
+
+    public IList&lt;DescriptiveField&gt; GetDescriptiveFields()
+    {
+        var result = new List&lt;DescriptiveField&gt;();
+
+        var definitionField = new DescriptiveField
+        {
+            Label = &quot;Definition&quot;, Level = FieldLevel.EntryLevel, 
+                                    Mandatory = true, Multiple = true,
+            Type = FieldType.String
+        };
+        result.Add(definitionField);
+
+        var statusField = new DescriptiveField
+        {
+            Label = &quot;Status&quot;, Level = FieldLevel.TermLevel, 
+                                Mandatory = false, Multiple = true,
+            Type = FieldType.PickList,
+            PickListValues = 
+                new[] { &quot;Deprecated&quot;, &quot;Obsolete&quot;, &quot;Admitted&quot;, &quot;Preferred&quot;, &quot;Proposed&quot; }
+        };
+        result.Add(statusField);
+
+        return result;
+    }
+}
+</code></pre><pre><code class="lang-cs">public IList&lt;DefinitionLanguage&gt; GetDefinitionLanguages()
+{
+    var result = new List&lt;DefinitionLanguage&gt;();
+
+    var currentProject =  SdlTradosStudio.Application?.
+                            GetController&lt;ProjectsController&gt;()?.CurrentProject;
+    if (currentProject == null) return result;
+
+    var projectInfo = currentProject.GetProjectInfo();
+
+    result.Add(new DefinitionLanguage
+    {
+        Locale = projectInfo.SourceLanguage.CultureInfo,
+        Name = projectInfo.SourceLanguage.DisplayName
+    });
+
+    result.AddRange(
+    projectInfo.TargetLanguages.Select(language =&gt; new DefinitionLanguage
+    {
+        Locale = language.CultureInfo,
+        Name = language.DisplayName
+    }));
+
+    return result;
+}
+</code></pre><h2 id="iterminologyproviderwinformsui">ITerminologyProviderWinFormsUI</h2>
+<p>You will noticed that the property <em>SupportsEditing</em> &amp; the method <em>Edit(IWin32Window owner, ITerminologyProvider terminologyProvider)</em> have been removed from the <em>ITerminologyProviderWinFormsUI</em> interface.  If your provider allows a user to edit the provider settings by displaying a settings dialog, then implement the new interface <em>ITerminologyProviderWinFormsUIWithEdit</em>. Additionally, the new interface <em>ITerminologyProviderWinFormsUIWithCreate</em> introduces a new extensibility point that will display a context menu item in the <strong>Create</strong> button from the Terminology Provider Settings in Trados Studio.  This is useful for use cases where the creation of the provider needs to be a separate to the edit settings dialogs.</p>
+<pre><code class="lang-cs">[TerminologyProviderWinFormsUI]
+public class MyTerminologyProviderWinFormsUI : ITerminologyProviderWinFormsUIWithEdit, 
+                                               ITerminologyProviderWinFormsUIWithCreate
+{
+    public ITerminologyProvider Create()
+    {
+        // Adds the capability to create a ITerminologyProvider.
+        // Allows the creation of an ITerminologyProvider from the UI. 
+        // It returns a ITerminologyProvider
+        return null;
+    }
+
+    public bool Edit(IWin32Window owner, ITerminologyProvider terminologyProvider)
+    {
+        // Adds the capability to edit settings.
+        // Used to display a dialog to interactively change the provider settings.
+        return true;
+    }
+
+    public ITerminologyProvider[] Browse(
+              IWin32Window owner, ITerminologyProviderCredentialStore credentialStore)
+    {
+        // Adds the capability to select a ITerminologyProvider.
+        // Used to display a dialog to add a new terminology provider.
+        return null;
+    }
+}
+</code></pre><h2 id="plugin-manifest">Plugin Manifest</h2>
+<p>The manifest file <strong>pluginpackage.manifest.xml</strong> is located at the root of your project solution.  The values of the <strong>RequiredProduct</strong> should be updated to align with the latest release.</p>
+<h3 id="requiredproduct">RequiredProduct</h3>
+<ul>
+<li>Min version should be set to: 17.2. If your plugin has been updated to support these latest changes to the Terminology Provider API, then you should reflect this by setting the minimum supported version of your plugin to 17.2</li>
+<li>Max version should be set to 17.9. It is recommended to also set this value, as it will provide the AppStore with sufficient information in correctly identifying plugins that are compatible with the version of Trados Studio that is launched.</li>
+<li>Name should be set to: <em>TradosStudio</em></li>
+</ul>
+<p>Example</p>
+<pre><code class="lang-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;PluginPackage xmlns=&quot;http://www.sdl.com/Plugins/PluginPackage/1.0&quot;&gt;
+  &lt;PlugInName&gt;My plugin name&lt;/PlugInName&gt;
+  &lt;Version&gt;1.1.0.0&lt;/Version&gt;
+  &lt;Description&gt;My plugin description&lt;/Description&gt;
+  &lt;Author&gt;Trados AppStore Team&lt;/Author&gt;
+  &lt;RequiredProduct name=&quot;TradosStudio&quot; minversion=&quot;17.2&quot; maxversion=&quot;17.9&quot; /&gt;
+&lt;/PluginPackage&gt;
+</code></pre><h2 id="known-issues">Known Issues</h2>
+<p>The following are a list of known issues and solutions that you might encounter depending on your settings and configuration:</p>
+<h3 id="tradoscommunitytoolkit-formally-sdlcommunitytoolkit">Trados.Community.Toolkit (formally SDL.Community.Toolkit)</h3>
+<p>A new version of the Trados Community Toolkit, version 4.1.1, has been released to support the latest version of Trados Studio 2022 SR2.  This includes the following assemblies:</p>
+<ul>
+<li><a href="https://www.nuget.org/packages/Trados.Community.Toolkit.Core">Trados.Community.Toolkit.Core</a></li>
+<li><a href="https://www.nuget.org/packages/Trados.Community.Toolkit.LanguagePlatform">Trados.Community.Toolkit.LanguagePlatform</a></li>
+<li><a href="https://www.nuget.org/packages/Trados.Community.Toolkit.Integration">Trados.Community.Toolkit.Integration</a></li>
+<li><a href="https://www.nuget.org/packages/Trados.Community.Toolkit.FileType">Trados.Community.Toolkit.FileType</a></li>
+<li><a href="https://www.nuget.org/packages/Trados.Community.Toolkit.ProjectAutomation">Trados.Community.Toolkit.ProjectAutomation</a></li>
+</ul>
+<h3 id="dependency-version-changes">Dependency version changes</h3>
+<p>There is a list of known dependency version changes that may influence your integration with the latest Trados Studio 2022 SR2 APIs; this is typically seen from standalone applications that are running outside of the Trados Studio context.  To resolve these references, include the following binding redirects in the configuration file of the project.</p>
+<pre><code class="lang-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
+&lt;configuration&gt;
+  &lt;startup&gt;
+    &lt;supportedRuntime version=&quot;v4.0&quot; sku=&quot;.NETFramework,Version=v4.8&quot; /&gt;
+  &lt;/startup&gt;
+  &lt;runtime&gt;
+    &lt;NetFx40_PInvokeStackResilience enabled=&quot;1&quot; /&gt;
+    &lt;legacyCorruptedStateExceptionsPolicy enabled=&quot;true&quot; /&gt;
+    &lt;ThrowUnobservedTaskException enabled=&quot;true&quot; /&gt;
+    &lt;assemblyBinding xmlns=&quot;urn:schemas-microsoft-com:asm.v1&quot;&gt;
+      &lt;dependentAssembly&gt;
+        &lt;assemblyIdentity name=&quot;Microsoft.Extensions.DependencyModel&quot; publicKeyToken=&quot;adb9793829ddae60&quot; culture=&quot;neutral&quot; /&gt;
+        &lt;bindingRedirect oldVersion=&quot;0.0.0.0-7.0.0.0&quot; newVersion=&quot;7.0.0.0&quot; /&gt;
+      &lt;/dependentAssembly&gt;
+      &lt;dependentAssembly&gt;
+        &lt;assemblyIdentity name=&quot;System.Memory&quot; publicKeyToken=&quot;cc7b13ffcd2ddd51&quot; culture=&quot;neutral&quot; /&gt;
+        &lt;bindingRedirect oldVersion=&quot;0.0.0.0-4.0.1.2&quot; newVersion=&quot;4.0.1.2&quot; /&gt;
+      &lt;/dependentAssembly&gt;
+      &lt;dependentAssembly&gt;
+        &lt;assemblyIdentity name=&quot;Microsoft.Data.SqlClient&quot; publicKeyToken=&quot;23ec7fc2d6eaa4a5&quot; culture=&quot;neutral&quot; /&gt;
+        &lt;bindingRedirect oldVersion=&quot;0.0.0.0-5.0.0.0&quot; newVersion=&quot;5.0.0.0&quot; /&gt;
+      &lt;/dependentAssembly&gt;
+    &lt;/assemblyBinding&gt;
+  &lt;/runtime&gt;
+&lt;/configuration&gt;
+</code></pre></article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/17.1/articles/hints_tips/Update_Plugins/how_to_update_plugins_to_trados_studio_2022_sr2.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h4>On this page</h4>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>
