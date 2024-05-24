@@ -6,12 +6,31 @@ items:
   parent: Sdl.Core.TM.ImportExport
   children:
   - Sdl.Core.TM.ImportExport.Importer.#ctor
+  - Sdl.Core.TM.ImportExport.Importer.#ctor(Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager)
   - Sdl.Core.TM.ImportExport.Importer.#ctor(Sdl.Core.TM.ImportExport.IImportDestination)
   - Sdl.Core.TM.ImportExport.Importer.#ctor(Sdl.Core.TM.ImportExport.IImportDestinationAsync,Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager)
+  - Sdl.Core.TM.ImportExport.Importer.BadTuCount
   - Sdl.Core.TM.ImportExport.Importer.BatchImported
+  - Sdl.Core.TM.ImportExport.Importer.Buffer
+  - Sdl.Core.TM.ImportExport.Importer.CanChangeImportFile
+  - Sdl.Core.TM.ImportExport.Importer.ChunkSize
+  - Sdl.Core.TM.ImportExport.Importer.DefaultTranslationUnitChunkSize
+  - Sdl.Core.TM.ImportExport.Importer.ErrorOutput
+  - Sdl.Core.TM.ImportExport.Importer.Exclusive
+  - Sdl.Core.TM.ImportExport.Importer.FileTypeManager
+  - Sdl.Core.TM.ImportExport.Importer.Flush(Sdl.LanguagePlatform.TranslationMemory.ImportStatistics,Sdl.Core.TM.ImportExport.IImportDestinationAsync)
+  - Sdl.Core.TM.ImportExport.Importer.GetDefaultFileTypeManager
   - Sdl.Core.TM.ImportExport.Importer.Import(System.String)
   - Sdl.Core.TM.ImportExport.Importer.Import(System.String,Sdl.Core.TM.ImportExport.IImportDestination)
-  - Sdl.Core.TM.ImportExport.Importer.OnBatchImportedAsync(Sdl.LanguagePlatform.TranslationMemory.ImportStatistics,Sdl.LanguagePlatform.TranslationMemory.ImportResults)
+  - Sdl.Core.TM.ImportExport.Importer.ImportAsync(System.String,Sdl.Core.TM.ImportExport.IImportDestinationAsync)
+  - Sdl.Core.TM.ImportExport.Importer.ImportSettings
+  - Sdl.Core.TM.ImportExport.Importer.InvalidTranslationUnitsExportPath
+  - Sdl.Core.TM.ImportExport.Importer.MaxTranslationUnitChunkSize
+  - Sdl.Core.TM.ImportExport.Importer.MinTranslationUnitChunkSize
+  - Sdl.Core.TM.ImportExport.Importer.OnBatchImported(Sdl.LanguagePlatform.TranslationMemory.ImportResults,Sdl.LanguagePlatform.TranslationMemory.ImportStatistics)
+  - Sdl.Core.TM.ImportExport.Importer.OutputErrorTuAsync(Sdl.LanguagePlatform.TranslationMemory.TranslationUnit,Sdl.LanguagePlatform.TranslationMemory.ImportResult)
+  - Sdl.Core.TM.ImportExport.Importer.Statistics
+  - Sdl.Core.TM.ImportExport.Importer.TranslationMemoryUserIdSetting
   langs:
   - csharp
   - vb
@@ -26,40 +45,13 @@ items:
   - Sdl.Core.TM.ImportExport
   namespace: Sdl.Core.TM.ImportExport
   syntax:
-    content: >-
-      [Obsolete("Use ImporterAsync directly.")]
-
-      public class Importer : ImporterAsync
-    content.vb: >-
-      <Obsolete("Use ImporterAsync directly.")>
-
-      Public Class Importer
-          Inherits ImporterAsync
+    content: public class Importer
+    content.vb: Public Class Importer
   inheritance:
   - System.Object
-  - Sdl.Core.TM.ImportExport.ImporterAsync
   derivedClasses:
   - Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryImporter
   inheritedMembers:
-  - Sdl.Core.TM.ImportExport.ImporterAsync.DefaultTranslationUnitChunkSize
-  - Sdl.Core.TM.ImportExport.ImporterAsync.MaxTranslationUnitChunkSize
-  - Sdl.Core.TM.ImportExport.ImporterAsync.MinTranslationUnitChunkSize
-  - Sdl.Core.TM.ImportExport.ImporterAsync.Buffer
-  - Sdl.Core.TM.ImportExport.ImporterAsync.ErrorOutput
-  - Sdl.Core.TM.ImportExport.ImporterAsync.BadTuCount
-  - Sdl.Core.TM.ImportExport.ImporterAsync._batchImportedAsync
-  - Sdl.Core.TM.ImportExport.ImporterAsync.ImportAsync(System.String,Sdl.Core.TM.ImportExport.IImportDestinationAsync)
-  - Sdl.Core.TM.ImportExport.ImporterAsync.GetDefaultFileTypeManager
-  - Sdl.Core.TM.ImportExport.ImporterAsync.Flush(Sdl.LanguagePlatform.TranslationMemory.ImportStatistics,Sdl.Core.TM.ImportExport.IImportDestinationAsync)
-  - Sdl.Core.TM.ImportExport.ImporterAsync.OutputErrorTuAsync(Sdl.LanguagePlatform.TranslationMemory.TranslationUnit,Sdl.LanguagePlatform.TranslationMemory.ImportResult)
-  - Sdl.Core.TM.ImportExport.ImporterAsync.Statistics
-  - Sdl.Core.TM.ImportExport.ImporterAsync.FileTypeManager
-  - Sdl.Core.TM.ImportExport.ImporterAsync.CanChangeImportFile
-  - Sdl.Core.TM.ImportExport.ImporterAsync.TranslationMemoryUserIdSetting
-  - Sdl.Core.TM.ImportExport.ImporterAsync.ChunkSize
-  - Sdl.Core.TM.ImportExport.ImporterAsync.Exclusive
-  - Sdl.Core.TM.ImportExport.ImporterAsync.ImportSettings
-  - Sdl.Core.TM.ImportExport.ImporterAsync.InvalidTranslationUnitsExportPath
   - System.Object.ToString
   - System.Object.Equals(System.Object)
   - System.Object.Equals(System.Object,System.Object)
@@ -67,18 +59,179 @@ items:
   - System.Object.GetHashCode
   - System.Object.GetType
   - System.Object.MemberwiseClone
-  attributes:
-  - type: System.ObsoleteAttribute
-    ctor: System.ObsoleteAttribute.#ctor(System.String)
-    arguments:
-    - type: System.String
-      value: Use ImporterAsync directly.
   modifiers.csharp:
   - public
   - class
   modifiers.vb:
   - Public
   - Class
+- uid: Sdl.Core.TM.ImportExport.Importer.DefaultTranslationUnitChunkSize
+  commentId: F:Sdl.Core.TM.ImportExport.Importer.DefaultTranslationUnitChunkSize
+  id: DefaultTranslationUnitChunkSize
+  parent: Sdl.Core.TM.ImportExport.Importer
+  langs:
+  - csharp
+  - vb
+  name: DefaultTranslationUnitChunkSize
+  nameWithType: Importer.DefaultTranslationUnitChunkSize
+  fullName: Sdl.Core.TM.ImportExport.Importer.DefaultTranslationUnitChunkSize
+  type: Field
+  source:
+    path: Sdl.Core.TM.ImportExport
+    isExternal: true
+  assemblies:
+  - Sdl.Core.TM.ImportExport
+  namespace: Sdl.Core.TM.ImportExport
+  summary: "\nDefines the default size for a chunk of translation units to be processed in one round-trip through the import/export process.\n<returns>The default chunk size is 25.</returns>\n"
+  syntax:
+    content: public const int DefaultTranslationUnitChunkSize = 200
+    return:
+      type: System.Int32
+    content.vb: Public Const DefaultTranslationUnitChunkSize As Integer = 200
+  modifiers.csharp:
+  - public
+  - const
+  modifiers.vb:
+  - Public
+  - Const
+- uid: Sdl.Core.TM.ImportExport.Importer.MaxTranslationUnitChunkSize
+  commentId: F:Sdl.Core.TM.ImportExport.Importer.MaxTranslationUnitChunkSize
+  id: MaxTranslationUnitChunkSize
+  parent: Sdl.Core.TM.ImportExport.Importer
+  langs:
+  - csharp
+  - vb
+  name: MaxTranslationUnitChunkSize
+  nameWithType: Importer.MaxTranslationUnitChunkSize
+  fullName: Sdl.Core.TM.ImportExport.Importer.MaxTranslationUnitChunkSize
+  type: Field
+  source:
+    path: Sdl.Core.TM.ImportExport
+    isExternal: true
+  assemblies:
+  - Sdl.Core.TM.ImportExport
+  namespace: Sdl.Core.TM.ImportExport
+  summary: "\nDefines the maximum allowed chunk size.\n<returns>The maximum allowed chunk size is 200.</returns>\n"
+  syntax:
+    content: public const int MaxTranslationUnitChunkSize = 200
+    return:
+      type: System.Int32
+    content.vb: Public Const MaxTranslationUnitChunkSize As Integer = 200
+  modifiers.csharp:
+  - public
+  - const
+  modifiers.vb:
+  - Public
+  - Const
+- uid: Sdl.Core.TM.ImportExport.Importer.MinTranslationUnitChunkSize
+  commentId: F:Sdl.Core.TM.ImportExport.Importer.MinTranslationUnitChunkSize
+  id: MinTranslationUnitChunkSize
+  parent: Sdl.Core.TM.ImportExport.Importer
+  langs:
+  - csharp
+  - vb
+  name: MinTranslationUnitChunkSize
+  nameWithType: Importer.MinTranslationUnitChunkSize
+  fullName: Sdl.Core.TM.ImportExport.Importer.MinTranslationUnitChunkSize
+  type: Field
+  source:
+    path: Sdl.Core.TM.ImportExport
+    isExternal: true
+  assemblies:
+  - Sdl.Core.TM.ImportExport
+  namespace: Sdl.Core.TM.ImportExport
+  summary: "\nDefines the minimum allowed chunk size.\n<returns>The minimum allowed chunk size is 2.</returns>\n"
+  syntax:
+    content: public const int MinTranslationUnitChunkSize = 2
+    return:
+      type: System.Int32
+    content.vb: Public Const MinTranslationUnitChunkSize As Integer = 2
+  modifiers.csharp:
+  - public
+  - const
+  modifiers.vb:
+  - Public
+  - Const
+- uid: Sdl.Core.TM.ImportExport.Importer.Buffer
+  commentId: F:Sdl.Core.TM.ImportExport.Importer.Buffer
+  id: Buffer
+  parent: Sdl.Core.TM.ImportExport.Importer
+  langs:
+  - csharp
+  - vb
+  name: Buffer
+  nameWithType: Importer.Buffer
+  fullName: Sdl.Core.TM.ImportExport.Importer.Buffer
+  type: Field
+  source:
+    path: Sdl.Core.TM.ImportExport
+    isExternal: true
+  assemblies:
+  - Sdl.Core.TM.ImportExport
+  namespace: Sdl.Core.TM.ImportExport
+  syntax:
+    content: protected readonly List<TranslationUnit> Buffer
+    return:
+      type: System.Collections.Generic.List{Sdl.LanguagePlatform.TranslationMemory.TranslationUnit}
+    content.vb: Protected ReadOnly Buffer As List(Of TranslationUnit)
+  modifiers.csharp:
+  - protected
+  - readonly
+  modifiers.vb:
+  - Protected
+  - ReadOnly
+- uid: Sdl.Core.TM.ImportExport.Importer.ErrorOutput
+  commentId: F:Sdl.Core.TM.ImportExport.Importer.ErrorOutput
+  id: ErrorOutput
+  parent: Sdl.Core.TM.ImportExport.Importer
+  langs:
+  - csharp
+  - vb
+  name: ErrorOutput
+  nameWithType: Importer.ErrorOutput
+  fullName: Sdl.Core.TM.ImportExport.Importer.ErrorOutput
+  type: Field
+  source:
+    path: Sdl.Core.TM.ImportExport
+    isExternal: true
+  assemblies:
+  - Sdl.Core.TM.ImportExport
+  namespace: Sdl.Core.TM.ImportExport
+  syntax:
+    content: protected TMXWriter ErrorOutput
+    return:
+      type: Sdl.LanguagePlatform.IO.TMX.TMXWriter
+    content.vb: Protected ErrorOutput As TMXWriter
+  modifiers.csharp:
+  - protected
+  modifiers.vb:
+  - Protected
+- uid: Sdl.Core.TM.ImportExport.Importer.BadTuCount
+  commentId: F:Sdl.Core.TM.ImportExport.Importer.BadTuCount
+  id: BadTuCount
+  parent: Sdl.Core.TM.ImportExport.Importer
+  langs:
+  - csharp
+  - vb
+  name: BadTuCount
+  nameWithType: Importer.BadTuCount
+  fullName: Sdl.Core.TM.ImportExport.Importer.BadTuCount
+  type: Field
+  source:
+    path: Sdl.Core.TM.ImportExport
+    isExternal: true
+  assemblies:
+  - Sdl.Core.TM.ImportExport
+  namespace: Sdl.Core.TM.ImportExport
+  syntax:
+    content: protected int BadTuCount
+    return:
+      type: System.Int32
+    content.vb: Protected BadTuCount As Integer
+  modifiers.csharp:
+  - protected
+  modifiers.vb:
+  - Protected
 - uid: Sdl.Core.TM.ImportExport.Importer.#ctor
   commentId: M:Sdl.Core.TM.ImportExport.Importer.#ctor
   id: '#ctor'
@@ -112,6 +265,35 @@ items:
     arguments:
     - type: System.String
       value: Use version providing ICultureMetadataManager
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Sdl.Core.TM.ImportExport.Importer.#ctor(Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager)
+  commentId: M:Sdl.Core.TM.ImportExport.Importer.#ctor(Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager)
+  id: '#ctor(Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager)'
+  parent: Sdl.Core.TM.ImportExport.Importer
+  langs:
+  - csharp
+  - vb
+  name: Importer(ICultureMetadataManager)
+  nameWithType: Importer.Importer(ICultureMetadataManager)
+  fullName: Sdl.Core.TM.ImportExport.Importer.Importer(Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager)
+  type: Constructor
+  source:
+    path: Sdl.Core.TM.ImportExport
+    isExternal: true
+  assemblies:
+  - Sdl.Core.TM.ImportExport
+  namespace: Sdl.Core.TM.ImportExport
+  summary: "\nInitializes a new instance of the <xref href=\"Sdl.Core.TM.ImportExport.Importer\" data-throw-if-not-resolved=\"false\"></xref> class.\n"
+  syntax:
+    content: public Importer(ICultureMetadataManager cultureMetadataManager)
+    parameters:
+    - id: cultureMetadataManager
+      type: Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager
+    content.vb: Public Sub New(cultureMetadataManager As ICultureMetadataManager)
+  overload: Sdl.Core.TM.ImportExport.Importer.#ctor*
   modifiers.csharp:
   - public
   modifiers.vb:
@@ -275,16 +457,114 @@ items:
   - public
   modifiers.vb:
   - Public
-- uid: Sdl.Core.TM.ImportExport.Importer.OnBatchImportedAsync(Sdl.LanguagePlatform.TranslationMemory.ImportStatistics,Sdl.LanguagePlatform.TranslationMemory.ImportResults)
-  commentId: M:Sdl.Core.TM.ImportExport.Importer.OnBatchImportedAsync(Sdl.LanguagePlatform.TranslationMemory.ImportStatistics,Sdl.LanguagePlatform.TranslationMemory.ImportResults)
-  id: OnBatchImportedAsync(Sdl.LanguagePlatform.TranslationMemory.ImportStatistics,Sdl.LanguagePlatform.TranslationMemory.ImportResults)
+- uid: Sdl.Core.TM.ImportExport.Importer.ImportAsync(System.String,Sdl.Core.TM.ImportExport.IImportDestinationAsync)
+  commentId: M:Sdl.Core.TM.ImportExport.Importer.ImportAsync(System.String,Sdl.Core.TM.ImportExport.IImportDestinationAsync)
+  id: ImportAsync(System.String,Sdl.Core.TM.ImportExport.IImportDestinationAsync)
   parent: Sdl.Core.TM.ImportExport.Importer
   langs:
   - csharp
   - vb
-  name: OnBatchImportedAsync(ImportStatistics, ImportResults)
-  nameWithType: Importer.OnBatchImportedAsync(ImportStatistics, ImportResults)
-  fullName: Sdl.Core.TM.ImportExport.Importer.OnBatchImportedAsync(Sdl.LanguagePlatform.TranslationMemory.ImportStatistics, Sdl.LanguagePlatform.TranslationMemory.ImportResults)
+  name: ImportAsync(String, IImportDestinationAsync)
+  nameWithType: Importer.ImportAsync(String, IImportDestinationAsync)
+  fullName: Sdl.Core.TM.ImportExport.Importer.ImportAsync(System.String, Sdl.Core.TM.ImportExport.IImportDestinationAsync)
+  type: Method
+  source:
+    path: Sdl.Core.TM.ImportExport
+    isExternal: true
+  assemblies:
+  - Sdl.Core.TM.ImportExport
+  namespace: Sdl.Core.TM.ImportExport
+  summary: "\nStarts the import from the specified file.\n"
+  syntax:
+    content: public Task<bool> ImportAsync(string fileName, IImportDestinationAsync importDestination)
+    parameters:
+    - id: fileName
+      type: System.String
+      description: The file name.
+    - id: importDestination
+      type: Sdl.Core.TM.ImportExport.IImportDestinationAsync
+    return:
+      type: System.Threading.Tasks.Task{System.Boolean}
+    content.vb: Public Function ImportAsync(fileName As String, importDestination As IImportDestinationAsync) As Task(Of Boolean)
+  overload: Sdl.Core.TM.ImportExport.Importer.ImportAsync*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Sdl.Core.TM.ImportExport.Importer.GetDefaultFileTypeManager
+  commentId: M:Sdl.Core.TM.ImportExport.Importer.GetDefaultFileTypeManager
+  id: GetDefaultFileTypeManager
+  parent: Sdl.Core.TM.ImportExport.Importer
+  langs:
+  - csharp
+  - vb
+  name: GetDefaultFileTypeManager()
+  nameWithType: Importer.GetDefaultFileTypeManager()
+  fullName: Sdl.Core.TM.ImportExport.Importer.GetDefaultFileTypeManager()
+  type: Method
+  source:
+    path: Sdl.Core.TM.ImportExport
+    isExternal: true
+  assemblies:
+  - Sdl.Core.TM.ImportExport
+  namespace: Sdl.Core.TM.ImportExport
+  summary: "\nReturns the default file type manager.\n"
+  syntax:
+    content: public IFileTypeManager GetDefaultFileTypeManager()
+    return:
+      type: Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager
+    content.vb: Public Function GetDefaultFileTypeManager As IFileTypeManager
+  overload: Sdl.Core.TM.ImportExport.Importer.GetDefaultFileTypeManager*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Sdl.Core.TM.ImportExport.Importer.Flush(Sdl.LanguagePlatform.TranslationMemory.ImportStatistics,Sdl.Core.TM.ImportExport.IImportDestinationAsync)
+  commentId: M:Sdl.Core.TM.ImportExport.Importer.Flush(Sdl.LanguagePlatform.TranslationMemory.ImportStatistics,Sdl.Core.TM.ImportExport.IImportDestinationAsync)
+  id: Flush(Sdl.LanguagePlatform.TranslationMemory.ImportStatistics,Sdl.Core.TM.ImportExport.IImportDestinationAsync)
+  parent: Sdl.Core.TM.ImportExport.Importer
+  langs:
+  - csharp
+  - vb
+  name: Flush(ImportStatistics, IImportDestinationAsync)
+  nameWithType: Importer.Flush(ImportStatistics, IImportDestinationAsync)
+  fullName: Sdl.Core.TM.ImportExport.Importer.Flush(Sdl.LanguagePlatform.TranslationMemory.ImportStatistics, Sdl.Core.TM.ImportExport.IImportDestinationAsync)
+  type: Method
+  source:
+    path: Sdl.Core.TM.ImportExport
+    isExternal: true
+  assemblies:
+  - Sdl.Core.TM.ImportExport
+  namespace: Sdl.Core.TM.ImportExport
+  summary: "\nFlushes the content of the internal translation unit buffer into the translation memory immediately.\n"
+  remarks: Stats is an input/output parameter and it will be updated after the execution of this method accordingly.
+  syntax:
+    content: protected Task<ImportExportResponse> Flush(ImportStatistics stats, IImportDestinationAsync importDestination)
+    parameters:
+    - id: stats
+      type: Sdl.LanguagePlatform.TranslationMemory.ImportStatistics
+      description: The import results.
+    - id: importDestination
+      type: Sdl.Core.TM.ImportExport.IImportDestinationAsync
+    return:
+      type: System.Threading.Tasks.Task{Sdl.Core.TM.ImportExport.ImportExportResponse}
+      description: "Response.Cancel if there is an event listener that has signaled it wants to stop the import, \notherwise Response.Continue."
+    content.vb: Protected Function Flush(stats As ImportStatistics, importDestination As IImportDestinationAsync) As Task(Of ImportExportResponse)
+  overload: Sdl.Core.TM.ImportExport.Importer.Flush*
+  modifiers.csharp:
+  - protected
+  modifiers.vb:
+  - Protected
+- uid: Sdl.Core.TM.ImportExport.Importer.OutputErrorTuAsync(Sdl.LanguagePlatform.TranslationMemory.TranslationUnit,Sdl.LanguagePlatform.TranslationMemory.ImportResult)
+  commentId: M:Sdl.Core.TM.ImportExport.Importer.OutputErrorTuAsync(Sdl.LanguagePlatform.TranslationMemory.TranslationUnit,Sdl.LanguagePlatform.TranslationMemory.ImportResult)
+  id: OutputErrorTuAsync(Sdl.LanguagePlatform.TranslationMemory.TranslationUnit,Sdl.LanguagePlatform.TranslationMemory.ImportResult)
+  parent: Sdl.Core.TM.ImportExport.Importer
+  langs:
+  - csharp
+  - vb
+  name: OutputErrorTuAsync(TranslationUnit, ImportResult)
+  nameWithType: Importer.OutputErrorTuAsync(TranslationUnit, ImportResult)
+  fullName: Sdl.Core.TM.ImportExport.Importer.OutputErrorTuAsync(Sdl.LanguagePlatform.TranslationMemory.TranslationUnit, Sdl.LanguagePlatform.TranslationMemory.ImportResult)
   type: Method
   source:
     path: Sdl.Core.TM.ImportExport
@@ -293,23 +573,304 @@ items:
   - Sdl.Core.TM.ImportExport
   namespace: Sdl.Core.TM.ImportExport
   syntax:
-    content: protected override Task<bool> OnBatchImportedAsync(ImportStatistics overallResults, ImportResults batchResults)
+    content: protected Task OutputErrorTuAsync(TranslationUnit tu, ImportResult result)
     parameters:
-    - id: overallResults
-      type: Sdl.LanguagePlatform.TranslationMemory.ImportStatistics
-    - id: batchResults
-      type: Sdl.LanguagePlatform.TranslationMemory.ImportResults
+    - id: tu
+      type: Sdl.LanguagePlatform.TranslationMemory.TranslationUnit
+    - id: result
+      type: Sdl.LanguagePlatform.TranslationMemory.ImportResult
     return:
-      type: System.Threading.Tasks.Task{System.Boolean}
-    content.vb: Protected Overrides Function OnBatchImportedAsync(overallResults As ImportStatistics, batchResults As ImportResults) As Task(Of Boolean)
-  overridden: Sdl.Core.TM.ImportExport.ImporterAsync.OnBatchImportedAsync(Sdl.LanguagePlatform.TranslationMemory.ImportStatistics,Sdl.LanguagePlatform.TranslationMemory.ImportResults)
-  overload: Sdl.Core.TM.ImportExport.Importer.OnBatchImportedAsync*
+      type: System.Threading.Tasks.Task
+    content.vb: Protected Function OutputErrorTuAsync(tu As TranslationUnit, result As ImportResult) As Task
+  overload: Sdl.Core.TM.ImportExport.Importer.OutputErrorTuAsync*
   modifiers.csharp:
   - protected
-  - override
   modifiers.vb:
   - Protected
-  - Overrides
+- uid: Sdl.Core.TM.ImportExport.Importer.OnBatchImported(Sdl.LanguagePlatform.TranslationMemory.ImportResults,Sdl.LanguagePlatform.TranslationMemory.ImportStatistics)
+  commentId: M:Sdl.Core.TM.ImportExport.Importer.OnBatchImported(Sdl.LanguagePlatform.TranslationMemory.ImportResults,Sdl.LanguagePlatform.TranslationMemory.ImportStatistics)
+  id: OnBatchImported(Sdl.LanguagePlatform.TranslationMemory.ImportResults,Sdl.LanguagePlatform.TranslationMemory.ImportStatistics)
+  parent: Sdl.Core.TM.ImportExport.Importer
+  langs:
+  - csharp
+  - vb
+  name: OnBatchImported(ImportResults, ImportStatistics)
+  nameWithType: Importer.OnBatchImported(ImportResults, ImportStatistics)
+  fullName: Sdl.Core.TM.ImportExport.Importer.OnBatchImported(Sdl.LanguagePlatform.TranslationMemory.ImportResults, Sdl.LanguagePlatform.TranslationMemory.ImportStatistics)
+  type: Method
+  source:
+    path: Sdl.Core.TM.ImportExport
+    isExternal: true
+  assemblies:
+  - Sdl.Core.TM.ImportExport
+  namespace: Sdl.Core.TM.ImportExport
+  syntax:
+    content: protected ImportExportResponse OnBatchImported(ImportResults batchResults, ImportStatistics overallResults)
+    parameters:
+    - id: batchResults
+      type: Sdl.LanguagePlatform.TranslationMemory.ImportResults
+    - id: overallResults
+      type: Sdl.LanguagePlatform.TranslationMemory.ImportStatistics
+    return:
+      type: Sdl.Core.TM.ImportExport.ImportExportResponse
+    content.vb: Protected Function OnBatchImported(batchResults As ImportResults, overallResults As ImportStatistics) As ImportExportResponse
+  overload: Sdl.Core.TM.ImportExport.Importer.OnBatchImported*
+  modifiers.csharp:
+  - protected
+  modifiers.vb:
+  - Protected
+- uid: Sdl.Core.TM.ImportExport.Importer.Statistics
+  commentId: P:Sdl.Core.TM.ImportExport.Importer.Statistics
+  id: Statistics
+  parent: Sdl.Core.TM.ImportExport.Importer
+  langs:
+  - csharp
+  - vb
+  name: Statistics
+  nameWithType: Importer.Statistics
+  fullName: Sdl.Core.TM.ImportExport.Importer.Statistics
+  type: Property
+  source:
+    path: Sdl.Core.TM.ImportExport
+    isExternal: true
+  assemblies:
+  - Sdl.Core.TM.ImportExport
+  namespace: Sdl.Core.TM.ImportExport
+  summary: "\nGets the statistics.\n"
+  syntax:
+    content: public ImportStatistics Statistics { get; set; }
+    parameters: []
+    return:
+      type: Sdl.LanguagePlatform.TranslationMemory.ImportStatistics
+      description: The statistics.
+    content.vb: Public Property Statistics As ImportStatistics
+  overload: Sdl.Core.TM.ImportExport.Importer.Statistics*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Sdl.Core.TM.ImportExport.Importer.FileTypeManager
+  commentId: P:Sdl.Core.TM.ImportExport.Importer.FileTypeManager
+  id: FileTypeManager
+  parent: Sdl.Core.TM.ImportExport.Importer
+  langs:
+  - csharp
+  - vb
+  name: FileTypeManager
+  nameWithType: Importer.FileTypeManager
+  fullName: Sdl.Core.TM.ImportExport.Importer.FileTypeManager
+  type: Property
+  source:
+    path: Sdl.Core.TM.ImportExport
+    isExternal: true
+  assemblies:
+  - Sdl.Core.TM.ImportExport
+  namespace: Sdl.Core.TM.ImportExport
+  summary: "\nGets or sets the file type manager. This is only needed when imported bilingual documents; it is not required when\nimported TMX files.\n"
+  syntax:
+    content: public IFileTypeManager FileTypeManager { get; set; }
+    parameters: []
+    return:
+      type: Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager
+      description: The file type manager.
+    content.vb: Public Property FileTypeManager As IFileTypeManager
+  overload: Sdl.Core.TM.ImportExport.Importer.FileTypeManager*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Sdl.Core.TM.ImportExport.Importer.CanChangeImportFile
+  commentId: P:Sdl.Core.TM.ImportExport.Importer.CanChangeImportFile
+  id: CanChangeImportFile
+  parent: Sdl.Core.TM.ImportExport.Importer
+  langs:
+  - csharp
+  - vb
+  name: CanChangeImportFile
+  nameWithType: Importer.CanChangeImportFile
+  fullName: Sdl.Core.TM.ImportExport.Importer.CanChangeImportFile
+  type: Property
+  source:
+    path: Sdl.Core.TM.ImportExport
+    isExternal: true
+  assemblies:
+  - Sdl.Core.TM.ImportExport
+  namespace: Sdl.Core.TM.ImportExport
+  summary: "\nFlag set to true if the imported file can/should be changed\n"
+  syntax:
+    content: public bool CanChangeImportFile { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property CanChangeImportFile As Boolean
+  overload: Sdl.Core.TM.ImportExport.Importer.CanChangeImportFile*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Sdl.Core.TM.ImportExport.Importer.TranslationMemoryUserIdSetting
+  commentId: P:Sdl.Core.TM.ImportExport.Importer.TranslationMemoryUserIdSetting
+  id: TranslationMemoryUserIdSetting
+  parent: Sdl.Core.TM.ImportExport.Importer
+  langs:
+  - csharp
+  - vb
+  name: TranslationMemoryUserIdSetting
+  nameWithType: Importer.TranslationMemoryUserIdSetting
+  fullName: Sdl.Core.TM.ImportExport.Importer.TranslationMemoryUserIdSetting
+  type: Property
+  source:
+    path: Sdl.Core.TM.ImportExport
+    isExternal: true
+  assemblies:
+  - Sdl.Core.TM.ImportExport
+  namespace: Sdl.Core.TM.ImportExport
+  summary: "\nGets or sets the user id used to import TUs.\n"
+  syntax:
+    content: public string TranslationMemoryUserIdSetting { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property TranslationMemoryUserIdSetting As String
+  overload: Sdl.Core.TM.ImportExport.Importer.TranslationMemoryUserIdSetting*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Sdl.Core.TM.ImportExport.Importer.ChunkSize
+  commentId: P:Sdl.Core.TM.ImportExport.Importer.ChunkSize
+  id: ChunkSize
+  parent: Sdl.Core.TM.ImportExport.Importer
+  langs:
+  - csharp
+  - vb
+  name: ChunkSize
+  nameWithType: Importer.ChunkSize
+  fullName: Sdl.Core.TM.ImportExport.Importer.ChunkSize
+  type: Property
+  source:
+    path: Sdl.Core.TM.ImportExport
+    isExternal: true
+  assemblies:
+  - Sdl.Core.TM.ImportExport
+  namespace: Sdl.Core.TM.ImportExport
+  summary: "\nGets or sets the size of the translation unit chunk size\n"
+  syntax:
+    content: public int ChunkSize { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+      description: The size of the chunk.
+    content.vb: Public Property ChunkSize As Integer
+  overload: Sdl.Core.TM.ImportExport.Importer.ChunkSize*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Sdl.Core.TM.ImportExport.Importer.Exclusive
+  commentId: P:Sdl.Core.TM.ImportExport.Importer.Exclusive
+  id: Exclusive
+  parent: Sdl.Core.TM.ImportExport.Importer
+  langs:
+  - csharp
+  - vb
+  name: Exclusive
+  nameWithType: Importer.Exclusive
+  fullName: Sdl.Core.TM.ImportExport.Importer.Exclusive
+  type: Property
+  source:
+    path: Sdl.Core.TM.ImportExport
+    isExternal: true
+  assemblies:
+  - Sdl.Core.TM.ImportExport
+  namespace: Sdl.Core.TM.ImportExport
+  summary: "\nIf true, indicates this <xref href=\"Sdl.Core.TM.ImportExport.Importer\" data-throw-if-not-resolved=\"false\"></xref> is the only flow making \nchanges to the destination TM, in which case optimisations are used. Do not\nset true if other flows/users may be updating the TM during the import.\n"
+  syntax:
+    content: public bool Exclusive { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property Exclusive As Boolean
+  overload: Sdl.Core.TM.ImportExport.Importer.Exclusive*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Sdl.Core.TM.ImportExport.Importer.ImportSettings
+  commentId: P:Sdl.Core.TM.ImportExport.Importer.ImportSettings
+  id: ImportSettings
+  parent: Sdl.Core.TM.ImportExport.Importer
+  langs:
+  - csharp
+  - vb
+  name: ImportSettings
+  nameWithType: Importer.ImportSettings
+  fullName: Sdl.Core.TM.ImportExport.Importer.ImportSettings
+  type: Property
+  source:
+    path: Sdl.Core.TM.ImportExport
+    isExternal: true
+  assemblies:
+  - Sdl.Core.TM.ImportExport
+  namespace: Sdl.Core.TM.ImportExport
+  summary: "\nGets or sets the import settings.\n"
+  syntax:
+    content: public ImportSettings ImportSettings { get; set; }
+    parameters: []
+    return:
+      type: Sdl.LanguagePlatform.TranslationMemory.ImportSettings
+    content.vb: Public Property ImportSettings As ImportSettings
+  overload: Sdl.Core.TM.ImportExport.Importer.ImportSettings*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Sdl.Core.TM.ImportExport.Importer.InvalidTranslationUnitsExportPath
+  commentId: P:Sdl.Core.TM.ImportExport.Importer.InvalidTranslationUnitsExportPath
+  id: InvalidTranslationUnitsExportPath
+  parent: Sdl.Core.TM.ImportExport.Importer
+  langs:
+  - csharp
+  - vb
+  name: InvalidTranslationUnitsExportPath
+  nameWithType: Importer.InvalidTranslationUnitsExportPath
+  fullName: Sdl.Core.TM.ImportExport.Importer.InvalidTranslationUnitsExportPath
+  type: Property
+  source:
+    path: Sdl.Core.TM.ImportExport
+    isExternal: true
+  assemblies:
+  - Sdl.Core.TM.ImportExport
+  namespace: Sdl.Core.TM.ImportExport
+  summary: "\nGets or sets the invalid translation units export path.\n"
+  syntax:
+    content: public string InvalidTranslationUnitsExportPath { get; set; }
+    parameters: []
+    return:
+      type: System.String
+      description: The invalid translation units export path.
+    content.vb: Public Property InvalidTranslationUnitsExportPath As String
+  overload: Sdl.Core.TM.ImportExport.Importer.InvalidTranslationUnitsExportPath*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
 - uid: Sdl.Core.TM.ImportExport.Importer.BatchImported
   commentId: E:Sdl.Core.TM.ImportExport.Importer.BatchImported
   id: BatchImported
@@ -327,23 +888,12 @@ items:
   assemblies:
   - Sdl.Core.TM.ImportExport
   namespace: Sdl.Core.TM.ImportExport
+  summary: "\nOccurs after a TU batch is imported\n"
   syntax:
-    content: >-
-      [Obsolete("Use ImporterAsync with constructor parameter batchImportedAsync.")]
-
-      public event EventHandler<BatchImportedEventArgs> BatchImported
+    content: public event EventHandler<BatchImportedEventArgs> BatchImported
     return:
       type: System.EventHandler{Sdl.Core.TM.ImportExport.BatchImportedEventArgs}
-    content.vb: >-
-      <Obsolete("Use ImporterAsync with constructor parameter batchImportedAsync.")>
-
-      Public Event BatchImported As EventHandler(Of BatchImportedEventArgs)
-  attributes:
-  - type: System.ObsoleteAttribute
-    ctor: System.ObsoleteAttribute.#ctor(System.String)
-    arguments:
-    - type: System.String
-      value: Use ImporterAsync with constructor parameter batchImportedAsync.
+    content.vb: Public Event BatchImported As EventHandler(Of BatchImportedEventArgs)
   modifiers.csharp:
   - public
   modifiers.vb:
@@ -362,320 +912,6 @@ references:
   name: Object
   nameWithType: Object
   fullName: System.Object
-- uid: Sdl.Core.TM.ImportExport.ImporterAsync
-  commentId: T:Sdl.Core.TM.ImportExport.ImporterAsync
-  parent: Sdl.Core.TM.ImportExport
-  isExternal: true
-  name: ImporterAsync
-  nameWithType: ImporterAsync
-  fullName: Sdl.Core.TM.ImportExport.ImporterAsync
-- uid: Sdl.Core.TM.ImportExport.ImporterAsync.DefaultTranslationUnitChunkSize
-  commentId: F:Sdl.Core.TM.ImportExport.ImporterAsync.DefaultTranslationUnitChunkSize
-  parent: Sdl.Core.TM.ImportExport.ImporterAsync
-  isExternal: true
-  name: DefaultTranslationUnitChunkSize
-  nameWithType: ImporterAsync.DefaultTranslationUnitChunkSize
-  fullName: Sdl.Core.TM.ImportExport.ImporterAsync.DefaultTranslationUnitChunkSize
-- uid: Sdl.Core.TM.ImportExport.ImporterAsync.MaxTranslationUnitChunkSize
-  commentId: F:Sdl.Core.TM.ImportExport.ImporterAsync.MaxTranslationUnitChunkSize
-  parent: Sdl.Core.TM.ImportExport.ImporterAsync
-  isExternal: true
-  name: MaxTranslationUnitChunkSize
-  nameWithType: ImporterAsync.MaxTranslationUnitChunkSize
-  fullName: Sdl.Core.TM.ImportExport.ImporterAsync.MaxTranslationUnitChunkSize
-- uid: Sdl.Core.TM.ImportExport.ImporterAsync.MinTranslationUnitChunkSize
-  commentId: F:Sdl.Core.TM.ImportExport.ImporterAsync.MinTranslationUnitChunkSize
-  parent: Sdl.Core.TM.ImportExport.ImporterAsync
-  isExternal: true
-  name: MinTranslationUnitChunkSize
-  nameWithType: ImporterAsync.MinTranslationUnitChunkSize
-  fullName: Sdl.Core.TM.ImportExport.ImporterAsync.MinTranslationUnitChunkSize
-- uid: Sdl.Core.TM.ImportExport.ImporterAsync.Buffer
-  commentId: F:Sdl.Core.TM.ImportExport.ImporterAsync.Buffer
-  parent: Sdl.Core.TM.ImportExport.ImporterAsync
-  isExternal: true
-  name: Buffer
-  nameWithType: ImporterAsync.Buffer
-  fullName: Sdl.Core.TM.ImportExport.ImporterAsync.Buffer
-- uid: Sdl.Core.TM.ImportExport.ImporterAsync.ErrorOutput
-  commentId: F:Sdl.Core.TM.ImportExport.ImporterAsync.ErrorOutput
-  parent: Sdl.Core.TM.ImportExport.ImporterAsync
-  isExternal: true
-  name: ErrorOutput
-  nameWithType: ImporterAsync.ErrorOutput
-  fullName: Sdl.Core.TM.ImportExport.ImporterAsync.ErrorOutput
-- uid: Sdl.Core.TM.ImportExport.ImporterAsync.BadTuCount
-  commentId: F:Sdl.Core.TM.ImportExport.ImporterAsync.BadTuCount
-  parent: Sdl.Core.TM.ImportExport.ImporterAsync
-  isExternal: true
-  name: BadTuCount
-  nameWithType: ImporterAsync.BadTuCount
-  fullName: Sdl.Core.TM.ImportExport.ImporterAsync.BadTuCount
-- uid: Sdl.Core.TM.ImportExport.ImporterAsync._batchImportedAsync
-  commentId: F:Sdl.Core.TM.ImportExport.ImporterAsync._batchImportedAsync
-  parent: Sdl.Core.TM.ImportExport.ImporterAsync
-  isExternal: true
-  name: _batchImportedAsync
-  nameWithType: ImporterAsync._batchImportedAsync
-  fullName: Sdl.Core.TM.ImportExport.ImporterAsync._batchImportedAsync
-- uid: Sdl.Core.TM.ImportExport.ImporterAsync.ImportAsync(System.String,Sdl.Core.TM.ImportExport.IImportDestinationAsync)
-  commentId: M:Sdl.Core.TM.ImportExport.ImporterAsync.ImportAsync(System.String,Sdl.Core.TM.ImportExport.IImportDestinationAsync)
-  parent: Sdl.Core.TM.ImportExport.ImporterAsync
-  isExternal: true
-  name: ImportAsync(String, IImportDestinationAsync)
-  nameWithType: ImporterAsync.ImportAsync(String, IImportDestinationAsync)
-  fullName: Sdl.Core.TM.ImportExport.ImporterAsync.ImportAsync(System.String, Sdl.Core.TM.ImportExport.IImportDestinationAsync)
-  spec.csharp:
-  - uid: Sdl.Core.TM.ImportExport.ImporterAsync.ImportAsync(System.String,Sdl.Core.TM.ImportExport.IImportDestinationAsync)
-    name: ImportAsync
-    nameWithType: ImporterAsync.ImportAsync
-    fullName: Sdl.Core.TM.ImportExport.ImporterAsync.ImportAsync
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: System.String
-    name: String
-    nameWithType: String
-    fullName: System.String
-    isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: Sdl.Core.TM.ImportExport.IImportDestinationAsync
-    name: IImportDestinationAsync
-    nameWithType: IImportDestinationAsync
-    fullName: Sdl.Core.TM.ImportExport.IImportDestinationAsync
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: Sdl.Core.TM.ImportExport.ImporterAsync.ImportAsync(System.String,Sdl.Core.TM.ImportExport.IImportDestinationAsync)
-    name: ImportAsync
-    nameWithType: ImporterAsync.ImportAsync
-    fullName: Sdl.Core.TM.ImportExport.ImporterAsync.ImportAsync
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: System.String
-    name: String
-    nameWithType: String
-    fullName: System.String
-    isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: Sdl.Core.TM.ImportExport.IImportDestinationAsync
-    name: IImportDestinationAsync
-    nameWithType: IImportDestinationAsync
-    fullName: Sdl.Core.TM.ImportExport.IImportDestinationAsync
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: Sdl.Core.TM.ImportExport.ImporterAsync.GetDefaultFileTypeManager
-  commentId: M:Sdl.Core.TM.ImportExport.ImporterAsync.GetDefaultFileTypeManager
-  parent: Sdl.Core.TM.ImportExport.ImporterAsync
-  isExternal: true
-  name: GetDefaultFileTypeManager()
-  nameWithType: ImporterAsync.GetDefaultFileTypeManager()
-  fullName: Sdl.Core.TM.ImportExport.ImporterAsync.GetDefaultFileTypeManager()
-  spec.csharp:
-  - uid: Sdl.Core.TM.ImportExport.ImporterAsync.GetDefaultFileTypeManager
-    name: GetDefaultFileTypeManager
-    nameWithType: ImporterAsync.GetDefaultFileTypeManager
-    fullName: Sdl.Core.TM.ImportExport.ImporterAsync.GetDefaultFileTypeManager
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: Sdl.Core.TM.ImportExport.ImporterAsync.GetDefaultFileTypeManager
-    name: GetDefaultFileTypeManager
-    nameWithType: ImporterAsync.GetDefaultFileTypeManager
-    fullName: Sdl.Core.TM.ImportExport.ImporterAsync.GetDefaultFileTypeManager
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: Sdl.Core.TM.ImportExport.ImporterAsync.Flush(Sdl.LanguagePlatform.TranslationMemory.ImportStatistics,Sdl.Core.TM.ImportExport.IImportDestinationAsync)
-  commentId: M:Sdl.Core.TM.ImportExport.ImporterAsync.Flush(Sdl.LanguagePlatform.TranslationMemory.ImportStatistics,Sdl.Core.TM.ImportExport.IImportDestinationAsync)
-  parent: Sdl.Core.TM.ImportExport.ImporterAsync
-  isExternal: true
-  name: Flush(ImportStatistics, IImportDestinationAsync)
-  nameWithType: ImporterAsync.Flush(ImportStatistics, IImportDestinationAsync)
-  fullName: Sdl.Core.TM.ImportExport.ImporterAsync.Flush(Sdl.LanguagePlatform.TranslationMemory.ImportStatistics, Sdl.Core.TM.ImportExport.IImportDestinationAsync)
-  spec.csharp:
-  - uid: Sdl.Core.TM.ImportExport.ImporterAsync.Flush(Sdl.LanguagePlatform.TranslationMemory.ImportStatistics,Sdl.Core.TM.ImportExport.IImportDestinationAsync)
-    name: Flush
-    nameWithType: ImporterAsync.Flush
-    fullName: Sdl.Core.TM.ImportExport.ImporterAsync.Flush
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: Sdl.LanguagePlatform.TranslationMemory.ImportStatistics
-    name: ImportStatistics
-    nameWithType: ImportStatistics
-    fullName: Sdl.LanguagePlatform.TranslationMemory.ImportStatistics
-    isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: Sdl.Core.TM.ImportExport.IImportDestinationAsync
-    name: IImportDestinationAsync
-    nameWithType: IImportDestinationAsync
-    fullName: Sdl.Core.TM.ImportExport.IImportDestinationAsync
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: Sdl.Core.TM.ImportExport.ImporterAsync.Flush(Sdl.LanguagePlatform.TranslationMemory.ImportStatistics,Sdl.Core.TM.ImportExport.IImportDestinationAsync)
-    name: Flush
-    nameWithType: ImporterAsync.Flush
-    fullName: Sdl.Core.TM.ImportExport.ImporterAsync.Flush
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: Sdl.LanguagePlatform.TranslationMemory.ImportStatistics
-    name: ImportStatistics
-    nameWithType: ImportStatistics
-    fullName: Sdl.LanguagePlatform.TranslationMemory.ImportStatistics
-    isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: Sdl.Core.TM.ImportExport.IImportDestinationAsync
-    name: IImportDestinationAsync
-    nameWithType: IImportDestinationAsync
-    fullName: Sdl.Core.TM.ImportExport.IImportDestinationAsync
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: Sdl.Core.TM.ImportExport.ImporterAsync.OutputErrorTuAsync(Sdl.LanguagePlatform.TranslationMemory.TranslationUnit,Sdl.LanguagePlatform.TranslationMemory.ImportResult)
-  commentId: M:Sdl.Core.TM.ImportExport.ImporterAsync.OutputErrorTuAsync(Sdl.LanguagePlatform.TranslationMemory.TranslationUnit,Sdl.LanguagePlatform.TranslationMemory.ImportResult)
-  parent: Sdl.Core.TM.ImportExport.ImporterAsync
-  isExternal: true
-  name: OutputErrorTuAsync(TranslationUnit, ImportResult)
-  nameWithType: ImporterAsync.OutputErrorTuAsync(TranslationUnit, ImportResult)
-  fullName: Sdl.Core.TM.ImportExport.ImporterAsync.OutputErrorTuAsync(Sdl.LanguagePlatform.TranslationMemory.TranslationUnit, Sdl.LanguagePlatform.TranslationMemory.ImportResult)
-  spec.csharp:
-  - uid: Sdl.Core.TM.ImportExport.ImporterAsync.OutputErrorTuAsync(Sdl.LanguagePlatform.TranslationMemory.TranslationUnit,Sdl.LanguagePlatform.TranslationMemory.ImportResult)
-    name: OutputErrorTuAsync
-    nameWithType: ImporterAsync.OutputErrorTuAsync
-    fullName: Sdl.Core.TM.ImportExport.ImporterAsync.OutputErrorTuAsync
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: Sdl.LanguagePlatform.TranslationMemory.TranslationUnit
-    name: TranslationUnit
-    nameWithType: TranslationUnit
-    fullName: Sdl.LanguagePlatform.TranslationMemory.TranslationUnit
-    isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: Sdl.LanguagePlatform.TranslationMemory.ImportResult
-    name: ImportResult
-    nameWithType: ImportResult
-    fullName: Sdl.LanguagePlatform.TranslationMemory.ImportResult
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: Sdl.Core.TM.ImportExport.ImporterAsync.OutputErrorTuAsync(Sdl.LanguagePlatform.TranslationMemory.TranslationUnit,Sdl.LanguagePlatform.TranslationMemory.ImportResult)
-    name: OutputErrorTuAsync
-    nameWithType: ImporterAsync.OutputErrorTuAsync
-    fullName: Sdl.Core.TM.ImportExport.ImporterAsync.OutputErrorTuAsync
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: Sdl.LanguagePlatform.TranslationMemory.TranslationUnit
-    name: TranslationUnit
-    nameWithType: TranslationUnit
-    fullName: Sdl.LanguagePlatform.TranslationMemory.TranslationUnit
-    isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: Sdl.LanguagePlatform.TranslationMemory.ImportResult
-    name: ImportResult
-    nameWithType: ImportResult
-    fullName: Sdl.LanguagePlatform.TranslationMemory.ImportResult
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: Sdl.Core.TM.ImportExport.ImporterAsync.Statistics
-  commentId: P:Sdl.Core.TM.ImportExport.ImporterAsync.Statistics
-  parent: Sdl.Core.TM.ImportExport.ImporterAsync
-  isExternal: true
-  name: Statistics
-  nameWithType: ImporterAsync.Statistics
-  fullName: Sdl.Core.TM.ImportExport.ImporterAsync.Statistics
-- uid: Sdl.Core.TM.ImportExport.ImporterAsync.FileTypeManager
-  commentId: P:Sdl.Core.TM.ImportExport.ImporterAsync.FileTypeManager
-  parent: Sdl.Core.TM.ImportExport.ImporterAsync
-  isExternal: true
-  name: FileTypeManager
-  nameWithType: ImporterAsync.FileTypeManager
-  fullName: Sdl.Core.TM.ImportExport.ImporterAsync.FileTypeManager
-- uid: Sdl.Core.TM.ImportExport.ImporterAsync.CanChangeImportFile
-  commentId: P:Sdl.Core.TM.ImportExport.ImporterAsync.CanChangeImportFile
-  parent: Sdl.Core.TM.ImportExport.ImporterAsync
-  isExternal: true
-  name: CanChangeImportFile
-  nameWithType: ImporterAsync.CanChangeImportFile
-  fullName: Sdl.Core.TM.ImportExport.ImporterAsync.CanChangeImportFile
-- uid: Sdl.Core.TM.ImportExport.ImporterAsync.TranslationMemoryUserIdSetting
-  commentId: P:Sdl.Core.TM.ImportExport.ImporterAsync.TranslationMemoryUserIdSetting
-  parent: Sdl.Core.TM.ImportExport.ImporterAsync
-  isExternal: true
-  name: TranslationMemoryUserIdSetting
-  nameWithType: ImporterAsync.TranslationMemoryUserIdSetting
-  fullName: Sdl.Core.TM.ImportExport.ImporterAsync.TranslationMemoryUserIdSetting
-- uid: Sdl.Core.TM.ImportExport.ImporterAsync.ChunkSize
-  commentId: P:Sdl.Core.TM.ImportExport.ImporterAsync.ChunkSize
-  parent: Sdl.Core.TM.ImportExport.ImporterAsync
-  isExternal: true
-  name: ChunkSize
-  nameWithType: ImporterAsync.ChunkSize
-  fullName: Sdl.Core.TM.ImportExport.ImporterAsync.ChunkSize
-- uid: Sdl.Core.TM.ImportExport.ImporterAsync.Exclusive
-  commentId: P:Sdl.Core.TM.ImportExport.ImporterAsync.Exclusive
-  parent: Sdl.Core.TM.ImportExport.ImporterAsync
-  isExternal: true
-  name: Exclusive
-  nameWithType: ImporterAsync.Exclusive
-  fullName: Sdl.Core.TM.ImportExport.ImporterAsync.Exclusive
-- uid: Sdl.Core.TM.ImportExport.ImporterAsync.ImportSettings
-  commentId: P:Sdl.Core.TM.ImportExport.ImporterAsync.ImportSettings
-  parent: Sdl.Core.TM.ImportExport.ImporterAsync
-  isExternal: true
-  name: ImportSettings
-  nameWithType: ImporterAsync.ImportSettings
-  fullName: Sdl.Core.TM.ImportExport.ImporterAsync.ImportSettings
-- uid: Sdl.Core.TM.ImportExport.ImporterAsync.InvalidTranslationUnitsExportPath
-  commentId: P:Sdl.Core.TM.ImportExport.ImporterAsync.InvalidTranslationUnitsExportPath
-  parent: Sdl.Core.TM.ImportExport.ImporterAsync
-  isExternal: true
-  name: InvalidTranslationUnitsExportPath
-  nameWithType: ImporterAsync.InvalidTranslationUnitsExportPath
-  fullName: Sdl.Core.TM.ImportExport.ImporterAsync.InvalidTranslationUnitsExportPath
 - uid: System.Object.ToString
   commentId: M:System.Object.ToString
   parent: System.Object
@@ -961,12 +1197,126 @@ references:
   name: System
   nameWithType: System
   fullName: System
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  name: Int32
+  nameWithType: Int32
+  fullName: System.Int32
+- uid: System.Collections.Generic.List{Sdl.LanguagePlatform.TranslationMemory.TranslationUnit}
+  commentId: T:System.Collections.Generic.List{Sdl.LanguagePlatform.TranslationMemory.TranslationUnit}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  name: List<TranslationUnit>
+  nameWithType: List<TranslationUnit>
+  fullName: System.Collections.Generic.List<Sdl.LanguagePlatform.TranslationMemory.TranslationUnit>
+  nameWithType.vb: List(Of TranslationUnit)
+  fullName.vb: System.Collections.Generic.List(Of Sdl.LanguagePlatform.TranslationMemory.TranslationUnit)
+  name.vb: List(Of TranslationUnit)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    nameWithType: List
+    fullName: System.Collections.Generic.List
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Sdl.LanguagePlatform.TranslationMemory.TranslationUnit
+    name: TranslationUnit
+    nameWithType: TranslationUnit
+    fullName: Sdl.LanguagePlatform.TranslationMemory.TranslationUnit
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    nameWithType: List
+    fullName: System.Collections.Generic.List
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Sdl.LanguagePlatform.TranslationMemory.TranslationUnit
+    name: TranslationUnit
+    nameWithType: TranslationUnit
+    fullName: Sdl.LanguagePlatform.TranslationMemory.TranslationUnit
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.List`1
+  commentId: T:System.Collections.Generic.List`1
+  isExternal: true
+  name: List<>
+  nameWithType: List<>
+  fullName: System.Collections.Generic.List<>
+  nameWithType.vb: List(Of )
+  fullName.vb: System.Collections.Generic.List(Of )
+  name.vb: List(Of )
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    nameWithType: List
+    fullName: System.Collections.Generic.List
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: ''
+    nameWithType: ''
+    fullName: ''
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    nameWithType: List
+    fullName: System.Collections.Generic.List
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: ''
+    nameWithType: ''
+    fullName: ''
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+- uid: Sdl.LanguagePlatform.IO.TMX.TMXWriter
+  commentId: T:Sdl.LanguagePlatform.IO.TMX.TMXWriter
+  parent: Sdl.LanguagePlatform.IO.TMX
+  isExternal: true
+  name: TMXWriter
+  nameWithType: TMXWriter
+  fullName: Sdl.LanguagePlatform.IO.TMX.TMXWriter
+- uid: Sdl.LanguagePlatform.IO.TMX
+  commentId: N:Sdl.LanguagePlatform.IO.TMX
+  isExternal: true
+  name: Sdl.LanguagePlatform.IO.TMX
+  nameWithType: Sdl.LanguagePlatform.IO.TMX
+  fullName: Sdl.LanguagePlatform.IO.TMX
 - uid: Sdl.Core.TM.ImportExport.Importer.#ctor*
   commentId: Overload:Sdl.Core.TM.ImportExport.Importer.#ctor
   isExternal: true
   name: Importer
   nameWithType: Importer.Importer
   fullName: Sdl.Core.TM.ImportExport.Importer.Importer
+- uid: Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager
+  isExternal: true
+  name: ICultureMetadataManager
+  nameWithType: ICultureMetadataManager
+  fullName: Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager
 - uid: Sdl.Core.TM.ImportExport.IImportDestination
   commentId: T:Sdl.Core.TM.ImportExport.IImportDestination
   parent: Sdl.Core.TM.ImportExport
@@ -981,11 +1331,6 @@ references:
   name: IImportDestinationAsync
   nameWithType: IImportDestinationAsync
   fullName: Sdl.Core.TM.ImportExport.IImportDestinationAsync
-- uid: Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager
-  isExternal: true
-  name: ICultureMetadataManager
-  nameWithType: ICultureMetadataManager
-  fullName: Sdl.Core.Globalization.CultureMetadataManager.ICultureMetadataManager
 - uid: Sdl.Core.TM.ImportExport.Importer.Import*
   commentId: Overload:Sdl.Core.TM.ImportExport.Importer.Import
   isExternal: true
@@ -1006,83 +1351,12 @@ references:
   name: Boolean
   nameWithType: Boolean
   fullName: System.Boolean
-- uid: Sdl.Core.TM.ImportExport.ImporterAsync.OnBatchImportedAsync(Sdl.LanguagePlatform.TranslationMemory.ImportStatistics,Sdl.LanguagePlatform.TranslationMemory.ImportResults)
-  commentId: M:Sdl.Core.TM.ImportExport.ImporterAsync.OnBatchImportedAsync(Sdl.LanguagePlatform.TranslationMemory.ImportStatistics,Sdl.LanguagePlatform.TranslationMemory.ImportResults)
-  parent: Sdl.Core.TM.ImportExport.ImporterAsync
+- uid: Sdl.Core.TM.ImportExport.Importer.ImportAsync*
+  commentId: Overload:Sdl.Core.TM.ImportExport.Importer.ImportAsync
   isExternal: true
-  name: OnBatchImportedAsync(ImportStatistics, ImportResults)
-  nameWithType: ImporterAsync.OnBatchImportedAsync(ImportStatistics, ImportResults)
-  fullName: Sdl.Core.TM.ImportExport.ImporterAsync.OnBatchImportedAsync(Sdl.LanguagePlatform.TranslationMemory.ImportStatistics, Sdl.LanguagePlatform.TranslationMemory.ImportResults)
-  spec.csharp:
-  - uid: Sdl.Core.TM.ImportExport.ImporterAsync.OnBatchImportedAsync(Sdl.LanguagePlatform.TranslationMemory.ImportStatistics,Sdl.LanguagePlatform.TranslationMemory.ImportResults)
-    name: OnBatchImportedAsync
-    nameWithType: ImporterAsync.OnBatchImportedAsync
-    fullName: Sdl.Core.TM.ImportExport.ImporterAsync.OnBatchImportedAsync
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: Sdl.LanguagePlatform.TranslationMemory.ImportStatistics
-    name: ImportStatistics
-    nameWithType: ImportStatistics
-    fullName: Sdl.LanguagePlatform.TranslationMemory.ImportStatistics
-    isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: Sdl.LanguagePlatform.TranslationMemory.ImportResults
-    name: ImportResults
-    nameWithType: ImportResults
-    fullName: Sdl.LanguagePlatform.TranslationMemory.ImportResults
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: Sdl.Core.TM.ImportExport.ImporterAsync.OnBatchImportedAsync(Sdl.LanguagePlatform.TranslationMemory.ImportStatistics,Sdl.LanguagePlatform.TranslationMemory.ImportResults)
-    name: OnBatchImportedAsync
-    nameWithType: ImporterAsync.OnBatchImportedAsync
-    fullName: Sdl.Core.TM.ImportExport.ImporterAsync.OnBatchImportedAsync
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: Sdl.LanguagePlatform.TranslationMemory.ImportStatistics
-    name: ImportStatistics
-    nameWithType: ImportStatistics
-    fullName: Sdl.LanguagePlatform.TranslationMemory.ImportStatistics
-    isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: Sdl.LanguagePlatform.TranslationMemory.ImportResults
-    name: ImportResults
-    nameWithType: ImportResults
-    fullName: Sdl.LanguagePlatform.TranslationMemory.ImportResults
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: Sdl.Core.TM.ImportExport.Importer.OnBatchImportedAsync*
-  commentId: Overload:Sdl.Core.TM.ImportExport.Importer.OnBatchImportedAsync
-  isExternal: true
-  name: OnBatchImportedAsync
-  nameWithType: Importer.OnBatchImportedAsync
-  fullName: Sdl.Core.TM.ImportExport.Importer.OnBatchImportedAsync
-- uid: Sdl.LanguagePlatform.TranslationMemory.ImportStatistics
-  commentId: T:Sdl.LanguagePlatform.TranslationMemory.ImportStatistics
-  parent: Sdl.LanguagePlatform.TranslationMemory
-  isExternal: true
-  name: ImportStatistics
-  nameWithType: ImportStatistics
-  fullName: Sdl.LanguagePlatform.TranslationMemory.ImportStatistics
-- uid: Sdl.LanguagePlatform.TranslationMemory.ImportResults
-  commentId: T:Sdl.LanguagePlatform.TranslationMemory.ImportResults
-  parent: Sdl.LanguagePlatform.TranslationMemory
-  isExternal: true
-  name: ImportResults
-  nameWithType: ImportResults
-  fullName: Sdl.LanguagePlatform.TranslationMemory.ImportResults
+  name: ImportAsync
+  nameWithType: Importer.ImportAsync
+  fullName: Sdl.Core.TM.ImportExport.Importer.ImportAsync
 - uid: System.Threading.Tasks.Task{System.Boolean}
   commentId: '!:System.Threading.Tasks.Task{System.Boolean}'
   parent: System.Threading.Tasks
@@ -1127,12 +1401,6 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: Sdl.LanguagePlatform.TranslationMemory
-  commentId: N:Sdl.LanguagePlatform.TranslationMemory
-  isExternal: true
-  name: Sdl.LanguagePlatform.TranslationMemory
-  nameWithType: Sdl.LanguagePlatform.TranslationMemory
-  fullName: Sdl.LanguagePlatform.TranslationMemory
 - uid: System.Threading.Tasks.Task`1
   commentId: T:System.Threading.Tasks.Task`1
   isExternal: true
@@ -1178,6 +1446,182 @@ references:
   name: System.Threading.Tasks
   nameWithType: System.Threading.Tasks
   fullName: System.Threading.Tasks
+- uid: Sdl.Core.TM.ImportExport.Importer.GetDefaultFileTypeManager*
+  commentId: Overload:Sdl.Core.TM.ImportExport.Importer.GetDefaultFileTypeManager
+  isExternal: true
+  name: GetDefaultFileTypeManager
+  nameWithType: Importer.GetDefaultFileTypeManager
+  fullName: Sdl.Core.TM.ImportExport.Importer.GetDefaultFileTypeManager
+- uid: Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager
+  isExternal: true
+  name: IFileTypeManager
+  nameWithType: IFileTypeManager
+  fullName: Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager
+- uid: Sdl.Core.TM.ImportExport.Importer.Flush*
+  commentId: Overload:Sdl.Core.TM.ImportExport.Importer.Flush
+  isExternal: true
+  name: Flush
+  nameWithType: Importer.Flush
+  fullName: Sdl.Core.TM.ImportExport.Importer.Flush
+- uid: Sdl.LanguagePlatform.TranslationMemory.ImportStatistics
+  commentId: T:Sdl.LanguagePlatform.TranslationMemory.ImportStatistics
+  parent: Sdl.LanguagePlatform.TranslationMemory
+  isExternal: true
+  name: ImportStatistics
+  nameWithType: ImportStatistics
+  fullName: Sdl.LanguagePlatform.TranslationMemory.ImportStatistics
+- uid: System.Threading.Tasks.Task{Sdl.Core.TM.ImportExport.ImportExportResponse}
+  commentId: T:System.Threading.Tasks.Task{Sdl.Core.TM.ImportExport.ImportExportResponse}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  name: Task<ImportExportResponse>
+  nameWithType: Task<ImportExportResponse>
+  fullName: System.Threading.Tasks.Task<Sdl.Core.TM.ImportExport.ImportExportResponse>
+  nameWithType.vb: Task(Of ImportExportResponse)
+  fullName.vb: System.Threading.Tasks.Task(Of Sdl.Core.TM.ImportExport.ImportExportResponse)
+  name.vb: Task(Of ImportExportResponse)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Sdl.Core.TM.ImportExport.ImportExportResponse
+    name: ImportExportResponse
+    nameWithType: ImportExportResponse
+    fullName: Sdl.Core.TM.ImportExport.ImportExportResponse
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Sdl.Core.TM.ImportExport.ImportExportResponse
+    name: ImportExportResponse
+    nameWithType: ImportExportResponse
+    fullName: Sdl.Core.TM.ImportExport.ImportExportResponse
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Sdl.LanguagePlatform.TranslationMemory
+  commentId: N:Sdl.LanguagePlatform.TranslationMemory
+  isExternal: true
+  name: Sdl.LanguagePlatform.TranslationMemory
+  nameWithType: Sdl.LanguagePlatform.TranslationMemory
+  fullName: Sdl.LanguagePlatform.TranslationMemory
+- uid: Sdl.Core.TM.ImportExport.Importer.OutputErrorTuAsync*
+  commentId: Overload:Sdl.Core.TM.ImportExport.Importer.OutputErrorTuAsync
+  isExternal: true
+  name: OutputErrorTuAsync
+  nameWithType: Importer.OutputErrorTuAsync
+  fullName: Sdl.Core.TM.ImportExport.Importer.OutputErrorTuAsync
+- uid: Sdl.LanguagePlatform.TranslationMemory.TranslationUnit
+  commentId: T:Sdl.LanguagePlatform.TranslationMemory.TranslationUnit
+  parent: Sdl.LanguagePlatform.TranslationMemory
+  isExternal: true
+  name: TranslationUnit
+  nameWithType: TranslationUnit
+  fullName: Sdl.LanguagePlatform.TranslationMemory.TranslationUnit
+- uid: Sdl.LanguagePlatform.TranslationMemory.ImportResult
+  commentId: T:Sdl.LanguagePlatform.TranslationMemory.ImportResult
+  parent: Sdl.LanguagePlatform.TranslationMemory
+  isExternal: true
+  name: ImportResult
+  nameWithType: ImportResult
+  fullName: Sdl.LanguagePlatform.TranslationMemory.ImportResult
+- uid: System.Threading.Tasks.Task
+  commentId: T:System.Threading.Tasks.Task
+  parent: System.Threading.Tasks
+  isExternal: true
+  name: Task
+  nameWithType: Task
+  fullName: System.Threading.Tasks.Task
+- uid: Sdl.Core.TM.ImportExport.Importer.OnBatchImported*
+  commentId: Overload:Sdl.Core.TM.ImportExport.Importer.OnBatchImported
+  isExternal: true
+  name: OnBatchImported
+  nameWithType: Importer.OnBatchImported
+  fullName: Sdl.Core.TM.ImportExport.Importer.OnBatchImported
+- uid: Sdl.LanguagePlatform.TranslationMemory.ImportResults
+  commentId: T:Sdl.LanguagePlatform.TranslationMemory.ImportResults
+  parent: Sdl.LanguagePlatform.TranslationMemory
+  isExternal: true
+  name: ImportResults
+  nameWithType: ImportResults
+  fullName: Sdl.LanguagePlatform.TranslationMemory.ImportResults
+- uid: Sdl.Core.TM.ImportExport.ImportExportResponse
+  commentId: T:Sdl.Core.TM.ImportExport.ImportExportResponse
+  parent: Sdl.Core.TM.ImportExport
+  isExternal: true
+  name: ImportExportResponse
+  nameWithType: ImportExportResponse
+  fullName: Sdl.Core.TM.ImportExport.ImportExportResponse
+- uid: Sdl.Core.TM.ImportExport.Importer.Statistics*
+  commentId: Overload:Sdl.Core.TM.ImportExport.Importer.Statistics
+  isExternal: true
+  name: Statistics
+  nameWithType: Importer.Statistics
+  fullName: Sdl.Core.TM.ImportExport.Importer.Statistics
+- uid: Sdl.Core.TM.ImportExport.Importer.FileTypeManager*
+  commentId: Overload:Sdl.Core.TM.ImportExport.Importer.FileTypeManager
+  isExternal: true
+  name: FileTypeManager
+  nameWithType: Importer.FileTypeManager
+  fullName: Sdl.Core.TM.ImportExport.Importer.FileTypeManager
+- uid: Sdl.Core.TM.ImportExport.Importer.CanChangeImportFile*
+  commentId: Overload:Sdl.Core.TM.ImportExport.Importer.CanChangeImportFile
+  isExternal: true
+  name: CanChangeImportFile
+  nameWithType: Importer.CanChangeImportFile
+  fullName: Sdl.Core.TM.ImportExport.Importer.CanChangeImportFile
+- uid: Sdl.Core.TM.ImportExport.Importer.TranslationMemoryUserIdSetting*
+  commentId: Overload:Sdl.Core.TM.ImportExport.Importer.TranslationMemoryUserIdSetting
+  isExternal: true
+  name: TranslationMemoryUserIdSetting
+  nameWithType: Importer.TranslationMemoryUserIdSetting
+  fullName: Sdl.Core.TM.ImportExport.Importer.TranslationMemoryUserIdSetting
+- uid: Sdl.Core.TM.ImportExport.Importer.ChunkSize*
+  commentId: Overload:Sdl.Core.TM.ImportExport.Importer.ChunkSize
+  isExternal: true
+  name: ChunkSize
+  nameWithType: Importer.ChunkSize
+  fullName: Sdl.Core.TM.ImportExport.Importer.ChunkSize
+- uid: Sdl.Core.TM.ImportExport.Importer.Exclusive*
+  commentId: Overload:Sdl.Core.TM.ImportExport.Importer.Exclusive
+  isExternal: true
+  name: Exclusive
+  nameWithType: Importer.Exclusive
+  fullName: Sdl.Core.TM.ImportExport.Importer.Exclusive
+- uid: Sdl.Core.TM.ImportExport.Importer.ImportSettings*
+  commentId: Overload:Sdl.Core.TM.ImportExport.Importer.ImportSettings
+  isExternal: true
+  name: ImportSettings
+  nameWithType: Importer.ImportSettings
+  fullName: Sdl.Core.TM.ImportExport.Importer.ImportSettings
+- uid: Sdl.LanguagePlatform.TranslationMemory.ImportSettings
+  commentId: T:Sdl.LanguagePlatform.TranslationMemory.ImportSettings
+  parent: Sdl.LanguagePlatform.TranslationMemory
+  isExternal: true
+  name: ImportSettings
+  nameWithType: ImportSettings
+  fullName: Sdl.LanguagePlatform.TranslationMemory.ImportSettings
+- uid: Sdl.Core.TM.ImportExport.Importer.InvalidTranslationUnitsExportPath*
+  commentId: Overload:Sdl.Core.TM.ImportExport.Importer.InvalidTranslationUnitsExportPath
+  isExternal: true
+  name: InvalidTranslationUnitsExportPath
+  nameWithType: Importer.InvalidTranslationUnitsExportPath
+  fullName: Sdl.Core.TM.ImportExport.Importer.InvalidTranslationUnitsExportPath
 - uid: System.EventHandler{Sdl.Core.TM.ImportExport.BatchImportedEventArgs}
   commentId: T:System.EventHandler{Sdl.Core.TM.ImportExport.BatchImportedEventArgs}
   parent: System

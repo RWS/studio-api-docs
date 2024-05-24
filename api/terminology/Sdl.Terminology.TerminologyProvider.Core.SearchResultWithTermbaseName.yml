@@ -20,15 +20,19 @@ items:
   assemblies:
   - Sdl.Terminology.TerminologyProvider.Core
   namespace: Sdl.Terminology.TerminologyProvider.Core
-  summary: "\nSearch Results, for providers which support multiple termbases.\n"
+  summary: "\nSearch Results for providers which support multiple termbases.\n"
   syntax:
-    content: 'public class SearchResultWithTermbaseName : SearchResult'
+    content: 'public class SearchResultWithTermbaseName : SearchResult, ISearchResultWithTermbaseName, ISearchResult'
     content.vb: >-
       Public Class SearchResultWithTermbaseName
           Inherits SearchResult
+          Implements ISearchResultWithTermbaseName, ISearchResult
   inheritance:
   - System.Object
   - Sdl.Terminology.TerminologyProvider.Core.SearchResult
+  implements:
+  - Sdl.Terminology.TerminologyProvider.Core.ISearchResultWithTermbaseName
+  - Sdl.Terminology.TerminologyProvider.Core.ISearchResult
   inheritedMembers:
   - Sdl.Terminology.TerminologyProvider.Core.SearchResult.Id
   - Sdl.Terminology.TerminologyProvider.Core.SearchResult.Text
@@ -89,7 +93,7 @@ items:
   assemblies:
   - Sdl.Terminology.TerminologyProvider.Core
   namespace: Sdl.Terminology.TerminologyProvider.Core
-  summary: "\nThe name of the termbase in a provider that supports multiple termbases\n"
+  summary: "\nThe name of the termbase in which the term is found.\n"
   syntax:
     content: public string TermbaseName { get; set; }
     parameters: []
@@ -97,6 +101,8 @@ items:
       type: System.String
     content.vb: Public Property TermbaseName As String
   overload: Sdl.Terminology.TerminologyProvider.Core.SearchResultWithTermbaseName.TermbaseName*
+  implements:
+  - Sdl.Terminology.TerminologyProvider.Core.ISearchResultWithTermbaseName.TermbaseName
   modifiers.csharp:
   - public
   - get
@@ -124,6 +130,20 @@ references:
   name: SearchResult
   nameWithType: SearchResult
   fullName: Sdl.Terminology.TerminologyProvider.Core.SearchResult
+- uid: Sdl.Terminology.TerminologyProvider.Core.ISearchResultWithTermbaseName
+  commentId: T:Sdl.Terminology.TerminologyProvider.Core.ISearchResultWithTermbaseName
+  parent: Sdl.Terminology.TerminologyProvider.Core
+  isExternal: true
+  name: ISearchResultWithTermbaseName
+  nameWithType: ISearchResultWithTermbaseName
+  fullName: Sdl.Terminology.TerminologyProvider.Core.ISearchResultWithTermbaseName
+- uid: Sdl.Terminology.TerminologyProvider.Core.ISearchResult
+  commentId: T:Sdl.Terminology.TerminologyProvider.Core.ISearchResult
+  parent: Sdl.Terminology.TerminologyProvider.Core
+  isExternal: true
+  name: ISearchResult
+  nameWithType: ISearchResult
+  fullName: Sdl.Terminology.TerminologyProvider.Core.ISearchResult
 - uid: Sdl.Terminology.TerminologyProvider.Core.SearchResult.Id
   commentId: P:Sdl.Terminology.TerminologyProvider.Core.SearchResult.Id
   parent: Sdl.Terminology.TerminologyProvider.Core.SearchResult
@@ -449,6 +469,13 @@ references:
   name: TermbaseName
   nameWithType: SearchResultWithTermbaseName.TermbaseName
   fullName: Sdl.Terminology.TerminologyProvider.Core.SearchResultWithTermbaseName.TermbaseName
+- uid: Sdl.Terminology.TerminologyProvider.Core.ISearchResultWithTermbaseName.TermbaseName
+  commentId: P:Sdl.Terminology.TerminologyProvider.Core.ISearchResultWithTermbaseName.TermbaseName
+  parent: Sdl.Terminology.TerminologyProvider.Core.ISearchResultWithTermbaseName
+  isExternal: true
+  name: TermbaseName
+  nameWithType: ISearchResultWithTermbaseName.TermbaseName
+  fullName: Sdl.Terminology.TerminologyProvider.Core.ISearchResultWithTermbaseName.TermbaseName
 - uid: System.String
   commentId: T:System.String
   parent: System

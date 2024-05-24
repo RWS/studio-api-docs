@@ -8,10 +8,10 @@ items:
   - Sdl.DesktopEditor.EditorApi.IFind.Finished
   - Sdl.DesktopEditor.EditorApi.IFind.Match
   - Sdl.DesktopEditor.EditorApi.IFind.MatchFound
-  - Sdl.DesktopEditor.EditorApi.IFind.MatchRange
   - Sdl.DesktopEditor.EditorApi.IFind.NextMatch
   - Sdl.DesktopEditor.EditorApi.IFind.Properties
   - Sdl.DesktopEditor.EditorApi.IFind.Range
+  - Sdl.DesktopEditor.EditorApi.IFind.ReplaceRange(Sdl.DesktopEditor.EditorApi.ContentRange)
   - Sdl.DesktopEditor.EditorApi.IFind.Text
   - Sdl.DesktopEditor.EditorApi.IFind.UpdateRangeFrom(Sdl.DesktopEditor.EditorApi.Position)
   - Sdl.DesktopEditor.EditorApi.IFind.UpdateRangeUpTo(Sdl.DesktopEditor.EditorApi.Position)
@@ -114,6 +114,32 @@ items:
       type: Sdl.DesktopEditor.EditorApi.Position
     content.vb: Sub UpdateRangeUpTo(upTo As Position)
   overload: Sdl.DesktopEditor.EditorApi.IFind.UpdateRangeUpTo*
+- uid: Sdl.DesktopEditor.EditorApi.IFind.ReplaceRange(Sdl.DesktopEditor.EditorApi.ContentRange)
+  commentId: M:Sdl.DesktopEditor.EditorApi.IFind.ReplaceRange(Sdl.DesktopEditor.EditorApi.ContentRange)
+  id: ReplaceRange(Sdl.DesktopEditor.EditorApi.ContentRange)
+  parent: Sdl.DesktopEditor.EditorApi.IFind
+  langs:
+  - csharp
+  - vb
+  name: ReplaceRange(ContentRange)
+  nameWithType: IFind.ReplaceRange(ContentRange)
+  fullName: Sdl.DesktopEditor.EditorApi.IFind.ReplaceRange(Sdl.DesktopEditor.EditorApi.ContentRange)
+  type: Method
+  source:
+    path: Sdl.DesktopEditor.EditorApi
+    isExternal: true
+  assemblies:
+  - Sdl.DesktopEditor.EditorApi
+  namespace: Sdl.DesktopEditor.EditorApi
+  summary: "\nReplace the entire range. This is a heavyweight operation and should only be\nused if replace operations break the range beyond repair.\n"
+  syntax:
+    content: void ReplaceRange(ContentRange range)
+    parameters:
+    - id: range
+      type: Sdl.DesktopEditor.EditorApi.ContentRange
+      description: The new range to use.
+    content.vb: Sub ReplaceRange(range As ContentRange)
+  overload: Sdl.DesktopEditor.EditorApi.IFind.ReplaceRange*
 - uid: Sdl.DesktopEditor.EditorApi.IFind.Range
   commentId: P:Sdl.DesktopEditor.EditorApi.IFind.Range
   id: Range
@@ -259,35 +285,6 @@ items:
   - get
   modifiers.vb:
   - ReadOnly
-- uid: Sdl.DesktopEditor.EditorApi.IFind.MatchRange
-  commentId: P:Sdl.DesktopEditor.EditorApi.IFind.MatchRange
-  id: MatchRange
-  parent: Sdl.DesktopEditor.EditorApi.IFind
-  langs:
-  - csharp
-  - vb
-  name: MatchRange
-  nameWithType: IFind.MatchRange
-  fullName: Sdl.DesktopEditor.EditorApi.IFind.MatchRange
-  type: Property
-  source:
-    path: Sdl.DesktopEditor.EditorApi
-    isExternal: true
-  assemblies:
-  - Sdl.DesktopEditor.EditorApi
-  namespace: Sdl.DesktopEditor.EditorApi
-  summary: "\nThe range denoting the start and end of the current match.\n"
-  syntax:
-    content: ContentRange MatchRange { get; }
-    parameters: []
-    return:
-      type: Sdl.DesktopEditor.EditorApi.ContentRange
-    content.vb: ReadOnly Property MatchRange As ContentRange
-  overload: Sdl.DesktopEditor.EditorApi.IFind.MatchRange*
-  modifiers.csharp:
-  - get
-  modifiers.vb:
-  - ReadOnly
 - uid: Sdl.DesktopEditor.EditorApi.IFind.Match
   commentId: P:Sdl.DesktopEditor.EditorApi.IFind.Match
   id: Match
@@ -305,13 +302,13 @@ items:
   assemblies:
   - Sdl.DesktopEditor.EditorApi
   namespace: Sdl.DesktopEditor.EditorApi
-  summary: "\nThe match resulting from the find operation, null if nothing was found.\n"
+  summary: "\nThe range denoting the start and end of the current match.\n"
   syntax:
-    content: Match Match { get; }
+    content: ContentRange Match { get; }
     parameters: []
     return:
-      type: System.Text.RegularExpressions.Match
-    content.vb: ReadOnly Property Match As Match
+      type: Sdl.DesktopEditor.EditorApi.ContentRange
+    content.vb: ReadOnly Property Match As ContentRange
   overload: Sdl.DesktopEditor.EditorApi.IFind.Match*
   modifiers.csharp:
   - get
@@ -522,12 +519,12 @@ references:
   name: UpdateRangeUpTo
   nameWithType: IFind.UpdateRangeUpTo
   fullName: Sdl.DesktopEditor.EditorApi.IFind.UpdateRangeUpTo
-- uid: Sdl.DesktopEditor.EditorApi.IFind.Range*
-  commentId: Overload:Sdl.DesktopEditor.EditorApi.IFind.Range
+- uid: Sdl.DesktopEditor.EditorApi.IFind.ReplaceRange*
+  commentId: Overload:Sdl.DesktopEditor.EditorApi.IFind.ReplaceRange
   isExternal: true
-  name: Range
-  nameWithType: IFind.Range
-  fullName: Sdl.DesktopEditor.EditorApi.IFind.Range
+  name: ReplaceRange
+  nameWithType: IFind.ReplaceRange
+  fullName: Sdl.DesktopEditor.EditorApi.IFind.ReplaceRange
 - uid: Sdl.DesktopEditor.EditorApi.ContentRange
   commentId: T:Sdl.DesktopEditor.EditorApi.ContentRange
   parent: Sdl.DesktopEditor.EditorApi
@@ -535,6 +532,12 @@ references:
   name: ContentRange
   nameWithType: ContentRange
   fullName: Sdl.DesktopEditor.EditorApi.ContentRange
+- uid: Sdl.DesktopEditor.EditorApi.IFind.Range*
+  commentId: Overload:Sdl.DesktopEditor.EditorApi.IFind.Range
+  isExternal: true
+  name: Range
+  nameWithType: IFind.Range
+  fullName: Sdl.DesktopEditor.EditorApi.IFind.Range
 - uid: Sdl.DesktopEditor.EditorApi.IFind.Properties*
   commentId: Overload:Sdl.DesktopEditor.EditorApi.IFind.Properties
   isExternal: true
@@ -573,21 +576,9 @@ references:
   name: MatchFound
   nameWithType: IFind.MatchFound
   fullName: Sdl.DesktopEditor.EditorApi.IFind.MatchFound
-- uid: Sdl.DesktopEditor.EditorApi.IFind.MatchRange*
-  commentId: Overload:Sdl.DesktopEditor.EditorApi.IFind.MatchRange
-  isExternal: true
-  name: MatchRange
-  nameWithType: IFind.MatchRange
-  fullName: Sdl.DesktopEditor.EditorApi.IFind.MatchRange
 - uid: Sdl.DesktopEditor.EditorApi.IFind.Match*
   commentId: Overload:Sdl.DesktopEditor.EditorApi.IFind.Match
   isExternal: true
   name: Match
   nameWithType: IFind.Match
   fullName: Sdl.DesktopEditor.EditorApi.IFind.Match
-- uid: System.Text.RegularExpressions.Match
-  commentId: '!:System.Text.RegularExpressions.Match'
-  isExternal: true
-  name: Match
-  nameWithType: Match
-  fullName: System.Text.RegularExpressions.Match

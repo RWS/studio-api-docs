@@ -25,10 +25,14 @@ items:
   namespace: Sdl.Terminology.TerminologyProvider.Core
   summary: "\nTerminology provider entry term\n"
   syntax:
-    content: public class EntryTerm
-    content.vb: Public Class EntryTerm
+    content: 'public class EntryTerm : IEntryTerm'
+    content.vb: >-
+      Public Class EntryTerm
+          Implements IEntryTerm
   inheritance:
   - System.Object
+  implements:
+  - Sdl.Terminology.TerminologyProvider.Core.IEntryTerm
   inheritedMembers:
   - System.Object.ToString
   - System.Object.Equals(System.Object)
@@ -94,6 +98,8 @@ items:
       type: System.String
     content.vb: Public Property Value As String
   overload: Sdl.Terminology.TerminologyProvider.Core.EntryTerm.Value*
+  implements:
+  - Sdl.Terminology.TerminologyProvider.Core.IEntryTerm.Value
   modifiers.csharp:
   - public
   - get
@@ -119,12 +125,14 @@ items:
   namespace: Sdl.Terminology.TerminologyProvider.Core
   summary: "\nLanguage containing this term\n"
   syntax:
-    content: public EntryLanguage ParentLanguage { get; set; }
+    content: public IEntryLanguage ParentLanguage { get; set; }
     parameters: []
     return:
-      type: Sdl.Terminology.TerminologyProvider.Core.EntryLanguage
-    content.vb: Public Property ParentLanguage As EntryLanguage
+      type: Sdl.Terminology.TerminologyProvider.Core.IEntryLanguage
+    content.vb: Public Property ParentLanguage As IEntryLanguage
   overload: Sdl.Terminology.TerminologyProvider.Core.EntryTerm.ParentLanguage*
+  implements:
+  - Sdl.Terminology.TerminologyProvider.Core.IEntryTerm.ParentLanguage
   modifiers.csharp:
   - public
   - get
@@ -150,12 +158,14 @@ items:
   namespace: Sdl.Terminology.TerminologyProvider.Core
   summary: "\nTransactions (creation/modification) for this term\n"
   syntax:
-    content: public IList<EntryTransaction> Transactions { get; set; }
+    content: public IList<IEntryTransaction> Transactions { get; set; }
     parameters: []
     return:
-      type: System.Collections.Generic.IList{Sdl.Terminology.TerminologyProvider.Core.EntryTransaction}
-    content.vb: Public Property Transactions As IList(Of EntryTransaction)
+      type: System.Collections.Generic.IList{Sdl.Terminology.TerminologyProvider.Core.IEntryTransaction}
+    content.vb: Public Property Transactions As IList(Of IEntryTransaction)
   overload: Sdl.Terminology.TerminologyProvider.Core.EntryTerm.Transactions*
+  implements:
+  - Sdl.Terminology.TerminologyProvider.Core.IEntryTerm.Transactions
   modifiers.csharp:
   - public
   - get
@@ -181,12 +191,14 @@ items:
   namespace: Sdl.Terminology.TerminologyProvider.Core
   summary: "\nterm level fields for this term\n"
   syntax:
-    content: public IList<EntryField> Fields { get; set; }
+    content: public IList<IEntryField> Fields { get; set; }
     parameters: []
     return:
-      type: System.Collections.Generic.IList{Sdl.Terminology.TerminologyProvider.Core.EntryField}
-    content.vb: Public Property Fields As IList(Of EntryField)
+      type: System.Collections.Generic.IList{Sdl.Terminology.TerminologyProvider.Core.IEntryField}
+    content.vb: Public Property Fields As IList(Of IEntryField)
   overload: Sdl.Terminology.TerminologyProvider.Core.EntryTerm.Fields*
+  implements:
+  - Sdl.Terminology.TerminologyProvider.Core.IEntryTerm.Fields
   modifiers.csharp:
   - public
   - get
@@ -207,6 +219,13 @@ references:
   name: Object
   nameWithType: Object
   fullName: System.Object
+- uid: Sdl.Terminology.TerminologyProvider.Core.IEntryTerm
+  commentId: T:Sdl.Terminology.TerminologyProvider.Core.IEntryTerm
+  parent: Sdl.Terminology.TerminologyProvider.Core
+  isExternal: true
+  name: IEntryTerm
+  nameWithType: IEntryTerm
+  fullName: Sdl.Terminology.TerminologyProvider.Core.IEntryTerm
 - uid: System.Object.ToString
   commentId: M:System.Object.ToString
   parent: System.Object
@@ -504,6 +523,13 @@ references:
   name: Value
   nameWithType: EntryTerm.Value
   fullName: Sdl.Terminology.TerminologyProvider.Core.EntryTerm.Value
+- uid: Sdl.Terminology.TerminologyProvider.Core.IEntryTerm.Value
+  commentId: P:Sdl.Terminology.TerminologyProvider.Core.IEntryTerm.Value
+  parent: Sdl.Terminology.TerminologyProvider.Core.IEntryTerm
+  isExternal: true
+  name: Value
+  nameWithType: IEntryTerm.Value
+  fullName: Sdl.Terminology.TerminologyProvider.Core.IEntryTerm.Value
 - uid: System.String
   commentId: T:System.String
   parent: System
@@ -517,29 +543,43 @@ references:
   name: ParentLanguage
   nameWithType: EntryTerm.ParentLanguage
   fullName: Sdl.Terminology.TerminologyProvider.Core.EntryTerm.ParentLanguage
-- uid: Sdl.Terminology.TerminologyProvider.Core.EntryLanguage
-  commentId: T:Sdl.Terminology.TerminologyProvider.Core.EntryLanguage
+- uid: Sdl.Terminology.TerminologyProvider.Core.IEntryTerm.ParentLanguage
+  commentId: P:Sdl.Terminology.TerminologyProvider.Core.IEntryTerm.ParentLanguage
+  parent: Sdl.Terminology.TerminologyProvider.Core.IEntryTerm
+  isExternal: true
+  name: ParentLanguage
+  nameWithType: IEntryTerm.ParentLanguage
+  fullName: Sdl.Terminology.TerminologyProvider.Core.IEntryTerm.ParentLanguage
+- uid: Sdl.Terminology.TerminologyProvider.Core.IEntryLanguage
+  commentId: T:Sdl.Terminology.TerminologyProvider.Core.IEntryLanguage
   parent: Sdl.Terminology.TerminologyProvider.Core
   isExternal: true
-  name: EntryLanguage
-  nameWithType: EntryLanguage
-  fullName: Sdl.Terminology.TerminologyProvider.Core.EntryLanguage
+  name: IEntryLanguage
+  nameWithType: IEntryLanguage
+  fullName: Sdl.Terminology.TerminologyProvider.Core.IEntryLanguage
 - uid: Sdl.Terminology.TerminologyProvider.Core.EntryTerm.Transactions*
   commentId: Overload:Sdl.Terminology.TerminologyProvider.Core.EntryTerm.Transactions
   isExternal: true
   name: Transactions
   nameWithType: EntryTerm.Transactions
   fullName: Sdl.Terminology.TerminologyProvider.Core.EntryTerm.Transactions
-- uid: System.Collections.Generic.IList{Sdl.Terminology.TerminologyProvider.Core.EntryTransaction}
-  commentId: T:System.Collections.Generic.IList{Sdl.Terminology.TerminologyProvider.Core.EntryTransaction}
+- uid: Sdl.Terminology.TerminologyProvider.Core.IEntryTerm.Transactions
+  commentId: P:Sdl.Terminology.TerminologyProvider.Core.IEntryTerm.Transactions
+  parent: Sdl.Terminology.TerminologyProvider.Core.IEntryTerm
+  isExternal: true
+  name: Transactions
+  nameWithType: IEntryTerm.Transactions
+  fullName: Sdl.Terminology.TerminologyProvider.Core.IEntryTerm.Transactions
+- uid: System.Collections.Generic.IList{Sdl.Terminology.TerminologyProvider.Core.IEntryTransaction}
+  commentId: T:System.Collections.Generic.IList{Sdl.Terminology.TerminologyProvider.Core.IEntryTransaction}
   parent: System.Collections.Generic
   definition: System.Collections.Generic.IList`1
-  name: IList<EntryTransaction>
-  nameWithType: IList<EntryTransaction>
-  fullName: System.Collections.Generic.IList<Sdl.Terminology.TerminologyProvider.Core.EntryTransaction>
-  nameWithType.vb: IList(Of EntryTransaction)
-  fullName.vb: System.Collections.Generic.IList(Of Sdl.Terminology.TerminologyProvider.Core.EntryTransaction)
-  name.vb: IList(Of EntryTransaction)
+  name: IList<IEntryTransaction>
+  nameWithType: IList<IEntryTransaction>
+  fullName: System.Collections.Generic.IList<Sdl.Terminology.TerminologyProvider.Core.IEntryTransaction>
+  nameWithType.vb: IList(Of IEntryTransaction)
+  fullName.vb: System.Collections.Generic.IList(Of Sdl.Terminology.TerminologyProvider.Core.IEntryTransaction)
+  name.vb: IList(Of IEntryTransaction)
   spec.csharp:
   - uid: System.Collections.Generic.IList`1
     name: IList
@@ -549,10 +589,10 @@ references:
   - name: <
     nameWithType: <
     fullName: <
-  - uid: Sdl.Terminology.TerminologyProvider.Core.EntryTransaction
-    name: EntryTransaction
-    nameWithType: EntryTransaction
-    fullName: Sdl.Terminology.TerminologyProvider.Core.EntryTransaction
+  - uid: Sdl.Terminology.TerminologyProvider.Core.IEntryTransaction
+    name: IEntryTransaction
+    nameWithType: IEntryTransaction
+    fullName: Sdl.Terminology.TerminologyProvider.Core.IEntryTransaction
     isExternal: true
   - name: '>'
     nameWithType: '>'
@@ -566,10 +606,10 @@ references:
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - uid: Sdl.Terminology.TerminologyProvider.Core.EntryTransaction
-    name: EntryTransaction
-    nameWithType: EntryTransaction
-    fullName: Sdl.Terminology.TerminologyProvider.Core.EntryTransaction
+  - uid: Sdl.Terminology.TerminologyProvider.Core.IEntryTransaction
+    name: IEntryTransaction
+    nameWithType: IEntryTransaction
+    fullName: Sdl.Terminology.TerminologyProvider.Core.IEntryTransaction
     isExternal: true
   - name: )
     nameWithType: )
@@ -625,16 +665,23 @@ references:
   name: Fields
   nameWithType: EntryTerm.Fields
   fullName: Sdl.Terminology.TerminologyProvider.Core.EntryTerm.Fields
-- uid: System.Collections.Generic.IList{Sdl.Terminology.TerminologyProvider.Core.EntryField}
-  commentId: T:System.Collections.Generic.IList{Sdl.Terminology.TerminologyProvider.Core.EntryField}
+- uid: Sdl.Terminology.TerminologyProvider.Core.IEntryTerm.Fields
+  commentId: P:Sdl.Terminology.TerminologyProvider.Core.IEntryTerm.Fields
+  parent: Sdl.Terminology.TerminologyProvider.Core.IEntryTerm
+  isExternal: true
+  name: Fields
+  nameWithType: IEntryTerm.Fields
+  fullName: Sdl.Terminology.TerminologyProvider.Core.IEntryTerm.Fields
+- uid: System.Collections.Generic.IList{Sdl.Terminology.TerminologyProvider.Core.IEntryField}
+  commentId: T:System.Collections.Generic.IList{Sdl.Terminology.TerminologyProvider.Core.IEntryField}
   parent: System.Collections.Generic
   definition: System.Collections.Generic.IList`1
-  name: IList<EntryField>
-  nameWithType: IList<EntryField>
-  fullName: System.Collections.Generic.IList<Sdl.Terminology.TerminologyProvider.Core.EntryField>
-  nameWithType.vb: IList(Of EntryField)
-  fullName.vb: System.Collections.Generic.IList(Of Sdl.Terminology.TerminologyProvider.Core.EntryField)
-  name.vb: IList(Of EntryField)
+  name: IList<IEntryField>
+  nameWithType: IList<IEntryField>
+  fullName: System.Collections.Generic.IList<Sdl.Terminology.TerminologyProvider.Core.IEntryField>
+  nameWithType.vb: IList(Of IEntryField)
+  fullName.vb: System.Collections.Generic.IList(Of Sdl.Terminology.TerminologyProvider.Core.IEntryField)
+  name.vb: IList(Of IEntryField)
   spec.csharp:
   - uid: System.Collections.Generic.IList`1
     name: IList
@@ -644,10 +691,10 @@ references:
   - name: <
     nameWithType: <
     fullName: <
-  - uid: Sdl.Terminology.TerminologyProvider.Core.EntryField
-    name: EntryField
-    nameWithType: EntryField
-    fullName: Sdl.Terminology.TerminologyProvider.Core.EntryField
+  - uid: Sdl.Terminology.TerminologyProvider.Core.IEntryField
+    name: IEntryField
+    nameWithType: IEntryField
+    fullName: Sdl.Terminology.TerminologyProvider.Core.IEntryField
     isExternal: true
   - name: '>'
     nameWithType: '>'
@@ -661,10 +708,10 @@ references:
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - uid: Sdl.Terminology.TerminologyProvider.Core.EntryField
-    name: EntryField
-    nameWithType: EntryField
-    fullName: Sdl.Terminology.TerminologyProvider.Core.EntryField
+  - uid: Sdl.Terminology.TerminologyProvider.Core.IEntryField
+    name: IEntryField
+    nameWithType: IEntryField
+    fullName: Sdl.Terminology.TerminologyProvider.Core.IEntryField
     isExternal: true
   - name: )
     nameWithType: )
