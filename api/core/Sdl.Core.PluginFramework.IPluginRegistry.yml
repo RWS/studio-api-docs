@@ -11,9 +11,9 @@ items:
   - Sdl.Core.PluginFramework.IPluginRegistry.PluginFilter
   - Sdl.Core.PluginFramework.IPluginRegistry.PluginInitializer
   - Sdl.Core.PluginFramework.IPluginRegistry.PluginLocator
+  - Sdl.Core.PluginFramework.IPluginRegistry.Plugins
   - Sdl.Core.PluginFramework.IPluginRegistry.PluginStateHandler
   - Sdl.Core.PluginFramework.IPluginRegistry.PluginTypeLoader
-  - Sdl.Core.PluginFramework.IPluginRegistry.Plugins
   langs:
   - csharp
   - vb
@@ -21,17 +21,25 @@ items:
   nameWithType: IPluginRegistry
   fullName: Sdl.Core.PluginFramework.IPluginRegistry
   type: Interface
+  source:
+    path: Sdl.Core.PluginFramework
+    isExternal: true
   assemblies:
   - Sdl.Core.PluginFramework
   namespace: Sdl.Core.PluginFramework
-  summary: This interface provides the main entry point for working with plug-ins and extensions.
+  summary: "\nThis interface provides the main entry point for working with plug-ins and extensions.\n"
   remarks: Instances of the plugin registry can be created using the various factory methods of the <xref href="Sdl.Core.PluginFramework.PluginManager" data-throw-if-not-resolved="false"></xref> class.
-  example: []
   syntax:
-    content: 'public interface IPluginRegistry : IDisposable'
-    content.vb: Public Interface IPluginRegistry Inherits IDisposable
-  inheritedMembers:
-  - System.IDisposable.Dispose
+    content: public interface IPluginRegistry
+    content.vb: >-
+      Public Interface IPluginRegistry
+          Inherits IDisposable
+  modifiers.csharp:
+  - public
+  - interface
+  modifiers.vb:
+  - Public
+  - Interface
 - uid: Sdl.Core.PluginFramework.IPluginRegistry.GetExtensionPoint``1
   commentId: M:Sdl.Core.PluginFramework.IPluginRegistry.GetExtensionPoint``1
   id: GetExtensionPoint``1
@@ -43,20 +51,24 @@ items:
   nameWithType: IPluginRegistry.GetExtensionPoint<T>()
   fullName: Sdl.Core.PluginFramework.IPluginRegistry.GetExtensionPoint<T>()
   type: Method
+  source:
+    path: Sdl.Core.PluginFramework
+    isExternal: true
   assemblies:
   - Sdl.Core.PluginFramework
   namespace: Sdl.Core.PluginFramework
-  summary: Gets the extension point for a certain type of extension attribute.
-  example: []
+  summary: "\nGets the extension point for a certain type of extension attribute.\n"
   syntax:
-    content: 'IExtensionPoint GetExtensionPoint<T>() where T : ExtensionAttribute'
+    content: >-
+      IExtensionPoint GetExtensionPoint<T>()
+          where T : ExtensionAttribute
     typeParameters:
     - id: T
       description: The extension attribute type identifying the extension point.
     return:
       type: Sdl.Core.PluginFramework.IExtensionPoint
       description: The extension point for the given type of extension attribute.
-    content.vb: Function GetExtensionPoint(Of T As ExtensionAttribute)() As IExtensionPoint
+    content.vb: Function GetExtensionPoint(Of T As ExtensionAttribute) As IExtensionPoint
   overload: Sdl.Core.PluginFramework.IPluginRegistry.GetExtensionPoint*
   nameWithType.vb: IPluginRegistry.GetExtensionPoint(Of T)()
   fullName.vb: Sdl.Core.PluginFramework.IPluginRegistry.GetExtensionPoint(Of T)()
@@ -72,23 +84,20 @@ items:
   nameWithType: IPluginRegistry.EnsurePluginsInitialized(IEnumerable<IExtension>, EventHandler<PluginInitializationResultsEventArgs>)
   fullName: Sdl.Core.PluginFramework.IPluginRegistry.EnsurePluginsInitialized(System.Collections.Generic.IEnumerable<Sdl.Core.PluginFramework.IExtension>, System.EventHandler<Sdl.Core.PluginFramework.PluginInitializationResultsEventArgs>)
   type: Method
+  source:
+    path: Sdl.Core.PluginFramework
+    isExternal: true
   assemblies:
   - Sdl.Core.PluginFramework
   namespace: Sdl.Core.PluginFramework
-  summary: >-
-    Helper method to asynchronously initialize all the plug-ins that are required to instantiate the specified
-
-    extensions.
-  example: []
+  summary: "\nHelper method to asynchronously initialize all the plug-ins that are required to instantiate the specified\nextensions.\n"
   syntax:
     content: void EnsurePluginsInitialized(IEnumerable<IExtension> extensions, EventHandler<PluginInitializationResultsEventArgs> pluginsInitializedCallback)
     parameters:
     - id: extensions
       type: System.Collections.Generic.IEnumerable{Sdl.Core.PluginFramework.IExtension}
-      description: ''
     - id: pluginsInitializedCallback
       type: System.EventHandler{Sdl.Core.PluginFramework.PluginInitializationResultsEventArgs}
-      description: ''
     content.vb: Sub EnsurePluginsInitialized(extensions As IEnumerable(Of IExtension), pluginsInitializedCallback As EventHandler(Of PluginInitializationResultsEventArgs))
   overload: Sdl.Core.PluginFramework.IPluginRegistry.EnsurePluginsInitialized*
   nameWithType.vb: IPluginRegistry.EnsurePluginsInitialized(IEnumerable(Of IExtension), EventHandler(Of PluginInitializationResultsEventArgs))
@@ -105,11 +114,13 @@ items:
   nameWithType: IPluginRegistry.PluginCache
   fullName: Sdl.Core.PluginFramework.IPluginRegistry.PluginCache
   type: Property
+  source:
+    path: Sdl.Core.PluginFramework
+    isExternal: true
   assemblies:
   - Sdl.Core.PluginFramework
   namespace: Sdl.Core.PluginFramework
-  summary: Returns the plug-in cache associated with this plug-in registry.
-  example: []
+  summary: "\nReturns the plug-in cache associated with this plug-in registry.\n"
   syntax:
     content: IPluginCache PluginCache { get; }
     parameters: []
@@ -117,6 +128,10 @@ items:
       type: Sdl.Core.PluginFramework.IPluginCache
     content.vb: ReadOnly Property PluginCache As IPluginCache
   overload: Sdl.Core.PluginFramework.IPluginRegistry.PluginCache*
+  modifiers.csharp:
+  - get
+  modifiers.vb:
+  - ReadOnly
 - uid: Sdl.Core.PluginFramework.IPluginRegistry.PluginLocator
   commentId: P:Sdl.Core.PluginFramework.IPluginRegistry.PluginLocator
   id: PluginLocator
@@ -128,11 +143,13 @@ items:
   nameWithType: IPluginRegistry.PluginLocator
   fullName: Sdl.Core.PluginFramework.IPluginRegistry.PluginLocator
   type: Property
+  source:
+    path: Sdl.Core.PluginFramework
+    isExternal: true
   assemblies:
   - Sdl.Core.PluginFramework
   namespace: Sdl.Core.PluginFramework
-  summary: Returns the plug-in locator associated with this plug-in registry.
-  example: []
+  summary: "\nReturns the plug-in locator associated with this plug-in registry.\n"
   syntax:
     content: IPluginLocator PluginLocator { get; }
     parameters: []
@@ -140,6 +157,10 @@ items:
       type: Sdl.Core.PluginFramework.IPluginLocator
     content.vb: ReadOnly Property PluginLocator As IPluginLocator
   overload: Sdl.Core.PluginFramework.IPluginRegistry.PluginLocator*
+  modifiers.csharp:
+  - get
+  modifiers.vb:
+  - ReadOnly
 - uid: Sdl.Core.PluginFramework.IPluginRegistry.PluginTypeLoader
   commentId: P:Sdl.Core.PluginFramework.IPluginRegistry.PluginTypeLoader
   id: PluginTypeLoader
@@ -151,11 +172,13 @@ items:
   nameWithType: IPluginRegistry.PluginTypeLoader
   fullName: Sdl.Core.PluginFramework.IPluginRegistry.PluginTypeLoader
   type: Property
+  source:
+    path: Sdl.Core.PluginFramework
+    isExternal: true
   assemblies:
   - Sdl.Core.PluginFramework
   namespace: Sdl.Core.PluginFramework
-  summary: Gets the plug-in type loader component used by the plug-in registry to load types referred to in plug-in manifests.
-  example: []
+  summary: "\nGets the plug-in type loader component used by the plug-in registry to load types referred to in plug-in manifests.\n"
   syntax:
     content: IPluginTypeLoader PluginTypeLoader { get; }
     parameters: []
@@ -163,6 +186,10 @@ items:
       type: Sdl.Core.PluginFramework.IPluginTypeLoader
     content.vb: ReadOnly Property PluginTypeLoader As IPluginTypeLoader
   overload: Sdl.Core.PluginFramework.IPluginRegistry.PluginTypeLoader*
+  modifiers.csharp:
+  - get
+  modifiers.vb:
+  - ReadOnly
 - uid: Sdl.Core.PluginFramework.IPluginRegistry.PluginFilter
   commentId: P:Sdl.Core.PluginFramework.IPluginRegistry.PluginFilter
   id: PluginFilter
@@ -174,11 +201,13 @@ items:
   nameWithType: IPluginRegistry.PluginFilter
   fullName: Sdl.Core.PluginFramework.IPluginRegistry.PluginFilter
   type: Property
+  source:
+    path: Sdl.Core.PluginFramework
+    isExternal: true
   assemblies:
   - Sdl.Core.PluginFramework
   namespace: Sdl.Core.PluginFramework
-  summary: Gets the plug-in filter that controls whether certain plug-ins or individual extensions are loaded. Can be null.
-  example: []
+  summary: "\nGets the plug-in filter that controls whether certain plug-ins or individual extensions are loaded. Can be null.\n"
   syntax:
     content: IPluginFilter PluginFilter { get; }
     parameters: []
@@ -186,6 +215,10 @@ items:
       type: Sdl.Core.PluginFramework.IPluginFilter
     content.vb: ReadOnly Property PluginFilter As IPluginFilter
   overload: Sdl.Core.PluginFramework.IPluginRegistry.PluginFilter*
+  modifiers.csharp:
+  - get
+  modifiers.vb:
+  - ReadOnly
 - uid: Sdl.Core.PluginFramework.IPluginRegistry.Plugins
   commentId: P:Sdl.Core.PluginFramework.IPluginRegistry.Plugins
   id: Plugins
@@ -197,11 +230,13 @@ items:
   nameWithType: IPluginRegistry.Plugins
   fullName: Sdl.Core.PluginFramework.IPluginRegistry.Plugins
   type: Property
+  source:
+    path: Sdl.Core.PluginFramework
+    isExternal: true
   assemblies:
   - Sdl.Core.PluginFramework
   namespace: Sdl.Core.PluginFramework
-  summary: Returns a collection of all the plug-ins that are available.
-  example: []
+  summary: "\nReturns a collection of all the plug-ins that are available.\n"
   syntax:
     content: PluginCollection Plugins { get; }
     parameters: []
@@ -209,6 +244,10 @@ items:
       type: Sdl.Core.PluginFramework.PluginCollection
     content.vb: ReadOnly Property Plugins As PluginCollection
   overload: Sdl.Core.PluginFramework.IPluginRegistry.Plugins*
+  modifiers.csharp:
+  - get
+  modifiers.vb:
+  - ReadOnly
 - uid: Sdl.Core.PluginFramework.IPluginRegistry.PluginStateHandler
   commentId: P:Sdl.Core.PluginFramework.IPluginRegistry.PluginStateHandler
   id: PluginStateHandler
@@ -220,11 +259,13 @@ items:
   nameWithType: IPluginRegistry.PluginStateHandler
   fullName: Sdl.Core.PluginFramework.IPluginRegistry.PluginStateHandler
   type: Property
+  source:
+    path: Sdl.Core.PluginFramework
+    isExternal: true
   assemblies:
   - Sdl.Core.PluginFramework
   namespace: Sdl.Core.PluginFramework
-  summary: Gets or sets an plugin state handler, which determines whether plugins can be enabled or disabled. Can be null.
-  example: []
+  summary: "\nGets or sets an plugin state handler, which determines whether plugins can be enabled or disabled. Can be null.\n"
   syntax:
     content: IPluginStateHandler PluginStateHandler { get; set; }
     parameters: []
@@ -232,6 +273,9 @@ items:
       type: Sdl.Core.PluginFramework.IPluginStateHandler
     content.vb: Property PluginStateHandler As IPluginStateHandler
   overload: Sdl.Core.PluginFramework.IPluginRegistry.PluginStateHandler*
+  modifiers.csharp:
+  - get
+  - set
 - uid: Sdl.Core.PluginFramework.IPluginRegistry.PluginInitializer
   commentId: P:Sdl.Core.PluginFramework.IPluginRegistry.PluginInitializer
   id: PluginInitializer
@@ -243,11 +287,13 @@ items:
   nameWithType: IPluginRegistry.PluginInitializer
   fullName: Sdl.Core.PluginFramework.IPluginRegistry.PluginInitializer
   type: Property
+  source:
+    path: Sdl.Core.PluginFramework
+    isExternal: true
   assemblies:
   - Sdl.Core.PluginFramework
   namespace: Sdl.Core.PluginFramework
-  summary: Gets the <xref href="Sdl.Core.PluginFramework.IPluginInitializer" data-throw-if-not-resolved="false"></xref> used by the plug-in registry to initialize plug-ins.
-  example: []
+  summary: "\nGets the <xref href=\"Sdl.Core.PluginFramework.IPluginInitializer\" data-throw-if-not-resolved=\"false\"></xref> used by the plug-in registry to initialize plug-ins.\n"
   syntax:
     content: IPluginInitializer PluginInitializer { get; }
     parameters: []
@@ -255,92 +301,20 @@ items:
       type: Sdl.Core.PluginFramework.IPluginInitializer
     content.vb: ReadOnly Property PluginInitializer As IPluginInitializer
   overload: Sdl.Core.PluginFramework.IPluginRegistry.PluginInitializer*
+  modifiers.csharp:
+  - get
+  modifiers.vb:
+  - ReadOnly
 references:
-- uid: Sdl.Core.PluginFramework.PluginManager
-  commentId: T:Sdl.Core.PluginFramework.PluginManager
-  isExternal: true
-  href: Sdl.Core.PluginFramework.PluginManager.html
-  name: PluginManager
-  nameWithType: PluginManager
-  fullName: Sdl.Core.PluginFramework.PluginManager
 - uid: Sdl.Core.PluginFramework
   commentId: N:Sdl.Core.PluginFramework
   isExternal: true
-  href: Sdl.html
   name: Sdl.Core.PluginFramework
   nameWithType: Sdl.Core.PluginFramework
   fullName: Sdl.Core.PluginFramework
-  spec.csharp:
-  - uid: Sdl
-    name: Sdl
-    isExternal: true
-    href: Sdl.html
-  - name: .
-  - uid: Sdl.Core
-    name: Core
-    isExternal: true
-    href: Sdl.Core.html
-  - name: .
-  - uid: Sdl.Core.PluginFramework
-    name: PluginFramework
-    isExternal: true
-    href: Sdl.Core.PluginFramework.html
-  spec.vb:
-  - uid: Sdl
-    name: Sdl
-    isExternal: true
-    href: Sdl.html
-  - name: .
-  - uid: Sdl.Core
-    name: Core
-    isExternal: true
-    href: Sdl.Core.html
-  - name: .
-  - uid: Sdl.Core.PluginFramework
-    name: PluginFramework
-    isExternal: true
-    href: Sdl.Core.PluginFramework.html
-- uid: System.IDisposable.Dispose
-  commentId: M:System.IDisposable.Dispose
-  parent: System.IDisposable
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.idisposable.dispose
-  name: Dispose()
-  nameWithType: IDisposable.Dispose()
-  fullName: System.IDisposable.Dispose()
-  spec.csharp:
-  - uid: System.IDisposable.Dispose
-    name: Dispose
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.idisposable.dispose
-  - name: (
-  - name: )
-  spec.vb:
-  - uid: System.IDisposable.Dispose
-    name: Dispose
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.idisposable.dispose
-  - name: (
-  - name: )
-- uid: System.IDisposable
-  commentId: T:System.IDisposable
-  parent: System
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.idisposable
-  name: IDisposable
-  nameWithType: IDisposable
-  fullName: System.IDisposable
-- uid: System
-  commentId: N:System
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system
-  name: System
-  nameWithType: System
-  fullName: System
 - uid: Sdl.Core.PluginFramework.IPluginRegistry.GetExtensionPoint*
   commentId: Overload:Sdl.Core.PluginFramework.IPluginRegistry.GetExtensionPoint
   isExternal: true
-  href: Sdl.Core.PluginFramework.IPluginRegistry.html#Sdl_Core_PluginFramework_IPluginRegistry_GetExtensionPoint__1
   name: GetExtensionPoint
   nameWithType: IPluginRegistry.GetExtensionPoint
   fullName: Sdl.Core.PluginFramework.IPluginRegistry.GetExtensionPoint
@@ -348,22 +322,18 @@ references:
   commentId: T:Sdl.Core.PluginFramework.IExtensionPoint
   parent: Sdl.Core.PluginFramework
   isExternal: true
-  href: Sdl.Core.PluginFramework.IExtensionPoint.html
   name: IExtensionPoint
   nameWithType: IExtensionPoint
   fullName: Sdl.Core.PluginFramework.IExtensionPoint
 - uid: Sdl.Core.PluginFramework.IPluginRegistry.EnsurePluginsInitialized*
   commentId: Overload:Sdl.Core.PluginFramework.IPluginRegistry.EnsurePluginsInitialized
   isExternal: true
-  href: Sdl.Core.PluginFramework.IPluginRegistry.html#Sdl_Core_PluginFramework_IPluginRegistry_EnsurePluginsInitialized_System_Collections_Generic_IEnumerable_Sdl_Core_PluginFramework_IExtension__System_EventHandler_Sdl_Core_PluginFramework_PluginInitializationResultsEventArgs__
   name: EnsurePluginsInitialized
   nameWithType: IPluginRegistry.EnsurePluginsInitialized
   fullName: Sdl.Core.PluginFramework.IPluginRegistry.EnsurePluginsInitialized
 - uid: System.Collections.Generic.IEnumerable{Sdl.Core.PluginFramework.IExtension}
-  commentId: T:System.Collections.Generic.IEnumerable{Sdl.Core.PluginFramework.IExtension}
-  parent: System.Collections.Generic
+  commentId: '!:System.Collections.Generic.IEnumerable{Sdl.Core.PluginFramework.IExtension}'
   definition: System.Collections.Generic.IEnumerable`1
-  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
   name: IEnumerable<IExtension>
   nameWithType: IEnumerable<IExtension>
   fullName: System.Collections.Generic.IEnumerable<Sdl.Core.PluginFramework.IExtension>
@@ -373,32 +343,40 @@ references:
   spec.csharp:
   - uid: System.Collections.Generic.IEnumerable`1
     name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
   - name: <
+    nameWithType: <
+    fullName: <
   - uid: Sdl.Core.PluginFramework.IExtension
     name: IExtension
+    nameWithType: IExtension
+    fullName: Sdl.Core.PluginFramework.IExtension
     isExternal: true
-    href: Sdl.Core.PluginFramework.IExtension.html
   - name: '>'
+    nameWithType: '>'
+    fullName: '>'
   spec.vb:
   - uid: System.Collections.Generic.IEnumerable`1
     name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
-  - name: (
-  - name: Of
-  - name: " "
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
   - uid: Sdl.Core.PluginFramework.IExtension
     name: IExtension
+    nameWithType: IExtension
+    fullName: Sdl.Core.PluginFramework.IExtension
     isExternal: true
-    href: Sdl.Core.PluginFramework.IExtension.html
   - name: )
+    nameWithType: )
+    fullName: )
 - uid: System.EventHandler{Sdl.Core.PluginFramework.PluginInitializationResultsEventArgs}
-  commentId: T:System.EventHandler{Sdl.Core.PluginFramework.PluginInitializationResultsEventArgs}
-  parent: System
+  commentId: '!:System.EventHandler{Sdl.Core.PluginFramework.PluginInitializationResultsEventArgs}'
   definition: System.EventHandler`1
-  href: https://learn.microsoft.com/dotnet/api/system.eventhandler-1
   name: EventHandler<PluginInitializationResultsEventArgs>
   nameWithType: EventHandler<PluginInitializationResultsEventArgs>
   fullName: System.EventHandler<Sdl.Core.PluginFramework.PluginInitializationResultsEventArgs>
@@ -408,124 +386,118 @@ references:
   spec.csharp:
   - uid: System.EventHandler`1
     name: EventHandler
+    nameWithType: EventHandler
+    fullName: System.EventHandler
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.eventhandler-1
   - name: <
+    nameWithType: <
+    fullName: <
   - uid: Sdl.Core.PluginFramework.PluginInitializationResultsEventArgs
     name: PluginInitializationResultsEventArgs
+    nameWithType: PluginInitializationResultsEventArgs
+    fullName: Sdl.Core.PluginFramework.PluginInitializationResultsEventArgs
     isExternal: true
-    href: Sdl.Core.PluginFramework.PluginInitializationResultsEventArgs.html
   - name: '>'
+    nameWithType: '>'
+    fullName: '>'
   spec.vb:
   - uid: System.EventHandler`1
     name: EventHandler
+    nameWithType: EventHandler
+    fullName: System.EventHandler
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.eventhandler-1
-  - name: (
-  - name: Of
-  - name: " "
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
   - uid: Sdl.Core.PluginFramework.PluginInitializationResultsEventArgs
     name: PluginInitializationResultsEventArgs
+    nameWithType: PluginInitializationResultsEventArgs
+    fullName: Sdl.Core.PluginFramework.PluginInitializationResultsEventArgs
     isExternal: true
-    href: Sdl.Core.PluginFramework.PluginInitializationResultsEventArgs.html
   - name: )
+    nameWithType: )
+    fullName: )
 - uid: System.Collections.Generic.IEnumerable`1
   commentId: T:System.Collections.Generic.IEnumerable`1
   isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
-  name: IEnumerable<T>
-  nameWithType: IEnumerable<T>
-  fullName: System.Collections.Generic.IEnumerable<T>
-  nameWithType.vb: IEnumerable(Of T)
-  fullName.vb: System.Collections.Generic.IEnumerable(Of T)
-  name.vb: IEnumerable(Of T)
+  name: IEnumerable<>
+  nameWithType: IEnumerable<>
+  fullName: System.Collections.Generic.IEnumerable<>
+  nameWithType.vb: IEnumerable(Of )
+  fullName.vb: System.Collections.Generic.IEnumerable(Of )
+  name.vb: IEnumerable(Of )
   spec.csharp:
   - uid: System.Collections.Generic.IEnumerable`1
     name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
   - name: <
-  - name: T
+    nameWithType: <
+    fullName: <
+  - name: ''
+    nameWithType: ''
+    fullName: ''
   - name: '>'
+    nameWithType: '>'
+    fullName: '>'
   spec.vb:
   - uid: System.Collections.Generic.IEnumerable`1
     name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
-  - name: (
-  - name: Of
-  - name: " "
-  - name: T
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: ''
+    nameWithType: ''
+    fullName: ''
   - name: )
-- uid: System.Collections.Generic
-  commentId: N:System.Collections.Generic
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system
-  name: System.Collections.Generic
-  nameWithType: System.Collections.Generic
-  fullName: System.Collections.Generic
-  spec.csharp:
-  - uid: System
-    name: System
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system
-  - name: .
-  - uid: System.Collections
-    name: Collections
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections
-  - name: .
-  - uid: System.Collections.Generic
-    name: Generic
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
-  spec.vb:
-  - uid: System
-    name: System
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system
-  - name: .
-  - uid: System.Collections
-    name: Collections
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections
-  - name: .
-  - uid: System.Collections.Generic
-    name: Generic
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+    nameWithType: )
+    fullName: )
 - uid: System.EventHandler`1
   commentId: T:System.EventHandler`1
   isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.eventhandler-1
-  name: EventHandler<TEventArgs>
-  nameWithType: EventHandler<TEventArgs>
-  fullName: System.EventHandler<TEventArgs>
-  nameWithType.vb: EventHandler(Of TEventArgs)
-  fullName.vb: System.EventHandler(Of TEventArgs)
-  name.vb: EventHandler(Of TEventArgs)
+  name: EventHandler<>
+  nameWithType: EventHandler<>
+  fullName: System.EventHandler<>
+  nameWithType.vb: EventHandler(Of )
+  fullName.vb: System.EventHandler(Of )
+  name.vb: EventHandler(Of )
   spec.csharp:
   - uid: System.EventHandler`1
     name: EventHandler
+    nameWithType: EventHandler
+    fullName: System.EventHandler
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.eventhandler-1
   - name: <
-  - name: TEventArgs
+    nameWithType: <
+    fullName: <
+  - name: ''
+    nameWithType: ''
+    fullName: ''
   - name: '>'
+    nameWithType: '>'
+    fullName: '>'
   spec.vb:
   - uid: System.EventHandler`1
     name: EventHandler
+    nameWithType: EventHandler
+    fullName: System.EventHandler
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.eventhandler-1
-  - name: (
-  - name: Of
-  - name: " "
-  - name: TEventArgs
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: ''
+    nameWithType: ''
+    fullName: ''
   - name: )
+    nameWithType: )
+    fullName: )
 - uid: Sdl.Core.PluginFramework.IPluginRegistry.PluginCache*
   commentId: Overload:Sdl.Core.PluginFramework.IPluginRegistry.PluginCache
   isExternal: true
-  href: Sdl.Core.PluginFramework.IPluginRegistry.html#Sdl_Core_PluginFramework_IPluginRegistry_PluginCache
   name: PluginCache
   nameWithType: IPluginRegistry.PluginCache
   fullName: Sdl.Core.PluginFramework.IPluginRegistry.PluginCache
@@ -533,14 +505,12 @@ references:
   commentId: T:Sdl.Core.PluginFramework.IPluginCache
   parent: Sdl.Core.PluginFramework
   isExternal: true
-  href: Sdl.Core.PluginFramework.IPluginCache.html
   name: IPluginCache
   nameWithType: IPluginCache
   fullName: Sdl.Core.PluginFramework.IPluginCache
 - uid: Sdl.Core.PluginFramework.IPluginRegistry.PluginLocator*
   commentId: Overload:Sdl.Core.PluginFramework.IPluginRegistry.PluginLocator
   isExternal: true
-  href: Sdl.Core.PluginFramework.IPluginRegistry.html#Sdl_Core_PluginFramework_IPluginRegistry_PluginLocator
   name: PluginLocator
   nameWithType: IPluginRegistry.PluginLocator
   fullName: Sdl.Core.PluginFramework.IPluginRegistry.PluginLocator
@@ -548,14 +518,12 @@ references:
   commentId: T:Sdl.Core.PluginFramework.IPluginLocator
   parent: Sdl.Core.PluginFramework
   isExternal: true
-  href: Sdl.Core.PluginFramework.IPluginLocator.html
   name: IPluginLocator
   nameWithType: IPluginLocator
   fullName: Sdl.Core.PluginFramework.IPluginLocator
 - uid: Sdl.Core.PluginFramework.IPluginRegistry.PluginTypeLoader*
   commentId: Overload:Sdl.Core.PluginFramework.IPluginRegistry.PluginTypeLoader
   isExternal: true
-  href: Sdl.Core.PluginFramework.IPluginRegistry.html#Sdl_Core_PluginFramework_IPluginRegistry_PluginTypeLoader
   name: PluginTypeLoader
   nameWithType: IPluginRegistry.PluginTypeLoader
   fullName: Sdl.Core.PluginFramework.IPluginRegistry.PluginTypeLoader
@@ -563,14 +531,12 @@ references:
   commentId: T:Sdl.Core.PluginFramework.IPluginTypeLoader
   parent: Sdl.Core.PluginFramework
   isExternal: true
-  href: Sdl.Core.PluginFramework.IPluginTypeLoader.html
   name: IPluginTypeLoader
   nameWithType: IPluginTypeLoader
   fullName: Sdl.Core.PluginFramework.IPluginTypeLoader
 - uid: Sdl.Core.PluginFramework.IPluginRegistry.PluginFilter*
   commentId: Overload:Sdl.Core.PluginFramework.IPluginRegistry.PluginFilter
   isExternal: true
-  href: Sdl.Core.PluginFramework.IPluginRegistry.html#Sdl_Core_PluginFramework_IPluginRegistry_PluginFilter
   name: PluginFilter
   nameWithType: IPluginRegistry.PluginFilter
   fullName: Sdl.Core.PluginFramework.IPluginRegistry.PluginFilter
@@ -578,14 +544,12 @@ references:
   commentId: T:Sdl.Core.PluginFramework.IPluginFilter
   parent: Sdl.Core.PluginFramework
   isExternal: true
-  href: Sdl.Core.PluginFramework.IPluginFilter.html
   name: IPluginFilter
   nameWithType: IPluginFilter
   fullName: Sdl.Core.PluginFramework.IPluginFilter
 - uid: Sdl.Core.PluginFramework.IPluginRegistry.Plugins*
   commentId: Overload:Sdl.Core.PluginFramework.IPluginRegistry.Plugins
   isExternal: true
-  href: Sdl.Core.PluginFramework.IPluginRegistry.html#Sdl_Core_PluginFramework_IPluginRegistry_Plugins
   name: Plugins
   nameWithType: IPluginRegistry.Plugins
   fullName: Sdl.Core.PluginFramework.IPluginRegistry.Plugins
@@ -593,14 +557,12 @@ references:
   commentId: T:Sdl.Core.PluginFramework.PluginCollection
   parent: Sdl.Core.PluginFramework
   isExternal: true
-  href: Sdl.Core.PluginFramework.PluginCollection.html
   name: PluginCollection
   nameWithType: PluginCollection
   fullName: Sdl.Core.PluginFramework.PluginCollection
 - uid: Sdl.Core.PluginFramework.IPluginRegistry.PluginStateHandler*
   commentId: Overload:Sdl.Core.PluginFramework.IPluginRegistry.PluginStateHandler
   isExternal: true
-  href: Sdl.Core.PluginFramework.IPluginRegistry.html#Sdl_Core_PluginFramework_IPluginRegistry_PluginStateHandler
   name: PluginStateHandler
   nameWithType: IPluginRegistry.PluginStateHandler
   fullName: Sdl.Core.PluginFramework.IPluginRegistry.PluginStateHandler
@@ -608,22 +570,19 @@ references:
   commentId: T:Sdl.Core.PluginFramework.IPluginStateHandler
   parent: Sdl.Core.PluginFramework
   isExternal: true
-  href: Sdl.Core.PluginFramework.IPluginStateHandler.html
   name: IPluginStateHandler
   nameWithType: IPluginStateHandler
   fullName: Sdl.Core.PluginFramework.IPluginStateHandler
+- uid: Sdl.Core.PluginFramework.IPluginRegistry.PluginInitializer*
+  commentId: Overload:Sdl.Core.PluginFramework.IPluginRegistry.PluginInitializer
+  isExternal: true
+  name: PluginInitializer
+  nameWithType: IPluginRegistry.PluginInitializer
+  fullName: Sdl.Core.PluginFramework.IPluginRegistry.PluginInitializer
 - uid: Sdl.Core.PluginFramework.IPluginInitializer
   commentId: T:Sdl.Core.PluginFramework.IPluginInitializer
   parent: Sdl.Core.PluginFramework
   isExternal: true
-  href: Sdl.Core.PluginFramework.IPluginInitializer.html
   name: IPluginInitializer
   nameWithType: IPluginInitializer
   fullName: Sdl.Core.PluginFramework.IPluginInitializer
-- uid: Sdl.Core.PluginFramework.IPluginRegistry.PluginInitializer*
-  commentId: Overload:Sdl.Core.PluginFramework.IPluginRegistry.PluginInitializer
-  isExternal: true
-  href: Sdl.Core.PluginFramework.IPluginRegistry.html#Sdl_Core_PluginFramework_IPluginRegistry_PluginInitializer
-  name: PluginInitializer
-  nameWithType: IPluginRegistry.PluginInitializer
-  fullName: Sdl.Core.PluginFramework.IPluginRegistry.PluginInitializer
