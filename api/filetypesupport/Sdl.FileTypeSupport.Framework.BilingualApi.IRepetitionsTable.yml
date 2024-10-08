@@ -20,81 +20,27 @@ items:
   nameWithType: IRepetitionsTable
   fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable
   type: Interface
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core
+    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.BilingualApi
-  summary: >-
-    Used in <xref href="Sdl.FileTypeSupport.Framework.BilingualApi.IDocumentProperties.Repetitions" data-throw-if-not-resolved="false"></xref> to keep track
-
-    of segments with the same source language content that appear in multiple 
-
-    locations within the document (potentially in different files).
-  remarks: >-
-    <p>
-
-    This table is built by a dedicated component during initial content processing.
-
-    Assuming that the source content does not change, the table should remain valid 
-
-    as long as the document contains the same files.
-
-    </p>
-
-    <p>
-
-    The table is used during editing to implement the auto-propagation feature,
-
-    whereby the translation of a repeated segment can be immediately propagated
-
-    to other locations in the same document.
-
-    </p>
-
-    <p>
-
-    A <xref href="Sdl.FileTypeSupport.Framework.NativeApi.RepetitionId" data-throw-if-not-resolved="false"></xref> is used to identify a set 
-
-    of source segments with the same content (repetitions) in the table. The actual
-
-    segments that are associated with the repetition can be retrieved by 
-
-    calling <xref href="Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.GetRepetitions(Sdl.FileTypeSupport.Framework.NativeApi.RepetitionId)" data-throw-if-not-resolved="false"></xref>. A segment is referenced as a paragraph unit id
-
-    and the associated segment id (this is necessary since the same segment ids can be re-used
-
-    in multiple files in the document (in fact, it is only guaranteed to be unique within
-
-    a paragraph unit).
-
-    </p>
-
-    <p>
-
-    It is left to the implementation to determine how repetitions are calculated
-
-    and propagated. Sophisticated algorithms can apply repetitions also when
-
-    the source content differs, for example, with regards to tagging and placeables.
-
-    Very often, a temporary translation memory is used to build the repetition table.
-
-    </p>
-
-    <p>
-
-    When a translation is applied using auto-propagation, the corresponding 
-
-    repetition id should be stored in the <xref href="Sdl.FileTypeSupport.Framework.NativeApi.ITranslationOrigin.RepetitionTableId" data-throw-if-not-resolved="false"></xref>
-
-    property. This allows the editor to better track auto-propagated segments.
-
-    </p>
-  example: []
+  summary: "\nUsed in <xref href=\"Sdl.FileTypeSupport.Framework.BilingualApi.IDocumentProperties.Repetitions\" data-throw-if-not-resolved=\"false\"></xref> to keep track\nof segments with the same source language content that appear in multiple \nlocations within the document (potentially in different files).\n"
+  remarks: "\n<p>\nThis table is built by a dedicated component during initial content processing.\nAssuming that the source content does not change, the table should remain valid \nas long as the document contains the same files.\n</p>\n<p>\nThe table is used during editing to implement the auto-propagation feature,\nwhereby the translation of a repeated segment can be immediately propagated\nto other locations in the same document.\n</p>\n<p>\nA <xref href=\"Sdl.FileTypeSupport.Framework.NativeApi.RepetitionId\" data-throw-if-not-resolved=\"false\"></xref> is used to identify a set \nof source segments with the same content (repetitions) in the table. The actual\nsegments that are associated with the repetition can be retrieved by \ncalling <xref href=\"Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.GetRepetitions(Sdl.FileTypeSupport.Framework.NativeApi.RepetitionId)\" data-throw-if-not-resolved=\"false\"></xref>. A segment is referenced as a paragraph unit id\nand the associated segment id (this is necessary since the same segment ids can be re-used\nin multiple files in the document (in fact, it is only guaranteed to be unique within\na paragraph unit).\n</p>\n<p>\nIt is left to the implementation to determine how repetitions are calculated\nand propagated. Sophisticated algorithms can apply repetitions also when\nthe source content differs, for example, with regards to tagging and placeables.\nVery often, a temporary translation memory is used to build the repetition table.\n</p>\n<p>\nWhen a translation is applied using auto-propagation, the corresponding \nrepetition id should be stored in the <xref href=\"Sdl.FileTypeSupport.Framework.NativeApi.ITranslationOrigin.RepetitionTableId\" data-throw-if-not-resolved=\"false\"></xref>\nproperty. This allows the editor to better track auto-propagated segments.\n</p>\n"
   syntax:
     content: 'public interface IRepetitionsTable : ICloneable'
-    content.vb: Public Interface IRepetitionsTable Inherits ICloneable
+    content.vb: >-
+      Public Interface IRepetitionsTable
+          Inherits ICloneable
   inheritedMembers:
   - System.ICloneable.Clone
+  modifiers.csharp:
+  - public
+  - interface
+  modifiers.vb:
+  - Public
+  - Interface
 - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.GetRepetitions(Sdl.FileTypeSupport.Framework.NativeApi.RepetitionId)
   commentId: M:Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.GetRepetitions(Sdl.FileTypeSupport.Framework.NativeApi.RepetitionId)
   id: GetRepetitions(Sdl.FileTypeSupport.Framework.NativeApi.RepetitionId)
@@ -106,20 +52,20 @@ items:
   nameWithType: IRepetitionsTable.GetRepetitions(RepetitionId)
   fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.GetRepetitions(Sdl.FileTypeSupport.Framework.NativeApi.RepetitionId)
   type: Method
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core
+    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.BilingualApi
-  summary: Returns the repetition list relating to a specific RepetitionId.
-  example: []
+  summary: "\nReturns the repetition list relating to a specific RepetitionId.\n"
   syntax:
     content: IList<Pair<ParagraphUnitId, SegmentId>> GetRepetitions(RepetitionId repetitions)
     parameters:
     - id: repetitions
       type: Sdl.FileTypeSupport.Framework.NativeApi.RepetitionId
-      description: ''
     return:
       type: System.Collections.Generic.IList{Sdl.FileTypeSupport.Framework.Pair{Sdl.FileTypeSupport.Framework.NativeApi.ParagraphUnitId,Sdl.FileTypeSupport.Framework.NativeApi.SegmentId}}
-      description: ''
     content.vb: Function GetRepetitions(repetitions As RepetitionId) As IList(Of Pair(Of ParagraphUnitId, SegmentId))
   overload: Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.GetRepetitions*
 - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.GetRepetitionId(Sdl.FileTypeSupport.Framework.NativeApi.ParagraphUnitId,Sdl.FileTypeSupport.Framework.NativeApi.SegmentId)
@@ -133,11 +79,13 @@ items:
   nameWithType: IRepetitionsTable.GetRepetitionId(ParagraphUnitId, SegmentId)
   fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.GetRepetitionId(Sdl.FileTypeSupport.Framework.NativeApi.ParagraphUnitId, Sdl.FileTypeSupport.Framework.NativeApi.SegmentId)
   type: Method
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core
+    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.BilingualApi
-  summary: Finds the repetition id of a segment.
-  example: []
+  summary: "\nFinds the repetition id of a segment.\n"
   syntax:
     content: RepetitionId GetRepetitionId(ParagraphUnitId paragraphUnitId, SegmentId segmentId)
     parameters:
@@ -149,9 +97,7 @@ items:
       description: <xref href="Sdl.FileTypeSupport.Framework.NativeApi.ISegmentPairProperties.Id" data-throw-if-not-resolved="false"></xref> for the segment
     return:
       type: Sdl.FileTypeSupport.Framework.NativeApi.RepetitionId
-      description: >-
-        The repetition id for the specified segment, or <code>default (RepetitionId)</code> if 
-                    the table has no entry for this segment.
+      description: "The repetition id for the specified segment, or <code>default (RepetitionId)</code> if \nthe table has no entry for this segment."
     content.vb: Function GetRepetitionId(paragraphUnitId As ParagraphUnitId, segmentId As SegmentId) As RepetitionId
   overload: Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.GetRepetitionId*
 - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.Add(Sdl.FileTypeSupport.Framework.NativeApi.RepetitionId,Sdl.FileTypeSupport.Framework.NativeApi.ParagraphUnitId,Sdl.FileTypeSupport.Framework.NativeApi.SegmentId)
@@ -165,26 +111,24 @@ items:
   nameWithType: IRepetitionsTable.Add(RepetitionId, ParagraphUnitId, SegmentId)
   fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.Add(Sdl.FileTypeSupport.Framework.NativeApi.RepetitionId, Sdl.FileTypeSupport.Framework.NativeApi.ParagraphUnitId, Sdl.FileTypeSupport.Framework.NativeApi.SegmentId)
   type: Method
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core
+    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.BilingualApi
-  summary: Adds a repeated segment to the table.
-  example: []
+  summary: "\nAdds a repeated segment to the table.\n"
   syntax:
     content: bool Add(RepetitionId key, ParagraphUnitId pu, SegmentId newRepetition)
     parameters:
     - id: key
       type: Sdl.FileTypeSupport.Framework.NativeApi.RepetitionId
-      description: ''
     - id: pu
       type: Sdl.FileTypeSupport.Framework.NativeApi.ParagraphUnitId
-      description: ''
     - id: newRepetition
       type: Sdl.FileTypeSupport.Framework.NativeApi.SegmentId
-      description: ''
     return:
       type: System.Boolean
-      description: ''
     content.vb: Function Add(key As RepetitionId, pu As ParagraphUnitId, newRepetition As SegmentId) As Boolean
   overload: Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.Add*
 - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.Remove(Sdl.FileTypeSupport.Framework.NativeApi.ParagraphUnitId,Sdl.FileTypeSupport.Framework.NativeApi.SegmentId)
@@ -198,21 +142,21 @@ items:
   nameWithType: IRepetitionsTable.Remove(ParagraphUnitId, SegmentId)
   fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.Remove(Sdl.FileTypeSupport.Framework.NativeApi.ParagraphUnitId, Sdl.FileTypeSupport.Framework.NativeApi.SegmentId)
   type: Method
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core
+    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.BilingualApi
-  summary: Remove a repeated segment from the table.
-  remarks: When the last segment for a repetition id is removed, the repetition id is also removed.
-  example: []
+  summary: "\nRemove a repeated segment from the table.\n"
+  remarks: "\nWhen the last segment for a repetition id is removed, the repetition id is also removed.\n"
   syntax:
     content: bool Remove(ParagraphUnitId paragraphUnitId, SegmentId segmentId)
     parameters:
     - id: paragraphUnitId
       type: Sdl.FileTypeSupport.Framework.NativeApi.ParagraphUnitId
-      description: ''
     - id: segmentId
       type: Sdl.FileTypeSupport.Framework.NativeApi.SegmentId
-      description: ''
     return:
       type: System.Boolean
       description: True if the segment was removed, otherwise false
@@ -229,17 +173,18 @@ items:
   nameWithType: IRepetitionsTable.DeleteKey(RepetitionId)
   fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.DeleteKey(Sdl.FileTypeSupport.Framework.NativeApi.RepetitionId)
   type: Method
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core
+    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.BilingualApi
-  summary: Removes all repetitions with the specified id from the table.
-  example: []
+  summary: "\nRemoves all repetitions with the specified id from the table.\n"
   syntax:
     content: void DeleteKey(RepetitionId repetitions)
     parameters:
     - id: repetitions
       type: Sdl.FileTypeSupport.Framework.NativeApi.RepetitionId
-      description: ''
     content.vb: Sub DeleteKey(repetitions As RepetitionId)
   overload: Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.DeleteKey*
 - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.Clear
@@ -253,14 +198,16 @@ items:
   nameWithType: IRepetitionsTable.Clear()
   fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.Clear()
   type: Method
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core
+    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.BilingualApi
-  summary: Remove all entries from the table.
-  example: []
+  summary: "\nRemove all entries from the table.\n"
   syntax:
     content: void Clear()
-    content.vb: Sub Clear()
+    content.vb: Sub Clear
   overload: Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.Clear*
 - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.RepetitionIds
   commentId: P:Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.RepetitionIds
@@ -273,11 +220,13 @@ items:
   nameWithType: IRepetitionsTable.RepetitionIds
   fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.RepetitionIds
   type: Property
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core
+    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.BilingualApi
-  summary: Use this iterator to iterate over the pepetition ids in the repetitions table.
-  example: []
+  summary: "\nUse this iterator to iterate over the pepetition ids in the repetitions table.\n"
   syntax:
     content: IEnumerable<RepetitionId> RepetitionIds { get; }
     parameters: []
@@ -285,6 +234,10 @@ items:
       type: System.Collections.Generic.IEnumerable{Sdl.FileTypeSupport.Framework.NativeApi.RepetitionId}
     content.vb: ReadOnly Property RepetitionIds As IEnumerable(Of RepetitionId)
   overload: Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.RepetitionIds*
+  modifiers.csharp:
+  - get
+  modifiers.vb:
+  - ReadOnly
 - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.Count
   commentId: P:Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.Count
   id: Count
@@ -296,11 +249,13 @@ items:
   nameWithType: IRepetitionsTable.Count
   fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.Count
   type: Property
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core
+    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.BilingualApi
-  summary: The number of repetition ids in the table
-  example: []
+  summary: "\nThe number of repetition ids in the table\n"
   syntax:
     content: int Count { get; }
     parameters: []
@@ -308,201 +263,78 @@ items:
       type: System.Int32
     content.vb: ReadOnly Property Count As Integer
   overload: Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.Count*
+  modifiers.csharp:
+  - get
+  modifiers.vb:
+  - ReadOnly
 references:
-- uid: Sdl.FileTypeSupport.Framework.BilingualApi.IDocumentProperties.Repetitions
-  commentId: P:Sdl.FileTypeSupport.Framework.BilingualApi.IDocumentProperties.Repetitions
-  isExternal: true
-  href: Sdl.FileTypeSupport.Framework.BilingualApi.IDocumentProperties.html#Sdl_FileTypeSupport_Framework_BilingualApi_IDocumentProperties_Repetitions
-  name: Repetitions
-  nameWithType: IDocumentProperties.Repetitions
-  fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IDocumentProperties.Repetitions
-- uid: Sdl.FileTypeSupport.Framework.NativeApi.RepetitionId
-  commentId: T:Sdl.FileTypeSupport.Framework.NativeApi.RepetitionId
-  parent: Sdl.FileTypeSupport.Framework.NativeApi
-  isExternal: true
-  href: Sdl.FileTypeSupport.Framework.NativeApi.RepetitionId.html
-  name: RepetitionId
-  nameWithType: RepetitionId
-  fullName: Sdl.FileTypeSupport.Framework.NativeApi.RepetitionId
-- uid: Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.GetRepetitions(Sdl.FileTypeSupport.Framework.NativeApi.RepetitionId)
-  commentId: M:Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.GetRepetitions(Sdl.FileTypeSupport.Framework.NativeApi.RepetitionId)
-  isExternal: true
-  href: Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.html#Sdl_FileTypeSupport_Framework_BilingualApi_IRepetitionsTable_GetRepetitions_Sdl_FileTypeSupport_Framework_NativeApi_RepetitionId_
-  name: GetRepetitions(RepetitionId)
-  nameWithType: IRepetitionsTable.GetRepetitions(RepetitionId)
-  fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.GetRepetitions(Sdl.FileTypeSupport.Framework.NativeApi.RepetitionId)
-  spec.csharp:
-  - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.GetRepetitions(Sdl.FileTypeSupport.Framework.NativeApi.RepetitionId)
-    name: GetRepetitions
-    isExternal: true
-    href: Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.html#Sdl_FileTypeSupport_Framework_BilingualApi_IRepetitionsTable_GetRepetitions_Sdl_FileTypeSupport_Framework_NativeApi_RepetitionId_
-  - name: (
-  - uid: Sdl.FileTypeSupport.Framework.NativeApi.RepetitionId
-    name: RepetitionId
-    isExternal: true
-    href: Sdl.FileTypeSupport.Framework.NativeApi.RepetitionId.html
-  - name: )
-  spec.vb:
-  - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.GetRepetitions(Sdl.FileTypeSupport.Framework.NativeApi.RepetitionId)
-    name: GetRepetitions
-    isExternal: true
-    href: Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.html#Sdl_FileTypeSupport_Framework_BilingualApi_IRepetitionsTable_GetRepetitions_Sdl_FileTypeSupport_Framework_NativeApi_RepetitionId_
-  - name: (
-  - uid: Sdl.FileTypeSupport.Framework.NativeApi.RepetitionId
-    name: RepetitionId
-    isExternal: true
-    href: Sdl.FileTypeSupport.Framework.NativeApi.RepetitionId.html
-  - name: )
-- uid: Sdl.FileTypeSupport.Framework.NativeApi.ITranslationOrigin.RepetitionTableId
-  commentId: P:Sdl.FileTypeSupport.Framework.NativeApi.ITranslationOrigin.RepetitionTableId
-  isExternal: true
-  href: Sdl.FileTypeSupport.Framework.NativeApi.ITranslationOrigin.html#Sdl_FileTypeSupport_Framework_NativeApi_ITranslationOrigin_RepetitionTableId
-  name: RepetitionTableId
-  nameWithType: ITranslationOrigin.RepetitionTableId
-  fullName: Sdl.FileTypeSupport.Framework.NativeApi.ITranslationOrigin.RepetitionTableId
 - uid: Sdl.FileTypeSupport.Framework.BilingualApi
   commentId: N:Sdl.FileTypeSupport.Framework.BilingualApi
   isExternal: true
-  href: Sdl.html
   name: Sdl.FileTypeSupport.Framework.BilingualApi
   nameWithType: Sdl.FileTypeSupport.Framework.BilingualApi
   fullName: Sdl.FileTypeSupport.Framework.BilingualApi
-  spec.csharp:
-  - uid: Sdl
-    name: Sdl
-    isExternal: true
-    href: Sdl.html
-  - name: .
-  - uid: Sdl.FileTypeSupport
-    name: FileTypeSupport
-    isExternal: true
-    href: Sdl.FileTypeSupport.html
-  - name: .
-  - uid: Sdl.FileTypeSupport.Framework
-    name: Framework
-    isExternal: true
-    href: Sdl.FileTypeSupport.Framework.html
-  - name: .
-  - uid: Sdl.FileTypeSupport.Framework.BilingualApi
-    name: BilingualApi
-    isExternal: true
-    href: Sdl.FileTypeSupport.Framework.BilingualApi.html
-  spec.vb:
-  - uid: Sdl
-    name: Sdl
-    isExternal: true
-    href: Sdl.html
-  - name: .
-  - uid: Sdl.FileTypeSupport
-    name: FileTypeSupport
-    isExternal: true
-    href: Sdl.FileTypeSupport.html
-  - name: .
-  - uid: Sdl.FileTypeSupport.Framework
-    name: Framework
-    isExternal: true
-    href: Sdl.FileTypeSupport.Framework.html
-  - name: .
-  - uid: Sdl.FileTypeSupport.Framework.BilingualApi
-    name: BilingualApi
-    isExternal: true
-    href: Sdl.FileTypeSupport.Framework.BilingualApi.html
 - uid: System.ICloneable.Clone
   commentId: M:System.ICloneable.Clone
   parent: System.ICloneable
   isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.icloneable.clone
   name: Clone()
   nameWithType: ICloneable.Clone()
   fullName: System.ICloneable.Clone()
   spec.csharp:
   - uid: System.ICloneable.Clone
     name: Clone
+    nameWithType: ICloneable.Clone
+    fullName: System.ICloneable.Clone
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.icloneable.clone
   - name: (
+    nameWithType: (
+    fullName: (
   - name: )
+    nameWithType: )
+    fullName: )
   spec.vb:
   - uid: System.ICloneable.Clone
     name: Clone
+    nameWithType: ICloneable.Clone
+    fullName: System.ICloneable.Clone
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.icloneable.clone
   - name: (
+    nameWithType: (
+    fullName: (
   - name: )
-- uid: Sdl.FileTypeSupport.Framework.NativeApi
-  commentId: N:Sdl.FileTypeSupport.Framework.NativeApi
-  isExternal: true
-  href: Sdl.html
-  name: Sdl.FileTypeSupport.Framework.NativeApi
-  nameWithType: Sdl.FileTypeSupport.Framework.NativeApi
-  fullName: Sdl.FileTypeSupport.Framework.NativeApi
-  spec.csharp:
-  - uid: Sdl
-    name: Sdl
-    isExternal: true
-    href: Sdl.html
-  - name: .
-  - uid: Sdl.FileTypeSupport
-    name: FileTypeSupport
-    isExternal: true
-    href: Sdl.FileTypeSupport.html
-  - name: .
-  - uid: Sdl.FileTypeSupport.Framework
-    name: Framework
-    isExternal: true
-    href: Sdl.FileTypeSupport.Framework.html
-  - name: .
-  - uid: Sdl.FileTypeSupport.Framework.NativeApi
-    name: NativeApi
-    isExternal: true
-    href: Sdl.FileTypeSupport.Framework.NativeApi.html
-  spec.vb:
-  - uid: Sdl
-    name: Sdl
-    isExternal: true
-    href: Sdl.html
-  - name: .
-  - uid: Sdl.FileTypeSupport
-    name: FileTypeSupport
-    isExternal: true
-    href: Sdl.FileTypeSupport.html
-  - name: .
-  - uid: Sdl.FileTypeSupport.Framework
-    name: Framework
-    isExternal: true
-    href: Sdl.FileTypeSupport.Framework.html
-  - name: .
-  - uid: Sdl.FileTypeSupport.Framework.NativeApi
-    name: NativeApi
-    isExternal: true
-    href: Sdl.FileTypeSupport.Framework.NativeApi.html
+    nameWithType: )
+    fullName: )
 - uid: System.ICloneable
   commentId: T:System.ICloneable
   parent: System
   isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.icloneable
   name: ICloneable
   nameWithType: ICloneable
   fullName: System.ICloneable
 - uid: System
   commentId: N:System
   isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system
   name: System
   nameWithType: System
   fullName: System
 - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.GetRepetitions*
   commentId: Overload:Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.GetRepetitions
   isExternal: true
-  href: Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.html#Sdl_FileTypeSupport_Framework_BilingualApi_IRepetitionsTable_GetRepetitions_Sdl_FileTypeSupport_Framework_NativeApi_RepetitionId_
   name: GetRepetitions
   nameWithType: IRepetitionsTable.GetRepetitions
   fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.GetRepetitions
+- uid: Sdl.FileTypeSupport.Framework.NativeApi.RepetitionId
+  commentId: T:Sdl.FileTypeSupport.Framework.NativeApi.RepetitionId
+  parent: Sdl.FileTypeSupport.Framework.NativeApi
+  isExternal: true
+  name: RepetitionId
+  nameWithType: RepetitionId
+  fullName: Sdl.FileTypeSupport.Framework.NativeApi.RepetitionId
 - uid: System.Collections.Generic.IList{Sdl.FileTypeSupport.Framework.Pair{Sdl.FileTypeSupport.Framework.NativeApi.ParagraphUnitId,Sdl.FileTypeSupport.Framework.NativeApi.SegmentId}}
   commentId: T:System.Collections.Generic.IList{Sdl.FileTypeSupport.Framework.Pair{Sdl.FileTypeSupport.Framework.NativeApi.ParagraphUnitId,Sdl.FileTypeSupport.Framework.NativeApi.SegmentId}}
   parent: System.Collections.Generic
   definition: System.Collections.Generic.IList`1
-  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1
   name: IList<Pair<ParagraphUnitId, SegmentId>>
   nameWithType: IList<Pair<ParagraphUnitId, SegmentId>>
   fullName: System.Collections.Generic.IList<Sdl.FileTypeSupport.Framework.Pair<Sdl.FileTypeSupport.Framework.NativeApi.ParagraphUnitId, Sdl.FileTypeSupport.Framework.NativeApi.SegmentId>>
@@ -512,57 +344,84 @@ references:
   spec.csharp:
   - uid: System.Collections.Generic.IList`1
     name: IList
+    nameWithType: IList
+    fullName: System.Collections.Generic.IList
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1
   - name: <
+    nameWithType: <
+    fullName: <
   - uid: Sdl.FileTypeSupport.Framework.Pair`2
     name: Pair
+    nameWithType: Pair
+    fullName: Sdl.FileTypeSupport.Framework.Pair
     isExternal: true
-    href: Sdl.FileTypeSupport.Framework.Pair-2.html
   - name: <
+    nameWithType: <
+    fullName: <
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.ParagraphUnitId
     name: ParagraphUnitId
+    nameWithType: ParagraphUnitId
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.ParagraphUnitId
     isExternal: true
-    href: Sdl.FileTypeSupport.Framework.NativeApi.ParagraphUnitId.html
-  - name: ','
-  - name: " "
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.SegmentId
     name: SegmentId
+    nameWithType: SegmentId
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.SegmentId
     isExternal: true
-    href: Sdl.FileTypeSupport.Framework.NativeApi.SegmentId.html
   - name: '>'
+    nameWithType: '>'
+    fullName: '>'
   - name: '>'
+    nameWithType: '>'
+    fullName: '>'
   spec.vb:
   - uid: System.Collections.Generic.IList`1
     name: IList
+    nameWithType: IList
+    fullName: System.Collections.Generic.IList
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1
-  - name: (
-  - name: Of
-  - name: " "
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
   - uid: Sdl.FileTypeSupport.Framework.Pair`2
     name: Pair
+    nameWithType: Pair
+    fullName: Sdl.FileTypeSupport.Framework.Pair
     isExternal: true
-    href: Sdl.FileTypeSupport.Framework.Pair-2.html
-  - name: (
-  - name: Of
-  - name: " "
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.ParagraphUnitId
     name: ParagraphUnitId
+    nameWithType: ParagraphUnitId
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.ParagraphUnitId
     isExternal: true
-    href: Sdl.FileTypeSupport.Framework.NativeApi.ParagraphUnitId.html
-  - name: ','
-  - name: " "
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.SegmentId
     name: SegmentId
+    nameWithType: SegmentId
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.SegmentId
     isExternal: true
-    href: Sdl.FileTypeSupport.Framework.NativeApi.SegmentId.html
   - name: )
+    nameWithType: )
+    fullName: )
   - name: )
+    nameWithType: )
+    fullName: )
+- uid: Sdl.FileTypeSupport.Framework.NativeApi
+  commentId: N:Sdl.FileTypeSupport.Framework.NativeApi
+  isExternal: true
+  name: Sdl.FileTypeSupport.Framework.NativeApi
+  nameWithType: Sdl.FileTypeSupport.Framework.NativeApi
+  fullName: Sdl.FileTypeSupport.Framework.NativeApi
 - uid: System.Collections.Generic.IList`1
   commentId: T:System.Collections.Generic.IList`1
   isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1
   name: IList<T>
   nameWithType: IList<T>
   fullName: System.Collections.Generic.IList<T>
@@ -572,76 +431,42 @@ references:
   spec.csharp:
   - uid: System.Collections.Generic.IList`1
     name: IList
+    nameWithType: IList
+    fullName: System.Collections.Generic.IList
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1
   - name: <
+    nameWithType: <
+    fullName: <
   - name: T
+    nameWithType: T
+    fullName: T
   - name: '>'
+    nameWithType: '>'
+    fullName: '>'
   spec.vb:
   - uid: System.Collections.Generic.IList`1
     name: IList
+    nameWithType: IList
+    fullName: System.Collections.Generic.IList
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1
-  - name: (
-  - name: Of
-  - name: " "
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
   - name: T
+    nameWithType: T
+    fullName: T
   - name: )
+    nameWithType: )
+    fullName: )
 - uid: System.Collections.Generic
   commentId: N:System.Collections.Generic
   isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system
   name: System.Collections.Generic
   nameWithType: System.Collections.Generic
   fullName: System.Collections.Generic
-  spec.csharp:
-  - uid: System
-    name: System
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system
-  - name: .
-  - uid: System.Collections
-    name: Collections
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections
-  - name: .
-  - uid: System.Collections.Generic
-    name: Generic
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
-  spec.vb:
-  - uid: System
-    name: System
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system
-  - name: .
-  - uid: System.Collections
-    name: Collections
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections
-  - name: .
-  - uid: System.Collections.Generic
-    name: Generic
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
-- uid: Sdl.FileTypeSupport.Framework.NativeApi.IParagraphUnitProperties.ParagraphUnitId
-  commentId: P:Sdl.FileTypeSupport.Framework.NativeApi.IParagraphUnitProperties.ParagraphUnitId
-  isExternal: true
-  href: Sdl.FileTypeSupport.Framework.NativeApi.IParagraphUnitProperties.html#Sdl_FileTypeSupport_Framework_NativeApi_IParagraphUnitProperties_ParagraphUnitId
-  name: ParagraphUnitId
-  nameWithType: IParagraphUnitProperties.ParagraphUnitId
-  fullName: Sdl.FileTypeSupport.Framework.NativeApi.IParagraphUnitProperties.ParagraphUnitId
-- uid: Sdl.FileTypeSupport.Framework.NativeApi.ISegmentPairProperties.Id
-  commentId: P:Sdl.FileTypeSupport.Framework.NativeApi.ISegmentPairProperties.Id
-  isExternal: true
-  href: Sdl.FileTypeSupport.Framework.NativeApi.ISegmentPairProperties.html#Sdl_FileTypeSupport_Framework_NativeApi_ISegmentPairProperties_Id
-  name: Id
-  nameWithType: ISegmentPairProperties.Id
-  fullName: Sdl.FileTypeSupport.Framework.NativeApi.ISegmentPairProperties.Id
 - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.GetRepetitionId*
   commentId: Overload:Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.GetRepetitionId
   isExternal: true
-  href: Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.html#Sdl_FileTypeSupport_Framework_BilingualApi_IRepetitionsTable_GetRepetitionId_Sdl_FileTypeSupport_Framework_NativeApi_ParagraphUnitId_Sdl_FileTypeSupport_Framework_NativeApi_SegmentId_
   name: GetRepetitionId
   nameWithType: IRepetitionsTable.GetRepetitionId
   fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.GetRepetitionId
@@ -649,7 +474,6 @@ references:
   commentId: T:Sdl.FileTypeSupport.Framework.NativeApi.ParagraphUnitId
   parent: Sdl.FileTypeSupport.Framework.NativeApi
   isExternal: true
-  href: Sdl.FileTypeSupport.Framework.NativeApi.ParagraphUnitId.html
   name: ParagraphUnitId
   nameWithType: ParagraphUnitId
   fullName: Sdl.FileTypeSupport.Framework.NativeApi.ParagraphUnitId
@@ -657,14 +481,12 @@ references:
   commentId: T:Sdl.FileTypeSupport.Framework.NativeApi.SegmentId
   parent: Sdl.FileTypeSupport.Framework.NativeApi
   isExternal: true
-  href: Sdl.FileTypeSupport.Framework.NativeApi.SegmentId.html
   name: SegmentId
   nameWithType: SegmentId
   fullName: Sdl.FileTypeSupport.Framework.NativeApi.SegmentId
 - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.Add*
   commentId: Overload:Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.Add
   isExternal: true
-  href: Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.html#Sdl_FileTypeSupport_Framework_BilingualApi_IRepetitionsTable_Add_Sdl_FileTypeSupport_Framework_NativeApi_RepetitionId_Sdl_FileTypeSupport_Framework_NativeApi_ParagraphUnitId_Sdl_FileTypeSupport_Framework_NativeApi_SegmentId_
   name: Add
   nameWithType: IRepetitionsTable.Add
   fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.Add
@@ -672,38 +494,30 @@ references:
   commentId: T:System.Boolean
   parent: System
   isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.boolean
-  name: bool
-  nameWithType: bool
-  fullName: bool
-  nameWithType.vb: Boolean
-  fullName.vb: Boolean
-  name.vb: Boolean
+  name: Boolean
+  nameWithType: Boolean
+  fullName: System.Boolean
 - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.Remove*
   commentId: Overload:Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.Remove
   isExternal: true
-  href: Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.html#Sdl_FileTypeSupport_Framework_BilingualApi_IRepetitionsTable_Remove_Sdl_FileTypeSupport_Framework_NativeApi_ParagraphUnitId_Sdl_FileTypeSupport_Framework_NativeApi_SegmentId_
   name: Remove
   nameWithType: IRepetitionsTable.Remove
   fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.Remove
 - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.DeleteKey*
   commentId: Overload:Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.DeleteKey
   isExternal: true
-  href: Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.html#Sdl_FileTypeSupport_Framework_BilingualApi_IRepetitionsTable_DeleteKey_Sdl_FileTypeSupport_Framework_NativeApi_RepetitionId_
   name: DeleteKey
   nameWithType: IRepetitionsTable.DeleteKey
   fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.DeleteKey
 - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.Clear*
   commentId: Overload:Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.Clear
   isExternal: true
-  href: Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.html#Sdl_FileTypeSupport_Framework_BilingualApi_IRepetitionsTable_Clear
   name: Clear
   nameWithType: IRepetitionsTable.Clear
   fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.Clear
 - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.RepetitionIds*
   commentId: Overload:Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.RepetitionIds
   isExternal: true
-  href: Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.html#Sdl_FileTypeSupport_Framework_BilingualApi_IRepetitionsTable_RepetitionIds
   name: RepetitionIds
   nameWithType: IRepetitionsTable.RepetitionIds
   fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.RepetitionIds
@@ -711,7 +525,6 @@ references:
   commentId: T:System.Collections.Generic.IEnumerable{Sdl.FileTypeSupport.Framework.NativeApi.RepetitionId}
   parent: System.Collections.Generic
   definition: System.Collections.Generic.IEnumerable`1
-  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
   name: IEnumerable<RepetitionId>
   nameWithType: IEnumerable<RepetitionId>
   fullName: System.Collections.Generic.IEnumerable<Sdl.FileTypeSupport.Framework.NativeApi.RepetitionId>
@@ -721,31 +534,40 @@ references:
   spec.csharp:
   - uid: System.Collections.Generic.IEnumerable`1
     name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
   - name: <
+    nameWithType: <
+    fullName: <
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.RepetitionId
     name: RepetitionId
+    nameWithType: RepetitionId
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.RepetitionId
     isExternal: true
-    href: Sdl.FileTypeSupport.Framework.NativeApi.RepetitionId.html
   - name: '>'
+    nameWithType: '>'
+    fullName: '>'
   spec.vb:
   - uid: System.Collections.Generic.IEnumerable`1
     name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
-  - name: (
-  - name: Of
-  - name: " "
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
   - uid: Sdl.FileTypeSupport.Framework.NativeApi.RepetitionId
     name: RepetitionId
+    nameWithType: RepetitionId
+    fullName: Sdl.FileTypeSupport.Framework.NativeApi.RepetitionId
     isExternal: true
-    href: Sdl.FileTypeSupport.Framework.NativeApi.RepetitionId.html
   - name: )
+    nameWithType: )
+    fullName: )
 - uid: System.Collections.Generic.IEnumerable`1
   commentId: T:System.Collections.Generic.IEnumerable`1
   isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
   name: IEnumerable<T>
   nameWithType: IEnumerable<T>
   fullName: System.Collections.Generic.IEnumerable<T>
@@ -755,25 +577,36 @@ references:
   spec.csharp:
   - uid: System.Collections.Generic.IEnumerable`1
     name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
   - name: <
+    nameWithType: <
+    fullName: <
   - name: T
+    nameWithType: T
+    fullName: T
   - name: '>'
+    nameWithType: '>'
+    fullName: '>'
   spec.vb:
   - uid: System.Collections.Generic.IEnumerable`1
     name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
-  - name: (
-  - name: Of
-  - name: " "
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
   - name: T
+    nameWithType: T
+    fullName: T
   - name: )
+    nameWithType: )
+    fullName: )
 - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.Count*
   commentId: Overload:Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.Count
   isExternal: true
-  href: Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.html#Sdl_FileTypeSupport_Framework_BilingualApi_IRepetitionsTable_Count
   name: Count
   nameWithType: IRepetitionsTable.Count
   fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IRepetitionsTable.Count
@@ -781,10 +614,6 @@ references:
   commentId: T:System.Int32
   parent: System
   isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.int32
-  name: int
-  nameWithType: int
-  fullName: int
-  nameWithType.vb: Integer
-  fullName.vb: Integer
-  name.vb: Integer
+  name: Int32
+  nameWithType: Int32
+  fullName: System.Int32
