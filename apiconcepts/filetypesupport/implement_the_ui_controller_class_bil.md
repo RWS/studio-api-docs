@@ -12,14 +12,14 @@ After changing the control element settings, the user goes to another settings p
 
 A settings page does not implement its own **OK**, **Cancel**, **Reset** buttons, but will rely on the control elements that are provided by the dialog box of the framework, which is made possible through this class.
 
-Below you see an example of a settings page as it is implemented for one of the default file types in <Var:ProductName>:
+Below you see an example of a settings page as it is implemented for one of the default file types in Var:ProductName:
 
 ![SampleSettingsPage](images/SampleSettingsPage.jpg)
 
 Implement the Settings Page Class
 --
 
-Add a class called e.g. **SettingsPage.cs** to your project. This is one of the classes that is referenced from the File Type Component Builder file, which was covered in one of the previous chapters (see [Create a New File Type Component Builder](create_new_file_type_component_builder.md)), i.e. it is not the UI class itself that is referenced in the File Type Component Builder. Without this reference, the plug-in UI would not be recognized and displayed by <Var:ProductName>.
+Add a class called e.g. **SettingsPage.cs** to your project. This is one of the classes that is referenced from the File Type Component Builder file, which was covered in one of the previous chapters (see [Create a New File Type Component Builder](create_new_file_type_component_builder.md)), i.e. it is not the UI class itself that is referenced in the File Type Component Builder. Without this reference, the plug-in UI would not be recognized and displayed by Var:ProductName.
 
 This class acts as an intermediary between the plug-in UI (see [Implement the User Interface](implement_the_user_interface_bil.md)) and the class that is used to store and retrieve the settings to/from the settings bundle (see [Loading and Saving the Settings](loading_and_saving_the_settings_bil.md)).
 
@@ -68,7 +68,7 @@ public override void Refresh()
 Declare the Class in the File Type Component Builder
 --
 
-For the plug-in settings UI to become visible in <Var:ProductName>, the File Type Component Builder file needs to include the following method. You may open the **.sdlfiletype* file in a text editor, then search for <```WinFormSettingsPageIds```>, and add the node to the list of settings page IDs.
+For the plug-in settings UI to become visible in Var:ProductName, the File Type Component Builder file needs to include the following method. You may open the **.sdlfiletype* file in a text editor, then search for <```WinFormSettingsPageIds```>, and add the node to the list of settings page IDs.
 
 ![excel_verifier_simplified_gui](images/excel_verifier_simplified_gui.jpg)
 

@@ -1,7 +1,7 @@
 Importing a Return Package
 ==
 
-After the return package (see [Creating a Return Package](creating_a_return_package.md)) has been sent back to the project manager, e.g. via e-mail, he/she opens it in <Var:ProductName>. This basically means that the package content is extracted, and the translated, edited, or proofread bilingual (SDLXliff) document overwrite the previous (e.g. untranslated) files, thus updating the project on the project manager's side.
+After the return package (see [Creating a Return Package](creating_a_return_package.md)) has been sent back to the project manager, e.g. via e-mail, he/she opens it in Var:ProductName. This basically means that the package content is extracted, and the translated, edited, or proofread bilingual (SDLXliff) document overwrite the previous (e.g. untranslated) files, thus updating the project on the project manager's side.
 
 Import a Return Package Programmatically
 --

@@ -128,7 +128,7 @@ namespace StudioIntegrationApiSample
 Content Connector ViewController
 --
 
-The <Var:ProductName>> Integration API is built in accordance with the MVC pattern. The View Controller is used to add new views to <Var:ProductName>> - the code sample below illustrates how this is achieved using the View attribute. The controller is also responsible for providing the View UI element. Additionally this sample has a ```CreateProjects()``` method which the controller uses to create new projects from the files in the IncomingRequests folder.
+The Var:ProductName> Integration API is built in accordance with the MVC pattern. The View Controller is used to add new views to Var:ProductName> - the code sample below illustrates how this is achieved using the View attribute. The controller is also responsible for providing the View UI element. Additionally this sample has a ```CreateProjects()``` method which the controller uses to create new projects from the files in the IncomingRequests folder.
 
 # [C#](#tab/tabid-3)
 ```cs

@@ -12,13 +12,13 @@ In order to achieve this you need to expose a configurable setting to a user int
 
 Rather than adding a user interface control to your existing project, you should create a second project for building a separate UI assembly. The reason for this is that you can build different user interfaces for the same file type plug-in. For example, you could have a desktop-based user interface as well as a Web-based UI.
 
-For the type of plug-in discussed in this chapter, we require the **<Var:ProductName> Plug-in Project** template.
+For the type of plug-in discussed in this chapter, we require the **Var:ProductName Plug-in Project** template.
 
 
 ![PluginTemplate](images/PluginTemplate.jpg)
 
 
-By default, when you create a project based on this template, the project name will be e.g. **<Var:ProductName> Plug-in Project1**. Change the project name to **Sdl.Sdk.FileTypeSupport.Samples.SimpleText.WinUI** for our sample implementation.
+By default, when you create a project based on this template, the project name will be e.g. **Var:ProductName Plug-in Project1**. Change the project name to **Sdl.Sdk.FileTypeSupport.Samples.SimpleText.WinUI** for our sample implementation.
 
 Add the Required References
 --
@@ -30,7 +30,7 @@ Now add the following libraries as references to the new UI project:
 * **Sdl.Core.Settings.dll**
 * **Sdl.FileTypeSupport.Framework.Core.Settings.dll**
 
-Set the output path for building your project to the installation folder of <Var:ProductName>, e.g. *<Var:InstallationFolder>*.
+Set the output path for building your project to the installation folder of Var:ProductName, e.g. *Var:InstallationFolder*.
 
 See Also
 --

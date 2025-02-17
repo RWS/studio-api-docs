@@ -10,7 +10,7 @@ Remember that the first line of a delimited text file is required to contain the
 en-US;de_DE
 ```
 
-Our sample plug-in should first of all check whether the first line can be split at the specified delimiter character and whether the languages indicated here match the language pair that the user selected in <Var:ProductName>.
+Our sample plug-in should first of all check whether the first line can be split at the specified delimiter character and whether the languages indicated here match the language pair that the user selected in Var:ProductName.
 In the following screenshot English (US) is selected as the source language, the target language is German (Germany). The API would therefore return en-US for the source language `SourceCultureName`, and de-DE for the target language, i.e. the `TargetCultureName` property. These strings map, of course, nicely to the locale combination of our list files, which makes checking whether the selected language pair actually fits the selected list very easy.
 <img style="display:block; " src="images/OpenDocumentWithPlugin.jpg"/>
 
@@ -20,7 +20,7 @@ The requirement is to check whether the selected language pair actually fits the
 
 Implement the Logic for Checking the Language Direction
 ------
-The logic for checking the language direction is implemented within the [SupportsLanguageDirection](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider.yml#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProvider_SupportsLanguageDirection_Sdl_LanguagePlatform_Core_LanguagePair_) method of the [ITranslationProvider](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider.yml) interface. This method takes a region-qualified source-target language combination object as parameter. This object holds the information on the languages that were selected by the user in the user interface of <Var:ProductName>, and which needs to be compared to the language direction of the translation provider.
+The logic for checking the language direction is implemented within the [SupportsLanguageDirection](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider.yml#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProvider_SupportsLanguageDirection_Sdl_LanguagePlatform_Core_LanguagePair_) method of the [ITranslationProvider](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider.yml) interface. This method takes a region-qualified source-target language combination object as parameter. This object holds the information on the languages that were selected by the user in the user interface of Var:ProductName, and which needs to be compared to the language direction of the translation provider.
 
 We start by opening the text file and reading the first line:
 # [C#](#tab/tabid-1)
@@ -44,7 +44,7 @@ if (langs.Count<string>() != 2)
 ```
 ***
 
-If the first line matches the regular expression, we can proceed to comparing the language combination that is indicated in the list file to the source/target languages that have been chosen in <Var:ProductName>. Depending on whether the language combination is matching or not, we return `True` or `False`.
+If the first line matches the regular expression, we can proceed to comparing the language combination that is indicated in the list file to the source/target languages that have been chosen in Var:ProductName. Depending on whether the language combination is matching or not, we return `True` or `False`.
 # [C#](#tab/tabid-3)
 ```cs
 if (langs[0].ToLower() == languageDirection.SourceCultureName.ToLower()
@@ -60,7 +60,7 @@ else
 }
 ```
 ***
-When the method returns `False`, <Var:ProductName> will throw a message like the one in the example below when selecting the translation provider:
+When the method returns `False`, Var:ProductName will throw a message like the one in the example below when selecting the translation provider:
 
 <img style="display:block; " src="images/LanguagesNotSupported.jpg"/>
 

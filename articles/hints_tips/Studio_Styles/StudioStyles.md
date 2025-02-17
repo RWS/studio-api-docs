@@ -1,5 +1,5 @@
 # Studio Look  & Feel in your 3rd party plugin
-Together with the release of <Var:ProductName> 2019 SR2 two new APIs were exposed which will allows you to take advantage of Studio styles in your plugin:
+Together with the release of Var:ProductName 2019 SR2 two new APIs were exposed which will allows you to take advantage of Studio styles in your plugin:
 
 * **`Sdl.Desktop.Platform.Styles.dll`**
 * **`Sdl.Desktop.Platform.Controls.dll`**

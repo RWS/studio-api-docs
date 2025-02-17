@@ -7,13 +7,13 @@ Server-based TMs, on the other hand, have been designed for simultaneous access 
 Background Information on  TM Server Technology
 ----
 
-In the case of server TMs, the TM data is physically stored in a database backend system, e.g. Microsoft SQL Server 2005 or 2008 (SQL Express versions are also supported). The TMs are stored in a so-called container database, which stores the TM data in tables. Users can access the server TMs like file TMs through <Var:ProductName> or, of course, through an API client. Between the end user and the database backend there is a TM Server middleware component installed. It negotiates user access and the retrieval/storage of data in the database system. In the following chapters you will learn how to develop an API client to carry out basic tasks on server TMs.
+In the case of server TMs, the TM data is physically stored in a database backend system, e.g. Microsoft SQL Server 2005 or 2008 (SQL Express versions are also supported). The TMs are stored in a so-called container database, which stores the TM data in tables. Users can access the server TMs like file TMs through Var:ProductName or, of course, through an API client. Between the end user and the database backend there is a TM Server middleware component installed. It negotiates user access and the retrieval/storage of data in the database system. In the following chapters you will learn how to develop an API client to carry out basic tasks on server TMs.
 
-The screenshot below illustrates how a user of <Var:ProductName> can choose between file TMs and server TMs (apart from Web-based automatic translation providers such as Google Translate).
+The screenshot below illustrates how a user of Var:ProductName can choose between file TMs and server TMs (apart from Web-based automatic translation providers such as Google Translate).
 
 <img style="display:block; " src="images/SelectServerTm.jpg"/>
 
-The following screenshot illustrates what information users of <Var:ProductName> need to enter in order to connect to a TM Server:
+The following screenshot illustrates what information users of Var:ProductName need to enter in order to connect to a TM Server:
 
 <img style="display:block; " src="images/Tm-ServerLogin.jpg"/>
 

@@ -1,4 +1,4 @@
-Release Notes for <Var:ProductNameWithEdition>
+Release Notes for Var:ProductNameWithEdition
 ===================
 
 # Trados Studio Automation

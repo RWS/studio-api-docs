@@ -1,16 +1,16 @@
 Setting up the Project
 =====
-To implement a custom translation provider plug-in, create a new class library project in <var:VisualStudioEdition>.
+To implement a custom translation provider plug-in, create a new class library project in Var:VisualStudioEdition.
 
 Install the SDK on your Development Machine
 ----
-Before you start developing plug-ins for <Var:ProductName>, you should make sure that the  SDK is installed on your development PC. The SDK installer will add new templates to your <var:VisualStudioEdition> environment, as illustrated in the screenshot below. For the type of plug-in discussed in this chapter, we require the **Translation Provider Plug-in** type.
+Before you start developing plug-ins for Var:ProductName, you should make sure that the  SDK is installed on your development PC. The SDK installer will add new templates to your Var:VisualStudioEdition environment, as illustrated in the screenshot below. For the type of plug-in discussed in this chapter, we require the **Translation Provider Plug-in** type.
 
 Please also refer to [Setting up a Development Machine](../../articles/gettingstarted/setting_up_a_developer_machine.md).
 
 Set up your Translation Provider Plug-in Project
 ----
-Start by creating a new project in <var:VisualStudioEdition>. In the **New Project** dialog box select the **Translation Provider Plug-in** template. Rename the project to **Sdk.LanguagePlatform.Samples.ListProvider**:
+Start by creating a new project in Var:VisualStudioEdition. In the **New Project** dialog box select the **Translation Provider Plug-in** template. Rename the project to **Sdk.LanguagePlatform.Samples.ListProvider**:
 
 <img style="display:block; " src="images/TranslationProviderProject.jpg"/>
 

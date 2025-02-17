@@ -1,8 +1,8 @@
-The Trados File Type Support Framework 2 API (from now File Type Support Framework), is one of the core parts of <var:ProductName>. The File Type Support Framework allows developers to develop file type plug-ins that extract translatable text from various file formats such as MS Word Doc files, HTML, XML, Text etc. The translatable source and (optionally) target text can then be imported and converted into an intermediate file format that is designed to be compatible with the OASIS XLIFF format (with SDL extensions) - [SDLXliff](#sdlxliff).
+The Trados File Type Support Framework 2 API (from now File Type Support Framework), is one of the core parts of Var:ProductName. The File Type Support Framework allows developers to develop file type plug-ins that extract translatable text from various file formats such as MS Word Doc files, HTML, XML, Text etc. The translatable source and (optionally) target text can then be imported and converted into an intermediate file format that is designed to be compatible with the OASIS XLIFF format (with SDL extensions) - [SDLXliff](#sdlxliff).
 
 This data format contains both source and target text and any mark-up data or tags that the file filter has found. These tags can be either paired or placeholder tags, which can be moved deleted or cloned in the translation. They can also be structure tags that represent fixed non-translatable elements in the original file format, which must be preserved. Other applications such as the editor or the translation memory subsystems also use this framework to interact with the given file formats and can read and update these structures as required.
 
-The core APIs of the File Type Support Framework consist of the following <Var:DotNetVersion> assemblies:
+The core APIs of the File Type Support Framework consist of the following Var:DotNetVersion assemblies:
 
 ![Implementation_Diagram__CoreModules](images/Implementation_Diagram__CoreModules.jpg)
 

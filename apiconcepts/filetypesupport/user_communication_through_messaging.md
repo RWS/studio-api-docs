@@ -11,7 +11,7 @@ When the file sniffer determines that a given file cannot be supported, the fram
 
 ![FileTypeNotSupported](images/FileTypeNotSupported.jpg)
 
-However, it may be useful to provide users with more information on why a given file is not supported, so that they can edit the file and resolve the problem. Example: <Var:ProductName> cannot process Microsoft Word documents that contains any pending changes. When users try to open such a DOC file, they will receive a message that points out this particular problem. They can then open the source document in Microsoft Word, accept or reject all pending changes, thereby resolving the problem.
+However, it may be useful to provide users with more information on why a given file is not supported, so that they can edit the file and resolve the problem. Example: Var:ProductName cannot process Microsoft Word documents that contains any pending changes. When users try to open such a DOC file, they will receive a message that points out this particular problem. They can then open the source document in Microsoft Word, accept or reject all pending changes, thereby resolving the problem.
 
 Remember that our sample file type plug-in checks for the presence of the string **[Version=n]** in the first line. If this string is not present, the sniffer should throw a more detailed message, which states the cause of the problem.
 

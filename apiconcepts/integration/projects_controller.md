@@ -1,18 +1,18 @@
 Projects controller
 ====
-<Var:ProductName> Integration API provides support for third-party developers to implement project functionalities for the <Var:ProductName> application.
+Var:ProductName Integration API provides support for third-party developers to implement project functionalities for the Var:ProductName application.
 
 Projects controller
 ----
-The [ProjectsController](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.ProjectsController.yml) enables the third-party developer to integrate custom UI functionalities inside <Var:ProductName> projects view and perform project operations.
+The [ProjectsController](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.ProjectsController.yml) enables the third-party developer to integrate custom UI functionalities inside Var:ProductName projects view and perform project operations.
 
 For more information: [About projects](../projectautomation/about_projects.md)
 
-For a sample on how to use it, see the following sample: [Using <Var:ProductName> ProjectsController](using_trados_studio_projectscontroller.md)
+For a sample on how to use it, see the following sample: [Using Var:ProductName ProjectsController](using_trados_studio_projectscontroller.md)
 
-Enhance <Var:ProductName> projects view using ProjectsController
+Enhance Var:ProductName projects view using ProjectsController
 ----
-The [ProjectsController](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.ProjectsController.yml) provide support for integrating custom UI inside the <Var:ProductName> projects view.
+The [ProjectsController](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.ProjectsController.yml) provide support for integrating custom UI inside the Var:ProductName projects view.
 
 Integrating viewparts (see [Integrating viewparts](integrating_viewparts.md))
 

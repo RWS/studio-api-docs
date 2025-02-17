@@ -34,7 +34,7 @@ There are nine types of customizable language resources:
 
 8. **Measurements recognizers**: Apart from the default measurements for source and target languages, new or customised ones can also be added which will be identified as placeables in the process of translation. The measurements recognizers are represented as dictionaries of string keys and CustomUnitDefinition values.
 
-9. **Currency recognizers**: Similar to all the recognizer types above, <Var:ProductName> uses a default list of currency formats (symbols and symbol placements) for each source and target language. Expanding this list ensures that the currency formats of the source language are recognized and localized correctly in the target language. The currency recognizers can be manipulated through a list of the CurrencyFormat objects.
+9. **Currency recognizers**: Similar to all the recognizer types above, Var:ProductName uses a default list of currency formats (symbols and symbol placements) for each source and target language. Expanding this list ensures that the currency formats of the source language are recognized and localized correctly in the target language. The currency recognizers can be manipulated through a list of the CurrencyFormat objects.
 
 <img style="display:block; " src="images/Cd-LanguageResources.png"/>
 

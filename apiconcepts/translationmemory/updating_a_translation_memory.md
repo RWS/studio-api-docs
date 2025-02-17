@@ -92,7 +92,7 @@ private ImportSettings GetImportSettings()
 >
 >If the same TU already exists, it will not be added as a duplicate. 
 
-The following screenshot illustrates what the newly added TU will look like in <Var:ProductName>:
+The following screenshot illustrates what the newly added TU will look like in Var:ProductName:
 
 ![AddedTu](images/AddedTu.jpg)
 
@@ -113,7 +113,7 @@ tu.ConfirmationLevel = ConfirmationLevel.ApprovedTranslation;
 ```
 ***
 
-Another example of further information that you may add is the **TranslationUnitFormat**, which can be used to indicate whether a TU is in the format of<Var:ProductName>, Translator's Workbench, TTX, etc. Below you see how the format is set to <Var:ProductName>:
+Another example of further information that you may add is the **TranslationUnitFormat**, which can be used to indicate whether a TU is in the format ofVar:ProductName, Translator's Workbench, TTX, etc. Below you see how the format is set to Var:ProductName:
 
 # [C#](#tab/tabid-8)
 ```cs
@@ -180,7 +180,7 @@ public void AddTu(string tmPath)
 ```
 ***
 
-TUs can also contain structure context information that indicates whether a particular segment occurred, for example, in a headline, a table cell, a footnote, etc. This structure context information can be helpful, as the same source segment might sometimes have to be translated differently depending on whether it occurs e.g. in a normal paragraph or in a table cell. For this reason, structure context information, too, can be saved within a TU. <Var:ProductName> uses display codes such as H (Headline), FN (Footnote) to show the structure context of a particular TU to the user.
+TUs can also contain structure context information that indicates whether a particular segment occurred, for example, in a headline, a table cell, a footnote, etc. This structure context information can be helpful, as the same source segment might sometimes have to be translated differently depending on whether it occurs e.g. in a normal paragraph or in a table cell. For this reason, structure context information, too, can be saved within a TU. Var:ProductName uses display codes such as H (Headline), FN (Footnote) to show the structure context of a particular TU to the user.
 
 ![StructureContext](images/StructureContext.jpg)
 

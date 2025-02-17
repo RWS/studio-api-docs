@@ -1,6 +1,6 @@
-<Var:ProductName> AutoSuggest provider
+Var:ProductName AutoSuggest provider
 ====
-Integration API makes it easy to to create your own AutoSuggest provider. All you need to do is implement the [AbstractAutoSuggestProvider](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.AutoSuggest.AbstractAutoSuggestProvider.yml) abstract class, from `Sdl.TranslationStudioAutomation.IntegrationApi.AutoSuggest` namespace and decorate your class with `AutoSuggestProvider` attribute. If you fail to implement [AbstractAutoSuggestProvider](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.AutoSuggest.AbstractAutoSuggestProvider.yml),  an exception will be thrown, but if you omit the `[AutoSuggestProviderAttribute](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Extensions.AutoSuggestProviderAttribute.yml), your plugin will simply be ignored when <Var:ProductName> starts.
+Integration API makes it easy to to create your own AutoSuggest provider. All you need to do is implement the [AbstractAutoSuggestProvider](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.AutoSuggest.AbstractAutoSuggestProvider.yml) abstract class, from `Sdl.TranslationStudioAutomation.IntegrationApi.AutoSuggest` namespace and decorate your class with `AutoSuggestProvider` attribute. If you fail to implement [AbstractAutoSuggestProvider](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.AutoSuggest.AbstractAutoSuggestProvider.yml),  an exception will be thrown, but if you omit the `[AutoSuggestProviderAttribute](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Extensions.AutoSuggestProviderAttribute.yml), your plugin will simply be ignored when Var:ProductName starts.
 
 Example
 -----

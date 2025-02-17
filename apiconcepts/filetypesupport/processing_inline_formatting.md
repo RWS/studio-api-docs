@@ -10,7 +10,7 @@ For your parser class to be able to identify inline tags embedded within transla
 
 Since we will use regular expressions to identify tags within translatable strings, you need to add the regular expressions namespace to your class, i.e. ```System.Text.RegularExpressions```
 
-Second, add the ```Sdl.FileTypeSupport.Framework.Formatting``` namespace. This namespace is required to access the functionality used to apply display character formatting in the editor of <Var:ProductName>.
+Second, add the ```Sdl.FileTypeSupport.Framework.Formatting``` namespace. This namespace is required to access the functionality used to apply display character formatting in the editor of Var:ProductName.
 
 To keep this project simple, let us proceed on the assumption that a text file can only contain the < b> tag for applying bold character formatting. To reflect this in your code, add a new formatting member to the global settings of your class:
 

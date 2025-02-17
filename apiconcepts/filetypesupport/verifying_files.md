@@ -12,7 +12,7 @@ One example of a format that requires a particular type of verification is Micro
 
 The interactive verification, which is part of the file type plug-in for MS Excel files displays a red error icon next to the target segment, as the worksheet name translation exceeds the length limit of 31 characters.
 
-The error message is also shown in the **Messages** window of <Var:ProductName> with an error description, the file in which the error was found and the file type plug-in which has thrown the error. By double-clicking the error message in this window the user navigates to the exact segment in the side-by-side editor.
+The error message is also shown in the **Messages** window of Var:ProductName with an error description, the file in which the error was found and the file type plug-in which has thrown the error. By double-clicking the error message in this window the user navigates to the exact segment in the side-by-side editor.
 
 <img style="display:block; " src="images/Verify03.jpg"/>
 

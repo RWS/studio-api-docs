@@ -6,7 +6,7 @@ When assigning tasks to e.g. translators and freelancers you will create so-call
 Assign a Manual Task and Create a Project Package
 --
 
-The screenshot below illustrates how a project package is created from <Var:ProductName>.
+The screenshot below illustrates how a project package is created from Var:ProductName.
 
 ![CreateProjectPackage](images/CreateProjectPackage.jpg)
 
@@ -68,14 +68,14 @@ project.SavePackageAs(projectPackage.PackageId, packageFile);
 
 >[!NOTE]
 >
->After creating a package, the manual task will be shown in <Var:ProductName> as sent and assigned as illustrated in the screenshot below:
+>After creating a package, the manual task will be shown in Var:ProductName as sent and assigned as illustrated in the screenshot below:
 
 ![ToFred](images/ToFred.jpg)
 
 Configure the Project Package Options
 --
 
-Apart from the above mentioned parameters there are various other options that you may configure for a project package, e.g. whether or not to include termbases and/or AutoSuggest Dictionaries. The screenshot below shows the project package options that you can set in <Var:ProductName>:
+Apart from the above mentioned parameters there are various other options that you may configure for a project package, e.g. whether or not to include termbases and/or AutoSuggest Dictionaries. The screenshot below shows the project package options that you can set in Var:ProductName:
 
 ![ProjectPackageOptions](images/ProjectPackageOptions.jpg)
 

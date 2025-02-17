@@ -99,7 +99,7 @@ private void selectServerTMToolStripMenuItem_Click(object sender, EventArgs e)
 
 ### Initializing the Default Search Settings
 
-When the application is started, the form for configuring the search settings should get the default settings, which - in our implementation - are identical to the settings used by <Var:ProductName>, i.e. 70% as the minimum fuzzy match value and 30 as the maximum number of results that a concordance search should return. Note that both of these settings can have an impact on the search speed.
+When the application is started, the form for configuring the search settings should get the default settings, which - in our implementation - are identical to the settings used by Var:ProductName, i.e. 70% as the minimum fuzzy match value and 30 as the maximum number of results that a concordance search should return. Note that both of these settings can have an impact on the search speed.
 # [C#](#tab/tabid-5)
 ```cs
 // Initialize form with default search settings.

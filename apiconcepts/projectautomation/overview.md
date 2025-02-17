@@ -1,6 +1,6 @@
 Introduction
 =====
-This documentation provides practical examples of how to use the Project Automation API, which allows programmatic access to the project automation functionality of <Var:ProductName>. Apart from various code snippets that demonstrate common use cases, you will also find a fully-documented command-line sample application that showcases how to automate project creation and batch task functionality.
+This documentation provides practical examples of how to use the Project Automation API, which allows programmatic access to the project automation functionality of Var:ProductName. Apart from various code snippets that demonstrate common use cases, you will also find a fully-documented command-line sample application that showcases how to automate project creation and batch task functionality.
 
 
 What you can do with this SDK

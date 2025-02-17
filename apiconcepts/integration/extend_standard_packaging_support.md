@@ -1,6 +1,6 @@
 # Extend default packaging functionality
 
-<Var:ProductName> Integration API provides support for third-party developers to extend the default project packaging operations by injecting additional pages and jobs in the project packaging wizards. It also allows direct integration with other systems package formats.
+Var:ProductName Integration API provides support for third-party developers to extend the default project packaging operations by injecting additional pages and jobs in the project packaging wizards. It also allows direct integration with other systems package formats.
 
 ## Extending **Open Package** functionality
 
@@ -22,5 +22,5 @@ See [Customizing the Create Return Package Wizard Sample](customize_create_retur
 
 ## Importing and Exporting custom project packages
 
-In order to be able to process project packages that are not the proprietary <Var:ProductName> package formats, a third party developer can implement an [external package convertor](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IExternalPackageConverter.yml)
+In order to be able to process project packages that are not the proprietary Var:ProductName package formats, a third party developer can implement an [external package convertor](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IExternalPackageConverter.yml)
 

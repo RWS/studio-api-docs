@@ -1,7 +1,7 @@
 Introduction
 ===
 
-This guide will walk you through the creation of a C# project in <Var:VisualStudioEdition> for implementing a simple native verifier that works on XML documents.
+This guide will walk you through the creation of a C# project in Var:VisualStudioEdition for implementing a simple native verifier that works on XML documents.
 
 The Sample Scenario
 --

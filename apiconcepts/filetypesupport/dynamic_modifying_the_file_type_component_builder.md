@@ -1,12 +1,12 @@
 Modifying the File Type Component Builder
 ===
 
-The real-time preview is dynamic, i.e. it interacts with the editor. When users select a segment in the real-time preview, the corresponding segment in the editor gets highlighted automatically. Also, when users confirm a segment in the editor of <Var:ProductName> the real-time preview is updated accordingly. Like all other preview types, the real-time preview needs to be referenced in the File Type Component Builder.
+The real-time preview is dynamic, i.e. it interacts with the editor. When users select a segment in the real-time preview, the corresponding segment in the editor gets highlighted automatically. Also, when users confirm a segment in the editor of Var:ProductName the real-time preview is updated accordingly. Like all other preview types, the real-time preview needs to be referenced in the File Type Component Builder.
 
 Add the Real-Time Preview Name to the Resources
 --
 
-To implement the real-time preview we first need to make a few additions to the File Type Component Builder. In the first step, define the preview name in the resources file. This is the name that will be shown later in the combo box of the internal preview window of <Var:ProductName>. Add the following entires to the resources file, which are going to be referenced in the File Type Component Builder later:
+To implement the real-time preview we first need to make a few additions to the File Type Component Builder. In the first step, define the preview name in the resources file. This is the name that will be shown later in the combo box of the internal preview window of Var:ProductName. Add the following entires to the resources file, which are going to be referenced in the File Type Component Builder later:
 
 ![RealtimeStaticPreviewName](images/RealtimeStaticPreviewName.jpg)
 

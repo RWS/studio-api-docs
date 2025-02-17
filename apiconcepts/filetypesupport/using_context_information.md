@@ -12,7 +12,7 @@ Example of a context display code for text box content extracted from a PPT docu
 
 Double-clicking the document structure column reveals additional information, in this case the context information on text box content contained on a PowerPoint slide.
 
-Also, <Var:ProductName> can display a document structure tree in the navigation pane on the left-hand side of the application. This tree allows users to quickly navigate in the document, for example, by clicking the corresponding headlines.
+Also, Var:ProductName can display a document structure tree in the navigation pane on the left-hand side of the application. This tree allows users to quickly navigate in the document, for example, by clicking the corresponding headlines.
 
 <img style="display:block; " src="images/Context03.jpg"/>
 

@@ -6,7 +6,7 @@ In this chapter you will learn how to implement the user interface of your verif
 Add a User Control
 --
 
-Implement the graphical user interface by adding a user control, which you can name, e.g. **SettingsUI.cs**. This is the interface that users will see when configuring the file type plug-in in <Var:ProductName> through, e.g. **File** > **Options** > **File Types**. Our simple native verifier will only implement one setting, through which users can configure whether to enable the verification function or to disable it. Therefore, you only need to add one check box to the user control, which we call ```cb_Enabled```.
+Implement the graphical user interface by adding a user control, which you can name, e.g. **SettingsUI.cs**. This is the interface that users will see when configuring the file type plug-in in Var:ProductName through, e.g. **File** > **Options** > **File Types**. Our simple native verifier will only implement one setting, through which users can configure whether to enable the verification function or to disable it. Therefore, you only need to add one check box to the user control, which we call ```cb_Enabled```.
 
 The user interface should look as shown below:
 

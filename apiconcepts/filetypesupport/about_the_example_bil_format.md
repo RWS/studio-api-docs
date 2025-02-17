@@ -45,12 +45,12 @@ What the Sample File Type Plug-in Must Do
 Your file type plug-in needs to fulfill the following requirements:
 
 * Generate an SDLXliff file from a given BIL document
-* Traverse the BIL file and extract all units; each unit shall represent a paragraph in the translation editor of <Var:ProductName>
+* Traverse the BIL file and extract all units; each unit shall represent a paragraph in the translation editor of Var:ProductName
 * Expose all source segments for translation
 * Expose all target segments (if available)
 * Markup inline tags such as *< b>* as tag pairs within the segments and apply the appropriate display formatting
 * Generate (untranslatable) contexts from the type attribute values (e.g. heading)
-* Map the BIL unit status values to the appropriate confirmation levels found in the intermediary format used by <Var:ProductName> (i.e. SDLXliff), e.g. translated, draft, approved, etc.
+* Map the BIL unit status values to the appropriate confirmation levels found in the intermediary format used by Var:ProductName (i.e. SDLXliff), e.g. translated, draft, approved, etc.
 * Back conversion, i.e. writing back the content from the intermediary document (SDLXliff)into a target BIL file
 
 When developing the sample file type plug-in we fill primarily focus on extraction (file parser) and generation (file writer) as well as ways of mapping BIL features to SDLXliff features. We will not implement additional functionality such as QuickInsert, user-configurable settings, or document preview, as this is already covered in the chapter on developing a native file type plug-in.

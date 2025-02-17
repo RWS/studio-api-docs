@@ -4,7 +4,7 @@ Pre-translate Settings
 When matches for a given document are found in one or several TMs, you may want the target segments for all matching segments to be inserted automatically in one go, rather than having to insert the translations manually in the editor. This is what the pre-translate batch task does. This chapter provides information on the settings that you can configure for this task.
 
 
-The screenshot below shows the settings that can be configured for the pre-translate task in <Var:ProductName>.
+The screenshot below shows the settings that can be configured for the pre-translate task in Var:ProductName.
 
 ![ProjectApiPreTranslateSettings](images/ProjectApiPreTranslateSettings.jpg)
 

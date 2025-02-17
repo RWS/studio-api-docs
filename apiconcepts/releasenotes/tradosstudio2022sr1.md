@@ -1,8 +1,8 @@
-Release Notes for <Var:ProductNameWithEdition> SR1
+Release Notes for Var:ProductNameWithEdition SR1
 ===================
 
 # Retargeted assemblies
-Some of the available APIs provided along with <Var:ProductNameWithEdition> have been retargeted from .NET Framework 4.8 to .NET Standard for better compatibility options and richer overall support.
+Some of the available APIs provided along with Var:ProductNameWithEdition have been retargeted from .NET Framework 4.8 to .NET Standard for better compatibility options and richer overall support.
 
 At the time of this release, the retargeted assemblies are as follows:
 | Parent API                           | Assembly                                             |
@@ -146,7 +146,7 @@ Example:
 
 # Dependency version changes
 
-The following is a list of known dependency version changes that may influence your integration with the latest <Var:ProductNameWithEdition> APIs; this is typically seen from standalone applications that are running outside of the Trados Studio context.  To resolve these references, include the following binding redirects in the configuration file of the project.
+The following is a list of known dependency version changes that may influence your integration with the latest Var:ProductNameWithEdition APIs; this is typically seen from standalone applications that are running outside of the Trados Studio context.  To resolve these references, include the following binding redirects in the configuration file of the project.
 
 ``` xml
 <?xml version="1.0" encoding="utf-8"?>

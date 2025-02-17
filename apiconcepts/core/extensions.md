@@ -1,16 +1,16 @@
 Extensions and extension points
 ====
-<var:ProductName> offers a predefined set of extension points. Your plug-ins can add custom functionality to <var:ProductName> by defining extensions that target these extension points.
+Var:ProductName offers a predefined set of extension points. Your plug-ins can add custom functionality to Var:ProductName by defining extensions that target these extension points.
 
 ### <a name="extensions"></a>Extensions
-An extension is an individual unit of logic that provides functionality for <var:ProductName> through a specific extension point. 
+An extension is an individual unit of logic that provides functionality for Var:ProductName through a specific extension point. 
 You can create an extension by following the steps below:
 1. Create a class in your plug-in assembly. 
 2. Decorate the class with the attribute that identifies the extension point it is targeting. 
 3. Implement the interface that is required by the extension point.
 
 ### Extension points
-An extension point is a point in <var:ProductName> that allows adding extensions to it. 
+An extension point is a point in Var:ProductName that allows adding extensions to it. 
 You can define an extension point by following the steps below:  
 1. Create a class in your plug-in assembly and derive it from the [ExtensionAttribute](../../api/core/Sdl.Core.PluginFramework.ExtensionAttribute.yml) base. 
 2. Decorate the class with the [ExtensionPointInfoAttribute](../../api/core/Sdl.Core.PluginFramework.ExtensionPointInfoAttribute.yml) attribute.

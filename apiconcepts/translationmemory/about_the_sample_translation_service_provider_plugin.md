@@ -1,14 +1,14 @@
 About the Sample Translation Service Provider Plug-in
 ====
-This part of the SDK provides a step-by-step guide of how to create a simple translation provider plug-in, which can be used in <Var:ProductName> for interactive translation as well as processing through a batch task, e.g. **Analyze Files** and **Pre-translate Files**.
+This part of the SDK provides a step-by-step guide of how to create a simple translation provider plug-in, which can be used in Var:ProductName for interactive translation as well as processing through a batch task, e.g. **Analyze Files** and **Pre-translate Files**.
 
 About Translation Provider Plug-ins
 ------
-<Var:ProductName> allows you to add one or several translation providers to a localization project. The providers that are used primarily are file and server translation memory. By default, <Var:ProductName> also features translation provider plugs-ins that connect to Web-based machine translation systems such as Google Translate and Language Weaver.
+Var:ProductName allows you to add one or several translation providers to a localization project. The providers that are used primarily are file and server translation memory. By default, Var:ProductName also features translation provider plugs-ins that connect to Web-based machine translation systems such as Google Translate and Language Weaver.
 
 When opening a document for translation or when setting up a localization project you can add several translation providers, in which sequences lookup operations can be performed. For example, when you select a TM as your primary provider and an automated translation system as your secondary provider, an automated translation (AT) will be suggested whenever no match has been found in the TM.
 
-The screenshot below illustrates which translation providers are currently available by default when opening a document for translation in <Var:ProductName>. Through the API you can create additional plug-ins to leverage other translation sources. These additional providers would then be listed alongside the default providers.
+The screenshot below illustrates which translation providers are currently available by default when opening a document for translation in Var:ProductName. Through the API you can create additional plug-ins to leverage other translation sources. These additional providers would then be listed alongside the default providers.
 
 
 

@@ -37,12 +37,12 @@ In the above example we set the following parameters:
 * The (optional) project description
 * The (optional) project due date, e.g. 3 days from now
 
-The screenshot below illustrates how this information is entered in the **New Project** wizard of <Var:ProductName>.
+The screenshot below illustrates how this information is entered in the **New Project** wizard of Var:ProductName.
 ![NewProject01](images/NewProject01.jpg)
 
 Set the Local Project Folder
 --
-All project files, i.e. translatable and localizable documents, reference files, project TMs, etc. are stored in a specific folder. By default, the main folder used for storing projects is: <Var:DefaultProjectsFolder>. Below this main folder <Var:ProductName> creates sub-folders that carry the name of the respective project. However, you could just as well pick any other folder name, as long as the specified folder is empty so as to avoid collisions with existing files. In the example below we follow the default folder rule of <Var:ProductName> by selecting the <Var:StudioDocumentsFolderName>\Projects\ folder below Documents, and by appending the project name sub-folder. We then set the [LocalProjectFolder](../../api/projectautomation/Sdl.ProjectAutomation.Core.ProjectInfo.yml#Sdl_ProjectAutomation_Core_ProjectInfo_LocalProjectFolder) property accordingly as shown in the example below:
+All project files, i.e. translatable and localizable documents, reference files, project TMs, etc. are stored in a specific folder. By default, the main folder used for storing projects is: Var:DefaultProjectsFolder. Below this main folder Var:ProductName creates sub-folders that carry the name of the respective project. However, you could just as well pick any other folder name, as long as the specified folder is empty so as to avoid collisions with existing files. In the example below we follow the default folder rule of Var:ProductName by selecting the Var:StudioDocumentsFolderName\Projects\ folder below Documents, and by appending the project name sub-folder. We then set the [LocalProjectFolder](../../api/projectautomation/Sdl.ProjectAutomation.Core.ProjectInfo.yml#Sdl_ProjectAutomation_Core_ProjectInfo_LocalProjectFolder) property accordingly as shown in the example below:
 # [C#](#tab/tabid-4)
 ```CS
 string localProjectFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).ToString() +
@@ -53,7 +53,7 @@ info.LocalProjectFolder = localProjectFolder;
 ***
 Select the Project Languages
 --
-A project must have at least one language pair, i.e. a source language and one target language. Projects can have only one source language, but multiple target languages. The screenshot below highlights how languages are selected in <Var:ProductName>:
+A project must have at least one language pair, i.e. a source language and one target language. Projects can have only one source language, but multiple target languages. The screenshot below highlights how languages are selected in Var:ProductName:
 
 ![NewProject02](images/NewProject02.jpg)
 
@@ -94,7 +94,7 @@ After running the above code you should already see a result in the projects fol
 
 Even if you have not added any translatable files yet, you will end up generating the project sub-folder (i.e. Projects\My first project), which contains the *.sdlproj file. In the following chapters you will learn how to add documents, TMs, termbases, etc. to turn your sample into a meaningful project. Note that if you run your sample application again while the My first project is still there, an error will be thrown, as the folder is not empty. It is recommended that when you re-run your sample application for testing purposes that you delete the project sub-folder, so that you have a fresh start (see also [Deleting Projects](deleting_projects.md)).
 
-Also note that the <Var:DefaultProjectsFolder> folder contains a file called projects.xml. This is a meta file that contains references to all the projects that have been created in <Var:ProductName>. The projects that you create programmatically will not be referenced in this file, and thus not be listed in <Var:ProductName>, which is by design. However, you can, of course, open the programmatically created *.sdlproj file in <Var:ProductName>.
+Also note that the Var:DefaultProjectsFolder folder contains a file called projects.xml. This is a meta file that contains references to all the projects that have been created in Var:ProductName. The projects that you create programmatically will not be referenced in this file, and thus not be listed in Var:ProductName, which is by design. However, you can, of course, open the programmatically created *.sdlproj file in Var:ProductName.
 
 Putting it All Together
 --

@@ -149,7 +149,7 @@ If the detection level is set to [Certain](../../api/filetypesupport/Sdl.FileTyp
 
 ![LanguagesAutoDeteced](images/LanguagesAutoDeteced.jpg)
 
-When the language pair has been programmatically determined by the sniffer, the user does not have to select the source/target language combination manually upon opening the file. The language pair will be displayed in the status bar of <Var:ProductName>, e.g.:
+When the language pair has been programmatically determined by the sniffer, the user does not have to select the source/target language combination manually upon opening the file. The language pair will be displayed in the status bar of Var:ProductName, e.g.:
 
 ![LanguagePair](images/LanguagePair.jpg)
 

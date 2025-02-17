@@ -1,10 +1,10 @@
 Introduction
 ====
-The <Var:ProductName> Integration API enables third-party developers to extend, customize and integrate their own functionalities inside the <Var:ProductName> application.
+The Var:ProductName Integration API enables third-party developers to extend, customize and integrate their own functionalities inside the Var:ProductName application.
 
 ![Automation plug-ins](images/Automation.png)
 
-Make sure the following references are added to your project, you will find them in the installation folder <Var:ProductName>.
+Make sure the following references are added to your project, you will find them in the installation folder Var:ProductName.
 
 * Sdl.Desktop.IntegrationApi.dll
 * Sdl.Desktop.IntegrationApi.Extensions.dll
@@ -18,13 +18,13 @@ Make sure the following references are added to your project, you will find them
 
 > [!NOTE]
 > 
-> As build output path for your implementations please choose the *<var:PluginPackedPath>*.
+> As build output path for your implementations please choose the *Var:PluginPackedPath*.
 > 
-> Also check that your library references are pointing to the <Var:ProductName> folder. e.g. *<var:InstallationFolder>*.
+> Also check that your library references are pointing to the Var:ProductName folder. e.g. *Var:InstallationFolder*.
 >
 > For more information on how to build and deploy a Studio plug-in, see (Building a plug-in and Plug-in deployment)
 >
-> Sign and use Strong-Named Assemblies to enable the loading of your plug-ins inside the <Var:ProductName>.
+> Sign and use Strong-Named Assemblies to enable the loading of your plug-ins inside the Var:ProductName.
 > 
 > [How to: Sign an Assembly with a Strong Name](https://docs.microsoft.com/en-us/dotnet/standard/assembly/sign-strong-name?redirectedfrom=MSDN)
 >

@@ -7,7 +7,7 @@ The Perfect Match batch task copies pre-translated segments from previous versio
 Configuring the Task Settings
 --
 
-The screenshot below shows the settings that can be configured for the Perfect Match task in <Var:ProductName>.
+The screenshot below shows the settings that can be configured for the Perfect Match task in Var:ProductName.
 
 ![PerfectMatchSettings](images/PerfectMatchSettings.jpg)
 
@@ -69,7 +69,7 @@ public void GetPerfectMatchTaskSettings(FileBasedProject project)
 ```
 ***
 
-**Segments shown in the <Var:ProductName> editor after Perfect Match**
+**Segments shown in the Var:ProductName editor after Perfect Match**
 
 ![PerfectMatchedSegment](images/PerfectMatchedSegment.jpg)
 

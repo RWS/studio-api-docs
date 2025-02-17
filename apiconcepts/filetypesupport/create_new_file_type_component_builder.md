@@ -10,7 +10,7 @@ This chapter provides basic information on extending a standard Microsoft Word 2
 Extending a Microsoft Word 2007 File Type Component Builder
 --
 
-As Microsoft Word 2007 is one of the standard formats supported by <Var:ProductName>, the corresponding File Type Component Builder already exists. This File Type Component Builder will be used to create an extension for Microsoft Word 2007 File Type Component Builder that uses the WordArt bilingual verifier.
+As Microsoft Word 2007 is one of the standard formats supported by Var:ProductName, the corresponding File Type Component Builder already exists. This File Type Component Builder will be used to create an extension for Microsoft Word 2007 File Type Component Builder that uses the WordArt bilingual verifier.
 
 A File Type Component Builder is defined by a filter component builder that implements [IFileTypeComponentBuilder](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilder.yml). A filter component builder knows how to create parsers, writers, and so on for the corresponding file type. Microsoft Word 2007 File Type Component Builder has a filter component builder.
 
@@ -18,7 +18,7 @@ The Microsoft Word 2007 File Type Component Builder can be inherited from indire
 
 >[!NOTE]
 >
->In <Var:ProductName> all the file type plug-in components are designed in a way that you can extend all the functionality.
+>In Var:ProductName all the file type plug-in components are designed in a way that you can extend all the functionality.
 
 Every filter component builder extension needs to have a [FileTypeComponentBuilderExtensionAttribute](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeComponentBuilderExtensionAttribute.yml) that describes the file type component builder.
 

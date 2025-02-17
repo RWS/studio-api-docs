@@ -11,14 +11,14 @@ When implementing control for the plug-in user interface, you need to cover the 
 * The user clicks the **Cancel** button, any changes to the control settings should be discarded.
 
 A settings page does not implement its own **OK**, **Cancel**, **Reset** buttons, but will rely on the control elements that are provided by the dialog box of the framework, which is made possible through this class.
-Below you see an example of a settings page as it is implemented for one of the default file types in <Var:ProductName>:
+Below you see an example of a settings page as it is implemented for one of the default file types in Var:ProductName:
 
 ![SampleSettingsPage](images/SampleSettingsPage.jpg)
 
 Implement the Settings Page Class
 --
 
-Add a class called e.g. **SettingsPage.cs** to your project. This is one of the classes that is referenced from the new File Type Component Builder that will be covered in a later chapter (see [Extending existing File Type Component Builder](extending_existing_file_type_component_builder.md)), i.e. it is not the UI class itself that is referenced in the File Type Component Builder. Without this reference, the plug-in UI would not be recognized and displayed by <Var:ProductName>.
+Add a class called e.g. **SettingsPage.cs** to your project. This is one of the classes that is referenced from the new File Type Component Builder that will be covered in a later chapter (see [Extending existing File Type Component Builder](extending_existing_file_type_component_builder.md)), i.e. it is not the UI class itself that is referenced in the File Type Component Builder. Without this reference, the plug-in UI would not be recognized and displayed by Var:ProductName.
 
 This class acts as an intermediary between the plug-in UI (see [Implement the User Interface](implement_the_user_interface_native.md)) and the class that is used to store and retrieve the settings to/from the settings bundle (see [Loading and Saving the Settings](loading_and_saving_the_settings_native.md)).
 

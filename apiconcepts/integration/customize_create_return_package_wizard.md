@@ -1,6 +1,6 @@
 # Customize the *Create Return Package* wizard 
 
-<Var:ProductName> Integration API provides support for third-party developers to trigger the __Create Return Package__ wizard from their own custom logic or actions and extend it's basic functionality by:
+Var:ProductName Integration API provides support for third-party developers to trigger the __Create Return Package__ wizard from their own custom logic or actions and extend it's basic functionality by:
 - specifying the project Guid for which a return package needs to be created
 - specifying the project and the files that should be contained in the resulting return package
 - specifying the project and all files associated to the given task that should be contained in the resulting return package

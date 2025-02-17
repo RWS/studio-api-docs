@@ -108,7 +108,7 @@ The translation provider plug-in settings are physically stored in the project f
 
 > [!NOTE]
 > 
-> For every project that is created in <Var:ProductName> as well as for each single file that is opened for translation, an **.sdlproj* file will be created, which contains the translation providers used for the given project or document, the document(s) to translate, the termbase(s) used, etc.
+> For every project that is created in Var:ProductName as well as for each single file that is opened for translation, an **.sdlproj* file will be created, which contains the translation providers used for the given project or document, the document(s) to translate, the termbase(s) used, etc.
 
 Putting it all Together
 ----

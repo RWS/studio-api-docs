@@ -1,6 +1,6 @@
 # Implementing a custom job
 
-The `IExternalJob` and `IExternalJobWithProgress` interfaces are the bridge that will allow you to inject custom code into the wizards as well as into <Var:ProductName>'s job mechanism. This gives you the advantage to achieve the same look and feel for long processing jobs besides helping you complete your work faster. Once you have an implementation ready all you need to do is publish  `ExecuteExternalJobEvent` using `IStudioEventAggregator`. As a result, <Var:ProductName> will pick the job and execute it on a background thread or inject it into the previously-mentioned events. If the job is cancelled for any reason, you can handle that from the `JobCanceled` method.
+The `IExternalJob` and `IExternalJobWithProgress` interfaces are the bridge that will allow you to inject custom code into the wizards as well as into Var:ProductName's job mechanism. This gives you the advantage to achieve the same look and feel for long processing jobs besides helping you complete your work faster. Once you have an implementation ready all you need to do is publish  `ExecuteExternalJobEvent` using `IStudioEventAggregator`. As a result, Var:ProductName will pick the job and execute it on a background thread or inject it into the previously-mentioned events. If the job is cancelled for any reason, you can handle that from the `JobCanceled` method.
 
 | Interface        |  Purpose  |
 | ------------- | -----|
@@ -56,7 +56,7 @@ public class SampleJob : IExternalJobWithProgress
 ```
 
 > [!NOTE]
-> The `JobData` property acts as a bridge between <Var:ProductName> and your plugin in case of using the job inside the **Open Package** and **Create Return Package** wizards. <Var:ProductName> will set the file path on the property as follows:
-> - the file path to the project that was just imported into <Var:ProductName>, in the case of the **Open Package** wizard
+> The `JobData` property acts as a bridge between Var:ProductName and your plugin in case of using the job inside the **Open Package** and **Create Return Package** wizards. Var:ProductName will set the file path on the property as follows:
+> - the file path to the project that was just imported into Var:ProductName, in the case of the **Open Package** wizard
 > - the file path for the created package, in the case of the **Create Return Package** wizard.
 > All constants used can be referenced from [PackagingConstants](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.PackagingConstants.yml)

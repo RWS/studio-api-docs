@@ -9,7 +9,7 @@ Plug-in Manifest Generator
 ----
 The purpose of the plug-in manifest is to avoid loading all the plug-in assemblies at runtime and reflecting over them to discover the available extensions, which would affect startup performance, an important aspect of desktop applications.
 
- The plug-in manifest generator is implemented as an MSBuild task, which runs as part of the standard <var:VisualStudioEdition> build. This build task is contained in [Sdl.Core.PluginFramework.Build](https://www.nuget.org/packages/Sdl.Core.PluginFramework.Build/) package that needs to be refreneced by the project.
+ The plug-in manifest generator is implemented as an MSBuild task, which runs as part of the standard Var:VisualStudioEdition build. This build task is contained in [Sdl.Core.PluginFramework.Build](https://www.nuget.org/packages/Sdl.Core.PluginFramework.Build/) package that needs to be refreneced by the project.
 
 ```xml
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
@@ -39,4 +39,4 @@ The `CreatePluginManifestTask` also performs validation of the extension attribu
 When creating a plug-in project using the project template from the SDK, the project file will contain the following pieces of custom content:
 
 *  `CreatePluginPackage` - if set to true will generate the `*.sdlplugin`
-*  `PluginDeploymentPath` - path to the root folder where the `Packages` and `Unpacked` folders are present, default path is set to *<var:PluginPackedPath>*
+*  `PluginDeploymentPath` - path to the root folder where the `Packages` and `Unpacked` folders are present, default path is set to *Var:PluginPackedPath*

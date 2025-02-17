@@ -2,12 +2,12 @@ Controlling the Plug-in User Interface
 ======
 The translation provider plug-in template contains a component called `MyTranslationProviderWinFormsUI`, which we re-name to `ListTranslationProviderWinFormsUI` for our implementation. This component is used to:
 
-* Control the appearance of the plug-in when it is displayed in <Var:ProductName>, e.g. the plug-in name, icon, tooltip
+* Control the appearance of the plug-in when it is displayed in Var:ProductName, e.g. the plug-in name, icon, tooltip
 * Raise the plug-in user interface
 * Obtain credentials from the user, which is not required for our sample implementation
 
 
-The class is preceded by the following declaration, which defines it as an extension class, which will be referenced and declared to the <Var:ProductName> application through the plug-in manifest *.xml file (see also [Building the Plug-in](building_the_plugin.md)).
+The class is preceded by the following declaration, which defines it as an extension class, which will be referenced and declared to the Var:ProductName application through the plug-in manifest *.xml file (see also [Building the Plug-in](building_the_plugin.md)).
 # [C#](#tab/tabid-1)
 ```cs
 [TranslationProviderWinFormsUi(
@@ -21,7 +21,7 @@ This class implements the [ITranslationProviderWinFormsUI](../../api/translation
 
 Browse for the Plug-in
 -------
-The UI extension allows users to browse for and select translation providers in a unified way. This is done by the user when opening a document for translation or when adding translation providers to a project through the **Add** button in the UI of <Var:ProductName> as illustrated in the screenshot below:
+The UI extension allows users to browse for and select translation providers in a unified way. This is done by the user when opening a document for translation or when adding translation providers to a project through the **Add** button in the UI of Var:ProductName as illustrated in the screenshot below:
 
 <img style="display:block; " src="images/BrowsePlugin.jpg"/>
 
@@ -42,7 +42,7 @@ public ITranslationProvider[] Browse(IWin32Window owner, LanguagePair[] language
 ```
 ***
 
-Translation provider plug-ins that implement a user interface for configuring settings will usually allow users to change those settings later. For example, users might want to change the plug-in settings while translating, as they discover that a different list file is more suitable for the text that they have selected. For this, the UI of <Var:ProductName> implements a **Settings** button, which can be enabled or disabled through your plug-in (see screenshot below).
+Translation provider plug-ins that implement a user interface for configuring settings will usually allow users to change those settings later. For example, users might want to change the plug-in settings while translating, as they discover that a different list file is more suitable for the text that they have selected. For this, the UI of Var:ProductName implements a **Settings** button, which can be enabled or disabled through your plug-in (see screenshot below).
 
 <img style="display:block; " src="images/ProviderSettingsButton.jpg"/>
 
@@ -100,12 +100,12 @@ public bool GetCredentialsFromUser(IWin32Window owner, Uri translationProviderUr
 
 Display the Plug-in Info
 -----
-The [GetDisplayInfo](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderWinFormsUI.yml#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderWinFormsUI_GetDisplayInfo_System_Uri_System_String_) is used to display information such as the plug-in name, icon, etc. in the user interface of <Var:ProductName>. This information is stored in the resources file (see [The Resources File](the_resources_file.md)). Within this method we first create a [TranslationProviderDisplayInfo](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderDisplayInfo.yml) object, and then set the various properties, i.e. plug-in display name, the tooltip text, and the translation provider icon. This information will then be shown in the application as illustrated below:
+The [GetDisplayInfo](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderWinFormsUI.yml#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderWinFormsUI_GetDisplayInfo_System_Uri_System_String_) is used to display information such as the plug-in name, icon, etc. in the user interface of Var:ProductName. This information is stored in the resources file (see [The Resources File](the_resources_file.md)). Within this method we first create a [TranslationProviderDisplayInfo](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderDisplayInfo.yml) object, and then set the various properties, i.e. plug-in display name, the tooltip text, and the translation provider icon. This information will then be shown in the application as illustrated below:
 
 
 <img style="display:block; " src="images/PluginResourcesInAction.jpg"/>
 
-The [SearchResultImage](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderDisplayInfo.yml#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationProviderDisplayInfo_SearchResultImage) property sets the image that is shown in the **Translation Results** or **Concordance** window of <Var:ProductName>, which helps users ascertain more quickly by which provider a translation solution has been suggested (see screenshot below):
+The [SearchResultImage](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderDisplayInfo.yml#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationProviderDisplayInfo_SearchResultImage) property sets the image that is shown in the **Translation Results** or **Concordance** window of Var:ProductName, which helps users ascertain more quickly by which provider a translation solution has been suggested (see screenshot below):
 
 <img style="display:block; " src="images/PngForShowingResults.jpg"/>
 

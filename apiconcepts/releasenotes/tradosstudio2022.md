@@ -1,8 +1,8 @@
-Release Notes for <Var:ProductNameWithEdition>
+Release Notes for Var:ProductNameWithEdition
 ===================
 
 # Groupshare 2015 Integration
-As of <Var:ProductNameWithEdition> the integration with Groupshare 2015 is EOL. Therefore the our public APIs no longer offer the support and any code references have been removed.
+As of Var:ProductNameWithEdition the integration with Groupshare 2015 is EOL. Therefore the our public APIs no longer offer the support and any code references have been removed.
 
 # Project Automation API
 

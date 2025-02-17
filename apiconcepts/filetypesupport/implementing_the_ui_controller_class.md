@@ -10,7 +10,7 @@ When implementing a settings page for the plug-in user interface you need to cov
 * After changing the control element settings, the user goes to another settings page, which should also save any changes to the form control elements.
 * The user clicks the **Cancel** button, any changes to the control settings should be discarded.
 A settings page does not implement its own **OK**, **Cancel**, **Reset** buttons, but will rely on the control elements that are provided by the dialog box of the framework, which is made possible through this class.
-Below you see an example of a settings page as it is implemented for one of the default file types in <Var:ProductName>:
+Below you see an example of a settings page as it is implemented for one of the default file types in Var:ProductName:
 
 ![SampleSettingsPage](images/SampleSettingsPage.jpg)
 

@@ -104,7 +104,7 @@ Save and Complete the Process
 
 Add the following (required) members of the [IBilingualWriter](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualWriter.yml) interface, which are used to complete the native output file and to complete the entire parsing process. We will use the ```FileComplete()``` method to save the target BIL file and to set the DOM object to ```null```.
 
-We will leave the ```Complete()``` method empty, as it is not required in this simple implementation. You may wonder why the interface offers two (seemingly similar) members, i.e. one to complete a file, another one to complete the writing process. Remember that <Var:ProductName> allows you to merge several native files into one big intermediary document, from which the individual target files can be generated when saving the document as target. You can use these two methods, for example, to first generate each native target file individually and then to conclude the entire writing process.
+We will leave the ```Complete()``` method empty, as it is not required in this simple implementation. You may wonder why the interface offers two (seemingly similar) members, i.e. one to complete a file, another one to complete the writing process. Remember that Var:ProductName allows you to merge several native files into one big intermediary document, from which the individual target files can be generated when saving the document as target. You can use these two methods, for example, to first generate each native target file individually and then to conclude the entire writing process.
 
 # [C#](#tab/tabid-6)
 ```cs
@@ -124,7 +124,7 @@ public void Complete()
 Putting it All Together
 --
 
-The skeleton writer class looks as shown below. This is the minimum amount of code required to build a file type plug-in with a writer component. You could actually build your project now, and the file writer will even produce a target BIL file. However, this target file will do nothing more than output the content of the original BIL document, which is embedded in the intermediary document as a dependency file. In the following chapters you will learn how to generate a BIL target file that includes the actual translations and comments entered in <Var:ProductName> by manipulating the target file DOM object programmatically.
+The skeleton writer class looks as shown below. This is the minimum amount of code required to build a file type plug-in with a writer component. You could actually build your project now, and the file writer will even produce a target BIL file. However, this target file will do nothing more than output the content of the original BIL document, which is embedded in the intermediary document as a dependency file. In the following chapters you will learn how to generate a BIL target file that includes the actual translations and comments entered in Var:ProductName by manipulating the target file DOM object programmatically.
 
 # [C#](#tab/tabid-7)
 ```cs

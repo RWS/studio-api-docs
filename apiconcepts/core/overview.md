@@ -4,7 +4,7 @@ This help system describes the Plug-in Framework. This framework offers plug-in 
 
 Version
 ---
-The version of the Plug-in Framework documented here is the one that was released with <Var:ProductNameWithEdition>.
+The version of the Plug-in Framework documented here is the one that was released with Var:ProductNameWithEdition.
 
 Main Concepts and Definitions
 ----

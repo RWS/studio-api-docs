@@ -3,11 +3,11 @@ Creating a Merged File
 
 By default, when you add a native file (e.g. a Microsoft Word document) to a project, a bilingual (SDLXliff) intermediary file will be created from it for further processing, e.g. file analysis, pre-translation, editing, etc. As a general rule, one bilingual file will be created for each native source file per target language.
 
-<Var:Productname>  also allows you to create a merged bilingual file that incorporates the content of several native files. This can be useful, for example, to facilitate processing multiple small HTML or XML files. This is helpful for maintaining consistency between multiple source files with a lot of cross-file repetitions. It is easier to perform QA, find/replace operations, etc. in a single master file rather than in dozens of HTML files.
+Var:ProductName  also allows you to create a merged bilingual file that incorporates the content of several native files. This can be useful, for example, to facilitate processing multiple small HTML or XML files. This is helpful for maintaining consistency between multiple source files with a lot of cross-file repetitions. It is easier to perform QA, find/replace operations, etc. in a single master file rather than in dozens of HTML files.
 
 At the end of the project lifecycle, the individual native target files need to be created from the bilingual merged file.
 
-The screenshot below illustrates how several files are merged into one SDLXliff file in <Var:Productname> 
+The screenshot below illustrates how several files are merged into one SDLXliff file in Var:ProductName 
 
 ![MergeFiles](images/MergeFiles.jpg)
 

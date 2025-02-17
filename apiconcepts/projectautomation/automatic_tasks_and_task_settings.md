@@ -5,7 +5,7 @@ he tasks performed in a project can be configured and customized through various
 
 Such settings can be configured globally for the entire project, thus all language pairs. Alternatively, you can use different task settings for different target languages if, for example, German requires a minimum match value of 95%, while for French you need to use a minimum match value of 99%.
 
-The screenshot below illustrates how the minimum match value for the pre-translation task is specifically set for the language pair English to German in the New Project wizard of <Var:ProductName>.
+The screenshot below illustrates how the minimum match value for the pre-translation task is specifically set for the language pair English to German in the New Project wizard of Var:ProductName.
 
 ![BatchTaskSettings](images/BatchTaskSettings.jpg)
 

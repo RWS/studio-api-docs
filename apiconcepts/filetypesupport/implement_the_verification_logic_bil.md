@@ -64,7 +64,7 @@ public IBilingualContentMessageReporter MessageReporter
 ```
 ***
 
-The [ReportMessage](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentMessageReporter.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentMessageReporter_ReportMessage_System_Object_System_String_Sdl_FileTypeSupport_Framework_NativeApi_ErrorLevel_System_String_Sdl_FileTypeSupport_Framework_BilingualApi_TextLocation_Sdl_FileTypeSupport_Framework_BilingualApi_TextLocation_) is required for adding error messages (if any) to the **Messages** window of <Var:ProductName>.
+The [ReportMessage](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentMessageReporter.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentMessageReporter_ReportMessage_System_Object_System_String_Sdl_FileTypeSupport_Framework_NativeApi_ErrorLevel_System_String_Sdl_FileTypeSupport_Framework_BilingualApi_TextLocation_Sdl_FileTypeSupport_Framework_BilingualApi_TextLocation_) is required for adding error messages (if any) to the **Messages** window of Var:ProductName.
 
 Provide Access to the Item Factory
 --
@@ -101,7 +101,7 @@ public void Initialize(IDocumentProperties documentInfo)
 Add the File and Process Complete Members
 --
 
-In a similar manner, the following members need to be added as per the [IBilingualVerifier](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualVerifier.yml) interface, although they are not actually required for the functionality of our plug-in. You may wonder why there is a ```FileComplete``` and a ```Complete``` method, which both seem to serve the same purpose. The reason is that <Var:ProductName> allows you to merge several documents into one bilingual (SDLXliff) master file (see [Merging files](merging_files.md)). You could use the ```FileComlete``` to carry out an action after the verification of each of the single (merged) files has been completed. You can then call ```Complete``` when the verification process for the entire bilingual document has finished.
+In a similar manner, the following members need to be added as per the [IBilingualVerifier](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualVerifier.yml) interface, although they are not actually required for the functionality of our plug-in. You may wonder why there is a ```FileComplete``` and a ```Complete``` method, which both seem to serve the same purpose. The reason is that Var:ProductName allows you to merge several documents into one bilingual (SDLXliff) master file (see [Merging files](merging_files.md)). You could use the ```FileComlete``` to carry out an action after the verification of each of the single (merged) files has been completed. You can then call ```Complete``` when the verification process for the entire bilingual document has finished.
 
 # [C#](#tab/tabid-6)
 ```cs
@@ -184,13 +184,13 @@ Finally, add the following helper function, which checks whether the target segm
 * loop through the target segment string and count the number of spaces
 * the number of words corresponds to the number of spaces + 1
 
-Note that we will not check for non-breaking spaces, hyphens, etc., which is what you might have to do in a 'real', productive implementation. If the number of spaces +1 exceeds the maximum word count, a warning message will be added to the **Messages** window of <Var:ProductName>. Also, when the translator confirms a WordArt translation that exceeds the maximum word count, a yellow warning icon will be displayed next to the segment in question.
+Note that we will not check for non-breaking spaces, hyphens, etc., which is what you might have to do in a 'real', productive implementation. If the number of spaces +1 exceeds the maximum word count, a warning message will be added to the **Messages** window of Var:ProductName. Also, when the translator confirms a WordArt translation that exceeds the maximum word count, a yellow warning icon will be displayed next to the segment in question.
 The ReportMessage method takes the following parameters:
 
 * The name of the verifier plug-in that has thrown the message
 * The [ErrorLevel](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel.yml), which in this case we set to [Warning](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel.yml#fields). The fact that the word count has been exceeded, is not considered a critical problem, as it does not prevent the translator from generating a valid Microsoft Word target file. The translator is just prompted to re-consider the translation and shorten it.
 * A detailed description of the problem, which helps the user ascertain why this segment has been flagged to help him/her take corrective action, i.e. shorten the translation.
-* The start and end location of the target string that has caused the problem. By specifying the 'from' and 'up to' location you allow users to jump to the faulty target segment in the document by double-clicking the error message in the **Messages** window of <Var:ProductName>.
+* The start and end location of the target string that has caused the problem. By specifying the 'from' and 'up to' location you allow users to jump to the faulty target segment in the document by double-clicking the error message in the **Messages** window of Var:ProductName.
 
 # [C#](#tab/tabid-8)
 ```cs

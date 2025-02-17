@@ -1,9 +1,9 @@
 Creating Projects Based on Previous Projects
 ==
 
-<Var:Productname> allows you to create new projects based on previous projects. That way you can leverage the settings that were used in the previous project such as the language pairs, the task settings, the TM and termbase selection, etc.
+Var:ProductName allows you to create new projects based on previous projects. That way you can leverage the settings that were used in the previous project such as the language pairs, the task settings, the TM and termbase selection, etc.
 
-Example: Suppose that last year you have processed a project called "Spelling Checker 1.0". This year, you need to localize the documentation for version 2.0 of the product. In such a case, it makes sense to create the new project based on the previous project, thereby re-using the settings that exist in the previous project. Only the updated source files then need to be selected, the remaining parameters (except the due date) can usually stay as is. However, of course, you can change any of the existing parameters, e.g. add a new language direction, if the updated product needs to be distributed in a new market. The **New Project** wizard of <Var:Productname> allows you to select a previous project from a dropdown list. Your API-based application could be made, for example, to select the **.sdlproj* file of the previous project to accelerate the project creation.
+Example: Suppose that last year you have processed a project called "Spelling Checker 1.0". This year, you need to localize the documentation for version 2.0 of the product. In such a case, it makes sense to create the new project based on the previous project, thereby re-using the settings that exist in the previous project. Only the updated source files then need to be selected, the remaining parameters (except the due date) can usually stay as is. However, of course, you can change any of the existing parameters, e.g. add a new language direction, if the updated product needs to be distributed in a new market. The **New Project** wizard of Var:ProductName allows you to select a previous project from a dropdown list. Your API-based application could be made, for example, to select the **.sdlproj* file of the previous project to accelerate the project creation.
 
 Create an Update Project Programmatically
 --

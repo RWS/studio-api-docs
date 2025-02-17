@@ -4,9 +4,9 @@ Find out what the Display Filter API does and how you can leverage it to create 
 
 What is a Custom Display Filter?
 ---
-In <Var:ProductName>, a display filter limits the display of segments in the Editor based on specific attributes. Third-party developers can integrate their own custom display filters that can process the segments in the <Var:ProductName> Editor.
+In Var:ProductName, a display filter limits the display of segments in the Editor based on specific attributes. Third-party developers can integrate their own custom display filters that can process the segments in the Var:ProductName Editor.
 
-The Advanced Display Filter that ships with <Var:ProductName> is an example of an implementation based on the Display Filter API. The Advanced Display Filter enables <Var:ProductName> power-users to access more segment filtering options than the standard Display Filter does.
+The Advanced Display Filter that ships with Var:ProductName is an example of an implementation based on the Display Filter API. The Advanced Display Filter enables Var:ProductName power-users to access more segment filtering options than the standard Display Filter does.
 
 To access the Advanced Display Filter the user has to click **View > Advanced Display Filter**.
 
@@ -19,7 +19,7 @@ In the Advanced Display Filter window, end-users can create and save filters bas
 
 Working with the Advanced Display Filter
 -----
-End-users can set the attributes they need to filter segments in the <Var:ProductName> Editor in the tabs of the Advanced Display Filter.
+End-users can set the attributes they need to filter segments in the Var:ProductName Editor in the tabs of the Advanced Display Filter.
 
 They could, for example, filter segments by their source and target text.
 

@@ -8,7 +8,7 @@ Extending existing File Type Component Builder
 This chapter provides basic information on extending existing XML File Type Component Builder so your native verifier will be used when processing XML files.
 
 Extending an existing XML File Type Component Builder
-As XML is one of the standard formats supported by <Var:ProductName>, the corresponding File Type Component Builder already exists. The XML File Type Component Builder will be used to create an extension of the XML File Type Component Builder that uses your native verifier.
+As XML is one of the standard formats supported by Var:ProductName, the corresponding File Type Component Builder already exists. The XML File Type Component Builder will be used to create an extension of the XML File Type Component Builder that uses your native verifier.
 
 A File Type Component Builder is defined by a filter component builder that implements [IFileTypeComponentBuilder](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilder.yml). A filter component builder knows how to create parsers, writers, and so on for the corresponding file type. XML File Type Component Builder has a filter component builder.
 
@@ -16,7 +16,7 @@ The XML File Type Component Builder can be inherited from indirectly by implemen
 
 >[!NOTE]
 >
->In <Var:ProductName> all the file type plug-in components are designed in a way that you can extend all the functionality.
+>In Var:ProductName all the file type plug-in components are designed in a way that you can extend all the functionality.
 
 Every extension filter component builder needs to have a [FileTypeComponentBuilderExtensionAttribute](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeComponentBuilderExtensionAttribute.yml) that describes the file type component builder.
 

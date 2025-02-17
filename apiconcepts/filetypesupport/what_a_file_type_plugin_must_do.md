@@ -1,18 +1,18 @@
 What a File Type Plug-in Must Do
 ==
 
-Suppose you want to develop a filter that allows you to translate files <Var:ProductName> which are not supported by the default installation of the product.
+Suppose you want to develop a filter that allows you to translate files Var:ProductName which are not supported by the default installation of the product.
 
 Your proposed filter should do the following:
 
-* The new file type must be listed in the File type dropdown list of the <Var:ProductName> *Open dialog*, see [Opening a document for translation](opening_a_document_for_translation.md) chapter.
-* <Var:ProductName> must be able to open the new file type and display it, see [The File Parser](the_file_parser.md) chapter (extraction).
+* The new file type must be listed in the File type dropdown list of the Var:ProductName *Open dialog*, see [Opening a document for translation](opening_a_document_for_translation.md) chapter.
+* Var:ProductName must be able to open the new file type and display it, see [The File Parser](the_file_parser.md) chapter (extraction).
 * Upon opening the file, the original format needs to be converted into SDLXliff by the  File Type Support Framework.
-* It must be possible to batch-translate/analyze the new file format in <Var:ProductName>.
-* The view of <Var:ProductName> needs to display the text to translate. Any untranslatable bits need to be displayed as tags or hidden from the translator.
+* It must be possible to batch-translate/analyze the new file format in Var:ProductName.
+* The view of Var:ProductName needs to display the text to translate. Any untranslatable bits need to be displayed as tags or hidden from the translator.
 * The display should also include (semi-)WYSIWYG formatting, i.e. bold, italic, underline, etc., see [Text Formatting](text_formatting.md)
-* Optional: <Var:ProductName> should be able to display the document in its native format using the Realtime Preview feature.
-* The user must be able to translate the text using <Var:ProductName>.
+* Optional: Var:ProductName should be able to display the document in its native format using the Realtime Preview feature.
+* The user must be able to translate the text using Var:ProductName.
 * The user must be able to save the file in SDLXliff format.
 * The user must be able to save the fully translated file in the target format (generation), see  [The File Writer](the_file_writer.md).
 * The filter should be able check the validity of the target document during generation (verification).

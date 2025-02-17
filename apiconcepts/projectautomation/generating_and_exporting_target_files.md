@@ -3,7 +3,7 @@ Generating and Exporting Target Files
 
 At the end of a project lifecycle you will usually generate the native file formats from the bilingual (SDLXliff) documents. In addition you may want to copy the native target files to a specified location for delivery to the end customer. This is accomplished with two automatic tasks, i.e. the generation of the native document format and exporting the finalized files to a specific folder.
 
-The screenshot below illustrates the options that you can configure in <Var:ProductName> when exporting the finished documents to a specific location.
+The screenshot below illustrates the options that you can configure in Var:ProductName when exporting the finished documents to a specific location.
 
 
 To programmatically configure the task settings implement a helper function called ```GetExportTaskSettings```, which takes a [FileBasedProject](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml) object as parameter. The settings for a particular task are saved within the project. The settings can either apply to the entire project or can be target-language specific, e.g. when the German files require different settings than the French files. Each project is associated with a settings bundle, which contains the settings for all tasks (e.g. analyze, pre-translate, etc.). First, create a ```ISettingsBundle``` object by applying the GetSettings method to the project object. Then apply the ```GetSettingsGroup``` method to generate a settings object based on the [ExportFilesSettings](../../api/projectautomation/Sdl.ProjectAutomation.Settings.ExportFilesSettings.yml) class:

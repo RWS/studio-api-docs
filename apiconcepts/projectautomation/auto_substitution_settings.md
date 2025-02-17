@@ -1,7 +1,7 @@
 Auto-Substitution Settings
 ==
 
-<Var:ProductName> offers the ability to automatically substitute and localize certain elements within a segment, e.g. numbers. Example: The segments '*You owe me 100 dollars.*' and '*You owe me 2,000 dollars.*' are regarded as being identical, because the only difference here is a number, which can be automatically substituted. Moreover, <Var:ProductName> can also auto-localize the number format. For example, the number '2,000' in English needs to be localized into '2.000' when the target language is e.g. German.
+Var:ProductName offers the ability to automatically substitute and localize certain elements within a segment, e.g. numbers. Example: The segments '*You owe me 100 dollars.*' and '*You owe me 2,000 dollars.*' are regarded as being identical, because the only difference here is a number, which can be automatically substituted. Moreover, Var:ProductName can also auto-localize the number format. For example, the number '2,000' in English needs to be localized into '2.000' when the target language is e.g. German.
 
 Through the API you can programmatically set for a project whether elements such as numbers, dates, times, measurements, etc. should be automatically substituted and localized or not. By default, such elements are treated by the system as placeables, which means that they can be automatically substituted by the system. The sample code below highlights some of the properties which you can set to True or False depending on whether you want the auto-substitution and auto-localization to be used in your project:
 
@@ -43,7 +43,7 @@ tmSettings.ShortDatePattern.Value = "dd.MM.yy";
 
 The [MeasurementsFormattingMode](../../api/projectautomation/Sdl.ProjectAutomation.Settings.TranslationMemorySettings.yml#Sdl_ProjectAutomation_Settings_TranslationMemorySettings_MeasurementsFormattingMode) during auto-substitution, between the number and the measurement unit can also be specified. The default is [Auto_FromDocument](../../api/projectautomation/Sdl.ProjectAutomation.Settings.TranslationMemorySettings.yml#Sdl_ProjectAutomation_Settings_TranslationMemorySettings_MeasurementsFormattingMode).
 
-The screenshot below ilustrates how this setting's options are presented through the user interface of <Var:ProductName>:
+The screenshot below ilustrates how this setting's options are presented through the user interface of Var:ProductName:
 
 ![Measurements](images/Measurements.jpg)
 

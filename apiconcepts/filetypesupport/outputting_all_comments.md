@@ -1,14 +1,14 @@
 Outputting all Comments
 ===
 
-In this chapter we will finalize the writer class by making it write any comments attached to the units of the original BIL file as well as any comments that were added to the target segments during translation in <Var:ProductName>.
+In this chapter we will finalize the writer class by making it write any comments attached to the units of the original BIL file as well as any comments that were added to the target segments during translation in Var:ProductName.
 
 About Comments
 --
 
 According to the specifications of our fictitious BIL format (see [About the Example BIL Format](about_the_example_bil_format.md)) a unit element may include one or more ```comment``` elements, each of which has its own id.
 
-In <Var:ProductName> translators can add comments to target segments. The commented strings are then highlighted with a specific background colour. The comment text is visible, for example, when the user moves the mouse pointer over the commented string (see illustration below).
+In Var:ProductName translators can add comments to target segments. The commented strings are then highlighted with a specific background colour. The comment text is visible, for example, when the user moves the mouse pointer over the commented string (see illustration below).
 
 ![Comment](images/Comment.jpg)
 

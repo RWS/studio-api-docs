@@ -7,7 +7,7 @@ The Analyze Files task is used to determine the TM leverage for the selected pro
 Configure the Task Settings
 --
 
-The screenshot below shows the settings that can be configured for the Analyze Files task in <Var:ProductName>.
+The screenshot below shows the settings that can be configured for the Analyze Files task in Var:ProductName.
 
 ![AnalyzeFileSettings](images/AnalyzeFileSettings.jpg)
 
