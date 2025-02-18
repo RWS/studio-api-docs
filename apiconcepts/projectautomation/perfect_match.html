@@ -1,29 +1,29 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <!--[if IE]><![endif]-->
 <html>
-  
+
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>Perfect Match </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Perfect Match ">
-    <meta name="generator" content="docfx 2.59.3.0">
-    
+    <meta name="generator" content="docfx ">
+  
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../../styles/docfx.css">
     <link rel="stylesheet" href="../../styles/main.css">
     <meta property="docfx:navrel" content="../../toc.html">
     <meta property="docfx:tocrel" content="../toc.html">
-    
-    <meta property="docfx:rel" content="../../">
-    
+  
+  <meta property="docfx:rel" content="../../">
+  
   </head>
   <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
       <header>
-        
+
         <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
           <div class="container">
             <div class="navbar-header">
@@ -33,7 +33,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              
+
               <a class="navbar-brand" href="../../index.html">
                 <img id="logo" class="svg" src="../../logo.svg" alt="">
               </a>
@@ -48,7 +48,7 @@
             </div>
           </div>
         </nav>
-        
+
         <div class="subnav navbar-default">
           <div class="container hide-when-search">
             <div class="breadcrumb-container" id="breadcrumb">
@@ -60,17 +60,17 @@
         </div>
       </header>
       <div class="container body-content">
-        
+
         <div id="search-results">
           <div class="search-list">Search Results for <span></span></div>
           <div class="sr-items">
             <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
           </div>
-          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
         </div>
       </div>
       <div role="main" class="container body-content hide-when-search">
-        
+
         <div class="sidenav hide-when-search">
           <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
           <div class="sidetoggle collapse" id="sidetoggle">
@@ -87,51 +87,60 @@
 <p>The screenshot below shows the settings that can be configured for the Perfect Match task in Trados Studio.</p>
 <p><img src="images/PerfectMatchSettings.jpg" alt="PerfectMatchSettings"></p>
 <p>To configure the task settings programmatically, implement a helper function called <code>GetPerfectMatchTaskSettings</code>, which takes a <a href="../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.html">FileBasedProject</a> object as a parameter. The settings for a particular task are saved within the project. First, create a <code>ISettingsBundle</code> object by applying the <code>GetSettings</code> method to the project object. Then apply the     <code>GetSettingsGroup</code> method to generate a settings object based on the <a href="../../api/projectautomation/Sdl.ProjectAutomation.Settings.PerfectMatchTaskSettings.html">PerfectMatchTaskSettings</a> class:</p>
-<div class="tabGroup" id="tabgroup_gtusiv0Ogn">
+<div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_gtusiv0Ogn_tabid-1" role="tab" aria-controls="tabpanel_gtusiv0Ogn_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_1_tabid-1" role="tab" aria-controls="tabpanel_1_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_gtusiv0Ogn_tabid-1" role="tabpanel" data-tab="tabid-1">
+<section id="tabpanel_1_tabid-1" role="tabpanel" data-tab="tabid-1">
+
 <pre><code class="lang-CS">ISettingsBundle settings = project.GetSettings();
 PerfectMatchTaskSettings perfectMatchSettings = settings.GetSettingsGroup&lt;PerfectMatchTaskSettings&gt;();
-</code></pre></section>
+</code></pre>
+</section>
 </div>
+
 <p>Afterwards, you configure the task-specific settings as follows:</p>
 <p><strong>Setting the target segment status after Perfect Match</strong></p>
 <p>By default when a perfect match is found and copied the segment is marked as Perfect Matched and locked so that if cannot be edited further To override this behaviour and copy the perfect match segments without changing their status set the <strong>MarkAsPerfectMatchAndLock</strong> property to false.</p>
 <p>For now we will assign the default behaviour of true so that the segments are marked as Perfect match and locked.</p>
-<div class="tabGroup" id="tabgroup_gtusiv0Ogn-1">
+<div class="tabGroup" id="tabgroup_2">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_gtusiv0Ogn-1_tabid-2" role="tab" aria-controls="tabpanel_gtusiv0Ogn-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_2_tabid-2" role="tab" aria-controls="tabpanel_2_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_gtusiv0Ogn-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<section id="tabpanel_2_tabid-2" role="tabpanel" data-tab="tabid-2">
+
 <pre><code class="lang-CS">perfectMatchSettings.MarkAsPerfectMatchAndLock.Value = true;
-</code></pre></section>
+</code></pre>
+</section>
 </div>
+
 <p>Last, you need to apply the settings to the project through the <a href="../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.html#Sdl_ProjectAutomation_FileBased_FileBasedProject_UpdateSettings_Sdl_Core_Globalization_Language_Sdl_Core_Settings_ISettingsBundle_">UpdateSettings</a> method, so that the settings are persisted in the project.</p>
-<div class="tabGroup" id="tabgroup_gtusiv0Ogn-2">
+<div class="tabGroup" id="tabgroup_3">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_gtusiv0Ogn-2_tabid-3" role="tab" aria-controls="tabpanel_gtusiv0Ogn-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_3_tabid-3" role="tab" aria-controls="tabpanel_3_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_gtusiv0Ogn-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<section id="tabpanel_3_tabid-3" role="tabpanel" data-tab="tabid-3">
+
 <pre><code class="lang-CS">project.UpdateSettings(settings);
-</code></pre></section>
+</code></pre>
+</section>
 </div>
 <h2 id="putting-it-all-together">Putting it All Together</h2>
 <p>The function should look as shown below:</p>
-<div class="tabGroup" id="tabgroup_gtusiv0Ogn-3">
+<div class="tabGroup" id="tabgroup_4">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_gtusiv0Ogn-3_tabid-4" role="tab" aria-controls="tabpanel_gtusiv0Ogn-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_4_tabid-4" role="tab" aria-controls="tabpanel_4_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_gtusiv0Ogn-3_tabid-4" role="tabpanel" data-tab="tabid-4">
+<section id="tabpanel_4_tabid-4" role="tabpanel" data-tab="tabid-4">
+
 <pre><code class="lang-CS">public void GetPerfectMatchTaskSettings(FileBasedProject project)
 {
     #region &quot;PerfectMatchTaskSettings&quot;
@@ -149,8 +158,10 @@ PerfectMatchTaskSettings perfectMatchSettings = settings.GetSettingsGroup&lt;Per
     project.UpdateSettings(settings);
     #endregion
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
+
 <p><strong>Segments shown in the Trados Studio editor after Perfect Match</strong></p>
 <p><img src="images/PerfectMatchedSegment.jpg" alt="PerfectMatchedSegment"></p>
 <h2 id="mapping-previous-bilingual-files-to-project-files">Mapping Previous Bilingual Files to Project Files</h2>
@@ -159,13 +170,14 @@ PerfectMatchTaskSettings perfectMatchSettings = settings.GetSettingsGroup&lt;Per
 <p><a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.IProject.html#Sdl_ProjectAutomation_Core_IProject_AddBilingualReferenceFile_Sdl_ProjectAutomation_Core_BilingualFileMapping_">AddBilingualReferenceFile</a> - Uses a <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.BilingualFileMapping.html">BilingualFileMapping</a> object to map a bilingual reference file to a project file for a particular target language.</p>
 <p><a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.IProject.html#Sdl_ProjectAutomation_Core_IProject_RemoveBilingualReferenceFile_System_Guid_">RemoveBilingualReferenceFile</a> - Removes the bilingual reference file from a file.</p>
 <p><strong>Examples of using the <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.IProject.html#Sdl_ProjectAutomation_Core_IProject_AddBilingualReferenceFiles_Sdl_ProjectAutomation_Core_BilingualFileMapping___">AddBilingualReferenceFiles</a> method</strong></p>
-<div class="tabGroup" id="tabgroup_gtusiv0Ogn-4">
+<div class="tabGroup" id="tabgroup_5">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_gtusiv0Ogn-4_tabid-5" role="tab" aria-controls="tabpanel_gtusiv0Ogn-4_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_5_tabid-5" role="tab" aria-controls="tabpanel_5_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_gtusiv0Ogn-4_tabid-5" role="tabpanel" data-tab="tabid-5">
+<section id="tabpanel_5_tabid-5" role="tabpanel" data-tab="tabid-5">
+
 <pre><code class="lang-CS">ProjectInfo info = this.GetProjectInfo();
 ProjectFile[] files = project.AddFiles(this.AddProjectFiles(@&quot;c:\ProjectFiles\Documents\&quot;));
 
@@ -180,17 +192,21 @@ project.AddBilingualReferenceFiles(
           new BilingualFileMapping(files[0].Id, new Language(&quot;de-DE&quot;), @&quot;c:\ProjectFiles\PreviousProjectFiles\de-DE\mydocument.docx.sdlxliff&quot;),
           new BilingualFileMapping(files[1].Id, new Language(&quot;fr-FE&quot;), @&quot;c:\ProjectFiles\PreviousProjectFiles\fr-FR\myotherdocument.docx.sdlxliff&quot;),
       });
-</code></pre></section>
+      
+</code></pre>
+</section>
 </div>
+
 <p><strong>Example helper method to return an array of <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.BilingualFileMapping.html">BilingualFileMapping</a> objects</strong></p>
 <p>This example uses a simple scan of a previous project to find and associate bilingual files with the current project using a simple match of the language directory and filename.</p>
-<div class="tabGroup" id="tabgroup_gtusiv0Ogn-5">
+<div class="tabGroup" id="tabgroup_6">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_gtusiv0Ogn-5_tabid-6" role="tab" aria-controls="tabpanel_gtusiv0Ogn-5_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_6_tabid-6" role="tab" aria-controls="tabpanel_6_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_gtusiv0Ogn-5_tabid-6" role="tabpanel" data-tab="tabid-6">
+<section id="tabpanel_6_tabid-6" role="tabpanel" data-tab="tabid-6">
+
 <pre><code class="lang-CS">/// &lt;summary&gt;
 /// Simple mapping routine to associate bilingual files in a previous project with the file in the current project
 /// Looks for a bilingual file with the same name in the relevant language directories 
@@ -236,32 +252,38 @@ public BilingualFileMapping[] GetBilingualFileMappings(Language[] targetLanguage
     }
     return mappings.ToArray();
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
+
 <p><strong>Examples of using the <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.IProject.html#Sdl_ProjectAutomation_Core_IProject_AddBilingualReferenceFile_Sdl_ProjectAutomation_Core_BilingualFileMapping_">AddBilingualReferenceFile</a> method</strong></p>
 <p>Single bilingual reference file associations can be made using on of the following methods</p>
-<div class="tabGroup" id="tabgroup_gtusiv0Ogn-6">
+<div class="tabGroup" id="tabgroup_7">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_gtusiv0Ogn-6_tabid-7" role="tab" aria-controls="tabpanel_gtusiv0Ogn-6_tabid-7" data-tab="tabid-7" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_7_tabid-7" role="tab" aria-controls="tabpanel_7_tabid-7" data-tab="tabid-7" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_gtusiv0Ogn-6_tabid-7" role="tabpanel" data-tab="tabid-7">
+<section id="tabpanel_7_tabid-7" role="tabpanel" data-tab="tabid-7">
+
 <pre><code class="lang-CS">//Add a single reference file using a BilingualFileMapping Object
 project.AddBilingualReferenceFile(new BilingualFileMapping(FileIdFromOriginalSourceFile, new Language(&quot;fr-FR&quot;), @&quot;c:\ProjectFiles\PreviousProjectFiles\fr-FR\mydocument.docx.sdlxliff&quot;));
-</code></pre></section>
+
+</code></pre>
+</section>
 </div>
 <h2 id="calling-perfect-match-as-a-single-task">Calling Perfect Match as a Single Task</h2>
 <p>After you have prepared a project and run the <code>CopyToTargetLanguages</code> task the target language files are available and you can assign bilingual reference files directly to the target files to be used in Perfect Match.</p>
 <p>Alternatively can set up the bilingual reference files using the original documents before you prepare the project and the references will be picked up and copied to the target files when the <code>CopyToTargetLanguages</code> task is run.</p>
 <p><strong>Example of calling Perfect Match on a previously prepared project where the target files are available</strong></p>
-<div class="tabGroup" id="tabgroup_gtusiv0Ogn-7">
+<div class="tabGroup" id="tabgroup_8">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_gtusiv0Ogn-7_tabid-8" role="tab" aria-controls="tabpanel_gtusiv0Ogn-7_tabid-8" data-tab="tabid-8" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_8_tabid-8" role="tab" aria-controls="tabpanel_8_tabid-8" data-tab="tabid-8" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_gtusiv0Ogn-7_tabid-8" role="tabpanel" data-tab="tabid-8">
+<section id="tabpanel_8_tabid-8" role="tabpanel" data-tab="tabid-8">
+
 <pre><code class="lang-CS">Language targetLanguage = new Language(CultureInfo.GetCultureInfo(locale));
 
 ProjectFile[] targetFiles = project.GetTargetLanguageFiles(targetLanguage);
@@ -271,18 +293,20 @@ project.AddBilingualReferenceFiles(GetBilingualFileMappings(new Language[] { tar
 AutomaticTask perfectMatchTask = project.RunAutomaticTask(
 targetFiles.GetIds(),
 AutomaticTaskTemplateIds.PerfectMatch);
-</code></pre></section>
+</code></pre>
+</section>
 </div>
 <h2 id="calling-perfect-match-as-part-of-a-task-sequence">Calling Perfect Match as Part of a Task Sequence</h2>
 <p>Perfect Match can be run as part of a batch task sequence and is included in the standard prepare sequence. Before you prepare the project you do not have access to the source or target bilingual files however the <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.IProject.html#Sdl_ProjectAutomation_Core_IProject_AddBilingualReferenceFiles_Sdl_ProjectAutomation_Core_BilingualFileMapping___">AddBilingualReferenceFiles</a> methods will accept the original documents as parameters.</p>
 <p>The bilingual file association will be copied to the target document when it is copied to the target language as part of the task sequence.</p>
-<div class="tabGroup" id="tabgroup_gtusiv0Ogn-8">
+<div class="tabGroup" id="tabgroup_9">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_gtusiv0Ogn-8_tabid-9" role="tab" aria-controls="tabpanel_gtusiv0Ogn-8_tabid-9" data-tab="tabid-9" tabindex="0" aria-selected="true">Example of setting up Perfect Match associations before calling the Prepare task sequence</a>
+<a href="#tabpanel_9_tabid-9" role="tab" aria-controls="tabpanel_9_tabid-9" data-tab="tabid-9" tabindex="0" aria-selected="true">Example of setting up Perfect Match associations before calling the Prepare task sequence</a>
 </li>
 </ul>
-<section id="tabpanel_gtusiv0Ogn-8_tabid-9" role="tabpanel" data-tab="tabid-9">
+<section id="tabpanel_9_tabid-9" role="tabpanel" data-tab="tabid-9">
+
 <pre><code class="lang-cs">public void RunPrepareWithPerfectMatch()
 {
 
@@ -303,7 +327,8 @@ AutomaticTaskTemplateIds.PerfectMatch);
     //Run the prepare task sequence (Scan, ConvertToTranslatableFormat, WordCount, CopyToTargetLanguages, PerfectMatch, AnalyzeFiles, PreTranslateFiles, PopulateProjectTranslationMemories)
     TaskSequence taskSequence = newProject.RunAutomaticTasks(files.GetIds(), TaskSequences.Prepare);
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
 <h2 id="see-also">See Also</h2>
 <p><a href="analyze_files_settings.html">Analyze Files Settings</a></p>
@@ -314,7 +339,7 @@ AutomaticTaskTemplateIds.PerfectMatch);
 <p><a href="translation_count.html">Translation Count</a></p>
 </article>
           </div>
-          
+
           <div class="hidden-sm col-md-2" role="complementary">
             <div class="sideaffix">
               <div class="contribution">
@@ -332,7 +357,7 @@ AutomaticTaskTemplateIds.PerfectMatch);
           </div>
         </div>
       </div>
-      
+
       <footer>
         <div class="grad-bottom"></div>
         <div class="footer">
@@ -340,13 +365,13 @@ AutomaticTaskTemplateIds.PerfectMatch);
             <span class="pull-right">
               <a href="#top">Back to top</a>
             </span>
-            
-            <span>Generated by <strong>DocFX</strong></span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
           </div>
         </div>
       </footer>
     </div>
-    
+
     <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
     <script type="text/javascript" src="../../styles/docfx.js"></script>
     <script type="text/javascript" src="../../styles/main.js"></script>

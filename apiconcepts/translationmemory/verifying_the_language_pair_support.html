@@ -1,29 +1,29 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <!--[if IE]><![endif]-->
 <html>
-  
+
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>Verifying the Language Pair Support </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Verifying the Language Pair Support ">
-    <meta name="generator" content="docfx 2.59.3.0">
-    
+    <meta name="generator" content="docfx ">
+  
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../../styles/docfx.css">
     <link rel="stylesheet" href="../../styles/main.css">
     <meta property="docfx:navrel" content="../../toc.html">
     <meta property="docfx:tocrel" content="../toc.html">
-    
-    <meta property="docfx:rel" content="../../">
-    
+  
+  <meta property="docfx:rel" content="../../">
+  
   </head>
   <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
       <header>
-        
+
         <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
           <div class="container">
             <div class="navbar-header">
@@ -33,7 +33,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              
+
               <a class="navbar-brand" href="../../index.html">
                 <img id="logo" class="svg" src="../../logo.svg" alt="">
               </a>
@@ -48,7 +48,7 @@
             </div>
           </div>
         </nav>
-        
+
         <div class="subnav navbar-default">
           <div class="container hide-when-search">
             <div class="breadcrumb-container" id="breadcrumb">
@@ -60,17 +60,17 @@
         </div>
       </header>
       <div class="container body-content">
-        
+
         <div id="search-results">
           <div class="search-list">Search Results for <span></span></div>
           <div class="sr-items">
             <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
           </div>
-          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
         </div>
       </div>
       <div role="main" class="container body-content hide-when-search">
-        
+
         <div class="sidenav hide-when-search">
           <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
           <div class="sidetoggle collapse" id="sidetoggle">
@@ -86,7 +86,8 @@
 <h2 id="requirements-for-checking-the-language-direction-in-our-implementation">Requirements for Checking the Language Direction in our Implementation</h2>
 <p>Remember that the first line of a delimited text file is required to contain the language pair with the source target languages being separated by the specified delimiting character, e.g.:</p>
 <pre><code>en-US;de_DE
-</code></pre><p>Our sample plug-in should first of all check whether the first line can be split at the specified delimiter character and whether the languages indicated here match the language pair that the user selected in Trados Studio.
+</code></pre>
+<p>Our sample plug-in should first of all check whether the first line can be split at the specified delimiter character and whether the languages indicated here match the language pair that the user selected in Trados Studio.
 In the following screenshot English (US) is selected as the source language, the target language is German (Germany). The API would therefore return en-US for the source language <code>SourceCultureName</code>, and de-DE for the target language, i.e. the <code>TargetCultureName</code> property. These strings map, of course, nicely to the locale combination of our list files, which makes checking whether the selected language pair actually fits the selected list very easy.
 <img style="display:block; " src="images/OpenDocumentWithPlugin.jpg"></p>
 <p>(In other implementations, the translation provider that you connect to might not allow for such an easy mapping of languages, which means that you may have to develop a more involved application logic for verifying the validity of the language combination.)</p>
@@ -94,43 +95,50 @@ In the following screenshot English (US) is selected as the source language, the
 <h2 id="implement-the-logic-for-checking-the-language-direction">Implement the Logic for Checking the Language Direction</h2>
 <p>The logic for checking the language direction is implemented within the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider.html#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProvider_SupportsLanguageDirection_Sdl_LanguagePlatform_Core_LanguagePair_">SupportsLanguageDirection</a> method of the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider.html">ITranslationProvider</a> interface. This method takes a region-qualified source-target language combination object as parameter. This object holds the information on the languages that were selected by the user in the user interface of Trados Studio, and which needs to be compared to the language direction of the translation provider.</p>
 <p>We start by opening the text file and reading the first line:</p>
-<div class="tabGroup" id="tabgroup_EIFY7CY8kS">
+<div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_EIFY7CY8kS_tabid-1" role="tab" aria-controls="tabpanel_EIFY7CY8kS_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_1_tabid-1" role="tab" aria-controls="tabpanel_1_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_EIFY7CY8kS_tabid-1" role="tabpanel" data-tab="tabid-1">
+<section id="tabpanel_1_tabid-1" role="tabpanel" data-tab="tabid-1">
+
 <pre><code class="lang-cs">using (StreamReader listFile = new StreamReader(Options.ListFileName))
 {
     firstLine = listFile.ReadLine();
     listFile.Close();
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
+
 <p>Then we verify whether this first line actually contains the language direction information by matching the string to a regular expression. If the regular expression is not matched, then we return <code>False</code>, which means that the list file cannot be used as a translation provider.</p>
-<div class="tabGroup" id="tabgroup_EIFY7CY8kS-1">
+<div class="tabGroup" id="tabgroup_2">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_EIFY7CY8kS-1_tabid-2" role="tab" aria-controls="tabpanel_EIFY7CY8kS-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_2_tabid-2" role="tab" aria-controls="tabpanel_2_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_EIFY7CY8kS-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<section id="tabpanel_2_tabid-2" role="tabpanel" data-tab="tabid-2">
+
 <pre><code class="lang-cs">string[] langs = (firstLine.Split(Convert.ToChar(Options.Delimiter)));
 if (langs.Count&lt;string&gt;() != 2)
 {
     return false;
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
+
 <p>If the first line matches the regular expression, we can proceed to comparing the language combination that is indicated in the list file to the source/target languages that have been chosen in Trados Studio. Depending on whether the language combination is matching or not, we return <code>True</code> or <code>False</code>.</p>
-<div class="tabGroup" id="tabgroup_EIFY7CY8kS-2">
+<div class="tabGroup" id="tabgroup_3">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_EIFY7CY8kS-2_tabid-3" role="tab" aria-controls="tabpanel_EIFY7CY8kS-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_3_tabid-3" role="tab" aria-controls="tabpanel_3_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_EIFY7CY8kS-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<section id="tabpanel_3_tabid-3" role="tabpanel" data-tab="tabid-3">
+
 <pre><code class="lang-cs">if (langs[0].ToLower() == languageDirection.SourceCultureName.ToLower()
     &amp;&amp; langs[1].ToLower() == languageDirection.TargetCultureName.ToLower())
 {
@@ -142,19 +150,22 @@ else
     // The provider does not support the selected language direction.
     return false;
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
+
 <p>When the method returns <code>False</code>, Trados Studio will throw a message like the one in the example below when selecting the translation provider:</p>
-<p><img style="display:block; " src="images/LanguagesNotSupported.jpg"></p>
+<img style="display:block; " src="images/LanguagesNotSupported.jpg">
 <h2 id="putting-it-all-together">Putting it All Together</h2>
 <p>The complete method should now look as shown below:</p>
-<div class="tabGroup" id="tabgroup_EIFY7CY8kS-3">
+<div class="tabGroup" id="tabgroup_4">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_EIFY7CY8kS-3_tabid-4" role="tab" aria-controls="tabpanel_EIFY7CY8kS-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_4_tabid-4" role="tab" aria-controls="tabpanel_4_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_EIFY7CY8kS-3_tabid-4" role="tabpanel" data-tab="tabid-4">
+<section id="tabpanel_4_tabid-4" role="tabpanel" data-tab="tabid-4">
+
 <pre><code class="lang-cs">public bool SupportsLanguageDirection(LanguagePair languageDirection)
 {
     string firstLine = &quot;&quot;;
@@ -197,11 +208,12 @@ else
     }
     #endregion
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
 </article>
           </div>
-          
+
           <div class="hidden-sm col-md-2" role="complementary">
             <div class="sideaffix">
               <div class="contribution">
@@ -219,7 +231,7 @@ else
           </div>
         </div>
       </div>
-      
+
       <footer>
         <div class="grad-bottom"></div>
         <div class="footer">
@@ -227,13 +239,13 @@ else
             <span class="pull-right">
               <a href="#top">Back to top</a>
             </span>
-            
-            <span>Generated by <strong>DocFX</strong></span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
           </div>
         </div>
       </footer>
     </div>
-    
+
     <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
     <script type="text/javascript" src="../../styles/docfx.js"></script>
     <script type="text/javascript" src="../../styles/main.js"></script>

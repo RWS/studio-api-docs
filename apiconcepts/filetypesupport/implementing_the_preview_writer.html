@@ -1,29 +1,29 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <!--[if IE]><![endif]-->
 <html>
-  
+
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>Implementing the Preview Writer </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Implementing the Preview Writer ">
-    <meta name="generator" content="docfx 2.59.3.0">
-    
+    <meta name="generator" content="docfx ">
+  
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../../styles/docfx.css">
     <link rel="stylesheet" href="../../styles/main.css">
     <meta property="docfx:navrel" content="../../toc.html">
     <meta property="docfx:tocrel" content="../toc.html">
-    
-    <meta property="docfx:rel" content="../../">
-    
+  
+  <meta property="docfx:rel" content="../../">
+  
   </head>
   <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
       <header>
-        
+
         <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
           <div class="container">
             <div class="navbar-header">
@@ -33,7 +33,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              
+
               <a class="navbar-brand" href="../../index.html">
                 <img id="logo" class="svg" src="../../logo.svg" alt="">
               </a>
@@ -48,7 +48,7 @@
             </div>
           </div>
         </nav>
-        
+
         <div class="subnav navbar-default">
           <div class="container hide-when-search">
             <div class="breadcrumb-container" id="breadcrumb">
@@ -60,17 +60,17 @@
         </div>
       </header>
       <div class="container body-content">
-        
+
         <div id="search-results">
           <div class="search-list">Search Results for <span></span></div>
           <div class="sr-items">
             <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
           </div>
-          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
         </div>
       </div>
       <div role="main" class="container body-content hide-when-search">
-        
+
         <div class="sidenav hide-when-search">
           <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
           <div class="sidetoggle collapse" id="sidetoggle">
@@ -85,13 +85,14 @@
 <p>In this chapter you will learn how to implement the writer component that generates the HTML code that is going to be displayed in the internal Web browser preview control.</p>
 <h2 id="add-the-preview-writer-class">Add the Preview Writer Class</h2>
 <p>Add a class called e.g. <strong>InternalPreviewWriter.cs</strong> to your project. The class needs to implement the same interfaces and members as the file writer class, which we use for generating the target files in their native format (see <a href="implementing_the_file_writer.html">Implementing the File Writer</a>). The minimum amount of code required to build a file type plug-in with the internal preview writer looks as shown below:</p>
-<div class="tabGroup" id="tabgroup_xoempte-jc">
+<div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_xoempte-jc_tabid-1" role="tab" aria-controls="tabpanel_xoempte-jc_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_1_tabid-1" role="tab" aria-controls="tabpanel_1_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_xoempte-jc_tabid-1" role="tabpanel" data-tab="tabid-1">
+<section id="tabpanel_1_tabid-1" role="tabpanel" data-tab="tabid-1">
+
 <pre><code class="lang-cs">using System.IO;
 using Sdl.FileTypeSupport.Framework.BilingualApi;
 using Sdl.FileTypeSupport.Framework.NativeApi;
@@ -118,49 +119,56 @@ namespace Sdk.Snippets.Native
         }
     }
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
 <h2 id="start-the-preview-output">Start the Preview Output</h2>
 <p>As preview output we can generate a highly simplified HTML document. First, write the start of the HTML file:</p>
-<div class="tabGroup" id="tabgroup_xoempte-jc-1">
+<div class="tabGroup" id="tabgroup_2">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_xoempte-jc-1_tabid-2" role="tab" aria-controls="tabpanel_xoempte-jc-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_2_tabid-2" role="tab" aria-controls="tabpanel_2_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_xoempte-jc-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<section id="tabpanel_2_tabid-2" role="tabpanel" data-tab="tabid-2">
+
 <pre><code class="lang-cs">// start the preview output
 public void StartOfInput()
 {
     _preview = new StreamWriter(OutputProperties.OutputFilePath);
     _preview.WriteLine(&quot;&lt;html&gt;&lt;body&gt;&quot;);
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
 <h2 id="output-text-and-tags">Output Text and Tags</h2>
 <p>Override the <code>Text()</code> method to output the translatable strings:</p>
-<div class="tabGroup" id="tabgroup_xoempte-jc-2">
+<div class="tabGroup" id="tabgroup_3">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_xoempte-jc-2_tabid-3" role="tab" aria-controls="tabpanel_xoempte-jc-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_3_tabid-3" role="tab" aria-controls="tabpanel_3_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_xoempte-jc-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<section id="tabpanel_3_tabid-3" role="tabpanel" data-tab="tabid-3">
+
 <pre><code class="lang-cs">// output the translatable strings
 public override void Text(ITextProperties textInfo)
 {
     _preview.Write(textInfo.Text);
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
+
 <p>Let us assume that you want to insert a line break after each paragraph unit. To do this use the two following override methods to enclose each paragraph in a <strong>DIV</strong> tag pair:</p>
-<div class="tabGroup" id="tabgroup_xoempte-jc-3">
+<div class="tabGroup" id="tabgroup_4">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_xoempte-jc-3_tabid-4" role="tab" aria-controls="tabpanel_xoempte-jc-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_4_tabid-4" role="tab" aria-controls="tabpanel_4_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_xoempte-jc-3_tabid-4" role="tabpanel" data-tab="tabid-4">
+<section id="tabpanel_4_tabid-4" role="tabpanel" data-tab="tabid-4">
+
 <pre><code class="lang-cs">// each paragraph unit should appear in a new line
 // therefore use a DIV element
 public override void ParagraphUnitStart(IParagraphUnitProperties properties)
@@ -172,16 +180,19 @@ public override void ParagraphUnitEnd()
 {
     _preview.Write(&quot;&lt;/div&gt;&quot;);
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
+
 <p>For good measure, enclose each segment in a <strong>SPAN</strong> tag pair. This is not actually required for the moment, but structuring the output through <strong>SPAN</strong> container tags will become important later, when we implement the real-time preview (see <a href="enhancing_the_preview_file_writer.html">Enhancing the Preview File Writer</a>).</p>
-<div class="tabGroup" id="tabgroup_xoempte-jc-4">
+<div class="tabGroup" id="tabgroup_5">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_xoempte-jc-4_tabid-5" role="tab" aria-controls="tabpanel_xoempte-jc-4_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_5_tabid-5" role="tab" aria-controls="tabpanel_5_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_xoempte-jc-4_tabid-5" role="tabpanel" data-tab="tabid-5">
+<section id="tabpanel_5_tabid-5" role="tabpanel" data-tab="tabid-5">
+
 <pre><code class="lang-cs">// enclose each segment in a SPAN tag pair
 public override void SegmentStart(ISegmentPairProperties properties)
 {
@@ -192,16 +203,19 @@ public override void SegmentEnd()
 {
     _preview.Write(&quot;&lt;/span&gt;&quot;);
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
+
 <p>Now use the two following override methods to output the content of the inline tags. Note that by emitting the HTML tags we will also apply the corresponding character formatting in the Web browser preview control.</p>
-<div class="tabGroup" id="tabgroup_xoempte-jc-5">
+<div class="tabGroup" id="tabgroup_6">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_xoempte-jc-5_tabid-6" role="tab" aria-controls="tabpanel_xoempte-jc-5_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_6_tabid-6" role="tab" aria-controls="tabpanel_6_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_xoempte-jc-5_tabid-6" role="tabpanel" data-tab="tabid-6">
+<section id="tabpanel_6_tabid-6" role="tabpanel" data-tab="tabid-6">
+
 <pre><code class="lang-cs">// output any inline tags,
 // which will also apply the corresponding character formatting
 public override void InlineStartTag(IStartTagProperties tagInfo)
@@ -213,37 +227,43 @@ public override void InlineEndTag(IEndTagProperties tagInfo)
 {
     _preview.Write(tagInfo.TagContent);
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
+
 <p>Note that we do not output any structure tag content in this preview.</p>
 <h2 id="close-the-preview-output">Close the Preview Output</h2>
 <p>Last, close the preview as shown below:</p>
-<div class="tabGroup" id="tabgroup_xoempte-jc-6">
+<div class="tabGroup" id="tabgroup_7">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_xoempte-jc-6_tabid-7" role="tab" aria-controls="tabpanel_xoempte-jc-6_tabid-7" data-tab="tabid-7" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_7_tabid-7" role="tab" aria-controls="tabpanel_7_tabid-7" data-tab="tabid-7" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_xoempte-jc-6_tabid-7" role="tabpanel" data-tab="tabid-7">
+<section id="tabpanel_7_tabid-7" role="tabpanel" data-tab="tabid-7">
+
 <pre><code class="lang-cs">// end the preview output
 public void EndOfInput()
 {
     _preview.WriteLine(&quot;&lt;/body&gt;&lt;/html&gt;&quot;);
     _preview.Close();
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
+
 <p>The static HTML preview looks as shown in the following example:</p>
 <p><img src="images/StaticHTMLPreview.jpg" alt="StaticHTMLPreview"></p>
 <h2 id="putting-it-all-together">Putting it All Together</h2>
 <p>If you put everything together, the preview writer class looks as shown below:</p>
-<div class="tabGroup" id="tabgroup_xoempte-jc-7">
+<div class="tabGroup" id="tabgroup_8">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_xoempte-jc-7_tabid-8" role="tab" aria-controls="tabpanel_xoempte-jc-7_tabid-8" data-tab="tabid-8" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_8_tabid-8" role="tab" aria-controls="tabpanel_8_tabid-8" data-tab="tabid-8" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_xoempte-jc-7_tabid-8" role="tabpanel" data-tab="tabid-8">
+<section id="tabpanel_8_tabid-8" role="tabpanel" data-tab="tabid-8">
+
 <pre><code class="lang-cs">using System.IO;
 using Sdl.FileTypeSupport.Framework.BilingualApi;
 using Sdl.FileTypeSupport.Framework.NativeApi;
@@ -331,15 +351,18 @@ namespace Sdk.Snippets.Native
         #endregion
     }
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
 <h2 id="see-also">See Also</h2>
 <p><a href="enhancing_the_preview_file_writer.html">Enhancing the Preview File Writer</a></p>
-<div class="NOTE"><h5>Note</h5><p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
 </div>
 </article>
           </div>
-          
+
           <div class="hidden-sm col-md-2" role="complementary">
             <div class="sideaffix">
               <div class="contribution">
@@ -357,7 +380,7 @@ namespace Sdk.Snippets.Native
           </div>
         </div>
       </div>
-      
+
       <footer>
         <div class="grad-bottom"></div>
         <div class="footer">
@@ -365,13 +388,13 @@ namespace Sdk.Snippets.Native
             <span class="pull-right">
               <a href="#top">Back to top</a>
             </span>
-            
-            <span>Generated by <strong>DocFX</strong></span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
           </div>
         </div>
       </footer>
     </div>
-    
+
     <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
     <script type="text/javascript" src="../../styles/docfx.js"></script>
     <script type="text/javascript" src="../../styles/main.js"></script>
