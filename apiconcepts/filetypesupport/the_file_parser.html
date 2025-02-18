@@ -1,29 +1,29 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <!--[if IE]><![endif]-->
 <html>
-  
+
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>The File Parser </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="The File Parser ">
-    <meta name="generator" content="docfx 2.59.3.0">
-    
+    <meta name="generator" content="docfx ">
+  
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../../styles/docfx.css">
     <link rel="stylesheet" href="../../styles/main.css">
     <meta property="docfx:navrel" content="../../toc.html">
     <meta property="docfx:tocrel" content="../toc.html">
-    
-    <meta property="docfx:rel" content="../../">
-    
+  
+  <meta property="docfx:rel" content="../../">
+  
   </head>
   <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
       <header>
-        
+
         <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
           <div class="container">
             <div class="navbar-header">
@@ -33,7 +33,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              
+
               <a class="navbar-brand" href="../../index.html">
                 <img id="logo" class="svg" src="../../logo.svg" alt="">
               </a>
@@ -48,7 +48,7 @@
             </div>
           </div>
         </nav>
-        
+
         <div class="subnav navbar-default">
           <div class="container hide-when-search">
             <div class="breadcrumb-container" id="breadcrumb">
@@ -60,17 +60,17 @@
         </div>
       </header>
       <div class="container body-content">
-        
+
         <div id="search-results">
           <div class="search-list">Search Results for <span></span></div>
           <div class="sr-items">
             <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
           </div>
-          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
         </div>
       </div>
       <div role="main" class="container body-content hide-when-search">
-        
+
         <div class="sidenav hide-when-search">
           <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
           <div class="sidetoggle collapse" id="sidetoggle">
@@ -84,24 +84,27 @@
 
 <p>When writing filters that use the Native API (for monolingual file formats) you must derive your parser class from the interfaces <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileTypeComponent.html">INativeFileTypeComponent</a> and <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileParser.html">INativeFileParser</a>. These interfaces provide a way of connecting to the  File Type Support Framework and allow the class to initialize the parser with the necessary objects it requires to interact with the  File Type Support Framework. A parser will also normally derive from the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.html">INativeContentCycleAware</a> interface, which provides the parser with additional information such as the original file path name, source language and encoding. These interface class methods are called during key phases of the parsing process to enable your filter to manage its initialization, flow-control and clean-up.</p>
 <p>However, the simplest way to implement a native parser is to merely it derive from the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileParser.html">AbstractNativeFileParser</a> class and the <code>INativeContentCycleAware</code> interface and then use the helper functions of the <code>AbstractNativeFileParser</code> class.</p>
-<div class="tabGroup" id="tabgroup_dw2bMzVjfh">
+<div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_dw2bMzVjfh_tabid-1" role="tab" aria-controls="tabpanel_dw2bMzVjfh_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_1_tabid-1" role="tab" aria-controls="tabpanel_1_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_dw2bMzVjfh_tabid-1" role="tabpanel" data-tab="tabid-1">
+<section id="tabpanel_1_tabid-1" role="tabpanel" data-tab="tabid-1">
+
 <pre><code class="lang-cs">public class SimpleTextParser : AbstractNativeFileParser, INativeContentCycleAware, ISettingsAware
 {
      ...
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
+
 <p>Deriving from the <code>AbstractNativeFileParser</code> base class provides an implementation of the <code>INativeFilterComponent</code> and <code>INativeFileParser</code> interfaces, leaving only the <code>INativeContentCycleAware</code> and <code>ISettingsAware</code> interfaces to be implemented by the derived class. If this class is used as a base class, then in its implementation of <code>INativeFileParser</code> it provides some overridable methods than can be used to simplify the implementation of a native parser class. These overridable methods are as follows:</p>
 <ul>
 <li><a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileParser.html#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileParser_BeforeParsing">BeforeParsing</a>: This method is called <strong>before</strong> any parsing commences and before the <code>DuringParsing()</code> method is called. Any initialization of variables, opening of a file, etc. can be done in the overridden implementation of this method after calling the base class implementation.</li>
 <li><a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileParser.html#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileParser_DuringParsing">DuringParsing</a>: This method is called after the initial call to the <code>BeforeParsing()</code> method and subsequently for each chunk of processing that needs to be done for the file to be extracted. The implementation should return True, if there is more processing to be done and False after the file processing has been completed.</li>
-<li><a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileParser.html#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileParser_AfterParsing">AfterParsing</a>: This method is called <strong>after</strong> <code>DuringParsing()</code>returns False to indicate that the file processing is complete. This method can be overridden to implement closing of the file or any tidying up operations.</li>
+<li><a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileParser.html#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileParser_AfterParsing">AfterParsing</a>: This method is called <strong>after</strong> <code>DuringParsing() </code>returns False to indicate that the file processing is complete. This method can be overridden to implement closing of the file or any tidying up operations.</li>
 <li><a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileParser.html#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileParser_OnProgress_System_Byte_">OnProgress</a>: This method can be used to inform the framework - and hence the user - of the file parsing progress. It takes a byte parameter with values between 0 and 100 as a percentage of file processing progress.</li>
 <li><a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileParser.html#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileParser_OutputText_System_String_">OutputText</a> method: The <code>OutputText()</code> method can be used to output translatable text to the  File Type Support Framework API. This process will be explained in more detail in the section: <a href="implementing_the_file_parser.html">Implement the File Parser</a>.</li>
 <li><a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileParser.html#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileParser_Dispose">Dispose</a> method: This method is implemented in <code>AbstractNativeFileParser</code> and can be overridden by subclasses. This method is explicitly called after an unhandled exception is thrown in the Filter Framework. This is the last chance for the filter to release acquired resources (managed and unmanged). This can happen when: - Acquire resources in <code>StartOfInput()</code> and release them in <code>EndOfInput()</code> - Acquire resources in BeforeParsing() and release them in <code>AfterParsing()</code> - Acquire resources in <code>SetFileProperties()</code> and release them in <code>FileComplete()</code> - or other similar situations.</li>
@@ -124,26 +127,31 @@
 <ul>
 <li><a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.ISettingsAware.html#Sdl_FileTypeSupport_Framework_IntegrationApi_ISettingsAware_InitializeSettings_Sdl_Core_Settings_ISettingsBundle_System_String_">InitializeSettings</a> method: Passes in an <code>ISettingsBundle</code> object and a configurationId FileTypeConfigurationId. These can be used to populate the required settings object used by the parser:</li>
 </ul>
-<div class="tabGroup" id="tabgroup_dw2bMzVjfh-1">
+<div class="tabGroup" id="tabgroup_2">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_dw2bMzVjfh-1_tabid-2" role="tab" aria-controls="tabpanel_dw2bMzVjfh-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_2_tabid-2" role="tab" aria-controls="tabpanel_2_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_dw2bMzVjfh-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<section id="tabpanel_2_tabid-2" role="tabpanel" data-tab="tabid-2">
+
 <pre><code class="lang-cs">public void InitializeSettings(Sdl.Core.Settings.ISettingsBundle settingsBundle, string configurationId)
 {
     UserSettings _userSettings = new UserSettings();
     _userSettings.PopulateFromSettingsBundle(settingsBundle, configurationId);
     LockPrdCodes = _userSettings.LockPrdCodes;
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
-<div class="NOTE"><h5>Note</h5><p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+
+<div class="NOTE">
+<h5>Note</h5>
+<p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
 </div>
 </article>
           </div>
-          
+
           <div class="hidden-sm col-md-2" role="complementary">
             <div class="sideaffix">
               <div class="contribution">
@@ -161,7 +169,7 @@
           </div>
         </div>
       </div>
-      
+
       <footer>
         <div class="grad-bottom"></div>
         <div class="footer">
@@ -169,13 +177,13 @@
             <span class="pull-right">
               <a href="#top">Back to top</a>
             </span>
-            
-            <span>Generated by <strong>DocFX</strong></span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
           </div>
         </div>
       </footer>
     </div>
-    
+
     <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
     <script type="text/javascript" src="../../styles/docfx.js"></script>
     <script type="text/javascript" src="../../styles/main.js"></script>

@@ -1,29 +1,29 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <!--[if IE]><![endif]-->
 <html>
-  
+
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>Implementing the File Parser </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Implementing the File Parser ">
-    <meta name="generator" content="docfx 2.59.3.0">
-    
+    <meta name="generator" content="docfx ">
+  
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../../styles/docfx.css">
     <link rel="stylesheet" href="../../styles/main.css">
     <meta property="docfx:navrel" content="../../toc.html">
     <meta property="docfx:tocrel" content="../toc.html">
-    
-    <meta property="docfx:rel" content="../../">
-    
+  
+  <meta property="docfx:rel" content="../../">
+  
   </head>
   <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
       <header>
-        
+
         <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
           <div class="container">
             <div class="navbar-header">
@@ -33,7 +33,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              
+
               <a class="navbar-brand" href="../../index.html">
                 <img id="logo" class="svg" src="../../logo.svg" alt="">
               </a>
@@ -48,7 +48,7 @@
             </div>
           </div>
         </nav>
-        
+
         <div class="subnav navbar-default">
           <div class="container hide-when-search">
             <div class="breadcrumb-container" id="breadcrumb">
@@ -60,17 +60,17 @@
         </div>
       </header>
       <div class="container body-content">
-        
+
         <div id="search-results">
           <div class="search-list">Search Results for <span></span></div>
           <div class="sr-items">
             <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
           </div>
-          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
         </div>
       </div>
       <div role="main" class="container body-content hide-when-search">
-        
+
         <div class="sidenav hide-when-search">
           <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
           <div class="sidetoggle collapse" id="sidetoggle">
@@ -87,13 +87,14 @@
 <p>Once a given file has been found to be valid, the file parser component is meant to process its content, so that it becomes available for interactive translation in the editor of Trados Studio, or for batch processing, e.g. automatic pre-translation, file analysis, word count, etc.</p>
 <p>Files usually contain translatable text as well as strings that need to be protected against editing, such as tags in HTML. The application logic of your parser needs to determine what should be exposed as translatable text and which elements need to be protected against editing. Depending on the complexity of the given format a thorough format analysis might be required.</p>
 <p>Remember what the simple text format that our file type plug-in needs to process looks like (see below):</p>
-<div class="tabGroup" id="tabgroup_pSDHEE0jpl">
+<div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_pSDHEE0jpl_tabid-1" role="tab" aria-controls="tabpanel_pSDHEE0jpl_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">Text</a>
+<a href="#tabpanel_1_tabid-1" role="tab" aria-controls="tabpanel_1_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">Text</a>
 </li>
 </ul>
-<section id="tabpanel_pSDHEE0jpl_tabid-1" role="tabpanel" data-tab="tabid-1">
+<section id="tabpanel_1_tabid-1" role="tabpanel" data-tab="tabid-1">
+
 <pre><code>[Version=0]
 [Element=text1]
 Automatically re-open previously edited documents. 
@@ -103,8 +104,10 @@ Prompt me to re-open previously edited documents. Opens a dialog box on start-up
 Do &lt;b&gt;not&lt;/b&gt; automatically re-open previously edited couments. This is the default option.
 [Element=text4]
 Prd-Code NCC1504
-</code></pre></section>
+</code></pre>
+</section>
 </div>
+
 <p>For more information and processing requirements of this format, please refer back to the chapter Introduction.
 Start by adding a class called e.g. <strong>SimpleTextParser.cs</strong> to your project. Since the parser needs to read text files for processing, add the <code>System.IO</code> namespace to the class. It is recommended that you also add the <code>System.Drawing</code> namespace. This makes it easier to select colour values, which will be useful for highlighting context information later. Also, add the namespace <code>Sdl.FileTypeSupport.Framework.NativeApi</code> for processing native formats. Your file parser class needs to be derived from <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileParser.html">AbstractNativeFileParser</a> and implement the interfaces <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.html">INativeContentCycleAware</a>. Also, if you have parser specific settings which you need to apply, you also need to implement the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.ISettingsAware.html#Sdl_FileTypeSupport_Framework_IntegrationApi_ISettingsAware_InitializeSettings_Sdl_Core_Settings_ISettingsBundle_System_String_">InitializeSettings</a> method of the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.ISettingsAware.html">ISettingsAware</a> interface. The class needs to contain the following members of the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.html">INativeContentCycleAware</a> interface:</p>
 <ol>
@@ -113,13 +116,14 @@ Start by adding a class called e.g. <strong>SimpleTextParser.cs</strong> to your
 <li><a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.html#Sdl_FileTypeSupport_Framework_NativeApi_INativeContentCycleAware_EndOfInput">EndOfInput</a>: This method is triggered when the parser has reached the end of the native input file. You could use this method, for example, to set a progress indicator to 100%.
 The minimum amount of code to build a project with a native file parser looks as shown below:</li>
 </ol>
-<div class="tabGroup" id="tabgroup_pSDHEE0jpl-1">
+<div class="tabGroup" id="tabgroup_2">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_pSDHEE0jpl-1_tabid-2" role="tab" aria-controls="tabpanel_pSDHEE0jpl-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_2_tabid-2" role="tab" aria-controls="tabpanel_2_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_pSDHEE0jpl-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<section id="tabpanel_2_tabid-2" role="tabpanel" data-tab="tabid-2">
+
 <pre><code class="lang-cs">using Sdl.FileTypeSupport.Framework.BilingualApi;
 using Sdl.FileTypeSupport.Framework.NativeApi;
 
@@ -143,17 +147,19 @@ namespace Sdk.Snippets.Native
         }
     }
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
 <h2 id="open-the-native-input-file">Open the Native Input File</h2>
 <p>Add a <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileParser.html#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileParser_BeforeParsing">BeforeParsing</a> method to open the native input file. You can retrieve the input file name and path through the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPersistentFileConversionProperties.html#Sdl_FileTypeSupport_Framework_NativeApi_IPersistentFileConversionProperties_OriginalFilePath">OriginalFilePath</a> property, which is implemented by the file conversion properties interface. Here you can also use the method <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileParser.html#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileParser_OnProgress_System_Byte_">OnProgress</a> and set the parsing progress value to 0%. Upon opening a file in Trados Studio a progress bar is raised to indicate the progress of the parsing operation. Through the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileParser.html#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileParser_OnProgress_System_Byte_">OnProgress</a> method you can control this progress bar by setting the byte parameter to an appropriate value. For example, after half of the lines in a given text files have been parsed, you can set the parameter to 50. Below you see how we use the  <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileParser.html#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileParser_BeforeParsing">BeforeParsing</a> method in our implementation:</p>
-<div class="tabGroup" id="tabgroup_pSDHEE0jpl-2">
+<div class="tabGroup" id="tabgroup_3">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_pSDHEE0jpl-2_tabid-3" role="tab" aria-controls="tabpanel_pSDHEE0jpl-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_3_tabid-3" role="tab" aria-controls="tabpanel_3_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_pSDHEE0jpl-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<section id="tabpanel_3_tabid-3" role="tabpanel" data-tab="tabid-3">
+
 <pre><code class="lang-cs">protected override void BeforeParsing()
 {
     // set progress reporter to the beginning
@@ -162,19 +168,24 @@ namespace Sdk.Snippets.Native
     // open the native input file for reading
     _reader = new StreamReader(_fileConversionProperties.OriginalFilePath);
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
-<div class="NOTE"><h5>Note</h5><p>You may wonder what the difference between <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileParser.html#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileParser_BeforeParsing">BeforeParsing</a> and <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.html#Sdl_FileTypeSupport_Framework_NativeApi_INativeContentCycleAware_StartOfInput">StartOfInput</a> is. Trados Studio allows you to merge several files into one master document. Such a master document can even contain several documents of different native formats (e.g. DOC and PPT). The <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileParser.html#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileParser_BeforeParsing">BeforeParsing</a> method can be used to execute the application logic required before the start of the whole parsing process such as writing meta information into the header of the master file. <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.html#Sdl_FileTypeSupport_Framework_NativeApi_INativeContentCycleAware_StartOfInput">StartOfInput</a> can contain the logic applied to a particular native file that is merged with other native files. However, in our simple implementation, this use case is not covered. Here, we only use the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileParser.html#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileParser_BeforeParsing">BeforeParsing</a> method to set the progress to 0% and to create a text streamreader object.</p>
+
+<div class="NOTE">
+<h5>Note</h5>
+<p>You may wonder what the difference between <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileParser.html#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileParser_BeforeParsing">BeforeParsing</a> and <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.html#Sdl_FileTypeSupport_Framework_NativeApi_INativeContentCycleAware_StartOfInput">StartOfInput</a> is. Trados Studio allows you to merge several files into one master document. Such a master document can even contain several documents of different native formats (e.g. DOC and PPT). The <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileParser.html#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileParser_BeforeParsing">BeforeParsing</a> method can be used to execute the application logic required before the start of the whole parsing process such as writing meta information into the header of the master file. <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.html#Sdl_FileTypeSupport_Framework_NativeApi_INativeContentCycleAware_StartOfInput">StartOfInput</a> can contain the logic applied to a particular native file that is merged with other native files. However, in our simple implementation, this use case is not covered. Here, we only use the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileParser.html#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileParser_BeforeParsing">BeforeParsing</a> method to set the progress to 0% and to create a text streamreader object.</p>
 </div>
 <h2 id="parse-the-input-file">Parse the Input File</h2>
 <p>The <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileParser.html">AbstractNativeFileParser</a> class implements the member <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileParser.html#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileParser_DuringParsing">DuringParsing</a>, which you need to override in your file parser class. This method reads the input file from the beginning to the end.</p>
-<div class="tabGroup" id="tabgroup_pSDHEE0jpl-3">
+<div class="tabGroup" id="tabgroup_4">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_pSDHEE0jpl-3_tabid-4" role="tab" aria-controls="tabpanel_pSDHEE0jpl-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_4_tabid-4" role="tab" aria-controls="tabpanel_4_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_pSDHEE0jpl-3_tabid-4" role="tabpanel" data-tab="tabid-4">
+<section id="tabpanel_4_tabid-4" role="tabpanel" data-tab="tabid-4">
+
 <pre><code class="lang-cs">protected override bool DuringParsing()
 {
     // iterate through all lines in the input file
@@ -184,16 +195,19 @@ namespace Sdk.Snippets.Native
     }
     return false;
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
+
 <p>For each line of text you call a separate <code>ProcessLine()</code> helper function to determine whether a given line contains translatable text or not.</p>
-<div class="tabGroup" id="tabgroup_pSDHEE0jpl-4">
+<div class="tabGroup" id="tabgroup_5">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_pSDHEE0jpl-4_tabid-5" role="tab" aria-controls="tabpanel_pSDHEE0jpl-4_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_5_tabid-5" role="tab" aria-controls="tabpanel_5_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_pSDHEE0jpl-4_tabid-5" role="tabpanel" data-tab="tabid-5">
+<section id="tabpanel_5_tabid-5" role="tabpanel" data-tab="tabid-5">
+
 <pre><code class="lang-cs">private void ProcessLine(string sLine)
 {
     if (sLine.StartsWith(&quot;[&quot;) &amp;&amp; sLine.EndsWith(&quot;]&quot;))
@@ -206,38 +220,44 @@ namespace Sdk.Snippets.Native
         WriteText(sLine);
     }
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
+
 <p>The <code>ProcessLine()</code> helper function works as follows: If a line starts with an opening bracket and ends with a closing bracket, we call separate helper functions called <code>WriteStructureTag()</code> and <code>WriteContext</code>, which we still need to implement.
 The <code>WriteStructureTag()</code> helper is used to write any non-translatable information into a structure tag. The non-translatable text (i.e. the strings enclosed in [<em>brackets</em>]) will thus be physically present in the bilingual SDLXliff file, but they will not be exposed to the user. You need to include the non-translatable information in the SDLXliff file, so that the corresponding strings can be written back to the native target file later (generation).</p>
 <p>Since users cannot see the structure tag content in the editor of Trados Studio, it is recommended (though not required) that you add some context information, which is then shown in the document structure column on the right-hand side of the editor. You can have your file type plug-in display a short descriptive code. By moving the mouse over the corresponding code or by double-clicking the user can display more detailed information, which can sometimes be useful for the translation process. This is what is actually done through a separate <code>WriteContext()</code> helper function, which we will implement later.</p>
 <p><strong>Output Translatable Text</strong></p>
 <p>If a given line does not start and end with a bracket, then the string can be considered translatable text, and can therefore be exposed to the user for translation. This is done through the helper function <code>WriteText()</code>.</p>
 <p>The <code>WriteText()</code> helper uses <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPropertiesFactory.html#Sdl_FileTypeSupport_Framework_NativeApi_IPropertiesFactory_CreateTextProperties_System_String_">CreateTextProperties</a> method ofy properties factory to create a text properties object (<a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ITextProperties.html">ITextProperties</a>) that contains the localizable text. The actual text of this property can then be output by using the <code>Output.Text()</code> method.</p>
-<div class="tabGroup" id="tabgroup_pSDHEE0jpl-5">
+<div class="tabGroup" id="tabgroup_6">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_pSDHEE0jpl-5_tabid-6" role="tab" aria-controls="tabpanel_pSDHEE0jpl-5_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_6_tabid-6" role="tab" aria-controls="tabpanel_6_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_pSDHEE0jpl-5_tabid-6" role="tabpanel" data-tab="tabid-6">
+<section id="tabpanel_6_tabid-6" role="tabpanel" data-tab="tabid-6">
+
 <pre><code class="lang-cs">// output translatable text
 private void WriteText(string TextContent)
 {
     ITextProperties textProperties = PropertiesFactory.CreateTextProperties(TextContent);
     Output.Text(textProperties);
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
+
 <p><strong>Output Structure Tags</strong></p>
 <p>In the same way the <code>WriteStructureTag()</code> helper function uses the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPropertiesFactory.html#Sdl_FileTypeSupport_Framework_NativeApi_IPropertiesFactory_CreateStructureTagProperties_System_String_">CreateStructureTagProperties</a> method of the properties factory to output the non-translatable lines as structure tags to the intermediate (SDLXliff) file. When creating the tag property the tag content is passed to the <code>Create()</code> method as a parameter. The tag property can then be output to the API using the method <code>Output.StructureTag()</code>.</p>
-<div class="tabGroup" id="tabgroup_pSDHEE0jpl-6">
+<div class="tabGroup" id="tabgroup_7">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_pSDHEE0jpl-6_tabid-7" role="tab" aria-controls="tabpanel_pSDHEE0jpl-6_tabid-7" data-tab="tabid-7" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_7_tabid-7" role="tab" aria-controls="tabpanel_7_tabid-7" data-tab="tabid-7" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_pSDHEE0jpl-6_tabid-7" role="tabpanel" data-tab="tabid-7">
+<section id="tabpanel_7_tabid-7" role="tabpanel" data-tab="tabid-7">
+
 <pre><code class="lang-cs">// output non-translatable text as structure tag
 private void WriteStructureTag(string TagContent)
 {
@@ -245,17 +265,20 @@ private void WriteStructureTag(string TagContent)
     structureTagProperties.DisplayText = TagContent;
     Output.StructureTag(structureTagProperties);
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
+
 <p><strong>Output Context Information</strong></p>
 <p>Context information can help translators do job more effectively. Therefore it is useful (but not required) to have your file type plug-in output some context information. To this end, we will add the <code>WriteContext()</code> helper function to the file parser class, which looks as shown below:</p>
-<div class="tabGroup" id="tabgroup_pSDHEE0jpl-7">
+<div class="tabGroup" id="tabgroup_8">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_pSDHEE0jpl-7_tabid-8" role="tab" aria-controls="tabpanel_pSDHEE0jpl-7_tabid-8" data-tab="tabid-8" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_8_tabid-8" role="tab" aria-controls="tabpanel_8_tabid-8" data-tab="tabid-8" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_pSDHEE0jpl-7_tabid-8" role="tabpanel" data-tab="tabid-8">
+<section id="tabpanel_8_tabid-8" role="tabpanel" data-tab="tabid-8">
+
 <pre><code class="lang-cs">// output context information, not required, but useful
 // information for the translator
 private void WriteContext(string ContextContent)
@@ -269,8 +292,10 @@ private void WriteContext(string ContextContent)
     contextProperties.Contexts.Add(contextInfo);
     Output.ChangeContext(contextProperties);
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
+
 <p>We use the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPropertiesFactory.html#Sdl_FileTypeSupport_Framework_NativeApi_IPropertiesFactory_CreateContextInfo_System_String_">CreateContextInfo</a> method of the properties factory to generate a context information object, and then output the context properties. As you can see, the context information object can be configured through a range of parameters. These parameters define what is displayed in the document structure column of the editor.
 In the editor, users first see the short form (i.e. the display code). In this case, the display code <strong>EL</strong> is shown. When the mouse pointer is moved over the display code, the display name, here <strong>Element</strong> is shown in a tooltip. By double-clicking the display code, users can open a separate dialog box, which shows the entire string, i.e. the description, e.g. <strong>[Element=text3]</strong>. Note that you can specify a background colour for each context element. By assigning different colour to contexts you make it easer for the user to differentiate between different contexts (e.g. headings, paragraphs, footnotes, etc.).</p>
 <p>Once you have implemented these functions and built the solution, you can open a sample file in Trados Studio. In the translation editor the file will then look as shown below:</p>
@@ -281,13 +306,14 @@ In the editor, users first see the short form (i.e. the display code). In this c
 <p><img src="images/ElementCode.jpg" alt="ElementCode"></p>
 <h2 id="close-and-release-the-input-file">Close and Release the Input File</h2>
 <p>After having parsed the complete file, you should override the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileParser.html#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileParser_AfterParsing">AfterParsing</a> method of the abstract native file parser. In this function you can close and release the original file from memory. You can also call the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileParser.html#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileParser_OnProgress_System_Byte_">OnProgress</a> method and set the progress value to 100%.</p>
-<div class="tabGroup" id="tabgroup_pSDHEE0jpl-8">
+<div class="tabGroup" id="tabgroup_9">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_pSDHEE0jpl-8_tabid-9" role="tab" aria-controls="tabpanel_pSDHEE0jpl-8_tabid-9" data-tab="tabid-9" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_9_tabid-9" role="tab" aria-controls="tabpanel_9_tabid-9" data-tab="tabid-9" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_pSDHEE0jpl-8_tabid-9" role="tabpanel" data-tab="tabid-9">
+<section id="tabpanel_9_tabid-9" role="tabpanel" data-tab="tabid-9">
+
 <pre><code class="lang-cs">protected override void AfterParsing()
 {
     //close original file
@@ -297,17 +323,19 @@ In the editor, users first see the short form (i.e. the display code). In this c
     //set progres report to 100%
     OnProgress(100);
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
 <h2 id="add-the-component-reference-to-the-file-type-component-builder">Add the Component Reference to the File Type Component Builder</h2>
 <p>Do not forget to reference the file parser component to the File Type Component Builder by inserting the following method:</p>
-<div class="tabGroup" id="tabgroup_pSDHEE0jpl-9">
+<div class="tabGroup" id="tabgroup_10">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_pSDHEE0jpl-9_tabid-10" role="tab" aria-controls="tabpanel_pSDHEE0jpl-9_tabid-10" data-tab="tabid-10" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_10_tabid-10" role="tab" aria-controls="tabpanel_10_tabid-10" data-tab="tabid-10" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_pSDHEE0jpl-9_tabid-10" role="tabpanel" data-tab="tabid-10">
+<section id="tabpanel_10_tabid-10" role="tabpanel" data-tab="tabid-10">
+
 <pre><code class="lang-cs">/// &lt;summary&gt;
 /// Gets the file extractor for this component.
 /// &lt;/summary&gt;
@@ -321,7 +349,8 @@ public virtual IFileExtractor BuildFileExtractor(string name)
     extractor.AddFileTweaker(new SimpleFilePreTweaker {RequireValidEncoding = false});
     return extractor;
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
 <h2 id="see-also">See Also</h2>
 <p><a href="processing_inline_formatting.html">Processing Inline Formatting</a></p>
@@ -330,11 +359,13 @@ public virtual IFileExtractor BuildFileExtractor(string name)
 <p><a href="handling_tags_during_segmentation.html">Handling Tags During Segmentation</a></p>
 <p><a href="locking_specific_strings.html">Locking Specific Strings</a></p>
 <p><a href="using_context_information.html">Using context information</a></p>
-<div class="NOTE"><h5>Note</h5><p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
 </div>
 </article>
           </div>
-          
+
           <div class="hidden-sm col-md-2" role="complementary">
             <div class="sideaffix">
               <div class="contribution">
@@ -352,7 +383,7 @@ public virtual IFileExtractor BuildFileExtractor(string name)
           </div>
         </div>
       </div>
-      
+
       <footer>
         <div class="grad-bottom"></div>
         <div class="footer">
@@ -360,13 +391,13 @@ public virtual IFileExtractor BuildFileExtractor(string name)
             <span class="pull-right">
               <a href="#top">Back to top</a>
             </span>
-            
-            <span>Generated by <strong>DocFX</strong></span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
           </div>
         </div>
       </footer>
     </div>
-    
+
     <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
     <script type="text/javascript" src="../../styles/docfx.js"></script>
     <script type="text/javascript" src="../../styles/main.js"></script>

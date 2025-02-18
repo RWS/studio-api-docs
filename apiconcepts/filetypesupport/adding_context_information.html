@@ -1,29 +1,29 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <!--[if IE]><![endif]-->
 <html>
-  
+
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>Adding Context Information </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Adding Context Information ">
-    <meta name="generator" content="docfx 2.59.3.0">
-    
+    <meta name="generator" content="docfx ">
+  
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../../styles/docfx.css">
     <link rel="stylesheet" href="../../styles/main.css">
     <meta property="docfx:navrel" content="../../toc.html">
     <meta property="docfx:tocrel" content="../toc.html">
-    
-    <meta property="docfx:rel" content="../../">
-    
+  
+  <meta property="docfx:rel" content="../../">
+  
   </head>
   <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
       <header>
-        
+
         <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
           <div class="container">
             <div class="navbar-header">
@@ -33,7 +33,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              
+
               <a class="navbar-brand" href="../../index.html">
                 <img id="logo" class="svg" src="../../logo.svg" alt="">
               </a>
@@ -48,7 +48,7 @@
             </div>
           </div>
         </nav>
-        
+
         <div class="subnav navbar-default">
           <div class="container hide-when-search">
             <div class="breadcrumb-container" id="breadcrumb">
@@ -60,17 +60,17 @@
         </div>
       </header>
       <div class="container body-content">
-        
+
         <div id="search-results">
           <div class="search-list">Search Results for <span></span></div>
           <div class="sr-items">
             <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
           </div>
-          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
         </div>
       </div>
       <div role="main" class="container body-content hide-when-search">
-        
+
         <div class="sidenav hide-when-search">
           <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
           <div class="sidetoggle collapse" id="sidetoggle">
@@ -86,7 +86,8 @@
 <h2 id="about-contexts">About Contexts</h2>
 <p>For the translators it is often useful to know whether a given segment occurs in a headline, paragraph, etc. Units in the BIL sample format may contain a <code>type</code> element, which indicates the context of a <code>unit</code> element, e.g.:</p>
 <pre><code class="lang-xml">&lt;type spec=&quot;Heading&quot;/&gt;
-</code></pre><p>Trados Studio can display such information in a column next to the target segments. In this chapter we want to enhance our parser to show the information from the type element in the editor of Trados Studio.</p>
+</code></pre>
+<p>Trados Studio can display such information in a column next to the target segments. In this chapter we want to enhance our parser to show the information from the type element in the editor of Trados Studio.</p>
 <p>Below you see an example of how the context information can be displayed in the translation environment. Each context cell contains a display code, which is the abbreviated form of the full context, e.g. <strong>T</strong> for <strong>Topic</strong>. You may also assign different colors for each context type as a visual aid for the translator.</p>
 <p><img src="images/BilContext.jpg" alt="BilContext"></p>
 <p>The API allows you to either create custom context information using, for example, the information from the BIL file, or you can draw from a collection of standard context types. The API offers various standard types to cover a large variety of possible elements that may occur in a document such as title, paragraph, text box, etc.</p>
@@ -114,13 +115,14 @@
 <p>Note that adding metadata is not limited to contexts. You can apply metadata to various types of instances such as inline tags, structure tags, placeables, etc.</p>
 <h2 id="extend-the-helper-function-for-creating-paragraph-units">Extend the Helper Function for Creating Paragraph Units</h2>
 <p>First, add the following to the <code>CreateParagraphUnit()</code> helper function:</p>
-<div class="tabGroup" id="tabgroup_T-+hIL6m-h">
+<div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_T-+hIL6m-h_tabid-1" role="tab" aria-controls="tabpanel_T-+hIL6m-h_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_1_tabid-1" role="tab" aria-controls="tabpanel_1_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_T-+hIL6m-h_tabid-1" role="tabpanel" data-tab="tabid-1">
+<section id="tabpanel_1_tabid-1" role="tabpanel" data-tab="tabid-1">
+
 <pre><code class="lang-cs">// create paragraph unit context
 string id = xmlUnit.SelectSingleNode(&quot;./@id&quot;).InnerText;
 if(xmlUnit.SelectSingleNode(&quot;type/@spec&quot;)!=null)
@@ -131,18 +133,21 @@ if(xmlUnit.SelectSingleNode(&quot;type/@spec&quot;)!=null)
 } else {
     paragraphUnit.Properties.Contexts = CreateContext(&quot;Paragraph&quot;, id);
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
+
 <p>The above condition determines whether a <code>type</code> element is available in the first place. If this is the case, the value from the spec attribute is passed to another helper function (which we will add later), which returns the appropriate context properties object. If not, the additional helper function needs to generate a standard paragraph context properties object.
 Second, we determine the value of the id attribute of the current <code>unit</code> element, and pass it to the separate helper function.</p>
 <p>The full <code>CreateParagraphUnit()</code> helper function should look as shown below:</p>
-<div class="tabGroup" id="tabgroup_T-+hIL6m-h-1">
+<div class="tabGroup" id="tabgroup_2">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_T-+hIL6m-h-1_tabid-2" role="tab" aria-controls="tabpanel_T-+hIL6m-h-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_2_tabid-2" role="tab" aria-controls="tabpanel_2_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_T-+hIL6m-h-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<section id="tabpanel_2_tabid-2" role="tabpanel" data-tab="tabid-2">
+
 <pre><code class="lang-cs">// helper function for creating paragraph units
 private IParagraphUnit CreateParagraphUnit(XmlNode xmlUnit)
 {
@@ -189,20 +194,22 @@ private IParagraphUnit CreateParagraphUnit(XmlNode xmlUnit)
 
     return paragraphUnit;
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
 <h2 id="add-the-helper-function-to-create-the-context-properties">Add the Helper Function to Create the Context Properties</h2>
 <p>Before you implement the new context helper function, add the <code>System.Drawing</code> library as a reference to your project. This facilitates the task of assigning different background colors to the various context types, which makes distinguishing the contexts easer for the end user.</p>
 <p>Also, you need to add the following namespace to your class, which provides access to the standard context types that the API offers: <code>Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi</code></p>
 <p>This function uses the properties factory to create a context properties object as well as a context information object. By default, we assign the context type <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.StandardContextTypes.html#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_StandardContextTypes_Paragraph">Paragraph</a> value from the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.StandardContextTypes.html">StandardContextTypes</a> collection. Also, we set the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ContextPurpose.html">ContextPurpose</a> to <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ContextPurpose.html#fields">Information</a>. This means that the context information is purely for information, and not for TM matching purposes. The function than uses a switch statement to map the value from the spec attribute of the <code>type</code> element to the corresponding standard context type and assigns a background colour.</p>
 <p>The second context info (<code>contextID</code>) that is added to the context properties object contains the unit id. Remember that this information is not supposed to be visible to the end user. That is why we add it through the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IMetaDataContainer.html#Sdl_FileTypeSupport_Framework_NativeApi_IMetaDataContainer_MetaData">MetaData</a> property. In this case, the <code>Add()</code> method requires two string parameters: the key (i.e. the field name) and the actual value.</p>
-<div class="tabGroup" id="tabgroup_T-+hIL6m-h-2">
+<div class="tabGroup" id="tabgroup_3">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_T-+hIL6m-h-2_tabid-3" role="tab" aria-controls="tabpanel_T-+hIL6m-h-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_3_tabid-3" role="tab" aria-controls="tabpanel_3_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_T-+hIL6m-h-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<section id="tabpanel_3_tabid-3" role="tabpanel" data-tab="tabid-3">
+
 <pre><code class="lang-cs">private IContextProperties CreateContext(string spec, string unitID)
 {
     // context info for type information, e.g. heading, paragraph, etc.
@@ -237,13 +244,17 @@ private IParagraphUnit CreateParagraphUnit(XmlNode xmlUnit)
 
     return contextProperties;
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
-<div class="NOTE"><h5>Note</h5><p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+
+<div class="NOTE">
+<h5>Note</h5>
+<p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
 </div>
 </article>
           </div>
-          
+
           <div class="hidden-sm col-md-2" role="complementary">
             <div class="sideaffix">
               <div class="contribution">
@@ -261,7 +272,7 @@ private IParagraphUnit CreateParagraphUnit(XmlNode xmlUnit)
           </div>
         </div>
       </div>
-      
+
       <footer>
         <div class="grad-bottom"></div>
         <div class="footer">
@@ -269,13 +280,13 @@ private IParagraphUnit CreateParagraphUnit(XmlNode xmlUnit)
             <span class="pull-right">
               <a href="#top">Back to top</a>
             </span>
-            
-            <span>Generated by <strong>DocFX</strong></span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
           </div>
         </div>
       </footer>
     </div>
-    
+
     <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
     <script type="text/javascript" src="../../styles/docfx.js"></script>
     <script type="text/javascript" src="../../styles/main.js"></script>

@@ -1,29 +1,29 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <!--[if IE]><![endif]-->
 <html>
-  
+
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>Creating the Master Translation Memories </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Creating the Master Translation Memories ">
-    <meta name="generator" content="docfx 2.59.3.0">
-    
+    <meta name="generator" content="docfx ">
+  
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../../styles/docfx.css">
     <link rel="stylesheet" href="../../styles/main.css">
     <meta property="docfx:navrel" content="../../toc.html">
     <meta property="docfx:tocrel" content="../toc.html">
-    
-    <meta property="docfx:rel" content="../../">
-    
+  
+  <meta property="docfx:rel" content="../../">
+  
   </head>
   <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
       <header>
-        
+
         <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
           <div class="container">
             <div class="navbar-header">
@@ -33,7 +33,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              
+
               <a class="navbar-brand" href="../../index.html">
                 <img id="logo" class="svg" src="../../logo.svg" alt="">
               </a>
@@ -48,7 +48,7 @@
             </div>
           </div>
         </nav>
-        
+
         <div class="subnav navbar-default">
           <div class="container hide-when-search">
             <div class="breadcrumb-container" id="breadcrumb">
@@ -60,17 +60,17 @@
         </div>
       </header>
       <div class="container body-content">
-        
+
         <div id="search-results">
           <div class="search-list">Search Results for <span></span></div>
           <div class="sr-items">
             <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
           </div>
-          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
         </div>
       </div>
       <div role="main" class="container body-content hide-when-search">
-        
+
         <div class="sidenav hide-when-search">
           <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
           <div class="sidetoggle collapse" id="sidetoggle">
@@ -86,14 +86,15 @@
 <h2 id="add-a-new-class">Add a New Class</h2>
 <p>Start by adding a new class called <code>TmCreator</code> to your project. Add a public function called <code>CreateMasterTm</code>, which takes the path in which the master TMs should be created and the source/target language locales as string parameters.</p>
 <h2 id="create-the-master-tm">Create the Master TM</h2>
-<p>In the next step, implement the logic required for creating the master TM file. Note that for simplicity&#39;s sake, the file name is a combination of a hard-coded string <em>(MasterTM_)</em>, the language direction string, and the extension *.sdltm.</p>
-<div class="tabGroup" id="tabgroup_dUeq3gVtwC">
+<p>In the next step, implement the logic required for creating the master TM file. Note that for simplicity's sake, the file name is a combination of a hard-coded string <em>(MasterTM_)</em>, the language direction string, and the extension *.sdltm.</p>
+<div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_dUeq3gVtwC_tabid-1" role="tab" aria-controls="tabpanel_dUeq3gVtwC_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_1_tabid-1" role="tab" aria-controls="tabpanel_1_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_dUeq3gVtwC_tabid-1" role="tabpanel" data-tab="tabid-1">
+<section id="tabpanel_1_tabid-1" role="tabpanel" data-tab="tabid-1">
+
 <pre><code class="lang-cs">/// &lt;summary&gt;
 /// Create the master TM based on the source and target locales found in the current TMX file.
 /// &lt;/summary&gt;
@@ -131,16 +132,19 @@ public void CreateMasterTm(string sourceLanguage, string targetLanguage, string 
 
     #endregion
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
+
 <p>The fuzzy indexes are determined through a separate helper function:</p>
-<div class="tabGroup" id="tabgroup_dUeq3gVtwC-1">
+<div class="tabGroup" id="tabgroup_2">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_dUeq3gVtwC-1_tabid-2" role="tab" aria-controls="tabpanel_dUeq3gVtwC-1_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_2_tabid-2" role="tab" aria-controls="tabpanel_2_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_dUeq3gVtwC-1_tabid-2" role="tabpanel" data-tab="tabid-2">
+<section id="tabpanel_2_tabid-2" role="tabpanel" data-tab="tabid-2">
+
 <pre><code class="lang-cs">/// &lt;summary&gt;
 /// Configure the fuzzy indexes, to determine, for example,
 /// that the master TM should support concordance searching 
@@ -154,16 +158,19 @@ private FuzzyIndexes GetFuzzyIndexes()
 {
     return FuzzyIndexes.SourceWordBased | FuzzyIndexes.TargetWordBased;
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
+
 <p>Also, the recognition settings are set in a distinct helper function:</p>
-<div class="tabGroup" id="tabgroup_dUeq3gVtwC-2">
+<div class="tabGroup" id="tabgroup_3">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_dUeq3gVtwC-2_tabid-3" role="tab" aria-controls="tabpanel_dUeq3gVtwC-2_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_3_tabid-3" role="tab" aria-controls="tabpanel_3_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_dUeq3gVtwC-2_tabid-3" role="tabpanel" data-tab="tabid-3">
+<section id="tabpanel_3_tabid-3" role="tabpanel" data-tab="tabid-3">
+
 <pre><code class="lang-cs">/// &lt;summary&gt;
 /// Configure the recognition settings for the TM.
 /// Here, we simply activate all recognition settings 
@@ -175,18 +182,21 @@ private BuiltinRecognizers GetRecognizers()
 {
     return BuiltinRecognizers.RecognizeAll;
 }
-</code></pre></section>
+</code></pre>
+</section>
 </div>
+
 <p>For more information, on these settings and on TM creation see also <a href="creating_a_file_based_translation_memory.html">Creating a File-based Translation Memory</a>.</p>
 <h2 id="putting-it-all-together">Putting it All Together</h2>
 <p>The complete class should look as shown below:</p>
-<div class="tabGroup" id="tabgroup_dUeq3gVtwC-3">
+<div class="tabGroup" id="tabgroup_4">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_dUeq3gVtwC-3_tabid-4" role="tab" aria-controls="tabpanel_dUeq3gVtwC-3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+<a href="#tabpanel_4_tabid-4" role="tab" aria-controls="tabpanel_4_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
 </li>
 </ul>
-<section id="tabpanel_dUeq3gVtwC-3_tabid-4" role="tabpanel" data-tab="tabid-4">
+<section id="tabpanel_4_tabid-4" role="tabpanel" data-tab="tabid-4">
+
 <pre><code class="lang-cs">using System.Globalization;
 using Sdl.LanguagePlatform.Core.Tokenization;
 using Sdl.LanguagePlatform.TranslationMemory;
@@ -275,14 +285,16 @@ namespace SDK.LanguagePlatform.Samples.BatchImporter
         #endregion
     }
 }
-</code></pre></section>
+
+</code></pre>
+</section>
 </div>
 <h2 id="see-also">See Also</h2>
 <p><a href="creating_a_log_file.html">Creating the Log File</a></p>
 <p><a href="creating_a_file_based_translation_memory.html">Creating a File-based Translation Memory</a></p>
 </article>
           </div>
-          
+
           <div class="hidden-sm col-md-2" role="complementary">
             <div class="sideaffix">
               <div class="contribution">
@@ -300,7 +312,7 @@ namespace SDK.LanguagePlatform.Samples.BatchImporter
           </div>
         </div>
       </div>
-      
+
       <footer>
         <div class="grad-bottom"></div>
         <div class="footer">
@@ -308,13 +320,13 @@ namespace SDK.LanguagePlatform.Samples.BatchImporter
             <span class="pull-right">
               <a href="#top">Back to top</a>
             </span>
-            
-            <span>Generated by <strong>DocFX</strong></span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
           </div>
         </div>
       </footer>
     </div>
-    
+
     <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
     <script type="text/javascript" src="../../styles/docfx.js"></script>
     <script type="text/javascript" src="../../styles/main.js"></script>
