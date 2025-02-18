@@ -4,13 +4,13 @@ Translation memories (TMs) are databases that store bilingual content as source 
 
 Apart from the linguistic content, TMs also store formatting information (e.g. bold, italics, underline) as well as the information on whether a given segment occurred in a headline, paragraph, footnote, table cell, etc.
 
-Users of <Var:ProductName> can create TMs from the application using a wizard.
+Users of Var:ProductName can create TMs from the application using a wizard.
 
 <img style="display:block; " src="images/CreateTm.jpg"/>
 
 When creating a TM users need to provide a name, which is also the file name. File-based TMs have the extension *.sdltm, and are based on SQLite. In addition, users can provide an optional description and a copyright statement. A TM needs to have source and a target language, i.e. the language that this TM is used to translate from, and the language that the TM is used to translate into.
 
-Below you see an example of what the content of a TM looks like in a side-by-side view in <Var:ProductName>.
+Below you see an example of what the content of a TM looks like in a side-by-side view in Var:ProductName.
 
 <img style="display:block; " src="images/TmView.jpg"/>
 

@@ -1,6 +1,6 @@
 Updating Translation Memories
 ====
-A TM is updated  - if the option to do so is enabled - while the user is translating or editing a document in <Var:ProductName>.
+A TM is updated  - if the option to do so is enabled - while the user is translating or editing a document in Var:ProductName.
 
 While a translator is translating the following update scenarios will apply:
 

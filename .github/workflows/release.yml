@@ -43,11 +43,10 @@ jobs:
       # Runs a single command using the runners shell
       - name: install docfx
         run: |
-          choco install docfx --version=2.59.3
-          docfx init -q
+          dotnet tool install -g docfx
 
       - name: build _site
-        run: docfx.exe
+        run: docfx.exe build docfx.json
 
       # Runs a set of commands using the runners shell
       #- name: commit to gh-pages

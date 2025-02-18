@@ -1,7 +1,7 @@
 Translation Memory Settings
 ==
 
-Through the API you can also fine-tune the translation memory settings for the entire project or for each language pair. Example: The default minimum match value for TM searches is 70%. This means that by default <Var:ProductName> only offers fuzzy matches if they have a score of 70% or above. Depending on the project (or target language) requirements, however, you may use a lower or a higher minimum fuzzy value.
+Through the API you can also fine-tune the translation memory settings for the entire project or for each language pair. Example: The default minimum match value for TM searches is 70%. This means that by default Var:ProductName only offers fuzzy matches if they have a score of 70% or above. Depending on the project (or target language) requirements, however, you may use a lower or a higher minimum fuzzy value.
 
 Implement a function called ```ConfigureTmSettings```, which takes a [FileBasedProject](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml) object as parameter. Within this function apply the ```GetSettings``` method to the project to create a settings bundle object (```ISettingsBundle```) for the project. In the next step create an object derived from [TranslationMemorySettings](../../api/projectautomation/Sdl.ProjectAutomation.Settings.TranslationMemorySettings.yml) through which you can configure the various TM settings as shown in the code example below:
 

@@ -1,7 +1,7 @@
 Creating viewparts
 ====
 
-<Var:ProductName> Integration API provides support for third-party developers to integrate UI viewparts inside the <Var:ProductName> desktop applications.
+Var:ProductName Integration API provides support for third-party developers to integrate UI viewparts inside the Var:ProductName desktop applications.
 
 Creating viewparts for a custom view
 ----
@@ -20,9 +20,9 @@ In order to create view parts, a third-party developer will require the followin
   
 [ntegrating viewpart sample](integrating_viewparts.md)
 
-Creating viewparts for <Var:ProductName> views
+Creating viewparts for Var:ProductName views
 -----
-In order to create viewparts and integrate them into the <Var:ProductName> views, the third-party developer will require the following steps:
+In order to create viewparts and integrate them into the Var:ProductName views, the third-party developer will require the following steps:
 
 * Create a windows form user control to define the content of the viewpart
 * Create a viewpart controller class which must implement the `AbstractViewPartController`

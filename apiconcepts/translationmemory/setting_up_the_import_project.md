@@ -1,6 +1,6 @@
 Setting up the Project
 =====
-In this chapter you will learn how to develop a simple command-line application for creating TMs and importing multiple *.tmx files in <var:VisualStudioEdition> using C#.
+In this chapter you will learn how to develop a simple command-line application for creating TMs and importing multiple *.tmx files in Var:VisualStudioEdition using C#.
 
 Start by creating a new Console Application called Sdl.**SDK.LanguagePlatform.Samples.BatchImport**.
 

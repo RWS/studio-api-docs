@@ -24,7 +24,7 @@ Embedded content (or sub-content) is processed by the framework in a sequential 
 
 ![EmbeddedContentFlow](images/EmbeddedContentFlow.jpg)
 
-This is saved in the SDLXLIFF file as individual file sections as shown above. In <Var:ProductName>, this is presented as:
+This is saved in the SDLXLIFF file as individual file sections as shown above. In Var:ProductName, this is presented as:
 
 ![SEEC](images/SEEC.jpg)
 

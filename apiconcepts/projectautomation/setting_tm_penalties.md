@@ -3,7 +3,7 @@ Setting TM Penalties
 
 It can happen that a match that was found in a translation memory is linguistically speaking an exact match for the current segment. However, it should not be shown as a 100% match to the user, for example, because of formatting differences. In this case a penalty should be applied to alert the user to the fact that event though an exact match has been retrieved, the suggested translation still requires editing. If the penalty value is e.g. 1%, one percentage point will be deducted from the original score for each formatting difference. Example: If the TM contains a 100% match with two formatting differences, the 100% match will be reduced to a 98% match. Translators are thereby made aware that they should not accept the translation suggestion as is without adapting the formatting in the target segment.
 
-The screenshot below illustrates the various penalties that can be configured through the user interface of <Var:ProductName>:
+The screenshot below illustrates the various penalties that can be configured through the user interface of Var:ProductName:
 
 ![Penalties](images/Penalties.jpg)
 

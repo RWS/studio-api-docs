@@ -1,6 +1,6 @@
-Using <Var:ProductName> EditorController
+Using Var:ProductName EditorController
 =====
-TranslationStudioAutomation provides support for third-party developers to access the <Var:ProductName> editor view and perform editor operations.
+TranslationStudioAutomation provides support for third-party developers to access the Var:ProductName editor view and perform editor operations.
 
 Creating a custom document list inside a viewpart that belongs to the editor view
 ----

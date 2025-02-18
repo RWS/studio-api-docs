@@ -1,6 +1,6 @@
-# Plugin use cases for <Var:ProductName>
+# Plugin use cases for Var:ProductName
 
-## Create new <Var:ProductName> features
+## Create new Var:ProductName features
 
 ### [MSWord Grammar Checker](https://appstore.rws.com/Plugin/84)
 
@@ -12,7 +12,7 @@ This app adds grammar checking capability to SDL Trados Studio by integrating th
 
 <img style="display:block; " src="images/Glossaryplugin.png" />
 
-As an extra feature in the ribbon, this plug-in allows users to add terminology to projects in <Var:ProductName> with just a few clicks.
+As an extra feature in the ribbon, this plug-in allows users to add terminology to projects in Var:ProductName with just a few clicks.
 
 ### [Jobs](https://appstore.rws.com/Plugin/32)
 
@@ -34,7 +34,7 @@ The EU created DocFinder, allowing users to highlight text within the editor and
 ### [Web Lookup!](https://appstore.rws.com/Plugin/4)
 
 <img style="display:block; " src="images/weblookup.png" />
-This app allows users to highlight a word or phrase to perform a web search on directly within <Var:ProductName>'s translation editor environment.
+This app allows users to highlight a word or phrase to perform a web search on directly within Var:ProductName's translation editor environment.
 
 <!-- TODO: Enable this content when it is added on AppStore
 ### [EU Cross-lingual concordance]()
@@ -50,7 +50,7 @@ Developed by the EU, their cross-lingual concordance search allows users to leve
 
 <img style="display:block; " src="images/PostEditCompare.jpg" />
 
-Creating a brand new view in <Var:ProductName>, the Post-Edit Compare app provides a full analysis of Post-Editing work in an extensive report format.
+Creating a brand new view in Var:ProductName, the Post-Edit Compare app provides a full analysis of Post-Editing work in an extensive report format.
 
 <!-- TODO: Enable this content when it is added on AppStore
 ### [Content Connector]()
@@ -65,5 +65,5 @@ Content connector allows you to create projects instantly by dropping files into
 
 <img style="display:block; " src="images/TildeTerminology.png" />
 
-Built for Tilde users, it automatically analyses a source segment within <Var:ProductName>, identifies term candidates within it and looks up for translations on the fly.
+Built for Tilde users, it automatically analyses a source segment within Var:ProductName, identifies term candidates within it and looks up for translations on the fly.
 -->

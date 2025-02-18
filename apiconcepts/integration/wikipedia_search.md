@@ -70,7 +70,7 @@ namespace StudioIntegrationApiSample
 Wikipedia ResultsViewPart Controller
 --
 
-The <Var:ProductName> Integration API is built in accordance with the MVC pattern. The ViewPart controller is used to add a new view part using the ViewPart attribute. This controller is also responsible for preparing the lookup URI that will be passed to the UI control for display purposes.
+The Var:ProductName Integration API is built in accordance with the MVC pattern. The ViewPart controller is used to add a new view part using the ViewPart attribute. This controller is also responsible for preparing the lookup URI that will be passed to the UI control for display purposes.
 
 # [C#](#tab/tabid-2)
 ```cs

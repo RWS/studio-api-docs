@@ -134,7 +134,7 @@ public bool ParseNext()
 ```
 ***
 
-At this point you could already build your project, however, your file type plug-in will only generate an empty bilingual document, which would look in <Var:ProductName> as shown below:
+At this point you could already build your project, however, your file type plug-in will only generate an empty bilingual document, which would look in Var:ProductName as shown below:
 
 ![EmptyBilFile](images/EmptyBilFile.jpg)
 

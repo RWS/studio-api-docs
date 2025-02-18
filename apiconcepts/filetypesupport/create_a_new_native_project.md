@@ -6,9 +6,9 @@ In this chapter you will learn how to properly set up a project for developing a
 Create the Project
 --
 
-After launching <Var:VisualStudioEdition> choose to create a new <Var:ProductName> Plug-in Project, and give it an appropriate name, e.g. *Sdl.Sdk.FileTypeSupport.Samples.XMLChecker*. The instructions for creating a <Var:ProductName> Plug-in Project are described in the [**Building a Plug-in**](../../articles/gettingstarted/building_a_plugin.md) article under the **Getting Started** section.
+After launching Var:VisualStudioEdition choose to create a new Var:ProductName Plug-in Project, and give it an appropriate name, e.g. *Sdl.Sdk.FileTypeSupport.Samples.XMLChecker*. The instructions for creating a Var:ProductName Plug-in Project are described in the [**Building a Plug-in**](../../articles/gettingstarted/building_a_plugin.md) article under the **Getting Started** section.
 
-<Var:ProductName> Plug-in Project produces a Plug-in Package (.sdlplugin). This needs to be manually deployed or copied to the <Var:ProductName> Plug-in Packages directory so that <Var:ProductName> can use the plug-in. See the [**Plug-in Deployment**](../../articles/gettingstarted/plugin_deployment.md) article under the **Getting Started** section.
+Var:ProductName Plug-in Project produces a Plug-in Package (.sdlplugin). This needs to be manually deployed or copied to the Var:ProductName Plug-in Packages directory so that Var:ProductName can use the plug-in. See the [**Plug-in Deployment**](../../articles/gettingstarted/plugin_deployment.md) article under the **Getting Started** section.
 
 Add the Required References
 --
@@ -22,7 +22,7 @@ Then add the references from the Core APIs.
 * **Sdl.Core.Settings.dll**
 * **Sdl.Core.PluginFramework.dll**
 
-By default you find these files in the <Var:ProductName> installation folder, usually *<var:InstallationFolder>*. The **Copy Local** property for these references should be set to True.
+By default you find these files in the Var:ProductName installation folder, usually *Var:InstallationFolder*. The **Copy Local** property for these references should be set to True.
 
 ![NativeVerifierReferences](images/NativeVerifierReferences.jpg)
 

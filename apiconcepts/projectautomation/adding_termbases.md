@@ -6,9 +6,9 @@ A project may be associated with one or more (file or server) termbases, which a
 Add a Termbase File
 --
 
-Termbases are multilingual databases that contain terms in the different languages. A language in a termbase is also called index. An index can essentially have any name (label). For example, the index German may be called Deutsch, DEU, etc., as  MultiTerm allows users complete flexibility when it comes to naming indexes. When adding a termbase to a project <Var:ProductName> intelligently matches the termbase indexes to the project languages. This is actually what your implementation needs to do as well, so that the correct termbase indexes are used for the corresponding project languages.
+Termbases are multilingual databases that contain terms in the different languages. A language in a termbase is also called index. An index can essentially have any name (label). For example, the index German may be called Deutsch, DEU, etc., as  MultiTerm allows users complete flexibility when it comes to naming indexes. When adding a termbase to a project Var:ProductName intelligently matches the termbase indexes to the project languages. This is actually what your implementation needs to do as well, so that the correct termbase indexes are used for the corresponding project languages.
 
-The screenshot below shows how a local termbase is selected in <Var:ProductName>:
+The screenshot below shows how a local termbase is selected in Var:ProductName:
 
 ![NewProject05](images/NewProject05.jpg)
 

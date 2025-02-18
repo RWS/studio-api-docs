@@ -8,7 +8,7 @@ The documentation on the Translation Memory API contains more information on fil
 About Filters
 --
 
-The following screenshot illustrates how a filter is defined in the user interface of <Var:ProductName>:
+The following screenshot illustrates how a filter is defined in the user interface of Var:ProductName:
 
 ![filter_penalties](images/filter_penalties.jpg)
 

@@ -4,7 +4,7 @@ Configuring the Project Properties
 Before the files can be processed we need to create a project, to which we later add the files to analyze as well as the TM file that should be used for the analysis. For the project creation, we proceed on the following assumptions:
 
 * The project language direction will correspond to the source / target language combination of the translation memory. Therefore, the project language direction will be implicitly determined by the TM.
-* The project will be created in the <Var:ProductName> projects folder, e.g. C:\Documents and *Settings\UserName\My Documents\ <Var:ProductName> \Projects.*
+* The project will be created in the Var:ProductName projects folder, e.g. C:\Documents and *Settings\UserName\My Documents\ Var:ProductName \Projects.*
 * The project name will be hard-coded and based on the current date/time to ensure that the project folder names are unique.
 
 Add the Class for the Project Creation
@@ -102,7 +102,7 @@ info.Name = "BatchAnalyzer_" + nameExt;
 ```
 ***
 
-In the next step we set the project folder, which stores all the files and sub-folders associated with our project. Here, we select the Projects folder of <Var:ProductName>, e.g.:* C:\Documents and Settings\UserName\My Documents\ <Var:ProductName> \Projects*. To this main folder, we append the name of our project, so that a corresponding project sub-folder is created. Then we set the [LocalProjectFolder](../../api/projectautomation/Sdl.ProjectAutomation.Core.ProjectInfo.yml#Sdl_ProjectAutomation_Core_ProjectInfo_LocalProjectFolder) property to the specified folder string as shown below:
+In the next step we set the project folder, which stores all the files and sub-folders associated with our project. Here, we select the Projects folder of Var:ProductName, e.g.:* C:\Documents and Settings\UserName\My Documents\ Var:ProductName \Projects*. To this main folder, we append the name of our project, so that a corresponding project sub-folder is created. Then we set the [LocalProjectFolder](../../api/projectautomation/Sdl.ProjectAutomation.Core.ProjectInfo.yml#Sdl_ProjectAutomation_Core_ProjectInfo_LocalProjectFolder) property to the specified folder string as shown below:
 
 # [C#](#tab/tabid-7)
 ```cs

@@ -66,7 +66,7 @@ After making this enhancement to the file parser, the lines that contain product
 
 ![LockedContent](images/LockedContent.jpg)
 
-Note that you may not be able to see the locked units in our example. If you do not see the locked content activate the **Display Filter** toolbar in <Var:ProductName> through the menu command **View** > **Toolbars** > **Display Filter**. Then choose **All content** from the **Display** dropdown list.
+Note that you may not be able to see the locked units in our example. If you do not see the locked content activate the **Display Filter** toolbar in Var:ProductName through the menu command **View** > **Toolbars** > **Display Filter**. Then choose **All content** from the **Display** dropdown list.
 
 Putting it All Together
 --

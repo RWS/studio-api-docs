@@ -6,7 +6,7 @@ This chapter outlines the quickest way to implement an internal static document 
 Add the Static Preview Name to the Resources
 --
 
-To implement the static preview we first need to make a few additions to the File Type Component Builder. In the first step, define the preview name in the resources file. This is the name that will be shown later in the combo box of the preview window of <Var:ProductName>. Add the following entries to the resources file, which are going to be referenced in the File Type Component Builder later:
+To implement the static preview we first need to make a few additions to the File Type Component Builder. In the first step, define the preview name in the resources file. This is the name that will be shown later in the combo box of the preview window of Var:ProductName. Add the following entries to the resources file, which are going to be referenced in the File Type Component Builder later:
 
 ![InternalStaticPreviewName](images/InternalStaticPreviewName.jpg)
 
@@ -43,7 +43,7 @@ previewFactory.GetPreviewSets(null).Add(internalStaticPreviewSet);
 Define the Preview Control
 --
 
-For an internal preview you require a control element that can display the document content. You could add your own custom preview control element. This is actually what we are going to do later, when we implement the dynamic real-time preview (see [Adding a Preview UI Control](adding_a_preview_ui_control.md)). However, to keep things as simple as possible for now, we will leverage the built-in Web browser control that is integrated in <Var:ProductName>. As we are dealing with a simple text format, we can easily use the built-in Web browser control to generate the preview output. To 'tell' the file type plug-in that it should leverage the built-in Web browser control, make an addition to the File Type Component Builder. You can add the new method just below the Notepad preview control, which you defined for the external preview functionality (see [Implementing an External File Preview](implementing_an_external_file_preview.md)). Note that the **id** of the object corresponds to the name of the preview set that you added in the previous step, and must be preceded by a **PreviewControl_** prefix to be properly recognized.
+For an internal preview you require a control element that can display the document content. You could add your own custom preview control element. This is actually what we are going to do later, when we implement the dynamic real-time preview (see [Adding a Preview UI Control](adding_a_preview_ui_control.md)). However, to keep things as simple as possible for now, we will leverage the built-in Web browser control that is integrated in Var:ProductName. As we are dealing with a simple text format, we can easily use the built-in Web browser control to generate the preview output. To 'tell' the file type plug-in that it should leverage the built-in Web browser control, make an addition to the File Type Component Builder. You can add the new method just below the Notepad preview control, which you defined for the external preview functionality (see [Implementing an External File Preview](implementing_an_external_file_preview.md)). Note that the **id** of the object corresponds to the name of the preview set that you added in the previous step, and must be preceded by a **PreviewControl_** prefix to be properly recognized.
 
 # [C#](#tab/tabid-2)
 ```cs

@@ -10,7 +10,7 @@ The minimum requirement for a file type plug-in component is, of course, to read
 
 There are a number of features to add to your file type plug-in to either make life easier for translators by allowing them to quickly insert frequently used elements (QuickInsert). However, most importantly, your file type plug-in may require certain settings to meet the requirements of particular native file formats.
 
-For example, Microsoft PowerPoint documents can contain speaker notes, which may be translatable or not. This is why the standard PPT filter that is delivered with <Var:ProductName> implements a setting that allows you to decide on a case-by-case basis whether to expose speaker note content for translation or not. In the following chapters you will learn how to add such extended functionality to your file type plug-in.
+For example, Microsoft PowerPoint documents can contain speaker notes, which may be translatable or not. This is why the standard PPT filter that is delivered with Var:ProductName implements a setting that allows you to decide on a case-by-case basis whether to expose speaker note content for translation or not. In the following chapters you will learn how to add such extended functionality to your file type plug-in.
 
 >[!NOTE]
 >

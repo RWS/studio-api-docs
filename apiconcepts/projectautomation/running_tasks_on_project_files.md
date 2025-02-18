@@ -1,7 +1,7 @@
 Running Tasks on the Project Files
 ==
 
-For further processing of the project files a number of so-called automated batch tasks is executed. Batch tasks are used, for example, to convert the native files into the bilingual (SDLXliff) format for further processing. Other examples include word count, file analysis, and pre-translation. <Var:ProductName> allows you to put compile single tasks into a task sequence, which can then be run on the entire project. This chapter demonstrates how to programmatically run batch tasks on project files. There are separate chapters deal with tasks in more detail, e.g. provide they further information on the various configuration settings that you can choose before executing a task.
+For further processing of the project files a number of so-called automated batch tasks is executed. Batch tasks are used, for example, to convert the native files into the bilingual (SDLXliff) format for further processing. Other examples include word count, file analysis, and pre-translation. Var:ProductName allows you to put compile single tasks into a task sequence, which can then be run on the entire project. This chapter demonstrates how to programmatically run batch tasks on project files. There are separate chapters deal with tasks in more detail, e.g. provide they further information on the various configuration settings that you can choose before executing a task.
 
 General Information on Tasks
 --
@@ -13,7 +13,7 @@ The screenshot below shows the standard Prepare compound tasks and the sub-tasks
 The preparation of the project files involves the following tasks:
 
 * **Convert to Translatable Format**: This task generates bilingual, intermediary (SDLXliff) files from the native input files (e.g. DOC, PPT, etc.). These intermediary files are then used further processing. The conversion step is actually the pre-requisite for any other tasks such as analyze files, pre-translation, etc.
-* **Copy to Target Languages**: This task creates working copies of the bilingual (original) files per target language. In this step <Var:ProductName> also creates target language sub-folders in which the copied bilingual files are stored, e.g. de-DE for German, fr-FR for French, etc.
+* **Copy to Target Languages**: This task creates working copies of the bilingual (original) files per target language. In this step Var:ProductName also creates target language sub-folders in which the copied bilingual files are stored, e.g. de-DE for German, fr-FR for French, etc.
 * **Apply Perfect Match**: This task inserts pre-translated segments from previous versions of the files directly into the project files.
 * **Analyze Files**: Probably the single most important project management task. During execution of this task the project files are analyzed against any main TM(s) that were added to the project in order to determine the TM leverage, i.e. the number of matches that can be used for a particular set of documents, the segment repetition rate, etc.
 * **Pre-translate Files**: Any existing translations found in the main TM(s) are inserted automatically into the project files.
@@ -22,7 +22,7 @@ The preparation of the project files involves the following tasks:
 Add the Function for Running the Tasks
 --
 
-The aim of this example is to show how to run the tasks that are described above programmatically. Implement a helper function called PrepareFiles. This function is the programmatic equivalent to the **Prepare** task used in <Var:ProductName>. This function takes a [FileBasedProject](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml) object as parameter. The function can thus be called as follows:
+The aim of this example is to show how to run the tasks that are described above programmatically. Implement a helper function called PrepareFiles. This function is the programmatic equivalent to the **Prepare** task used in Var:ProductName. This function takes a [FileBasedProject](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml) object as parameter. The function can thus be called as follows:
 
 # [C#](#tab/tabid-1)
 ```CS

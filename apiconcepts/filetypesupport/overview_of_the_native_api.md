@@ -3,7 +3,7 @@ Overview of the Native API
 
 This section contains a quick overview of the Native API.
 
-The Native API contains the functionality needed to build filters and filter components for processing monolingual content in a native doucment format (e.g. Microsoft Word). Most file filters and file processing components can be built using only this API of the <Var:ProductName>. The only exceptions where the native API is not sufficient are those in which you need to explicitly process content available in bilingual form, e.g. if working with bilingual file formats such as TTX or ITD.
+The Native API contains the functionality needed to build filters and filter components for processing monolingual content in a native doucment format (e.g. Microsoft Word). Most file filters and file processing components can be built using only this API of the Var:ProductName. The only exceptions where the native API is not sufficient are those in which you need to explicitly process content available in bilingual form, e.g. if working with bilingual file formats such as TTX or ITD.
 
 The core of the native API is the [IAbstractNativeContentHandler](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IAbstractNativeContentHandler.yml) interface. All the content processing (output, input or both) happens through this interface. (This interface is somewhat similar to the ```IEvents``` interface of  File Type Support Framework 1.) The following diagram provides and overview of the native content handler interface and components that are directly related to it:
 

@@ -3,7 +3,7 @@ Loading and Saving the Settings
 
 In this chapter you will learn how to implement the class that is actually responsible for physically the settings and for loading the plug-in settings into the plug-in UI. The physical storing occurs in an **.sdlproj* or in an **.sdltpl* file, which are both XML compliant.
 
-**.sdlproj* files are automatically created for each document that is opened for translation/editing in <Var:ProductName> or for each project that is created in the application. These files contain project-specific information such as the translation memories/termbases used for a project and any project-specific settings, which can also include plug-in settings. An **.sdltpl* file is a project template, which users can create to streamline project creation.
+**.sdlproj* files are automatically created for each document that is opened for translation/editing in Var:ProductName or for each project that is created in the application. These files contain project-specific information such as the translation memories/termbases used for a project and any project-specific settings, which can also include plug-in settings. An **.sdltpl* file is a project template, which users can create to streamline project creation.
 
 The settings bundle used by our implementation would look, for example, as shown below:
 

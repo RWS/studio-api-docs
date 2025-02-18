@@ -1,6 +1,6 @@
 Creating views
 ===
-<Var:ProductName> Integration API provides support for the third-party developers to integrate UI views inside the Studio desktop applications.
+Var:ProductName Integration API provides support for the third-party developers to integrate UI views inside the Studio desktop applications.
 
 Creating a new view
 ---

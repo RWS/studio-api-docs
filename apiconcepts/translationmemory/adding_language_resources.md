@@ -82,7 +82,7 @@ tm.Save();
 ```
 ***
 
-When you open the TM in <Var:ProductName> and view the language resources, the variable list will look as shown in the following screenshot:
+When you open the TM in Var:ProductName and view the language resources, the variable list will look as shown in the following screenshot:
 
 
 ![VariablesList](images/VariablesList.jpg)

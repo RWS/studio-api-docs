@@ -1,9 +1,9 @@
 Working with Project Reports
 ==
 
-In <Var:ProductName>, the project files have associated a set of predefined reports. The built-in reports are visible in the Reports Viewer. <Var:ProductName> Reports API allows the 3rd party developers to extend and customize the existing set of reports and display them within an additional <Var:ProductName> Viewer using a custom developed plugin. 
+In Var:ProductName, the project files have associated a set of predefined reports. The built-in reports are visible in the Reports Viewer. Var:ProductName Reports API allows the 3rd party developers to extend and customize the existing set of reports and display them within an additional Var:ProductName Viewer using a custom developed plugin. 
 
-This chapter contains an example of how to add reports to a project programmatically, modify and delete the existing reports and render the reports using <Var:ProductName> predefined templates or custom templates.
+This chapter contains an example of how to add reports to a project programmatically, modify and delete the existing reports and render the reports using Var:ProductName predefined templates or custom templates.
 
 Getting the Reports list
 --
@@ -112,7 +112,7 @@ var reportDefinition = new ProjectReportsOperations(fileBasedProject).GetReportR
 The method returns a byte array with the report content transformed in the specified format using the custom template.
 The method will throw an exception if the report Id does not exists or the output format is not supported.
 
-A <Var:ProductName> pluggin sample using the Reports API is available for download [here](https://github.com/RWS/Sdl-Community/tree/master/Reports.Viewer.API.Example).
+A Var:ProductName pluggin sample using the Reports API is available for download [here](https://github.com/RWS/Sdl-Community/tree/master/Reports.Viewer.API.Example).
 
 See Also
 --

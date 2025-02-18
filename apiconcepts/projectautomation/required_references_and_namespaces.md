@@ -14,7 +14,7 @@ Reference Libraries to Add
 
 The API is organized in a way that allows future implementations for other types of projects, like for instance projects hosted on a project server. For this reason, the separate **Sdl.ProjectAutomation.Core** assembly defines a generic IProject interface that represents a generic localization project.
 
-The **Sdl.ProjectAutomation.FileBased** assembly contains the specific implementation of the Project Automation API for file-based <Var:ProductName> projects, via the [FileBasedProject](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml) class.
+The **Sdl.ProjectAutomation.FileBased** assembly contains the specific implementation of the Project Automation API for file-based Var:ProductName projects, via the [FileBasedProject](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml) class.
 
 Finally, the **Sdl.ProjectAutomation.Settings** assembly exposes a number of settings groups that provide access to settings which control various aspects of localization project processing.
 
@@ -35,7 +35,7 @@ Further Requirements
 --
 In addition to the above, you should observer the following:
 
-* As build output location choose the installation folder of <Var:ProductName> , e.g. *<Var:InstallationFolder>*
+* As build output location choose the installation folder of Var:ProductName , e.g. *Var:InstallationFolder*
 * Configure your projects as x84 applications, as otherwise they will not work when running on 64 bit platforms. Therefore, set the platform target of your projects to x84.
 
 References from the Translation Memory API

@@ -1,12 +1,12 @@
 Adding the File Type Component Builder
 ===
 
-Add the File Type Component Builder to your project. This is the implementation of the interface [IFileTypeComponentBuilder](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilder.yml). and that is used to define the new file type plug-in, so that it can be used in <Var:ProductName>.
+Add the File Type Component Builder to your project. This is the implementation of the interface [IFileTypeComponentBuilder](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilder.yml). and that is used to define the new file type plug-in, so that it can be used in Var:ProductName.
 
 Add the File Type Information
-Your File Type Component Builder needs to contain information such as the file type plug-in version number, the extension of the files that this file type plug-in applies to, etc. This kind of information is what end users see in the **Options** dialog box of <Var:ProductName> under **File Types**.
+Your File Type Component Builder needs to contain information such as the file type plug-in version number, the extension of the files that this file type plug-in applies to, etc. This kind of information is what end users see in the **Options** dialog box of Var:ProductName under **File Types**.
 
-The implementation of [IFileTypeComponentBuilder](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilder.yml) also reference each file type plug-in component, e.g. the file sniffer class, the file parser class, etc. If you fail to reference a file type plug-in component in the file type definition, the component cannot be used in <Var:ProductName>. The File Type Component Builder thereby fully reflects the component structure of the file type plug-in. At this point, we would like to underline the importance of sub-dividing your file type plug-in into distinct components, as each component performs a different, even if sometimes similar, task.
+The implementation of [IFileTypeComponentBuilder](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilder.yml) also reference each file type plug-in component, e.g. the file sniffer class, the file parser class, etc. If you fail to reference a file type plug-in component in the file type definition, the component cannot be used in Var:ProductName. The File Type Component Builder thereby fully reflects the component structure of the file type plug-in. At this point, we would like to underline the importance of sub-dividing your file type plug-in into distinct components, as each component performs a different, even if sometimes similar, task.
 
 Let us start by adding the general file type information to the implementation of [IFileTypeComponentBuilder](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilder.yml) as shown below:
 
@@ -41,7 +41,7 @@ public virtual IFileTypeInformation BuildFileTypeInformation(string name)
 ```
 ***
 
-After adding the file type information above, the corresponding file type plug-in would be shown to the end user in the **Options** dialog box as illustrated below. Your example file type plug-in will be listed under **File Types**, however, of course it does not implement any functionality yet. Below you see an example of how the information entered in the File Type Component Builder is presented to the user through the UI of <Var:ProductName>:
+After adding the file type information above, the corresponding file type plug-in would be shown to the end user in the **Options** dialog box as illustrated below. Your example file type plug-in will be listed under **File Types**, however, of course it does not implement any functionality yet. Below you see an example of how the information entered in the File Type Component Builder is presented to the user through the UI of Var:ProductName:
 
 ![SimpleTextFilesProperties](images/SimpleTextFilesProperties.jpg)
 

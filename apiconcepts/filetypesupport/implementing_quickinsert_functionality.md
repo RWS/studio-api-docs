@@ -6,7 +6,7 @@ QuickInsert allows you to further enhance your file type plug-in by adding funct
 About QuickInsert
 --
 
-QuickInsert (formerly QuickTag) allows the insertion of bilingual content into the localizable document using the buttons on the **QuickInsert** toolbar of <Var:ProductName>. The bilingual content consists of bilingual File Type Support Framework items such as [ITagPair](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.ITagPair.yml), [IPlaceholderTag](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IPlaceholderTag.yml), [IText](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IText.yml), [Location](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.Location.yml), [ICommentMarker](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.ICommentMarker.yml), or [ILockedContent](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.ILockedContent.yml).
+QuickInsert (formerly QuickTag) allows the insertion of bilingual content into the localizable document using the buttons on the **QuickInsert** toolbar of Var:ProductName. The bilingual content consists of bilingual File Type Support Framework items such as [ITagPair](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.ITagPair.yml), [IPlaceholderTag](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IPlaceholderTag.yml), [IText](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IText.yml), [Location](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.Location.yml), [ICommentMarker](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.ICommentMarker.yml), or [ILockedContent](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.ILockedContent.yml).
 
 QuickInsert allows users to insert various items into their target segments:
 
@@ -20,11 +20,11 @@ Below you see an example of how the standard Microsoft Word 2007 file type plug-
 
 >[!NOTE]
 >
->In the UI only QuickInserts specified by user are displayed, the default QuickInserts are only displayed on the <Var:ProductName> toolbar.
+>In the UI only QuickInserts specified by user are displayed, the default QuickInserts are only displayed on the Var:ProductName toolbar.
 
 ![WordQuickInsert](images/WordQuickInsert.jpg)
 
-When you open a DOC file in <Var:ProductName>, the QuickInsert toolbar will look as shown below:
+When you open a DOC file in Var:ProductName, the QuickInsert toolbar will look as shown below:
 
 ![WordQuickInsertToolbar](images/WordQuickInsertToolbar.jpg)
 
@@ -63,7 +63,7 @@ info.WinFormSettingsPageIds = new string[]
 
 **WinFormSettingsPageIds** specifies the ids of the settings pages to be associated with a file type plug-in. Here we added **QuickInserts_Settings** so that a settings page that lists the QuickInsert items is associated with this file type plug-in. This code was added in an earlier chapter and so should not be added again.
 
-Since a this **QuickInsert** settings page has been associated, a **QuickInsert** link will be shown below your sample file type plug-in in the **Options** dialog box of <Var:ProductName>. This is the first time that you have implemented a user interface for your file type plug-in, however, the QuickInsert list is, of course, empty.
+Since a this **QuickInsert** settings page has been associated, a **QuickInsert** link will be shown below your sample file type plug-in in the **Options** dialog box of Var:ProductName. This is the first time that you have implemented a user interface for your file type plug-in, however, the QuickInsert list is, of course, empty.
 
 By clicking **Add** you could define your own QuickInsert items. However, this standard user interface is limited insofar as it only allows you to define items for standalone text and text pairs.
 

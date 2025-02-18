@@ -1,7 +1,7 @@
 Adding Files and Folders
 ==
 
-In <Var:ProductName> a project requires at least one translatable file. Translatable files can be, for example, Microsoft Word, PowerPoint, etc. documents. Beyond that, a project can also contain reference files. These are untranslatable (e.g. pictures), which can help translators do their job, as they may contain useful information. In addition to that a project can contain so-called localizable files. Localizable files cannot be processed by <Var:ProductName>. These can gain be, for example, bitmap graphics. However, these files contain localizable content (e.g. text in screenshots), which has to be handled outside of <Var:ProductName>. For this, translators can enter the target strings, for example, in a separate text file (legend), or use a graphics program to handle the localizations. This chapter contains an example of how to add files to a project programmatically, and change the file usage to e.g. localizable.
+In Var:ProductName a project requires at least one translatable file. Translatable files can be, for example, Microsoft Word, PowerPoint, etc. documents. Beyond that, a project can also contain reference files. These are untranslatable (e.g. pictures), which can help translators do their job, as they may contain useful information. In addition to that a project can contain so-called localizable files. Localizable files cannot be processed by Var:ProductName. These can gain be, for example, bitmap graphics. However, these files contain localizable content (e.g. text in screenshots), which has to be handled outside of Var:ProductName. For this, translators can enter the target strings, for example, in a separate text file (legend), or use a graphics program to handle the localizations. This chapter contains an example of how to add files to a project programmatically, and change the file usage to e.g. localizable.
 
 Implement the Function for Adding Files
 --
@@ -32,10 +32,10 @@ public string[] AddProjectFiles(string path)
 }
 ```
 ***
-The following screenshot illustrates how the source documents to process are added in the **New Project** wizard of <Var:ProductName>:
+The following screenshot illustrates how the source documents to process are added in the **New Project** wizard of Var:ProductName:
 ![NewProject03](images/NewProject03.jpg)
 
-When adding files in <Var:ProductName>, they are automatically scanned in order to determine whether they are translatable or not. If a suitable file type definition is found, the file is assumed to be translatable. For example, <Var:ProductName> offers a file type definition that supports Microsoft Word documents. If you add a *.doc file to a project, the scan task will mark it as a translatable document. Since pixel graphics (*.jpg) are not supported, such files will be marked as reference, as no file type definition is available for this format, which cannot be processed in <Var:ProductName>. The sample code below demonstrates how the automatic scan task can be programmatically performed on the source files that have just been added to the project. <Var:ProductName> typically scans files immediately after adding them. When applying the [RunAutomaticTask](../..//api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml#Sdl_ProjectAutomation_FileBased_FileBasedProject_RunAutomaticTask_System_Guid___System_String_) method to a project, you need to provide the file ids and the id of the task (i.e. ```Scan```) as parameters:
+When adding files in Var:ProductName, they are automatically scanned in order to determine whether they are translatable or not. If a suitable file type definition is found, the file is assumed to be translatable. For example, Var:ProductName offers a file type definition that supports Microsoft Word documents. If you add a *.doc file to a project, the scan task will mark it as a translatable document. Since pixel graphics (*.jpg) are not supported, such files will be marked as reference, as no file type definition is available for this format, which cannot be processed in Var:ProductName. The sample code below demonstrates how the automatic scan task can be programmatically performed on the source files that have just been added to the project. Var:ProductName typically scans files immediately after adding them. When applying the [RunAutomaticTask](../..//api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml#Sdl_ProjectAutomation_FileBased_FileBasedProject_RunAutomaticTask_System_Guid___System_String_) method to a project, you need to provide the file ids and the id of the task (i.e. ```Scan```) as parameters:
 
 # [C#](#tab/tabid-3)
 ```CS
@@ -45,7 +45,7 @@ AutomaticTask scanFiles = newProject.RunAutomaticTask(
 ```
 ***
 
-Though the scan task makes the determination of whether a file is translatable or not, users can manually change the file usage. Example: A PDF file is added to a project. <Var:ProductName> offers a file type definition for PDF, so it is by default marked as translatable. However, if the project manager does not want this file to be translated, but provides it as pure reference, he/she can change the file type usage to [Reference](../../api/projectautomation/Sdl.ProjectAutomation.Core.FileRole.yml). Another example: A BMP file is automatically assumed to be a reference file, as there is no file type definition for processing it. However, if the project manager wants the translator to handle the content in the BMP file (e.g. strings shown in a screenshot), he/she can change its file type usage to [Localizable](../../api/projectautomation/Sdl.ProjectAutomation.Core.FileRole.yml), so that the translator knows that it has to be handled somehow outside of <Var:ProductName>, e.g. in Adobe PhotoShop.
+Though the scan task makes the determination of whether a file is translatable or not, users can manually change the file usage. Example: A PDF file is added to a project. Var:ProductName offers a file type definition for PDF, so it is by default marked as translatable. However, if the project manager does not want this file to be translated, but provides it as pure reference, he/she can change the file type usage to [Reference](../../api/projectautomation/Sdl.ProjectAutomation.Core.FileRole.yml). Another example: A BMP file is automatically assumed to be a reference file, as there is no file type definition for processing it. However, if the project manager wants the translator to handle the content in the BMP file (e.g. strings shown in a screenshot), he/she can change its file type usage to [Localizable](../../api/projectautomation/Sdl.ProjectAutomation.Core.FileRole.yml), so that the translator knows that it has to be handled somehow outside of Var:ProductName, e.g. in Adobe PhotoShop.
 Alternatively to adding single files, you can also add the content of an entire folder by applying the [AddFolderWithFiles](../../api/projectautomation/Sdl.ProjectAutomation.Core.IProject.yml#Sdl_ProjectAutomation_Core_IProject_AddFolderWithFiles_System_String_System_Boolean_) method to the project. This method takes the folder to add as parameter. Moreover, through a boolean parameter you can determine whether recursion should be used to add the files from any sub-folders, e.g.:
 
 # [C#](#tab/tabid-4)
@@ -57,7 +57,7 @@ newProject.AddFolderWithFiles(@"c:\temp", true);
 Change the File Usage (Role)
 --
 
-As mentioned above, <Var:ProductName> allows you to change the file usage manually, for example, if you want to set a * *.ppt* file (which is automatically recognized as a translatable) to reference, because it is not supposed to be translated, but should only be provided for information purposes. The screenshot below illustrates how this is done in the **New Project** wizard of <Var:ProductName>:
+As mentioned above, Var:ProductName allows you to change the file usage manually, for example, if you want to set a * *.ppt* file (which is automatically recognized as a translatable) to reference, because it is not supposed to be translated, but should only be provided for information purposes. The screenshot below illustrates how this is done in the **New Project** wizard of Var:ProductName:
 
 ![FileUsage](images/FileUsage.jpg)
 
@@ -104,7 +104,7 @@ After adding the source files as outlined above the project folder should now al
 
 ![FoldersAfterAddingsFiles](images/FoldersAfterAddingsFiles.jpg)
 
-If you were to open the programmatically created * *.sdlproj* file in <Var:ProductName>, and switched to the **Files** view, you would see the documents listed as shown below. Note that in the column **Usage** the last two files are marked as *Reference* and *Localizable*, as you changed the role of these two project files:
+If you were to open the programmatically created * *.sdlproj* file in Var:ProductName, and switched to the **Files** view, you would see the documents listed as shown below. Note that in the column **Usage** the last two files are marked as *Reference* and *Localizable*, as you changed the role of these two project files:
 
 ![FilesAddedAsReference](images/FilesAddedAsReference.jpg)
 

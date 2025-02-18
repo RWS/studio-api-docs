@@ -71,12 +71,12 @@ public INativeTextLocationMessageReporter MessageReporter
 ```
 ***
 
-Through the [MessageReporter](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileVerifier.yml#Sdl_FileTypeSupport_Framework_NativeApi_INativeFileVerifier_MessageReporter) you can output error messages (if any) to the **Messages** window of <Var:ProductName>. Users can view these messages and resolve the problem.
+Through the [MessageReporter](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileVerifier.yml#Sdl_FileTypeSupport_Framework_NativeApi_INativeFileVerifier_MessageReporter) you can output error messages (if any) to the **Messages** window of Var:ProductName. Users can view these messages and resolve the problem.
 
 Implement the Actual Verification Logic
 --
 
-Add the [Verify](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileVerifier.yml#Sdl_FileTypeSupport_Framework_NativeApi_INativeFileVerifier_Verify) method, which is triggered when the user starts the plug-in through trough the menu command **Tools** > **Verify** or by pressing **F8**. This function uses the standard XML API (i.e. the API of the native format) to perform the verification. It loops through all ```displaytext``` elements and checks for the presence of a ```maxlength``` attribute. If this attribute is found, the element content is compared against the maximum length value. If the text exceeds the maximum length, the [ReportMessage](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IBasicMessageReporter.yml#Sdl_FileTypeSupport_Framework_NativeApi_IBasicMessageReporter_ReportMessage_System_Object_System_String_Sdl_FileTypeSupport_Framework_NativeApi_ErrorLevel_System_String_System_String_) method is used to add an error message (i.e. a message with the highest [ErrorLevel](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel.yml)) to the **Messages** window of <Var:ProductName>.
+Add the [Verify](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileVerifier.yml#Sdl_FileTypeSupport_Framework_NativeApi_INativeFileVerifier_Verify) method, which is triggered when the user starts the plug-in through trough the menu command **Tools** > **Verify** or by pressing **F8**. This function uses the standard XML API (i.e. the API of the native format) to perform the verification. It loops through all ```displaytext``` elements and checks for the presence of a ```maxlength``` attribute. If this attribute is found, the element content is compared against the maximum length value. If the text exceeds the maximum length, the [ReportMessage](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IBasicMessageReporter.yml#Sdl_FileTypeSupport_Framework_NativeApi_IBasicMessageReporter_ReportMessage_System_Object_System_String_Sdl_FileTypeSupport_Framework_NativeApi_ErrorLevel_System_String_System_String_) method is used to add an error message (i.e. a message with the highest [ErrorLevel](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel.yml)) to the **Messages** window of Var:ProductName.
 
 # [C#](#tab/tabid-5)
 ```cs
@@ -114,7 +114,7 @@ The [ReportMessage](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Nati
 * The name of the verifier plug-in that has thrown the message
 * The [ErrorLevel](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel.yml), which in this case we set to [Error](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel.yml#fields), which is the highest severity level.
 * A detailed description of the problem, which helps the user ascertain what the problem is and take corrective action.
-* The location, i.e. the target segment that was found to exceed the specified length limit. Double-clicking the message in the **Messages** window of <Var:ProductName> will display the segment string in a message box.
+* The location, i.e. the target segment that was found to exceed the specified length limit. Double-clicking the message in the **Messages** window of Var:ProductName will display the segment string in a message box.
 
 ![Error_Message_Maxlength_XML_Exceeded](images/Error_Message_Maxlength_XML_Exceeded.jpg)
 

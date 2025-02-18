@@ -58,7 +58,7 @@ private FuzzyIndexes GetFuzzyIndexes()
 ```
 ***
 
-5. The recognition settings are used to identify elements that do not change during translation such as numbers, dates, acronyms, etc. When the recognition settings are enabled these items are identified as placeables. Placeables can be transferred directly from the current source segment to the new target segment without having to type them manually. When you create a TM in <Var:ProductName>, all recognition settings are enabled by default. In our example we use a ```GetRecognizers``` helper function that returns all possible values of **BuiltinRecognizers**, thereby enabling our sample TM for all recognition types.
+5. The recognition settings are used to identify elements that do not change during translation such as numbers, dates, acronyms, etc. When the recognition settings are enabled these items are identified as placeables. Placeables can be transferred directly from the current source segment to the new target segment without having to type them manually. When you create a TM in Var:ProductName, all recognition settings are enabled by default. In our example we use a ```GetRecognizers``` helper function that returns all possible values of **BuiltinRecognizers**, thereby enabling our sample TM for all recognition types.
 
 # [C#](#tab/tabid-4)
 ```cs
@@ -76,7 +76,7 @@ private BuiltinRecognizers GetRecognizers()
 ***
 
 
-The screenshot below illustrates the TM recognition settings in <Var:ProductName>:
+The screenshot below illustrates the TM recognition settings in Var:ProductName:
 
 ![RecognitionSettings](images/RecognitionSettings.jpg)
 

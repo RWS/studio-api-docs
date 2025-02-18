@@ -101,7 +101,7 @@ private ICommentProperties CreateComment(string commentText)
 ```
 ***
 
-In <Var:ProductName> the comments will be visible in the **Comments** windows. Double-clicking a comment here will lead you directly to the corresponding paragraph unit / segment pair in the editor.
+In Var:ProductName the comments will be visible in the **Comments** windows. Double-clicking a comment here will lead you directly to the corresponding paragraph unit / segment pair in the editor.
 
 ![ParagraphComments](images/ParagraphComments.jpg)
 

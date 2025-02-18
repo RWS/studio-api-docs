@@ -14,7 +14,7 @@ As illustrated in the following screenshot the following settings can be configu
 ![SettingsProjectTms](images/SettingsProjectTms.jpg)
 
 
-Project TMs can be either file-based (default) or server-based. Even if you select a server master TM, <Var:ProductName> will still create a file-based project TM by default. Project TMs are named after the project and the main TM. For example, if your main TM is called *Master* and the project is called *My first project*, the resulting project TM name will be *My first project_Master.sdltm*. If a project TM is created for e.g. the target language German, it will be stored in a *de-DE* sub-folder of the project folder structure, e.g. *Project_Name\TM\de-DE*.
+Project TMs can be either file-based (default) or server-based. Even if you select a server master TM, Var:ProductName will still create a file-based project TM by default. Project TMs are named after the project and the main TM. For example, if your main TM is called *Master* and the project is called *My first project*, the resulting project TM name will be *My first project_Master.sdltm*. If a project TM is created for e.g. the target language German, it will be stored in a *de-DE* sub-folder of the project folder structure, e.g. *Project_Name\TM\de-DE*.
 
 If you want to create a server-based project TM (so that geographically distributed translators can work together more effectively), you need to provide the server URI and the database container name. The database container is the physical database that contains the TMs, which are stored as tables.
 

@@ -89,7 +89,7 @@ Outputting the analysis results for the fuzzy matches is somewhat more complex, 
 * 84%-75%
 * 74%-50%
 
-Note that <Var:ProductName> allows you to freely re-define these fuzzy bands, i.e. it is possible to change the range and to increase or decrease the number of fuzzy bands. This is why in the following sample code we loop through the available fuzzy bands and determine the [MaximumMatchValue](../../api/projectautomation/Sdl.ProjectAutomation.Core.AnalysisBand.yml#Sdl_ProjectAutomation_Core_AnalysisBand_MaximumMatchValue) and the [TranslationMinimumMatchValue](../../api/projectautomation/Sdl.ProjectAutomation.Settings.TranslationMemorySettings.yml#Sdl_ProjectAutomation_Settings_TranslationMemorySettings_TranslationMinimumMatchValue). After determining the fuzzy bands with their minimum and maximum match values we output the corresponding number of segments, words, and characters as shown below:
+Note that Var:ProductName allows you to freely re-define these fuzzy bands, i.e. it is possible to change the range and to increase or decrease the number of fuzzy bands. This is why in the following sample code we loop through the available fuzzy bands and determine the [MaximumMatchValue](../../api/projectautomation/Sdl.ProjectAutomation.Core.AnalysisBand.yml#Sdl_ProjectAutomation_Core_AnalysisBand_MaximumMatchValue) and the [TranslationMinimumMatchValue](../../api/projectautomation/Sdl.ProjectAutomation.Settings.TranslationMemorySettings.yml#Sdl_ProjectAutomation_Settings_TranslationMemorySettings_TranslationMinimumMatchValue). After determining the fuzzy bands with their minimum and maximum match values we output the corresponding number of segments, words, and characters as shown below:
 
 # [C#](#tab/tabid-6)
 ```cs

@@ -1,6 +1,6 @@
 # Customize the *Open Package* wizard 
 
-<Var:ProductName> Integration API provides support for third-party developers to trigger the __Open Project Package__ wizard from their own custom logic or actions and extend it's basic functionality by
+Var:ProductName Integration API provides support for third-party developers to trigger the __Open Project Package__ wizard from their own custom logic or actions and extend it's basic functionality by
 - providing the physical location of the package
 - providing a custom icon for the final imported project
 - specifying the origin of the imported project

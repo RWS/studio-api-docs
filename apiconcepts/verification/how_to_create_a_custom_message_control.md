@@ -1,10 +1,10 @@
 Introduction to Custom Message Controls
 =====
-Custom message controls can be developed to control how verification messages are displayed in <Var:ProductName>.
+Custom message controls can be developed to control how verification messages are displayed in Var:ProductName.
 
-<Var:ProductName> Messages
+Var:ProductName Messages
 ----
-<Var:ProductName> has a Messages window that contains any messages including those generated during verification.
+Var:ProductName has a Messages window that contains any messages including those generated during verification.
 
 <img style="display:block; " src="images/MessagesWindow.png" />
 

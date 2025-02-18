@@ -8,11 +8,11 @@ Extend the File Type Component Builder
 
 Our aim is to enable the file type plug-in to generate an ad-hoc preview in an external application. This allows users to view the file in its native format.
 
-When processing DOC files, for example, <Var:ProductName> launches Microsoft Word as external preview application. Since we are dealing with a simple text format, we can use a common text editor such Notepad as external preview application.
+When processing DOC files, for example, Var:ProductName launches Microsoft Word as external preview application. Since we are dealing with a simple text format, we can use a common text editor such Notepad as external preview application.
 
 What makes implementing the external preview easy is the fact that the application logic required for generating an external preview already exists in our sample file type plug-in - to be more precise, in the file writer class, which you implemented in the previous chapter (see [Implementing the File Writer](implementing_the_file_writer.md)). Therefore, all you need to do is register the external preview application in the File Type Component Builder.
 
-First, we recommend that you add the name of the preview application to the resources file of your project properties. This is the application name that users will see when accessing the external preview menu command in <Var:ProductName>.
+First, we recommend that you add the name of the preview application to the resources file of your project properties. This is the application name that users will see when accessing the external preview menu command in Var:ProductName.
 
 ![ExternalPreview_Name](images/ExternalPreview_Name.jpg)
 
@@ -68,7 +68,7 @@ You will also need to add an assembly reference to Sdl.FileTypeSupport.Framework
 >
 >You can also pass an empty string to the ApplicationPath property. In this case the external preview will call the application that is registered in the OS for this particular file type.
 
-When accessing the **File** > **View** In menu command of <Var:ProductName> you should now see the following:
+When accessing the **File** > **View** In menu command of Var:ProductName you should now see the following:
 
 ![PreviewApplication](images/PreviewApplication.jpg)
 

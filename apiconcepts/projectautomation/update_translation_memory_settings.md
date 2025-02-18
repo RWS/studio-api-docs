@@ -9,7 +9,7 @@ Mid-project TM updates are usually performed on project translation memories, i.
 
 This page provides an example of the settings that can be configured when updating a file-based translation memory using the content of a bilingual (SDLXliff) file.
 
-The screenshot below illustrates the options that you can configure in <Var:ProductName> when running an update TM task.
+The screenshot below illustrates the options that you can configure in Var:ProductName when running an update TM task.
 
 ![ProjectApiUpdateTmSettings](images/ProjectApiUpdateTmSettings.jpg)
 

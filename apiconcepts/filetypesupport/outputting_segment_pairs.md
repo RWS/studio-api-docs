@@ -1,12 +1,12 @@
 Outputting Segment Pairs
 ===
 
-In this chapter you will learn how to extract and expose the source and target segments of a given BIL input file in the intermediary (SDLXliff) file, and thus in the editing environment of <Var:ProductName>.
+In this chapter you will learn how to extract and expose the source and target segments of a given BIL input file in the intermediary (SDLXliff) file, and thus in the editing environment of Var:ProductName.
 
 Extend the Parsing Method
 --
 
-Now we need to extend the parsing logic to extract the source and target segments and expose them for translation in the editor of <Var:ProductName>. Basically, our parser should work like this: the content of a unit element defines a paragraph unit in the intermediary (SDLXliff) file. A unit element in a BIL file always contains one source segment and one or no target segment. These segments will be added to the paragraph unit as segment pairs. A segment pair must contain a source segment, but the target segment may be empty, i.e. in this case the target of the BIL unit element is empty.
+Now we need to extend the parsing logic to extract the source and target segments and expose them for translation in the editor of Var:ProductName. Basically, our parser should work like this: the content of a unit element defines a paragraph unit in the intermediary (SDLXliff) file. A unit element in a BIL file always contains one source segment and one or no target segment. These segments will be added to the paragraph unit as segment pairs. A segment pair must contain a source segment, but the target segment may be empty, i.e. in this case the target of the BIL unit element is empty.
 
 Note that in this first step we are not going to process inline tags, formatting or any of the other elements a unit may contain (e.g. comments).
 

@@ -5,7 +5,7 @@ The setup of a translation memory can contain so-called TM fields. This is meta 
 
 When you handle a project that belongs to the document type Technical documentation, you will want to make sure that every translation unit that is created, edited, and updated during the project lifecycle receives the TM field value *Type = Technical documentation*.
 
-The screenshot below illustrates how, for example, the TM fields *Client* and *Project id* are set through the user interface of <Var:ProductName> :
+The screenshot below illustrates how, for example, the TM fields *Client* and *Project id* are set through the user interface of Var:ProductName :
 
 ![project_id](images/project_id.jpg)
 

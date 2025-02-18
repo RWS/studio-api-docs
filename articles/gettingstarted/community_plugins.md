@@ -1,12 +1,12 @@
-# Open source <Var:ProductName> App Store plugins
+# Open source Var:ProductName App Store plugins
 
 ## Intro
 
-This repository contains around 80 plugins developed for <Var:ProductName>. Most of the plugins were developed by RWS, but you might also find a few of them which were initially developed by someone else. For all these plugins we now have full source code ownership according to our [License agreement](https://github.com/RWS/Sdl-Community/blob/master/LICENSE). You can find the complete list of plugins [here](#list-of-plugins).
+This repository contains around 80 plugins developed for Var:ProductName. Most of the plugins were developed by RWS, but you might also find a few of them which were initially developed by someone else. For all these plugins we now have full source code ownership according to our [License agreement](https://github.com/RWS/Sdl-Community/blob/master/LICENSE). You can find the complete list of plugins [here](#list-of-plugins).
 
 We encourage everyone who is interested to contribute, either by fixing some issues, implementing new features or improving the documentation. To contribute, clone this repository, make the changes and send us a [pull request](https://www.codenewbie.org/blogs/how-to-make-a-pull-request) with your changes.
 
-You can also use this repository for learning by reading and tinkering with real <Var:ProductName> plugins. Please find the documentation [here](../../index.md).
+You can also use this repository for learning by reading and tinkering with real Var:ProductName plugins. Please find the documentation [here](../../index.md).
 
 If you have any questions, don’t hesitate to ask on the [RWS Language Developer Community](https://community.sdl.com/developers-more/developers/language-developers).
 
@@ -18,7 +18,7 @@ Once you have [set up your development machine](setting_up_a_developer_machine.m
 
 - After the repository was cloned, navigate to the repository path you’ve specified when cloning the repository. Each plugin has a dedicated folder. All you need to do is to find the plugin you’re looking for, enter the folder and open the solution file using Microsoft Visual Studio.
 
-- Build the solution. After the build has succeeded, open <Var:ProductNameWithEdition>. Click “Yes” when the warning message appears. After <Var:ProductName> loads, the built plugin will be available in <Var:ProductName>.
+- Build the solution. After the build has succeeded, open Var:ProductNameWithEdition. Click “Yes” when the warning message appears. After Var:ProductName loads, the built plugin will be available in Var:ProductName.
 
 <img style="display:block; " src="images/Unsignedwarning.png" />
 

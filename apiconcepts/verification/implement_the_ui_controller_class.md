@@ -13,7 +13,7 @@ This class needs to be preceded by the following annotation, which makes it an e
 [!code-csharp[IdenticalVerifierUiPage](code_samples/IdenticalVerifierUiPage.cs#L7-L11)]
 ***
 
-Note that there are various strings to provide in the annotation, such as the plug-in page name and description. The plug-in page name corresponds to the link that is clicked in the user interface of <Var:ProductName> to display the corresponding page.
+Note that there are various strings to provide in the annotation, such as the plug-in page name and description. The plug-in page name corresponds to the link that is clicked in the user interface of Var:ProductName to display the corresponding page.
 Then declare the following private members:
 
 * **_Control**: This member is derived from the user interface class (see [Implement the User Interface](implement_the_user_interface.md)); We use this member to control the actual user interface (e.g. when the user clicks the buttons **OK, Reset to Defaults**, etc. in the UI)

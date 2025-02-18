@@ -15,7 +15,7 @@ During a project lifecycle the segments contained in the project files typically
 Retrieve the Project Statistics Programmatically
 --
 
-Below you see an example of how <Var:ProductName> uses bar charts to visualize the project statistics:
+Below you see an example of how Var:ProductName uses bar charts to visualize the project statistics:
 
 ![Statistics](images/Statistics.jpg)
 

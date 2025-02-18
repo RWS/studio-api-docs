@@ -1,5 +1,5 @@
 # Adding custom steps to wizards
-<Var:ProductName> Integration API provides support for third-party developers to add custom pages to certain wizards within the <Var:ProductName> desktop application. You can add custom pages using WPF views and view-models.
+Var:ProductName Integration API provides support for third-party developers to add custom pages to certain wizards within the Var:ProductName desktop application. You can add custom pages using WPF views and view-models.
 
 *For the moment, only the __Open Package wizard__ supports this functionality. Support for other wizards may come in the future.*
 
@@ -23,7 +23,7 @@ Some of the properties are represented on the user interface directly, as shown 
 <img style="display:block; " src="images/WizardProperties.png"/>
 
 ### ViewType
-* Set the `ViewType` property to the actual type of the WPF view file. <Var:ProductName>'s infrastructure uses the type to inject the view into the wizard's user interface. You can use the `typeof` C# keyword (`GetType` in VB) to obtain the view type needed here.
+* Set the `ViewType` property to the actual type of the WPF view file. Var:ProductName's infrastructure uses the type to inject the view into the wizard's user interface. You can use the `typeof` C# keyword (`GetType` in VB) to obtain the view type needed here.
 
 ### ViewModel
 * The wizard infrastructure automatically assigns the `ViewModel` as DataContext to the view, so you can use `Binding` from the view to the ViewModel properties. If you don't need a ViewModel just assign `null` here.
@@ -49,10 +49,10 @@ Some of the properties are represented on the user interface directly, as shown 
 * This property is used by the wizard framework to uniquely identify the pages.
 
   
-# Integrating pages as steps into <Var:ProductName> wizards
+# Integrating pages as steps into Var:ProductName wizards
 Custom pages are injected into the wizard via the `firstPages` argument of the event object corresponding to the respective wizard. Keep in mind that the `firstPages` argument is available only for some wizard event objects.
  
-To inject the custom pages as steps into a <Var:ProductName> wizard:
+To inject the custom pages as steps into a Var:ProductName wizard:
 
 * Determine or define a place in your code to launch the wizard (with custom steps) from; for example, from an [Action](../../api/integration/Sdl.Desktop.IntegrationApi.AbstractAction.yml)'s `Execute` method.
 * Determine the appropriate event (e.g. [OpenProjectPackageEvent](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Events.OpenProjectPackageEvent.yml)) to be raised, that corresponds to the wizard you want to open.

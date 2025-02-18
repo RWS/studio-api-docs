@@ -57,7 +57,7 @@ The plug-in settings are physically stored in the project files (* .*sdlproj*) o
 ```
 ***
 
-Note that the **Enabled** property does not need to be implemented by your plug-in. The plug-in framework provides the mechanism for enabling/disabling global verifier plug-ins through the user interface of <Var:ProductName>.
+Note that the **Enabled** property does not need to be implemented by your plug-in. The plug-in framework provides the mechanism for enabling/disabling global verifier plug-ins through the user interface of Var:ProductName.
 
 Putting it All Together
 ----
@@ -72,7 +72,7 @@ namespace Verification.Sdk.IdenticalCheck
     /// <summary>
     /// This class is used for reading and writing the plug-in setting(s) value(s).
     /// The settings are physically stored in an (XML-compliant) *.sdlproj file, which
-    /// is generated for each project that is created in <Var:ProductName> or for 
+    /// is generated for each project that is created in Var:ProductName or for 
     /// each file that is opened and translated.
     /// </summary>
     class IdenticalVerifierSettings : SettingsGroup

@@ -1,6 +1,6 @@
-Using <Var:ProductName> FilesController
+Using Var:ProductName FilesController
 =====
-TranslationStudioAutomation provides support for third-party developers to access the <Var:ProductName> files view and perform project files operations.
+TranslationStudioAutomation provides support for third-party developers to access the Var:ProductName files view and perform project files operations.
 
 Creating a custom project files list inside a viewpart that belongs to the files view
 -----

@@ -1,12 +1,12 @@
 Integrating actions
 =====
 
-Desktop Integration API provides support for third-party developers to integrate actions inside the <Var:ProductName> desktop applications.
+Desktop Integration API provides support for third-party developers to integrate actions inside the Var:ProductName desktop applications.
 
 Integrating general actions
 -----
 
-The following example demonstrates how to create an action into the <Var:ProductName> application which has a general purpose and integrate it into a custom ribbon group (see: [Integrating ribbon groups](integrating_ribbon_groups.md)).
+The following example demonstrates how to create an action into the Var:ProductName application which has a general purpose and integrate it into a custom ribbon group (see: [Integrating ribbon groups](integrating_ribbon_groups.md)).
 # [C#](#tab/tabid-1)
 ```cs
 [Action("MyMainIconAction", Icon = "MyAction_Icon")]

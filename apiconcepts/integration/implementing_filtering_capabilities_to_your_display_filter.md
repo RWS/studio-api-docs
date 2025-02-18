@@ -138,7 +138,7 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Content
 ```
 ****
 
-Next, create a new class called `DisplayFilter`. This will implement the [IDisplayFilter](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.DisplayFilters.IDisplayFilter.yml) interface so that we can evaluate each of the segments and decide whether or not they should be displayed in the <Var:ProductName> Editor.
+Next, create a new class called `DisplayFilter`. This will implement the [IDisplayFilter](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.DisplayFilters.IDisplayFilter.yml) interface so that we can evaluate each of the segments and decide whether or not they should be displayed in the Var:ProductName Editor.
 
 It is good design to include a reference to `IFilterSetting` interface in this class as it will be persisted on the document once the filter has been applied. This is useful to understand the type of filter that is applied (if any), especially in the case when the user is moving between documents in the editor. It permits the developer to differentiate between the internal system filter provider and their own implementation or multiple implementations and then take the appropriate action based on that.
 

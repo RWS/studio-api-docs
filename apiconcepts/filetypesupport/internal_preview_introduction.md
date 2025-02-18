@@ -5,11 +5,11 @@ In this chapter you will learn how to develop a document preview, which goes bey
 Enhance your File Type Plug-in by Adding Internal Preview Functionality
 --
 
-Instead of launching an external application such as Microsoft Word or Notepad, you can also generate a preview in a window that is embedded in <Var:ProductName>. You can implement a static (internal) preview. This means that the source or target text is displayed within <Var:ProductName>. With this preview type there is no interaction between the side-by-side translation editor and the preview document.
+Instead of launching an external application such as Microsoft Word or Notepad, you can also generate a preview in a window that is embedded in Var:ProductName. You can implement a static (internal) preview. This means that the source or target text is displayed within Var:ProductName. With this preview type there is no interaction between the side-by-side translation editor and the preview document.
 
-You may also implement a dynamic real-time preview, which is somewhat more sophisticated, because it interacts with the side-by-side editor of <Var:ProductName>. This means that when the user selects a segment in the editor, the corresponding segment in the preview will be highlighted and vice versa.
+You may also implement a dynamic real-time preview, which is somewhat more sophisticated, because it interacts with the side-by-side editor of Var:ProductName. This means that when the user selects a segment in the editor, the corresponding segment in the preview will be highlighted and vice versa.
 
-Example of an internal, real-time preview of a DOC file in <Var:ProductName>:
+Example of an internal, real-time preview of a DOC file in Var:ProductName:
 
 ![RealtimePreview](images/RealtimePreview.jpg)
 

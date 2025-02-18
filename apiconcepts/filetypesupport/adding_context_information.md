@@ -13,7 +13,7 @@ For the translators it is often useful to know whether a given segment occurs in
 ```
 
 
-<Var:ProductName> can display such information in a column next to the target segments. In this chapter we want to enhance our parser to show the information from the type element in the editor of <Var:ProductName>.
+Var:ProductName can display such information in a column next to the target segments. In this chapter we want to enhance our parser to show the information from the type element in the editor of Var:ProductName.
 
 Below you see an example of how the context information can be displayed in the translation environment. Each context cell contains a display code, which is the abbreviated form of the full context, e.g. **T** for **Topic**. You may also assign different colors for each context type as a visual aid for the translator.
 

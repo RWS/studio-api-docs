@@ -13,7 +13,7 @@ Maintaining a TM can involve, among others, the following typical tasks:
 * Filter for a subset of the TM, e.g. all units created on or after a specific date
   
   
-  In <Var:ProductName>, the maintenance work is typically done by users in a side-by-side TM view.
+  In Var:ProductName, the maintenance work is typically done by users in a side-by-side TM view.
 
   <img style="display:block; " src="images/TmMaintenance.jpg"/>
 

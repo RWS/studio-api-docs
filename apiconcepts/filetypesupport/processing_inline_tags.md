@@ -1,7 +1,7 @@
 Processing Inline Tags
 ===
 
-In this chapter you will learn how to parse inline tags and how to display character formatting in the side-by-side editing environment of <Var:ProductName>.
+In this chapter you will learn how to parse inline tags and how to display character formatting in the side-by-side editing environment of Var:ProductName.
 
 Enhance the Helper Function for Creating Segments
 --
@@ -62,7 +62,7 @@ private IText CreateText(string segText)
 Add the Helper Function for Generating Tag Pairs
 --
 
-Now add the function for generating tag pairs. This function works as follows: The properties factory is leveraged to create the start and the end tag properties. The display text of the tags is the tag text that users see when the (default) partial tag text mode of <Var:ProductName> is activated. Then we use the item factory to generate the actual tag pair object based on the start and end tag properties. Note that each opening tag requires a closing tag, i.e. the bilingual document needs to be well-formed in an XML sense. If that is not the case, the framework will raise a critical error.
+Now add the function for generating tag pairs. This function works as follows: The properties factory is leveraged to create the start and the end tag properties. The display text of the tags is the tag text that users see when the (default) partial tag text mode of Var:ProductName is activated. Then we use the item factory to generate the actual tag pair object based on the start and end tag properties. Note that each opening tag requires a closing tag, i.e. the bilingual document needs to be well-formed in an XML sense. If that is not the case, the framework will raise a critical error.
 
 Do not forget to extract also the text that is enclosed in the tag pair. To this end we call the ```CreateText()``` helper function, which generates the text between the opening and the closing tag, which is then appended to the tag pair.
 
@@ -110,7 +110,7 @@ private ITagPair CreateTagPair(XmlNode item)
 ```
 ***
 
-After you have enhanced your file type plug-in as described above, the BIL sample file should look as shown below in <Var:ProductName>:
+After you have enhanced your file type plug-in as described above, the BIL sample file should look as shown below in Var:ProductName:
 
 ![BilWithTags](images/BilWithTags.jpg)
 

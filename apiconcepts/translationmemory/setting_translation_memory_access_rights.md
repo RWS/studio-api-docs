@@ -1,7 +1,7 @@
 Setting Translation Memory Access Rights
 ==
 
-As a general rule, file-based TMs can generally be opened and used by anyone who is equipped with <Var:ProductName>. As long as you do not assign passwords to a TM file, any user can have unrestricted access to it (e.g. read/write, import/export, etc.) to the translation memory. However, you may protect a TM file with passwords that allow access to only a certain level of functionality.
+As a general rule, file-based TMs can generally be opened and used by anyone who is equipped with Var:ProductName. As long as you do not assign passwords to a TM file, any user can have unrestricted access to it (e.g. read/write, import/export, etc.) to the translation memory. However, you may protect a TM file with passwords that allow access to only a certain level of functionality.
 
 There are four different access levels for file based TMs:
 
@@ -15,7 +15,7 @@ There are four different access levels for file based TMs:
 >Server TMs use a different, much more sophisticated and granular access rights model.
 
 
-When a user opens a password-protected TM in <Var:ProductName> the following prompt will be shown where you can select the required access level and then enter the corresponding password:
+When a user opens a password-protected TM in Var:ProductName the following prompt will be shown where you can select the required access level and then enter the corresponding password:
 
 ![PwdPrompt](images/PwdPrompt.jpg)
 

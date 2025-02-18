@@ -1,6 +1,6 @@
 # Processing custom project package formats
 
-<Var:ProductName> Integration API provides support for third-party developers to transform third-party packages into a format that <var:ProductName> can work with. 
+Var:ProductName Integration API provides support for third-party developers to transform third-party packages into a format that Var:ProductName can work with. 
 This page will describe the steps required to create a custom package converter.
 
 ## Declaring a custom package converter
@@ -10,8 +10,8 @@ The first step in creating a custom package converter is the declaration:
 
     |Method Name| Description|
     | --------  | -----------|
-    |`ConvertPackage`| This method allows implementing logic that will transform a third party package format into a format recognised by <Var:ProductName>. |
-    |`ConvertReturnPackage`|This method allows conversion from the <Var:ProductName> return package format into the third party package format.|
+    |`ConvertPackage`| This method allows implementing logic that will transform a third party package format into a format recognised by Var:ProductName. |
+    |`ConvertReturnPackage`|This method allows conversion from the Var:ProductName return package format into the third party package format.|
 
 - Decorate the class with the [ExternalPackageConvertorExtension](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Extensions.ExternalPackageConvertorExtensionAttribute.yml) attribute. 
  
@@ -21,7 +21,7 @@ The first step in creating a custom package converter is the declaration:
     | `Name` | Name of the converter |
     | `Description` | Description for the converter |
     | `PackageFileFilter` | The filter to be used by the Windows OS File Opener dialog. This allows the user to see only files that match the given extension and thus pick a valid file. |
-    |`PackageFileExtension`| The file extension of the package to be imported into <Var:ProductName>.|
+    |`PackageFileExtension`| The file extension of the package to be imported into Var:ProductName.|
     |`ReturnPackageFileExtension`|The file extension of the return package.|
 
 The bellow sample provides a visual to the elements described above:
@@ -71,9 +71,9 @@ Importing a custom package is done by implementing the `ConvertPackage(IConversi
     |`sourceLanguage`| The source language of the project to be imported. |
     |`createdAt`| The `DateTime` creation details. |
     |`createdBy`| The user who created the package. |
-    |`originalProjectGuid`| Pass this as `Guid.Empty` if this is the first time the project is imported into <Var:ProductName>, otherwise pass the original project id. The presence of the project in <Var:ProductName> can be determined by calling [IConversionContext.CheckForExistingProject()](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IConversionContext.yml#Sdl_TranslationStudioAutomation_IntegrationApi_Packaging_IConversionContext_CheckForExistingProject_System_Guid_) 
+    |`originalProjectGuid`| Pass this as `Guid.Empty` if this is the first time the project is imported into Var:ProductName, otherwise pass the original project id. The presence of the project in Var:ProductName can be determined by calling [IConversionContext.CheckForExistingProject()](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IConversionContext.yml#Sdl_TranslationStudioAutomation_IntegrationApi_Packaging_IConversionContext_CheckForExistingProject_System_Guid_) 
 - Adding the resources to the package [IPackage](../../api/projectautomation/Sdl.ProjectAutomation.Core.IPackage.yml) object such as: files, translation memories, termbases, specific settings
-- Physically packaging the package into <Var:ProductName> valid format by calling [IPackage.Pack()](../../api/projectautomation/Sdl.ProjectAutomation.Core.IPackage.yml#Sdl_ProjectAutomation_Core_IPackage_Pack_System_String_) and specifying the location where the package will be saved.
+- Physically packaging the package into Var:ProductName valid format by calling [IPackage.Pack()](../../api/projectautomation/Sdl.ProjectAutomation.Core.IPackage.yml#Sdl_ProjectAutomation_Core_IPackage_Pack_System_String_) and specifying the location where the package will be saved.
 - Performing cleanup on temporary resources used, such as files.
 
 ```cs

@@ -1,7 +1,7 @@
 Synchronizing With Project Server
 ==
 
-When using <Var:ProductName>, synchronization between the server and the local copy occurs every 5 seconds. This makes sure that changes made by other users are reflected in the local copy. In the Project Automation API it is the responsibility of the developer to make sure that synchronization is performed before you access any files or settings and after you have made changes to any files or settings.
+When using Var:ProductName, synchronization between the server and the local copy occurs every 5 seconds. This makes sure that changes made by other users are reflected in the local copy. In the Project Automation API it is the responsibility of the developer to make sure that synchronization is performed before you access any files or settings and after you have made changes to any files or settings.
 
 How to Synchronize and what Synchronization Does
 --

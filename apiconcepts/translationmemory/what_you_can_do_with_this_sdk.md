@@ -7,7 +7,7 @@ The Translation Memory (TM) SDK allows you to create applications to automate a 
 * Programmatically create file- or server-based TMs.
 * Develop a command-line application that iterates through a folder/sub-folder structure and performs a batch import of multiple TMX files into a TM. Such an application can also be used to perform scheduled, regular import/export operations.
 * Create an application that looks up segments or strings in one or several TMs.
-* Develop a plug-in that allows you to access 3rd party translation providers from <Var:ProductName>, e.g. use an Web-based machine translation system, or simple, delimited text files.
+* Develop a plug-in that allows you to access 3rd party translation providers from Var:ProductName, e.g. use an Web-based machine translation system, or simple, delimited text files.
 * Integrate common TM lookup and editing functionality into a 3rd party application.
 * Develop a Web-based application that allows you to perform searches in a number of server-based TMs.
 Create a script that runs scheduled maintenance tasks to keep TMs lean and efficient.

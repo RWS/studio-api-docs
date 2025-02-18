@@ -1,13 +1,13 @@
 Instantiating the Plug-in
 ====
 
-A translation provider plug-in has to be properly instantiated, so that it can be used in and displayed in <Var:ProductName>. Instantiation is done by a component that is also provided in the plug-in template, and which is called `MyTranslationProviderFactory`. In our implementation we will rename this component to `ListTranslationProviderFactory`.
+A translation provider plug-in has to be properly instantiated, so that it can be used in and displayed in Var:ProductName. Instantiation is done by a component that is also provided in the plug-in template, and which is called `MyTranslationProviderFactory`. In our implementation we will rename this component to `ListTranslationProviderFactory`.
 
 The Translation Provider Factory Interface
 ------
 The factory component implements the interface [ITranslationProviderFactory](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderFactory.yml). This interface, in turn, consists of three methods. The following sections outline how we implement these methods for our sample plug-in.
 
-The class is preceded by the following declaration, which defines it as an extension class, which will be referenced and declared to the <Var:ProductName> application through the plug-in manifest *.xml file (see also [Building the Plug-in](building_the_plugin.md)).
+The class is preceded by the following declaration, which defines it as an extension class, which will be referenced and declared to the Var:ProductName application through the plug-in manifest *.xml file (see also [Building the Plug-in](building_the_plugin.md)).
 
 # [C#](#tab/tabid-1)
 ```cs
@@ -65,7 +65,7 @@ public bool SupportsTranslationProviderUri(Uri translationProviderUri)
 Setting the Plug-in Info
 -------
 
-This component is also responsible for setting the plug-in GUI elements, i.e. the name and the plug-in icon. Through the [GetTranslationProviderInfo](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderFactory.yml#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderFactory_GetTranslationProviderInfo_System_Uri_System_String_): method you set the plug-in name, which should be shown in the user interface of <Var:ProductName> as well as the translation method.
+This component is also responsible for setting the plug-in GUI elements, i.e. the name and the plug-in icon. Through the [GetTranslationProviderInfo](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderFactory.yml#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderFactory_GetTranslationProviderInfo_System_Uri_System_String_): method you set the plug-in name, which should be shown in the user interface of Var:ProductName as well as the translation method.
 
 First, create a [TranslationProviderInfo](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderInfo.yml) object to hold and set the plug-in properties. The string fro the (nice) plug-in name is accessed from the resources file:
 # [C#](#tab/tabid-5)

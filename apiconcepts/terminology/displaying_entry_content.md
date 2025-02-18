@@ -1,6 +1,6 @@
 Displaying Entry Content
 ====
-The full content of an entry can be displayed in the **Termbase Viewer** window. Learn how to show the content of a line of your glossary file in <Var:ProductName>.
+The full content of an entry can be displayed in the **Termbase Viewer** window. Learn how to show the content of a line of your glossary file in Var:ProductName.
 
 When you right-click a term in the **Term Recognition** or in the **Termbase Search** window, you can use the command **View term details** to show the full entry content in the **Termbase Viewer** window.
 
@@ -22,7 +22,7 @@ Modify the following **TermProviderControl** property (which is implemented by t
 
 When the you right-click a term and call up the command **View term details**, the corresponding entry content should be shown in the newly-created control.
 
-You need to modify the **JumpToTerm()** method as shown below. <Var:ProductName> passes the ID of the selected entry, which you can use to:
+You need to modify the **JumpToTerm()** method as shown below. Var:ProductName passes the ID of the selected entry, which you can use to:
 
 * Retrieve the corresponding line from the glossary text file.
 * Parse the line and generate the HTML output for the Internet Explorer controller object.

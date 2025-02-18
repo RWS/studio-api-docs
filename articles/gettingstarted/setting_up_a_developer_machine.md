@@ -1,41 +1,41 @@
 Setting up a Developer Machine
 =====
-Make sure you have the right prerequisites and meet the system requirements to develop applications that leverage the <Var:ProductName> public APIs.
+Make sure you have the right prerequisites and meet the system requirements to develop applications that leverage the Var:ProductName public APIs.
 
 Prerequisites
 ----
 
-* For the development environment, we recommend using <var:VisualStudioEdition>.
-* You need a licensed <Var:ProductNameWithEdition> or later installed on your development machine
-* We also recommend installation of the **<Var:ProductName> SDK** on your machine. Note that after the installation of **<Var:ProductName> SDK**, the **New Project** dialog box from <var:VisualStudioEdition> will feature additional project templates specific to the <Var:ProductName> application development.
+* For the development environment, we recommend using Var:VisualStudioEdition.
+* You need a licensed Var:ProductNameWithEdition or later installed on your development machine
+* We also recommend installation of the **Var:ProductName SDK** on your machine. Note that after the installation of **Var:ProductName SDK**, the **New Project** dialog box from Var:VisualStudioEdition will feature additional project templates specific to the Var:ProductName application development.
   * You can get the latest version from the [developer hub](https://appstore.sdl.com/language/developers/sdk.html). 
-  * Or you can install directly from <var:VisualStudioEdition> -> Tools -> Extensions
+  * Or you can install directly from Var:VisualStudioEdition -> Tools -> Extensions
   <img style="display:block; " src="images/VisualStudioExtensions.png" />
 * If your implementations need to connect to a TM Server system, then make sure that the TM Server also runs the latest version.
-* If you are developing against a version of API the which is distributed with one of SDL's publicly released applications (i.e. <Var:ProductNameWithEdition>), then all required assemblies and files should be available alongside the application. Make sure that you have the latest release of <Var:ProductName> installed.
+* If you are developing against a version of API the which is distributed with one of SDL's publicly released applications (i.e. Var:ProductNameWithEdition), then all required assemblies and files should be available alongside the application. Make sure that you have the latest release of Var:ProductName installed.
   
 > [!NOTE]
 >
-> As build output path for your implementations please choose the <var:PluginPackedPath>
+> As build output path for your implementations please choose the Var:PluginPackedPath
 >
-> Also check that your library references are pointing to the <Var:ProductName> folder. e.g. <var:InstallationFolder>.
+> Also check that your library references are pointing to the Var:ProductName folder. e.g. Var:InstallationFolder.
 >
 > For more informations regarding how to build and deploy a Studio plug-in see [Building a plug-in](building_a_plugin.md) and [Plug-in deployment](plugin_deployment.md)
 >
-> Sign and use Strong-Named Assemblies to enable the loading of your plug-ins inside <Var:ProductName>. For more information see [How to: Sign an Assembly with a Strong Name](https://docs.microsoft.com/en-us/dotnet/standard/assembly/sign-strong-name?redirectedfrom=MSDN) </br>
+> Sign and use Strong-Named Assemblies to enable the loading of your plug-ins inside Var:ProductName. For more information see [How to: Sign an Assembly with a Strong Name](https://docs.microsoft.com/en-us/dotnet/standard/assembly/sign-strong-name?redirectedfrom=MSDN) </br>
 > If you don't have a key, you can download [SdlCommunity.snk](https://github.com/RWS/Sdl-Community) key from public AppStore repository.
 > 
 > Choosing a different build output path or not signing your assembly will prevent your plugin to be loaded.
 
 
-System requirements for running <Var:ProductNameWithEdition>:
+System requirements for running Var:ProductNameWithEdition:
 ----
-* A Microsoft Windows-based PC or an Intel-based Apple Mac computer running Windows as an operating system. <Var:ProductNameWithEdition> runs on the latest build of Windows 11 and the latest updated version of Windows 10.
-* Up to 2.5 GB of available disk space to run the <Var:ProductNameWithEdition> installer
-* 2 GB of available disk space to run <Var:ProductNameWithEdition>
+* A Microsoft Windows-based PC or an Intel-based Apple Mac computer running Windows as an operating system. Var:ProductNameWithEdition runs on the latest build of Windows 11 and the latest updated version of Windows 10.
+* Up to 2.5 GB of available disk space to run the Var:ProductNameWithEdition installer
+* 2 GB of available disk space to run Var:ProductNameWithEdition
 * A recent processor with dual or multi-core technology
 * At least 8 GB RAM
-* <Var:ProductNameWithEdition> requires Microsoft .Net Framework 4.8.
+* Var:ProductNameWithEdition requires Microsoft .Net Framework 4.8.
 * Additional details can be found on the [product release notes](https://docs.rws.com/binary/980998/802650/trados-studio-2022/trados-studio-release-notes)
 
 System requirements for running SDL GroupShare ( TM Server,  Multiterm,  Project Server):

@@ -2,7 +2,7 @@ Setting up the Project
 =====
 On this page you will learn how to set up the project for designing our custom TM lookup application in C#.
 
-Create a new WPF application in <var:VisualStudioEdition> called **Sdl.SDK.LanguagePlatform.Samples.TmLookup**.
+Create a new WPF application in Var:VisualStudioEdition called **Sdl.SDK.LanguagePlatform.Samples.TmLookup**.
 
 
 <img style="display:block; " src="images/CreateLookupProject.jpg"/>
@@ -17,7 +17,7 @@ Then add the following references to your project:
 
 >[!Note]
 >
-> At the time of writing of this version of the SDK it was required to set the build path folder to the directory that contains the <Var:ProductName> debug build.
+> At the time of writing of this version of the SDK it was required to set the build path folder to the directory that contains the Var:ProductName debug build.
 
 See Also
 ------

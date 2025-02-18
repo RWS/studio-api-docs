@@ -21,7 +21,7 @@ This class needs to be preceded by the following declaration, which makes it an 
 ```
 ***
 
-This line is what makes the plug-in be listed under Verification in the Options or in the Project (Template) Settings dialog box of <Var:ProductName>.
+This line is what makes the plug-in be listed under Verification in the Options or in the Project (Template) Settings dialog box of Var:ProductName.
 This class needs to implement the interfaces listed below:
 
 * [IGlobalVerifier](../../api/verification/Sdl.Verification.Api.IGlobalVerifier.yml)
@@ -39,7 +39,7 @@ private IdenticalVerifierSettings _verificationSettings;
 
 Add the Plug-in Name, Icon and Description
 ----
-Add the following members to implement the plug-in icon, name, and description. Note that these elements are drawn from the resources file (see [The Resources File](the_resources_file.md)). This controls what end users will see in the **Options** dialog box of <Var:ProductName> under **Verification** in terms of strings and icons.
+Add the following members to implement the plug-in icon, name, and description. Note that these elements are drawn from the resources file (see [The Resources File](the_resources_file.md)). This controls what end users will see in the **Options** dialog box of Var:ProductName under **Verification** in terms of strings and icons.
 
 # [C#](#tab/tabid-3)
 ```cs
@@ -100,7 +100,7 @@ public IDocumentItemFactory ItemFactory
 
 Add the Message Reporter Member
 -----
-The message reporter is required by the [IBilingualVerifier](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualVerifier.yml) interface to implement the functionality of our verifier. Through this member you output messages (if any) to the **Messages** window of <Var:ProductName>. Therefore, this member is responsible for communicating any problems to the end user, who will then try to fix the reported problems.
+The message reporter is required by the [IBilingualVerifier](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualVerifier.yml) interface to implement the functionality of our verifier. Through this member you output messages (if any) to the **Messages** window of Var:ProductName. Therefore, this member is responsible for communicating any problems to the end user, who will then try to fix the reported problems.
 
 # [C#](#tab/tabid-1)
 [!code-csharp[TermVerifierMessageService](code_samples/TermVerifierMessageService.cs#L19-L21)]
@@ -135,7 +135,7 @@ public void Initialize(IDocumentProperties documentInfo)
 ***
 
 > [!NOTE]
-> An intermediary (XLIFF) document to verify might contain a number of individual documents, as <Var:ProductName> allows you to merge several native files into one intermediary master document. Through the `FileComplete` method you can determine what should happen after a particular file has been verified. With `Complete` you can determine what should happen after the entire (merged) document has been verified.
+> An intermediary (XLIFF) document to verify might contain a number of individual documents, as Var:ProductName allows you to merge several native files into one intermediary master document. Through the `FileComplete` method you can determine what should happen after a particular file has been verified. With `Complete` you can determine what should happen after the entire (merged) document has been verified.
 
 Through the object derived from [IFileProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IFileProperties.yml) you can retrieve various information on an individual file such as the original encoding, the original file path, etc. Through an object that is derived from [IDocumentProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IDocumentProperties.yml) you can retrieve various information on the entire bilingual document such as the source and target languages, the source count, repetitions, etc.
 
@@ -258,7 +258,7 @@ namespace Verification.Sdk.IdenticalCheck
         #region Members of IGlobalVerifier
         /// <summary>
         /// The following members set some general properties of the verification plug-in,
-        /// e.g. the plug-in name and the icon that are displayed in the user interface of <Var:ProductName>. 
+        /// e.g. the plug-in name and the icon that are displayed in the user interface of Var:ProductName. 
         /// </summary>
         #region "DescriptionNameIcon"
         public string Description
@@ -312,7 +312,7 @@ namespace Verification.Sdk.IdenticalCheck
         #endregion
 
         /// <summary>
-        /// This member is used to output any verification messages in the user interface of <Var:ProductName>.
+        /// This member is used to output any verification messages in the user interface of Var:ProductName.
         /// </summary>
         #region "MessageReporter"
         public IBilingualContentMessageReporter MessageReporter
@@ -361,7 +361,7 @@ namespace Verification.Sdk.IdenticalCheck
         /// the display code is identical to the display code entered in the plug-in settings.
         /// If this is the case, it determines whether the target segment is actually identical to the source segment.
         /// If not, a warning message will be generated, which is then displayed between the source and target segments,
-        /// and in the Messages window of <Var:ProductName>.
+        /// and in the Messages window of Var:ProductName.
         /// </summary>
         /// <param name="paragraphUnit"></param>
         #region "verify"

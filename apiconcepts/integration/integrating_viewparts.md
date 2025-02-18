@@ -1,7 +1,7 @@
 Integrating viewparts
 =====
 
-Desktop Integration API provides support for third-party developers to integrate UI view parts inside the <Var:ProductName> desktop applications.
+Desktop Integration API provides support for third-party developers to integrate UI view parts inside the Var:ProductName desktop applications.
 
 Integrating view parts implies changes, in the way that a view is no longer having one content, but is built by one too many viewparts having at least one main centered viewpart, which is filling its content.
 
@@ -9,7 +9,7 @@ The viewparts can be added to be part of an integrated view (see the sample rega
 
 Integrating view parts inside a custom view
 -----
-The following example demonstrates how to create a view built by viewparts into a <Var:ProductName> application.
+The following example demonstrates how to create a view built by viewparts into a Var:ProductName application.
 
 First, create and integrate a view which allows viewparts:
 
@@ -29,7 +29,7 @@ Define other viewparts and order their relevance by setting the `ZIndex` propert
 
 > [!NOTE]
 > 
-> The ZIndex ordering is performed only for the intergrated viewparts and displayed only after <Var:ProductName> viewparts and acts as importance from left to right or top to bottom. The highest ZIndex value is in the left or top and the lowest value is in the right or bottom.
+> The ZIndex ordering is performed only for the intergrated viewparts and displayed only after Var:ProductName viewparts and acts as importance from left to right or top to bottom. The highest ZIndex value is in the left or top and the lowest value is in the right or bottom.
 
 # [C#](#tab/tabid-3)
 [!code-csharp[MyCustomViewPart1](code_samples/MyCustomViewPart1.cs#L1-L30)]
@@ -44,9 +44,9 @@ Define other viewparts and order their relevance by setting the `ZIndex` propert
 [!code-csharp[MyCustomViewPart3](code_samples/MyCustomViewPart3.cs#L1-L29)]
 ***
 
-Integrating viewparts inside an existing <Var:ProductName> view
+Integrating viewparts inside an existing Var:ProductName view
 ------
-The following example demonstrates how to create a viewpart and integrate it into the <Var:ProductName> Projects View.
+The following example demonstrates how to create a viewpart and integrate it into the Var:ProductName Projects View.
 
 # [C#](#tab/tabid-5)
 [!code-csharp[MyProjectViewPart](code_samples/MyProjectViewPart.cs#L1-L44)]

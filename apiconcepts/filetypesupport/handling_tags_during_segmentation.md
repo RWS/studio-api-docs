@@ -6,7 +6,7 @@ In this chapter you will learn how to process tags that appear at the beginning 
 Change the Way the Segmentation Treats Tags
 --
 
-A tag such as **IMG** may appear right in front or after a segment, i.e. the parser might have to deal with leading or trailing inline tags. You should always try to display as few tags as possible in order not no clutter the editor view unnecessarily. This is why leading and trailing tags are not displayed in the editor of <Var:ProductName> by default.
+A tag such as **IMG** may appear right in front or after a segment, i.e. the parser might have to deal with leading or trailing inline tags. You should always try to display as few tags as possible in order not no clutter the editor view unnecessarily. This is why leading and trailing tags are not displayed in the editor of Var:ProductName by default.
 
 For example, the following leading **IMG** tag would not be shown in the editor view, however, the sub-segment content would be displayed:
 
@@ -15,7 +15,7 @@ For example, the following leading **IMG** tag would not be shown in the editor 
 <img src="button.jpg" alt="Open dialog box" /> Click the Open Dialog box button to open the dialog box.
 ```
 
-Output in the editor <Var:ProductName>.
+Output in the editor Var:ProductName.
 
 ![SubSegmentWithoutTag](images/SubSegmentWithoutTag.jpg)
 
@@ -25,7 +25,7 @@ The user could set the display filter to show all content (by selecting **All co
 ![TagShownSeperately](images/TagShownSeperately.jpg)
 
 
-However, you can change this behavior as required through the [SegmentationHint](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IStartTagProperties.yml#Sdl_FileTypeSupport_Framework_NativeApi_IStartTagProperties_SegmentationHint) property of the placeable properties object. Unless otherwise defined, the property value is [Undefined](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.SegmentationHint.yml#fields). This means that the default segmentation behavior will be applied, which means that leading and trailing tags will not be shown, as <Var:ProductName> tries to minimize the number of tags displayed, which is usually more translator-friendly.
+However, you can change this behavior as required through the [SegmentationHint](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IStartTagProperties.yml#Sdl_FileTypeSupport_Framework_NativeApi_IStartTagProperties_SegmentationHint) property of the placeable properties object. Unless otherwise defined, the property value is [Undefined](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.SegmentationHint.yml#fields). This means that the default segmentation behavior will be applied, which means that leading and trailing tags will not be shown, as Var:ProductName tries to minimize the number of tags displayed, which is usually more translator-friendly.
 
 You can, however, set the segmentation hint property to [Include](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.SegmentationHint.yml#fields), if you want to make sure that such tags are shown in the same segment as the actual text, e.g.:
 

@@ -1,11 +1,11 @@
 Creating a Server Translation Memory
 ====
 
-Server translation memories can either be created in <Var:ProductName> or in the browser-based TM Server Manager (provided that you have the required access rights). In this chapter you will learn how to create server TMs programmatically, which is probably one of the most common applications.
+Server translation memories can either be created in Var:ProductName or in the browser-based TM Server Manager (provided that you have the required access rights). In this chapter you will learn how to create server TMs programmatically, which is probably one of the most common applications.
 
 Add a New Class
 ----
-The screenshot below illustrates what kind of information you need to provide when creating a new server TM from <Var:ProductName>. Some information is optional such as the description and the copyright information. The mandatory information that you need to provide is a follows:
+The screenshot below illustrates what kind of information you need to provide when creating a new server TM from Var:ProductName. Some information is optional such as the description and the copyright information. The mandatory information that you need to provide is a follows:
 
 * TM name
 * TM Server name

@@ -1,11 +1,11 @@
 Introduction
 =====
 
-This guide will walk you through creating a C# project in <var:VisualStudioEdition> to implement a simple global verification plug-in.
+This guide will walk you through creating a C# project in Var:VisualStudioEdition to implement a simple global verification plug-in.
 
-Global verifiers are not specific to a particular file format. Instead, they can apply to any document type that is localized in <Var:ProductName>.
+Global verifiers are not specific to a particular file format. Instead, they can apply to any document type that is localized in Var:ProductName.
 
-Out-of-the-box, <Var:ProductName> is currently equipped with two global verification plug-ins, the **QA Checker** and the **Terminology Verifier**. These plug-ins can be found in the **Options** dialog box under **Verification** (i.e. *not* under **File Types**, as would be the case for file type-specific bilingual or native verification plug-ins). The global plug-ins can be enabled or disabled using the check boxes, which you can find next to the corresponding plug-in name.
+Out-of-the-box, Var:ProductName is currently equipped with two global verification plug-ins, the **QA Checker** and the **Terminology Verifier**. These plug-ins can be found in the **Options** dialog box under **Verification** (i.e. *not* under **File Types**, as would be the case for file type-specific bilingual or native verification plug-ins). The global plug-ins can be enabled or disabled using the check boxes, which you can find next to the corresponding plug-in name.
 
 <img style="display:block; " src="images/standard_global_verifiers.png"/>
 

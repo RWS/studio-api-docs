@@ -1,6 +1,6 @@
 Creating ribbon groups
 ====
-<Var:ProductName> Integration API provides support for third-party developers to integrate UI ribbon groups inside the <Var:ProductName> desktop applications.
+Var:ProductName Integration API provides support for third-party developers to integrate UI ribbon groups inside the Var:ProductName desktop applications.
 
 Creating ribbon groups
 ---

@@ -110,17 +110,17 @@ public ListTranslationProviderLanguageDirection(ListTranslationProvider provider
 
 Search the Current Segment
 -----
-A segment lookup is (by default) triggered in <Var:ProductName> when the user moves the cursor into a particular target cell. This will search for a match for the current source segment in the selected translation provider source. The screenshot below shows two source segments as they are displayed in the editor of <Var:ProductName> and the empty target cells next to them:
+A segment lookup is (by default) triggered in Var:ProductName when the user moves the cursor into a particular target cell. This will search for a match for the current source segment in the selected translation provider source. The screenshot below shows two source segments as they are displayed in the editor of Var:ProductName and the empty target cells next to them:
 
 <img style="display:block; " src="images/Segments.jpg"/>
 
-When moving into a target cell the [SearchSegment](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderLanguageDirection.yml#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderLanguageDirection_SearchSegment_Sdl_LanguagePlatform_TranslationMemory_SearchSettings_Sdl_LanguagePlatform_Core_Segment_) method of the [ITranslationProviderLanguageDirection](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderLanguageDirection.yml) interface is invoked. This method takes the current segment object and the search settings as parameters. Search settings include, for example, the maximum number of matches that a search should return. These settings can be configured by the user of <Var:ProductName> at runtime. The screenshot below shows the search settings that users can configure. If a user, for example, limits the number of concordance matches that a translation provider should return to 5, then the this is the maximum number of concordance hits that your provider will return. There is no need for you to implement the logic for applying the settings yourself.
+When moving into a target cell the [SearchSegment](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderLanguageDirection.yml#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderLanguageDirection_SearchSegment_Sdl_LanguagePlatform_TranslationMemory_SearchSettings_Sdl_LanguagePlatform_Core_Segment_) method of the [ITranslationProviderLanguageDirection](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderLanguageDirection.yml) interface is invoked. This method takes the current segment object and the search settings as parameters. Search settings include, for example, the maximum number of matches that a search should return. These settings can be configured by the user of Var:ProductName at runtime. The screenshot below shows the search settings that users can configure. If a user, for example, limits the number of concordance matches that a translation provider should return to 5, then the this is the maximum number of concordance hits that your provider will return. There is no need for you to implement the logic for applying the settings yourself.
 <img style="display:block; " src="images/SearchSettings.jpg"/>
 > [!NOTE]
 > 
-> Depending on your translation provider, some of the search settings that <Var:ProductName> offers may or may not be relevant for your implementation. For example, since our provider will only support exact matches, the **Minimum match value** setting will not be relevant for the delimited list translation provider, as our logic will only implement searches for 100% matches.
+> Depending on your translation provider, some of the search settings that Var:ProductName offers may or may not be relevant for your implementation. For example, since our provider will only support exact matches, the **Minimum match value** setting will not be relevant for the delimited list translation provider, as our logic will only implement searches for 100% matches.
 
-Also, our implementation only support plain text searches. The segment pairs in the delimited list files are plain text, i.e. they do not contain any text., it is likely that a document that is opened in <Var:ProductName> contains inline tags, e.g. for character formatting as shown in the example below:
+Also, our implementation only support plain text searches. The segment pairs in the delimited list files are plain text, i.e. they do not contain any text., it is likely that a document that is opened in Var:ProductName contains inline tags, e.g. for character formatting as shown in the example below:
 
 <img style="display:block; " src="images/NotPlainText.jpg"/>
 
@@ -161,7 +161,7 @@ A concordance search can be triggered by, for example, selecting a source or tar
 
 Implement the Segment Lookup
 -------
-The following code snippet shows how we handle the normal segment lookup. If the search mode equals **NormalSearch**, and if a source segment match is found for the plain text version of the current source segment from the editor, then a target segment object should be created using the target segment string (i.e. the key value) from our segment pair collection. The current source segment and the target segment will be used to construct a search result, which will be displayed in the **Translation Results** window of <Var:ProductName>. The result will be generated through a separate `CreateSearchResult` helper function, which we will implement later.
+The following code snippet shows how we handle the normal segment lookup. If the search mode equals **NormalSearch**, and if a source segment match is found for the plain text version of the current source segment from the editor, then a target segment object should be created using the target segment string (i.e. the key value) from our segment pair collection. The current source segment and the target segment will be used to construct a search result, which will be displayed in the **Translation Results** window of Var:ProductName. The result will be generated through a separate `CreateSearchResult` helper function, which we will implement later.
 # [C#](#tab/tabid-7)
 ```cs
 if (settings.Mode == SearchMode.NormalSearch &&
@@ -323,7 +323,7 @@ Another parameter that we use is the `formattingPenalty`, which is a boolean val
 > 
 > For concordance searches this formatting penalty parameter is always set to False as in our implementation formatting is not relevant for concordance searches.
 
-Below are some examples that illustrate how search results will be displayed in <Var:ProductName>:
+Below are some examples that illustrate how search results will be displayed in Var:ProductName:
 
 The following result would be displayed in the **Translation Results** window when an exact (100%) match has been found in the delimited list:
 
@@ -364,7 +364,7 @@ Next, we set some properties for the TU:
     searchResult.ScoringResult.ApplyPenalty(penalty);
     ```
 
-* When a formatting (i.e. tag) penalty is applied to a TU, it will be shown in <Var:ProductName> as illustrated in the screenshot below:
+* When a formatting (i.e. tag) penalty is applied to a TU, it will be shown in Var:ProductName as illustrated in the screenshot below:
 
     <img style="display:block; " src="images/FormattingPenalty.jpg"/>
 
