@@ -39,6 +39,12 @@ First of all you have to import `all the .xaml files you want to use` in your ap
 		<ResourceDictionary Source="/Sdl.Desktop.Platform.Styles;component/TextBoxResources.xaml"/>
 		<ResourceDictionary Source="/Sdl.Desktop.Platform.Styles;component/TextBlockResources.xaml"/>
 		<ResourceDictionary Source="/Sdl.Desktop.Platform.Styles;component/GroupboxResources.xaml"/>
+		<ResourceDictionary Source="/Sdl.Desktop.Platform.Styles;component/DataGridResources.xaml"/>
+		<ResourceDictionary Source="/Sdl.Desktop.Platform.Styles;component/NumericUpDown.xaml"/>
+		<ResourceDictionary Source="/Sdl.Desktop.Platform.Styles;component/RadioButtonResources.xaml"/>
+		<ResourceDictionary Source="/Sdl.Desktop.Platform.Styles;component/TreeViewResources.xaml"/>
+		<ResourceDictionary Source="/Sdl.Desktop.Platform.Styles;component/BindablePasswordBoxStyle.xaml"/>
+		<ResourceDictionary Source="/Sdl.Desktop.Platform.Controls;component/Controls/WatermarkTextBox/WatermarkTextBoxResources.xaml"/>
 		</ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>
 ~~~
