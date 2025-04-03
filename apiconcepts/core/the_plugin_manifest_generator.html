@@ -84,7 +84,7 @@
 <p>The section describes how plug-in projects are built and how the plug-in manifest is generated.</p>
 <h2 id="plug-in-manifest-generator">Plug-in Manifest Generator</h2>
 <p>The purpose of the plug-in manifest is to avoid loading all the plug-in assemblies at runtime and reflecting over them to discover the available extensions, which would affect startup performance, an important aspect of desktop applications.</p>
-<p>The plug-in manifest generator is implemented as an MSBuild task, which runs as part of the standard Var:VisualStudioEdition build. This build task is contained in <a href="https://www.nuget.org/packages/Sdl.Core.PluginFramework.Build/">Sdl.Core.PluginFramework.Build</a> package that needs to be refreneced by the project.</p>
+<p>The plug-in manifest generator is implemented as an MSBuild task, which runs as part of the standard Microsoft Visual Studio 2022 build. This build task is contained in <a href="https://www.nuget.org/packages/Sdl.Core.PluginFramework.Build/">Sdl.Core.PluginFramework.Build</a> package that needs to be refreneced by the project.</p>
 <pre><code class="lang-xml">&lt;Project xmlns=&quot;http://schemas.microsoft.com/developer/msbuild/2003&quot;&gt;
   &lt;UsingTask TaskName=&quot;Sdl.Core.PluginFramework.Build.CreatePluginManifestTask&quot; AssemblyFile=&quot;Sdl.Core.PluginFramework.BuildTasks.dll&quot; /&gt;
 
@@ -108,7 +108,7 @@
 <p>When creating a plug-in project using the project template from the SDK, the project file will contain the following pieces of custom content:</p>
 <ul>
 <li><code>CreatePluginPackage</code> - if set to true will generate the <code>*.sdlplugin</code></li>
-<li><code>PluginDeploymentPath</code> - path to the root folder where the <code>Packages</code> and <code>Unpacked</code> folders are present, default path is set to <em>Var:PluginPackedPath</em></li>
+<li><code>PluginDeploymentPath</code> - path to the root folder where the <code>Packages</code> and <code>Unpacked</code> folders are present, default path is set to <em>%AppData%\Trados\Trados Studio\18\Plugins\Packages\</em></li>
 </ul>
 
 </article>

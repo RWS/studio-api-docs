@@ -81,18 +81,18 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="setting-up-the-visual-studio-project">Setting up the Visual Studio project</h1>
 
-<p>To start setting up your batch task plug-in project, you need to generate a plug-in that can compile and that implements an empty batch task which can be seen and selected in Var:ProductName. For the moment, it will not contain any application logic, that is it will not actually perform a real task.</p>
+<p>To start setting up your batch task plug-in project, you need to generate a plug-in that can compile and that implements an empty batch task which can be seen and selected in Trados Studio. For the moment, it will not contain any application logic, that is it will not actually perform a real task.</p>
 <h2 id="how-to-create-the-visual-studio-project">How to create the Visual Studio Project</h2>
-<p>Assuming that you already installed the Var:ProductName SDK, open Var:VisualStudioEdition. You will see the following options when you create a new project:
+<p>Assuming that you already installed the Trados Studio SDK, open Microsoft Visual Studio 2022. You will see the following options when you create a new project:
 <img style="display:block; " src="images/CustomBatchTemplate.jpg">
-With the above templates you can set up the skeleton of a Var:ProductName plug-in project. Select ** Terminology Provider (2021)**.</p>
+With the above templates you can set up the skeleton of a Trados Studio plug-in project. Select ** Terminology Provider (2021)**.</p>
 <h2 id="the-plug-in-skeleton">The Plug-in Skeleton</h2>
 <p>The plug-in template will add the required references to your project:
 <img style="display:block; " src="images/References.jpg">
 It will also add the following skeleton classes to your project:
 <img style="display:block; " src="images/Stubs.jpg"></p>
 <h2 id="the-plug-in-declaration-id-name-description">The Plug-in Declaration: ID, Name, Description</h2>
-<p>Open the <strong>MyTerminologyProviderFactory.cs</strong> class. This class contains the plug-in declaration - the plug-in name and description that will be visible in Var:ProductName:</p>
+<p>Open the <strong>MyTerminologyProviderFactory.cs</strong> class. This class contains the plug-in declaration - the plug-in name and description that will be visible in Trados Studio:</p>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
@@ -112,18 +112,18 @@ public ITerminologyProvider CreateTerminologyProvider(Uri terminologyProviderUri
 <p>Give the terminology provider plug-in a new name, ID and description. Instead of doing it directly inside this class, enter the strings into the <strong>PluginResources.resx</strong> file:</p>
 <img style="display:block; " src="images/Resource.jpg">
 <p>Make sure the resource file access modifier is set to <em>public</em> and that you treat it as an <em>embedded</em> resource.</p>
-<p>Open the <strong>MyTerminologyProviderWinFormsUI.cs</strong> class. This class controls how the plug-in manifests in the Var:ProductName UI. Change the <strong>TypeName</strong> and <strong>TypeDescription</strong> members as shown below.</p>
-<h2 id="how-to-build-and-load-the-plugin-in-varproductname">How to build and load the plugin in Var:ProductName</h2>
-<p>Build the assembly. The project is automatically configured to build the plug-in file into the <em>Var:PluginPackedPath</em> folder. After you have built the plug-in, you should find the Terminology Provider1.sdlplugin file in the folder. Start Var:ProductName. As the plug-in is not yet officially signed by RWS, you will see the following message when starting the application:
+<p>Open the <strong>MyTerminologyProviderWinFormsUI.cs</strong> class. This class controls how the plug-in manifests in the Trados Studio UI. Change the <strong>TypeName</strong> and <strong>TypeDescription</strong> members as shown below.</p>
+<h2 id="how-to-build-and-load-the-plugin-in-varproductname">How to build and load the plugin in Trados Studio</h2>
+<p>Build the assembly. The project is automatically configured to build the plug-in file into the <em>%AppData%\Trados\Trados Studio\18\Plugins\Packages\</em> folder. After you have built the plug-in, you should find the Terminology Provider1.sdlplugin file in the folder. Start Trados Studio. As the plug-in is not yet officially signed by RWS, you will see the following message when starting the application:
 <img style="display:block; " src="images/Plugin_NotSigned.jpg">
-For the moment, ignore this message and click <strong>Yes</strong> to make sure that Var:ProductName extracts the plug-in file. Once Var:ProductName is started, you should find the sub-folder <em>Terminology Provider1</em> under <em> Var:PluginUnpackedPath </em>. This sub-folder contains the unpacked plug-in assemblies.</p>
+For the moment, ignore this message and click <strong>Yes</strong> to make sure that Trados Studio extracts the plug-in file. Once Trados Studio is started, you should find the sub-folder <em>Terminology Provider1</em> under <em> %AppData%\Trados\Trados Studio\18\Plugins\Unpacked\ </em>. This sub-folder contains the unpacked plug-in assemblies.</p>
 <div class="NOTE">
 <h5>Note</h5>
-<p>To officially sign the plugin, send the sdlplugin file to Var:AppSigningEmail.</p>
+<p>To officially sign the plugin, send the sdlplugin file to app-signing@sdl.com.</p>
 </div>
-<p>Open Var:ProductName and go to <strong>File -&gt; Options -&gt; Language Pairs -&gt; All Language Pairs -&gt; Termbases</strong> as illustrated below. When you click Add, the name of your newly-created terminology provider should be listed:</p>
+<p>Open Trados Studio and go to <strong>File -&gt; Options -&gt; Language Pairs -&gt; All Language Pairs -&gt; Termbases</strong> as illustrated below. When you click Add, the name of your newly-created terminology provider should be listed:</p>
 <img style="display:block; " src="images/tb_provider_name.jpg">
-<p>You have now managed to make your terminology provider available in Var:ProductName. The plug-in does not perform any function yet. In the following pages we will provide functionality to the plug-in.</p>
+<p>You have now managed to make your terminology provider available in Trados Studio. The plug-in does not perform any function yet. In the following pages we will provide functionality to the plug-in.</p>
 
 </article>
           </div>
