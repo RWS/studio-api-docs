@@ -1,53 +1,49 @@
-﻿using Docfx.Common;
-using Docfx.Plugins;
-using System;
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 using System.Composition;
-using System.IO;
-using System.Linq;
-using System.Threading;
+using Docfx.Common;
+using Docfx.Plugins;
 
 namespace TradosStudioDocsPlugin;
 
 [Export(nameof(EnvironmentVariableProcessor), typeof(IPostProcessor))]
 public class EnvironmentVariableProcessor : IPostProcessor
 {
-    public ImmutableDictionary<string, object> PrepareMetadata(ImmutableDictionary<string, object> metadata)
-    {
-        return metadata;
-    }
+	public ImmutableDictionary<string, object> PrepareMetadata(ImmutableDictionary<string, object> metadata)
+	{
+		return metadata;
+	}
 
-    public Manifest Process(Manifest manifest, string outputFolder, CancellationToken cancellationToken = default)
-    {
-        if (outputFolder == null)
-        {
-            throw new ArgumentNullException(nameof(outputFolder), "Base directory can not be null");
-        }
-   
-        foreach (var manifestItem in manifest.Files.Where(x => x.Type == "Conceptual"))
-        {
-            foreach (var manifestItemOutputFile in manifestItem.Output)
-            {
-                cancellationToken.ThrowIfCancellationRequested();
+	public Manifest Process(Manifest manifest, string outputFolder, CancellationToken cancellationToken = default)
+	{
+		if (outputFolder == null)
+		{
+			throw new ArgumentNullException(nameof(outputFolder), "Base directory can not be null");
+		}
 
-                var outputPath = Path.Combine(outputFolder, manifestItemOutputFile.Value.RelativePath);
+		foreach (var manifestItem in manifest.Files.Where(x => x.Type == "Conceptual"))
+		{
+			foreach (var manifestItemOutputFile in manifestItem.Output)
+			{
+				cancellationToken.ThrowIfCancellationRequested();
 
-                var content = File.ReadAllText(outputPath);
+				var outputPath = Path.Combine(outputFolder, manifestItemOutputFile.Value.RelativePath);
 
-                Logger.LogInfo($"Replacing environment variables in {outputPath}");
+				var content = File.ReadAllText(outputPath);
 
-                var newContent = EnvironmentVariableUtil.ReplaceEnvironmentVariables(content);
+				Logger.LogInfo($"Replacing environment variables in {outputPath}");
 
-                if (content == newContent)
-                {
-                    continue;
-                }
+				var newContent = EnvironmentVariableUtil.ReplaceEnvironmentVariables(content);
 
-                Logger.LogInfo($"Writing new content to {outputPath}");
+				if (content == newContent)
+				{
+					continue;
+				}
 
-                File.WriteAllText(outputPath, newContent);
-            }
-        }
-        return manifest;
-    }
+				Logger.LogInfo($"Writing new content to {outputPath}");
+
+				File.WriteAllText(outputPath, newContent);
+			}
+		}
+		return manifest;
+	}
 }

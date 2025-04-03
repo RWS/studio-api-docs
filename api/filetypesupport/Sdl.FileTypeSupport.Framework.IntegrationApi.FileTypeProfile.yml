@@ -26,16 +26,20 @@ items:
   nameWithType: FileTypeProfile
   fullName: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile
   type: Class
-  source:
-    path: Sdl.FileTypeSupport.Framework.Core
-    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.IntegrationApi
-  summary: "\nThis class is a collection of data that&apos;s required to build up an XML chunk for file type information override\n"
+  summary: This class is a collection of data that's required to build up an XML chunk for file type information override
+  example: []
   syntax:
-    content: public sealed class FileTypeProfile
-    content.vb: Public NotInheritable Class FileTypeProfile
+    content: >-
+      [DataContract(Namespace = "http://www.sdl.com/filetypesupport", Name = "FileTypeInformation")]
+
+      public sealed class FileTypeProfile : IExtensibleDataObject
+    content.vb: >-
+      <DataContract(Namespace:="http://www.sdl.com/filetypesupport", Name:="FileTypeInformation")>
+
+      Public NotInheritable Class FileTypeProfile Implements IExtensibleDataObject
   inheritance:
   - System.Object
   implements:
@@ -47,15 +51,17 @@ items:
   - System.Object.ReferenceEquals(System.Object,System.Object)
   - System.Object.GetHashCode
   - System.Object.GetType
-  - System.Object.MemberwiseClone
-  modifiers.csharp:
-  - public
-  - sealed
-  - class
-  modifiers.vb:
-  - Public
-  - NotInheritable
-  - Class
+  attributes:
+  - type: System.Runtime.Serialization.DataContractAttribute
+    ctor: System.Runtime.Serialization.DataContractAttribute.#ctor
+    arguments: []
+    namedArguments:
+    - name: Namespace
+      type: System.String
+      value: http://www.sdl.com/filetypesupport
+    - name: Name
+      type: System.String
+      value: FileTypeInformation
 - uid: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.GetFileTypeProfile(System.String)
   commentId: M:Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.GetFileTypeProfile(System.String)
   id: GetFileTypeProfile(System.String)
@@ -63,17 +69,15 @@ items:
   langs:
   - csharp
   - vb
-  name: GetFileTypeProfile(String)
-  nameWithType: FileTypeProfile.GetFileTypeProfile(String)
-  fullName: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.GetFileTypeProfile(System.String)
+  name: GetFileTypeProfile(string)
+  nameWithType: FileTypeProfile.GetFileTypeProfile(string)
+  fullName: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.GetFileTypeProfile(string)
   type: Method
-  source:
-    path: Sdl.FileTypeSupport.Framework.Core
-    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.IntegrationApi
-  summary: "\nGets the file type profile from the given file type profile xml.\n"
+  summary: Gets the file type profile from the given file type profile xml.
+  example: []
   syntax:
     content: public static FileTypeProfile GetFileTypeProfile(string fileTypeProfileXml)
     parameters:
@@ -85,12 +89,9 @@ items:
       description: file type profile
     content.vb: Public Shared Function GetFileTypeProfile(fileTypeProfileXml As String) As FileTypeProfile
   overload: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.GetFileTypeProfile*
-  modifiers.csharp:
-  - public
-  - static
-  modifiers.vb:
-  - Public
-  - Shared
+  nameWithType.vb: FileTypeProfile.GetFileTypeProfile(String)
+  fullName.vb: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.GetFileTypeProfile(String)
+  name.vb: GetFileTypeProfile(String)
 - uid: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.GetFileTypeProfileXml(Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile)
   commentId: M:Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.GetFileTypeProfileXml(Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile)
   id: GetFileTypeProfileXml(Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile)
@@ -102,13 +103,11 @@ items:
   nameWithType: FileTypeProfile.GetFileTypeProfileXml(FileTypeProfile)
   fullName: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.GetFileTypeProfileXml(Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile)
   type: Method
-  source:
-    path: Sdl.FileTypeSupport.Framework.Core
-    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.IntegrationApi
-  summary: "\nGets the file type profile xml from the given file type profile.\n"
+  summary: Gets the file type profile xml from the given file type profile.
+  example: []
   syntax:
     content: public static string GetFileTypeProfileXml(FileTypeProfile fileTypeProfile)
     parameters:
@@ -120,12 +119,6 @@ items:
       description: file type profile xml
     content.vb: Public Shared Function GetFileTypeProfileXml(fileTypeProfile As FileTypeProfile) As String
   overload: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.GetFileTypeProfileXml*
-  modifiers.csharp:
-  - public
-  - static
-  modifiers.vb:
-  - Public
-  - Shared
 - uid: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.ApplyProfile(Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeDefinition,Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile)
   commentId: M:Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.ApplyProfile(Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeDefinition,Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile)
   id: ApplyProfile(Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeDefinition,Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile)
@@ -137,13 +130,11 @@ items:
   nameWithType: FileTypeProfile.ApplyProfile(IFileTypeDefinition, FileTypeProfile)
   fullName: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.ApplyProfile(Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeDefinition, Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile)
   type: Method
-  source:
-    path: Sdl.FileTypeSupport.Framework.Core
-    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.IntegrationApi
-  summary: "\nApplies the profile to the provided file type definition\n"
+  summary: Applies the profile to the provided file type definition
+  example: []
   syntax:
     content: public static void ApplyProfile(IFileTypeDefinition fileTypeDefinition, FileTypeProfile fileTypeProfile)
     parameters:
@@ -155,12 +146,6 @@ items:
       description: The profile to use.
     content.vb: Public Shared Sub ApplyProfile(fileTypeDefinition As IFileTypeDefinition, fileTypeProfile As FileTypeProfile)
   overload: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.ApplyProfile*
-  modifiers.csharp:
-  - public
-  - static
-  modifiers.vb:
-  - Public
-  - Shared
 - uid: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.#ctor
   commentId: M:Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.#ctor
   id: '#ctor'
@@ -172,20 +157,16 @@ items:
   nameWithType: FileTypeProfile.FileTypeProfile()
   fullName: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.FileTypeProfile()
   type: Constructor
-  source:
-    path: Sdl.FileTypeSupport.Framework.Core
-    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.IntegrationApi
   syntax:
     content: public FileTypeProfile()
-    content.vb: Public Sub New
+    content.vb: Public Sub New()
   overload: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.#ctor*
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
+  nameWithType.vb: FileTypeProfile.New()
+  fullName.vb: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.New()
+  name.vb: New()
 - uid: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.FileTypeDefinitionId
   commentId: P:Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.FileTypeDefinitionId
   id: FileTypeDefinitionId
@@ -197,26 +178,44 @@ items:
   nameWithType: FileTypeProfile.FileTypeDefinitionId
   fullName: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.FileTypeDefinitionId
   type: Property
-  source:
-    path: Sdl.FileTypeSupport.Framework.Core
-    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.IntegrationApi
-  summary: "\nUnique file type definition identifier.\nThe convention is to use the following format: &quot;[Document Type] [Document Type Version] v [File Type Definition version]&quot;,\nwhere the file type definition version is a four digit version number.\nExample: &quot;SDL XLIFF 1.0 v 1.0.0.0&quot;, for version 1.0.0.0 of the file type definition for \nthe SDL XLIFF file format, version 1.0, or &quot;Microsoft Word 2007 v 1.1.0.0&quot;, and so on.\n"
+  summary: >-
+    Unique file type definition identifier.
+
+    The convention is to use the following format: "[Document Type] [Document Type Version] v [File Type Definition version]",
+
+    where the file type definition version is a four digit version number.
+
+    Example: "SDL XLIFF 1.0 v 1.0.0.0", for version 1.0.0.0 of the file type definition for 
+
+    the SDL XLIFF file format, version 1.0, or "Microsoft Word 2007 v 1.1.0.0", and so on.
+  example: []
   syntax:
-    content: public string FileTypeDefinitionId { get; set; }
+    content: >-
+      [DataMember(Name = "FileTypeDefinitionId", EmitDefaultValue = false)]
+
+      public string FileTypeDefinitionId { get; set; }
     parameters: []
     return:
       type: System.String
-    content.vb: Public Property FileTypeDefinitionId As String
+    content.vb: >-
+      <DataMember(Name:="FileTypeDefinitionId", EmitDefaultValue:=False)>
+
+      Public Property FileTypeDefinitionId As String
   overload: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.FileTypeDefinitionId*
-  modifiers.csharp:
-  - public
-  - get
-  - set
-  modifiers.vb:
-  - Public
+  attributes:
+  - type: System.Runtime.Serialization.DataMemberAttribute
+    ctor: System.Runtime.Serialization.DataMemberAttribute.#ctor
+    arguments: []
+    namedArguments:
+    - name: Name
+      type: System.String
+      value: FileTypeDefinitionId
+    - name: EmitDefaultValue
+      type: System.Boolean
+      value: false
 - uid: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.FileTypeName
   commentId: P:Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.FileTypeName
   id: FileTypeName
@@ -228,26 +227,35 @@ items:
   nameWithType: FileTypeProfile.FileTypeName
   fullName: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.FileTypeName
   type: Property
-  source:
-    path: Sdl.FileTypeSupport.Framework.Core
-    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.IntegrationApi
-  summary: "\nFriendly name for the file type, which may be shown to the user.\n"
+  summary: Friendly name for the file type, which may be shown to the user.
+  example: []
   syntax:
-    content: public string FileTypeName { get; set; }
+    content: >-
+      [DataMember(Name = "FileTypeName", EmitDefaultValue = false)]
+
+      public string FileTypeName { get; set; }
     parameters: []
     return:
       type: System.String
-    content.vb: Public Property FileTypeName As String
+    content.vb: >-
+      <DataMember(Name:="FileTypeName", EmitDefaultValue:=False)>
+
+      Public Property FileTypeName As String
   overload: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.FileTypeName*
-  modifiers.csharp:
-  - public
-  - get
-  - set
-  modifiers.vb:
-  - Public
+  attributes:
+  - type: System.Runtime.Serialization.DataMemberAttribute
+    ctor: System.Runtime.Serialization.DataMemberAttribute.#ctor
+    arguments: []
+    namedArguments:
+    - name: Name
+      type: System.String
+      value: FileTypeName
+    - name: EmitDefaultValue
+      type: System.Boolean
+      value: false
 - uid: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.FileTypeDocumentName
   commentId: P:Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.FileTypeDocumentName
   id: FileTypeDocumentName
@@ -259,26 +267,38 @@ items:
   nameWithType: FileTypeProfile.FileTypeDocumentName
   fullName: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.FileTypeDocumentName
   type: Property
-  source:
-    path: Sdl.FileTypeSupport.Framework.Core
-    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.IntegrationApi
-  summary: "\nFriendly name of the type of an individual file of this file type. This is used\nwhen referring to a single item, e.g. in a File Save As dialog.\n"
+  summary: >-
+    Friendly name of the type of an individual file of this file type. This is used
+
+    when referring to a single item, e.g. in a File Save As dialog.
+  example: []
   syntax:
-    content: public string FileTypeDocumentName { get; set; }
+    content: >-
+      [DataMember(Name = "FileTypeDocumentName", EmitDefaultValue = false)]
+
+      public string FileTypeDocumentName { get; set; }
     parameters: []
     return:
       type: System.String
-    content.vb: Public Property FileTypeDocumentName As String
+    content.vb: >-
+      <DataMember(Name:="FileTypeDocumentName", EmitDefaultValue:=False)>
+
+      Public Property FileTypeDocumentName As String
   overload: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.FileTypeDocumentName*
-  modifiers.csharp:
-  - public
-  - get
-  - set
-  modifiers.vb:
-  - Public
+  attributes:
+  - type: System.Runtime.Serialization.DataMemberAttribute
+    ctor: System.Runtime.Serialization.DataMemberAttribute.#ctor
+    arguments: []
+    namedArguments:
+    - name: Name
+      type: System.String
+      value: FileTypeDocumentName
+    - name: EmitDefaultValue
+      type: System.Boolean
+      value: false
 - uid: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.FileTypeDocumentsName
   commentId: P:Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.FileTypeDocumentsName
   id: FileTypeDocumentsName
@@ -290,26 +310,38 @@ items:
   nameWithType: FileTypeProfile.FileTypeDocumentsName
   fullName: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.FileTypeDocumentsName
   type: Property
-  source:
-    path: Sdl.FileTypeSupport.Framework.Core
-    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.IntegrationApi
-  summary: "\nFriendly name of a set of files of this file type. This name is used when referring\nto a collection of files, e.g. in a File Open dialog.\n"
+  summary: >-
+    Friendly name of a set of files of this file type. This name is used when referring
+
+    to a collection of files, e.g. in a File Open dialog.
+  example: []
   syntax:
-    content: public string FileTypeDocumentsName { get; set; }
+    content: >-
+      [DataMember(Name = "FileTypeDocumentsName", EmitDefaultValue = false)]
+
+      public string FileTypeDocumentsName { get; set; }
     parameters: []
     return:
       type: System.String
-    content.vb: Public Property FileTypeDocumentsName As String
+    content.vb: >-
+      <DataMember(Name:="FileTypeDocumentsName", EmitDefaultValue:=False)>
+
+      Public Property FileTypeDocumentsName As String
   overload: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.FileTypeDocumentsName*
-  modifiers.csharp:
-  - public
-  - get
-  - set
-  modifiers.vb:
-  - Public
+  attributes:
+  - type: System.Runtime.Serialization.DataMemberAttribute
+    ctor: System.Runtime.Serialization.DataMemberAttribute.#ctor
+    arguments: []
+    namedArguments:
+    - name: Name
+      type: System.String
+      value: FileTypeDocumentsName
+    - name: EmitDefaultValue
+      type: System.Boolean
+      value: false
 - uid: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.FileDialogWildcardExpression
   commentId: P:Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.FileDialogWildcardExpression
   id: FileDialogWildcardExpression
@@ -321,26 +353,42 @@ items:
   nameWithType: FileTypeProfile.FileDialogWildcardExpression
   fullName: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.FileDialogWildcardExpression
   type: Property
-  source:
-    path: Sdl.FileTypeSupport.Framework.Core
-    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.IntegrationApi
-  summary: "\nThe wildcard expression shows up with the file type name in File Open dialogs.\n<p>\nThis is used both for displaying and for filtering file types in the file dialog.\n</p>\n"
+  summary: >-
+    The wildcard expression shows up with the file type name in File Open dialogs.
+
+    <p>
+
+    This is used both for displaying and for filtering file types in the file dialog.
+
+    </p>
+  example: []
   syntax:
-    content: public string FileDialogWildcardExpression { get; set; }
+    content: >-
+      [DataMember(Name = "FileDialogWildcardExpression", EmitDefaultValue = false)]
+
+      public string FileDialogWildcardExpression { get; set; }
     parameters: []
     return:
       type: System.String
-    content.vb: Public Property FileDialogWildcardExpression As String
+    content.vb: >-
+      <DataMember(Name:="FileDialogWildcardExpression", EmitDefaultValue:=False)>
+
+      Public Property FileDialogWildcardExpression As String
   overload: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.FileDialogWildcardExpression*
-  modifiers.csharp:
-  - public
-  - get
-  - set
-  modifiers.vb:
-  - Public
+  attributes:
+  - type: System.Runtime.Serialization.DataMemberAttribute
+    ctor: System.Runtime.Serialization.DataMemberAttribute.#ctor
+    arguments: []
+    namedArguments:
+    - name: Name
+      type: System.String
+      value: FileDialogWildcardExpression
+    - name: EmitDefaultValue
+      type: System.Boolean
+      value: false
 - uid: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.Expression
   commentId: P:Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.Expression
   id: Expression
@@ -352,13 +400,19 @@ items:
   nameWithType: FileTypeProfile.Expression
   fullName: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.Expression
   type: Property
-  source:
-    path: Sdl.FileTypeSupport.Framework.Core
-    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.IntegrationApi
-  summary: "\nThis regular expression is applied to the file name to determine if it matches,\nwhen the file is about to be opened. It provides more control than the wildcard\nname that is used in the open dialog.\n\nIf this property is null, the FileDialogWildcardExpression is used instead.\n"
+  summary: >-
+    This regular expression is applied to the file name to determine if it matches,
+
+    when the file is about to be opened. It provides more control than the wildcard
+
+    name that is used in the open dialog.
+
+
+    If this property is null, the FileDialogWildcardExpression is used instead.
+  example: []
   syntax:
     content: public Regex Expression { get; set; }
     parameters: []
@@ -366,12 +420,6 @@ items:
       type: System.Text.RegularExpressions.Regex
     content.vb: Public Property Expression As Regex
   overload: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.Expression*
-  modifiers.csharp:
-  - public
-  - get
-  - set
-  modifiers.vb:
-  - Public
 - uid: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.IsStandardCustomization
   commentId: P:Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.IsStandardCustomization
   id: IsStandardCustomization
@@ -383,26 +431,38 @@ items:
   nameWithType: FileTypeProfile.IsStandardCustomization
   fullName: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.IsStandardCustomization
   type: Property
-  source:
-    path: Sdl.FileTypeSupport.Framework.Core
-    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.IntegrationApi
-  summary: "\nReturns true when FileTypeProfile is used to override Standard File Type Definition rather than\ncreating custom one.\n"
+  summary: >-
+    Returns true when FileTypeProfile is used to override Standard File Type Definition rather than
+
+    creating custom one.
+  example: []
   syntax:
-    content: public bool IsStandardCustomization { get; set; }
+    content: >-
+      [DataMember(Name = "IsStandardCustomization", EmitDefaultValue = false)]
+
+      public bool IsStandardCustomization { get; set; }
     parameters: []
     return:
       type: System.Boolean
-    content.vb: Public Property IsStandardCustomization As Boolean
+    content.vb: >-
+      <DataMember(Name:="IsStandardCustomization", EmitDefaultValue:=False)>
+
+      Public Property IsStandardCustomization As Boolean
   overload: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.IsStandardCustomization*
-  modifiers.csharp:
-  - public
-  - get
-  - set
-  modifiers.vb:
-  - Public
+  attributes:
+  - type: System.Runtime.Serialization.DataMemberAttribute
+    ctor: System.Runtime.Serialization.DataMemberAttribute.#ctor
+    arguments: []
+    namedArguments:
+    - name: Name
+      type: System.String
+      value: IsStandardCustomization
+    - name: EmitDefaultValue
+      type: System.Boolean
+      value: false
 - uid: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.Description
   commentId: P:Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.Description
   id: Description
@@ -414,26 +474,35 @@ items:
   nameWithType: FileTypeProfile.Description
   fullName: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.Description
   type: Property
-  source:
-    path: Sdl.FileTypeSupport.Framework.Core
-    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.IntegrationApi
-  summary: "\nDescriptive text for the file type definition.\n"
+  summary: Descriptive text for the file type definition.
+  example: []
   syntax:
-    content: public string Description { get; set; }
+    content: >-
+      [DataMember(Name = "Description", EmitDefaultValue = false)]
+
+      public string Description { get; set; }
     parameters: []
     return:
       type: System.String
-    content.vb: Public Property Description As String
+    content.vb: >-
+      <DataMember(Name:="Description", EmitDefaultValue:=False)>
+
+      Public Property Description As String
   overload: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.Description*
-  modifiers.csharp:
-  - public
-  - get
-  - set
-  modifiers.vb:
-  - Public
+  attributes:
+  - type: System.Runtime.Serialization.DataMemberAttribute
+    ctor: System.Runtime.Serialization.DataMemberAttribute.#ctor
+    arguments: []
+    namedArguments:
+    - name: Name
+      type: System.String
+      value: Description
+    - name: EmitDefaultValue
+      type: System.Boolean
+      value: false
 - uid: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.IconContent
   commentId: P:Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.IconContent
   id: IconContent
@@ -445,27 +514,36 @@ items:
   nameWithType: FileTypeProfile.IconContent
   fullName: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.IconContent
   type: Property
-  source:
-    path: Sdl.FileTypeSupport.Framework.Core
-    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.IntegrationApi
-  summary: "\nIcon base-64 content.\n"
-  remarks: "\nIf null then the icon from the underlying file type definition would be used.\n"
+  summary: Icon base-64 content.
+  remarks: If null then the icon from the underlying file type definition would be used.
+  example: []
   syntax:
-    content: public string IconContent { get; set; }
+    content: >-
+      [DataMember(Name = "IconContent", EmitDefaultValue = false)]
+
+      public string IconContent { get; set; }
     parameters: []
     return:
       type: System.String
-    content.vb: Public Property IconContent As String
+    content.vb: >-
+      <DataMember(Name:="IconContent", EmitDefaultValue:=False)>
+
+      Public Property IconContent As String
   overload: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.IconContent*
-  modifiers.csharp:
-  - public
-  - get
-  - set
-  modifiers.vb:
-  - Public
+  attributes:
+  - type: System.Runtime.Serialization.DataMemberAttribute
+    ctor: System.Runtime.Serialization.DataMemberAttribute.#ctor
+    arguments: []
+    namedArguments:
+    - name: Name
+      type: System.String
+      value: IconContent
+    - name: EmitDefaultValue
+      type: System.Boolean
+      value: false
 - uid: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.ExtensionData
   commentId: P:Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.ExtensionData
   id: ExtensionData
@@ -477,13 +555,11 @@ items:
   nameWithType: FileTypeProfile.ExtensionData
   fullName: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.ExtensionData
   type: Property
-  source:
-    path: Sdl.FileTypeSupport.Framework.Core
-    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.IntegrationApi
-  summary: "\nExtensionData stores data not in the contract and allows round tripping between different versions.\n"
+  summary: ExtensionData stores data not in the contract and allows round tripping between different versions.
+  example: []
   syntax:
     content: public ExtensionDataObject ExtensionData { get; set; }
     parameters: []
@@ -491,29 +567,72 @@ items:
       type: System.Runtime.Serialization.ExtensionDataObject
     content.vb: Public Property ExtensionData As ExtensionDataObject
   overload: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.ExtensionData*
-  modifiers.csharp:
-  - public
-  - get
-  - set
-  modifiers.vb:
-  - Public
+  implements:
+  - System.Runtime.Serialization.IExtensibleDataObject.ExtensionData
 references:
 - uid: Sdl.FileTypeSupport.Framework.IntegrationApi
   commentId: N:Sdl.FileTypeSupport.Framework.IntegrationApi
   isExternal: true
+  href: Sdl.html
   name: Sdl.FileTypeSupport.Framework.IntegrationApi
   nameWithType: Sdl.FileTypeSupport.Framework.IntegrationApi
   fullName: Sdl.FileTypeSupport.Framework.IntegrationApi
+  spec.csharp:
+  - uid: Sdl
+    name: Sdl
+    isExternal: true
+    href: Sdl.html
+  - name: .
+  - uid: Sdl.FileTypeSupport
+    name: FileTypeSupport
+    isExternal: true
+    href: Sdl.FileTypeSupport.html
+  - name: .
+  - uid: Sdl.FileTypeSupport.Framework
+    name: Framework
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.html
+  - name: .
+  - uid: Sdl.FileTypeSupport.Framework.IntegrationApi
+    name: IntegrationApi
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.IntegrationApi.html
+  spec.vb:
+  - uid: Sdl
+    name: Sdl
+    isExternal: true
+    href: Sdl.html
+  - name: .
+  - uid: Sdl.FileTypeSupport
+    name: FileTypeSupport
+    isExternal: true
+    href: Sdl.FileTypeSupport.html
+  - name: .
+  - uid: Sdl.FileTypeSupport.Framework
+    name: Framework
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.html
+  - name: .
+  - uid: Sdl.FileTypeSupport.Framework.IntegrationApi
+    name: IntegrationApi
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.IntegrationApi.html
 - uid: System.Object
   commentId: T:System.Object
   parent: System
   isExternal: true
-  name: Object
-  nameWithType: Object
-  fullName: System.Object
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
 - uid: System.Runtime.Serialization.IExtensibleDataObject
-  commentId: '!:System.Runtime.Serialization.IExtensibleDataObject'
+  commentId: T:System.Runtime.Serialization.IExtensibleDataObject
+  parent: System.Runtime.Serialization
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.runtime.serialization.iextensibledataobject
   name: IExtensibleDataObject
   nameWithType: IExtensibleDataObject
   fullName: System.Runtime.Serialization.IExtensibleDataObject
@@ -521,290 +640,245 @@ references:
   commentId: M:System.Object.ToString
   parent: System.Object
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
   name: ToString()
-  nameWithType: Object.ToString()
-  fullName: System.Object.ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
   spec.csharp:
   - uid: System.Object.ToString
     name: ToString
-    nameWithType: Object.ToString
-    fullName: System.Object.ToString
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
   - name: (
-    nameWithType: (
-    fullName: (
   - name: )
-    nameWithType: )
-    fullName: )
   spec.vb:
   - uid: System.Object.ToString
     name: ToString
-    nameWithType: Object.ToString
-    fullName: System.Object.ToString
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
   - name: (
-    nameWithType: (
-    fullName: (
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Object.Equals(System.Object)
   commentId: M:System.Object.Equals(System.Object)
   parent: System.Object
   isExternal: true
-  name: Equals(Object)
-  nameWithType: Object.Equals(Object)
-  fullName: System.Object.Equals(System.Object)
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
   spec.csharp:
   - uid: System.Object.Equals(System.Object)
     name: Equals
-    nameWithType: Object.Equals
-    fullName: System.Object.Equals
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
   - name: (
-    nameWithType: (
-    fullName: (
   - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
+    name: object
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
-    nameWithType: )
-    fullName: )
   spec.vb:
   - uid: System.Object.Equals(System.Object)
     name: Equals
-    nameWithType: Object.Equals
-    fullName: System.Object.Equals
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
   - name: (
-    nameWithType: (
-    fullName: (
   - uid: System.Object
     name: Object
-    nameWithType: Object
-    fullName: System.Object
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Object.Equals(System.Object,System.Object)
   commentId: M:System.Object.Equals(System.Object,System.Object)
   parent: System.Object
   isExternal: true
-  name: Equals(Object, Object)
-  nameWithType: Object.Equals(Object, Object)
-  fullName: System.Object.Equals(System.Object, System.Object)
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
   spec.csharp:
   - uid: System.Object.Equals(System.Object,System.Object)
     name: Equals
-    nameWithType: Object.Equals
-    fullName: System.Object.Equals
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
   - name: (
-    nameWithType: (
-    fullName: (
   - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
+    name: object
     isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
   - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
+    name: object
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
-    nameWithType: )
-    fullName: )
   spec.vb:
   - uid: System.Object.Equals(System.Object,System.Object)
     name: Equals
-    nameWithType: Object.Equals
-    fullName: System.Object.Equals
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
   - name: (
-    nameWithType: (
-    fullName: (
   - uid: System.Object
     name: Object
-    nameWithType: Object
-    fullName: System.Object
     isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
   - uid: System.Object
     name: Object
-    nameWithType: Object
-    fullName: System.Object
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Object.ReferenceEquals(System.Object,System.Object)
   commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
   parent: System.Object
   isExternal: true
-  name: ReferenceEquals(Object, Object)
-  nameWithType: Object.ReferenceEquals(Object, Object)
-  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
   spec.csharp:
   - uid: System.Object.ReferenceEquals(System.Object,System.Object)
     name: ReferenceEquals
-    nameWithType: Object.ReferenceEquals
-    fullName: System.Object.ReferenceEquals
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
   - name: (
-    nameWithType: (
-    fullName: (
   - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
+    name: object
     isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
   - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
+    name: object
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
-    nameWithType: )
-    fullName: )
   spec.vb:
   - uid: System.Object.ReferenceEquals(System.Object,System.Object)
     name: ReferenceEquals
-    nameWithType: Object.ReferenceEquals
-    fullName: System.Object.ReferenceEquals
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
   - name: (
-    nameWithType: (
-    fullName: (
   - uid: System.Object
     name: Object
-    nameWithType: Object
-    fullName: System.Object
     isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
   - uid: System.Object
     name: Object
-    nameWithType: Object
-    fullName: System.Object
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Object.GetHashCode
   commentId: M:System.Object.GetHashCode
   parent: System.Object
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
   name: GetHashCode()
-  nameWithType: Object.GetHashCode()
-  fullName: System.Object.GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
   spec.csharp:
   - uid: System.Object.GetHashCode
     name: GetHashCode
-    nameWithType: Object.GetHashCode
-    fullName: System.Object.GetHashCode
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
   - name: (
-    nameWithType: (
-    fullName: (
   - name: )
-    nameWithType: )
-    fullName: )
   spec.vb:
   - uid: System.Object.GetHashCode
     name: GetHashCode
-    nameWithType: Object.GetHashCode
-    fullName: System.Object.GetHashCode
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
   - name: (
-    nameWithType: (
-    fullName: (
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Object.GetType
   commentId: M:System.Object.GetType
   parent: System.Object
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
   name: GetType()
-  nameWithType: Object.GetType()
-  fullName: System.Object.GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
   spec.csharp:
   - uid: System.Object.GetType
     name: GetType
-    nameWithType: Object.GetType
-    fullName: System.Object.GetType
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
   - name: (
-    nameWithType: (
-    fullName: (
   - name: )
-    nameWithType: )
-    fullName: )
   spec.vb:
   - uid: System.Object.GetType
     name: GetType
-    nameWithType: Object.GetType
-    fullName: System.Object.GetType
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
   - name: (
-    nameWithType: (
-    fullName: (
   - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Object.MemberwiseClone
-  commentId: M:System.Object.MemberwiseClone
-  parent: System.Object
-  isExternal: true
-  name: MemberwiseClone()
-  nameWithType: Object.MemberwiseClone()
-  fullName: System.Object.MemberwiseClone()
-  spec.csharp:
-  - uid: System.Object.MemberwiseClone
-    name: MemberwiseClone
-    nameWithType: Object.MemberwiseClone
-    fullName: System.Object.MemberwiseClone
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: System.Object.MemberwiseClone
-    name: MemberwiseClone
-    nameWithType: Object.MemberwiseClone
-    fullName: System.Object.MemberwiseClone
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
 - uid: System
   commentId: N:System
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
   name: System
   nameWithType: System
   fullName: System
+- uid: System.Runtime.Serialization
+  commentId: N:System.Runtime.Serialization
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Runtime.Serialization
+  nameWithType: System.Runtime.Serialization
+  fullName: System.Runtime.Serialization
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Runtime
+    name: Runtime
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.runtime
+  - name: .
+  - uid: System.Runtime.Serialization
+    name: Serialization
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.runtime.serialization
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Runtime
+    name: Runtime
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.runtime
+  - name: .
+  - uid: System.Runtime.Serialization
+    name: Serialization
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.runtime.serialization
 - uid: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.GetFileTypeProfile*
   commentId: Overload:Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.GetFileTypeProfile
   isExternal: true
+  href: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.html#Sdl_FileTypeSupport_Framework_IntegrationApi_FileTypeProfile_GetFileTypeProfile_System_String_
   name: GetFileTypeProfile
   nameWithType: FileTypeProfile.GetFileTypeProfile
   fullName: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.GetFileTypeProfile
@@ -812,25 +886,32 @@ references:
   commentId: T:System.String
   parent: System
   isExternal: true
-  name: String
-  nameWithType: String
-  fullName: System.String
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
 - uid: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile
   commentId: T:Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile
   parent: Sdl.FileTypeSupport.Framework.IntegrationApi
   isExternal: true
+  href: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.html
   name: FileTypeProfile
   nameWithType: FileTypeProfile
   fullName: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile
 - uid: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.GetFileTypeProfileXml*
   commentId: Overload:Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.GetFileTypeProfileXml
   isExternal: true
+  href: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.html#Sdl_FileTypeSupport_Framework_IntegrationApi_FileTypeProfile_GetFileTypeProfileXml_Sdl_FileTypeSupport_Framework_IntegrationApi_FileTypeProfile_
   name: GetFileTypeProfileXml
   nameWithType: FileTypeProfile.GetFileTypeProfileXml
   fullName: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.GetFileTypeProfileXml
 - uid: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.ApplyProfile*
   commentId: Overload:Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.ApplyProfile
   isExternal: true
+  href: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.html#Sdl_FileTypeSupport_Framework_IntegrationApi_FileTypeProfile_ApplyProfile_Sdl_FileTypeSupport_Framework_IntegrationApi_IFileTypeDefinition_Sdl_FileTypeSupport_Framework_IntegrationApi_FileTypeProfile_
   name: ApplyProfile
   nameWithType: FileTypeProfile.ApplyProfile
   fullName: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.ApplyProfile
@@ -838,59 +919,111 @@ references:
   commentId: T:Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeDefinition
   parent: Sdl.FileTypeSupport.Framework.IntegrationApi
   isExternal: true
+  href: Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeDefinition.html
   name: IFileTypeDefinition
   nameWithType: IFileTypeDefinition
   fullName: Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeDefinition
 - uid: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.#ctor*
   commentId: Overload:Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.#ctor
   isExternal: true
+  href: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.html#Sdl_FileTypeSupport_Framework_IntegrationApi_FileTypeProfile__ctor
   name: FileTypeProfile
   nameWithType: FileTypeProfile.FileTypeProfile
   fullName: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.FileTypeProfile
+  nameWithType.vb: FileTypeProfile.New
+  fullName.vb: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.New
+  name.vb: New
 - uid: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.FileTypeDefinitionId*
   commentId: Overload:Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.FileTypeDefinitionId
   isExternal: true
+  href: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.html#Sdl_FileTypeSupport_Framework_IntegrationApi_FileTypeProfile_FileTypeDefinitionId
   name: FileTypeDefinitionId
   nameWithType: FileTypeProfile.FileTypeDefinitionId
   fullName: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.FileTypeDefinitionId
 - uid: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.FileTypeName*
   commentId: Overload:Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.FileTypeName
   isExternal: true
+  href: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.html#Sdl_FileTypeSupport_Framework_IntegrationApi_FileTypeProfile_FileTypeName
   name: FileTypeName
   nameWithType: FileTypeProfile.FileTypeName
   fullName: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.FileTypeName
 - uid: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.FileTypeDocumentName*
   commentId: Overload:Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.FileTypeDocumentName
   isExternal: true
+  href: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.html#Sdl_FileTypeSupport_Framework_IntegrationApi_FileTypeProfile_FileTypeDocumentName
   name: FileTypeDocumentName
   nameWithType: FileTypeProfile.FileTypeDocumentName
   fullName: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.FileTypeDocumentName
 - uid: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.FileTypeDocumentsName*
   commentId: Overload:Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.FileTypeDocumentsName
   isExternal: true
+  href: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.html#Sdl_FileTypeSupport_Framework_IntegrationApi_FileTypeProfile_FileTypeDocumentsName
   name: FileTypeDocumentsName
   nameWithType: FileTypeProfile.FileTypeDocumentsName
   fullName: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.FileTypeDocumentsName
 - uid: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.FileDialogWildcardExpression*
   commentId: Overload:Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.FileDialogWildcardExpression
   isExternal: true
+  href: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.html#Sdl_FileTypeSupport_Framework_IntegrationApi_FileTypeProfile_FileDialogWildcardExpression
   name: FileDialogWildcardExpression
   nameWithType: FileTypeProfile.FileDialogWildcardExpression
   fullName: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.FileDialogWildcardExpression
 - uid: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.Expression*
   commentId: Overload:Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.Expression
   isExternal: true
+  href: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.html#Sdl_FileTypeSupport_Framework_IntegrationApi_FileTypeProfile_Expression
   name: Expression
   nameWithType: FileTypeProfile.Expression
   fullName: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.Expression
 - uid: System.Text.RegularExpressions.Regex
+  commentId: T:System.Text.RegularExpressions.Regex
+  parent: System.Text.RegularExpressions
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.text.regularexpressions.regex
   name: Regex
   nameWithType: Regex
   fullName: System.Text.RegularExpressions.Regex
+- uid: System.Text.RegularExpressions
+  commentId: N:System.Text.RegularExpressions
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Text.RegularExpressions
+  nameWithType: System.Text.RegularExpressions
+  fullName: System.Text.RegularExpressions
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Text
+    name: Text
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.text
+  - name: .
+  - uid: System.Text.RegularExpressions
+    name: RegularExpressions
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.text.regularexpressions
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Text
+    name: Text
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.text
+  - name: .
+  - uid: System.Text.RegularExpressions
+    name: RegularExpressions
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.text.regularexpressions
 - uid: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.IsStandardCustomization*
   commentId: Overload:Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.IsStandardCustomization
   isExternal: true
+  href: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.html#Sdl_FileTypeSupport_Framework_IntegrationApi_FileTypeProfile_IsStandardCustomization
   name: IsStandardCustomization
   nameWithType: FileTypeProfile.IsStandardCustomization
   fullName: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.IsStandardCustomization
@@ -898,30 +1031,47 @@ references:
   commentId: T:System.Boolean
   parent: System
   isExternal: true
-  name: Boolean
-  nameWithType: Boolean
-  fullName: System.Boolean
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
 - uid: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.Description*
   commentId: Overload:Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.Description
   isExternal: true
+  href: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.html#Sdl_FileTypeSupport_Framework_IntegrationApi_FileTypeProfile_Description
   name: Description
   nameWithType: FileTypeProfile.Description
   fullName: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.Description
 - uid: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.IconContent*
   commentId: Overload:Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.IconContent
   isExternal: true
+  href: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.html#Sdl_FileTypeSupport_Framework_IntegrationApi_FileTypeProfile_IconContent
   name: IconContent
   nameWithType: FileTypeProfile.IconContent
   fullName: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.IconContent
 - uid: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.ExtensionData*
   commentId: Overload:Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.ExtensionData
   isExternal: true
+  href: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.html#Sdl_FileTypeSupport_Framework_IntegrationApi_FileTypeProfile_ExtensionData
   name: ExtensionData
   nameWithType: FileTypeProfile.ExtensionData
   fullName: Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeProfile.ExtensionData
-- uid: System.Runtime.Serialization.ExtensionDataObject
-  commentId: '!:System.Runtime.Serialization.ExtensionDataObject'
+- uid: System.Runtime.Serialization.IExtensibleDataObject.ExtensionData
+  commentId: P:System.Runtime.Serialization.IExtensibleDataObject.ExtensionData
+  parent: System.Runtime.Serialization.IExtensibleDataObject
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.runtime.serialization.iextensibledataobject.extensiondata
+  name: ExtensionData
+  nameWithType: IExtensibleDataObject.ExtensionData
+  fullName: System.Runtime.Serialization.IExtensibleDataObject.ExtensionData
+- uid: System.Runtime.Serialization.ExtensionDataObject
+  commentId: T:System.Runtime.Serialization.ExtensionDataObject
+  parent: System.Runtime.Serialization
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.runtime.serialization.extensiondataobject
   name: ExtensionDataObject
   nameWithType: ExtensionDataObject
   fullName: System.Runtime.Serialization.ExtensionDataObject
