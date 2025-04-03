@@ -91,24 +91,22 @@ Classes
       <section><p>Represents the penalty applied to a search result.</p>
 </section>
       <h4><a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.AtomicExpression.html">AtomicExpression</a></h4>
-      <section><p>Represents an atomic expression, where a field must be in a specified relationship to a value.
-<remarks>The operands should be initialized before the operator, so that the class can ensure type compatibility.</remarks></p>
+      <section><p>Base class for filter expressions.
+<remarks>Expressions can be atomic or composed.</remarks></p>
 </section>
       <h4><a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.ComposedExpression.html">ComposedExpression</a></h4>
-      <section><p>Represents a boolean composed expression.
-<remarks>The operator can be AND, OR and NOT and the operands can be either atomic expressions or other composed expressions.</remarks></p>
+      <section><p>Base class for filter expressions.
+<remarks>Expressions can be atomic or composed.</remarks></p>
 </section>
       <h4><a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.DateTimeFieldValue.html">DateTimeFieldValue</a></h4>
-      <section><p>Represents a DateTime field value.</p>
+      <section><p>Represents a field value, which is a combination of a field name, a field value type,
+and the actual field values. This class is abstract.</p>
 </section>
       <h4><a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.DocumentDetail.html">DocumentDetail</a></h4>
       <section></section>
       <h4><a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.DuplicateIterator.html">DuplicateIterator</a></h4>
-      <section><p>Represents a duplicate translation units search iterator.</p>
-<p>After the iterator is created, it is set to start searching from the beginning of the translation memory.
-This instance is passed to the API, which modifies it, by annotating the current position reached
-and passes it back to the caller, to be used in a subsequent call.</p>
-<p>This object should never be modified manually.</p>
+      <section><p>Base iterator class. Contains the common properties needed for iteration through
+a translation memory.</p>
 </section>
       <h4><a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.DuplicateIterator.DuplicateIteratorPosition.html">DuplicateIterator.DuplicateIteratorPosition</a></h4>
       <section><p>Represents a position within the translation memory of this iterator.</p>
@@ -160,7 +158,9 @@ but does not have to, honor any tuning settings.</p>
       <section><p>Encapsulates information about the result of an import operation.</p>
 </section>
       <h4><a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.ImportResults.html">ImportResults</a></h4>
-      <section><p>Encapsulates the results of an import operation.</p>
+      <section><p>Encapsulates the results of an import process without keeping track of the individual
+action taken for each import TU. The <a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.ImportResults.html">ImportResults</a>
+give more detail.</p>
 </section>
       <h4><a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.ImportSettings.html">ImportSettings</a></h4>
       <section><p>Represents a group of settings which control the way the import is executed.</p>
@@ -171,16 +171,18 @@ action taken for each import TU. The <a class="xref" href="Sdl.LanguagePlatform.
 give more detail.</p>
 </section>
       <h4><a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.IntFieldValue.html">IntFieldValue</a></h4>
-      <section><p>Represents an integer field value.</p>
+      <section><p>Represents a field value, which is a combination of a field name, a field value type,
+and the actual field values. This class is abstract.</p>
 </section>
       <h4><a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.LogManager.html">LogManager</a></h4>
       <section></section>
       <h4><a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.MultiplePicklistFieldValue.html">MultiplePicklistFieldValue</a></h4>
-      <section><p>Represents a multiple picklist field value.</p>
+      <section><p>Represents a field value, which is a combination of a field name, a field value type,
+and the actual field values. This class is abstract.</p>
 </section>
       <h4><a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.MultipleStringFieldValue.html">MultipleStringFieldValue</a></h4>
-      <section><p>Represents a multiple string field value. Values are unique, and comparisons are
-done case-insensitive.</p>
+      <section><p>Represents a field value, which is a combination of a field name, a field value type,
+and the actual field values. This class is abstract.</p>
 </section>
       <h4><a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.NLogLogger.html">NLogLogger</a></h4>
       <section></section>
@@ -196,7 +198,7 @@ be used by the end user.</p>
       <section><p>Encapsulates the primary key of a <a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.PersistentObject.html">PersistentObject</a>, such as a TM, TU, or Field Declaration.</p>
 </section>
       <h4><a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.PicklistField.html">PicklistField</a></h4>
-      <section><p>Represents a field declaration that contains a picklist and whose field values can only be chosen from that picklist.</p>
+      <section><p>Represents a field declaration.</p>
 </section>
       <h4><a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.PicklistItem.html">PicklistItem</a></h4>
       <section><p>Represents a picklist item in a picklist field declaration.</p>
@@ -220,9 +222,8 @@ available when the placeables were computed, or that no association could be fou
 or from a translation unit.</p>
 </section>
       <h4><a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.RegularIterator.html">RegularIterator</a></h4>
-      <section><p>Represents a regular iterator that can retrieve all the translation units from a translation memory page by page.</p>
-<p>The iterator can have a filter, in which case it will only return those translation units that match the filter.</p>
-<p>The default page for this iterator is 100 translation units.</p>
+      <section><p>Base iterator class. Contains the common properties needed for iteration through
+a translation memory.</p>
 </section>
       <h4><a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.ScoringResult.html">ScoringResult</a></h4>
       <section><p>Represents the score for a search result.</p>
@@ -241,24 +242,26 @@ possiby annotated with score, placeables and context information.</p>
       <section><p>Represents a set of results returned by the translation memory after a search operation for a given input (segment/translation unit/string).</p>
 </section>
       <h4><a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.SearchResultsMerged.html">SearchResultsMerged</a></h4>
-      <section><p>Represents a set of results returned by multiple translation memories after a search operation for a given input (segment/translation unit/string).</p>
+      <section><p>Represents a set of results returned by the translation memory after a search operation for a given input (segment/translation unit/string).</p>
 </section>
       <h4><a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.SearchSettings.html">SearchSettings</a></h4>
       <section><p>Represents a set of settings relevant for search opeartions.</p>
 </section>
       <h4><a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.SegmentAndSubsegmentSearchResults.html">SegmentAndSubsegmentSearchResults</a></h4>
-      <section><p>Represents a set of results returned by a subsegment translation memory after a search operation for a given input (segment/translation unit/string),
-providing both segment-level and subsegment matches.</p>
+      <section><p>Represents a set of results returned by the translation memory after a search operation for a given input (segment/translation unit/string).</p>
 </section>
       <h4><a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.SegmentAndSubsegmentSearchResultsMerged.html">SegmentAndSubsegmentSearchResultsMerged</a></h4>
-      <section></section>
+      <section><p>Represents a set of results returned by the translation memory after a search operation for a given input (segment/translation unit/string).</p>
+</section>
       <h4><a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.SegmentSerializer.html">SegmentSerializer</a></h4>
       <section></section>
       <h4><a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.SinglePicklistFieldValue.html">SinglePicklistFieldValue</a></h4>
-      <section><p>Represents a single picklist field value.</p>
+      <section><p>Represents a field value, which is a combination of a field name, a field value type,
+and the actual field values. This class is abstract.</p>
 </section>
       <h4><a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.SingleStringFieldValue.html">SingleStringFieldValue</a></h4>
-      <section><p>Represents a single string field value.</p>
+      <section><p>Represents a field value, which is a combination of a field name, a field value type,
+and the actual field values. This class is abstract.</p>
 </section>
       <h4><a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.SortCriterium.html">SortCriterium</a></h4>
       <section><p>Encapsulates a sort criterium.</p>
@@ -268,13 +271,6 @@ providing both segment-level and subsegment matches.</p>
 Ambiguation occurs when the match results are qualified as being identical, which would require<br>
 further elaboration to establish which result is more significant, taking into consideration
 the presedence of the translation providers, from where the results are derived.</p>
-</section>
-      <h4><a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.Sorter-1.html">Sorter&lt;T&gt;</a></h4>
-      <section><p>A Sorter&lt;T&gt; implements the generic IComparer&lt;T&gt; interface to compare two
-objects of type T, using a caller-supplied sort specification (which includes the fields
-to consider during sorting, and the sort direction). A field value resolver then is used
-to retrieve, for a specific field, the value of that field in each of the two instaces
-which are currently compared.</p>
 </section>
       <h4><a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.SortSpecification.html">SortSpecification</a></h4>
       <section><p>Encapsulates a set of criteria used for sorting translation units.</p>
@@ -291,8 +287,16 @@ Sco/D UsD/D
 which sorts descending by score and descending by last usage date.
 </p>
 </section>
+      <h4><a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.Sorter-1.html">Sorter&lt;T&gt;</a></h4>
+      <section><p>A Sorter&lt;T&gt; implements the generic IComparer&lt;T&gt; interface to compare two
+objects of type T, using a caller-supplied sort specification (which includes the fields
+to consider during sorting, and the sort direction). A field value resolver then is used
+to retrieve, for a specific field, the value of that field in each of the two instaces
+which are currently compared.</p>
+</section>
       <h4><a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.SubsegmentSearchResult.html">SubsegmentSearchResult</a></h4>
-      <section><p>Provides details of a subsegment match found for a fragment of the query segment.</p>
+      <section><p>Encapsulates the result of a search operation, a memory translation unit,
+possiby annotated with score, placeables and context information.</p>
 </section>
       <h4><a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.SubsegmentSearchResults.html">SubsegmentSearchResults</a></h4>
       <section><p>Represents a set of results returned by the translation memory after a subsegment search operation for a given input (segment/translation unit/string).</p>
@@ -301,7 +305,7 @@ which sorts descending by score and descending by last usage date.
       <section><p>A collection of SubsegmentSearchResults produced by performing subsegment matching for a segment.</p>
 </section>
       <h4><a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.SubsegmentSearchSettings.html">SubsegmentSearchSettings</a></h4>
-      <section><p>Used to specify parameters to apply when subsegment matching</p>
+      <section><p>Represents a set of settings relevant for search opeartions.</p>
 </section>
       <h4><a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.SystemFields.html">SystemFields</a></h4>
       <section><p>Encapsulates the system fields of a translation unit.</p>
@@ -340,8 +344,8 @@ eventually, a key for unique identification on a given system.</p>
       <section><p>General utilities.</p>
 </section>
       <h4><a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.WordCounter.html">WordCounter</a></h4>
-      <section><p>Provides <a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.WordCounts.html">WordCounts</a> for a set of tokens, where necessary converting <see cref="!:TokenType.Word"></see> tokens
-for JA/ZH et al back to <see cref="!:TokenType.CharSequence"></see> to produce 'legacy' results. When creating word counts
+      <section><p>Provides <a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.WordCounts.html">WordCounts</a> for a set of tokens, where necessary converting TokenType.Word tokens
+for JA/ZH et al back to TokenType.CharSequence to produce 'legacy' results. When creating word counts
 for multiple segments, use a single <a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.WordCounter.html">WordCounter</a> object and call <a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.WordCounter.html#Sdl_LanguagePlatform_TranslationMemory_WordCounter_GetWordCountsAsync_System_Collections_Generic_IList_Sdl_LanguagePlatform_Core_Tokenization_Token__Sdl_LanguagePlatform_TranslationMemory_WordCountsOptions_Sdl_Core_Globalization_CultureCode_">GetWordCountsAsync(IList&lt;Token&gt;, WordCountsOptions, CultureCode)</a>
 repeatedly, to avoid repeated tokenizer creation in those cases.</p>
 </section>

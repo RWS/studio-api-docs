@@ -154,7 +154,7 @@ including information about the exact edit operations affecting the document.</p
 to prevent interactive editing operations from completing.</p>
 </section>
       <h4><a class="xref" href="Sdl.DesktopEditor.EditorApi.MarkupDataNodeFinder.html">MarkupDataNodeFinder</a></h4>
-      <section><p>Helper class that can be used with <a class="xref" href="Sdl.DesktopEditor.EditorApi.IAbstractContainerNode.html#Sdl_DesktopEditor_EditorApi_IAbstractContainerNode_Find_System_Predicate_Sdl_DesktopEditor_EditorApi_INode__System_Boolean_">Find(Predicate&lt;INode&gt;, Boolean)</a> to locate markup data nodes.</p>
+      <section><p>Helper class that can be used with <a class="xref" href="Sdl.DesktopEditor.EditorApi.IAbstractContainerNode.html#Sdl_DesktopEditor_EditorApi_IAbstractContainerNode_Find_System_Predicate_Sdl_DesktopEditor_EditorApi_INode__System_Boolean_">Find(Predicate&lt;INode&gt;, bool)</a> to locate markup data nodes.</p>
 </section>
       <h4><a class="xref" href="Sdl.DesktopEditor.EditorApi.MouseEnteringNodeEventArgs.html">MouseEnteringNodeEventArgs</a></h4>
       <section><p>Information passed to the <a class="xref" href="Sdl.DesktopEditor.EditorApi.IEditControl.html#Sdl_DesktopEditor_EditorApi_IEditControl_MouseEnteringNode">MouseEnteringNode</a> event.</p>
@@ -236,6 +236,12 @@ represent actual content items in the edit control.</p>
       <h4><a class="xref" href="Sdl.DesktopEditor.EditorApi.IBookmarkNode.html">IBookmarkNode</a></h4>
       <section><p>A leaf node representing a temporary bookmark.</p>
 </section>
+      <h4><a class="xref" href="Sdl.DesktopEditor.EditorApi.IChangeGhostStatusOperation.html">IChangeGhostStatusOperation</a></h4>
+      <section><p>Represents an operation that changed the ghost status of a start/end node.</p>
+</section>
+      <h4><a class="xref" href="Sdl.DesktopEditor.EditorApi.IChangeTextOperation.html">IChangeTextOperation</a></h4>
+      <section><p>Represents an edit operation that changed the text in a text node.</p>
+</section>
       <h4><a class="xref" href="Sdl.DesktopEditor.EditorApi.IChangeableBookmarkNode.html">IChangeableBookmarkNode</a></h4>
       <section><p>A changeable bookmark node, e.g. as used in a document fragment.</p>
 </section>
@@ -287,12 +293,6 @@ directly using the API (as opposed to nodes that appear inside a document).</p>
       <h4><a class="xref" href="Sdl.DesktopEditor.EditorApi.IChangeableTextNode.html">IChangeableTextNode</a></h4>
       <section><p>A changeable text node, e.g. as used in a document fragment.</p>
 </section>
-      <h4><a class="xref" href="Sdl.DesktopEditor.EditorApi.IChangeGhostStatusOperation.html">IChangeGhostStatusOperation</a></h4>
-      <section><p>Represents an operation that changed the ghost status of a start/end node.</p>
-</section>
-      <h4><a class="xref" href="Sdl.DesktopEditor.EditorApi.IChangeTextOperation.html">IChangeTextOperation</a></h4>
-      <section><p>Represents an edit operation that changed the text in a text node.</p>
-</section>
       <h4><a class="xref" href="Sdl.DesktopEditor.EditorApi.ICollectiveUndoCommand.html">ICollectiveUndoCommand</a></h4>
       <section><p>Interface representing a self-executing command in the undo buffer.  This
 command type is responsible for controlling its own execution and un-execution.
@@ -328,8 +328,8 @@ method. Calling the <a class="xref" href="Sdl.DesktopEditor.EditorApi.IContentSe
 is not after the upto position, by testing if the selection is reversed and in that case reversing it.
 </p>
 <p>
-The selection can be explicitly moved through the methods <a class="xref" href="Sdl.DesktopEditor.EditorApi.IContentSelection.html#Sdl_DesktopEditor_EditorApi_IContentSelection_Move_Sdl_DesktopEditor_EditorApi_Move_System_Boolean_">Move(Move, Boolean)</a> and 
-<a class="xref" href="Sdl.DesktopEditor.EditorApi.IContentSelection.html#Sdl_DesktopEditor_EditorApi_IContentSelection_MoveTo_Sdl_DesktopEditor_EditorApi_Position_System_Boolean_">MoveTo(Position, Boolean)</a>.
+The selection can be explicitly moved through the methods <a class="xref" href="Sdl.DesktopEditor.EditorApi.IContentSelection.html#Sdl_DesktopEditor_EditorApi_IContentSelection_Move_Sdl_DesktopEditor_EditorApi_Move_System_Boolean_">Move(Move, bool)</a> and 
+<a class="xref" href="Sdl.DesktopEditor.EditorApi.IContentSelection.html#Sdl_DesktopEditor_EditorApi_IContentSelection_MoveTo_Sdl_DesktopEditor_EditorApi_Position_System_Boolean_">MoveTo(Position, bool)</a>.
 </p>
 <p>
 The selection is never <code>null</code> but may not always be valid. Use <a class="xref" href="Sdl.DesktopEditor.EditorApi.IContentSelection.html#Sdl_DesktopEditor_EditorApi_IContentSelection_IsValid">IsValid</a> to test whether
@@ -528,7 +528,7 @@ implemented by the column.</p>
 </section>
       <h4><a class="xref" href="Sdl.DesktopEditor.EditorApi.Move.html">Move</a></h4>
       <section><p>Lists different types of selection moves that can be executed through
-the <a class="xref" href="Sdl.DesktopEditor.EditorApi.IContentSelection.html#Sdl_DesktopEditor_EditorApi_IContentSelection_Move_Sdl_DesktopEditor_EditorApi_Move_System_Boolean_">Move(Move, Boolean)</a> operation.</p>
+the <a class="xref" href="Sdl.DesktopEditor.EditorApi.IContentSelection.html#Sdl_DesktopEditor_EditorApi_IContentSelection_Move_Sdl_DesktopEditor_EditorApi_Move_System_Boolean_">Move(Move, bool)</a> operation.</p>
 </section>
       <h4><a class="xref" href="Sdl.DesktopEditor.EditorApi.Shading.html">Shading</a></h4>
       <section><p>Background shading state used for rows in the edit control.</p>
@@ -545,7 +545,7 @@ in the edit control.</p>
 Delegates
 </h3>
       <h4><a class="xref" href="Sdl.DesktopEditor.EditorApi.ContentRange.ReductionAllowedTest.html">ContentRange.ReductionAllowedTest</a></h4>
-      <section><p>This delegat defines the method signature used by the <a class="xref" href="Sdl.DesktopEditor.EditorApi.ContentRange.html#Sdl_DesktopEditor_EditorApi_ContentRange_ReduceRanges_System_Collections_Generic_List_Sdl_DesktopEditor_EditorApi_ContentRange__Sdl_DesktopEditor_EditorApi_ContentRange_ReductionAllowedTest_">ReduceRanges(List&lt;ContentRange&gt;, ContentRange.ReductionAllowedTest)</a> helper
+      <section><p>This delegat defines the method signature used by the <a class="xref" href="Sdl.DesktopEditor.EditorApi.ContentRange.html#Sdl_DesktopEditor_EditorApi_ContentRange_ReduceRanges_System_Collections_Generic_List_Sdl_DesktopEditor_EditorApi_ContentRange__Sdl_DesktopEditor_EditorApi_ContentRange_ReductionAllowedTest_">ReduceRanges(List&lt;ContentRange&gt;, ReductionAllowedTest)</a> helper
 to determine if two ranges that have the same parent can be merged.</p>
 </section>
       <h4><a class="xref" href="Sdl.DesktopEditor.EditorApi.CorrespondenceProvider.html">CorrespondenceProvider</a></h4>

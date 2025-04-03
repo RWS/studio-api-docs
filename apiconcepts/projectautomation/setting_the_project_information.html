@@ -133,10 +133,10 @@ info.DueDate = DateTime.Now.AddDays(3);
 <li>The (optional) project description</li>
 <li>The (optional) project due date, e.g. 3 days from now</li>
 </ul>
-<p>The screenshot below illustrates how this information is entered in the <strong>New Project</strong> wizard of Var:ProductName.
+<p>The screenshot below illustrates how this information is entered in the <strong>New Project</strong> wizard of Trados Studio.
 <img src="images/NewProject01.jpg" alt="NewProject01"></p>
 <h2 id="set-the-local-project-folder">Set the Local Project Folder</h2>
-<p>All project files, i.e. translatable and localizable documents, reference files, project TMs, etc. are stored in a specific folder. By default, the main folder used for storing projects is: Var:DefaultProjectsFolder. Below this main folder Var:ProductName creates sub-folders that carry the name of the respective project. However, you could just as well pick any other folder name, as long as the specified folder is empty so as to avoid collisions with existing files. In the example below we follow the default folder rule of Var:ProductName by selecting the Var:StudioDocumentsFolderName\Projects\ folder below Documents, and by appending the project name sub-folder. We then set the <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.ProjectInfo.html#Sdl_ProjectAutomation_Core_ProjectInfo_LocalProjectFolder">LocalProjectFolder</a> property accordingly as shown in the example below:</p>
+<p>All project files, i.e. translatable and localizable documents, reference files, project TMs, etc. are stored in a specific folder. By default, the main folder used for storing projects is: C:\Users\UserName\Documents\Studio 2024\Projects. Below this main folder Trados Studio creates sub-folders that carry the name of the respective project. However, you could just as well pick any other folder name, as long as the specified folder is empty so as to avoid collisions with existing files. In the example below we follow the default folder rule of Trados Studio by selecting the Studio 2024\Projects\ folder below Documents, and by appending the project name sub-folder. We then set the <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.ProjectInfo.html#Sdl_ProjectAutomation_Core_ProjectInfo_LocalProjectFolder">LocalProjectFolder</a> property accordingly as shown in the example below:</p>
 <div class="tabGroup" id="tabgroup_4">
 <ul role="tablist">
 <li role="presentation">
@@ -153,7 +153,7 @@ info.LocalProjectFolder = localProjectFolder;
 </section>
 </div>
 <h2 id="select-the-project-languages">Select the Project Languages</h2>
-<p>A project must have at least one language pair, i.e. a source language and one target language. Projects can have only one source language, but multiple target languages. The screenshot below highlights how languages are selected in Var:ProductName:</p>
+<p>A project must have at least one language pair, i.e. a source language and one target language. Projects can have only one source language, but multiple target languages. The screenshot below highlights how languages are selected in Trados Studio:</p>
 <p><img src="images/NewProject02.jpg" alt="NewProject02"></p>
 <p>For this example, let us assume that the source language should be English (US), and the target languages German and French. First, we create the source language object through the <code>Language</code> class. The language object takes the <a href="https://docs.microsoft.com/en-us/dotnet/api/system.globalization.cultureinfo?redirectedfrom=MSDN&amp;view=net-5.0">CultureInfo</a> as parameter. Then we assign the source language object to the project info by applying the <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.ProjectInfo.html#Sdl_ProjectAutomation_Core_ProjectInfo_SourceLanguage">SourceLanguage</a>  property:</p>
 <div class="tabGroup" id="tabgroup_5">
@@ -217,7 +217,7 @@ info.TargetLanguages = trgLangs;
 After running the above code you should already see a result in the projects folder as illustrated in the screenshot below:
 <img src="images/FoldersAfterProjectInfo.jpg" alt="FoldersAfterProjectInfo"></p>
 <p>Even if you have not added any translatable files yet, you will end up generating the project sub-folder (i.e. Projects\My first project), which contains the *.sdlproj file. In the following chapters you will learn how to add documents, TMs, termbases, etc. to turn your sample into a meaningful project. Note that if you run your sample application again while the My first project is still there, an error will be thrown, as the folder is not empty. It is recommended that when you re-run your sample application for testing purposes that you delete the project sub-folder, so that you have a fresh start (see also <a href="deleting_projects.html">Deleting Projects</a>).</p>
-<p>Also note that the Var:DefaultProjectsFolder folder contains a file called projects.xml. This is a meta file that contains references to all the projects that have been created in Var:ProductName. The projects that you create programmatically will not be referenced in this file, and thus not be listed in Var:ProductName, which is by design. However, you can, of course, open the programmatically created *.sdlproj file in Var:ProductName.</p>
+<p>Also note that the C:\Users\UserName\Documents\Studio 2024\Projects folder contains a file called projects.xml. This is a meta file that contains references to all the projects that have been created in Trados Studio. The projects that you create programmatically will not be referenced in this file, and thus not be listed in Trados Studio, which is by design. However, you can, of course, open the programmatically created *.sdlproj file in Trados Studio.</p>
 <h2 id="putting-it-all-together">Putting it All Together</h2>
 <p>The complete function for setting the project properties should look as shown below:</p>
 <div class="tabGroup" id="tabgroup_9">

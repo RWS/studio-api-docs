@@ -81,12 +81,12 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="building-a-plug-in">Building a plug-in</h1>
 
-<p>This section focuses on how to create a new third-party plug-in for Var:ProductName using one of the standard Visual Studio project templates and offers some information on how this works under the hood.</p>
+<p>This section focuses on how to create a new third-party plug-in for Trados Studio using one of the standard Visual Studio project templates and offers some information on how this works under the hood.</p>
 <h2 id="building-a-plug-in-1">Building a Plug-in</h2>
-<p>Since Var:ProductName is a Microsoft .NET Framework application, third-party plug-ins should be developed using Microsoft .Net Framework 4.8. The Var:ProductName SDK comes with a number of Visual Studio project templates, which give you a quick start to creating various types of plug-ins.</p>
+<p>Since Trados Studio is a Microsoft .NET Framework application, third-party plug-ins should be developed using Microsoft .Net Framework 4.8. The Trados Studio SDK comes with a number of Visual Studio project templates, which give you a quick start to creating various types of plug-ins.</p>
 <p>In this topic, we will be creating a Translation Provider plug-in as an example. We will only focus on aspects common to all types of plug-ins.</p>
 <p>First of all, make sure that you have followed the <a href="setting_up_a_developer_machine.html">Setting up a Developer Machine</a> information.</p>
-<p>Start Visual Studio and click New Project. Select one of the Var:ProductName project templates that are available. If you don't see any Var:ProductName project templates, make sure you have installed the latest Var:ProductName SDK version from the developer hub.</p>
+<p>Start Visual Studio and click New Project. Select one of the Trados Studio project templates that are available. If you don't see any Trados Studio project templates, make sure you have installed the latest Trados Studio SDK version from the developer hub.</p>
 <img style="display:block; " src="images/NewSdlStudioProject.png">
 <p>The project templates already contains stubs for all the classes you will have to implement to create a new plugin.</p>
 <p>First, open <code>PluginProperties.cs</code>, which is located next to the <code>AssemblyInfo.cs</code> file in the Properties folder. This contains a single Plugin attribute, which is what fundamentally makes this project a plug-in project. &quot;Plugin_Name&quot; is a resource string defined in <code>PluginResources.resx</code>.</p>
@@ -105,8 +105,8 @@
 
 <p>Open the <code>PluginResources.resx</code> file. You'll see that this contains a string value called <code>Plugin_Name</code>.</p>
 <img style="display:block; " src="images/PluginResources.png">
-<p>This defines the name of the plug-in assembly and will be preset to the name of the Visual Studio project. This is the name that will show up in the Var:ProductName plug-in management dialog. Any localizable strings referred to from the plug-in attribute or extension attributes should be defined in <code>PluginResources.resx</code>. This &quot;.resx&quot; file will be compiled into a &quot;.resources&quot; file and will be deployed outside of the plug-in assembly itself, so the host application can access the information within it without having to load the plug-in assembly itself.</p>
-<p>Every third-party plug-in has to be deployed using a Plug-in Package (*.sdlplugin). This is an OPC-based file format, essentially a ZIP file, that contains the plug-in assembly, plug-in manifest file and the plug-in resources file. All Visual Studio project templates that come with the Var:ProductName SDK are configured to automatically create a plug-in package when the project is built. One essential piece of information required in order to do this is the plug-in package manifest, which is defined in the file <code>pluginpackage.manifest.xml</code> that was part of the project template.</p>
+<p>This defines the name of the plug-in assembly and will be preset to the name of the Visual Studio project. This is the name that will show up in the Trados Studio plug-in management dialog. Any localizable strings referred to from the plug-in attribute or extension attributes should be defined in <code>PluginResources.resx</code>. This &quot;.resx&quot; file will be compiled into a &quot;.resources&quot; file and will be deployed outside of the plug-in assembly itself, so the host application can access the information within it without having to load the plug-in assembly itself.</p>
+<p>Every third-party plug-in has to be deployed using a Plug-in Package (*.sdlplugin). This is an OPC-based file format, essentially a ZIP file, that contains the plug-in assembly, plug-in manifest file and the plug-in resources file. All Visual Studio project templates that come with the Trados Studio SDK are configured to automatically create a plug-in package when the project is built. One essential piece of information required in order to do this is the plug-in package manifest, which is defined in the file <code>pluginpackage.manifest.xml</code> that was part of the project template.</p>
 <pre><code class="lang-xml" name="ReportXSLT">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
 &lt;PluginPackage xmlns=&quot;http://www.sdl.com/Plugins/PluginPackage/1.0&quot;&gt;
   &lt;PlugInName&gt;TradosStudioTranslationProviderExample&lt;/PlugInName&gt;
@@ -126,7 +126,7 @@
 <li><strong>Description</strong>: description of the plug-in package.</li>
 <li><strong>Author</strong>: the name of the plug-in author</li>
 <li><strong>RequiredProduct</strong>: this indicates which product this plug-in supports. This must include the minimum version and can optionally include a maximum version. <br>
-If the minimum version is set to <em>Var:VersionNumber.1</em> that means the plugin can be installed only in Var:ProductName SR1 and above.</li>
+If the minimum version is set to <em>18.1</em> that means the plugin can be installed only in Trados Studio SR1 and above.</li>
 <li><strong>Include</strong>: a list of additional files to be included into the plugin package.</li>
 </ul>
 <p>Any plugin project need to have the following nuget packages refrenced :</p>
@@ -149,9 +149,9 @@ If the minimum version is set to <em>Var:VersionNumber.1</em> that means the plu
 </li>
 <li>The plug-in package, <code>MyPlugin.sdlplugin</code> which contains all of the above, together with the plug-in package manifest. <br></li>
 </ul>
-<p>After all the relevant information was added, build the project. Plugin can be found at the following local path <em>Var:PluginPackedPath</em> if the default path wasn't changed. <br></p>
+<p>After all the relevant information was added, build the project. Plugin can be found at the following local path <em>%AppData%\Trados\Trados Studio\18\Plugins\Packages\</em> if the default path wasn't changed. <br></p>
 <p>If in the console following error appears: <code>Error 1 Failed to locate ResGen.exe and unable to compile plug-in resource file...</code> please make sure you have installed <a href="https://dotnet.microsoft.com/en-us/download/dotnet-framework/net48">.Net Framework 4.8</a>.</p>
-<p>Now, we are ready to deploy the plug-in package in Var:ProductName. See <a href="plugin_deployment.html">Plug-in deployment</a>.</p>
+<p>Now, we are ready to deploy the plug-in package in Trados Studio. See <a href="plugin_deployment.html">Plug-in deployment</a>.</p>
 
 </article>
           </div>
