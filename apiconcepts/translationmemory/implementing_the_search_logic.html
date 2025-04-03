@@ -4,25 +4,25 @@
 
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Implementing the Search Logic </title>
-    <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Implementing the Search Logic ">
-    <meta name="generator" content="docfx ">
-  
-    <link rel="shortcut icon" href="../../favicon.ico">
-    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
-    <link rel="stylesheet" href="../../styles/docfx.css">
-    <link rel="stylesheet" href="../../styles/main.css">
-    <meta property="docfx:navrel" content="../../toc.html">
-    <meta property="docfx:tocrel" content="../toc.html">
-  
-  <meta property="docfx:rel" content="../../">
-  
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Implementing the Search Logic </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Implementing the Search Logic ">
+    
+    
+      <link rel="shortcut icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../../styles/docfx.css">
+      <link rel="stylesheet" href="../../styles/main.css">
+      <meta property="docfx:navrel" content="../../toc.html">
+      <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
   </head>
   <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
-      <header>
+      <header>        
 
         <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
           <div class="container">
@@ -34,14 +34,13 @@
                 <span class="icon-bar"></span>
               </button>
 
-              <a class="navbar-brand" href="../../index.html">
+              <a class="navbar-brand" href="../../https://developers.rws.com/">
                 <img id="logo" class="svg" src="../../logo.svg" alt="">
               </a>
             </div>
             <div class="collapse navbar-collapse" id="navbar">
               <form class="navbar-form navbar-right" role="search" id="search">
                 <div class="form-group">
-                  <span class="glyphicon glyphicon-search search-icon"></span>
                   <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
                 </div>
               </form>
@@ -49,26 +48,26 @@
           </div>
         </nav>
 
-        <div class="subnav navbar-default">
-          <div class="container hide-when-search">
-            <div class="breadcrumb-container" id="breadcrumb">
-              <ul class="breadcrumb col-md-10">
-                <li></li>
-              </ul>
-            </div>
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
           </div>
         </div>
       </header>
-      <div class="container body-content">
 
-        <div id="search-results">
-          <div class="search-list">Search Results for <span></span></div>
-          <div class="sr-items">
-            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+        <div class="container body-content">
+
+          <div id="search-results">
+            <div class="search-list">Search Results for <span></span></div>
+            <div class="sr-items">
+              <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+            </div>
+            <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
           </div>
-          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
         </div>
-      </div>
+
       <div role="main" class="container body-content hide-when-search">
 
         <div class="sidenav hide-when-search">
@@ -214,15 +213,15 @@ using (StreamReader sourceFile = new StreamReader(_options.ListFileName))
 </section>
 </div>
 <h2 id="search-the-current-segment">Search the Current Segment</h2>
-<p>A segment lookup is (by default) triggered in Trados Studio when the user moves the cursor into a particular target cell. This will search for a match for the current source segment in the selected translation provider source. The screenshot below shows two source segments as they are displayed in the editor of Trados Studio and the empty target cells next to them:</p>
+<p>A segment lookup is (by default) triggered in Var:ProductName when the user moves the cursor into a particular target cell. This will search for a match for the current source segment in the selected translation provider source. The screenshot below shows two source segments as they are displayed in the editor of Var:ProductName and the empty target cells next to them:</p>
 <img style="display:block; " src="images/Segments.jpg">
-<p>When moving into a target cell the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderLanguageDirection.html#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderLanguageDirection_SearchSegment_Sdl_LanguagePlatform_TranslationMemory_SearchSettings_Sdl_LanguagePlatform_Core_Segment_">SearchSegment</a> method of the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderLanguageDirection.html">ITranslationProviderLanguageDirection</a> interface is invoked. This method takes the current segment object and the search settings as parameters. Search settings include, for example, the maximum number of matches that a search should return. These settings can be configured by the user of Trados Studio at runtime. The screenshot below shows the search settings that users can configure. If a user, for example, limits the number of concordance matches that a translation provider should return to 5, then the this is the maximum number of concordance hits that your provider will return. There is no need for you to implement the logic for applying the settings yourself.
+<p>When moving into a target cell the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderLanguageDirection.html#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderLanguageDirection_SearchSegment_Sdl_LanguagePlatform_TranslationMemory_SearchSettings_Sdl_LanguagePlatform_Core_Segment_">SearchSegment</a> method of the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderLanguageDirection.html">ITranslationProviderLanguageDirection</a> interface is invoked. This method takes the current segment object and the search settings as parameters. Search settings include, for example, the maximum number of matches that a search should return. These settings can be configured by the user of Var:ProductName at runtime. The screenshot below shows the search settings that users can configure. If a user, for example, limits the number of concordance matches that a translation provider should return to 5, then the this is the maximum number of concordance hits that your provider will return. There is no need for you to implement the logic for applying the settings yourself.
 <img style="display:block; " src="images/SearchSettings.jpg"></p>
 <div class="NOTE">
 <h5>Note</h5>
-<p>Depending on your translation provider, some of the search settings that Trados Studio offers may or may not be relevant for your implementation. For example, since our provider will only support exact matches, the <strong>Minimum match value</strong> setting will not be relevant for the delimited list translation provider, as our logic will only implement searches for 100% matches.</p>
+<p>Depending on your translation provider, some of the search settings that Var:ProductName offers may or may not be relevant for your implementation. For example, since our provider will only support exact matches, the <strong>Minimum match value</strong> setting will not be relevant for the delimited list translation provider, as our logic will only implement searches for 100% matches.</p>
 </div>
-<p>Also, our implementation only support plain text searches. The segment pairs in the delimited list files are plain text, i.e. they do not contain any text., it is likely that a document that is opened in Trados Studio contains inline tags, e.g. for character formatting as shown in the example below:</p>
+<p>Also, our implementation only support plain text searches. The segment pairs in the delimited list files are plain text, i.e. they do not contain any text., it is likely that a document that is opened in Var:ProductName contains inline tags, e.g. for character formatting as shown in the example below:</p>
 <img style="display:block; " src="images/NotPlainText.jpg">
 <p>We therefore loop through all elements in the current segment and make sure that only plain text is returned. Note that the functionality for returning only the plain source segment text is implemented in a separate component, which we will add later (see <a href="implementing_the_element_visitor.html">Implementing the Element Visitor</a>).</p>
 <div class="tabGroup" id="tabgroup_5">
@@ -268,7 +267,7 @@ results.SourceSegment = segment.Duplicate();
 </ul>
 <p>A concordance search can be triggered by, for example, selecting a source or target string in the editor and by pressing <strong>F3</strong>. The type of search that was called by the user from the editor can be determined using the <code>SearchMode</code> property, whose value can be retrieved through the search settings object.</p>
 <h2 id="implement-the-segment-lookup">Implement the Segment Lookup</h2>
-<p>The following code snippet shows how we handle the normal segment lookup. If the search mode equals <strong>NormalSearch</strong>, and if a source segment match is found for the plain text version of the current source segment from the editor, then a target segment object should be created using the target segment string (i.e. the key value) from our segment pair collection. The current source segment and the target segment will be used to construct a search result, which will be displayed in the <strong>Translation Results</strong> window of Trados Studio. The result will be generated through a separate <code>CreateSearchResult</code> helper function, which we will implement later.</p>
+<p>The following code snippet shows how we handle the normal segment lookup. If the search mode equals <strong>NormalSearch</strong>, and if a source segment match is found for the plain text version of the current source segment from the editor, then a target segment object should be created using the target segment string (i.e. the key value) from our segment pair collection. The current source segment and the target segment will be used to construct a search result, which will be displayed in the <strong>Translation Results</strong> window of Var:ProductName. The result will be generated through a separate <code>CreateSearchResult</code> helper function, which we will implement later.</p>
 <div class="tabGroup" id="tabgroup_7">
 <ul role="tablist">
 <li role="presentation">
@@ -465,7 +464,7 @@ However, for a concordance search, the search segment would not be the whole seg
 <h5>Note</h5>
 <p>For concordance searches this formatting penalty parameter is always set to False as in our implementation formatting is not relevant for concordance searches.</p>
 </div>
-<p>Below are some examples that illustrate how search results will be displayed in Trados Studio:</p>
+<p>Below are some examples that illustrate how search results will be displayed in Var:ProductName:</p>
 <p>The following result would be displayed in the <strong>Translation Results</strong> window when an exact (100%) match has been found in the delimited list:</p>
 <img style="display:block; " src="images/SearchResultNormalSearch.jpg">
 <p>The following result would be displayed in the <strong>Concordance</strong> window for the search string photo printer. Note that when doing a concordance search in a translation memory, the corresponding search string is highlighted in the matching segments. This is not done in our simplified implementation.</p>
@@ -504,7 +503,7 @@ tu.TargetSegment = translation;
 searchResult.ScoringResult.ApplyPenalty(penalty);
 </code></pre>
 </li>
-<li><p>When a formatting (i.e. tag) penalty is applied to a TU, it will be shown in Trados Studio as illustrated in the screenshot below:</p>
+<li><p>When a formatting (i.e. tag) penalty is applied to a TU, it will be shown in Var:ProductName as illustrated in the screenshot below:</p>
   <img style="display:block; " src="images/FormattingPenalty.jpg">
 </li>
 </ul>
@@ -565,6 +564,7 @@ searchResult.ScoringResult.ApplyPenalty(penalty);
 <p><a href="implementing_the_element_visitor.html">Implementing the Element Visitor</a>
 <a href="performing_translation_memory_lookups.html">Performing Translation Memory Lookups</a>
 <a href="doing_translation_memory_lookups.html">Doing Translation Memory Lookups</a></p>
+
 </article>
           </div>
 
@@ -578,7 +578,7 @@ searchResult.ScoringResult.ApplyPenalty(penalty);
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
-                <h4>On this page</h4>
+                <h5>In this article</h5>
                 <div></div>
               </nav>
             </div>
@@ -600,7 +600,7 @@ searchResult.ScoringResult.ApplyPenalty(penalty);
       </footer>
     </div>
 
-    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
     <script type="text/javascript" src="../../styles/docfx.js"></script>
     <script type="text/javascript" src="../../styles/main.js"></script>
   </body>

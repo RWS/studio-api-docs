@@ -4,25 +4,25 @@
 
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Searching Terms </title>
-    <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Searching Terms ">
-    <meta name="generator" content="docfx ">
-  
-    <link rel="shortcut icon" href="../../favicon.ico">
-    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
-    <link rel="stylesheet" href="../../styles/docfx.css">
-    <link rel="stylesheet" href="../../styles/main.css">
-    <meta property="docfx:navrel" content="../../toc.html">
-    <meta property="docfx:tocrel" content="../toc.html">
-  
-  <meta property="docfx:rel" content="../../">
-  
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Searching Terms </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Searching Terms ">
+    
+    
+      <link rel="shortcut icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../../styles/docfx.css">
+      <link rel="stylesheet" href="../../styles/main.css">
+      <meta property="docfx:navrel" content="../../toc.html">
+      <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
   </head>
   <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
-      <header>
+      <header>        
 
         <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
           <div class="container">
@@ -34,14 +34,13 @@
                 <span class="icon-bar"></span>
               </button>
 
-              <a class="navbar-brand" href="../../index.html">
+              <a class="navbar-brand" href="../../https://developers.rws.com/">
                 <img id="logo" class="svg" src="../../logo.svg" alt="">
               </a>
             </div>
             <div class="collapse navbar-collapse" id="navbar">
               <form class="navbar-form navbar-right" role="search" id="search">
                 <div class="form-group">
-                  <span class="glyphicon glyphicon-search search-icon"></span>
                   <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
                 </div>
               </form>
@@ -49,26 +48,26 @@
           </div>
         </nav>
 
-        <div class="subnav navbar-default">
-          <div class="container hide-when-search">
-            <div class="breadcrumb-container" id="breadcrumb">
-              <ul class="breadcrumb col-md-10">
-                <li></li>
-              </ul>
-            </div>
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
           </div>
         </div>
       </header>
-      <div class="container body-content">
 
-        <div id="search-results">
-          <div class="search-list">Search Results for <span></span></div>
-          <div class="sr-items">
-            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+        <div class="container body-content">
+
+          <div id="search-results">
+            <div class="search-list">Search Results for <span></span></div>
+            <div class="sr-items">
+              <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+            </div>
+            <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
           </div>
-          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
         </div>
-      </div>
+
       <div role="main" class="container body-content hide-when-search">
 
         <div class="sidenav hide-when-search">
@@ -84,25 +83,25 @@
 
 <p>Searching the terminology source through your term provider is arguably the most important function of your implementation. A term provider can still be useful without the editing function, but is of no use if no term look-up and term recognition functionality is available.</p>
 <h2 id="how-to-search-and-recognize-terms">How to search and recognize terms</h2>
-<p>When you click inside a segment in Trados Studio, the segment is scanned for any terminology contained in the term resource. If terms are recognized, they are highlighted with a red line and displayed in the <strong>Term Recognition</strong> window:</p>
+<p>When you click inside a segment in Var:ProductName, the segment is scanned for any terminology contained in the term resource. If terms are recognized, they are highlighted with a red line and displayed in the <strong>Term Recognition</strong> window:</p>
 <img style="display:block; " src="images/term_recognition.jpg">
 <p>You can also manually look up terms in the <strong>Termbase Search</strong> window:</p>
 <img style="display:block; " src="images/term_search.jpg">
 <h2 id="how-to-implement-the-search-functionality">How to implement the search functionality</h2>
-<p>Open the <strong>MyTerminologyProvider.cs</strong> class and go to the <strong>Search()</strong> function (which is implemented by the <strong>AbstractTerminologyProvider</strong> interface). This function is called when you click inside a segment or launch a search in the Termbase Search window. Note that Trados Studio passes a number of useful parameters:</p>
+<p>Open the <strong>MyTerminologyProvider.cs</strong> class and go to the <strong>Search()</strong> function (which is implemented by the <strong>AbstractTerminologyProvider</strong> interface). This function is called when you click inside a segment or launch a search in the Termbase Search window. Note that Var:ProductName passes a number of useful parameters:</p>
 <ul>
-<li><strong>text</strong>: the search string. When the user selects a segment in Trados Studio, this will be the source segment text. When you launch a search manually, this will be the search string entered by you.</li>
+<li><strong>text</strong>: the search string. When the user selects a segment in Var:ProductName, this will be the source segment text. When you launch a search manually, this will be the search string entered by you.</li>
 <li><strong>maxResultsCount</strong>: the maximum number of hits to show, i.e. the search depth.</li>
-<li><strong>mode</strong>: the search mode, i.e. fuzzy or normal. When selecting a segment in Trados Studio, the mode is 'fuzzy' by default. When you do a manual lookup, the search mode is 'normal' by default (unless you clicked the <strong>Fuzzy Search</strong> button in the <strong>Termbase Search</strong>) window.</li>
-<li><strong>targetRequired</strong>: boolean parameter that decides whether source terms without any target term should be shown or not. This parameter is controlled by you through the Trados Studio UI. Depending on the value returned, your implementation needs to decide whether an entry without a target term should be displayed or not.</li>
+<li><strong>mode</strong>: the search mode, i.e. fuzzy or normal. When selecting a segment in Var:ProductName, the mode is 'fuzzy' by default. When you do a manual lookup, the search mode is 'normal' by default (unless you clicked the <strong>Fuzzy Search</strong> button in the <strong>Termbase Search</strong>) window.</li>
+<li><strong>targetRequired</strong>: boolean parameter that decides whether source terms without any target term should be shown or not. This parameter is controlled by you through the Var:ProductName UI. Depending on the value returned, your implementation needs to decide whether an entry without a target term should be displayed or not.</li>
 </ul>
-<p>Below is the page of the Trados Studio UI where the user can, for example, determine the search depth or whether to display entries without a target term:</p>
+<p>Below is the page of the Var:ProductName UI where the user can, for example, determine the search depth or whether to display entries without a target term:</p>
 <img style="display:block; " src="images/search_settings.jpg">
-<p>The <strong>Search</strong> function returns a list of results to be displayed in Trados Studio. In our simplified implementation, we loop through the glossary text file and look for any matching source terms. We assume that when the search mode is 'normal', we just check whether there are any source terms in the glossary that start with the search string. If the search string is fuzzy, we check whether there are any source terms in the glossary that are contained in the search string (i.e. in the segment). Of course, your 'real-life' implementation might have a much more sophisticated way of performing fuzzy searches than the <strong>StartsWith()</strong> or <strong>Contains()</strong> methods. For each search result object, you set the following properties:</p>
+<p>The <strong>Search</strong> function returns a list of results to be displayed in Var:ProductName. In our simplified implementation, we loop through the glossary text file and look for any matching source terms. We assume that when the search mode is 'normal', we just check whether there are any source terms in the glossary that start with the search string. If the search string is fuzzy, we check whether there are any source terms in the glossary that are contained in the search string (i.e. in the segment). Of course, your 'real-life' implementation might have a much more sophisticated way of performing fuzzy searches than the <strong>StartsWith()</strong> or <strong>Contains()</strong> methods. For each search result object, you set the following properties:</p>
 <ul>
-<li><strong>Text</strong>: the source term, this will also be the term that is going to be highlighted with a red line in Trados Studio.</li>
+<li><strong>Text</strong>: the source term, this will also be the term that is going to be highlighted with a red line in Var:ProductName.</li>
 <li><strong>Score</strong>: the fuzzy score. In our simple implementation, we will simply set it to 100%. Depending on how you implement your fuzzy logic, you may assign different values.</li>
-<li><strong>Id</strong>: the id of the entry that the search result needs to be associated with. Note that in Trados Studio, you do not output the search result list, but rather the entries that you need to construct in a different function (see below). The search result objects are linked to the entries using the unique ID. This is also the reason why, in our implementation, every line in the glossary file is preceded with a unique number.</li>
+<li><strong>Id</strong>: the id of the entry that the search result needs to be associated with. Note that in Var:ProductName, you do not output the search result list, but rather the entries that you need to construct in a different function (see below). The search result objects are linked to the entries using the unique ID. This is also the reason why, in our implementation, every line in the glossary file is preceded with a unique number.</li>
 </ul>
 <p>The <strong>Search()</strong> function of our implementation would look as shown below:</p>
 <div class="tabGroup" id="tabgroup_1">
@@ -249,6 +248,7 @@ public Entry GetEntry(int id)
 }
 </code></pre></section>
 </div>
+
 </article>
           </div>
 
@@ -262,7 +262,7 @@ public Entry GetEntry(int id)
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
-                <h4>On this page</h4>
+                <h5>In this article</h5>
                 <div></div>
               </nav>
             </div>
@@ -284,7 +284,7 @@ public Entry GetEntry(int id)
       </footer>
     </div>
 
-    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
     <script type="text/javascript" src="../../styles/docfx.js"></script>
     <script type="text/javascript" src="../../styles/main.js"></script>
   </body>
