@@ -15,7 +15,7 @@ Read articles on how to get more out of Var:ProductName.
 ## [Code samples](https://github.com/RWS/trados-studio-api-samples)
 Find more of our code samples on [GitHub](https://github.com/RWS/trados-studio-api-samples).
 
-## [Open Source Community Projects](https://github.com/RWS/trados-studio-api-samples)
+## [Open Source Community Projects](https://github.com/RWS/Sdl-Community)
 Join our community-driven repository of Var:ProductName plugins on [RWS Community](https://github.com/RWS/Sdl-Community).
 
 ## Var:ProductName API versions
