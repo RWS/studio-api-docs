@@ -122,7 +122,7 @@ With Trados Studio 2024 SR1, all core Trados assemblies have had their **assembl
 <br/>
 
 ### Multiterm API Changes
-**Change `Migration from Sdl.Multiterm.TMO.Interop.dll` to `TerminologyProviderManager`**
+**Migrate from `Sdl.Multiterm.TMO.Interop.dll` to `TerminologyProviderManager`**
 
 As part of the separation of MultiTerm from Trados Studio, the legacy assembly `Sdl.Multiterm.TMO.Interop.dll` **has been removed from the Trados Studio installation folder as of SR1**. Any integration or plugin referencing TMO interop must be updated: **the endorsed approach for terminology-related integrations moving forward is the `TerminologyProviderManager` singleton.**
 
