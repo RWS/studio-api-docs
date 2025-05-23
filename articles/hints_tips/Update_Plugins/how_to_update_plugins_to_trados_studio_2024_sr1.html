@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>How to update plugins to Trados Studio 2024 SR1 </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="How to update plugins to Trados Studio 2024 SR1 ">
+    
+    
+      <link rel="shortcut icon" href="../../../favicon.ico">
+      <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../../../styles/docfx.css">
+      <link rel="stylesheet" href="../../../styles/main.css">
+      <meta property="docfx:navrel" content="../../../toc.html">
+      <meta property="docfx:tocrel" content="../../toc.html">
+    
+    <meta property="docfx:rel" content="../../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>        
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="https://developers.rws.com/">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+
+        <div class="container body-content">
+
+          <div id="search-results">
+            <div class="search-list">Search Results for <span></span></div>
+            <div class="sr-items">
+              <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+            </div>
+            <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+          </div>
+        </div>
+
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="how-to-update-plugins-to-trados-studio-2024-sr1">How to update plugins to Trados Studio 2024 SR1</h1>
+
+<p>The following are a list of changes and known issues to consider when updating your plugin to be compatible with Trados Studio 2024 SR1.</p>
+<h2 id="update-plugin-framework-packages">Update Plugin Framework Packages</h2>
+<p>Ensure you are using the latest plugin framework NuGet packages:</p>
+<ul>
+<li><strong>Sdl.Core.PluginFramework:</strong> v2.1.0</li>
+<li><strong>Sdl.Core.PluginFramework.Build:</strong> v18.0.1</li>
+</ul>
+<p><strong>How to update:</strong></p>
+<ul>
+<li>In Solution Explorer, right-click <strong>References &gt; Manage NuGet Packages.</strong></li>
+<li>Set <a href="http://nuget.org">http://nuget.org</a> as your package source.</li>
+<li>Search, select, and install/update the above packages.</li>
+<li>Accept license agreements to complete installation.</li>
+</ul>
+<h2 id="update-plugin-manifest">Update Plugin Manifest</h2>
+<p>Review and update the manifest (<code>pluginpackage.manifest.xml</code>) at the project root as in the following example:</p>
+<pre><code class="lang-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;PluginPackage xmlns=&quot;http://www.sdl.com/Plugins/PluginPackage/1.0&quot;&gt;
+  &lt;PlugInName&gt;My plugin name&lt;/PlugInName&gt;
+  &lt;Version&gt;1.1.0.0&lt;/Version&gt;
+  &lt;Description&gt;My plugin description&lt;/Description&gt;
+  &lt;Author&gt;Trados AppStore Team&lt;/Author&gt;
+  &lt;RequiredProduct name=&quot;TradosStudio&quot; minversion=&quot;18.1&quot; maxversion=&quot;18.1.9&quot; /&gt;
+&lt;/PluginPackage&gt;
+</code></pre>
+<p>Ensure <strong>RequiredProduct</strong> reflects <code>minversion=&quot;18.1&quot;</code> and <code>maxversion=&quot;18.1.9&quot;</code>.</p>
+<h2 id="project-references--deployment-path">Project References &amp; Deployment Path</h2>
+<p>Update references and deployment settings in your .csproj:</p>
+<div class="tabGroup" id="tabgroup_1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_1_standard" role="tab" aria-controls="tabpanel_1_standard" data-tab="standard" tabindex="0" aria-selected="true">Production</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_beta" role="tab" aria-controls="tabpanel_1_beta" data-tab="beta" tabindex="-1">BETA</a>
+</li>
+</ul>
+<section id="tabpanel_1_standard" role="tabpanel" data-tab="standard">
+
+<p><strong>References</strong>: Set Trados Studio assemblies to use the Studio 18 path:</p>
+<pre><code class="lang-xml">&lt;Reference Include=&quot;Sdl.Desktop.IntegrationApi.Extensions&quot;&gt;
+    &lt;HintPath&gt;$(MSBuildProgramFiles32)\Trados\Trados Studio\Studio18\Sdl.Desktop.IntegrationApi.Extensions.dll&lt;/HintPath&gt;
+&lt;/Reference&gt;
+</code></pre>
+<p><strong>Deployment Path:</strong></p>
+<pre><code class="lang-xml">&lt;PluginDeploymentPath&gt;$(AppData)\Trados\Trados Studio\18\Plugins&lt;/PluginDeploymentPath&gt;
+</code></pre>
+</section>
+<section id="tabpanel_1_beta" role="tabpanel" data-tab="beta" aria-hidden="true" hidden="hidden">
+
+<p><strong>References</strong>: Set Trados Studio assemblies to use the Studio 18 Beta path:</p>
+<pre><code class="lang-xml">&lt;Reference Include=&quot;Sdl.Desktop.IntegrationApi.Extensions&quot;&gt;
+    &lt;HintPath&gt;$(MSBuildProgramFiles32)\Trados\Trados Studio\Studio18Beta\Sdl.Desktop.IntegrationApi.Extensions.dll&lt;/HintPath&gt;
+&lt;/Reference&gt;
+</code></pre>
+<p><strong>Deployment Path:</strong></p>
+<pre><code class="lang-xml">&lt;PluginDeploymentPath&gt;$(AppData)\Trados\Trados Studio\18Beta\Plugins&lt;/PluginDeploymentPath&gt;
+</code></pre>
+</section>
+</div>
+
+<div class="NOTE">
+<h5>Note</h5>
+<p>To update settings directly in the project file from Visual Studio</p>
+<ul>
+<li>Right-click on the project node in the <strong>Solution Explorer</strong> and select <strong>Unload Project</strong>.</li>
+<li>Then, right-click on the project and choose <strong>Edit</strong> <projectname></projectname></li>
+</ul>
+<p>Once you have applied your changes in the project file, then reload project</p>
+<ul>
+<li>In the <strong>Solution Explorer</strong>, select the projects you want to load (press <strong>Ctrl</strong> while clicking to select more than one project)</li>
+<li>Then right-click on the project and choose <strong>Reload Project</strong>.</li>
+</ul>
+</div>
+<br>
+<h2 id="known-issues--dependency-updates">Known Issues &amp; Dependency Updates</h2>
+<h3 id="dependency-version-changes">Dependency Version Changes</h3>
+<p>Standalone integrations may require binding redirects. Example for <code>App.config</code>:</p>
+<pre><code class="lang-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
+&lt;configuration&gt;
+  &lt;configSections&gt;
+    &lt;section name=&quot;BestMatchServiceUrlsConfig&quot; type=&quot;Sdl.BestMatchServiceStudioIntegration.Common.UrlsConfig, Sdl.BestMatchServiceStudioIntegration.Common&quot; /&gt;
+  &lt;/configSections&gt;
+  &lt;BestMatchServiceUrlsConfig GlobalApi=&quot;https://api.cloud.trados.com&quot; auth0=&quot;https://sdl-prod.eu.auth0.com&quot;&gt;
+    &lt;LanguageConfig&gt;
+      &lt;Lang Code=&quot;en&quot; /&gt;
+      &lt;Lang Code=&quot;de&quot; /&gt;
+      &lt;Lang Code=&quot;fr&quot; /&gt;
+      &lt;Lang Code=&quot;es&quot; /&gt;
+      &lt;Lang Code=&quot;ja&quot; /&gt;
+      &lt;Lang Code=&quot;it&quot; /&gt;
+      &lt;Lang Code=&quot;zh-CN&quot; /&gt;
+    &lt;/LanguageConfig&gt;
+    &lt;HavingTroubleSigningIn url=&quot;https://gateway.sdl.com/apex/communityknowledge?articleName=000001399&quot; /&gt;
+  &lt;/BestMatchServiceUrlsConfig&gt;  
+  &lt;runtime&gt;
+    &lt;NetFx40_PInvokeStackResilience enabled=&quot;1&quot; /&gt;
+    &lt;legacyCorruptedStateExceptionsPolicy enabled=&quot;true&quot; /&gt;
+    &lt;ThrowUnobservedTaskException enabled=&quot;true&quot; /&gt;
+    &lt;assemblyBinding xmlns=&quot;urn:schemas-microsoft-com:asm.v1&quot;&gt;
+      &lt;dependentAssembly&gt;
+        &lt;assemblyIdentity name=&quot;Microsoft.Extensions.DependencyModel&quot; publicKeyToken=&quot;adb9793829ddae60&quot; culture=&quot;neutral&quot; /&gt;
+        &lt;bindingRedirect oldVersion=&quot;0.0.0.0-7.0.0.0&quot; newVersion=&quot;7.0.0.0&quot; /&gt;
+      &lt;/dependentAssembly&gt;    
+    &lt;/assemblyBinding&gt;
+  &lt;/runtime&gt;
+  &lt;startup&gt;
+    &lt;supportedRuntime version=&quot;v4.0&quot; sku=&quot;.NETFramework,Version=v4.8&quot; /&gt;
+  &lt;/startup&gt;  
+&lt;/configuration&gt;
+</code></pre>
+<br>
+<h2 id="breaking-api-changes">Breaking API Changes</h2>
+<h3 id="assembly-version-change-requires-recompilation">Assembly Version Change Requires Recompilation</h3>
+<p>With Trados Studio 2024 SR1, all core Trados assemblies have had their <strong>assembly version increased to 18.1.x.x</strong> (reflecting the semantic versioning minor update). <strong>This assembly version bump introduces a breaking change:</strong> Any plugin or standalone tool that references Trados assemblies must be recompiled against the new release, even if no other code changes are required. Referencing outdated assemblies is not supported and will likely result in runtime failures due to version mismatches.<br>
+<br></p>
+<h3 id="multiterm-api-changes">Multiterm API Changes</h3>
+<p><strong>Migrate from <code>Sdl.Multiterm.TMO.Interop.dll</code> to <code>TerminologyProviderManager</code></strong></p>
+<p>As part of the separation of MultiTerm from Trados Studio, the legacy assembly <code>Sdl.Multiterm.TMO.Interop.dll</code> <strong>has been removed from the Trados Studio installation folder as of SR1</strong>. Any integration or plugin referencing TMO interop must be updated: <strong>the endorsed approach for terminology-related integrations moving forward is the <code>TerminologyProviderManager</code> singleton.</strong></p>
+<p><strong>How to migrate:</strong> Use <code>Sdl.Terminology.TerminologyProvider.Core.TerminologyProviderManager.Instance</code> to access and initialize terminology providers.</p>
+<p><strong>Sample code:</strong></p>
+<pre><code class="lang-csharp">using Sdl.Terminology.TerminologyProvider.Core;
+
+// Example URI for your termbase
+string termbaseUriString = &quot;file:///C:/Termbases/MyTermbase.sdltb&quot;;
+Uri termbaseUri = new Uri(termbaseUriString);
+
+// Get the terminology provider singleton instance
+var terminologyProvider = TerminologyProviderManager.Instance.GetTerminologyProvider(termbaseUri);
+
+// Ensure the provider is initialized before searching
+if (!terminologyProvider.IsInitialized)
+{
+    try
+    {
+        terminologyProvider.Initialize();
+    }
+    catch (Exception ex)
+    {
+        // Handle initialization errors appropriately (log or surface meaningful error)
+        throw new InvalidOperationException(&quot;Failed to initialize terminology provider.&quot;, ex);
+    }
+}
+
+// Set up search parameters
+var sourceLanguage = new CultureInfo(&quot;en-US&quot;);
+var targetLanguage = new CultureInfo(&quot;it-IT&quot;);
+string segmentText = &quot;Insert your source segment text here&quot;;
+int maxResultsCount = 10;
+bool targetRequired = true;
+
+// Perform a fuzzy terminology search
+var searchResults = terminologyProvider.Search(
+    segmentText,
+    sourceLanguage,
+    targetLanguage,
+    maxResultsCount,
+    SearchMode.Fuzzy,
+    targetRequired
+);
+
+// Process or display results as needed...
+</code></pre>
+<p><strong>Note:</strong> Replace any references to <code>Sdl.Multiterm.TMO.Interop.dll</code> with the modern <code>TerminologyProviderManager</code> API. This ensures compatibility with Trados Studio 2024 SR1 and future releases, and aligns with Trados ongoing architectural updates.</p>
+<br>
+<h2 id="credential-management-best-practices">Credential Management Best Practices</h2>
+<p>When building plugins or integrating third-party terminology and translation providers with Trados Studio, you should always manage credentials independently in your own codebase, especially when working with non-Trados services.</p>
+<p><strong>Key Points:</strong></p>
+<ul>
+<li>Built-in credential storage in Trados Studio is only required when you need to access native Trados resources (e.g., file-based translation memories, Language Cloud).</li>
+<li>For all other scenarios, including any third-party or custom service integration, you should implement your own secure mechanism for storing and retrieving credentials.</li>
+<li>Managing credentials independently enhances security and gives you greater flexibility and control.</li>
+</ul>
+<p><strong>Best Practice:</strong>
+Always use your own secure credential management system, unless your integration specifically requires direct access to Trados resources.</p>
+<hr>
+<h3 id="example-managing-credentials-securely">Example: Managing Credentials Securely</h3>
+<p>Below is an example showing how you can implement credential management using Windows Credential Manager. This strategy may be adapted to use other secure stores as required by your environment or policies.</p>
+<p><strong>Credential Store Interface:</strong></p>
+<pre><code class="lang-csharp">public interface ICredentialStore
+{
+    void SaveCredential(string key, string username, string password);
+    (string Username, string Password)? GetCredential(string key);
+    void RemoveCredential(string key);
+}
+</code></pre>
+<p><strong>Sample Windows Credential Manager Implementation</strong><br>
+<em>Install the <a href="https://www.nuget.org/packages/CredentialManagement/">CredentialManagement</a> NuGet package for this sample:</em></p>
+<pre><code class="lang-csharp">using CredentialManagement;
+
+public class WindowsCredentialStore : ICredentialStore
+{
+    public void SaveCredential(string key, string username, string password)
+    {
+        var cred = new Credential
+        {
+            Target = key,
+            Username = username,
+            Password = password,
+            PersistanceType = PersistanceType.LocalComputer
+        };
+        cred.Save();
+    }
+
+    public (string Username, string Password)? GetCredential(string key)
+    {
+        var cred = new Credential { Target = key };
+        if (cred.Load())
+        {
+            return (cred.Username, cred.Password);
+        }
+        return null;
+    }
+
+    public void RemoveCredential(string key)
+    {
+        var cred = new Credential { Target = key };
+        cred.Delete();
+    }
+}
+</code></pre>
+<p><strong>How to Use in Your Integration</strong></p>
+<pre><code class="lang-csharp">// Example usage
+var credentialStore = new WindowsCredentialStore();
+var credentials = credentialStore.GetCredential(&quot;your-provider-key&quot;);
+if (credentials.HasValue) {
+    var username = credentials.Value.Username;
+    var password = credentials.Value.Password;
+    // Use credentials securely...
+} else {
+    // Handle missing credentials scenario
+}
+</code></pre>
+<p><strong>Note:</strong> Using your own credential store ensures future compatibility, enhances security, and keeps your integration flexible as Trados Studio and its APIs evolve.</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/main/articles/hints_tips/Update_Plugins/how_to_update_plugins_to_trados_studio_2024_sr1.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>
