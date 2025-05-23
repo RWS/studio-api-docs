@@ -74,7 +74,6 @@ Update references and deployment settings in your .csproj:
 > * Then right-click on the project and choose **Reload Project**.
 
 <br/>
-<br/>
 
 ## Known Issues & Dependency Updates 
 ### Dependency Version Changes
@@ -172,30 +171,28 @@ var searchResults = terminologyProvider.Search(
 
 // Process or display results as needed...
 ```
-**Note:** Replace any references to `Sdl.Multiterm.TMO.Interop.dll` with the modern `TerminologyProviderManager` API. This ensures compatibility with Trados Studio 2024 SR1 and future releases, and aligns with Trados ongoing architectural updates.  
+**Note:** Replace any references to `Sdl.Multiterm.TMO.Interop.dll` with the modern `TerminologyProviderManager` API. This ensures compatibility with Trados Studio 2024 SR1 and future releases, and aligns with Trados ongoing architectural updates.
+
 <br/>
 
-### Terminology and Translation Providers
+## Credential Management Best Practices
 
-**Affected Interfaces:**
-- `ITerminologyProviderWinFormsUIWithEdit.Browse`
-- `ITerminologyProviderFactory.CreateTerminologyProvider`
+When building plugins or integrating third-party terminology and translation providers with Trados Studio, you should always manage credentials independently in your own codebase, especially when working with non-Trados services.
 
-**What Changed**  
-Both interfaces now have two method versions:   
-- The version accepting `ITerminologyProviderCredentialStore` is now **obsolete** (will only function in SR1).
-- The new signature **removes** the credential store parameter. Starting with SR2, **it is your responsibility** to manage credentials in your plugin.
+**Key Points:**
+- Built-in credential storage in Trados Studio is only required when you need to access native Trados resources (e.g., file-based translation memories, Language Cloud).
+- For all other scenarios, including any third-party or custom service integration, you should implement your own secure mechanism for storing and retrieving credentials.
+- Managing credentials independently enhances security and gives you greater flexibility and control.
 
-**Migration Steps**
-- **For SR1:** Implement both versions to ensure compatibility.
-- **For SR2 and future releases:** Remove dependencies on the built-in credential store, and use your own secure credential management mechanism.  
+**Best Practice:**
+Always use your own secure credential management system, unless your integration specifically requires direct access to Trados resources.  
 
+---
 
+### Example: Managing Credentials Securely
+Below is an example showing how you can implement credential management using Windows Credential Manager. This strategy may be adapted to use other secure stores as required by your environment or policies.  
 
-#### Sample: Managing Your Own Credential Store
-Below is a sample implementation of a custom credential store using Windows Credential Manager, ready to drop into your project for Trados Studio 2024 SR1+.
-
-**Credential Store Interface**
+**Credential Store Interface:**
 ```csharp
 public interface ICredentialStore
 {
@@ -205,7 +202,7 @@ public interface ICredentialStore
 }
 ```
  
-**Windows Credential Store Implementation**  
+**Sample Windows Credential Manager Implementation**  
 *Install the [CredentialManagement](https://www.nuget.org/packages/CredentialManagement/) NuGet package for this sample:*
 
 ```csharp
@@ -243,48 +240,18 @@ public class WindowsCredentialStore : ICredentialStore
 }
 ```
 
-**Using in Your Terminology Provider Factory**
+**How to Use in Your Integration**
 ```csharp
-public class MyTerminologyProviderFactory : ITerminologyProviderFactory
-{
-    private readonly ICredentialStore _credentialStore = new WindowsCredentialStore();
-
-    public bool SupportsTerminologyProviderUri(Uri terminologyProviderUri)
-    {
-        // Your implementation here
-        return true;
-    }
-
-    // Legacy/Obsolete
-    [Obsolete]
-    public ITerminologyProvider CreateTerminologyProvider(
-        Uri terminologyProviderUri,
-        ITerminologyProviderCredentialStore credentials)
-    {
-        // SR1-only: continue to support legacy method.
-        return CreateTerminologyProvider(terminologyProviderUri);
-    }
-
-    // New method (SR1+)
-    public ITerminologyProvider CreateTerminologyProvider(Uri terminologyProviderUri)
-    {
-        var credentials = _credentialStore.GetCredential(terminologyProviderUri.ToString());
-        if (credentials.HasValue)
-        {
-            string username = credentials.Value.Username;
-            string password = credentials.Value.Password;
-            // Use credentials as needed
-        }
-        else
-        {
-            // Credentials not found; handle accordingly.
-            // Ensure credentials exist before loading the terminology provider.
-            throw new InvalidOperationException(
-                "Credentials not found. ");
-        }
-        // Your implementation here...
-        return new MyCustomTerminologyProvider();
-    }
+// Example usage
+var credentialStore = new WindowsCredentialStore();
+var credentials = credentialStore.GetCredential("your-provider-key");
+if (credentials.HasValue) {
+    var username = credentials.Value.Username;
+    var password = credentials.Value.Password;
+    // Use credentials securely...
+} else {
+    // Handle missing credentials scenario
 }
 ```
-**Note:** This approach ensures that your plugin will be compatible with future Trados Studio releases (SR2 and beyond), where the built-in credential store will be removed.
+**Note:** Using your own credential store ensures future compatibility, enhances security, and keeps your integration flexible as Trados Studio and its APIs evolve.
+  
