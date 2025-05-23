@@ -74,7 +74,6 @@ Update references and deployment settings in your .csproj:
 > * Then right-click on the project and choose **Reload Project**.
 
 <br/>
-<br/>
 
 ## Known Issues & Dependency Updates 
 ### Dependency Version Changes
@@ -172,4 +171,87 @@ var searchResults = terminologyProvider.Search(
 
 // Process or display results as needed...
 ```
-**Note:** Replace any references to `Sdl.Multiterm.TMO.Interop.dll` with the modern `TerminologyProviderManager` API. This ensures compatibility with Trados Studio 2024 SR1 and future releases, and aligns with Trados ongoing architectural updates.  
+**Note:** Replace any references to `Sdl.Multiterm.TMO.Interop.dll` with the modern `TerminologyProviderManager` API. This ensures compatibility with Trados Studio 2024 SR1 and future releases, and aligns with Trados ongoing architectural updates.
+
+<br/>
+
+## Credential Management Best Practices
+
+When building plugins or integrating third-party terminology and translation providers with Trados Studio, you should always manage credentials independently in your own codebase, especially when working with non-Trados services.
+
+**Key Points:**
+- Built-in credential storage in Trados Studio is only required when you need to access native Trados resources (e.g., file-based translation memories, Language Cloud).
+- For all other scenarios, including any third-party or custom service integration, you should implement your own secure mechanism for storing and retrieving credentials.
+- Managing credentials independently enhances security and gives you greater flexibility and control.
+
+**Best Practice:**
+Always use your own secure credential management system, unless your integration specifically requires direct access to Trados resources.  
+
+---
+
+### Example: Managing Credentials Securely
+Below is an example showing how you can implement credential management using Windows Credential Manager. This strategy may be adapted to use other secure stores as required by your environment or policies.  
+
+**Credential Store Interface:**
+```csharp
+public interface ICredentialStore
+{
+    void SaveCredential(string key, string username, string password);
+    (string Username, string Password)? GetCredential(string key);
+    void RemoveCredential(string key);
+}
+```
+ 
+**Sample Windows Credential Manager Implementation**  
+*Install the [CredentialManagement](https://www.nuget.org/packages/CredentialManagement/) NuGet package for this sample:*
+
+```csharp
+using CredentialManagement;
+
+public class WindowsCredentialStore : ICredentialStore
+{
+    public void SaveCredential(string key, string username, string password)
+    {
+        var cred = new Credential
+        {
+            Target = key,
+            Username = username,
+            Password = password,
+            PersistanceType = PersistanceType.LocalComputer
+        };
+        cred.Save();
+    }
+
+    public (string Username, string Password)? GetCredential(string key)
+    {
+        var cred = new Credential { Target = key };
+        if (cred.Load())
+        {
+            return (cred.Username, cred.Password);
+        }
+        return null;
+    }
+
+    public void RemoveCredential(string key)
+    {
+        var cred = new Credential { Target = key };
+        cred.Delete();
+    }
+}
+```
+
+**How to Use in Your Integration**
+```csharp
+// Example usage
+var credentialStore = new WindowsCredentialStore();
+var credentials = credentialStore.GetCredential("your-provider-key");
+if (credentials.HasValue) {
+    var username = credentials.Value.Username;
+    var password = credentials.Value.Password;
+    // Use credentials securely...
+} else {
+    // Handle missing credentials scenario
+}
+```
+**Note:** Using your own credential store ensures future compatibility, enhances security, and keeps your integration flexible as Trados Studio and its APIs evolve.
+  
