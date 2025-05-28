@@ -73,7 +73,10 @@ items:
   summary: Creates an instance of the terminology provider defined by the specified URI.
   example: []
   syntax:
-    content: ITerminologyProvider CreateTerminologyProvider(Uri terminologyProviderUri, ITerminologyProviderCredentialStore credentials)
+    content: >-
+      [Obsolete("Credential store will be removed in future releases")]
+
+      ITerminologyProvider CreateTerminologyProvider(Uri terminologyProviderUri, ITerminologyProviderCredentialStore credentials = null)
     parameters:
     - id: terminologyProviderUri
       type: System.Uri
@@ -86,7 +89,10 @@ items:
     return:
       type: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider
       description: A new terminology provider object, ready to be used.
-    content.vb: Function CreateTerminologyProvider(terminologyProviderUri As Uri, credentials As ITerminologyProviderCredentialStore) As ITerminologyProvider
+    content.vb: >-
+      <Obsolete("Credential store will be removed in future releases")>
+
+      Function CreateTerminologyProvider(terminologyProviderUri As Uri, credentials As ITerminologyProviderCredentialStore = Nothing) As ITerminologyProvider
   overload: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProviderFactory.CreateTerminologyProvider*
   exceptions:
   - type: System.ArgumentNullException
@@ -97,6 +103,12 @@ items:
   - type: System.ArgumentException
     commentId: T:System.ArgumentException
     description: Thrown if <code class="paramref">terminologyProviderUri</code> is not supported by this factory.
+  attributes:
+  - type: System.ObsoleteAttribute
+    ctor: System.ObsoleteAttribute.#ctor(System.String)
+    arguments:
+    - type: System.String
+      value: Credential store will be removed in future releases
 references:
 - uid: Sdl.Terminology.TerminologyProvider.Core.TerminologyProviderFactoryAttribute
   commentId: T:Sdl.Terminology.TerminologyProvider.Core.TerminologyProviderFactoryAttribute

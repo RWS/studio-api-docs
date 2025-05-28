@@ -73,7 +73,10 @@ items:
   summary: Get an instance of a terminology provider, specified by its Uri.
   example: []
   syntax:
-    content: ITerminologyProvider GetTerminologyProvider(Uri uri, ITerminologyProviderCredentialStore credentials)
+    content: >-
+      [Obsolete("Use GetTerminologyProvider(Uri uri) instead.")]
+
+      ITerminologyProvider GetTerminologyProvider(Uri uri, ITerminologyProviderCredentialStore credentials)
     parameters:
     - id: uri
       type: System.Uri
@@ -84,8 +87,17 @@ items:
     return:
       type: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider
       description: The terminology provider instance.
-    content.vb: Function GetTerminologyProvider(uri As Uri, credentials As ITerminologyProviderCredentialStore) As ITerminologyProvider
+    content.vb: >-
+      <Obsolete("Use GetTerminologyProvider(Uri uri) instead.")>
+
+      Function GetTerminologyProvider(uri As Uri, credentials As ITerminologyProviderCredentialStore) As ITerminologyProvider
   overload: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProviderManager.GetTerminologyProvider*
+  attributes:
+  - type: System.ObsoleteAttribute
+    ctor: System.ObsoleteAttribute.#ctor(System.String)
+    arguments:
+    - type: System.String
+      value: Use GetTerminologyProvider(Uri uri) instead.
 - uid: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProviderManager.GetTerminologyProviderWinFormsUI(System.Uri)
   commentId: M:Sdl.Terminology.TerminologyProvider.Core.ITerminologyProviderManager.GetTerminologyProviderWinFormsUI(System.Uri)
   id: GetTerminologyProviderWinFormsUI(System.Uri)
