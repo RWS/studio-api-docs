@@ -140,7 +140,10 @@ items:
   summary: Get an entry from the terminology provider
   example: []
   syntax:
-    content: Entry GetEntry(int id, IEnumerable<ILanguage> languages)
+    content: >-
+      [Obsolete("This method is deprecated, use GetEntry(int id) instead.")]
+
+      Entry GetEntry(int id, IEnumerable<ILanguage> languages)
     parameters:
     - id: id
       type: System.Int32
@@ -151,8 +154,17 @@ items:
     return:
       type: Sdl.Terminology.TerminologyProvider.Core.Entry
       description: The entry object. Returns null if an entry with the specified id does not exists in the terminology provider.
-    content.vb: Function GetEntry(id As Integer, languages As IEnumerable(Of ILanguage)) As Entry
+    content.vb: >-
+      <Obsolete("This method is deprecated, use GetEntry(int id) instead.")>
+
+      Function GetEntry(id As Integer, languages As IEnumerable(Of ILanguage)) As Entry
   overload: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.GetEntry*
+  attributes:
+  - type: System.ObsoleteAttribute
+    ctor: System.ObsoleteAttribute.#ctor(System.String)
+    arguments:
+    - type: System.String
+      value: This method is deprecated, use GetEntry(int id) instead.
   nameWithType.vb: ITerminologyProvider.GetEntry(Integer, IEnumerable(Of ILanguage))
   fullName.vb: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.GetEntry(Integer, System.Collections.Generic.IEnumerable(Of Sdl.Terminology.TerminologyProvider.Core.ILanguage))
   name.vb: GetEntry(Integer, IEnumerable(Of ILanguage))
@@ -224,6 +236,13 @@ items:
       description: True for success
     content.vb: Function Initialize() As Boolean
   overload: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.Initialize*
+  exceptions:
+  - type: Sdl.Terminology.TerminologyProvider.Core.Exceptions.InvalidCredentialsException
+    commentId: T:Sdl.Terminology.TerminologyProvider.Core.Exceptions.InvalidCredentialsException
+    description: The exception is thrown by the provider if it cannot connect with the supplied credentials.
+  - type: Sdl.Terminology.TerminologyProvider.Core.Exceptions.ConnectionException
+    commentId: T:Sdl.Terminology.TerminologyProvider.Core.Exceptions.ConnectionException
+    description: The exception is thrown by the provider if it cannot connect to the provider address.
 - uid: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.Initialize(Sdl.Terminology.TerminologyProvider.Core.TerminologyProviderCredential)
   commentId: M:Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.Initialize(Sdl.Terminology.TerminologyProvider.Core.TerminologyProviderCredential)
   id: Initialize(Sdl.Terminology.TerminologyProvider.Core.TerminologyProviderCredential)
@@ -241,15 +260,34 @@ items:
   summary: Initialize the provider using the specified credentials
   example: []
   syntax:
-    content: bool Initialize(TerminologyProviderCredential credential)
+    content: >-
+      [Obsolete("Use initialize instead")]
+
+      bool Initialize(TerminologyProviderCredential credential)
     parameters:
     - id: credential
       type: Sdl.Terminology.TerminologyProvider.Core.TerminologyProviderCredential
     return:
       type: System.Boolean
       description: True for success
-    content.vb: Function Initialize(credential As TerminologyProviderCredential) As Boolean
+    content.vb: >-
+      <Obsolete("Use initialize instead")>
+
+      Function Initialize(credential As TerminologyProviderCredential) As Boolean
   overload: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.Initialize*
+  exceptions:
+  - type: Sdl.Terminology.TerminologyProvider.Core.Exceptions.InvalidCredentialsException
+    commentId: T:Sdl.Terminology.TerminologyProvider.Core.Exceptions.InvalidCredentialsException
+    description: The exception is thrown by the provider if it cannot connect with the supplied credentials.
+  - type: Sdl.Terminology.TerminologyProvider.Core.Exceptions.ConnectionException
+    commentId: T:Sdl.Terminology.TerminologyProvider.Core.Exceptions.ConnectionException
+    description: The exception is thrown by the provider if it cannot connect to the provider address.
+  attributes:
+  - type: System.ObsoleteAttribute
+    ctor: System.ObsoleteAttribute.#ctor(System.String)
+    arguments:
+    - type: System.String
+      value: Use initialize instead
 - uid: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.IsProviderUpToDate
   commentId: M:Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.IsProviderUpToDate
   id: IsProviderUpToDate
@@ -924,6 +962,21 @@ references:
     isExternal: true
     href: Sdl.Terminology.TerminologyProvider.Core.SearchResult.html
   - name: )
+- uid: Sdl.Terminology.TerminologyProvider.Core.Exceptions.InvalidCredentialsException
+  commentId: T:Sdl.Terminology.TerminologyProvider.Core.Exceptions.InvalidCredentialsException
+  isExternal: true
+  href: Sdl.Terminology.TerminologyProvider.Core.Exceptions.InvalidCredentialsException.html
+  name: InvalidCredentialsException
+  nameWithType: InvalidCredentialsException
+  fullName: Sdl.Terminology.TerminologyProvider.Core.Exceptions.InvalidCredentialsException
+- uid: Sdl.Terminology.TerminologyProvider.Core.Exceptions.ConnectionException
+  commentId: T:Sdl.Terminology.TerminologyProvider.Core.Exceptions.ConnectionException
+  parent: Sdl.Terminology.TerminologyProvider.Core.Exceptions
+  isExternal: true
+  href: Sdl.Terminology.TerminologyProvider.Core.Exceptions.ConnectionException.html
+  name: ConnectionException
+  nameWithType: ConnectionException
+  fullName: Sdl.Terminology.TerminologyProvider.Core.Exceptions.ConnectionException
 - uid: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.Initialize*
   commentId: Overload:Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.Initialize
   isExternal: true
@@ -931,6 +984,63 @@ references:
   name: Initialize
   nameWithType: ITerminologyProvider.Initialize
   fullName: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.Initialize
+- uid: Sdl.Terminology.TerminologyProvider.Core.Exceptions
+  commentId: N:Sdl.Terminology.TerminologyProvider.Core.Exceptions
+  isExternal: true
+  href: Sdl.html
+  name: Sdl.Terminology.TerminologyProvider.Core.Exceptions
+  nameWithType: Sdl.Terminology.TerminologyProvider.Core.Exceptions
+  fullName: Sdl.Terminology.TerminologyProvider.Core.Exceptions
+  spec.csharp:
+  - uid: Sdl
+    name: Sdl
+    isExternal: true
+    href: Sdl.html
+  - name: .
+  - uid: Sdl.Terminology
+    name: Terminology
+    isExternal: true
+    href: Sdl.Terminology.html
+  - name: .
+  - uid: Sdl.Terminology.TerminologyProvider
+    name: TerminologyProvider
+    isExternal: true
+    href: Sdl.Terminology.TerminologyProvider.html
+  - name: .
+  - uid: Sdl.Terminology.TerminologyProvider.Core
+    name: Core
+    isExternal: true
+    href: Sdl.Terminology.TerminologyProvider.Core.html
+  - name: .
+  - uid: Sdl.Terminology.TerminologyProvider.Core.Exceptions
+    name: Exceptions
+    isExternal: true
+    href: Sdl.Terminology.TerminologyProvider.Core.Exceptions.html
+  spec.vb:
+  - uid: Sdl
+    name: Sdl
+    isExternal: true
+    href: Sdl.html
+  - name: .
+  - uid: Sdl.Terminology
+    name: Terminology
+    isExternal: true
+    href: Sdl.Terminology.html
+  - name: .
+  - uid: Sdl.Terminology.TerminologyProvider
+    name: TerminologyProvider
+    isExternal: true
+    href: Sdl.Terminology.TerminologyProvider.html
+  - name: .
+  - uid: Sdl.Terminology.TerminologyProvider.Core
+    name: Core
+    isExternal: true
+    href: Sdl.Terminology.TerminologyProvider.Core.html
+  - name: .
+  - uid: Sdl.Terminology.TerminologyProvider.Core.Exceptions
+    name: Exceptions
+    isExternal: true
+    href: Sdl.Terminology.TerminologyProvider.Core.Exceptions.html
 - uid: Sdl.Terminology.TerminologyProvider.Core.TerminologyProviderCredential
   commentId: T:Sdl.Terminology.TerminologyProvider.Core.TerminologyProviderCredential
   parent: Sdl.Terminology.TerminologyProvider.Core
