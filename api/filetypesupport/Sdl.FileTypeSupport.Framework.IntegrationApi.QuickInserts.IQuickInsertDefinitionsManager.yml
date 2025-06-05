@@ -39,17 +39,17 @@ items:
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.IntegrationApi.QuickInserts
-  summary: Builds a QuickInsert - all
+  summary: Builds a new instance of a QuickInsert.
   example: []
   syntax:
     content: IQuickInsert BuildQuickInsert(QuickInsertIds id)
     parameters:
     - id: id
       type: Sdl.FileTypeSupport.Framework.IntegrationApi.QuickInserts.QuickInsertIds
-      description: ''
+      description: The QuickInsert id.
     return:
       type: Sdl.FileTypeSupport.Framework.IntegrationApi.QuickInserts.IQuickInsert
-      description: ''
+      description: Returns a new instance of the QuickInsert.
     content.vb: Function BuildQuickInsert(id As QuickInsertIds) As IQuickInsert
   overload: Sdl.FileTypeSupport.Framework.IntegrationApi.QuickInserts.IQuickInsertDefinitionsManager.BuildQuickInsert*
 - uid: Sdl.FileTypeSupport.Framework.IntegrationApi.QuickInserts.IQuickInsertDefinitionsManager.BuildClonedQuickInsert(Sdl.FileTypeSupport.Framework.IntegrationApi.QuickInserts.QuickInsertIds)
@@ -69,7 +69,10 @@ items:
   summary: Builds a new instance of a QuickInsert
   example: []
   syntax:
-    content: IQuickInsert BuildClonedQuickInsert(QuickInsertIds id)
+    content: >-
+      [Obsolete("Use BuildQuickInsert method instead.")]
+
+      IQuickInsert BuildClonedQuickInsert(QuickInsertIds id)
     parameters:
     - id: id
       type: Sdl.FileTypeSupport.Framework.IntegrationApi.QuickInserts.QuickInsertIds
@@ -77,8 +80,17 @@ items:
     return:
       type: Sdl.FileTypeSupport.Framework.IntegrationApi.QuickInserts.IQuickInsert
       description: ''
-    content.vb: Function BuildClonedQuickInsert(id As QuickInsertIds) As IQuickInsert
+    content.vb: >-
+      <Obsolete("Use BuildQuickInsert method instead.")>
+
+      Function BuildClonedQuickInsert(id As QuickInsertIds) As IQuickInsert
   overload: Sdl.FileTypeSupport.Framework.IntegrationApi.QuickInserts.IQuickInsertDefinitionsManager.BuildClonedQuickInsert*
+  attributes:
+  - type: System.ObsoleteAttribute
+    ctor: System.ObsoleteAttribute.#ctor(System.String)
+    arguments:
+    - type: System.String
+      value: Use BuildQuickInsert method instead.
 - uid: Sdl.FileTypeSupport.Framework.IntegrationApi.QuickInserts.IQuickInsertDefinitionsManager.IsQuickInsert(Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData)
   commentId: M:Sdl.FileTypeSupport.Framework.IntegrationApi.QuickInserts.IQuickInsertDefinitionsManager.IsQuickInsert(Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData)
   id: IsQuickInsert(Sdl.FileTypeSupport.Framework.BilingualApi.IAbstractMarkupData)
