@@ -93,7 +93,10 @@ items:
   summary: Get an instance of a terminology provider, specified by its Uri.
   example: []
   syntax:
-    content: public ITerminologyProvider GetTerminologyProvider(Uri uri, ITerminologyProviderCredentialStore credentials)
+    content: >-
+      [Obsolete("Use GetTerminologyProvider(Uri uri) instead.")]
+
+      public ITerminologyProvider GetTerminologyProvider(Uri uri, ITerminologyProviderCredentialStore credentials)
     parameters:
     - id: uri
       type: System.Uri
@@ -104,10 +107,19 @@ items:
     return:
       type: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider
       description: The terminology provider instance.
-    content.vb: Public Function GetTerminologyProvider(uri As Uri, credentials As ITerminologyProviderCredentialStore) As ITerminologyProvider
+    content.vb: >-
+      <Obsolete("Use GetTerminologyProvider(Uri uri) instead.")>
+
+      Public Function GetTerminologyProvider(uri As Uri, credentials As ITerminologyProviderCredentialStore) As ITerminologyProvider
   overload: Sdl.Terminology.TerminologyProvider.Core.TerminologyProviderManager.GetTerminologyProvider*
   implements:
   - Sdl.Terminology.TerminologyProvider.Core.ITerminologyProviderManager.GetTerminologyProvider(System.Uri,Sdl.Terminology.TerminologyProvider.Core.ITerminologyProviderCredentialStore)
+  attributes:
+  - type: System.ObsoleteAttribute
+    ctor: System.ObsoleteAttribute.#ctor(System.String)
+    arguments:
+    - type: System.String
+      value: Use GetTerminologyProvider(Uri uri) instead.
 - uid: Sdl.Terminology.TerminologyProvider.Core.TerminologyProviderManager.RemoveTerminologyProvider(System.Uri)
   commentId: M:Sdl.Terminology.TerminologyProvider.Core.TerminologyProviderManager.RemoveTerminologyProvider(System.Uri)
   id: RemoveTerminologyProvider(System.Uri)
@@ -284,17 +296,11 @@ items:
   assemblies:
   - Sdl.Terminology.TerminologyProvider.Core
   namespace: Sdl.Terminology.TerminologyProvider.Core
-  summary: >-
-    Cleanup memory
-
-    <xref href="System.IDisposable.Dispose" data-throw-if-not-resolved="false"></xref>
-  example: []
   syntax:
     content: protected virtual void Dispose(bool disposing)
     parameters:
     - id: disposing
       type: System.Boolean
-      description: ''
     content.vb: Protected Overridable Sub Dispose(disposing As Boolean)
   overload: Sdl.Terminology.TerminologyProvider.Core.TerminologyProviderManager.Dispose*
   nameWithType.vb: TerminologyProviderManager.Dispose(Boolean)
@@ -340,12 +346,24 @@ items:
   summary: Property for default terminology credential store
   example: []
   syntax:
-    content: public static ITerminologyProviderCredentialStore DefaultTerminologyCredentialStore { get; }
+    content: >-
+      [Obsolete("Credential store will be removed in future releases")]
+
+      public static ITerminologyProviderCredentialStore DefaultTerminologyCredentialStore { get; }
     parameters: []
     return:
       type: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProviderCredentialStore
-    content.vb: Public Shared ReadOnly Property DefaultTerminologyCredentialStore As ITerminologyProviderCredentialStore
+    content.vb: >-
+      <Obsolete("Credential store will be removed in future releases")>
+
+      Public Shared ReadOnly Property DefaultTerminologyCredentialStore As ITerminologyProviderCredentialStore
   overload: Sdl.Terminology.TerminologyProvider.Core.TerminologyProviderManager.DefaultTerminologyCredentialStore*
+  attributes:
+  - type: System.ObsoleteAttribute
+    ctor: System.ObsoleteAttribute.#ctor(System.String)
+    arguments:
+    - type: System.String
+      value: Credential store will be removed in future releases
 references:
 - uid: Sdl.Terminology.TerminologyProvider.Core
   commentId: N:Sdl.Terminology.TerminologyProvider.Core

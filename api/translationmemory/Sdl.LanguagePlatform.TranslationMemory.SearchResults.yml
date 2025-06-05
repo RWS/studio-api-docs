@@ -15,8 +15,8 @@ items:
   - Sdl.LanguagePlatform.TranslationMemory.SearchResults.Clear
   - Sdl.LanguagePlatform.TranslationMemory.SearchResults.CopyFrom(Sdl.LanguagePlatform.TranslationMemory.SearchResults)
   - Sdl.LanguagePlatform.TranslationMemory.SearchResults.Count
+  - Sdl.LanguagePlatform.TranslationMemory.SearchResults.DefaultMergeSortOrder
   - Sdl.LanguagePlatform.TranslationMemory.SearchResults.DefaultSortOrder
-  - Sdl.LanguagePlatform.TranslationMemory.SearchResults.DefaultSortOrderConcordance
   - Sdl.LanguagePlatform.TranslationMemory.SearchResults.DocumentPlaceables
   - Sdl.LanguagePlatform.TranslationMemory.SearchResults.HasTuId(System.Int32)
   - Sdl.LanguagePlatform.TranslationMemory.SearchResults.Item(System.Int32)
@@ -31,6 +31,7 @@ items:
   - Sdl.LanguagePlatform.TranslationMemory.SearchResults.Sort(Sdl.LanguagePlatform.TranslationMemory.SortSpecification)
   - Sdl.LanguagePlatform.TranslationMemory.SearchResults.Sort(Sdl.LanguagePlatform.TranslationMemory.SortSpecification,Sdl.LanguagePlatform.TranslationMemory.SearchResults.SearchResultComparer)
   - Sdl.LanguagePlatform.TranslationMemory.SearchResults.Sort(System.String)
+  - Sdl.LanguagePlatform.TranslationMemory.SearchResults.SortMergedResults
   - Sdl.LanguagePlatform.TranslationMemory.SearchResults.SortOrder
   - Sdl.LanguagePlatform.TranslationMemory.SearchResults.SourceHash
   - Sdl.LanguagePlatform.TranslationMemory.SearchResults.SourceSegment
@@ -91,43 +92,49 @@ items:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
   summary: >-
-    The default sort order, in string representation, for normal searches. The
+    The default search sort order, in string representation,
 
-    primary sort key is the score (descending), the secondary sort key is the 
+    by score (descending) followed 
 
-    use count (descending), and the tertiary sort key is the use date (descending).
+    by change date (descending) followed
+
+    by use count (descending).
   example: []
   syntax:
     content: public static readonly string DefaultSortOrder
     return:
       type: System.String
     content.vb: Public Shared ReadOnly DefaultSortOrder As String
-- uid: Sdl.LanguagePlatform.TranslationMemory.SearchResults.DefaultSortOrderConcordance
-  commentId: F:Sdl.LanguagePlatform.TranslationMemory.SearchResults.DefaultSortOrderConcordance
-  id: DefaultSortOrderConcordance
+- uid: Sdl.LanguagePlatform.TranslationMemory.SearchResults.DefaultMergeSortOrder
+  commentId: F:Sdl.LanguagePlatform.TranslationMemory.SearchResults.DefaultMergeSortOrder
+  id: DefaultMergeSortOrder
   parent: Sdl.LanguagePlatform.TranslationMemory.SearchResults
   langs:
   - csharp
   - vb
-  name: DefaultSortOrderConcordance
-  nameWithType: SearchResults.DefaultSortOrderConcordance
-  fullName: Sdl.LanguagePlatform.TranslationMemory.SearchResults.DefaultSortOrderConcordance
+  name: DefaultMergeSortOrder
+  nameWithType: SearchResults.DefaultMergeSortOrder
+  fullName: Sdl.LanguagePlatform.TranslationMemory.SearchResults.DefaultMergeSortOrder
   type: Field
   assemblies:
   - Sdl.LanguagePlatform.TranslationMemory
   namespace: Sdl.LanguagePlatform.TranslationMemory
   summary: >-
-    The default sort order, in string representation, for concordance searches. The
+    The default merge search sort order, in string representation,
 
-    primary sort key is the score (descending), the secondary sort key is the 
+    by score (descending) followed 
 
-    change date (descending), and the tertiary sort key is the use count (descending).
+    by cascade (descending) followed
+
+    by change date (descending) followed
+
+    by use count (descending).
   example: []
   syntax:
-    content: public static readonly string DefaultSortOrderConcordance
+    content: public static readonly string DefaultMergeSortOrder
     return:
       type: System.String
-    content.vb: Public Shared ReadOnly DefaultSortOrderConcordance As String
+    content.vb: Public Shared ReadOnly DefaultMergeSortOrder As String
 - uid: Sdl.LanguagePlatform.TranslationMemory.SearchResults.CopyFrom(Sdl.LanguagePlatform.TranslationMemory.SearchResults)
   commentId: M:Sdl.LanguagePlatform.TranslationMemory.SearchResults.CopyFrom(Sdl.LanguagePlatform.TranslationMemory.SearchResults)
   id: CopyFrom(Sdl.LanguagePlatform.TranslationMemory.SearchResults)
@@ -308,6 +315,26 @@ items:
     content: public void Sort()
     content.vb: Public Sub Sort()
   overload: Sdl.LanguagePlatform.TranslationMemory.SearchResults.Sort*
+- uid: Sdl.LanguagePlatform.TranslationMemory.SearchResults.SortMergedResults
+  commentId: M:Sdl.LanguagePlatform.TranslationMemory.SearchResults.SortMergedResults
+  id: SortMergedResults
+  parent: Sdl.LanguagePlatform.TranslationMemory.SearchResults
+  langs:
+  - csharp
+  - vb
+  name: SortMergedResults()
+  nameWithType: SearchResults.SortMergedResults()
+  fullName: Sdl.LanguagePlatform.TranslationMemory.SearchResults.SortMergedResults()
+  type: Method
+  assemblies:
+  - Sdl.LanguagePlatform.TranslationMemory
+  namespace: Sdl.LanguagePlatform.TranslationMemory
+  summary: Sorts the merged results in this instance using the default sort order for merged results
+  example: []
+  syntax:
+    content: public void SortMergedResults()
+    content.vb: Public Sub SortMergedResults()
+  overload: Sdl.LanguagePlatform.TranslationMemory.SearchResults.SortMergedResults*
 - uid: Sdl.LanguagePlatform.TranslationMemory.SearchResults.Merge(Sdl.LanguagePlatform.TranslationMemory.SearchResults,System.Boolean)
   commentId: M:Sdl.LanguagePlatform.TranslationMemory.SearchResults.Merge(Sdl.LanguagePlatform.TranslationMemory.SearchResults,System.Boolean)
   id: Merge(Sdl.LanguagePlatform.TranslationMemory.SearchResults,System.Boolean)
@@ -1469,6 +1496,13 @@ references:
   name: SortOrder
   nameWithType: SearchResults.SortOrder
   fullName: Sdl.LanguagePlatform.TranslationMemory.SearchResults.SortOrder
+- uid: Sdl.LanguagePlatform.TranslationMemory.SearchResults.SortMergedResults*
+  commentId: Overload:Sdl.LanguagePlatform.TranslationMemory.SearchResults.SortMergedResults
+  isExternal: true
+  href: Sdl.LanguagePlatform.TranslationMemory.SearchResults.html#Sdl_LanguagePlatform_TranslationMemory_SearchResults_SortMergedResults
+  name: SortMergedResults
+  nameWithType: SearchResults.SortMergedResults
+  fullName: Sdl.LanguagePlatform.TranslationMemory.SearchResults.SortMergedResults
 - uid: Sdl.LanguagePlatform.TranslationMemory.SearchResults.Merge*
   commentId: Overload:Sdl.LanguagePlatform.TranslationMemory.SearchResults.Merge
   isExternal: true

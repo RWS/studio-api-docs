@@ -74,7 +74,10 @@ items:
   summary: Displays a dialog to interactively browse for one or more terminology providers.
   example: []
   syntax:
-    content: ITerminologyProvider[] Browse(IWin32Window owner, ITerminologyProviderCredentialStore credentialStore)
+    content: >-
+      [Obsolete("Credential store will be removed in future releases")]
+
+      ITerminologyProvider[] Browse(IWin32Window owner, ITerminologyProviderCredentialStore credentialStore = null)
     parameters:
     - id: owner
       type: System.Windows.Forms.IWin32Window
@@ -85,8 +88,17 @@ items:
     return:
       type: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider[]
       description: A collection of terminology providers selected by the user, or <code>null</code> if none were selected or available or the browse was canceled.
-    content.vb: Function Browse(owner As IWin32Window, credentialStore As ITerminologyProviderCredentialStore) As ITerminologyProvider()
+    content.vb: >-
+      <Obsolete("Credential store will be removed in future releases")>
+
+      Function Browse(owner As IWin32Window, credentialStore As ITerminologyProviderCredentialStore = Nothing) As ITerminologyProvider()
   overload: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProviderWinFormsUI.Browse*
+  attributes:
+  - type: System.ObsoleteAttribute
+    ctor: System.ObsoleteAttribute.#ctor(System.String)
+    arguments:
+    - type: System.String
+      value: Credential store will be removed in future releases
 - uid: Sdl.Terminology.TerminologyProvider.Core.ITerminologyProviderWinFormsUI.GetDisplayInfo(System.Uri)
   commentId: M:Sdl.Terminology.TerminologyProvider.Core.ITerminologyProviderWinFormsUI.GetDisplayInfo(System.Uri)
   id: GetDisplayInfo(System.Uri)

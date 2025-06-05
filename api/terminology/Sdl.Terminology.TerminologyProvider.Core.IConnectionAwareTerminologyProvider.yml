@@ -20,8 +20,14 @@ items:
   remarks: Implement this interface when creating a connected terminology provider.
   example: []
   syntax:
-    content: 'public interface IConnectionAwareTerminologyProvider : ITerminologyProvider, IDisposable'
-    content.vb: Public Interface IConnectionAwareTerminologyProvider Inherits ITerminologyProvider, IDisposable
+    content: >-
+      [Obsolete("This API is deprecated and will be removed in a future version.")]
+
+      public interface IConnectionAwareTerminologyProvider : ITerminologyProvider, IDisposable
+    content.vb: >-
+      <Obsolete("This API is deprecated and will be removed in a future version.")>
+
+      Public Interface IConnectionAwareTerminologyProvider Inherits ITerminologyProvider, IDisposable
   inheritedMembers:
   - Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.SetDefault(System.Boolean)
   - Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.GetLanguages
@@ -44,6 +50,12 @@ items:
   - Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.ActiveFilter
   - Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.IsInitialized
   - System.IDisposable.Dispose
+  attributes:
+  - type: System.ObsoleteAttribute
+    ctor: System.ObsoleteAttribute.#ctor(System.String)
+    arguments:
+    - type: System.String
+      value: This API is deprecated and will be removed in a future version.
 - uid: Sdl.Terminology.TerminologyProvider.Core.IConnectionAwareTerminologyProvider.Status
   commentId: P:Sdl.Terminology.TerminologyProvider.Core.IConnectionAwareTerminologyProvider.Status
   id: Status
