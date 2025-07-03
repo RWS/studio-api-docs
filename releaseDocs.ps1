@@ -9,7 +9,7 @@ write-host  "`ACTOR is $ACTOR"
 $SOURCE_DIR=$psscriptroot
 $TEMP_REPO_DIR=[System.IO.Path]::GetFullPath("$psscriptroot/../docs-gh-pages")
 
-$remote_repo="https://github-actions:${TOKEN}@github.com/sdl/studio-api-docs.git"
+$remote_repo="https://github-actions:${TOKEN}@github.com/rws/studio-api-docs.git"
 
 write-host "Cloning the repo $remote_repo with the gh-pages branch"
 git clone $remote_repo --branch gh-pages $TEMP_REPO_DIR
@@ -26,7 +26,7 @@ if($checkBranch){
 git checkout -b gh-pages_temp
 $items = Get-ChildItem
 foreach ($item in $items){
- if (($item.Name -ne "15.2") -and ($item.Name -ne "16.1") -and ($item.Name -ne "16.2") -and ($item.Name -ne "17.0") -and ($item.Name -ne "17.1") -and ($item.Name -ne "17.2")){
+ if (($item.Name -ne "15.2") -and ($item.Name -ne "16.1") -and ($item.Name -ne "16.2") -and ($item.Name -ne "17.0") -and ($item.Name -ne "17.1") -and ($item.Name -ne "17.2")-and ($item.Name -ne "18.0")){
   git rm $item -r
  }
 }
