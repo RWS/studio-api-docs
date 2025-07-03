@@ -9,7 +9,7 @@
       <meta name="viewport" content="width=device-width">
       <meta name="title" content="Class DuplicateIterator ">
     
-    <meta name="description" content="Base iterator class. Contains the common properties needed for iteration through a translation memory.">
+    <meta name="description" content="Represents a duplicate translation units search iterator. After the iterator is created, it is set to start searching from the beginning of the translation memory. This instance is passed to the API, which modifies it, by annotating the current position reached and passes it back to the caller, to be used in a subsequent call. This object should never be modified manually.">
       <link rel="shortcut icon" href="../../favicon.ico">
       <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
       <link rel="stylesheet" href="../../styles/docfx.css">
@@ -83,13 +83,16 @@
 
 
   <h1 id="Sdl_LanguagePlatform_TranslationMemory_DuplicateIterator" data-uid="Sdl.LanguagePlatform.TranslationMemory.DuplicateIterator" class="text-break">Class DuplicateIterator</h1>
-  <div class="markdown level0 summary"><p>Base iterator class. Contains the common properties needed for iteration through
-a translation memory.</p>
+  <div class="markdown level0 summary"><p>Represents a duplicate translation units search iterator.</p>
+<p>After the iterator is created, it is set to start searching from the beginning of the translation memory.
+This instance is passed to the API, which modifies it, by annotating the current position reached
+and passes it back to the caller, to be used in a subsequent call.</p>
+<p>This object should never be modified manually.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
-    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level0"><span class="xref">Object</span></div>
     <div class="level1"><a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.TranslationMemoryIterator.html">TranslationMemoryIterator</a></div>
     <div class="level2"><span class="xref">DuplicateIterator</span></div>
   </div>
@@ -114,33 +117,32 @@ a translation memory.</p>
       <a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.TranslationMemoryIterator.html#Sdl_LanguagePlatform_TranslationMemory_TranslationMemoryIterator_Forward">TranslationMemoryIterator.Forward</a>
     </div>
     <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+      <span class="xref">Object.ToString()</span>
     </div>
     <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+      <span class="xref">Object.Equals(Object)</span>
     </div>
     <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+      <span class="xref">Object.Equals(Object, Object)</span>
     </div>
     <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+      <span class="xref">Object.ReferenceEquals(Object, Object)</span>
     </div>
     <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+      <span class="xref">Object.GetHashCode()</span>
     </div>
     <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+      <span class="xref">Object.GetType()</span>
     </div>
     <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+      <span class="xref">Object.MemberwiseClone()</span>
     </div>
   </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="Sdl.html">Sdl</a>.<a class="xref" href="Sdl.LanguagePlatform.html">LanguagePlatform</a>.<a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.html">TranslationMemory</a></h6>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.html">Sdl.LanguagePlatform.TranslationMemory</a></h6>
   <h6><strong>Assembly</strong>: Sdl.LanguagePlatform.TranslationMemory.dll</h6>
   <h5 id="Sdl_LanguagePlatform_TranslationMemory_DuplicateIterator_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[DataContract]
-public class DuplicateIterator : TranslationMemoryIterator</code></pre>
+    <pre><code class="lang-csharp hljs">public class DuplicateIterator : TranslationMemoryIterator</code></pre>
   </div>
   <h3 id="constructors">Constructors
 </h3>
@@ -148,7 +150,10 @@ public class DuplicateIterator : TranslationMemoryIterator</code></pre>
 
   <a id="Sdl_LanguagePlatform_TranslationMemory_DuplicateIterator__ctor_" data-uid="Sdl.LanguagePlatform.TranslationMemory.DuplicateIterator.#ctor*"></a>
   <h4 id="Sdl_LanguagePlatform_TranslationMemory_DuplicateIterator__ctor" data-uid="Sdl.LanguagePlatform.TranslationMemory.DuplicateIterator.#ctor">DuplicateIterator()</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance with default values (the max count is set to 100).</p>
+  <div class="markdown level1 summary"><p>Initializes a new instance.</p>
+<p>The iterator is positioned at the beginning of the translation memory.</p>
+<p>Since the translation memory is not a sorted set of translation units, the order is storage specific and should not
+be relied upon, outside the implementation of the iterator.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
@@ -158,8 +163,8 @@ public class DuplicateIterator : TranslationMemoryIterator</code></pre>
 
 
   <a id="Sdl_LanguagePlatform_TranslationMemory_DuplicateIterator__ctor_" data-uid="Sdl.LanguagePlatform.TranslationMemory.DuplicateIterator.#ctor*"></a>
-  <h4 id="Sdl_LanguagePlatform_TranslationMemory_DuplicateIterator__ctor_System_Int32_" data-uid="Sdl.LanguagePlatform.TranslationMemory.DuplicateIterator.#ctor(System.Int32)">DuplicateIterator(int)</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance with the specified values.</p>
+  <h4 id="Sdl_LanguagePlatform_TranslationMemory_DuplicateIterator__ctor_System_Int32_" data-uid="Sdl.LanguagePlatform.TranslationMemory.DuplicateIterator.#ctor(System.Int32)">DuplicateIterator(Int32)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the DuplicateIterator class for the specified translation memory and a specified page size.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
@@ -177,9 +182,9 @@ public class DuplicateIterator : TranslationMemoryIterator</code></pre>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="xref">Int32</span></td>
         <td><span class="parametername">maxCount</span></td>
-        <td><p>The maximum number of TUs to return in one iteration roundtrip</p>
+        <td><p>The number of translation units this iterator will return in one step.</p>
 </td>
       </tr>
     </tbody>
@@ -196,8 +201,7 @@ public class DuplicateIterator : TranslationMemoryIterator</code></pre>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[DataMember]
-public DuplicateIterator.DuplicateIteratorPosition PositionFrom { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">public DuplicateIterator.DuplicateIteratorPosition PositionFrom { get; set; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-condensed">
@@ -209,7 +213,7 @@ public DuplicateIterator.DuplicateIteratorPosition PositionFrom { get; set; }</c
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.DuplicateIterator.html">DuplicateIterator</a>.<a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.DuplicateIterator.DuplicateIteratorPosition.html">DuplicateIteratorPosition</a></td>
+        <td><a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.DuplicateIterator.DuplicateIteratorPosition.html">DuplicateIterator.DuplicateIteratorPosition</a></td>
         <td></td>
       </tr>
     </tbody>
@@ -224,8 +228,7 @@ public DuplicateIterator.DuplicateIteratorPosition PositionFrom { get; set; }</c
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[DataMember]
-public DuplicateIterator.DuplicateIteratorPosition PositionTo { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">public DuplicateIterator.DuplicateIteratorPosition PositionTo { get; set; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-condensed">
@@ -237,7 +240,7 @@ public DuplicateIterator.DuplicateIteratorPosition PositionTo { get; set; }</cod
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.DuplicateIterator.html">DuplicateIterator</a>.<a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.DuplicateIterator.DuplicateIteratorPosition.html">DuplicateIteratorPosition</a></td>
+        <td><a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.DuplicateIterator.DuplicateIteratorPosition.html">DuplicateIterator.DuplicateIteratorPosition</a></td>
         <td></td>
       </tr>
     </tbody>
@@ -248,7 +251,7 @@ public DuplicateIterator.DuplicateIteratorPosition PositionTo { get; set; }</cod
 
   <a id="Sdl_LanguagePlatform_TranslationMemory_DuplicateIterator_Reset_" data-uid="Sdl.LanguagePlatform.TranslationMemory.DuplicateIterator.Reset*"></a>
   <h4 id="Sdl_LanguagePlatform_TranslationMemory_DuplicateIterator_Reset" data-uid="Sdl.LanguagePlatform.TranslationMemory.DuplicateIterator.Reset">Reset()</h4>
-  <div class="markdown level1 summary"><p>Repositions the iterator at the beginning of the translation memory.</p>
+  <div class="markdown level1 summary"><p>See <a class="xref" href="Sdl.LanguagePlatform.TranslationMemory.TranslationMemoryIterator.html#Sdl_LanguagePlatform_TranslationMemory_TranslationMemoryIterator_Reset">Reset()</a></p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
