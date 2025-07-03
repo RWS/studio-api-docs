@@ -13,94 +13,23 @@ items:
   nameWithType: INativeFileSniffer
   fullName: Sdl.FileTypeSupport.Framework.NativeApi.INativeFileSniffer
   type: Interface
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core
+    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.NativeApi
-  summary: >-
-    A file sniffer is a component that gets invoked to determine
-
-    if a particular file can be processed.
-
-
-    <p>
-
-    If the file is supported, the file sniffer may also detect the language and the encoding of
-
-    a given file, in addition to any other information that will be useful to set up the
-
-    parser to correctly process it.
-
-    </p>
-  remarks: >-
-    <p>
-
-    File sniffers allow the framework to distinguish between different file types that use the
-
-    same file extension. A file sniffer is expected to look at the actual file content to
-
-    determine if the file is supported.
-
-    </p>
-
-    <p>
-
-    The file sniffer implementation should return a <xref href="Sdl.FileTypeSupport.Framework.NativeApi.SniffInfo" data-throw-if-not-resolved="false"></xref> instance where the
-
-    <xref href="Sdl.FileTypeSupport.Framework.NativeApi.SniffInfo.IsSupported" data-throw-if-not-resolved="false"></xref> is set to <code>true</code> if the file is of the expected type.
-
-    </p>
-
-    <p>
-
-    The file sniffer may also attempt to automatically detect the encoding and the source (and target)
-
-    language of the file. When detecting such things, the file sniffer also specifies a confidence level
-
-    for the detection, which allows applications to determine whether they may need to ask the user for additional
-
-    information or not.
-
-    </p>
-
-    <p>
-
-    The file type manager invokes the <xref href="Sdl.FileTypeSupport.Framework.NativeApi.INativeFileSniffer.Sniff(System.String%2cSdl.Core.Globalization.Language%2cSdl.Core.Globalization.Codepage%2cSdl.FileTypeSupport.Framework.NativeApi.INativeTextLocationMessageReporter%2cSdl.Core.Settings.ISettingsGroup)" data-throw-if-not-resolved="false"></xref> method on a file
-
-    sniffer associated with a file type definition to determine if the file
-
-    is of a type that can be processed.
-
-    </p>
-
-    <p>
-
-    The file sniffer implementation must be stateless and thread safe, since for performance reasons
-
-    the file sniffer may be cached and re-used across multiple files, possibly 
-
-    also in a multi-threaded environment. The easiest way to accomplish this is by ensuring
-
-    that the <xref href="Sdl.FileTypeSupport.Framework.NativeApi.INativeFileSniffer.Sniff(System.String%2cSdl.Core.Globalization.Language%2cSdl.Core.Globalization.Codepage%2cSdl.FileTypeSupport.Framework.NativeApi.INativeTextLocationMessageReporter%2cSdl.Core.Settings.ISettingsGroup)" data-throw-if-not-resolved="false"></xref> implementation does not modify any class member fields
-
-    and to avoid using static variables.
-
-    </p>
-
-    <p>
-
-    The file sniffer is also recommended (but not required) to 
-
-    implement <xref href="Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeDefinitionAware" data-throw-if-not-resolved="false"></xref>. If 
-
-    this interface is implemented, it will be used by the framework to communicate the file type definition 
-
-    used to instantiate the sniffer.
-
-    </p>
-  example: []
+  summary: "\nA file sniffer is a component that gets invoked to determine\nif a particular file can be processed.\n\n<p>\nIf the file is supported, the file sniffer may also detect the language and the encoding of\na given file, in addition to any other information that will be useful to set up the\nparser to correctly process it.\n</p>\n"
+  remarks: "\n<p>\nFile sniffers allow the framework to distinguish between different file types that use the\nsame file extension. A file sniffer is expected to look at the actual file content to\ndetermine if the file is supported.\n</p>\n<p>\nThe file sniffer implementation should return a <xref href=\"Sdl.FileTypeSupport.Framework.NativeApi.SniffInfo\" data-throw-if-not-resolved=\"false\"></xref> instance where the\n<xref href=\"Sdl.FileTypeSupport.Framework.NativeApi.SniffInfo.IsSupported\" data-throw-if-not-resolved=\"false\"></xref> is set to <code>true</code> if the file is of the expected type.\n</p>\n<p>\nThe file sniffer may also attempt to automatically detect the encoding and the source (and target)\nlanguage of the file. When detecting such things, the file sniffer also specifies a confidence level\nfor the detection, which allows applications to determine whether they may need to ask the user for additional\ninformation or not.\n</p>\n<p>\nThe file type manager invokes the <xref href=\"Sdl.FileTypeSupport.Framework.NativeApi.INativeFileSniffer.Sniff(System.String%2cSdl.Core.Globalization.Language%2cSdl.Core.Globalization.Codepage%2cSdl.FileTypeSupport.Framework.NativeApi.INativeTextLocationMessageReporter%2cSdl.Core.Settings.ISettingsGroup)\" data-throw-if-not-resolved=\"false\"></xref> method on a file\nsniffer associated with a file type definition to determine if the file\nis of a type that can be processed.\n</p>\n<p>\nThe file sniffer implementation must be stateless and thread safe, since for performance reasons\nthe file sniffer may be cached and re-used across multiple files, possibly \nalso in a multi-threaded environment. The easiest way to accomplish this is by ensuring\nthat the <xref href=\"Sdl.FileTypeSupport.Framework.NativeApi.INativeFileSniffer.Sniff(System.String%2cSdl.Core.Globalization.Language%2cSdl.Core.Globalization.Codepage%2cSdl.FileTypeSupport.Framework.NativeApi.INativeTextLocationMessageReporter%2cSdl.Core.Settings.ISettingsGroup)\" data-throw-if-not-resolved=\"false\"></xref> implementation does not modify any class member fields\nand to avoid using static variables.\n</p>\n<p>\nThe file sniffer is also recommended (but not required) to \nimplement <xref href=\"Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeDefinitionAware\" data-throw-if-not-resolved=\"false\"></xref>. If \nthis interface is implemented, it will be used by the framework to communicate the file type definition \nused to instantiate the sniffer.\n</p>\n"
   syntax:
     content: public interface INativeFileSniffer
     content.vb: Public Interface INativeFileSniffer
+  modifiers.csharp:
+  - public
+  - interface
+  modifiers.vb:
+  - Public
+  - Interface
 - uid: Sdl.FileTypeSupport.Framework.NativeApi.INativeFileSniffer.Sniff(System.String,Sdl.Core.Globalization.Language,Sdl.Core.Globalization.Codepage,Sdl.FileTypeSupport.Framework.NativeApi.INativeTextLocationMessageReporter,Sdl.Core.Settings.ISettingsGroup)
   commentId: M:Sdl.FileTypeSupport.Framework.NativeApi.INativeFileSniffer.Sniff(System.String,Sdl.Core.Globalization.Language,Sdl.Core.Globalization.Codepage,Sdl.FileTypeSupport.Framework.NativeApi.INativeTextLocationMessageReporter,Sdl.Core.Settings.ISettingsGroup)
   id: Sniff(System.String,Sdl.Core.Globalization.Language,Sdl.Core.Globalization.Codepage,Sdl.FileTypeSupport.Framework.NativeApi.INativeTextLocationMessageReporter,Sdl.Core.Settings.ISettingsGroup)
@@ -108,16 +37,18 @@ items:
   langs:
   - csharp
   - vb
-  name: Sniff(string, Language, Codepage, INativeTextLocationMessageReporter, ISettingsGroup)
-  nameWithType: INativeFileSniffer.Sniff(string, Language, Codepage, INativeTextLocationMessageReporter, ISettingsGroup)
-  fullName: Sdl.FileTypeSupport.Framework.NativeApi.INativeFileSniffer.Sniff(string, Sdl.Core.Globalization.Language, Sdl.Core.Globalization.Codepage, Sdl.FileTypeSupport.Framework.NativeApi.INativeTextLocationMessageReporter, Sdl.Core.Settings.ISettingsGroup)
+  name: Sniff(String, Language, Codepage, INativeTextLocationMessageReporter, ISettingsGroup)
+  nameWithType: INativeFileSniffer.Sniff(String, Language, Codepage, INativeTextLocationMessageReporter, ISettingsGroup)
+  fullName: Sdl.FileTypeSupport.Framework.NativeApi.INativeFileSniffer.Sniff(System.String, Sdl.Core.Globalization.Language, Sdl.Core.Globalization.Codepage, Sdl.FileTypeSupport.Framework.NativeApi.INativeTextLocationMessageReporter, Sdl.Core.Settings.ISettingsGroup)
   type: Method
+  source:
+    path: Sdl.FileTypeSupport.Framework.Core
+    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.NativeApi
-  summary: Called by the framework to invoke the file sniffer for a specific file.
-  remarks: The implementation of this method must be stateless and thread-safe.
-  example: []
+  summary: "\nCalled by the framework to invoke the file sniffer for a specific file.\n"
+  remarks: "\nThe implementation of this method must be stateless and thread-safe.\n"
   syntax:
     content: SniffInfo Sniff(string nativeFilePath, Language suggestedSourceLanguage, Codepage suggestedCodepage, INativeTextLocationMessageReporter messageReporter, ISettingsGroup settingsGroup)
     parameters:
@@ -134,221 +65,31 @@ items:
       type: Sdl.FileTypeSupport.Framework.NativeApi.INativeTextLocationMessageReporter
       description: >-
         Supplied by the framework to allow file sniffers to report
-                    file-related information that may be of interest.
+
+        file-related information that may be of interest.
     - id: settingsGroup
       type: Sdl.Core.Settings.ISettingsGroup
       description: >-
         Supplied by the framework to allow file sniffers to change their behavior
-                    depending on their settings. This parameter is intended as the sole means to gain access to settings in the
-                    sniffer - methods used for other components will invalidate the stateless model of file sniffers and should not be used.
+
+        depending on their settings. This parameter is intended as the sole means to gain access to settings in the
+
+        sniffer - methods used for other components will invalidate the stateless model of file sniffers and should not be used.
     return:
       type: Sdl.FileTypeSupport.Framework.NativeApi.SniffInfo
-      description: >-
-        An instance of a <xref href="Sdl.FileTypeSupport.Framework.NativeApi.SniffInfo" data-throw-if-not-resolved="false"></xref> object where the <xref href="Sdl.FileTypeSupport.Framework.NativeApi.SniffInfo.IsSupported" data-throw-if-not-resolved="false"></xref> property
-                    has been set to <code>true</code> or <code>false</code> to indicate if the file is of a supported type. The return value
-                    may also indicate the detected encoding, source, and target language, together with the detection 
-                    confidence levels.
+      description: "An instance of a <xref href=\"Sdl.FileTypeSupport.Framework.NativeApi.SniffInfo\" data-throw-if-not-resolved=\"false\"></xref> object where the <xref href=\"Sdl.FileTypeSupport.Framework.NativeApi.SniffInfo.IsSupported\" data-throw-if-not-resolved=\"false\"></xref> property\nhas been set to <code>true</code> or <code>false</code> to indicate if the file is of a supported type. The return value\nmay also indicate the detected encoding, source, and target language, together with the detection \nconfidence levels."
     content.vb: Function Sniff(nativeFilePath As String, suggestedSourceLanguage As Language, suggestedCodepage As Codepage, messageReporter As INativeTextLocationMessageReporter, settingsGroup As ISettingsGroup) As SniffInfo
   overload: Sdl.FileTypeSupport.Framework.NativeApi.INativeFileSniffer.Sniff*
-  nameWithType.vb: INativeFileSniffer.Sniff(String, Language, Codepage, INativeTextLocationMessageReporter, ISettingsGroup)
-  fullName.vb: Sdl.FileTypeSupport.Framework.NativeApi.INativeFileSniffer.Sniff(String, Sdl.Core.Globalization.Language, Sdl.Core.Globalization.Codepage, Sdl.FileTypeSupport.Framework.NativeApi.INativeTextLocationMessageReporter, Sdl.Core.Settings.ISettingsGroup)
-  name.vb: Sniff(String, Language, Codepage, INativeTextLocationMessageReporter, ISettingsGroup)
 references:
-- uid: Sdl.FileTypeSupport.Framework.NativeApi.SniffInfo
-  commentId: T:Sdl.FileTypeSupport.Framework.NativeApi.SniffInfo
-  parent: Sdl.FileTypeSupport.Framework.NativeApi
-  isExternal: true
-  href: Sdl.FileTypeSupport.Framework.NativeApi.SniffInfo.html
-  name: SniffInfo
-  nameWithType: SniffInfo
-  fullName: Sdl.FileTypeSupport.Framework.NativeApi.SniffInfo
-- uid: Sdl.FileTypeSupport.Framework.NativeApi.SniffInfo.IsSupported
-  commentId: P:Sdl.FileTypeSupport.Framework.NativeApi.SniffInfo.IsSupported
-  isExternal: true
-  href: Sdl.FileTypeSupport.Framework.NativeApi.SniffInfo.html#Sdl_FileTypeSupport_Framework_NativeApi_SniffInfo_IsSupported
-  name: IsSupported
-  nameWithType: SniffInfo.IsSupported
-  fullName: Sdl.FileTypeSupport.Framework.NativeApi.SniffInfo.IsSupported
-- uid: Sdl.FileTypeSupport.Framework.NativeApi.INativeFileSniffer.Sniff(System.String,Sdl.Core.Globalization.Language,Sdl.Core.Globalization.Codepage,Sdl.FileTypeSupport.Framework.NativeApi.INativeTextLocationMessageReporter,Sdl.Core.Settings.ISettingsGroup)
-  commentId: M:Sdl.FileTypeSupport.Framework.NativeApi.INativeFileSniffer.Sniff(System.String,Sdl.Core.Globalization.Language,Sdl.Core.Globalization.Codepage,Sdl.FileTypeSupport.Framework.NativeApi.INativeTextLocationMessageReporter,Sdl.Core.Settings.ISettingsGroup)
-  isExternal: true
-  href: Sdl.FileTypeSupport.Framework.NativeApi.INativeFileSniffer.html#Sdl_FileTypeSupport_Framework_NativeApi_INativeFileSniffer_Sniff_System_String_Sdl_Core_Globalization_Language_Sdl_Core_Globalization_Codepage_Sdl_FileTypeSupport_Framework_NativeApi_INativeTextLocationMessageReporter_Sdl_Core_Settings_ISettingsGroup_
-  name: Sniff(string, Language, Codepage, INativeTextLocationMessageReporter, ISettingsGroup)
-  nameWithType: INativeFileSniffer.Sniff(string, Language, Codepage, INativeTextLocationMessageReporter, ISettingsGroup)
-  fullName: Sdl.FileTypeSupport.Framework.NativeApi.INativeFileSniffer.Sniff(string, Sdl.Core.Globalization.Language, Sdl.Core.Globalization.Codepage, Sdl.FileTypeSupport.Framework.NativeApi.INativeTextLocationMessageReporter, Sdl.Core.Settings.ISettingsGroup)
-  nameWithType.vb: INativeFileSniffer.Sniff(String, Language, Codepage, INativeTextLocationMessageReporter, ISettingsGroup)
-  fullName.vb: Sdl.FileTypeSupport.Framework.NativeApi.INativeFileSniffer.Sniff(String, Sdl.Core.Globalization.Language, Sdl.Core.Globalization.Codepage, Sdl.FileTypeSupport.Framework.NativeApi.INativeTextLocationMessageReporter, Sdl.Core.Settings.ISettingsGroup)
-  name.vb: Sniff(String, Language, Codepage, INativeTextLocationMessageReporter, ISettingsGroup)
-  spec.csharp:
-  - uid: Sdl.FileTypeSupport.Framework.NativeApi.INativeFileSniffer.Sniff(System.String,Sdl.Core.Globalization.Language,Sdl.Core.Globalization.Codepage,Sdl.FileTypeSupport.Framework.NativeApi.INativeTextLocationMessageReporter,Sdl.Core.Settings.ISettingsGroup)
-    name: Sniff
-    isExternal: true
-    href: Sdl.FileTypeSupport.Framework.NativeApi.INativeFileSniffer.html#Sdl_FileTypeSupport_Framework_NativeApi_INativeFileSniffer_Sniff_System_String_Sdl_Core_Globalization_Language_Sdl_Core_Globalization_Codepage_Sdl_FileTypeSupport_Framework_NativeApi_INativeTextLocationMessageReporter_Sdl_Core_Settings_ISettingsGroup_
-  - name: (
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: Sdl.Core.Globalization.Language
-    name: Language
-    isExternal: true
-  - name: ','
-  - name: " "
-  - uid: Sdl.Core.Globalization.Codepage
-    name: Codepage
-    isExternal: true
-  - name: ','
-  - name: " "
-  - uid: Sdl.FileTypeSupport.Framework.NativeApi.INativeTextLocationMessageReporter
-    name: INativeTextLocationMessageReporter
-    isExternal: true
-    href: Sdl.FileTypeSupport.Framework.NativeApi.INativeTextLocationMessageReporter.html
-  - name: ','
-  - name: " "
-  - uid: Sdl.Core.Settings.ISettingsGroup
-    name: ISettingsGroup
-    isExternal: true
-  - name: )
-  spec.vb:
-  - uid: Sdl.FileTypeSupport.Framework.NativeApi.INativeFileSniffer.Sniff(System.String,Sdl.Core.Globalization.Language,Sdl.Core.Globalization.Codepage,Sdl.FileTypeSupport.Framework.NativeApi.INativeTextLocationMessageReporter,Sdl.Core.Settings.ISettingsGroup)
-    name: Sniff
-    isExternal: true
-    href: Sdl.FileTypeSupport.Framework.NativeApi.INativeFileSniffer.html#Sdl_FileTypeSupport_Framework_NativeApi_INativeFileSniffer_Sniff_System_String_Sdl_Core_Globalization_Language_Sdl_Core_Globalization_Codepage_Sdl_FileTypeSupport_Framework_NativeApi_INativeTextLocationMessageReporter_Sdl_Core_Settings_ISettingsGroup_
-  - name: (
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: Sdl.Core.Globalization.Language
-    name: Language
-    isExternal: true
-  - name: ','
-  - name: " "
-  - uid: Sdl.Core.Globalization.Codepage
-    name: Codepage
-    isExternal: true
-  - name: ','
-  - name: " "
-  - uid: Sdl.FileTypeSupport.Framework.NativeApi.INativeTextLocationMessageReporter
-    name: INativeTextLocationMessageReporter
-    isExternal: true
-    href: Sdl.FileTypeSupport.Framework.NativeApi.INativeTextLocationMessageReporter.html
-  - name: ','
-  - name: " "
-  - uid: Sdl.Core.Settings.ISettingsGroup
-    name: ISettingsGroup
-    isExternal: true
-  - name: )
-- uid: Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeDefinitionAware
-  commentId: T:Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeDefinitionAware
-  parent: Sdl.FileTypeSupport.Framework.IntegrationApi
-  isExternal: true
-  href: Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeDefinitionAware.html
-  name: IFileTypeDefinitionAware
-  nameWithType: IFileTypeDefinitionAware
-  fullName: Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeDefinitionAware
 - uid: Sdl.FileTypeSupport.Framework.NativeApi
   commentId: N:Sdl.FileTypeSupport.Framework.NativeApi
   isExternal: true
-  href: Sdl.html
   name: Sdl.FileTypeSupport.Framework.NativeApi
   nameWithType: Sdl.FileTypeSupport.Framework.NativeApi
   fullName: Sdl.FileTypeSupport.Framework.NativeApi
-  spec.csharp:
-  - uid: Sdl
-    name: Sdl
-    isExternal: true
-    href: Sdl.html
-  - name: .
-  - uid: Sdl.FileTypeSupport
-    name: FileTypeSupport
-    isExternal: true
-    href: Sdl.FileTypeSupport.html
-  - name: .
-  - uid: Sdl.FileTypeSupport.Framework
-    name: Framework
-    isExternal: true
-    href: Sdl.FileTypeSupport.Framework.html
-  - name: .
-  - uid: Sdl.FileTypeSupport.Framework.NativeApi
-    name: NativeApi
-    isExternal: true
-    href: Sdl.FileTypeSupport.Framework.NativeApi.html
-  spec.vb:
-  - uid: Sdl
-    name: Sdl
-    isExternal: true
-    href: Sdl.html
-  - name: .
-  - uid: Sdl.FileTypeSupport
-    name: FileTypeSupport
-    isExternal: true
-    href: Sdl.FileTypeSupport.html
-  - name: .
-  - uid: Sdl.FileTypeSupport.Framework
-    name: Framework
-    isExternal: true
-    href: Sdl.FileTypeSupport.Framework.html
-  - name: .
-  - uid: Sdl.FileTypeSupport.Framework.NativeApi
-    name: NativeApi
-    isExternal: true
-    href: Sdl.FileTypeSupport.Framework.NativeApi.html
-- uid: Sdl.FileTypeSupport.Framework.IntegrationApi
-  commentId: N:Sdl.FileTypeSupport.Framework.IntegrationApi
-  isExternal: true
-  href: Sdl.html
-  name: Sdl.FileTypeSupport.Framework.IntegrationApi
-  nameWithType: Sdl.FileTypeSupport.Framework.IntegrationApi
-  fullName: Sdl.FileTypeSupport.Framework.IntegrationApi
-  spec.csharp:
-  - uid: Sdl
-    name: Sdl
-    isExternal: true
-    href: Sdl.html
-  - name: .
-  - uid: Sdl.FileTypeSupport
-    name: FileTypeSupport
-    isExternal: true
-    href: Sdl.FileTypeSupport.html
-  - name: .
-  - uid: Sdl.FileTypeSupport.Framework
-    name: Framework
-    isExternal: true
-    href: Sdl.FileTypeSupport.Framework.html
-  - name: .
-  - uid: Sdl.FileTypeSupport.Framework.IntegrationApi
-    name: IntegrationApi
-    isExternal: true
-    href: Sdl.FileTypeSupport.Framework.IntegrationApi.html
-  spec.vb:
-  - uid: Sdl
-    name: Sdl
-    isExternal: true
-    href: Sdl.html
-  - name: .
-  - uid: Sdl.FileTypeSupport
-    name: FileTypeSupport
-    isExternal: true
-    href: Sdl.FileTypeSupport.html
-  - name: .
-  - uid: Sdl.FileTypeSupport.Framework
-    name: Framework
-    isExternal: true
-    href: Sdl.FileTypeSupport.Framework.html
-  - name: .
-  - uid: Sdl.FileTypeSupport.Framework.IntegrationApi
-    name: IntegrationApi
-    isExternal: true
-    href: Sdl.FileTypeSupport.Framework.IntegrationApi.html
 - uid: Sdl.FileTypeSupport.Framework.NativeApi.INativeFileSniffer.Sniff*
   commentId: Overload:Sdl.FileTypeSupport.Framework.NativeApi.INativeFileSniffer.Sniff
   isExternal: true
-  href: Sdl.FileTypeSupport.Framework.NativeApi.INativeFileSniffer.html#Sdl_FileTypeSupport_Framework_NativeApi_INativeFileSniffer_Sniff_System_String_Sdl_Core_Globalization_Language_Sdl_Core_Globalization_Codepage_Sdl_FileTypeSupport_Framework_NativeApi_INativeTextLocationMessageReporter_Sdl_Core_Settings_ISettingsGroup_
   name: Sniff
   nameWithType: INativeFileSniffer.Sniff
   fullName: Sdl.FileTypeSupport.Framework.NativeApi.INativeFileSniffer.Sniff
@@ -356,23 +97,15 @@ references:
   commentId: T:System.String
   parent: System
   isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.string
-  name: string
-  nameWithType: string
-  fullName: string
-  nameWithType.vb: String
-  fullName.vb: String
-  name.vb: String
+  name: String
+  nameWithType: String
+  fullName: System.String
 - uid: Sdl.Core.Globalization.Language
-  commentId: T:Sdl.Core.Globalization.Language
-  parent: Sdl.Core.Globalization
   isExternal: true
   name: Language
   nameWithType: Language
   fullName: Sdl.Core.Globalization.Language
 - uid: Sdl.Core.Globalization.Codepage
-  commentId: T:Sdl.Core.Globalization.Codepage
-  parent: Sdl.Core.Globalization
   isExternal: true
   name: Codepage
   nameWithType: Codepage
@@ -381,81 +114,24 @@ references:
   commentId: T:Sdl.FileTypeSupport.Framework.NativeApi.INativeTextLocationMessageReporter
   parent: Sdl.FileTypeSupport.Framework.NativeApi
   isExternal: true
-  href: Sdl.FileTypeSupport.Framework.NativeApi.INativeTextLocationMessageReporter.html
   name: INativeTextLocationMessageReporter
   nameWithType: INativeTextLocationMessageReporter
   fullName: Sdl.FileTypeSupport.Framework.NativeApi.INativeTextLocationMessageReporter
 - uid: Sdl.Core.Settings.ISettingsGroup
-  commentId: T:Sdl.Core.Settings.ISettingsGroup
-  parent: Sdl.Core.Settings
   isExternal: true
   name: ISettingsGroup
   nameWithType: ISettingsGroup
   fullName: Sdl.Core.Settings.ISettingsGroup
+- uid: Sdl.FileTypeSupport.Framework.NativeApi.SniffInfo
+  commentId: T:Sdl.FileTypeSupport.Framework.NativeApi.SniffInfo
+  parent: Sdl.FileTypeSupport.Framework.NativeApi
+  isExternal: true
+  name: SniffInfo
+  nameWithType: SniffInfo
+  fullName: Sdl.FileTypeSupport.Framework.NativeApi.SniffInfo
 - uid: System
   commentId: N:System
   isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system
   name: System
   nameWithType: System
   fullName: System
-- uid: Sdl.Core.Globalization
-  commentId: N:Sdl.Core.Globalization
-  isExternal: true
-  name: Sdl.Core.Globalization
-  nameWithType: Sdl.Core.Globalization
-  fullName: Sdl.Core.Globalization
-  spec.csharp:
-  - uid: Sdl
-    name: Sdl
-    isExternal: true
-  - name: .
-  - uid: Sdl.Core
-    name: Core
-    isExternal: true
-  - name: .
-  - uid: Sdl.Core.Globalization
-    name: Globalization
-    isExternal: true
-  spec.vb:
-  - uid: Sdl
-    name: Sdl
-    isExternal: true
-  - name: .
-  - uid: Sdl.Core
-    name: Core
-    isExternal: true
-  - name: .
-  - uid: Sdl.Core.Globalization
-    name: Globalization
-    isExternal: true
-- uid: Sdl.Core.Settings
-  commentId: N:Sdl.Core.Settings
-  isExternal: true
-  name: Sdl.Core.Settings
-  nameWithType: Sdl.Core.Settings
-  fullName: Sdl.Core.Settings
-  spec.csharp:
-  - uid: Sdl
-    name: Sdl
-    isExternal: true
-  - name: .
-  - uid: Sdl.Core
-    name: Core
-    isExternal: true
-  - name: .
-  - uid: Sdl.Core.Settings
-    name: Settings
-    isExternal: true
-  spec.vb:
-  - uid: Sdl
-    name: Sdl
-    isExternal: true
-  - name: .
-  - uid: Sdl.Core
-    name: Core
-    isExternal: true
-  - name: .
-  - uid: Sdl.Core.Settings
-    name: Settings
-    isExternal: true
