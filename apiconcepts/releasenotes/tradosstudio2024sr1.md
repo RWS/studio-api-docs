@@ -50,9 +50,9 @@ The following interfaces were marked as obsolete:
 # TranslationMemory API
 These changes are included in the `Sdl.LanguagePlatfrom.TranslationMemoryApi` assembly.
 
-The Sdl.LanguagePlatfrom.TranslationMemoryApi assembly now includes an [IAIAssistantProvider](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.AIAssistant.IAIAssistantProvider.yml) interface for plugging AI providers to be used as AI Assistant providers in Studio.
+The Sdl.LanguagePlatfrom.TranslationMemoryApi assembly now includes an [IAICompanion](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.AICompanion.IAICompanion.yml) interface for plugging AI providers to be used as AI Companions in Studio.
 
-Added [LiteDocument](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.LiteBCM.LiteDocument.yml) and [LiteFragment](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.LiteBCM.LiteFragment.yml) classes used to structure and exchange translation content with AI providers.
+Added [LiteDocument](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.LiteBCM.LiteDocument.yml) and [LiteFragment](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.LiteBCM.LiteFragment.yml) classes used to structure and exchange translation content with AI companions.
 
 ## [ISubsegmentTranslationMemoryLanguageDirection](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ISubsegmentTranslationMemoryLanguageDirection.yml)
 
