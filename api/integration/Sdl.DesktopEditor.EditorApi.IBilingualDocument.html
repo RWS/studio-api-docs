@@ -89,10 +89,10 @@
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
     <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable.dispose">IDisposable.Dispose()</a>
+      <span class="xref">IDisposable.Dispose()</span>
     </div>
   </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="Sdl.html">Sdl</a>.<a class="xref" href="Sdl.DesktopEditor.html">DesktopEditor</a>.<a class="xref" href="Sdl.DesktopEditor.EditorApi.html">EditorApi</a></h6>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Sdl.DesktopEditor.EditorApi.html">Sdl.DesktopEditor.EditorApi</a></h6>
   <h6><strong>Assembly</strong>: Sdl.DesktopEditor.EditorApi.dll</h6>
   <h5 id="Sdl_DesktopEditor_EditorApi_IBilingualDocument_syntax">Syntax</h5>
   <div class="codewrapper">
@@ -150,7 +150,7 @@ when the bilingual processor is used to process content through the filter frame
   <p>
 This example shows how to read content from a file into the document using the filter framework.
 </p>
-<pre><code class="lang-csharp">void LoadFile(IBilingualDocument document, IFileTypeManager manager, string filePath)
+<pre><code>void LoadFile(IBilingualDocument document, IFileTypeManager manager, string filePath)
 {
   IMultiFileConverter converter = manager.GetConverterToBilingual(filePath, document.ContentInput);
   converter.Parse();
@@ -186,7 +186,7 @@ e.g. when used with the filter framework to save a file.</p>
   <h5 id="Sdl_DesktopEditor_EditorApi_IBilingualDocument_ContentOutput_examples">Examples</h5>
   <p>This example shows how to save the content of a document to a bilingual  
 file in the default bilingual file format using the filter framework.</p>
-<pre><code class="lang-csharp">void SaveAsBilingual(IBilingualDocument document, IFileTypeManager manager, string filePath)
+<pre><code>void SaveAsBilingual(IBilingualDocument document, IFileTypeManager manager, string filePath)
 {
   IMultiFileConverter converter = manager.GetConverterToDefaultBilingual(document.ContentOutput, filePath);
   converter.Parse();
@@ -239,7 +239,7 @@ file in the default bilingual file format using the filter framework.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="xref">Boolean</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -254,7 +254,7 @@ Set this flag to <code>false</code> when the document is saved. That allows you 
 have been made to it in order to determine whether the document will need to be saved again at a later point.
 </p>
 <p>
-Since the editor does not provide Open/Save operations it is the API client's responsibility
+Since the editor does not provide Open/Save operations it is the API client&apos;s responsibility
 to reset this flag after such operations.
 </p>
 </div>
@@ -612,7 +612,7 @@ Changes to the source and/or target language will be propagated to all paragraph
 </p>
 <example>
 This code example shows how to properly change the target language of a document.
-<pre><code class="lang-csharp">void ChangeTargetLanguage(IBilingualDocument doc, Language newTargetLanguage)
+<pre><code>void ChangeTargetLanguage(IBilingualDocument doc, Language newTargetLanguage)
 {
   IDocumentProperties properties = (IDocumentProperties)doc.DocumentProperties.Clone();
   properties.TargetLanguage = newTargetLanguage;
@@ -663,7 +663,7 @@ can be reversed by the undo commands.</p>
 This code example shows how to properly change the PreferredTargetEncoding of a file.
 (The file container node can be from the source or the target document, it does not matter
 as both reference the same underlying file properties object from the filter framework.)
-<pre><code class="lang-csharp">void ChangeTargetEncoding(IBilingualDocument doc, IFileContainerNode fileNode, Codepage newTargetEncoding)
+<pre><code>void ChangeTargetEncoding(IBilingualDocument doc, IFileContainerNode fileNode, Codepage newTargetEncoding)
 {
   IFileProperties properties = (IFileProperties)file.FileProperties.Clone();
   properties.FileConversionProperties.PreferredTargetEncoding = newTargetEncoding;
@@ -710,7 +710,7 @@ can be reversed by the undo commands.</p>
 This code example shows how to properly change the status of a ParagraphUnit. 
 (The ParagraphUnit node can be from the source or the target document, it does not matter
 as both reference the same underlying ParagraphUnitProperties object from the filter framework.)
-<pre><code class="lang-csharp">void ChangeParagraphUnitStatus(IBilingualDocument doc, IParagraphUnitContainerNode paragraphUnitNode, ParagraphUnitStatus newStatus)
+<pre><code>void ChangeParagraphUnitStatus(IBilingualDocument doc, IParagraphUnitContainerNode paragraphUnitNode, ParagraphUnitStatus newStatus)
 {
   IParagraphUnitProperties properties = (IParagraphUnitProperties)paragraphUnitNode.ParagraphUnit.Properties.Clone();
   properties.Status = newStatus;
@@ -773,7 +773,7 @@ can be reversed by the undo commands.
 This code example shows how to properly change the translation origin of a segment.
 (The segment node can be from the source or the target, it does not matter
 as both reference the same underlying segment pair properties object from the filter framework.)
-<pre><code class="lang-csharp">void SetToTranslated(IBilingualDocument doc, ISegmentContainerNode segmentNode)
+<pre><code>void SetToTranslated(IBilingualDocument doc, ISegmentContainerNode segmentNode)
 {
   ISegmentPairProperties properties = (ISegmentPairProperties)node.Segment.Properties.Clone();
   properties.TranslationOrigin.OriginType = DefaultTranslationOrigin.Interactive;
@@ -803,7 +803,7 @@ as both reference the same underlying segment pair properties object from the fi
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Sdl.DesktopEditor.EditorApi.FrameworkDocumentContentChangedEventArgs.html">FrameworkDocumentContentChangedEventArgs</a>&gt;</td>
+        <td><span class="xref">EventHandler</span>&lt;<a class="xref" href="Sdl.DesktopEditor.EditorApi.FrameworkDocumentContentChangedEventArgs.html">FrameworkDocumentContentChangedEventArgs</a>&gt;</td>
         <td></td>
       </tr>
     </tbody>
@@ -835,7 +835,7 @@ the document this is a good time to disconnect from it.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler">EventHandler</a></td>
+        <td><span class="xref">EventHandler</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -860,7 +860,7 @@ the document this is a good time to disconnect from it.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Sdl.DesktopEditor.EditorApi.DocumentPropertiesChangedEventArgs.html">DocumentPropertiesChangedEventArgs</a>&gt;</td>
+        <td><span class="xref">EventHandler</span>&lt;<a class="xref" href="Sdl.DesktopEditor.EditorApi.DocumentPropertiesChangedEventArgs.html">DocumentPropertiesChangedEventArgs</a>&gt;</td>
         <td></td>
       </tr>
     </tbody>
@@ -885,7 +885,7 @@ the document this is a good time to disconnect from it.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Sdl.DesktopEditor.EditorApi.FilePropertiesChangedEventArgs.html">FilePropertiesChangedEventArgs</a>&gt;</td>
+        <td><span class="xref">EventHandler</span>&lt;<a class="xref" href="Sdl.DesktopEditor.EditorApi.FilePropertiesChangedEventArgs.html">FilePropertiesChangedEventArgs</a>&gt;</td>
         <td></td>
       </tr>
     </tbody>
@@ -910,7 +910,7 @@ the document this is a good time to disconnect from it.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Sdl.DesktopEditor.EditorApi.ParagraphUnitPropertiesChangedEventArgs.html">ParagraphUnitPropertiesChangedEventArgs</a>&gt;</td>
+        <td><span class="xref">EventHandler</span>&lt;<a class="xref" href="Sdl.DesktopEditor.EditorApi.ParagraphUnitPropertiesChangedEventArgs.html">ParagraphUnitPropertiesChangedEventArgs</a>&gt;</td>
         <td></td>
       </tr>
     </tbody>
@@ -936,14 +936,14 @@ the document this is a good time to disconnect from it.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Sdl.DesktopEditor.EditorApi.SegmentPropertiesChangedEventArgs.html">SegmentPropertiesChangedEventArgs</a>&gt;</td>
+        <td><span class="xref">EventHandler</span>&lt;<a class="xref" href="Sdl.DesktopEditor.EditorApi.SegmentPropertiesChangedEventArgs.html">SegmentPropertiesChangedEventArgs</a>&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h3 id="extensionmethods">Extension Methods</h3>
   <div>
-      <a class="xref" href="Sdl.Desktop.Platform.Controls.Controls.WindowsControlUtils.html#Sdl_Desktop_Platform_Controls_Controls_WindowsControlUtils_ForWindowFromFrameworkElement_System_Object_System_Action_System_Windows_Window__">WindowsControlUtils.ForWindowFromFrameworkElement(object, Action&lt;Window&gt;)</a>
+      <a class="xref" href="Sdl.Desktop.Platform.Controls.Controls.WindowsControlUtils.html#Sdl_Desktop_Platform_Controls_Controls_WindowsControlUtils_ForWindowFromFrameworkElement_System_Object_System_Action_System_Windows_Window__">WindowsControlUtils.ForWindowFromFrameworkElement(Object, Action&lt;Window&gt;)</a>
   </div>
 
 </article>
