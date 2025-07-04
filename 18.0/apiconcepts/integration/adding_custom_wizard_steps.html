@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Adding custom steps to wizards </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Adding custom steps to wizards ">
+    
+    
+      <link rel="shortcut icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../../styles/docfx.css">
+      <link rel="stylesheet" href="../../styles/main.css">
+      <meta property="docfx:navrel" content="../../toc.html">
+      <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>        
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="https://developers.rws.com/">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+
+        <div class="container body-content">
+
+          <div id="search-results">
+            <div class="search-list">Search Results for <span></span></div>
+            <div class="sr-items">
+              <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+            </div>
+            <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+          </div>
+        </div>
+
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="adding-custom-steps-to-wizards">Adding custom steps to wizards</h1>
+
+<p>Trados Studio Integration API provides support for third-party developers to add custom pages to certain wizards within the Trados Studio desktop application. You can add custom pages using WPF views and view-models.</p>
+<p><em>For the moment, only the <strong>Open Package wizard</strong> supports this functionality. Support for other wizards may come in the future.</em></p>
+<h2 id="creating-pages-to-use-as-wizard-steps">Creating pages to use as wizard steps</h2>
+<p>In order to create a view that can be used as a wizard step, a third-party developer needs to:</p>
+<ul>
+<li>Create a WPF view file, e.g. <code>UserControl</code>, with custom XAML and/or code behind.</li>
+<li>Create a ViewModel for the view, if necessary.</li>
+<li>Create a new class representing the custom page.
+<ul>
+<li>This class needs to inherit from the abstract <a href="../../api/integration/Sdl.Desktop.IntegrationApi.Wizard.StudioWizardPage.html">StudioWizardPage</a>.</li>
+<li>Implement the required abstract properties.</li>
+</ul>
+</li>
+</ul>
+<h2 id="studiowizardpage-base-class">StudioWizardPage base class</h2>
+<p>The <a href="../../api/integration/Sdl.Desktop.IntegrationApi.Wizard.StudioWizardPage.html">StudioWizardPage</a> abstract class comes with a default implementation for some of the methods and properties required to define a custom wizard page. You can further override these methods and properties to provide your own custom logic.</p>
+<img style="display:block; margin-left: auto; margin-right: auto;" src="images/Wizard%20public%20API.png">
+<h2 id="studiowizardpage-properties">StudioWizardPage properties</h2>
+<p>Some of the properties are represented on the user interface directly, as shown below:
+<img style="display:block; " src="images/WizardProperties.png"></p>
+<h3 id="viewtype">ViewType</h3>
+<ul>
+<li>Set the <code>ViewType</code> property to the actual type of the WPF view file. Trados Studio's infrastructure uses the type to inject the view into the wizard's user interface. You can use the <code>typeof</code> C# keyword (<code>GetType</code> in VB) to obtain the view type needed here.</li>
+</ul>
+<h3 id="viewmodel">ViewModel</h3>
+<ul>
+<li>The wizard infrastructure automatically assigns the <code>ViewModel</code> as DataContext to the view, so you can use <code>Binding</code> from the view to the ViewModel properties. If you don't need a ViewModel just assign <code>null</code> here.</li>
+<li>For the <code>ViewModel</code> you can use any INotifyPropertyChanged implementation suits you best, such as providing your own or using an MVVM framework.</li>
+</ul>
+<h3 id="isavailable">IsAvailable</h3>
+<ul>
+<li>This property is used by the wizard framework when navigating to other pages to determine if a page should be displayed.</li>
+<li>When the user clicks <strong>Next</strong> the wizard checks through the subsequent pages and displays the first one that is available. The <strong>Next</strong> button is disabled when there are no more pages for which <code>IsAvailable</code> returns <code>true</code>.</li>
+<li>When the user clicks <strong>Back</strong> the wizard checks through the previous pages and displays the first one that is available. The <strong>Back</strong> button is disabled when there are no more pages for which <code>IsAvailable</code> returns <code>true</code>.</li>
+</ul>
+<h3 id="data">Data</h3>
+<ul>
+<li>You can define custom data for your pages using the <code>Data</code> property on the <a href="../../api/integration/Sdl.Desktop.IntegrationApi.Wizard.StudioWizardPage.html">StudioWizardPage</a> object.</li>
+<li>The Data property is a <code>Dictionary&lt;string,object&gt;</code> that is common to all wizard pages.</li>
+<li>Once a dictionary key is set from a page, it becomes available to any pages that are displayed after it. This includes pages that are navigated to via the <strong>Back</strong> button.</li>
+<li>You can use the Page's <code>OnShow</code> method to query for the most recent key values that may have been updated/inserted by previously shown pages.</li>
+<li>The <code>Data</code> property is initialized for all pages before the wizard is displayed.</li>
+</ul>
+<h3 id="icon">Icon</h3>
+<ul>
+<li>Set this property to display an icon in the top-right area of the page.</li>
+<li>Set this property to <code>null</code> if you don't want an icon displayed.</li>
+</ul>
+<h3 id="id">Id</h3>
+<ul>
+<li>This property is used by the wizard framework to uniquely identify the pages.</li>
+</ul>
+<h1 id="integrating-pages-as-steps-into-varproductname-wizards">Integrating pages as steps into Trados Studio wizards</h1>
+<p>Custom pages are injected into the wizard via the <code>firstPages</code> argument of the event object corresponding to the respective wizard. Keep in mind that the <code>firstPages</code> argument is available only for some wizard event objects.</p>
+<p>To inject the custom pages as steps into a Trados Studio wizard:</p>
+<ul>
+<li>Determine or define a place in your code to launch the wizard (with custom steps) from; for example, from an <a href="../../api/integration/Sdl.Desktop.IntegrationApi.AbstractAction.html">Action</a>'s <code>Execute</code> method.</li>
+<li>Determine the appropriate event (e.g. <a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Events.OpenProjectPackageEvent.html">OpenProjectPackageEvent</a>) to be raised, that corresponds to the wizard you want to open.</li>
+<li>Set up a <code>List</code> of <a href="../../api/integration/Sdl.Desktop.IntegrationApi.Wizard.StudioWizardPage.html">StudioWizardPage</a> instances, which represent the custom pages you want to insert in the wizard</li>
+<li>Create the event, passing in <code>firstPages</code> list as an argument.</li>
+<li>Use the event aggregator to raise the event. This will launch the wizard.</li>
+</ul>
+<p>Notes:</p>
+<ul>
+<li>The custom pages appear in the wizard at the beginning, before any other standard pages.</li>
+<li>The custom pages appear in the wizard in the same order they are defined in the list configured in the event object.</li>
+</ul>
+<h2 id="wizard-conceptual-execution-flow">Wizard conceptual execution flow</h2>
+<p>The diagram below briefly describes the wizard's execution sequence, and shows the order in which <code>StudioWizardPage</code> properties and methods are called by the framework at runtime.</p>
+<img style="display:block; " src="images/Wizard%20public%20API%20flow.png">
+<p>See also: <a href="https://github.com/RWS/trados-studio-api-samples/tree/master/TranslationStudioAutomation/Sdl.CustomWizardSteps.Sample">Full sample application with source code</a> (on GitHub).</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/18.0/apiconcepts/integration/adding_custom_wizard_steps.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

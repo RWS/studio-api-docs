@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Initializing the File Type Manager </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Initializing the File Type Manager ">
+    
+    
+      <link rel="shortcut icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../../styles/docfx.css">
+      <link rel="stylesheet" href="../../styles/main.css">
+      <meta property="docfx:navrel" content="../../toc.html">
+      <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>        
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="https://developers.rws.com/">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+
+        <div class="container body-content">
+
+          <div id="search-results">
+            <div class="search-list">Search Results for <span></span></div>
+            <div class="sr-items">
+              <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+            </div>
+            <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+          </div>
+        </div>
+
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="initializing-the-file-type-manager">Initializing the File Type Manager</h1>
+
+<p>This section contains information about how applications hosting the file type support framework can handle initialization of the File Type Manager.</p>
+<p>The <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.html">IFileTypeManager</a> is the main integration point between an application and the file type support framework. The file type manager is typically initialized so that it knows about all file type installed on the system. This section discussed different approaches to that initialization.</p>
+<h2 id="initializing-the-filter-manager">Initializing the Filter Manager</h2>
+<p>The File Type Support Framework is used in an application through the File Type Manager.</p>
+<p>There are different ways for an application to host the File Type Manager. The most straightforward way is to simply create and initialize it expicitly with a list of File Type Component Builders and related settings.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>You need a reference to <strong>Sdl.FileTypeSupport.Framework.Core.Utilities</strong> in your project. The example below shows how to do this:</p>
+</div>
+<div class="tabGroup" id="tabgroup_1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_1_tabid-1" role="tab" aria-controls="tabpanel_1_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_1_tabid-1" role="tabpanel" data-tab="tabid-1">
+
+<pre><code class="lang-cs">IFileTypeManager filterManager = DefaultFileTypeManager.CreateInstance();
+filterManager.AddFileTypeDefinition(new SimpleTextFilterComponentBuilder());
+filterManager.AddFileTypeDefinition(new SdlXliffFilterComponentBuilder());
+// ...additional filter manager initialization goes here...
+UseFilterManagerForSomething(filterManager);
+</code></pre>
+</section>
+</div>
+
+<p>The example defines in the first line a <code>PocoFilterManager</code> (an implementation of <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.html">IFileTypeManager</a>) that provides functionality to add new filter definitions. It relies on the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilder.html">IFileTypeComponentBuilder</a> to build File Type Definitions. In the second line an Open Office Text filter definition is adding using the <code>OdtFilterDefinitionComponentBuilder</code> (See <a href="the_filter_component_builder.html">the filter component builder</a> example) This approach is very straightforward, but it has several implications that are worth noting:</p>
+<ul>
+<li>The application have to explicitly create and manage all the File Type Component Builder classes.</li>
+<li>The application needs to manage their order or priority. This has implications on how the file types are discovered and applied.</li>
+<li>The application is responsible for managing access to the File Type Manager, if it is shared across the application (which is probably preferrable to creating a new one every time, as the initialization could be resource-intensive)</li>
+<li>It is not easy to modify the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeInformation.html">FileTypeInformation</a> inside a FilterDefinition. The FilterFramework provides a mechanism to simplify this (see Xml override).</li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/18.0/apiconcepts/filetypesupport/initializing_the_file_type_manager.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

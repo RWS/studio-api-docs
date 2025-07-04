@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Creating a File-based Translation Memory </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Creating a File-based Translation Memory ">
+    
+    
+      <link rel="shortcut icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../../styles/docfx.css">
+      <link rel="stylesheet" href="../../styles/main.css">
+      <meta property="docfx:navrel" content="../../toc.html">
+      <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>        
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="https://developers.rws.com/">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+
+        <div class="container body-content">
+
+          <div id="search-results">
+            <div class="search-list">Search Results for <span></span></div>
+            <div class="sr-items">
+              <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+            </div>
+            <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+          </div>
+        </div>
+
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="creating-a-file-based-translation-memory">Creating a File-based Translation Memory</h1>
+
+<p>In this chapter you will learn how to programmatically create a file-based translation memory, i.e. an *.sdltm file.</p>
+<h2 id="add-a-new-class">Add a New Class</h2>
+<p>Add a new class to your project called <code>TmCreator</code>. Then, add a public function called <code>CreateFileBasedTm()</code> to the new class. This function takes <code>tmPath</code> as string parameter, which specifies the path and file name of the TM to be created. This function can be called as shown below:</p>
+<div class="tabGroup" id="tabgroup_1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_1_tabid-1" role="tab" aria-controls="tabpanel_1_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_1_tabid-1" role="tabpanel" data-tab="tabid-1">
+
+<pre><code class="lang-cs">var tmCreator = new TmCreator();
+tmCreator.CreateFileBasedTm(_translationMemoryFilePath);
+</code></pre>
+</section>
+</div>
+
+<p>Within the function, start by creating a TM object as follows:</p>
+<div class="tabGroup" id="tabgroup_2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_2_tabid-2" role="tab" aria-controls="tabpanel_2_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_2_tabid-2" role="tabpanel" data-tab="tabid-2">
+
+<pre><code class="lang-cs">public void CreateFileBasedTm(string tmPath)
+{
+    var tm = new FileBasedTranslationMemory(
+        tmPath,
+        &quot;This is a sample TM&quot;,
+        CultureInfo.GetCultureInfo(&quot;en-US&quot;),
+        CultureInfo.GetCultureInfo(&quot;de-DE&quot;),
+        this.GetFuzzyIndexes(),
+        this.GetRecognizers(),
+        TokenizerFlags.BreakOnDash | TokenizerFlags.BreakOnHyphen | TokenizerFlags.BreakOnApostrophe, 
+        WordCountFlags.BreakOnTag | WordCountFlags.BreakOnHyphen | WordCountFlags.BreakOnApostrophe | WordCountFlags.BreakOnDash
+        );
+
+    tm.LanguageResourceBundles.Clear();
+
+    tm.Save();
+}
+</code></pre>
+</section>
+</div>
+
+<p>When creating the new TM object you need to provide the following parameters:</p>
+<ol>
+<li>The full file name and path.</li>
+<li>The TM description string (which can also be empty.)</li>
+<li>The source and target language. The language is specified through the <a href="https://docs.microsoft.com/en-us/dotnet/api/system.globalization.cultureinfo?redirectedfrom=MSDN&amp;view=net-5.0">CultureInfo</a>, which is created by the <a href="https://docs.microsoft.com/en-us/dotnet/api/system.globalization.cultureinfo.getcultureinfo?redirectedfrom=MSDN&amp;view=net-5.0#overloads">GetCultureInfo</a> method. This method takes the language locale as string parameter. To create a TM with the language direction <strong>English (US) -&gt; German</strong>, provide <strong>en-US</strong> and <strong>de-DE</strong> as parameters. Note that providing an invalid locale string (e.g. <em>en-DE</em>) will throw an exception.</li>
+<li>Moreover, you need to specify the fuzzy indexes that should be created for the TM. Here you specify whether a fuzzy index should be created and maintained for the source and/or target segments. The fuzzy index is required for performing concordance searches, which allow translators to select one or several words in a source or target segment and search for all occurrences in the TM. By creating a fuzzy index for both the source and the target, you enable the TM for concordance searches in both languages. The concordance search can be word- or character-based. A character-based concordance search will potentially yield more results as this kind of search is more tolerant. For example, with a character-based concordance search the user might enter <em>revolution</em> and get a result such as revolving, as this result matches some of the search characters. In this case, a word-based concordance search would not present revolving as a result, as this word differs to much from the search expression. However, you need to consider that character-based concordance searches are significantly slower than word-based searches, especially in large TMs. Character-based indexing is therefore only recommended for small TMs, which contain up to a few thousand segments. Also note that users will generally want to do concordance searches both in the source and target language. For our simple example we assume that we enable word- and character-based indexing for both the source and the target segments. As parameter we provide a separate helper function, which contains all available <strong>FuzzyIndexes</strong> enumerator values, i.e:</li>
+</ol>
+<div class="tabGroup" id="tabgroup_3">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_3_tabid-3" role="tab" aria-controls="tabpanel_3_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_3_tabid-3" role="tabpanel" data-tab="tabid-3">
+
+<pre><code class="lang-cs">private FuzzyIndexes GetFuzzyIndexes()
+{
+    return FuzzyIndexes.SourceCharacterBased |
+        FuzzyIndexes.SourceWordBased |
+        FuzzyIndexes.TargetCharacterBased |
+        FuzzyIndexes.TargetWordBased;
+}
+</code></pre>
+</section>
+</div>
+
+<ol start="5">
+<li>The recognition settings are used to identify elements that do not change during translation such as numbers, dates, acronyms, etc. When the recognition settings are enabled these items are identified as placeables. Placeables can be transferred directly from the current source segment to the new target segment without having to type them manually. When you create a TM in Trados Studio, all recognition settings are enabled by default. In our example we use a <code>GetRecognizers</code> helper function that returns all possible values of <strong>BuiltinRecognizers</strong>, thereby enabling our sample TM for all recognition types.</li>
+</ol>
+<div class="tabGroup" id="tabgroup_4">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_4_tabid-4" role="tab" aria-controls="tabpanel_4_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_4_tabid-4" role="tabpanel" data-tab="tabid-4">
+
+<pre><code class="lang-cs">private BuiltinRecognizers GetRecognizers()
+{
+    return BuiltinRecognizers.RecognizeAcronyms |
+        BuiltinRecognizers.RecognizeDates |
+        BuiltinRecognizers.RecognizeNumbers |
+        BuiltinRecognizers.RecognizeTimes |
+        BuiltinRecognizers.RecognizeVariables |
+        BuiltinRecognizers.RecognizeMeasurements |
+        BuiltinRecognizers.RecognizeAlphaNumeric;
+}
+</code></pre>
+</section>
+</div>
+
+<p>The screenshot below illustrates the TM recognition settings in Trados Studio:</p>
+<p><img src="images/RecognitionSettings.jpg" alt="RecognitionSettings"></p>
+<h2 id="putting-it-all-together">Putting it All Together</h2>
+<p>The complete class should now look as shown below:</p>
+<div class="tabGroup" id="tabgroup_5">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_5_tabid-5" role="tab" aria-controls="tabpanel_5_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_5_tabid-5" role="tabpanel" data-tab="tabid-5">
+
+<pre><code class="lang-cs">namespace SDK.LanguagePlatform.Samples.TmAutomation
+{
+    using System.Globalization;
+    using Sdl.LanguagePlatform.Core.Tokenization;
+    using Sdl.LanguagePlatform.TranslationMemory;
+    using Sdl.LanguagePlatform.TranslationMemoryApi;
+
+    public class TmCreator
+    {
+        #region &quot;create TM&quot;
+        public void CreateFileBasedTm(string tmPath)
+        {
+            FileBasedTranslationMemory tm = new FileBasedTranslationMemory(
+                tmPath,
+                &quot;This is a sample TM&quot;,
+                CultureInfo.GetCultureInfo(&quot;en-US&quot;),
+                CultureInfo.GetCultureInfo(&quot;de-DE&quot;),
+                this.GetFuzzyIndexes(),
+                this.GetRecognizers(),
+                TokenizerFlags.BreakOnDash | TokenizerFlags.BreakOnHyphen TokenizerFlags.BreakOnApostrophe, 
+                WordCountFlags.BreakOnTag | WordCountFlags.BreakOnHyphen | WordCountFlags.BreakOnApostrophe | WordCountFlags.BreakOnDash
+                );
+
+            tm.LanguageResourceBundles.Clear();
+
+            tm.Save();
+        }
+        #endregion
+
+        #region &quot;get fuzzy indexes&quot;
+        private FuzzyIndexes GetFuzzyIndexes()
+        {
+            return FuzzyIndexes.SourceCharacterBased |
+                FuzzyIndexes.SourceWordBased |
+                FuzzyIndexes.TargetCharacterBased |
+                FuzzyIndexes.TargetWordBased;
+        }
+        #endregion
+
+        #region &quot;get recognizers&quot;
+        private BuiltinRecognizers GetRecognizers()
+        {
+            return BuiltinRecognizers.RecognizeAcronyms |
+                BuiltinRecognizers.RecognizeDates |
+                BuiltinRecognizers.RecognizeNumbers |
+                BuiltinRecognizers.RecognizeTimes |
+                BuiltinRecognizers.RecognizeVariables |
+                BuiltinRecognizers.RecognizeMeasurements|
+                BuiltinRecognizers.RecognizeAlphaNumeric;
+        }
+        #endregion
+    }
+}
+</code></pre>
+</section>
+</div>
+<h2 id="see-also">See Also</h2>
+<p><a href="creating_translation_memories.html">Creating Translation Memories</a></p>
+<p><a href="performing_translation_memory_lookups.html">Performing Translation Memory Lookups</a></p>
+<p><a href="setting_and_retrieving_tm_properties.html">Setting and Retrieving TM Properties</a></p>
+<p><a href="adding_tm_fields.html">Adding TM Fields</a></p>
+<p><a href="adding_language_resources.html">Adding Language Resources</a></p>
+<p><a href="setting_translation_memory_access_rights.html">Setting Translation Memory Access Rights</a></p>
+<p><a href="doing_translation_memory_lookups.html">Doing Translation Memory Lookups</a></p>
+<p><a href="tuning_and_maintaining_a_translation_memory.html">Tuning and Maintaining a Translation Memory</a></p>
+<p><a href="creating_a_server_translation_memory.html">Creating a Server Translation Memory</a></p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/18.0/apiconcepts/translationmemory/creating_a_file_based_translation_memory.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

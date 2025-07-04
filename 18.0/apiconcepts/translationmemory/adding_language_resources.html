@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Adding Language Resources </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Adding Language Resources ">
+    
+    
+      <link rel="shortcut icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../../styles/docfx.css">
+      <link rel="stylesheet" href="../../styles/main.css">
+      <meta property="docfx:navrel" content="../../toc.html">
+      <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>        
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="https://developers.rws.com/">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+
+        <div class="container body-content">
+
+          <div id="search-results">
+            <div class="search-list">Search Results for <span></span></div>
+            <div class="sr-items">
+              <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+            </div>
+            <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+          </div>
+        </div>
+
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="adding-language-resources">Adding Language Resources</h1>
+
+<p>In this chapter you will learn how to add languages resources such as custom abbreviations and variables to a translation memory. For more information on what language resources are, please see <a href="configuring_translation_memories.html">Configuring Translation Memories</a>.</p>
+<h2 id="add-a-new-class">Add a New Class</h2>
+<p>Add a new class called <code>TmLanguageResources</code> to your project. Let us assume that you would like to add a number of variables and custom abbreviations to your TM. Remember that variables are used to mark up particular strings such as product names as placeables. With custom abbreviations you can prevent the system from interpreting the dot following an abbreviation as a full stop, and thus as a segment delimiter. A TM includes a list of common abbreviations for each language by default (for example U.S., ref., etc.). Below you see an example of the English abbreviations list that a TM includes by default:</p>
+<p><img src="images/Abbreviations.jpg" alt="RecognitionSettings"></p>
+<p>This default list can be expanded with custom abbreviations to further fine-tune the segmentation. Note that there is <em>no</em> default variable list, i.e. the variable list for each TM that you create is empty by default.</p>
+<p>Add a function called <code>AddResource</code> to your class, which takes the TM file name and path as string parameter. This function can be called as follows:</p>
+<div class="tabGroup" id="tabgroup_1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_1_tabid-1" role="tab" aria-controls="tabpanel_1_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_1_tabid-1" role="tabpanel" data-tab="tabid-1">
+
+<pre><code class="lang-cs">var tmLanguageResource = new TmLanguageResource();
+tmLanguageResource.AddResource(_translationMemoryFilePath);
+</code></pre>
+</section>
+</div>
+
+<p>Start by opening the TM to which the custom abbreviations and variables should be added:</p>
+<div class="tabGroup" id="tabgroup_2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_2_tabid-2" role="tab" aria-controls="tabpanel_2_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_2_tabid-2" role="tabpanel" data-tab="tabid-2">
+
+<pre><code class="lang-cs">var tm = new FileBasedTranslationMemory(tmPath);
+</code></pre>
+</section>
+</div>
+
+<p>In the next step, create a default language resources object. For each language a default language resources bundle is provided, which contains, for example, the most common abbreviations for that language. For English, it contains abbreviations such as <em>Mr., Mrs., Dr.</em>, etc. As mentioned before, the variables lists are always empty by default, as the variables are custom items such as product names.</p>
+<div class="tabGroup" id="tabgroup_3">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_3_tabid-3" role="tab" aria-controls="tabpanel_3_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_3_tabid-3" role="tabpanel" data-tab="tabid-3">
+
+<pre><code class="lang-cs">var defaultBundle = new DefaultLanguageResourceProvider();
+</code></pre>
+</section>
+</div>
+
+<p>Next, create a new language resources bundle object, which is added on top of the default bundle. That way, you leverage all the default resources, and add your own abbreviations, variables, etc. To do this apply the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.DefaultLanguageResourceProvider.html#Sdl_LanguagePlatform_TranslationMemoryApi_DefaultLanguageResourceProvider_GetDefaultLanguageResources_Sdl_Core_Globalization_CultureCode_">GetDefaultLanguageResources</a> method to the default resources bundle object. This method takes the source language culture information as parameter, e.g. <em>en-US</em>.</p>
+<div class="tabGroup" id="tabgroup_4">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_4_tabid-4" role="tab" aria-controls="tabpanel_4_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_4_tabid-4" role="tabpanel" data-tab="tabid-4">
+
+<pre><code class="lang-cs">LanguageResourceBundle newBundle = defaultBundle.GetDefaultLanguageResources(CultureInfo.GetCultureInfo(&quot;en-US&quot;));
+</code></pre>
+</section>
+</div>
+
+<p>Note that the language resources bundle requires the source language information as parameter, as language resources always apply to the source segments:</p>
+<div class="tabGroup" id="tabgroup_5">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_5_tabid-5" role="tab" aria-controls="tabpanel_5_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_5_tabid-5" role="tabpanel" data-tab="tabid-5">
+
+<pre><code class="lang-cs">var tm = new FileBasedTranslationMemory(tmPath);
+</code></pre>
+</section>
+</div>
+
+<p>The bundle is the object that holds all possible language resource types, e.g. segmentation rules, variable lists, etc. Continue by creating a new <strong>Wordlist</strong> object, which is required for adding the individual abbreviation items as outlined below:</p>
+<div class="tabGroup" id="tabgroup_6">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_6_tabid-6" role="tab" aria-controls="tabpanel_6_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_6_tabid-6" role="tabpanel" data-tab="tabid-6">
+
+<pre><code class="lang-cs">newBundle.Abbreviations = new Wordlist();
+newBundle.Abbreviations.Add(&quot;hr.&quot;);
+newBundle.Abbreviations.Add(&quot;cont.&quot;);
+</code></pre>
+</section>
+</div>
+
+<div class="NOTE">
+<h5>Note</h5>
+<p>Abbreviations are case-sensitive.</p>
+</div>
+<p>Last, create another <strong>Wordlist</strong> object to hold the variables, which are added to the bundle as demonstrated below. Finally add the language resource bundle to the TM, which you then save:</p>
+<div class="tabGroup" id="tabgroup_7">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_7_tabid-7" role="tab" aria-controls="tabpanel_7_tabid-7" data-tab="tabid-7" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_7_tabid-7" role="tabpanel" data-tab="tabid-7">
+
+<pre><code class="lang-cs">newBundle.Variables = new Wordlist();
+newBundle.Variables.Add(&quot;Mac OSX&quot;);
+newBundle.Variables.Add(&quot;Microsoft Windows 10&quot;);
+newBundle.Variables.Add(&quot;Suse Linux&quot;);
+
+tm.LanguageResourceBundles.Add(newBundle);
+tm.Save();
+</code></pre>
+</section>
+</div>
+
+<p>When you open the TM in Trados Studio and view the language resources, the variable list will look as shown in the following screenshot:</p>
+<p><img src="images/VariablesList.jpg" alt="VariablesList"></p>
+<h2 id="putting-it-all-together">Putting it All Together</h2>
+<p>The complete class should now look as shown below:</p>
+<div class="tabGroup" id="tabgroup_8">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_8_tabid-8" role="tab" aria-controls="tabpanel_8_tabid-8" data-tab="tabid-8" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_8_tabid-8" role="tabpanel" data-tab="tabid-8">
+
+<pre><code class="lang-cs">namespace SDK.LanguagePlatform.Samples.TmAutomation
+{
+    using System.Globalization;
+    using Sdl.LanguagePlatform.Core;
+    using Sdl.LanguagePlatform.TranslationMemoryApi;
+
+    public class TMLanguageResource
+    {
+        public void AddResource(string tmPath)
+        {
+            #region &quot;open&quot;
+            FileBasedTranslationMemory tm = new FileBasedTranslationMemory(tmPath);
+            #endregion
+
+            #region &quot;default&quot;
+            DefaultLanguageResourceProvider defaultBundle = new DefaultLanguageResourceProvider();
+            #endregion
+
+            #region &quot;newBundle&quot;
+            LanguageResourceBundle newBundle = defaultBundle.GetDefaultLanguageResources(CultureInfo.GetCultureInfo(&quot;en-US&quot;));
+            #endregion
+
+            #region &quot;abbreviations&quot;
+            newBundle.Abbreviations = new Wordlist();
+            newBundle.Abbreviations.Add(&quot;hr.&quot;);
+            newBundle.Abbreviations.Add(&quot;cont.&quot;);
+            #endregion
+
+            #region &quot;variables&quot;
+            newBundle.Variables = new Wordlist();
+            newBundle.Variables.Add(&quot;Mac OSX&quot;);
+            newBundle.Variables.Add(&quot;Microsoft Windows 10&quot;);
+            newBundle.Variables.Add(&quot;Suse Linux&quot;);
+
+            tm.LanguageResourceBundles.Add(newBundle);
+            tm.Save();
+            #endregion
+        }
+    }
+}
+</code></pre>
+</section>
+</div>
+<h2 id="see-also">See Also</h2>
+<p><a href="configuring_translation_memories.html">Configuring Translation Memories</a></p>
+<p><a href="language_resource_templates.html">Language Resource Templates</a></p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/18.0/apiconcepts/translationmemory/adding_language_resources.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

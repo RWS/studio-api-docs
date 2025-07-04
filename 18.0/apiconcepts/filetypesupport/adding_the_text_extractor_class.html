@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Adding the Text Extractor Class </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Adding the Text Extractor Class ">
+    
+    
+      <link rel="shortcut icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../../styles/docfx.css">
+      <link rel="stylesheet" href="../../styles/main.css">
+      <meta property="docfx:navrel" content="../../toc.html">
+      <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>        
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="https://developers.rws.com/">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+
+        <div class="container body-content">
+
+          <div id="search-results">
+            <div class="search-list">Search Results for <span></span></div>
+            <div class="sr-items">
+              <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+            </div>
+            <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+          </div>
+        </div>
+
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="adding-the-text-extractor-class">Adding the Text Extractor Class</h1>
+
+<p>In this chapter you will learn how to add a separate class that helps you access segment content such as text and tag pairs.</p>
+<h2 id="add-the-text-extractor-helper-class">Add the Text Extractor Helper Class</h2>
+<p>A segment is like a container that can include (apart from 'normal' text) various types of elements such as tag pairs, placeholders, comments, locked content, etc. In our simple implementation we would like to focus on how to retrieve text and tag pairs only. These are the elements that are most commonly found in a segment.</p>
+<p>Add a new class to your project, called e.g. <strong>BilTextExtractor.cs</strong>. Since this class is also used to handle bilingual content, it needs to use the namespace S<code>dl.FileTypeSupport.Framework.BilingualApi</code>. The class must implement the interface <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IMarkupDataVisitor.html">IMarkupDataVisitor</a>, which provides access to the markup data elements found in a segment.</p>
+<h2 id="generate-the-plain-text">Generate the Plain Text</h2>
+<p>Now add the following members to your class:</p>
+<div class="tabGroup" id="tabgroup_1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_1_tabid-1" role="tab" aria-controls="tabpanel_1_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_1_tabid-1" role="tabpanel" data-tab="tabid-1">
+
+<pre><code class="lang-cs">internal StringBuilder PlainText
+{
+    get;
+    set;
+}
+
+public string GetPlainText(ISegment segment)
+{
+    PlainText = new StringBuilder(&quot;&quot;);
+    VisitChildren(segment);
+    return PlainText.ToString();
+}
+</code></pre>
+</section>
+</div>
+
+<p>The public <code>GetPlainText()</code> helper function will be called later from the file writer. The writer will pass the current segment object to this method, which will then generate and return text as well as tag pairs. The <code>GetPlainText()</code> function calls the <code>VisitChildren()</code> helper function, which loops through all items in a segment markup container such as text and tags:</p>
+<div class="tabGroup" id="tabgroup_2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_2_tabid-2" role="tab" aria-controls="tabpanel_2_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_2_tabid-2" role="tabpanel" data-tab="tabid-2">
+
+<pre><code class="lang-cs">private void VisitChildren(IAbstractMarkupDataContainer container)
+{
+    foreach (var item in container)
+    {
+        item.AcceptVisitor(this);
+    }
+}
+</code></pre>
+</section>
+</div>
+<h2 id="collect-the-markup-container-items">Collect the Markup Container Items</h2>
+<p>For each type of element that you can encounter in a segment (markup) container you need to add a separate member as required by the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IMarkupDataVisitor.html">IMarkupDataVisitor</a> interface. To keep this example as simple as possible, we will process only text and tag pairs. In one of the following chapters we will enhance this class to also return any comments that were added during the translation process.</p>
+<p>We will leave all other members for retrieving e.g. locked content, placeholders, etc. empty.</p>
+<p>The <code>VistText()</code> method adds a text object to the <code>PlainText</code> streambuilder, which is then also returned to the file writer class:</p>
+<div class="tabGroup" id="tabgroup_3">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_3_tabid-3" role="tab" aria-controls="tabpanel_3_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_3_tabid-3" role="tabpanel" data-tab="tabid-3">
+
+<pre><code class="lang-cs">public void VisitText(IText text)
+{
+    PlainText.Append(text.Properties.Text);
+}
+</code></pre>
+</section>
+</div>
+
+<p>The <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IMarkupDataVisitor.html#Sdl_FileTypeSupport_Framework_BilingualApi_IMarkupDataVisitor_VisitTagPair_Sdl_FileTypeSupport_Framework_BilingualApi_ITagPair_">VisitTagPair</a> method, which is a member of the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IMarkupDataVisitor.html">IMarkupDataVisitor</a> interface, adds a tag pair object to the <code>PlainText</code> streambuilder, which is then returned to the file writer class:</p>
+<div class="tabGroup" id="tabgroup_4">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_4_tabid-4" role="tab" aria-controls="tabpanel_4_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_4_tabid-4" role="tabpanel" data-tab="tabid-4">
+
+<pre><code class="lang-cs">public void VisitTagPair(ITagPair tagPair)
+{
+    PlainText.Append(&quot;&lt;&quot; + tagPair.StartTagProperties.TagContent + &quot;&gt;&quot;);
+    VisitChildren(tagPair);
+    PlainText.Append(&quot;&lt;/&quot; + tagPair.EndTagProperties.TagContent + &quot;&gt;&quot;);
+}
+</code></pre>
+</section>
+</div>
+
+<p>We leave the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IMarkupDataVisitor.html#Sdl_FileTypeSupport_Framework_BilingualApi_IMarkupDataVisitor_VisitCommentMarker_Sdl_FileTypeSupport_Framework_BilingualApi_ICommentMarker_">VisitCommentMarker</a> method empty for the moment, and will come back to it later:</p>
+<div class="tabGroup" id="tabgroup_5">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_5_tabid-5" role="tab" aria-controls="tabpanel_5_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_5_tabid-5" role="tabpanel" data-tab="tabid-5">
+
+<pre><code class="lang-cs">public void VisitCommentMarker(ICommentMarker commentMarker)
+{
+
+}
+</code></pre>
+</section>
+</div>
+
+<p>All other required interface members will be left empty in our sample implementation:</p>
+<div class="tabGroup" id="tabgroup_6">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_6_tabid-6" role="tab" aria-controls="tabpanel_6_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_6_tabid-6" role="tabpanel" data-tab="tabid-6">
+
+<pre><code class="lang-cs">public void VisitSegment(ISegment segment)
+{
+    VisitChildren(segment);
+}
+
+public void VisitLocationMarker(ILocationMarker location)
+{
+
+}
+
+public void VisitLockedContent(ILockedContent lockedContent)
+{
+
+}
+
+public void VisitOtherMarker(IOtherMarker marker)
+{
+
+}
+
+public void VisitPlaceholderTag(IPlaceholderTag tag)
+{
+
+}
+
+public void VisitRevisionMarker(IRevisionMarker revisionMarker)
+{
+
+}
+</code></pre>
+</section>
+</div>
+<h2 id="putting-it-all-together">Putting it All Together</h2>
+<p>The complete text extractor class should now look as shown below:</p>
+<div class="tabGroup" id="tabgroup_7">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_7_tabid-7" role="tab" aria-controls="tabpanel_7_tabid-7" data-tab="tabid-7" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_7_tabid-7" role="tabpanel" data-tab="tabid-7">
+
+<pre><code class="lang-cs">using System.Text;
+using Sdl.FileTypeSupport.Framework.BilingualApi;
+
+namespace Sdk.Snippets.Bilingual
+{
+    class BilTextExtractor : IMarkupDataVisitor
+    {
+        #region &quot;plain text&quot;
+        internal StringBuilder PlainText
+        {
+            get;
+            set;
+        }
+
+        public string GetPlainText(ISegment segment)
+        {
+            PlainText = new StringBuilder(&quot;&quot;);
+            VisitChildren(segment);
+            return PlainText.ToString();
+        }
+        #endregion
+
+        // loops through all sub items of the container (IMarkupDataContainer)
+        #region &quot;loop&quot;
+        private void VisitChildren(IAbstractMarkupDataContainer container)
+        {
+            foreach (var item in container)
+            {
+                item.AcceptVisitor(this);
+            }
+        }
+        #endregion
+
+        #region IMarkupDataVisitor Members
+
+        #region &quot;text&quot;
+        public void VisitText(IText text)
+        {
+            PlainText.Append(text.Properties.Text);
+        }
+        #endregion
+
+        #region &quot;tagpairs&quot;
+        public void VisitTagPair(ITagPair tagPair)
+        {
+            PlainText.Append(&quot;&lt;&quot; + tagPair.StartTagProperties.TagContent + &quot;&gt;&quot;);
+            VisitChildren(tagPair);
+            PlainText.Append(&quot;&lt;/&quot; + tagPair.EndTagProperties.TagContent + &quot;&gt;&quot;);
+        }
+        #endregion
+
+
+        #region &quot;comments&quot;
+        public void VisitCommentMarker(ICommentMarker commentMarker)
+        {
+
+        }
+        #endregion
+
+        #region &quot;left empty&quot;
+        public void VisitSegment(ISegment segment)
+        {
+            VisitChildren(segment);
+        }
+
+        public void VisitLocationMarker(ILocationMarker location)
+        {
+
+        }
+
+        public void VisitLockedContent(ILockedContent lockedContent)
+        {
+
+        }
+
+        public void VisitOtherMarker(IOtherMarker marker)
+        {
+
+        }
+
+        public void VisitPlaceholderTag(IPlaceholderTag tag)
+        {
+
+        }
+
+        public void VisitRevisionMarker(IRevisionMarker revisionMarker)
+        {
+
+        }
+        #endregion
+
+        #endregion
+    }
+}
+</code></pre>
+</section>
+</div>
+<h2 id="see-also">See Also</h2>
+<p><a href="adding_the_file_writer_class.html">Adding the File Writer Class</a></p>
+<p><a href="generating_the_paragraph_units.html">Generating the Paragraph Units</a></p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+</div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/18.0/apiconcepts/filetypesupport/adding_the_text_extractor_class.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Adding the TM to the Project </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Adding the TM to the Project ">
+    
+    
+      <link rel="shortcut icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../../styles/docfx.css">
+      <link rel="stylesheet" href="../../styles/main.css">
+      <meta property="docfx:navrel" content="../../toc.html">
+      <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>        
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="https://developers.rws.com/">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+
+        <div class="container body-content">
+
+          <div id="search-results">
+            <div class="search-list">Search Results for <span></span></div>
+            <div class="sr-items">
+              <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+            </div>
+            <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+          </div>
+        </div>
+
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="adding-the-tm-to-the-project">Adding the TM to the Project</h1>
+
+<p>In this step you will learn how to add the translation memory to our project that should be used for the batch analysis process.</p>
+<p>Implement a separate helper function that we use to add the translation memory to the project. This function takes a <a href="../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.html">FileBasedProject</a> object and the full TM file name and path string as parameters:</p>
+<div class="tabGroup" id="tabgroup_1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_1_tabid-1" role="tab" aria-controls="tabpanel_1_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_1_tabid-1" role="tabpanel" data-tab="tabid-1">
+
+<pre><code class="lang-cs">private void AddTm(FileBasedProject project, string tmFilePath)
+</code></pre>
+</section>
+</div>
+
+<p>A project can be associated with a number of translation memories, which are contained in the translation provider configuration. The <a href="../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.html#Sdl_ProjectAutomation_FileBased_FileBasedProject_GetTranslationProviderConfiguration">TranslationProviderConfiguration</a> acts as a container for the different kinds of translation providers that can be added to a project, e.g. TMs and Web-based translation services such as Google Translate. In our simple implementation, we will only add one TM to the configuration. Start by creating a translation provider configuration object as shown below:</p>
+<div class="tabGroup" id="tabgroup_2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_2_tabid-2" role="tab" aria-controls="tabpanel_2_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_2_tabid-2" role="tabpanel" data-tab="tabid-2">
+
+<pre><code class="lang-cs">TranslationProviderConfiguration config = project.GetTranslationProviderConfiguration();
+</code></pre>
+</section>
+</div>
+
+<p>The configuration can contain a cascade of providers. Create an object based on the <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.TranslationProviderCascadeEntry.html">TranslationProviderCascadeEntry</a>. The parameters you need to provide here are as follows:</p>
+<ul>
+<li>The TM file name and path (string).</li>
+<li>A boolean parameter to indicate whether the TM should be used for segment lookups (True in our implementation).</li>
+<li>A boolean parameter to indicate whether the TM should be used for concordance searches (False, as concordance searching is not required in our implementation).</li>
+<li>A boolean parameter to indicate whether the TM should be updated (False in our implementation, as we use the TM only for analysis, not for adding new translation units or for updating TUs).</li>
+</ul>
+<p>After creating the translation provider cascade entry, we add it to the configuration as shown below:</p>
+<div class="tabGroup" id="tabgroup_3">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_3_tabid-3" role="tab" aria-controls="tabpanel_3_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_3_tabid-3" role="tabpanel" data-tab="tabid-3">
+
+<pre><code class="lang-cs">TranslationProviderCascadeEntry tm = new TranslationProviderCascadeEntry(
+    tmFilePath,
+    true,
+    true,
+    false);
+config.Entries.Add(tm);
+
+project.UpdateTranslationProviderConfiguration(config);
+</code></pre>
+</section>
+</div>
+
+<p>The complete helper function for adding the TM to the project should now look as follows:</p>
+<div class="tabGroup" id="tabgroup_4">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_4_tabid-4" role="tab" aria-controls="tabpanel_4_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_4_tabid-4" role="tabpanel" data-tab="tabid-4">
+
+<pre><code class="lang-cs">/// &lt;summary&gt;
+/// Adds the TM that should be used for the analysis. The project languages are
+/// set according to the TM.
+/// &lt;/summary&gt; 
+#region &quot;AddTmFunction&quot;
+private void AddTm(FileBasedProject project, string tmFilePath)
+#endregion
+{
+    #region &quot;TranslationProviderConfiguration&quot;
+    TranslationProviderConfiguration config = project.GetTranslationProviderConfiguration();
+    #endregion
+
+    #region &quot;TranslationProviderCascadeEntry&quot;
+    TranslationProviderCascadeEntry tm = new TranslationProviderCascadeEntry(
+        tmFilePath,
+        true,
+        true,
+        false);
+    config.Entries.Add(tm);
+
+    project.UpdateTranslationProviderConfiguration(config);
+    #endregion
+}
+</code></pre>
+</section>
+</div>
+
+<p>If you are publishing to a project server it is recommended that you create a server based TM so that the TM can be shared between all the project users. Implement a separate helper function that we use to add the server translation memory to the project. This function takes a <a href="../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.html">FileBasedProject</a> object, the server address, the organization path, TM name and security details. These will be provided by your TM server administrator:</p>
+<div class="tabGroup" id="tabgroup_5">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_5_tabid-5" role="tab" aria-controls="tabpanel_5_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_5_tabid-5" role="tabpanel" data-tab="tabid-5">
+
+<pre><code class="lang-cs">/// &lt;summary&gt;
+/// Add a server TM to be used for anaysis. The project languages are
+/// set according to the TM.
+/// &lt;/summary&gt;
+private void AddServerTm(FileBasedProject project, string serverAddress, string organizationPath, string tmName, bool useWindowsSecurity, string username, string password)
+</code></pre>
+</section>
+</div>
+
+<p>A project can be associated with a number of translation memories, which are contained in the translation provider configuration. The <a href="../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.html#Sdl_ProjectAutomation_FileBased_FileBasedProject_GetTranslationProviderConfiguration">TranslationProviderConfiguration</a> acts as a container for the different kinds of translation providers that can be added to a project, e.g. TMs and Web-based translation services such as Google Translate. In our simple implementation, we will only add one TM to the configuration. Start by creating a translation provider configuration object as shown below:</p>
+<div class="tabGroup" id="tabgroup_6">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_6_tabid-6" role="tab" aria-controls="tabpanel_6_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_6_tabid-6" role="tabpanel" data-tab="tabid-6">
+
+<pre><code class="lang-cs">TranslationProviderConfiguration config = project.GetTranslationProviderConfiguration();
+</code></pre>
+</section>
+</div>
+
+<p>The configuration can contain a cascade of providers. Create an object based on the <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.TranslationProviderCascadeEntry.html">TranslationProviderCascadeEntry</a>. The parameters you need to provide here are as follows:</p>
+<ul>
+<li>A TranslationProviderReference which points server tm</li>
+<li>A boolean parameter to indicate whether the TM should be used for segment lookups (True in our implementation).</li>
+<li>A boolean parameter to indicate whether the TM should be used for concordance searches (False, as concordance searching is not required in our implementation).</li>
+<li>A boolean parameter to indicate whether the TM should be updated (False in our implementation, as we use the TM only for analysis, not for adding new translation units or for updating TUs).</li>
+</ul>
+<p>After creating the translation provider cascade entry, we add it to the configuration as shown below:</p>
+<div class="tabGroup" id="tabgroup_7">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_7_tabid-7" role="tab" aria-controls="tabpanel_7_tabid-7" data-tab="tabid-7" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_7_tabid-7" role="tabpanel" data-tab="tabid-7">
+
+<pre><code class="lang-cs">TranslationProviderCascadeEntry tm = new TranslationProviderCascadeEntry(
+    tmFilePath,
+    true,
+    true,
+    false);
+config.Entries.Add(tm);
+
+project.UpdateTranslationProviderConfiguration(config);
+</code></pre>
+</section>
+</div>
+
+<p>In addition to setting up the provider you will need to set up the credentials required to access the provider as follows:</p>
+<div class="tabGroup" id="tabgroup_8">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_8_tabid-8" role="tab" aria-controls="tabpanel_8_tabid-8" data-tab="tabid-8" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_8_tabid-8" role="tabpanel" data-tab="tabid-8">
+
+<pre><code class="lang-cs">project.Credentials.AddCredential(new Uri(serverAddress), String.Format(&quot;user={0};password={1};type=CustomUser&quot;, username, password, useWindowsSecurity ? &quot;WindowsUser&quot; : &quot;CustomUser&quot;));
+project.UpdateTranslationProviderConfiguration(config);
+</code></pre>
+</section>
+</div>
+
+<p>The complete helper function for adding the TM to the project should now look as follows:</p>
+<div class="tabGroup" id="tabgroup_9">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_9_tabid-9" role="tab" aria-controls="tabpanel_9_tabid-9" data-tab="tabid-9" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_9_tabid-9" role="tabpanel" data-tab="tabid-9">
+
+<pre><code class="lang-cs">#region &quot;AddServerTmFunction&quot;
+/// &lt;summary&gt;
+/// Add a server TM to be used for anaysis. The project languages are
+/// set according to the TM.
+/// &lt;/summary&gt;
+private void AddServerTm(FileBasedProject project, string serverAddress, string organizationPath, string tmName, bool useWindowsSecurity, string username, string password)
+#endregion
+{
+    #region &quot;TranslationProviderConfiguration&quot;
+    Uri tmAddress = new Uri(String.Format(&quot;sdltm.{1}{2}/{3}&quot;, serverAddress, organizationPath, tmName));
+    TranslationProviderConfiguration config = project.GetTranslationProviderConfiguration();
+    #endregion
+
+    #region &quot;TranslationProviderCascadeEntryForServerTM&quot;
+    TranslationProviderCascadeEntry tm = new TranslationProviderCascadeEntry
+    (
+          new TranslationProviderReference(tmAddress),
+          true,
+          false,
+          false
+    );
+    config.Entries.Add(tm);
+    project.UpdateTranslationProviderConfiguration(config);
+    #endregion
+
+    #region &quot;CredentialsForServerTm&quot;
+    project.Credentials.AddCredential(new Uri(serverAddress), String.Format(&quot;user={0};password={1};type=CustomUser&quot;, username, password, useWindowsSecurity ? &quot;WindowsUser&quot; : &quot;CustomUser&quot;));
+    project.UpdateTranslationProviderConfiguration(config);
+    #endregion
+}
+</code></pre>
+</section>
+</div>
+<h2 id="see-also">See Also</h2>
+<p><a href="adding_translation_memories.html">Adding Translation Memories</a></p>
+<p><a href="translation_memory_settings.html">Translation Memory Settings</a></p>
+<p><a href="translation_memory_search_settings.html">Translation Memory Search Settings</a></p>
+<p><a href="setting_tm_penalties.html">Setting TM Penalties</a></p>
+<p><a href="translation_memory_field_update.html">Translation Memory Fields Update</a></p>
+<p><a href="translation_memory_filter_settings.html">Translation Memory Filter Settings</a></p>
+<p><a href="auto_substitution_settings.html">Auto-Substitution Settings</a></p>
+<p><a href="project_configuration.html">Project Configuration</a></p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/18.0/apiconcepts/projectautomation/adding_tm_to_the_project.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

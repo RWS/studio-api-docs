@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Configuring the Analyze Task Settings </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Configuring the Analyze Task Settings ">
+    
+    
+      <link rel="shortcut icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../../styles/docfx.css">
+      <link rel="stylesheet" href="../../styles/main.css">
+      <meta property="docfx:navrel" content="../../toc.html">
+      <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>        
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="https://developers.rws.com/">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+
+        <div class="container body-content">
+
+          <div id="search-results">
+            <div class="search-list">Search Results for <span></span></div>
+            <div class="sr-items">
+              <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+            </div>
+            <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+          </div>
+        </div>
+
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="configuring-the-analyze-task-settings">Configuring the Analyze Task Settings</h1>
+
+<p>The automatic analyze files task can be configured through various parameters. In our implementation we will use two parameters: the reporting of cross-file repetitions and of the internal fuzzy match leverage. For detailed information on the available task settings, please see <a href="analyze_files_settings.html">Analyze Files Settings</a>.</p>
+<p>Add a new helper function called GetAnalyzeSettings. Below you see the parameters that need to be provided for this function, i.e. the <a href="../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.html">FileBasedProject</a>  object, the target locale string and boolean parameters for the two task reporting settings that are configured through the command-line interface:</p>
+<div class="tabGroup" id="tabgroup_1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_1_tabid-1" role="tab" aria-controls="tabpanel_1_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_1_tabid-1" role="tabpanel" data-tab="tabid-1">
+
+<pre><code class="lang-cs">/// &lt;summary&gt;
+/// Configures the analyze task file settings, i.e. in our implementation
+/// report cross-file repetitions and report the internal fuzzy match leverage.
+/// &lt;/summary&gt; 
+private void GetAnalyzeSettings(
+    FileBasedProject project,
+    string trgLocale,
+    bool reportCrossFileRepetitions,
+    bool reportInternalFuzzyMatchLeverage)
+</code></pre>
+</section>
+</div>
+
+<p>The settings can be configured for each target language. As our implementation uses only a single target language, we actually do not need to provide the target language as parameter, however, for good measure we are going to demonstrate how you would work when you want to differentiate the settings per target language. First, create a <code>Language</code> object based on the target locale string:</p>
+<div class="tabGroup" id="tabgroup_2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_2_tabid-2" role="tab" aria-controls="tabpanel_2_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_2_tabid-2" role="tabpanel" data-tab="tabid-2">
+
+<pre><code class="lang-cs">Language trgLanguage = new Language(CultureInfo.GetCultureInfo(trgLocale));
+</code></pre>
+</section>
+</div>
+
+<p>All available settings (i.e. the settings for all project tasks as well as TM settings) are stored in a <code>ISettingsBundle</code> object, which acts as a container for all project settings. By applying the <code>GetSettingsGroup</code> method to the settings bundle, we create a specific <code>ISettingsBundle</code> object as shown below:</p>
+<div class="tabGroup" id="tabgroup_3">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_3_tabid-3" role="tab" aria-controls="tabpanel_3_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_3_tabid-3" role="tabpanel" data-tab="tabid-3">
+
+<pre><code class="lang-cs">Language trgLanguage = new Language(CultureInfo.GetCultureInfo(trgLocale));
+</code></pre>
+</section>
+</div>
+
+<p>Then you configure the two settings that we use in our implementation by setting the values of the following properties:</p>
+<div class="tabGroup" id="tabgroup_4">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_4_tabid-4" role="tab" aria-controls="tabpanel_4_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_4_tabid-4" role="tabpanel" data-tab="tabid-4">
+
+<pre><code class="lang-cs">analyzeSettings.ReportCrossFileRepetitions.Value = reportCrossFileRepetitions;
+analyzeSettings.ReportInternalFuzzyMatchLeverage.Value = reportInternalFuzzyMatchLeverage;
+</code></pre>
+</section>
+</div>
+
+<p>In the last step you need to make sure to apply the <a href="../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.html#Sdl_ProjectAutomation_FileBased_FileBasedProject_UpdateSettings_Sdl_Core_Globalization_Language_Sdl_Core_Settings_ISettingsBundle_">UpdateSettings</a> method to update the project settings accordingly:</p>
+<div class="tabGroup" id="tabgroup_5">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_5_tabid-5" role="tab" aria-controls="tabpanel_5_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_5_tabid-5" role="tabpanel" data-tab="tabid-5">
+
+<pre><code class="lang-cs">project.UpdateSettings(trgLanguage, settings);
+</code></pre>
+</section>
+</div>
+
+<p>Note that if the settings should be updated for the entire project, then you only need to provide the settings bundle object as parameter. If the settings are target language-specific you also need to provide the target language object.</p>
+<p>The complete helper function should now look as shown below:</p>
+<div class="tabGroup" id="tabgroup_6">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_6_tabid-6" role="tab" aria-controls="tabpanel_6_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_6_tabid-6" role="tabpanel" data-tab="tabid-6">
+
+<pre><code class="lang-cs">#region &quot;GetAnalyzeSettingsFunction&quot;
+/// &lt;summary&gt;
+/// Configures the analyze task file settings, i.e. in our implementation
+/// report cross-file repetitions and report the internal fuzzy match leverage.
+/// &lt;/summary&gt; 
+private void GetAnalyzeSettings(
+    FileBasedProject project,
+    string trgLocale,
+    bool reportCrossFileRepetitions,
+    bool reportInternalFuzzyMatchLeverage)
+#endregion
+{
+    #region &quot;trgLanguage&quot;
+    Language trgLanguage = new Language(CultureInfo.GetCultureInfo(trgLocale));
+    #endregion
+
+    #region &quot;ISettingsBundle&quot;
+    ISettingsBundle settings = project.GetSettings(trgLanguage);
+    AnalysisTaskSettings analyzeSettings = settings.GetSettingsGroup&lt;AnalysisTaskSettings&gt;();
+    #endregion
+
+    #region &quot;ConfigureSettings&quot;
+    analyzeSettings.ReportCrossFileRepetitions.Value = reportCrossFileRepetitions;
+    analyzeSettings.ReportInternalFuzzyMatchLeverage.Value = reportInternalFuzzyMatchLeverage;
+    #endregion
+
+    #region &quot;UpdateSettings&quot;
+    project.UpdateSettings(trgLanguage, settings);
+    #endregion
+}
+</code></pre>
+</section>
+</div>
+<h2 id="see-also">See Also</h2>
+<p><a href="analyze_files_settings.html">Analyze Files Settings</a></p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/18.0/apiconcepts/projectautomation/configuring_the_analyze_task_settings.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

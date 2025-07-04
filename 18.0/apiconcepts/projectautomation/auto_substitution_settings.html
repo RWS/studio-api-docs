@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Auto-Substitution Settings </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Auto-Substitution Settings ">
+    
+    
+      <link rel="shortcut icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../../styles/docfx.css">
+      <link rel="stylesheet" href="../../styles/main.css">
+      <meta property="docfx:navrel" content="../../toc.html">
+      <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>        
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="https://developers.rws.com/">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+
+        <div class="container body-content">
+
+          <div id="search-results">
+            <div class="search-list">Search Results for <span></span></div>
+            <div class="sr-items">
+              <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+            </div>
+            <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+          </div>
+        </div>
+
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="auto-substitution-settings">Auto-Substitution Settings</h1>
+
+<p>Trados Studio offers the ability to automatically substitute and localize certain elements within a segment, e.g. numbers. Example: The segments '<em>You owe me 100 dollars.</em>' and '<em>You owe me 2,000 dollars.</em>' are regarded as being identical, because the only difference here is a number, which can be automatically substituted. Moreover, Trados Studio can also auto-localize the number format. For example, the number '2,000' in English needs to be localized into '2.000' when the target language is e.g. German.</p>
+<p>Through the API you can programmatically set for a project whether elements such as numbers, dates, times, measurements, etc. should be automatically substituted and localized or not. By default, such elements are treated by the system as placeables, which means that they can be automatically substituted by the system. The sample code below highlights some of the properties which you can set to True or False depending on whether you want the auto-substitution and auto-localization to be used in your project:</p>
+<div class="tabGroup" id="tabgroup_1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_1_tabid-1" role="tab" aria-controls="tabpanel_1_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_1_tabid-1" role="tabpanel" data-tab="tabid-1">
+
+<pre><code class="lang-CS">tmSettings.NumbersAutoLocalizationEnabled.Value = true;
+tmSettings.DatesAutoLocalizationEnabled.Value = true;
+tmSettings.MeasurementsAutoLocalizationEnabled.Value = true;
+tmSettings.TimesAutoLocalizationEnabled.Value = true;
+</code></pre>
+</section>
+</div>
+
+<div class="NOTE">
+<h5>Note</h5>
+<p>If you want to use this feature, however, you would still like to alert translators to the fact that numbers, dates, etc. have been localized
+automatically in a segment, you can apply a penalty as shown in the code example below:</p>
+</div>
+<div class="tabGroup" id="tabgroup_2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_2_tabid-2" role="tab" aria-controls="tabpanel_2_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_2_tabid-2" role="tabpanel" data-tab="tabid-2">
+
+<pre><code class="lang-CS">tmSettings.AutoLocalizationPenalty.Value = 1;
+</code></pre>
+</section>
+</div>
+
+<p>In this case, a penalty of 1% will be applied to each segment in which an auto-localization has taken place (for more information on penalties, please see also <a href="setting_tm_penalties.html">Setting TM Penalties</a>).</p>
+<p>Apart from setting whether elements such as dates, times, etc. should be localized, you can also set the preferred long/short date or time format. For example, you can configure whether the English date format <em>12-31-2010</em> should be in German <em>31.12.2010</em> or <em>31.12.10</em>, etc.</p>
+<p>The screenshot below illustrates how you can set your preferred long and short date/time formats for the corresponding target language:</p>
+<p><img src="images/DateTimes.jpg" alt="DateTimes"></p>
+<p>Below you find an example of how to set the preferred short date pattern for your project:</p>
+<div class="tabGroup" id="tabgroup_3">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_3_tabid-3" role="tab" aria-controls="tabpanel_3_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_3_tabid-3" role="tabpanel" data-tab="tabid-3">
+
+<pre><code class="lang-CS">tmSettings.ShortDatePattern.Value = &quot;dd.MM.yy&quot;;
+</code></pre>
+</section>
+</div>
+
+<p>The <a href="../../api/projectautomation/Sdl.ProjectAutomation.Settings.TranslationMemorySettings.html#Sdl_ProjectAutomation_Settings_TranslationMemorySettings_MeasurementsFormattingMode">MeasurementsFormattingMode</a> during auto-substitution, between the number and the measurement unit can also be specified. The default is <a href="../../api/projectautomation/Sdl.ProjectAutomation.Settings.TranslationMemorySettings.html#Sdl_ProjectAutomation_Settings_TranslationMemorySettings_MeasurementsFormattingMode">Auto_FromDocument</a>.</p>
+<p>The screenshot below ilustrates how this setting's options are presented through the user interface of Trados Studio:</p>
+<p><img src="images/Measurements.jpg" alt="Measurements"></p>
+<p>Below you find an example of how to set the spacing during auto-substitution:</p>
+<div class="tabGroup" id="tabgroup_4">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_4_tabid-4" role="tab" aria-controls="tabpanel_4_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_4_tabid-4" role="tabpanel" data-tab="tabid-4">
+
+<pre><code class="lang-CS">tmSettings.MeasurementsFormattingMode.Value = Settings.MeasurementsFormattingMode.Auto_FromMemory;
+</code></pre>
+</section>
+</div>
+<h2 id="see-also">See Also</h2>
+<p><a href="translation_memory_search_settings.html">Translation Memory Search Settings</a></p>
+<p><a href="setting_tm_penalties.html">Setting TM Penalties</a></p>
+<p><a href="translation_memory_field_update.html">Translation Memory Fields Update</a></p>
+<p><a href="translation_memory_filter_settings.html">Translation Memory Filter Settings</a></p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/18.0/apiconcepts/projectautomation/auto_substitution_settings.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

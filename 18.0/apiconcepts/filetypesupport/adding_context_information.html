@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Adding Context Information </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Adding Context Information ">
+    
+    
+      <link rel="shortcut icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../../styles/docfx.css">
+      <link rel="stylesheet" href="../../styles/main.css">
+      <meta property="docfx:navrel" content="../../toc.html">
+      <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>        
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="https://developers.rws.com/">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+
+        <div class="container body-content">
+
+          <div id="search-results">
+            <div class="search-list">Search Results for <span></span></div>
+            <div class="sr-items">
+              <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+            </div>
+            <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+          </div>
+        </div>
+
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="adding-context-information">Adding Context Information</h1>
+
+<p>In this chapter you will learn how to extract helpful context information from a given BIL file.</p>
+<h2 id="about-contexts">About Contexts</h2>
+<p>For the translators it is often useful to know whether a given segment occurs in a headline, paragraph, etc. Units in the BIL sample format may contain a <code>type</code> element, which indicates the context of a <code>unit</code> element, e.g.:</p>
+<pre><code class="lang-xml">&lt;type spec=&quot;Heading&quot;/&gt;
+</code></pre>
+<p>Trados Studio can display such information in a column next to the target segments. In this chapter we want to enhance our parser to show the information from the type element in the editor of Trados Studio.</p>
+<p>Below you see an example of how the context information can be displayed in the translation environment. Each context cell contains a display code, which is the abbreviated form of the full context, e.g. <strong>T</strong> for <strong>Topic</strong>. You may also assign different colors for each context type as a visual aid for the translator.</p>
+<p><img src="images/BilContext.jpg" alt="BilContext"></p>
+<p>The API allows you to either create custom context information using, for example, the information from the BIL file, or you can draw from a collection of standard context types. The API offers various standard types to cover a large variety of possible elements that may occur in a document such as title, paragraph, text box, etc.</p>
+<p>To keep things simple let us consider only three mapping scenarios. The table below lists the BIL type values, which should be mapped to the corresponding standard context types offered by the API:</p>
+<table>
+<thead>
+<tr>
+<th>BIL Type</th>
+<th>Standard Context Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Heading</td>
+<td>Topic</td>
+</tr>
+<tr>
+<td>Box</td>
+<td>Text Box</td>
+</tr>
+</tbody>
+</table>
+<p>For our implementation, let us assume the following: If a unit in the BIL file does not have a type element, then the standard context type <strong>paragraph</strong> should be used.</p>
+<p>Apart from the <code>type</code> element content we can also use the context information to store the unique id of the units found in the BIL file. The unit element contains an id attribute, which stores the id value. This id should not be shown to the end user, as it is not relevant for the translation. However, it should be included somewhere in the intermediary (SDLXliff) file, so that the writer class (which we will implement later) can reference it when generating the target BIL file (see <a href="adding_the_file_writer_class.html">Adding the File Writer Class</a>). Within the context properties (but not only there) you can include metadata, which is not visible to the user, but is stored physically in the intermediary (SDLXliff) file.</p>
+<p>Note that adding metadata is not limited to contexts. You can apply metadata to various types of instances such as inline tags, structure tags, placeables, etc.</p>
+<h2 id="extend-the-helper-function-for-creating-paragraph-units">Extend the Helper Function for Creating Paragraph Units</h2>
+<p>First, add the following to the <code>CreateParagraphUnit()</code> helper function:</p>
+<div class="tabGroup" id="tabgroup_1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_1_tabid-1" role="tab" aria-controls="tabpanel_1_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_1_tabid-1" role="tabpanel" data-tab="tabid-1">
+
+<pre><code class="lang-cs">// create paragraph unit context
+string id = xmlUnit.SelectSingleNode(&quot;./@id&quot;).InnerText;
+if(xmlUnit.SelectSingleNode(&quot;type/@spec&quot;)!=null)
+{
+    string spec = xmlUnit.SelectSingleNode(&quot;type/@spec&quot;).InnerText;
+
+    paragraphUnit.Properties.Contexts=CreateContext(spec, id);
+} else {
+    paragraphUnit.Properties.Contexts = CreateContext(&quot;Paragraph&quot;, id);
+}
+</code></pre>
+</section>
+</div>
+
+<p>The above condition determines whether a <code>type</code> element is available in the first place. If this is the case, the value from the spec attribute is passed to another helper function (which we will add later), which returns the appropriate context properties object. If not, the additional helper function needs to generate a standard paragraph context properties object.
+Second, we determine the value of the id attribute of the current <code>unit</code> element, and pass it to the separate helper function.</p>
+<p>The full <code>CreateParagraphUnit()</code> helper function should look as shown below:</p>
+<div class="tabGroup" id="tabgroup_2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_2_tabid-2" role="tab" aria-controls="tabpanel_2_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_2_tabid-2" role="tabpanel" data-tab="tabid-2">
+
+<pre><code class="lang-cs">// helper function for creating paragraph units
+private IParagraphUnit CreateParagraphUnit(XmlNode xmlUnit)
+{
+    // create paragraph unit object
+    IParagraphUnit paragraphUnit = ItemFactory.CreateParagraphUnit(LockTypeFlags.Unlocked);
+
+
+    // create segment pair object
+    ISegmentPairProperties segmentPairProperties = ItemFactory.CreateSegmentPairProperties();  
+    // assign the appropriate confirmation level to the segment pair            
+    segmentPairProperties.ConfirmationLevel=CreateConfirmationLevel(xmlUnit.Attributes[&quot;status&quot;].Value);
+
+    // add source segment to paragraph unit
+    ISegment srcSegment = CreateSegment(xmlUnit.SelectSingleNode(&quot;source/seg&quot;), segmentPairProperties);            
+    paragraphUnit.Source.Add(srcSegment);
+
+    // add target segment to paragraph unit if available
+    if(xmlUnit.SelectSingleNode(&quot;target/seg&quot;) != null)            
+    {
+        ISegment trgSegment = CreateSegment(xmlUnit.SelectSingleNode(&quot;target/seg&quot;), segmentPairProperties);
+        paragraphUnit.Target.Add(trgSegment);
+    }
+
+    #region &quot;context&quot;
+    // create paragraph unit context
+    string id = xmlUnit.SelectSingleNode(&quot;./@id&quot;).InnerText;
+    if(xmlUnit.SelectSingleNode(&quot;type/@spec&quot;)!=null)
+    {
+        string spec = xmlUnit.SelectSingleNode(&quot;type/@spec&quot;).InnerText;
+
+        paragraphUnit.Properties.Contexts=CreateContext(spec, id);
+    } else {
+        paragraphUnit.Properties.Contexts = CreateContext(&quot;Paragraph&quot;, id);
+    }
+    #endregion
+
+    #region &quot;comments&quot;
+    // extract comment (if applicable)
+    if(xmlUnit.SelectSingleNode(&quot;comment&quot;)!=null)
+    {
+        paragraphUnit.Properties.Comments = CreateComment(xmlUnit.SelectSingleNode(&quot;comment&quot;).InnerText);
+    }
+    #endregion
+
+    return paragraphUnit;
+}
+</code></pre>
+</section>
+</div>
+<h2 id="add-the-helper-function-to-create-the-context-properties">Add the Helper Function to Create the Context Properties</h2>
+<p>Before you implement the new context helper function, add the <code>System.Drawing</code> library as a reference to your project. This facilitates the task of assigning different background colors to the various context types, which makes distinguishing the contexts easer for the end user.</p>
+<p>Also, you need to add the following namespace to your class, which provides access to the standard context types that the API offers: <code>Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi</code></p>
+<p>This function uses the properties factory to create a context properties object as well as a context information object. By default, we assign the context type <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.StandardContextTypes.html#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_StandardContextTypes_Paragraph">Paragraph</a> value from the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.StandardContextTypes.html">StandardContextTypes</a> collection. Also, we set the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ContextPurpose.html">ContextPurpose</a> to <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ContextPurpose.html#fields">Information</a>. This means that the context information is purely for information, and not for TM matching purposes. The function than uses a switch statement to map the value from the spec attribute of the <code>type</code> element to the corresponding standard context type and assigns a background colour.</p>
+<p>The second context info (<code>contextID</code>) that is added to the context properties object contains the unit id. Remember that this information is not supposed to be visible to the end user. That is why we add it through the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IMetaDataContainer.html#Sdl_FileTypeSupport_Framework_NativeApi_IMetaDataContainer_MetaData">MetaData</a> property. In this case, the <code>Add()</code> method requires two string parameters: the key (i.e. the field name) and the actual value.</p>
+<div class="tabGroup" id="tabgroup_3">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_3_tabid-3" role="tab" aria-controls="tabpanel_3_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_3_tabid-3" role="tabpanel" data-tab="tabid-3">
+
+<pre><code class="lang-cs">private IContextProperties CreateContext(string spec, string unitID)
+{
+    // context info for type information, e.g. heading, paragraph, etc.
+    IContextProperties contextProperties = PropertiesFactory.CreateContextProperties();
+    IContextInfo contextInfo = PropertiesFactory.CreateContextInfo(StandardContextTypes.Paragraph);
+    contextInfo.Purpose = ContextPurpose.Information;
+
+    // add unit id as metadata
+    IContextInfo contextId = PropertiesFactory.CreateContextInfo(&quot;UnitId&quot;);
+    contextId.SetMetaData(&quot;UnitID&quot;, unitID);
+
+    switch (spec)
+    {
+        case &quot;Heading&quot;:
+            contextInfo = PropertiesFactory.CreateContextInfo(StandardContextTypes.Topic);
+            contextInfo.DisplayColor = Color.Green;
+            break;
+        case &quot;Box&quot;:
+            contextInfo = PropertiesFactory.CreateContextInfo(StandardContextTypes.TextBox);
+            contextInfo.DisplayColor = Color.Gold;
+            break;
+        case &quot;Paragraph&quot;:
+            contextInfo = PropertiesFactory.CreateContextInfo(StandardContextTypes.Paragraph);
+            contextInfo.DisplayColor = Color.Silver;
+            break;
+        default:
+            break;
+    }
+
+    contextProperties.Contexts.Add(contextInfo);
+    contextProperties.Contexts.Add(contextId);
+
+    return contextProperties;
+}
+</code></pre>
+</section>
+</div>
+
+<div class="NOTE">
+<h5>Note</h5>
+<p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+</div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/18.0/apiconcepts/filetypesupport/adding_context_information.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

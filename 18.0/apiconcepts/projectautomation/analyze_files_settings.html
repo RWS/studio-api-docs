@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Analyze Files Settings </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Analyze Files Settings ">
+    
+    
+      <link rel="shortcut icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../../styles/docfx.css">
+      <link rel="stylesheet" href="../../styles/main.css">
+      <meta property="docfx:navrel" content="../../toc.html">
+      <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>        
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="https://developers.rws.com/">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+
+        <div class="container body-content">
+
+          <div id="search-results">
+            <div class="search-list">Search Results for <span></span></div>
+            <div class="sr-items">
+              <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+            </div>
+            <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+          </div>
+        </div>
+
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="analyze-files-settings">Analyze Files Settings</h1>
+
+<p>The Analyze Files task is used to determine the TM leverage for the selected project file(s). This means that it determines how many TUs of the main TMs match the segments in the project files. The task also determines the rate of repeated segments, i.e. repetitions within a document or cross-file repetitions. The task also determines the total number of segments, words, and characters. Therefore it is even useful when no TMs have been added to the project. This chapter provides detailed information on the various settings that you can configure to fine-tune this task programmatically.</p>
+<h2 id="configure-the-task-settings">Configure the Task Settings</h2>
+<p>The screenshot below shows the settings that can be configured for the Analyze Files task in Trados Studio.</p>
+<p><img src="images/AnalyzeFileSettings.jpg" alt="AnalyzeFileSettings"></p>
+<p>To configure the task settings programmatically, implement a helper function called <code>GetAnalyzeTaskSettings</code>, which takes a <a href="../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.html">FileBasedProject</a> object as parameter. The settings for a particular task are saved within the project. The settings can either apply to the entire project or can be target-language specific, e.g. when the German files require different task settings from the French files. Each project is associated with a settings bundle, which contains the settings for all tasks (e.g. analyze, pre-translate, etc.). First, create a <code>ISettingsBundle</code> object by applying the <code>GetSettings</code> method to the project object. Then apply the <code>GetSettingsGroup</code> method to generate a settings object based on the <a href="../../api/projectautomation/Sdl.ProjectAutomation.Settings.AnalysisTaskSettings.html">AnalysisTaskSettings</a> class:</p>
+<div class="tabGroup" id="tabgroup_1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_1_tabid-1" role="tab" aria-controls="tabpanel_1_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_1_tabid-1" role="tabpanel" data-tab="tabid-1">
+
+<pre><code class="lang-CS">ISettingsBundle settings = project.GetSettings();
+AnalysisTaskSettings analyseSettings = settings.GetSettingsGroup&lt;AnalysisTaskSettings&gt;();
+</code></pre>
+</section>
+</div>
+
+<p>Afterwards, you configure the task-specific settings as follows:</p>
+<p><strong>Report Cross-file Repetitions</strong></p>
+<p>Repetitions are segments that are not stored in any of the selected main TMs, but that occur more than once within a document, or that are repeated over several documents. Through the boolean <a href="../../api/projectautomation/Sdl.ProjectAutomation.Settings.AnalysisTaskSettings.html#Sdl_ProjectAutomation_Settings_AnalysisTaskSettings_ReportCrossFileRepetitions">ReportCrossFileRepetitions</a> property you can determine whether the analyze task should consider identical segments in different project files as repetitions or not. The default value is True.</p>
+<div class="tabGroup" id="tabgroup_2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_2_tabid-2" role="tab" aria-controls="tabpanel_2_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_2_tabid-2" role="tabpanel" data-tab="tabid-2">
+
+<pre><code class="lang-CS">analyseSettings.ReportCrossFileRepetitions.Value = true;
+</code></pre>
+</section>
+</div>
+
+<p><strong>Report Internal Fuzzy Match Leverage</strong></p>
+<p>By default, only identical segments are considered as repetitions. However when setting the <a href="../../api/projectautomation/Sdl.ProjectAutomation.Settings.AnalysisTaskSettings.html#Sdl_ProjectAutomation_Settings_AnalysisTaskSettings_ReportInternalFuzzyMatchLeverage">ReportInternalFuzzyMatchLeverage</a> boolean property to True the analyze task will also regard similar segments as repetitions. If this is the case, for example, the segment &quot;<em>This is a short segment.</em>&quot; will be considered a 'fuzzy repetition' of the segment &quot;This is a long segment.&quot;</p>
+<p><strong>Export Frequent Segments</strong></p>
+<p>Sometimes it can be useful to consolidate repeated segments in one file. This generates an SDLXliff document that contains only one occurrence of each repeated segment. This can help users translate repetitions more effectively and consistently, and then insert these translations into the 'actual' documents. By setting the <a href="../../api/projectautomation/Sdl.ProjectAutomation.Settings.AnalysisTaskSettings.html#Sdl_ProjectAutomation_Settings_AnalysisTaskSettings_ExportFrequentSegments">ExportFrequentSegments</a> property to True you can cause the task to generate a file in which all repetitions are consolidated at a central place. Through the <a href="../../api/projectautomation/Sdl.ProjectAutomation.Settings.AnalysisTaskSettings.html#Sdl_ProjectAutomation_Settings_AnalysisTaskSettings_FrequentSegmentsNoOfOccurrences">FrequentSegmentsNoOfOccurrences</a> property you set how many occurrences a segment should have at minimum to be exported to such a separate file. The default value is 5.</p>
+<div class="tabGroup" id="tabgroup_3">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_3_tabid-3" role="tab" aria-controls="tabpanel_3_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_3_tabid-3" role="tabpanel" data-tab="tabid-3">
+
+<pre><code class="lang-CS">analyseSettings.ExportFrequentSegments.Value = true;
+analyseSettings.FrequentSegmentsNoOfOccurrences.Value = 5;
+</code></pre>
+</section>
+</div>
+
+<p><strong>Export Unknown Segments</strong></p>
+<p>You may also have the task export any segments for which no match in the main TM(s) was found, or that fall below a specific fuzzy threshold. This may be useful if the analyze results show that, for example, out of 1,000 segments only 20 are unknown. In this case you can 'extract' those 20 unknown segments and consolidate them in a separate file for special processing. By setting the <a href="../../api/projectautomation/Sdl.ProjectAutomation.Settings.AnalysisTaskSettings.html#Sdl_ProjectAutomation_Settings_AnalysisTaskSettings_ExportUnknownSegments">ExportUnknownSegments</a> property to True you can generate an SDLXliff file that only contains the unknown segments. Through the <a href="../../api/projectautomation/Sdl.ProjectAutomation.Settings.AnalysisTaskSettings.html#Sdl_ProjectAutomation_Settings_AnalysisTaskSettings_UnknownSegmentsMaximumMatchValue">UnknownSegmentsMaximumMatchValue</a> property you set the fuzzy match value from which a segment should be regarded as being unknown, and thus exported. The default value here is 75.</p>
+<div class="tabGroup" id="tabgroup_4">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_4_tabid-4" role="tab" aria-controls="tabpanel_4_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_4_tabid-4" role="tabpanel" data-tab="tabid-4">
+
+<pre><code class="lang-CS">analyseSettings.ExportUnknownSegments.Value = true;
+analyseSettings.UnknownSegmentsMaximumMatchValue.Value = 50;
+</code></pre>
+</section>
+</div>
+
+<p>After configuring all task settings you need to update the project by applying the <a href="../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.html#Sdl_ProjectAutomation_FileBased_FileBasedProject_UpdateSettings_Sdl_Core_Globalization_Language_Sdl_Core_Settings_ISettingsBundle_">UpdateSettings</a> method as shown below:</p>
+<h2 id="putting-it-all-together">Putting it All Together</h2>
+<p>The complete function should look as shown below:</p>
+<div class="tabGroup" id="tabgroup_5">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_5_tabid-5" role="tab" aria-controls="tabpanel_5_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_5_tabid-5" role="tabpanel" data-tab="tabid-5">
+
+<pre><code class="lang-CS">public void GetAnalyzeTaskSettings(FileBasedProject project)
+{
+    #region &quot;AnalysisTaskSettings&quot;
+    ISettingsBundle settings = project.GetSettings();
+    AnalysisTaskSettings analyseSettings = settings.GetSettingsGroup&lt;AnalysisTaskSettings&gt;();
+    #endregion
+
+    #region &quot;ReportCrossFileRepetitions&quot;
+    analyseSettings.ReportCrossFileRepetitions.Value = true;
+    #endregion
+
+    #region &quot;ReportInternalFuzzyMatchLeverage&quot;
+    analyseSettings.ReportInternalFuzzyMatchLeverage.Value = true;
+    #endregion
+
+    #region &quot;ExportFrequentSettings&quot;
+    analyseSettings.ExportFrequentSegments.Value = true;
+    analyseSettings.FrequentSegmentsNoOfOccurrences.Value = 5;
+    #endregion
+
+    #region &quot;ExportUnknownSegments&quot;
+    analyseSettings.ExportUnknownSegments.Value = true;
+    analyseSettings.UnknownSegmentsMaximumMatchValue.Value = 50;
+    #endregion
+
+    #region &quot;UpdateAnalyzeSettings&quot;
+    project.UpdateSettings(settings);
+    #endregion
+}
+</code></pre>
+</section>
+</div>
+<h2 id="see-also">See Also</h2>
+<p><a href="project_tm_creation_settings.html">Project TM Creation Settings</a></p>
+<p><a href="pre_translate_settings.html">Pre-translate Settings</a></p>
+<p><a href="perfect_match.html">Perfect Match</a></p>
+<p><a href="update_translation_memory_settings.html">Update Translation Memory Settings</a></p>
+<p><a href="generating_and_exporting_target_files.html">Generating and Exporting Target Files</a></p>
+<p><a href="translation_count.html">Translation Count</a></p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/18.0/apiconcepts/projectautomation/analyze_files_settings.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

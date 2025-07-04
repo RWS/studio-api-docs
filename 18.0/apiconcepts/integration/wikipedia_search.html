@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Wikipedia Search </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Wikipedia Search ">
+    
+    
+      <link rel="shortcut icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../../styles/docfx.css">
+      <link rel="stylesheet" href="../../styles/main.css">
+      <meta property="docfx:navrel" content="../../toc.html">
+      <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>        
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="https://developers.rws.com/">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+
+        <div class="container body-content">
+
+          <div id="search-results">
+            <div class="search-list">Search Results for <span></span></div>
+            <div class="sr-items">
+              <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+            </div>
+            <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+          </div>
+        </div>
+
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="wikipedia-search">Wikipedia Search</h1>
+
+<p>Wikipedia Search is a useful addition to this plug-in. It illustrates how a view part can be integrated into an existing view in Studio, in this case a view part which integrates into the editor view and allows a Wikipedia search to be carried out on selected text in the editor itself. To activate this feature, open a document in the editor, navigate to View Tab-&gt;Information group and select Wikipedia. This will display the Wikipedia view part. Selecting text in the editor and clicking Search Wikipedia in the Add-Ins tab will populate the Wikipedia view part with the results of the search.</p>
+<h2 id="wikipedia-search-action">Wikipedia Search Action</h2>
+<p>This sample illustrates how a Ribbon Group can be created on the Add-Ins tab and also how actions can be added to it. In the WikipediaSearchAction class the Initialize method shows how a reference to the EditorController can be obtained. The Execute method shows how this reference can be used.</p>
+<div class="tabGroup" id="tabgroup_1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_1_tabid-1" role="tab" aria-controls="tabpanel_1_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_1_tabid-1" role="tabpanel" data-tab="tabid-1">
+
+<pre><code class="lang-cs">using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Sdl.Desktop.IntegrationApi.Extensions;
+using Sdl.Desktop.IntegrationApi;
+using Sdl.TranslationStudioAutomation.IntegrationApi.Presentation;
+using Sdl.TranslationStudioAutomation.IntegrationApi;
+using System.Windows.Forms;
+using Sdl.TranslationStudioAutomation.IntegrationApi.Presentation.DefaultLocations;
+
+namespace StudioIntegrationApiSample
+{
+    [RibbonGroup(&quot;WikipediaRibbonGroup&quot;, &quot;Wikipedia&quot;, ContextByType = typeof(EditorController))]
+    [RibbonGroupLayout(LocationByType = typeof(TranslationStudioDefaultRibbonTabs.EditorAdvancedRibbonTabLocation))]
+    class WikipediaRibbonGroup : AbstractRibbonGroup
+    {
+    }
+
+    [Action(&quot;WikipediaSearchAction&quot;, typeof(EditorController), Name = &quot;WikipediaSearchAction_Name&quot;, Description = &quot;WikipediaSearchAction_Description&quot;, Icon = &quot;Wikipedia_Icon&quot;)]
+    [ActionLayout(typeof(WikipediaRibbonGroup), 1, DisplayType.Large)]
+    [ActionLayout(typeof(TranslationStudioDefaultContextMenus.EditorDocumentContextMenuLocation), 1, DisplayType.Large)]
+    [Shortcut(Keys.Alt | Keys.F8)]
+    public class WikipediaSearchAction : AbstractViewControllerAction&lt;EditorController&gt;
+    {
+        public override void Initialize()
+        {
+        }
+
+        protected override void Execute()
+        {
+            EditorController editorController = SdlTradosStudio.Application.GetController&lt;EditorController&gt;();
+            WikipediaResultsViewPartController wikiPediaController = SdlTradosStudio.Application.GetController&lt;WikipediaResultsViewPartController&gt;();
+
+            Document doc = editorController.ActiveDocument;
+
+            if (doc == null)
+            {
+                return;
+            }
+
+            string selectedText = 
+                doc.FocusedDocumentContent == FocusedDocumentContent.Source
+                    ? doc.Selection.Source.ToString() 
+                    : doc.Selection.Target.ToString();
+
+            if (!String.IsNullOrEmpty(selectedText))
+            {
+                wikiPediaController.Lookup(selectedText);
+                wikiPediaController.Show();
+            }
+        }
+    }
+}
+</code></pre>
+</section>
+</div>
+<h2 id="wikipedia-resultsviewpart-controller">Wikipedia ResultsViewPart Controller</h2>
+<p>The Trados Studio Integration API is built in accordance with the MVC pattern. The ViewPart controller is used to add a new view part using the ViewPart attribute. This controller is also responsible for preparing the lookup URI that will be passed to the UI control for display purposes.</p>
+<div class="tabGroup" id="tabgroup_2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_2_tabid-2" role="tab" aria-controls="tabpanel_2_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_2_tabid-2" role="tabpanel" data-tab="tabid-2">
+
+<pre><code class="lang-cs">using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Sdl.Desktop.IntegrationApi;
+using Sdl.Desktop.IntegrationApi.Extensions;
+using Sdl.Desktop.IntegrationApi.Interfaces;
+using Sdl.TranslationStudioAutomation.IntegrationApi;
+using System.Web;
+
+namespace StudioIntegrationApiSample
+{
+    [ViewPart(
+       Id = &quot;WikipediaResultsViewPart&quot;,
+       Name = &quot;Wikipedia&quot;,
+       Description = &quot;Wikipedia Results&quot;,
+       Icon = &quot;Wikipedia_Icon&quot;)]
+    [ViewPartLayout(Dock = DockType.Bottom, LocationByType = typeof(EditorController))]
+    class WikipediaResultsViewPartController : AbstractViewPartController
+    {
+        protected override IUIControl GetContentControl()
+        {
+            return _control.Value;
+        }
+
+
+        private readonly Lazy&lt;WikipediaResultsViewPartControl&gt; _control = new Lazy&lt;WikipediaResultsViewPartControl&gt;(() =&gt; new WikipediaResultsViewPartControl());
+
+        public void Lookup(string query)
+        {
+            string url = String.Format(&quot;http://en.wikipedia.org/w/index.php?search={0}&quot;, HttpUtility.UrlEncode(query));
+
+            _control.Value.Navigate(url);
+        }
+
+
+        protected override void Initialize()
+        {
+        }
+    }
+}
+</code></pre>
+</section>
+</div>
+<h2 id="wikipedia-results-viewpart-control">Wikipedia Results ViewPart Control</h2>
+<p>This class is responsible for rendering the UI. The view relies on the controller described above to obtain a search URI and passes it to the web browser in order to search Wikipedia and display the results.</p>
+<div class="tabGroup" id="tabgroup_3">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_3_tabid-3" role="tab" aria-controls="tabpanel_3_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_3_tabid-3" role="tabpanel" data-tab="tabid-3">
+
+<pre><code class="lang-cs">using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using Sdl.Desktop.IntegrationApi.Interfaces;
+
+namespace StudioIntegrationApiSample
+{
+    public partial class WikipediaResultsViewPartControl : UserControl, IUIControl
+    {
+
+        public WikipediaResultsViewPartControl()
+        {
+            InitializeComponent();
+        }
+
+
+
+        public void Navigate(string url)
+        {
+            _webBrowser.Navigate(url);
+        }
+    }
+}
+</code></pre>
+</section>
+</div>
+<h2 id="see-also">See Also</h2>
+<p><a href="reference_sample.html">Reference Sample</a></p>
+<p><a href="project_creator.html">Project Creator</a></p>
+<p><a href="content_connector.html">Content Connector</a></p>
+<p><a href="integrating_actions.html">Integrating actions</a></p>
+<p><a href="integrating_ribbon_groups.html">Integrating ribbon groups</a></p>
+<p><a href="integrating_viewparts.html">Integrating viewparts</a></p>
+<p><a href="integrating_views.html">Integrating views</a></p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/18.0/apiconcepts/integration/wikipedia_search.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Adding the File Writer Class </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Adding the File Writer Class ">
+    
+    
+      <link rel="shortcut icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../../styles/docfx.css">
+      <link rel="stylesheet" href="../../styles/main.css">
+      <meta property="docfx:navrel" content="../../toc.html">
+      <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>        
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="https://developers.rws.com/">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+
+        <div class="container body-content">
+
+          <div id="search-results">
+            <div class="search-list">Search Results for <span></span></div>
+            <div class="sr-items">
+              <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+            </div>
+            <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+          </div>
+        </div>
+
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="adding-the-file-writer-class">Adding the File Writer Class</h1>
+
+<p>In this chapter you will learn how to implement the file writer component, which generates the target BIL file from an intermediary (SDLXliff) document.</p>
+<h2 id="add-the-writer-class">Add the Writer Class</h2>
+<p>Start by adding a class called e.g. <strong>BilWriter.cs</strong> to your project. Like the parser component, this class uses the following namespaces of the bilingual and the native APIs:</p>
+<ul>
+<li>Sdl.FileTypeSupport.Framework.BilingualApi</li>
+<li>Sdl.FileTypeSupport.Framework.NativeApi</li>
+</ul>
+<p>Since the writer is going to generate XML target files, you should also add the <code>System.Xml</code> namespace.
+The class needs to be derived from the following class and interfaces:</p>
+<ul>
+<li><a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.AbstractBilingualFileTypeComponent.html">AbstractBilingualFileTypeComponent</a></li>
+<li><a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualWriter.html">IBilingualWriter</a></li>
+<li><a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeOutputSettingsAware.html">INativeOutputSettingsAware</a></li>
+</ul>
+<h2 id="add-the-members-for-the-file-properties">Add the Members for the File Properties</h2>
+<p>Start by adding the following global class members:</p>
+<div class="tabGroup" id="tabgroup_1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_1_tabid-1" role="tab" aria-controls="tabpanel_1_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_1_tabid-1" role="tabpanel" data-tab="tabid-1">
+
+<pre><code class="lang-cs">private IPersistentFileConversionProperties _originalFileProperties;
+private INativeOutputFileProperties _nativeFileProperties;
+private XmlDocument _targetFile;
+</code></pre>
+</section>
+</div>
+
+<p>The <code>_originalFileProperties</code> object provides access to the source BIL file. From this object you can retrieve any information on the original file (e.g. the original source language, encoding, file path and name, etc.).</p>
+<p>The <code>_nativeFileProperties</code> object provides access to the (proposed) target BIL file information - most importantly to the target file output path.</p>
+<p>The <code>_targetFile</code> object is an XML DOM object that we will use for constructing the actual target BIL file output later.</p>
+<p>Now add the following (required) members of the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeOutputSettingsAware.html">INativeOutputSettingsAware</a> interface to initialize the objects that provide access to the original file information and the native output file information:</p>
+<div class="tabGroup" id="tabgroup_2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_2_tabid-2" role="tab" aria-controls="tabpanel_2_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_2_tabid-2" role="tabpanel" data-tab="tabid-2">
+
+<pre><code class="lang-cs">public void GetProposedOutputFileInfo(IPersistentFileConversionProperties fileProperties, IOutputFileInfo proposedFileInfo)
+{
+    _originalFileProperties = fileProperties;
+}
+
+public void SetOutputProperties(INativeOutputFileProperties properties)
+{
+    _nativeFileProperties = properties;
+}
+</code></pre>
+</section>
+</div>
+
+<p>Next, add the members of the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualWriter.html">IBilingualWriter</a> interface. Start with the <code>SetFileProperties()</code> method, which we use to load the original BIL document into our <code>_targetFile</code> DOM object:</p>
+<div class="tabGroup" id="tabgroup_3">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_3_tabid-3" role="tab" aria-controls="tabpanel_3_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_3_tabid-3" role="tabpanel" data-tab="tabid-3">
+
+<pre><code class="lang-cs">public void SetFileProperties(IFileProperties fileInfo)
+{
+    _targetFile = new XmlDocument();
+    _targetFile.Load(_originalFileProperties.OriginalFilePath);
+}
+
+#region &quot;initialize&quot;
+public void Initialize(IDocumentProperties documentInfo)
+{
+
+}
+#endregion
+</code></pre>
+</section>
+</div>
+
+<p>Then add the <code>Initialize()</code> method, which we leave empty for the moment. We will use this member later (see <a href="adding_the_text_extractor_class.html">Adding the Text Extractor Class</a>) to create another object through with we will access the segment content:</p>
+<div class="tabGroup" id="tabgroup_4">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_4_tabid-4" role="tab" aria-controls="tabpanel_4_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_4_tabid-4" role="tabpanel" data-tab="tabid-4">
+
+<pre><code class="lang-cs">public void Initialize(IDocumentProperties documentInfo)
+{
+
+}
+</code></pre>
+</section>
+</div>
+<h2 id="create-the-paragraph-units-in-the-output-file">Create the Paragraph Units in the Output File</h2>
+<p>Add another (required) member of the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualWriter.html">IBilingualWriter</a> interface. This method is used to loop through the paragraph units of the intermediary (SDLXliff) file and output the unit elements to our target BIL file. We will leave this method empty for the moment and fill it with the required application logic later.</p>
+<div class="tabGroup" id="tabgroup_5">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_5_tabid-5" role="tab" aria-controls="tabpanel_5_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_5_tabid-5" role="tabpanel" data-tab="tabid-5">
+
+<pre><code class="lang-cs">public void ProcessParagraphUnit(IParagraphUnit paragraphUnit)
+{
+
+}
+</code></pre>
+</section>
+</div>
+<h2 id="save-and-complete-the-process">Save and Complete the Process</h2>
+<p>Add the following (required) members of the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualWriter.html">IBilingualWriter</a> interface, which are used to complete the native output file and to complete the entire parsing process. We will use the <code>FileComplete()</code> method to save the target BIL file and to set the DOM object to <code>null</code>.</p>
+<p>We will leave the <code>Complete()</code> method empty, as it is not required in this simple implementation. You may wonder why the interface offers two (seemingly similar) members, i.e. one to complete a file, another one to complete the writing process. Remember that Trados Studio allows you to merge several native files into one big intermediary document, from which the individual target files can be generated when saving the document as target. You can use these two methods, for example, to first generate each native target file individually and then to conclude the entire writing process.</p>
+<div class="tabGroup" id="tabgroup_6">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_6_tabid-6" role="tab" aria-controls="tabpanel_6_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_6_tabid-6" role="tabpanel" data-tab="tabid-6">
+
+<pre><code class="lang-cs">public void FileComplete()
+{
+    _targetFile.Save(_nativeFileProperties.OutputFilePath);
+    _targetFile = null;
+}
+
+public void Complete()
+{
+
+}
+</code></pre>
+</section>
+</div>
+<h2 id="putting-it-all-together">Putting it All Together</h2>
+<p>The skeleton writer class looks as shown below. This is the minimum amount of code required to build a file type plug-in with a writer component. You could actually build your project now, and the file writer will even produce a target BIL file. However, this target file will do nothing more than output the content of the original BIL document, which is embedded in the intermediary document as a dependency file. In the following chapters you will learn how to generate a BIL target file that includes the actual translations and comments entered in Trados Studio by manipulating the target file DOM object programmatically.</p>
+<div class="tabGroup" id="tabgroup_7">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_7_tabid-7" role="tab" aria-controls="tabpanel_7_tabid-7" data-tab="tabid-7" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_7_tabid-7" role="tabpanel" data-tab="tabid-7">
+
+<pre><code class="lang-cs">using System;
+using System.Xml;
+using Sdl.FileTypeSupport.Framework.BilingualApi;
+using Sdl.FileTypeSupport.Framework.NativeApi;
+
+namespace Sdk.Snippets.Bilingual
+{
+    class BilWriter : AbstractBilingualFileTypeComponent, IBilingualWriter, INativeOutputSettingsAware
+    {
+        #region &quot;global&quot;
+        private IPersistentFileConversionProperties _originalFileProperties;
+        private INativeOutputFileProperties _nativeFileProperties;
+        private XmlDocument _targetFile;
+        #endregion
+
+        #region &quot;INativeOutputSettingsAware members&quot;
+        public void GetProposedOutputFileInfo(IPersistentFileConversionProperties fileProperties, IOutputFileInfo proposedFileInfo)
+        {
+            _originalFileProperties = fileProperties;
+        }
+
+        public void SetOutputProperties(INativeOutputFileProperties properties)
+        {
+            _nativeFileProperties = properties;
+        }
+        #endregion
+
+
+        #region &quot;IBilingualWriter members&quot;
+
+
+        #region &quot;load file&quot;
+        public void SetFileProperties(IFileProperties fileInfo)
+        {
+            _targetFile = new XmlDocument();
+            _targetFile.Load(_originalFileProperties.OriginalFilePath);
+        }
+
+        #region &quot;initialize&quot;
+        public void Initialize(IDocumentProperties documentInfo)
+        {
+
+        }
+        #endregion
+
+        #endregion
+
+        #region &quot;paragraphs&quot;
+        public void ProcessParagraphUnit(IParagraphUnit paragraphUnit)
+        {
+
+        }
+        #endregion
+
+        #region &quot;save file and complete&quot;
+        public void FileComplete()
+        {
+            _targetFile.Save(_nativeFileProperties.OutputFilePath);
+            _targetFile = null;
+        }
+
+        public void Complete()
+        {
+
+        }
+        #endregion
+
+        #endregion
+
+        #region Implementation of IDisposable
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+    }
+}
+</code></pre>
+</section>
+</div>
+<h2 id="reference-the-component-in-the-file-type-component-builder">Reference the Component in the File Type Component Builder</h2>
+<p>Do not forget to reference the file writer class by adding the following code to the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilder.html">IFileTypeComponentBuilder</a> implementation:</p>
+<div class="tabGroup" id="tabgroup_8">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_8_tabid-8" role="tab" aria-controls="tabpanel_8_tabid-8" data-tab="tabid-8" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_8_tabid-8" role="tabpanel" data-tab="tabid-8">
+
+<pre><code class="lang-cs">public IFileGenerator BuildFileGenerator(string name)
+{
+    return this.FileTypeManager.BuildFileGenerator(new BilWriter());
+}
+</code></pre>
+</section>
+</div>
+<h2 id="see-also">See Also</h2>
+<p><a href="adding_the_text_extractor_class.html">Adding the Text Extractor Class</a></p>
+<p><a href="generating_the_paragraph_units.html">Generating the Paragraph Units</a></p>
+<p><a href="mapping_the_segment_confirmation_levels.html">Mapping the Segment Confirmation Levels</a></p>
+<p><a href="outputting_all_comments.html">Outputting all Comments</a></p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+</div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/18.0/apiconcepts/filetypesupport/adding_the_file_writer_class.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>
