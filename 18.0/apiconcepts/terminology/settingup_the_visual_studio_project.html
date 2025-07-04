@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Setting up the Visual Studio project </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Setting up the Visual Studio project ">
+    
+    
+      <link rel="shortcut icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../../styles/docfx.css">
+      <link rel="stylesheet" href="../../styles/main.css">
+      <meta property="docfx:navrel" content="../../toc.html">
+      <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>        
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="https://developers.rws.com/">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+
+        <div class="container body-content">
+
+          <div id="search-results">
+            <div class="search-list">Search Results for <span></span></div>
+            <div class="sr-items">
+              <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+            </div>
+            <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+          </div>
+        </div>
+
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="setting-up-the-visual-studio-project">Setting up the Visual Studio project</h1>
+
+<p>To start setting up your batch task plug-in project, you need to generate a plug-in that can compile and that implements an empty batch task which can be seen and selected in Trados Studio. For the moment, it will not contain any application logic, that is it will not actually perform a real task.</p>
+<h2 id="how-to-create-the-visual-studio-project">How to create the Visual Studio Project</h2>
+<p>Assuming that you already installed the Trados Studio SDK, open Microsoft Visual Studio 2022. You will see the following options when you create a new project:
+<img style="display:block; " src="images/CustomBatchTemplate.jpg">
+With the above templates you can set up the skeleton of a Trados Studio plug-in project. Select ** Terminology Provider (2021)**.</p>
+<h2 id="the-plug-in-skeleton">The Plug-in Skeleton</h2>
+<p>The plug-in template will add the required references to your project:
+<img style="display:block; " src="images/References.jpg">
+It will also add the following skeleton classes to your project:
+<img style="display:block; " src="images/Stubs.jpg"></p>
+<h2 id="the-plug-in-declaration-id-name-description">The Plug-in Declaration: ID, Name, Description</h2>
+<p>Open the <strong>MyTerminologyProviderFactory.cs</strong> class. This class contains the plug-in declaration - the plug-in name and description that will be visible in Trados Studio:</p>
+<div class="tabGroup" id="tabgroup_1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_1_tabid-1" role="tab" aria-controls="tabpanel_1_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">Creating the Term Provider</a>
+</li>
+</ul>
+<section id="tabpanel_1_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-csharp" name="MyTerminologyProviderFactory">//Create the terminology provider and pass the provider uri, which is the glossary text file name and path
+public ITerminologyProvider CreateTerminologyProvider(Uri terminologyProviderUri, ITerminologyProviderCredentialStore credentials)
+{
+    MyTerminologyProvider _terminologyProvider = new MyTerminologyProvider(terminologyProviderUri.ToString());
+    return _terminologyProvider;
+}
+</code></pre></section>
+</div>
+
+<p>Give the terminology provider plug-in a new name, ID and description. Instead of doing it directly inside this class, enter the strings into the <strong>PluginResources.resx</strong> file:</p>
+<img style="display:block; " src="images/Resource.jpg">
+<p>Make sure the resource file access modifier is set to <em>public</em> and that you treat it as an <em>embedded</em> resource.</p>
+<p>Open the <strong>MyTerminologyProviderWinFormsUI.cs</strong> class. This class controls how the plug-in manifests in the Trados Studio UI. Change the <strong>TypeName</strong> and <strong>TypeDescription</strong> members as shown below.</p>
+<h2 id="how-to-build-and-load-the-plugin-in-varproductname">How to build and load the plugin in Trados Studio</h2>
+<p>Build the assembly. The project is automatically configured to build the plug-in file into the <em>%AppData%\Trados\Trados Studio\18\Plugins\Packages\</em> folder. After you have built the plug-in, you should find the Terminology Provider1.sdlplugin file in the folder. Start Trados Studio. As the plug-in is not yet officially signed by RWS, you will see the following message when starting the application:
+<img style="display:block; " src="images/Plugin_NotSigned.jpg">
+For the moment, ignore this message and click <strong>Yes</strong> to make sure that Trados Studio extracts the plug-in file. Once Trados Studio is started, you should find the sub-folder <em>Terminology Provider1</em> under <em> %AppData%\Trados\Trados Studio\18\Plugins\Unpacked\ </em>. This sub-folder contains the unpacked plug-in assemblies.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>To officially sign the plugin, send the sdlplugin file to app-signing@sdl.com.</p>
+</div>
+<p>Open Trados Studio and go to <strong>File -&gt; Options -&gt; Language Pairs -&gt; All Language Pairs -&gt; Termbases</strong> as illustrated below. When you click Add, the name of your newly-created terminology provider should be listed:</p>
+<img style="display:block; " src="images/tb_provider_name.jpg">
+<p>You have now managed to make your terminology provider available in Trados Studio. The plug-in does not perform any function yet. In the following pages we will provide functionality to the plug-in.</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/18.0/apiconcepts/terminology/settingup_the_visual_studio_project.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

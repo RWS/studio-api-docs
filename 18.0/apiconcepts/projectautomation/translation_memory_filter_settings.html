@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Translation Memory Filter Settings </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Translation Memory Filter Settings ">
+    
+    
+      <link rel="shortcut icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../../styles/docfx.css">
+      <link rel="stylesheet" href="../../styles/main.css">
+      <meta property="docfx:navrel" content="../../toc.html">
+      <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>        
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="https://developers.rws.com/">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+
+        <div class="container body-content">
+
+          <div id="search-results">
+            <div class="search-list">Search Results for <span></span></div>
+            <div class="sr-items">
+              <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+            </div>
+            <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+          </div>
+        </div>
+
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="translation-memory-filter-settings">Translation Memory Filter Settings</h1>
+
+<p>For a project you may also set filters e.g. to 'penalize' translation units if they do not fulfill certain criteria. Example: You want to give preference to translation units that have the TM field value <em>Type = Technical documentation</em>. If an exact match is found in the TM, which, however, does not have this field value the match score is reduced by a certain percentage, e.g. from 100% to 99% in order to alert the translator to the fact that it might not fit the current context.</p>
+<p>The documentation on the Translation Memory API contains more information on filters. For details please see the following page, which explains how to define filters for TM exports: <a href="../translationmemory/exporting_to_tmx.html">Exporting to a TMX File</a>.</p>
+<h2 id="about-filters">About Filters</h2>
+<p>The following screenshot illustrates how a filter is defined in the user interface of Trados Studio:</p>
+<p><img src="images/filter_penalties.jpg" alt="filter_penalties"></p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>In order to leverage filters for configuring the project settings you require the functionality offered by the Translation Memory API (see also <a href="translation_memory_field_update.html">Translation Memory Fields Update</a> and <a href="required_references_and_namespaces.html">Required References and Namespaces</a>).</p>
+</div>
+<p>Note that there are two kinds of filters:</p>
+<ul>
+<li><strong>Filter penalties</strong>: Reduces the score of non-matching TUs. For example, a filter has been set to Type = Technical documentation. The filter penalty value has been set to 2%. If the TM yields a translation unit where the Type value is not Technical documentation or where the Technical documentation field is missing, the match score will be reduced e.g. from 96% to 94%.</li>
+<li><strong>Hard filter</strong>: If a hard filter is set, then non-matching translation units are not shown in the first place, i.e. it is like those TUs do not exist in the TM.</li>
+</ul>
+<p>Note that for filter penalties you can define multiple filters, whereas hard filters can only use one filter expression, which is also outlined in the code examples below.</p>
+<p>In this chapter, we will not explain in detail how to use the TM API to create filter expressions. For detailed information, please see <a href="../translationmemory/exporting_to_tmx.html">Exporting to a TMX File</a>.</p>
+<h2 id="defining-filter-penalties">Defining Filter Penalties</h2>
+<p>When defining filter penalties apply the <a href="../../api/projectautomation/Sdl.ProjectAutomation.Settings.TranslationMemorySettings.html#Sdl_ProjectAutomation_Settings_TranslationMemorySettings_Filters">Filters</a> to the <a href="../../api/projectautomation/Sdl.ProjectAutomation.Settings.TranslationMemorySettings.html">TranslationMemorySettings</a> object and set the value to the penalty filters that should be used in the project, i.e.</p>
+<div class="tabGroup" id="tabgroup_1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_1_tabid-1" role="tab" aria-controls="tabpanel_1_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_1_tabid-1" role="tabpanel" data-tab="tabid-1">
+
+<pre><code class="lang-cs">tmSettings.Filters.Value = filterList;
+</code></pre>
+</section>
+</div>
+
+<p>The sample code below outlines how to create a single filter expression, i.e.* Type = Technical documentation*. This filter expression (which applies a penalty of 1%) is then set to a filter list, which is then used to configure the filter project settings:</p>
+<div class="tabGroup" id="tabgroup_2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_2_tabid-2" role="tab" aria-controls="tabpanel_2_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_2_tabid-2" role="tabpanel" data-tab="tabid-2">
+
+<pre><code class="lang-cs">PicklistItem fieldName = new PicklistItem(&quot;Type&quot;);
+MultiplePicklistFieldValue fieldValue = new MultiplePicklistFieldValue(&quot;Technical documentation&quot;);
+fieldValue.Add(fieldName);
+
+AtomicExpression filter = new AtomicExpression(fieldValue, AtomicExpression.Operator.Equal);
+Filter updateFilter = new Filter(filter, &quot;Filter_name&quot;, 1);
+List&lt;Filter&gt; filterList = new List&lt;Filter&gt;();
+filterList.Add(updateFilter);
+
+tmSettings.Filters.Value = filterList;
+</code></pre>
+</section>
+</div>
+<h2 id="defining-hard-filters">Defining Hard Filters</h2>
+<p>Defining a hard filter for a project is somewhat easier, as you have to set the <a href="../../api/projectautomation/Sdl.ProjectAutomation.Settings.TranslationMemorySettings.html#Sdl_ProjectAutomation_Settings_TranslationMemorySettings_HardFilter">HardFilter</a> property of your <a href="../../api/projectautomation/Sdl.ProjectAutomation.Settings.TranslationMemorySettings.html">TranslationMemorySettings</a> object to only one filter expression. The example below outlines how to create the same filter expression as above (i.e. <em>Type = Technical documentation</em>), but this time use it as a hard filter:</p>
+<div class="tabGroup" id="tabgroup_3">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_3_tabid-3" role="tab" aria-controls="tabpanel_3_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_3_tabid-3" role="tabpanel" data-tab="tabid-3">
+
+<pre><code class="lang-cs">PicklistItem hardFilterFieldName = new PicklistItem(&quot;Type&quot;);
+MultiplePicklistFieldValue hardFilterFieldValue = new MultiplePicklistFieldValue(&quot;Technical documentation&quot;);
+hardFilterFieldValue.Add(hardFilterFieldName);
+AtomicExpression hardFilterExpression = new AtomicExpression(hardFilterFieldValue, AtomicExpression.Operator.Equal);
+tmSettings.HardFilter.Value = hardFilterExpression;
+</code></pre>
+</section>
+</div>
+<h2 id="see-also">See Also</h2>
+<p><a href="translation_memory_search_settings.html">Translation Memory Search Settings</a></p>
+<p><a href="setting_tm_penalties.html">Setting TM Penalties</a></p>
+<p><a href="translation_memory_field_update.html">Translation Memory Fields Update</a></p>
+<p><a href="auto_substitution_settings.html">Auto-Substitution Settings</a></p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/18.0/apiconcepts/projectautomation/translation_memory_filter_settings.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

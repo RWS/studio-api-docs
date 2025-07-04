@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>About Project Translation Memories </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="About Project Translation Memories ">
+    
+    
+      <link rel="shortcut icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../../styles/docfx.css">
+      <link rel="stylesheet" href="../../styles/main.css">
+      <meta property="docfx:navrel" content="../../toc.html">
+      <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>        
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="https://developers.rws.com/">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+
+        <div class="container body-content">
+
+          <div id="search-results">
+            <div class="search-list">Search Results for <span></span></div>
+            <div class="sr-items">
+              <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+            </div>
+            <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+          </div>
+        </div>
+
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="about-project-translation-memories">About Project Translation Memories</h1>
+
+<p>This section explains what project translation memories are, how they are modeled in the Project Automation API and how they should be used in the recommended workflow.</p>
+<h2 id="project-translation-memories">Project Translation Memories</h2>
+<p>As explained in the <a href="project_configuration.html">Project Configuration</a> section, every language direction in a project can have one or more translation providers associated with it. The primary type of translation providers are translation memories, which are used within the project to look up translations. Any new translations created by the user are also added to one or more of these translation memories. The user can specify which of the translation memories in the list are updated.</p>
+<p>One issue is that there is no control over which translation units end up in the translation memories. During the course of the project, unreviewed, potentially invalid content ends up in there with no easy way to clean this up. The solution to this is the use <em>project translation memories</em>: a project translation memory (project TM) is a translation memory that is created specifically for use within one project, and that is discarded once the project is complete. At the end of the project, when all the files have been translated, reviewed and signed off, all translations within these files are added to the main translation memories (we call the translation memories that are added to a project the &quot;main translation memories&quot; to make a clear distinction with the &quot;project translation memories&quot;). Doing this ensures that the only content that ever ends up in the main translation memories has been reviewed, and that any work in progress or invalid content is kept out of the main translation memories and effectively only occurs in the project translation memories which can be discarded at the end of the project.</p>
+<p>A project translation memory is created for every main translation memory added to a project, so if there are two main translation memories for a certain language direction, there will be two corresponding project translation memories. The reason this is that the setup of a project translation memory needs to be identical to the setup of the corresponding main translation memory, to make sure the project translation memory can be used in exactly the same way as the main translation memory. More specifically, they should have the same custom field definitions and language resources.</p>
+<p>Project translation memories are automatically created during the project preparation phase. First a new translation memory is created, with an identical setup of the corresponding main translation memory. After that, all the project files are analyzed against the main translation memory, and any relevant translation units for the project are imported into the newly created project translation memory. Relevant translation units are defined as translation units that match a segment in a project with a certain minimum match score, specified by the user. Doing this ensures that all project participants initially get the same search results as they would have gotten if they worked directly with the main translation memories.</p>
+<p>Both file- and server-based project translation memories are supported. Server-based translation memories obviously have the benefit that multiple project participants can reuse translations from each other. Which type of project translation memories is created, is a user choice and is not necessarily determined by the type of the main translation memory used. A server-based project translation memory can be created for a file-based translation memory and vice-versa.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The use of project translation memories is entirely optional. Users can choose not to use project translation memories for a project.</p>
+</div>
+<h2 id="see-also">See Also</h2>
+<p><a href="project_tm_creation_settings.html">Project TM Creation Settings</a></p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/18.0/apiconcepts/projectautomation/about_project_translation_memories.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

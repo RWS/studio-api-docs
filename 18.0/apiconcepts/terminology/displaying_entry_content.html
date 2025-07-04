@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Displaying Entry Content </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Displaying Entry Content ">
+    
+    
+      <link rel="shortcut icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../../styles/docfx.css">
+      <link rel="stylesheet" href="../../styles/main.css">
+      <meta property="docfx:navrel" content="../../toc.html">
+      <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>        
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="https://developers.rws.com/">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+
+        <div class="container body-content">
+
+          <div id="search-results">
+            <div class="search-list">Search Results for <span></span></div>
+            <div class="sr-items">
+              <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+            </div>
+            <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+          </div>
+        </div>
+
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="displaying-entry-content">Displaying Entry Content</h1>
+
+<p>The full content of an entry can be displayed in the <strong>Termbase Viewer</strong> window. Learn how to show the content of a line of your glossary file in Trados Studio.</p>
+<p>When you right-click a term in the <strong>Term Recognition</strong> or in the <strong>Termbase Search</strong> window, you can use the command <strong>View term details</strong> to show the full entry content in the <strong>Termbase Viewer</strong> window.</p>
+<p>We need to add an Internet Explorer control in which we can display the entry content in HTML format. To do this, add a user control to your project and call it <strong>TermProviderControl.cs</strong>, for example. Add an Internet Explorer control to it:</p>
+<img style="display:block; " src="images/Control.jpg">
+<p>Go to the <strong>MyTerminologyProviderViewerWinFormsUI.cs</strong> class and declare the following term controller object:</p>
+<div class="tabGroup" id="tabgroup_1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_1_tabid-1" role="tab" aria-controls="tabpanel_1_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">The Term Controller Object</a>
+</li>
+</ul>
+<section id="tabpanel_1_tabid-1" role="tabpanel" data-tab="tabid-1">
+<pre><code class="lang-csharp" name="MyTerminologyProvider">//Stores the glossary text file name and path
+public readonly string fileName;
+</code></pre></section>
+</div>
+
+<p>Modify the following <strong>TermProviderControl</strong> property (which is implemented by the <strong>ITerminologyProviderViewerWinFormsUI</strong> interface) as shown below to create and return the control element:</p>
+<div class="tabGroup" id="tabgroup_2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_2_tabid-2" role="tab" aria-controls="tabpanel_2_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">Returning the Controller Element</a>
+</li>
+</ul>
+<section id="tabpanel_2_tabid-2" role="tabpanel" data-tab="tabid-2">
+<pre><code class="lang-csharp" name="MyTerminologyProvider">
+#region &quot;ProviderSettings&quot;
+//Sets the terminology provider settings, i.e. in our implementation the glossary file name
+public MyTerminologyProvider(string providerSettings)
+{
+    fileName = providerSettings;
+}
+#endregion
+
+#region &quot;Definition&quot;
+</code></pre></section>
+</div>
+
+<p>When the you right-click a term and call up the command <strong>View term details</strong>, the corresponding entry content should be shown in the newly-created control.</p>
+<p>You need to modify the <strong>JumpToTerm()</strong> method as shown below. Trados Studio passes the ID of the selected entry, which you can use to:</p>
+<ul>
+<li>Retrieve the corresponding line from the glossary text file.</li>
+<li>Parse the line and generate the HTML output for the Internet Explorer controller object.</li>
+</ul>
+<div class="tabGroup" id="tabgroup_3">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_3_tabid-3" role="tab" aria-controls="tabpanel_3_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">Jumping to a Term</a>
+</li>
+</ul>
+<section id="tabpanel_3_tabid-3" role="tabpanel" data-tab="tabid-3">
+<pre><code class="lang-csharp" name="MyTerminologyProvider">// this function outputs the full entry content in the Internet Explorer control
+// of the Termbase Viewer window
+public void JumpToTerm(Entry entry)
+{
+    // Load the glossary file
+    string fileName = _terminologyProvider.fileName.Replace(&quot;file:///&quot;, &quot;&quot;);
+    StreamReader glossaryFile = new StreamReader(fileName);
+    string[] chunks;
+    string entryContent = String.Empty;
+    glossaryFile.ReadLine();
+    // Loop through all lines of the file and find the line that has the current entry id
+    while (!glossaryFile.EndOfStream)
+    {
+        string thisLine = glossaryFile.ReadLine();
+        chunks = thisLine.Split(';');
+        string thisId = chunks[0];
+        if (thisId == entry.Id.ToString())
+        {
+            entryContent = thisLine;
+            break;
+        }
+    }
+
+    // Parse the line alongside the semi-colon
+    chunks = entryContent.Split(';');
+
+    // Generate a small HTML file to display in the Termbase Viewer control
+    string tmpFile = System.IO.Path.GetTempPath() + &quot;simple_list_entry.htm&quot;;
+    StreamWriter previewFile = new StreamWriter(tmpFile);
+    previewFile.Write(&quot;&lt;html&gt;&lt;body&gt;&lt;b&gt;Entry id:&lt;/b&gt; &quot; + chunks[0] +
+        &quot;&lt;br/&gt;&lt;b&gt;Source term:&lt;/b&gt; &quot; + chunks[1] +
+        &quot;&lt;br/&gt;&lt;b&gt;Target term:&lt;/b&gt; &quot; + chunks[2] +
+        &quot;&lt;br/&gt;&lt;b&gt;Definition:&lt;/b&gt; &quot; + chunks[3] +
+        &quot;&lt;/body&gt;&lt;/html&gt;&quot;);
+    previewFile.Close();
+    termControl.SetNavigation(tmpFile);
+
+    glossaryFile.Close();
+}
+</code></pre></section>
+</div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/docs/18.0/apiconcepts/terminology/displaying_entry_content.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>
