@@ -29,7 +29,7 @@ if (Test-Path ".\18.0") {
 }
 mkdir "18.0"
 write-host "Copy documentation into the repo"
-Copy-Item "$SOURCE_DIR\_site\18.0\*" .\18.0\ -Recurse -force
+Copy-Item "$SOURCE_DIR\_site\*" .\18.0\ -Recurse -force
 
 write-host "Push the new docs to the remote branch"
 git config --local user.email "github-actions[bot]@users.noreply.sdl.com"
