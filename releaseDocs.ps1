@@ -24,7 +24,9 @@ if($checkBranch){
 }
 
 git checkout -b gh-pages_temp
-git rm  ".\18.0\*" -r
+if (Test-Path ".\18.0") {
+	git rm  ".\18.0\*" -r
+}
 mkdir "18.0"
 write-host "Copy documentation into the repo"
 Copy-Item "$SOURCE_DIR\_site\18.0\*" .\18.0\ -Recurse -force
