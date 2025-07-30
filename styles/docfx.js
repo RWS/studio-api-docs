@@ -730,26 +730,50 @@ $(function () {
       var imgClass = $img.attr('class');
       var imgURL = $img.attr('src');
 
-      jQuery.get(imgURL, function (data) {
-        // Get the SVG tag, ignore the rest
-        var $svg = jQuery(data).find('svg');
+        jQuery.get(imgURL, function (data) {
+            // Get the SVG tag, ignore the rest
+            var $svg = jQuery(data).find('svg');
 
-        // Add replaced image's ID to the new SVG
-        if (typeof imgID !== 'undefined') {
-          $svg = $svg.attr('id', imgID);
-        }
-        // Add replaced image's classes to the new SVG
-        if (typeof imgClass !== 'undefined') {
-          $svg = $svg.attr('class', imgClass + ' replaced-svg');
-        }
+            // Add replaced image's ID to the new SVG
+            if (typeof imgID !== 'undefined') {
+                $svg = $svg.attr('id', imgID);
+            }
+            // Add replaced image's classes to the new SVG
+            if (typeof imgClass !== 'undefined') {
+                $svg = $svg.attr('class', imgClass + ' replaced-svg');
+            }
 
-        // Remove any invalid XML tags as per http://validator.w3.org
-        $svg = $svg.removeAttr('xmlns:a');
+            // Remove any invalid XML tags as per http://validator.w3.org
+            $svg = $svg.removeAttr('xmlns:a');
 
-        // Replace image with new SVG
-        $img.replaceWith($svg);
+            // Fix clip-path URLs in styles
+            $svg.find('[style]').each(function () {
+                var style = jQuery(this).attr('style');
+                if (style && style.indexOf('url(#clippath)') !== -1) {
+                    var uniqueId = 'clippath-' + Math.floor(Math.random() * 10000);
+                    // Find <clipPath> element and update id
+                    $svg.find('clipPath#clippath').attr('id', uniqueId);
+                    // Replace url reference to unique id
+                    style = style.replace(/url\(#clippath\)/g, 'url(#' + uniqueId + ')');
+                    jQuery(this).attr('style', style);
+                }
+            });
 
-      }, 'xml');
+            // Also fix clip-path references in attributes (e.g. clip-path="url(#clippath)")
+            $svg.find('[clip-path]').each(function () {
+                var cpValue = jQuery(this).attr('clip-path');
+                if (cpValue && cpValue.indexOf('url(#clippath)') !== -1) {
+                    var uniqueId = 'clippath-' + Math.floor(Math.random() * 10000);
+                    $svg.find('clipPath#clippath').attr('id', uniqueId);
+                    var newValue = cpValue.replace(/url\(#clippath\)/g, 'url(#' + uniqueId + ')');
+                    jQuery(this).attr('clip-path', newValue);
+                }
+            });
+
+            // Replace image with new SVG
+            $img.replaceWith($svg);
+
+        }, 'xml');
     });
   }
 
