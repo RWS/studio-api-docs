@@ -1,5 +1,5 @@
 # How to implement AI Companion
-The AI Companion API facilitates LLM integration in Trados Studio for translating or reviewing documents.
+The AI Assistant consists of two components: the [Translation Provider](../../../apiconcepts/translationmemory/translation_provider_plugin.md) and the AI Companion, as described here. The AI Companion API facilitates LLM integration in Trados Studio for translating or reviewing documents.
 
 ## Add the Sdl.LanguagePlatform.TranslationMemoryApi assembly to your project
 You can add the `Sdl.LanguagePlatform.TranslationMemoryApi` assembly by using the following Trados Studio template in Visual Studio:
@@ -25,6 +25,23 @@ These data models are used in implementing an AI Companion plugin for Trados Stu
 * [Prompt](../../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.AICompanion.Model.Prompt.yml)
 
 The data models used in communicating between an AI Companion and Trados Studio are found under the `Sdl.LanguagePlatform.TranslationMemoryApi.LiteBCM` namespace. 
+
+For easier navigation, the Lite BCM diagram was split in three separate sections.
+
+### Structure
+This section represents the top-most structure of the Lite BCM model.
+
+<img style="display:block; " src="images/LiteBcmStructure.svg" />
+
+### File Skeleton
+This section shows what the file skeleton can contain. This section is referred by the Structure section.
+
+<img style="display:block; " src="images/LiteBcmSkeleton.svg" />
+
+### Markup (Content)
+This section shows how markup data is represented to hold the actual content of the documents. This section is referred by the Structure section.
+
+<img style="display:block; " src="images/LiteBcmMarkup.svg" />
 
 ## Sample Implementation
 The following example illustrates a basic implementation of the [IAICompanion](../../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.AICompanion.IAICompanion.yml) interface.
