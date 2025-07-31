@@ -1,6 +1,6 @@
 Creating Translation Provider Plug-ins
 ======
-This section provides an overview of how to create a translation provider plug-in, which allows applications like Var:ProductName to interact with automated translation engines, third-party translation memory implementations or other translation engines.
+This section provides an overview of how to create a translation provider plug-in, which allows applications like Var:ProductName to interact with automated translation engines, including AI-based NMT and LLM models, third-party translation memory implementations or other translation engines.
 
 Overview
 -----
