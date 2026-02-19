@@ -1,6 +1,6 @@
-# How to update plugins to Trados Studio - 2026 Release
+# How to update plugins to Trados Studio 2026 Release
 
-The following are a list of changes and known issues to consider when updating your plugin to be compatible with Trados Studio - 2026 Release.
+The following are a list of changes and known issues to consider when updating your plugin to be compatible with Trados Studio 2026 Release.
 
 ## Transition to 64-Bit (x64)
 Studio Quantum is released as a 64-bit (x64) version. As a result, plug-ins must also be rebuilt and updated to target x64 in order to remain compatible. 
@@ -155,7 +155,7 @@ public abstract void VisitStructure(StructureTag structureTag);
 ```
 
 #### Assembly Version Change Requires Recompilation
-With Trados Studio - 2026 Release, all core Trados assemblies have had their **assembly version increased to 19.x.x.x** (reflecting the semantic versioning minor update). **This assembly version bump introduces a breaking change:** Any plugin or standalone tool that references Trados assemblies must be recompiled against the new release, even if no other code changes are required. Referencing outdated assemblies is not supported and will likely result in runtime failures due to version mismatches.
+With Trados Studio 2026 Release, all core Trados assemblies have had their **assembly version increased to 19.x.x.x** (reflecting the semantic versioning minor update). **This assembly version bump introduces a breaking change:** Any plugin or standalone tool that references Trados assemblies must be recompiled against the new release, even if no other code changes are required. Referencing outdated assemblies is not supported and will likely result in runtime failures due to version mismatches.
 ### Multiterm API Changes
 **Migrate from `Sdl.Multiterm.TMO.Interop.dll` to `TerminologyProviderManager`**
 
@@ -215,11 +215,11 @@ var searchResults = terminologyProvider.Search(
 
 // Process or display results as needed...
 ```
-**Note:** Replace any references to `Sdl.Multiterm.TMO.Interop.dll` with the modern `TerminologyProviderManager` API. This ensures compatibility with Trados Studio - 2026 Release and future releases, and aligns with Trados ongoing architectural updates.
+**Note:** Replace any references to `Sdl.Multiterm.TMO.Interop.dll` with the modern `TerminologyProviderManager` API. This ensures compatibility with Trados Studio 2026 Release and future releases, and aligns with Trados ongoing architectural updates.
 
 
 ### Trados.Community.Toolkit (formally SDL.Community.Toolkit)
-A new version of the Trados Community Toolkit, version 6.0.2, has been released to support the latest version of Trados Studio - 2026 Release.  This includes the following assemblies:
+A new version of the Trados Community Toolkit, version 6.0.2, has been released to support the latest version of Trados Studio 2026 Release.  This includes the following assemblies:
 
 - [Trados.Community.Toolkit.Core](https://www.nuget.org/packages/Trados.Community.Toolkit.Core)
 - [Trados.Community.Toolkit.LanguagePlatform](https://www.nuget.org/packages/Trados.Community.Toolkit.LanguagePlatform)
