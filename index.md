@@ -18,6 +18,9 @@ Find more of our code samples on [GitHub](https://github.com/RWS/trados-studio-a
 ## [Open Source Community Projects](https://github.com/RWS/Sdl-Community)
 Join our community-driven repository of Var:ProductName plugins on [RWS Community](https://github.com/RWS/Sdl-Community).
 
+### [Var:ProductName Beta Documentation](https://developers.rws.com/studio-api-docs-beta/)
+Get ahead with pre-release documentation of the upcoming version.
+
 ## Var:ProductName API versions
 
 ### [Var:ProductName 2024 SR1 - API 18.1](http://developers.rws.com/studio-api-docs/18.1/index.html)
