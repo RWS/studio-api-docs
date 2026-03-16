@@ -25,8 +25,9 @@ if($checkBranch){
 
 git checkout -b gh-pages_temp
 $items = Get-ChildItem
+$keepVersions = @("15.2", "16.1", "16.2", "17.0", "17.1", "17.2", "18.0", "18.1")
 foreach ($item in $items){
- if (($item.Name -ne "15.2") -and ($item.Name -ne "16.1") -and ($item.Name -ne "16.2") -and ($item.Name -ne "17.0") -and ($item.Name -ne "17.1") -and ($item.Name -ne "17.2")-and ($item.Name -ne "18.0")){
+ if ($item.Name -notin $keepVersions){
   git rm $item -r
  }
 }
