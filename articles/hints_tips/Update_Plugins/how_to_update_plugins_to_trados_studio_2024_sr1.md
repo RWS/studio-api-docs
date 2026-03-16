@@ -1,23 +1,6 @@
-# How to update plugins to Trados Studio 2026 Release
+# How to update plugins to Trados Studio 2024 SR1
 
-The following are a list of changes and known issues to consider when updating your plugin to be compatible with Trados Studio 2026 Release.
-
-## Transition to 64-Bit (x64)
-Studio Quantum is released as a 64-bit (x64) version. As a result, plug-ins must also be rebuilt and updated to target x64 in order to remain compatible. 
-
-The following element must be added in a global property group of the .csproj file to target x64:
-
-
-```xml
-<PropertyGroup>
-	...
-	<PlatformTarget>x64</PlatformTarget>
-	...
-</PropertyGroup>
-```
-> [!NOTE]
->
-> If the project is not SDK-style, <PlatformTarget>x64</PlatformTarget> must be set for all relevant configurations (e.g., Debug and Release), otherwise some builds may still compile for a different platform.
+The following are a list of changes and known issues to consider when updating your plugin to be compatible with Trados Studio 2024 SR1.
 
 ## Update Plugin Framework Packages
 Ensure you are using the latest plugin framework NuGet packages:
@@ -30,6 +13,7 @@ Ensure you are using the latest plugin framework NuGet packages:
 - Search, select, and install/update the above packages.
 - Accept license agreements to complete installation.
 
+
 ## Update Plugin Manifest
 
 Review and update the manifest (`pluginpackage.manifest.xml`) at the project root as in the following example:
@@ -37,43 +21,44 @@ Review and update the manifest (`pluginpackage.manifest.xml`) at the project roo
 <?xml version="1.0" encoding="utf-8"?>
 <PluginPackage xmlns="http://www.sdl.com/Plugins/PluginPackage/1.0">
   <PlugInName>My plugin name</PlugInName>
-  <Version>1.0.0.0</Version>
+  <Version>1.1.0.0</Version>
   <Description>My plugin description</Description>
   <Author>Trados AppStore Team</Author>
-  <RequiredProduct name="TradosStudio" minversion="19.0" maxversion="19.9" />
+  <RequiredProduct name="TradosStudio" minversion="18.1" maxversion="18.1.9" />
 </PluginPackage>
 ```
-Ensure **RequiredProduct** reflects `minversion="19.0"` and `maxversion="19.9"`.
+Ensure **RequiredProduct** reflects `minversion="18.1"` and `maxversion="18.1.9"`.
+
 
 ## Project References & Deployment Path
 Update references and deployment settings in your .csproj:
 
 ### [Production](#tab/standard)
 
-**References**: Set Trados Studio assemblies to use the Studio 19 path:
+**References**: Set Trados Studio assemblies to use the Studio 18 path:
 ~~~xml
 <Reference Include="Sdl.Desktop.IntegrationApi.Extensions">
-    <HintPath>$(ProgramFiles)\Trados\Trados Studio\Studio19\Sdl.Desktop.IntegrationApi.Extensions.dll</HintPath>
+    <HintPath>$(MSBuildProgramFiles32)\Trados\Trados Studio\Studio18\Sdl.Desktop.IntegrationApi.Extensions.dll</HintPath>
 </Reference>
 ~~~
 
 **Deployment Path:**
 ~~~xml
-<PluginDeploymentPath>$(AppData)\Trados\Trados Studio\19\Plugins</PluginDeploymentPath>
+<PluginDeploymentPath>$(AppData)\Trados\Trados Studio\18\Plugins</PluginDeploymentPath>
 ~~~
 
 ### [BETA](#tab/beta)
 
-**References**: Set Trados Studio assemblies to use the Studio 19 Beta path:
+**References**: Set Trados Studio assemblies to use the Studio 18 Beta path:
 ~~~xml
 <Reference Include="Sdl.Desktop.IntegrationApi.Extensions">
-    <HintPath>$(ProgramFiles)\Trados\Trados Studio\Studio19Beta\Sdl.Desktop.IntegrationApi.Extensions.dll</HintPath>
+    <HintPath>$(MSBuildProgramFiles32)\Trados\Trados Studio\Studio18Beta\Sdl.Desktop.IntegrationApi.Extensions.dll</HintPath>
 </Reference>
 ~~~
 
 **Deployment Path:**
 ~~~xml
-<PluginDeploymentPath>$(AppData)\Trados\Trados Studio\19Beta\Plugins</PluginDeploymentPath>
+<PluginDeploymentPath>$(AppData)\Trados\Trados Studio\18Beta\Plugins</PluginDeploymentPath>
 ~~~
 
 ---
@@ -87,12 +72,11 @@ Update references and deployment settings in your .csproj:
 > Once you have applied your changes in the project file, then reload project
 > * In the **Solution Explorer**, select the projects you want to load (press **Ctrl** while clicking to select more than one project)
 > * Then right-click on the project and choose **Reload Project**.
-> 
-> If the project is SDK-style, then unloading/reloading is unnecessary.
+
+<br/>
 
 ## Known Issues & Dependency Updates 
-The following are a list of known issues and solutions that you might encounter depending on your settings and configuration:
-### Dependency version changes
+### Dependency Version Changes
 Standalone integrations may require binding redirects. Example for `App.config`:
 ```xml
 <?xml version="1.0" encoding="utf-8" ?>
@@ -128,34 +112,14 @@ Standalone integrations may require binding redirects. Example for `App.config`:
   </startup>  
 </configuration>
 ```
-### Breaking API Changes
-`ITerminologyProviderCredentialStore` was removed (together with method parameters of this type).
+<br/>
 
-`TerminologyProviderManager.DefaultTerminologyCredentialStore` was removed.
+## Breaking API Changes
 
-`public TerminologyProviderType Type` property removed from `ITerminologyProvider`
-#### Working with BCMs
-The BCM-related classes have been moved from Sdl.LanguagePlatform.TranslationMemoryApito TradosStudio.BcmLite:
-```xml
-<Reference Include="TradosStudio.BcmLite">
-	<HintPath>$(ProgramFiles)\Trados\Trados Studio\Studio19\TradosStudio.BcmLite.dll</HintPath>
-</Reference>
-```
-And some classes were renamed:
+### Assembly Version Change Requires Recompilation
+With Trados Studio 2024 SR1, all core Trados assemblies have had their **assembly version increased to 18.1.x.x** (reflecting the semantic versioning minor update). **This assembly version bump introduces a breaking change:** Any plugin or standalone tool that references Trados assemblies must be recompiled against the new release, even if no other code changes are required. Referencing outdated assemblies is not supported and will likely result in runtime failures due to version mismatches.  
+<br/>
 
-`LiteDocument` to `Document`
-
-`LiteFragment` to `DocumentFragment`
-
-The `LiteBcmVisitor` abstract class now includes two more methods:
-
-```cs
-public abstract void VisitFeedbackContainer(FeedbackContainer feedbackContainer);
-public abstract void VisitStructure(StructureTag structureTag);
-```
-
-#### Assembly Version Change Requires Recompilation
-With Trados Studio 2026 Release, all core Trados assemblies have had their **assembly version increased to 19.x.x.x** (reflecting the semantic versioning minor update). **This assembly version bump introduces a breaking change:** Any plugin or standalone tool that references Trados assemblies must be recompiled against the new release, even if no other code changes are required. Referencing outdated assemblies is not supported and will likely result in runtime failures due to version mismatches.
 ### Multiterm API Changes
 **Migrate from `Sdl.Multiterm.TMO.Interop.dll` to `TerminologyProviderManager`**
 
@@ -168,7 +132,7 @@ As part of the separation of MultiTerm from Trados Studio, the legacy assembly `
 using Sdl.Terminology.TerminologyProvider.Core;
 
 // Example URI for your termbase
-string termbaseUriString = "ttb.file:///C:/Termbases/MyTermbase.ttb";
+string termbaseUriString = "file:///C:/Termbases/MyTermbase.sdltb";
 Uri termbaseUri = new Uri(termbaseUriString);
 
 // Get the terminology provider singleton instance
@@ -189,16 +153,8 @@ if (!terminologyProvider.IsInitialized)
 }
 
 // Set up search parameters
-var sourceLanguage = new DefinitionLanguage
-{
-    Locale = "EN",
-    Name = "English"
-};
-var targetLanguage = new DefinitionLanguage
-{
-    Locale = "DE",
-    Name = "German"
-};
+var sourceLanguage = new CultureInfo("en-US");
+var targetLanguage = new CultureInfo("it-IT");
 string segmentText = "Insert your source segment text here";
 int maxResultsCount = 10;
 bool targetRequired = true;
@@ -215,15 +171,87 @@ var searchResults = terminologyProvider.Search(
 
 // Process or display results as needed...
 ```
-**Note:** Replace any references to `Sdl.Multiterm.TMO.Interop.dll` with the modern `TerminologyProviderManager` API. This ensures compatibility with Trados Studio 2026 Release and future releases, and aligns with Trados ongoing architectural updates.
+**Note:** Replace any references to `Sdl.Multiterm.TMO.Interop.dll` with the modern `TerminologyProviderManager` API. This ensures compatibility with Trados Studio 2024 SR1 and future releases, and aligns with Trados ongoing architectural updates.
 
+<br/>
 
-### Trados.Community.Toolkit (formally SDL.Community.Toolkit)
-A new version of the Trados Community Toolkit, version 6.0.2, has been released to support the latest version of Trados Studio 2026 Release.  This includes the following assemblies:
+## Credential Management Best Practices
 
-- [Trados.Community.Toolkit.Core](https://www.nuget.org/packages/Trados.Community.Toolkit.Core)
-- [Trados.Community.Toolkit.LanguagePlatform](https://www.nuget.org/packages/Trados.Community.Toolkit.LanguagePlatform)
-- [Trados.Community.Toolkit.Integration](https://www.nuget.org/packages/Trados.Community.Toolkit.Integration)
-- [Trados.Community.Toolkit.FileType](https://www.nuget.org/packages/Trados.Community.Toolkit.FileType)
-- [Trados.Community.Toolkit.ProjectAutomation](https://www.nuget.org/packages/Trados.Community.Toolkit.ProjectAutomation)
+When building plugins or integrating third-party terminology and translation providers with Trados Studio, you should always manage credentials independently in your own codebase, especially when working with non-Trados services.
 
+**Key Points:**
+- Built-in credential storage in Trados Studio is only required when you need to access native Trados resources (e.g., file-based translation memories, Language Cloud).
+- For all other scenarios, including any third-party or custom service integration, you should implement your own secure mechanism for storing and retrieving credentials.
+- Managing credentials independently enhances security and gives you greater flexibility and control.
+
+**Best Practice:**
+Always use your own secure credential management system, unless your integration specifically requires direct access to Trados resources.  
+
+---
+
+### Example: Managing Credentials Securely
+Below is an example showing how you can implement credential management using Windows Credential Manager. This strategy may be adapted to use other secure stores as required by your environment or policies.  
+
+**Credential Store Interface:**
+```csharp
+public interface ICredentialStore
+{
+    void SaveCredential(string key, string username, string password);
+    (string Username, string Password)? GetCredential(string key);
+    void RemoveCredential(string key);
+}
+```
+ 
+**Sample Windows Credential Manager Implementation**  
+*Install the [CredentialManagement](https://www.nuget.org/packages/CredentialManagement/) NuGet package for this sample:*
+
+```csharp
+using CredentialManagement;
+
+public class WindowsCredentialStore : ICredentialStore
+{
+    public void SaveCredential(string key, string username, string password)
+    {
+        var cred = new Credential
+        {
+            Target = key,
+            Username = username,
+            Password = password,
+            PersistanceType = PersistanceType.LocalComputer
+        };
+        cred.Save();
+    }
+
+    public (string Username, string Password)? GetCredential(string key)
+    {
+        var cred = new Credential { Target = key };
+        if (cred.Load())
+        {
+            return (cred.Username, cred.Password);
+        }
+        return null;
+    }
+
+    public void RemoveCredential(string key)
+    {
+        var cred = new Credential { Target = key };
+        cred.Delete();
+    }
+}
+```
+
+**How to Use in Your Integration**
+```csharp
+// Example usage
+var credentialStore = new WindowsCredentialStore();
+var credentials = credentialStore.GetCredential("your-provider-key");
+if (credentials.HasValue) {
+    var username = credentials.Value.Username;
+    var password = credentials.Value.Password;
+    // Use credentials securely...
+} else {
+    // Handle missing credentials scenario
+}
+```
+**Note:** Using your own credential store ensures future compatibility, enhances security, and keeps your integration flexible as Trados Studio and its APIs evolve.
+  
