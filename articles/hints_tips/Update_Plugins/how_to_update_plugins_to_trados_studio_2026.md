@@ -42,10 +42,10 @@ Review and update the manifest (`pluginpackage.manifest.xml`) at the project roo
   <Version>1.0.0.0</Version>
   <Description>My plugin description</Description>
   <Author>Trados AppStore Team</Author>
-  <RequiredProduct name="TradosStudio" minversion="19.0" maxversion="19.9" />
+  <RequiredProduct name="TradosStudio" minversion="19.0" maxversion="19.0.9" />
 </PluginPackage>
 ```
-Ensure **RequiredProduct** reflects `minversion="19.0"` and `maxversion="19.9"`.
+Ensure **RequiredProduct** reflects `minversion="19.0"` and `maxversion="19.0.9"`.
 
 ## Project References & Deployment Path
 Update references and deployment settings in your .csproj:
@@ -97,39 +97,147 @@ The following are a list of known issues and solutions that you might encounter 
 ### Dependency version changes
 Standalone integrations may require binding redirects. Example for `App.config`:
 ```xml
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <configuration>
   <configSections>
-    <section name="BestMatchServiceUrlsConfig" type="Sdl.BestMatchServiceStudioIntegration.Common.UrlsConfig, Sdl.BestMatchServiceStudioIntegration.Common" />
+    <section name="log4net" type="log4net.Config.Log4NetConfigurationSectionHandler, log4net" />
   </configSections>
-  <BestMatchServiceUrlsConfig GlobalApi="https://api.cloud.trados.com" auth0="https://sdl-prod.eu.auth0.com">
-    <LanguageConfig>
-      <Lang Code="en" />
-      <Lang Code="de" />
-      <Lang Code="fr" />
-      <Lang Code="es" />
-      <Lang Code="ja" />
-      <Lang Code="it" />
-      <Lang Code="zh-CN" />
-    </LanguageConfig>
-    <HavingTroubleSigningIn url="https://gateway.sdl.com/apex/communityknowledge?articleName=000001399" />
-  </BestMatchServiceUrlsConfig>  
+  <startup useLegacyV2RuntimeActivationPolicy="true">
+    <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.8" />
+  </startup>
+
   <runtime>
-    <NetFx40_PInvokeStackResilience enabled="1" />
-    <legacyCorruptedStateExceptionsPolicy enabled="true" />
-    <ThrowUnobservedTaskException enabled="true" />
     <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
       <dependentAssembly>
-        <assemblyIdentity name="Microsoft.Extensions.DependencyModel" publicKeyToken="adb9793829ddae60" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-7.0.0.0" newVersion="7.0.0.0" />
-      </dependentAssembly>    
+        <assemblyIdentity name="System.Memory"
+                                publicKeyToken="cc7b13ffcd2ddd51"
+                                culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-4.0.1.2"
+                               newVersion="4.0.1.2" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="System.Runtime.CompilerServices.Unsafe"
+                                publicKeyToken="b03f5f7f11d50a3a"
+                                culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-65535.65535.65535.65535"
+                               newVersion="6.0.0.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Microsoft.Extensions.Logging"
+                                publicKeyToken="adb9793829ddae60"
+                                culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-65535.65535.65535.65535"
+                               newVersion="8.0.0.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Microsoft.Extensions.Logging.Abstractions"
+                                publicKeyToken="adb9793829ddae60"
+                                culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-65535.65535.65535.65535"
+                               newVersion="8.0.0.2" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Microsoft.Extensions.Options"
+                                publicKeyToken="adb9793829ddae60"
+                                culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-65535.65535.65535.65535"
+                               newVersion="8.0.0.2" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="System.Collections.Immutable"
+                                publicKeyToken="b03f5f7f11d50a3a"
+                                culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-65535.65535.65535.65535"
+                               newVersion="8.0.0.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="System.Text.Encoding.CodePages"
+                                publicKeyToken="b03f5f7f11d50a3a"
+                                culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-65535.65535.65535.65535"
+                               newVersion="8.0.0.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="System.Threading.Tasks.Extensions"
+                                publicKeyToken="cc7b13ffcd2ddd51"
+                                culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-4.2.0.1"
+                               newVersion="4.2.0.1" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="System.Text.Json"
+                                publicKeyToken="cc7b13ffcd2ddd51"
+                                culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-8.0.0.6"
+                               newVersion="8.0.0.6" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Microsoft.Bcl.AsyncInterfaces"
+                                publicKeyToken="cc7b13ffcd2ddd51"
+                                culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-8.0.0.0"
+                               newVersion="8.0.0.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="System.Diagnostics.DiagnosticSource"
+                                publicKeyToken="cc7b13ffcd2ddd51"
+                                culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-8.0.0.1"
+                               newVersion="8.0.0.1" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Microsoft.Extensions.DependencyInjection.Abstractions"
+                                publicKeyToken="adb9793829ddae60"
+                                culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-8.0.0.2"
+                               newVersion="8.0.0.2" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Microsoft.Extensions.DependencyInjection"
+                                publicKeyToken="adb9793829ddae60"
+                                culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-8.0.0.0"
+                               newVersion="8.0.0.1" />
+      </dependentAssembly>
     </assemblyBinding>
   </runtime>
-  <startup>
-    <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.8" />
-  </startup>  
+
+  <log4net>
+    <!-- Set levels to DEBUG for extended logging information -->
+    <appender name="RollingFile" type="Sdl.Desktop.Logger.LocalUserAppDataFileAppender, Sdl.Desktop.Logger">
+    </appender>
+    <!-- output to debug string -->
+    <appender name="OutputDebug" type="log4net.Appender.OutputDebugStringAppender">
+      <layout type="log4net.Layout.PatternLayout">
+        <conversionPattern value="%date [%thread] %-5level %logger [%property{NDC}] - %message%newline" />
+      </layout>
+    </appender>
+    <root>
+      <level value="INFO" />
+      <appender-ref ref="RollingFile" />
+      <appender-ref ref="OutputDebug" />
+    </root>
+    <logger name="Sdl.TranslationStudio">
+      <level value="INFO" />
+    </logger>
+    <logger name="Sdl.Desktop">
+      <level value="INFO" />
+    </logger>
+    <logger name="Sdl.ProjectApi">
+      <level value="INFO" />
+    </logger>
+    <logger name="Licensing">
+      <level value="INFO" />
+    </logger>
+    <!--<logger name="Sdl.MultiTerm">
+      <level value="DEBUG"/>
+    </logger>-->
+  </log4net>
 </configuration>
 ```
+In most cases, this will be sufficient to enable proper interaction with the Studio APIs.
+
+If the application still fails to work as expected, an alternative approach is to copy the entire configuration from the Trados Studio executable configuration file (`SdlTradosStudio.exe.config`) into your application's `app.config`. This ensures that all necessary runtime and binding settings are aligned with those expected by Studio.
 ### Breaking API Changes
 `ITerminologyProviderCredentialStore` was removed (together with method parameters of this type).
 
@@ -217,6 +325,8 @@ var searchResults = terminologyProvider.Search(
 
 // Process or display results as needed...
 ```
+**⚠️** Notice the change of the URI scheme from SDLTB to TTB (ttb.file:///).
+
 **Note:** Replace any references to `Sdl.Multiterm.TMO.Interop.dll` with the modern `TerminologyProviderManager` API. This ensures compatibility with Trados Studio 2026 Release and future releases, and aligns with Trados ongoing architectural updates.
 
 
