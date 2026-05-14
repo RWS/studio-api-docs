@@ -67,6 +67,7 @@ items:
   - >-
     The <xref href="Sdl.FileTypeSupport.Framework.BilingualApi.ILocationMarker" data-throw-if-not-resolved="false"></xref> implementation of this interface looks as follows:
 
+
     <pre><code class="lang-csharp">void AcceptVisitor(IMarkupDataVisitor visitor)
 
     {
@@ -97,18 +98,15 @@ items:
   summary: Removes this node from its parent container (if any).
   remarks: >-
     <p>
+                If the item is not inside a parent container, nothing will happen.
+                </p>
+                <p>
+                This is a convenience implementation that achieves the same result as 
+                calling 
+    <pre><code class="lang-csharp">item.Parent.Remove(item)</code></pre>
 
-    If the item is not inside a parent container, nothing will happen.
-
-    </p>
-
-    <p>
-
-    This is a convenience implementation that achieves the same result as 
-
-    calling <pre><code class="lang-csharp">item.Parent.Remove(item)</code></pre>.
-
-    </p>
+    .
+                </p>
   example: []
   syntax:
     content: void RemoveFromParent()
@@ -138,6 +136,7 @@ items:
     or removed from a container. API users should never need to set this
 
     property.
+
 
     <p>Attempting to set this property to an invalid value (i.e. a container
 
@@ -169,16 +168,14 @@ items:
   summary: The index of this item in its parent container (if any).
   remarks: >-
     <p>
+                This is equivalent to calling 
+    <pre><code class="lang-csharp">item.Parent.IndexOf(item)</code></pre>
 
-    This is equivalent to calling <pre><code class="lang-csharp">item.Parent.IndexOf(item)</code></pre>.
-
-    </p>
-
-    <p>
-
-    If this item has no parent this property, -1 is returned.
-
-    </p>
+    .
+                </p>
+                <p>
+                If this item has no parent this property, -1 is returned.
+                </p>
   example: []
   syntax:
     content: int IndexInParent { get; }

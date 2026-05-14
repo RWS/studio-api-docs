@@ -1,20 +1,30 @@
-Studio plug-in overview
-====
+# Studio plug-in overview
 
-⚠️ Note: Trados Studio 2026 Release will also support a new plugin system, check back for details on the new plugin system when it is made available.
+> [!NOTE]
+> Var:ProductName 2026 Release will also support a new plugin system.
+> Check back for details on the new plugin system when it becomes available.
 
-This section describes how to build and deploy third-party plug-ins for Var:ProductName. For more information on building specific types of plug-ins, refer to the relevant SDK documentation.
+This section describes how to build and deploy third-party plug-ins for Var:ProductName.
+For more information on building specific types of plug-ins, refer to the relevant SDK documentation.
 
-Var:ProductName Plug-in Support
-----
-The core Var:ProductName application is built in a very modular fashion, consisting entirely of plug-ins. These types of plug-ins are known as *system plug-ins*. Plug-ins of this type cannot be added to an existing Var:ProductName installation and can also not be disabled by the end-user.
+## Var:ProductName Plug-in Support
 
-In addition to system plug-ins, Var:ProductName supports various types of so called *third-party plug-ins*. These plug-ins can be developed by third-party developers using the **Var:ProductName SDK** and can be deployed into an existing Var:ProductName installation by the end-user. This section focuses on third-party plug-in development and deployment.
+The core Var:ProductName application uses a modular architecture consisting entirely of plug-ins.
+These plug-ins are known as *system plug-ins*.
+You cannot add system plug-ins to an existing Var:ProductName installation, and end-users cannot disable them.
 
-Since Var:ProductName is a Microsoft .NET application, third-party plug-ins should be developed using **Microsoft .Net Framework 4.8**. The **Var:ProductName SDK** comes with a number of Visual Studio project templates which give you a quick start to creating various types of plug-ins. For more information on this, see [Building a plugin](building_a_plugin.md).
+In addition to system plug-ins, Var:ProductName supports various types of *third-party plug-ins*.
+Third-party developers can build these plug-ins using the **Var:ProductName SDK** and deploy them into an existing Var:ProductName installation.
+This section focuses on third-party plug-in development and deployment.
 
-Once you've built a third-party plug-in, this plug-in can be easily deployed for use by Var:ProductName. See [Plug-in deployment](plugin_deployment.md) for more information on how this works.
+Since Var:ProductName is a Microsoft .NET application, develop third-party plug-ins using **Microsoft .NET Framework 4.8**.
+The **Var:ProductName SDK** includes Visual Studio project templates that provide a quick start for creating various types of plug-ins.
+For more information, see [Building a plugin](building_a_plugin.md).
 
-While the standard project templates that are included in the **Var:ProductName SDK** allow you to create a basic plug-in package for distribution to end-user, you might need to add additional assemblies or other files to the plug-in package. For this purpose, you need to edit the `pluginpackage.manifest.xml` file that is found inside the Visual Studio project folder.
+Once you build a third-party plug-in, you can easily deploy it for use with Var:ProductName.
+See [Plug-in deployment](plugin_deployment.md) for details on the deployment process.
 
-For more information on specific types of plug-ins, have a look at [our developer hub](https://appstore.sdl.com/language/developers/sdk.html).
+While the standard project templates included in the **Var:ProductName SDK** allow you to create a basic plug-in package for distribution to end-users, you might need to add additional assemblies or other files to the plug-in package.
+To do so, edit the `pluginpackage.manifest.xml` file that resides in the Visual Studio project folder.
+
+For more information on specific types of plug-ins, explore [our developer hub](https://developers.rws.com/).

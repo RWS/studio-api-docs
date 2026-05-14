@@ -1,19 +1,19 @@
-# Studio Look  & Feel in your 3rd party plugin
-Together with the release of Var:ProductName 2019 SR2 two new APIs were exposed which will allows you to take advantage of Studio styles in your plugin:
+# Studio Look & Feel in Your Third-Party Plugin
+With the release of Var:ProductName 2019 SR2, two new APIs were introduced, enabling you to use Studio styles in your plugin:
 
 * **`Sdl.Desktop.Platform.Styles.dll`**
 * **`Sdl.Desktop.Platform.Controls.dll`**
 
 > [!NOTE]
 >
-> In order to use Studio styles your plugin `must be written in WPF`.
+> To use Studio styles, your plugin **must be written in WPF**.
 >
-> Sample application can be found in public AppStore Community repository on [GitHub](https://github.com/RWS/Sdl-Community/tree/master/Code%20samples/StudioStyles/StudioStyles).
+> You can find a sample application in the public AppStore Community repository on [GitHub](https://github.com/RWS/Sdl-Community/tree/master/Code%20samples/StudioStyles/StudioStyles).
 
-Throughout this article we will be presenting some Studio `styles` and `controls` and how you can use them in your application.
+This article presents Studio `styles` and `controls` and explains how to use them in your application.
 
 ## Sdl.Desktop.Platform.Styles.dll
-In this API were released following Studio resources:
+The following Studio resources are available in this API:
 
 * Buttons  
 * Checkbox 
@@ -28,9 +28,9 @@ In this API were released following Studio resources:
 * TextBox
 * TreeView
 
-## How to use resource styles in your plugin?
+## How to Use Resource Styles in Your Plugin
 
-First of all you have to import `all the .xaml files you want to use` in your application:
+First, import all `.xaml` files you want to use in your application:
 
 ~~~xml
 <ResourceDictionary>
@@ -49,9 +49,9 @@ First of all you have to import `all the .xaml files you want to use` in your ap
 </ResourceDictionary>
 ~~~
 
-#### Buttons
+### Buttons
 
-There are `several` buttons styles exposed:
+Several button styles are available:
 
 * Sdl.Button.PrimaryStyle
 * Sdl.Button.SecondaryStyle
@@ -67,9 +67,9 @@ After you import the resource you can use it as follows:
 <Button Style="{DynamicResource Sdl.Button.PrimaryStyle}" Command="{Binding AddCommand}" Content="Add TM" HorizontalAlignment="Right"/>
 ~~~
 
-#### Textboxes
+### Textboxes
 
-There are `several` textbox styles exposed, bellow you can see few examples:
+Several textbox styles are available. Below are a few examples:
 
 * Sdl.TextBlock.TitleStyle
 * Sdl.TextBlock.InformationTextEmphasisStyle
@@ -86,11 +86,11 @@ After you import the resource you can use it as follows:
 <TextBlock Style="{DynamicResource Sdl.TextBlock.TitleStyle}" Text="Title style" FontSize="14"/>
 ~~~
 
-#### Data grid
+### Data Grid
 
 <img style="display:block; " src="images/DataGrid.png" />
 
-Bellow you can see an data grid code example
+Below is a data grid code example:
 ~~~xml
 <DataGrid Style="{DynamicResource Sdl.DataGrid.GenericStyle}" Margin="10"
 	ItemsSource="{Binding PluginsCollection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -103,7 +103,7 @@ Bellow you can see an data grid code example
 </DataGrid>
 ~~~
 
-#### Groupbox and RadioButtons
+### Groupbox and Radio Buttons
 
 <img style="display:block; " src="images/GroupBox.png" />
 
@@ -119,7 +119,7 @@ Code sample
 
 
 ## Sdl.Desktop.Platform.Controls.dll
-In this API were released following Studio `controls`:
+The following Studio `controls` are available in this API:
 
 | Studio Control        |  Description  |
 | ------------- | -----|
@@ -130,7 +130,7 @@ In this API were released following Studio `controls`:
 | SortWise DataGrid | DataGrid with sorting capability|
 
 
-In this API were released following Studio `behaviours`:
+The following Studio `behaviours` are also available in this API:
 | Studio Behaviour        |  Description  |
 | ------------- | -----|
 | DragDrop | This behaviour easily allows you to get the dropped files or directories. First thing you need to do is to import the behaviours exposed by the API in your project, and attach it to a grid for example. You need to add your own `implementation` for DragDropCommand.|
@@ -141,14 +141,14 @@ In this API were released following Studio `behaviours`:
 | TreeView SelectedItem Changed | With behaviour you can attachto SelectedItem Changed event of a treeview.|
 
 
-## How to use Studio Controls  in your plugin?
+## How to Use Studio Controls in Your Plugin
 
-First of all you have to import `the api` in your application:
+First, import `the api` in your application:
 ~~~xml
 <xmlns:controls="clr-namespace:Sdl.Desktop.Platform.Controls.Controls;assembly=Sdl.Desktop.Platform.Controls"/>
 ~~~
 
-#### Watermark TextBox
+### Watermark TextBox
 ~~~xml
 <xmlns:watermarkTextBox="clr-namespace:Sdl.Desktop.Platform.Controls.Controls.WatermarkTextBox;assembly=Sdl.Desktop.Platform.Controls"/>
 
@@ -177,7 +177,7 @@ private void Clear()
 }
 ~~~
 
-#### Bindable PasswordBox
+### Bindable PasswordBox
 
 <img style="display:block; " src="images/Password.png" />
 
@@ -204,7 +204,7 @@ public string Password
 }
 ~~~
 
-#### Numeric UpDown
+### Numeric UpDown
 
 <img style="display:block; " src="images/Numeric.png" />
 
@@ -212,7 +212,7 @@ public string Password
 <controls:NumericUpDown Style="{DynamicResource Sdl.NumericUpDown.Generic}" Width="150" HorizontalAlignment="Left" Margin="10"/>
 ~~~
 
-#### Drag&Drop Behaviour
+### Drag & Drop Behaviour
 
 
 ~~~xml
@@ -221,7 +221,7 @@ public string Password
 <Grid Height="100" Background="GhostWhite" AllowDrop="True" behaviours:DragDropBehaviour.DragDrop="{Binding DragDropCommand}"/>
 ~~~
 
-In the example bellow we implemented DragDropCommand command in view model [RelayCommand implementation](https://github.com/RWS/Sdl-Community/blob/master/Code%20samples/StudioStyles/StudioStyles/Commands/RelayCommand.cs):
+In the example below, we implemented the DragDropCommand in the view model [RelayCommand implementation](https://github.com/RWS/Sdl-Community/blob/master/Code%20samples/StudioStyles/StudioStyles/Commands/RelayCommand.cs):
 ~~~cs
 public ICommand DragDropCommand => _dragDropCommand ?? (_dragDropCommand = new RelayCommand(DragAndDrop));
 
@@ -245,25 +245,25 @@ private void DragAndDrop(object parameter)
 }
 ~~~
 
-#### Window loaded Behaviour
+### Window Loaded Behaviour
 
 ~~~xml
 <behaviours:WindowLoadedBehaviour.Loaded ="{Binding WindowLoadedCommand}"/>
 ~~~
 
-#### WebBrowser BindableSource Behavior
+### WebBrowser Bindable Source Behavior
 
 ~~~xml
 <WebBrowser behaviours:WebBrowserBindableSourceBehavior.BindableSource ="{Binding Uri, UpdateSourceTrigger=PropertyChanged}"/>
 ~~~
 
-#### TextBlock AutoToolTip Behavior
+### TextBlock AutoToolTip Behavior
 
 ~~~xml
 <TextBox behaviours:TextBlockAutoToolTipBehavior.AutoTooltip="True" ToolTip="This is a tooltip" Text="Trados Studio 2021 />
 ~~~
 
-#### WebBrowser Content Source
+### WebBrowser Content Source
 
 ~~~xml
 <WebBrowser behaviours:WebBrowserContentSource.Html ="{Binding Content, UpdateSourceTrigger=PropertyChanged}"/>

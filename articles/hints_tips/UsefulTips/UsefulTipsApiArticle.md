@@ -1,41 +1,41 @@
-# How to implement the Studio Useful Tips service
+# How to Implement the Studio Useful Tips Service
 The `RwsAppStore.UsefulTips.Service` is a service provider for updating the Useful Tips that are displayed in Var:ProductName.
 
 ***
 
-## Add the Studio Useful Tips service to your project
-You can add the nuget package to your project via the package manager user interface or console.
+## Adding the Studio Useful Tips Service to Your Project
+You can add the NuGet package to your project via the package manager user interface or console.
 
-### Package Manager UI
+### Using the Package Manager UI
 * In **Solution Explorer**, right-click **References** and choose **Manage NuGet Packages**.
 * Select nuget.org as the **Package source**.
 * Search for `RwsAppStore.UsefulTips.Service` from the **Browse** tab.
 * Select the package from the list and click **Install**.
-* Accept any license prompts to finnish the installation.
+* Accept any license prompts to finish the installation.
 <img style="display:block; " src="images/InstallFromNuget.png" />
 
-### Package Manager Console 
+### Using the Package Manager Console
 * Alternatively, go to **Tools** > **NuGet Package Manager** > **Package Manager Console**.
 * In the **Package Manager Console**, enter the command:
-`Install-Package RwsAppStore.UsefulTips.Service -Version 3.0.0.8`
+`Install-Package RwsAppStore.UsefulTips.Service -Version 4.0.1`
 
 ***
   
-## Remarks
+## Important Remarks
 The Useful Tips service first checks for already existing tips before attempting to add new ones. If tips exist in the Useful Tips collection, only those identified as new are added.  
 If Var:ProductName was not launched as administrator, the user may receive a message from the service asking to elevate the user rights before updating the Useful Tips collection in Var:ProductName with the new tips from the plugin.
-> [!Note]
+> [!NOTE]
 > Administrator rights are required, as the local tip files that manage the Useful Tips collection in Var:ProductName reside in the Var:ProductName installation directory.
 > Only a user with administrator access rights can modify files from the installation directory.  
 
 
-### Settings
+### Configuring Settings
 The Useful Tips service enables the user to hide the message that is displayed when new Tips are available for installation, by selecting the option '**Don't show this message again**'.  
 This is necessary if the user did not update the Useful Tips collection when prompted in Var:ProductName; in this case, the decision from the user will be persisted and no further attempt is made to add those tips for that version of Var:ProductName.
 <img style="display:block; " src="images/PromptInstallUsefulTipsMessage.png" />
 
 **Q:** Where can I locate the _Settings.xml_ files of the Useful Tips service?  
-**A:** The settings file is located in the users roaming directory:   
+**A:** The settings file is located in the user's roaming directory:   
 _C:\Users\\**[username]**\AppData\Roaming\RWS Community\UsefulTipsService\Settings_
 > [!NOTE]
 > Replace **[username]** with your OS login account name  
