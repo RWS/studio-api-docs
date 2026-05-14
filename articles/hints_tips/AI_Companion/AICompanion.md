@@ -1,19 +1,23 @@
-# How to implement AI Companion
-The AI Assistant consists of two components: the [Translation Provider](../../../apiconcepts/translationmemory/translation_provider_plugin.md) and the AI Companion, as described here. The AI Companion API facilitates LLM integration in Trados Studio for translating or reviewing documents.
+# Implementing AI Companion in Trados Studio
 
-## Add the Sdl.LanguagePlatform.TranslationMemoryApi assembly to your project
-You can add the `Sdl.LanguagePlatform.TranslationMemoryApi` assembly by using the following Trados Studio template in Visual Studio:
+The AI Companion API enables integration of Large Language Models (LLMs) into Trados Studio for document translation and review. This guide explains how to set up and implement the AI Companion.
 
-<img style="display:block; " src="images/TradosStudioTemplate.png" />
+## Prerequisites
 
-Alternatively, you can add the assembly manually from the following directory: _C:\Program Files (x86)\Trados\Trados Studio\Studio18_.
+1. **Add the Required Assembly**  
+   Include the `Sdl.LanguagePlatform.TranslationMemoryApi` assembly in your project:
+   - **Using Visual Studio Template**: Use the Trados Studio template in Visual Studio.  
+     ![Trados Studio Template](images/TradosStudioTemplate.png)
+   - **Manual Addition**: Add the assembly from:  
+     `C:\Program Files (x86)\Trados\Trados Studio\Studio18`
 
-## API
-The following define the contract that plugins must implement:
+## API Contracts
 
-* [IAICompanion](../../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.AICompanion.IAICompanion.yml)
-* [IAICompanionFactory](../../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.AICompanion.IAICompanionFactory.yml)
-* [AICompanionFactoryAttribute](../../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.AICompanion.AICompanionFactoryAttribute.yml)
+Plugins must implement the following interfaces and attributes:
+
+- [IAICompanion](../../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.AICompanion.IAICompanion.yml)
+- [IAICompanionFactory](../../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.AICompanion.IAICompanionFactory.yml)
+- [AICompanionFactoryAttribute](../../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.AICompanion.AICompanionFactoryAttribute.yml)
 
 ## Models
 These data models are used in implementing an AI Companion plugin for Trados Studio:

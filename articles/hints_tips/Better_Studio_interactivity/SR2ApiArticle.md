@@ -1,23 +1,27 @@
-# Better Studio interactivity in day to day flow
-Together with the release of Var:ProductName 2019 SR2 we decided to make some improvements to our public APIs and give our 3<sup>rd</sup> Party developers more access to Studio's functional flows as well as user interface styling. Throughout this article we will present the functionality we exposed in our APIs and the means by which you can make the most out of it.
-## Improved Notification System
-The notification system in Var:ProductName, which can be accessed via the Notification View pane (on the right-hand side), was intended as a mechanism allowing us to promote notifications in a non-intrusive manner, while translators interact with Studio. We continued to take advantage of it, but while developing new features, we realized  it had some short-comings that needed to be addressed. After we fixed the issues, we decided to make them available in the public APIs.
+# Enhancing Studio Interactivity
 
-In order to allow translators to remove a specific notification, we introduced two new properties on the `IStudioNotification` interface. As developers, you will have full control over which notifications can be removed by translators and which not, as well as over what should happen within the remove logic.
+With the release of Var:ProductName 2019 SR2, we introduced significant improvements to our public APIs. These enhancements provide third-party developers with greater access to Studio's functional flows and user interface styling. This article outlines the new functionalities available in the APIs and how to leverage them effectively.
+## Improved Notification System
+
+The notification system in Var:ProductName, accessible via the Notification View pane (on the right-hand side), was designed to promote notifications non-intrusively while translators interact with Studio. Recognizing its shortcomings during new feature development, we addressed these issues and made the improvements available in the public APIs.
+
+To enable translators to remove specific notifications, we introduced two new properties in the `IStudioNotification` interface. These properties give developers full control over which notifications can be dismissed and the actions triggered during the removal process.
 
 | Property        | Type           | Purpose  |
 | ------------- |:-------------| -----|
 | `AllowsUserToDismiss`| `bool` | Set this to *true* for the user to see a *dismiss* button when hovering over a notification. |
 | `ClearNotificationAction`| `IStudioNotificationCommand`      |   Assign an instance of the implemented interface to this property. The *dismiss* button will trigger the behavior specified in your implementation. |
 
-We also enhanced the control over the notification system by exposing additional events. With the help of these events we now give full access to creating and removing notification groups, but also to what happens inside a group: remove a notification from a group, add a specific notification to a group or create that group if it does not exist.
+We further enhanced the notification system by exposing additional events. These events provide full access to creating and managing notification groups, including adding notifications to groups, removing them, or creating new groups if they do not exist.
 
 | Event        |  Purpose  |
 | ------------- | -----|
 | `AddStudioNotificationOrCreateGroupEvent`| Trigger this event to add an `IStudioNotification` instance to an existing group or create a new group if the group with the given key already exists. The event expects the unique identifier of the group, the notification to be added and a group title in case it needs to create a new group.|
 | `RemoveStudioNotificationFromGroupEvent` | Trigger this event via the **EventAggregator** to remove a specific notification identified by its unique id from the group with the given key. |
 
-The following code snippet demonstrates how to publish dismissible notifications via the `IStudioEventAggregator`
+### Code Example
+
+The following code snippet demonstrates how to publish dismissible notifications using the `IStudioEventAggregator`.
 
 ```cs
     //create a unique identifier for the notification

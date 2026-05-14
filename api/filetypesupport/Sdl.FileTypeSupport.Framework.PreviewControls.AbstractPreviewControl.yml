@@ -26,8 +26,14 @@ items:
     Then when this object is disposed or the launched process exits the temp file is deleted.
   example: []
   syntax:
-    content: 'public abstract class AbstractPreviewControl : AbstractFileTypeDefinitionComponent, IFileTypeDefinitionAware, IAbstractPreviewControl, IAbstractPreviewController'
-    content.vb: Public MustInherit Class AbstractPreviewControl Inherits AbstractFileTypeDefinitionComponent Implements IFileTypeDefinitionAware, IAbstractPreviewControl, IAbstractPreviewController
+    content: >-
+      [Obsolete("Moved to TradosStudio")]
+
+      public abstract class AbstractPreviewControl : AbstractFileTypeDefinitionComponent, IFileTypeDefinitionAware, IAbstractPreviewControl, IAbstractPreviewController
+    content.vb: >-
+      <Obsolete("Moved to TradosStudio")>
+
+      Public MustInherit Class AbstractPreviewControl Inherits AbstractFileTypeDefinitionComponent Implements IFileTypeDefinitionAware, IAbstractPreviewControl, IAbstractPreviewController
   inheritance:
   - System.Object
   - Sdl.FileTypeSupport.Framework.IntegrationApi.AbstractFileTypeDefinitionComponent
@@ -48,6 +54,12 @@ items:
   - System.Object.GetHashCode
   - System.Object.GetType
   - System.Object.MemberwiseClone
+  attributes:
+  - type: System.ObsoleteAttribute
+    ctor: System.ObsoleteAttribute.#ctor(System.String)
+    arguments:
+    - type: System.String
+      value: Moved to TradosStudio
 - uid: Sdl.FileTypeSupport.Framework.PreviewControls.AbstractPreviewControl.#ctor
   commentId: M:Sdl.FileTypeSupport.Framework.PreviewControls.AbstractPreviewControl.#ctor
   id: '#ctor'
