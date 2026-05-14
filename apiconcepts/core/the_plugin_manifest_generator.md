@@ -1,15 +1,14 @@
 ---
 uid: the_plugin_manifest_generator.md
 ---
-The Plug-in Manifest Generator
-======
-The section describes how plug-in projects are built and how the plug-in manifest is generated.
+## The Plug-in Manifest Generator
+This section describes how plug-in projects are built and how the plug-in manifest is generated.
 
-Plug-in Manifest Generator
-----
-The purpose of the plug-in manifest is to avoid loading all the plug-in assemblies at runtime and reflecting over them to discover the available extensions, which would affect startup performance, an important aspect of desktop applications.
+### Overview
+The plug-in manifest prevents the need to load all plug-in assemblies at runtime and reflect over them to discover available extensions. This optimization significantly improves startup performance, which is critical for desktop applications.
 
- The plug-in manifest generator is implemented as an MSBuild task, which runs as part of the standard Var:VisualStudioEdition build. This build task is contained in [Sdl.Core.PluginFramework.Build](https://www.nuget.org/packages/Sdl.Core.PluginFramework.Build/) package that needs to be refreneced by the project.
+### Implementation
+The plug-in manifest generator is implemented as an MSBuild task, running as part of the standard Var:VisualStudioEdition build. This build task is included in the [Sdl.Core.PluginFramework.Build](https://www.nuget.org/packages/Sdl.Core.PluginFramework.Build/) package, which must be referenced by the project.
 
 ```xml
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">

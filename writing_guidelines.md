@@ -12,7 +12,7 @@ Here's a short example for active voice:
 > The cat sat on the mat.
 
 * actor: The cat
-* verd: sat 
+* verb: sat 
 * target: the mat
 
 Here's a short example for passive voice: 

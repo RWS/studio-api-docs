@@ -1,23 +1,23 @@
 ## [Core](core/overview.md)
-This is the foundation which provides the plug-in framework available in Var:ProductName, used by other APIs to define extension points inside the software.
+The Core API is the foundation of Var:ProductName, providing the plug-in framework that enables other APIs to define extension points within the software.
 
 ## [File Type Support Framework](filetypesupport/overview.md)
-In order to translate content from a certain file type, Var:ProductName extracts it into an SDLXliff. If you want to work with an unsupported file type that isn't already available with Var:ProductName, you can use this API to extract the content and create the SDLXliff needed for translation.
+The File Type Support Framework API enables you to work with unsupported file types by extracting their content and generating the SDLXliff required for translation in Var:ProductName.
 
 ## [Project Automation](projectautomation/overview.md)
-There are many activities that must be done as part of the translation process and this is why Var:ProductName provides project management features, such as analysis, pre-translation and more. Using the Project Automation API, you can build a customized translation workflow based on activities specific to your needs.
+The Project Automation API allows you to streamline translation workflows by automating project management activities such as analysis, pre-translation, and more.
 
 ## [Translation Memory](translationmemory/overview.md)
-Translation memories are an essential piece of technology for translators. Var:ProductName comes with this capability, but if you're interested in using a different piece of technology for translation memories, you can enable that in Var:ProductName by creating a new translation memory provider.
+The Translation Memory API lets you integrate alternative translation memory technologies into Var:ProductName by developing custom translation memory providers.
 
 ## [Integration](integration/overview.md)
-This API enables you to extend or customize the user interface or create custom functionalities for Var:ProductName. You can create new views, new sections in the menu ribbon, new options in the context menu or hook into the editor to create, update or delete certain information.
+The Integration API enables you to enhance or customize the user interface and functionalities of Var:ProductName, including creating new views, adding menu options, and hooking into the editor.
 
 ## [Verification](verification/overview.md)
-Var:ProductName allows translators to check their work by running verifiers during translation. There are many ways to verify the quality of a translation and it can also become very specific. So to address that need, Var:ProductName allows custom verifiers to be built and run.
+The Verification API allows you to create and run custom verifiers to ensure translation quality during the translation process in Var:ProductName.
 
 ## [Batch Tasks](batchtasks/overview.md)
-As part of a project management workflow, there are certain tasks that need to be applied, such as pre-translation, analysis and more. Var:ProductName comes with a predefined set of tasks, but with this API, you can also create your own custom tasks that can be included in your workflows.
+The Batch Tasks API lets you develop custom tasks for project workflows, extending the predefined tasks available in Var:ProductName.
 
 ## [Terminology Provider](terminology/overview.md)
-This API allows you to enable the use of different terminology technology in Var:ProductName, by creating new terminology providers.
+The Terminology Provider API enables you to integrate alternative terminology technologies into Var:ProductName by building custom terminology providers.
