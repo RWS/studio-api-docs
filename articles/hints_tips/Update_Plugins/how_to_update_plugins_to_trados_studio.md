@@ -1,8 +1,11 @@
-# How to update classic plugins to Var:ProductNameWithEdition
+# How to Update Classic Plugins to Var:ProductNameWithEdition
 
-⚠️ Note: Var:ProductNameWithEdition will also support a new plugin system, check back for details on the new plugin system when it is made available.
+This guide provides step-by-step instructions for updating classic plugins to ensure compatibility with Var:ProductNameWithEdition.
 
-The following are a list of changes and known issues to consider when updating your plugin to be compatible with Var:ProductNameWithEdition.
+> [!NOTE]
+>Var:ProductNameWithEdition will also support a new plugin system. Check back for details when it becomes available.
+
+The sections below outline key changes and known issues to consider when updating your plugin.
 
 ## Transition to 64-Bit (x64)
 Var:ProductNameWithEdition is released as a 64-bit (x64) version. As a result, plug-ins must also be rebuilt and updated to target x64 in order to remain compatible. 
@@ -50,7 +53,7 @@ Ensure **RequiredProduct** reflects `minversion="19.0"` and `maxversion="19.0.9"
 ## Project References and Deployment Path
 Update references and deployment settings in your .csproj:
 
-### [Production](#tab/standard)
+### Production
 
 **References**: Set Trados Studio assemblies to use the Studio 19 path:
 ~~~xml
@@ -64,7 +67,7 @@ Update references and deployment settings in your .csproj:
 <PluginDeploymentPath>$(AppData)\Trados\Trados Studio\19\Plugins</PluginDeploymentPath>
 ~~~
 
-### [BETA](#tab/beta)
+### Beta
 
 **References**: Set Trados Studio assemblies to use the Studio 19 Beta path:
 ~~~xml
@@ -82,19 +85,18 @@ Update references and deployment settings in your .csproj:
 
 > [!NOTE]
 >
-> To update settings directly in the project file from Visual Studio
-> * Right-click on the project node in the **Solution Explorer** and select **Unload Project**.
-> * Then, right-click on the project and choose **Edit** <projectname>
-> 
-> Once you have applied your changes in the project file, then reload project
-> * In the **Solution Explorer**, select the projects you want to load (press **Ctrl** while clicking to select more than one project)
-> * Then right-click on the project and choose **Reload Project**.
+> To update settings directly in the project file from Visual Studio:
+> - Right-click on the project node in the **Solution Explorer** and select **Unload Project**.
+> - Then right-click on the project and choose **Edit** <projectname>.
+> - After applying your changes in the project file, reload the project.
+> - In the **Solution Explorer**, select the projects you want to load (press **Ctrl** while clicking to select more than one project).
+> - Then right-click on the project and choose **Reload Project**.
 > 
 > If the project is SDK-style, then unloading/reloading is unnecessary.
 
 ## Known Issues and Dependency Updates
 The following are a list of known issues and solutions that you might encounter depending on your settings and configuration:
-### Dependency version changes
+### Dependency Version Changes
 Standalone integrations may require binding redirects. Example for `App.config`:
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -242,7 +244,7 @@ If the application still fails to work as expected, an alternative approach is t
 
 As part of our ongoing efforts to simplify and streamline the Trados Studio development experience, we are revisiting the existing Trados Studio APIs. During this process, several classes, interfaces, and methods that were identified as redundant or unnecessarily complex have been removed.
 
-Looking ahead, we plan to gradually phase out portions of the current API set and replace them with APIs aligned with the new Trados Studio architecture. This transition is intended to improve performance, provide a more consistent developer experience, and simplify plugin integration.
+Looking ahead, we plan to gradually phase out portions of the current API set and replace them with APIs aligned with the new Trados Studio architecture. This transition is intended to improve performance, provide a more consistent developer experience, and simplify plugin integration. Our goal is to make this transition as smooth as possible, and we will provide ample notice whenever an API is deprecated and before it is eventually removed.
 
 In addition, direct interaction with Trados GroupShare resources will be limited. For all server-based resource interactions, we strongly recommend using the GroupShare API Toolkit, which is designed specifically for secure and efficient integration with GroupShare services. You can find resources [here](https://developers.rws.com/groupshare-api-docs/apiconcepts/overview.html). 
 
