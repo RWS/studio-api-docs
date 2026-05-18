@@ -1,24 +1,21 @@
-# Access the Var:ProductNameWithEdition APIs
+# Introduction to Var:ProductNameWithEdition APIs
 
-## [Getting started with Var:ProductNameWithEdition APIs](articles/gettingstarted/studio_plugin_overview.md)
-Read more on how you can write your first Var:ProductName plugin.
+Explore the Var:ProductNameWithEdition APIs to enhance your development experience. This page provides resources, guides, and links to help you get started.
 
-## [Learn more about Var:ProductNameWithEdition APIs](apiconcepts/overview.md) 
-Learn more about the APIs and what you can achieve with them.
+## Getting Started
+[Write Your First Plugin](articles/gettingstarted/studio_plugin_overview.md) — Learn how to create your first Var:ProductName plugin.
 
-## [How to update classic plugins to Var:ProductNameWithEdition](articles/hints_tips/Update_Plugins/how_to_update_plugins_to_trados_studio.md) 
-Learn more about how you can make your plugin compatible with Var:ProductNameWithEdition.
+[API Overview](apiconcepts/overview.md) — Discover the capabilities of Var:ProductNameWithEdition APIs and what you can achieve.
 
-⚠️ Note: Trados Studio 2026 Release will also support a new plugin system, check back for details on the new plugin system when it is made available.
+[Update Plugins From Previous Versions](articles/hints_tips/Update_Plugins/how_to_update_plugins_to_trados_studio.md) — Make your plugin compatible with Var:ProductNameWithEdition.
 
-## [Articles](articles/intro.md)
-Read articles on how to get more out of Var:ProductName.
+> [!NOTE]
+> The Trados Studio 2026 release will introduce a new plugin system. Check back for updates when it becomes available.
 
-## [Code samples](https://github.com/RWS/trados-studio-api-samples)
-Find more of our code samples on [GitHub](https://github.com/RWS/trados-studio-api-samples).
+## Resources
+[Articles](articles/intro.md) — Get tips and insights to maximize your use of Var:ProductName.
 
-## [Open Source Community Projects](https://github.com/RWS/Sdl-Community)
-Join our community-driven repository of Var:ProductName plugins on [RWS Community](https://github.com/RWS/Sdl-Community).
+[Code Samples](https://github.com/RWS/trados-studio-api-samples) — Browse our collection of code samples on GitHub.
 
 ## Var:ProductName API versions
 
@@ -32,9 +29,4 @@ Join our community-driven repository of Var:ProductName plugins on [RWS Communit
 
 ### [Var:ProductName 2022 - API 17.0](http://developers.rws.com/studio-api-docs/17.0/index.html)
 
-### [Var:ProductName 2021 SR2 - API 16.2](http://developers.rws.com/studio-api-docs/16.2/index.html)
-
-### [Var:ProductName 2021 SR1 - API 16.1](http://developers.rws.com/studio-api-docs/16.1/index.html)
-
-### [Var:ProductName 2019 - API 15.2](http://developers.rws.com/studio-api-docs/15.2/index.html)
 
