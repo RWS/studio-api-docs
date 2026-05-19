@@ -1,9 +1,8 @@
-What our Sample Provider Should do
-=====
+ # What Our Sample Provider Should Do
 
-Learn how to develop a custom terminology provider by folowing the creation of a simplified sample project which uses the Terminology Provider API.
+ Learn how to develop a custom terminology provider by following the creation of a simplified sample project using the Terminology Provider API.
 
-The example terminology provider will:
+ The example terminology provider includes the following features:
 
 * Use a semicolon-separated, two-column text file as a terminology resource. The lines in the glossary file have the following struture: line number (which corresponds to the entry number), the source term, the target term and a definition. For example, *2;photo printer;Fotodrucker;Peripheral device used create hardcopies of images*.
 * Select the terminology text file through a standard **Open File** dialog box.
@@ -13,4 +12,5 @@ The example terminology provider will:
 * Add term pairs to the text file.
 * View the content of entries in an Internet Explorer control.
 
-Note that our sample project only involves a highly simplified, 'Hello World'-style implementation to familiarize you with the basic concepts of terminology provider plug-ins. As terminology resource, we support only simple, two-column (source/target language) text files. The conceived search function is based on simple text searches with no stemming or fuzzy matching logic.
+> [!NOTE]
+> This sample project provides a simplified, 'Hello World'-style implementation to introduce the basic concepts of terminology provider plug-ins. The terminology resource supports only simple, two-column (source/target language) text files. The search function is limited to basic text searches without stemming or fuzzy matching logic.

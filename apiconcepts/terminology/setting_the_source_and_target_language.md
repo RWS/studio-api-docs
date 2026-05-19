@@ -1,19 +1,22 @@
-Setting the Source and Target Language
-====
-In this chapter you will learn how to retrieve and set the terminology provider source and target language.
+# Setting the Source and Target Language
 
-How to read the source and target language from the glossary file header
------
-Open the **MyTerminologyProvider.cs** class and go to the **GetLanguages()** function. Our implementation is based on the assumption that the first line in the text file contains the source and target language name and locale in the following form: *1;English,en-US;German,de-DE*
+Learn how to retrieve and set the source and target languages for the terminology provider.
 
-The source and target language are separated with a semicolon, the language name and locale are comma-separated.
+## Reading the Source and Target Language from the Glossary File Header
 
-Modify the **GetLanguages()** function as shown below. In this function, we parse the first line of the text file to retrieve the language label (for example 'English') and the locale (for example 'en-US'). Based on the locale, Var:ProductName assigns the glossary languages to the corresponding project language. After parsing the first line, the method creates two language objects which are added to the results list that the method returns.
+1. Open the **MyTerminologyProvider.cs** class.
+2. Go to the **GetLanguages()** function. This implementation assumes that the first line in the text file contains the source and target language name and locale in the following format: `1;English,en-US;German,de-DE`.
+
+> [!NOTE]
+> The source and target languages are separated by a semicolon, and the language name and locale are comma-separated.
+
+3. Modify the **GetLanguages()** function as shown below. This function parses the first line of the text file to retrieve the language label (for example, 'English') and locale (for example, 'en-US'). Based on the locale, **Var:ProductName** assigns the glossary languages to the corresponding project language. After parsing the first line, the method creates two language objects and adds them to the results list that the method returns.
 
 # [Getting the Term Provider Languages](#tab/tabid-1)
 [!code-csharp[MyTerminologyProvider](code_samples/MyTerminologyProvider.cs#L106-L137)]
 ***
 
-Note that you can add more than two languages. If Var:ProductName cannot assign the glossary languages automatically to the project languages, then you have to pick the correct glossary language manually from the dropdown list.
+> [!TIP]
+> You can add more than two languages. If **Var:ProductName** cannot automatically assign the glossary languages to the project languages, select the correct glossary language manually from the dropdown list.
 
 <img style="display:block; " src="images/project_01_selected_languages.jpg" />
