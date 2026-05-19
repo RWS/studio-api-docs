@@ -1,31 +1,28 @@
-Add Suggestion to a Custom Message Control
-======
-In this section, the `IdenticalCheck` custom message control described in [Create a Custom MessageControl](create_a_custom_message_control.md) shall be adapted to make a suggestion.
+## Add Suggestion to a Custom Message Control
+A suggestion can be added to the `IdenticalCheck` custom message control, as described in [Create a Custom MessageControl](create_a_custom_message_control.md).
 
-A suggestion is a change to the document that will fix the verification problem described by the verification message.
+A suggestion is a proposed change to the document that resolves the verification issue described by the message.
 
-This project can be found in the samples directory under Sdl.Verification.Sdk.IdenticalCheck.Extended.
+The project is available in the samples directory: [Sdl.Verification.Sdk.IdenticalCheck.Extended](https://github.com/RWS/trados-studio-api-samples/tree/master/Verification/Sdl.Verification.Sdk.IdenticalCheck.Extended).
 
-Overview
-------
-The `IdenticalCheck` custom message control shall be adapted to make a suggestion to replace the contents of the target segment with the source segment. Since the `IdenticalCheck` custom message control can make a suggestion then the Change button will be enabled.
+## Overview
+The `IdenticalCheck` custom message control can be adapted to suggest replacing the target segment's content with the source segment. When a suggestion is available, the Change button becomes enabled.
 
 <img style="display:block; " src="images/CustomMessageControlSuggestion1.png" />
 
 
-When the user clicks on the Change button, the suggestion is applied and that will make the target segment identical to the source segment. Since the target segment will be identical to the source segment then the verification problem will be fixed and the verification message will be removed.
+Clicking the Change button applies the suggestion, making the target segment identical to the source segment. This resolves the verification issue and removes the message.
 
 <img style="display:block; " src="images/CustomMessageControlSuggestion2.png" />
 
-Changing the custom user control to be a suggestion provider
-=====
-The custom user control is responsible for providing a suggestion because the custom user control may allow the user to select a suggestion. Any custom user control that provides a suggestion should implement [ISuggestionProvider](../../api/verification/Sdl.Verification.Api.ISuggestionProvider.yml).
+## Changing the Custom User Control to Be a Suggestion Provider
+The custom user control provides suggestions and may allow users to select one. To enable this, it should implement [ISuggestionProvider](../../api/verification/Sdl.Verification.Api.ISuggestionProvider.yml).
 
-The 'IdenticalVerifierMessageUI' custom user control should implement [ISuggestionProvider](../../api/verification/Sdl.Verification.Api.ISuggestionProvider.yml) to be able to suggest replacing the contents of the target segment with the source segment.
+The `IdenticalVerifierMessageUI` custom user control must implement [ISuggestionProvider](../../api/verification/Sdl.Verification.Api.ISuggestionProvider.yml) to suggest replacing the target segment's content with the source segment.
 
-1. Add a using reference to `Sdl.Verification.Api`.
-2. Make the class implement [ISuggestionProvider](../../api/verification/Sdl.Verification.Api.ISuggestionProvider.yml) - use Visual Studio to add empty implementations.
-3. Make `HasSuggestion` always return true because there is always a suggestion - replacing the contents of the target segment with the source segment.
+1. Add a reference to `Sdl.Verification.Api`.
+2. Implement [ISuggestionProvider](../../api/verification/Sdl.Verification.Api.ISuggestionProvider.yml) in the class. Use Visual Studio to generate empty implementations.
+3. Ensure `HasSuggestion` always returns `true`, as the suggestion is always to replace the target segment's content with the source segment.
 
 # [C#](#tab/tabid-1)
 ```cs
@@ -43,10 +40,10 @@ public event EventHandler SuggestionChanged;
 ```
 ***
 
-The `IdenticalVerifierMessageUI` custom user control needs the source segment to be able to suggest replacing the contents of the target segment with the source segment.
+The `IdenticalVerifierMessageUI` custom user control requires the source segment to suggest replacing the target segment's content.
 
-1. Add a using reference to `Sdl.FileTypeSupport.Framework.BilingualApi`.
-2. Use property `ReplaceDocumentSegment` of `IdenticalVerifierMessageData` class to create new Suggestion.
+1. Add a reference to `Sdl.FileTypeSupport.Framework.BilingualApi`.
+2. Use the `ReplaceDocumentSegment` property of the `IdenticalVerifierMessageData` class to create a new suggestion.
 
 # [C#](#tab/tabid-2)
 ```cs
@@ -142,8 +139,7 @@ namespace Verification.Sdk.IdenticalCheck.Extended.MessageUI
 ```
 ***
 
-Summary
-====
+## Summary
 That completes the work necessary to allow the `IdenticalVerifierMessageUI`custom message control to provide a suggestion for verification messages produced by the IdenticalCheck global verifier. If the user views a verification message produced by the IdenticalCheck global verifier then the Change button will be enabled and clicking on the Change button will apply the suggestion where the contents of the target segment is replaced with the contents of the source segment as described in the [Overview](overview.md).
 
 In this simple example, the `SuggestionChanged` event was not used. In complex custom message controls, there may be more than one reasonable suggestion that the user could choose from. These suggestions could be represented in a control like a combo-box or a list box where the user can select a suggestion. As the user selects a suggestion, selects a different suggestion, or "unselects" a suggestion the `SuggestionChanged` event should be fired. This event is listened to by the verification form that updates whether the Change button is enabled or not.
