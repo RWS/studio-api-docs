@@ -1,19 +1,17 @@
-Retrieving TM Containers
-====
-In this chapter you will learn how to get programmatic access to TM containers. Containers are the actual physical databases that contain one or more TMs. Technically speaking, TMs are tables within a container database. Depending on the number of TMs used, you may consolidate all TMs in a single container database, or split the TMs among several container databases. This may be a consideration driven by the maximum physical size of a database. For example, Microsoft SQL Express versions only support databases up to a maximum size (4 GB).
+# Retrieving TM Containers
 
-Add a New Class
----
-Start by adding a new class called `ServerContainersProvider` to your project. Then implement a public function called `GetDBContainers` in the class, which takes a [TranslationProviderServer](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.yml) object as parameter. This function can be called from the connector class as shown below:
+This chapter shows how to access TM containers programmatically. Containers are the physical databases that contain one or more TMs. Depending on how many TMs you use, you can store them in a single container database or split them across several container databases. Database size limits, such as the maximum size supported by Microsoft SQL Express versions, can influence that decision.
+
+## Add a New Class
+
+Start by adding a class called `ServerContainersProvider` to your project. Then implement a public function called `GetDBContainers` in the class, which takes a [TranslationProviderServer](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.yml) object as a parameter. Call the function from the connector class as shown below:
 
 # [C#](#tab/tabid-1)
 ```cs
 var containersProvider = new ServerContainersProvider();
 containersProvider.GetDBContainers(tmServer);
 ```
-*****
-
-The `GetDBContainers` function loops through the containers that are associated with the TM Server object and outputs various information in a message box:
+The `GetDBContainers` function loops through the containers associated with the TM Server object and displays their details in a message box:
 
 # [C#](#tab/tabid-2)
 ```cs
@@ -33,16 +31,16 @@ public void GetDBContainers(TranslationProviderServer tmServer)
     MessageBox.Show(dbInfo);
 }
 ```
-****
 
-Among the properties you can retrieve are the physical [DatabaseName](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryContainer.yml#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationMemoryContainer_DatabaseName) as well as the friendly [Name](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryContainer.yml#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationMemoryContainer_Name) assigned by the user during creation of the container database. Apart from that you can also retrieve, for example, the optional container description and the name of the database server on which the container is stored.
-Below you see an example of a container information box in GroupShare Web UI:
+The properties you can retrieve include the physical [DatabaseName](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryContainer.yml#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationMemoryContainer_DatabaseName) and the friendly [Name](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryContainer.yml#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationMemoryContainer_Name) assigned when the container database was created. You can also retrieve the optional container description and the name of the database server that stores the container.
+
+The image below shows a container information box in the GroupShare Web UI:
 
 <img style="display:block; " src="images/ContainerInfo.jpg"/>
 
-Putting it All Together
-----
-The complete class looks as shown below:
+## Putting It All Together
+
+The complete class looks like this:
 
 # [C#](#tab/tabid-3)
 ```cs
@@ -53,7 +51,6 @@ namespace SDK.LanguagePlatform.Samples.TmAutomation
 
     public class ServerContainersProvider
     {
-        #region "get"
         public void GetDBContainers(TranslationProviderServer tmServer)
         {
             string dbInfo = string.Empty;
@@ -69,9 +66,8 @@ namespace SDK.LanguagePlatform.Samples.TmAutomation
 
             MessageBox.Show(dbInfo);
         }
-        #endregion
     }
 }
 ```
-*****
+
 

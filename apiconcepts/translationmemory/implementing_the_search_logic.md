@@ -1,14 +1,14 @@
-Implementing the Search Logic
-=======
-The actual search functionality is implemented in a separate component. The plug-in template contains a class called `MyTranslationProviderLanguageDirection`, which - in our sample implementation - we will re-name to `ListTranslationProviderLanguageDirection`. This class implements the ITranslationProviderLanguageDirection interface, which contains numerous members. In this chapter we will focus on the members that are actually used for implementing the functionality of our plug-in. Members used for updating and adding translation units are not required for our implementation.
+## Implementing the Search Logic
 
-Implement the Private Class Members
--------
-The class that hosts the logic for the actual search functionality requires access to, for example, the plug-in options, as it needs to 'know' the name and path of the list file as well as the delimiter. This is done by creating an object based on the `ListTranslationOptions` class (see [Storing and Retrieving the Plug-in Settings](storing_and_retrieving_the_plugin_settings.md)).
+The search functionality lives in a separate component. The plug-in template includes a class named `MyTranslationProviderLanguageDirection`, which we rename to `ListTranslationProviderLanguageDirection` in this sample. This class implements `ITranslationProviderLanguageDirection`, which exposes many members. Here, we focus on the members required for the search functionality. We do not need the members for adding or updating translation units.
 
-Also, the `ListTranslationProviderElementVisitor` helper class (which we will implement in the next chapter, see [Implementing the Element Visitor](implementing_the_element_visitor.md)) provides functionality necessary for making sure that we retrieve the required plain segment text information for carrying out the search in the delimited text lists.
+## Implement the Private Class Members
 
-Also, we declare a `_listOfTranslations` object based on the `Dictionary` class. We will later load the content of the delimited list file into this object. At the beginning of our class we therefore declare the following private members:
+The class that contains the search logic needs access to the plug-in options, including the list file path, file name, and delimiter. Create an object based on the `ListTranslationOptions` class (see [Storing and Retrieving the Plug-in Settings](storing_and_retrieving_the_plugin_settings.md)).
+
+The `ListTranslationProviderElementVisitor` helper class, which we implement in the next chapter (see [Implementing the Element Visitor](implementing_the_element_visitor.md)), extracts the plain segment text required for searches in the delimited list.
+
+Declare a `_listOfTranslations` object based on `Dictionary<string, string>`. Later, we load the contents of the delimited list file into this object. At the beginning of the class, declare the following private members:
 # [C#](#tab/tabid-1)
 ```cs
 private ListTranslationProvider _provider;
@@ -19,7 +19,7 @@ private Dictionary<string, string> _listOfTranslations;
 ```
 ***
 
-These members are then instantiated in the `ListTranslationProviderLanguageDirection` constructor method, which also creates the `_listOfTranslations` object to hold the segment pair collection:
+Instantiate these members in the `ListTranslationProviderLanguageDirection` constructor, which also creates the `_listOfTranslations` object to store the segment pairs:
 # [C#](#tab/tabid-2)
 ```cs
 _provider = provider;
@@ -30,9 +30,9 @@ _listOfTranslations = new Dictionary<string, string>();
 ```
 ***
 
-In the next step we open the list file. Note that the file name and path is provided through the plug-in options, as is the delimiter character. The first line, which holds the language direction information should not be put into the collection, which is why before looping through the segment pairs we apply the ReadLine method, so that this line is skipped.
+Next, open the list file. The plug-in options provide both the file path and the delimiter character. The first line contains the language direction and should not be added to the collection, so read and skip that line before processing the segment pairs.
 
-Within the loop we split the following lines into segment pairs. If the split is successful and generates a source and a target segment, we add the pair to the collection.
+Inside the loop, split each line into a source and target segment. If the split succeeds, add the pair to the collection.
 # [C#](#tab/tabid-3)
 ```cs
 // Load the content of the specified list file and fill it
@@ -63,20 +63,17 @@ using (StreamReader sourceFile = new StreamReader(_options.ListFileName))
 }
 ```
 ***
-The complete method should now look as shown below:
+The complete constructor should now look like this:
 # [C#](#tab/tabid-4)
 ```cs
 public ListTranslationProviderLanguageDirection(ListTranslationProvider provider, LanguagePair languages)
-{
-    #region "Instantiate"
+{    
     _provider = provider;
     _languageDirection = languages;
     _options = _provider.Options;
     _visitor = new ListTranslationProviderElementVisitor(_options);
     _listOfTranslations = new Dictionary<string, string>();
-    #endregion
-
-    #region "CompileCollection"
+ 
     // Load the content of the specified list file and fill it
     // into the multiple identical sources are not allowed
     using (StreamReader sourceFile = new StreamReader(_options.ListFileName))
@@ -103,28 +100,27 @@ public ListTranslationProviderLanguageDirection(ListTranslationProvider provider
         }
         sourceFile.Close();
     }
-    #endregion
 }
 ```
 ***
 
-Search the Current Segment
------
-A segment lookup is (by default) triggered in Var:ProductName when the user moves the cursor into a particular target cell. This will search for a match for the current source segment in the selected translation provider source. The screenshot below shows two source segments as they are displayed in the editor of Var:ProductName and the empty target cells next to them:
+## Search the Current Segment
+
+By default, Var:ProductName triggers a segment lookup when the user moves the cursor into a target cell. The application then searches the selected translation provider for a match to the current source segment. The screenshot below shows two source segments in the editor and the empty target cells beside them:
 
 <img style="display:block; " src="images/Segments.jpg"/>
 
-When moving into a target cell the [SearchSegment](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderLanguageDirection.yml#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderLanguageDirection_SearchSegment_Sdl_LanguagePlatform_TranslationMemory_SearchSettings_Sdl_LanguagePlatform_Core_Segment_) method of the [ITranslationProviderLanguageDirection](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderLanguageDirection.yml) interface is invoked. This method takes the current segment object and the search settings as parameters. Search settings include, for example, the maximum number of matches that a search should return. These settings can be configured by the user of Var:ProductName at runtime. The screenshot below shows the search settings that users can configure. If a user, for example, limits the number of concordance matches that a translation provider should return to 5, then the this is the maximum number of concordance hits that your provider will return. There is no need for you to implement the logic for applying the settings yourself.
+When the user moves into a target cell, Var:ProductName invokes the [SearchSegment](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderLanguageDirection.yml#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderLanguageDirection_SearchSegment_Sdl_LanguagePlatform_TranslationMemory_SearchSettings_Sdl_LanguagePlatform_Core_Segment_) method on the [ITranslationProviderLanguageDirection](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderLanguageDirection.yml) interface. The method accepts the current segment and the search settings as parameters. Search settings include values such as the maximum number of matches to return. Users configure these settings at runtime. For example, if a user limits concordance matches to 5, your provider must return no more than 5 hits. You do not need to implement the settings logic yourself.
 <img style="display:block; " src="images/SearchSettings.jpg"/>
 > [!NOTE]
 > 
-> Depending on your translation provider, some of the search settings that Var:ProductName offers may or may not be relevant for your implementation. For example, since our provider will only support exact matches, the **Minimum match value** setting will not be relevant for the delimited list translation provider, as our logic will only implement searches for 100% matches.
+> Depending on your translation provider, some search settings in Var:ProductName may not apply to your implementation. For example, this provider supports only exact matches, so the **Minimum match value** setting is not relevant for the delimited list provider.
 
-Also, our implementation only support plain text searches. The segment pairs in the delimited list files are plain text, i.e. they do not contain any text., it is likely that a document that is opened in Var:ProductName contains inline tags, e.g. for character formatting as shown in the example below:
+This implementation supports plain-text searches only. The segment pairs in the delimited list files contain plain text, and documents opened in Var:ProductName may contain inline tags, such as character formatting, as shown below:
 
 <img style="display:block; " src="images/NotPlainText.jpg"/>
 
-We therefore loop through all elements in the current segment and make sure that only plain text is returned. Note that the functionality for returning only the plain source segment text is implemented in a separate component, which we will add later (see [Implementing the Element Visitor](implementing_the_element_visitor.md)).
+Loop through all elements in the current segment and return only plain text. The logic that extracts the plain source segment text lives in a separate component, which we add later (see [Implementing the Element Visitor](implementing_the_element_visitor.md)).
 # [C#](#tab/tabid-5)
 ```cs
 _visitor.Reset();
@@ -135,11 +131,11 @@ foreach (var element in segment.Elements)
 ```
 ***
 
-Create the Search Results Object
-------
-In the next step we create an object based on the [SearchResults](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemory.SearchResults.yml) class. This object holds the results of our search, which we will fill with the information found in our list translation provider (if any). A search result usually consists of the source and the target segments that were found in the translation provider (and potentially further information data such as context information, TM fields - e.g. Client, Project -, which, however will not be the case for our simplified implementation).
+## Create the Search Results Object
 
-Therefore [SourceSegment](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemory.SearchResults.yml#Sdl_LanguagePlatform_TranslationMemory_SearchResults_SourceSegment) property, which we set to the current segment as shown below:
+Next, create an object based on the [SearchResults](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemory.SearchResults.yml) class. This object stores the search results and any information returned by the list translation provider. A search result usually includes source and target segments, and may also include context data or TM fields such as Client and Project. This simplified implementation does not use those extra fields.
+
+Set the [SourceSegment](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemory.SearchResults.yml#Sdl_LanguagePlatform_TranslationMemory_SearchResults_SourceSegment) property to the current segment, as shown below:
 # [C#](#tab/tabid-6)
 ```cs
 SearchResults results = new SearchResults();
@@ -147,21 +143,21 @@ results.SourceSegment = segment.Duplicate();
 ```
 ***
 
-Note that we apply the [Duplicate](../../api/translationmemory/Sdl.LanguagePlatform.Core.Segment.yml#Sdl_LanguagePlatform_Core_Segment_Duplicate) method, which creates an instance that is a deep copy of the segment object instance.
+Note that we use the [Duplicate](../../api/translationmemory/Sdl.LanguagePlatform.Core.Segment.yml#Sdl_LanguagePlatform_Core_Segment_Duplicate) method to create a deep copy of the segment object.
 
-The Search Types Supported by the Plug-in
-------
-Remember that our plug-in needs to implement the following search types:
+## The Search Types Supported by the Plug-in
 
-* (source) segment lookup
-* source concordance search
-* target concordance search
+The plug-in must support the following search types:
 
-A concordance search can be triggered by, for example, selecting a source or target string in the editor and by pressing **F3**. The type of search that was called by the user from the editor can be determined using the `SearchMode` property, whose value can be retrieved through the search settings object.
+* Source segment lookup
+* Source concordance search
+* Target concordance search
 
-Implement the Segment Lookup
--------
-The following code snippet shows how we handle the normal segment lookup. If the search mode equals **NormalSearch**, and if a source segment match is found for the plain text version of the current source segment from the editor, then a target segment object should be created using the target segment string (i.e. the key value) from our segment pair collection. The current source segment and the target segment will be used to construct a search result, which will be displayed in the **Translation Results** window of Var:ProductName. The result will be generated through a separate `CreateSearchResult` helper function, which we will implement later.
+A concordance search can be triggered by selecting a source or target string in the editor and pressing **F3**. Use the `SearchMode` property, available through the search settings object, to determine which search type the user invoked.
+
+## Implement the Segment Lookup
+
+The following code snippet shows the normal segment lookup. When the search mode equals **NormalSearch** and the provider finds a match for the plain-text version of the current source segment, create a target segment from the matching value in the segment-pair collection. Use the current source segment and the target segment to construct a search result, which appears in the **Translation Results** window of Var:ProductName. The result comes from the `CreateSearchResult` helper function, which we implement later.
 # [C#](#tab/tabid-7)
 ```cs
 if (settings.Mode == SearchMode.NormalSearch &&
@@ -174,11 +170,11 @@ if (settings.Mode == SearchMode.NormalSearch &&
 ```
 ***
 
-Implement the Concordance Search
--------
-In the same manner we implement the source/target concordance search: If the search mode equals **ConcordanceSearch**, we loop through all the items in our segment pair collection. If items contain the search string, then a search result shall be generated for each matching segment. Note that for concordance searches we can have multiple hits.
+## Implement the Concordance Search
 
-For concordance searches, the search segment returned from the editor will usually not be an entire segment, but part of a segment, i.e. the string that the user selected for the concordance search. Note that in our implementation we apply ToLower to the search string and the hit from our segment pair collection, which makes the concordance search case-insensitive:
+Implement source and target concordance searches in the same way. When the search mode equals **ConcordanceSearch**, loop through the segment-pair collection. If an item contains the search string, generate a search result for each match. Concordance searches can return multiple hits.
+
+For concordance searches, the segment returned from the editor is usually only part of a segment: the string the user selected for the search. In this implementation, apply `ToLower()` to both the search string and the value from the segment-pair collection to make the search case-insensitive:
 # [C#](#tab/tabid-8)
 ```cs
 if (settings.Mode == SearchMode.ConcordanceSearch)
@@ -195,7 +191,7 @@ if (settings.Mode == SearchMode.ConcordanceSearch)
 }
 ```
 ***
-The target concordance search works almost the same way. The only difference is that we check for the search mode **TargetConcordanceSearch** and whether the current search string is contained in any of the target segments from the collection:
+Target concordance search works almost the same way. The only difference is that you check for **TargetConcordanceSearch** and test whether the current search string appears in any target segment from the collection:
 # [C#](#tab/tabid-9)
 ```cs
 if (settings.Mode == SearchMode.TargetConcordanceSearch)
@@ -213,14 +209,14 @@ if (settings.Mode == SearchMode.TargetConcordanceSearch)
 ```
 ***
 
-At the end of the loop we return the search result:
+Return the search results at the end of the method:
 # [C#](#tab/tabid-10)
 ```cs
 return results;
 ```
 ***
 
-The complete function should look as shown below:
+The complete function should now look like this:
 # [C#](#tab/tabid-11)
 ```cs
 public SearchResults SearchSegment(SearchSettings settings, Segment segment)
@@ -228,35 +224,27 @@ public SearchResults SearchSegment(SearchSettings settings, Segment segment)
     // Loop through segment elements to 'filter out' e.g. tags in order to 
     // make certain that only plain text information is retrieved for
     // this simplified implementation.            
-    #region "SegmentElements"
     _visitor.Reset();
     foreach (var element in segment.Elements)
     {
         element.AcceptSegmentElementVisitor(_visitor);
     }
-    #endregion
-
-    #region "SearchResultsObject"
+        
     SearchResults results = new SearchResults();
     results.SourceSegment = segment.Duplicate();
-    #endregion
-
-
-    // Look up the currently selected segment in the collection (normal segment lookup).
-    #region "SegmentLookup"
+    
+    // Look up the currently selected segment in the collection (normal segment lookup).    
     if (settings.Mode == SearchMode.NormalSearch &&
         _listOfTranslations.ContainsKey(_visitor.PlainText))
     {
         Segment translation = new Segment(_languageDirection.TargetCulture);
         translation.Add(_listOfTranslations[_visitor.PlainText]);
         results.Add(CreateSearchResult(segment, translation, _visitor.PlainText, segment.HasTags));
-    }
-    #endregion
+    }   
 
     // Source concordance search
     // In this implementation the concordance search should be case-insensitive,
     // therefore ToLower() is applied.
-    #region "SourceConcordanceSearch"
     if (settings.Mode == SearchMode.ConcordanceSearch)
     {
         foreach (var item in _listOfTranslations.Keys)
@@ -269,12 +257,10 @@ public SearchResults SearchSegment(SearchSettings settings, Segment segment)
             }
         }
     }
-    #endregion
-
+   
     // Target concordance search
     // In this implementation the concordance search should be case-insensitive,
     // therefore ToLower() is applied.
-    #region "TargetConcordanceSearch"
     if (settings.Mode == SearchMode.TargetConcordanceSearch)
     {
         foreach (var item in _listOfTranslations.Keys)
@@ -287,53 +273,49 @@ public SearchResults SearchSegment(SearchSettings settings, Segment segment)
             }
         }
     }
-    #endregion
 
-    #region "Close"
     return results;
-    #endregion
 }
 ```
 ***
 
-Generate the Search Result Translation Unit
-------
-In the next step, implement the `CreateSearchResult` helper function, which generates the search result if a match has been found in the translation list provider.
+## Generate the Search Result Translation Unit
 
-The search result that we construct is basically a translation unit with the following information:
+Next, implement the `CreateSearchResult` helper function. It generates a search result when the translation list provider finds a match.
 
-* The source/target segment from the translation provider
-* The match value
-* The confirmation status, i.e. **Draft** or **Translated**
-* Potentially a formatting/tag penalty
+The search result is essentially a translation unit with the following information:
 
-The function looks as shown below:
+* Source and target segments from the translation provider
+* Match value
+* Confirmation status, such as **Draft** or **Translated**
+* Optional formatting or tag penalty
+
+The function signature looks like this:
 # [C#](#tab/tabid-12)
 ```cs
  private SearchResult CreateSearchResult(Segment searchSegment, Segment translation, string sourceSegment, bool formattingPenalty)
 ```
 ***
 
-It takes the source segment (*searchSegment*), the target segment (*translation*) as segment parameters. In addition it takes the source segment as it was found in the list file as string parameter. The reason for using this additional parameter in our implementation: When finding a match during a normal source segment lookup, the source segment from the list file will be identical to the source segment from the document that was looked up. In this case, there would be no need for this additional string parameter, as the source segment could be already retrieved from the `searchSegment` parameter.
-However, for a concordance search, the search segment would not be the whole segment, but only part of it. But since we want to display the full segment in the **Concordance** window, and not only the concordance search string, we provide the full string as it was found in the list file as an additional string parameter.
+The function takes the source segment (`searchSegment`) and the target segment (`translation`) as parameters. It also takes the source segment string as it appears in the list file. This extra parameter is not necessary for a normal segment lookup, because the source segment from the list file matches the source segment from the document. However, concordance searches often use only part of a segment. To display the full segment in the **Concordance** window, pass the complete source string from the list file as an additional parameter.
 
-Another parameter that we use is the `formattingPenalty`, which is a boolean value. This parameter communicates to the function whether the original segment contained any inline tags (`segment.HasTags`). It may happen that an original source segment inline character formatting or any other tags. Our simple list provider only provides plain text, i.e. it does not insert any kind of tags or formatting information. This could lead to the fact that a segment with tags is translated by using a plain text target segment. Applying a slightly lower than 100% match value and a draft confirmation status alerts the translator to the fact that the suggested translation might require some editing. The translator then has to decide whether to apply the tags/formatting manually. Based on this parameter we lower match the match value for the TU to 99%. Also, we apply the confirmation level [Draft](../../api/core/Sdl.Core.Globalization.ConfirmationLevel.yml) instead of [Translated](../../api/core/Sdl.Core.Globalization.ConfirmationLevel.yml).
+Another parameter, `formattingPenalty`, is a Boolean value. It tells the function whether the original segment contains inline tags (`segment.HasTags`). The simple list provider returns plain text only, so a tagged source segment may be translated with a plain-text target segment. Lowering the match value to 99% and setting the confirmation level to [Draft](../../api/core/Sdl.Core.Globalization.ConfirmationLevel.yml) signals to the translator that the suggestion may require manual tag handling. Otherwise, use [Translated](../../api/core/Sdl.Core.Globalization.ConfirmationLevel.yml).
 
 > [!NOTE]
 > 
-> For concordance searches this formatting penalty parameter is always set to False as in our implementation formatting is not relevant for concordance searches.
+> For concordance searches, set `formattingPenalty` to `false` because formatting does not affect concordance results in this implementation.
 
-Below are some examples that illustrate how search results will be displayed in Var:ProductName:
+The examples below show how search results appear in Var:ProductName:
 
-The following result would be displayed in the **Translation Results** window when an exact (100%) match has been found in the delimited list:
+The following result appears in the **Translation Results** window when the provider finds an exact 100% match in the delimited list:
 
 <img style="display:block; " src="images/SearchResultNormalSearch.jpg"/>
 
-The following result would be displayed in the **Concordance** window for the search string photo printer. Note that when doing a concordance search in a translation memory, the corresponding search string is highlighted in the matching segments. This is not done in our simplified implementation.
+The following result appears in the **Concordance** window for the search string `photo printer`. In a translation memory, the search string is usually highlighted in the matching segments. This simplified implementation does not apply that highlighting.
 
 <img style="display:block; " src="images/SearchResultConcordance.jpg"/>
 
-The above result is achieved by creating a translation unit based on the [TranslationUnit](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemory.TranslationUnit.yml) class. To this `tu` object we apply the source and target segment as shown below. Remember that in order to make sure that the TU always shows the full source segment for concordance searches (instead of just the search string), we create a new [Segment](../../api/translationmemory/Sdl.LanguagePlatform.Core.Segment.yml) object based on the full source segment string as it is provided from the list file:
+Create the result by constructing a translation unit based on the [TranslationUnit](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemory.TranslationUnit.yml) class. Apply the source and target segments to the `tu` object, as shown below. To ensure that concordance searches display the full source segment instead of only the search string, create a new [Segment](../../api/translationmemory/Sdl.LanguagePlatform.Core.Segment.yml) object from the full source string in the list file:
 # [C#](#tab/tabid-13)
 ```cs
 TranslationUnit tu = new TranslationUnit();
@@ -343,81 +325,72 @@ tu.SourceSegment = orgSegment;
 tu.TargetSegment = translation;
 ```
 ***
-Next, we set some properties for the TU:
+Next, set the following translation-unit properties:
 
-* The match value, which should be 100, but which might be reduced through a penalty to 99% in order to alert the user to the fact that tags/inline formatting information is missing.
-* The [TranslationUnitOrigin](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemory.TranslationUnitOrigin.yml), which indicates that the translation came from. TU origins could be, for example, translation memories, machine translation providers, Context TM, or an alignment of existing documents. A delimited list is similar in nature to a very rudimentary translation memory, therefore we chose **TM** as the TU origin value. Note that information such as the name of the provider and the TU origin is stored in the SDLXliff document as illustrated in the screenshot below. The user can make such information visible in a tooltip.
+* Match value. Start at 100, but reduce it to 99% when a penalty applies so that users know tags or inline formatting are missing.
+* [TranslationUnitOrigin](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemory.TranslationUnitOrigin.yml), which identifies the source of the translation. TU origins can include translation memories, machine translation providers, Context TM, or aligned documents. A delimited list behaves like a very simple translation memory, so we use **TM** as the TU origin value. Information such as the provider name and TU origin is stored in the SDLXliff document, as shown below. Users can display that information in a tooltip.
 
 
 <img style="display:block; " src="images/TuInfoTooltip.jpg"/>
 
-* The [ConfirmationLevel](../../api/core/Sdl.Core.Globalization.ConfirmationLevel.yml), which could be, for example, draft, signed-off, translated, etc. As an exact match from a delimited list file can be assumed to be quite reliable, we will give it the status `Translated`, or `Draft` if the suggested translation is missing tags. The confirmation status is displayed in the editor as shown in the above screenshot. The code snippet below shows how the draft status is applied to the TU:
+* [ConfirmationLevel](../../api/core/Sdl.Core.Globalization.ConfirmationLevel.yml), which can be draft, signed-off, translated, and so on. Because an exact match from a delimited list is usually reliable, set the status to `Translated`, or to `Draft` when the suggested translation is missing tags. The confirmation status appears in the editor, as shown above. The code snippet below shows how to apply the draft status to the TU:
 
     ```cs
     tu.ConfirmationLevel = ConfirmationLevel.Draft;
     ```
 
-* If the boolean `formattingPenalty` parameter equals True, the TU should also receive a formatting penalty of 1%. To do this you first have to create a penalty object based on the [Penalty](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemory.Penalty.yml) class. This penalty is then applied to the scoring result by using the [ApplyPenalty](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemory.ScoringResult.yml#Sdl_LanguagePlatform_TranslationMemory_ScoringResult_ApplyPenalty_Sdl_LanguagePlatform_TranslationMemory_Penalty_) method. This method takes the [Penalty](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemory.Penalty.yml) as parameter. Penalties can be applied for various reasons. In our example the cause of the penalty is the lacking formatting tags. Therefore, the applicable penalty type is [TagMismatch](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemory.PenaltyType.yml). Another parameter is the 'malus', i.e. the percentage point(s) to subtract from the base score, which we set to 1 as shown in the code snippet below:
+* If the Boolean `formattingPenalty` parameter equals `true`, apply a 1% formatting penalty. First create a penalty object based on the [Penalty](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemory.Penalty.yml) class. Then apply it to the scoring result by using the [ApplyPenalty](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemory.ScoringResult.yml#Sdl_LanguagePlatform_TranslationMemory_ScoringResult_ApplyPenalty_Sdl_LanguagePlatform_TranslationMemory_Penalty_) method. This method accepts a [Penalty](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemory.Penalty.yml) as a parameter. In this example, the penalty comes from missing formatting tags, so the appropriate penalty type is [TagMismatch](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemory.PenaltyType.yml). The malus, or percentage points to subtract from the base score, is 1, as shown below:
 
     ```cs
     Penalty penalty = new Penalty(PenaltyType.TagMismatch, 1);
     searchResult.ScoringResult.ApplyPenalty(penalty);
     ```
 
-* When a formatting (i.e. tag) penalty is applied to a TU, it will be shown in Var:ProductName as illustrated in the screenshot below:
+* When a formatting, or tag, penalty applies to a TU, Var:ProductName displays it as shown below:
 
     <img style="display:block; " src="images/FormattingPenalty.jpg"/>
 
-The complete function should now look as shown below:
+The complete function should now look like this:
 
 # [C#](#tab/tabid-14)
 ```cs
 private SearchResult CreateSearchResult(Segment searchSegment, Segment translation, 
     string sourceSegment, bool formattingPenalty)
-{                
-        #region "TranslationUnit"
+{                        
         TranslationUnit tu = new TranslationUnit();
         Segment orgSegment = new Segment();
         orgSegment.Add(sourceSegment);
         tu.SourceSegment = orgSegment;
-        tu.TargetSegment = translation; 
-        #endregion           
+        tu.TargetSegment = translation;                    
 
         tu.ResourceId = new PersistentObjectToken(tu.GetHashCode(), Guid.Empty);
-
-        #region "TuProperties"
+              
         int score = 100;
         tu.Origin = TranslationUnitOrigin.TM;           
-
 
         SearchResult searchResult = new SearchResult(tu);
         searchResult.ScoringResult = new ScoringResult();
         searchResult.ScoringResult.BaseScore = score;
 
         if (formattingPenalty)
-        {
-            #region "Draft"
+        {            
             tu.ConfirmationLevel = ConfirmationLevel.Draft;
-            #endregion
-
-            #region "FormattingPenalty"
+            
             Penalty penalty = new Penalty(PenaltyType.TagMismatch, 1);
-            searchResult.ScoringResult.ApplyPenalty(penalty);
-            #endregion
+            searchResult.ScoringResult.ApplyPenalty(penalty);            
         }
         else
         {
             tu.ConfirmationLevel = ConfirmationLevel.Translated;
         }
-        #endregion
-
+        
         return searchResult;
 }
 ```
 ***
 
-See Also
----
+## See Also
+
 [Implementing the Element Visitor](implementing_the_element_visitor.md)
 [Performing Translation Memory Lookups](performing_translation_memory_lookups.md)
 [Doing Translation Memory Lookups](doing_translation_memory_lookups.md)

@@ -1,38 +1,26 @@
-Required References and Namespaces
-==
+# Required References and Namespaces
 
-The following chapters contain a number of code snippets, which show you how to perform common TM-related tasks such as creating TMs and adding/searching translation units. These simple code examples will help you quickly get familiar with handling frequent use cases.
+The following chapters include code snippets that show how to perform common TM tasks, such as creating translation memories and adding or searching translation units. Use these examples to get familiar with the most common workflows.
 
-To test the code snippets you can create a simple Console Application project in Var:VisualStudioEdition. Make sure to add the following references to your project, which you will find in the installation folder of Var:ProductName.
+To test the snippets, create a simple console application project in Var:VisualStudioEdition. Add these references from the Var:ProductName installation folder:
 
-* Sdl.Core.Api.dll
 * Sdl.Core.Globalization.dll
+* Sdl.Core.Globalization.Async
 * Sdl.LanguagePlatform.Core.dll
 * Sdl.LanguagePlatform.TranslationMemory.dll
 * Sdl.LanguagePlatform.TranslationMemoryApi.dll
 
-Classes that deal with server TM-related tasks such as connecting to a TM Server require the following additional libraries:
+The following chapters assume that you implement a dedicated class for each task. Each class should contain one or two methods and use these namespaces:
 
-* Sdl.Enterprise2.Platform.Client.dll
-* Sdl.Enterprise2.Platform.Contracts.dll
-* Sdl.LanguagePlatform.ServerBasedTranslationMemory.Contracts.dll
-
-Each of the following chapters assume that you implement a dedicated class for performing particular tasks. Each class will contain one or two functions. Each class needs to use the following namespaces:
-
-* System.Globalization
 * Sdl.Core.Globalization
+* Sdl.Core.Globalization.Async
 * Sdl.LanguagePlatform.Core.Tokenization
 * Sdl.LanguagePlatform.Core
 * Sdl.LanguagePlatform.TranslationMemory
 * Sdl.LanguagePlatform.TranslationMemoryApi
-
-Classes that deal with server TM-related tasks such as connecting to a TM Server, creating a server-based TM, etc. additionally need to use the following namespaces:
-
-* Sdl.Enterprise2.Platform.Client.IdentityModel
-* Sdl.Enterprise2.Platform.Client
-* Sdl.Enterprise2.Platform.Contracts
+* Sdl.Core.TM.ImportExport
 
 >[!NOTE]
 >
->At the moment you need to set the output path to the folder in which Var:ProductName is installed. This may change soon, but at the time of writing this was still a requirement. Choosing a different build output path might cause problems with a number of API functions.
+>Set the output path to the folder where Var:ProductName is installed. If you choose a different build output path, some API functions might fail.
 

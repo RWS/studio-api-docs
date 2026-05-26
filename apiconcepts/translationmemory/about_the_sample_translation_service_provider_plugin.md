@@ -1,39 +1,36 @@
-About the Sample Translation Service Provider Plug-in
-====
-This part of the SDK provides a step-by-step guide of how to create a simple translation provider plug-in, which can be used in Var:ProductName for interactive translation as well as processing through a batch task, e.g. **Analyze Files** and **Pre-translate Files**.
+# About the Sample Translation Service Provider Plug-in
 
-About Translation Provider Plug-ins
-------
-Var:ProductName allows you to add one or several translation providers to a localization project. The providers that are used primarily are file and server translation memory. By default, Var:ProductName also features translation provider plugs-ins that connect to Web-based machine translation systems such as Google Translate and Language Weaver.
+This section provides a step-by-step guide for creating a simple translation provider plug-in. You can use the plug-in in Var:ProductName for interactive translation and for batch tasks such as **Analyze Files** and **Pre-translate Files**.
 
-When opening a document for translation or when setting up a localization project you can add several translation providers, in which sequences lookup operations can be performed. For example, when you select a TM as your primary provider and an automated translation system as your secondary provider, an automated translation (AT) will be suggested whenever no match has been found in the TM.
+## About Translation Provider Plug-ins
 
-The screenshot below illustrates which translation providers are currently available by default when opening a document for translation in Var:ProductName. Through the API you can create additional plug-ins to leverage other translation sources. These additional providers would then be listed alongside the default providers.
+Var:ProductName lets you add one or more translation providers to a localization project. The primary providers are file-based and server-based translation memories. Var:ProductName also includes translation provider plug-ins that connect to web-based machine translation systems such as Google Translate and Language Weaver.
 
+When you open a document for translation or set up a localization project, you can add multiple translation providers and use them in sequence. For example, if you select a TM as your primary provider and an automated translation system as your secondary provider, Var:ProductName suggests an automated translation when the TM does not return a match.
 
+The screenshot below shows the translation providers that are available by default when you open a document for translation in Var:ProductName. Through the API, you can create additional plug-ins to use other translation sources. Var:ProductName then lists those providers alongside the default providers.
 
 <img style="display:block; " src="images/TranslationProviders.jpg"/>
 
-About the Delimited List Provider Sample Plug-in
------
+## About the Delimited List Provider Sample Plug-in
 
-For our sample plug-in let us assume that you want to use simple, delimited text files as translation sources. The text files contain source and target segments, which are delimited by e.g. semicolon (;) characters. The plug-in should fulfil the following requirements:
+For this sample plug-in, assume that you want to use simple, delimited text files as translation sources. The text files contain source and target segments separated by a delimiter such as a semicolon (`;`). The plug-in should meet the following requirements:
 
-* The user should be able to select the list text file at runtime.
-* The user should be able to select the delimiter character from a dropdown list.
-* The plug-in should support 'normal' segment lookups as well as concordance searches in source and target segments.
-* Each row in a text files contains exactly one source and one target segment, which are delimited by a specified character.
-* The same source segment may occur several times in different rows. The corresponding target segments can then be different (i.e. several translations for the same source segment). If this is the case, the translation solutions should be shown to the user, who can then choose which one fits the current context best.
-* The language direction needs to be indicated in the first row of the text file (e.g. *en-US_de-DE*)
+- The user can select the list text file at runtime.
+- The user can select the delimiter character from a drop-down list.
+- The plug-in supports standard segment lookups and concordance searches in the source and target segments.
+- Each row in a text file contains exactly one source segment and one target segment, separated by the chosen delimiter.
+- The same source segment may appear several times in different rows. The corresponding target segments can differ, which means the same source segment can have several translations. In that case, show the translation options to the user so they can choose the best one for the current context.
+- The language direction must appear in the first row of the text file, for example `en-US_de-DE`.
 
-To keep development of the sample plug-in as simple as possible let us proceed on the assumption that the following limitations and conditions apply:
+To keep the sample plug-in as simple as possible, assume that the following limitations apply:
 
-* The plug-in should support only exact matches, i.e. no fuzzy searches.
-* The list files contain only plain text information, i.e. no tags, RTF codes, etc.
-* The delimiter character must be unique within a row, i.e. it must not occur within the source or target segments to allow for a clear source/target segment identification.
-* The delimited text file needs to be available in Unicode format.
-  
-Below you see what a sample list text file may look like. You can use this as an example for testing the plug-in functionality.
+- The plug-in supports exact matches only, with no fuzzy searches.
+- The list files contain plain text only, with no tags, RTF codes, or similar content.
+- The delimiter character must be unique within a row and must not appear in the source or target segments, so the application can clearly identify the source and target segments.
+- The delimited text file must be in Unicode format.
+
+The following sample list file shows one possible format. You can use it to test the plug-in functionality.
 
 ```
 en-US;de-DE

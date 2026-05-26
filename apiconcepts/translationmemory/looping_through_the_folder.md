@@ -1,10 +1,10 @@
-Looping through the Folder(s)
-====
-The user of your sample application is required to enter a main path. The application then loops through the files in that path and any files contained in sub-folders of the main path. The application logic for traversing the folders and sub-folders will be implemented in a dedicated iterator class. This class will be used both for looping through all *.sdltm files, the content of which then need to be exported to *.tmx.
+# Looping through the Folder(s)
 
-Add a New Class
------
-Add a class called `TmIterator` to your project. At the beginning of the class, declare two constants, one to specify how deep into the sub-folder structure the recursion should go. For example, we will hard-code the depth to 10, so that the application will go down to 10 sub-folder levels. The second constant sets the recursion level, which should be 1:
+The user enters a root path. The application then scans that folder and any subfolders for `.sdltm` files and exports each file to `.tmx`. The traversal logic lives in a dedicated iterator class.
+
+## Add a New Class
+
+Add a class named `TmIterator` to your project. At the beginning of the class, declare two constants: one to define how deep the recursion should go, and one to define the current recursion level. For this sample, hard-code the depth to 10 so the application can scan up to 10 subfolder levels. Set the initial recursion level to 1:
 # [C#](#tab/tabid-1)
 ```cs
 /// <summary>
@@ -20,7 +20,7 @@ public const int RecursionLevel = 1;
 ```
 ******
 
-Then add a public function called ProcessDirectory:
+Then add a public method named `ProcessDirectory`:
 # [C#](#tab/tabid-2)
 ```cs
 /// <summary>
@@ -33,12 +33,11 @@ public void ProcessDirectory(string sourceDirectory, bool processSubFolders)
 ```
 ****
 
-This function takes the main folder entered by the user in the command line interface as string parameter, and a boolean parameter that indicates whether sub-folders should be processed through self-recursion.
+This method takes the root folder entered by the user in the command-line interface as a string parameter and a Boolean parameter that indicates whether to process subfolders recursively.
 
-Implement the Recursion
-----
+## Implement the Recursion
 
-Within the function implement an `if`, which makes the function loop through all sub-folders until the recursion level has reached the maximum depth.
+Within the method, add an `if` statement that keeps the recursion within the maximum depth.
 # [C#](#tab/tabid-3)
 ```cs
 // Loop until the recursion level has reached the
@@ -47,7 +46,7 @@ if (RecursionLevel <= Depth)
 ```
 ****
 
-Next, you iterate through the files found in a given directory. However, the files should only be processed if they match the provided extension, i.e. *.sdltm. If the extension sdltm is encountered, an export will be triggered, which we will implement in a separate class in a later step (see [Importing into the Master Translation Memories](importing_into_the_master_translation_memories.md)).
+Next, iterate through the files in the current directory. Process only files with the `.sdltm` extension. When the application finds a matching file, it triggers an export that a separate class implements later in the sample.
 # [C#](#tab/tabid-4)
 ```cs
 // Retrieve the names of the files found in the given folder.
@@ -100,7 +99,7 @@ Sdl.SDK.LanguagePlatform.Samples.BatchExport.exe c:\tm /y
 ****
 
 
-The following code in `Program.cs` is used for explaining the application use and retrieves the parameters for the file processing. It also checks the validity of the input folder:
+The following code in `Program.cs` shows how the application reads the command-line arguments and validates the input folder:
 # [C#](#tab/tabid-7)
 ```cs
 /// <summary>
@@ -154,9 +153,9 @@ public static void Main(string[] args)
 ```
 ****
 
-Putting it All Together
------
-The complete class should now look as shown below:
+## Putting it All Together
+
+The complete class should now look like this:
 # [C#](#tab/tabid-8)
 ```cs
 using System;

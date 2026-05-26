@@ -1,23 +1,23 @@
-Storing and Retrieving the Plug-in Settings
-======
-The settings that are configured through the plug-in user interface (see [Implementing the Plug-in User Interface](implementing_the_plugin_user_interface.md)) need to be programmatically set and retrieved. This chapter describes how to implement a separate class for storing the plug-in settings. These settings are physically stored in an **.sdlproj* or in an **.sdltlp* file.
+# Storing and Retrieving the Plug-in Settings
 
-Implement the Class for Handling the Plug-in Settings
-------
-Add a helper class called `ListTranslationOptions` to the project. This class is not included in the plug-in template.
+The settings configured through the plug-in user interface, see [Implementing the Plug-in User Interface](implementing_the_plugin_user_interface.md), must also be stored and retrieved programmatically. This chapter shows how to implement a separate class for storing the plug-in settings. The settings are stored in an **.sdlproj** or **.sdltlp** file.
 
-Define the Translation Method
-------
-First, we define the [TranslationMethod](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMethod.yml) that best applies to our translation provider source. The translation method could, for example, be translation memory, machine translation, pseudo-translation, etc. A delimited list is basically like a rudimentary TM. Therefore you could, for example, select [TranslationMemory](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMethod.yml). However, to set our plug-in apart from a 'normal' TM we select the option Other:
+## Implement the Class for Handling the Plug-in Settings
+
+Add a helper class named `ListTranslationOptions` to the project. The plug-in template does not include this class.
+
+## Define the Translation Method
+
+First, define the [TranslationMethod](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMethod.yml) that best fits the translation provider. The translation method could be translation memory, machine translation, pseudo-translation, or another type. A delimited list is similar to a basic TM, so you could choose [TranslationMemory](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMethod.yml). However, to distinguish this plug-in from a standard TM, use the **Other** option:
 # [C#](#tab/tabid-1)
 ```cs
 public static readonly TranslationMethod ProviderTranslationMethod = TranslationMethod.Other;
 ```
 ***
 
-Create the Plug-in URI Builder
-------
-Each plug-in uses a URI to store and retrieve settings. Through the following code we create the URI builder object, which is used to store and persist the plug-in settings:
+## Create the Plug-in URI Builder
+
+Each plug-in uses a URI to store and retrieve settings. The following code creates the URI builder object used to store and persist the plug-in settings:
 # [C#](#tab/tabid-2)
 ```cs
 TranslationProviderUriBuilder _uriBuilder;        
@@ -34,7 +34,7 @@ public ListTranslationOptions(Uri uri)
 ```
 ***
 
-At the end we return the URI as shown below:
+The URI property returns the resulting URI, as shown below:
 # [C#](#tab/tabid-3)
 ```cs
 public Uri Uri
@@ -47,9 +47,9 @@ public Uri Uri
 ```
 ***
 
-Set and Retrieve the Plug-in Parameters
-------
-Our plug-in implements two string settings, i.e. the list file name and path and the delimiter character. In the following we declare the two public string properties which are set by the plug-in user form. The properties call on two separate private functions to get and to set the corresponding values:
+## Set and Retrieve the Plug-in Parameters
+
+This plug-in implements two string settings: the list file name and path, and the delimiter character. The following public string properties are set by the plug-in user form. Each property uses a private helper method to get or set the corresponding value:
 # [C#](#tab/tabid-4)
 ```cs
 public string ListFileName
@@ -68,7 +68,7 @@ public string Delimiter
 }
 ```
 ***
-The following function sets the string parameter. It takes the property name and the corresponding value as string parameters:
+The following method sets a string parameter. It takes the property name and the corresponding value as string parameters:
 # [C#](#tab/tabid-6)
 ```cs
 private void SetStringParameter(string p, string value)
@@ -78,7 +78,7 @@ private void SetStringParameter(string p, string value)
 ```
 ***
 
-The following function is used to retrieve the value for a specified URI property:
+The following method retrieves the value for a specified URI property:
 # [C#](#tab/tabid-7)
 ```cs
 private string GetStringParameter(string p)
@@ -89,14 +89,14 @@ private string GetStringParameter(string p)
 ```
 ***
 
-The following is an example of what a URI string will look like in our implementation:
+The following example shows what a URI string looks like in this implementation:
 
 ```
 listprovider:///?delimiter=;&listfile=C:\temp\sample_list.txt" Enabled="true"
 ```
 
 
-The translation provider plug-in settings are physically stored in the project file (*.sdlproj) or in the project template (*.sdltpl) file. These are XML-compliant files that store project- or project-template specific information. The file excerpt below provides an example of how a translation provider is listed in a project or template file alongside with its respective settings:
+The translation provider plug-in settings are stored in the project file (*.sdlproj) or in the project template (*.sdltpl) file. These XML-compliant files store project-specific or project-template-specific information. The excerpt below shows how a translation provider appears in a project or template file together with its settings:
 
 ```xml
 <CascadeItem OverrideParent="true" StopSearchingWhenResultsFound="false">
@@ -130,11 +130,7 @@ namespace Sdk.LanguagePlatform.Samples.ListProvider
     /// </summary>
     public class ListTranslationOptions
     {
-        #region "TranslationMethod"
         public static readonly TranslationMethod ProviderTranslationMethod = TranslationMethod.Other;
-        #endregion
-
-        #region "TranslationProviderUriBuilder"
         TranslationProviderUriBuilder _uriBuilder;        
 
         public ListTranslationOptions()
@@ -146,47 +142,36 @@ namespace Sdk.LanguagePlatform.Samples.ListProvider
         {
             _uriBuilder = new TranslationProviderUriBuilder(uri);
         }
-        #endregion
-
+       
         /// <summary>
         /// Set and retrieve the name and path of the delimited list file.
-        /// </summary>
-        #region "ListFileName"
+        /// </summary>        
         public string ListFileName
         {
             get { return GetStringParameter("listfile"); }
             set { SetStringParameter("listfile", value); }            
-        }
-        #endregion
+        }        
 
         /// <summary>
         /// Set and retrieve the delimiter character.
         /// </summary>
-        #region "Delimiter"
         public string Delimiter
         {
             get { return GetStringParameter("delimiter");}
             set {SetStringParameter("delimiter", value);}
         }
-        #endregion
 
-        #region "SetStringParameter"
         private void SetStringParameter(string p, string value)
         {
             _uriBuilder[p] = value;
         }
-        #endregion
 
-        #region "GetStringParameter"
         private string GetStringParameter(string p)
         {
             string paramString = _uriBuilder[p];
             return paramString;
         }
-        #endregion
 
-
-        #region "Uri"
         public Uri Uri
         {            
             get
@@ -194,14 +179,12 @@ namespace Sdk.LanguagePlatform.Samples.ListProvider
                 return _uriBuilder.Uri;                
             }
         }
-        #endregion
     }
 }
 ```
 ***
 
-See Also
----
+# See Also
 [Implementing the Plug-in User Interface](implementing_the_plugin_user_interface.md)
 
 [Controlling the Plug-in User Interface](controlling_the_plugin_user_interface.md)

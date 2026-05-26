@@ -1,14 +1,14 @@
-Creating the Master Translation Memories
-======
-Remember that all *.tmx files of the same language direction need to be consolidated in a master TM. If the importer class (see [Importing into the Master Translation Memories](importing_into_the_master_translation_memories.md)) determines that the corresponding master TM does not yet exist, it should be created through a separate class. On this page you will learn how to implement the class for creating the master TMs.
+# Creating the Master Translation Memories
 
-Add a New Class
------
-Start by adding a new class called `TmCreator` to your project. Add a public function called `CreateMasterTm`, which takes the path in which the master TMs should be created and the source/target language locales as string parameters.
+All `.tmx` files for the same language direction must be consolidated into a master TM. If the importer class (see [Importing into the Master Translation Memories](importing_into_the_master_translation_memories.md)) determines that the required master TM does not exist, it creates one by using a separate class. This page explains how to implement that class.
 
-Create the Master TM
-------
-In the next step, implement the logic required for creating the master TM file. Note that for simplicity's sake, the file name is a combination of a hard-coded string *(MasterTM_)*, the language direction string, and the extension *.sdltm.
+## Add a New Class
+
+Start by adding a class named `TmCreator` to your project. Add a public method named `CreateMasterTm` that takes the path where the master TMs are created and the source and target language locales as string parameters.
+
+## Create the Master TM
+
+Next, implement the logic that creates the master TM file. For simplicity, the file name combines a hard-coded string (`MasterTM_`), the language direction string, and the `.sdltm` extension.
 
 # [C#](#tab/tabid-1)
 ```cs
@@ -53,18 +53,17 @@ public void CreateMasterTm(string sourceLanguage, string targetLanguage, string 
 ****
 
 
-The fuzzy indexes are determined through a separate helper function:
+The fuzzy indexes are determined through a separate helper method:
 # [C#](#tab/tabid-2)
 ```cs
 /// <summary>
-/// Configure the fuzzy indexes, to determine, for example,
-/// that the master TM should support concordance searching 
-/// in the target language.
-/// The fuzzy indexes for source and target should be word-based only
-/// i.e. not character-based for performance reasons. (Master TMs
-/// can be assumed to be big, and therefore slow on character-based searches.)
+/// Configures the fuzzy indexes. For example, this ensures that
+/// the master TM supports concordance searching in the target language.
+/// The fuzzy indexes for source and target should be word-based only,
+/// not character-based, for performance reasons. Master TMs can be
+/// assumed to be large and therefore slow on character-based searches.
 /// </summary>
-/// <returns>Hard-coded SourceWordBased and TargetWordBased FuzzyIndexes type</returns>
+/// <returns>Hard-coded SourceWordBased and TargetWordBased FuzzyIndexes value.</returns>
 private FuzzyIndexes GetFuzzyIndexes()
 {
     return FuzzyIndexes.SourceWordBased | FuzzyIndexes.TargetWordBased;
@@ -73,17 +72,17 @@ private FuzzyIndexes GetFuzzyIndexes()
 ****
 
 
-Also, the recognition settings are set in a distinct helper function:
+The recognition settings are set in a separate helper method:
 
 # [C#](#tab/tabid-3)
 ```cs
 /// <summary>
-/// Configure the recognition settings for the TM.
-/// Here, we simply activate all recognition settings 
-/// through RecognizeAll, which includes recognition
-/// of variables, dates, numbers, acronyms, measurements, and times.
+/// Configures the recognition settings for the TM.
+/// This sample enables all recognition settings by using
+/// RecognizeAll, which includes variables, dates, numbers,
+/// acronyms, measurements, and times.
 /// </summary>
-/// <returns>Hard-coded RecognizeAll BuiltinRecognizer.</returns>
+/// <returns>Hard-coded RecognizeAll BuiltinRecognizers value.</returns>
 private BuiltinRecognizers GetRecognizers()
 {
     return BuiltinRecognizers.RecognizeAll;
@@ -91,11 +90,11 @@ private BuiltinRecognizers GetRecognizers()
 ```
 ***
 
-For more information, on these settings and on TM creation see also [Creating a File-based Translation Memory](creating_a_file_based_translation_memory.md).
+For more information about these settings and TM creation, see [Creating a File-based Translation Memory](creating_a_file_based_translation_memory.md).
 
-Putting it All Together
-----
-The complete class should look as shown below:
+## Putting it All Together
+
+The complete class should look like this:
 # [C#](#tab/tabid-4)
 ```cs
 using System.Globalization;
@@ -106,25 +105,25 @@ using Sdl.LanguagePlatform.TranslationMemoryApi;
 namespace SDK.LanguagePlatform.Samples.BatchImporter
 {
     /// <summary>
-    /// Represents functionality for creating Translation Memories.
+    /// Represents functionality for creating translation memories.
     /// </summary>
     public class TmCreator
     {
         #region "createTM"
 
         /// <summary>
-        /// Create the master TM based on the source and target locales found in the current TMX file.
+        /// Creates the master TM based on the source and target locales found in the current TMX file.
         /// </summary>
-        /// <param name="sourceLanguage">String representation of translation memory source language.</param>
-        /// <param name="targetLanguage">String representation of translation memory target language.</param>
-        /// <param name="masterPath">Path to translation memory.</param>
+        /// <param name="sourceLanguage">String representation of the translation memory source language.</param>
+        /// <param name="targetLanguage">String representation of the translation memory target language.</param>
+        /// <param name="masterPath">Path to the translation memory folder.</param>
         public void CreateMasterTm(string sourceLanguage, string targetLanguage, string masterPath)
         {
             #region "Create Translation Memory"
 
             string path = string.Format(
                 CultureInfo.CurrentCulture,
-                "{0}MasterTm_{1}_{2}.sdltm",
+                "{0}MasterTM_{1}_{2}.sdltm",
                 masterPath,
                 sourceLanguage,
                 targetLanguage);
@@ -154,14 +153,13 @@ namespace SDK.LanguagePlatform.Samples.BatchImporter
         #region "Get fuzzy indexes"
 
         /// <summary>
-        /// Configure the fuzzy indexes, to determine, for example,
-        /// that the master TM should support concordance searching 
-        /// in the target language.
-        /// The fuzzy indexes for source and target should be word-based only
-        /// i.e. not character-based for performance reasons. (Master TMs
-        /// can be assumed to be big, and therefore slow on character-based searches.)
+        /// Configures the fuzzy indexes. For example, this ensures that
+        /// the master TM supports concordance searching in the target language.
+        /// The fuzzy indexes for source and target should be word-based only,
+        /// not character-based, for performance reasons. Master TMs can be
+        /// assumed to be large and therefore slow on character-based searches.
         /// </summary>
-        /// <returns>Hard-coded SourceWordBased and TargetWordBased FuzzyIndexes type</returns>
+        /// <returns>Hard-coded SourceWordBased and TargetWordBased FuzzyIndexes value.</returns>
         private FuzzyIndexes GetFuzzyIndexes()
         {
             return FuzzyIndexes.SourceWordBased | FuzzyIndexes.TargetWordBased;
@@ -172,12 +170,12 @@ namespace SDK.LanguagePlatform.Samples.BatchImporter
         #region "get recognizers"
 
         /// <summary>
-        /// Configure the recognition settings for the TM.
-        /// Here, we simply activate all recognition settings 
-        /// through RecognizeAll, which includes recognition
-        /// of variables, dates, numbers, acronyms, measurements, and times.
+        /// Configures the recognition settings for the TM.
+        /// This sample enables all recognition settings by using
+        /// RecognizeAll, which includes variables, dates, numbers,
+        /// acronyms, measurements, and times.
         /// </summary>
-        /// <returns>Hard-coded RecognizeAll BuiltinRecognizer.</returns>
+        /// <returns>Hard-coded RecognizeAll BuiltinRecognizers value.</returns>
         private BuiltinRecognizers GetRecognizers()
         {
             return BuiltinRecognizers.RecognizeAll;
@@ -189,8 +187,7 @@ namespace SDK.LanguagePlatform.Samples.BatchImporter
 
 ```
 ****
-See Also
--------------
-[Creating the Log File](creating_a_log_file.md)
+## See Also
 
-[Creating a File-based Translation Memory](creating_a_file_based_translation_memory.md)
+- [Creating the Log File](creating_a_log_file.md)
+- [Creating a File-based Translation Memory](creating_a_file_based_translation_memory.md)
