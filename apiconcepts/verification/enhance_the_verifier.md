@@ -1,12 +1,10 @@
-Enhance the Verifier
-====
+# Enhance the Verifier
 
-In this chapter you will learn learn how to enhance your plug-in to take inline tag differences into account or to ignore inline tags.
+In this chapter, you will learn how to enhance your plug-in to account for inline tag differences or ignore inline tags.
 
-Enhance the Verifier Plug-in
----
+## Enhance the Verifier Plug-in
 
-Let us assume the following: the verifier plug-in needs to be able to 'decide' whether a target segment is identical to the corresponding source segment, even when there is a difference in tags. This means that the user should be able to configure whether tag differences should be taken into account when applying the verification, or whether only text changes should be considered to be differences. If tags are ignored, then the following segments would be regarded as being identical:
+Assume the verifier plug-in needs to decide whether a target segment is identical to the corresponding source segment, even when there are differences in tags. This means users should be able to configure whether tag differences are considered during verification, or whether only text changes are treated as differences. If tags are ignored, the following segments are regarded as identical:
 
 ```html
 This is a headline.
@@ -16,9 +14,9 @@ This is a headline.
 This is a <u>headline</u>.
 ```
 
-Add a TextGenerator Class
------
-To fulfil this requirement you need to extend the plug-in, so that either the plain text (without tags) is be compared or the text with tag content. Start by adding a new a class called e.g. `sTextGenerator.cs` to your project.
+## Add a TextGenerator Class
+
+To fulfil this requirement, extend the plug-in so that either plain text (without tags) or text with tag content can be compared. Start by adding a new class, for example `TextGenerator.cs`, to your project.
 
 This class will be responsible for generating the plain text content from the segment pairs. In this class, reference the namespace **Sdl.FileTypeSupport.Framework.BilingualApi** and have it implement the [IMarkupDataVisitor](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IMarkupDataVisitor.yml) interface. The skeleton class should look as shown below:
 
@@ -157,8 +155,7 @@ public void VisitText(IText text)
 ```
 ***
 
-The Complete Text Extractor Class
-----
+## The Complete Text Extractor Class
 The complete TextGenerator class should now look as shown below:
 
 # [C#](#tab/tabid-6)
@@ -285,8 +282,7 @@ namespace Verification.Sdk.IdenticalCheck.Extended
  ```
  ***
 
-Add a New Control to the Plug-in User Interface
-------
+## Add a New Control to the Plug-in User Interface
 Of course, the new setting needs to be reflected on the plug-in settings page. For this reason, add a check box control named **cb_ConsiderTags**. Then switch to the code view of the control, and add the following boolean `ConsiderTags` property as the programmatic representation of the control element:
 
 # [C#](#tab/tabid-7)
@@ -306,8 +302,7 @@ public bool ConsiderTags
 ```
 ***
 
-Enhance the Settings Class
-------
+## Enhance the Settings Class
 In the next step you need to make certain that your `IdenticalVerifierSettings` class includes the boolean `ConsiderTags` setting:
 
 # [C#](#tab/tabid-8)
@@ -346,8 +341,7 @@ protected override object GetDefaultValue(string settingId)
 ```
 ***
 
-Enhance the Settings Page Controller Class
------
+## Enhance the Settings Page Controller Class
 The following members of the `IdenticalVerifierUIPage` class also need to include the new setting for loading, saving, and resetting the values:
 
 # [C#](#tab/tabid-10)
@@ -381,8 +375,7 @@ public override void ResetToDefaults()
 ```
 ***
 
-Modify the Main Verifier Class
------
+## Modify the Main Verifier Class
 After implementing the `TextGenerator` class, we need to make a small change to the main verifier class, so that it either retrieves the segment text only or the segment text plus tag text for verification.
 
 First, add the following members to the `IdenticalVerifierMain` class, which is derived from the `TextGenerator`:
