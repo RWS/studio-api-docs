@@ -1,12 +1,10 @@
-Setting and Retrieving TM Properties
-==
+# Setting and Retrieving TM Properties
 
-After creating a translation memory there are various properties that you can retrieve, set, or change such as the TM description, an expiration date, the translation unit count, etc.
+After you create a translation memory, you can retrieve and update properties such as the description, expiration date, and translation unit count.
 
-Add a New Class
---
+## Add a New Class
 
-As we are going to implement the functionality for setting and retrieving the TM properties in a separate class. Create a new class called ```TmProperties```. Next, add a function called ```GetAndSetProperties```, which takes the TM file name and path as string parameter, and which can be called as shown below:
+Implement the property logic in a separate class named `TmProperties`. Add a method named `GetAndSetProperties()` that takes the TM file path as a string parameter, as shown below:
 
 # [C#](#tab/tabid-1)
 ```cs
@@ -15,19 +13,19 @@ tmProperties.GetAndSetProperties(_translationMemoryFilePath);
 ```
 ***
 
-After opening the TM we set a number of properties. Note that there are many more properties that can be set. The code example only showcases a small selection:
+After you open the TM, set the properties you need. Many more properties are available, but this example shows only a few:
 
 # [C#](#tab/tabid-2)
 ```cs
 tm.Description = "This is the TM description.";
-tm.Copyright = "(c) 3021 RWS Group";
+tm.Copyright = "(c) 2021 RWS Group";
 tm.ExpirationDate = DateTime.Now.AddDays(7);
 ```
 ***
 
-The above part of the code sets a TM description and copyright string, and defines an expiry date for the TM. In this case, we select 7 days, after which the TM can no longer be used. By using an expiry date, you can 'time-bomb' a TM, which is useful, for example, if you give the TM to a freelancer, and you want to prevent them from using it after the project deadline has passed.
+The code sets a TM description, a copyright string, and an expiration date. In this example, the TM expires after seven days. An expiration date lets you time-limit a TM, which can help when you share it with a freelancer and want to prevent use after a deadline.
 
-Below you see a few examples of properties that you can retrieve on a given TM and then output in a message box.
+The following example retrieves a few TM properties and displays them in a message box.
 
 # [C#](#tab/tabid-3)
 ```cs
@@ -40,10 +38,9 @@ MessageBox.Show(tmInfo);
 ***
 
 
-Putting it All Together
---
+## Putting it All Together
 
-The complete class should now look as shown below:
+The complete class should now look like this:
 
 # [C#](#tab/tabid-4)
 ```cs

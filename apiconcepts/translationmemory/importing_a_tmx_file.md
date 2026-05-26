@@ -1,14 +1,12 @@
-Importing a TMX File
-==
+# Importing a TMX File
 
-You can import bilingual content stored in TMX (Translation Memory Exchange) files into a translation memory. TMX is a standard, XML-based exchange format for translation memories.
+You can import bilingual content stored in TMX (Translation Memory Exchange) files into a translation memory. TMX is a standard XML-based exchange format for translation memories.
 
-Add a new Class
---
+## Add a New Class
 
-Add a new class called ```TmImporter``` to your project.
+Add a new class named `TmImporter` to your project.
 
-Continue by implementing a function function called ```ImportTmxFile``` in the class. This function can be called as shown below:
+Then implement a method named `ImportTMXFile()` in the class. Call it as shown below:
 
 # [C#](#tab/tabid-1)
 ```cs
@@ -17,9 +15,9 @@ tmImporter.ImportTMXFile(_translationMemoryFilePath, _importFilePath);
 ```
 ***
 
-The function requires the file name and path of the TM and the TMX document as string parameters.
+The method requires the TM path and the TMX file path as string parameters.
 
-First, open the TM into which the TMX content should be imported. Then create an importer object, which takes the TM language direction as parameter. Note that like a TM, a TMX file too, is bilingual with a dedicated language direction, which should match the TM language direction. Therefore you need to provide the TM language direction as parameter to the ```TranslationMemoryImporter``` object as shown in the example below:
+First open the TM into which you want to import the TMX content. Then create an importer object and pass the TM language direction. Like a TM, a TMX file is bilingual and uses a language direction that must match the TM direction. Pass the TM language direction to the `TranslationMemoryImporter` object, as shown below:
 
 # [C#](#tab/tabid-2)
 ```cs
@@ -28,7 +26,7 @@ var importer = new TranslationMemoryImporter(tm.LanguageDirection);
 ```
 ***
 
-Next, define the import chunk size. With the chunk size you determine the maximum amount of units that should be read from the TMX file in one go. As long as the import file resides on a local disk, the chunk size can be large and the whole file can potentially be read at once. If the import is going over an Internet line, this can cause latency so the chunk size ([ChunkSize](../../api/translationmemory/Sdl.Core.TM.ImportExport.Importer.yml#Sdl_Core_TM_ImportExport_Importer_ChunkSize)) should be small enough for the packages to be sent over the WAN. In our example we set the chunk size to 20, which corresponds roughly to the number of TUs contained in our small TMX sample file. Since we are running this import from the local hard disk, we can easily afford to take in the entire set of TUs from the TMX file. Note that the default chunk size is 50 ([DefaultTranslationUnitChunkSize](../../api/translationmemory/Sdl.Core.TM.ImportExport.Importer.yml#Sdl_Core_TM_ImportExport_Importer_DefaultTranslationUnitChunkSize)) and the maximum is 200 ([MaxTranslationUnitChunkSize](../../api/translationmemory/Sdl.Core.TM.ImportExport.Importer.yml#Sdl_Core_TM_ImportExport_Importer_MaxTranslationUnitChunkSize).
+Next, define the import chunk size. The chunk size determines the maximum number of units read from the TMX file at one time. If the import file is on a local disk, a larger chunk size is usually fine. If the import runs over a network, keep the chunk size smaller to reduce latency. In this example, set the chunk size to 20, which roughly matches the number of TUs in the sample file. The default chunk size is 50 ([DefaultTranslationUnitChunkSize](../../api/translationmemory/Sdl.Core.TM.ImportExport.Importer.yml#Sdl_Core_TM_ImportExport_Importer_DefaultTranslationUnitChunkSize)), and the maximum is 200 ([MaxTranslationUnitChunkSize](../../api/translationmemory/Sdl.Core.TM.ImportExport.Importer.yml#Sdl_Core_TM_ImportExport_Importer_MaxTranslationUnitChunkSize)).
 
 # [C#](#tab/tabid-3)
 ```cs
@@ -36,10 +34,9 @@ importer.ChunkSize = 20;
 ```
 ***
 
-Configure the Import Settings
---
+## Configure the Import Settings
 
-There are a number of settings that you may configure for an import operation. We configure the settings by calling a separate helper function:
+You can configure several settings for an import operation. In this example, call a helper method to apply the settings:
 
 # [C#](#tab/tabid-4)
 ```cs
@@ -47,9 +44,9 @@ this.GetImportSettings(importer.ImportSettings);
 ```
 ***
 
-Now add a helper function called ```GetImportSettings```, which takes the importer settings as parameter. Below you find a number of examples of options that you may configure for the import operation:
+Add a helper method named `GetImportSettings()` that takes the importer settings as a parameter. The following examples show common import options:
 
-Through the **CheckMatchingSublanguages** property you can determine whether the import should take sublanguages into account. Example: The TM into which you import has English (US) as source language, but the TMX file contains English (UK) translation units. Setting this property to False will cause the import to treat US and UK English equally, i.e. the UK units will be added to the US memory. However, if you configure the import to check for sublanguages, UK units will *not* be added to the US memory, i.e. UK English will be regarded as being a different language.
+Use **CheckMatchingSublanguages** to determine whether the import should distinguish sublanguages. For example, if the TM uses English (US) as the source language but the TMX file contains English (UK) TUs, setting this property to `false` treats US and UK English as the same language. If you enable sublanguage checking, the UK units are not added to the US TM.
 
 # [C#](#tab/tabid-5)
 ```cs
@@ -57,7 +54,7 @@ importSettings.CheckMatchingSublanguages = false;
 ```
 ***
 
-With the **ExistingFieldsUpdateMode** property you can determine what should happen to TM fields of already existing TUs. Example: The TM already contains a TU in which the field Customer has the value *Microsoft*. Now, let us assume that the TMX file contains the same TU (i.e. same source and target segment), however, the TU from the import file has the *Customer* value *SAP*. Through the **FieldUpdateMode** enumerator you can determine whether the original value of the TU in the TM should be overwritten, left unchanged, or whether the values should be merged, so that you end up with a TU that contains both field values, i.e.: *Customer*: *Microsoft*, *SAP*. Note that TM fields can also be defined to allow for only one value. If no multiple values are allowed for a particular field, then by default the import value will overwrite the existing value, unless you have set the field update mode to **LeaveUnchanged**.
+Use **ExistingFieldsUpdateMode** to control what happens to TM fields on existing TUs. For example, if the TM already contains a TU with the field *Customer* set to *Microsoft*, and the TMX file contains the same TU with *Customer* set to *SAP*, **FieldUpdateMode** lets you overwrite the existing value, leave it unchanged, or merge both values. If a field allows only one value, the import value overwrites the existing value by default unless you set the mode to **LeaveUnchanged**.
 
 # [C#](#tab/tabid-6)
 ```cs
@@ -65,7 +62,7 @@ importSettings.ExistingFieldsUpdateMode = ImportSettings.FieldUpdateMode.Merge;
 ```
 ***
 
-You may also configure the import to accept only TUs from the TMX file that have specific confirmation status values. You can thereby, for example, exclude TUs from the import that are in draft status, or that have no confirmation status value at all. Below you see an example of what a TU looks like in a TMX file. Note that the confirmation level value in this example is **ApprovedTranslation**.
+You can also configure the import to accept only TUs with specific confirmation status values. For example, you can exclude draft TUs or TUs without a confirmation status. The following example shows a TU in a TMX file with the **ApprovedTranslation** confirmation level.
 
 # [Xml](#tab/tabid-7)
 ```xml
@@ -83,7 +80,7 @@ You may also configure the import to accept only TUs from the TMX file that have
 ```
 ***
 
-The code example below shows how to configure the operation to allow only the import of TUs with the confirmation status values [ApprovedTranslation](../../api/core/Sdl.Core.Globalization.ConfirmationLevel.yml#fields) and [Translated](../../api/core/Sdl.Core.Globalization.ConfirmationLevel.yml#fields).
+The following example configures the import to accept only TUs with the confirmation status values [ApprovedTranslation](../../api/core/Sdl.Core.Globalization.ConfirmationLevel.yml#fields) and [Translated](../../api/core/Sdl.Core.Globalization.ConfirmationLevel.yml#fields).
 
 # [C#](#tab/tabid-8)
 ```cs
@@ -92,7 +89,7 @@ importSettings.ConfirmationLevels = levels;
 ```
 ***
 
-During import it may happen that invalid TUs are encountered in the TMX file. If you want such units to be written to an exclusion file for further analysis and troubleshooting, you may specify a path and name for the file that is supposed to contain the invalid TUs, which failed to import as shown in the example below:
+During import, you may encounter invalid TUs in the TMX file. To write those units to an exclusion file for later analysis, specify a path and file name for the file that should contain the failed imports, as shown below:
 
 # [C#](#tab/tabid-9)
 ```cs
@@ -100,7 +97,7 @@ importSettings.InvalidTranslationUnitsExportPath = @"c:\temp\invalid.tmx";
 ```
 ***
 
-Also, you can determine whether the import should be allowed to overwrite TUs that already exist in the TM. Example: The TM contains a particular TU, which is also stored in the TMX import file. However, the TU in the import file has a different target segment. Through the **OverwriteExistingTUs** property you can set whether the import is allowed to overwrite the TU in the TM, thereby replacing the existing target segment with the import target segment (True), or whether the existing translation should be left unchanged (False).
+You can also decide whether the import may overwrite TUs that already exist in the TM. For example, if the TM already contains a TU and the TMX file contains the same TU with a different target segment, **OverwriteExistingTUs** controls whether the import replaces the existing translation (`true`) or leaves it unchanged (`false`).
 
 # [C#](#tab/tabid-10)
 ```cs
@@ -108,11 +105,11 @@ importSettings.ExistingTUsUpdateMode = ImportSettings.TUUpdateMode.Overwrite;
 ```
 ***
 
-You may also import the TMX content in a way that only the plain text will be added to the TM. This means that all tags (e.g. inline formatting information) will be stripped from the TUs. If this is the case, you need to set the [PlainText](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemory.ImportSettings.yml#Sdl_LanguagePlatform_TranslationMemory_ImportSettings_PlainText) property to True. This is the most effective way to rid the import TUs of formatting information that is no longer required. A possible use case is the import of TMX files that come from third-party systems, that handle inline tags and formatting differently than Var:ProductName. Adding that kind of formatting to the TM in Var:ProductName may degrade the matching quality and might 'clutter' the TM with formatting information that is not required, or that cannot be properly handled in Var:ProductName.
+You can also import TMX content as plain text only. In that case, all tags, such as inline formatting information, are stripped from the TUs. Set the [PlainText](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemory.ImportSettings.yml#Sdl_LanguagePlatform_TranslationMemory_ImportSettings_PlainText) property to `true` to enable this behavior. This option is useful when you import TMX files from third-party systems that handle inline tags differently from Var:ProductName. Keeping incompatible formatting can reduce matching quality and clutter the TM with information that Var:ProductName cannot handle properly.
 
-Adding only the plain text information gives you the chance to start 'fresh' with existing linguistic content. Another use case: in the past, your source documentation was created in Microsoft Word 2000 (RTF), however, now you have switched to XML. The inline tags of those two formats are likely to be very different. You therefore want to strip all the old tags from the RTF-based format to handle current and future XML files more efficiently.
+Importing plain text also lets you start fresh with existing linguistic content. For example, if your source documentation moved from Microsoft Word 2000 (RTF) to XML, the inline tags in those formats are likely to differ. Stripping the old tags helps you handle the current and future XML files more efficiently.
 
-If you decide to import the text with tags you may also set a tag count limit (**TagCountLimit**). By setting this property to e.g. 10, you will prevent any TUs with a higher tag count to end up in your TM. That way you can prevent your TM from being cluttered with TUs that contain a large number of tags (e.g. segments in which different formatting was applied to every single letter). Example:
+If you import text with tags, you can also set a tag count limit (**TagCountLimit**). For example, setting the property to 10 prevents TUs with a higher tag count from entering the TM. This helps avoid TUs with excessive formatting, such as segments where each letter uses different formatting.
 
 # [C#](#tab/tabid-11)
 ```cs
@@ -121,12 +118,12 @@ importSettings.TagCountLimit = 10;
 ```
 ***
 
-The screenshot below shows an example of TUs that contain inline tags:
+The following screenshot shows TUs that contain inline tags:
 
 
 ![TUsWithTags](images/TUsWithTags.jpg)
 
-Furthermore, you can determine whether the usage count of the import TUs should be kept track of, after the TUs have been added to the TM. Using a TU means that a translator retrieves the TU from the TM, and then inserts the translation into the document, thereby 'using' the translation, which, in turn, increments the usage counter:
+You can also choose whether the import should increment the usage count of the imported TUs after they are added to the TM. A TU is counted as used when a translator retrieves it from the TM and inserts the translation into a document, which increments the usage counter.
 
 # [C#](#tab/tabid-12)
 ```cs
@@ -134,7 +131,7 @@ importSettings.IncrementUsageCount = true;
 ```
 ***
 
-Below is an example of a TU with a usage counter. Note the **usagecount** attribute of the **tu** element.
+The following example shows a TU with a usage counter. Note the **usagecount** attribute on the **tu** element.
 
 # [Xml](#tab/tabid-13)
 ```xml
@@ -152,10 +149,9 @@ Below is an example of a TU with a usage counter. Note the **usagecount** attrib
 ```
 ***
 
-Executing the Import
---
+## Executing the Import
 
-Before we execute the actual import, we fire an event that should be triggered after the import of each batch (i.e. chunk). The event is triggered as shown in the example below:
+Before you run the import, subscribe to an event that fires after each batch, or chunk, is imported:
 
 # [C#](#tab/tabid-14)
 ```cs
@@ -163,7 +159,7 @@ importer.BatchImported += new EventHandler<BatchImportedEventArgs>(this.importer
 ```
 ***
 
-Add the following member to your class, which outputs the statistics after the import of each batch (which is limited by the chunk size that you specified):
+Add the following member to your class to output statistics after each imported batch, which is limited by the chunk size you set:
 
 # [C#](#tab/tabid-15)
 ```cs
@@ -185,9 +181,9 @@ private void importer_BatchImported(object sender, BatchImportedEventArgs e)
 ```
 ***
 
-The statistics include the total number of TUs read, and the number of TUs that were actually imported. Note that very often the number of imported TUs is lower than the total number of TUs that were read from the TMX file. This is because TUs may be invalid, they may be duplicated and thus merged with other TUs, etc.
+The statistics include the total number of TUs read and the number of TUs actually imported. The imported count is often lower than the read count because some TUs may be invalid, duplicated, or merged with other TUs.
 
-Finally, you apply the ```Import``` method, which takes the TMX import file name and path as parameter:
+Finally, call the `Import()` method and pass the TMX file path:
 
 # [C#](#tab/tabid-16)
 ```cs
@@ -195,7 +191,7 @@ importer.Import(importFilePath);
 ```
 ***
 
-The complete ```ImportTMXFile``` function looks as shown below:
+The complete `ImportTMXFile()` method looks like this:
 
 # [C#](#tab/tabid-17)
 ```cs
@@ -225,10 +221,9 @@ public void ImportTMXFile(string tmPath, string importFilePath)
 ```
 ***
 
-Putting it All Together
---
+## Putting it All Together
 
-The complete class should now look as shown below:
+The complete class should now look like this:
 
 # [C#](#tab/tabid-18)
 ```cs
@@ -325,11 +320,8 @@ namespace SDK.LanguagePlatform.Samples.TmAutomation
 ```
 ***
 
-See Also
---
+## See Also
 [Exporting to a TMX File](exporting_to_a_tmx_file.md)
-
-[Scheduled TMX Imports](scheduled_tmx_imports.md)
 
 [Introduction to the Batch Import Tool](introduction_to_the_tm_batch_import_tool.md)
 

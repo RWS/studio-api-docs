@@ -1,24 +1,22 @@
-Tuning and Maintaining a Translation Memory
-==
+# Tuning and Maintaining a Translation Memory
 
-Translation memory databases need to be tuned and maintained from time to time as they are growing. This is a task that may potentially require automation, e.g. if you want to develop a scheduled task that performs a tuning operation on a TM at regular intervals.
+Translation memory databases need regular tuning and maintenance as they grow. You may want to automate these tasks, for example by running a scheduled job at regular intervals.
 
-About TM Tuning
---
-In Var:ProductName, the tuning options look as shown in the screenshot below:
+## About TM Tuning
+
+In Var:ProductName, the tuning options look like this:
 
 ![TmTuning](images/TmTuning.jpg)
 
-Probably the most common tuning operation is the recomputation of the fuzzy index. As the TM grows more and more units get added to the database. To keep the fuzzy index lean and efficient, you should recompute the index at regular intervals, depending on how fast your TM grows. This ensures speed and accuracy of the TM. Through the API you can determine when the fuzzy index was last recomputed and whether recomputing is required / recommended. Based on this information you could then trigger an action to recompute the fuzzy index programmatically.
+The most common tuning operation is recomputing the fuzzy index. As the TM grows, more units are added to the database. To keep the fuzzy index efficient, recompute it at regular intervals, depending on how quickly your TM grows. This helps balance speed and match quality. Through the API, you can determine when the fuzzy index was last recomputed and whether recomputation is recommended, and then trigger the operation programmatically.
 
-Moreover, there is a trade-off between accuracy and speed. This means that you may increase the search speed at the price of not retrieving certain lower fuzzy matches. On the other hand, you may want to get more low fuzzy matches at the price of slower TM lookups. For example, if your TM has become rather big (e.g. more than 200,000 units), and users are reporting that TM lookup operations have become slow, you may want to optimize the TM for speed. To be sure, this might mean that certain lower fuzzy matches will no longer be offered. On the other hand, in a big TM the likelihood of finding solutions is, of course, much bigger than in small TMs.
+There is also a trade-off between speed and accuracy. Increasing search speed can reduce the number of lower fuzzy matches that you retrieve. If your TM grows large, for example beyond 200,000 units, and lookups become slow, you may want to optimize the TM for speed. That may mean that some lower fuzzy matches are no longer returned.
 
-Through the API you can, for example, run scheduled scripts that recompute the fuzzy index on a regular basis to make sure that your TMs stay lean and efficient
+Through the API, you can run scheduled scripts that recompute the fuzzy index regularly and keep your TMs efficient.
 
-Add a New Tuning Class
---
+## Add a New Tuning Class
 
-Start by adding new class called ```TmTuner``` to your project. Next, implement a public function called ```TuneTm```, which takes the file name and path of the TM that should be tuned as string parameter. This function can be called as shown below:
+Start by adding a new class named `TmTuner` to your project. Then implement a public method named `TuneTm()` that takes the TM path as a string parameter. Call it as shown below:
 
 # [C#](#tab/tabid-1)
 ```cs
@@ -27,7 +25,7 @@ tuner.TuneTm(_translationMemoryFilePath);
 ```
 ***
 
-We use the ```TuneTm``` function to recompute the fuzzy index and to optimize the TM for speed through the [RecomputeFuzzyIndexStatistics](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.AbstractLocalTranslationMemory.yml#Sdl_LanguagePlatform_TranslationMemoryApi_AbstractLocalTranslationMemory_RecomputeFuzzyIndexStatistics) method as shown in the example below:
+Use the `TuneTm()` method to recompute the fuzzy index and optimize the TM for speed through the [RecomputeFuzzyIndexStatistics](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.AbstractLocalTranslationMemory.yml#Sdl_LanguagePlatform_TranslationMemoryApi_AbstractLocalTranslationMemory_RecomputeFuzzyIndexStatistics) method, as shown below:
 
 # [C#](#tab/tabid-2)
 ```cs
@@ -38,25 +36,24 @@ tm.Save();
 ```
 ***
 
-By applying the [RecomputeFuzzyIndexStatistics](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.AbstractLocalTranslationMemory.yml#Sdl_LanguagePlatform_TranslationMemoryApi_AbstractLocalTranslationMemory_RecomputeFuzzyIndexStatistics) method to the current TM you trigger the process that recomputes the index. Depending on the size of the TM this process can take some time. The **MinScoreIncrease** property can be set between 0 and 20. A value of 20 means that that the TM will be optimized for speed. Speeding up TM lookup operations is basically done by internally adding a percentage value between 0 and 20 to the minimum match score set in the application. Example: You have set the minimum score increase value to 10. The TM contains a 70% fuzzy match, which would normally offered to the user, as the default setting of Var:ProductName searches for TUs down to a fuzziness level of 70%. However, since the TM has been configured to always internally add a score value of 10, Var:ProductName will not go down to a fuzziness level of 70%, but will already stop searching at 80%. This means that the 70% match will not be offered to the user. However, in return, the lookup speed will be improved, as the TM is 'allowed' to limit itself to searches in the higher fuzzy range. Note that the lower the fuzzy value, the slower the search, as more differences need to be identified and computed. After tuning the TM, do not forget to apply the ```Save``` method.
+Calling [RecomputeFuzzyIndexStatistics](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.AbstractLocalTranslationMemory.yml#Sdl_LanguagePlatform_TranslationMemoryApi_AbstractLocalTranslationMemory_RecomputeFuzzyIndexStatistics) on the current TM starts the recomputation process. Depending on the TM size, this may take some time. The **MinScoreIncrease** property can be set between 0 and 20. A value of 20 optimizes the TM for speed by internally adding up to 20 percentage points to the minimum match score configured in the application. For example, if you set the minimum score increase to 10, a 70% fuzzy match may be treated as 80%, which means the 70% match is no longer returned. In return, lookup speed improves because the TM can limit searches to higher fuzzy scores. The lower the fuzzy value, the slower the search, because the system must evaluate more differences. After tuning the TM, call `Save()`.
 
 
-The TM API also allows you to determine when the fuzzy index was last recomputed and whether it is recommended to perform a recomputation. This information can be used, for example, to automatically recompute the fuzzy index when your implementation determines that doing so is recommended.
+The TM API also lets you determine when the fuzzy index was last recomputed and whether recomputation is recommended. You can use this information to trigger recomputation automatically when needed.
 
 # [C#](#tab/tabid-3)
 ```cs
 string stats;
 stats = "Fuzzy index last recomputed at: " + tm.FuzzyIndexStatisticsRecomputedAt.Value.ToString();
-stats += "; Fuzzy index needs to be recomuted: " + tm.ShouldRecomputeFuzzyIndexStatistics().ToString();
+stats += "; Fuzzy index needs to be recomputed: " + tm.ShouldRecomputeFuzzyIndexStatistics().ToString();
 
 MessageBox.Show(stats);
 ```
 ***
 
-Putting it All Together
---
+## Putting it All Together
 
-Your complete class should now look as shown below:
+Your complete class should now look like this:
 
 # [C#](#tab/tabid-4)
 ```cs
@@ -79,7 +76,7 @@ namespace SDK.LanguagePlatform.Samples.TmAutomation
             #region "stats"
             string stats;
             stats = "Fuzzy index last recomputed at: " + tm.FuzzyIndexStatisticsRecomputedAt.Value.ToString();
-            stats += "; Fuzzy index needs to be recomuted: " + tm.ShouldRecomputeFuzzyIndexStatistics().ToString();
+            stats += "; Fuzzy index needs to be recomputed: " + tm.ShouldRecomputeFuzzyIndexStatistics().ToString();
 
             MessageBox.Show(stats);
             #endregion
@@ -89,7 +86,6 @@ namespace SDK.LanguagePlatform.Samples.TmAutomation
 ```
 ***
 
-See Also
---
+## See Also
 [Maintaining Translation Memories](maintaining_translation_memories.md)
 

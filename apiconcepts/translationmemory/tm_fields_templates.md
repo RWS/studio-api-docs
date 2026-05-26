@@ -1,32 +1,29 @@
-TM Fields Templates
-===
-Server translation memories can use field templates (which are not available for file TMs). Image that you need to use the same fields (e.g. *Customer* and *Project id*) for a large number of TMs. Rather than adding the fields to the setup of each TM, you just define the fields once in a template, which then gets applied to the individual TMs. Moreover, when you change the template to contain a new field (e.g. Domain), this new field will then be instantly made available in all TMs that are based on this particular template.
+# TM Field Templates
 
-On this page you will learn how to retrieve available field templates and how to create a template.
+Use field templates on server translation memories when you want multiple TMs to share the same fields. A field template lets you define fields once and reuse them across TMs. When you update the template, every TM that uses it can inherit the change.
 
-Add a New Class
----
-Start by adding a new class called `ServerFieldTemplates` to your project. This class should contain the functionality to retrieve existing field templates and create new templates.
+This article shows how to retrieve existing field templates, find the TMs that use a template, and create a new template.
 
-Retrieve the Available Fields Templates
----
+## Create the sample class
 
-Our first task will be to generate a list of all field templates that are hosted on the TM Server. To do this implement a function called `GetFieldTemplates`, which takes the translation provider server as parameter. First, add a string variable that will hold the field templates list. Add the templates information to this variable by looping through all field templates that are hosted on the server:
+Add a `ServerFieldTemplates` class to your project. Use it to retrieve existing field templates and create new ones.
+
+## Retrieve available field templates
+
+Start by implementing a `GetFieldTemplates` method that takes a translation provider server object. Build a list of the field templates hosted on the server.
 # [C#](#tab/tabid-1)
 ```cs
 var templateList = new StringBuilder();
 
 foreach (ServerBasedFieldsTemplate template in tmServer.GetFieldsTemplates(FieldsTemplateProperties.All))
 ```
-****
-The list should contain the field template names and descriptions:
+The list should include each template name and description:
 # [C#](#tab/tabid-2)
 ```cs
 templateList.AppendFormat("Template name: {0}\n", template.Name);
 templateList.AppendFormat("Template description: {0}\n", template.Description);
 ```
-****
-Next, retrieve the field names and types (e.g. text or picklist). To do this, loop through the field definitions of each template as follows:
+Next, list the field names and types for each template:
 # [C#](#tab/tabid-3)
 ```cs
 templateList.AppendLine("Fields: ");
@@ -37,25 +34,19 @@ foreach (FieldDefinition def in template.FieldDefinitions)
 
 templateList.AppendLine(string.Empty);
 ```
-***
 
-The complete function should look as shown below:
+The complete method looks like this:
 # [C#](#tab/tabid-4)
 ```cs
 public void GetFieldTemplates(TranslationProviderServer tmServer)
 {
-    #region "LoopTemplates"
     var templateList = new StringBuilder();
 
     foreach (ServerBasedFieldsTemplate template in tmServer.GetFieldsTemplates(FieldsTemplateProperties.All))
-    #endregion
     {
-        #region "GeneralTemplateInfo"
         templateList.AppendFormat("Template name: {0}\n", template.Name);
         templateList.AppendFormat("Template description: {0}\n", template.Description);
-        #endregion
 
-        #region "fields"
         templateList.AppendLine("Fields: ");
         foreach (FieldDefinition def in template.FieldDefinitions)
         {
@@ -63,23 +54,20 @@ public void GetFieldTemplates(TranslationProviderServer tmServer)
         }
 
         templateList.AppendLine(string.Empty);
-        #endregion
     }
 
     MessageBox.Show(templateList.ToString(), "Template List");
 }
 ```
-****
-Retrieve the TMs that use a given Fields Template
-----
 
-When creating server TMs you can specify a field template. The TM will then 'inherit' the fields defined in the template. Imagine that you want to know which server TMs use a particular template. To do this, add a function called `GetTmsForTemplate`, which takes the translation provider server and the fields template name as parameters. First, retrieve the fields template that you want to select. The template can be referenced using the template name:
+## Retrieve the TMs that use a field template
+
+When you create a server TM, you can assign a field template. The TM then inherits the fields defined in that template. To find the TMs that use a specific template, implement a `GetTmsForTemplate` method that takes the translation provider server and template name.
 # [C#](#tab/tabid-5)
 ```cs
 ServerBasedFieldsTemplate template = tmServer.GetFieldsTemplate(templateName, FieldsTemplateProperties.All);
 ```
-****
-Next, declare a string variable that holds the names of the TMs. Build up the variable by looping through all TMs that are associated with the selected template:
+Next, create a string builder and add the names of the TMs that use the selected template:
 # [C#](#tab/tabid-6)
 ```cs
 var tmList = new StringBuilder();
@@ -91,17 +79,14 @@ foreach (ServerBasedTranslationMemory tm in template.TranslationMemories)
 
 MessageBox.Show(tmList.ToString());
 ```
-****
-The complete function looks as shown below:
+
+The complete method looks like this:
 # [C#](#tab/tabid-7)
 ```cs
 public void GetTmsForTemplate(TranslationProviderServer tmServer, string templateName)
 {
-    #region "GetTemplate"
     ServerBasedFieldsTemplate template = tmServer.GetFieldsTemplate(templateName, FieldsTemplateProperties.All);
-    #endregion
 
-    #region "TmLoop"
     var tmList = new StringBuilder();
 
     foreach (ServerBasedTranslationMemory tm in template.TranslationMemories)
@@ -110,98 +95,81 @@ public void GetTmsForTemplate(TranslationProviderServer tmServer, string templat
     }
 
     MessageBox.Show(tmList.ToString());
-    #endregion
 }
 ```
-****
-Create a New Fields Template
----
 
-In this step you will learn how to create a new server-based fields template. Imagine that you need to create a template that contains a text field called *Project Id* and a list field called *Client*. Implement a function called `CreateTemplate`, which takes the translation provider server as parameter. Next, create a template object for the given server as shown below. Here, you also specify the general template information, i.e. the name and the (optional) description.
+## Create a new field template
+
+Create a `CreateTemplate` method that takes the translation provider server. In this example, the template contains a text field named *Project Id* and a list field named *Client*. Set the template name and optional description when you create the object.
 # [C#](#tab/tabid-8)
 ```cs
 var template = new ServerBasedFieldsTemplate(tmServer);
 template.Name = "Sample Template";
 template.Description = "Fields template created by API";
 ```
-****
-In the next step, create the field definition object for the text field *Project Id* by providing the field name and the field type (i.e. **MultipleString**):
+
+Create the text field definition by specifying the field name and the field type. Use `MultipleString` for a text field:
 # [C#](#tab/tabid-9)
 ```cs
 var projectIdField = new FieldDefinition("Project id", FieldValueType.MultipleString);
 ```
-****
-Similarly, you create the list field called *Client*, which should allow for multiple picklist values. Since a list field needs to be associated with one or several pre-defined values, add two sample values to the field definition:
+
+Create the list field in the same way. Add sample picklist values to the field definition:
 # [C#](#tab/tabid-10)
 ```cs
 var clientField = new FieldDefinition("Client", FieldValueType.MultiplePicklist);
 clientField.PicklistItems.Add("Microsoft");
 clientField.PicklistItems.Add("SAP");
 ```
-****
-Now add the two field definitions to the template:
+
+Add both field definitions to the template:
 # [C#](#tab/tabid-11)
 ```cs
 template.FieldDefinitions.Add(projectIdField);
 template.FieldDefinitions.Add(clientField);
 ```
-***
 
-In the last step you need to save the template. Optionally, you may use the [IsDirty](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedFieldsTemplate.yml#Sdl_LanguagePlatform_TranslationMemoryApi_ServerBasedFieldsTemplate_IsDirty) boolean property to verify whether there are any unsaved changes in your template definition, which - at this point - should not be the case:
+Save the template and optionally check [IsDirty](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedFieldsTemplate.yml#Sdl_LanguagePlatform_TranslationMemoryApi_ServerBasedFieldsTemplate_IsDirty) to confirm that no unsaved changes remain.
 # [C#](#tab/tabid-12)
 ```cs
 template.Save();
 MessageBox.Show("Unsaved changes? " + template.IsDirty.ToString());
 ```
-****
-Fields templates can be deleted by applying the [Delete](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedFieldsTemplate.yml#Sdl_LanguagePlatform_TranslationMemoryApi_ServerBasedFieldsTemplate_Delete) method (provided that you have the required access rights):
+
+Delete the template with [Delete](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedFieldsTemplate.yml#Sdl_LanguagePlatform_TranslationMemoryApi_ServerBasedFieldsTemplate_Delete) if you have the required access rights.
 # [C#](#tab/tabid-13)
 ```cs
 template.Delete();
 ```
-*****
-The complete function should look as shown below:
+
+The complete method looks like this:
 # [C#](#tab/tabid-14)
 ```cs
 public void CreateTemplate(TranslationProviderServer tmServer)
 {
-    #region "CreateTemplate"
     var template = new ServerBasedFieldsTemplate(tmServer);
     template.Name = "Sample Template";
     template.Description = "Fields template created by API";
-    #endregion
 
-    #region "AddTextField"
     var projectIdField = new FieldDefinition("Project id", FieldValueType.MultipleString);
-    #endregion
 
-    #region "AddListField"
     var clientField = new FieldDefinition("Client", FieldValueType.MultiplePicklist);
     clientField.PicklistItems.Add("Microsoft");
     clientField.PicklistItems.Add("SAP");
-    #endregion
 
-    #region "AddFieldsToTemplate"
     template.FieldDefinitions.Add(projectIdField);
     template.FieldDefinitions.Add(clientField);
-    #endregion
 
-    #region "save"
     template.Save();
     MessageBox.Show("Unsaved changes? " + template.IsDirty.ToString());
-    #endregion
 
-    #region "delete"
     template.Delete();
-    #endregion
 }
 ```
-****
 
-Putting it All Together
----
+## Complete the sample
 
-The complete class should look as shown below:
+The complete class looks like this:
 # [C#](#tab/tabid-15)
 ```cs
 namespace SDK.LanguagePlatform.Samples.TmAutomation
@@ -213,21 +181,15 @@ namespace SDK.LanguagePlatform.Samples.TmAutomation
 
     public class ServerFieldTemplates
     {
-        #region "get"
         public void GetFieldTemplates(TranslationProviderServer tmServer)
         {
-            #region "LoopTemplates"
             var templateList = new StringBuilder();
 
             foreach (ServerBasedFieldsTemplate template in tmServer.GetFieldsTemplates(FieldsTemplateProperties.All))
-            #endregion
             {
-                #region "GeneralTemplateInfo"
                 templateList.AppendFormat("Template name: {0}\n", template.Name);
                 templateList.AppendFormat("Template description: {0}\n", template.Description);
-                #endregion
 
-                #region "fields"
                 templateList.AppendLine("Fields: ");
                 foreach (FieldDefinition def in template.FieldDefinitions)
                 {
@@ -235,21 +197,15 @@ namespace SDK.LanguagePlatform.Samples.TmAutomation
                 }
 
                 templateList.AppendLine(string.Empty);
-                #endregion
             }
 
             MessageBox.Show(templateList.ToString(), "Template List");
         }
-        #endregion
 
-        #region "GetTms"
         public void GetTmsForTemplate(TranslationProviderServer tmServer, string templateName)
         {
-            #region "GetTemplate"
             ServerBasedFieldsTemplate template = tmServer.GetFieldsTemplate(templateName, FieldsTemplateProperties.All);
-            #endregion
 
-            #region "TmLoop"
             var tmList = new StringBuilder();
 
             foreach (ServerBasedTranslationMemory tm in template.TranslationMemories)
@@ -258,51 +214,34 @@ namespace SDK.LanguagePlatform.Samples.TmAutomation
             }
 
             MessageBox.Show(tmList.ToString());
-            #endregion
         }
-        #endregion
 
-        #region "create"
         public void CreateTemplate(TranslationProviderServer tmServer)
         {
-            #region "CreateTemplate"
             var template = new ServerBasedFieldsTemplate(tmServer);
             template.Name = "Sample Template";
             template.Description = "Fields template created by API";
-            #endregion
 
-            #region "AddTextField"
             var projectIdField = new FieldDefinition("Project id", FieldValueType.MultipleString);
-            #endregion
 
-            #region "AddListField"
             var clientField = new FieldDefinition("Client", FieldValueType.MultiplePicklist);
             clientField.PicklistItems.Add("Microsoft");
             clientField.PicklistItems.Add("SAP");
-            #endregion
 
-            #region "AddFieldsToTemplate"
             template.FieldDefinitions.Add(projectIdField);
             template.FieldDefinitions.Add(clientField);
-            #endregion
 
-            #region "save"
             template.Save();
             MessageBox.Show("Unsaved changes? " + template.IsDirty.ToString());
-            #endregion
 
-            #region "delete"
             template.Delete();
-            #endregion
         }
-        #endregion
     }
 }
 ```
-*****
 
-See Also
--------
+## See also
+
 [Configuring Translation Memories](configuring_translation_memories.md)
 
 [Adding TM Fields](adding_tm_fields.md)

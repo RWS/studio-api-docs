@@ -1,12 +1,10 @@
-Doing Translation Memory Lookups
-==
+# Doing Translation Memory Lookups
 
-The most common operation performed on a translation memory involves looking up whole segments or searching single words/expressions through a concordance search. This chapter will show to you how to perform TM lookups programmatically. The aim is to develop a simplified application that searches a selected TM for a particular string. The application should be configurable to perform e.g. a normal segment search or a concordance search:
+The most common TM operations involve looking up whole segments or searching for single words and expressions with a concordance search. This chapter explains how to perform TM lookups programmatically. The goal is to build a simple application that searches a selected TM for a specific string. You can configure the application to run either a normal segment search or a concordance search.
 
-Add a New Class
---
+## Add a New Class
 
-Add a new class called ```TmLookup``` to your project. Then implement a function called ```SearchForText```, which takes the TM file name and path, the search string and the search mode (i.e. segment lookup or concordance search) as parameters. This function can be called as shown in the example below:
+Add a new class named `TmLookup` to your project. Then implement a method named `SearchForText()` that takes the TM path, the search text, and the search mode as parameters. Call it as shown below:
 
 # [C#](#tab/tabid-1)
 ```cs
@@ -15,10 +13,9 @@ search.SearchForText(_translationMemoryFilePath, "To run the Spelling Checker:",
 ```
 ***
 
-Execute the Search and Configure the Search Settings
---
+## Execute the Search and Configure the Search Settings
 
-After opening the TM the search is executed by applying the [SearchText](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.AbstractMachineTranslationProviderLanguageDirection.yml#Sdl_LanguagePlatform_TranslationMemoryApi_AbstractMachineTranslationProviderLanguageDirection_SearchText_Sdl_LanguagePlatform_TranslationMemory_SearchSettings_System_String_) method to the language direction of the selected TM, thereby creating a results object, which holds the search results (if any).
+After you open the TM, run the search by calling the [SearchText](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.AbstractMachineTranslationProviderLanguageDirection.yml#Sdl_LanguagePlatform_TranslationMemoryApi_AbstractMachineTranslationProviderLanguageDirection_SearchText_Sdl_LanguagePlatform_TranslationMemory_SearchSettings_System_String_) method on the TM language direction. This returns a results object that contains the search results, if any.
 
 # [C#](#tab/tabid-2)
 ```cs
@@ -27,7 +24,7 @@ var results = tm.LanguageDirection.SearchText(this.GetSearchSettings(mode), sear
 ```
 ***
 
-The [SearchText](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.AbstractMachineTranslationProviderLanguageDirection.yml#Sdl_LanguagePlatform_TranslationMemoryApi_AbstractMachineTranslationProviderLanguageDirection_SearchText_Sdl_LanguagePlatform_TranslationMemory_SearchSettings_System_String_) method requires the search string as well as the search settings as parameters. The search parameters are configured in a separate helper function:
+The [SearchText](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.AbstractMachineTranslationProviderLanguageDirection.yml#Sdl_LanguagePlatform_TranslationMemoryApi_AbstractMachineTranslationProviderLanguageDirection_SearchText_Sdl_LanguagePlatform_TranslationMemory_SearchSettings_System_String_) method requires the search text and the search settings as parameters. Configure the search settings in a separate helper method:
 
 # [C#](#tab/tabid-3)
 ```cs
@@ -45,22 +42,21 @@ private SearchSettings GetSearchSettings(SearchMode mode)
 ```
 ***
 
-Here, you can set, for example, the minimum fuzziness score (**MinScore**) that a TU should have to be offered as a result. Var:ProductName uses a default minimum fuzziness value of 70%. You may choose a higher value to restrict the search so that it yields only results that are potentially of better quality. You can also restrict the maximum number of results that should be returned (**MaxResults**).
+Here, you can set the minimum fuzziness score (**MinScore**) that a TU must reach before it can appear in the results. Var:ProductName uses a default minimum fuzziness value of 70%. You can choose a higher value to restrict the search to higher-quality matches. You can also limit the maximum number of results that are returned (**MaxResults**).
 
-Var:ProductName uses a default maximum results count of 5. This means that even if the TM contains, for example, 10 potential matches, only the first 5 (best) matches will be returned. Note that setting the minimum fuzziness score and the maximum number of results can have an impact on search performance. The more results potentially need to be returned, and the deeper the search needs to go, the longer the search might take. It usually takes more time to retrieve a low fuzzy match (e.g. 60%) then to retrieve an exact match or a high fuzzy match.
+Var:ProductName uses a default maximum results count of 5. This means that if the TM contains 10 potential matches, only the first five best matches are returned. Setting the minimum fuzziness score and the maximum number of results can affect search performance. The more results the search must consider, the longer it may take. It usually takes longer to retrieve a low fuzzy match, such as 60%, than an exact match or a high fuzzy match.
 
-Another parameter that we pass in this implementation is the search mode, which can be configured, for example, to execute a concordance search, i.e. the search type that looks up all segments that contain a particular string. Note that the search mode can be set to do a concordance search in the source or target segment, provided that during TM creation ([Creating a File-based Translation Memory](creating_a_file_based_translation_memory.md)) the database has been configured to index the target segments. You can also set the mode to perform a segment lookup using the values of the **SearchMode** enumerator. By default, Var:ProductName performs a **NormalSearch** search. This means that fuzzy matches are only retrieved if no exact or context match has been found. **FullSearch** also yields fuzzy matches even if an exact match has been found. Usually, the exact matches are the ones that translators will insert into the target document. However, in rare instances, a fuzzy match might prove more useful than the exact match. Note that retrieving fuzzy matches even if exact matches have been found can also have an impact on the TM lookup performance.
+Another parameter in this implementation is the search mode. You can use it to run a concordance search, which returns all segments that contain a specific string. You can run a concordance search in the source or target segment if you configured the TM to index the target segments during creation ([Creating a File-based Translation Memory](creating_a_file_based_translation_memory.md)). You can also set the mode to perform a segment lookup by using the values of the **SearchMode** enumerator. By default, Var:ProductName performs a **NormalSearch**. This means that fuzzy matches are returned only if no exact or context match was found. **FullSearch** also returns fuzzy matches even when an exact match exists. In most cases, translators insert the exact matches into the target document. In rare cases, a fuzzy match may be more useful. Retrieving fuzzy matches even when exact matches exist can also affect lookup performance.
 
-Run a Filtered Search
---
+## Run a Filtered Search
 
-Var:ProductName allows you to define one or several filter criteria that can be applied during a TM search. Example: You want to focus on TUs that are associated with the customer *Microsoft*, i.e. where the *Customer* field contains the value *Microsoft*. TUs that do not match this filter can still be found, however, a penalty is applied to them. Example: A TU matches a particular segment exactly, i.e. it has the score 100%. However, as it does not match the specified filter, a penalty of 1% is applied, which reduces the score to 99%. This is done to draw the translator's attention to the fact that the suggested translation might not fit the current context, as it was not created for the specified customer.
+Var:ProductName lets you define one or more filter criteria for a TM search. For example, you can focus on TUs associated with the customer *Microsoft*, where the *Customer* field contains the value *Microsoft*. TUs that do not match the filter can still appear in the results, but the search applies a penalty to them. For example, if a TU matches a segment exactly and scores 100%, a 1% penalty reduces the score to 99%. This helps signal that the suggested translation might not fit the current context.
 
-The screenshot below shows an example of a filter that applies a penalty of 1% to any TUs that were not created by *User1*:
+The following screenshot shows a filter that applies a 1% penalty to any TUs not created by *User1*:
 
 ![FilterPenalty](images/FilterPenalty.jpg)
 
-In order to apply a filter to your search, expand the helper function ```GetSearchSettings``` by adding the two following lines:
+To apply a filter to your search, extend the `GetSearchSettings()` helper method by adding these lines:
 
 # [C#](#tab/tabid-4)
 ```cs
@@ -69,9 +65,9 @@ settings.AddFilter(filter);
 ```
 ***
 
-First, a new filter object is created. This is done by calling a separate helper function called ```GetFilter```, which we will implement in the next step, and which defines the actual filter expression (i.e. the filter criterion). You then provide the filter name as string (which can be any descriptive name) and the penalty value to apply. Then the filter is added to the settings object using the **AddFilter** method.
+First, create a new filter object by calling a helper method named `GetFilter()`, which defines the filter expression. Then provide a descriptive filter name and the penalty value. Finally, add the filter to the settings object by using the **AddFilter** method.
 
-Now you add the helper function that returns the **FilterExpression** object. As mentioned above, you would like to focus on TUs where the *Customer* field is equal to the value *Microsoft*. Note that in this example, *Customer* is a picklist field that allows multiple values. The following sample code shows you how to set the field name and value and how to build a filter criterion:
+Next, add the helper method that returns the **FilterExpression** object. In this example, the search should focus on TUs where the *Customer* field equals *Microsoft*. Because *Customer* is a picklist field that allows multiple values, the following sample code shows how to set the field name and value and build the filter criterion:
 
 # [C#](#tab/tabid-5)
 ```cs
@@ -81,7 +77,7 @@ fieldValue.Add(fieldName);
 ```
 ***
 
-In the next step you use the **AtomicExpression** class to create the filter expression to return to the function that we use to configure the search settings. The parameters required are the field value and the operator. In our case, the filter calls for an **Equal** value. (Other possible values could be **Contains**, **Greater**, **Smaller**, etc.)
+Next, use the **AtomicExpression** class to create the filter expression that the search settings method returns. Pass the field value and the operator. In this case, the filter uses **Equal**. Other possible values include **Contains**, **Greater**, and **Smaller**.
 
 # [C#](#tab/tabid-6)
 ```cs
@@ -90,7 +86,7 @@ return filter;
 ```
 ***
 
-The full function for returning the filter expression thus looks as shown below:
+The full helper method for returning the filter expression looks like this:
 
 # [C#](#tab/tabid-7)
 ```cs
@@ -114,18 +110,17 @@ private FilterExpression GetFilter()
 >
 >Filter names must not contain spaces.
 
-Output the Search Results
---
+## Output the Search Results
 
-After executing the search, you will want to output the result (if any). In our simple implementation we will use a message box, which should include the following:
+After you execute the search, output the results, if any. In this simple implementation, use a message box that includes:
 
 * The hit count.
-* The source/target segments of the matching TUs that were found in the TM
-* The match score, so that users can ascertain at a glance whether the match is of higher or lower quality.
-* The origin - this property will indicate **TM** in our example, as we are searching in a TM. Translators might also consult other translation providers such as online machine translation engines. In this case, the origin will not be a TM.
-* The TU creation date, which helps users ascertain how up to date a particular TU is.
+* The source and target segments of the matching TUs.
+* The match score, so users can quickly judge the match quality.
+* The origin. In this example, the origin is **TM** because the search runs against a TM. If translators also use other translation providers, such as online machine translation engines, the origin may be different.
+* The TU creation date, which helps users see how current a TU is.
 
-The following code loops through the search results and compiles a string with the above mentioned information.
+The following code loops through the search results and compiles a string with the information above.
 
 # [C#](#tab/tabid-8)
 ```cs
@@ -144,14 +139,13 @@ MessageBox.Show(hitList);
 ```
 ***
 
-Below is an example of a result displayed in the message box:
+The following screenshot shows an example of the result in the message box:
 
 ![HitListSample](images/HitListSample.jpg)
 
-Search for Segment or TU
---
+## Search for Segment or TU
 
-In the example above we provided a 'normal' string as search parameter when applying the [SearchText](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.AbstractMachineTranslationProviderLanguageDirection.yml#Sdl_LanguagePlatform_TranslationMemoryApi_AbstractMachineTranslationProviderLanguageDirection_SearchText_Sdl_LanguagePlatform_TranslationMemory_SearchSettings_System_String_) method. Alternatively, you can also search for a segment or TU object by using [SearchSegment](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderLanguageDirection.yml#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderLanguageDirection_SearchSegment_Sdl_LanguagePlatform_TranslationMemory_SearchSettings_Sdl_LanguagePlatform_Core_Segment_) or [SearchTranslationUnit](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderLanguageDirection.yml#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderLanguageDirection_SearchTranslationUnit_Sdl_LanguagePlatform_TranslationMemory_SearchSettings_Sdl_LanguagePlatform_TranslationMemory_TranslationUnit_). The following sample function outlines how to create and use a **Segment** object to carry out a TM search:
+In the example above, you passed a plain string to the [SearchText](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.AbstractMachineTranslationProviderLanguageDirection.yml#Sdl_LanguagePlatform_TranslationMemoryApi_AbstractMachineTranslationProviderLanguageDirection_SearchText_Sdl_LanguagePlatform_TranslationMemory_SearchSettings_System_String_) method. Alternatively, you can search for a segment or TU object by using [SearchSegment](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderLanguageDirection.yml#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderLanguageDirection_SearchSegment_Sdl_LanguagePlatform_TranslationMemory_SearchSettings_Sdl_LanguagePlatform_Core_Segment_) or [SearchTranslationUnit](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderLanguageDirection.yml#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderLanguageDirection_SearchTranslationUnit_Sdl_LanguagePlatform_TranslationMemory_SearchSettings_Sdl_LanguagePlatform_TranslationMemory_TranslationUnit_). The following sample method shows how to create and use a **Segment** object for a TM search:
 
 # [C#](#tab/tabid-9)
 ```cs
@@ -173,7 +167,7 @@ public void SearchForSegment(string tmPath)
 ```
 ***
 
-And the sample function below demonstrates how to create and use a **TranslationUnit** object for a TM search:
+The following sample method shows how to create and use a **TranslationUnit** object for a TM search:
 
 # [C#](#tab/tabid-10)
 ```cs
@@ -200,10 +194,9 @@ public void SearchForTu(string tmPath)
 ```
 ***
 
-Putting it All Together
---
+## Putting it All Together
 
-The complete class should now look as shown below:
+The complete class should now look like this:
 
 # [C#](#tab/tabid-11)
 ```cs
@@ -334,11 +327,10 @@ namespace SDK.LanguagePlatform.Samples.TmAutomation
 ```
 ***
 
-See Also
---
+## See Also
 [Performing Translation Memory Lookups](performing_translation_memory_lookups.md)
 
-[Introduction the TM Lookup Tool](introduction_to_the_tm_lookup_tool.md)
+[Introduction to the TM Lookup Tool](introduction_to_the_tm_lookup_tool.md)
 
 [Exporting to a TMX File](exporting_to_a_tmx_file.md)
 

@@ -1,12 +1,10 @@
-Exporting to a TMX File
-==
+# Exporting to a TMX File
 
-Sometimes you may want to export the content of a TM to an external TMX file, for example, for generating backups, importing the TMX file into another TM, thereby merging different TMs, etc.
+Sometimes you may want to export TM content to an external TMX file, for example, to create backups or merge content into another TM.
 
-Add a New Class
---
+## Add a New Class
 
-Add a new class called ```TmExporter``` to your project. Then, implement a function called ```ExportTMXFile```. This function can be called as shown below:
+Add a new class named `TmExporter` to your project. Then implement a method named `ExportTMXFile()`. Call it as shown below:
 
 # [C#](#tab/tabid-1)
 ```cs
@@ -16,9 +14,9 @@ tmExporter.RunFilteredExport(_translationMemoryFilePath, _exportFilePath);
 ```
 ***
 
-The function requires the file name and path of the TM and the TMX export file as parameters.
+The method requires the TM path and the TMX export file path as parameters.
 
-Start by opening the TM and by creating an exporter object:
+Start by opening the TM and creating an exporter object:
 
 # [C#](#tab/tabid-2)
 ```cs
@@ -28,9 +26,9 @@ var exporter = new TranslationMemoryExporter(tm.LanguageDirection);
 ```
 ***
 
-Note that the [TranslationMemoryExporter](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryExporter.yml) object requires the TM language direction as parameter. Like a TM, a TMX file too, is bilingual with a dedicated language direction, which will match the TM language direction. That is why you need to provide the TM language direction when creating a new [TranslationMemoryExporter](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryExporter.yml) object.
+Note that the [TranslationMemoryExporter](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryExporter.yml) object requires the TM language direction. Like a TM, a TMX file is bilingual and uses a language direction that must match the TM direction. Pass the TM language direction when you create the exporter.
 
-In the next step, you may specify the [ChunkSize](../../api/translationmemory/Sdl.Core.TM.ImportExport.Importer.yml#Sdl_Core_TM_ImportExport_Importer_ChunkSize). With the chunk size you determine the maximum amount of units that should be read from the TM. As long as the TM file resides on a local disk, the chunk size can be large, as the whole TM could be read in one go. If the export is going over e.g. an Internet line, then the chunk size should be small enough for the packages to be sent over the WAN. In our example, the chunk size is set to 20, which corresponds roughly to the size of our small sample TM:
+Next, you can set the [ChunkSize](../../api/translationmemory/Sdl.Core.TM.ImportExport.Importer.yml#Sdl_Core_TM_ImportExport_Importer_ChunkSize). The chunk size determines the maximum number of units read from the TM at one time. If the TM is on a local disk, a larger chunk size is usually fine. If the export runs over a network, keep the chunk size smaller to reduce latency. In this example, set the chunk size to 20, which roughly matches the size of the sample TM:
 
 # [C#](#tab/tabid-3)
 ```cs
@@ -38,9 +36,9 @@ exporter.ChunkSize = 20;
 ```
 ***
 
-Note that the default chunk size is 50 ([DefaultTranslationUnitChunkSize](../../api/translationmemory/Sdl.Core.TM.ImportExport.Importer.yml#Sdl_Core_TM_ImportExport_Importer_DefaultTranslationUnitChunkSize)), the maximum chunk size is 200 ([MaxTranslationUnitChunkSize](../../api/translationmemory/Sdl.Core.TM.ImportExport.Importer.yml#Sdl_Core_TM_ImportExport_Importer_MaxTranslationUnitChunkSize)).
+The default chunk size is 50 ([DefaultTranslationUnitChunkSize](../../api/translationmemory/Sdl.Core.TM.ImportExport.Importer.yml#Sdl_Core_TM_ImportExport_Importer_DefaultTranslationUnitChunkSize)), and the maximum is 200 ([MaxTranslationUnitChunkSize](../../api/translationmemory/Sdl.Core.TM.ImportExport.Importer.yml#Sdl_Core_TM_ImportExport_Importer_MaxTranslationUnitChunkSize)).
 
-Before executing the export, we fire an event after each batch (as specified by the chunk size) has been performed:
+Before you execute the export, subscribe to an event that fires after each batch, or chunk, is exported:
 
 # [C#](#tab/tabid-4)
 ```cs
@@ -48,7 +46,7 @@ exporter.BatchExported += new EventHandler<BatchExportedEventArgs>(this.exporter
 ```
 ***
 
-Add the following member to your class, which is triggered from the ```ExportTMXFile``` function:
+Add the following member to your class. The `ExportTMXFile()` method triggers it:
 
 # [C#](#tab/tabid-5)
 ```cs
@@ -64,9 +62,9 @@ private void exporter_BatchExported(object sender, BatchExportedEventArgs e)
 ```
 ***
 
-After each batch has been processed, the total number of units processed and the total number of units that have actually been exported is determined and output.
+After each batch is processed, the code reports the total number of units processed and the number actually exported.
 
-Finally, you apply the ```Export``` method to carry out the actual export operation. This method requires the full name and path of the TMX import file. With the second boolean parameter you can determine whether any existing export file should be overwritten or not.
+Finally, call the `Export()` method to perform the export. This method requires the TMX export file path. The second boolean parameter determines whether an existing export file is overwritten.
 
 # [C#](#tab/tabid-6)
 ```cs
@@ -74,9 +72,9 @@ exporter.Export(exportFilePath, true);
 ```
 ***
 
-In the above code example the overwrite parameter is set to True. Note that when you set this parameter to False, and an export file with the same name already exists, an error will be thrown, which has to be caught by your implementation.
+In the example above, the overwrite parameter is set to `true`. If you set it to `false` and a file with the same name already exists, the export throws an error that your code must handle.
 
-The full ```ExportTMXFile``` function looks as shown below:
+The complete `ExportTMXFile()` method looks like this:
 
 # [C#](#tab/tabid-7)
 ```cs
@@ -104,10 +102,9 @@ public void ExportTMXFile(string tmPath, string exportFilePath)
 ```
 ***
 
-Run a Filtered Export
---
+## Run a Filtered Export
 
-If you do not want to export the entire TM database content into a TMX file, but only a small part of it, you can run a filtered export. This allows you to export only a subset of the TM content, e.g. all translation units that have a *Customer* field with the value *Microsoft*, or all TUs that were created after 1st January 2010, etc. Running such an export is basically the same as the procedure described above. You just have to add a filter before the export is executed. Start by implementing another function called ```RunFilteredExport```, which also takes the TM file name and path as well as the export file name and path as string parameters. First, open the TM and create a TM exporter object as shown below:
+If you do not want to export the entire TM, you can run a filtered export. This lets you export a subset of the TM content, such as all translation units with a *Customer* field value of *Microsoft* or all TUs created after 1 January 2010. The overall workflow is the same as for a full export, but you add a filter before you run the export. Start by implementing another method named `RunFilteredExport()`, which takes the TM path and the TMX export file path as string parameters. First, open the TM and create a TM exporter object:
 
 # [C#](#tab/tabid-8)
 ```cs
@@ -116,7 +113,7 @@ var exporter = new TranslationMemoryExporter(tm.LanguageDirection);
 ```
 ***
 
-The main difference to the full export from the example above is that you set the **FilterExpression** property of the TM exporter object. The actual filter expression is generated by a separate helper function, which we will implement in a later step.
+The main difference from the full export is that you set the **FilterExpression** property on the exporter. A separate helper method builds the filter expression.
 
 # [C#](#tab/tabid-9)
 ```cs
@@ -124,7 +121,7 @@ exporter.FilterExpression = this.GetFilterSimple();
 ```
 ***
 
-Like before, we fire the event that outputs the number of exported units in a batch and apply the Export method to carry out the actual export. The complete ```RunFilteredExport``` function looks as shown below:
+Like before, subscribe to the batch event and call `Export()` to perform the export. The complete `RunFilteredExport()` method looks like this:
 
 # [C#](#tab/tabid-10)
 ```cs
@@ -147,10 +144,9 @@ public void RunFilteredExport(string tmPath, string exportFilePath)
 ```
 ***
 
-Define the Filter for the Export (Simple)
---
+## Define the Filter for the Export (Simple)
 
-In this step, you will see how to implement the helper function that creates the filter for the export. Implement a new helper function called ```GetFilterSimple```, which returns a **FilterExpression** object, i.e.:
+This section shows how to implement the helper method that creates a simple export filter. Add a method named `GetFilterSimple()` that returns a **FilterExpression** object:
 
 # [C#](#tab/tabid-11)
 ```cs
@@ -158,7 +154,7 @@ private FilterExpression GetFilterSimple()
 ```
 ***
 
-Suppose that you want the export to only output TUs where the *Customer* field is equal to the value Microsoft. Note that in this example, *Customer* is a picklist field that allows multiple values. The following sample code shows you how to set the field name and value and how to build a filter criterion:
+Suppose you want the export to include only TUs where the *Customer* field equals *Microsoft*. In this example, *Customer* is a picklist field that allows multiple values. The following sample code shows how to define the field name and value and build the criterion:
 
 # [C#](#tab/tabid-12)
 ```cs
@@ -168,7 +164,7 @@ fieldValue.Add(fieldName);
 ```
 ***
 
-In the next step you use the **AtomicExpression** class to create the filter expression to return to the export function. The parameters required are the field value and the operator. In our case, the filter calls for an **Equal** value. (Other possible values could be **Contains**, **ContainsNot**, **Greater**, **Smaller**, etc.)
+Next, use the **AtomicExpression** class to create the filter expression to return to the export method. Pass the field value and the operator. In this case, the filter uses **Equal**. Other possible operators include **Contains**, **ContainsNot**, **Greater**, and **Smaller**.
 
 # [C#](#tab/tabid-13)
 ```cs
@@ -177,10 +173,9 @@ return filter;
 ```
 ***
 
-Define the Filter for the Export (Advanced)
---
+## Define the Filter for the Export (Advanced)
 
-Suppose you want to create a more advanced filter that has two (or more) criteria, e.g. export all TUs where the Customer field value equals Microsoft **OR** in which the *Project id* text field contains the string *2010*. Implement another helper function called ```GetFilterAdvanced```, i.e.:
+Suppose you want a more advanced filter with two or more criteria, such as exporting all TUs where the *Customer* field equals *Microsoft* **or** the *Project id* text field contains *2010*. Add another helper method named `GetFilterAdvanced()`:
 
 # [C#](#tab/tabid-14)
 ```cs
@@ -188,8 +183,7 @@ private FilterExpression GetFilterAdvanced()
 ```
 ***
 
-The first step is almost identical to the previous example, i.e. you define the first filter criterion and create the first filter 
-expression using the **AtomicExpression** class.
+The first step is almost identical to the previous example: define the first criterion and create the first filter expression with the **AtomicExpression** class.
 
 # [C#](#tab/tabid-15)
 ```cs
@@ -200,7 +194,7 @@ var expression1 = new AtomicExpression(fieldValue1, AtomicExpression.Operator.Eq
 ```
 ***
 
-Then, you set up the second filter criterion, i.e. *Project id* contains *2010* and use the **AtomicExpression** class to construct the second filter expression:
+Then define the second criterion, such as *Project id* containing *2010*, and use the **AtomicExpression** class to construct the second expression:
 
 # [C#](#tab/tabid-16)
 ```cs
@@ -210,19 +204,18 @@ var expression2 = new AtomicExpression(fieldName2, AtomicExpression.Operator.Con
 ```
 ***
 
-The actual filter object that is returned to the export function is based on the **ComposedExpression** class, which combines expression1 and expression2 with an OR operator, and finally returns the complete filter expression.
+The final filter object uses the **ComposedExpression** class, which combines `expression1` and `expression2` with an OR operator and returns the complete filter expression.
 
 # [C#](#tab/tabid-17)
 ```cs
 var filter = new ComposedExpression(expression1, ComposedExpression.Operator.Or, expression2);
 return filter;
 ```
-**
+***
 
-Putting it All Together
---
+## Putting it All Together
 
-The complete class should now look as shown below:
+The complete class should now look like this:
 
 # [C#](#tab/tabid-18)
 ```cs
@@ -333,10 +326,7 @@ namespace SDK.LanguagePlatform.Samples.TmAutomation
 ```
 ***
 
-See Also
---
+## See Also
 [Importing a TMX File](importing_a_tmx_file.md)
 
 [Introduction to the Batch Export Tool](introduction_to_the_tm_batch_export_tool.md)
-
-[Scheduled TMX Exports](scheduled_tmx_exports.md)

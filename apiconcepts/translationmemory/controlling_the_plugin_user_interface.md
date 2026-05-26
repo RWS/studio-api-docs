@@ -1,13 +1,13 @@
-Controlling the Plug-in User Interface
-======
-The translation provider plug-in template contains a component called `MyTranslationProviderWinFormsUI`, which we re-name to `ListTranslationProviderWinFormsUI` for our implementation. This component is used to:
+# Controlling the Plug-in User Interface
 
-* Control the appearance of the plug-in when it is displayed in Var:ProductName, e.g. the plug-in name, icon, tooltip
-* Raise the plug-in user interface
-* Obtain credentials from the user, which is not required for our sample implementation
+The translation provider plug-in template includes a component named `MyTranslationProviderWinFormsUI`, which we rename to `ListTranslationProviderWinFormsUI` in this implementation. This component lets you:
+
+* control how the plug-in appears in Var:ProductName, such as its name, icon, and tooltip
+* open the plug-in user interface
+* collect credentials from the user, which this sample does not require
 
 
-The class is preceded by the following declaration, which defines it as an extension class, which will be referenced and declared to the Var:ProductName application through the plug-in manifest *.xml file (see also [Building the Plug-in](building_the_plugin.md)).
+The class begins with the following declaration. It marks the class as an extension class and makes it available to Var:ProductName through the plug-in manifest *.xml file. See also [Building the Plug-in](building_the_plugin.md).
 # [C#](#tab/tabid-1)
 ```cs
 [TranslationProviderWinFormsUi(
@@ -17,15 +17,15 @@ The class is preceded by the following declaration, which defines it as an exten
 ```
 ***
 
-This class implements the [ITranslationProviderWinFormsUI](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderWinFormsUI.yml) interface. Below you see how we use the members of this interface in our implementation.
+This class implements the [ITranslationProviderWinFormsUI](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderWinFormsUI.yml) interface. The following sections show how this implementation uses its members.
 
-Browse for the Plug-in
--------
-The UI extension allows users to browse for and select translation providers in a unified way. This is done by the user when opening a document for translation or when adding translation providers to a project through the **Add** button in the UI of Var:ProductName as illustrated in the screenshot below:
+## Browse for the Plug-in
+
+The UI extension lets users browse for and select translation providers in a consistent way. Users do this when they open a document for translation or add translation providers to a project through the **Add** button in Var:ProductName, as shown below:
 
 <img style="display:block; " src="images/BrowsePlugin.jpg"/>
 
-Some translation providers do not require a user interface for configuring settings. In our implementation, however, a form is used to enter the required settings, which we raise through the [Browse](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderWinFormsUI.yml#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderWinFormsUI_Browse_System_Windows_Forms_IWin32Window_Sdl_LanguagePlatform_Core_LanguagePair___Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderCredentialStore_) method of the interface:
+Some translation providers do not require a user interface for configuration. In this implementation, however, a form collects the required settings, and the [Browse](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderWinFormsUI.yml#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderWinFormsUI_Browse_System_Windows_Forms_IWin32Window_Sdl_LanguagePlatform_Core_LanguagePair___Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderCredentialStore_) method opens it:
 
 # [C#](#tab/tabid-2)
 ```cs
@@ -42,11 +42,11 @@ public ITranslationProvider[] Browse(IWin32Window owner, LanguagePair[] language
 ```
 ***
 
-Translation provider plug-ins that implement a user interface for configuring settings will usually allow users to change those settings later. For example, users might want to change the plug-in settings while translating, as they discover that a different list file is more suitable for the text that they have selected. For this, the UI of Var:ProductName implements a **Settings** button, which can be enabled or disabled through your plug-in (see screenshot below).
+Translation provider plug-ins that include a configuration UI usually let users change settings later. For example, while translating, users might decide that a different list file better matches the text they selected. Var:ProductName provides a **Settings** button for this purpose, and your plug-in can enable or disable it, as shown below.
 
 <img style="display:block; " src="images/ProviderSettingsButton.jpg"/>
 
-For our sample plug-in it makes sense to enable this button and allow for any settings to be changed. To do this, we set the [SupportsEditing](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderWinFormsUI.yml#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderWinFormsUI_SupportsEditing) property to return `True`:
+For this sample plug-in, it makes sense to enable the button and allow settings changes. To do this, set the [SupportsEditing](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderWinFormsUI.yml#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderWinFormsUI_SupportsEditing) property to return `True`:
 # [C#](#tab/tabid-3)
 ```cs
 public bool SupportsEditing
@@ -55,7 +55,7 @@ public bool SupportsEditing
 }
 ```
 ***
-Consequently, the [Edit](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderWinFormsUI.yml#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderWinFormsUI_Edit_System_Windows_Forms_IWin32Window_Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProvider_Sdl_LanguagePlatform_Core_LanguagePair___Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderCredentialStore_) method is then used for the same purpose as the [Browse](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderWinFormsUI.yml#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderWinFormsUI_Browse_System_Windows_Forms_IWin32Window_Sdl_LanguagePlatform_Core_LanguagePair___Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderCredentialStore_) method, i.e. to raise the plug-in user interface:
+The [Edit](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderWinFormsUI.yml#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderWinFormsUI_Edit_System_Windows_Forms_IWin32Window_Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProvider_Sdl_LanguagePlatform_Core_LanguagePair___Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderCredentialStore_) method then serves the same purpose as [Browse](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderWinFormsUI.yml#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderWinFormsUI_Browse_System_Windows_Forms_IWin32Window_Sdl_LanguagePlatform_Core_LanguagePair___Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderCredentialStore_): it opens the plug-in user interface.
 # [C#](#tab/tabid-4)
 ```cs
 public bool Edit(IWin32Window owner, ITranslationProvider translationProvider, LanguagePair[] languagePairs, ITranslationProviderCredentialStore credentialStore)
@@ -78,16 +78,15 @@ public bool Edit(IWin32Window owner, ITranslationProvider translationProvider, L
 ```
 ***
 
-The plug-in user interface of our implementation will look as shown below:
+The plug-in user interface for this implementation looks like this:
 
 <img style="display:block; " src="images/PluginGui.jpg"/>
 
-User Authentication
------
+## User Authentication
 
-Through the [GetCredentialsFromUser](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderWinFormsUI.yml#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderWinFormsUI_GetCredentialsFromUser_System_Windows_Forms_IWin32Window_System_Uri_System_String_Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderCredentialStore_) method of the interface we can retrieve user credentials that may be required for connecting to the translation provider. For example, when you connect to a server TM or a Web-based translation service, a user name and login may be required. Very often, you may want to store the login information, so that users are not required have to enter the name and password every time that they connect to the provider.
+Use the [GetCredentialsFromUser](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderWinFormsUI.yml#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderWinFormsUI_GetCredentialsFromUser_System_Windows_Forms_IWin32Window_System_Uri_System_String_Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderCredentialStore_) method to collect credentials when the translation provider requires them. For example, a server TM or web-based translation service may require a user name and password. In many cases, you may want to store that information so users do not need to enter it every time they connect.
 
-In our simple implementation, however, we only access a text file, which means that no user authentication is necessary. We can therefore have this method return always True:
+In this sample implementation, the plug-in accesses only a text file, so no authentication is necessary. The method can therefore always return `True`:
 # [C#](#tab/tabid-5)
 ```cs
 public bool GetCredentialsFromUser(IWin32Window owner, Uri translationProviderUri, string translationProviderState, ITranslationProviderCredentialStore credentialStore)
@@ -98,14 +97,14 @@ public bool GetCredentialsFromUser(IWin32Window owner, Uri translationProviderUr
 ***
 
 
-Display the Plug-in Info
------
-The [GetDisplayInfo](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderWinFormsUI.yml#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderWinFormsUI_GetDisplayInfo_System_Uri_System_String_) is used to display information such as the plug-in name, icon, etc. in the user interface of Var:ProductName. This information is stored in the resources file (see [The Resources File](the_resources_file.md)). Within this method we first create a [TranslationProviderDisplayInfo](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderDisplayInfo.yml) object, and then set the various properties, i.e. plug-in display name, the tooltip text, and the translation provider icon. This information will then be shown in the application as illustrated below:
+## Display the Plug-in Info
+
+Use [GetDisplayInfo](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderWinFormsUI.yml#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderWinFormsUI_GetDisplayInfo_System_Uri_System_String_) to display plug-in information such as the name and icon in the Var:ProductName user interface. Store this information in the resources file. See [The Resources File](the_resources_file.md). The method creates a [TranslationProviderDisplayInfo](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderDisplayInfo.yml) object and sets the display name, tooltip text, and translation provider icon, as shown below:
 
 
 <img style="display:block; " src="images/PluginResourcesInAction.jpg"/>
 
-The [SearchResultImage](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderDisplayInfo.yml#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationProviderDisplayInfo_SearchResultImage) property sets the image that is shown in the **Translation Results** or **Concordance** window of Var:ProductName, which helps users ascertain more quickly by which provider a translation solution has been suggested (see screenshot below):
+The [SearchResultImage](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderDisplayInfo.yml#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationProviderDisplayInfo_SearchResultImage) property sets the image shown in the **Translation Results** or **Concordance** window of Var:ProductName. This helps users see which provider suggested a translation solution, as shown below:
 
 <img style="display:block; " src="images/PngForShowingResults.jpg"/>
 
@@ -125,9 +124,9 @@ public TranslationProviderDisplayInfo GetDisplayInfo(Uri translationProviderUri,
 ```
 ***
 
-Putting it All Together
------
-The complete component should look as shown below:
+## Putting it All Together
+
+The complete component should look like this:
 # [C#](#tab/tabid-7)
 ```cs
 using System;
@@ -140,18 +139,13 @@ using Sdl.LanguagePlatform.TranslationMemory;
 using Sdl.LanguagePlatform.TranslationMemoryApi;
 
 namespace Sdk.LanguagePlatform.Samples.ListProvider
-{
-    #region "Declaration"
+{    
     [TranslationProviderWinFormsUi(
         Id = "ListTranslationProviderWinFormsUI",
         Name = "ListTranslationProviderWinFormsUI",
-        Description = "ListTranslationProviderWinFormsUI")]
-    #endregion
+        Description = "ListTranslationProviderWinFormsUI")] 
     public class ListTranslationProviderWinFormsUI : ITranslationProviderWinFormsUI
     {
-        #region ITranslationProviderWinFormsUI Members
-
-
         /// <summary>
         /// Show the plug-in settings form when the user is adding the translation provider plug-in
         /// through the GUI of Trados Studio
@@ -160,7 +154,6 @@ namespace Sdk.LanguagePlatform.Samples.ListProvider
         /// <param name="languagePairs"></param>
         /// <param name="credentialStore"></param>
         /// <returns></returns>
-        #region "Browse"
         public ITranslationProvider[] Browse(IWin32Window owner, LanguagePair[] languagePairs, ITranslationProviderCredentialStore credentialStore)
         {
             ListProviderConfDialog dialog = new ListProviderConfDialog(new ListTranslationOptions());
@@ -171,20 +164,15 @@ namespace Sdk.LanguagePlatform.Samples.ListProvider
             }
             return null;
         }
-        #endregion
-
-
-
+        
         /// <summary>
         /// Determines whether the plug-in settings can be changed
         /// by displaying the Settings button in Trados Studio.
         /// </summary>
-        #region "SupportsEditing"
         public bool SupportsEditing
         {
             get { return true; }
         }
-        #endregion
 
         /// <summary>
         /// If the plug-in settings can be changed by the user,
@@ -198,7 +186,6 @@ namespace Sdk.LanguagePlatform.Samples.ListProvider
         /// <param name="languagePairs"></param>
         /// <param name="credentialStore"></param>
         /// <returns></returns>
-        #region "Edit"
         public bool Edit(IWin32Window owner, ITranslationProvider translationProvider, LanguagePair[] languagePairs, ITranslationProviderCredentialStore credentialStore)
         {
             ListTranslationProvider editProvider = translationProvider as ListTranslationProvider;
@@ -216,7 +203,6 @@ namespace Sdk.LanguagePlatform.Samples.ListProvider
 
             return false;
         }
-        #endregion
 
         /// <summary>
         /// Can be used in implementations in which a user login is required, e.g.
@@ -229,12 +215,10 @@ namespace Sdk.LanguagePlatform.Samples.ListProvider
         /// <param name="translationProviderState"></param>
         /// <param name="credentialStore"></param>
         /// <returns></returns>
-        #region "GetCredentialsFromUser"
         public bool GetCredentialsFromUser(IWin32Window owner, Uri translationProviderUri, string translationProviderState, ITranslationProviderCredentialStore credentialStore)
         {            
             return true;
         }
-        #endregion
 
         /// <summary>
         /// Used for displaying the plug-in info such as the plug-in name,
@@ -243,7 +227,6 @@ namespace Sdk.LanguagePlatform.Samples.ListProvider
         /// <param name="translationProviderUri"></param>
         /// <param name="translationProviderState"></param>
         /// <returns></returns>
-        #region "GetDisplayInfo"
         public TranslationProviderDisplayInfo GetDisplayInfo(Uri translationProviderUri, string translationProviderState)
         {
             TranslationProviderDisplayInfo info = new TranslationProviderDisplayInfo();
@@ -255,9 +238,6 @@ namespace Sdk.LanguagePlatform.Samples.ListProvider
 
             return info;
         }
-        #endregion
-
-
 
         public bool SupportsTranslationProviderUri(Uri translationProviderUri)
         {
@@ -277,15 +257,12 @@ namespace Sdk.LanguagePlatform.Samples.ListProvider
         {
             get { return PluginResources.Plugin_NiceName; }
         }
-
-        #endregion
     }
 }
 ```
 ***
 
-See Also
---------
+# See Also
 [Creating the Translation Provider UI Extension](creating_the_translation_provider_ui_extension.md)
 
 [Implementing the Plug-in User Interface](implementing_the_plugin_user_interface.md)

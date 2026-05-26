@@ -162,12 +162,9 @@ using Sdl.LanguagePlatform.Core;
 namespace SDK.LanguagePlatform.Samples.TmLookup
 {
     class Connector
-    {
-        #region "TmServer"
+    {        
         private TranslationProviderServer tmServer;
-        #endregion        
-
-        #region "FileOrServer"
+          
         /// <summary>
         /// Property to flag whether a file or server TM should be used for the search
         /// </summary> 
@@ -176,9 +173,7 @@ namespace SDK.LanguagePlatform.Samples.TmLookup
             get;
             set;
         }
-        #endregion
-
-        #region "fileTM"
+        
         /// <summary>
         /// The file TM object
         /// </summary> 
@@ -187,11 +182,7 @@ namespace SDK.LanguagePlatform.Samples.TmLookup
             get;
             set;           
         }
-        #endregion
-
-
-
-        #region "SelectFileTm"
+       
         /// <summary>
         /// Select the file TM using the file name and path chosen by the user through the GUI.
         /// </summary>
@@ -200,9 +191,7 @@ namespace SDK.LanguagePlatform.Samples.TmLookup
             fileTm = new FileBasedTranslationMemory(tmPath);
             server = false;
         }
-        #endregion
-
-        #region "serverTM"
+        
         /// <summary>
         /// The server TM object
         /// </summary>
@@ -211,9 +200,7 @@ namespace SDK.LanguagePlatform.Samples.TmLookup
             get;
             set;
         }
-        #endregion
-
-        #region "connect"
+     
         /// <summary>
         /// Establishing a connection to the TM Server.
         /// This connection is primarily needed for populating the 
@@ -243,10 +230,7 @@ namespace SDK.LanguagePlatform.Samples.TmLookup
             }
 
         }
-        #endregion
-
-
-        #region "uri"
+       
         /// <summary>
         /// Returns the address of the TM Server.
         /// </summary>
@@ -255,10 +239,7 @@ namespace SDK.LanguagePlatform.Samples.TmLookup
             string address = uri;
             return new Uri(address);
         }
-        #endregion
-
-
-        #region "SelectServerTm"
+     
         /// <summary>
         /// Selects the particular server TM as chosen by the user through the dropdown list.
         /// </summary>
@@ -268,8 +249,7 @@ namespace SDK.LanguagePlatform.Samples.TmLookup
             serverTM = tmServer.GetTranslationMemory(tmName, 
                 TranslationMemoryProperties.None);
             server = true;
-        }
-        #endregion
+        }        
     }
 }
 ```

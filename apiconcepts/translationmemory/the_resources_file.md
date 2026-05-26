@@ -1,45 +1,46 @@
-The Resources File
-======================
-The resources file contains the strings and elements that users will see in the user interface of Var:ProductName such as the plug-in name, icon, description.
+# The Resources File
 
-The **PluginResources.resx** file is among the components that are provided by the project template. This resources file contains, among others, a string value called **Plugin_Name**. It defines the name of the plug-in assembly and will be preset to the name of the Visual Studio project. This is the name that will show up in the Var:ProductName plug-in management dialog. Any localizable strings referred to from the plug-in attribute or extension attributes should be defined in **PluginResources.resx**. The **.resx* file will be compiled into a **.resources* file, and will be deployed outside of the plug-in assembly itself, so the host application can access the information within it without having to load the plug-in assembly itself.
+The resources file contains the strings and elements that users see in the user interface of Var:ProductName, such as the plug-in name, icon, and description.
 
-The resources file for our project should look as shown below:
+The **PluginResources.resx** file is one of the components provided by the project template. It contains a string named **Plugin_Name**, which defines the plug-in assembly name and defaults to the Visual Studio project name. This name appears in the Var:ProductName plug-in management dialog.
+
+Define any localizable strings referenced by the plug-in attribute or extension attributes in **PluginResources.resx**. During build, the **.resx** file is compiled into a **.resources** file and deployed outside the plug-in assembly, so the host application can access the information without loading the assembly.
+
+The resources file for this project should look as shown below:
 
 <img style="display:block; " src="images/Translation_Provider_PlugIn_Resources.jpg"/>
 
-Here are some explanations on the string resources:
+The string resources serve these purposes:
 
-* The **Plugin_Name** is the one that will be shown in the **Plug-ins** dialog box of Var:ProductName (which end users will open only on rare occasions).
-* **The Plugin_NiceName** is the one that will be displayed, for example, in the user interface of Var:ProductName when selecting a translation provider.
-* **The Plugin_Tooltip** text will be displayed when users move the mouse pointer over the plug-in (nice) name or icon.
-* **The Plugin_Description** contains further descriptive information on the plug-in.
+* **Plugin_Name** appears in the **Plug-ins** dialog box of Var:ProductName, which end users open only occasionally.
+* **Plugin_NiceName** appears in the Var:ProductName user interface when users select a translation provider.
+* **Plugin_Tooltip** appears when users move the mouse pointer over the plug-in name or icon.
+* **Plugin_Description** contains additional descriptive information about the plug-in.
 
 
 > [!NOTE]
 > 
-> The value **Plugin_Description** is currently not supported, i.e. though you specify it, no plug-in description is currently shown in Var:ProductName.
+> **Plugin_Description** is currently not supported. Although you can specify it, Var:ProductName does not display a plug-in description.
 
 
-In our implementation we also add an icon file (*band_aid.ico*) to the resources. The icon will later be displayed in the user interface of Var:ProductName, which makes the plug-in more visually appealing.
+In this implementation, we also add an icon file (*band_aid.ico*) to the resources. Var:ProductName displays the icon in the user interface, which makes the plug-in easier to recognize.
 
-The screenshot below illustrates how your plug-in will be shown in the UI of Var:ProductName after the user has selected it as a provider for a translation project:
+The screenshot below shows how the plug-in appears in the Var:ProductName UI after the user selects it as a provider for a translation project:
 
 <img style="display:block; " src="images/PluginResourcesInAction.jpg"/>
 
-In the same manner we add a *.png* file called *band_aid.png* to the resources. This image will be displayed later when a match has been found in the translation provider. This helps users distinguish your implementation from other translation providers.
+Similarly, add a *.png* file named *band_aid.png* to the resources. Var:ProductName displays this image when a match is found in the translation provider, which helps users distinguish your implementation from other translation providers.
 
-The screenshot below illustrates how a match from your translation provider will later be shown to the user in Var:ProductName, i.e. the plug-in graphic and the name:
+The screenshot below shows how Var:ProductName displays a match from your translation provider, including the plug-in graphic and name:
 
 <img style="display:block; " src="images/PngForShowingResults.jpg"/>
 
 
 > [!NOTE]
 > 
-> We recommend that you use an image with a transparent background for your plug-in.
+> We recommend using an image with a transparent background for your plug-in.
 
-See Also
-------
+# See Also
 [Controlling the Plug-in User Interface](controlling_the_plugin_user_interface.md)
 
 [Instantiating the Plug-in](instantiating_the_plugin.md)
