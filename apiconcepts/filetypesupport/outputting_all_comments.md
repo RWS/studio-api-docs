@@ -1,25 +1,22 @@
-Outputting all Comments
-===
+﻿# Outputting All Comments
 
-In this chapter we will finalize the writer class by making it write any comments attached to the units of the original BIL file as well as any comments that were added to the target segments during translation in Var:ProductName.
+Finalize the writer class to write comments attached to units in the original BIL file and comments added to target segments during translation in Var:ProductName.
 
-About Comments
---
+## About Comments
 
-According to the specifications of our fictitious BIL format (see [About the Example BIL Format](about_the_example_bil_format.md)) a unit element may include one or more ```comment``` elements, each of which has its own id.
+According to the BIL format specification (see [About the Example BIL Format](about_the_example_bil_format.md)), unit elements include one or more ```comment``` elements, each with its own id.
 
-In Var:ProductName translators can add comments to target segments. The commented strings are then highlighted with a specific background colour. The comment text is visible, for example, when the user moves the mouse pointer over the commented string (see illustration below).
+In Var:ProductName, translators add comments to target segments. The commented strings highlight with a specific background color. Comment text appears when users move the mouse pointer over the commented string (see illustration below).
 
 ![Comment](images/Comment.jpg)
 
-In a BIL file comments are attached to the ```unit``` elements. This is where we will add any comments found in a segment pair when generating the native target file.
+BIL file comments attach to ```unit``` elements. When generating the native target file, add any comments found in a segment pair to these units.
 
-Extend the Text Extractor Class
---
+## Extend the Text Extractor Class
 
-When we implemented the ```BilTextExtractor``` class (see [Adding the Text Extractor Class](adding_the_text_extractor_class.md)) we did not process any comments attached to the segments. We want to change this behavior by making the following additions to this class. As a unit might contain more than one comment, you should create a global string list object. Then add a ```GetSegmentComment()``` helper function. This function first clears the comments list, and then calls the 'visitor' members to collect the required information from a given segment. Note that this function will later be called through the writer class.
+When implementing the ```BilTextExtractor``` class (see [Adding the Text Extractor Class](adding_the_text_extractor_class.md)), comment processing was not included. Add a global string list object and a ```GetSegmentComment()``` helper function. This function clears the comments list, then calls visitor members to collect information from a given segment. The writer class calls this function later.
 
-The [VisitCommentMarker](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IMarkupDataVisitor.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IMarkupDataVisitor_VisitCommentMarker_Sdl_FileTypeSupport_Framework_BilingualApi_ICommentMarker_) member, which we originally left empty, should look as shown below:
+The [VisitCommentMarker](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IMarkupDataVisitor.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IMarkupDataVisitor_VisitCommentMarker_Sdl_FileTypeSupport_Framework_BilingualApi_ICommentMarker_) member visits segments and adds any found comments to the comments list:
 
 # [C#](#tab/tabid-1)
 ```cs
@@ -32,38 +29,30 @@ public void VisitCommentMarker(ICommentMarker commentMarker)
     VisitChildren(commentMarker);
 }
 ```
-***
 
-This member actually 'visits' the segments and adds any comments found to our comments string list.
+## Enhance the Writer Class
 
-
-Enhance the Writer Class
---
-
-Now we need to make some additions to our writer class. Start by adding yet another helper function called, e.g. ```UpdateComments()```. This helper function needs to be invoked from ```CreateParagraphUnit()``` and takes the current paragraph unit and the ```unit``` XML node as parameters, i.e.:
+Add a helper function called ```UpdateComments()``` to the writer class. Invoke this function from ```CreateParagraphUnit()```, passing the current paragraph unit and XML ```unit``` node:
 
 # [C#](#tab/tabid-2)
 ```cs
 UpdateComments(paragraphUnit, xmlUnit);
 ```
-***
 
-The ```UpdateComments()``` helper function first 'wipes the slate clean' by removing any existing comments from the original BIL file:
+The ```UpdateComments()``` helper function first removes any existing comments from the original BIL file:
 
 # [C#](#tab/tabid-3)
 ```cs
-// clear the original comments
 XmlNodeList comments = unitNode.SelectNodes("comment");
 foreach (XmlNode item in comments)
 {
     ((XmlElement)unitNode).RemoveChild(item);
 }
 ```
-***
 
-Now we need to compile a consolidated list of all comments (from the original BIL file) and of those comments that were added by the translator. Remember that each ```comment``` element in the BIL file requires an id, which we assign through a ```commentID``` integer variable.
+Create a consolidated list of all comments from the original BIL file and comments added by the translator. Each ```comment``` element in the BIL file requires an id, assigned through a ```commentID``` integer variable.
 
-First, we retrieve the comments that we added from the original BIL file and that are attached to the paragraph units:
+Retrieve comments added from the original BIL file and attached to the paragraph units:
 
 # [C#](#tab/tabid-4)
 ```cs
@@ -78,9 +67,8 @@ if (paragraphUnit.Properties.Comments != null)
     }
 }
 ```
-***
 
-Next, we collect the comments that the translator added in the intermediary (SDLXliff) file to the target segments. Note that we invoke the corresponding function from our ```BilTextExtractor``` class, which 'visits' the markup elements found within a segment.
+Next, collect comments the translator added in the intermediate SDLXliff file to target segments. Invoke the corresponding function from the ```BilTextExtractor``` class, which visits markup elements within a segment:
 
 # [C#](#tab/tabid-5)
 ```cs
@@ -93,28 +81,19 @@ foreach (ISegmentPair segmentPair in paragraphUnit.SegmentPairs)
     }
 }
 ```
-***
 
-The complete helper function looks as shown below:
+The complete ```UpdateComments()``` helper function consolidates all comments:
 
 # [C#](#tab/tabid-6)
 ```cs
 private void UpdateComments(IParagraphUnit paragraphUnit, XmlNode unitNode)
 {
-    #region "clear"
-    // clear the original comments
     XmlNodeList comments = unitNode.SelectNodes("comment");
     foreach (XmlNode item in comments)
     {
         ((XmlElement)unitNode).RemoveChild(item);
     }
-    #endregion
 
-
-    // loop through the comments in the SDLXLIFF paragraph units (if available)
-    // these comments were added from the original BIL file 
-    // during parsing (i.e. forward conversion)
-    #region "original comments"
     int commentID = 1;
     if (paragraphUnit.Properties.Comments != null)
     {
@@ -125,12 +104,7 @@ private void UpdateComments(IParagraphUnit paragraphUnit, XmlNode unitNode)
             commentID++;
         }
     }
-    #endregion
 
-
-    // generate the consolidated list of comments from the original 
-    // BIL file and any comments added by the translator in the SDLXLIFF file
-    #region "tranlator comments"
     foreach (ISegmentPair segmentPair in paragraphUnit.SegmentPairs)
     {
         foreach (string comment in _textExtractor.GetSegmentComment(segmentPair.Target))
@@ -139,12 +113,10 @@ private void UpdateComments(IParagraphUnit paragraphUnit, XmlNode unitNode)
             commentID++;
         }
     }
-    #endregion
 }
 ```
-***
 
-Note that the above ```UpdateComments()``` function calls a separate ```AddComment()``` helper function, which generates the actual comment based on the comment text and the comment id, which is then added to the current ```unit``` element of the target BIL file. This helper function looks as shown below:
+The ```UpdateComments()``` function calls the ```AddComment()``` helper function, which creates a comment element based on the comment text and comment id, then adds it to the current ```unit``` element of the target BIL file:
 
 # [C#](#tab/tabid-7)
 ```cs
@@ -158,12 +130,10 @@ private void AddComment(XmlNode xmlUnit, string commentText, int commentID)
     xmlUnit.AppendChild(commentElement);
 }
 ```
-***
 
-Putting it All Together
---
+## Putting It All Together
 
-The complete and finished writer class should now look as shown below:
+Your complete and finished writer class now includes all required functionality:
 # [C#](#tab/tabid-8)
 ```cs
 using System;
@@ -179,14 +149,11 @@ namespace Sdk.FileTypeSupport.Samples.Bil
 {
     class BilWriter : AbstractBilingualFileTypeComponent, IBilingualWriter, INativeOutputSettingsAware
     {
-        #region "global"
         private IPersistentFileConversionProperties _originalFileProperties;
         private INativeOutputFileProperties _nativeFileProperties;
         private XmlDocument _targetFile;
         private BilTextExtractor _textExtractor;
-        #endregion
 
-        #region "INativeOutputSettingsAware members"
         public void GetProposedOutputFileInfo(IPersistentFileConversionProperties fileProperties, IOutputFileInfo proposedFileInfo)
         {
             _originalFileProperties = fileProperties;
@@ -196,62 +163,40 @@ namespace Sdk.FileTypeSupport.Samples.Bil
         {
             _nativeFileProperties = properties;
         }
-        #endregion
 
-
-        #region "IBilingualWriter members"
-
-
-        #region "load file"
         public void SetFileProperties(IFileProperties fileInfo)
         {
             _targetFile = new XmlDocument();
             _targetFile.Load(_originalFileProperties.OriginalFilePath);
         }
 
-        #region "initialize"
         public void Initialize(IDocumentProperties documentInfo)
         {
             _textExtractor = new BilTextExtractor();
         }
-        #endregion
 
-        #endregion
-
-        #region "paragraphs"
         public void ProcessParagraphUnit(IParagraphUnit paragraphUnit)
         {
-            //old: string unitId = paragraphUnit.Properties.Contexts.Contexts[1].MetaData["UnitID"];
             string unitId = paragraphUnit.Properties.Contexts.Contexts[1].GetMetaData("UnitID");
             XmlNode xmlUnit = _targetFile.SelectSingleNode("//unit[@id='" + unitId + "']");
 
-            // call helper function to generate the paragraph unit
             CreateParagraphUnit(paragraphUnit, xmlUnit);
-            // call helper function to consolidate all comments
             UpdateComments(paragraphUnit, xmlUnit);
         }
-        #endregion
 
-        #region "helper functions"
-
-        #region "create paragraph"
         private void CreateParagraphUnit(IParagraphUnit paragraphUnit, XmlNode xmlUnit)
         {
             XmlNode source = xmlUnit.SelectSingleNode("source");
             XmlNode target = xmlUnit.SelectSingleNode("target");
 
-            // iterate all segment pairs
             foreach (ISegmentPair segmentPair in paragraphUnit.SegmentPairs)
             {
                 source.InnerXml = _textExtractor.GetPlainText(segmentPair.Source);
                 target.InnerXml = _textExtractor.GetPlainText(segmentPair.Target);
-                // update unit status
                 xmlUnit.SelectSingleNode("./@status").Value = UpdateStatus(segmentPair.Properties.ConfirmationLevel);
             }
         }
-        #endregion
 
-        #region "confirmation level"
         private string UpdateStatus(ConfirmationLevel unitLevel)
         {
             string status = "";
@@ -274,25 +219,15 @@ namespace Sdk.FileTypeSupport.Samples.Bil
 
             return status;
         }
-        #endregion
 
-        #region "update comments"
         private void UpdateComments(IParagraphUnit paragraphUnit, XmlNode unitNode)
         {
-            #region "clear"
-            // clear the original comments
             XmlNodeList comments = unitNode.SelectNodes("comment");
             foreach (XmlNode item in comments)
             {
                 ((XmlElement)unitNode).RemoveChild(item);
             }
-            #endregion
 
-
-            // loop through the comments in the SDLXLIFF paragraph units (if available)
-            // these comments were added from the original BIL file 
-            // during parsing (i.e. forward conversion)
-            #region "original comments"
             int commentID = 1;
             if (paragraphUnit.Properties.Comments != null)
             {
@@ -303,12 +238,7 @@ namespace Sdk.FileTypeSupport.Samples.Bil
                     commentID++;
                 }
             }
-            #endregion
 
-
-            // generate the consolidated list of comments from the original 
-            // BIL file and any comments added by the translator in the SDLXLIFF file
-            #region "tranlator comments"
             foreach (ISegmentPair segmentPair in paragraphUnit.SegmentPairs)
             {
                 foreach (string comment in _textExtractor.GetSegmentComment(segmentPair.Target))
@@ -317,11 +247,8 @@ namespace Sdk.FileTypeSupport.Samples.Bil
                     commentID++;
                 }
             }
-            #endregion
         }
-        #endregion
 
-        #region "add comment"
         private void AddComment(XmlNode xmlUnit, string commentText, int commentID)
         {
             XmlElement commentElement = _targetFile.CreateElement("comment");
@@ -331,9 +258,7 @@ namespace Sdk.FileTypeSupport.Samples.Bil
             commentElement.InnerText = commentText;
             xmlUnit.AppendChild(commentElement);
         }
-        #endregion
 
-        #region "save file and complete"
         public void FileComplete()
         {
             _targetFile.Save(_nativeFileProperties.OutputFilePath);
@@ -344,25 +269,15 @@ namespace Sdk.FileTypeSupport.Samples.Bil
         {
 
         }
-        #endregion
-        #endregion
-
-        #endregion
-
-        #region IDisposable implementation
 
         public void Dispose()
         {
-            //don't need to dispose of anthing
         }
-
-        #endregion
     }
 }
 ```
-***
 
-Below you also see the complete and finished text extractor class:
+Your complete and finished text extractor class now includes all required functionality:
 # [C#](#tab/tabid-9)
 ```cs
 using System;
@@ -375,7 +290,6 @@ namespace Sdk.FileTypeSupport.Samples.Bil
 {
     class BilTextExtractor : IMarkupDataVisitor
     {
-        #region "comment list"
         private List<string> _Comments = new List<string>();
 
         public List<string> GetSegmentComment(ISegment segment)
@@ -384,9 +298,7 @@ namespace Sdk.FileTypeSupport.Samples.Bil
             VisitChildren(segment);
             return _Comments;
         }
-        #endregion
 
-        #region "plain text"
         internal StringBuilder PlainText
         {
             get;
@@ -399,10 +311,7 @@ namespace Sdk.FileTypeSupport.Samples.Bil
             VisitChildren(segment);
             return PlainText.ToString();
         }
-        #endregion
 
-        // loops through all sub items of the container (IMarkupDataContainer)
-        #region "loop"
         private void VisitChildren(IAbstractMarkupDataContainer container)
         {
             foreach (var item in container)
@@ -410,28 +319,19 @@ namespace Sdk.FileTypeSupport.Samples.Bil
                 item.AcceptVisitor(this);
             }
         }
-        #endregion
 
-        #region IMarkupDataVisitor Members
-
-        #region "text"
         public void VisitText(IText text)
         {
             PlainText.Append(text.Properties.Text);
         }
-        #endregion
 
-        #region "tagpairs"
         public void VisitTagPair(ITagPair tagPair)
         {
             PlainText.Append("<" + tagPair.StartTagProperties.TagContent + ">");
             VisitChildren(tagPair);
             PlainText.Append("</" + tagPair.EndTagProperties.TagContent + ">");
         }
-        #endregion
 
-
-        #region "comments"
         public void VisitCommentMarker(ICommentMarker commentMarker)
         {
             for (int i = 0; i < commentMarker.Comments.Count; i++)
@@ -440,9 +340,7 @@ namespace Sdk.FileTypeSupport.Samples.Bil
             }
             VisitChildren(commentMarker);
         }
-        #endregion
 
-        #region "left empty"
         public void VisitSegment(ISegment segment)
         {
             VisitChildren(segment);
@@ -450,47 +348,34 @@ namespace Sdk.FileTypeSupport.Samples.Bil
 
         public void VisitLocationMarker(ILocationMarker location)
         {
-
         }
 
         public void VisitLockedContent(ILockedContent lockedContent)
         {
-
         }
 
         public void VisitOtherMarker(IOtherMarker marker)
         {
-
         }
 
         public void VisitPlaceholderTag(IPlaceholderTag tag)
         {
-
         }
 
         public void VisitRevisionMarker(IRevisionMarker revisionMarker)
         {
-
         }
-        #endregion
-
-        #endregion
     }
 }
 ```
-***
 
-See Also
---
+## See Also
 
-
-
-[Extracting Comments](extracting_comments.md)
-
-[Adding the File Writer Class](adding_the_file_writer_class.md)
-
-[Adding the Text Extractor Class](adding_the_text_extractor_class.md)
+- [Extracting Comments](extracting_comments.md)
+- [Adding the File Writer Class](adding_the_file_writer_class.md)
+- [Adding the Text Extractor Class](adding_the_text_extractor_class.md)
 
 >[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.
+

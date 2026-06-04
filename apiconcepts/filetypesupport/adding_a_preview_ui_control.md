@@ -1,19 +1,18 @@
-Adding a Preview UI Control
-===
+# Adding a preview UI control
 
-For displaying the document preview your filter requires a suitable control element.
+Your filter needs a control that can display the document preview.
 
-Add a Web Browser Control
---
+## Add a web browser control
 
-When implementing the static internal preview, we simply leveraged the built-in Web browser control of Var:ProductName (see [Modifying the File Type Component Builder](static_modifying_the_file_type_component_builder.md)). Depending on the native file format that needs to be displayed, a different control might be required. For example, for DOC files Var:ProductName uses a Microsoft Word Viewer control. In this exercise, we are (once again) going to use a Web browser control. However, this time we will not leverage the built-in Web browser control, since we would like to demonstrate how to add and configure a custom control element.
+The static internal preview uses the built-in web browser control in Var:ProductName. See [Modifying the File Type Component Builder](static_modifying_the_file_type_component_builder.md). Other native file formats may require different controls. For example, DOC files use a Microsoft Word Viewer control.
 
-Start by adding a user control called e.g. **InternalPreviewControl.cs** to your project. From the Visual Studio toolbox add a Web browser control, and assign the name `webBrowserControl` to it.
+This sample uses a web browser control again, but this time it adds and configures a custom control instead of reusing the built-in one.
 
-Implement the Preview Control Functionality
---
+Start by adding a user control such as **InternalPreviewControl.cs** to your project. Then add a web browser control from the Visual Studio toolbox and name it `webBrowserControl`.
 
-For your preview control to be able to respond to events such as the user clicking a segment in the editor, scrolling to a segment, etc., your control needs to implement the following code:
+## Implement the preview control functionality
+
+To respond to events such as clicking a segment in the editor or scrolling to a segment, implement the following code in your preview control:
 
 # [C#](#tab/tabid-1)
 ```cs
@@ -200,7 +199,11 @@ namespace Sdk.FileTypeSupport.Samples.SimpleText.Preview
     }
 }
 ```
-***
+
+## See also
+
+- [Modifying the File Type Component Builder](static_modifying_the_file_type_component_builder.md)
+- [Adding a Preview Controller](adding_a_preview_controller.md)
 
 >[!NOTE]
 >

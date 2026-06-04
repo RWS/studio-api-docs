@@ -1,10 +1,10 @@
-The Main Parser
-==
-An example of a simplified Main Parser which publishes sub-content. 
+# The Main Parser
+
+This example demonstrates a simplified Main Parser that publishes sub-content.
 
 >[!NOTE]
 >
->Usually, you should not add dependency files to the FileProperties unless they are actually used by the sub-content writer - note the implementation of [ISubContentPublisher](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ISubContentPublisher.yml)
+>Add dependency files to the FileProperties only if the sub-content writer actually uses them. Review the [ISubContentPublisher](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ISubContentPublisher.yml) implementation for details.
 
 # [C#](#tab/tabid-1)
 ```cs
@@ -71,8 +71,7 @@ namespace Sdk.Snippets.Native
     }
 }
 ```
-***
 
 >[!NOTE]
 >
-> This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.
+>This content may be out-of-date. Inspect the libraries in the Visual Studio Object Browser to verify the latest information on this topic.

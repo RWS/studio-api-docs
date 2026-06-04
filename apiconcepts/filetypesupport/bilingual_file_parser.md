@@ -1,106 +1,99 @@
-The Bilingual File Parser
-===
+# The Bilingual File Parser
 
-The bilingual parser is used for localizable content extraction. While the native parser allows you to extract source related localizable content, the bilingual parser allows you to set source and target related localizable content, group this content into the paragraph units and the segments.
+The bilingual parser extracts localizable content from bilingual documents. Unlike a native parser, which extracts source content only, a bilingual parser can set both source and target content and group that content into paragraph units and segments.
 
-Writing a bilingual parser
---
+## Writing a bilingual parser
 
-When writing filters to use the Bilingual API you must first derive your parser class from the [IBilingualParser](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualParser.yml) and [IBilingualContentProcessor](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentProcessor.yml) interfaces. These two interfaces form the core of the work that is done by a Bilingual parser.
+When you build a filter with the Bilingual API, the parser must implement [IBilingualParser](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualParser.yml). In practice, the parser also participates in the bilingual content-processing pipeline through [IBilingualContentProcessor](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentProcessor.yml).
 
-Some other interaces may be also required such as [AbstractBilingualFileTypeComponent](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.AbstractBilingualFileTypeComponent.yml) or [INativeContentCycleAware](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.yml).
+You may also need to implement additional types, such as [INativeContentCycleAware](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.yml) and [ISettingsAware](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.ISettingsAware.yml).
 
-However, the simplest way to implement a Bilingual parser is to derive from the [AbstractBilingualFileTypeComponent](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.AbstractBilingualFileTypeComponent.yml) class and the [IBilingualParser](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualParser.yml) and [INativeContentCycleAware](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.yml) interface only and use the helper functions and properties of the [AbstractBilingualFileTypeComponent](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.AbstractBilingualFileTypeComponent.yml) class. A parser normally derives from the [INativeContentCycleAware](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.yml) interface which provides the parser with additional information such as the original file path name, source and target language and encoding and class methods that are called during key phases of the parsing process to enable your filter to manage its initialisation flow-control and clean-up. You should also derive from the [ISettingsAware](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.ISettingsAware.yml) interface if you have any settings associated with this parser. Of course, you will need to create a UI to set the settings as well. Please see [Filter UI Settings](filter_ui_settings.md) for more information.
+The simplest approach is to derive from [AbstractBilingualFileTypeComponent](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.AbstractBilingualFileTypeComponent.yml) and implement [IBilingualParser](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualParser.yml) and [INativeContentCycleAware](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.yml). This base class provides helper properties and methods that reduce the amount of code you need to write.
 
-Deriving from AbstractBilingualFileTypeComponent
---
+`INativeContentCycleAware` gives the parser access to information such as the original file path, source and target languages, and encoding. It also provides methods that the framework calls at key stages of parsing so that your filter can initialize and clean up correctly. If the parser uses settings, implement [ISettingsAware](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.ISettingsAware.yml) and provide a UI for those settings. For more information, see [Filter UI Settings](filter_ui_settings.md).
 
-The [AbstractBilingualFileTypeComponent](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.AbstractBilingualFileTypeComponent.yml) base class provides an implementation of the [IFileTypeComponentBuilder](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilder.yml) and [IBilingualFileTypeComponent](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualFileTypeComponent.yml) interfaces leaving only the [IBilingualParser](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualParser.yml) and [INativeContentCycleAware](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.yml) interfaces to be implemented by the derived class. If this class is used as a base class then most of the properties and methods that a required to implement a Bilingual parser will be implemented in this [AbstractBilingualFileTypeComponent](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.AbstractBilingualFileTypeComponent.yml) class or its base class. This leaves the following interfaces that still need to have their interface members implemented in your bilingual parser class: [IBilingualParser](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualParser.yml), IParser and [INativeContentCycleAware](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.yml).
+## Using `AbstractBilingualFileTypeComponent`
 
-Implementing IBilingualParser
---
+The [AbstractBilingualFileTypeComponent](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.AbstractBilingualFileTypeComponent.yml) base class already implements [IFileTypeComponentBuilder](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilder.yml) and [IBilingualFileTypeComponent](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualFileTypeComponent.yml). This leaves your parser to implement the members required by [IBilingualParser](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualParser.yml), `IParser`, and [INativeContentCycleAware](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.yml).
 
-The [IBilingualParser](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualParser.yml) interface contains two essential properties for the bilingual parser.
+## Implementing `IBilingualParser`
 
-The first property ```DocumentProperties``` contains an [IDocumentProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IDocumentProperties.yml) interface that is set by the Bilingual API during the parser initialisation. This document properties interface is used to initialise the source and target languages.
+The [IBilingualParser](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualParser.yml) interface defines two essential properties.
 
-The second property [Output](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentProcessor.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentProcessor_Output) of type [IBilingualContentProcessor](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentProcessor.yml) is used to tell the Bilingual API of all major file processing events that are encountered during the parsing of a bilingual document. The [IBilingualContentProcessor](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentProcessor.yml) interface is implemented by content processors within the Bilingual API that work on the bilingual content model. To facilitate processing in a streaming manner without requiring the entire document object in memory at any time the parser will need to feed paragraph-units one by one through calls to ```Output.ProcessParagraphUnit()```. However, document and file properties will need to be provided by the parser to the framework by calls to ```Output.Initialize()``` and ```Output.SetFileProperties()``` before processing any paragraph-units in each document or file. These events are outlined in the next few sections below.
+### `IBilingualParser.DocumentProperties`
 
-**IBilingualParser.DocumentProperties**
+The [DocumentProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualParser.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualParser_DocumentProperties) property holds an [IDocumentProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IDocumentProperties.yml) instance. The Bilingual API sets this property during parser initialization. You store the value and then use it to set the source and target languages and initialize the output stream.
 
-The [DocumentProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualParser.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualParser_DocumentProperties) interface of type [IBilingualParser](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualParser.yml) is set by the File Type Support Framework when calling a bilingual parser but you will need to define this property and a private member to store its value. This document properties interface is then later used for storing the source and target languages and then initialising the output stream of the bilingual content processes.
+### `IBilingualContentProcessor.Output`
 
-**IBilingualContentProcessor.Output**
+The [Output](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentProcessor.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentProcessor_Output) property is of type [IBilingualContentProcessor](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentProcessor.yml). The framework initializes it and uses it to connect the bilingual parser to the content processors further down the processing chain during extraction from a bilingual file format to the default bilingual SDLXLIFF (`*.xliff`) persistent format.
 
-The [Output](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentProcessor.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentProcessor_Output) interface of type [IBilingualContentProcessor](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentProcessor.yml) is also initialised by the File Type Support Framework and provides a coupling between the Bilingual Parser and all Bilingual Content Processors down the processing chain during the extract conversion phase from a bilingual file format to the default bilingual SDLXliff (*.xliff*) persistent file format. The [Output](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentProcessor.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentProcessor_Output) interface has several methods that are called throughout the file parsing operation.
+To support streaming and avoid loading the entire document into memory, the parser should feed paragraph units one at a time through `Output.ProcessParagraphUnit()`. Before it processes any paragraph units, it must also provide document and file properties through `Output.Initialize()` and `Output.SetFileProperties()`.
 
-**Output.Initialize()**
+### `Output.Initialize()`
 
-The Bilingual Parser should call [Initialize](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentHandler_Initialize_Sdl_FileTypeSupport_Framework_BilingualApi_IDocumentProperties_) method to forward the reference to the [DocumentProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualParser.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualParser_DocumentProperties) object for the document being processed. This is normally done after the [SourceLanguage](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IDocumentProperties.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IDocumentProperties_SourceLanguage) and [TargetLanguage](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IDocumentProperties.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IDocumentProperties_TargetLanguage) have been set using information from the source file being parsed.
+Call [Initialize](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentHandler_Initialize_Sdl_FileTypeSupport_Framework_BilingualApi_IDocumentProperties_) to pass the [DocumentProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualParser.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualParser_DocumentProperties) object for the current document. Do this after you set [SourceLanguage](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IDocumentProperties.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IDocumentProperties_SourceLanguage) and [TargetLanguage](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IDocumentProperties.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IDocumentProperties_TargetLanguage) from the source file.
 
 >[!NOTE]
 >
->This method should always be called, and always before any other calls on the [Output](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentProcessor.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentProcessor_Output) interface.
+> This method should always be called before any other call on the [Output](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentProcessor.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentProcessor_Output) interface.
 
 
-**Output.SetFileProperties()**
+### `Output.SetFileProperties()`
 
-The Bilingual Parser should call [SetFileProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentHandler_SetFileProperties_Sdl_FileTypeSupport_Framework_BilingualApi_IFileProperties_) method to provide the framework with a reference to the properties for each file in the document, before the paragraph-units of the file are processed by calling [ProcessParagraphUnit](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentHandler_ProcessParagraphUnit_Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_) as outlined below.
+Call [SetFileProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentHandler_SetFileProperties_Sdl_FileTypeSupport_Framework_BilingualApi_IFileProperties_) to provide the framework with the properties for each file in the document. Call it before you process the file's paragraph units through [ProcessParagraphUnit](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentHandler_ProcessParagraphUnit_Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_).
 
-The [SetFileProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentHandler_SetFileProperties_Sdl_FileTypeSupport_Framework_BilingualApi_IFileProperties_) method takes an interface reference of type [IFileProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IFileProperties.yml) that needs to be created by the Bilingual Parser its self. This can be done using the [CreateFileProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IDocumentItemFactory.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IDocumentItemFactory_CreateFileProperties) method. However, a Bilingual parser will normally need to set the [IPersistentFileConversionProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPersistentFileConversionProperties.yml) property of the [IFileProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IFileProperties.yml) created object before passing it to [SetFileProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentHandler_SetFileProperties_Sdl_FileTypeSupport_Framework_BilingualApi_IFileProperties_). This property however can normally be obtained from the parameter of [SetFileProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentHandler_SetFileProperties_Sdl_FileTypeSupport_Framework_BilingualApi_IFileProperties_) when your parser class is derived from [INativeContentCycleAware](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.yml). You may also need to update other properties of the [IFileProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IFileProperties.yml) object such as source and target language Tool name and version and creation date.
+`SetFileProperties()` takes an [IFileProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IFileProperties.yml) instance. The bilingual parser must create this instance, typically by using [CreateFileProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IDocumentItemFactory.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IDocumentItemFactory_CreateFileProperties). In most cases, the parser should also set the [IPersistentFileConversionProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPersistentFileConversionProperties.yml) property before it passes the object to `SetFileProperties()`. When your parser implements [INativeContentCycleAware](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.yml), you can usually obtain this information from the file properties that the framework passes into the content cycle. You may also need to set other values on [IFileProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IFileProperties.yml), such as the source language, target language, tool name, tool version, and creation date.
 
-**Output.ProcessParagraphUnit()**
+### `Output.ProcessParagraphUnit()`
 
-The Bilingual Parser should call [ProcessParagraphUnit](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentHandler_ProcessParagraphUnit_Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_) method for each paragraph-unit found in the source file being parsed. The parameter of type [IParagraphUnit](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.yml) must be created using a call to [CreateParagraphUnit](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IDocumentItemFactory.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IDocumentItemFactory_CreateParagraphUnit_Sdl_FileTypeSupport_Framework_NativeApi_LockTypeFlags_). When creating a paragraph-unit the source and target language is specified together with a lock type. Normally paragraph-units are created as structure paragraph-units with lock type [Structure](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.LockTypeFlags.yml#fields) or translatable paragraph-unit of lock type [Unlocked](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.LockTypeFlags.yml#fields).
+Call [ProcessParagraphUnit](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentHandler_ProcessParagraphUnit_Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_) for each paragraph unit in the source file. Create the [IParagraphUnit](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.yml) instance by calling [CreateParagraphUnit](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IDocumentItemFactory.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IDocumentItemFactory_CreateParagraphUnit_Sdl_FileTypeSupport_Framework_NativeApi_LockTypeFlags_). When you create a paragraph unit, specify the source language, target language, and lock type. In most cases, paragraph units are either structure paragraph units with the [Structure](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.LockTypeFlags.yml#fields) lock type or translatable paragraph units with the [Unlocked](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.LockTypeFlags.yml#fields) lock type.
 
-**Output.FileComplete()**
+### `Output.FileComplete()`
 
-The Bilingual Processor should call [FileComplete](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentHandler_FileComplete) method after all paragraph-units in a file have been processed by calling [ProcessParagraphUnit](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentHandler_ProcessParagraphUnit_Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_) for each one. After calling [FileComplete](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentHandler_FileComplete) the file properties should not be changed any further.
+Call [FileComplete](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentHandler_FileComplete) after you process all paragraph units in a file. After you call `FileComplete()`, do not change the file properties.
 
-**Output.Complete()**
+### `Output.Complete()`
 
-The Bilingual Processor should call [Complete](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentHandler_Complete) method after all content in all files have been processed. After calling [Complete](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentHandler_Complete) the document properties should not be changed any further.
+Call [Complete](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentHandler_Complete) after you process all content in all files. After you call `Complete()`, do not change the document properties.
 
-Implementing IParser
---
+## Implementing `IParser`
 
-**IParser.OnProgress**
+### `IParser.OnProgress`
 
-The [IParser](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IParser.yml) interface contains an event [OnProgress](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileParser.yml#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileParser_OnProgress_System_Byte_) or type [ProgressEventArgs](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ProgressEventArgs.yml) that must be defined in classes deriving from it. This event can be used to notify the framework and hence the user of the file parsing progress. As well as calling [OnProgress](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileParser.yml#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileParser_OnProgress_System_Byte_) with a suitable percentage of the file currently being processed it is normally expected to be called with a parameter of 0% before opening a file and with a parameter of 100% when file reading is complete.
+The [IParser](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IParser.yml) interface defines an [OnProgress](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileParser.yml#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileParser_OnProgress_System_Byte_) event of type [ProgressEventArgs](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ProgressEventArgs.yml). Use this event to notify the framework, and therefore the user, about parsing progress. In most cases, you should raise it with `0` before you open a file, update it with the current percentage during parsing, and raise it with `100` when parsing is complete.
 
-**IParser.ParseNext()**
+### `IParser.ParseNext()`
 
-The [IParser](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IParser.yml) interface contains a [ParseNext](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IParser.yml#Sdl_FileTypeSupport_Framework_NativeApi_IParser_ParseNext) method which must also be implemented. This method is called repeatedly by the framework to process the next chunk of input from the source bilingual document.
+The [IParser](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IParser.yml) interface also requires the [ParseNext](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IParser.yml#Sdl_FileTypeSupport_Framework_NativeApi_IParser_ParseNext) method. The framework calls this method repeatedly to process the next chunk of input from the source bilingual document.
 
-The implementation should parse a suitable chunk (preferably not large) of the input and return a bool that indicates if there is more work to be done before this file is completely parsed. When there is no more of the source file to process then the [ParseNext](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IParser.yml#Sdl_FileTypeSupport_Framework_NativeApi_IParser_ParseNext) method should return false to indicate that there is no more file content to be processed.
+The implementation should parse a suitable chunk of input, preferably a small one, and return a Boolean value that indicates whether more work remains. Return `false` when the parser has processed all file content.
 
-Typically it is in this method, or in methods called by this, that the Output property’s methods are called to inform the framework of the entire source files content.
+Typically, this method, or methods that it calls, invoke the `Output` property methods to report the source file content to the framework.
 
-Implementing INativeContentCycleAware
---
+## Implementing `INativeContentCycleAware`
 
-If deriving from the [INativeContentCycleAware](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.yml) interface you must implement the following three methods.
+If your parser implements [INativeContentCycleAware](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.yml), it must implement the following three methods.
 
-**SetFileProperties()**
+### `SetFileProperties()`
 
-[SetFileProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentHandler_SetFileProperties_Sdl_FileTypeSupport_Framework_BilingualApi_IFileProperties_) methods standard implementation is to save its parameter properties of type [IFileProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IFileProperties.yml) to a class variable. These file properties can then be used by the bilingual parser to supplement the information available from the source file contents where this information may not be known, such as the original file encoding.
+The standard implementation of [SetFileProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentHandler_SetFileProperties_Sdl_FileTypeSupport_Framework_BilingualApi_IFileProperties_) stores its [IFileProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IFileProperties.yml) parameter in a class field. The bilingual parser can then use these file properties to supplement information from the source file, such as the original encoding.
 
-**StartOfInput()**
+### `StartOfInput()`
 
-Called by the framework after component initialisation i.e. after [SetFileProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentHandler_SetFileProperties_Sdl_FileTypeSupport_Framework_BilingualApi_IFileProperties_) , but before any content is parsed and passed to any of the File Type Support Framework components.
+The framework calls this method after component initialization, including [SetFileProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentHandler.yml#Sdl_FileTypeSupport_Framework_BilingualApi_IBilingualContentHandler_SetFileProperties_Sdl_FileTypeSupport_Framework_BilingualApi_IFileProperties_), but before it parses and passes any content to File Type Support Framework components.
 
-**EndOfInput()**
+### `EndOfInput()`
 
-This is called by the framework after processing of the bilingual content has finished.
+The framework calls this method after it finishes processing the bilingual content.
 
-Implementing ISettingsAware
---
+## Implementing `ISettingsAware`
 
-If deriving from the [ISettingsAware](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.ISettingsAware.yml) interface you must implement the following method.
+If your parser implements [ISettingsAware](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.ISettingsAware.yml), it must implement the following method.
 
-**InitializeSettings()**
+### `InitializeSettings()`
 
-[InitializeSettings](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.ISettingsAware.yml#Sdl_FileTypeSupport_Framework_IntegrationApi_ISettingsAware_InitializeSettings_Sdl_Core_Settings_ISettingsBundle_System_String_) Passes in an [ISettingsBundle](../../api/core/Sdl.Core.Settings.ISettingsBundle.yml) object and a ```configurationId``` ```FileTypeConfigurationId```. These can be used to populate the required settings object used by the parser:
+[InitializeSettings](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.ISettingsAware.yml#Sdl_FileTypeSupport_Framework_IntegrationApi_ISettingsAware_InitializeSettings_Sdl_Core_Settings_ISettingsBundle_System_String_) passes an [ISettingsBundle](../../api/core/Sdl.Core.Settings.ISettingsBundle.yml) object and a `configurationId` (`FileTypeConfigurationId`). Use these values to populate the settings object that the parser requires:
 
 # [C#](#tab/tabid-1)
 ```cs
@@ -113,12 +106,9 @@ public void InitializeSettings(Sdl.Core.Settings.ISettingsBundle settingsBundle,
 ```
 ***
 
-See Also
---
+## See also
 
-
-
-[The File Parser](the_file_parser.md)
+- [The File Parser](the_file_parser.md)
 
 
 >[!NOTE]

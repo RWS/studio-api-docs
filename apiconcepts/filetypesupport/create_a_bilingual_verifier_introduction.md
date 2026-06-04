@@ -1,29 +1,27 @@
-Introduction
-===
+# Introduction
 
-This guide will walk you step by step through the creation of a C# project in Var:VisualStudioEdition for developing a simple bilingual verification plug-in.
+This guide steps you through creating a C# project in Var:VisualStudioEdition to develop a simple bilingual verification plug-in.
 
-Imagine that you need to translate Microsoft Word 2007 documents that contain WordArt objects. Let us assume that the translations for these WordArt objects should not exceed a certain number of words. The purpose is, for example, to keep headlines and slogans as short, crisp and catchy as possible.
+## Scenario
 
-The scenario for our sample project is to enhance the standard Microsoft Word 2007 File Type Component Builder to include a bilingual verification plug-in that points out any WordArt translations that exceed a specified maximum word count. The maximum word count needs to be user-definable.
+You're translating Microsoft Word 2007 documents that contain WordArt objects. You need to ensure WordArt translations don't exceed a specified word count. This keeps headlines and slogans short, crisp, and catchy.
+
+This sample project enhances the standard Microsoft Word 2007 File Type Component Builder with a bilingual verification plug-in. The plug-in identifies any WordArt translations that exceed a user-definable maximum word count.
 
 ![WordArt](images/WordArt.jpg)
 
-The illustration above shows what the sample document looks like in Var:ProductName. Note that in the above example the first and the last segment were extracted from WordArt objects.
+The illustration shows the sample document in Var:ProductName. The first and last segments were extracted from WordArt objects.
 
-The document structure column on the right-hand side contains the context info **TAG**, which indicates that the corresponding segment does not occur in a normal paragraph. By double-clicking the **TAG** display code you raise a **Document Structure Information** window, which contains more details such as the information that the current **TAG** text is a WordArt object. The following chapters contain a step-by-step guide on how to implement a simple bilingual verification plug-in in C# that performs a word count check in particular for WordArt objects.
+The document structure column on the right displays the context info **TAG**, which indicates that the segment does not occur in a normal paragraph. Double-click the **TAG** display code to open a **Document Structure Information** window with more details, such as information that identifies the current **TAG** text as a WordArt object.
 
 ![DocStructureInfo](images/DocStructureInfo.jpg)
 
-See Also
---
+The following chapters step you through implementing a simple bilingual verification plug-in in C# that performs a word count check specifically for WordArt objects.
 
+## See Also
 
+- [What is the Verification Framework?](what_is_the_verification_framework.md)
+- [Create a New Project](create_a_new_bil_project.md)
 
-[What is the Verification Framework?](what_is_the_verification_framework.md)
-
-[Create a New Project](create_a_new_bil_project.md)
-
->[!NOTE]
->
+> [!NOTE]
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

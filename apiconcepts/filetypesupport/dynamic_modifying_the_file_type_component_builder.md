@@ -1,18 +1,20 @@
-Modifying the File Type Component Builder
-===
+# Modifying the file type component builder
 
-The real-time preview is dynamic, i.e. it interacts with the editor. When users select a segment in the real-time preview, the corresponding segment in the editor gets highlighted automatically. Also, when users confirm a segment in the editor of Var:ProductName the real-time preview is updated accordingly. Like all other preview types, the real-time preview needs to be referenced in the File Type Component Builder.
+The real-time preview interacts with the editor. When users select a segment in the real-time preview, Var:ProductName highlights the corresponding segment in the editor. When users confirm a segment in the editor, the real-time preview updates accordingly.
 
-Add the Real-Time Preview Name to the Resources
---
+Like the other preview types, the real-time preview must be referenced in the File Type Component Builder.
 
-To implement the real-time preview we first need to make a few additions to the File Type Component Builder. In the first step, define the preview name in the resources file. This is the name that will be shown later in the combo box of the internal preview window of Var:ProductName. Add the following entires to the resources file, which are going to be referenced in the File Type Component Builder later:
+## Add the real-time preview name to the resources
+
+Start by defining the preview name in the resources file. Var:ProductName displays this name in the internal preview window combo box. The File Type Component Builder references these resource entries later.
 
 ![RealtimeStaticPreviewName](images/RealtimeStaticPreviewName.jpg)
 
+## Add the internal real-time preview set
 
-Add the Internal Real-time Preview Set
-In the next step add the following preview set object node for the internal real-time preview into the File Type Component Builder (e.g. below the internal preview set, see chapter [Modifying the File Type Component Builder](static_modifying_the_file_type_component_builder.md)). Note how the object references the preview name that you previously defined in the resources file. After adding the real-time preview set to the File Type Component Builder, the preview name will already be listed in the combo box of the preview window. However, of course, the real-time preview will not be functional yet. Note that we will make another addition to the File Type Component Builder later, when we reference the (yet-to-be-created) preview control (see chapter [Adding a Preview UI Control](adding_a_preview_ui_control.md))
+Next, add the following preview set object for the internal real-time preview to the File Type Component Builder. You can place it below the internal preview set. See [Modifying the File Type Component Builder](static_modifying_the_file_type_component_builder.md).
+
+This object references the preview name that you defined in the resources file. After you add the real-time preview set, Var:ProductName lists the preview name in the Preview window combo box. The real-time preview still does not work yet, because the preview control has not been added. You will add that reference later. See [Adding a Preview UI Control](adding_a_preview_ui_control.md).
 
 # [C#](#tab/tabid-1)
 ```cs
@@ -37,14 +39,9 @@ if (targetControlPreviewType2 != null)
 }
 previewFactory.GetPreviewSets(null).Add(internalRealPreviewSet);
 ```
-***
+## See also
 
-See Also
---
-
-
-
-[Adding a Preview Controller](adding_a_preview_controller.md)
+- [Adding a Preview Controller](adding_a_preview_controller.md)
 
 >[!NOTE]
 >

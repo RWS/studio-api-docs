@@ -1,19 +1,16 @@
-Modifying the File Type Component Builder
-==
+# Modifying the file type component builder
 
-This chapter outlines the quickest way to implement an internal static document preview function.
+This article shows how to add an internal static document preview.
 
-Add the Static Preview Name to the Resources
---
+## Add the static preview name to the resources
 
-To implement the static preview we first need to make a few additions to the File Type Component Builder. In the first step, define the preview name in the resources file. This is the name that will be shown later in the combo box of the preview window of Var:ProductName. Add the following entries to the resources file, which are going to be referenced in the File Type Component Builder later:
+Start by defining the preview name in the resources file. Var:ProductName displays this name in the Preview window combo box. The File Type Component Builder references these resource entries later.
 
 ![InternalStaticPreviewName](images/InternalStaticPreviewName.jpg)
 
-Add the Static Internal Preview Set Reference
---
+## Add the static internal preview set reference
 
-In the next step add the following preview set method for the static internal preview into the File Type Component Builder file. Note that the method references the preview name that you previously defined in the resources file.
+Next, add the following preview set definition to the File Type Component Builder. This code references the preview name that you defined in the resources file.
 
 # [C#](#tab/tabid-1)
 ```cs
@@ -38,12 +35,15 @@ if (targetControlPreviewType1 != null)
 }
 previewFactory.GetPreviewSets(null).Add(internalStaticPreviewSet);
 ```
-***
+## Define the preview control
 
-Define the Preview Control
---
+An internal preview needs a control that can display document content. You can create a custom preview control, and you will do that later for the dynamic real-time preview. See [Adding a Preview UI Control](adding_a_preview_ui_control.md).
 
-For an internal preview you require a control element that can display the document content. You could add your own custom preview control element. This is actually what we are going to do later, when we implement the dynamic real-time preview (see [Adding a Preview UI Control](adding_a_preview_ui_control.md)). However, to keep things as simple as possible for now, we will leverage the built-in Web browser control that is integrated in Var:ProductName. As we are dealing with a simple text format, we can easily use the built-in Web browser control to generate the preview output. To 'tell' the file type plug-in that it should leverage the built-in Web browser control, make an addition to the File Type Component Builder. You can add the new method just below the Notepad preview control, which you defined for the external preview functionality (see [Implementing an External File Preview](implementing_an_external_file_preview.md)). Note that the **id** of the object corresponds to the name of the preview set that you added in the previous step, and must be preceded by a **PreviewControl_** prefix to be properly recognized.
+For this static preview, use the built-in web browser control in Var:ProductName. Because this sample uses a simple text format, the built-in control can render the preview output without extra setup.
+
+To register the built-in web browser control, add the following method to the File Type Component Builder. Place it below the Notepad preview control that you added for the external preview. See [Implementing an External File Preview](implementing_an_external_file_preview.md).
+
+The object **id** must match the preview set name from the previous step. It must also start with the **PreviewControl_** prefix.
 
 # [C#](#tab/tabid-2)
 ```cs
@@ -74,18 +74,19 @@ public virtual IAbstractPreviewControl BuildPreviewControl(string name)
     }
 }
 ```
-***
+## Define the preview writer
 
-Define the Preview Writer
---
+The preview control also needs a writer that supplies the displayed content. You could reuse the file writer that you already implemented for the file type plug-in and the external preview. See [Implementing an External File Preview](implementing_an_external_file_preview.md).
 
-Naturally, you need a writer component to fill the preview control element with content to display. You could, of course, use the file writer class, which you have already implemented in your file type plug-in and which you also leveraged for the external preview (see [Implementing an External File Preview](implementing_an_external_file_preview.md)). However, if you did this, the output in the internal Web browser control would look as shown below:
+However, if you reuse that writer, the internal web browser control produces output like this:
 
 ![StaticPreviewNotGood](images/StaticPreviewNotGood.jpg)
 
-As you can see, if we re-used the existing file writer, the internal preview would not add much value to our file type plug-in. First, the inline tags are shown as normal text and no character formatting is applied in this preview. Also, the preview shows all non-translatable strings, which will usually not be very useful for this type of preview. We should therefore implement another writer component that generates a nicely layouted HTML output in the internal preview. This sound like a cosmetic issue, but the preview should be visually appealing to end users and ideally give them an idea of the document layout to provide additional value.
+This output adds little value. It shows inline tags as plain text. It also applies no character formatting. In addition, it includes all non-translatable strings, which usually do not help in this type of preview.
 
-Before we actually implement our new preview writer component (see [Implementing the Preview Writer](implementing_the_preview_writer.md)), we add the method for this new component to the File Type Component Builder. You can make this addition below the object for the external preview writer (see chapter [Implementing an External File Preview](implementing_an_external_file_preview.md)). In the next chapter you will learn how to implement the new preview file writer class, which generates the preview output.
+Instead, implement a second writer that generates formatted HTML for the internal preview. A better preview improves readability and gives end users a clearer sense of the document layout.
+
+Before you implement the new preview writer, add the following method to the File Type Component Builder. Place it below the object for the external preview writer. See [Implementing an External File Preview](implementing_an_external_file_preview.md). The next article explains how to implement the preview file writer class. See [Implementing the Preview Writer](implementing_the_preview_writer.md).
 
 # [C#](#tab/tabid-3)
 ```cs
@@ -113,16 +114,10 @@ public virtual IAbstractGenerator BuildAbstractGenerator(string name)
     return null;
 }
 ```
-***
+## See also
 
-See Also
---
-
-
-
-[Implementing the Preview Writer](implementing_the_preview_writer.md)
-
-[Implementing the File Writer](implementing_the_file_writer.md)
+- [Implementing the Preview Writer](implementing_the_preview_writer.md)
+- [Implementing the File Writer](implementing_the_file_writer.md)
 
 >[!NOTE]
 >

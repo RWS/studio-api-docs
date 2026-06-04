@@ -1,23 +1,19 @@
-Extracting Comments
-===
+# Extracting Comments
 
-In this chapter you will learn how to extract comments from a given BIL file and add them to the intermediary (SDLXliff) document.
+Extract comments from a given BIL file and add them to the intermediary (SDLXliff) document.
 
-About Comments
---
+## About Comments
 
-A unit in a BIL file can contain one or more comments, e.g.:
+A unit in a BIL file can contain one or more comments, for example:
 
 # [Xml](#tab/tabid-1)
 ```xml
 <comment>This segment was translated using web translator.</comment>
 ```
-****
 
-Extend the Helper Function for Creating Paragraph Units
---
+## Extend the Helper Function for Creating Paragraph Units
 
-First, add the following to the ```CreateParagraphUnit()``` helper function:
+Add the following to the `CreateParagraphUnit()` helper function:
 
 # [C#](#tab/tabid-2)
 ```cs
@@ -27,10 +23,10 @@ if(xmlUnit.SelectSingleNode("comment")!=null)
     paragraphUnit.Properties.Comments = CreateComment(xmlUnit.SelectSingleNode("comment").InnerText);
 }
 ```
-***
 
-This condition determines whether a ```comment``` element exists in the unit and then passes the comment text to a separate helper function.
-The complete ```CreateParagraphUnit()``` helper function looks as shown below:
+This condition checks whether a `comment` element exists in the unit and passes the comment text to a separate helper function.
+
+The complete `CreateParagraphUnit()` helper function looks as follows:
 
 # [C#](#tab/tabid-3)
 ```cs
@@ -39,7 +35,6 @@ private IParagraphUnit CreateParagraphUnit(XmlNode xmlUnit)
 {
     // create paragraph unit object
     IParagraphUnit paragraphUnit = ItemFactory.CreateParagraphUnit(LockTypeFlags.Unlocked);
-
 
     // create segment pair object
     ISegmentPairProperties segmentPairProperties = ItemFactory.CreateSegmentPairProperties();  
@@ -57,36 +52,35 @@ private IParagraphUnit CreateParagraphUnit(XmlNode xmlUnit)
         paragraphUnit.Target.Add(trgSegment);
     }
 
-    #region "context"
     // create paragraph unit context
     string id = xmlUnit.SelectSingleNode("./@id").InnerText;
     if(xmlUnit.SelectSingleNode("type/@spec")!=null)
     {
         string spec = xmlUnit.SelectSingleNode("type/@spec").InnerText;
-
         paragraphUnit.Properties.Contexts=CreateContext(spec, id);
-    } else {
+    }
+    else
+    {
         paragraphUnit.Properties.Contexts = CreateContext("Paragraph", id);
     }
-    #endregion
 
-    #region "comments"
     // extract comment (if applicable)
     if(xmlUnit.SelectSingleNode("comment")!=null)
     {
         paragraphUnit.Properties.Comments = CreateComment(xmlUnit.SelectSingleNode("comment").InnerText);
     }
-    #endregion
 
     return paragraphUnit;
 }
 ```
-***
 
-Add a Helper Function for Generating the Comments
---
+## Add a Helper Function for Generating Comments
 
-Below you see the helper function that actually generates the comments in the intermediary (SDLXliff) file. When generating a comment through the properties factory you need to provide the following parameters: the comment text, the user who added the comment (in this case we just use a hard-coded string to keep this example simple), and the [Severity](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IComment.yml#Sdl_FileTypeSupport_Framework_NativeApi_IComment_Severity) level, which we set to ```Medium```.
+The following helper function generates comments in the intermediary (SDLXliff) file. When generating a comment through the properties factory, provide these parameters:
+
+- Comment text
+- User who added the comment (this example uses a hard-coded string for simplicity)
+- [Severity](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IComment.yml#Sdl_FileTypeSupport_Framework_NativeApi_IComment_Severity) level (set to `Medium`)
 
 # [C#](#tab/tabid-4)
 ```cs
@@ -99,12 +93,10 @@ private ICommentProperties CreateComment(string commentText)
     return commentProperties;
 }
 ```
-***
 
-In Var:ProductName the comments will be visible in the **Comments** windows. Double-clicking a comment here will lead you directly to the corresponding paragraph unit / segment pair in the editor.
+In Var:ProductName, comments appear in the **Comments** window. Double-click a comment to navigate directly to the corresponding paragraph unit or segment pair in the editor.
 
 ![ParagraphComments](images/ParagraphComments.jpg)
 
->[!NOTE]
->
+> [!NOTE]
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

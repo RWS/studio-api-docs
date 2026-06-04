@@ -1,16 +1,14 @@
-Applying Character Formatting
-===
+# Applying Character Formatting
 
-In this chapter you will learn how to enrich the editor display in <Var:ProdudctName> with character display formatting.
+This section explains how to enrich the editor display in Var:ProductName with character formatting.
 
-Apply Character Formatting
---
+## Apply Character Formatting
 
-From the inline tags that our sample format is using it is easy to decide which type of character formatting to apply. Display formatting in an intermediary (SDLXliff) document is strictly speaking not necessary and has no impact on the actual BIL target file. It can be optionally applied for convenience reasons, at it usually helps translators to see the actual character formatting. It is also possible to hide inline tags, and just show the display formatting that they define. That way translators can apply the formatting to the corresponding strings in the target segments instead of transferring tags.
+The inline tags in the sample format make it easy to determine which character formatting to apply. Display formatting in an intermediary SDLXLIFF document is optional and does not affect the generated BIL target file. However, it helps translators recognize the intended formatting more easily. You can also hide inline tags and show only the formatting they represent. This approach lets translators apply formatting to the corresponding text in the target segment instead of transferring tags.
 
-First, you need to add the following namespace to your parser class: using ```Sdl.FileTypeSupport.Framework.Formatting```.
+First, add the following namespace to your parser class: `Sdl.FileTypeSupport.Framework.Formatting`.
 
-Then you enhance your `CreateTagPair()` helper function, so that it not only generates tag pairs, but that is also applies the appropriate formatting at the same time. Through a ``switch`` statement you can then select the appropriate formatting based on the name of the element node:
+Then update the `CreateTagPair()` helper function so that it generates tag pairs and applies the appropriate formatting at the same time. Use a `switch` statement to select the correct formatting based on the element name:
 
 # [C#](#tab/tabid-1)
 ```cs
@@ -32,9 +30,8 @@ switch (item.Name)
         break;
 }
 ```
-***
 
-The complete ```CreateTagPair()``` helper function should look as shown below. Note that by setting the [CanHide](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IAbstractInlineTagProperties.yml#Sdl_FileTypeSupport_Framework_NativeApi_IAbstractInlineTagProperties_CanHide) to True the actual tags are by default not displayed in <Var:ProdudctName>. However, <Var:ProdudctName> allows users to toggle on/off the tag display at runtime.
+The complete `CreateTagPair()` helper function should look like this. When you set [CanHide](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IAbstractInlineTagProperties.yml#Sdl_FileTypeSupport_Framework_NativeApi_IAbstractInlineTagProperties_CanHide) to `true`, Var:ProductName hides the actual tags by default. Users can still toggle tag display at runtime.
 
 # [C#](#tab/tabid-2)
 ```cs
@@ -42,7 +39,7 @@ private ITagPair CreateTagPair(XmlNode item)
 {
     // create the start and the end tag
     IStartTagProperties startTag = PropertiesFactory.CreateStartTagProperties(item.Name);
-    #region "formatting"
+
     // apply character formatting to the start tag
     IFormattingGroup formattingGroup = PropertiesFactory.FormattingItemFactory.CreateFormatting();
     startTag.Formatting = new FormattingGroup();
@@ -61,7 +58,6 @@ private ITagPair CreateTagPair(XmlNode item)
             break;
     }
     startTag.Formatting = formattingGroup;
-    #endregion
 
     startTag.DisplayText=item.Name;
     startTag.CanHide = true;
@@ -78,22 +74,20 @@ private ITagPair CreateTagPair(XmlNode item)
     return tagPair;
 }
 ```
-***
 
-When you build your project at this point, the intermediary (SDLXliff) document should look as shown below:
+When you build the project at this point, the intermediary SDLXLIFF document should look like this:
 
 ![BilTagOff](images/BilTagOff.jpg)
 
-The following shows what the intermediary (SDLXliff) file looks like when the user decides to display inline tags at runtime:
+The following example shows the intermediary SDLXLIFF file when users choose to display inline tags at runtime:
 
 
 ![BilTagOn](images/BilTagOn.jpg)
 
-See Also
---
+## See Also
 
-[Processing Inline Tags](processing_inline_tags.md)
+- [Processing Inline Tags](processing_inline_tags.md)
 
 >[!NOTE]
 >
-> This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.
+> This content may be out of date. To verify the latest information on this topic, inspect the libraries in the Visual Studio Object Browser.

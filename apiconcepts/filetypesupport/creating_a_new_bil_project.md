@@ -1,40 +1,38 @@
-Creating a New Project
-===
+# Creating a New Project
 
-In this chapter you will learn how to properly set up a project for developing a bilingual file type plug-in.
+Learn how to properly set up a project for developing a bilingual file type plug-in.
 
-Create the Project
--- 
+## Create the Project
 
-After launching Var:VisualStudioEdition choose to create a new Var:ProductName Plug-in Project, and give it an appropriate name, e.g. *Sdl.Sdk.FileTypeSupport.Samples.Bil*. The instructions for creating a Var:ProductName Plug-in Project are described in the [Creating a New Project](creating_a_new_project.md) and [Build the File Type Plug-in](build_the_file_type_plug_in.md) topics.
+Launch Var:VisualStudioEdition and create a new Var:ProductName Plug-in Project. Give it an appropriate name, such as `Sdl.Sdk.FileTypeSupport.Samples.Bil`.
 
-Add the Required References
---
+For instructions on creating a Var:ProductName Plug-in Project, see the [Creating a New Project](creating_a_new_project.md) and [Build the File Type Plug-in](build_the_file_type_plug_in.md) topics.
 
-Next add the references from the  File Type Support Framework APIs. These are contained in the following assemblies:
+## Add the Required References
 
-* **Sdl.FileTypeSupport.Framework.Core.dll**: This is the main reference to the File Type Support Framework API
-* **Sdl.FileTypeSupport.Framework.Core.Settings.dll**
-* **Sdl.FileTypeSupport.Framework.Core.Utilities.dll**
+Add references from the File Type Support Framework APIs. These references are contained in the following assemblies:
 
-Then add the references from the Core APIs.
-* **Sdl.Core.Globalization.dll**
-* **Sdl.Core.PluginFramework.dll**
-* **Sdl.Core.Settings.dll**
+- **Sdl.FileTypeSupport.Framework.Core.dll** — The main reference to the File Type Support Framework API
+- **Sdl.FileTypeSupport.Framework.Core.Settings.dll**
+- **Sdl.FileTypeSupport.Framework.Core.Utilities.dll**
 
-By default you find these files in the Var:ProductName installation folder, usually *Var:InstallationFolder*. The **Copy Local** property for these references should be set to True.
+Add references from the Core APIs:
 
-Remember to generate a key to sign the assembly. It is also recommended that you set **SDLTradosStudio.exe** as the external application for debugging purposes.
+- **Sdl.Core.Globalization.dll**
+- **Sdl.Core.PluginFramework.dll**
+- **Sdl.Core.Settings.dll**
 
-Add the Required Resources
---
+By default, these files are in the Var:ProductName installation folder (usually *Var:InstallationFolder*). Set the **Copy Local** property for these references to True.
 
-Add a resources file (*Resources.resx*) to the project's properties. We will use this resources file later for storing information text on the file type plug-in that will be exposed in the user interface of Var:ProductName.
+Generate a key to sign the assembly. For debugging, set **SDLTradosStudio.exe** as the external application.
+
+## Add the Required Resources
+
+Add a resources file (`Resources.resx`) to the project's properties. Use this resources file for storing file type plug-in information that Var:ProductName displays in the user interface.
 
 ![SimpleTextFilterResources](images/SimpleTextFilterResources.jpg)
 
-Add an icon to the project. You will find a suitable icon file (*Bil.ico*) in the folder **Sdl.Sdk.FileTypeSupport.Samples.Bil** of the SDK sample projects folder. Set the **Build Action** property for the icon file to **Embedded Resource**. The icon that you add to the project will be the one that users will later see in the **Options** dialog box of Var:ProductName.
+Add an icon to the project. Find a suitable icon file (`Bil.ico`) in the **Sdl.Sdk.FileTypeSupport.Samples.Bil** folder of the SDK sample projects. Set the **Build Action** property for the icon file to **Embedded Resource**. Users see this icon in the **Options** dialog box of Var:ProductName.
 
->[!NOTE]
->
+> [!NOTE]
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

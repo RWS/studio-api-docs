@@ -1,44 +1,49 @@
-The File Type Plug-in Lifecycle
-==
+# The File Type Plug-in lifecycle
 
-This section describes the lifecycle and in particular the initialization process for components in the  File Type Support Framework.
+This page describes the lifecycle of File Type Support Framework components, with a focus on initialization.
 
-During its lifecycle a filter component may go through the following steps:
+During its lifecycle, a filter component can go through the following steps:
 
-1. The component is instantiated.
-The components are explicitly created and initialized using PocoFilterManger (see [Initializing the File Type Manager](initializing_the_file_type_manager.md)).
+1. **Instantiate the component.**  
+   `PocoFilterManager` explicitly creates and initializes the components. For more information, see [Initializing the File Type Manager](initializing_the_file_type_manager.md).
 
-2. If the component implements the `IComponentsAware` interface, the `SetComponents()` method will be called before the component is used. Every time the set of components change, this component will be included in the changes.
-This allows the component to retrieve information on other components with which it is being used. This may be useful e.g. to determine if it should synchronize its settings with any other known components.
+2. **Set related components.**  
+   If the component implements `IComponentsAware`, the framework calls `SetComponents()` before the component is used. The framework also calls this method whenever the component set changes. This lets the component inspect related components and, for example, decide whether it should synchronize settings with them.
 
-3. If the component implements the `INativeFilterComponent` interface the `PropertiesFactory` and `MessageReporter` properties will be set. Components should only create property objects through the property factory. This ensures that all filter components that are used together use the same type of property objects.
+3. **Set native component services.**  
+   If the component implements `INativeFilterComponent`, the framework sets the `PropertiesFactory` and `MessageReporter` properties. Components should create property objects only through the property factory. This ensures that cooperating filter components use the same property object types.
 
-    Normally the  File Type Support Framework provides a default factory. However, it is possible for the parser to set the factory that should be used by all the components. If a native parser exposes an existing properties factory through the `INativeFilterComponent` interface at initialization time, that factory will be used.
+   The File Type Support Framework normally provides a default factory. However, a parser can provide the factory that all components should use. If a native parser exposes an existing properties factory through `INativeFilterComponent` during initialization, the framework uses that factory.
 
-4. If the component implements the `IBilingualFilterComponent` interface, the `ItemsFactory` property will be set. Components should only create bilingual content model items through this factory.
+4. **Set bilingual item services.**  
+   If the component implements `IBilingualFilterComponent`, the framework sets the `ItemsFactory` property. Components should create bilingual content model items only through this factory.
 
-    Normally the  File Type Support Framework provides a default factory. However, it is possible for the parser to set the factory that should be used by all the components. If a bilingual parser implements the `IBilingualFilterComponent` and returns a non-null value from the `ItemsFactory` property, it is that factory that will be used.
+   The File Type Support Framework normally provides a default factory. However, a parser can provide the factory that all components should use. If a bilingual parser implements `IBilingualFilterComponent` and returns a non-null value from `ItemsFactory`, the framework uses that factory.
 
-5. If the component implements the `INativeContentCycleAware` interface, the `SetFileProperties()` method will be called. The file conversion properties (a member of the file properties), among other things, contain the name of the native file that is being processed (in the OriginalFilePath property). Native file parsers must implement this interface and obtain the name of the file to parse from this property.
+5. **Set file properties.**  
+   If the component implements `INativeContentCycleAware`, the framework calls `SetFileProperties()`. The file conversion properties, which are part of the file properties, include the name of the native file being processed in `OriginalFilePath`. Native file parsers must implement this interface and read the file name from that property.
 
-    The file conversion properties can be changed by the filter components at any time. Since the same object is referenced by all components, changes to the object immediately affect all other components.
+   Filter components can change the file conversion properties at any time. Because all components reference the same object, any change becomes visible to the other components immediately.
 
-    Bilingual processor components normally should not implement this interface. They will obtain the corresponding information (and more) through the `SetFileProperties()` call on the `IBilingualContentProcessor` interface.
-    For some components this method may be called several times during their lifetime, due to the fact that an XLIFF document may contain content from multiple native files. The method will be invoked before content originating from each native file is processed.
+   Bilingual processor components should not usually implement this interface. They receive the corresponding information, and more, through the `SetFileProperties()` call on `IBilingualContentProcessor`.
 
-    The file conversion properties will be serialized into the bilingual document format and de-serialized and applied applied to filter components as part of the initialization.
+   Some components may receive this method call several times during their lifetime because an XLIFF document can contain content from multiple native files. The framework invokes the method before it processes content from each native file.
 
-    Filter components can store dynamically configured settings and any other type of information in this object. They rely on this information being available the next time the same content is processed. Settings are stored and retrieved as key/value pairs. To avoid conflicts with other components each filter component should use a unique prefix for their settings keys. Built-in framework components use the "SDL:" prefix for all their settings keys.
+   The framework serializes the file conversion properties into the bilingual document format, then deserializes and reapplies them to filter components during initialization.
 
-6. If a native component implements the `INativeOutputSettingsAware` interface, the `SetOutputProperties()` method is invoked.
-This allows components to find out about the purpose of the conversion, whether it will be processing source or target content, what the file path to the output file is, the preferred encoding for the output file, etc.
+   Filter components can also store dynamic settings and other information in this object. They rely on that information being available the next time the same content is processed. Store settings as key/value pairs. To avoid conflicts, each filter component should use a unique prefix for its setting keys. Built-in framework components use the `SDL:` prefix.
 
-7. If a native filter component implements the INativeContentCycleAware interface, the `StartOfInput()` method will be called immediately before parsing begins.
-Bilingual processors receive calls to `Initialize()` and `SetFileProperties`() on the IBilingualContentProcessor interface before content is passed through them.
+6. **Set output properties.**  
+   If a native component implements `INativeOutputSettingsAware`, the framework calls `SetOutputProperties()`. This lets the component determine the conversion purpose, whether it will process source or target content, the output file path, the preferred output encoding, and related settings.
 
-8. The components will now be used to process actual content.
-9. If a native filter component implements the INativeContentCycleAware interface, the `EndOfInput()` method will be called immediately after the parsing has completed.
-Bilingual processor components receive calls to `FileComplete()` and `Complete()` as appropriate.
+7. **Start content processing.**  
+   If a native filter component implements `INativeContentCycleAware`, the framework calls `StartOfInput()` immediately before parsing begins. Bilingual processors receive `Initialize()` and `SetFileProperties()` on `IBilingualContentProcessor` before content passes through them.
+
+8. **Process the content.**  
+   The components now process the actual content.
+
+9. **Complete content processing.**  
+   If a native filter component implements `INativeContentCycleAware`, the framework calls `EndOfInput()` immediately after parsing completes. Bilingual processor components receive `FileComplete()` and `Complete()` as appropriate.
 
 
 >[!NOTE]

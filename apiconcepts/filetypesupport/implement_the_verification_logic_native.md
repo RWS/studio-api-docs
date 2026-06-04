@@ -1,36 +1,32 @@
-Implement the Verification Logic
-===
+# Implement the Verification Logic
 
-In this chapter you will learn how to implement the actual verification logic of our native verifier plug-in.
+Implement the actual verification logic of the native verifier plug-in.
 
-Add the Verification Class
---
+## Add the Verification Class
 
-In this chapter, we implement the verification functionality. Start by adding a class called e.g. **XMLCheckerMain.cs**. This class needs to use the following namespaces:
+Implement the verification functionality by adding a class called, for example, **XMLCheckerMain.cs**. This class requires the following namespaces:
 
-* **Sdl.FileTypeSupport.Framework.NativeApi**: Provides access the functionality to be applied to native file types:
-* **Sdl.Core.Settings**: Provides the functionality for initializing and using the plug-in settings.
-* **System.Xml**: As the native file type is XML, this namespace is required for accessing the methods used for XML node processing.
+- `Sdl.FileTypeSupport.Framework.NativeApi` — Provides access to functionality for native file types
+- `Sdl.Core.Settings` — Provides functionality for initializing and using plug-in settings
+- `System.Xml` — Required for XML node processing since the native file type is XML
 
-Moreover, the class needs to use the following interfaces:
-* [INativeFileVerifier](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileVerifier.yml): Provides the methods required for implementing a native verification.
-* [ISettingsAware](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.ISettingsAware.yml): Provides the functionality for initializing the plug-in settings.
+Your class must implement these interfaces:
 
-Provide Access to the Native File to Verify
---
+- [INativeFileVerifier](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileVerifier.yml) — Provides methods for implementing native verification
+- [ISettingsAware](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.ISettingsAware.yml) — Provides functionality for initializing plug-in settings
 
-Add the following member to the class, which provides access to important information on the native file such as the name of the file, which you will later load into an XML DOM object.
+## Provide Access to the Native File to Verify
+
+Add the following member to the class, which provides access to important information about the native file such as the file name, which you will later load into an XML DOM object:
 
 # [C#](#tab/tabid-1)
 ```cs
 private INativeOutputFileProperties _outputFileProperties;
 ```
-***
 
-Provide Access to the Verification Settings
---
+## Provide Access to the Verification Settings
 
-Now add the following boolean property, which provides programmatic access to the setting of the plug-in settings page according to which the verification logic should be applied or not.
+Add the following boolean property, which provides programmatic access to the setting from the plug-in settings page that determines whether verification logic should be applied:
 
 # [C#](#tab/tabid-2)
 ```cs
@@ -40,10 +36,8 @@ public bool Enabled
     set;
 }
 ```
-***
 
-
-Next, implement the ```InitializeSettings``` method of the **ISettingsAware** interface. Here, we call on the ```VerifierSettings``` class and use the ```PopulateFromSettingsBundle``` method to retrieve the setting from the physically stored settings bundle. To do this, we need to provide the settings bundle object and the file type id (here *Length Check XML v 1.0.0.0*) as parameters. The ```Enabled``` property used in our main verification logic will then be set according to the value retrieved from the settings bundle.
+Implement the `InitializeSettings` method of the `ISettingsAware` interface. Call the `VerifierSettings` class and use the `PopulateFromSettingsBundle` method to retrieve the setting from the stored settings bundle. Provide the settings bundle object and the file type ID (here *Length Check XML v 1.0.0.0*) as parameters. The `Enabled` property is then set according to the value retrieved from the settings bundle:
 
 # [C#](#tab/tabid-3)
 ```cs
@@ -54,12 +48,10 @@ public void InitializeSettings(ISettingsBundle settingsBundle, string configurat
     Enabled = _settings.Enable;
 }
 ```
-***
 
-Provide Access to the Verification Message Reporter
---
+## Provide Access to the Verification Message Reporter
 
-If your verifier finds any errors in the file, the user should be notified. For this, add the following message reporter member to your class:
+When your verifier finds errors, notify the user. Add the following message reporter member to your class:
 
 # [C#](#tab/tabid-4)
 ```cs
@@ -69,14 +61,12 @@ public INativeTextLocationMessageReporter MessageReporter
     set;
 }
 ```
-***
 
-Through the [MessageReporter](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileVerifier.yml#Sdl_FileTypeSupport_Framework_NativeApi_INativeFileVerifier_MessageReporter) you can output error messages (if any) to the **Messages** window of Var:ProductName. Users can view these messages and resolve the problem.
+Through the [MessageReporter](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileVerifier.yml#Sdl_FileTypeSupport_Framework_NativeApi_INativeFileVerifier_MessageReporter) you output error messages to the **Messages** window of `Var:ProductName`. Users can view these messages and resolve the problem.
 
-Implement the Actual Verification Logic
---
+## Implement the Actual Verification Logic
 
-Add the [Verify](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileVerifier.yml#Sdl_FileTypeSupport_Framework_NativeApi_INativeFileVerifier_Verify) method, which is triggered when the user starts the plug-in through trough the menu command **Tools** > **Verify** or by pressing **F8**. This function uses the standard XML API (i.e. the API of the native format) to perform the verification. It loops through all ```displaytext``` elements and checks for the presence of a ```maxlength``` attribute. If this attribute is found, the element content is compared against the maximum length value. If the text exceeds the maximum length, the [ReportMessage](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IBasicMessageReporter.yml#Sdl_FileTypeSupport_Framework_NativeApi_IBasicMessageReporter_ReportMessage_System_Object_System_String_Sdl_FileTypeSupport_Framework_NativeApi_ErrorLevel_System_String_System_String_) method is used to add an error message (i.e. a message with the highest [ErrorLevel](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel.yml)) to the **Messages** window of Var:ProductName.
+Add the [Verify](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileVerifier.yml#Sdl_FileTypeSupport_Framework_NativeApi_INativeFileVerifier_Verify) method, which is triggered when the user starts verification through the menu command **Tools** > **Verify** or by pressing **F8**. This method uses the standard XML API to perform verification. It loops through all `displaytext` elements and checks for a `maxlength` attribute. If this attribute exists, the element content is compared against the maximum length value. If the text exceeds the maximum length, the [ReportMessage](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IBasicMessageReporter.yml#Sdl_FileTypeSupport_Framework_NativeApi_IBasicMessageReporter_ReportMessage_System_Object_System_String_Sdl_FileTypeSupport_Framework_NativeApi_ErrorLevel_System_String_System_String_) method adds an error message to the **Messages** window of `Var:ProductName`:
 
 # [C#](#tab/tabid-5)
 ```cs
@@ -108,20 +98,19 @@ public void Verify()
     }
 }
 ```
-***
 
-The [ReportMessage](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IBasicMessageReporter.yml#Sdl_FileTypeSupport_Framework_NativeApi_IBasicMessageReporter_ReportMessage_System_Object_System_String_Sdl_FileTypeSupport_Framework_NativeApi_ErrorLevel_System_String_System_String_) method takes the following parameters:
-* The name of the verifier plug-in that has thrown the message
-* The [ErrorLevel](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel.yml), which in this case we set to [Error](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel.yml#fields), which is the highest severity level.
-* A detailed description of the problem, which helps the user ascertain what the problem is and take corrective action.
-* The location, i.e. the target segment that was found to exceed the specified length limit. Double-clicking the message in the **Messages** window of Var:ProductName will display the segment string in a message box.
+The [ReportMessage](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IBasicMessageReporter.yml#Sdl_FileTypeSupport_Framework_NativeApi_IBasicMessageReporter_ReportMessage_System_Object_System_String_Sdl_FileTypeSupport_Framework_NativeApi_ErrorLevel_System_String_System_String_) method takes these parameters:
+
+- The name of the verifier plug-in that reports the message
+- The [ErrorLevel](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel.yml), set to [Error](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ErrorLevel.yml#fields), the highest severity level
+- A detailed description of the problem to help users understand what went wrong and take corrective action
+- The location (the target segment that exceeded the specified length limit). Double-clicking the message in the **Messages** window of `Var:ProductName` displays the segment string in a message box
 
 ![Error_Message_Maxlength_XML_Exceeded](images/Error_Message_Maxlength_XML_Exceeded.jpg)
 
-Provide Access to the Native Output File
---
+## Provide Access to the Native Output File
 
-Last, add the following members, which provide programmatic access to the native output file, and thus to information such as the file output path and name, the file encoding, creation date, file type info, etc. These members are not actually required for our sample plug-in, as our simple implementation just checks for adherence to the length limit, but does not do any processing on the native output file. However, these members need to be present in our class according the the [INativeFileVerifier](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileVerifier.yml) interface.
+Add the following members, which provide programmatic access to the native output file and information such as file output path, name, encoding, creation date, and file type info. These members are not required for this sample plug-in because the simple implementation only checks for adherence to the length limit without processing the native output file. However, the [INativeFileVerifier](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileVerifier.yml) interface requires them:
 
 # [C#](#tab/tabid-6)
 ```cs
@@ -129,7 +118,6 @@ public void GetProposedOutputFileInfo(IPersistentFileConversionProperties filePr
 {
     // Not required for this implementation
 }
-
 
 /// <summary>
 /// Provides information on output file.
@@ -140,12 +128,10 @@ public void SetOutputProperties(INativeOutputFileProperties properties)
     _outputFileProperties = properties;
 }
 ```
-***
 
-Putting it all Together
---
+## Putting It All Together
 
-All put together your main verification class should now look as shown below:
+Your main verification class should look as follows:
 
 # [C#](#tab/tabid-7)
 ```cs
@@ -159,67 +145,51 @@ using Sdl.Core.Settings;
 using Sdl.FileTypeSupport.Framework.NativeApi;
 using Sdl.FileTypeSupport.Framework.IntegrationApi;
 
-
 namespace Sdk.FileTypeSupport.Samples.XMLChecker
 {
     /// <summary>
     /// This class implements the verification logic. Depending on whether the 
-    /// verification plug-in is enabled or not, a verification will be performed
-    /// when the user of Trados Studio presses F8 or invokes the menu command
-    /// Tools -> Verify.
+    /// verification plug-in is enabled or not, verification is performed when the user
+    /// of Trados Studio presses F8 or invokes the menu command Tools > Verify.
     /// This class is referenced in the file type definition.
     /// </summary>
     class XMLCheckerMain : INativeFileVerifier, ISettingsAware
     {
-        #region "_outputFileProperties"
         private INativeOutputFileProperties _outputFileProperties;
-        #endregion
 
-        #region "UISettingsRepresentation"
         public bool Enabled
         {
             get;
             set;
         }
-        #endregion
 
         /// <summary>
         /// Initializes the plug-in settings, so that they can be used during the actual verification.
         /// </summary>
         /// <param name="settingsBundle"></param>
         /// <param name="configurationId"></param>
-        #region "InitializeSettings"
         public void InitializeSettings(ISettingsBundle settingsBundle, string configurationId)
         {
             VerifierSettings _settings = new VerifierSettings();
             _settings.PopulateFromSettingsBundle(settingsBundle, "Length Check XML v 1.0.0.0");
             Enabled = _settings.Enable;
         }
-        #endregion
 
-
-
-        #region "message reporter"
         public INativeTextLocationMessageReporter MessageReporter
         {
             get;
             set;
         }
-        #endregion
-
 
         /// <summary>
         /// This method implements the main verification logic.
-        /// First, the XML document is loaded into a DOM object.
-        /// Then, the method loops through all the 'displaytext' elements, and
-        /// checks for the presence of a 'maxlength' attribute, which indicates
-        /// the maximum length in characters. If the target segment text exceeds the
-        /// length limit specified by the attribute, an error message will be reported.
-        /// Any length limit violations will be reported through the message reporter,
-        /// which will fill the Messages window of Trados Studio with the error
-        /// messages that will be displayed to the end user.
+        /// First, load the XML document into a DOM object. Then, loop through all 'displaytext'
+        /// elements and check for a 'maxlength' attribute, which indicates the maximum length
+        /// in characters. If the target segment text exceeds the length limit specified by the
+        /// attribute, an error message is reported. Any length limit violations are reported
+        /// through the message reporter, which fills the Messages window of Trados Studio with
+        /// error messages displayed to the end user.
         /// </summary>
-        #region "verification logic"
         public void Verify()
         {
             if (!Enabled)
@@ -247,16 +217,11 @@ namespace Sdk.FileTypeSupport.Samples.XMLChecker
                 }
             }
         }
-        #endregion
 
-
-
-        #region "INativeOutputSettingsAware Members"
         public void GetProposedOutputFileInfo(IPersistentFileConversionProperties fileProperties, IOutputFileInfo proposedFileInfo)
         {
             // Not required for this implementation
         }
-
 
         /// <summary>
         /// Provides information on output file.
@@ -266,17 +231,13 @@ namespace Sdk.FileTypeSupport.Samples.XMLChecker
         {
             _outputFileProperties = properties;
         }
-        #endregion
     }
 }
 ```
-***
 
-Using the Main Verifier Class
---
+## Using the Main Verifier Class
 
-To use this verifier, a new file type definition based upon the XML file type definition needs to be created (see [Extending existing File Type Component Builder](extending_existing_file_type_component_builder.md)).
+Create a new file type definition based on the XML file type definition to use this verifier (see [Extending existing File Type Component Builder](extending_existing_file_type_component_builder.md)).
 
->[!NOTE]
->
+> [!NOTE]
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

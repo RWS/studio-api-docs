@@ -1,7 +1,6 @@
-Sub Content Component Builder
-==
+# Sub Content Component Builder
 
-An example of a sub-content component builder is shown below - note the implementation of [ISubContentComponentBuilder](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.ISubContentComponentBuilder.yml)
+The following example implements [ISubContentComponentBuilder](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.ISubContentComponentBuilder.yml):
 
 # [C#](#tab/tabid-1)
 ```cs
@@ -21,37 +20,31 @@ namespace Sdk.Snippets.Native
                                        Description = "SimpleText_FilterComponentBuilderExtension_Description")]
     class SimpleTextSubContentComponentBuilder : IFileTypeComponentBuilder, ISubContentComponentBuilder
     {
-        // AbstractGenerator not supported by SubContentComponentBuilder
         public IAbstractGenerator BuildAbstractGenerator(string name)
         {
             return null;
         }
 
-        // AdditionalGeneratorsInfo not supported by SubContentComponentBuilder
         public IAdditionalGeneratorsInfo BuildAdditionalGeneratorsInfo(string name)
         {
             return null;
         }
 
-        // BilingualGenerator not supported by SubContentComponentBuilder
         public IBilingualDocumentGenerator BuildBilingualGenerator(string name)
         {
             return null;
         }
 
-        // FileExtractor not supported by SubContentComponentBuilder
         public IFileExtractor BuildFileExtractor(string name)
         {
             return null;
         }
 
-        // FileGenerator not supported by SubContentComponentBuilder
         public IFileGenerator BuildFileGenerator(string name)
         {
             return null;
         }
 
-        // FileSniffer not supported by SubContentComponentBuilder
         public INativeFileSniffer BuildFileSniffer(string name)
         {
             return null;
@@ -76,31 +69,26 @@ namespace Sdk.Snippets.Native
             return info;
         }
 
-        // PreviewApplication not supported by SubContentComponentBuilder
         public IAbstractPreviewApplication BuildPreviewApplication(string name)
         {
             return null;
         }
 
-        // PreviewControl not supported by SubContentComponentBuilder
         public IAbstractPreviewControl BuildPreviewControl(string name)
         {
             return null;
         }
 
-        // PreviewSetsFactory not supported by SubContentComponentBuilder
         public IPreviewSetsFactory BuildPreviewSetsFactory(string name)
         {
             return null;
         }
 
-        // QuickTagsFactory not supported by SubContentComponentBuilder
         public IQuickTagsFactory BuildQuickTagsFactory(string name)
         {
             return null;
         }
 
-        // VerifierCollection not supported by SubContentComponentBuilder
         public IVerifierCollection BuildVerifierCollection(string name)
         {
             return null;
@@ -124,7 +112,6 @@ namespace Sdk.Snippets.Native
     }
 }
 ```
-***
 
 >[!NOTE]
 >

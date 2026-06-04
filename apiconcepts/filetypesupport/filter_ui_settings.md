@@ -1,28 +1,24 @@
-Filter UI Settings
-===
+# Filter UI settings
 
-To configure the filter functionality you may need a user interface through which any parameters can be set in a convenient way.
+If your filter exposes configurable behavior, provide a user interface that lets users set those parameters easily.
 
-File Type Settings Pages
---
-File type settings pages can be defined in the File Type Component Builder while building the File Type Information. The example below shows how to do this inside the FilterComponentBuilder class inside the BuildFileTypeInformation method.
+## File type settings pages
 
-# [C#](#tab/tabid-1)
+Define file type settings pages in the File Type Component Builder when you build the file type information. The following example shows how to register settings pages in the `FilterComponentBuilder.BuildFileTypeInformation` method:
+
 ```cs
-   public IFileTypeInformation BuildFileTypeInformation(string name)
+public IFileTypeInformation BuildFileTypeInformation(string name)
 {
-    var info = this.FileTypeManager.BuildFileTypeInformation();
+    var info = FileTypeManager.BuildFileTypeInformation();
 
     info.FileTypeDefinitionId = new FileTypeDefinitionId("Simple Text Filter 1.0.0.0");
     info.FileTypeName = new LocalizableString("Simple text files");
     info.FileTypeDocumentName = new LocalizableString("Test text files");
     info.FileTypeDocumentsName = new LocalizableString("Simple text files");
-    info.Description = new LocalizableString("This sample filter is used to process simple text files.");
+    info.Description = new LocalizableString("This sample filter processes simple text files.");
     info.FileDialogWildcardExpression = "*.text";
     info.DefaultFileExtension = "text";
     info.Icon = new IconDescriptor("assembly://Sdl.Sdk.FileTypeSupport.Samples.SimpleText/Sdl.Sdk.FileTypeSupport.Samples.SimpleText.SimpleText.ico");
-
-    // Define setting pages.
     info.WinFormSettingsPageIds = new string[]
     {
         "SimpleText_Settings",
@@ -32,19 +28,13 @@ File type settings pages can be defined in the File Type Component Builder while
     return info;
 }
 ```
-***
 
+Each settings page defines its own ID in the settings page class. The **Plugin Framework** uses that ID to locate the plug-in and display the page in the host application at run time.
 
-The ID of the settings page is defined within the settings page class itself. The **Plugin Framework** is used to locate the plug-in with this ID and display it to the user in the host application at runtime.
+## See also
 
-See Also
---
-
-
-
-[Implementing the UI Controller Class](implementing_the_ui_controller_class.md)
-
-[Implementing the Settings UI](implementing_the_settings_ui.md)
+- [Implementing the UI Controller Class](implementing_the_ui_controller_class.md)
+- [Implementing the Settings UI](implementing_the_settings_ui.md)
 
 >[!NOTE]
 >

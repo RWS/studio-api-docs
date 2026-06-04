@@ -1,25 +1,34 @@
-Using context information
-======
-If applicable, a file type plug-in should not only extract translatable text to an intermediary file, it should also make context information available. This allows translators and editors to determine easily whether a string is a headline, table cell content, etc. (without actually seeing the real document layout). This kind of information can help translators do their job more effectively.
+# Using context information
 
-File type plug-ins effectively separate translatable content from the document layout. This offers the advantage of translators/editors being able to focus on the content. However, it is often useful for users to know whether the string they are currently translating or editing belongs to a table cell, footnote, etc. This is why a good file type plug-in should present such context information to the user. Any context information is displayed in the document structure column of the editor. To save space this column shows a short display code, e.g. **H** for headline. By moving the mouse pointer over the display code, the full description is shown in a tooltip. By double-clicking the display code, users can display even more information (if available).
+Where applicable, a file type plug-in should extract translatable text and expose context information in the intermediary file. Context information helps translators and editors identify content types such as headlines, table cells, and footnotes without opening the original document layout.
 
-<img style="display:block; " src="images/Context01.jpg"/>
+## Why context information matters
 
-Example of a context display code for text box content extracted from a PPT document:
+File type plug-ins separate translatable content from document layout so users can focus on the text. Context information adds another layer of guidance by showing where a segment came from. For example, users can tell whether a string belongs to a table cell or a footnote.
 
-<img style="display:block; " src="images/Context02.jpg"/>
+## How context information appears in the editor
 
-Double-clicking the document structure column reveals additional information, in this case the context information on text box content contained on a PowerPoint slide.
+Var:ProductName shows context information in the document structure column of the editor. To save space, the column uses short display codes, such as **H** for headline. Users can hover over the code to see the full description in a tooltip.
 
-Also, Var:ProductName can display a document structure tree in the navigation pane on the left-hand side of the application. This tree allows users to quickly navigate in the document, for example, by clicking the corresponding headlines.
+Users can also double-click the display code to see additional information, when available.
 
-<img style="display:block; " src="images/Context03.jpg"/>
+<img style="display:block;" src="images/Context01.jpg"/>
 
-Example of a document structure tree, which helps users quickly navigate to the corresponding sections in the editor. In the example below the structure tree displays the level 1 and 2 headings found in a Microsoft Word document.
+Example of a context display code for text box content extracted from a PPT document.
 
-See Also
---------
-[Implementing the File Parser](implementing_the_file_parser.md)
+<img style="display:block;" src="images/Context02.jpg"/>
 
-[Adding Context Information](adding_context_information.md)
+Double-clicking the document structure column reveals additional information about the text box content on the PowerPoint slide.
+
+## Use the document structure tree
+
+Var:ProductName can also display a document structure tree in the navigation pane on the left side of the application. The tree lets users navigate quickly to the corresponding sections in the document.
+
+<img style="display:block;" src="images/Context03.jpg"/>
+
+Example of a document structure tree that helps users navigate to the corresponding sections in the editor. In this example, the tree displays level 1 and level 2 headings found in a Microsoft Word document.
+
+## See also
+
+- [Implementing the File Parser](implementing_the_file_parser.md)
+- [Adding Context Information](adding_context_information.md)

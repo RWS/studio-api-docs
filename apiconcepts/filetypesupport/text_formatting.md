@@ -1,19 +1,18 @@
-Text Formatting
-==
+# Text Formatting
 
-Complex documents often contain formatting and various styles. For example, most editors will support character formats such as **Bold**, *Italic* and <u>Underline</u>.
+Complex documents often contain formatting and styles. For example, most editors support character formats such as **bold**, *italic*, and <u>underline</u>.
 
-The purpose of semi-WYSIWYG formatting support is to allow for any framework editor (i.e. an editor built on top of the framework) to display some level of character formatting information based on common formatting types supported by the framework. Thus, the formatting supported by a specific external editor such as Microsoft Word will be converted by a native processor object (at parseing time) into the framework's semi-WYSIWYG formatting objects. These semi-WYSIWYG formatting objects of the framework can be persisted to a bilingual file format, as indeed they are, for the framework XLIFF file format and read back in by the framework when opening such a document.
+Semi-WYSIWYG formatting support allows a framework-based editor to display common character formatting information. During parsing, a native processor converts formatting from an external editor such as Microsoft Word into the framework's semi-WYSIWYG formatting objects. The framework can persist these objects in a bilingual file format, including its XLIFF-based format, and read them back when it opens the document.
 
-To apply character formatting, the [Sdl.FileTypeSupport.Framework.Formatting](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Formatting.yml) class is used. This class contains basic formatting properties which can be used in native or bilingual filters.
+To apply character formatting, use the [Sdl.FileTypeSupport.Framework.Formatting](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Formatting.yml) class. This class provides the basic formatting properties that native and bilingual filters use.
 
-Formatting properties should be always applied to [IStartTagProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IStartTagProperties.yml) and you can assign multiple [IFormattingItem](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Formatting.IFormattingItem.yml) items to one ```Formatting``` property. The text will receive all the formatting that is defined in the opening tag.
+Apply formatting properties to [IStartTagProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IStartTagProperties.yml). You can assign multiple [IFormattingItem](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Formatting.IFormattingItem.yml) objects to a single `Formatting` property. The text then receives all formatting defined in the opening tag.
 
-[IStartTagProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IStartTagProperties.yml) and [IEndTagProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IEndTagProperties.yml) have [CanHide](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IAbstractInlineTagProperties.yml#Sdl_FileTypeSupport_Framework_NativeApi_IAbstractInlineTagProperties_CanHide) properties that allows user to hide tags. In order not to have a tag displayed in the editor, set the CanHide property to True. Of course, the semiy-WYSIWYG formatting itself will still be visible. Below you see an example of how hidding tags makes the view for the translator simpler and more readable.
+[IStartTagProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IStartTagProperties.yml) and [IEndTagProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IEndTagProperties.yml) include a [CanHide](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IAbstractInlineTagProperties.yml#Sdl_FileTypeSupport_Framework_NativeApi_IAbstractInlineTagProperties_CanHide) property that lets users hide tags. To hide a tag in the editor, set `CanHide` to `true`. The semi-WYSIWYG formatting remains visible. This makes the translator's view simpler and easier to read.
 
 ![HiddenTags](images/HiddenTags.jpg)
 
-For tags that are meant to apply only character formatting, this property should be always set to True.
+For tags that apply only character formatting, set this property to `true`.
 
 >[!NOTE]
 >

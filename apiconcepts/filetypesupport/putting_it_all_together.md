@@ -1,7 +1,6 @@
-Putting it all Together
-===
+# Putting it All Together
 
-Below you see what the complete parser class looks like:
+The complete parser class appears below:
 
 # [C#](#tab/tabid-1)
 ```cs
@@ -21,14 +20,10 @@ namespace Sdk.FileTypeSupport.Samples.Bil
 {
     class BilParser : AbstractBilingualFileTypeComponent, IBilingualParser, INativeContentCycleAware, ISettingsAware
     {
-        #region "global"
         private IPersistentFileConversionProperties _fileProperties;
         private XmlDocument _document;
         public event EventHandler<ProgressEventArgs> Progress;
-        #endregion
 
-        #region "native content"
-        #region "set file properties"
         public void SetFileProperties(IFileProperties properties)
         {
             _fileProperties = properties.FileConversionProperties;
@@ -39,18 +34,14 @@ namespace Sdk.FileTypeSupport.Samples.Bil
             fileInfo.FileConversionProperties = _fileProperties;
             Output.SetFileProperties(fileInfo);
         }
-        #endregion
 
-        #region "open file"
         public void StartOfInput()
         {
             OnProgress(0);
             _document = new XmlDocument();
             _document.Load(_fileProperties.OriginalFilePath);
         }
-        #endregion
 
-        #region "close file"
         public void EndOfInput()
         {
             // done with the file
@@ -61,10 +52,7 @@ namespace Sdk.FileTypeSupport.Samples.Bil
             OnProgress(100);
             _document = null;
         }
-        #endregion
-        #endregion
 
-        #region "progress"
         protected virtual void OnProgress(byte percent)
         {
             if (Progress != null)
@@ -72,9 +60,7 @@ namespace Sdk.FileTypeSupport.Samples.Bil
                 Progress(this, new ProgressEventArgs(percent));
             }
         }
-        #endregion
 
-        #region "bilingual parser members"
         public IDocumentProperties DocumentProperties
         {
             get;
@@ -86,9 +72,7 @@ namespace Sdk.FileTypeSupport.Samples.Bil
             get;
             set;
         }
-        #endregion
 
-        #region "parse"
         public bool ParseNext()
         {
             // variables for the progress report
@@ -105,15 +89,12 @@ namespace Sdk.FileTypeSupport.Samples.Bil
 
             return false;
         }
-        #endregion
 
-        #region "create paragraph units"
         // helper function for creating paragraph units
         private IParagraphUnit CreateParagraphUnit(XmlNode xmlUnit)
         {
             // create paragraph unit object
             IParagraphUnit paragraphUnit = ItemFactory.CreateParagraphUnit(LockTypeFlags.Unlocked);
-
 
             // create segment pair object
             ISegmentPairProperties segmentPairProperties = ItemFactory.CreateSegmentPairProperties();  
@@ -131,7 +112,6 @@ namespace Sdk.FileTypeSupport.Samples.Bil
                 paragraphUnit.Target.Add(trgSegment);
             }
 
-            #region "context"
             // create paragraph unit context
             string id = xmlUnit.SelectSingleNode("./@id").InnerText;
             if(xmlUnit.SelectSingleNode("type/@spec")!=null)
@@ -142,21 +122,16 @@ namespace Sdk.FileTypeSupport.Samples.Bil
             } else {
                 paragraphUnit.Properties.Contexts = CreateContext("Paragraph", id);
             }
-            #endregion
 
-            #region "comments"
             // extract comment (if applicable)
             if(xmlUnit.SelectSingleNode("comment")!=null)
             {
                 paragraphUnit.Properties.Comments = CreateComment(xmlUnit.SelectSingleNode("comment").InnerText);
             }
-            #endregion
 
             return paragraphUnit;
         }
-        #endregion
 
-        #region "confirmation level"
         private ConfirmationLevel CreateConfirmationLevel(string BilStatus)
         {
             ConfirmationLevel sdlxliffLevel = ConfirmationLevel.Unspecified;
@@ -179,9 +154,7 @@ namespace Sdk.FileTypeSupport.Samples.Bil
 
             return sdlxliffLevel;
         }
-        #endregion
 
-        #region "create segment"
         // helper function for creating segment objects
         private ISegment CreateSegment(XmlNode segNode, ISegmentPairProperties pair)
         {
@@ -201,9 +174,7 @@ namespace Sdk.FileTypeSupport.Samples.Bil
             }
             return segment;
         }
-        #endregion
 
-        #region "create text"
         private IText CreateText(string segText)
         {
             ITextProperties textProperties = PropertiesFactory.CreateTextProperties(segText);
@@ -211,9 +182,7 @@ namespace Sdk.FileTypeSupport.Samples.Bil
 
             return textContent;
         }
-        #endregion
 
-        #region "process context"
         private IContextProperties CreateContext(string spec, string unitID)
         {
             // context info for type information, e.g. heading, paragraph, etc.
@@ -248,14 +217,11 @@ namespace Sdk.FileTypeSupport.Samples.Bil
 
             return contextProperties;
         }
-        #endregion
 
-        #region "create tagpair"
         private ITagPair CreateTagPair(XmlNode item)
         {
             // create the start and the end tag
             IStartTagProperties startTag = PropertiesFactory.CreateStartTagProperties(item.Name);
-            #region "formatting"
             // apply character formatting to the start tag
             IFormattingGroup formattingGroup = PropertiesFactory.FormattingItemFactory.CreateFormatting();
             startTag.Formatting = new FormattingGroup();
@@ -274,7 +240,6 @@ namespace Sdk.FileTypeSupport.Samples.Bil
                     break;
             }
             startTag.Formatting = formattingGroup;
-            #endregion
 
             startTag.DisplayText=item.Name;
             startTag.CanHide = true;
@@ -290,9 +255,7 @@ namespace Sdk.FileTypeSupport.Samples.Bil
 
             return tagPair;
         }
-        #endregion
 
-        #region "create comment"
         private ICommentProperties CreateComment(string commentText)
         {
             ICommentProperties commentProperties = PropertiesFactory.CreateCommentProperties();
@@ -301,25 +264,16 @@ namespace Sdk.FileTypeSupport.Samples.Bil
 
             return commentProperties;
         }
-        #endregion
-
-        #region ISettingsAware Members
 
         public void InitializeSettings(Sdl.Core.Settings.ISettingsBundle settingsBundle, string configurationId)
         {
             //loading of filter settings
         }
 
-        #endregion
-
-        #region IDispose Implementation
-
         public void Dispose()
         {
             _document = null;
         }
-
-        #endregion
     }
 }
 ```

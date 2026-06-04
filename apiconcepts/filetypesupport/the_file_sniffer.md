@@ -1,28 +1,37 @@
-The File Sniffer
-==
+# The File Sniffer
 
-File sniffers are small classes that are implemented to quickly determine whether a given file is supported by the parser that they are acting for. When a file sniffer is specified in the corresponding File Type Component Builder, it will be invoked by the framework **before** the actual file parsing begins. When the file sniffer determines that a given file cannot be processed by the filter, it will, for example, throw a corresponding message for the user, and the file will not be sent to the file parser, which will save processing time.
+A file sniffer is a small class that quickly determines whether a parser supports a file. If you specify a file sniffer in the corresponding File Type Component Builder, the framework calls it **before** parsing starts. If the sniffer determines that the filter cannot process the file, the framework can report that result to the user and skip the parser. This reduces unnecessary processing.
 
-Usually a sniffer examines the beginning of a document or the document header in order to determine whether the given file is likely to be supported by the filter or not. This may be done, for example, by looking for certain XML element names or by examining the first few bytes of a file. If a whole file needs woud need to be read and processed to determine if the doucment is valid or not, then the file sniffer's value is significantly diminished, because it will add more processing time to the filter, and an exception could be raised in the parser anyway if the source document was found to be invalid. However, there is some merit in having XML documents being validated against a schema within a file sniffer especially if this extra validation step can be made configurable.
+## How a file sniffer works
 
-The file sniffer class needs to contain one member, i.e. the ```Sniff()``` method, which takes three parameters: a file path, a language and a suggested codepage. The given file is checked to see if it is a supported file type. The provided language and codepage may be used to help determines if this is the case.
+A file sniffer usually examines the start of a document or its header to determine whether the filter is likely to support the file. For example, it can look for specific XML element names or inspect the first few bytes of a file.
 
-The ```Sniff()``` method returns a [SniffInfo](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.SniffInfo.yml) object, which has four properties:
+If the sniffer must read and process the entire file to determine whether the document is valid, it provides less value. In that case, it adds processing time and the parser could raise an exception anyway when it detects an invalid source document. XML schema validation can still be useful in a file sniffer, especially when you make that extra validation step configurable.
+
+## The `Sniff()` method
+
+The file sniffer class must implement one member: the `Sniff()` method. This method takes three parameters: a file path, a language, and a suggested code page. It checks whether the file is a supported file type. The provided language and code page can help make that determination.
+
+The `Sniff()` method returns a [SniffInfo](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.SniffInfo.yml) object with the following four properties:
 
 * [IsSupported](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.SniffInfo.yml) to indicate if a given document is supported.
 * [DetectedEncoding](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.SniffInfo.yml#Sdl_FileTypeSupport_Framework_NativeApi_SniffInfo_DetectedEncoding) to indicate the encoding of a given document.
 * [DetectedSourceLanguage](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.SniffInfo.yml#Sdl_FileTypeSupport_Framework_NativeApi_SniffInfo_DetectedSourceLanguage) to indicate the source language of a given document.
-* [DetectedTargetLanguage](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.SniffInfo.yml#Sdl_FileTypeSupport_Framework_NativeApi_SniffInfo_DetectedTargetLanguage) to indicate the target language of given document.
+* [DetectedTargetLanguage](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.SniffInfo.yml#Sdl_FileTypeSupport_Framework_NativeApi_SniffInfo_DetectedTargetLanguage) to indicate the target language of the given document.
 
-If required, you can store extra information for further use in the parser or writer component, for example the type of line break etc., using the [SetMetaData](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IMetaDataContainer.yml#Sdl_FileTypeSupport_Framework_NativeApi_IMetaDataContainer_SetMetaData_System_String_System_String_) and [GetMetaData](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IMetaDataContainer.yml#Sdl_FileTypeSupport_Framework_NativeApi_IMetaDataContainer_GetMetaData_System_String_) methods to store/load any additional information in/from a ```SniffInfo``` object.
+## Passing metadata
 
-These custom values are then accessible through a [IPersistentFileConversionProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPersistentFileConversionProperties.yml) object.
+If necessary, you can store additional information for later use in the parser or writer component. For example, you can store the line break type. Use [SetMetaData](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IMetaDataContainer.yml#Sdl_FileTypeSupport_Framework_NativeApi_IMetaDataContainer_SetMetaData_System_String_System_String_) and [GetMetaData](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IMetaDataContainer.yml#Sdl_FileTypeSupport_Framework_NativeApi_IMetaDataContainer_GetMetaData_System_String_) to save and load metadata in a `SniffInfo` object.
 
-Any settings that may be required by the file sniffer are passed in via an ISettingsGroup. This allows the file sniffer to set up any required settings in a manner like that shown below:
+These custom values are then available through an [IPersistentFileConversionProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPersistentFileConversionProperties.yml) object.
+
+## Reading settings
+
+Any settings that the file sniffer requires are passed in through an `ISettingsGroup`. This allows the file sniffer to initialize its settings, as shown in the following example:
 
 # [C#](#tab/tabid-1)
 ```cs
-  private void OverrideSettings(ISettingsGroup settingsGroup)
+private void OverrideSettings(ISettingsGroup settingsGroup)
 {
     if (settingsGroup == null)
     {
@@ -34,7 +43,7 @@ Any settings that may be required by the file sniffer are passed in via an ISett
 ```
 ***
 
-This can be called from within the ```Sniff()``` method body and will populate any required settings.
+Call this method from within `Sniff()` to populate the required settings.
 
 >[!NOTE]
 >

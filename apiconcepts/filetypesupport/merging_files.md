@@ -1,22 +1,26 @@
-Merging files
-=====
-When creating projects that involve multiple files, users have the option of merging several files into one. This can facilitiate typical editing operations such as find/replace, document verification, etc.
+# Merging files
 
-During project creation, users can choose to merge several files into one intermediary (SDLXliff) document. Example: You want to generate a single intermediary document from 100 small XML documents. Handling only one file instead of 100 can faciliate common editing operations such as find/replace, QA check, etc. considerably, as these tasks can then be run on a single file rather than on multiple documents.
+When you create a project with multiple source files, you can merge them into one intermediary SDLXliff document. This approach simplifies common tasks such as find and replace, verification, and QA checks.
+
+For example, instead of handling 100 small XML files separately, you can generate one intermediary document and run these tasks once on a single file.
 
 <img style="display:block; " src="images/Merge01.jpg"/>
 
-Merging several native files of different formats into one intermediary (SDLXliff) document
+Merging several native files of different formats into one intermediary SDLXliff document
 
-Var:ProductName even allows you to merge different native file formats into one intermediary document (e.g. PPT, XLS, DOC, XML, etc.). In the editor of Var:ProductName markers indicate where a file ends and where the next file begins. Depending on where the user has currently positioned the cursor, a native preview is generated for that particular document (provided that the file type plug-in for that specific file format supports the generation of a preview).
+## Merge different native formats
+
+Var:ProductName also lets you merge different native file formats into one intermediary document (for example, PPT, XLS, DOC, and XML). In the Var:ProductName editor, markers show where one file ends and the next begins. The editor generates a native preview for the document at the current cursor position, as long as that file type plug-in supports preview generation.
 
 
 <img style="display:block; " src="images/Merge02.jpg"/>
 
 Delimiters indicate where one file ends and where the next one begins
 
-When the user generates the native documents, the intermediary file that was generated during the merge operation is split into the individual native target documents. (For example, when merging 10 PPT files, you will not generate one big PPT document, but one SDLXliff document.)
+## Generate native target documents
 
-See Also
---------
-[Creating projects](creating_projects.md)
+When you generate native documents, Var:ProductName splits the merged intermediary file into individual native target files. For example, if you merge 10 PPT files, you work with one SDLXliff document during translation and generate 10 separate PPT target documents.
+
+## See also
+
+- [Creating projects](creating_projects.md)

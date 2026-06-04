@@ -1,20 +1,18 @@
-Enhancing the File Parser to Process the Settings
-===
+# Enhancing the File Parser to Process the Settings
 
-Now that you have implemented the user interface for configuring the file type plug-in settings as well as the functionality to load and save these settings, you need to extend your file parser class to make it 'aware' of the settings, so that they can be taken into consideration when processing a given file.
+After implementing the user interface for configuring the file type plug-in settings and the functionality to load and save settings, extend your file parser class to be settings-aware so it considers settings when processing files.
 
-Add and Initialize the Settings Property
---
+## Add and Initialize the Settings Property
 
-First, you need to make sure that your parser class also uses the following, additional namespaces:
+Ensure your parser class uses the following additional namespaces:
 
-* **Sdl.FileTypeSupport.Framework.IntegrationApi**
-* **Sdl.Core.Settings**
-* **Sdl.FileTypeSupport.Framework.Core.Settings**
+- **Sdl.FileTypeSupport.Framework.IntegrationApi**
+- **Sdl.Core.Settings**
+- **Sdl.FileTypeSupport.Framework.Core.Settings**
 
-Then your parser class needs to implement the ```ISettingsAware``` interface, which makes it 'aware' of the plug-in settings and provides the method that allows it to initialize the settings.
+Implement the `ISettingsAware` interface in your parser class. This interface makes the parser settings-aware and provides the method to initialize the settings.
 
-In the next step, add the following boolean property to your parser class:
+Add the following boolean property to your parser class:
 
 # [C#](#tab/tabid-1)
 ```cs
@@ -24,11 +22,10 @@ public bool LockPrdCodes
     set;
 }
 ```
-***
 
-The property corresponds to the setting that has been retrieved through the settings UI.
+This property corresponds to the setting retrieved through the settings UI.
 
-Then, use the ```InitializeSettings``` method of the interface to initialize the plug-in setting. Within this method, we call on the UserSettings class and apply the ```PopulateFromSettingsBundle``` method to retrieve the current plug-in configuration and then set the ```LockPrdCodes``` of the main verifier component accordingly.
+Use the `InitializeSettings` method to initialize the plug-in setting. Call the `UserSettings` class and apply `PopulateFromSettingsBundle` to retrieve the current plug-in configuration. Set the `LockPrdCodes` property accordingly:
 
 # [C#](#tab/tabid-2)
 ```cs
@@ -39,9 +36,8 @@ public void InitializeSettings(Sdl.Core.Settings.ISettingsBundle settingsBundle,
     LockPrdCodes = _userSettings.LockPrdCodes;
 }
 ```
-***
 
-Modify the ```ProcessLine()``` helper function so that it triggers ```WriteLockedContent()``` only if the current line starts with the *Prd-Code* string and if ```LockPrdCodes``` equals True.
+Modify the `ProcessLine()` helper function to call `WriteLockedContent()` only when the current line starts with the *Prd-Code* string and `LockPrdCodes` equals True:
 
 # [C#](#tab/tabid-3)
 ```cs
@@ -56,34 +52,25 @@ private void ProcessLine(string sLine)
         WriteStructureTag(sLine);
         WriteContext(sLine);
     }
-    else if (sLine.StartsWith("Prd-Code") && LockPrdCodes==true)
+    else if (sLine.StartsWith("Prd-Code") && LockPrdCodes == true)
     {
         WriteLockedContent(sLine);
-
-    } 
+    }
     else
     {
         WriteText(ProcessFormatting(sLine));
     }
 }
 ```
-***
 
-After making these changes your file parser should now respond to settings changes made at runtime.
+Your file parser now responds to settings changes made at runtime.
 
-See Also
---
+## See Also
 
+- [Creating a New Assembly for the Settings UI](creating_a_new_assembly_for_the_settings_ui.md)
+- [Implementing the Settings UI](implementing_the_settings_ui.md)
+- [Implementing the UI Controller Class](implementing_the_ui_controller_class.md)
+- [Loading and Saving the Settings](loading_and_saving_settings.md)
 
-
-[Creating a New Assembly for the Settings UI](creating_a_new_assembly_for_the_settings_ui.md)
-
-[Implementing the Settings UI](implementing_the_settings_ui.md)
-
-[Implementing the UI Controller Class](implementing_the_ui_controller_class.md)
-
-[Loading and Saving the Settings](loading_and_saving_settings.md)
-
->[!NOTE]
->
+> [!NOTE]
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

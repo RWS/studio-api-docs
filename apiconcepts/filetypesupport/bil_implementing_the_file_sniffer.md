@@ -1,21 +1,20 @@
-Implementing the File Sniffer
-===
+# Implementing the File Sniffer
 
-In this chapter, we implement the functionality required for determining whether a given BIL file is valid and can be processed by our sample file type plug-in.
+Implement the functionality to determine whether a given BIL file is valid and can be processed by your sample file type plug-in.
 
-Identify the File Validation Criteria
---
+## Identify File Validation Criteria
 
-For determining whether a given file can be processed by a filter or not, you can, of course, use the file extension, which is also specified in the File Type Component Builder. However, this criterion is not very reliable. Even if the file extension does match, the file might still not be valid for some reason, and can therefore not be processed by the file type plug-in. Moreover, different file types might share the same extension, which is another reason for not relying on file name extensions only.
+You can use the file extension (specified in the File Type Component Builder) to determine whether a file can be processed. However, file extensions alone are unreliable. A matching extension doesn't guarantee the file is valid, and different file types may share the same extension.
 
-It is therefore important to determine one more reliable criteria that tell you whether the file is valid or not. The most obvious criterion for an XML file is, of course, the root element, which in this case is ```bilingualdocument```. Let us proceed on the assumption that if a given document has this root element, the file should be considered valid. If not, the file type plug-in should tell the user that the file is not supported. It is recommended that you implement the validation functionality in a distinct file sniffer component.
+Implement a more reliable validation criterion. For XML files, the root element provides reliable validation. In this case, the root element is `bilingualdocument`. If a document contains this root element, consider it valid. Otherwise, the file type plug-in should inform the user that the file is not supported.
 
-Add the File Sniffer Class
---
+Implement the validation functionality in a distinct file sniffer component.
 
-Add a new class called e.g. **BilSniffer.cs** to your project. This class needs to implement the [INativeFileSniffer](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileSniffer.yml) interface. Note that even though we are developing a bilingual file type plug-in (and not a native file type plug-in), we require the above-mentioned interface. The sniffer component determines the validity of the file based on file-specific (native) criteria (in our example the root element).
+## Add the File Sniffer Class
 
-The interface implements a [Sniff](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileSniffer.yml#Sdl_FileTypeSupport_Framework_NativeApi_INativeFileSniffer_Sniff_System_String_Sdl_Core_Globalization_Language_Sdl_Core_Globalization_Codepage_Sdl_FileTypeSupport_Framework_NativeApi_INativeTextLocationMessageReporter_Sdl_Core_Settings_ISettingsGroup_) method, which returns a [SniffInfo](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.SniffInfo.yml) object. Through this object you can, for example, set whether a given file is supported or not. The minimum amount of code required to build a file sniffer component looks as shown below:
+Create a new class called **BilSniffer.cs** and implement the [INativeFileSniffer](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileSniffer.yml) interface. Although you're developing a bilingual file type plug-in (not a native file type plug-in), you must use this interface. The sniffer component determines file validity based on file-specific (native) criteria, such as the root element in this example.
+
+The interface implements a [Sniff](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileSniffer.yml#Sdl_FileTypeSupport_Framework_NativeApi_INativeFileSniffer_Sniff_System_String_Sdl_Core_Globalization_Language_Sdl_Core_Globalization_Codepage_Sdl_FileTypeSupport_Framework_NativeApi_INativeTextLocationMessageReporter_Sdl_Core_Settings_ISettingsGroup_) method that returns a [SniffInfo](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.SniffInfo.yml) object. You can use this object to set whether a file is supported or not. The following shows the minimum code required for a file sniffer component:
 
 # [C#](#tab/tabid-1)
 ```cs
@@ -42,20 +41,42 @@ namespace Sdk.Snippets.Bilingual
     }
 }
 ```
-***
+# [C#](#tab/tabid-1)
+```cs
+using Sdl.Core.Settings;
+using Sdl.FileTypeSupport.Framework.NativeApi;
+using Sdl.Core.Globalization;
 
-Implement the Sniffer Logic
---
+namespace Sdk.Snippets.Bilingual
+{
+    class BilSniffer : INativeFileSniffer
+    {
+        public SniffInfo Sniff(
+            string nativeFilePath,
+            Language language,
+            Codepage suggestedCodepage,     
+            INativeTextLocationMessageReporter messageReporter,
+            ISettingsGroup settingsGroup)
+        {
+            SniffInfo fileInfo = new SniffInfo();    
+            return fileInfo;
+        }
+    }
+}
+```
 
-Now you implement the actual logic required to determine whether a given file is supported or not. Remember, that if you have specific settings which need to be applied to the file sniffer, these can be populated using the ```ISettingsGroup``` which is passed in via the Sniff method. Please see [The File Sniffer](the_file_sniffer.md) for more details. The file sniffer reads the root element name from a given document. In our sample format, the root element also contains the source and target language information, e.g.:
+## Implement the Sniffer Logic
+
+Implement the logic to determine whether a given file is supported. If you have specific settings for the file sniffer, populate them using the `ISettingsGroup` passed to the Sniff method. See [The File Sniffer](the_file_sniffer.md) for more details.
+
+The file sniffer reads the root element name from the document. In this sample format, the root element also contains the source and target language attributes:
 
 # [Xml](#tab/tabid-2)
 ```xml
 <bilingualdocument source-language="en-US" target-language="de-DE">
 ```
-****
 
-As we are going to retrieve these three items from the root element, it makes sense to add the root element name to search for as well as the source/target language attribute names as constants to our sniffer class:
+Add the root element name, source language attribute name, and target language attribute name as constants to your sniffer class:
 
 # [C#](#tab/tabid-3)
 ```cs
@@ -63,9 +84,8 @@ static string _BilingualDocument = "bilingualdocument";
 static string _SourceLanguage = "source-language";
 static string _TargetLanguage = "target-language";
 ```
-****
 
-The [Sniff](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileSniffer.yml#Sdl_FileTypeSupport_Framework_NativeApi_INativeFileSniffer_Sniff_System_String_Sdl_Core_Globalization_Language_Sdl_Core_Globalization_Codepage_Sdl_FileTypeSupport_Framework_NativeApi_INativeTextLocationMessageReporter_Sdl_Core_Settings_ISettingsGroup_) method then calls two separate helper functions to read the root element name and the source/target language values. Depending on the result returned by the ```IsFileSupported()``` helper function, the [IsSupported](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.SniffInfo.yml#Sdl_FileTypeSupport_Framework_NativeApi_SniffInfo_IsSupported) property is set to True or to False:
+The [Sniff](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileSniffer.yml#Sdl_FileTypeSupport_Framework_NativeApi_INativeFileSniffer_Sniff_System_String_Sdl_Core_Globalization_Language_Sdl_Core_Globalization_Codepage_Sdl_FileTypeSupport_Framework_NativeApi_INativeTextLocationMessageReporter_Sdl_Core_Settings_ISettingsGroup_) method calls two helper functions to read the root element name and source/target language values. The [IsSupported](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.SniffInfo.yml#Sdl_FileTypeSupport_Framework_NativeApi_SniffInfo_IsSupported) property is set to True or False based on the result from the `IsFileSupported()` helper function:
 
 # [C#](#tab/tabid-4)
 ```cs
@@ -90,14 +110,11 @@ public SniffInfo Sniff(string nativeFilePath, Language suggestedSourceLanguage,
     return info;
 }
 ```
-***
 
-The ```IsFileSupported()``` helper function receives the file name and path from the [Sniff](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileSniffer.yml#Sdl_FileTypeSupport_Framework_NativeApi_INativeFileSniffer_Sniff_System_String_Sdl_Core_Globalization_Language_Sdl_Core_Globalization_Codepage_Sdl_FileTypeSupport_Framework_NativeApi_INativeTextLocationMessageReporter_Sdl_Core_Settings_ISettingsGroup_) method. It then loads the document into an XML DOM object to determine the root element, and returns True or False.
+The `IsFileSupported()` helper function receives the file name and path. It loads the document into an XML DOM object to determine the root element and returns True or False:
 
 # [C#](#tab/tabid-5)
 ```cs
-// determine whether a given file is supported based on the
-// root element
 private bool IsFileSupported(string nativeFilePath)
 {
     bool result = false;
@@ -111,14 +128,13 @@ private bool IsFileSupported(string nativeFilePath)
     return result;
 }
 ```
-***
 
-The ``GetFileLanguages()`` helper function retrieves the file info object as well as the file name and path from the [Sniff](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileSniffer.yml#Sdl_FileTypeSupport_Framework_NativeApi_INativeFileSniffer_Sniff_System_String_Sdl_Core_Globalization_Language_Sdl_Core_Globalization_Codepage_Sdl_FileTypeSupport_Framework_NativeApi_INativeTextLocationMessageReporter_Sdl_Core_Settings_ISettingsGroup_) method. It then loads the document into an XML DOM object to read the source and target language attribute values. After that, it sets the properties for the detected source and target languages to the values that were retrieved from the root element attributes. In our example the root element attributes clearly state the source and target language. This is why we can set the [DetectionLevel](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.DetectionLevel.yml) property to [Certain](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.DetectionLevel.yml#fields). For document types in which the languages have to be determined, for example, based on heuristics, you may want to set the detection level to one of the other possible values, e.g. [Likely](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.DetectionLevel.yml#fields) or [Guess](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.DetectionLevel.yml#fields).
+The `GetFileLanguages()` helper function retrieves the file info object, file name, and path. It loads the document into an XML DOM object to read the source and target language attribute values. It then sets the detected source and target language properties with the values retrieved from the root element attributes.
+
+In this example, the root element attributes clearly state the source and target language, so set the [DetectionLevel](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.DetectionLevel.yml) property to [Certain](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.DetectionLevel.yml#fields). For document types where languages must be determined using heuristics, set the detection level to [Likely](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.DetectionLevel.yml#fields) or [Guess](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.DetectionLevel.yml#fields):
 
 # [C#](#tab/tabid-6)
 ```cs
-// retrieve the source and target language
-// from the file header
 private void GetFileLanguages(ref SniffInfo info, string nativeFilePath)
 {
     XmlDocument doc = new XmlDocument();
@@ -143,24 +159,21 @@ private void GetFileLanguages(ref SniffInfo info, string nativeFilePath)
     }
 }
 ```
-***
 
-If the detection level is set to [Certain](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.DetectionLevel.yml#fields), the language dropdown lists in the **Open Document** dialog box will be disabled, and thus cannot be changed by the user. Otherwise, end users can change the proposed language combination at their discretion.
+When the detection level is set to [Certain](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.DetectionLevel.yml#fields), the language dropdown lists in the **Open Document** dialog are disabled and cannot be changed by the user. Otherwise, users can change the proposed language combination as needed.
 
 ![LanguagesAutoDeteced](images/LanguagesAutoDeteced.jpg)
 
-When the language pair has been programmatically determined by the sniffer, the user does not have to select the source/target language combination manually upon opening the file. The language pair will be displayed in the status bar of Var:ProductName, e.g.:
+When the sniffer programmatically determines the language pair, users don't need to manually select the source/target language combination when opening the file. Var:ProductName displays the language pair in the status bar:
 
 ![LanguagePair](images/LanguagePair.jpg)
 
->[!NOTE]
->
->If the sniffer determines that the file is not supported, you should communicate this to the user. This is done in the same way as in a native file type plug-in. See chapter [User Communication Through Messaging](user_communication_through_messaging.md) for more information and for an example on how to provide users with information on why a given file cannot be processed.
+> [!NOTE]
+> If the sniffer determines that the file is not supported, inform the user. See [User Communication Through Messaging](user_communication_through_messaging.md) for information on how to provide users with details about why a file cannot be processed.
 
-Add the Component Reference to the Component Builder
---
+## Add the Component Reference to the Component Builder
 
-Do not forget to reference the file sniffer component to the File Type Component Builder by inserting the following code to your implementation of the [IFileTypeComponentBuilder](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilder.yml) interface. Remember that failure to do so will mean that this component will never be used by the file type plug-in, even if the sniffer has been implemented in the assembly.
+Reference the file sniffer component in the File Type Component Builder by adding the following code to your [IFileTypeComponentBuilder](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilder.yml) implementation. If you fail to reference this component, it will not be used by the file type plug-in, even if the sniffer is implemented in the assembly.
 
 # [C#](#tab/tabid-7)
 ```cs
@@ -169,12 +182,10 @@ public INativeFileSniffer BuildFileSniffer(string name)
     return new BilSniffer();
 }
 ```
-***
 
-Putting it All Together
---
+## Putting It All Together
 
-The complete sniffer class should now look as shown below:
+The complete sniffer class should look as follows:
 
 # [C#](#tab/tabid-8)
 ```cs
@@ -191,13 +202,10 @@ namespace Sdk.FileTypeSupport.Samples.Bil
 {
     class BilSniffer : INativeFileSniffer
     {
-        #region "constants"
         static string _BilingualDocument = "bilingualdocument";
         static string _SourceLanguage = "source-language";
         static string _TargetLanguage = "target-language";
-        #endregion
 
-        #region "sniff"
         public SniffInfo Sniff(string nativeFilePath, Language suggestedSourceLanguage, 
             Codepage suggestedCodepage, INativeTextLocationMessageReporter messageReporter, 
             ISettingsGroup settingsGroup)
@@ -218,11 +226,7 @@ namespace Sdk.FileTypeSupport.Samples.Bil
 
             return info;
         }
-        #endregion
 
-        #region "issupported"
-        // determine whether a given file is supported based on the
-        // root element
         private bool IsFileSupported(string nativeFilePath)
         {
             bool result = false;
@@ -235,11 +239,7 @@ namespace Sdk.FileTypeSupport.Samples.Bil
 
             return result;
         }
-        #endregion
 
-        #region "get languages"
-        // retrieve the source and target language
-        // from the file header
         private void GetFileLanguages(ref SniffInfo info, string nativeFilePath)
         {
             XmlDocument doc = new XmlDocument();
@@ -263,18 +263,13 @@ namespace Sdk.FileTypeSupport.Samples.Bil
                 }
             }
         }
-        #endregion
     }
 }
 ```
-***
-See Also
---
 
+## See Also
 
+- [User Communication Through Messaging](user_communication_through_messaging.md)
 
-[User Communication Through Messaging](user_communication_through_messaging.md)
-
->[!NOTE]
->
+> [!NOTE]
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

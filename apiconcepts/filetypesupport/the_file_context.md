@@ -1,12 +1,12 @@
-The File Context
-==
+# The File Context
 
-Translatable text can occur in one or more contexts. Examples of contexts are file names, URLs, domains, resource types, layout properties (e.g. heading, title, table cell, etc.), and potentially many more. Obviously, contexts can contain other contexts, and they can overlap with other contexts.
+Translatable text can appear in one or more contexts. Examples include file names, URLs, domains, resource types, and layout properties such as headings, titles, and table cells. Contexts can contain other contexts, and they can overlap.
 
-Native File Processing API Representation
---
+## Native File Processing API representation
 
-During native content processing contexts are created by the filter through [ChangeContext](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IAbstractNativeContentHandler.yml#Sdl_FileTypeSupport_Framework_NativeApi_IAbstractNativeContentHandler_ChangeContext_Sdl_FileTypeSupport_Framework_NativeApi_IContextProperties_). [IContextProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IContextProperties.yml), the input parameter type of [ChangeContext](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IAbstractNativeContentHandler.yml#Sdl_FileTypeSupport_Framework_NativeApi_IAbstractNativeContentHandler_ChangeContext_Sdl_FileTypeSupport_Framework_NativeApi_IContextProperties_), wraps an [IContextInfo](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IContextInfo.yml) array. [IContextInfo](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IContextInfo.yml) has following properties:
+During native content processing, the filter creates contexts through [ChangeContext](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IAbstractNativeContentHandler.yml#Sdl_FileTypeSupport_Framework_NativeApi_IAbstractNativeContentHandler_ChangeContext_Sdl_FileTypeSupport_Framework_NativeApi_IContextProperties_). The [IContextProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IContextProperties.yml) parameter wraps an array of [IContextInfo](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IContextInfo.yml) objects.
+
+`IContextInfo` exposes the following properties:
 
 * [ContextType](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IContextInfo.yml#Sdl_FileTypeSupport_Framework_NativeApi_IContextInfo_ContextType)
 * [DefaultFormatting](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IContextInfo.yml#Sdl_FileTypeSupport_Framework_NativeApi_IContextInfo_DefaultFormatting)
@@ -16,25 +16,21 @@ During native content processing contexts are created by the filter through [Cha
 * [DisplayName](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IContextInfo.yml#Sdl_FileTypeSupport_Framework_NativeApi_IContextInfo_DisplayName)
 * [Purpose](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IContextInfo.yml#Sdl_FileTypeSupport_Framework_NativeApi_IContextInfo_Purpose)
 
-Every call to [ChangeContext](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IAbstractNativeContentHandler.yml#Sdl_FileTypeSupport_Framework_NativeApi_IAbstractNativeContentHandler_ChangeContext_Sdl_FileTypeSupport_Framework_NativeApi_IContextProperties_) closes all open contexts and opens all contexts specified in the call parameters.
+Every call to [ChangeContext](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IAbstractNativeContentHandler.yml#Sdl_FileTypeSupport_Framework_NativeApi_IAbstractNativeContentHandler_ChangeContext_Sdl_FileTypeSupport_Framework_NativeApi_IContextProperties_) closes the currently open contexts and opens the contexts specified in the call.
 
-Conversion from Native to Bilingual
---
+## Conversion from native to bilingual
 
-Contexts must be identified, created, and maintained by filters. To pass them into the framework the filter must use the [ChangeContext](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IAbstractNativeContentHandler.yml#Sdl_FileTypeSupport_Framework_NativeApi_IAbstractNativeContentHandler_ChangeContext_Sdl_FileTypeSupport_Framework_NativeApi_IContextProperties_) method of the [IAbstractNativeContentHandler](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IAbstractNativeContentHandler.yml) interface. There is no default context. Using contects is not mandatory, but it is recommended to improve translation and match quality, as translators can easily identify a translatable string as e.g. a headline, footnote, etc., which may be important information for the translation process.
+Filters must identify, create, and maintain contexts. To pass them into the framework, use the [ChangeContext](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IAbstractNativeContentHandler.yml#Sdl_FileTypeSupport_Framework_NativeApi_IAbstractNativeContentHandler_ChangeContext_Sdl_FileTypeSupport_Framework_NativeApi_IContextProperties_) method on [IAbstractNativeContentHandler](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IAbstractNativeContentHandler.yml). The framework does not provide a default context.
 
-Conversion from Bilingual to Native
---
+Contexts are optional, but they improve translation and match quality. For example, they help translators identify whether a string is a heading, footnote, or another content type that affects translation.
 
-Contexts are not part of the native format and will therefore not show up in translated files.
+## Conversion from bilingual to native
 
-See Also
---
+Contexts are not part of the native file format, so they do not appear in translated output files.
 
+## See also
 
-
-[Adding Context Information](adding_context_information.md)
-
+- [Adding Context Information](adding_context_information.md)
 
 >[!NOTE]
 >

@@ -1,22 +1,22 @@
-Adding the File Type Component Builder
-===
+# Adding the File Type Component Builder
 
-Add the File Type Component Builder to your project. This is the implementation of the interface [IFileTypeComponentBuilder](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilder.yml). and that is used to define the new file type plug-in, so that it can be used in Var:ProductName.
+Add a File Type Component Builder to your project. Implement [IFileTypeComponentBuilder](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilder.yml) to define your file type plug-in so that Var:ProductName can load it.
 
-Add the File Type Information
-Your File Type Component Builder needs to contain information such as the file type plug-in version number, the extension of the files that this file type plug-in applies to, etc. This kind of information is what end users see in the **Options** dialog box of Var:ProductName under **File Types**.
+## Add the file type information
 
-The implementation of [IFileTypeComponentBuilder](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilder.yml) also reference each file type plug-in component, e.g. the file sniffer class, the file parser class, etc. If you fail to reference a file type plug-in component in the file type definition, the component cannot be used in Var:ProductName. The File Type Component Builder thereby fully reflects the component structure of the file type plug-in. At this point, we would like to underline the importance of sub-dividing your file type plug-in into distinct components, as each component performs a different, even if sometimes similar, task.
+Your File Type Component Builder defines metadata such as the plug-in version and the file extensions that the plug-in supports. Var:ProductName displays this information in **Options** under **File Types**.
 
-Let us start by adding the general file type information to the implementation of [IFileTypeComponentBuilder](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilder.yml) as shown below:
+Your implementation of [IFileTypeComponentBuilder](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilder.yml) also registers each file type plug-in component, such as the file sniffer class and the file parser class. If you do not register a component in the file type definition, Var:ProductName cannot use it. The File Type Component Builder reflects the structure of your file type plug-in, so keep the components distinct and focused.
+
+Start by adding the general file type information to your implementation of [IFileTypeComponentBuilder](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilder.yml):
 
 # [C#](#tab/tabid-1)
 ```cs
 /// <summary>
 /// Returns a file type information object.
 /// </summary>
-/// <param name="name">The <see cref="IFileTypeDefinition"/> will pass "" as the name for this parameter</param>
-/// <returns>an SimpleText file type information object</returns>
+/// <param name="name">The <see cref="IFileTypeDefinition"/> passes an empty string for this parameter.</param>
+/// <returns>A SimpleText file type information object.</returns>
 public virtual IFileTypeInformation BuildFileTypeInformation(string name)
 {
     var info = this.FileTypeManager.BuildFileTypeInformation();
@@ -41,11 +41,11 @@ public virtual IFileTypeInformation BuildFileTypeInformation(string name)
 ```
 ***
 
-After adding the file type information above, the corresponding file type plug-in would be shown to the end user in the **Options** dialog box as illustrated below. Your example file type plug-in will be listed under **File Types**, however, of course it does not implement any functionality yet. Below you see an example of how the information entered in the File Type Component Builder is presented to the user through the UI of Var:ProductName:
+After you add this information, Var:ProductName lists the file type plug-in in **Options** under **File Types**, as shown in the following example. At this stage, the example plug-in appears in the UI but does not provide any functionality yet.
 
 ![SimpleTextFilesProperties](images/SimpleTextFilesProperties.jpg)
 
-Of course, a File Type Component Builder file is a lot more comprehensive than what is shown here. As we develop the actual file type plug-in components, we will add the corresponding component references to the File Type Component Builder file step-by-step.
+The File Type Component Builder contains more than the metadata shown here. As you develop the file type plug-in components, add the corresponding component references to the File Type Component Builder step by step.
 
 >[!NOTE]
 >

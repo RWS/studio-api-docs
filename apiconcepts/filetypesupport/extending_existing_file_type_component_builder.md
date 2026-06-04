@@ -1,24 +1,21 @@
-Extending existing File Type Component Builder
-===
+# Extending Existing File Type Component Builder
 
->[!NOTE]
->
->This functionality is only available in Studio 2011 SP3.
+Extend the existing XML File Type Component Builder so your native verifier is used when processing XML files.
 
-This chapter provides basic information on extending existing XML File Type Component Builder so your native verifier will be used when processing XML files.
+## Overview
 
-Extending an existing XML File Type Component Builder
-As XML is one of the standard formats supported by Var:ProductName, the corresponding File Type Component Builder already exists. The XML File Type Component Builder will be used to create an extension of the XML File Type Component Builder that uses your native verifier.
+XML is one of the standard formats supported by Var:ProductName, so the corresponding File Type Component Builder already exists. Use this XML File Type Component Builder to create an extension that includes your native verifier.
 
-A File Type Component Builder is defined by a filter component builder that implements [IFileTypeComponentBuilder](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilder.yml). A filter component builder knows how to create parsers, writers, and so on for the corresponding file type. XML File Type Component Builder has a filter component builder.
+A File Type Component Builder is defined by a filter component builder that implements [IFileTypeComponentBuilder](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilder.yml). The filter component builder knows how to create parsers, writers, and other components for the file type. The XML File Type Component Builder has its own filter component builder.
 
-The XML File Type Component Builder can be inherited from indirectly by implementing the [IFileTypeComponentBuilderAdapter](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilderAdapter.yml) interface. To create an extension for the XML File Type Component Builder you need to add the ```FileTypeComponentBuilderExtension``` attribute to your extension component builder class.You must set the ```OriginalFileType``` property of the attribute to ```XML: Any v 1.2.0.0```. You can now access the original XML component builder methods through the ```Original``` property as shown in the code example at the end of this page.
+To extend the XML File Type Component Builder indirectly, implement the [IFileTypeComponentBuilderAdapter](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilderAdapter.yml) interface. Add the `FileTypeComponentBuilderExtension` attribute to your extension component builder class. Set the `OriginalFileType` property to `XML: Any v 1.2.0.0`. You can access the original XML component builder methods through the `Original` property.
 
->[!NOTE]
->
->In Var:ProductName all the file type plug-in components are designed in a way that you can extend all the functionality.
+> [!NOTE]
+> In Var:ProductName, all file type plug-in components are designed to be extensible, so you can extend all functionality.
 
-Every extension filter component builder needs to have a [FileTypeComponentBuilderExtensionAttribute](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeComponentBuilderExtensionAttribute.yml) that describes the file type component builder.
+## Create the Extension
+
+Every extension filter component builder requires a [FileTypeComponentBuilderExtensionAttribute](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeComponentBuilderExtensionAttribute.yml) that describes the file type component builder:
 
 # [C#](#tab/tabid-1)
 ```cs
@@ -28,10 +25,8 @@ Every extension filter component builder needs to have a [FileTypeComponentBuild
     Description = "XML_FilterComponentBuilderExtension_Verifier_Description",
     OriginalFileType = "XML: Any v 1.2.0.0")]
 ```
-***
 
-
-"XML_FilterComponentBuilderExtension_Verifier_Name" and "XML_FilterComponentBuilderExtension_Verifier_Description" refers to entries in the **PlugInResources.resx** file.
+The `XML_FilterComponentBuilderExtension_Verifier_Name` and `XML_FilterComponentBuilderExtension_Verifier_Description` values refer to entries in the **PlugInResources.resx** file:
 
 # [Xml](#tab/tabid-1)
 ```xml
@@ -42,26 +37,26 @@ Every extension filter component builder needs to have a [FileTypeComponentBuild
   <value>Length Check XML Filter Component Builder</value>
 </data>
 ```
-***
 
-At this point, we have a new file type definition that is identical to the standard XML File Type Component Builder. This new file type definition needs to be changed so it includes the new native verifier. This can be accomplished simply by calling the original **BuildVerifierCollection** and adding the new verifier to this collection.
+## Modify the File Type Definition
+
+At this point, you have a new file type definition identical to the standard XML File Type Component Builder. Modify it to include the new native verifier by calling the original `BuildVerifierCollection` and adding the new verifier to the collection:
 
 # [C#](#tab/tabid-2)
 ```cs
-public  IVerifierCollection BuildVerifierCollection(string name)
+public IVerifierCollection BuildVerifierCollection(string name)
 {
     var verifierCollection = Original.BuildVerifierCollection(name);
     verifierCollection.NativeVerifiers.Add(new XMLCheckerMain());
     return verifierCollection;
 }
 ```
-***
 
-This new file type definition also needs to be changed so it includes the new native verifier settings page. This is accomplished by calling the original **BuildFileTypeInformation** and adding the settings page to **WinFormSettingsPageIds**.
+Modify the file type definition to include the native verifier settings page. Call the original `BuildFileTypeInformation` and add the settings page to `WinFormSettingsPageIds`:
 
 # [C#](#tab/tabid-3)
 ```cs
-public  IFileTypeInformation BuildFileTypeInformation(string name)
+public IFileTypeInformation BuildFileTypeInformation(string name)
 {
     var fileTypeInformation = Original.BuildFileTypeInformation(name);
     // add "XMLVerifier_Settings" to existing WinFormSettingsPageIds
@@ -71,9 +66,10 @@ public  IFileTypeInformation BuildFileTypeInformation(string name)
     return fileTypeInformation;
 }
 ```
-***
 
-Here is the complete code for creating a new file type definition based upon the XML file type definition using the new native verifier.
+## Complete Implementation
+
+Here's the complete code for creating a new file type definition based on the XML file type definition with the new native verifier:
 
 # [C#](#tab/tabid-4)
 ```cs
@@ -90,7 +86,7 @@ namespace Sdk.FileTypeSupport.Samples.XMLChecker
         OriginalFileType = "XML: Any v 1.2.0.0")]
     public class VerifierFilterComponentBuilder : IFileTypeComponentBuilderAdapter
     {
-        public  IFileTypeInformation BuildFileTypeInformation(string name)
+        public IFileTypeInformation BuildFileTypeInformation(string name)
         {
             var fileTypeInformation = Original.BuildFileTypeInformation(name);
             // add "XMLVerifier_Settings" to existing WinFormSettingsPageIds
@@ -100,7 +96,7 @@ namespace Sdk.FileTypeSupport.Samples.XMLChecker
             return fileTypeInformation;
         }
 
-        public  IVerifierCollection BuildVerifierCollection(string name)
+        public IVerifierCollection BuildVerifierCollection(string name)
         {
             var verifierCollection = Original.BuildVerifierCollection(name);
             verifierCollection.NativeVerifiers.Add(new XMLCheckerMain());
@@ -165,19 +161,12 @@ namespace Sdk.FileTypeSupport.Samples.XMLChecker
     }
 }
 ```
-***
 
-See Also
---
+## See Also
 
+- [Implement the User Interface](implement_the_user_interface_native.md)
+- [Implement the UI Controller Class](implement_the_ui_controller_class_native.md)
+- [Implement the Verification Logic](implement_the_verification_logic_native.md)
 
-
-[Implement the User Interface](implement_the_user_interface_native.md)
-
-[Implement the UI Controller Class](implement_the_ui_controller_class_native.md)
-
-[Implement the Verification Logic](implement_the_verification_logic_native.md)
-
->[!NOTE]
->
+> [!NOTE]
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

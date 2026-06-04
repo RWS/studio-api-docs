@@ -1,53 +1,57 @@
-Implementing the UI Controller Class
-===
+# Implementing the UI Controller Class
 
-In this chapter you will learn how to implement the class that manages the relationship between the host application, the user settings and the user interface.
+Implement the class that manages the relationship between the host application, user settings, and the user interface.
 
-When implementing a settings page for the plug-in user interface you need to cover the following scenarios:
+## Settings Page Scenarios
 
-* The user clicks the **Reset to Defaults** button, thereby restoring all control elements to their intended default settings.
-* The user clicks **OK**, thereby applying (saving) the settings.
-* After changing the control element settings, the user goes to another settings page, which should also save any changes to the form control elements.
-* The user clicks the **Cancel** button, any changes to the control settings should be discarded.
-A settings page does not implement its own **OK**, **Cancel**, **Reset** buttons, but will rely on the control elements that are provided by the dialog box of the framework, which is made possible through this class.
-Below you see an example of a settings page as it is implemented for one of the default file types in Var:ProductName:
+A settings page for the plug-in user interface must handle these scenarios:
+
+- The user clicks **Reset to Defaults**, restoring all control elements to their default settings
+- The user clicks **OK**, saving the settings
+- The user navigates to another settings page, which should save changes to form control elements
+- The user clicks **Cancel**, discarding all changes to control settings
+
+The settings page does not implement its own **OK**, **Cancel**, or **Reset** buttons. Instead, it uses the control elements provided by the framework's dialog box.
+
+Below is an example of a settings page as implemented for a default file type in `Var:ProductName`:
 
 ![SampleSettingsPage](images/SampleSettingsPage.jpg)
 
-Add the Settings Page
---
+## Add the Settings Page
 
-Now you need to add another class, e.g. called **SettingsPage.cs** to your project. This class is used to manage the functions of the user control UI, e.g. it triggers the reset function of the UI when a user clicks the **Reset** button. It is this class that will be registered as a plug-in UI page in the File Type Component Builder (i.e. not the actual user control).
+Add another class, for example **SettingsPage.cs**, to your project. This class manages the user control UI functions, such as triggering the reset function when a user clicks **Reset**. This class is registered as a plug-in UI page in the File Type Component Builder, not the actual user control.
 
-Reference the following namespace in this class:
+Reference this namespace in your class:
 
-* Sdl.FileTypeSupport.Framework.Core.Settings
+- `Sdl.FileTypeSupport.Framework.Core.Settings`
 
-Your ```SettingsPage``` class then needs be derived from the [AbstractFileTypeSettingsPage< SettingsControlType, SettingsType>](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage-2.yml) class providing the types of the settings and the UI control:
+Your `SettingsPage` class must derive from the [AbstractFileTypeSettingsPage< SettingsControlType, SettingsType>](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage-2.yml) class, providing the types of the settings and the UI control:
 
 # [C#](#tab/tabid-1)
 ```cs
 class SettingsPage : AbstractFileTypeSettingsPage<SettingsUI, UserSettings>
 ```
-***
 
-Declaring the Page as a Plug-In.
---
+## Declare the Page as a Plug-In
 
-The **Plugin Framework** requires all plug-in pages to be marked with a C# attribute. The plugin framework will then generate a plug-in definition for the assembly based on these attributes which can then be used by other applications.
+The plugin framework requires all plug-in pages to be marked with a C# attribute. The framework generates a plug-in definition for the assembly based on these attributes, which other applications can use.
 
-As we are creating a Filter Settings Page we will use the ```FileTypeSettingsPage``` attribute. This attribute requires a unique ID, which will be used to identify this plug-in page at runtime, a name, and a description. If the page needs be localised into other languages, the name and description should be key mappings to the related **PluginResources.resx** file in your assembly.
+For a Filter Settings Page, use the `FileTypeSettingsPage` attribute. This attribute requires:
+
+- A unique ID to identify the plug-in page at runtime
+- A name
+- A description
+
+If you need to localize the name and description into other languages, use key mappings to the **PluginResources.resx** file in your assembly:
 
 # [C#](#tab/tabid-2)
 ```cs
 [FileTypeSettingsPage(Id="SimpleText_Settings", Name="Settings_Name", Description="Settings_Description")]
 ```
-***
 
-Implementing the Base Class
---
+## Implement the Base Class
 
-The ```FileTypeSettingsPage``` base class takes care of a lot of the plumbing required to make sure all the objects are loaded correctly and updated at the correct points. However, because we are not using data binding in our control, the UI must manually be told when settings have been changed. The two methods that make settings changes are ```ResetToDefaults``` and Refresh so we need to override them and make a call to our ```UpdateControl``` method on the UI to inform it that the underlying settings data has changed.
+The `FileTypeSettingsPage` base class handles much of the plumbing to ensure objects load correctly and update at the right points. However, since our control does not use data binding, you must manually inform the UI when settings change. Override the `ResetToDefaults` and `Refresh` methods and call `UpdateControl` on the UI to notify it that the underlying settings data has changed:
 
 # [C#](#tab/tabid-3)
 ```cs
@@ -57,7 +61,7 @@ public override void ResetToDefaults()
     Control.UpdateControl();
 }
 ```
-***
+
 # [C#](#tab/tabid-4)
 ```cs
 public override void Refresh()
@@ -66,12 +70,10 @@ public override void Refresh()
     Control.UpdateControl();
 }
 ```
-***
 
-Add the file type settings page to the file type plug-in
---
+## Add the File Type Settings Page to the File Type Plug-In
 
-To associate your sample file type plug-in with this file type settings page the following code was used in the class **SimpleTextFilterComponentBuilder** within the method **BuildFileTypeInformation**.
+To associate your sample file type plug-in with this settings page, use the following code in the `SimpleTextFilterComponentBuilder` class within the `BuildFileTypeInformation` method:
 
 # [C#](#tab/tabid-5)
 ```cs
@@ -81,18 +83,16 @@ info.WinFormSettingsPageIds = new string[]
     "QuickInserts_Settings",
 };
 ```
-***
 
-**WinFormSettingsPageIds** specifies the ids of the settings pages to be associated with a file type plug-in. Here we added **SimpleText_Settings** so that this file type settings page is associated with this file type plug-in. This code was added in an earlier chapter and so should not be added again.
+`WinFormSettingsPageIds` specifies the IDs of the settings pages to associate with a file type plug-in. Here, `SimpleText_Settings` associates this settings page with this file type plug-in. (This code was added in an earlier section and should not be repeated.)
 
-After adding this file type settings page, the file type plug-in UI becomes available in the File Type Manager.
+After adding this file type settings page, the file type plug-in UI becomes available in the File Type Manager:
 
 ![LockProdCodesPage](images/LockProdCodesPage.jpg)
 
-Putting it All Together
---
+## Putting It All Together
 
-All put together, your user interface controller class should now look as shown below:
+Your user interface controller class should now look as follows:
 
 # [C#](#tab/tabid-6)
 ```cs
@@ -101,50 +101,38 @@ using Sdl.FileTypeSupport.Framework.Core.Settings;
 namespace Sdk.FileTypeSupport.Samples.SimpleText.WinUI
 {
     /// <summary>
-    /// This class controls the plug-in user interface. It controls what happens, for example,
-    /// when the user clicks the button in the user interface for resetting the control elements
-    /// to their default values. This class is referenced in the file type definition. Without
-    /// this reference in the SDLFILETPYE file, the plug-in user interface would not be available
-    /// to the end user.
+    /// This class controls the plug-in user interface. It controls what happens when the user
+    /// clicks the button to reset control elements to their default values. This class is referenced
+    /// in the file type definition. Without this reference in the SDLFILETYPE file, the plug-in
+    /// user interface would not be available to the end user.
     /// </summary>
-    #region "SettingsPagePlugin"
     [FileTypeSettingsPage(Id="SimpleText_Settings", Name="Settings_Name", Description="Settings_Description")]
-    #endregion
-    #region "ClassDeclaration"
     class SettingsPage : AbstractFileTypeSettingsPage<SettingsUI, UserSettings>
-    #endregion
     {
         /// <summary>
-        /// Triggered, when the user clicks the button Reset to Defaults button in 
-        /// Trados Studio. Restores the default check box state, which should
-        /// be Checked (i.e. product code strings should be locked).
+        /// Triggered when the user clicks the Reset to Defaults button in Trados Studio.
+        /// Restores the default check box state, which should be checked (product code
+        /// strings should be locked by default).
         /// </summary>
-        #region "ResetToDefaults"
         public override void ResetToDefaults()
         {
             base.ResetToDefaults();
             Control.UpdateControl();
         }
-        #endregion
 
         /// <summary>
-        /// Triggered when the user raises the plug-in UI, whose controls (in this case the check box
-        /// for locking product code strings) will then be set according to the values stored in 
-        /// the settings bundle.
+        /// Triggered when the user opens the plug-in UI. The controls (in this case, the check box
+        /// for locking product code strings) are set according to the values stored in the
+        /// settings bundle.
         /// </summary>
-        /// <param name="settingsBundle"></param>
-        #region "Refresh"
         public override void Refresh()
         {
             base.Refresh();
             Control.UpdateControl();
         }
-        #endregion
     }
 }
 ```
-***
 
->[!NOTE]
->
+> [!NOTE]
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

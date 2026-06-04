@@ -1,26 +1,22 @@
-Create a New File Type Component Builder
-===
+# Create a New File Type Component Builder
 
->[!NOTE]
->
->This functionality is only available in Studio 2011 SP3.
+> [!NOTE]
+> This functionality is only available in Studio 2011 SP3.
 
-This chapter provides basic information on extending a standard Microsoft Word 2007 File Type Component Builder so the WordArt bilingual verifier will be used.
+Extend the standard Microsoft Word 2007 File Type Component Builder so the WordArt bilingual verifier is used.
 
-Extending a Microsoft Word 2007 File Type Component Builder
---
+## Extend a Microsoft Word 2007 File Type Component Builder
 
-As Microsoft Word 2007 is one of the standard formats supported by Var:ProductName, the corresponding File Type Component Builder already exists. This File Type Component Builder will be used to create an extension for Microsoft Word 2007 File Type Component Builder that uses the WordArt bilingual verifier.
+Var:ProductName includes the standard Microsoft Word 2007 format, so the corresponding File Type Component Builder already exists. Use this as the basis for creating an extension that includes the WordArt bilingual verifier.
 
-A File Type Component Builder is defined by a filter component builder that implements [IFileTypeComponentBuilder](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilder.yml). A filter component builder knows how to create parsers, writers, and so on for the corresponding file type. Microsoft Word 2007 File Type Component Builder has a filter component builder.
+A File Type Component Builder is defined by a filter component builder that implements [IFileTypeComponentBuilder](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilder.yml). The filter component builder knows how to create parsers, writers, and other components for the corresponding file type. The Microsoft Word 2007 File Type Component Builder has its own filter component builder.
 
-The Microsoft Word 2007 File Type Component Builder can be inherited from indirectly. To create an extension for the The Microsoft Word 2007 File Type Component Builder you need to implement the [IFileTypeComponentBuilderAdapter](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilderAdapter.yml) interface which is used to define *Word 2007 v 2.0.0.0* documents.
+To extend the Microsoft Word 2007 File Type Component Builder, implement the [IFileTypeComponentBuilderAdapter](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilderAdapter.yml) interface, which is used to define *Word 2007 v 2.0.0.0* documents.
 
->[!NOTE]
->
->In Var:ProductName all the file type plug-in components are designed in a way that you can extend all the functionality.
+> [!NOTE]
+> In Var:ProductName, all file type plug-in components are designed to be extensible, so you can extend all functionality.
 
-Every filter component builder extension needs to have a [FileTypeComponentBuilderExtensionAttribute](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeComponentBuilderExtensionAttribute.yml) that describes the file type component builder.
+Every filter component builder extension requires a [FileTypeComponentBuilderExtensionAttribute](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeComponentBuilderExtensionAttribute.yml) that describes the file type component builder:
 
 # [C#](#tab/tabid-1)
 ```cs
@@ -30,9 +26,8 @@ Every filter component builder extension needs to have a [FileTypeComponentBuild
     Description = "Word2007_FilterComponentBuilderExtension_WordArtVerifier_Description",
     OriginalFileType = "Word 2000-2003 v 1.0.0.0")]
 ```
-***
 
-"Word2007_FilterComponentBuilderExtension_WordArtVerifier_Name" and "Word2007_FilterComponentBuilderExtension_WordArtVerifier_Description" refers to entries in the **PlugInResources.resx** file.
+The `Word2007_FilterComponentBuilderExtension_WordArtVerifier_Name` and `Word2007_FilterComponentBuilderExtension_WordArtVerifier_Description` values refer to entries in the **PlugInResources.resx** file:
 
 # [Xml](#tab/tabid-2)
 ```xml
@@ -43,9 +38,8 @@ Every filter component builder extension needs to have a [FileTypeComponentBuild
   <value>Word 2007 Filter Component Builder WordArt Verifier</value>
 </data>
 ```
-***
 
-This new component builder needs to be changed so it includes the new WordArt bilingual verifier. This can be accomplished simply by calling the original **BuildVerifierCollection** and adding the new verifier to this collection.
+Modify the new component builder to include the WordArt bilingual verifier. Call the original `BuildVerifierCollection` and add the new verifier to the collection:
 
 # [C#](#tab/tabid-3)
 ```cs
@@ -56,9 +50,8 @@ public IVerifierCollection BuildVerifierCollection(string name)
     return verifierCollection;
 }
 ```
-***
 
-This new file type definition also needs to be changed so it includes the new WordArt bilingual verifier settings page. This is accomplished by calling the original **BuildFileTypeInformation** and adding the settings page to **WinFormSettingsPageIds**.
+Modify the file type definition to include the WordArt bilingual verifier settings page. Call the original `BuildFileTypeInformation` and add the settings page to `WinFormSettingsPageIds`:
 
 # [C#](#tab/tabid-4)
 ```cs
@@ -71,12 +64,10 @@ public IFileTypeInformation BuildFileTypeInformation(string name)
     fileTypeInformation.WinFormSettingsPageIds = winFormSettingsPageIds.ToArray();
 
     return fileTypeInformation;
-
 }
 ```
-***
 
-Here is the complete code for creating a new file type definition based upon the Microsoft Word 2007 file type definition using the new WordArt bilingual verifier.
+The following code shows the complete implementation of a new file type definition based on the Microsoft Word 2007 file type definition with the WordArt bilingual verifier:
 
 # [C#](#tab/tabid-5)
 ```cs
@@ -104,7 +95,6 @@ namespace Sdk.FileTypeSupport.Samples.WordArtVerifier
             fileTypeInformation.WinFormSettingsPageIds = winFormSettingsPageIds.ToArray();
 
             return fileTypeInformation;
-
         }
 
         public IVerifierCollection BuildVerifierCollection(string name)
@@ -172,19 +162,17 @@ namespace Sdk.FileTypeSupport.Samples.WordArtVerifier
     }
 }
 ```
-****
 
-Adding a verifier by creating a new file type definition based upon an existing file type definition can be quite effective but suffers one important limitation. In this example, if the user created an *sdlxliff* file based upon a Microsoft Word 2007 document **before** the new file type definition was added then any operations performed on this *sdlxliff* file will use the old Microsoft Word 2007 file type definition and that means that it will not use the WordArt bilingual verifier. Only if the user created an *sdlxliff* file based upon a Microsoft Word 2007 document **after** the new file type definition was added will the new file type definition and therefore the new bilingual verifier be used.
+## Important Considerations
 
-See Also
---
+Creating a new file type definition based on an existing file type definition offers an effective approach but has one important limitation. If users create an SDLXliff file from a Microsoft Word 2007 document **before** you add the new file type definition, operations on that SDLXliff file use the old Microsoft Word 2007 file type definition. The new WordArt bilingual verifier won't be used.
 
+Only if users create an SDLXliff file from a Microsoft Word 2007 document **after** you add the new file type definition will Var:ProductName use the new file type definition and the new bilingual verifier.
 
+## See Also
 
-[Implement the Verification Logic](implement_the_verification_logic_bil.md)
+- [Implement the Verification Logic](implement_the_verification_logic_bil.md)
+- [Extending the Filter Component Builder](extending_existing_file_type_component_builder.md)
 
-[Extending the Filter Component Builder](extending_existing_file_type_component_builder.md)
-
->[!NOTE]
->
+> [!NOTE]
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

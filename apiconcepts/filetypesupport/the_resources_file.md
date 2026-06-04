@@ -1,13 +1,12 @@
-The Resources File
-==
+# The resources file
 
-The project template includes a **PluginResources.resx** resources file, which stores strings and plug-in UI elements (e.g. the plug-in name, the message texts for any problems that the plug-in reports) that are displayed in the user interface of Var:ProductName.
+The project template includes a `PluginResources.resx` file. This file stores strings and plug-in UI elements that Var:ProductName displays in the user interface, such as the plug-in name and any problem messages that the plug-in reports.
 
-By default, this resources file only includes the **Plugin_Name** string. In our implementation we need a number of other strings, e.g. to set the plug-in description and the error message(s) that the plug-in should display after verification. The resources table should therefore look as shown below:
+By default, this resource file includes only the `Plugin_Name` string. For this implementation, add more strings for the plug-in description and any error messages that verification should display. The resources table should look like the following example:
 
 ![resources_identical_check](images/resources_identical_check.jpg)
 
-The ```Sdl.Sdk.FileTypeSupport.Samples.SimpleText``` sample project folder also contains an icon (**icon.ico**) file, which you can add to the resource file of your project. This is the icon that will be displayed next to the plug-in name in the **Options** dialog box.
+The `Sdl.Sdk.FileTypeSupport.Samples.SimpleText` sample project folder also contains an `icon.ico` file. Add this file to your project resource file to display the icon next to the plug-in name in the **Options** dialog box.
 
 >[!NOTE]
 >
