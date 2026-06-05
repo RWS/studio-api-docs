@@ -1,21 +1,21 @@
-Creating ribbon groups
-====
-Var:ProductName Integration API provides support for third-party developers to integrate UI ribbon groups inside the Var:ProductName desktop applications.
+# Creating Ribbon Groups
 
-Creating ribbon groups
----
-In order to create ribbon groups, a third-party developer will require the following steps:
+The Var:ProductName Integration API allows developers to integrate custom UI ribbon groups into Var:ProductName desktop applications.
 
-* Create a class inherited from [AbstractRibbonGroup](../../api/integration/Sdl.Desktop.IntegrationApi.AbstractRibbonGroup.yml)
-* Decorate the newly created class using the [RibbonGroupAttribute](../../api/integration/Sdl.Desktop.IntegrationApi.Extensions.RibbonGroupAttribute.yml) attribute to define the ribbon group.
-* Decorate single or multiple times the newly created class using the [RibbonGroupLayoutAttribute](../../api/integration/Sdl.Desktop.IntegrationApi.Extensions.RibbonGroupLayoutAttribute.yml) attribute to define the ribbon group layout settings.
-  
-For a sample on how to create a ribbon group, see: [Integrating ribbon groups](integrating_ribbon_groups.md)
+## Basic Ribbon Group
 
-> [!NOTE]
+To create ribbon groups, complete the following steps:
+
+* Create a class that inherits from [AbstractRibbonGroup](../../api/integration/Sdl.Desktop.IntegrationApi.AbstractRibbonGroup.yml)
+* Apply the [RibbonGroupAttribute](../../api/integration/Sdl.Desktop.IntegrationApi.Extensions.RibbonGroupAttribute.yml) attribute to specify ribbon group metadata
+* Apply one or more [RibbonGroupLayoutAttribute](../../api/integration/Sdl.Desktop.IntegrationApi.Extensions.RibbonGroupLayoutAttribute.yml) attributes to specify layout settings
+
+See [Integrating ribbon groups](integrating_ribbon_groups.md) for an example.
+
+> [!IMPORTANT]
 > 
-> If there are no UI elements added inside the ribbon group, it will not be visible.
+> You must add at least one UI element to the ribbon group. Empty ribbon groups do not appear in the UI.
 
-See Also
------
-[Creating action](creating_actions.md)
+## Related Topics
+
+* [Creating action](creating_actions.md)

@@ -1,13 +1,17 @@
-# Implementing a custom job
+# Implementing a Custom Job
 
-The `IExternalJob` and `IExternalJobWithProgress` interfaces are the bridge that will allow you to inject custom code into the wizards as well as into Var:ProductName's job mechanism. This gives you the advantage to achieve the same look and feel for long processing jobs besides helping you complete your work faster. Once you have an implementation ready all you need to do is publish  `ExecuteExternalJobEvent` using `IStudioEventAggregator`. As a result, Var:ProductName will pick the job and execute it on a background thread or inject it into the previously-mentioned events. If the job is cancelled for any reason, you can handle that from the `JobCanceled` method.
+The `IExternalJob` and `IExternalJobWithProgress` interfaces enable you to inject custom code into wizards and Var:ProductName's job mechanism. This approach maintains consistent look and feel for long-running processing jobs while improving performance.
+
+To use a custom job, implement one of these interfaces and publish `ExecuteExternalJobEvent` using `IStudioEventAggregator`. Var:ProductName picks up the job and executes it on a background thread or injects it into the specified events. If the job is cancelled, handle it in the `JobCanceled` method.
 
 | Interface        |  Purpose  |
 | ------------- | -----|
-| `IExternalJob`| Implement this interface when you want to run a long processing job. The logic will be automatically executed on a background thread.|
-| `IExternalJobWithProgress` | Implement this interface when you want to run a long processing job that can also report progress to the user. Triggering the `ProgressReported` event handler will allow you to report progress on the execution of your job to the user. |
+| `IExternalJob`| Use this interface for long-running processing jobs. The logic executes automatically on a background thread.|
+| `IExternalJobWithProgress` | Use this interface for long-running processing jobs that report progress. Trigger the `ProgressReported` event handler to report job progress to the user. |
 
-Here is a code sample on how such an implementation should look like:
+## Code Sample
+
+The following example shows a custom job implementation:
 
 ```cs
 public class SampleJob : IExternalJobWithProgress
@@ -56,7 +60,8 @@ public class SampleJob : IExternalJobWithProgress
 ```
 
 > [!NOTE]
-> The `JobData` property acts as a bridge between Var:ProductName and your plugin in case of using the job inside the **Open Package** and **Create Return Package** wizards. Var:ProductName will set the file path on the property as follows:
-> - the file path to the project that was just imported into Var:ProductName, in the case of the **Open Package** wizard
-> - the file path for the created package, in the case of the **Create Return Package** wizard.
-> All constants used can be referenced from [PackagingConstants](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.PackagingConstants.yml)
+> The `JobData` property acts as a bridge between Var:ProductName and your plug-in when using the job inside the **Open Package** and **Create Return Package** wizards. Var:ProductName sets the file path on the property as follows:
+> - The file path to the project imported into Var:ProductName in the **Open Package** wizard
+> - The file path for the created package in the **Create Return Package** wizard
+>
+> Reference the available constants from [PackagingConstants](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.PackagingConstants.yml).

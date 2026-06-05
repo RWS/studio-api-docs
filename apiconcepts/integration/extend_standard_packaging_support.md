@@ -1,26 +1,28 @@
-# Extend default packaging functionality
+# Extend Default Packaging Functionality
 
-Var:ProductName Integration API provides support for third-party developers to extend the default project packaging operations by injecting additional pages and jobs in the project packaging wizards. It also allows direct integration with other systems package formats.
+The Var:ProductName Integration API enables third-party developers to extend default project packaging operations by injecting additional pages and jobs into the project packaging wizards. You can also integrate directly with other systems' package formats.
 
-## Extending **Open Package** functionality
+## Extending Open Package Functionality
 
-In order to extend the standard **Open Package** functionality, a third party developer will require the following steps:
-- Create a specific action in the ribbon. (See [Creating Actions](creating_actions.md))
-- Implement specific wizard pages 
-- Trigger the [OpenProjectPackageEvent](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Events.OpenProjectPackageEvent.yml) via the [IStudioEventAggregator](../../api/integration/Sdl.Desktop.IntegrationApi.Interfaces.IStudioEventAggregator.yml) and passing on the custom wizard pages (see [StudioWizardPage](../../api/integration/Sdl.Desktop.IntegrationApi.Wizard.StudioWizardPage.yml)) and the custom external job (see [IExternalJobWithProgress](../../api/integration/Sdl.Desktop.IntegrationApi.Jobs.IExternalJobWithProgress.yml))
+To extend the standard Open Package functionality, follow these steps:
 
-See [Customizing the Open Package Wizard Sample](customize_open_package_wizard.md)
+- Create a specific action in the ribbon (see [Creating Actions](creating_actions.md))
+- Implement specific wizard pages
+- Trigger the [OpenProjectPackageEvent](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Events.OpenProjectPackageEvent.yml) via the [IStudioEventAggregator](../../api/integration/Sdl.Desktop.IntegrationApi.Interfaces.IStudioEventAggregator.yml), passing the custom wizard pages (see [StudioWizardPage](../../api/integration/Sdl.Desktop.IntegrationApi.Wizard.StudioWizardPage.yml)) and custom external job (see [IExternalJobWithProgress](../../api/integration/Sdl.Desktop.IntegrationApi.Jobs.IExternalJobWithProgress.yml))
 
-## Extending **Create Return Package** functionality
+For a complete code sample, see [Customizing the Open Package Wizard Sample](customize_open_package_wizard.md).
 
-In order to extend the standard **Create Return Package** functionality, a third party developer will require the following steps:
-- Create a specific action in the ribbon. (See [Creating Actions](creating_actions.md))
-- Implement specific wizard pages 
-- Trigger the [CreateReturnPackageEvent](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Events.CreateReturnPackageEvent.yml) via the [IStudioEventAggregator](../../api/integration/Sdl.Desktop.IntegrationApi.Interfaces.IStudioEventAggregator.yml) and passing on the custom wizard pages (see [StudioWizardPage](../../api/integration/Sdl.Desktop.IntegrationApi.Wizard.StudioWizardPage.yml)) and the custom external job (see [IExternalJobWithProgress](../../api/integration/Sdl.Desktop.IntegrationApi.Jobs.IExternalJobWithProgress.yml))
+## Extending Create Return Package Functionality
 
-See [Customizing the Create Return Package Wizard Sample](customize_create_return_package_wizard.md)
+To extend the standard Create Return Package functionality, follow these steps:
 
-## Importing and Exporting custom project packages
+- Create a specific action in the ribbon (see [Creating Actions](creating_actions.md))
+- Implement specific wizard pages
+- Trigger the [CreateReturnPackageEvent](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Events.CreateReturnPackageEvent.yml) via the [IStudioEventAggregator](../../api/integration/Sdl.Desktop.IntegrationApi.Interfaces.IStudioEventAggregator.yml), passing the custom wizard pages (see [StudioWizardPage](../../api/integration/Sdl.Desktop.IntegrationApi.Wizard.StudioWizardPage.yml)) and custom external job (see [IExternalJobWithProgress](../../api/integration/Sdl.Desktop.IntegrationApi.Jobs.IExternalJobWithProgress.yml))
 
-In order to be able to process project packages that are not the proprietary Var:ProductName package formats, a third party developer can implement an [external package convertor](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IExternalPackageConverter.yml)
+For a complete code sample, see [Customizing the Create Return Package Wizard Sample](customize_create_return_package_wizard.md).
+
+## Importing and Exporting Custom Project Packages
+
+To process project packages that are not in the proprietary Var:ProductName package format, third-party developers can implement an [external package converter](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IExternalPackageConverter.yml).
 

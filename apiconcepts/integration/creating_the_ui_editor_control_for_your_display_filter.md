@@ -1,27 +1,38 @@
-Creating the UI Editor Control for your Display Filter
-====
-To apply your implementation of the [IDisplayFilter](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.DisplayFilters.IDisplayFilter.yml), get a reference to the active document and from there, apply the filter through the `ApplyFilterOnSegments` method. This will invoke a filter action on the document and while iterating over each of the segments, the API will call back into your implementation where you can assert whether or not the segment should be visible in the Var:ProductName Editor.
+# Creating the UI Editor Control for your Display Filter
 
-For a more complete solution, it would be useful to make this type of functionality available from the Var:ProductName Editor, so that the end-user can choose which criteria they would like to include in the filter.
+To apply your [IDisplayFilter](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.DisplayFilters.IDisplayFilter.yml) implementation, get a reference to the active document and apply the filter using the `ApplyFilterOnSegments` method. This invokes a filter action on the document. As the API iterates over each segment, it calls back into your implementation to determine whether each segment should display in the Var:ProductName Editor.
 
-Add two files to the project that permit the user to view the control in the Studio Editor and then select and apply the filter criteria on the document:
+For a complete solution, expose this functionality from the Var:ProductName Editor so end-users can choose which filter criteria to include.
 
-* User Control - The user control will contain the code related to the filter criteria that will be applied on the document
-* Controller - The controller is a simple class that is decorated with the extensions that are required by the API to add the user control to the studio editor; for this example, there is very little work involved with the controller.
+Add two files to your project:
 
-Add a new user control to the project and name it `DisplayFilterControl`, as shown in the example below:
+- **User Control** - Contains the code for filter criteria that apply to the document
+- **Controller** - A simple class decorated with the required API extensions to add the user control to the Studio Editor
 
-Include UI design elements to the user control that permit the user to choose the appropriate criteria settings for the filter that will be applied on the document. Make reference to the following images an example of how this might look in your control. For the purpose of this example we will be concentrating more on how to apply the display filter as opposed to how the UI design elements are presented in the control.
+## Add the DisplayFilterControl
+
+Create a new user control and name it `DisplayFilterControl`.
+
+Add UI design elements that let users select appropriate filter criteria settings. The following examples show how this might appear. For this guide, we focus on applying the display filter rather than UI design details.
 
 > [!NOTE]
-> 
-> The code related to the design controls is available in the SDK so that you can eventually make reference to it.
+>
+> The SDK includes design control code that you can reference.
 
-Once you have added the UI design elements, open the user control in code view. In order to apply your implementation of the [IDisplayFilter](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.DisplayFilters.IDisplayFilter.yml) on the active document, you will first need to get a reference to the [EditorController](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.yml), and then subscribe to the [ActiveDocumentChanged](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.yml#Sdl_TranslationStudioAutomation_IntegrationApi_EditorController_ActiveDocumentChanged) event to ensure that you are always working with the active document from the editor. Making reference to the example code underneath, you can see that we subscribe to this event in the constructor to ensure that we have a handle on this when the control is instantiated in the Editor.
+Open the user control in code view. To apply your [IDisplayFilter](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.DisplayFilters.IDisplayFilter.yml) implementation to the active document:
 
-Once you have a reference to the active document, you only need to call the method [ApplyFilterOnSegments](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument.yml#Sdl_TranslationStudioAutomation_IntegrationApi_IStudioDocument_ApplyFilterOnSegments_Sdl_TranslationStudioAutomation_IntegrationApi_DisplayFilters_IDisplayFilter_) with your implementation of the [IDisplayFilter](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.DisplayFilters.IDisplayFilter.yml), as follows: `ActiveDocument.ApplyFilterOnSegments(new DisplayFilter(filterSettings););` This will then invoke a filter action on the document and while iterating over each of the segments, the API will call back into to the method `EvaluateRow` of your implementation.
+1. Get a reference to the [EditorController](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.yml).
+2. Subscribe to the [ActiveDocumentChanged](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.yml#Sdl_TranslationStudioAutomation_IntegrationApi_EditorController_ActiveDocumentChanged) event to track the active document from the editor. Subscribe in the constructor to ensure the control has a reference when instantiated in the Editor.
 
-Subscribing to the [DocumentFilterChanged](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument.yml#Sdl_TranslationStudioAutomation_IntegrationApi_IStudioDocument_DocumentFilterChanged) event is quite useful as it permits you to understand when a filter has been applied on the document and then further deduct whether or not that filter is derived from you implementation of the interface.
+Once you have a reference to the active document, call the [ApplyFilterOnSegments](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument.yml#Sdl_TranslationStudioAutomation_IntegrationApi_IStudioDocument_ApplyFilterOnSegments_Sdl_TranslationStudioAutomation_IntegrationApi_DisplayFilters_IDisplayFilter_) method with your [IDisplayFilter](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.DisplayFilters.IDisplayFilter.yml) implementation:
+
+```csharp
+ActiveDocument.ApplyFilterOnSegments(new DisplayFilter(filterSettings));
+```
+
+The API invokes a filter action on the document and calls the `EvaluateRow` method of your implementation as it iterates over each segment.
+
+Subscribe to the [DocumentFilterChanged](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.IStudioDocument.yml#Sdl_TranslationStudioAutomation_IntegrationApi_IStudioDocument_DocumentFilterChanged) event to understand when the document applies a filter and whether that filter comes from your implementation.
 # [C#](#tab/tabid-1)
 ```cs
 using System;
@@ -43,20 +54,16 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
 {
     public partial class DisplayFilterControl : UserControl
     {
-        #region  |  Delegates  |
-
         public delegate void OnApplyFilterHandler(IDisplayFilterSettings displayFilterSettings, FilteredCountsCallback result);
         public event OnApplyFilterHandler OnApplyDisplayFilter;
 
         public delegate void FilteredCountsCallback(int filteredSegments, int totalSegments);
-        #endregion
-
-        #region  |  Properties  |
 
         private static EditorController GetEditorController()
         {
             return SdlTradosStudio.Application.GetController<EditorController>();
         }
+
         private EditorController EditorController { get; set; }
         private Document ActiveDocument { get; set; }
 
@@ -71,7 +78,6 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
         {
             get
             {
-                #region  |  get settings  |
                 var settings = new DisplayFilterSettings()
                 {
                     IsRegularExpression = checkBox_regularExpression.Checked,
@@ -83,7 +89,6 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
                     CommentSeverity = comboBox_commentSeverity.SelectedIndex,
                     ShowAllContent = false
                 };
-
 
                 foreach (var contextInfo in listView_contextInfo.SelectedItems
                     .Cast<ListViewItem>().Select(selectedItem => selectedItem.Tag as IContextInfo)
@@ -113,25 +118,18 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
                     else if (item.Group == GroupContentTypesSelected)
                         settings.SegmentContentTypes.Add(item.Tag.ToString());
                 }
-                #endregion
+
                 return settings;
             }
             set
             {
                 if (value == null) return;
-                #region  |  set settings  |
-
-                #region  |  content panel  |
 
                 textBox_source.Text = value.SourceText;
                 textBox_target.Text = value.TargetText;
 
                 checkBox_regularExpression.Checked = value.IsRegularExpression;
                 checkBox_caseSensitive.Checked = value.IsCaseSensitive;
-
-                #endregion
-
-                #region  |  filters panel  |
 
                 try
                 {
@@ -149,10 +147,8 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
                                 StringResources.DisplayFilterControl_ShowAllContent
                                 && value.ShowAllContent))
                     {
-
                         MoveListViewItem(listView_available, item, listView_selected);
                     }
-
 
                     if (value.RepetitionTypes.Any())
                     {
@@ -162,7 +158,6 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
                                     item.Group == GroupRepetitionTypesAvailable &&
                                     value.RepetitionTypes.Contains(item.Tag.ToString())))
                         {
-
                             MoveListViewItem(listView_available, item, listView_selected);
                         }
                     }
@@ -175,7 +170,6 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
                                     item.Group == GroupReviewTypesAvailable &&
                                     value.SegmentReviewTypes.Contains(item.Tag.ToString())))
                         {
-
                             MoveListViewItem(listView_available, item, listView_selected);
                         }
                     }
@@ -188,7 +182,6 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
                                     item.Group == GroupLockingTypesAvailable &&
                                     value.SegmentLockingTypes.Contains(item.Tag.ToString())))
                         {
-
                             MoveListViewItem(listView_available, item, listView_selected);
                         }
                     }
@@ -201,11 +194,9 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
                                     item.Group == GroupContentTypesAvailable &&
                                     value.SegmentContentTypes.Contains(item.Tag.ToString())))
                         {
-
                             MoveListViewItem(listView_available, item, listView_selected);
                         }
                     }
-
 
                     if (value.ConfirmationLevels.Any())
                     {
@@ -215,15 +206,12 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
                                     item.Group == GroupStatusAvailable &&
                                     value.ConfirmationLevels.Contains(item.Tag.ToString())))
                         {
-
                             MoveListViewItem(listView_available, item, listView_selected);
                         }
                     }
 
-
                     if (value.OriginTypes.Any())
                     {
-
                         foreach (var item in listView_available.Items.Cast<ListViewItem>()
                             .Where(
                                 item =>
@@ -236,7 +224,6 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
 
                     if (value.PreviousOriginTypes.Any())
                     {
-
                         foreach (var item in listView_available.Items.Cast<ListViewItem>()
                             .Where(
                                 item =>
@@ -253,19 +240,9 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
                     listView_selected.EndUpdate();
                 }
 
-                #endregion
-
-                #region  |  comments panel  |
-
                 textBox_commentText.Text = value.CommentText;
                 textBox_commentAuthor.Text = value.CommentAuthor;
                 comboBox_commentSeverity.SelectedIndex = value.CommentSeverity;
-
-
-                #endregion
-
-                #region  |  context info panel  |
-
 
                 foreach (ListViewItem item in listView_contextInfo.Items)
                 {
@@ -275,15 +252,8 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
                     else
                         item.Selected = false;
                 }
-
-                #endregion
-
-                #endregion
             }
         }
-
-
-        #region  |  ListView Groups  |
 
         internal static ListViewGroup GroupStatusAvailable { get; set; }
         internal static ListViewGroup GroupOriginAvailable { get; set; }
@@ -294,7 +264,6 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
         internal static ListViewGroup GroupLockingTypesAvailable { get; set; }
         internal static ListViewGroup GroupContentTypesAvailable { get; set; }
 
-
         private static ListViewGroup GroupStatusSelected { get; set; }
         private static ListViewGroup GroupOriginSelected { get; set; }
         private static ListViewGroup GroupPreviousOriginSelected { get; set; }
@@ -304,24 +273,15 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
         private static ListViewGroup GroupLockingTypesSelected { get; set; }
         private static ListViewGroup GroupContentTypesSelected { get; set; }
 
-        #endregion
-
-
-        #endregion
-
-        #region  |  Constructor  |
         public DisplayFilterControl()
         {
             InitializeComponent();
 
             AddGroupsToOriginTypeListview();
-
             InitializeSettings();
-
 
             listView_available.ListViewItemSorter = new ListViewItemComparer();
             listView_selected.ListViewItemSorter = new ListViewItemComparer();
-
 
             EditorController = GetEditorController();
             EditorController.ActiveDocumentChanged += EditorController_ActiveDocumentChanged;
@@ -330,95 +290,64 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
 
             OnApplyDisplayFilter += ApplyDisplayFilter;
 
-
             listView_available.SetGroupState(ListViewGroupState.Collapsible | ListViewGroupState.Collapsed);
             listView_selected.SetGroupState(ListViewGroupState.Collapsible | ListViewGroupState.Normal);
 
             listView_available.SetGroupState(ListViewGroupState.Collapsible | ListViewGroupState.Normal, listView_available.Groups[1]);
             listView_available.SetGroupState(ListViewGroupState.Collapsible | ListViewGroupState.Normal, listView_available.Groups[2]);
-
         }
-
-
-
-        #endregion
-
 
         private void InitializeSettings()
         {
-            #region  |  content panel  |
-
             textBox_source.Text = string.Empty;
             textBox_target.Text = string.Empty;
 
             checkBox_regularExpression.Checked = false;
             checkBox_caseSensitive.Checked = false;
 
-            #endregion
-
-            #region  |  filters panel  |
-
             try
             {
                 listView_available.BeginUpdate();
                 listView_selected.BeginUpdate();
 
-
                 listView_available.Items.Clear();
                 listView_selected.Items.Clear();
 
-                var _item =
-                    listView_available.Items.Add(
-                        StringResources.DisplayFilterControl_Show_All_Content);
+                var _item = listView_available.Items.Add(StringResources.DisplayFilterControl_Show_All_Content);
                 _item.Group = GroupGeneralAvailable;
                 _item.Tag = StringResources.DisplayFilterControl_ShowAllContent;
 
-
                 foreach (var type in Enum.GetValues(typeof(DisplayFilterSettings.RepetitionType)))
                 {
-                    var item =
-                        listView_available.Items.Add(Helper.GetTypeName((DisplayFilterSettings.RepetitionType)type));
-
+                    var item = listView_available.Items.Add(Helper.GetTypeName((DisplayFilterSettings.RepetitionType)type));
                     item.Group = GroupRepetitionTypesAvailable;
                     item.Tag = type;
                 }
 
-
                 foreach (var type in Enum.GetValues(typeof(DisplayFilterSettings.SegmentReviewType)))
                 {
-                    var item =
-                        listView_available.Items.Add(Helper.GetTypeName((DisplayFilterSettings.SegmentReviewType)type));
-
+                    var item = listView_available.Items.Add(Helper.GetTypeName((DisplayFilterSettings.SegmentReviewType)type));
                     item.Group = GroupReviewTypesAvailable;
                     item.Tag = type;
                 }
 
-
                 foreach (var type in Enum.GetValues(typeof(DisplayFilterSettings.SegmentLockingType)))
                 {
-                    var item =
-                        listView_available.Items.Add(Helper.GetTypeName((DisplayFilterSettings.SegmentLockingType)type));
-
+                    var item = listView_available.Items.Add(Helper.GetTypeName((DisplayFilterSettings.SegmentLockingType)type));
                     item.Group = GroupLockingTypesAvailable;
                     item.Tag = type;
                 }
 
-
                 foreach (var type in Enum.GetValues(typeof(DisplayFilterSettings.SegmentContentType)))
                 {
-                    var item =
-                        listView_available.Items.Add(Helper.GetTypeName((DisplayFilterSettings.SegmentContentType)type));
-
+                    var item = listView_available.Items.Add(Helper.GetTypeName((DisplayFilterSettings.SegmentContentType)type));
                     item.Group = GroupContentTypesAvailable;
                     item.Tag = type;
                 }
 
-
                 foreach (var type in Enum.GetValues(typeof(DisplayFilterSettings.ConfirmationLevel)))
                 {
-                    var item =
-                        listView_available.Items.Add(Helper.GetTypeName((DisplayFilterSettings.ConfirmationLevel)type));
-
+                    var item = listView_available.Items.Add(Helper.GetTypeName((DisplayFilterSettings.ConfirmationLevel)type));
                     item.Group = GroupStatusAvailable;
                     item.Tag = type;
                 }
@@ -428,25 +357,21 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
                     if (type.ToString() == "None")
                         continue;
 
-                    var item =
-                        listView_available.Items.Add(Helper.GetTypeName((DisplayFilterSettings.OriginType)type));
-
+                    var item = listView_available.Items.Add(Helper.GetTypeName((DisplayFilterSettings.OriginType)type));
                     item.Group = GroupOriginAvailable;
-
                     item.Tag = type;
                 }
+
                 foreach (var type in Enum.GetValues(typeof(DisplayFilterSettings.OriginType)))
                 {
                     if (type.ToString() == "None")
                         continue;
 
-                    var item =
-                        listView_available.Items.Add(Helper.GetTypeName((DisplayFilterSettings.OriginType)type));
-
+                    var item = listView_available.Items.Add(Helper.GetTypeName((DisplayFilterSettings.OriginType)type));
                     item.Group = GroupPreviousOriginAvailable;
-
                     item.Tag = type;
                 }
+
                 listView_available.Items[0].Selected = true;
             }
             finally
@@ -454,10 +379,6 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
                 listView_available.EndUpdate();
                 listView_selected.EndUpdate();
             }
-
-            #endregion
-
-            #region  |  comments panel  |
 
             textBox_commentText.Text = string.Empty;
             textBox_commentAuthor.Text = string.Empty;
@@ -468,20 +389,9 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
 
             comboBox_commentSeverity.SelectedIndex = 0;
 
-            #endregion
-
-            #region  |  context info panel  |
-
             PopulateContextInfoList();
 
-            #endregion
-
-            #region  |  filter status counter  |
-
-            // initialize the filter status counter
             UpdateFilteredCountDisplay(0, 0);
-
-            #endregion
 
             InitializeTabPageIcons();
         }
@@ -497,9 +407,7 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
 
         public void ClearFilter()
         {
-
             InitializeSettings();
-
             ApplyFilter();
         }
 
@@ -528,18 +436,14 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
                 Filter = StringResources.DisplayFilterControl_Settings_XML_File_sdladfsettings
             };
 
-
             if (loadSettingsDialog.ShowDialog() != DialogResult.OK) return;
             try
             {
-                // read in the xml content
                 string settingsXml;
                 using (var sr = new StreamReader(loadSettingsDialog.FileName, Encoding.UTF8))
                     settingsXml = sr.ReadToEnd();
 
-                // deserialize the to the settings xml
                 DisplayFilterSettings = DisplayFilterSerializer.DeserializeSettings<DisplayFilterSettings>(settingsXml);
-
                 ApplyFilter();
             }
             catch (Exception ex)
@@ -548,16 +452,15 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
             }
         }
 
-
         private void ActiveDocument_DocumentFilterChanged(object sender, DocumentFilterEventArgs e)
         {
             if (e.DisplayFilter == null
                 || e.DisplayFilter.GetType() != typeof(DisplayFilters.DisplayFilter))
                 InitializeSettings();
 
-
             UpdateFilteredCountDisplay(e.FilteredSegmentPairsCount, e.TotalSegmentPairsCount);
         }
+
         private void EditorController_ActiveDocumentChanged(object sender, DocumentEventArgs e)
         {
             InitializeSettings();
@@ -565,7 +468,6 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
             if (ActiveDocument != null)
                 ActiveDocument.DocumentFilterChanged -= ActiveDocument_DocumentFilterChanged;
 
-            // get a reference to the active document            
             ActiveDocument = e.Document;
 
             if (ActiveDocument != null)
@@ -578,24 +480,23 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
                 if (ActiveDocument.DisplayFilter != null &&
                     ActiveDocument.DisplayFilter.GetType() == typeof(DisplayFilters.DisplayFilter))
                 {
-                    //invalidate UI with display settings recovered from the active document
                     DisplayFilterSettings = ((DisplayFilters.DisplayFilter)ActiveDocument.DisplayFilter).Settings as DisplayFilterSettings;
                 }
 
                 UpdateFilteredCountDisplay(ActiveDocument.FilteredSegmentPairsCount, ActiveDocument.TotalSegmentPairsCount);
             }
         }
+
         private void ApplyDisplayFilter(IDisplayFilterSettings displayFilterSettings, FilteredCountsCallback result)
         {
             if (ActiveDocument == null)
                 return;
 
             DisplayFilter = new DisplayFilters.DisplayFilter(displayFilterSettings, ActiveDocument);
-
             ActiveDocument.ApplyFilterOnSegments(DisplayFilter);
-
             result.Invoke(ActiveDocument.FilteredSegmentPairsCount, ActiveDocument.TotalSegmentPairsCount);
         }
+
         private void UpdateFilteredCountDisplay(int filteredSegments, int totalSegments)
         {
             FilteredSegmentPairsCount = filteredSegments;
@@ -608,6 +509,7 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
             UpdateFilterExpression();
             CheckEnabledFilterIcons();
         }
+
         private void UpdateFilterExpression()
         {
             filterExpressionControl.ClearItems();
@@ -679,14 +581,12 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
                     + Helper.GetTypeName((DisplayFilterSettings.SegmentContentType)Enum.Parse(
                         typeof(DisplayFilterSettings.SegmentContentType), item, true))) + ")");
 
-
             if (DisplayFilterSettings.CommentText != string.Empty)
                 filterExpressionControl.AddItem(StringResources.DisplayFilterControl_Comment_text + ":\"" + DisplayFilterSettings.CommentText + "\"");
             if (DisplayFilterSettings.CommentAuthor != string.Empty)
                 filterExpressionControl.AddItem(StringResources.DisplayFilterControl_Comment_author + ":\"" + DisplayFilterSettings.CommentAuthor + "\"");
             if (DisplayFilterSettings.CommentSeverity > 0)
                 filterExpressionControl.AddItem(StringResources.DisplayFilterControl_Comment_severity + ":\"" + (DisplayFilterSettings.CommentSeverityType)DisplayFilterSettings.CommentSeverity + "\"");
-
 
             if (DisplayFilterSettings.ContextInfoTypes.Any())
                 filterExpressionControl.AddItem(StringResources.DisplayFilterControl_Document_structure + ":"
@@ -695,13 +595,6 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
                     + ContextInfoList.FirstOrDefault(a => a.ContextType == item).DisplayCode) + ")");
         }
 
-
-
-        #region  |  Helpers  |
-
-
-        #region  |  Tab icons  |
-
         private void InitializeTabPageIcons()
         {
             tabPage_content.ImageIndex = -1;
@@ -709,6 +602,7 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
             tabPage_comments.ImageIndex = -1;
             tabPage_contextInfo.ImageIndex = -1;
         }
+
         private void CheckEnabledFilterIcons()
         {
             if (ActiveDocument != null)
@@ -742,6 +636,7 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
             panel_filterStatusBarImage.Visible = visible;
             panel_filterStatusBar.BackColor = visible ? SystemColors.GradientInactiveCaption : Color.Transparent;
         }
+
         private bool IsFilterApplied(IDisplayFilterSettings settings)
         {
             if (!string.IsNullOrEmpty(settings.SourceText)
@@ -767,10 +662,12 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
                 return false;
             }
         }
+
         private void InvalidateIconsFilterApplied(TabPage tabPage)
         {
             tabPage.ImageIndex = -1;
         }
+
         private void InvalidateIconsFilterApplied_contentTab(IDisplayFilterSettings settings)
         {
             if (!string.IsNullOrEmpty(settings.SourceText)
@@ -782,11 +679,10 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
             {
                 tabPage_content.ImageIndex = -1;
             }
-
         }
+
         private void InvalidateIconsFilterApplied_filtersTab(IDisplayFilterSettings settings)
         {
-
             if (settings.SegmentReviewTypes.Any()
                 || settings.ConfirmationLevels.Any()
                 || settings.OriginTypes.Any()
@@ -803,11 +699,10 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
             {
                 tabPage_filters.ImageIndex = -1;
             }
-
         }
+
         private void InvalidateIconsFilterApplied_commentsTab(IDisplayFilterSettings settings)
         {
-
             if (!string.IsNullOrEmpty(settings.CommentText)
                 || !string.IsNullOrEmpty(settings.CommentAuthor)
                 || settings.CommentSeverity > 0)
@@ -818,8 +713,8 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
             {
                 tabPage_comments.ImageIndex = -1;
             }
-
         }
+
         private void InvalidateIconsFilterApplied_contextInfoTab(IDisplayFilterSettings settings)
         {
             if (settings.ContextInfoTypes.Any())
@@ -830,11 +725,10 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
             {
                 tabPage_contextInfo.ImageIndex = -1;
             }
-
         }
+
         private void InvalidateIconsFilterEdited(TabPage tabPage)
         {
-
             if (ActiveDocument != null && ActiveDocument.DisplayFilter != null
                 && ActiveDocument.DisplayFilter.GetType() == typeof(DisplayFilters.DisplayFilter))
             {
@@ -863,7 +757,6 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
                     || settings.SegmentReviewTypes.Any()
                     || settings.ShowAllContent))
                 {
-
                     var list1 = new List<string> { DisplayFilterSettings.ShowAllContent.ToString() };
                     list1.AddRange(DisplayFilterSettings.OriginTypes);
                     list1.AddRange(DisplayFilterSettings.PreviousOriginTypes);
@@ -872,7 +765,6 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
                     list1.AddRange(DisplayFilterSettings.SegmentReviewTypes);
                     list1.AddRange(DisplayFilterSettings.SegmentLockingTypes);
                     list1.AddRange(DisplayFilterSettings.SegmentContentTypes);
-
 
                     var list2 = new List<string> { settings.ShowAllContent.ToString() };
                     list2.AddRange(settings.OriginTypes);
@@ -902,7 +794,6 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
                 }
                 else if (tabPage == tabPage_contextInfo && settings.ContextInfoTypes.Any())
                 {
-                    // check if identical selection
                     var list = new List<string>();
                     foreach (var contextInfo in listView_contextInfo.SelectedItems
                         .Cast<ListViewItem>().Select(selectedItem => selectedItem.Tag as IContextInfo)
@@ -914,7 +805,6 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
                     tabPage.ImageIndex = string.Join(", ", list) == string.Join(", ", settings.ContextInfoTypes)
                         ? 0
                         : 1;
-
                 }
                 else
                     tabPage.ImageIndex = 1;
@@ -924,11 +814,6 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
                 tabPage.ImageIndex = 1;
             }
         }
-
-
-        #endregion
-
-        #region  |  Filter Attributes group  |
 
         private void CheckEnabledActionButtons()
         {
@@ -949,6 +834,7 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
             button_remove.Enabled = remove;
             button_removeAll.Enabled = removeAll;
         }
+
         private void MoveSelectedListViewItem(ListView from, ListView to)
         {
             if (from.SelectedItems.Count > 0)
@@ -962,7 +848,6 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
 
                     AssignOriginTypeListViewItemGroup(itemTo, itemFrom.Group);
 
-
                     itemFrom.Remove();
                 }
 
@@ -974,6 +859,7 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
                 CheckEnabledActionButtons();
             }
         }
+
         private static void SelectDefaultItem(ListView from, int itemIndex)
         {
             if (from.Items.Count > 0)
@@ -987,6 +873,7 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
                 from.Items[itemIndex].Selected = true;
             }
         }
+
         private void MoveListViewItem(ListView from, ListViewItem itemFrom, ListView to)
         {
             var itemIndex = itemFrom.Index;
@@ -1003,8 +890,8 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
             listView_selected.Sort();
 
             CheckEnabledActionButtons();
-
         }
+
         private void MoveAllListViewItems(ListView from, ListView to)
         {
             foreach (ListViewItem itemFrom in from.Items)
@@ -1020,6 +907,7 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
 
             CheckEnabledActionButtons();
         }
+
         private void AssignOriginTypeListViewItemGroup(ListViewItem itemTo, ListViewGroup fromGroup)
         {
             if (itemTo.ListView.Equals(listView_available)
@@ -1065,9 +953,9 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
                 }
             }
         }
+
         private void AddGroupsToOriginTypeListview()
         {
-
             listView_available.ShowGroups = true;
             listView_selected.ShowGroups = true;
 
@@ -1108,9 +996,6 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
             listView_selected.Groups.Add(GroupContentTypesSelected);
         }
 
-        #endregion
-
-        #region  |  Context info  |
         private void SetContextInfoList()
         {
             ContextInfoList = new List<IContextInfo>();
@@ -1126,6 +1011,7 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
                 }
             }
         }
+
         private void PopulateContextInfoList()
         {
             try
@@ -1152,12 +1038,6 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
             UpdatedContextInfoSelectedStatusCount();
         }
 
-        #endregion
-
-        #endregion
-
-        #region  |  ToolbarStrip events  |
-
         private void toolStripButton_applyFilter_Click(object sender, EventArgs e)
         {
             ApplyFilter();
@@ -1178,10 +1058,6 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
             LoadFilter();
         }
 
-        #endregion
-
-        #region  |  Content tab events  |
-
         private void textBox_source_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Return)
@@ -1193,7 +1069,6 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
             if (e.KeyCode == Keys.Return)
                 ApplyFilter();
         }
-
 
         private void textBox_source_TextChanged(object sender, EventArgs e)
         {
@@ -1214,11 +1089,6 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
         {
             InvalidateIconsFilterEdited(tabPage_content);
         }
-
-        #endregion
-
-        #region  |  Filter Attributes tab events  |
-
 
         private void button_add_Click(object sender, EventArgs e)
         {
@@ -1248,11 +1118,6 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
             CheckEnabledActionButtons();
         }
 
-
-        #endregion
-
-        #region  |  Comments tab events  |
-
         private void textBox_commentText_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Return)
@@ -1264,8 +1129,6 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
             if (e.KeyCode == Keys.Return)
                 ApplyFilter();
         }
-
-
 
         private void textBox_commentText_TextChanged(object sender, EventArgs e)
         {
@@ -1282,9 +1145,6 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
             InvalidateIconsFilterEdited(tabPage_comments);
         }
 
-        #endregion
-
-        #region  |  Contextinfo tab events  |
         private void linkLabel_contextInfoClearSelection_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             listView_contextInfo.BeginUpdate();
@@ -1325,10 +1185,6 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
             label_contextInfoSelected.Text = string.Format("Selected: {0}", listView_contextInfo.SelectedItems.Count);
         }
 
-        #endregion
-
-
-
         private void listView_contextInfo_Resize(object sender, EventArgs e)
         {
             var width = ((ListView)sender).Width - 20 - SystemInformation.VerticalScrollBarWidth;
@@ -1341,7 +1197,7 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
         private void listView_available_Resize(object sender, EventArgs e)
         {
             var width = ((ListView)sender).Width - 20 - SystemInformation.VerticalScrollBarWidth;
-            columnHeader_filtersAvailable_name.Width = width;            
+            columnHeader_filtersAvailable_name.Width = width;
         }
 
         private void listView_selected_Resize(object sender, EventArgs e)
@@ -1349,16 +1205,9 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Controls
             var width = ((ListView)sender).Width - 20 - SystemInformation.VerticalScrollBarWidth;
             columnHeader_filtersSelected_name.Width = width;
         }
-
-
     }
-
-
-
-
 }
 ```
-****
 
 To load the user control in the Var:ProductName Editor, you will need to add a controller and decorate it with the appropriate extensions that will provide the API with enough information to identify and then load it.
 
@@ -1399,4 +1248,3 @@ namespace Community.AdvancedDisplayFilter.Controls
     }
 }
 ```
-*****

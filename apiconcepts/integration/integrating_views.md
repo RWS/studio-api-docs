@@ -1,24 +1,17 @@
-Integrating views
-=====
-Desktop Integration API provides support for third-party developers to integrate UI views inside the Var:ProductName desktop applications.
+# Integrating Views
 
-Example
-----
-The following example demonstrates how a view can be integrated into the Var:ProductName application.
+The Desktop Integration API allows third-party developers to integrate custom UI views into Var:ProductName desktop applications.
+
+## Example
+
+The following example demonstrates how to integrate a view into the Var:ProductName application.
 
 # [C#](#tab/tabid-1)
 [!code-csharp[MyNewStudioView](code_samples/MyNewStudioView.cs)]
-***
 
-See Also
---
+## Reference
 
-**Reference**
-
-[AbstractViewPartController](../../api/integration/Sdl.Desktop.IntegrationApi.AbstractViewPartController.yml)
-
-[ViewPartAttribute](../../api/integration/Sdl.Desktop.IntegrationApi.Extensions.ViewPartAttribute.yml)
-
-[ViewPartLayoutAttribute](../../api/integration/Sdl.Desktop.IntegrationApi.Extensions.ViewPartLayoutAttribute.yml)
-
-[TranslationStudioDefaultRibbonTabs](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Presentation.DefaultLocations.TranslationStudioDefaultRibbonTabs.yml)
+* [AbstractViewPartController](../../api/integration/Sdl.Desktop.IntegrationApi.AbstractViewPartController.yml)
+* [ViewPartAttribute](../../api/integration/Sdl.Desktop.IntegrationApi.Extensions.ViewPartAttribute.yml)
+* [ViewPartLayoutAttribute](../../api/integration/Sdl.Desktop.IntegrationApi.Extensions.ViewPartLayoutAttribute.yml)
+* [TranslationStudioDefaultRibbonTabs](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Presentation.DefaultLocations.TranslationStudioDefaultRibbonTabs.yml)

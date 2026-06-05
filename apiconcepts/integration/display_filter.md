@@ -1,30 +1,26 @@
-Introduction
-=====
-Find out what the Display Filter API does and how you can leverage it to create a custom filter.
+# Introduction
 
-What is a Custom Display Filter?
----
-In Var:ProductName, a display filter limits the display of segments in the Editor based on specific attributes. Third-party developers can integrate their own custom display filters that can process the segments in the Var:ProductName Editor.
+Learn about the Display Filter API and how to create a custom filter to enhance segment filtering in Var:ProductName.
 
-The Advanced Display Filter that ships with Var:ProductName is an example of an implementation based on the Display Filter API. The Advanced Display Filter enables Var:ProductName power-users to access more segment filtering options than the standard Display Filter does.
+## What is a Custom Display Filter?
 
-To access the Advanced Display Filter the user has to click **View > Advanced Display Filter**.
+A display filter in Var:ProductName limits which segments the Editor displays based on specific attributes. Third-party developers can integrate custom display filters that process segments in the Var:ProductName Editor.
 
-In the Advanced Display Filter window, end-users can create and save filters based on:
+The Advanced Display Filter that ships with Var:ProductName demonstrates one Display Filter API implementation. It provides Var:ProductName power-users with more filtering options than the standard Display Filter offers.
 
-* segment content - this displays the segments that contain a certain text in source or target.
-* filter attributes - users can filter by a certain segment status, a certain origin or by other attributes.
-* comments - users can further refine their search by displaying only segments reviewed and commented by a certain person or segments with a certain severity.
-* document structure - this filters by document structure elements.
+Access the Advanced Display Filter by clicking **View > Advanced Display Filter**.
 
-Working with the Advanced Display Filter
------
-End-users can set the attributes they need to filter segments in the Var:ProductName Editor in the tabs of the Advanced Display Filter.
+In the Advanced Display Filter window, end-users create and save filters based on:
 
-They could, for example, filter segments by their source and target text.
+- **Segment content** - Display segments containing certain text in source or target
+- **Filter attributes** - Filter by segment status, translation origin, or other attributes
+- **Comments** - Refine searches to display only segments reviewed by specific people or segments with certain severity levels
+- **Document structure** - Filter by document structure elements
 
-Moving on, they could choose from a range of segment attributes that could be applied to the filter, for example segment status, translation origin or review mode.
+## Use the Advanced Display Filter
 
-If, for example, an end-user wants to display the segments that were commented by a certain reviewer on a certain topic, they could filter by that.
+The Advanced Display Filter tabs let end-users configure filtering attributes for the Editor.
 
-And finally, end-users can filter segments by their document structure.
+Users can filter segments by source and target text. They can then apply segment attributes such as status, translation origin, or review mode. 
+
+To display only segments commented by a certain reviewer on a topic, users filter by author and subject. Finally, users can filter by document structure.

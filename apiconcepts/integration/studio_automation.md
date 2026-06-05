@@ -1,31 +1,32 @@
-Introduction
-====
-The Var:ProductName Integration API enables third-party developers to extend, customize and integrate their own functionalities inside the Var:ProductName application.
+# Studio Automation
+
+The Var:ProductName Integration API enables third-party developers to extend, customize, and integrate custom functionalities into the Var:ProductName application.
 
 ![Automation plug-ins](images/Automation.png)
 
-Make sure the following references are added to your project, you will find them in the installation folder Var:ProductName.
+## Required Project References
 
-* Sdl.Desktop.IntegrationApi.dll
-* Sdl.Desktop.IntegrationApi.Extensions.dll
-* Sdl.TranslationStudioAutomation.IntegrationApi.dll
-* Sdl.TranslationStudioAutomation.IntegrationApi.Extensions.dll
-* Sdl.FileTypeSupport.Framework.Core
-* Sdl.FileTypeSupport.Framework.Implementation
-* Sdl.ProjectAutomation.Core
-* Sdl.ProjectAutomation.FileBased
-* Sdl.ProjectAutomation.Settings
+Add the following references to your project. You can find them in the Var:ProductName installation folder:
 
-> [!NOTE]
+- Sdl.Desktop.IntegrationApi.dll
+- Sdl.Desktop.IntegrationApi.Extensions.dll
+- Sdl.TranslationStudioAutomation.IntegrationApi.dll
+- Sdl.TranslationStudioAutomation.IntegrationApi.Extensions.dll
+- Sdl.FileTypeSupport.Framework.Core
+- Sdl.FileTypeSupport.Framework.Implementation
+- Sdl.ProjectAutomation.Core
+- Sdl.ProjectAutomation.FileBased
+- Sdl.ProjectAutomation.Settings
+
+## Important Configuration
+
+> [!IMPORTANT]
+> Choose *Var:PluginPackedPath* as the build output path for your implementations.
 > 
-> As build output path for your implementations please choose the *Var:PluginPackedPath*.
+> Ensure your library references point to the Var:ProductName folder (for example, *Var:InstallationFolder*).
 > 
-> Also check that your library references are pointing to the Var:ProductName folder. e.g. *Var:InstallationFolder*.
->
-> For more information on how to build and deploy a Studio plug-in, see (Building a plug-in and Plug-in deployment)
->
-> Sign and use Strong-Named Assemblies to enable the loading of your plug-ins inside the Var:ProductName.
+> For detailed information, see [Building a plug-in](building_plugin.md) and [Plug-in deployment](plugin_deployment.md).
 > 
-> [How to: Sign an Assembly with a Strong Name](https://docs.microsoft.com/en-us/dotnet/standard/assembly/sign-strong-name?redirectedfrom=MSDN)
->
-> Choosing a different build output path or not signing your assembly will prevent your plugin from loading.
+> Sign your assemblies with a strong name to enable loading in Var:ProductName. See [How to: Sign an Assembly with a Strong Name](https://docs.microsoft.com/en-us/dotnet/standard/assembly/sign-strong-name).
+> 
+> Using a different build output path or failing to sign your assembly prevents your plug-in from loading.

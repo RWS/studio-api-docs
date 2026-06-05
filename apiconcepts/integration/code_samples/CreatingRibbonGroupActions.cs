@@ -12,8 +12,6 @@ using Sdl.TranslationStudioAutomation.IntegrationApi.Presentation.DefaultLocatio
 
 namespace Actions.Sample
 {
-    #region General action   
-
     [Action("MyMainIconAction", Icon = "MyAction_Icon")]
     [ActionLayout(typeof(MySampleRibbonGroup), 10, DisplayType.Large)]
     [Shortcut(Keys.Alt | Keys.F8)]
@@ -24,10 +22,6 @@ namespace Actions.Sample
             MessageBox.Show("My icon and shortcut key action sample.");
         }
     }
-
-    #endregion
-
-    #region Controller specific actions
 
     [Action("MyNormalSizeAction")]
     [ActionLayout(typeof (MySampleRibbonGroup), DisplayType = DisplayType.Normal)]
@@ -50,7 +44,4 @@ namespace Actions.Sample
                                           Controller.GetDocuments().Count()));
         }
     }
-
-    #endregion
-
 }

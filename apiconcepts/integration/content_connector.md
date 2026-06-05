@@ -1,12 +1,10 @@
-Content Connector
-==
+# Content Connector
 
-The Content Connector sits at the heart of this extension. Its main classes are ContentConnector, ContentConnectorViewRibbonGroup, ContentConncetorViewController and ContentConnectorViewControl.
+The Content Connector sits at the heart of this extension. Its main classes are ContentConnector, ContentConnectorViewRibbonGroup, ContentConnectorViewController, and ContentConnectorViewControl.
 
-Content Connector
---
+## The ContentConnector Class
 
-The ContentConnector class simply reads the file names in the IncomingRequests folder and wraps them in a ProjectRequest object.
+The ContentConnector class reads file names in the IncomingRequests folder and wraps them in a ProjectRequest object.
 
 # [C#](#tab/tabid-1)
 ```cs
@@ -68,10 +66,9 @@ namespace StudioIntegrationApiSample
 ```
 ***
 
-Content Connector View Ribbon Group
---
+## Content Connector View Ribbon Group
 
-This class illustrates how a CreateProjectAction is defined and how a custom RibbonGroup on the Add-Ins ribbon tab is created and also how the action is added to it.
+This class demonstrates how to define a CreateProjectAction and create a custom RibbonGroup on the Add-Ins ribbon tab. It also shows how to add the action to the group.
 
 # [C#](#tab/tabid-2)
 ```cs
@@ -125,10 +122,9 @@ namespace StudioIntegrationApiSample
 ```
 ***
 
-Content Connector ViewController
---
+## Content Connector ViewController
 
-The Var:ProductName> Integration API is built in accordance with the MVC pattern. The View Controller is used to add new views to Var:ProductName> - the code sample below illustrates how this is achieved using the View attribute. The controller is also responsible for providing the View UI element. Additionally this sample has a ```CreateProjects()``` method which the controller uses to create new projects from the files in the IncomingRequests folder.
+The Var:ProductName Integration API follows the MVC pattern. The View Controller adds new views to Var:ProductName using the View attribute. The controller also provides the View UI element. This sample includes a `CreateProjects()` method that the controller uses to create new projects from files in the IncomingRequests folder.
 
 # [C#](#tab/tabid-3)
 ```cs
@@ -156,12 +152,10 @@ namespace StudioIntegrationApiSample
         LocationByType = typeof(TranslationStudioDefaultViews.TradosStudioViewsLocation))]
     public class ContentConnectorViewController : AbstractViewController, INotifyPropertyChanged
     {
-        #region private fields
         private readonly Lazy<ContentConnectorViewControl> _control = new Lazy<ContentConnectorViewControl>(() => new ContentConnectorViewControl());
         private ProjectTemplateInfo _selectedProjectTemplate;
         private List<ProjectRequest> _projectRequests;
         private int _percentComplete;
-        #endregion private fields
 
         public event EventHandler ProjectRequestsChanged;
 
@@ -316,10 +310,9 @@ namespace StudioIntegrationApiSample
 ```
 ***
 
-Content Connector ViewControl
---
+## Content Connector ViewControl
 
-This class is responsible for rendering the UI and interacts with the controller described above for data retrieval.
+This class renders the UI and interacts with the controller for data retrieval.
 
 # [C#](#tab/tabid-4)
 ```cs
@@ -436,44 +429,31 @@ namespace StudioIntegrationApiSample
             }
         }
 
-        void _controller_ProjectRequestsChanged(object sender, EventArgs e)
+        private void _controller_ProjectRequestsChanged(object sender, EventArgs e)
         {
             LoadProjectRequests();
         }
 
-        void _projectsListBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void _projectsListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             LoadFileList();
         }
-
-
 
         private void _projectTemplatesComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             _controller.SelectedProjectTemplate = _projectTemplatesComboBox.SelectedItem as ProjectTemplateInfo;
         }
-
-
     }
 }
 ```
 ***
 
-See Also
---
+## See Also
 
-
-
-[Reference Sample](reference_sample.md)
-
-[Project Creator](project_creator.md)
-
-[Wikipedia Search](wikipedia_search.md)
-
-[Integrating actions](integrating_actions.md)
-
-[Integrating ribbon groups](integrating_ribbon_groups.md)
-
-[Integrating viewparts](integrating_viewparts.md)
-
-[Integrating views](integrating_views.md)
+- [Reference Sample](reference_sample.md)
+- [Project Creator](project_creator.md)
+- [Wikipedia Search](wikipedia_search.md)
+- [Integrating actions](integrating_actions.md)
+- [Integrating ribbon groups](integrating_ribbon_groups.md)
+- [Integrating viewparts](integrating_viewparts.md)
+- [Integrating views](integrating_views.md)

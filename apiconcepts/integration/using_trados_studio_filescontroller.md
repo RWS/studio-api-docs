@@ -1,18 +1,19 @@
-Using Var:ProductName FilesController
-=====
-TranslationStudioAutomation provides support for third-party developers to access the Var:ProductName files view and perform project files operations.
+# Using Var:ProductName FilesController
 
-Creating a custom project files list inside a viewpart that belongs to the files view
------
-The following sample demonstrates how to create a custom project files list built by using the [FilesController](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.FilesController.yml) and add it to the files view as a custom viewpart.
+The TranslationStudioAutomation API enables you to access the Var:ProductName files view and perform file operations.
 
-The custom list features:
+## Create a custom file list in a viewpart
 
-* Display two columns: the project file name and the number of total words from the file.
-* The projects files selected in the project files list will be in sync with the one from the custom list.
+This sample demonstrates how to create a custom file list using the [FilesController](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.FilesController.yml) and add it to the files view as a custom viewpart.
 
+The custom list includes:
 
-Start by implementing the windows form user control that will fill the content of the viewpart and is implementing the list view.
+* Two columns: the file name and the total word count from the file
+* Selection synchronization between the custom list and the files view
+
+### Step 1: Implement the user control
+
+Create a Windows Forms user control to display the file list:
 
 # [C#](#tab/tabid-1)
 ```cs
@@ -106,9 +107,10 @@ namespace FilesOperations.Sample
     }
 }
 ```
-***
 
-Finally integrate the new viewpart to the files view.
+### Step 2: Integrate the viewpart into the files view
+
+Register the viewpart with the files view:
 
 # [C#](#tab/tabid-2)
 ```cs
@@ -147,4 +149,3 @@ namespace FilesOperations.Sample
     }
 }
 ```
-***
