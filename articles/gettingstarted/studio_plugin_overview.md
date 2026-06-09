@@ -9,12 +9,9 @@ For more information on building specific types of plug-ins, refer to the releva
 
 ## Var:ProductName Plug-in Support
 
-The core Var:ProductName application uses a modular architecture consisting entirely of plug-ins.
-These plug-ins are known as *system plug-ins*.
-You cannot add system plug-ins to an existing Var:ProductName installation, and end-users cannot disable them.
-
-In addition to system plug-ins, Var:ProductName supports various types of *third-party plug-ins*.
-Third-party developers can build these plug-ins using the **Var:ProductName SDK** and deploy them into an existing Var:ProductName installation.
+Var:ProductName exposes various public APIs that allow you to extend the application by building plug-ins that integrate with the core application and provide additional features and functionalities.
+Third-party developers can build these plug-ins using the **Var:ProductName SDK** and deploy them into an 
+existing Var:ProductName installation.
 This section focuses on third-party plug-in development and deployment.
 
 Since Var:ProductName is a Microsoft .NET application, develop third-party plug-ins using **Microsoft .NET Framework 4.8**.

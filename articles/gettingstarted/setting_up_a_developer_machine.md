@@ -5,17 +5,16 @@ Make sure you have the right prerequisites and meet the system requirements to d
 ## Prerequisites
 
 * For the development environment, we recommend using Var:VisualStudioEdition.
-* You need a licensed Var:ProductNameWithEdition or later installed on your development machine.
+
+* If you develop against a version of the API distributed with one of RWS's publicly released applications (i.e. Var:ProductNameWithEdition), all required assemblies and files should be available alongside the application.
+  Make sure you have the latest release of Var:ProductName installed.
+
 * We also recommend installing the **Var:ProductName SDK** on your machine.
   After installing the **Var:ProductName SDK**, the **New Project** dialog box in Var:VisualStudioEdition displays additional project templates specific to Var:ProductName application development.
-  * You can get the latest version from the [developer hub](https://developers.rws.com/).
+  * You can get the latest version from the [public repository](https://github.com/RWS/trados-studio-vs-extension).
   * Or you can install directly from Var:VisualStudioEdition -> Tools -> Extensions.
 
   ![Visual Studio Extensions](images/VisualStudioExtensions.png)
-
-* If your implementations need to connect to a TM Server system, make sure that the TM Server also runs the latest version.
-* If you develop against a version of the API distributed with one of RWS's publicly released applications (i.e. Var:ProductNameWithEdition), all required assemblies and files should be available alongside the application.
-  Make sure you have the latest release of Var:ProductName installed.
 
 > [!NOTE]
 >
