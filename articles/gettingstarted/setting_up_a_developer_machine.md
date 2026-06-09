@@ -1,15 +1,14 @@
-Setting up a Developer Machine
-=====
+# Setting up a Developer Machine
+
 Make sure you have the right prerequisites and meet the system requirements to develop applications that leverage the Var:ProductName public APIs.
 
-Prerequisites
-----
+## Prerequisites
 
 * For the development environment, we recommend using Var:VisualStudioEdition.
 * You need a licensed Var:ProductNameWithEdition or later installed on your development machine
 * We also recommend installation of the **Var:ProductName SDK** on your machine. Note that after the installation of **Var:ProductName SDK**, the **New Project** dialog box from Var:VisualStudioEdition will feature additional project templates specific to the Var:ProductName application development.
-  * You can get the latest version from the [developer hub](https://appstore.sdl.com/language/developers/sdk.html). 
-  * Or you can install directly from Var:VisualStudioEdition -> Tools -> Extensions
+    * You can get the latest version from the [public repository](https://github.com/RWS/trados-studio-vs-extension).
+    * Or you can install directly from Var:VisualStudioEdition -> Tools -> Extensions
   <img style="display:block; " src="images/VisualStudioExtensions.png" />
 * If your implementations need to connect to a TM Server system, then make sure that the TM Server also runs the latest version.
 * If you are developing against a version of API the which is distributed with one of SDL's publicly released applications (i.e. Var:ProductNameWithEdition), then all required assemblies and files should be available alongside the application. Make sure that you have the latest release of Var:ProductName installed.
@@ -38,9 +37,19 @@ System requirements for running Var:ProductNameWithEdition:
 * Var:ProductNameWithEdition requires Microsoft .Net Framework 4.8.
 * Additional details can be found on the [product release notes](https://docs.rws.com/binary/980998/802650/trados-studio-2022/trados-studio-release-notes)
 
-System requirements for running SDL GroupShare ( TM Server,  Multiterm,  Project Server):
-----
+## System requirements for running Trados GroupShare (TM Server, MultiTerm, Project Server)
 
-* Windows Server 2019, with IIS 10 / Windows Server 2016, with IIS 10 / Windows Server 2012 R2, with IIS 8.5
-* The database servers supported are: SQL Server 2019 / SQL Server 2017 /  SQL Server 2016
-* Additional details can be found on the [product release notes](https://docs.sdl.com/binary/797358/802198/sdl-trados-groupshare-2020-sr1/groupshare2020sr1-release-notes)
+Supported operating systems:
+
+* Windows Server 2025 with IIS 10 (compatible with Trados GroupShare 2020 SR2 and later)
+* Windows Server 2022 with IIS 10 (compatible with Trados GroupShare 2020 SR1 CU6 and later)
+* Windows Server 2019 with IIS 10
+* Windows Server 2016 with IIS 10
+
+Supported database servers:
+
+* SQL Server 2022
+* SQL Server 2019
+* SQL Server 2017
+
+Additional details can be found on the [product release notes](https://docs.sdl.com/binary/797358/802198/sdl-trados-groupshare-2020-sr1/groupshare2020sr1-release-notes)
