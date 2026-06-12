@@ -1,211 +1,92 @@
-# Adding a preview UI control
 
-Your filter needs a control that can display the document preview.
-
-## Add a web browser control
-
-The static internal preview uses the built-in web browser control in Var:ProductName. See [Modifying the File Type Component Builder](static_modifying_the_file_type_component_builder.md). Other native file formats may require different controls. For example, DOC files use a Microsoft Word Viewer control.
-
-This sample uses a web browser control again, but this time it adds and configures a custom control instead of reusing the built-in one.
-
-Start by adding a user control such as **InternalPreviewControl.cs** to your project. Then add a web browser control from the Visual Studio toolbox and name it `webBrowserControl`.
-
-## Implement the preview control functionality
-
-To respond to events such as clicking a segment in the editor or scrolling to a segment, implement the following code in your preview control:
-
-# [C#](#tab/tabid-1)
-```cs
-using System;
-using System.Windows.Forms;
-using System.Security.Permissions;
-using Sdl.FileTypeSupport.Framework.IntegrationApi;
-using Sdl.FileTypeSupport.Framework.NativeApi;
-
-namespace Sdk.FileTypeSupport.Samples.SimpleText.Preview
+# Adding a Preview UI Control
+ 
+> [!WARNING]
+> **Breaking change in Var:ProductName 2026**
+>
+> File types no longer provide their own preview UI controls. The methods
+> `IFileTypeDefinition.BuildPreviewControl` and
+> `IFileTypeComponentBuilder.BuildPreviewControl` are **deprecated and no
+> longer called by Var:ProductName**. Custom `UserControl` classes (such as
+> `InternalPreviewControl.cs`) and their companion controller classes (such
+> as `InternalPreviewController.cs`) are not needed for file types targeting
+> Var:ProductName 2026 or later.
+>
+> If you maintain an existing file type that implements these methods, they
+> will be silently ignored at runtime. See [Preview API changes in Trados
+> Var:ProductName 2026](preview_api_changes_quantum.md) for the migration checklist.
+ 
+## Overview
+ 
+Starting with Var:ProductName 2026, Var:ProductName ships a set of
+**built-in preview UIs**. Your file type no longer builds or registers a
+custom control. Instead, it declares which built-in UI it wants by
+referencing a recognised **Preview ID** in its `PreviewSet` definition, and
+Var:ProductName handles the rest.
+ 
+Your filter is still responsible for generating the preview *content* — the
+output file written to the temporary folder. How that content is displayed
+is now entirely managed by Var:ProductName.
+ 
+## Built-in Preview IDs
+ 
+Use one of the following IDs when configuring your `PreviewSet`:
+ 
+| Preview ID | Description |
+|---|---|
+| `HtmlSingleFilePreview` | Renders an HTML file. Can preview source or target individually. |
+| `HtmlSideBySidePreview` | Renders source and target side by side. Content must be HTML. |
+| `ExternalPreview` | Opens the preview file in the application registered in the OS for that file extension. |
+| `ExternalHtml` | Opens the preview file in the default browser. |
+ 
+> [!NOTE]
+> Using a preview UI that is not in this list is not yet supported in Var:ProductName
+> 2026. Third-party preview controls cannot be registered.
+ 
+## Register a built-in preview in the File Type Component Builder
+ 
+The following example registers `HtmlSingleFilePreview` for both source and
+target:
+ 
+```csharp
+IPreviewSet internalPreviewSet = previewFactory.CreatePreviewSet();
+internalPreviewSet.Id   = new PreviewSetId("InternalPreview");
+internalPreviewSet.Name = new LocalizableString(Resources.InternalPreview_Name);
+ 
+// Source preview
+IControlPreviewType sourcePreviewType =
+    previewFactory.CreatePreviewType<IControlPreviewType>() as IControlPreviewType;
+if (sourcePreviewType != null)
 {
-    [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
-    [System.Runtime.InteropServices.ComVisibleAttribute(true)]
-    public partial class InternalPreviewControl : UserControl
-    {
-        string _activeSegId = String.Empty;
-        string _jumpparagraphID = String.Empty;
-        string _jumpsegmentID = String.Empty;
-        bool _segmentSelectedFromBrowser = false;
-
-
-        public event PreviewControlHandler WindowSelectionChanged;
-
-        public InternalPreviewControl()
-        {
-            InitializeComponent();
-            //set the properties of the webbrowser component
-            webBrowserControl.AllowWebBrowserDrop = false;
-            webBrowserControl.IsWebBrowserContextMenuEnabled = false;
-            webBrowserControl.WebBrowserShortcutsEnabled = false;
-            webBrowserControl.ScriptErrorsSuppressed = true;
-            webBrowserControl.AllowNavigation = false;
-            webBrowserControl.ObjectForScripting = this;
-            webBrowserControl.DocumentCompleted += new WebBrowserDocumentCompletedEventHandler(webBrowserControl_DocumentCompleted);
-        }
-
-        void webBrowserControl_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
-        {
-            ScrollToElement(_activeSegId);
-
-            //set the CSS style for the curently selected segment
-            webBrowserControl.Document.InvokeScript("setActiveStyle", new String[] { _activeSegId });
-        }
-
-        protected void FireWindowSelectionChanged()
-        {
-            if (WindowSelectionChanged != null)
-            {
-                WindowSelectionChanged(null);
-            }
-        }
-
-        /// <summary>
-        /// open file for preview
-        /// </summary>
-        /// <param name="fileName"></param>
-        public void OpenTarget(string fileName)
-        {
-            if (this.InvokeRequired)
-            {
-                this.Invoke(new System.Action<string>(OpenTarget), fileName);
-            }
-            else
-            {
-                webBrowserControl.Navigate(fileName);
-                webBrowserControl.Refresh();
-            }
-        }
-
-        public void Close()
-        {
-            // The Filter Framework takes care of cleaning up temporary files.
-        }
-
-        /// <summary>
-        /// construct a segment reference from _jumpparagraphID and _jumpsegmentID, 
-        /// which is returned when user clicks the corresponding segment in the preview control
-        /// </summary>
-        /// <returns></returns>
-        public SegmentReference GetSelectedSegment()
-        {
-            if (_jumpsegmentID != null && _jumpsegmentID != String.Empty)
-            {
-                SegmentReference segRef = new SegmentReference(default(FileId), new ParagraphUnitId(_jumpparagraphID), new SegmentId(_jumpsegmentID));
-                return segRef;
-            }
-            return null;
-        }
-
-        /// <summary>
-        /// public method that is called from the preview control 
-        /// when a segment has been selected
-        /// </summary>
-        /// <param name="segmentId"></param>
-        public void SelectSegment(string paragraphUnitID, string segmentID)
-        {
-            // set global variables for jumping into clicked segment
-            _jumpparagraphID = paragraphUnitID;
-            _jumpsegmentID = segmentID;
-
-            _segmentSelectedFromBrowser = true;
-            FireWindowSelectionChanged();
-        }
-
-        /// <summary>
-        /// scroll to the active segment inside the control
-        /// </summary>
-        /// <param name="elemName"></param>
-        private void ScrollToElement(String elemName)
-        {
-            if (webBrowserControl.Document != null)
-            {
-                HtmlDocument doc = webBrowserControl.Document;
-                HtmlElementCollection elems = doc.All.GetElementsByName(elemName);
-                if (elems != null && elems.Count > 0)
-                {
-                    HtmlElement elem = elems[0];
-
-                    elem.ScrollIntoView(true);
-                }
-            }
-        }
-
-
-        /// <summary>
-        /// called when segment is confirmed and Trados Studio jumps into next segment
-        /// </summary>
-        public void JumpToActiveElement()
-        {
-            if (this.InvokeRequired)
-            {
-                this.Invoke(new MethodInvoker(JumpToActiveElement));
-            }
-        }
-
-
-        /// <summary>
-        /// scroll to and highlight active segment in the preview control
-        /// </summary>
-        /// <param name="segment"></param>
-        public void ScrollToSegment(SegmentReference segment)
-        {
-            if (this.InvokeRequired)
-            {
-                this.Invoke(new System.Action<SegmentReference>(ScrollToSegment), segment);
-            }
-            else
-            {
-                if (!_segmentSelectedFromBrowser)
-                {
-                    ScrollToElement(segment.SegmentId.Id);
-
-                    // handle situations in which the document was opened 
-                    // and no active segment has been set yet.
-                    if (_activeSegId == null || _activeSegId == "")
-                    {
-                        _activeSegId = segment.SegmentId.Id;
-                        // select the CSS style for the curently selected segment
-                        webBrowserControl.Document.InvokeScript("setActiveStyle", new String[] { segment.SegmentId.Id });
-                    }
-                }
-
-                if (_activeSegId != segment.SegmentId.Id)
-                {
-                    // reset the CSS style back from active to normal for the previously selected segment
-                    if (_activeSegId != null || _activeSegId == "")
-                    {
-                        webBrowserControl.Document.InvokeScript("setNormalStyle", new String[] { _activeSegId });
-                    }
-                    // set the CSS style for the curently selected segment
-                    webBrowserControl.Document.InvokeScript("setActiveStyle", new String[] { segment.SegmentId.Id });
-                }
-
-                // set the active segment id
-                _activeSegId = segment.SegmentId.Id;
-
-                if (_segmentSelectedFromBrowser)
-                {
-                    _segmentSelectedFromBrowser = false;
-                }
-            }
-
-        }
-    }
+    sourcePreviewType.SourceGeneratorId          = new GeneratorId("PreviewGenerator");
+    sourcePreviewType.SingleFilePreviewControlId =
+        new PreviewControlId("HtmlSingleFilePreview");
+    internalPreviewSet.Source = sourcePreviewType;
 }
+ 
+// Target preview
+IControlPreviewType targetPreviewType =
+    previewFactory.CreatePreviewType<IControlPreviewType>() as IControlPreviewType;
+if (targetPreviewType != null)
+{
+    targetPreviewType.TargetGeneratorId          = new GeneratorId("PreviewGenerator");
+    targetPreviewType.SingleFilePreviewControlId =
+        new PreviewControlId("HtmlSingleFilePreview");
+    internalPreviewSet.Target = targetPreviewType;
+}
+ 
+previewFactory.GetPreviewSets(null).Add(internalPreviewSet);
 ```
+ 
+Replace `"HtmlSingleFilePreview"` with whichever built-in ID best matches
+the preview content your generator produces.
 
 ## See also
-
+ 
+- [Preview API changes in Var:ProductName 2026](preview_api_changes.md)
+- [Implementing an External File Preview](implementing_an_external_file_preview.md)
 - [Modifying the File Type Component Builder](static_modifying_the_file_type_component_builder.md)
-- [Adding a Preview Controller](adding_a_preview_controller.md)
+- [Studio Preview UI](https://rws-dev.atlassian.net/wiki/spaces/LTSTUDIO/pages/1989869850)
+  (internal Confluence reference for built-in preview UI components)
 
->[!NOTE]
->
-> This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.
-
+ 
