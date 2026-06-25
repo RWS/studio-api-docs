@@ -1,9 +1,7 @@
-About Project Translation Memories
-=====
+# About Project Translation Memories
 This section explains what project translation memories are, how they are modeled in the Project Automation API and how they should be used in the recommended workflow.
 
-Project Translation Memories
-------
+## Project Translation Memories
 As explained in the [Project Configuration](project_configuration.md) section, every language direction in a project can have one or more translation providers associated with it. The primary type of translation providers are translation memories, which are used within the project to look up translations. Any new translations created by the user are also added to one or more of these translation memories. The user can specify which of the translation memories in the list are updated.
 
 One issue is that there is no control over which translation units end up in the translation memories. During the course of the project, unreviewed, potentially invalid content ends up in there with no easy way to clean this up. The solution to this is the use *project translation memories*: a project translation memory (project TM) is a translation memory that is created specifically for use within one project, and that is discarded once the project is complete. At the end of the project, when all the files have been translated, reviewed and signed off, all translations within these files are added to the main translation memories (we call the translation memories that are added to a project the "main translation memories" to make a clear distinction with the "project translation memories"). Doing this ensures that the only content that ever ends up in the main translation memories has been reviewed, and that any work in progress or invalid content is kept out of the main translation memories and effectively only occurs in the project translation memories which can be discarded at the end of the project.
@@ -18,6 +16,5 @@ Both file- and server-based project translation memories are supported. Server-b
 > 
 > The use of project translation memories is entirely optional. Users can choose not to use project translation memories for a project.
 
-See Also
--------
+## See Also
 [Project TM Creation Settings](project_tm_creation_settings.md)

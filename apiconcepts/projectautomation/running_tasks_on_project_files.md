@@ -1,10 +1,8 @@
-Running Tasks on the Project Files
-==
+# Running Tasks on the Project Files
 
 For further processing of the project files a number of so-called automated batch tasks is executed. Batch tasks are used, for example, to convert the native files into the bilingual (SDLXliff) format for further processing. Other examples include word count, file analysis, and pre-translation. Var:ProductName allows you to put compile single tasks into a task sequence, which can then be run on the entire project. This chapter demonstrates how to programmatically run batch tasks on project files. There are separate chapters deal with tasks in more detail, e.g. provide they further information on the various configuration settings that you can choose before executing a task.
 
-General Information on Tasks
---
+## General Information on Tasks
 
 The screenshot below shows the standard Prepare compound tasks and the sub-tasks that it contains:
 
@@ -19,8 +17,7 @@ The preparation of the project files involves the following tasks:
 * **Pre-translate Files**: Any existing translations found in the main TM(s) are inserted automatically into the project files.
 * **Populate Project Translation Memories**: Creates project TMs from the main TMs. A project TM constitutes a subset of the its corresponding main TM. Project TMs only contain the TUs that are relevant for the current project. That way project managers can make sure that they do not have to forward the entire TM content to e.g. freelance translators, but only those TUs that match the project files.
 
-Add the Function for Running the Tasks
---
+## Add the Function for Running the Tasks
 
 The aim of this example is to show how to run the tasks that are described above programmatically. Implement a helper function called PrepareFiles. This function is the programmatic equivalent to the **Prepare** task used in Var:ProductName. This function takes a [FileBasedProject](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml) object as parameter. The function can thus be called as follows:
 
@@ -83,7 +80,6 @@ The helper function gets the project target files for the specified language by 
 ```CS
 public void ProcessTargetLanguageFiles(FileBasedProject project, string locale)
 { 
-    #region "PerfectMatchSetupAndTask"
     Language targetLanguage = new Language(CultureInfo.GetCultureInfo(locale));
 
     ProjectFile[] targetFiles = project.GetTargetLanguageFiles(targetLanguage);
@@ -93,8 +89,6 @@ public void ProcessTargetLanguageFiles(FileBasedProject project, string locale)
     AutomaticTask perfectMatchTask = project.RunAutomaticTask(
     targetFiles.GetIds(),
     AutomaticTaskTemplateIds.PerfectMatch);
-    #endregion
-
     AutomaticTask analzyeTask = project.RunAutomaticTask(
         targetFiles.GetIds(),
         AutomaticTaskTemplateIds.AnalyzeFiles);
@@ -110,8 +104,7 @@ public void ProcessTargetLanguageFiles(FileBasedProject project, string locale)
 ```
 ***
 
-Check for Task Events
---
+## Check for Task Events
 
 Tasks might fail due to particular circumstances. For example, Microsoft Word files that contain unaccepted changes can by default not be processed. Therefore, when you try to convert such a DOC file to SDLXliff, the task will fail with an error message. Therefore, it is recommended that you check for the status of the current task and act accordingly, e.g. when the current task has the status [Failed](../../api/projectautomation/Sdl.ProjectAutomation.Core.TaskStatus.yml#fields). You could then, for example, output a message to alert the user and suggest a way of fixing this problem (if applicable). In this step we will implement another helper function called CheckEvents. It uses the [TaskStatus](../../api/projectautomation/Sdl.ProjectAutomation.Core.TaskStatus.yml) class to check the current task status. In this simple implementation we just use a break statement regardless of the current status. In a real-life implementation you would, for example, output an error message when the status is [Failed](../../api/projectautomation/Sdl.ProjectAutomation.Core.TaskStatus.yml#fields). The helper function for checking the task status should look as shown below:
 
@@ -171,8 +164,7 @@ CheckEvents(taskStatusEventArgsList, messageEventArgsList);
 ```
 ***
 
-Putting it All Together
---
+## Putting it All Together
 
 Below you see what the above mentioned functions should look like when all is put together:
 
@@ -180,11 +172,8 @@ Below you see what the above mentioned functions should look like when all is pu
 ```CS
 public void PrepareFiles(FileBasedProject project)
 {
-    #region "EventArgs"
     List<TaskStatusEventArgs> taskStatusEventArgsList = new List<TaskStatusEventArgs>();
     List<MessageEventArgs> messageEventArgsList = new List<MessageEventArgs>();
-    #endregion
-
     ProjectFile[] sourceFiles = project.GetSourceLanguageFiles();
 
     for (int i = 0; i < sourceFiles.Length; i++)
@@ -223,12 +212,8 @@ public void ProcessTargetLanguageFilesExtended(FileBasedProject project, string 
         targetFiles.GetIds(),
         AutomaticTaskTemplateIds.AnalyzeFiles);
     this.CheckEvents(taskStatusEventArgsList, messageEventArgsList);
-
-    #region "SaveAnalysisReport"
     Guid reportId = analyzeTask.Reports[0].Id;
     project.SaveTaskReportAs(reportId, @"C:\ProjectFiles\Analysis_report.xls", ReportFormat.Excel);
-    #endregion
-
     AutomaticTask translateTask = project.RunAutomaticTask(
         targetFiles.GetIds(),
         AutomaticTaskTemplateIds.PreTranslateFiles);
@@ -281,8 +266,7 @@ private void CheckEvents(List<TaskStatusEventArgs> taskStatusEventArgsList, List
 ```
 ***
 
-See Also
---
+## See Also
 [Automatic Tasks and Task Settings](automatic_tasks_and_task_settings.md)
 
 [Analyze Files Settings](analyze_files_settings.md)

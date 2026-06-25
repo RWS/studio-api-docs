@@ -1,5 +1,4 @@
-Pre-translate Settings
-==
+# Pre-translate Settings
 
 When matches for a given document are found in one or several TMs, you may want the target segments for all matching segments to be inserted automatically in one go, rather than having to insert the translations manually in the editor. This is what the pre-translate batch task does. This chapter provides information on the settings that you can configure for this task.
 
@@ -88,8 +87,7 @@ project.UpdateSettings(settings);
 ```
 ***
 
-Putting it All Together
---
+## Putting it All Together
 
 The function should look as shown below:
 
@@ -97,42 +95,21 @@ The function should look as shown below:
 ```CS
 public void GetPretranslateTaskSettings(FileBasedProject project)
 {
-    #region "PetranslateTaskSettings"
     ISettingsBundle settings = project.GetSettings();
     TranslateTaskSettings pretranslateSettings = settings.GetSettingsGroup<TranslateTaskSettings>();
-    #endregion
-
-    #region "MinimumScore"
     pretranslateSettings.MinimumMatchScore.Value = 95;
-    #endregion
-
-    #region "ExactMatches"
     pretranslateSettings.ConfirmAfterApplyingExactMatch.Value = true;
     pretranslateSettings.LockExactMatchSegments.Value = false;
-    #endregion
-
-    #region "ContextMatches"
     pretranslateSettings.ConfirmAfterApplyingInContextExactMatch.Value = true;
     pretranslateSettings.LockContextMatchSegments.Value = true;
-    #endregion
-
-    #region "NoMatch"
     pretranslateSettings.NoTranslationMemoryMatchFoundAction.Value = NoTranslationMemoryMatchFoundAction.CopySourceToTarget;
-    #endregion
-
-    #region "TranslationOverwrite"
     pretranslateSettings.TranslationOverwriteMode.Value = TranslationUpdateMode.OverwriteExistingTranslation;
-    #endregion
-
-    #region "UpdateTaskSettings"
     project.UpdateSettings(settings);
-    #endregion
 }
 ```
 ***
 
-See Also
---
+## See Also
 [Analyze Files Settings](analyze_files_settings.md)
 
 [Project TM Creation Settings](project_tm_creation_settings.md)

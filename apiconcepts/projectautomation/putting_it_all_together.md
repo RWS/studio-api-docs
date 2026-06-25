@@ -1,5 +1,4 @@
-Putting it All Together
-==
+# Putting it All Together
 The following example shows the following steps
 * Opening a server project and creating a new local copy.
 * Overriding files checked out by other users.
@@ -111,8 +110,7 @@ void ServerPuttingItAllTogether()
 ```
 ***
 
-See Also
---
+## See Also
 [About Server Based Projects](about_server_based_projects.md)
 
 [Connecting a Project to a Project Server](connecting_a_project_to_a_project_server.md)

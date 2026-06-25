@@ -1,5 +1,4 @@
-Setting up the Visual Studio Project
-==
+# Setting up the Visual Studio Project
 
 Start by creating a new console Application in Microsoft Visual Studio 2010.
 
@@ -26,6 +25,5 @@ Note that we require the functionality of the Translation Memory API to access i
 
 Make sure to set the project build output location to the Var:ProductName installation folder, e.g. *Var:InstallationFolder*. **Important note**: Set the platform target of your projects to x86.
 
-See Also
---
+## See Also
 [Required References and Namespaces](required_references_and_namespaces.md)

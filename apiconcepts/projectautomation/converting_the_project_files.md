@@ -1,9 +1,8 @@
-Converting the Project Files
-==
+# Converting the Project Files
 
-In this step we will generate translatable, bilingual documents (i.e. SDLXliff files) from all translatable documents that have previously been added to our project. After that, we will create target copies of the translatable files, which will then be used for further processing, i.e. for the file analysis.
+This step generates translatable, bilingual documents (SDLXliff files) from all translatable source documents added to the project. It then creates target copies for further processing, such as file analysis.
 
-Implement another helper function called ```ConvertFiles```, which takes a [FileBasedProject](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml) object as parameter. First, we need to retrieve the ids of the files to which the two automatic tasks (i.e. conversion and copy to a target-language folder) should be applies. To do this we use the [GetSourceLanguageFiles](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml#Sdl_ProjectAutomation_FileBased_FileBasedProject_GetSourceLanguageFiles) method on the project:
+Implement another helper function called ```ConvertFiles```, which takes a [FileBasedProject](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml) object as parameter. First, retrieve the file IDs for conversion and copying to a target-language folder using the [GetSourceLanguageFiles](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml#Sdl_ProjectAutomation_FileBased_FileBasedProject_GetSourceLanguageFiles) method on the project:
 
 # [C#](#tab/tabid-1)
 ```cs
@@ -11,7 +10,7 @@ ProjectFile[] files = project.GetSourceLanguageFiles();
 ```
 ***
 
-In the next step we apply the [RunAutomaticTask](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml#Sdl_ProjectAutomation_FileBased_FileBasedProject_RunAutomaticTask_System_Guid___System_String_) method to the project in order to run the task that generates the SDLXliff files from the translatable source documents. This method requires the ids of the files to process as well as the task id, here [ConvertToTranslatableFormat](../../api/projectautomation/Sdl.ProjectAutomation.Core.AutomaticTaskTemplateIds.yml#Sdl_ProjectAutomation_Core_AutomaticTaskTemplateIds_ConvertToTranslatableFormat) as parameters. Before we actually convert the source files to a translatable format, we need to make sure that this task is only applied to translatable files. If you try to convert a file for which no file type definition exists (i.e. a reference file), an exception will be thrown. For this reason, we loop through the source documents and only apply the convert task if the [FileRole](../../api/projectautomation/Sdl.ProjectAutomation.Core.FileRole.yml) equals [Translatable](../../api/projectautomation/Sdl.ProjectAutomation.Core.FileRole.yml#fields):
+Next, apply the [RunAutomaticTask](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml#Sdl_ProjectAutomation_FileBased_FileBasedProject_RunAutomaticTask_System_Guid___System_String_) method to run the task that generates SDLXliff files from translatable source documents. This method requires the file IDs and the task ID—here [ConvertToTranslatableFormat](../../api/projectautomation/Sdl.ProjectAutomation.Core.AutomaticTaskTemplateIds.yml#Sdl_ProjectAutomation_Core_AutomaticTaskTemplateIds_ConvertToTranslatableFormat) as parameters. Apply the conversion only to translatable files—converting a file without a file type definition (such as a reference file) throws an exception. Loop through the source documents and run the convert task only when the [FileRole](../../api/projectautomation/Sdl.ProjectAutomation.Core.FileRole.yml) equals [Translatable](../../api/projectautomation/Sdl.ProjectAutomation.Core.FileRole.yml#fields):
 
 # [C#](#tab/tabid-2)
 ```cs
@@ -23,12 +22,9 @@ for (int i = 0; i < project.GetSourceLanguageFiles().Length; i++)
         AutomaticTask convertTask = project.RunAutomaticTask(
             currentFileId,
             AutomaticTaskTemplateIds.ConvertToTranslatableFormat);
-
-        #region "CopyToTarget"
         AutomaticTask copyTask = project.RunAutomaticTask(
             currentFileId,
             AutomaticTaskTemplateIds.CopyToTargetLanguages);
-        #endregion
     }
 }
 ```
@@ -56,11 +52,7 @@ The complete function should look as shown below:
 /// </summary> 
 private void ConvertFiles(FileBasedProject project)
 {
-    #region "GetFilesForProcessing"
     ProjectFile[] files = project.GetSourceLanguageFiles();
-    #endregion
-
-    #region "RunConversion"
     for (int i = 0; i < project.GetSourceLanguageFiles().Length; i++)
     {
         if (files[i].Role == FileRole.Translatable)
@@ -69,21 +61,16 @@ private void ConvertFiles(FileBasedProject project)
             AutomaticTask convertTask = project.RunAutomaticTask(
                 currentFileId,
                 AutomaticTaskTemplateIds.ConvertToTranslatableFormat);
-
-            #region "CopyToTarget"
             AutomaticTask copyTask = project.RunAutomaticTask(
                 currentFileId,
                 AutomaticTaskTemplateIds.CopyToTargetLanguages);
-            #endregion
         }
     }
-    #endregion
 }
 ```
 ***
 
-See Also
---
+## See Also
 
 [Running Tasks on the Project Files](running_tasks_on_project_files.md)
 

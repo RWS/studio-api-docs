@@ -1,9 +1,7 @@
-Adding Translation Memories
-===
+# Adding Translation Memories
 Projects can contain one or more translation providers per language directions. These are usually (file or server-based) translation memories (TMs), but they could also include automated translation providers such as Google Translate. TMs are not mandatory, but will usually be part of the project, because without TMs you cannot apply tasks such as creating project TMs, pre-translation, etc. In this chapter you will learn how to programmatically add main TMs to your project.
 
-Add the Main Translation Memories
---
+## Add the Main Translation Memories
 Main TMs are the resources used for pre-translating files and (if applicable) for creating project TMs. When adding TMs to a language pair of a project you can enable it for segment lookup, concordance search and updating. Updating means that the TM is updated during the project lifecycle, i.e. it will be filled with new translation units or existing translation units will be overwritten with updated Translation Units (TUs) from the translated, edited and proofread documents. If you add more than one TM to a project language pair, you will usually only want one TM to be updated while all others should only be used for lookup purposes.
 
 In this example we implement a separate helper function for adding the TMs to our project, which takes a [FileBasedProject](../../api\projectautomation\Sdl.ProjectAutomation.FileBased.FileBasedProject.yml) object and the TM path as parameters:
@@ -94,23 +92,18 @@ Please note the following:
 * The TM files can also be added if the corresponding *.sdltm files are not located at the provided location, i.e. the API does not check whether the file TMs are actually present. Therefore, your implementation should check whether the TMs exist, and whether they match the project language directions.
 * You may also add server TMs as translation providers and mix them with file TMs and automated translation providers such as Google Translate.
 
-Putting it All Together
---
+## Putting it All Together
 The complete function should look as shown below:
 
 # [C#](#tab/tabid-5)
 ```CS
 public void AddMasterTMs(FileBasedProject project, string path)
 {
-    #region "TranslationProviderConfiguration"
     Language trgLangDe = new Language(CultureInfo.GetCultureInfo("de-DE"));
     Language trgLangFr = new Language(CultureInfo.GetCultureInfo("fr-FR"));
 
     TranslationProviderConfiguration tmConfigEnDe = project.GetTranslationProviderConfiguration(trgLangDe);
     TranslationProviderConfiguration tmConfigEnFr = project.GetTranslationProviderConfiguration(trgLangFr);
-    #endregion
-
-    #region "ConfigureTms"
     TranslationProviderCascadeEntry[] tmEntriesEnDe = 
     {
         new TranslationProviderCascadeEntry(path + "Software En-De.sdltm", true, true, true, 0),  
@@ -122,9 +115,6 @@ public void AddMasterTMs(FileBasedProject project, string path)
         new TranslationProviderCascadeEntry(path + "Software En-Fr.sdltm", true, true, true, 0),  
         new TranslationProviderCascadeEntry(path + "General En-Fr.sdltm", true, true, true, 2)
     };
-    #endregion
-
-    #region "AddTmsAndUpdate"
     for (int i = 0; i < tmEntriesEnDe.Length; i++)
     {
         tmConfigEnDe.Entries.Add(tmEntriesEnDe[i]);
@@ -137,13 +127,11 @@ public void AddMasterTMs(FileBasedProject project, string path)
 
     project.UpdateTranslationProviderConfiguration(trgLangDe, tmConfigEnDe);
     project.UpdateTranslationProviderConfiguration(trgLangFr, tmConfigEnFr);
-    #endregion
 }
 ```
 ****
 
-Adding a file based TM with a password
---
+## Adding a file based TM with a password
 
 If the file TM is password protected you must add the file using the URI method as the credentials to open the files are keyed against the URI
 
@@ -174,8 +162,7 @@ public void AddFileBasedTMWithPassword(FileBasedProject project, string pathIncl
 ```
 ***
 
-Adding a Server-based TM
---
+## Adding a Server-based TM
 
 For a server-based translation memory, an entry should be added for the TM Server itself. The URI should be of the form:
 
@@ -216,8 +203,7 @@ private void AddServerBasedTM(FileBasedProject project, Uri uri, string path, st
 ```
 ***
 
-Adding  BeGlobal Community Machine Translation Provider
---
+## Adding  BeGlobal Community Machine Translation Provider
  BeGlobal Translation Provider is a free machine translation service provided by RWS for Studio customers. The URI should be in the form:
 
 beglobalcommunity://
@@ -252,8 +238,7 @@ public void AddBeglobalCommunityMT(FileBasedProject project)
 >
 >Pre-translate does not use Machine Translation Providers by default. To use this provider in a pre-translate task remember to set the NoTranslationMemoryMatchFoundAction property to ApplyAutomatedTranslation see [Pre-translate Settings](pre_translate_settings.md)
 
-Adding  BeGlobal Enterprise Machine Translation Provider
---
+## Adding  BeGlobal Enterprise Machine Translation Provider
 
  BeGlobal Enterprise Edition is a domain based machine translation provider used to provide high quality machine translations for specific application domains. The URI should be in the form:
 
@@ -289,8 +274,7 @@ public void AddBeglobalEnterpriseMT(FileBasedProject project, string host, strin
 >
 >Pre-translate does not use Machine Translation Providers by default. To use this provider in a pre-translate task remember to set the **NoTranslationMemoryMatchFoundAction** property to **ApplyAutomatedTranslation** see [Pre-translate Settings](pre_translate_settings.md)
 
-Adding a Google<sup>TM</sup> Machine Translation Provider
---
+## Adding a Google<sup>TM</sup> Machine Translation Provider
 Google Translate<sup>TM</sup> is a chargable machine translation service provided by Google<sup>TM</sup> The URI should be in the form:
 
 googlemt://
@@ -328,8 +312,7 @@ public void AddGoogleMT(FileBasedProject project, string apiKey)
 >
 >Pre-translate does not use Machine Translation Providers by default. To use this provider in a pre-translate task remember to set the **NoTranslationMemoryMatchFoundAction** property to **ApplyAutomatedTranslation** see [Pre-translate Settings](pre_translate_settings.md) 
 
-See Also
---
+## See Also
 
 [Adding Termbases](adding_termbases.md)
 

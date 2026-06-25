@@ -1,10 +1,8 @@
-Importing a Return Package
-==
+# Importing a Return Package
 
 After the return package (see [Creating a Return Package](creating_a_return_package.md)) has been sent back to the project manager, e.g. via e-mail, he/she opens it in Var:ProductName. This basically means that the package content is extracted, and the translated, edited, or proofread bilingual (SDLXliff) document overwrite the previous (e.g. untranslated) files, thus updating the project on the project manager's side.
 
-Import a Return Package Programmatically
---
+## Import a Return Package Programmatically
 
 Implementing a function called ```OpenPackage```, which takes the project file name (i.e. the name and path of the **.sdlproj* file) and the name and path of the return package (i.e. the **.sdlrpx* file) as string parameters.
 
@@ -40,8 +38,7 @@ ReturnPackageImport import = project.ImportReturnPackage(returnPackageFile);
 >
 >Once a return package has been imported, it cannot be imported again. If you try to re-import the same return package, an exception will be thrown.
 
-Check the Import Status
--- 
+## Check the Import Status
 
 It may happen that the return extraction and import fails for some reason (e.g. a project file has accidentally been set to read-only and thus cannot be overwritten and updated by a file in the return package). This is why you should check for the import status, and output a message to the user if required. The following sample code leverages the [PackageStatus](../../api/projectautomation/Sdl.ProjectAutomation.Core.PackageStatus.yml) class to check the project package status. It throws an error message if in the end the package status is not [Completed](../../api/projectautomation/Sdl.ProjectAutomation.Core.PackageStatus.yml#fields):
 
@@ -77,8 +74,7 @@ if (import.Status != PackageStatus.Completed)
 ***
 
 
-Putting it All Together
---
+## Putting it All Together
 
 The complete function should now look as shown below:
 
@@ -86,20 +82,10 @@ The complete function should now look as shown below:
 ```cs
 public void OpenPackage(string projectFile, string returnPackageFile)
 {
-    #region "EventArgs"
     List<TaskStatusEventArgs> taskStatusEventArgsList = new List<TaskStatusEventArgs>();
     List<MessageEventArgs> messageEventArgsList = new List<MessageEventArgs>();
-    #endregion
-
-    #region "OpenProject"
     FileBasedProject project = new FileBasedProject(projectFile);
-    #endregion
-
-    #region "ImportPackage"
     ReturnPackageImport import = project.ImportReturnPackage(returnPackageFile);
-    #endregion
-
-    #region "CheckImportStatus"
     bool packageIsImported = false;
     while (!packageIsImported)
     {
@@ -126,13 +112,11 @@ public void OpenPackage(string projectFile, string returnPackageFile)
     {
         throw new Exception("A problem occurred during package import.");
     }
-    #endregion
 }
 ```
 ***
 
-See Also
---
+## See Also
 [Creating a Return Package](creating_a_return_package.md)
 
 [About Packages](about_packages.md)

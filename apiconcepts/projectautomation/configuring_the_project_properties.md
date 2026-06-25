@@ -1,5 +1,4 @@
-Configuring the Project Properties
-==
+# Configuring the Project Properties
 
 Before the files can be processed we need to create a project, to which we later add the files to analyze as well as the TM file that should be used for the analysis. For the project creation, we proceed on the following assumptions:
 
@@ -7,8 +6,7 @@ Before the files can be processed we need to create a project, to which we later
 * The project will be created in the Var:ProductName projects folder, e.g. C:\Documents and *Settings\UserName\My Documents\ Var:ProductName \Projects.*
 * The project name will be hard-coded and based on the current date/time to ensure that the project folder names are unique.
 
-Add the Class for the Project Creation
---
+## Add the Class for the Project Creation
 
 Add a new class to your project called ProjectCreator. Make sure that this class uses the namespaces listed in the chapter [Required References and Namespaces](required_references_and_namespaces.md). Moreover, you also need to use the following namespaces from the Translation Memory API:
 
@@ -17,8 +15,7 @@ Add a new class to your project called ProjectCreator. Make sure that this class
 * Sdl.LanguagePlatform.Core.Tokenization
 * Sdl.LanguagePlatform.Core
 
-Create the Project
---
+## Create the Project
 
 Start by implementing a public function called Create. This function takes the following parameters:
 
@@ -66,8 +63,7 @@ FileBasedProject newProject = new FileBasedProject(this.GetProjectInfo(srcLocale
 ```
 ***
 
-Configure the Project Properties
---
+## Configure the Project Properties
 
 Implement a separate helper function for configuring the project properties called ```GetProjectInfo```. As this function is responsible for setting the project languages, it takes the source and the target locales (e.g.* en-US* and *de-DE*) as string parameters:
 
@@ -152,8 +148,7 @@ private ProjectInfo GetProjectInfo(string srcLocale, string trgLocale)
 ```
 ***
 
-See Also
---
+## See Also
 
 [Setting the Project Information](setting_the_project_information.md)
 

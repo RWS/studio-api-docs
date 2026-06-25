@@ -1,10 +1,8 @@
-Downloading and Uploading Files
-==
+# Downloading and Uploading Files
 
 Files must be copied to the local copy to be edited and copied back to the server so they are available to other users
 
-Get the latest version of a file from the project server
---
+## Get the latest version of a file from the project server
 
 Use the ```DownloadLatestVersion``` method in a [FileBasedProject](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml) to get the latest version of a file from the server and copy it to your local copy.
 
@@ -66,8 +64,7 @@ void DownloadAllLatest(FileBasedProject project, Guid[] fileIds, bool overrideWo
 ```
 ***
 
-List all versions of a file on the project server
---
+## List all versions of a file on the project server
 
 When a file is uploaded to the server a new version of the file is created. The server stores all these versions allowing you to examine and download previous versions.
 
@@ -92,8 +89,7 @@ private void ShowServerFileHistory(FileBasedProject project, Guid fileId)
 ```
 ***
 
-Get a previous version of a file from the project server
---
+## Get a previous version of a file from the project server
 
 Downloading a specific version of a file allows you to save a specific file version locally. You may want to download a specific version of a file so that you can compare it to a current version.
 
@@ -115,8 +111,7 @@ project.DownloadSpecificServerVersion(fileId, 1, @"c:\files", (obj, evt) =>
 ```
 ***
 
-Uploading a file to the server
---
+## Uploading a file to the server
 
 When you use the [CheckinFiles](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml#Sdl_ProjectAutomation_FileBased_FileBasedProject_CheckinFiles_System_Guid___System_String_System_EventHandler_Sdl_ProjectAutomation_Core_ProgressEventArgs__) method this will automatically upload the files to the server. This method provides an event delegate so that you can report on the progress of the upload and cancel the upload if required.
 
@@ -137,8 +132,7 @@ project.CheckinFiles(fileIds, "This is where you add a check in comment",
 ```
 ***
 
-See Also
---
+## See Also
 [About Server Based Projects](about_server_based_projects.md)
 
 [Connecting a Project to a Project Server](connecting_a_project_to_a_project_server.md)

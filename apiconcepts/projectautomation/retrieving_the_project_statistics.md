@@ -1,5 +1,4 @@
-Retrieving the Project Statistics
-==
+# Retrieving the Project Statistics
 
 During a project lifecycle the segments contained in the project files typically go through a set of states:
 
@@ -12,8 +11,7 @@ During a project lifecycle the segments contained in the project files typically
 * Sign-off rejected
 * The total number of translated and untranslated segments is used to compute the statistics for the project. That way project managers can ascertain the project status at a glance. Using the number of translated and untranslated words project managers can quickly give an estimate of whether the project is on track or not.
 
-Retrieve the Project Statistics Programmatically
---
+## Retrieve the Project Statistics Programmatically
 
 Below you see an example of how Var:ProductName uses bar charts to visualize the project statistics:
 
@@ -25,15 +23,8 @@ Below you will find an example of how to retrieve basic statistical information 
 ```cs
 public void GetProjectStatistics(FileBasedProject project)
 {
-    #region "GetProjectStatistics"
     ProjectStatistics projStats = project.GetProjectStatistics();
-    #endregion
-
-    #region "TargetLanguageStatistics"
     TargetLanguageStatistics[] targetStats = projStats.TargetLanguageStatistics;
-    #endregion
-
-    #region "trgInfo"
     StringBuilder trgInfo = new StringBuilder();
     for (int i = 0; i < targetStats.Length; i++)
     {
@@ -51,7 +42,6 @@ public void GetProjectStatistics(FileBasedProject project)
     }
 
     MessageBox.Show(trgInfo.ToString());
-    #endregion
 }
 ```
 ***
@@ -98,8 +88,7 @@ MessageBox.Show(trgInfo.ToString());
 
 The above is just an example of what kind of statistical information you can retrieve for a project and its target languages. Another example, which shows how to retrieve detailed analysis information can be found in the chapters [Generating the Task Report](generating_the_task_report.md).
 
-Putting it All Together
---
+## Putting it All Together
 
 The complete function should now look as shown below:
 
@@ -107,15 +96,8 @@ The complete function should now look as shown below:
 ```cs
 public void GetProjectStatistics(FileBasedProject project)
 {
-    #region "GetProjectStatistics"
     ProjectStatistics projStats = project.GetProjectStatistics();
-    #endregion
-
-    #region "TargetLanguageStatistics"
     TargetLanguageStatistics[] targetStats = projStats.TargetLanguageStatistics;
-    #endregion
-
-    #region "trgInfo"
     StringBuilder trgInfo = new StringBuilder();
     for (int i = 0; i < targetStats.Length; i++)
     {
@@ -133,13 +115,11 @@ public void GetProjectStatistics(FileBasedProject project)
     }
 
     MessageBox.Show(trgInfo.ToString());
-    #endregion
 }
 ```
 ***
 
-See Also
---
+## See Also
 [Generating the Task Report](generating_the_task_report.md)
 
 [About Project Files](about_project_files.md)

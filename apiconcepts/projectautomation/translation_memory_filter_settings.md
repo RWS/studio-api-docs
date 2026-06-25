@@ -1,12 +1,10 @@
-Translation Memory Filter Settings
-==
+# Translation Memory Filter Settings
 
 For a project you may also set filters e.g. to 'penalize' translation units if they do not fulfill certain criteria. Example: You want to give preference to translation units that have the TM field value *Type = Technical documentation*. If an exact match is found in the TM, which, however, does not have this field value the match score is reduced by a certain percentage, e.g. from 100% to 99% in order to alert the translator to the fact that it might not fit the current context.
 
 The documentation on the Translation Memory API contains more information on filters. For details please see the following page, which explains how to define filters for TM exports: [Exporting to a TMX File](../../apiconcepts/translationmemory/exporting_to_tmx.md).
 
-About Filters
---
+## About Filters
 
 The following screenshot illustrates how a filter is defined in the user interface of Var:ProductName:
 
@@ -25,8 +23,7 @@ Note that for filter penalties you can define multiple filters, whereas hard fil
 
 In this chapter, we will not explain in detail how to use the TM API to create filter expressions. For detailed information, please see [Exporting to a TMX File](../../apiconcepts/translationmemory/exporting_to_tmx.md).
 
-Defining Filter Penalties
---
+## Defining Filter Penalties
 
 When defining filter penalties apply the [Filters](../../api/projectautomation/Sdl.ProjectAutomation.Settings.TranslationMemorySettings.yml#Sdl_ProjectAutomation_Settings_TranslationMemorySettings_Filters) to the [TranslationMemorySettings](../../api/projectautomation/Sdl.ProjectAutomation.Settings.TranslationMemorySettings.yml) object and set the value to the penalty filters that should be used in the project, i.e.
 
@@ -53,8 +50,7 @@ tmSettings.Filters.Value = filterList;
 ```
 ***
 
-Defining Hard Filters
---
+## Defining Hard Filters
 
 Defining a hard filter for a project is somewhat easier, as you have to set the [HardFilter](../../api/projectautomation/Sdl.ProjectAutomation.Settings.TranslationMemorySettings.yml#Sdl_ProjectAutomation_Settings_TranslationMemorySettings_HardFilter) property of your [TranslationMemorySettings](../../api/projectautomation/Sdl.ProjectAutomation.Settings.TranslationMemorySettings.yml) object to only one filter expression. The example below outlines how to create the same filter expression as above (i.e. *Type = Technical documentation*), but this time use it as a hard filter:
 
@@ -68,8 +64,7 @@ tmSettings.HardFilter.Value = hardFilterExpression;
 ```
 ***
 
-See Also
---
+## See Also
 [Translation Memory Search Settings](translation_memory_search_settings.md)
 
 [Setting TM Penalties](setting_tm_penalties.md)

@@ -1,10 +1,8 @@
-Setting the Project Information
-==
-In this chapter you will learn how to programmatically create a simple project, and define the general project properties such as name, description, due date, etc.
+# Setting the Project Information
+This chapter demonstrates how to programmatically create a project and define its general properties—name, description, due date, and more.
 
-Create the Project
---
-Start by implementing a function called ``` CreateProject```. Create a file-based project object called ```newProject``` based on the class [FileBasedProject](../../api\projectautomation\Sdl.ProjectAutomation.FileBased.FileBasedProject.yml). In our example we provide the project properties as parameter. We recommend that you generate the project properties through a separate helper function called e.g. GetProjectInfo as shown below:
+## Create the Project
+Start by implementing a function called ``` CreateProject```. Create a file-based project object called ```newProject``` based on the class [FileBasedProject](../../api\projectautomation\Sdl.ProjectAutomation.FileBased.FileBasedProject.yml) class. Pass the project properties as a parameter—we recommend generating them through a separate helper function such as `GetProjectInfo`:
 
 # [C#](#tab/tabid-1)
 ```CS
@@ -12,8 +10,7 @@ FileBasedProject newProject = new FileBasedProject(info);
 ```
 ***
 
-Set the Project Information
---
+## Set the Project Information
 In the GetProjectInfo helper function, we first create a [ProjectInfo](../../api\projectautomation\Sdl.ProjectAutomation.Core.ProjectInfo.yml) object:
 
 # [C#](#tab/tabid-2)
@@ -40,8 +37,7 @@ In the above example we set the following parameters:
 The screenshot below illustrates how this information is entered in the **New Project** wizard of Var:ProductName.
 ![NewProject01](images/NewProject01.jpg)
 
-Set the Local Project Folder
---
+## Set the Local Project Folder
 All project files, i.e. translatable and localizable documents, reference files, project TMs, etc. are stored in a specific folder. By default, the main folder used for storing projects is: Var:DefaultProjectsFolder. Below this main folder Var:ProductName creates sub-folders that carry the name of the respective project. However, you could just as well pick any other folder name, as long as the specified folder is empty so as to avoid collisions with existing files. In the example below we follow the default folder rule of Var:ProductName by selecting the Var:StudioDocumentsFolderName\Projects\ folder below Documents, and by appending the project name sub-folder. We then set the [LocalProjectFolder](../../api/projectautomation/Sdl.ProjectAutomation.Core.ProjectInfo.yml#Sdl_ProjectAutomation_Core_ProjectInfo_LocalProjectFolder) property accordingly as shown in the example below:
 # [C#](#tab/tabid-4)
 ```CS
@@ -51,8 +47,7 @@ string localProjectFolder = Environment.GetFolderPath(Environment.SpecialFolder.
 info.LocalProjectFolder = localProjectFolder;
 ```
 ***
-Select the Project Languages
---
+## Select the Project Languages
 A project must have at least one language pair, i.e. a source language and one target language. Projects can have only one source language, but multiple target languages. The screenshot below highlights how languages are selected in Var:ProductName:
 
 ![NewProject02](images/NewProject02.jpg)
@@ -96,51 +91,32 @@ Even if you have not added any translatable files yet, you will end up generatin
 
 Also note that the Var:DefaultProjectsFolder folder contains a file called projects.xml. This is a meta file that contains references to all the projects that have been created in Var:ProductName. The projects that you create programmatically will not be referenced in this file, and thus not be listed in Var:ProductName, which is by design. However, you can, of course, open the programmatically created *.sdlproj file in Var:ProductName.
 
-Putting it All Together
---
+## Putting it All Together
 The complete function for setting the project properties should look as shown below:
 
 # [C#](#tab/tabid-9)
 ```CS
 public ProjectInfo GetProjectInfo()
 {
-    #region "InfoObject"
     ProjectInfo info = new ProjectInfo();
-    #endregion
-
-    #region "GeneralInfo"
     info.Name = "My first project";
     info.Description = "This is a programmatically created project.";
     info.DueDate = DateTime.Now.AddDays(3);
-    #endregion
-
-    #region "ProjectFolder"
     string localProjectFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).ToString() +
         Path.DirectorySeparatorChar + $@"{Versioning.Versions.StudioDocumentsFolderName}\Projects\" + info.Name;
 
     info.LocalProjectFolder = localProjectFolder;
-    #endregion
-
-    #region "SourceLanguage"
     Language srcLang = new Language(CultureInfo.GetCultureInfo("en-US"));
     info.SourceLanguage = srcLang;
-    #endregion
-
-    #region "TargetLanguages"
     Language[] trgLangs = new Language[] { new Language(CultureInfo.GetCultureInfo("de-DE")), new Language(CultureInfo.GetCultureInfo("fr-FR")) };
     info.TargetLanguages = trgLangs;
-    #endregion
-
-    #region "ReturnInfo"
     return info;
-    #endregion
 }
 
 ```
 ***
 
-See Also
---
+## See Also
 [Adding Files and Folders](adding_files_and_folders.md)
 
 [Adding Translation Memories](adding_translation_memories.md)

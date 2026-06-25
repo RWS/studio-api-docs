@@ -1,5 +1,4 @@
-Code Examples
-==
+# Code Examples
 The following chapters provide practical examples of how to use the Project Automation API based on short, easy-to-understand code snippets.
 
 # Use Cases Overview

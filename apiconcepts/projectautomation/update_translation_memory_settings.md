@@ -1,5 +1,4 @@
-Update Translation Memory Settings
-==
+# Update Translation Memory Settings
 
 The batch task for updating TMs goes through one or several bilingual (SDLXliff) files and updates one or more TMs using the translated file content. Updating in this case means overwriting existing TUs with edited content from the bilingual files, or adding new TUs, which do not yet exist in the TM(s).
 
@@ -59,8 +58,7 @@ project.UpdateSettings(settings);
 ```
 ***
 
-Putting it All Together
---
+## Putting it All Together
 
 The function should look as shown below:
 
@@ -68,16 +66,9 @@ The function should look as shown below:
 ```CS
 public void GetUpdateTmTaskSettings(FileBasedProject project)
 {
-    #region "UpdateTmTaskSettings"
     ISettingsBundle settings = project.GetSettings();
     TranslationMemoryUpdateTaskSettings updateTmSettings = settings.GetSettingsGroup<TranslationMemoryUpdateTaskSettings>();
-    #endregion
-
-    #region "TargetSegmentsDiffer"
     updateTmSettings.TmImportOptions.Value = TmImportOption.MergeTranslation;
-    #endregion
-
-    #region "Status"
     updateTmSettings.UpdateWithApprovedSignOffSegments.Value = true;
     updateTmSettings.UpdateWithApprovedTranslationSegments.Value = true;
     updateTmSettings.UpdateWithTranslatedSegments.Value = true;
@@ -86,17 +77,12 @@ public void GetUpdateTmTaskSettings(FileBasedProject project)
     updateTmSettings.UpdateWithRejectedSignOffSegments.Value = false;
     updateTmSettings.UpdateWithRejectedTranslationSegments.Value = false;
     updateTmSettings.UpdateWithUnspecifiedSegments.Value = false;
-    #endregion
-
-    #region "UpdateTaskSettings"
     project.UpdateSettings(settings);
-    #endregion
 }
 ```
 ***
 
-See Also
---
+## See Also
 [Analyze Files Settings](analyze_files_settings.md)
 
 [Project TM Creation Settings](project_tm_creation_settings.md)
