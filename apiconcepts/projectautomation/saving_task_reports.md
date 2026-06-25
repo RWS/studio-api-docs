@@ -1,5 +1,4 @@
-Saving Task Reports
-==
+# Saving Task Reports
 
 Executing certain tasks automatically creates reports in the background. These reports are saved in a *Reports* sub-folder within the project folder structure. The report files are in XML format (e.g. *Analyze Files en-US_de-DE.xml*). For an analysis task a report contains the number of segments, words, characters, tags, and placeables that were found within the different TM match categories, i.e. context, exact, fuzzy matches, etc.
 
@@ -29,8 +28,7 @@ project.SaveTaskReportAs(reportId, @"C:\ProjectFiles\Analysis_report.xls", Repor
 ```
 ***
 
-See Also
---
+## See Also
 [Running Tasks on the Project Files](running_tasks_on_project_files.md)
 
 [Generating the Task Report](generating_the_task_report.md)

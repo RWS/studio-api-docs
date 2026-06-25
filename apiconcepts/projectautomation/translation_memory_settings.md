@@ -1,5 +1,4 @@
-Translation Memory Settings
-==
+# Translation Memory Settings
 
 Through the API you can also fine-tune the translation memory settings for the entire project or for each language pair. Example: The default minimum match value for TM searches is 70%. This means that by default Var:ProductName only offers fuzzy matches if they have a score of 70% or above. Depending on the project (or target language) requirements, however, you may use a lower or a higher minimum fuzzy value.
 
@@ -31,8 +30,7 @@ project.UpdateSettings(settings);
 
 Note that there is a large number of TM settings available. Some of these settings (e.g. filters) cannot be handled by the Project Automation API alone, but require the Translation Memory API.
 
-See Also
---
+## See Also
 [Translation Memory Search Settings](translation_memory_search_settings.md)
 
 [Setting TM Penalties](setting_tm_penalties.md)

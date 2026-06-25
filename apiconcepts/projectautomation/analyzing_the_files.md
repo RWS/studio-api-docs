@@ -1,7 +1,6 @@
-Analyzing the Files
-==
+# Analyzing the Files
 
-In this chapter we will learn how to implement the functionality for performing the actual file analysis. Note that the analyze files task is applied to the SDLXliff files that were previously copied to the target folder. In a project that involves multiple target languages, an analyze files task needs to be applied separately to each set of target documents.
+This chapter explains how to implement the file analysis functionality. The analyze files task operates on the SDLXliff files previously copied to the target folder. For projects with multiple target languages, run the analyze files task separately for each target language.
 
 Implement another helper function called RunFileAnalysis, which takes a [FileBasedProject](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml) object as parameter as well as the target language locale as string parameter:
 
@@ -32,8 +31,7 @@ AutomaticTask analyzeTask = project.RunAutomaticTask(
 ```
 ***
 
-See Also
---
+## See Also
 
 [Configuring the Analyze Task Settings](configuring_the_analyze_task_settings.md)
 

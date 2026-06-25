@@ -1,5 +1,4 @@
-Translation Count
-==
+# Translation Count
 
 The translation count task is used to calculate the translation progress of a given current project. It determines the status (confirmation level) of the segments and words contained in the project files, i.e. it calculates how many segments, words, and characters have reached the confirmation levels e.g. translated, reviewed, signed-off, etc. This task is quite likely to be run several times during a project lifecycle in order to determine the current progress of a project. Note that for this task there are no specific settings.
 
@@ -24,8 +23,7 @@ public void RunTranslationCount(FileBasedProject project, string trgLocale)
 ```
 ***
 
-See Also
---
+## See Also
 [Analyze Files Settings](analyze_files_settings.md)
 
 [Project TM Creation Settings](project_tm_creation_settings.md)

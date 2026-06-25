@@ -1,5 +1,4 @@
-Introduction to the Sample Application
-==
+# Introduction to the Sample Application
 
 This chapter will walk you step by step through the creation of a command-line sample application that leverages the Project Automation API.
 
@@ -23,8 +22,7 @@ At runtime, the user needs to be able to provide the following parameters:
 
 The application to develop within the scope of the sample project constitutes a realistic use case. For comprehensive projects a large number of files usually needs to be processed in some ways. With a command-line application you can effectively automate such tasks, which can also be run as a scheduled process.
 
-See Also
---
+## See Also
 [Setting up the Visual Studio Project](setting_up_the_visual_studio_project.md)
 
 [Configuring the Project Properties](configuring_the_project_properties.md)

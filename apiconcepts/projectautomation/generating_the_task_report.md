@@ -1,5 +1,4 @@
-Generating the Task Report
-==
+# Generating the Task Report
 
 This chapter explains how to retrieve the actual task result, which is the analyze files report. There are two ways of generating a task report, an easy way, and a 'hard' way:
 
@@ -38,8 +37,7 @@ project.SaveTaskReportAs(this.reportId, path + "/AnalyzeTaskReport.xls", ReportF
 ```
 ***
 
-Create the Custom Report Output
---
+## Create the Custom Report Output
 
 Creating a custom output is a bit more challenging. It requires us to retrieve the segment, word, character, etc. count through various properties and integrate this information in custom format, which in our implementation is a simple console output.
 
@@ -110,8 +108,7 @@ for (int i = 0; i < analysisStats.Fuzzy.Length; i++)
 
 For the full implementation see the section below:
 
-Putting it All Together
---
+## Putting it All Together
 
 The complete function for creating the reports should look as shown below:
 
@@ -123,17 +120,10 @@ The complete function for creating the reports should look as shown below:
 /// </summary> 
 private void CreateReports(FileBasedProject project, string path)
 {
-    #region "CreateStandardReport"
     project.SaveTaskReportAs(this.reportId, path + "/AnalyzeTaskReport.xls", ReportFormat.Excel);
-    #endregion
-
-    #region "Statistics"
     ProjectStatistics projectStats = project.GetProjectStatistics();
     TargetLanguageStatistics[] targetStats = projectStats.TargetLanguageStatistics;
     AnalysisStatistics analysisStats = targetStats[0].AnalysisStatistics;
-    #endregion
-
-    #region "WriteData"
     string result = "Analysis result for all files:\n\n";
 
     result += "\nPerfect matches\n";
@@ -149,17 +139,12 @@ private void CreateReports(FileBasedProject project, string path)
     result += "Characters: " + analysisStats.InContextExact.Characters.ToString() + "\n";
     result += "Tags: " + analysisStats.InContextExact.Tags.ToString() + "\n";
     result += "Placeables: " + analysisStats.InContextExact.Placeables.ToString() + "\n";
-
-    #region "Exact"
     result += "\nExact matches\n";
     result += "Segments: " + analysisStats.Exact.Segments.ToString() + "\n";
     result += "Words: " + analysisStats.Exact.Words.ToString() + "\n";
     result += "Characters: " + analysisStats.Exact.Characters.ToString() + "\n";
     result += "Tags: " + analysisStats.Exact.Tags.ToString() + "\n";
     result += "Placeables: " + analysisStats.Exact.Placeables.ToString() + "\n";
-    #endregion
-
-    #region "Fuzzy"
     for (int i = 0; i < analysisStats.Fuzzy.Length; i++)
     {
         string rangeMax = analysisStats.Fuzzy[i].Band.MaximumMatchValue.ToString();
@@ -172,8 +157,6 @@ private void CreateReports(FileBasedProject project, string path)
         result += "Tags: " + analysisStats.Fuzzy[i].Tags.ToString() + "\n";
         result += "Placeables: " + analysisStats.Fuzzy[i].Placeables.ToString() + "\n";
     }
-    #endregion
-
     result += "\nRepetitions\n";
     result += "Segments: " + analysisStats.Repetitions.Segments.ToString() + "\n";
     result += "Words: " + analysisStats.Repetitions.Words.ToString() + "\n";
@@ -196,14 +179,11 @@ private void CreateReports(FileBasedProject project, string path)
     result += "Placeables: " + analysisStats.Total.Placeables.ToString() + "\n";
 
     Console.Write(result);
-
-    #endregion
 }
 ```
 ***
 
-See Also
---
+## See Also
 [Retrieving the Project Statistics](retrieving_the_project_statistics.md)
 
 [Saving Task Reports](saving_task_reports.md)

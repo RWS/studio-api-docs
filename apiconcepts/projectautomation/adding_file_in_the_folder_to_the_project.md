@@ -1,5 +1,4 @@
-Adding Files in the Folder to the Project
-==
+# Adding Files in the Folder to the Project
 
 In the next step we add the functionality for adding the project files from the specified main folder.
 
@@ -36,27 +35,19 @@ The complete function for adding and scanning the source files should look as sh
 /// <summary>
 /// Adds the files from the specified folder to the project and sets the file use, e.g. translatable or reference.            
 /// </summary> 
-#region "AddFilesFunction"
 private void AddFiles(FileBasedProject project, string folder, bool recursion)
-#endregion
 {
-    #region "AddFolderWithFiles"
     project.AddFolderWithFiles(folder, recursion);
-    #endregion
-
-    #region "GetSourceLanguageFiles"
     ProjectFile[] projectFiles = project.GetSourceLanguageFiles();
 
     AutomaticTask scan = project.RunAutomaticTask(
         projectFiles.GetIds(),
         AutomaticTaskTemplateIds.Scan);
-    #endregion
 }
 ```
 ***
 
-See Also
---
+## See Also
 
 [Adding Files and Folders](adding_files_and_folders.md)
 

@@ -1,5 +1,4 @@
-Configuring the Analyze Task Settings
-==
+# Configuring the Analyze Task Settings
 
 The automatic analyze files task can be configured through various parameters. In our implementation we will use two parameters: the reporting of cross-file repetitions and of the internal fuzzy match leverage. For detailed information on the available task settings, please see [Analyze Files Settings](analyze_files_settings.md).
 
@@ -58,7 +57,6 @@ The complete helper function should now look as shown below:
 
 # [C#](#tab/tabid-6)
 ```cs
-#region "GetAnalyzeSettingsFunction"
 /// <summary>
 /// Configures the analyze task file settings, i.e. in our implementation
 /// report cross-file repetitions and report the internal fuzzy match leverage.
@@ -68,30 +66,17 @@ private void GetAnalyzeSettings(
     string trgLocale,
     bool reportCrossFileRepetitions,
     bool reportInternalFuzzyMatchLeverage)
-#endregion
 {
-    #region "trgLanguage"
     Language trgLanguage = new Language(CultureInfo.GetCultureInfo(trgLocale));
-    #endregion
-
-    #region "ISettingsBundle"
     ISettingsBundle settings = project.GetSettings(trgLanguage);
     AnalysisTaskSettings analyzeSettings = settings.GetSettingsGroup<AnalysisTaskSettings>();
-    #endregion
-
-    #region "ConfigureSettings"
     analyzeSettings.ReportCrossFileRepetitions.Value = reportCrossFileRepetitions;
     analyzeSettings.ReportInternalFuzzyMatchLeverage.Value = reportInternalFuzzyMatchLeverage;
-    #endregion
-
-    #region "UpdateSettings"
     project.UpdateSettings(trgLanguage, settings);
-    #endregion
 }
 ```
 ***
 
-See Also
---
+## See Also
 
 [Analyze Files Settings](analyze_files_settings.md)

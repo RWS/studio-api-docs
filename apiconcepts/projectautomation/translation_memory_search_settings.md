@@ -1,5 +1,4 @@
-Translation Memory Search Settings
-==
+# Translation Memory Search Settings
 
 The most common TM settings are probably the search settings, which you can use to fine-tune TM segment lookup operations as well as concordance searches.
 
@@ -47,8 +46,7 @@ tmSettings.SourceTrackChangesLookupMode.Value = SourceTrackChangesLookupMode.Loo
 ```
 ***
 
-See Also
---
+## See Also
 [Setting TM Penalties](setting_tm_penalties.md)
 
 [Translation Memory Fields Update](translation_memory_field_update.md)

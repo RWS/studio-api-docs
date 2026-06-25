@@ -1,5 +1,4 @@
-Updating Project Files
-==
+# Updating Project Files
 
 t is a rather common scenario for files to be updated in the middle of a project. For example, after you have finished creating your project, the customer might send an additional file to the project manager, which needs to be incorporated into the project. Another common use case is that the customer finds out that he/she has sent an outdated source file to the project manager, and therefore provides a more recent version. In this case, the updated file needs to replace the document that is already in the project. Any new or updated files should undergo the same task sequence as the files that are already in the project, e.g. conversion to a translatable format (SDLXliff), file analysis, pre-translation, etc.
 
@@ -56,8 +55,7 @@ project.AddNewFileVersion(fileId, newFileName);
 ```
 ***
 
-See Also
---
+## See Also
 [Adding Files and Folders](adding_files_and_folders.md)
 
 [Adding Files in the Folder to the Project](adding_file_in_the_folder_to_the_project.md)

@@ -1,10 +1,8 @@
-The Command-line Parameters
-==
+# The Command-line Parameters
 
 This chapter explains which parameters are used in the command-line application, how to set them in the Program.cs class, and check for the validity of the parameters.
 
-Add the Required Variables
---
+## Add the Required Variables
 
 Within main declare the three following variables for setting the following parameters:
 
@@ -130,8 +128,7 @@ catch (Exception ex)
 ```
 ***
 
-Putting it All Together
---
+## Putting it All Together
 
 The full implementation should look as shown below:
 
@@ -139,7 +136,6 @@ The full implementation should look as shown below:
 ```cs
 public static void Main(string[] args)
 {
-    #region "DeclareVariables"
     string mainPath = string.Empty;
     string tmFile = string.Empty;
     bool processSubFolders = false;
@@ -147,9 +143,6 @@ public static void Main(string[] args)
     bool reportInternalFuzzyMatchLeverage = false;
     bool keepProjectFiles = false;
     bool publishToServer = false;
-    #endregion
-
-    #region "Usage"
     if (args.Length < 2)
     {
         Console.WriteLine("Usage:");
@@ -163,18 +156,12 @@ public static void Main(string[] args)
         Console.WriteLine("/p   publish to a server");
         return;
     }
-    #endregion
-
-    #region "CheckPath"
     if (!String.IsNullOrEmpty(args[0]) && !Directory.Exists(args[0])
         && !String.IsNullOrEmpty(args[1]) )
     {
         Console.WriteLine("Please specify a valid input directory and a valid TM. Press ENTER to exit.");
         return;
     }
-    #endregion
-
-    #region "SetVariables"
     mainPath = args[0];
     tmFile = args[1];
 
@@ -199,19 +186,11 @@ public static void Main(string[] args)
                 break;
         }
     }
-
-    #endregion
-
-    #region "CheckTMPathIfFileTM"
-
     if (!publishToServer && !File.Exists(args[1]))
     {
         Console.WriteLine("Please specify a valid file TM. Press ENTER to exit.");
         return;
     }
-    #endregion
-
-    #region "ProcessTask"
     try
     {
         ProjectCreator process = new ProjectCreator();
@@ -232,11 +211,9 @@ public static void Main(string[] args)
         Console.WriteLine(ex.Message);
         Console.ReadLine();
     }
-    #endregion
 }
 ```
 ***
 
-See Also
---
+## See Also
 [Configuring the Project Properties](configuring_the_project_properties.md)

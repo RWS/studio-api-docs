@@ -1,11 +1,9 @@
-Perfect Match
-==
+# Perfect Match
 
 
 The Perfect Match batch task copies pre-translated segments from previous versions of your files into the current project files. This chapter provides information on the settings that you can configure for this task and the parameters required to locate any previous file versions.
 
-Configuring the Task Settings
---
+## Configuring the Task Settings
 
 The screenshot below shows the settings that can be configured for the Perfect Match task in Var:ProductName.
 
@@ -42,8 +40,7 @@ project.UpdateSettings(settings);
 ```
 ***
 
-Putting it All Together
---
+## Putting it All Together
 
 The function should look as shown below:
 
@@ -51,20 +48,10 @@ The function should look as shown below:
 ```CS
 public void GetPerfectMatchTaskSettings(FileBasedProject project)
 {
-    #region "PerfectMatchTaskSettings"
     ISettingsBundle settings = project.GetSettings();
     PerfectMatchTaskSettings perfectMatchSettings = settings.GetSettingsGroup<PerfectMatchTaskSettings>();
-    #endregion
-
-    #region "MarkAsPerfectMatchAndLock"
-
     perfectMatchSettings.MarkAsPerfectMatchAndLock.Value = true;
-    #endregion
-
-
-    #region "UpdateTaskSettings"
     project.UpdateSettings(settings);
-    #endregion
 }
 ```
 ***
@@ -73,8 +60,7 @@ public void GetPerfectMatchTaskSettings(FileBasedProject project)
 
 ![PerfectMatchedSegment](images/PerfectMatchedSegment.jpg)
 
-Mapping Previous Bilingual Files to Project Files
---
+## Mapping Previous Bilingual Files to Project Files
 
 For Perfect Match to work the files in your project must each hold a reference to a previous bilingual file The ```IProject``` interface contains a number of methods for assigning and removing these association to and from your project files.
 
@@ -173,8 +159,7 @@ project.AddBilingualReferenceFile(new BilingualFileMapping(FileIdFromOriginalSou
 ```
 ***
 
-Calling Perfect Match as a Single Task
---
+## Calling Perfect Match as a Single Task
 
 After you have prepared a project and run the ```CopyToTargetLanguages``` task the target language files are available and you can assign bilingual reference files directly to the target files to be used in Perfect Match.
 
@@ -196,8 +181,7 @@ AutomaticTaskTemplateIds.PerfectMatch);
 ```
 ***
 
-Calling Perfect Match as Part of a Task Sequence
---
+## Calling Perfect Match as Part of a Task Sequence
 
 Perfect Match can be run as part of a batch task sequence and is included in the standard prepare sequence. Before you prepare the project you do not have access to the source or target bilingual files however the [AddBilingualReferenceFiles](../../api/projectautomation/Sdl.ProjectAutomation.Core.IProject.yml#Sdl_ProjectAutomation_Core_IProject_AddBilingualReferenceFiles_Sdl_ProjectAutomation_Core_BilingualFileMapping___) methods will accept the original documents as parameters.
 
@@ -228,8 +212,7 @@ public void RunPrepareWithPerfectMatch()
 ```
 ***
 
-See Also
---
+## See Also
 [Analyze Files Settings](analyze_files_settings.md)
 
 [Project TM Creation Settings](project_tm_creation_settings.md)

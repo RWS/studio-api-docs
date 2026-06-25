@@ -1,10 +1,8 @@
-Adding Files and Folders
-==
+# Adding Files and Folders
 
-In Var:ProductName a project requires at least one translatable file. Translatable files can be, for example, Microsoft Word, PowerPoint, etc. documents. Beyond that, a project can also contain reference files. These are untranslatable (e.g. pictures), which can help translators do their job, as they may contain useful information. In addition to that a project can contain so-called localizable files. Localizable files cannot be processed by Var:ProductName. These can gain be, for example, bitmap graphics. However, these files contain localizable content (e.g. text in screenshots), which has to be handled outside of Var:ProductName. For this, translators can enter the target strings, for example, in a separate text file (legend), or use a graphics program to handle the localizations. This chapter contains an example of how to add files to a project programmatically, and change the file usage to e.g. localizable.
+A Var:ProductName project requires at least one translatable file, such as a Microsoft Word or PowerPoint document. Projects can also contain reference files—untranslatable files (such as images) that provide useful context for translators. A project may additionally contain localizable files. Localizable files cannot be processed by Var:ProductName. These can gain be, for example, bitmap graphics. These files contain localizable content (such as text in screenshots) that must be handled outside Var:ProductName. For this, translators can enter the target strings, for example, in a separate text file (legend), or use a graphics program to handle the localizations. This chapter shows how to add files to a project programmatically and change their usage role.
 
-Implement the Function for Adding Files
---
+## Implement the Function for Adding Files
 
 To add files to a project, you need to apply the ```AddFiles``` method to the project object. This method takes a string array as parameter that contains the names and the full path of the file(s) to add to the project. In our example, we 'outsource' the string array to a separate helper function called ```AddProjectFiles```, e.g.:
 
@@ -54,8 +52,7 @@ newProject.AddFolderWithFiles(@"c:\temp", true);
 ```
 ***
 
-Change the File Usage (Role)
---
+## Change the File Usage (Role)
 
 As mentioned above, Var:ProductName allows you to change the file usage manually, for example, if you want to set a * *.ppt* file (which is automatically recognized as a translatable) to reference, because it is not supposed to be translated, but should only be provided for information purposes. The screenshot below illustrates how this is done in the **New Project** wizard of Var:ProductName:
 
@@ -108,8 +105,7 @@ If you were to open the programmatically created * *.sdlproj* file in Var:Produc
 
 ![FilesAddedAsReference](images/FilesAddedAsReference.jpg)
 
-See Also
---
+## See Also
 
 [Running Tasks on the Project Files](running_tasks_on_project_files.md)
 

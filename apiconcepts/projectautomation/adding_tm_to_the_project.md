@@ -1,5 +1,4 @@
-Adding the TM to the Project
-===
+# Adding the TM to the Project
 
 In this step you will learn how to add the translation memory to our project that should be used for the batch analysis process.
 
@@ -48,15 +47,9 @@ The complete helper function for adding the TM to the project should now look as
 /// Adds the TM that should be used for the analysis. The project languages are
 /// set according to the TM.
 /// </summary> 
-#region "AddTmFunction"
 private void AddTm(FileBasedProject project, string tmFilePath)
-#endregion
 {
-    #region "TranslationProviderConfiguration"
     TranslationProviderConfiguration config = project.GetTranslationProviderConfiguration();
-    #endregion
-
-    #region "TranslationProviderCascadeEntry"
     TranslationProviderCascadeEntry tm = new TranslationProviderCascadeEntry(
         tmFilePath,
         true,
@@ -65,7 +58,6 @@ private void AddTm(FileBasedProject project, string tmFilePath)
     config.Entries.Add(tm);
 
     project.UpdateTranslationProviderConfiguration(config);
-    #endregion
 }
 ```
 ***
@@ -124,20 +116,14 @@ The complete helper function for adding the TM to the project should now look as
 
 # [C#](#tab/tabid-9)
 ```cs
-#region "AddServerTmFunction"
 /// <summary>
 /// Add a server TM to be used for anaysis. The project languages are
 /// set according to the TM.
 /// </summary>
 private void AddServerTm(FileBasedProject project, string serverAddress, string organizationPath, string tmName, bool useWindowsSecurity, string username, string password)
-#endregion
 {
-    #region "TranslationProviderConfiguration"
     Uri tmAddress = new Uri(String.Format("sdltm.{1}{2}/{3}", serverAddress, organizationPath, tmName));
     TranslationProviderConfiguration config = project.GetTranslationProviderConfiguration();
-    #endregion
-
-    #region "TranslationProviderCascadeEntryForServerTM"
     TranslationProviderCascadeEntry tm = new TranslationProviderCascadeEntry
     (
           new TranslationProviderReference(tmAddress),
@@ -147,18 +133,13 @@ private void AddServerTm(FileBasedProject project, string serverAddress, string 
     );
     config.Entries.Add(tm);
     project.UpdateTranslationProviderConfiguration(config);
-    #endregion
-
-    #region "CredentialsForServerTm"
     project.Credentials.AddCredential(new Uri(serverAddress), String.Format("user={0};password={1};type=CustomUser", username, password, useWindowsSecurity ? "WindowsUser" : "CustomUser"));
     project.UpdateTranslationProviderConfiguration(config);
-    #endregion
 }
 ```
 ***
 
-See Also
---
+## See Also
 
 [Adding Translation Memories](adding_translation_memories.md)
 

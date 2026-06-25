@@ -1,12 +1,10 @@
-Creating Projects Based on Previous Projects
-==
+# Creating Projects Based on Previous Projects
 
 Var:ProductName allows you to create new projects based on previous projects. That way you can leverage the settings that were used in the previous project such as the language pairs, the task settings, the TM and termbase selection, etc.
 
 Example: Suppose that last year you have processed a project called "Spelling Checker 1.0". This year, you need to localize the documentation for version 2.0 of the product. In such a case, it makes sense to create the new project based on the previous project, thereby re-using the settings that exist in the previous project. Only the updated source files then need to be selected, the remaining parameters (except the due date) can usually stay as is. However, of course, you can change any of the existing parameters, e.g. add a new language direction, if the updated product needs to be distributed in a new market. The **New Project** wizard of Var:ProductName allows you to select a previous project from a dropdown list. Your API-based application could be made, for example, to select the **.sdlproj* file of the previous project to accelerate the project creation.
 
-Create an Update Project Programmatically
---
+## Create an Update Project Programmatically
 
 Implement a function called ```CreateBasedOnPreviousProject```. Leverage the [ProjectReference](../../api/projectautomation/Sdl.ProjectAutomation.Core.ProjectReference.yml) class to create a reference project object, which holds the previous project that our new (update) project should be based upon. When creating the reference project object provide the **.sdlproj* file name and path as string parameter:
 
@@ -54,8 +52,7 @@ return info;
 
 Note that the updated source files to translate would also have to be added to the update project, as these will not be taken over from the previous (reference) project. For an example of how to add files to a project see [Adding Files and Folders](adding_files_and_folders.md).
 
-Putting it All Together
---
+## Putting it All Together
 
 The complete function should look as shown below:
 
@@ -63,16 +60,11 @@ The complete function should look as shown below:
 ```cs
 public void CreateBasedOnPreviousProject()
 {
-    #region "RefProject"
     string refProjFile = @"C:\temp\RefProject.sdlproj";
     ProjectReference refProject = new ProjectReference(refProjFile);
-    #endregion
-
-    #region "UpdateProject"
     FileBasedProject updateProject = new FileBasedProject(this.GetUpdateProjectInfo(), refProject);
 
     updateProject.Save();
-    #endregion
 }
 ```
 ***
@@ -81,7 +73,6 @@ public void CreateBasedOnPreviousProject()
 ```cs
 public ProjectInfo GetUpdateProjectInfo()
 {
-    #region "UpdateProjectInfo"
     ProjectInfo info = new ProjectInfo();
 
     info.Name = "My update project";
@@ -96,13 +87,11 @@ public ProjectInfo GetUpdateProjectInfo()
     info.LocalProjectFolder = localProjectFolder;
 
     return info;
-    #endregion
 }
 ```
 ***
 
-See Also
---
+## See Also
 
 [Setting the Project Information](setting_the_project_information.md)
 
