@@ -15,7 +15,7 @@ $betaSuffix = if ($currentRepoName -match '-beta$') { '-beta' } else { '' }
 
 $remote_repo="https://github-actions:${TOKEN}@github.com/rws/studio-api-docs${betaSuffix}.git"
 
-write-host "Cloning the repo $remote_repo with the gh-pages branch"
+write-host "==> Cloning the repo $remote_repo with the gh-pages branch"
 git clone $remote_repo --branch gh-pages $TEMP_REPO_DIR
 Set-Location $TEMP_REPO_DIR
 
@@ -30,13 +30,17 @@ if($checkBranch){
 git checkout -b gh-pages_temp
 $items = Get-ChildItem
 $keepVersions = @("15.2", "16.1", "16.2", "17.0", "17.1", "17.2", "18.0", "18.1")
-foreach ($item in $items){
- if ($item.Name -notin $keepVersions){
-  git rm $item -r
- }
+foreach ($item in $items)
+{
+	write-host "==> Checking $($item.Name) for deletion"
+	if ($item.Name -notin $keepVersions)
+	{
+		write-host "==> Deleting $($item.Name)"
+		git rm $item -r
+	}
 }
-write-host "Copy documentation into the repo"
-
+write-host "==>Copy documentation into the repo"
+ 
 Copy-Item "$SOURCE_DIR\_site\*" .\ -Recurse -force
 
 # Inject beta header into all HTML files (only for beta branch)
