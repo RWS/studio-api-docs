@@ -1,27 +1,25 @@
-Retrieving Licensing Information
-=====
-A TM Server is licensed for a certain number of concurrent users and the number of translation units that it can store at maximum. It may sometimes be necessary to retrieve the maximum number of TUs allowed, and the number of TUs currently stored. This chapter provides an example of how to retrieve this information programmatically.
+# Retrieving Licensing Information
 
-Add a New Class
------
-Start by adding a class called `ServerLicensing` to your project. Then implement a public function called `GetLicensingInformation`, which takes a [TranslationProviderServer](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.yml) object as parameter. This function can be called as shown below:
+A TM Server is licensed for a specific number of concurrent users and a maximum number of translation units. Sometimes you need to retrieve the maximum allowed TU count and the number of TUs currently stored. This chapter shows how to retrieve that information programmatically.
+
+## Add a New Class
+
+Start by adding a class called `ServerLicensing` to your project. Then implement a public function called `GetLicensingInformation`, which takes a [TranslationProviderServer](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.yml) object as a parameter. Call the function as shown below:
 
 # [C#](#tab/tabid-1)
 ```cs
 var license = new ServerLicensing();
 license.GetLicensingInformation(tmServer);
 ```
-*****
 
-By applying the `GetLicensingStatusInformation` method to the server you create a [LicensingStatusInformation](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.LicensingStatusInformation.yml) object, through which you retrieve the required information, such as the maximum  number of concurrent users allowed, the maximum numbers of TUs, as well as the current TU count:
+By calling `GetLicensingStatusInformation` on the server, you create a [LicensingStatusInformation](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.LicensingStatusInformation.yml) object. Use it to retrieve information such as the maximum number of concurrent users, the maximum number of TUs, and the current TU count:
 
 # [C#](#tab/tabid-2)
 ```cs
 public void GetLicensingInformation(TranslationProviderServer tmServer)
 {
     string licInfo = string.Empty;
-    LicensingStatusInformation info;
-    info = tmServer.GetLicensingStatusInformation();
+    LicensingStatusInformation info = tmServer.GetLicensingStatusInformation();
 
     licInfo += "Max. concurrent users: " + info.MaxConcurrentUsers.ToString();
     licInfo += "Max. TU count: " + info.MaxTranslationUnitCount.ToString();
@@ -31,13 +29,12 @@ public void GetLicensingInformation(TranslationProviderServer tmServer)
     MessageBox.Show(licInfo, "Licensing Information");
 }
 ```
-******
+
 <img style="display:block; " src="images/LicensingInfo.jpg"/>
 
-Putting it All Together
-----
+## Putting It All Together
 
-The complete class looks as shown below:
+The complete class looks like this:
 
 # [C#](#tab/tabid-3)
 ```cs
@@ -48,12 +45,10 @@ namespace SDK.LanguagePlatform.Samples.TmAutomation
 
     public class ServerLicensing
     {
-        #region "get"
         public void GetLicensingInformation(TranslationProviderServer tmServer)
         {
             string licInfo = string.Empty;
-            LicensingStatusInformation info;
-            info = tmServer.GetLicensingStatusInformation();
+            LicensingStatusInformation info = tmServer.GetLicensingStatusInformation();
 
             licInfo += "Max. concurrent users: " + info.MaxConcurrentUsers.ToString();
             licInfo += "Max. TU count: " + info.MaxTranslationUnitCount.ToString();
@@ -62,8 +57,7 @@ namespace SDK.LanguagePlatform.Samples.TmAutomation
 
             MessageBox.Show(licInfo, "Licensing Information");
         }
-        #endregion
     }
 }
 ```
-******
+

@@ -1,36 +1,44 @@
-Plug-in deployment
-====
+# Plug-in Deployment
 
-This section describes how to deploy a Plug-in Package (*.sdlplugin) for use in Var:ProductName. It also covers updating to a new version of the plug-in package and uninstalling a plug-in package.
+This guide explains how to deploy, update, and uninstall a Plug-in Package (*.sdlplugin) for use in Var:ProductName. It provides step-by-step instructions to ensure a smooth process for developers.
 
 
-Installing a Plug-in Package
-------
-Double click the plug-in package and follow the instructions.
+## How to Install a Plug-in Package
+1. Locate the plug-in package file (*.sdlplugin) on your system.
+2. Double-click the file to launch the installation wizard.
+3. Follow the on-screen instructions to complete the installation.
 
 > [!NOTE]
 >
 > During development, you can configure the output path of the project to point to *Var:PluginPackedPath*. This is already configured if you created the project with one of the project templates available in the **Var:ProductName SDK** here. For more information on this, see [Setting up a Developer Machine](setting_up_a_developer_machine.md).
 
-The following warning message will be shown while Var:ProductName starts:
+When Var:ProductName starts, you may see the following warning message:
+
 <img style="display:block; " src="images/UnsignedWarning.png" />
 
-
-To avoid this message from appearing, you need to submit your plug-in package to RWS for verification. Once verified, your plug-in package will be signed by RWS and the warning message will not appear anymore. To verify the plugin, send an email to **Var:AppSigningEmail** with a link from where the plugin can be downloaded for verification. Once the verification is done, you will receive an answer email with a download link, where you will be able to obtain the signed version of the plugin.
+To prevent this warning, submit your plug-in package to RWS for verification. Send an email to **Var:AppSigningEmail** with a link from where the plug-in can be downloaded for verification. Once the verification is complete, you will receive an email with a download link where you can obtain the signed version of the plug-in. After signing, the warning will no longer appear.
 
 Once Var:ProductName has started, go to the **Tools > Plug-ins** dialog and notice that "MyPlugin" is now listed as a plug-in and is ready to be used.
 
-Updating a Plug-in Package
-----
-Once deployed, you can update your plug-in package by increasing the version in the plug-in package manifest (see [Plug-in deployment](plugin_deployment.md)). Double click the plug-in package and follow the instructions. Once the plug-in is deployed, start Var:ProductName. The application will automatically detect the presence of the updated plug-in package, verify it, extract its contents into <em> Var:PluginUnpackedPath </em> and load it.
+## Steps to Update a Plug-in Package
+1. Open the plug-in package manifest and increase the version number.
+2. Save the changes and rebuild the plug-in package.
+3. Double-click the updated plug-in package to launch the installation wizard.
+4. Start Var:ProductName. The application will detect the updated plug-in package, verify it, extract its contents into <em>Var:PluginUnpackedPath</em>, and load it.
 
-It is essential that you increase the version of the plug-in package as listed in the plug-in manifest, or the update will not be applied.
+> [!NOTE]
+>
+> Make sure to update the version number in the plug-in manifest; failing to do so will prevent the update from being applied.
 
-Uninstalling a Plug-in Package
------
-To uninstall a plug-in, you have two options:
-> - Run the Plugin Manager that is installed with Var:ProductName. 
-> - Use RWS AppStore Integration from Var:ProductName.
-<img style="display:block; " src="images/uninstall.png" /> </br>
+## How to Uninstall a Plug-in Package
+To uninstall a plug-in, choose one of the following methods:
 
-If you have an older Var:ProductName version, install if from [here](https://appstore.sdl.com/language/app/sdl-plugin-installer/462/).
+1. **Using the Plugin Manager**:
+   - Open the Plugin Manager installed with Var:ProductName.
+   - Select the plug-in you want to uninstall and follow the prompts.
+
+2. **Using RWS AppStore Integration**:
+   - Open Var:ProductName and navigate to the RWS AppStore Integration.
+   - Locate the plug-in and uninstall it.
+
+<img style="display:block; " src="images/uninstall.png" />

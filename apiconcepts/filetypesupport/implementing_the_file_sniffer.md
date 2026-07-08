@@ -1,25 +1,22 @@
-Implementing the File Sniffer
-===
+# Implementing the File Sniffer
 
-In this chapter you will learn how to implement the functionality required for determining whether a given file is valid and can therefore be processed by our sample file type plug-in.
+This section explains how to validate a file before your sample file type plug-in processes it.
 
-Determine the Validation Criteria
---
+## Determine the validation criteria
 
-For determining whether a given file can be processed by our file type plug-in or not, you can, of course, use the file extension, which is specified in the File Type Component Builder. However, this is not a very reliable criterion. Even if the file extension does match, the file might not be valid for some reason, and can therefore not be processed by the file type plug-in. Also, you need to consider that different file types might share the same extension.
+You can use the file extension that you defined in the File Type Component Builder to identify candidate files. However, the extension alone does not provide a reliable validation rule. A file can use the expected extension and still contain unsupported content. Different file types can also share the same extension.
 
-It is therefore important to identify one or more reliable criteria that clearly indicate whether a given file is valid or not. For this simple text file type plug-in, let us assume that a *.text file is valid if the first line starts with the string ```[Version=n]```.
+Define one or more checks that clearly identify a valid file. For this simple text file type plug-in, assume that a `.text` file is valid when its first line starts with `[Version=n]`.
 
-If this is the case, the file should be considered valid. Otherwise, the file type plug-in should tell the user that the given file is not supported. It is recommended that you implement this validation functionality in a distinct file sniffer component.
+If the file matches this rule, treat it as valid. Otherwise, report that the file type plug-in does not support the file. Implement this validation logic in a dedicated file sniffer component.
 
-Implement the File Sniffer
---
+## Implement the file sniffer
 
-Add a new class called e.g. **SimpleTextSniffer.cs** to your project. This class needs to implement the [INativeFileSniffer](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileSniffer.yml) interface. Your file sniffer class needs to contain the [Sniff](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileSniffer.yml#Sdl_FileTypeSupport_Framework_NativeApi_INativeFileSniffer_Sniff_System_String_Sdl_Core_Globalization_Language_Sdl_Core_Globalization_Codepage_Sdl_FileTypeSupport_Framework_NativeApi_INativeTextLocationMessageReporter_Sdl_Core_Settings_ISettingsGroup_) method, which is part of the native file sniffer interface. This method returns a [SniffInfo](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.SniffInfo.yml) object, which you can set to True or to False, depending on whether the file should be considered valid or not according to specific validation criteria.
+Add a new class, for example **SimpleTextSniffer.cs**, to your project. Implement the [INativeFileSniffer](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileSniffer.yml) interface in that class. The class must include the [Sniff](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileSniffer.yml#Sdl_FileTypeSupport_Framework_NativeApi_INativeFileSniffer_Sniff_System_String_Sdl_Core_Globalization_Language_Sdl_Core_Globalization_Codepage_Sdl_FileTypeSupport_Framework_NativeApi_INativeTextLocationMessageReporter_Sdl_Core_Settings_ISettingsGroup_) method. This method returns a [SniffInfo](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.SniffInfo.yml) object. Set that object to indicate whether the file matches your validation criteria.
 
-Remember, that if you have specific settings which need to be applied to the file sniffer, these can be populated using the ```ISettingsGroup``` which is passed in via the [Sniff](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileSniffer.yml#Sdl_FileTypeSupport_Framework_NativeApi_INativeFileSniffer_Sniff_System_String_Sdl_Core_Globalization_Language_Sdl_Core_Globalization_Codepage_Sdl_FileTypeSupport_Framework_NativeApi_INativeTextLocationMessageReporter_Sdl_Core_Settings_ISettingsGroup_) method. Please see [The File Sniffer](the_file_sniffer.md) for more details.
+If the file sniffer requires custom settings, use the `ISettingsGroup` parameter that the [Sniff](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileSniffer.yml#Sdl_FileTypeSupport_Framework_NativeApi_INativeFileSniffer_Sniff_System_String_Sdl_Core_Globalization_Language_Sdl_Core_Globalization_Codepage_Sdl_FileTypeSupport_Framework_NativeApi_INativeTextLocationMessageReporter_Sdl_Core_Settings_ISettingsGroup_) method receives. For more information, see [The File Sniffer](the_file_sniffer.md).
 
-The minimum amount of code required to build a file sniffer component looks as shown below:
+The following example shows the minimum code required to create a file sniffer component:
 
 # [C#](#tab/tabid-1)
 ```cs
@@ -31,11 +28,10 @@ namespace Sdk.Snippets.Native
 {
     class SimpleTextSniffer1 : INativeFileSniffer
     {
-
-       public SniffInfo Sniff(string nativeFilePath, Language language, Codepage suggestedCodepage,
+        public SniffInfo Sniff(string nativeFilePath, Language language, Codepage suggestedCodepage,
            INativeTextLocationMessageReporter messageReporter, ISettingsGroup settingsGroup)
         {
-            SniffInfo fileInfo = new SniffInfo();    
+            var fileInfo = new SniffInfo();
             return fileInfo;
         }
     }
@@ -43,7 +39,7 @@ namespace Sdk.Snippets.Native
 ```
 ***
 
-Now you can add the actual logic required to determine whether a file is supported or not. If the file is supported, set the [IsSupported](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.SniffInfo.yml#Sdl_FileTypeSupport_Framework_NativeApi_SniffInfo_IsSupported) property to True, otherwise to False. The complete file sniffer class looks as shown below:
+Now add the validation logic that determines whether the file is supported. If the file is supported, set [IsSupported](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.SniffInfo.yml#Sdl_FileTypeSupport_Framework_NativeApi_SniffInfo_IsSupported) to `true`. Otherwise, set it to `false`. The following example shows the complete file sniffer class:
 
 # [C#](#tab/tabid-2)
 ```cs
@@ -54,20 +50,14 @@ using Sdl.Core.Globalization;
 
 namespace Sdk.Snippets.Native
 {
-    // the file sniffer component determines whether a given file
-    // can be processed by the filter or not
     class SimpleTextSniffer : INativeFileSniffer
     {
         public SniffInfo Sniff(string nativeFilePath, Language language, Codepage suggestedCodepage, INativeTextLocationMessageReporter messageReporter, ISettingsGroup settingsGroup)
         {
-            SniffInfo fileInfo = new SniffInfo();
+            var fileInfo = new SniffInfo();
 
-            StreamReader _reader = new StreamReader(nativeFilePath);
-
-            if (_reader.ReadLine().StartsWith("[Version="))
-                fileInfo.IsSupported=true;
-            else
-                fileInfo.IsSupported=false;
+            using var reader = new StreamReader(nativeFilePath);
+            fileInfo.IsSupported = reader.ReadLine().StartsWith("[Version=");
 
             return fileInfo;
         }
@@ -76,17 +66,12 @@ namespace Sdk.Snippets.Native
 ```
 ***
 
-Add the Component Reference to the File Type Definition
---
+## Add the component reference to the file type definition
 
-Do not forget to reference the file sniffer component to the File Type Component Builder by implementing the BuildFileSniffer method in your implementation of [IFileTypeComponentBuilder](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilder.yml). Remember that failure to do so will mean that this component will never be used by the file type plug-in, even if the sniffer component has been added to the assembly.
+Reference the file sniffer component in the File Type Component Builder by implementing the `BuildFileSniffer` method in your implementation of [IFileTypeComponentBuilder](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilder.yml). If you skip this step, Var:ProductName will not use the sniffer component, even though the assembly contains it.
 
-See Also
---
-
-
-
-[User Communication Through Messaging](user_communication_through_messaging.md)
+## See also
+- [User Communication Through Messaging](user_communication_through_messaging.md)
 
 >[!NOTE]
 >

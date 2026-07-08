@@ -1,28 +1,30 @@
-Working with Database Servers and Containers
-=====
-This section describes how to work with database servers and translation memory containers.
+# Working with Database Servers and Containers
 
-Overview
-------
-All server-based translation memories reside in a database that is typically seperate from the main TM server database. Such a database is called a translation memory container. TM Server supports spreading the server-based translation memories in the system across multiple translation memory containers.
+This article explains how to work with database servers and translation memory containers.
 
-The API uses the following two classes to model these concepts:
+## Overview
 
-* **[DatabaseServer](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.DatabaseServer.yml)**: A database server that hosts one or more translation memory containers. In order to use a database server for hosting translation memory containers, it has to be registered with the system. See [Registering a Database Server](#registering-a-database-server).
-* **[TranslationMemoryContainer](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryContainer.yml)**: A translation memory container is a database that is hosted on one of the registered database servers. Every container can host one or more server-based translation memories ([ServerBasedTranslationMemory](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedTranslationMemory.yml)). See [Creating a Translation Memory Container](#creating-a-translation-memory-container):
+Server-based translation memories reside in a database that is typically separate from the main TM server database. This database is called a translation memory container. TM Server can distribute server-based translation memories across multiple translation memory containers.
 
-<img style="display:block; " src="images/cd-DatabaseServerAndContainer.jpg"/>
+The API uses these two classes to model the concepts:
 
-Registering a Database Server
------
-In order to register a database server with TM Server, create a new [DatabaseServer](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.DatabaseServer.yml) object. Set its [Name](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.DatabaseServer.yml#Sdl_LanguagePlatform_TranslationMemoryApi_DatabaseServer_Name) property (=display name) and [ServerName](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.DatabaseServer.yml#Sdl_LanguagePlatform_TranslationMemoryApi_DatabaseServer_ServerName) property (=actual IP address or DNS name of the database server). Choose which type of authentication will be used to access the database server by setting the [AuthenticationType](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.DatabaseServer.yml#Sdl_LanguagePlatform_TranslationMemoryApi_DatabaseServer_AuthenticationType) property. You can use either Windows authentication, which means the Windows account that is running the application server is used for accessing the database server; or Database authentication, which means you have to set the [UserName](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.DatabaseServer.yml#Sdl_LanguagePlatform_TranslationMemoryApi_DatabaseServer_UserName) and [Password](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.DatabaseServer.yml#Sdl_LanguagePlatform_TranslationMemoryApi_DatabaseServer_Password) of the database account that should be used. Finally call [Save](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.DatabaseServer.yml#Sdl_LanguagePlatform_TranslationMemoryApi_DatabaseServer_Save) to register the database server with the system.
+* **[DatabaseServer](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.DatabaseServer.yml)**: A database server that hosts one or more translation memory containers. Register the database server before you use it to host containers. See [Register a database server](#register-a-database-server).
+* **[TranslationMemoryContainer](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryContainer.yml)**: A translation memory container is a database that runs on a registered database server. Each container can host one or more server-based translation memories ([ServerBasedTranslationMemory](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedTranslationMemory.yml)). See [Create a translation memory container](#create-a-translation-memory-container).
 
-Creating a Translation Memory Container
------
-In order to create a translation memory container, create a new [TranslationMemoryContainer](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryContainer.yml) object. Set the [DatabaseServer](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.DatabaseServer.yml) on which the container database should be hosted, set its friendly name ([Name](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryContainer.yml#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationMemoryContainer_Name)) and the name of the actual database ([DatabaseName](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryContainer.yml#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationMemoryContainer_DatabaseName)). Finally call [Save](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryContainer.yml#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationMemoryContainer_Save) to create the translation memory container.
+<img style="display:block;" src="images/cd-DatabaseServerAndContainer.jpg" />
 
-The [DatabaseName](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryContainer.yml#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationMemoryContainer_DatabaseName) property can be one of the following:
+## Register a database server
 
-* The name of a database that should be created: The application server will create the database. Make sure that account specified for communicating with the database server has enough permissions to create a new database.
-* The name of an existing, empty database: The application server will create the necessary schema inside the existing database.
-* The name of an existing translation memory container: for migration purposes, you can register an existing container database. The system will inspect the database and register all the translation memories present in it.
+To register a database server with TM Server, create a new [DatabaseServer](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.DatabaseServer.yml) object. Set its [Name](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.DatabaseServer.yml#Sdl_LanguagePlatform_TranslationMemoryApi_DatabaseServer_Name) property for the display name and its [ServerName](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.DatabaseServer.yml#Sdl_LanguagePlatform_TranslationMemoryApi_DatabaseServer_ServerName) property for the database server IP address or DNS name. Select the authentication type by setting [AuthenticationType](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.DatabaseServer.yml#Sdl_LanguagePlatform_TranslationMemoryApi_DatabaseServer_AuthenticationType).
+
+Use Windows authentication to access the database server with the Windows account that runs the application server. Use database authentication to provide the [UserName](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.DatabaseServer.yml#Sdl_LanguagePlatform_TranslationMemoryApi_DatabaseServer_UserName) and [Password](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.DatabaseServer.yml#Sdl_LanguagePlatform_TranslationMemoryApi_DatabaseServer_Password) for the database account. Call [Save](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.DatabaseServer.yml#Sdl_LanguagePlatform_TranslationMemoryApi_DatabaseServer_Save) to register the database server.
+
+## Create a translation memory container
+
+To create a translation memory container, create a new [TranslationMemoryContainer](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryContainer.yml) object. Set the [DatabaseServer](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.DatabaseServer.yml) that will host the container, set the container [Name](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryContainer.yml#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationMemoryContainer_Name), and set the [DatabaseName](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryContainer.yml#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationMemoryContainer_DatabaseName). Call [Save](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryContainer.yml#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationMemoryContainer_Save) to create the container.
+
+The [DatabaseName](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryContainer.yml#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationMemoryContainer_DatabaseName) property can use one of these values:
+
+* The name of a database to create. The application server creates the database, so make sure that the account that connects to the database server has permission to create databases.
+* The name of an existing, empty database. The application server creates the required schema in the existing database.
+* The name of an existing translation memory container. For migration scenarios, you can register an existing container database. The system inspects the database and registers the translation memories that it finds.

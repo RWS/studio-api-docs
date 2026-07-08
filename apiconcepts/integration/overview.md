@@ -1,22 +1,25 @@
-Var:ProductName Integration API
-====
+# Var:ProductName Integration API
 
-Welcome to the Var:ProductName Integration API. This API provides access to Var:ProductName application functionality.
+The Var:ProductName Integration API allows third-party developers to extend or customize Var:ProductName applications. You can create plug-ins to:
 
- Var:ProductName Integration API
- -----
-The Var:ProductName Integration API enables third-party developers to add or customize new functionalities in Studio applications and more specific to Var:ProductName application (for more information see: [What you can do with the Integration API](what_you_can_do_with_the_integration_API.md)).
+* [Extend or customize the user interface for Studio applications.](user_interface_integration.md)
+* [Provide custom functionalities for the Var:ProductName application.](studio_automation.md)
 
-The main topics of the Var:ProductName Integration API are:
+![PluginTypes](images/PluginTypes.png)
 
-* [User interface integration](user_interface_integration.md)
-* [Studio automation integration](studio_automation.md)
+## Modular Architecture
 
-Var:ProductName's architecture is modular, being based on components called plug-ins, set up both at the system level (for the built-in features) and as extensions provided by the community and installed by end users. Here is a small diagram illustrating this approach:
+Var:ProductName uses a modular architecture based on plug-ins. The system includes built-in plug-ins for core functionality and accepts custom extensions that users install. The following diagram illustrates this architecture:
 
 ![Modularity](images/Modularity.png)
 
-We recommend reading the following topics before you start using Var:ProductName Integration API:
+## Before You Begin
+
+Read the following topics to prepare for using the Var:ProductName Integration API:
 
 * [Setting up a Development Machine](../../articles/gettingstarted/setting_up_a_developer_machine.md) 
-* [Studio plug-ins overview](../../articles/gettingstarted/studio_plugin_overview.md) 
+* [Studio plug-ins overview](../../articles/gettingstarted/studio_plugin_overview.md)
+
+## Code Examples
+
+The Var:ProductName API documentation includes [examples](https://github.com/RWS/trados-studio-api-samples/tree/master/TranslationStudioAutomation) written in C# of common patterns and best practices for plug-in development.

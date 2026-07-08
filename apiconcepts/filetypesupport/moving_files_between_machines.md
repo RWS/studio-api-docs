@@ -1,13 +1,25 @@
-Moving files between machines
-=====
-More often than not, files are not translated, edited or proofread on the machine on which a project was originally created. For example, a project manager will usually send files to another user (e.g. a translator or proofreader) and then receive back the translated or edited file.
+# Moving files between machines
 
-Files can be moved between machines primarily in the two following ways:
+Files are often translated, edited, or proofread on a different machine than the one where the project started. For example, a project manager may send files to a translator or proofreader and then receive the completed files back.
 
-* A package is created from a project. A package is basically a ZIP file that contains the intermediary (SDLXliff) documents, file type settings, and optionally, additional resources such as reference files, TMs, termbases, AutoSuggest dictionaries, etc. The recipient of a package opens the package file, thus extracting its content to an empty folder on his/her disk. After opening the package, the package content can be processed in Var:ProductName, e.g. the translatable files are translated, edited, etc. After finishing the task, the recipent of the package creates a return package. The return package is also a ZIP file that contains the edited/translated intermediary documents. The return package is then sent to the person who created the project package, usually the project manager.
+You can move files between machines in two ways:
 
-<img style="display:block; " src="images/Package01.jpg"/>
+## Use a project package
+
+A project package is a ZIP file that contains the intermediary SDLXliff files, file type settings, and optional resources such as reference files, translation memories, termbases, and AutoSuggest dictionaries.
+
+1. Create a package from the project.
+2. The recipient opens the package and extracts its contents to an empty folder.
+3. The recipient processes the package content in Var:ProductName.
+4. After completing the task, the recipient creates a return package.
+5. The return package, which also contains the edited or translated intermediary files, goes back to the person who created the project package.
+
+<img style="display:block;" src="images/Package01.jpg"/>
 
 **Wizard-based creation of a project package**
 
-* Files may also be passed to another user/machine simply by passing the intermediary (SDLXliff) file, e.g. by sending it as an email attachment. In this case, you need to observe that simply passing the intermediary file will not include the file type setting file on which this particular intermediary document is based.
+## Send the intermediary file directly
+
+You can also send the intermediary SDLXliff file directly, for example as an email attachment.
+
+This approach does not include the file type settings that were used to create the intermediary document. Use it only when you do not need to preserve those settings separately.

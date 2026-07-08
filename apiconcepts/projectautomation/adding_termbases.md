@@ -1,10 +1,8 @@
-Adding Termbases
-===
+# Adding Termbases
 
 A project may be associated with one or more (file or server) termbases, which are then used for active terminology recognition during translation. This chapter gives an example of how to programmatically add a termbase (* *.sdltb*) file to a project.
 
-Add a Termbase File
---
+## Add a Termbase File
 
 Termbases are multilingual databases that contain terms in the different languages. A language in a termbase is also called index. An index can essentially have any name (label). For example, the index German may be called Deutsch, DEU, etc., as  MultiTerm allows users complete flexibility when it comes to naming indexes. When adding a termbase to a project Var:ProductName intelligently matches the termbase indexes to the project languages. This is actually what your implementation needs to do as well, so that the correct termbase indexes are used for the corresponding project languages.
 
@@ -29,8 +27,7 @@ termbaseConfig.Termbases.Add(tb);
 ```
 ***
 
-Configure the Term Recognition Options
---
+## Configure the Term Recognition Options
 
 You may optionally configure the term recognition options through the [TermRecognitionOptions](../../api/projectautomation/Sdl.ProjectAutomation.Core.TermRecognitionOptions.yml) class. There are a number of options that you can fine-tune for the active terminology recognition:
 
@@ -49,8 +46,7 @@ options.SearchOrder = TermbaseSearchOrder.Hierarchical;
 ```
 ***
 
-Map the Termbase Indexes to the Project Languages
---
+## Map the Termbase Indexes to the Project Languages
 
 It is important that you map the project languages to the termbase indexes. As the indexes of a termbase can have any name, they will usually differ from the project language names. In a 'real' application you will programmatically access the termbase definition and retrieve the index labels and locales. However, for our simplified sample implementation we will just assume that we know the termbase index names and will use a hard-coded string array. Then we create three [Language](../../api/core/Sdl.Core.Globalization.Language.yml) objects for the project source language, and the two project target languages:
 
@@ -88,8 +84,7 @@ Please note the following:
 * The **.sdlproj* file will only contain references to termbases. The termbase files will not be copied into the project folder structure.
 * You may also add server termbases to your project. In that case the **.sdlproj* file will contain a reference to the server termbase(s).
 
-Putting it All Together
---
+## Putting it All Together
 
 The complete function should now look as shown below:
 
@@ -97,46 +92,28 @@ The complete function should now look as shown below:
 ```cs
 public void AddTermbase(FileBasedProject project, string termbaseFileName)
 {
-    #region "TbConfig"
     TermbaseConfiguration termbaseConfig = project.GetTermbaseConfiguration();
-    #endregion
-
-    #region "AddTb"
     Termbase tb = new LocalTermbase(termbaseFileName);
     termbaseConfig.Termbases.Add(tb);
-    #endregion
-
-    #region "TermRecOptions"
     TermRecognitionOptions options = termbaseConfig.TermRecognitionOptions;
     options.MinimumMatchValue = 50;
     options.SearchDepth = 200;
     options.ShowWithNoAvailableTranslation = true;
     options.SearchOrder = TermbaseSearchOrder.Hierarchical;
-    #endregion
-
-    #region "ProjectLanguagesAndTbIndexes"
     string[] termbaseIndex = { "English", "German", "French" };
 
     Language projSourceLang = new Language(CultureInfo.GetCultureInfo("en-US"));
     Language projTargetLang1 = new Language(CultureInfo.GetCultureInfo("de-DE"));
     Language projTargetLang2 = new Language(CultureInfo.GetCultureInfo("fr-FR"));
-    #endregion
-
-    #region "TermbaseLanguageIndex"
     termbaseConfig.LanguageIndexes.Add(new TermbaseLanguageIndex(projSourceLang, termbaseIndex[0]));
     termbaseConfig.LanguageIndexes.Add(new TermbaseLanguageIndex(projTargetLang1, termbaseIndex[1]));
     termbaseConfig.LanguageIndexes.Add(new TermbaseLanguageIndex(projTargetLang2, termbaseIndex[2]));
-    #endregion
-
-    #region "UpdateTermbaseConfiguration"
     project.UpdateTermbaseConfiguration(termbaseConfig);
-    #endregion
 }
 ```
 ***
 
-See Also
---
+## See Also
 
 [Adding Translation Memories](adding_translation_memories.md)
 

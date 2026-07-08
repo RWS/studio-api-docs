@@ -1,10 +1,10 @@
-Looping through the Folder(s)
-=====
-The user of your sample application is required to enter a main path. The application then loops through the files in that path and any files contained in sub-folders of the main path. The application logic for traversing the folders and sub-folders will be implemented in a dedicated iterator class. This class will be used both for looping through all *.tmx files to import into the master TMs.
+# Looping through the Folder(s)
 
-Add a New Class
-----
-Add a class called `TmIterator` to your project. At the beginning of the class, declare two constants, one to specify how deep into the sub-folder structure the recursion should go. For example, we will hard-code the depth to 10, so that the application will go down to 10 sub-folder levels. The second constant sets the recursion level, which should be 1:
+The user enters a root path. The application scans that path and any subfolders for `.tmx` files and imports them into the master TMs. A dedicated iterator class handles the folder traversal.
+
+## Add a New Class
+
+Add a class named `TmIterator` to your project. At the beginning of the class, declare two constants: one to define how deep the recursion should go and one to define the current recursion level. For this sample, hard-code the depth to 10 so the application scans up to 10 subfolder levels. Set the initial recursion level to 1:
 
 # [C#](#tab/tabid-1)
 ```cs
@@ -14,31 +14,30 @@ Add a class called `TmIterator` to your project. At the beginning of the class, 
 public const int Depth = 10;
 
 /// <summary>
-/// Determines current recursion level.
+/// Determines the current recursion level.
 /// </summary>
 private const int RecursionLevel = 1;
 ```
 ******
 
 
-Then add a public function called `ProcessDirectory`:
+Then add a public method named `ProcessDirectory`:
 # [C#](#tab/tabid-2)
 ```cs
 /// <summary>
-/// This function is used to iterate through the main folder and (if applicable) the subfolders to look for *.tmx import files.
+/// Iterates through the main folder and, if applicable, the subfolders to find .tmx import files.
 /// </summary>
-/// <param name="sourceDirectory">Directory to search in.</param>
-/// <param name="processSubFolders">True if subfolder processing required.</param>
+/// <param name="sourceDirectory">Directory to search.</param>
+/// <param name="processSubFolders">True to process subfolders recursively.</param>
 public void ProcessDirectory(string sourceDirectory, bool processSubFolders)
 ```
 ****
 
-This function takes the main folder entered by the user in the command line interface as string parameter, and a boolean parameter that indicates whether sub-folders should be processed through self-recursion.
+This method takes the root folder entered by the user in the command-line interface and a Boolean parameter that indicates whether to process subfolders recursively.
 
-Implement the Recursion
-----
+## Implement the Recursion
 
-Within the function implement an `if`, which makes the function loop through all sub-folders until the recursion level has reached the maximum depth.
+Within the method, add an `if` statement that keeps the recursion within the maximum depth.
 # [C#](#tab/tabid-3)
 ```cs
 // Loop until the recursion level has reached the
@@ -48,7 +47,7 @@ if (RecursionLevel <= Depth)
 *****
 
 
-Next, you iterate through the files found in a given directory. However, the files should only be processed if they match the provided extension, i.e. *.tmx. If the extension tmx is encountered, an import operation will be triggered, which we will implement in a separate class in a later step (see [Importing into the Master Translation Memories](importing_into_the_master_translation_memories.md)).
+Next, iterate through the files found in the current directory. Process only files that match the `.tmx` extension. When the application finds a `.tmx` file, it triggers an import operation that a separate class implements later in the sample (see [Importing into the Master Translation Memories](importing_into_the_master_translation_memories.md)).
 # [C#](#tab/tabid-4)
 ```cs
 // Retrieve the names of the files found in the given folder.
@@ -66,7 +65,7 @@ foreach (string fileName in fileEntries)
 ```
 ***
 
-After all files of the given folder have been processed accordingly, the function needs to re-trigger itself, so that any files in a sub-folder (if applicable) can be processed. The boolean `processSubFolders` parameter determines whether the recursion should be triggered or not. If this parameter is `False`, then only the main path will be processed.
+After the method processes all files in the current folder, it calls itself again so that any files in subfolders can be processed. The Boolean `processSubFolders` parameter controls whether recursion runs. If this parameter is `False`, only the root path is processed.
 # [C#](#tab/tabid-5)
 ```cs
 // Self-recursion to loop through the folder structure until
@@ -78,19 +77,19 @@ if (processSubFolders)
     {
         if ((File.GetAttributes(subdir) & FileAttributes.ReparsePoint) != FileAttributes.ReparsePoint)
         {
-            this.ProcessDir(subdir, processSubFolders);
+            this.ProcessDirectory(subdir, processSubFolders);
         }
     }
 }
 ```
 ****
 
-Trigger the Function
-------
-The `ProcessDirectory` function needs to be called from `Main` in the `Program` class as shown below. The user provides two parameters:
+## Trigger the Method
+
+Call `ProcessDirectory` from `Main` in the `Program` class as shown below. The user provides two parameters:
 
 * The main TMX file path
-* the `/y` parameter to indicate that sub-folders (if any) should be processed
+* The `/y` parameter to indicate that subfolders, if any, should be processed
 
 Example:
 # [](#tab/tabid-6)
@@ -100,13 +99,13 @@ Sdl.SDK.LanguagePlatform.Samples.BatchImport.exe c:\tm /y
 *****
 
 
-The following code in `Program.cs` is used for explaining the application use and retrieves the parameters for the file processing. It also checks the validity of the input folder:
+The following code in `Program.cs` shows how the application reads the command-line arguments and validates the input folder:
 # [C#](#tab/tabid-7)
 ```cs
 /// <summary>
-/// Main entrance point of the application.
+    /// Main entry point of the application.
 /// </summary>
-/// <param name="args">String arguments passed via command line.</param>
+    /// <param name="args">String arguments passed through the command line.</param>
 public static void Main(string[] args)
 {
     string mainPath = string.Empty;
@@ -117,7 +116,7 @@ public static void Main(string[] args)
         Console.WriteLine("Usage:");
         Console.WriteLine("Sdl.SDK.LanguagePlatform.Samples.BatchImport.exe source /ps");
         Console.WriteLine("source path to input folder");
-        Console.WriteLine("/ps   should process subfolders");
+            Console.WriteLine("/ps   process subfolders");
         Console.WriteLine("This application uses a hard-coded recursion level of up to 10 sub-folders.");
         Console.WriteLine("The master TMs are created in a hard-coded location, i.e.: c:\\MasterTMs");
         return;
@@ -165,40 +164,31 @@ using System.IO;
 namespace SDK.LanguagePlatform.Samples.BatchImporter
 {
     /// <summary>
-    /// Represents class able to iterate thru disk directory tree.
+    /// Represents a class that iterates through a disk directory tree.
     /// </summary>
     public class TmIterator
-    {
-        #region "constants"
-
+    {       
         /// <summary>
         /// Determines how deep in the sub-folder structure the application should go.
         /// </summary>
         public const int Depth = 10;
 
         /// <summary>
-        /// Determines current recursion level.
+        /// Determines the current recursion level.
         /// </summary>
         private const int RecursionLevel = 1;
-        #endregion
-
-        #region "function"
-
+          
         /// <summary>
-        /// This function is used to iterate through the main folder and (if applicable) the subfolders to look for *.tmx import files.
+        /// Iterates through the main folder and, if applicable, the subfolders to find .tmx import files.
         /// </summary>
-        /// <param name="sourceDirectory">Directory to search in.</param>
-        /// <param name="processSubFolders">True if subfolder processing required.</param>
+        /// <param name="sourceDirectory">Directory to search.</param>
+        /// <param name="processSubFolders">True to process subfolders recursively.</param>
         public void ProcessDirectory(string sourceDirectory, bool processSubFolders)
-        #endregion
-        {
-            #region "scan"
+        {            
             // Loop until the recursion level has reached the
             // maximum folder depth.
             if (RecursionLevel <= Depth)
-            #endregion
-            {
-                #region "ProcessFiles"
+            {                
                 // Retrieve the names of the files found in the given folder.
                 string[] fileEntries = Directory.GetFiles(sourceDirectory);
                 foreach (string fileName in fileEntries)
@@ -210,10 +200,8 @@ namespace SDK.LanguagePlatform.Samples.BatchImporter
                         var tmImporter = new TmImporter();
                         tmImporter.Import(fileName);
                     }
-                }
-                #endregion
-
-                #region "recursion"
+                }                
+                                
                 // Self-recursion to loop through the folder structure until
                 // the folder depth has reached the recursion level value.
                 if (processSubFolders)
@@ -223,11 +211,10 @@ namespace SDK.LanguagePlatform.Samples.BatchImporter
                     {
                         if ((File.GetAttributes(subdir) & FileAttributes.ReparsePoint) != FileAttributes.ReparsePoint)
                         {
-                            this.ProcessDir(subdir, processSubFolders);
+                            this.ProcessDirectory(subdir, processSubFolders);
                         }
                     }
-                }
-                #endregion
+                }                
             }
         }
     }
@@ -235,11 +222,9 @@ namespace SDK.LanguagePlatform.Samples.BatchImporter
 ```
 ***
 
-See Also
----------
-[Importing into the Master Translation Memories](importing_into_the_master_translation_memories.md)
+## See Also
 
-[Creating the Master Translation Memories](creating_the_master_translation_memories.md)
-
-[Creating the Log File](creating_a_log_file.md)
+- [Importing into the Master Translation Memories](importing_into_the_master_translation_memories.md)
+- [Creating the Master Translation Memories](creating_the_master_translation_memories.md)
+- [Creating the Log File](creating_a_log_file.md)
 

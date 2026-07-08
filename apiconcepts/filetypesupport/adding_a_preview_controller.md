@@ -1,30 +1,27 @@
-Adding a Preview Controller
-===
+# Adding a preview controller
 
-Last, you need to implement a class for controlling the actual preview control element, which you added in the previous step.
+The last step is to implement a class that controls the preview control element that you added in the previous step.
 
-Add a Preview Controller Class
---
+## Add a preview controller class
 
-The preview control element alone is not sufficient for implementing the real-time preview functionality. You also need to add a class that controls the preview UI, which you can call e.g. **InternalPreviewController.cs**. This class is used to catch events such as the user clicking the **Refresh** button in the preview window, the user clicking a segment, scrolling to a segment, confirming a segment in the editor, etc. When those events are caught by the controller class, it triggers the corresponding functions that have been implemented in the preview control UI (see chapter [Adding a Preview UI Control](adding_a_preview_ui_control.md)).
+The preview control element alone cannot provide the real-time preview functionality. You also need a class that controls the preview UI, for example **InternalPreviewController.cs**. This class handles events such as clicking the **Refresh** button, selecting a segment, scrolling to a segment, and confirming a segment in the editor. In response, it calls the functions implemented in the preview control UI. See [Adding a Preview UI Control](adding_a_preview_ui_control.md).
 
-The preview controller class needs to use the following namespaces:
+The preview controller class uses the following namespaces:
 
-* **Sdl.FileTypeSupport.Framework**
-* **Sdl.FileTypeSupport.Framework.NativeApi**
-* **Sdl.FileTypeSupport.Framework.IntegrationApi**
+- **Sdl.FileTypeSupport.Framework**
+- **Sdl.FileTypeSupport.Framework.NativeApi**
+- **Sdl.FileTypeSupport.Framework.IntegrationApi**
 
-The class must then implement the following interfaces:
+The class must implement the following interfaces:
 
-* [ISingleFilePreviewControl](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.ISingleFilePreviewControl.yml): Provides access to the preview file, which is generated in the user's temporary files folder.
-* [INavigablePreview](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.INavigablePreview.yml): Users can navigate to particular segments in the preview window. This interface provides the functionality to control what should happen when a user, e.g. clicks a particular segment in the preview.
-* [IPreviewUpdatedViaRefresh](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IPreviewUpdatedViaRefresh.yml): Users can click a **Refresh** button in the preview control. This interface implements functions for controlling the preview behavior before and after a refresh operation.
-* `IDisposable`: The preview generates a physical preview file in the user's temporary folder under **SDLTempFileManager**. This temporary file needs to be deleted when the preview is closed or when the user, for example, exits the application. This interface provides the functionality for disposing of the preview file when it is no longer required.
+- [ISingleFilePreviewControl](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.ISingleFilePreviewControl.yml): Provides access to the preview file generated in the user's temporary files folder.
+- [INavigablePreview](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.INavigablePreview.yml): Lets users navigate to segments in the preview window and defines what happens when they do.
+- [IPreviewUpdatedViaRefresh](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IPreviewUpdatedViaRefresh.yml): Defines what happens before and after users click **Refresh** in the preview control.
+- `IDisposable`: Disposes of the physical preview file stored temporarily under **SDLTempFileManager** when the preview closes or the application exits.
 
-Declare the Global Members
---
+## Declare the global members
 
-First, declare the following global class members. Create a `_control` object for controlling the actual preview UI and other members used to store the file id and to determine whether the preview file has already been opened or not.
+Start by declaring the following class members. Create a `_control` object for the preview UI. Add members to store the file ID and track whether the preview file is already open.
 
 # [C#](#tab/tabid-1)
 ```cs
@@ -36,12 +33,10 @@ FileId _fileId; // the actual file ID
 // so we know if we should close it during a Refresh()  
 bool _isFileOpen = false;
 ```
-***
 
-Initialize the Preview Control UI
---
+## Initialize the preview control UI
 
-Then add the following members to initialize the preview control and to properly dispose of it, e.g. when the preview or the application is closed by the user.
+Next, add the following members to initialize the preview control and dispose of it correctly when the preview or application closes.
 
 # [C#](#tab/tabid-2)
 ```cs
@@ -61,12 +56,10 @@ public InternalPreviewController()
     Dispose(false);
 }
 ```
-***
 
-Implement the Members of the Abstract Preview Control Interface
---
+## Implement the members of the abstract preview control interface
 
-The [IAbstractPreviewControl](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IAbstractPreviewControl.yml) interface provides the functionality that allows you to control, e.g. what happens when the preview control is refreshed. Add the following members to your preview controller class:
+The [IAbstractPreviewControl](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IAbstractPreviewControl.yml) interface lets you control preview behavior, including refresh operations. Add the following members to your preview controller class:
 
 # [C#](#tab/tabid-3)
 ```cs
@@ -112,12 +105,10 @@ public void Refresh()
     _isFileOpen = true;
 }
 ```
-***
 
-Provide Access to the Temporary Preview File
---
+## Provide access to the temporary preview file
 
-Add the following member, which provides programmatic access to the physical preview file, which is going to be temporarily generated on the user's hard disk:
+Add the following member to provide programmatic access to the physical preview file that is generated temporarily on the user's machine:
 
 # [C#](#tab/tabid-4)
 ```cs
@@ -130,12 +121,10 @@ public TempFileManager PreviewFile
     set;
 }
 ```
-***
 
-Implement the Preview Document Navigation
---
+## Implement the preview document navigation
 
-In the next step, implement the following members of the [INavigablePreview](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.INavigablePreview.yml) interface. These functions control what should happen when the user, for example, scrolls to or selects a particular segment in the preview control.
+Next, implement the following members of the [INavigablePreview](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.INavigablePreview.yml) interface. These functions control what happens when the user scrolls to or selects a segment in the preview control.
 
 # [C#](#tab/tabid-5)
 ```cs
@@ -174,12 +163,10 @@ public virtual void OnSegmentSelected(object sender, SegmentSelectedEventArgs ar
     }
 }
 ```
-***
 
-Dispose of the Preview File
---
+## Dispose of the preview file
 
-Add the following members of the `IDisposable` interface, which takes care of cleaning up and removing the temporary preview files, e.g. after the application is closed by the user:
+Add the following members of the `IDisposable` interface to clean up and remove temporary preview files, for example after the application closes:
 
 # [C#](#tab/tabid-6)
 ```cs
@@ -219,12 +206,10 @@ protected virtual void Dispose(bool disposing)
     }
 }
 ```
-***
 
-Implement the Refresh Functionality
---
+## Implement the refresh functionality
 
-Add the following members of the [IPreviewUpdatedViaRefresh](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IPreviewUpdatedViaRefresh.yml) interface, which provides the functionality to control what happens when the user refreshes the preview control:
+Add the following members of the [IPreviewUpdatedViaRefresh](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IPreviewUpdatedViaRefresh.yml) interface to control what happens when the user refreshes the preview control:
 
 # [C#](#tab/tabid-7)
 ```cs
@@ -249,12 +234,12 @@ public TempFileManager TargetFilePath
     set;
 }
 ```
-***
 
-Register the Preview Controller in the File Type Component Builder
----
+## Register the preview controller in the file type component builder
 
-Do not forget to register the preview controller (i.e. NOT the actual user control item) in the File Type Component Builder as follows. You can add this object below the control used for the static preview (see chapter [Modifying the File Type Component Builder](static_modifying_the_file_type_component_builder.md)). Note that the **id** of the object corresponds to the name of the preview set that you added previously (see chapter [Modifying the File Type Component Builder](dynamic_modifying_the_file_type_component_builder.md)) and must be preceded by a ***PreviewControl_*** prefix to be properly recognized.
+Register the preview controller, not the user control itself, in the File Type Component Builder as follows. You can add this object below the control used for the static preview. See [Modifying the File Type Component Builder](static_modifying_the_file_type_component_builder.md).
+
+The object **id** must match the preview set name that you added earlier. See [Modifying the File Type Component Builder](dynamic_modifying_the_file_type_component_builder.md). It must also start with the **PreviewControl_** prefix.
 
 # [C#](#tab/tabid-8)
 ```cs
@@ -285,12 +270,10 @@ public virtual IAbstractPreviewControl BuildPreviewControl(string name)
     }
 }
 ```
-***
 
-Putting it All Together
---
+## Put it all together
 
-All put together, the preview controller class will look as shown below:
+The complete preview controller class looks like this:
 
 # [C#](#tab/tabid-9)
 ```cs
@@ -303,7 +286,6 @@ namespace Sdk.FileTypeSupport.Samples.SimpleText.Preview
 {
     class InternalPreviewController : ISingleFilePreviewControl, INavigablePreview, IPreviewUpdatedViaRefresh, IDisposable
     {
-        #region "global"
         InternalPreviewControl _control; // the actual control object
         private bool disposed = false; // used for properly disposing of the control        
         FileId _fileId; // the actual file ID
@@ -311,9 +293,7 @@ namespace Sdk.FileTypeSupport.Samples.SimpleText.Preview
         // indicates whether a file has already been opened in the preview, 
         // so we know if we should close it during a Refresh()  
         bool _isFileOpen = false;
-        #endregion
 
-        #region "init"
         /// <summary>
         /// initialize the preview controller and preview control
         /// </summary>
@@ -329,10 +309,8 @@ namespace Sdk.FileTypeSupport.Samples.SimpleText.Preview
         {
             Dispose(false);
         }
-        #endregion
 
 
-        #region "IAbstractPreviewControl Members"
         /// <summary>
         /// return a preview control
         /// </summary>
@@ -374,9 +352,7 @@ namespace Sdk.FileTypeSupport.Samples.SimpleText.Preview
 
             _isFileOpen = true;
         }
-        #endregion
 
-        #region "Temp File Manager"
         /// <summary>
         /// access to the temporary preview file
         /// </summary>
@@ -387,10 +363,6 @@ namespace Sdk.FileTypeSupport.Samples.SimpleText.Preview
         }
 
 
-        #endregion
-
-
-        #region "INavigablePreview Members"
         /// <summary>
         /// reference to the current segment
         /// </summary>
@@ -425,9 +397,7 @@ namespace Sdk.FileTypeSupport.Samples.SimpleText.Preview
                 SegmentSelected(sender, args);
             }
         }
-        #endregion
 
-        #region "IDisposable Members"
         /// <summary>
         /// deletes the preview file, if it exists.
         /// </summary>
@@ -463,9 +433,7 @@ namespace Sdk.FileTypeSupport.Samples.SimpleText.Preview
                 }
             }
         }
-        #endregion
 
-        #region "IPreviewUpdatedViaRefresh Members"
         public void AfterFileRefresh()
         {
             Refresh();
@@ -486,11 +454,15 @@ namespace Sdk.FileTypeSupport.Samples.SimpleText.Preview
             get;
             set;
         }
-        #endregion
     }
 }
 ```
-***
+
+## See also
+
+- [Adding a Preview UI Control](adding_a_preview_ui_control.md)
+- [Modifying the File Type Component Builder](static_modifying_the_file_type_component_builder.md)
+- [Modifying the File Type Component Builder](dynamic_modifying_the_file_type_component_builder.md)
 
 
 >[!NOTE]

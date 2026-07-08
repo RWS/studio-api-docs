@@ -1,5 +1,4 @@
-Publishing to a Server
-==
+# Publishing to a Server
 
 It's a simple task to publish a project. To do so you will need to enter the details of your project server (as supplied by your project server administrator) You will also need to log in to the server with a user that has the "Publish Project" permission
 

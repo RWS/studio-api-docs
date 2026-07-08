@@ -1,16 +1,21 @@
-Introduction
-===
-This section and the subsequent section describe working with TM Server and server-based translation memories.
 
-TM Server
-----
-TM Server is a server-based system that allows hosting translation memories on a central server and provides remote access and management functionality.
+>[!NOTE]
+>For all server-based resource interactions, we strongly recommend using the GroupShare API Toolkit, which is designed specifically for secure and efficient integration with GroupShare services. You can find resources [here](https://developers.rws.com/groupshare-api-docs/apiconcepts/overview.html). 
+>
+>We value feedback from our developer community. Share your thoughts, implementation experiences, and questions regarding these changes on the [Trados Studio Developers Forum](https://community.rws.com/developers-more/trados-portfolio/trados-studio-developers/f/sdk_qa). Your input will help refine the APIs and ensure a smoother transition to the new architecture.
+
+# Introduction
+
+This section introduces TM Server and server-based translation memories.
+
+## TM Server
+
+TM Server hosts translation memories on a central server and provides remote access and management functionality.
 
 
 <img style="display:block; " src="images/cd-TmServer.jpg"/>
 
-See Also
---------
+## See Also
 [Connecting to TM Server](connecting_to_tm_server.md)
 
 [Working with Database Servers and Containers](working_with_database_servers_and_containers.md)

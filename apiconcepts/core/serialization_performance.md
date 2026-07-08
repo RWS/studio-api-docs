@@ -1,19 +1,22 @@
-Serialization Performance
-=====
+## Serialization Performance
 This section describes how to make sure that extensions can be loaded in the most optimal way.
 
-Serialization Performance
------
+### Overview
 The automatic serialization mechanism that comes with .Net is quite handy, since it let’s you serialize and deserialize objects to and from xml in a virtually a single line of code.
 
-However, as it is often the case, there is a downside to this ease of use: the first time you serialize an object of a certain type, the .Net runtime uses reflection to get the list of properties of the type, then automatically generates code that can serialize and deserialize these properties, compiles that code to an assembly, and finally loads it.
+However, this ease of use comes with a downside: the first time you serialize an object of a certain type, the .NET runtime uses reflection to retrieve the list of properties of the type. It then generates code to serialize and deserialize these properties, compiles the code into an assembly, and loads it.
 
-Especially in the desktop application scenario, this will impact performance dramatically, since this process will be repeated for every extension or auxiliary extension attribute type that is used at start-up.
+In desktop application scenarios, this process can significantly impact performance, as it is repeated for every extension or auxiliary extension attribute type used at startup.
 
-We can avoid this automatic serialization overhead, by explicitly implementing the `System.Xml.Serialization.IXmlSerializable` interface. The extension attribute base class already defines the methods required by this interface: `GetSchema`, `ReadXml` and `WriteXml`. All you need to do is mark your attribute class to implement `IXmlSerializable` and override `ReadXml` and `WriteXml` to read and write additional properties, making sure to call the base class method to read and write the base class properties:
+### Optimizing Serialization
+To avoid the overhead of automatic serialization, explicitly implement the `System.Xml.Serialization.IXmlSerializable` interface. The extension attribute base class already defines the methods required by this interface: `GetSchema`, `ReadXml`, and `WriteXml`. To optimize serialization:
+
+1. Mark your attribute class to implement `IXmlSerializable`.
+2. Override `ReadXml` and `WriteXml` to handle additional properties.
+3. Ensure you call the base class methods to read and write base class properties.
 
 # [C#](#tab/tabid-1)
 [!code-csharp[AdvancedPluginFramework](code_samples/AdvancedPluginFramework.cs#L85-L110)]
 ***
 
-The plug-in framework calls the `ReadXml` and `WriteXml` methods directly, avoiding the overhead of automatic xml serialization.
+The plug-in framework directly calls the `ReadXml` and `WriteXml` methods, eliminating the overhead of automatic XML serialization.

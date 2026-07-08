@@ -1,14 +1,16 @@
-Generating the Paragraph Units
-===
+# Generating the Paragraph Units
 
-In this chapter you will learn to extend the writer class to output the actual paragraph units from the intermediary (SDLXliff) file to the target BIL document.
+Extend the writer class to output the actual paragraph units from the intermediary (SDLXliff) file to the target BIL document.
 
-Modify the Function for Processing the Paragraph Units
---
+## Modify the Function for Processing Paragraph Units
 
-First, we will add the required application logic to the method ```CreateParagraphUnit()```, which loops through the paragraph units in the intermediary document. The function is supposed to work like this: the id of the current paragraph unit is retrieved from the context metadata. Remember that we added the unit id as hidden meta information (see [Adding Context Information](adding_context_information.md)). Using the id we will determine the corresponding ```unit``` in the original BIL document. We then call a separate helper function, which replaces the segments from the original BIL document with the paragraph unit content, and thus the segment pairs from the intermediary document.
+Add the required application logic to the `ProcessParagraphUnit()` method, which loops through the paragraph units in the intermediary document. The function works like this:
 
-The method should look as shown below:
+1. Retrieve the id of the current paragraph unit from the context metadata (we added the unit id as hidden meta information; see [Adding Context Information](adding_context_information.md))
+2. Use the id to locate the corresponding `unit` in the original BIL document
+3. Call a separate helper function that replaces the segments from the original BIL document with the paragraph unit content from the intermediary document
+
+The method should look as follows:
 
 # [C#](#tab/tabid-1)
 ```cs
@@ -21,22 +23,21 @@ public void ProcessParagraphUnit(IParagraphUnit paragraphUnit)
     CreateParagraphUnit(paragraphUnit, xmlUnit);
 }
 ```
-***
 
-Note that for this simple implementation we just assume that every paragraph unit in the intermediary document corresponds to a unit id from the original BIL file. In a 'real-life' implementation you should, of course, make sure to catch cases in which a given id does not exist.
+For this simple implementation, we assume every paragraph unit in the intermediary document corresponds to a unit id from the original BIL file. In a production implementation, you should handle cases where a given id doesn't exist.
 
-Add the Helper Function to Generate the Target Paragraph Units
---
+## Add the Helper Function to Generate Target Paragraph Units
 
-Now it is time to implement the helper function that generates the new BIL unit elements from the source target segments in the intermediary file. This function leverages the ```BilTextExtractor``` class, which we created previously (see [Adding the Text Extractor Class](adding_the_text_extractor_class.md)). Therefore, you should declare a new global text extractor member derived from this class:
+Implement the helper function that generates the new BIL unit elements from the source and target segments in the intermediary file. This function uses the `BilTextExtractor` class created previously (see [Adding the Text Extractor Class](adding_the_text_extractor_class.md)).
+
+Declare a new global text extractor member derived from this class:
 
 # [C#](#tab/tabid-2)
 ```cs
 private BilTextExtractor _textExtractor;
 ```
-***
 
-Then you use the the ```Initialize()``` method to create a text extractor object:
+Use the `Initialize()` method to create a text extractor object:
 
 # [C#](#tab/tabid-3)
 ```cs
@@ -45,9 +46,13 @@ public void Initialize(IDocumentProperties documentInfo)
     _textExtractor = new BilTextExtractor();
 }
 ```
-***
 
-Now you can add the following helper function, which works as follows: the ```source``` and the ```target``` elements are taken from the current BIL ```unit``` element. Then, the function loops through the segment pairs of the current paragraph unit from the intermediary (SDLXliff) document. The text extractor object is used to retrieve the plain text and the tag pairs for each segment pair. The ```source``` and the ```target``` elements are then set to the strings that were retrieved through the text extractor object.
+Add the following helper function. It works as follows:
+
+1. Retrieve the `source` and `target` elements from the current BIL `unit` element
+2. Loop through the segment pairs of the current paragraph unit from the intermediary (SDLXliff) document
+3. Use the text extractor object to retrieve the plain text and tag pairs for each segment pair
+4. Set the `source` and `target` elements to the strings retrieved from the text extractor object
 
 # [C#](#tab/tabid-4)
 ```cs
@@ -64,14 +69,12 @@ private void CreateParagraphUnit(IParagraphUnit paragraphUnit, XmlNode xmlUnit)
     }
 }
 ```
-***
 
-Note that we loop through all segment pairs, although in our simplified implementation each unit can be assumed to contain only one segment pair. A paragraph unit in the intermediary (SDLXliff) document would contain several segment pairs if our fictitious BIL format allowed for more than ```one seg``` element within a ```source``` or ```target``` node.
+This implementation loops through all segment pairs, though our simplified format assumes each unit contains only one segment pair. If the BIL format allowed multiple `seg` elements within a `source` or `target` node, a paragraph unit would contain several segment pairs.
 
-Putting it All Together
---
+## Putting It All Together
 
-The enhanced writer class should now look as shown below:
+The enhanced writer class should now look as follows:
 
 # [C#](#tab/tabid-5)
 ```cs
@@ -84,14 +87,11 @@ namespace Sdk.Snippets.Bilingual
 {
     class BilWriter2 : AbstractBilingualFileTypeComponent, IBilingualWriter, INativeOutputSettingsAware
     {
-        #region "global"
         private IPersistentFileConversionProperties _originalFileProperties;
         private INativeOutputFileProperties _nativeFileProperties;
         private XmlDocument _targetFile;
         private BilTextExtractor _textExtractor;
-        #endregion
 
-        #region "INativeOutputSettingsAware members"
         public void GetProposedOutputFileInfo(IPersistentFileConversionProperties fileProperties, IOutputFileInfo proposedFileInfo)
         {
             _originalFileProperties = fileProperties;
@@ -101,29 +101,18 @@ namespace Sdk.Snippets.Bilingual
         {
             _nativeFileProperties = properties;
         }
-        #endregion
 
-
-        #region "IBilingualWriter members"
-
-
-        #region "load file"
         public void SetFileProperties(IFileProperties fileInfo)
         {
             _targetFile = new XmlDocument();
             _targetFile.Load(_originalFileProperties.OriginalFilePath);
         }
 
-        #region "initialize"
         public void Initialize(IDocumentProperties documentInfo)
         {
             _textExtractor = new BilTextExtractor();
         }
-        #endregion
 
-        #endregion
-
-        #region "paragraphs"
         public void ProcessParagraphUnit(IParagraphUnit paragraphUnit)
         {
             string unitId = paragraphUnit.Properties.Contexts.Contexts[1].GetMetaData("UnitID");
@@ -132,9 +121,7 @@ namespace Sdk.Snippets.Bilingual
             // call helper function to generate the paragraph unit
             CreateParagraphUnit(paragraphUnit, xmlUnit);
         }
-        #endregion
 
-        #region "create paragraph"
         private void CreateParagraphUnit(IParagraphUnit paragraphUnit, XmlNode xmlUnit)
         {
             XmlNode source = xmlUnit.SelectSingleNode("source");
@@ -147,9 +134,7 @@ namespace Sdk.Snippets.Bilingual
                 target.InnerXml = _textExtractor.GetPlainText(segmentPair.Target);
             }
         }
-        #endregion
 
-        #region "save file and complete"
         public void FileComplete()
         {
             _targetFile.Save(_nativeFileProperties.OutputFilePath);
@@ -158,34 +143,20 @@ namespace Sdk.Snippets.Bilingual
 
         public void Complete()
         {
-
         }
-        #endregion
-
-        #endregion
-
-        #region Implementation of IDisposable
 
         public void Dispose()
         {
             throw new NotImplementedException();
         }
-
-        #endregion
     }
 }
 ```
-***
 
-See Also
---
+## See Also
 
+- [Adding the File Writer Class](adding_the_file_writer_class.md)
+- [Adding the Text Extractor Class](adding_the_text_extractor_class.md)
 
-
-[Adding the File Writer Class](adding_the_file_writer_class.md)
-
-[Adding the Text Extractor Class](adding_the_text_extractor_class.md)
-
->[!NOTE]
->
+> [!NOTE]
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

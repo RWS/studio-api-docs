@@ -1,9 +1,8 @@
-Project Creator
-==
+# Project Creator
 
-This class transforms a list of ProjectRequests into the corresponding file based projects using a project template.
+This class transforms a list of ProjectRequests into file-based projects using a project template.
 
-This task is carried out by the Execute method. It calls the CreateProject method for each request and using the CreateProject method in the Project Automation API creates a new instance of FileBasedProject and adds files from the ProjectRequest object. It then uses FileBasedProjectReference to run a Scan task on the files followed by a DefaultTaskSequence after which it saves the new project. The sample also illustrates how the ProgressChanged and MessageReported events are handled.
+The Execute method drives this transformation. It calls CreateProject for each request, which uses the Project Automation API to create a new FileBasedProject instance. Files from the ProjectRequest object are added to the project. The sample then runs a Scan task and a DefaultTaskSequence, saves the project, and handles ProgressChanged and MessageReported events.
 
 # [C#](#tab/tabid-1)
 ```cs
@@ -153,22 +152,12 @@ namespace StudioIntegrationApiSample
 ```
 ***
 
+## See Also
 
-See Also
---
-
-
-
-[Content Connector](content_connector.md)
-
-[Reference Sample](reference_sample.md)
-
-[Wikipedia Search](wikipedia_search.md)
-
-[Integrating actions](integrating_actions.md)
-
-[Integrating ribbon groups](integrating_ribbon_groups.md)
-
-[Integrating viewparts](integrating_viewparts.md)
-
-[Integrating views](integrating_views.md)
+- [Content Connector](content_connector.md)
+- [Reference Sample](reference_sample.md)
+- [Wikipedia Search](wikipedia_search.md)
+- [Integrating actions](integrating_actions.md)
+- [Integrating ribbon groups](integrating_ribbon_groups.md)
+- [Integrating viewparts](integrating_viewparts.md)
+- [Integrating views](integrating_views.md)

@@ -1,29 +1,29 @@
-Selecting the Glossary File
-=====
-Learn how to select the delimited text file as a terminology provider for our implementation.
+# Selecting the Glossary File
 
-How to return the Term Provider URI, Name and Description
--------
+Learn how to configure a delimited text file as a terminology provider in your implementation.
 
-Open the **MyTerminologyProvider.cs** class. Add the following public string variable which stores the delimited text file name:
+## Returning the Term Provider URI, Name, and Description
+
+Open the **MyTerminologyProvider.cs** class.
+Add the following public string variable to store the delimited text file name:
 
 # [The Text File Name](#tab/tabid-1)
 [!code-csharp[MyTerminologyProvider](code_samples/MyTerminologyProvider.cs#L18-L19)]
 ***
 
-Modify the following members to return the term provider URI, which includes the text file name:
+Modify the following members to return the term provider URI, including the text file name:
 
 # [The Term Provider Uri](#tab/tabid-2)
 [!code-csharp[MyTerminologyProvider](code_samples/MyTerminologyProvider.cs#L79-L86)]
 ***
 
-Then add the following member, which allows us to pass any settings to the term provider. In our implementation, this will be the path to the glossary file:
+Add the following member to pass settings to the term provider. In this implementation, it specifies the glossary file path:
 
 # [The Term Provider Settings](#tab/tabid-3)
 [!code-csharp[MyTerminologyProvider](code_samples/MyTerminologyProvider.cs#L23-L27)]
 ***
 
-Modify the two following members to return the term provider name and definition:
+Modify the following members to return the term provider name and definition:
 
 # [The Term Provider Name and Definition](#tab/tabid-4)
 [!code-csharp[MyTerminologyProvider](code_samples/MyTerminologyProvider.cs#L63-L86)]
@@ -41,7 +41,8 @@ Open the **MyTerminologyProviderWinFormsUI.cs** class and modify the **Browse()*
 [!code-csharp[MyTerminologyProviderWinFormsUI](code_samples/MyTerminologyProviderWinFormsUI.cs#L43-L58)]
 ***
 
-Go to the **MyTerminologyProviderViewerWinFormsUI.cs** class and create a terminology provider object. Make sure that your provider object is initialized as follows:
+Open the **MyTerminologyProviderViewerWinFormsUI.cs** class.
+Create and initialize a terminology provider object as follows:
 
 # [The Term Provider Object](#tab/tabid-6)
 [!code-csharp[MyTerminologyProviderViewerWinFormsUI](code_samples/MyTerminologyProviderViewerWinFormsUI.cs#L12-L14)]
@@ -55,14 +56,13 @@ Go to the **MyTerminologyProviderViewerWinFormsUI.cs** class and create a termin
 [!code-csharp[MyTerminologyProviderViewerWinFormsUI](code_samples/MyTerminologyProviderViewerWinFormsUI.cs#L34-L40)]
 ***
 
-When selecting the text file, Var:ProductName will try to retrieve the languages from the terminology list. As we have not implemented the corresponding functionality yet, simply change the **GetLanguages()** method of the **MyTerminologyProvider.cs** class to return null for the moment.
+When selecting the text file, Var:ProductName attempts to retrieve the languages from the terminology list. Because the corresponding functionality is not implemented yet, change the **GetLanguages()** method of the **MyTerminologyProvider.cs** class to return null for now.
 
 We will implement the required language retrieval functionality in the next chapter.
 
-The Terminology Provider Factory Class
------
+## The Terminology Provider Factory Class
 
-Open the class **MyTerminologyProviderFactory.cs** and create your term provider object as show below. Only then will Var:ProductName be able to access and display your provider in the UI:
+Open the **MyTerminologyProviderFactory.cs** class and create your term provider object as shown below. Only then can Var:ProductName access and display your provider in the UI:
 
 # [Creating the Terminology Provider Object](#tab/tabid-9)
 [!code-csharp[MyTerminologyProviderFactory](code_samples/MyTerminologyProviderFactory.cs#L10-L15)]

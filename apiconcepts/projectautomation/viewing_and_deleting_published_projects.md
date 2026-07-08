@@ -1,10 +1,8 @@
-Viewing and Deleting Published Projects
-==
+# Viewing and Deleting Published Projects
 
 As well as allowing you to open a project, the [ProjectServer](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.ProjectServer.yml) class provides methods to view existing projects on the server and delete projects from the server.
 
-Viewing Server Projects
---
+## Viewing Server Projects
 
 The following example shows how to view all the projects on the project server starting from a particular organization folder including all sub-folders.
 
@@ -38,8 +36,7 @@ string rootLocalProjectLocation = @"C:\Projects\";
 ```
 ***
 
-Deleting server projects
---
+## Deleting server projects
 
 The following example shows how to delete a project from the project server using the unique id for the project.
 
@@ -56,8 +53,7 @@ server.DeleteProject(projectId);
 >
 >This only removes the project from the server and marks the local copy as deleted You can still access the local copy as a local project but any attempt to access the previously attached server will generate an exception
 
-See Also
---
+## See Also
 [About Server Based Projects](about_server_based_projects.md)
 
 [Connecting a Project to a Project Server](connecting_a_project_to_a_project_server.md)

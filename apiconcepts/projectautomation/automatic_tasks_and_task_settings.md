@@ -1,5 +1,4 @@
-Automatic Tasks and Task Settings
-==
+# Automatic Tasks and Task Settings
 
 he tasks performed in a project can be configured and customized through various settings to suit particular project requirements. For example, the pre-translate task by default only processes exact matches and context matches. However, through a specific setting you can also allow this task to process e.g. matches down to 95%. For another project, a minimum match value of 85% might be suitable.
 
@@ -53,8 +52,7 @@ project.UpdateSettings(trgLanguage, settings);
 
 Note that the above is just one example of a task configuration setting. You will find detailed information on available batch tasks and their settings on the bottom of this page under *See Also* . Note that the task settings are physically stored in the project (* *.sdlproj*) file.
 
-Putting it All Together
---
+## Putting it All Together
 
 The complete function should look as shown below:
 
@@ -62,28 +60,16 @@ The complete function should look as shown below:
 ```CS
 public void ConfigureBatchTaskSettings(FileBasedProject project, string trgLocale, int minMatchValue)
 {
-    #region "SetLanguage"
     Language trgLanguage = new Language(CultureInfo.GetCultureInfo(trgLocale));
-    #endregion
-
-    #region "TaskSettings"
     ISettingsBundle settings = project.GetSettings(trgLanguage);
     TranslateTaskSettings pretranslateSettings = settings.GetSettingsGroup<TranslateTaskSettings>();
-    #endregion
-
-    #region "MinimumMatchScore"
     pretranslateSettings.MinimumMatchScore.Value = minMatchValue;
-    #endregion
-
-    #region "UpdateSettings"
     project.UpdateSettings(trgLanguage, settings);
-    #endregion
 }
 ```
 ***
 
-See Also
---
+## See Also
 [Pre-translate Settings](pre_translate_settings.md)
 
 [Analyze Files Settings](analyze_files_settings.md)

@@ -1,29 +1,29 @@
-Previewing files
-====
-Var:ProductName presents the source and target text in an 'abstracted' view, which gives users a general idea of the layout only through context information (see Using context information). However, for translators and editors it is often useful to view the 'real' document layout. This is why a file type plug-in should ideally be able to generate the source or target document (or both) in the native format, thus giving the users an idea of the actual document layout.
+# Previewing files
 
-Var:ProductName allows you to generate a document preview in an external application for virtually any supported document format. For example: When you process an Adobe FrameMaker file in Var:ProductName and you choose to view the file in the corresponding external application, Adobe FrameMaker will be launched - provided, of course, that the FrameMaker application is installed on your machine. If this is not the case, then no preview in the external application is possible and a corresponding error message will be thrown.
+Var:ProductName presents source and target text in an abstracted view that relies on context information. See [Using context information](using_context_information.md). However, translators and reviewers often need to inspect the actual document layout. For that reason, a file type plug-in should ideally generate the source document, the target document, or both in the native format.
 
-In addition to generating a preview in a separate application you can also embed the preview in Var:ProductName itself. In this case the document preview will be generated in an embedded window. Currently, Var:ProductName supports this type of preview for the following formats: Microsoft Word, Microsoft PowerPoint, HTML, and XML.
+## External previews
 
-The internal preview can be static or dynamic. Static means that the preview window shows the preview document, but it does not interact with the side-by-side editor. On the other hand, a dynamic preview interacts with the segments in the side-by-side editor. When you click, for example, a segment in the preview window, the corresponding segment in the editor will be highlighted (and vice versa). Internal preview windows usually rely on a display component, which does not require the actual application. For example, for Microsoft Word documents Var:ProductName leverages a Word viewer component, which allows you to preview Word documents even if Microsoft Word is not installed on your machine. The HTML preview leverages a Web browser component.
+Var:ProductName can generate a document preview in an external application for almost any supported document format. For example, when users process an Adobe FrameMaker file in Var:ProductName and choose the external preview, Var:ProductName launches Adobe FrameMaker if it is installed on the machine. If the application is unavailable, Var:ProductName cannot open the external preview and displays an error message.
 
-A file type plug-in can be designed to generate previews for the source document, the target document or both (side-by-side.)
+## Internal previews
 
-Example of an internal preview in for a Microsoft Word document in Var:ProductName. The preview can be generated for the source or target language or for both at the same time (side-by-side). The file type plug-in for Microsoft Word files, however, does not generate a side-by-side preview, as this would take too much screen space, and this might also be a performance issue.
+Var:ProductName can also host the preview inside the application. In that case, the preview appears in an embedded window. Var:ProductName currently supports embedded previews for Microsoft Word, Microsoft PowerPoint, HTML, and XML.
 
-<img style="display:block; " src="images/Preview01.jpg"/>
+Internal previews can be static or dynamic. A static preview shows the document, but it does not interact with the side-by-side editor. A dynamic preview stays synchronized with the editor. When users select a segment in the preview, Var:ProductName highlights the corresponding segment in the editor, and vice versa. Internal previews usually rely on a display component instead of the native application. For example, Var:ProductName uses a Word viewer component to preview Word documents even when Microsoft Word is not installed. The HTML preview uses a web browser component.
 
-See Also
-----------
-[Implementing an External File Preview](implementing_an_external_file_preview.md)
+A file type plug-in can generate previews for the source document, the target document, or both side by side.
 
-[Implementing the Preview Writer](implementing_the_preview_writer.md)
+## Example
 
-[Enhancing the Preview File Writer](enhancing_the_preview_file_writer.md)
+This example shows the internal preview for a Microsoft Word document in Var:ProductName. The preview can show the source language, the target language, or both at the same time. The Microsoft Word file type plug-in does not provide a side-by-side preview because that layout uses too much screen space and can affect performance.
 
-[Adding a Preview UI Control](adding_a_preview_ui_control.md)
+<img style="display:block; " src="images/Preview01.jpg" alt="Internal preview for a Microsoft Word document in Var:ProductName"/>
 
-[Adding a Preview Controller](adding_a_preview_controller.md)
-
-[Appendix: Real-time Preview for XML Files](appendix_real_time_preview_for_xml_files.md)
+## See also
+- [Implementing an External File Preview](implementing_an_external_file_preview.md)
+- [Implementing the Preview Writer](implementing_the_preview_writer.md)
+- [Enhancing the Preview File Writer](enhancing_the_preview_file_writer.md)
+- [Adding a Preview UI Control](adding_a_preview_ui_control.md)
+- [Adding a Preview Controller](adding_a_preview_controller.md)
+- [Appendix: Real-time Preview for XML Files](appendix_real_time_preview_for_xml_files.md)

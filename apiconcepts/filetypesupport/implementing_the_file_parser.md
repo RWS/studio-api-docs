@@ -1,16 +1,14 @@
-Implementing the File Parser
-===
+# Implementing the File Parser
 
-In this chapter you will learn how to process a native file and make its content available for processing in Var:ProductName.
+This section explains how to process a native file and make its content available in Var:ProductName.
 
-Add the File Parser Class
---
+## Add the file parser class
 
-Once a given file has been found to be valid, the file parser component is meant to process its content, so that it becomes available for interactive translation in the editor of Var:ProductName, or for batch processing, e.g. automatic pre-translation, file analysis, word count, etc.
+After the file sniffer identifies a valid file, the file parser processes its content. That content then becomes available for interactive translation in the editor of Var:ProductName and for batch operations such as pre-translation, file analysis, and word counting.
 
-Files usually contain translatable text as well as strings that need to be protected against editing, such as tags in HTML. The application logic of your parser needs to determine what should be exposed as translatable text and which elements need to be protected against editing. Depending on the complexity of the given format a thorough format analysis might be required.
+Files usually contain translatable text and strings that must remain protected, such as HTML tags. Your parser must decide which content to expose for translation and which content to protect. Complex formats can require a more detailed format analysis.
 
-Remember what the simple text format that our file type plug-in needs to process looks like (see below):
+The following example shows the simple text format that the sample file type plug-in processes:
 
 # [Text](#tab/tabid-1)
 ```
@@ -20,19 +18,23 @@ Automatically re-open previously edited documents.
 [Element=text2]
 Prompt me to re-open previously edited documents. Opens a dialog box on start-up.
 [Element=text3]
-Do <b>not</b> automatically re-open previously edited couments. This is the default option.
+Do <b>not</b> automatically re-open previously edited documents. This is the default option.
 [Element=text4]
 Prd-Code NCC1504
 ```
 ***
 
-For more information and processing requirements of this format, please refer back to the chapter Introduction.
-Start by adding a class called e.g. **SimpleTextParser.cs** to your project. Since the parser needs to read text files for processing, add the ```System.IO``` namespace to the class. It is recommended that you also add the ```System.Drawing``` namespace. This makes it easier to select colour values, which will be useful for highlighting context information later. Also, add the namespace ```Sdl.FileTypeSupport.Framework.NativeApi``` for processing native formats. Your file parser class needs to be derived from [AbstractNativeFileParser](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileParser.yml) and implement the interfaces [INativeContentCycleAware](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.yml). Also, if you have parser specific settings which you need to apply, you also need to implement the [InitializeSettings](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.ISettingsAware.yml#Sdl_FileTypeSupport_Framework_IntegrationApi_ISettingsAware_InitializeSettings_Sdl_Core_Settings_ISettingsBundle_System_String_) method of the [ISettingsAware](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.ISettingsAware.yml) interface. The class needs to contain the following members of the [INativeContentCycleAware](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.yml) interface:
+For more information about this format and its processing requirements, see the introduction.
 
-1. [SetFileProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.yml#Sdl_FileTypeSupport_Framework_NativeApi_INativeContentCycleAware_SetFileProperties_Sdl_FileTypeSupport_Framework_BilingualApi_IFileProperties_): Retrieves important information on the input file such as file name, . path, and encoding.
-2. [StartOfInput](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.yml#Sdl_FileTypeSupport_Framework_NativeApi_INativeContentCycleAware_StartOfInput): This method is triggered when the parser starts to read the native input file. You could use this method, for example, to set the progress indicator to the beginning, i.e. 0%. As native input files can be complex and comprehensive, Var:ProductName displays a progress bar upon opening a file. The progress of this indicator can be set programmatically.
-3. [EndOfInput](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.yml#Sdl_FileTypeSupport_Framework_NativeApi_INativeContentCycleAware_EndOfInput): This method is triggered when the parser has reached the end of the native input file. You could use this method, for example, to set a progress indicator to 100%.
-The minimum amount of code to build a project with a native file parser looks as shown below:
+Add a class named **SimpleTextParser.cs** to your project. Because the parser reads text files, add the `System.IO` namespace. Add `System.Drawing` if you want to define colors for context information later. Also add `Sdl.FileTypeSupport.Framework.NativeApi` to work with native formats. Derive your parser class from [AbstractNativeFileParser](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileParser.yml) and implement [INativeContentCycleAware](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.yml). If your parser uses custom settings, also implement [InitializeSettings](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.ISettingsAware.yml#Sdl_FileTypeSupport_Framework_IntegrationApi_ISettingsAware_InitializeSettings_Sdl_Core_Settings_ISettingsBundle_System_String_) from [ISettingsAware](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.ISettingsAware.yml).
+
+The class must include the following members from [INativeContentCycleAware](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.yml):
+
+1. [SetFileProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.yml#Sdl_FileTypeSupport_Framework_NativeApi_INativeContentCycleAware_SetFileProperties_Sdl_FileTypeSupport_Framework_BilingualApi_IFileProperties_) retrieves information about the input file, such as the file name, path, and encoding.
+2. [StartOfInput](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.yml#Sdl_FileTypeSupport_Framework_NativeApi_INativeContentCycleAware_StartOfInput) runs when the parser starts reading the native input file. You can use it to set the progress indicator to the beginning, for example to 0%.
+3. [EndOfInput](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.yml#Sdl_FileTypeSupport_Framework_NativeApi_INativeContentCycleAware_EndOfInput) runs when the parser reaches the end of the native input file. You can use it to set a progress indicator to 100%.
+
+The following example shows the minimum code required to create a native file parser:
 
 # [C#](#tab/tabid-2)
 ```cs
@@ -43,7 +45,7 @@ namespace Sdk.Snippets.Native
 {
     public class SimpleTextParser1 : AbstractNativeFileParser, INativeContentCycleAware
     {
-        IPersistentFileConversionProperties _fileConversionProperties;
+        private IPersistentFileConversionProperties _fileConversionProperties;
 
         public void SetFileProperties(IFileProperties properties)
         {
@@ -62,18 +64,22 @@ namespace Sdk.Snippets.Native
 ```
 ***
 
-Open the Native Input File
---
-Add a [BeforeParsing](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileParser.yml#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileParser_BeforeParsing) method to open the native input file. You can retrieve the input file name and path through the [OriginalFilePath](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPersistentFileConversionProperties.yml#Sdl_FileTypeSupport_Framework_NativeApi_IPersistentFileConversionProperties_OriginalFilePath) property, which is implemented by the file conversion properties interface. Here you can also use the method [OnProgress](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileParser.yml#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileParser_OnProgress_System_Byte_) and set the parsing progress value to 0%. Upon opening a file in Var:ProductName a progress bar is raised to indicate the progress of the parsing operation. Through the [OnProgress](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileParser.yml#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileParser_OnProgress_System_Byte_) method you can control this progress bar by setting the byte parameter to an appropriate value. For example, after half of the lines in a given text files have been parsed, you can set the parameter to 50. Below you see how we use the  [BeforeParsing](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileParser.yml#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileParser_BeforeParsing) method in our implementation:
+## Open the native input file
+
+Add a [BeforeParsing](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileParser.yml#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileParser_BeforeParsing) method to open the native input file. Retrieve the input file path through [OriginalFilePath](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPersistentFileConversionProperties.yml#Sdl_FileTypeSupport_Framework_NativeApi_IPersistentFileConversionProperties_OriginalFilePath), which the file conversion properties interface provides. You can also call [OnProgress](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileParser.yml#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileParser_OnProgress_System_Byte_) here to set the parsing progress to 0%.
+
+When Var:ProductName opens a file, it displays a progress bar for the parsing operation. Call [OnProgress](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileParser.yml#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileParser_OnProgress_System_Byte_) to control that progress bar. For example, after the parser reads half the lines in a text file, you can set the parameter to `50`.
+
+The following example shows how to use [BeforeParsing](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileParser.yml#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileParser_BeforeParsing):
 
 # [C#](#tab/tabid-3)
 ```cs
 protected override void BeforeParsing()
 {
-    // set progress reporter to the beginning
+    // Set the progress reporter to the beginning.
     OnProgress(0);
 
-    // open the native input file for reading
+    // Open the native input file for reading.
     _reader = new StreamReader(_fileConversionProperties.OriginalFilePath);
 }
 ```
@@ -81,18 +87,17 @@ protected override void BeforeParsing()
 
 >[!NOTE]
 >
->You may wonder what the difference between [BeforeParsing](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileParser.yml#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileParser_BeforeParsing) and [StartOfInput](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.yml#Sdl_FileTypeSupport_Framework_NativeApi_INativeContentCycleAware_StartOfInput) is. Var:ProductName allows you to merge several files into one master document. Such a master document can even contain several documents of different native formats (e.g. DOC and PPT). The [BeforeParsing](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileParser.yml#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileParser_BeforeParsing) method can be used to execute the application logic required before the start of the whole parsing process such as writing meta information into the header of the master file. [StartOfInput](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.yml#Sdl_FileTypeSupport_Framework_NativeApi_INativeContentCycleAware_StartOfInput) can contain the logic applied to a particular native file that is merged with other native files. However, in our simple implementation, this use case is not covered. Here, we only use the [BeforeParsing](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileParser.yml#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileParser_BeforeParsing) method to set the progress to 0% and to create a text streamreader object.
+> [BeforeParsing](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileParser.yml#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileParser_BeforeParsing) and [StartOfInput](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.yml#Sdl_FileTypeSupport_Framework_NativeApi_INativeContentCycleAware_StartOfInput) serve different purposes. Var:ProductName can merge several files into one master document, including files from different native formats such as DOC and PPT. Use [BeforeParsing](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileParser.yml#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileParser_BeforeParsing) for logic that runs before the complete parsing process starts, such as writing metadata into the master file header. Use [StartOfInput](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.yml#Sdl_FileTypeSupport_Framework_NativeApi_INativeContentCycleAware_StartOfInput) for logic that applies to a specific native file in that merged set. This simple implementation does not cover that scenario. Here, [BeforeParsing](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileParser.yml#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileParser_BeforeParsing) only sets progress to 0% and creates a `StreamReader` object.
 
-Parse the Input File
---
+## Parse the input file
 
-The [AbstractNativeFileParser](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileParser.yml) class implements the member [DuringParsing](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileParser.yml#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileParser_DuringParsing), which you need to override in your file parser class. This method reads the input file from the beginning to the end.
+Override [DuringParsing](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileParser.yml#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileParser_DuringParsing) from [AbstractNativeFileParser](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileParser.yml). This method reads the input file from beginning to end.
 
 # [C#](#tab/tabid-4)
 ```cs
 protected override bool DuringParsing()
 {
-    // iterate through all lines in the input file
+    // Iterate through all lines in the input file.
     while (!_reader.EndOfStream)
     {
         ProcessLine(_reader.ReadLine());
@@ -102,7 +107,7 @@ protected override bool DuringParsing()
 ```
 ***
 
-For each line of text you call a separate ```ProcessLine()``` helper function to determine whether a given line contains translatable text or not.
+For each line of text, call a separate `ProcessLine()` helper method to determine whether the line contains translatable text.
 
 # [C#](#tab/tabid-5)
 ```cs
@@ -121,60 +126,60 @@ private void ProcessLine(string sLine)
 ```
 ***
 
-The ```ProcessLine()``` helper function works as follows: If a line starts with an opening bracket and ends with a closing bracket, we call separate helper functions called ```WriteStructureTag()``` and ```WriteContext```, which we still need to implement.
-The ```WriteStructureTag()``` helper is used to write any non-translatable information into a structure tag. The non-translatable text (i.e. the strings enclosed in [*brackets*]) will thus be physically present in the bilingual SDLXliff file, but they will not be exposed to the user. You need to include the non-translatable information in the SDLXliff file, so that the corresponding strings can be written back to the native target file later (generation).
+The `ProcessLine()` helper works as follows: if a line starts with an opening bracket and ends with a closing bracket, call separate helper methods named `WriteStructureTag()` and `WriteContext()`.
 
-Since users cannot see the structure tag content in the editor of Var:ProductName, it is recommended (though not required) that you add some context information, which is then shown in the document structure column on the right-hand side of the editor. You can have your file type plug-in display a short descriptive code. By moving the mouse over the corresponding code or by double-clicking the user can display more detailed information, which can sometimes be useful for the translation process. This is what is actually done through a separate ```WriteContext()``` helper function, which we will implement later.
+Use `WriteStructureTag()` to write non-translatable information into a structure tag. The non-translatable text, such as the strings enclosed in brackets, remains in the bilingual SDLXliff file, but the editor does not expose it to the user. Include this information in the SDLXliff file so that the generator can write it back to the native target file later.
+
+Because users cannot see structure tag content in the editor of Var:ProductName, consider adding context information. The editor shows this information in the document structure column on the right side. Your file type plug-in can display a short descriptive code. Users can point to that code or double-click it to view more detail. The `WriteContext()` helper method handles this task.
 
 
-**Output Translatable Text**
+## Output translatable text
 
-If a given line does not start and end with a bracket, then the string can be considered translatable text, and can therefore be exposed to the user for translation. This is done through the helper function ```WriteText()```.
+If a line does not start and end with a bracket, treat it as translatable text and expose it for translation. Use the `WriteText()` helper method for this step.
 
-The ```WriteText()``` helper uses [CreateTextProperties](../..//api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPropertiesFactory.yml#Sdl_FileTypeSupport_Framework_NativeApi_IPropertiesFactory_CreateTextProperties_System_String_) method ofy properties factory to create a text properties object ([ITextProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ITextProperties.yml)) that contains the localizable text. The actual text of this property can then be output by using the ```Output.Text()``` method.
+The `WriteText()` helper uses [CreateTextProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPropertiesFactory.yml#Sdl_FileTypeSupport_Framework_NativeApi_IPropertiesFactory_CreateTextProperties_System_String_) on the properties factory to create an [ITextProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ITextProperties.yml) object that contains the localizable text. It then outputs that text through `Output.Text()`.
 
 # [C#](#tab/tabid-6)
 ```cs
-// output translatable text
-private void WriteText(string TextContent)
+// Output translatable text.
+private void WriteText(string textContent)
 {
-    ITextProperties textProperties = PropertiesFactory.CreateTextProperties(TextContent);
+    ITextProperties textProperties = PropertiesFactory.CreateTextProperties(textContent);
     Output.Text(textProperties);
 }
 ```
 ***
 
-**Output Structure Tags**
+## Output structure tags
 
-In the same way the ```WriteStructureTag()``` helper function uses the [CreateStructureTagProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPropertiesFactory.yml#Sdl_FileTypeSupport_Framework_NativeApi_IPropertiesFactory_CreateStructureTagProperties_System_String_) method of the properties factory to output the non-translatable lines as structure tags to the intermediate (SDLXliff) file. When creating the tag property the tag content is passed to the ```Create()``` method as a parameter. The tag property can then be output to the API using the method ```Output.StructureTag()```.
+In the same way, `WriteStructureTag()` uses [CreateStructureTagProperties](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPropertiesFactory.yml#Sdl_FileTypeSupport_Framework_NativeApi_IPropertiesFactory_CreateStructureTagProperties_System_String_) on the properties factory to output non-translatable lines as structure tags in the intermediate SDLXliff file. Pass the tag content to `CreateStructureTagProperties()` and then send the result to the API through `Output.StructureTag()`.
 
 # [C#](#tab/tabid-7)
 ```cs
-// output non-translatable text as structure tag
-private void WriteStructureTag(string TagContent)
+// Output non-translatable text as a structure tag.
+private void WriteStructureTag(string tagContent)
 {
-    IStructureTagProperties structureTagProperties = PropertiesFactory.CreateStructureTagProperties(TagContent);
-    structureTagProperties.DisplayText = TagContent;
+    IStructureTagProperties structureTagProperties = PropertiesFactory.CreateStructureTagProperties(tagContent);
+    structureTagProperties.DisplayText = tagContent;
     Output.StructureTag(structureTagProperties);
 }
 ```
 ***
 
-**Output Context Information**
+## Output context information
 
-Context information can help translators do job more effectively. Therefore it is useful (but not required) to have your file type plug-in output some context information. To this end, we will add the ```WriteContext()``` helper function to the file parser class, which looks as shown below:
+Context information can help translators work more effectively. For that reason, it is useful, though not required, to output context information from your file type plug-in. The following example shows the `WriteContext()` helper method:
 
 # [C#](#tab/tabid-8)
 ```cs
-// output context information, not required, but useful
-// information for the translator
-private void WriteContext(string ContextContent)
+// Output context information for the translator.
+private void WriteContext(string contextContent)
 {
     IContextProperties contextProperties = PropertiesFactory.CreateContextProperties();
-    IContextInfo contextInfo = PropertiesFactory.CreateContextInfo(ContextContent);
+    IContextInfo contextInfo = PropertiesFactory.CreateContextInfo(contextContent);
     contextInfo.DisplayCode = "EL";
     contextInfo.DisplayName = "Element";
-    contextInfo.Description = ContextContent;
+    contextInfo.Description = contextContent;
     contextInfo.DisplayColor = Color.Beige;
     contextProperties.Contexts.Add(contextInfo);
     Output.ChangeContext(contextProperties);
@@ -182,80 +187,72 @@ private void WriteContext(string ContextContent)
 ```
 ***
 
-We use the [CreateContextInfo](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPropertiesFactory.yml#Sdl_FileTypeSupport_Framework_NativeApi_IPropertiesFactory_CreateContextInfo_System_String_) method of the properties factory to generate a context information object, and then output the context properties. As you can see, the context information object can be configured through a range of parameters. These parameters define what is displayed in the document structure column of the editor.
-In the editor, users first see the short form (i.e. the display code). In this case, the display code **EL** is shown. When the mouse pointer is moved over the display code, the display name, here **Element** is shown in a tooltip. By double-clicking the display code, users can open a separate dialog box, which shows the entire string, i.e. the description, e.g. **[Element=text3]**. Note that you can specify a background colour for each context element. By assigning different colour to contexts you make it easer for the user to differentiate between different contexts (e.g. headings, paragraphs, footnotes, etc.).
+Use [CreateContextInfo](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPropertiesFactory.yml#Sdl_FileTypeSupport_Framework_NativeApi_IPropertiesFactory_CreateContextInfo_System_String_) on the properties factory to generate a context information object, and then output the context properties. These parameters control what the editor displays in the document structure column.
 
-Once you have implemented these functions and built the solution, you can open a sample file in Var:ProductName. In the translation editor the file will then look as shown below:
+In the editor, users first see the short form, which is the display code. In this example, the display code is **EL**. When users point to the display code, the editor shows the display name, **Element**, in a tooltip. When users double-click the display code, they can open a dialog box that shows the full string, for example **[Element=text3]**. You can also assign a background color to each context element. Different colors make it easier to distinguish between contexts such as headings, paragraphs, and footnotes.
+
+After you implement these methods and build the solution, you can open a sample file in Var:ProductName. The translation editor then looks like this:
 
 ![SimpleSampleTextInEditor](images/SimpleSampleTextInEditor.jpg)
 
 
-Note that the inline formatting tags are still exposed as normal, translatable text, which should, of course, not be the case. The next chapter (see [Processing Inline Formatting](processing_inline_formatting.md)) covers the topic of how to enhance the file type plug-in to properly mark up these elements as inline tags and apply the correct formatting to the strings that they enclose.
+At this stage, the inline formatting tags still appear as normal translatable text. The next chapter, [Processing Inline Formatting](processing_inline_formatting.md), explains how to mark up these elements as inline tags and apply the correct formatting to the enclosed strings.
 
-Also note that the File Type Support Framework has automatically taken care of the segmentation, i.e. the individual sentences appear in separate cells within the editor. This relieves you of implementing a segmentation logic yourself.
+The File Type Support Framework also handles segmentation automatically. As a result, individual sentences appear in separate editor cells, and you do not need to implement segmentation logic yourself.
 
-Below is an example of what the user sees after double-clicking the context display codes.
+The following example shows what users see after they double-click a context display code.
 
 ![ElementCode](images/ElementCode.jpg)
 
-Close and Release the Input File
---
+## Close and release the input file
 
-After having parsed the complete file, you should override the [AfterParsing](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileParser.yml#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileParser_AfterParsing) method of the abstract native file parser. In this function you can close and release the original file from memory. You can also call the [OnProgress](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileParser.yml#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileParser_OnProgress_System_Byte_) method and set the progress value to 100%.
+After the parser finishes reading the file, override [AfterParsing](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileParser.yml#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileParser_AfterParsing). In this method, close the original file and release it from memory. You can also call [OnProgress](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileParser.yml#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileParser_OnProgress_System_Byte_) to set progress to 100%.
 
 # [C#](#tab/tabid-9)
 ```cs
 protected override void AfterParsing()
 {
-    //close original file
+    // Close the original file.
     _reader.Close();
     _reader.Dispose();
     _reader = null;
-    //set progres report to 100%
+
+    // Set the progress report to 100%.
     OnProgress(100);
 }
 ```
 ***
 
-Add the Component Reference to the File Type Component Builder
---
+## Add the component reference to the File Type Component Builder
 
-Do not forget to reference the file parser component to the File Type Component Builder by inserting the following method:
+Reference the file parser component in the File Type Component Builder by adding the following method:
 
 # [C#](#tab/tabid-10)
 ```cs
 /// <summary>
 /// Gets the file extractor for this component.
 /// </summary>
-/// <param name="name">not used here</param>
-/// <returns>a FileExtractor containing an Simple Text Parser</returns>
+/// <param name="name">Not used here.</param>
+/// <returns>A FileExtractor that contains a Simple Text Parser.</returns>
 public virtual IFileExtractor BuildFileExtractor(string name)
 {
     var parser = new SimpleTextParser();
     parser.LockPrdCodes = true;
     var extractor = this.FileTypeManager.BuildFileExtractor(this.FileTypeManager.BuildNativeExtractor(parser), this);
-    extractor.AddFileTweaker(new SimpleFilePreTweaker {RequireValidEncoding = false});
+    extractor.AddFileTweaker(new SimpleFilePreTweaker { RequireValidEncoding = false });
     return extractor;
 }
 ```
 ***
 
-See Also
---
+## See also
 
-
-[Processing Inline Formatting](processing_inline_formatting.md)
-
-[Enhancing the File Parser to Process the Settings](enhancing_the_file_parser_to_process_the_settings.md)
-
-[Processing Placeholder Tags](processing_placeholder_tags.md)
-
-[Handling Tags During Segmentation](handling_tags_during_segmentation.md)
-
-[Locking Specific Strings](locking_specific_strings.md)
-
-[Using context information](using_context_information.md)
-
+- [Processing Inline Formatting](processing_inline_formatting.md)
+- [Enhancing the File Parser to Process the Settings](enhancing_the_file_parser_to_process_the_settings.md)
+- [Processing Placeholder Tags](processing_placeholder_tags.md)
+- [Handling Tags During Segmentation](handling_tags_during_segmentation.md)
+- [Locking Specific Strings](locking_specific_strings.md)
+- [Using context information](using_context_information.md)
 
 >[!NOTE]
 >

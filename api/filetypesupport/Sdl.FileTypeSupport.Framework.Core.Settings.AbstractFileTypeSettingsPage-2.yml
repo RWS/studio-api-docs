@@ -27,51 +27,98 @@ items:
   nameWithType: AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>
   fullName: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>
   type: Class
-  source:
-    path: Sdl.FileTypeSupport.Framework.Core.Settings
-    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core.Settings
   namespace: Sdl.FileTypeSupport.Framework.Core.Settings
-  summary: "\nConvenient implementation class for settings pages that handles the initialization of settings\nand controls, and provides a default implementation of the file type specific settings page interface.\n"
-  remarks: "\n<p>\nSettings pages do not need to be derived from this class. However, if they follow standard patterns, deriving from this class\ncan result in a simpler implementation.\n</p>\n"
+  summary: >-
+    Convenient implementation class for settings pages that handles the initialization of settings
+
+    and controls, and provides a default implementation of the file type specific settings page interface.
+  remarks: >-
+    <p>
+
+    Settings pages do not need to be derived from this class. However, if they follow standard patterns, deriving from this class
+
+    can result in a simpler implementation.
+
+    </p>
   example:
-  - "\n<p>\nTo use this class in order to implement a file type settings page, take the following steps:\n</p>\n<ul><li>Create a settings class that implements <xref href=\"Sdl.FileTypeSupport.Framework.Core.Settings.FileTypeSettingsBase\" data-throw-if-not-resolved=\"false\"></xref>. Make sure that your property setters\nare raising the <xref href=\"System.ComponentModel.INotifyPropertyChanged.PropertyChanged\" data-throw-if-not-resolved=\"false\"></xref> event when values change. Implement the\n<xref href=\"Sdl.FileTypeSupport.Framework.Core.Settings.FileTypeSettingsBase.ResetToDefaults\" data-throw-if-not-resolved=\"false\"></xref> method by calling the property setters (rather than updating\nthe fields directly). Implement settings reading and writing functionality using the settings bundle.</li><li>\nCreate a settings control for the settings page, and implement <code>IFileTypeSettingsAware</code> for your settings class. \nIn the property setter for Settings, assign the value to <code>LayoutRoot.DataContext</code>. \nImplement the user interface by using two-way data binding to access and update the settings.\n</li><li>\nCreate a settings page class derived from this class and mark it with the <xref href=\"Sdl.FileTypeSupport.Framework.Core.Settings.FileTypeSettingsPageAttribute\" data-throw-if-not-resolved=\"false\"></xref>.\n</li></ul>\n<p>\nThe default implementation of the settings page and the data binding will take care of everything else. Unless you\nrequire special processing for anything, there should be no need to override any of the methods and properties\nin this base class.\n</p>\n"
+  - >-
+    <p>
+
+    To use this class in order to implement a file type settings page, take the following steps:
+
+    </p>
+
+    <ul><li>Create a settings class that implements <xref href="Sdl.FileTypeSupport.Framework.Core.Settings.FileTypeSettingsBase" data-throw-if-not-resolved="false"></xref>. Make sure that your property setters
+
+    are raising the <xref href="System.ComponentModel.INotifyPropertyChanged.PropertyChanged" data-throw-if-not-resolved="false"></xref> event when values change. Implement the
+
+    <xref href="Sdl.FileTypeSupport.Framework.Core.Settings.FileTypeSettingsBase.ResetToDefaults" data-throw-if-not-resolved="false"></xref> method by calling the property setters (rather than updating
+
+    the fields directly). Implement settings reading and writing functionality using the settings bundle.</li><li>
+
+    Create a settings control for the settings page, and implement <code>IFileTypeSettingsAware</code> for your settings class. 
+
+    In the property setter for Settings, assign the value to <code>LayoutRoot.DataContext</code>. 
+
+    Implement the user interface by using two-way data binding to access and update the settings.
+
+    </li><li>
+
+    Create a settings page class derived from this class and mark it with the <xref href="Sdl.FileTypeSupport.Framework.Core.Settings.FileTypeSettingsPageAttribute" data-throw-if-not-resolved="false"></xref>.
+
+    </li></ul>
+
+    <p>
+
+    The default implementation of the settings page and the data binding will take care of everything else. Unless you
+
+    require special processing for anything, there should be no need to override any of the methods and properties
+
+    in this base class.
+
+    </p>
   syntax:
-    content: >-
-      public abstract class AbstractFileTypeSettingsPage<SettingsControlType, SettingsType> : AbstractSettingsPage, IFileTypeConfigurationAware where SettingsControlType : new()
-          where SettingsType : FileTypeSettingsBase, new()
+    content: 'public abstract class AbstractFileTypeSettingsPage<SettingsControlType, SettingsType> : AbstractSettingsPage, ISettingsPage, IDisposable, IFileTypeConfigurationAware where SettingsControlType : new() where SettingsType : FileTypeSettingsBase, new()'
     typeParameters:
     - id: SettingsControlType
-      description: "Control class that will be used to edit the settings; should be derived from <code>Control</code>, and \nhave a default constructor. The control should implement <code>IFileTypeSettingsAware</code>, and use data binding\nto interact with the settings."
+      description: >-
+        Control class that will be used to edit the settings; should be derived from <code>Control</code>, and 
+                    have a default constructor. The control should implement <code>IFileTypeSettingsAware</code>, and use data binding
+                    to interact with the settings.
     - id: SettingsType
       description: >-
         Settings data container class; should implement <xref href="Sdl.FileTypeSupport.Framework.Core.Settings.FileTypeSettingsBase" data-throw-if-not-resolved="false"></xref> and
-
-        raise property change events when data is changed. Must have a default constructor. The settings class should
-
-        correspond to the settings displayed by the control for the ResetToDefaults function to work as expected without
-
-        manual tweaking. If the settings class contains settings used by other pages, you must override the
-
-        <xref href="Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage%602.ResetToDefaults" data-throw-if-not-resolved="false"></xref> method to ensure that only the settings for this page are reset.
-    content.vb: >-
-      Public MustInherit Class AbstractFileTypeSettingsPage(Of SettingsControlType As New, SettingsType As {FileTypeSettingsBase, New})
-          Inherits AbstractSettingsPage
-          Implements IFileTypeConfigurationAware
+                    raise property change events when data is changed. Must have a default constructor. The settings class should
+                    correspond to the settings displayed by the control for the ResetToDefaults function to work as expected without
+                    manual tweaking. If the settings class contains settings used by other pages, you must override the
+                    <xref href="Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage%602.ResetToDefaults" data-throw-if-not-resolved="false"></xref> method to ensure that only the settings for this page are reset.
+    content.vb: Public MustInherit Class AbstractFileTypeSettingsPage(Of SettingsControlType As New, SettingsType As {FileTypeSettingsBase, New}) Inherits AbstractSettingsPage Implements ISettingsPage, IDisposable, IFileTypeConfigurationAware
   inheritance:
   - System.Object
+  - Sdl.Core.Settings.AbstractSettingsPage
   implements:
+  - Sdl.Core.Settings.ISettingsPage
+  - System.IDisposable
   - Sdl.FileTypeSupport.Framework.Core.Settings.IFileTypeConfigurationAware
+  inheritedMembers:
+  - Sdl.Core.Settings.AbstractSettingsPage.OnActivate
+  - Sdl.Core.Settings.AbstractSettingsPage.OnDeactivate
+  - Sdl.Core.Settings.AbstractSettingsPage.ValidateInput
+  - Sdl.Core.Settings.AbstractSettingsPage.AfterSave
+  - Sdl.Core.Settings.AbstractSettingsPage.Cancel
+  - Sdl.Core.Settings.AbstractSettingsPage.AfterCancel
+  - Sdl.Core.Settings.AbstractSettingsPage.DataSource
+  - Sdl.Core.Settings.AbstractSettingsPage.HasDefaultSettings
+  - System.Object.ToString
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
   nameWithType.vb: AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType)
-  modifiers.csharp:
-  - public
-  - abstract
-  - class
-  modifiers.vb:
-  - Public
-  - MustInherit
-  - Class
   fullName.vb: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType)
   name.vb: AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType)
 - uid: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.#ctor
@@ -85,23 +132,18 @@ items:
   nameWithType: AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.AbstractFileTypeSettingsPage()
   fullName: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.AbstractFileTypeSettingsPage()
   type: Constructor
-  source:
-    path: Sdl.FileTypeSupport.Framework.Core.Settings
-    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core.Settings
   namespace: Sdl.FileTypeSupport.Framework.Core.Settings
-  summary: "\nDefault constructor, does not do anything\n"
+  summary: Default constructor, does not do anything
+  example: []
   syntax:
     content: protected AbstractFileTypeSettingsPage()
-    content.vb: Protected Sub New
+    content.vb: Protected Sub New()
   overload: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.#ctor*
-  nameWithType.vb: AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).AbstractFileTypeSettingsPage()
-  modifiers.csharp:
-  - protected
-  modifiers.vb:
-  - Protected
-  fullName.vb: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).AbstractFileTypeSettingsPage()
+  nameWithType.vb: AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).New()
+  fullName.vb: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).New()
+  name.vb: New()
 - uid: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.Finalize
   commentId: M:Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.Finalize
   id: Finalize
@@ -109,29 +151,22 @@ items:
   langs:
   - csharp
   - vb
-  name: Finalize()
-  nameWithType: AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.Finalize()
-  fullName: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.Finalize()
+  name: ~AbstractFileTypeSettingsPage()
+  nameWithType: AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.~AbstractFileTypeSettingsPage()
+  fullName: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.~AbstractFileTypeSettingsPage()
   type: Method
-  source:
-    path: Sdl.FileTypeSupport.Framework.Core.Settings
-    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core.Settings
   namespace: Sdl.FileTypeSupport.Framework.Core.Settings
-  summary: "\nFinalizer calls <xref href=\"Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage%602.Dispose(System.Boolean)\" data-throw-if-not-resolved=\"false\"></xref> with <code>false</code>\n"
+  summary: Finalizer calls <xref href="Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage%602.Dispose(System.Boolean)" data-throw-if-not-resolved="false"></xref> with <code>false</code>
+  example: []
   syntax:
-    content: protected override void Finalize()
-    content.vb: Protected Overrides Sub Finalize
+    content: protected ~AbstractFileTypeSettingsPage()
+    content.vb: 'Protected '
   overload: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.Finalize*
-  nameWithType.vb: AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).Finalize()
-  modifiers.csharp:
-  - protected
-  - override
-  modifiers.vb:
-  - Protected
-  - Overrides
-  fullName.vb: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).Finalize()
+  nameWithType.vb: ''
+  fullName.vb: ''
+  name.vb: ''
 - uid: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.Dispose(System.Boolean)
   commentId: M:Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.Dispose(System.Boolean)
   id: Dispose(System.Boolean)
@@ -139,18 +174,16 @@ items:
   langs:
   - csharp
   - vb
-  name: Dispose(Boolean)
-  nameWithType: AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.Dispose(Boolean)
-  fullName: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.Dispose(System.Boolean)
+  name: Dispose(bool)
+  nameWithType: AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.Dispose(bool)
+  fullName: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.Dispose(bool)
   type: Method
-  source:
-    path: Sdl.FileTypeSupport.Framework.Core.Settings
-    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core.Settings
   namespace: Sdl.FileTypeSupport.Framework.Core.Settings
-  summary: "\nOverride this method to perform additional clean-up tasks when the object is destroyed.\n"
-  remarks: "\nThe default implementation disposes of the settings if they implement IDisposable.\n"
+  summary: Override this method to perform additional clean-up tasks when the object is destroyed.
+  remarks: The default implementation disposes of the settings if they implement IDisposable.
+  example: []
   syntax:
     content: protected virtual void Dispose(bool disposing)
     parameters:
@@ -158,18 +191,12 @@ items:
       type: System.Boolean
       description: >-
         Indicates whether the call originates from the <xref href="System.IDisposable.Dispose" data-throw-if-not-resolved="false"></xref> method
-
-        or from the finalizer.
+                    or from the finalizer.
     content.vb: Protected Overridable Sub Dispose(disposing As Boolean)
   overload: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.Dispose*
   nameWithType.vb: AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).Dispose(Boolean)
-  modifiers.csharp:
-  - protected
-  - virtual
-  modifiers.vb:
-  - Protected
-  - Overridable
-  fullName.vb: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).Dispose(System.Boolean)
+  fullName.vb: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).Dispose(Boolean)
+  name.vb: Dispose(Boolean)
 - uid: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.CreateAndInitializeControl
   commentId: M:Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.CreateAndInitializeControl
   id: CreateAndInitializeControl
@@ -181,27 +208,38 @@ items:
   nameWithType: AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.CreateAndInitializeControl()
   fullName: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.CreateAndInitializeControl()
   type: Method
-  source:
-    path: Sdl.FileTypeSupport.Framework.Core.Settings
-    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core.Settings
   namespace: Sdl.FileTypeSupport.Framework.Core.Settings
-  summary: "\nCalled from <xref href=\"Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage%602.GetControl\" data-throw-if-not-resolved=\"false\"></xref> when the control implementation is needed for the first time.\nThe implementation should create and initialize the control.\n"
-  remarks: "\n<p>\nThe default implementation creates a new instance of the control class using the default constructor,\nand if the control implements <xref href=\"Sdl.FileTypeSupport.Framework.Core.Settings.IFileTypeSettingsAware%601\" data-throw-if-not-resolved=\"false\"></xref>, the settings are\ncommunicated to the control.\n</p>\n<p>\nOverride this if you need to do additional initialization.\n</p>\n"
+  summary: >-
+    Called from <xref href="Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage%602.GetControl" data-throw-if-not-resolved="false"></xref> when the control implementation is needed for the first time.
+
+    The implementation should create and initialize the control.
+  remarks: >-
+    <p>
+
+    The default implementation creates a new instance of the control class using the default constructor,
+
+    and if the control implements <xref href="Sdl.FileTypeSupport.Framework.Core.Settings.IFileTypeSettingsAware%601" data-throw-if-not-resolved="false"></xref>, the settings are
+
+    communicated to the control.
+
+    </p>
+
+    <p>
+
+    Override this if you need to do additional initialization.
+
+    </p>
+  example: []
   syntax:
     content: protected virtual SettingsControlType CreateAndInitializeControl()
     return:
       type: '{SettingsControlType}'
-    content.vb: Protected Overridable Function CreateAndInitializeControl As SettingsControlType
+      description: ''
+    content.vb: Protected Overridable Function CreateAndInitializeControl() As SettingsControlType
   overload: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.CreateAndInitializeControl*
   nameWithType.vb: AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).CreateAndInitializeControl()
-  modifiers.csharp:
-  - protected
-  - virtual
-  modifiers.vb:
-  - Protected
-  - Overridable
   fullName.vb: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).CreateAndInitializeControl()
 - uid: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.CreateAndInitializeSettings
   commentId: M:Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.CreateAndInitializeSettings
@@ -214,27 +252,36 @@ items:
   nameWithType: AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.CreateAndInitializeSettings()
   fullName: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.CreateAndInitializeSettings()
   type: Method
-  source:
-    path: Sdl.FileTypeSupport.Framework.Core.Settings
-    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core.Settings
   namespace: Sdl.FileTypeSupport.Framework.Core.Settings
-  summary: "\nCalled to create the settings the first time they are needed, typically \nduring the first call to <xref href=\"Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage%602.GetControl\" data-throw-if-not-resolved=\"false\"></xref>.\n"
-  remarks: "\n<p>\nThe default implementation creates a new instance of the settings class\nusing the default constructor, and calls <xref href=\"Sdl.FileTypeSupport.Framework.Core.Settings.FileTypeSettingsBase.PopulateFromSettingsBundle(Sdl.Core.Settings.ISettingsBundle%2cSystem.String)\" data-throw-if-not-resolved=\"false\"></xref>.\n</p>\n<p>\nOverride this if you need to do additional initialization of the settings.\n</p>\n"
+  summary: >-
+    Called to create the settings the first time they are needed, typically 
+
+    during the first call to <xref href="Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage%602.GetControl" data-throw-if-not-resolved="false"></xref>.
+  remarks: >-
+    <p>
+
+    The default implementation creates a new instance of the settings class
+
+    using the default constructor, and calls <xref href="Sdl.FileTypeSupport.Framework.Core.Settings.FileTypeSettingsBase.PopulateFromSettingsBundle(Sdl.Core.Settings.ISettingsBundle%2cSystem.String)" data-throw-if-not-resolved="false"></xref>.
+
+    </p>
+
+    <p>
+
+    Override this if you need to do additional initialization of the settings.
+
+    </p>
+  example: []
   syntax:
     content: protected virtual SettingsType CreateAndInitializeSettings()
     return:
       type: '{SettingsType}'
-    content.vb: Protected Overridable Function CreateAndInitializeSettings As SettingsType
+      description: ''
+    content.vb: Protected Overridable Function CreateAndInitializeSettings() As SettingsType
   overload: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.CreateAndInitializeSettings*
   nameWithType.vb: AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).CreateAndInitializeSettings()
-  modifiers.csharp:
-  - protected
-  - virtual
-  modifiers.vb:
-  - Protected
-  - Overridable
   fullName.vb: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).CreateAndInitializeSettings()
 - uid: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.GetControl
   commentId: M:Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.GetControl
@@ -247,27 +294,24 @@ items:
   nameWithType: AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.GetControl()
   fullName: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.GetControl()
   type: Method
-  source:
-    path: Sdl.FileTypeSupport.Framework.Core.Settings
-    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core.Settings
   namespace: Sdl.FileTypeSupport.Framework.Core.Settings
-  summary: "\nCalled by the framework to obtain the user interface control.\n"
-  remarks: "\nThe default implementation calls <xref href=\"Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage%602.CreateAndInitializeControl\" data-throw-if-not-resolved=\"false\"></xref> the first time that this method is called.\nIf custom initialization is required for the control, it is recommended that you override that particular custom method rather than this one.\n"
+  summary: Called by the framework to obtain the user interface control.
+  remarks: >-
+    The default implementation calls <xref href="Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage%602.CreateAndInitializeControl" data-throw-if-not-resolved="false"></xref> the first time that this method is called.
+
+    If custom initialization is required for the control, it is recommended that you override that particular custom method rather than this one.
+  example: []
   syntax:
     content: public override object GetControl()
     return:
       type: System.Object
-    content.vb: Public Overrides Function GetControl As Object
+      description: ''
+    content.vb: Public Overrides Function GetControl() As Object
+  overridden: Sdl.Core.Settings.AbstractSettingsPage.GetControl
   overload: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.GetControl*
   nameWithType.vb: AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).GetControl()
-  modifiers.csharp:
-  - public
-  - override
-  modifiers.vb:
-  - Public
-  - Overrides
   fullName.vb: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).GetControl()
 - uid: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.Save
   commentId: M:Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.Save
@@ -280,25 +324,27 @@ items:
   nameWithType: AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.Save()
   fullName: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.Save()
   type: Method
-  source:
-    path: Sdl.FileTypeSupport.Framework.Core.Settings
-    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core.Settings
   namespace: Sdl.FileTypeSupport.Framework.Core.Settings
-  summary: "\nCalled when settings should be saved. The implementation is responsible for persisting the settings.\n"
-  remarks: "\n<p>This method is called once after <xref href=\"Sdl.Core.Settings.AbstractSettingsPage.ValidateInput\" data-throw-if-not-resolved=\"false\"></xref> has been called.\n</p>\n<p>\nThe default implementation calls <xref href=\"Sdl.FileTypeSupport.Framework.Core.Settings.FileTypeSettingsBase.SaveToSettingsBundle(Sdl.Core.Settings.ISettingsBundle%2cSystem.String)\" data-throw-if-not-resolved=\"false\"></xref> on the settings.\n</p>\n"
+  summary: Called when settings should be saved. The implementation is responsible for persisting the settings.
+  remarks: >-
+    <p>This method is called once after <xref href="Sdl.Core.Settings.AbstractSettingsPage.ValidateInput" data-throw-if-not-resolved="false"></xref> has been called.
+
+    </p>
+
+    <p>
+
+    The default implementation calls <xref href="Sdl.FileTypeSupport.Framework.Core.Settings.FileTypeSettingsBase.SaveToSettingsBundle(Sdl.Core.Settings.ISettingsBundle%2cSystem.String)" data-throw-if-not-resolved="false"></xref> on the settings.
+
+    </p>
+  example: []
   syntax:
     content: public override void Save()
-    content.vb: Public Overrides Sub Save
+    content.vb: Public Overrides Sub Save()
+  overridden: Sdl.Core.Settings.AbstractSettingsPage.Save
   overload: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.Save*
   nameWithType.vb: AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).Save()
-  modifiers.csharp:
-  - public
-  - override
-  modifiers.vb:
-  - Public
-  - Overrides
   fullName.vb: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).Save()
 - uid: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.ResetToDefaults
   commentId: M:Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.ResetToDefaults
@@ -311,25 +357,39 @@ items:
   nameWithType: AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.ResetToDefaults()
   fullName: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.ResetToDefaults()
   type: Method
-  source:
-    path: Sdl.FileTypeSupport.Framework.Core.Settings
-    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core.Settings
   namespace: Sdl.FileTypeSupport.Framework.Core.Settings
-  summary: "\nCalled to reset settings to their default values. Should update the user interface accordingly.\n"
-  remarks: "\n<p>\nThis method should not save the settings yet. This should be done in <xref href=\"Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage%602.Save\" data-throw-if-not-resolved=\"false\"></xref>.\n</p>\n<p>This method will not be called if <xref href=\"Sdl.Core.Settings.AbstractSettingsPage.HasDefaultSettings\" data-throw-if-not-resolved=\"false\"></xref> returns <code>false</code>.</p>\n<p>\nThe default implementation calls <xref href=\"Sdl.FileTypeSupport.Framework.Core.Settings.FileTypeSettingsBase.ResetToDefaults\" data-throw-if-not-resolved=\"false\"></xref>. If you are using\ndata binding with the settings as data context and have implemented property change notification events for the settings,\nthe user interface should update automatically to reflect the changes (assuming ResetToDefaults() on \nthe settings invokes the property setters). If not, you will need to override this\nmethod and ensure that the user interface is updated.\n</p>\n"
+  summary: Called to reset settings to their default values. Should update the user interface accordingly.
+  remarks: >-
+    <p>
+
+    This method should not save the settings yet. This should be done in <xref href="Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage%602.Save" data-throw-if-not-resolved="false"></xref>.
+
+    </p>
+
+    <p>This method will not be called if <xref href="Sdl.Core.Settings.AbstractSettingsPage.HasDefaultSettings" data-throw-if-not-resolved="false"></xref> returns <code>false</code>.</p>
+
+    <p>
+
+    The default implementation calls <xref href="Sdl.FileTypeSupport.Framework.Core.Settings.FileTypeSettingsBase.ResetToDefaults" data-throw-if-not-resolved="false"></xref>. If you are using
+
+    data binding with the settings as data context and have implemented property change notification events for the settings,
+
+    the user interface should update automatically to reflect the changes (assuming ResetToDefaults() on 
+
+    the settings invokes the property setters). If not, you will need to override this
+
+    method and ensure that the user interface is updated.
+
+    </p>
+  example: []
   syntax:
     content: public override void ResetToDefaults()
-    content.vb: Public Overrides Sub ResetToDefaults
+    content.vb: Public Overrides Sub ResetToDefaults()
+  overridden: Sdl.Core.Settings.AbstractSettingsPage.ResetToDefaults
   overload: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.ResetToDefaults*
   nameWithType.vb: AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).ResetToDefaults()
-  modifiers.csharp:
-  - public
-  - override
-  modifiers.vb:
-  - Public
-  - Overrides
   fullName.vb: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).ResetToDefaults()
 - uid: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.Refresh
   commentId: M:Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.Refresh
@@ -342,25 +402,34 @@ items:
   nameWithType: AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.Refresh()
   fullName: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.Refresh()
   type: Method
-  source:
-    path: Sdl.FileTypeSupport.Framework.Core.Settings
-    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core.Settings
   namespace: Sdl.FileTypeSupport.Framework.Core.Settings
-  summary: "\nCalled to re-populate the settings when the underlying data source has been changed externally. This\ncan happen when settings are imported, for example.\n"
-  remarks: "\n<p>\nIf you are using\ndata binding with the settings as data context and have implemented property change notification events for the settings,\nthe user interface should update automatically to reflect the changes (assuming PopulateFromSettingsBundle() on \nthe settings invokes the property setters). If not, you will need to override this\nmethod and ensure that the user interface is updated.\n</p>\n"
+  summary: >-
+    Called to re-populate the settings when the underlying data source has been changed externally. This
+
+    can happen when settings are imported, for example.
+  remarks: >-
+    <p>
+
+    If you are using
+
+    data binding with the settings as data context and have implemented property change notification events for the settings,
+
+    the user interface should update automatically to reflect the changes (assuming PopulateFromSettingsBundle() on 
+
+    the settings invokes the property setters). If not, you will need to override this
+
+    method and ensure that the user interface is updated.
+
+    </p>
+  example: []
   syntax:
     content: public override void Refresh()
-    content.vb: Public Overrides Sub Refresh
+    content.vb: Public Overrides Sub Refresh()
+  overridden: Sdl.Core.Settings.AbstractSettingsPage.Refresh
   overload: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.Refresh*
   nameWithType.vb: AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).Refresh()
-  modifiers.csharp:
-  - public
-  - override
-  modifiers.vb:
-  - Public
-  - Overrides
   fullName.vb: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).Refresh()
 - uid: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.Dispose
   commentId: M:Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.Dispose
@@ -373,24 +442,20 @@ items:
   nameWithType: AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.Dispose()
   fullName: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.Dispose()
   type: Method
-  source:
-    path: Sdl.FileTypeSupport.Framework.Core.Settings
-    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core.Settings
   namespace: Sdl.FileTypeSupport.Framework.Core.Settings
-  summary: "\nStandard implementation of the Dispose method; calls <xref href=\"Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage%602.Dispose(System.Boolean)\" data-throw-if-not-resolved=\"false\"></xref> with <code>true</code>\nand suppresses finalization.\n"
+  summary: >-
+    Standard implementation of the Dispose method; calls <xref href="Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage%602.Dispose(System.Boolean)" data-throw-if-not-resolved="false"></xref> with <code>true</code>
+
+    and suppresses finalization.
+  example: []
   syntax:
     content: public override void Dispose()
-    content.vb: Public Overrides Sub Dispose
+    content.vb: Public Overrides Sub Dispose()
+  overridden: Sdl.Core.Settings.AbstractSettingsPage.Dispose
   overload: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.Dispose*
   nameWithType.vb: AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).Dispose()
-  modifiers.csharp:
-  - public
-  - override
-  modifiers.vb:
-  - Public
-  - Overrides
   fullName.vb: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).Dispose()
 - uid: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.SettingsBundle
   commentId: P:Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.SettingsBundle
@@ -403,13 +468,11 @@ items:
   nameWithType: AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.SettingsBundle
   fullName: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.SettingsBundle
   type: Property
-  source:
-    path: Sdl.FileTypeSupport.Framework.Core.Settings
-    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core.Settings
   namespace: Sdl.FileTypeSupport.Framework.Core.Settings
-  summary: "\nThe SettingsBundle which contains setting information for the page\n"
+  summary: The SettingsBundle which contains setting information for the page
+  example: []
   syntax:
     content: public ISettingsBundle SettingsBundle { get; set; }
     parameters: []
@@ -418,12 +481,6 @@ items:
     content.vb: Public Property SettingsBundle As ISettingsBundle
   overload: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.SettingsBundle*
   nameWithType.vb: AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).SettingsBundle
-  modifiers.csharp:
-  - public
-  - get
-  - set
-  modifiers.vb:
-  - Public
   fullName.vb: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).SettingsBundle
 - uid: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.Settings
   commentId: P:Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.Settings
@@ -436,13 +493,14 @@ items:
   nameWithType: AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.Settings
   fullName: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.Settings
   type: Property
-  source:
-    path: Sdl.FileTypeSupport.Framework.Core.Settings
-    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core.Settings
   namespace: Sdl.FileTypeSupport.Framework.Core.Settings
-  summary: "\nThe settings are created and initialized the first time\nthis property is accessed.\n"
+  summary: >-
+    The settings are created and initialized the first time
+
+    this property is accessed.
+  example: []
   syntax:
     content: public virtual SettingsType Settings { get; protected set; }
     parameters: []
@@ -451,16 +509,6 @@ items:
     content.vb: Public Overridable Property Settings As SettingsType
   overload: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.Settings*
   nameWithType.vb: AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).Settings
-  modifiers.csharp:
-  - public
-  - virtual
-  - get
-  - protected set
-  modifiers.vb:
-  - Public
-  - Overridable
-  - Get
-  - Protected Set
   fullName.vb: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).Settings
 - uid: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.Control
   commentId: P:Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.Control
@@ -473,14 +521,30 @@ items:
   nameWithType: AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.Control
   fullName: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.Control
   type: Property
-  source:
-    path: Sdl.FileTypeSupport.Framework.Core.Settings
-    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core.Settings
   namespace: Sdl.FileTypeSupport.Framework.Core.Settings
-  summary: "\nThis property provides derived classes direct access to the\ncontrol, which may or may not yet have been created.\n"
-  remarks: "\n<p>\nNormally the control should be accessed by calling <xref href=\"Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage%602.GetControl\" data-throw-if-not-resolved=\"false\"></xref> instead\nof accessing this property, as the control does not get created until the first time\n<xref href=\"Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage%602.GetControl\" data-throw-if-not-resolved=\"false\"></xref> is called.\n</p>\n<p>\nThis property may be <code>null</code> before the first call to <xref href=\"Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage%602.GetControl\" data-throw-if-not-resolved=\"false\"></xref>.\n</p>\n"
+  summary: >-
+    This property provides derived classes direct access to the
+
+    control, which may or may not yet have been created.
+  remarks: >-
+    <p>
+
+    Normally the control should be accessed by calling <xref href="Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage%602.GetControl" data-throw-if-not-resolved="false"></xref> instead
+
+    of accessing this property, as the control does not get created until the first time
+
+    <xref href="Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage%602.GetControl" data-throw-if-not-resolved="false"></xref> is called.
+
+    </p>
+
+    <p>
+
+    This property may be <code>null</code> before the first call to <xref href="Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage%602.GetControl" data-throw-if-not-resolved="false"></xref>.
+
+    </p>
+  example: []
   syntax:
     content: protected SettingsControlType Control { get; set; }
     parameters: []
@@ -489,12 +553,6 @@ items:
     content.vb: Protected Property Control As SettingsControlType
   overload: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.Control*
   nameWithType.vb: AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).Control
-  modifiers.csharp:
-  - protected
-  - get
-  - set
-  modifiers.vb:
-  - Protected
   fullName.vb: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).Control
 - uid: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.FileTypeConfigurationId
   commentId: P:Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.FileTypeConfigurationId
@@ -507,14 +565,28 @@ items:
   nameWithType: AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.FileTypeConfigurationId
   fullName: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.FileTypeConfigurationId
   type: Property
-  source:
-    path: Sdl.FileTypeSupport.Framework.Core.Settings
-    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core.Settings
   namespace: Sdl.FileTypeSupport.Framework.Core.Settings
-  summary: "\nId of the file type that is being configured. This id can be used (as a key) to retrieve \nthe settings group representing the file type settings from a settings\nbundle.\n"
-  remarks: "\n<p>\nThe framework sets this property before the settings page is initialized.\n</p>\n<p>\nThe configuration id is typically the same as the file type definition id.\n</p>\n"
+  summary: >-
+    Id of the file type that is being configured. This id can be used (as a key) to retrieve 
+
+    the settings group representing the file type settings from a settings
+
+    bundle.
+  remarks: >-
+    <p>
+
+    The framework sets this property before the settings page is initialized.
+
+    </p>
+
+    <p>
+
+    The configuration id is typically the same as the file type definition id.
+
+    </p>
+  example: []
   syntax:
     content: public string FileTypeConfigurationId { get; set; }
     parameters: []
@@ -525,12 +597,6 @@ items:
   implements:
   - Sdl.FileTypeSupport.Framework.Core.Settings.IFileTypeConfigurationAware.FileTypeConfigurationId
   nameWithType.vb: AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).FileTypeConfigurationId
-  modifiers.csharp:
-  - public
-  - get
-  - set
-  modifiers.vb:
-  - Public
   fullName.vb: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).FileTypeConfigurationId
 - uid: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.SubContentFileTypeConfigurationIds
   commentId: P:Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.SubContentFileTypeConfigurationIds
@@ -543,13 +609,11 @@ items:
   nameWithType: AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.SubContentFileTypeConfigurationIds
   fullName: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.SubContentFileTypeConfigurationIds
   type: Property
-  source:
-    path: Sdl.FileTypeSupport.Framework.Core.Settings
-    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core.Settings
   namespace: Sdl.FileTypeSupport.Framework.Core.Settings
-  summary: "\nList of FileTypeConfigurationIds of all subcontent processing file types\n"
+  summary: List of FileTypeConfigurationIds of all subcontent processing file types
+  example: []
   syntax:
     content: public List<string> SubContentFileTypeConfigurationIds { get; set; }
     parameters: []
@@ -560,59 +624,674 @@ items:
   implements:
   - Sdl.FileTypeSupport.Framework.Core.Settings.IFileTypeConfigurationAware.SubContentFileTypeConfigurationIds
   nameWithType.vb: AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).SubContentFileTypeConfigurationIds
-  modifiers.csharp:
-  - public
-  - get
-  - set
-  modifiers.vb:
-  - Public
   fullName.vb: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).SubContentFileTypeConfigurationIds
 references:
+- uid: Sdl.FileTypeSupport.Framework.Core.Settings.FileTypeSettingsBase
+  commentId: T:Sdl.FileTypeSupport.Framework.Core.Settings.FileTypeSettingsBase
+  parent: Sdl.FileTypeSupport.Framework.Core.Settings
+  isExternal: true
+  href: Sdl.FileTypeSupport.Framework.Core.Settings.FileTypeSettingsBase.html
+  name: FileTypeSettingsBase
+  nameWithType: FileTypeSettingsBase
+  fullName: Sdl.FileTypeSupport.Framework.Core.Settings.FileTypeSettingsBase
+- uid: System.ComponentModel.INotifyPropertyChanged.PropertyChanged
+  commentId: E:System.ComponentModel.INotifyPropertyChanged.PropertyChanged
+  parent: System.ComponentModel.INotifyPropertyChanged
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged
+  name: PropertyChanged
+  nameWithType: INotifyPropertyChanged.PropertyChanged
+  fullName: System.ComponentModel.INotifyPropertyChanged.PropertyChanged
+- uid: Sdl.FileTypeSupport.Framework.Core.Settings.FileTypeSettingsBase.ResetToDefaults
+  commentId: M:Sdl.FileTypeSupport.Framework.Core.Settings.FileTypeSettingsBase.ResetToDefaults
+  parent: Sdl.FileTypeSupport.Framework.Core.Settings.FileTypeSettingsBase
+  isExternal: true
+  href: Sdl.FileTypeSupport.Framework.Core.Settings.FileTypeSettingsBase.html#Sdl_FileTypeSupport_Framework_Core_Settings_FileTypeSettingsBase_ResetToDefaults
+  name: ResetToDefaults()
+  nameWithType: FileTypeSettingsBase.ResetToDefaults()
+  fullName: Sdl.FileTypeSupport.Framework.Core.Settings.FileTypeSettingsBase.ResetToDefaults()
+  spec.csharp:
+  - uid: Sdl.FileTypeSupport.Framework.Core.Settings.FileTypeSettingsBase.ResetToDefaults
+    name: ResetToDefaults
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.Core.Settings.FileTypeSettingsBase.html#Sdl_FileTypeSupport_Framework_Core_Settings_FileTypeSettingsBase_ResetToDefaults
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Sdl.FileTypeSupport.Framework.Core.Settings.FileTypeSettingsBase.ResetToDefaults
+    name: ResetToDefaults
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.Core.Settings.FileTypeSettingsBase.html#Sdl_FileTypeSupport_Framework_Core_Settings_FileTypeSettingsBase_ResetToDefaults
+  - name: (
+  - name: )
+- uid: Sdl.FileTypeSupport.Framework.Core.Settings.FileTypeSettingsPageAttribute
+  commentId: T:Sdl.FileTypeSupport.Framework.Core.Settings.FileTypeSettingsPageAttribute
+  isExternal: true
+  href: Sdl.FileTypeSupport.Framework.Core.Settings.FileTypeSettingsPageAttribute.html
+  name: FileTypeSettingsPageAttribute
+  nameWithType: FileTypeSettingsPageAttribute
+  fullName: Sdl.FileTypeSupport.Framework.Core.Settings.FileTypeSettingsPageAttribute
+- uid: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.ResetToDefaults
+  commentId: M:Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.ResetToDefaults
+  isExternal: true
+  href: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage-2.html#Sdl_FileTypeSupport_Framework_Core_Settings_AbstractFileTypeSettingsPage_2_ResetToDefaults
+  name: ResetToDefaults()
+  nameWithType: AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.ResetToDefaults()
+  fullName: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.ResetToDefaults()
+  nameWithType.vb: AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).ResetToDefaults()
+  fullName.vb: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).ResetToDefaults()
+  spec.csharp:
+  - uid: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.ResetToDefaults
+    name: ResetToDefaults
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage-2.html#Sdl_FileTypeSupport_Framework_Core_Settings_AbstractFileTypeSettingsPage_2_ResetToDefaults
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.ResetToDefaults
+    name: ResetToDefaults
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage-2.html#Sdl_FileTypeSupport_Framework_Core_Settings_AbstractFileTypeSettingsPage_2_ResetToDefaults
+  - name: (
+  - name: )
 - uid: Sdl.FileTypeSupport.Framework.Core.Settings
   commentId: N:Sdl.FileTypeSupport.Framework.Core.Settings
   isExternal: true
+  href: Sdl.html
   name: Sdl.FileTypeSupport.Framework.Core.Settings
   nameWithType: Sdl.FileTypeSupport.Framework.Core.Settings
   fullName: Sdl.FileTypeSupport.Framework.Core.Settings
+  spec.csharp:
+  - uid: Sdl
+    name: Sdl
+    isExternal: true
+    href: Sdl.html
+  - name: .
+  - uid: Sdl.FileTypeSupport
+    name: FileTypeSupport
+    isExternal: true
+    href: Sdl.FileTypeSupport.html
+  - name: .
+  - uid: Sdl.FileTypeSupport.Framework
+    name: Framework
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.html
+  - name: .
+  - uid: Sdl.FileTypeSupport.Framework.Core
+    name: Core
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.Core.html
+  - name: .
+  - uid: Sdl.FileTypeSupport.Framework.Core.Settings
+    name: Settings
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.Core.Settings.html
+  spec.vb:
+  - uid: Sdl
+    name: Sdl
+    isExternal: true
+    href: Sdl.html
+  - name: .
+  - uid: Sdl.FileTypeSupport
+    name: FileTypeSupport
+    isExternal: true
+    href: Sdl.FileTypeSupport.html
+  - name: .
+  - uid: Sdl.FileTypeSupport.Framework
+    name: Framework
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.html
+  - name: .
+  - uid: Sdl.FileTypeSupport.Framework.Core
+    name: Core
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.Core.html
+  - name: .
+  - uid: Sdl.FileTypeSupport.Framework.Core.Settings
+    name: Settings
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.Core.Settings.html
 - uid: System.Object
   commentId: T:System.Object
   parent: System
   isExternal: true
-  name: Object
-  nameWithType: Object
-  fullName: System.Object
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: Sdl.Core.Settings.AbstractSettingsPage
+  commentId: T:Sdl.Core.Settings.AbstractSettingsPage
+  parent: Sdl.Core.Settings
+  isExternal: true
+  name: AbstractSettingsPage
+  nameWithType: AbstractSettingsPage
+  fullName: Sdl.Core.Settings.AbstractSettingsPage
+- uid: Sdl.Core.Settings.ISettingsPage
+  commentId: T:Sdl.Core.Settings.ISettingsPage
+  parent: Sdl.Core.Settings
+  isExternal: true
+  name: ISettingsPage
+  nameWithType: ISettingsPage
+  fullName: Sdl.Core.Settings.ISettingsPage
+- uid: System.IDisposable
+  commentId: T:System.IDisposable
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.idisposable
+  name: IDisposable
+  nameWithType: IDisposable
+  fullName: System.IDisposable
 - uid: Sdl.FileTypeSupport.Framework.Core.Settings.IFileTypeConfigurationAware
   commentId: T:Sdl.FileTypeSupport.Framework.Core.Settings.IFileTypeConfigurationAware
   parent: Sdl.FileTypeSupport.Framework.Core.Settings
   isExternal: true
+  href: Sdl.FileTypeSupport.Framework.Core.Settings.IFileTypeConfigurationAware.html
   name: IFileTypeConfigurationAware
   nameWithType: IFileTypeConfigurationAware
   fullName: Sdl.FileTypeSupport.Framework.Core.Settings.IFileTypeConfigurationAware
+- uid: Sdl.Core.Settings.AbstractSettingsPage.OnActivate
+  commentId: M:Sdl.Core.Settings.AbstractSettingsPage.OnActivate
+  parent: Sdl.Core.Settings.AbstractSettingsPage
+  isExternal: true
+  name: OnActivate()
+  nameWithType: AbstractSettingsPage.OnActivate()
+  fullName: Sdl.Core.Settings.AbstractSettingsPage.OnActivate()
+  spec.csharp:
+  - uid: Sdl.Core.Settings.AbstractSettingsPage.OnActivate
+    name: OnActivate
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Sdl.Core.Settings.AbstractSettingsPage.OnActivate
+    name: OnActivate
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Sdl.Core.Settings.AbstractSettingsPage.OnDeactivate
+  commentId: M:Sdl.Core.Settings.AbstractSettingsPage.OnDeactivate
+  parent: Sdl.Core.Settings.AbstractSettingsPage
+  isExternal: true
+  name: OnDeactivate()
+  nameWithType: AbstractSettingsPage.OnDeactivate()
+  fullName: Sdl.Core.Settings.AbstractSettingsPage.OnDeactivate()
+  spec.csharp:
+  - uid: Sdl.Core.Settings.AbstractSettingsPage.OnDeactivate
+    name: OnDeactivate
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Sdl.Core.Settings.AbstractSettingsPage.OnDeactivate
+    name: OnDeactivate
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Sdl.Core.Settings.AbstractSettingsPage.ValidateInput
+  commentId: M:Sdl.Core.Settings.AbstractSettingsPage.ValidateInput
+  parent: Sdl.Core.Settings.AbstractSettingsPage
+  isExternal: true
+  name: ValidateInput()
+  nameWithType: AbstractSettingsPage.ValidateInput()
+  fullName: Sdl.Core.Settings.AbstractSettingsPage.ValidateInput()
+  spec.csharp:
+  - uid: Sdl.Core.Settings.AbstractSettingsPage.ValidateInput
+    name: ValidateInput
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Sdl.Core.Settings.AbstractSettingsPage.ValidateInput
+    name: ValidateInput
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Sdl.Core.Settings.AbstractSettingsPage.AfterSave
+  commentId: M:Sdl.Core.Settings.AbstractSettingsPage.AfterSave
+  parent: Sdl.Core.Settings.AbstractSettingsPage
+  isExternal: true
+  name: AfterSave()
+  nameWithType: AbstractSettingsPage.AfterSave()
+  fullName: Sdl.Core.Settings.AbstractSettingsPage.AfterSave()
+  spec.csharp:
+  - uid: Sdl.Core.Settings.AbstractSettingsPage.AfterSave
+    name: AfterSave
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Sdl.Core.Settings.AbstractSettingsPage.AfterSave
+    name: AfterSave
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Sdl.Core.Settings.AbstractSettingsPage.Cancel
+  commentId: M:Sdl.Core.Settings.AbstractSettingsPage.Cancel
+  parent: Sdl.Core.Settings.AbstractSettingsPage
+  isExternal: true
+  name: Cancel()
+  nameWithType: AbstractSettingsPage.Cancel()
+  fullName: Sdl.Core.Settings.AbstractSettingsPage.Cancel()
+  spec.csharp:
+  - uid: Sdl.Core.Settings.AbstractSettingsPage.Cancel
+    name: Cancel
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Sdl.Core.Settings.AbstractSettingsPage.Cancel
+    name: Cancel
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Sdl.Core.Settings.AbstractSettingsPage.AfterCancel
+  commentId: M:Sdl.Core.Settings.AbstractSettingsPage.AfterCancel
+  parent: Sdl.Core.Settings.AbstractSettingsPage
+  isExternal: true
+  name: AfterCancel()
+  nameWithType: AbstractSettingsPage.AfterCancel()
+  fullName: Sdl.Core.Settings.AbstractSettingsPage.AfterCancel()
+  spec.csharp:
+  - uid: Sdl.Core.Settings.AbstractSettingsPage.AfterCancel
+    name: AfterCancel
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Sdl.Core.Settings.AbstractSettingsPage.AfterCancel
+    name: AfterCancel
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Sdl.Core.Settings.AbstractSettingsPage.DataSource
+  commentId: P:Sdl.Core.Settings.AbstractSettingsPage.DataSource
+  parent: Sdl.Core.Settings.AbstractSettingsPage
+  isExternal: true
+  name: DataSource
+  nameWithType: AbstractSettingsPage.DataSource
+  fullName: Sdl.Core.Settings.AbstractSettingsPage.DataSource
+- uid: Sdl.Core.Settings.AbstractSettingsPage.HasDefaultSettings
+  commentId: P:Sdl.Core.Settings.AbstractSettingsPage.HasDefaultSettings
+  parent: Sdl.Core.Settings.AbstractSettingsPage
+  isExternal: true
+  name: HasDefaultSettings
+  nameWithType: AbstractSettingsPage.HasDefaultSettings
+  fullName: Sdl.Core.Settings.AbstractSettingsPage.HasDefaultSettings
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.ComponentModel.INotifyPropertyChanged
+  commentId: T:System.ComponentModel.INotifyPropertyChanged
+  parent: System.ComponentModel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.inotifypropertychanged
+  name: INotifyPropertyChanged
+  nameWithType: INotifyPropertyChanged
+  fullName: System.ComponentModel.INotifyPropertyChanged
 - uid: System
   commentId: N:System
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
   name: System
   nameWithType: System
   fullName: System
+- uid: Sdl.Core.Settings
+  commentId: N:Sdl.Core.Settings
+  isExternal: true
+  name: Sdl.Core.Settings
+  nameWithType: Sdl.Core.Settings
+  fullName: Sdl.Core.Settings
+  spec.csharp:
+  - uid: Sdl
+    name: Sdl
+    isExternal: true
+  - name: .
+  - uid: Sdl.Core
+    name: Core
+    isExternal: true
+  - name: .
+  - uid: Sdl.Core.Settings
+    name: Settings
+    isExternal: true
+  spec.vb:
+  - uid: Sdl
+    name: Sdl
+    isExternal: true
+  - name: .
+  - uid: Sdl.Core
+    name: Core
+    isExternal: true
+  - name: .
+  - uid: Sdl.Core.Settings
+    name: Settings
+    isExternal: true
+- uid: System.ComponentModel
+  commentId: N:System.ComponentModel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.ComponentModel
+  nameWithType: System.ComponentModel
+  fullName: System.ComponentModel
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.ComponentModel
+    name: ComponentModel
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.ComponentModel
+    name: ComponentModel
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel
 - uid: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.#ctor*
   commentId: Overload:Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.#ctor
   isExternal: true
+  href: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage-2.html#Sdl_FileTypeSupport_Framework_Core_Settings_AbstractFileTypeSettingsPage_2__ctor
   name: AbstractFileTypeSettingsPage
   nameWithType: AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.AbstractFileTypeSettingsPage
   fullName: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.AbstractFileTypeSettingsPage
-  nameWithType.vb: AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).AbstractFileTypeSettingsPage
-  fullName.vb: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).AbstractFileTypeSettingsPage
+  nameWithType.vb: AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).New
+  fullName.vb: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).New
+  name.vb: New
+- uid: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.Dispose(System.Boolean)
+  commentId: M:Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.Dispose(System.Boolean)
+  isExternal: true
+  href: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage-2.html#Sdl_FileTypeSupport_Framework_Core_Settings_AbstractFileTypeSettingsPage_2_Dispose_System_Boolean_
+  name: Dispose(bool)
+  nameWithType: AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.Dispose(bool)
+  fullName: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.Dispose(bool)
+  nameWithType.vb: AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).Dispose(Boolean)
+  fullName.vb: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).Dispose(Boolean)
+  name.vb: Dispose(Boolean)
+  spec.csharp:
+  - uid: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.Dispose(System.Boolean)
+    name: Dispose
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage-2.html#Sdl_FileTypeSupport_Framework_Core_Settings_AbstractFileTypeSettingsPage_2_Dispose_System_Boolean_
+  - name: (
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.Dispose(System.Boolean)
+    name: Dispose
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage-2.html#Sdl_FileTypeSupport_Framework_Core_Settings_AbstractFileTypeSettingsPage_2_Dispose_System_Boolean_
+  - name: (
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
 - uid: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.Finalize*
   commentId: Overload:Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.Finalize
   isExternal: true
-  name: Finalize
-  nameWithType: AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.Finalize
-  fullName: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.Finalize
-  nameWithType.vb: AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).Finalize
-  fullName.vb: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).Finalize
+  href: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage-2.html#Sdl_FileTypeSupport_Framework_Core_Settings_AbstractFileTypeSettingsPage_2_Finalize
+  name: ~AbstractFileTypeSettingsPage
+  nameWithType: AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.~AbstractFileTypeSettingsPage
+  fullName: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.~AbstractFileTypeSettingsPage
+  spec.csharp:
+  - name: "~"
+  - uid: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.Finalize*
+    name: AbstractFileTypeSettingsPage
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage-2.html#Sdl_FileTypeSupport_Framework_Core_Settings_AbstractFileTypeSettingsPage_2_Finalize
+- uid: System.IDisposable.Dispose
+  commentId: M:System.IDisposable.Dispose
+  parent: System.IDisposable
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.idisposable.dispose
+  name: Dispose()
+  nameWithType: IDisposable.Dispose()
+  fullName: System.IDisposable.Dispose()
+  spec.csharp:
+  - uid: System.IDisposable.Dispose
+    name: Dispose
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.idisposable.dispose
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.IDisposable.Dispose
+    name: Dispose
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.idisposable.dispose
+  - name: (
+  - name: )
 - uid: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.Dispose*
   commentId: Overload:Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.Dispose
   isExternal: true
+  href: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage-2.html#Sdl_FileTypeSupport_Framework_Core_Settings_AbstractFileTypeSettingsPage_2_Dispose_System_Boolean_
   name: Dispose
   nameWithType: AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.Dispose
   fullName: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.Dispose
@@ -622,12 +1301,68 @@ references:
   commentId: T:System.Boolean
   parent: System
   isExternal: true
-  name: Boolean
-  nameWithType: Boolean
-  fullName: System.Boolean
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.GetControl
+  commentId: M:Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.GetControl
+  isExternal: true
+  href: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage-2.html#Sdl_FileTypeSupport_Framework_Core_Settings_AbstractFileTypeSettingsPage_2_GetControl
+  name: GetControl()
+  nameWithType: AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.GetControl()
+  fullName: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.GetControl()
+  nameWithType.vb: AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).GetControl()
+  fullName.vb: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).GetControl()
+  spec.csharp:
+  - uid: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.GetControl
+    name: GetControl
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage-2.html#Sdl_FileTypeSupport_Framework_Core_Settings_AbstractFileTypeSettingsPage_2_GetControl
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.GetControl
+    name: GetControl
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage-2.html#Sdl_FileTypeSupport_Framework_Core_Settings_AbstractFileTypeSettingsPage_2_GetControl
+  - name: (
+  - name: )
+- uid: Sdl.FileTypeSupport.Framework.Core.Settings.IFileTypeSettingsAware`1
+  commentId: T:Sdl.FileTypeSupport.Framework.Core.Settings.IFileTypeSettingsAware`1
+  isExternal: true
+  href: Sdl.FileTypeSupport.Framework.Core.Settings.IFileTypeSettingsAware-1.html
+  name: IFileTypeSettingsAware<SettingsType>
+  nameWithType: IFileTypeSettingsAware<SettingsType>
+  fullName: Sdl.FileTypeSupport.Framework.Core.Settings.IFileTypeSettingsAware<SettingsType>
+  nameWithType.vb: IFileTypeSettingsAware(Of SettingsType)
+  fullName.vb: Sdl.FileTypeSupport.Framework.Core.Settings.IFileTypeSettingsAware(Of SettingsType)
+  name.vb: IFileTypeSettingsAware(Of SettingsType)
+  spec.csharp:
+  - uid: Sdl.FileTypeSupport.Framework.Core.Settings.IFileTypeSettingsAware`1
+    name: IFileTypeSettingsAware
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.Core.Settings.IFileTypeSettingsAware-1.html
+  - name: <
+  - name: SettingsType
+  - name: '>'
+  spec.vb:
+  - uid: Sdl.FileTypeSupport.Framework.Core.Settings.IFileTypeSettingsAware`1
+    name: IFileTypeSettingsAware
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.Core.Settings.IFileTypeSettingsAware-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: SettingsType
+  - name: )
 - uid: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.CreateAndInitializeControl*
   commentId: Overload:Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.CreateAndInitializeControl
   isExternal: true
+  href: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage-2.html#Sdl_FileTypeSupport_Framework_Core_Settings_AbstractFileTypeSettingsPage_2_CreateAndInitializeControl
   name: CreateAndInitializeControl
   nameWithType: AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.CreateAndInitializeControl
   fullName: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.CreateAndInitializeControl
@@ -643,9 +1378,53 @@ references:
   name: SettingsControlType
   nameWithType: SettingsControlType
   fullName: SettingsControlType
+- uid: Sdl.FileTypeSupport.Framework.Core.Settings.FileTypeSettingsBase.PopulateFromSettingsBundle(Sdl.Core.Settings.ISettingsBundle,System.String)
+  commentId: M:Sdl.FileTypeSupport.Framework.Core.Settings.FileTypeSettingsBase.PopulateFromSettingsBundle(Sdl.Core.Settings.ISettingsBundle,System.String)
+  parent: Sdl.FileTypeSupport.Framework.Core.Settings.FileTypeSettingsBase
+  isExternal: true
+  href: Sdl.FileTypeSupport.Framework.Core.Settings.FileTypeSettingsBase.html#Sdl_FileTypeSupport_Framework_Core_Settings_FileTypeSettingsBase_PopulateFromSettingsBundle_Sdl_Core_Settings_ISettingsBundle_System_String_
+  name: PopulateFromSettingsBundle(ISettingsBundle, string)
+  nameWithType: FileTypeSettingsBase.PopulateFromSettingsBundle(ISettingsBundle, string)
+  fullName: Sdl.FileTypeSupport.Framework.Core.Settings.FileTypeSettingsBase.PopulateFromSettingsBundle(Sdl.Core.Settings.ISettingsBundle, string)
+  nameWithType.vb: FileTypeSettingsBase.PopulateFromSettingsBundle(ISettingsBundle, String)
+  fullName.vb: Sdl.FileTypeSupport.Framework.Core.Settings.FileTypeSettingsBase.PopulateFromSettingsBundle(Sdl.Core.Settings.ISettingsBundle, String)
+  name.vb: PopulateFromSettingsBundle(ISettingsBundle, String)
+  spec.csharp:
+  - uid: Sdl.FileTypeSupport.Framework.Core.Settings.FileTypeSettingsBase.PopulateFromSettingsBundle(Sdl.Core.Settings.ISettingsBundle,System.String)
+    name: PopulateFromSettingsBundle
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.Core.Settings.FileTypeSettingsBase.html#Sdl_FileTypeSupport_Framework_Core_Settings_FileTypeSettingsBase_PopulateFromSettingsBundle_Sdl_Core_Settings_ISettingsBundle_System_String_
+  - name: (
+  - uid: Sdl.Core.Settings.ISettingsBundle
+    name: ISettingsBundle
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: Sdl.FileTypeSupport.Framework.Core.Settings.FileTypeSettingsBase.PopulateFromSettingsBundle(Sdl.Core.Settings.ISettingsBundle,System.String)
+    name: PopulateFromSettingsBundle
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.Core.Settings.FileTypeSettingsBase.html#Sdl_FileTypeSupport_Framework_Core_Settings_FileTypeSettingsBase_PopulateFromSettingsBundle_Sdl_Core_Settings_ISettingsBundle_System_String_
+  - name: (
+  - uid: Sdl.Core.Settings.ISettingsBundle
+    name: ISettingsBundle
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
 - uid: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.CreateAndInitializeSettings*
   commentId: Overload:Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.CreateAndInitializeSettings
   isExternal: true
+  href: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage-2.html#Sdl_FileTypeSupport_Framework_Core_Settings_AbstractFileTypeSettingsPage_2_CreateAndInitializeSettings
   name: CreateAndInitializeSettings
   nameWithType: AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.CreateAndInitializeSettings
   fullName: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.CreateAndInitializeSettings
@@ -661,47 +1440,238 @@ references:
   name: SettingsType
   nameWithType: SettingsType
   fullName: SettingsType
+- uid: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.CreateAndInitializeControl
+  commentId: M:Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.CreateAndInitializeControl
+  isExternal: true
+  href: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage-2.html#Sdl_FileTypeSupport_Framework_Core_Settings_AbstractFileTypeSettingsPage_2_CreateAndInitializeControl
+  name: CreateAndInitializeControl()
+  nameWithType: AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.CreateAndInitializeControl()
+  fullName: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.CreateAndInitializeControl()
+  nameWithType.vb: AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).CreateAndInitializeControl()
+  fullName.vb: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).CreateAndInitializeControl()
+  spec.csharp:
+  - uid: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.CreateAndInitializeControl
+    name: CreateAndInitializeControl
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage-2.html#Sdl_FileTypeSupport_Framework_Core_Settings_AbstractFileTypeSettingsPage_2_CreateAndInitializeControl
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.CreateAndInitializeControl
+    name: CreateAndInitializeControl
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage-2.html#Sdl_FileTypeSupport_Framework_Core_Settings_AbstractFileTypeSettingsPage_2_CreateAndInitializeControl
+  - name: (
+  - name: )
+- uid: Sdl.Core.Settings.AbstractSettingsPage.GetControl
+  commentId: M:Sdl.Core.Settings.AbstractSettingsPage.GetControl
+  parent: Sdl.Core.Settings.AbstractSettingsPage
+  isExternal: true
+  name: GetControl()
+  nameWithType: AbstractSettingsPage.GetControl()
+  fullName: Sdl.Core.Settings.AbstractSettingsPage.GetControl()
+  spec.csharp:
+  - uid: Sdl.Core.Settings.AbstractSettingsPage.GetControl
+    name: GetControl
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Sdl.Core.Settings.AbstractSettingsPage.GetControl
+    name: GetControl
+    isExternal: true
+  - name: (
+  - name: )
 - uid: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.GetControl*
   commentId: Overload:Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.GetControl
   isExternal: true
+  href: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage-2.html#Sdl_FileTypeSupport_Framework_Core_Settings_AbstractFileTypeSettingsPage_2_GetControl
   name: GetControl
   nameWithType: AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.GetControl
   fullName: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.GetControl
   nameWithType.vb: AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).GetControl
   fullName.vb: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).GetControl
+- uid: Sdl.FileTypeSupport.Framework.Core.Settings.FileTypeSettingsBase.SaveToSettingsBundle(Sdl.Core.Settings.ISettingsBundle,System.String)
+  commentId: M:Sdl.FileTypeSupport.Framework.Core.Settings.FileTypeSettingsBase.SaveToSettingsBundle(Sdl.Core.Settings.ISettingsBundle,System.String)
+  parent: Sdl.FileTypeSupport.Framework.Core.Settings.FileTypeSettingsBase
+  isExternal: true
+  href: Sdl.FileTypeSupport.Framework.Core.Settings.FileTypeSettingsBase.html#Sdl_FileTypeSupport_Framework_Core_Settings_FileTypeSettingsBase_SaveToSettingsBundle_Sdl_Core_Settings_ISettingsBundle_System_String_
+  name: SaveToSettingsBundle(ISettingsBundle, string)
+  nameWithType: FileTypeSettingsBase.SaveToSettingsBundle(ISettingsBundle, string)
+  fullName: Sdl.FileTypeSupport.Framework.Core.Settings.FileTypeSettingsBase.SaveToSettingsBundle(Sdl.Core.Settings.ISettingsBundle, string)
+  nameWithType.vb: FileTypeSettingsBase.SaveToSettingsBundle(ISettingsBundle, String)
+  fullName.vb: Sdl.FileTypeSupport.Framework.Core.Settings.FileTypeSettingsBase.SaveToSettingsBundle(Sdl.Core.Settings.ISettingsBundle, String)
+  name.vb: SaveToSettingsBundle(ISettingsBundle, String)
+  spec.csharp:
+  - uid: Sdl.FileTypeSupport.Framework.Core.Settings.FileTypeSettingsBase.SaveToSettingsBundle(Sdl.Core.Settings.ISettingsBundle,System.String)
+    name: SaveToSettingsBundle
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.Core.Settings.FileTypeSettingsBase.html#Sdl_FileTypeSupport_Framework_Core_Settings_FileTypeSettingsBase_SaveToSettingsBundle_Sdl_Core_Settings_ISettingsBundle_System_String_
+  - name: (
+  - uid: Sdl.Core.Settings.ISettingsBundle
+    name: ISettingsBundle
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: Sdl.FileTypeSupport.Framework.Core.Settings.FileTypeSettingsBase.SaveToSettingsBundle(Sdl.Core.Settings.ISettingsBundle,System.String)
+    name: SaveToSettingsBundle
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.Core.Settings.FileTypeSettingsBase.html#Sdl_FileTypeSupport_Framework_Core_Settings_FileTypeSettingsBase_SaveToSettingsBundle_Sdl_Core_Settings_ISettingsBundle_System_String_
+  - name: (
+  - uid: Sdl.Core.Settings.ISettingsBundle
+    name: ISettingsBundle
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: Sdl.Core.Settings.AbstractSettingsPage.Save
+  commentId: M:Sdl.Core.Settings.AbstractSettingsPage.Save
+  parent: Sdl.Core.Settings.AbstractSettingsPage
+  isExternal: true
+  name: Save()
+  nameWithType: AbstractSettingsPage.Save()
+  fullName: Sdl.Core.Settings.AbstractSettingsPage.Save()
+  spec.csharp:
+  - uid: Sdl.Core.Settings.AbstractSettingsPage.Save
+    name: Save
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Sdl.Core.Settings.AbstractSettingsPage.Save
+    name: Save
+    isExternal: true
+  - name: (
+  - name: )
 - uid: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.Save*
   commentId: Overload:Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.Save
   isExternal: true
+  href: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage-2.html#Sdl_FileTypeSupport_Framework_Core_Settings_AbstractFileTypeSettingsPage_2_Save
   name: Save
   nameWithType: AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.Save
   fullName: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.Save
   nameWithType.vb: AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).Save
   fullName.vb: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).Save
+- uid: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.Save
+  commentId: M:Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.Save
+  isExternal: true
+  href: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage-2.html#Sdl_FileTypeSupport_Framework_Core_Settings_AbstractFileTypeSettingsPage_2_Save
+  name: Save()
+  nameWithType: AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.Save()
+  fullName: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.Save()
+  nameWithType.vb: AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).Save()
+  fullName.vb: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).Save()
+  spec.csharp:
+  - uid: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.Save
+    name: Save
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage-2.html#Sdl_FileTypeSupport_Framework_Core_Settings_AbstractFileTypeSettingsPage_2_Save
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.Save
+    name: Save
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage-2.html#Sdl_FileTypeSupport_Framework_Core_Settings_AbstractFileTypeSettingsPage_2_Save
+  - name: (
+  - name: )
+- uid: Sdl.Core.Settings.AbstractSettingsPage.ResetToDefaults
+  commentId: M:Sdl.Core.Settings.AbstractSettingsPage.ResetToDefaults
+  parent: Sdl.Core.Settings.AbstractSettingsPage
+  isExternal: true
+  name: ResetToDefaults()
+  nameWithType: AbstractSettingsPage.ResetToDefaults()
+  fullName: Sdl.Core.Settings.AbstractSettingsPage.ResetToDefaults()
+  spec.csharp:
+  - uid: Sdl.Core.Settings.AbstractSettingsPage.ResetToDefaults
+    name: ResetToDefaults
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Sdl.Core.Settings.AbstractSettingsPage.ResetToDefaults
+    name: ResetToDefaults
+    isExternal: true
+  - name: (
+  - name: )
 - uid: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.ResetToDefaults*
   commentId: Overload:Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.ResetToDefaults
   isExternal: true
+  href: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage-2.html#Sdl_FileTypeSupport_Framework_Core_Settings_AbstractFileTypeSettingsPage_2_ResetToDefaults
   name: ResetToDefaults
   nameWithType: AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.ResetToDefaults
   fullName: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.ResetToDefaults
   nameWithType.vb: AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).ResetToDefaults
   fullName.vb: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).ResetToDefaults
+- uid: Sdl.Core.Settings.AbstractSettingsPage.Refresh
+  commentId: M:Sdl.Core.Settings.AbstractSettingsPage.Refresh
+  parent: Sdl.Core.Settings.AbstractSettingsPage
+  isExternal: true
+  name: Refresh()
+  nameWithType: AbstractSettingsPage.Refresh()
+  fullName: Sdl.Core.Settings.AbstractSettingsPage.Refresh()
+  spec.csharp:
+  - uid: Sdl.Core.Settings.AbstractSettingsPage.Refresh
+    name: Refresh
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Sdl.Core.Settings.AbstractSettingsPage.Refresh
+    name: Refresh
+    isExternal: true
+  - name: (
+  - name: )
 - uid: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.Refresh*
   commentId: Overload:Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.Refresh
   isExternal: true
+  href: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage-2.html#Sdl_FileTypeSupport_Framework_Core_Settings_AbstractFileTypeSettingsPage_2_Refresh
   name: Refresh
   nameWithType: AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.Refresh
   fullName: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.Refresh
   nameWithType.vb: AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).Refresh
   fullName.vb: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).Refresh
+- uid: Sdl.Core.Settings.AbstractSettingsPage.Dispose
+  commentId: M:Sdl.Core.Settings.AbstractSettingsPage.Dispose
+  parent: Sdl.Core.Settings.AbstractSettingsPage
+  isExternal: true
+  name: Dispose()
+  nameWithType: AbstractSettingsPage.Dispose()
+  fullName: Sdl.Core.Settings.AbstractSettingsPage.Dispose()
+  spec.csharp:
+  - uid: Sdl.Core.Settings.AbstractSettingsPage.Dispose
+    name: Dispose
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Sdl.Core.Settings.AbstractSettingsPage.Dispose
+    name: Dispose
+    isExternal: true
+  - name: (
+  - name: )
 - uid: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.SettingsBundle*
   commentId: Overload:Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.SettingsBundle
   isExternal: true
+  href: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage-2.html#Sdl_FileTypeSupport_Framework_Core_Settings_AbstractFileTypeSettingsPage_2_SettingsBundle
   name: SettingsBundle
   nameWithType: AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.SettingsBundle
   fullName: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.SettingsBundle
   nameWithType.vb: AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).SettingsBundle
   fullName.vb: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage(Of SettingsControlType, SettingsType).SettingsBundle
 - uid: Sdl.Core.Settings.ISettingsBundle
+  commentId: T:Sdl.Core.Settings.ISettingsBundle
+  parent: Sdl.Core.Settings
   isExternal: true
   name: ISettingsBundle
   nameWithType: ISettingsBundle
@@ -709,6 +1679,7 @@ references:
 - uid: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.Settings*
   commentId: Overload:Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.Settings
   isExternal: true
+  href: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage-2.html#Sdl_FileTypeSupport_Framework_Core_Settings_AbstractFileTypeSettingsPage_2_Settings
   name: Settings
   nameWithType: AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.Settings
   fullName: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.Settings
@@ -717,6 +1688,7 @@ references:
 - uid: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.Control*
   commentId: Overload:Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.Control
   isExternal: true
+  href: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage-2.html#Sdl_FileTypeSupport_Framework_Core_Settings_AbstractFileTypeSettingsPage_2_Control
   name: Control
   nameWithType: AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.Control
   fullName: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.Control
@@ -725,6 +1697,7 @@ references:
 - uid: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.FileTypeConfigurationId*
   commentId: Overload:Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.FileTypeConfigurationId
   isExternal: true
+  href: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage-2.html#Sdl_FileTypeSupport_Framework_Core_Settings_AbstractFileTypeSettingsPage_2_FileTypeConfigurationId
   name: FileTypeConfigurationId
   nameWithType: AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.FileTypeConfigurationId
   fullName: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.FileTypeConfigurationId
@@ -734,6 +1707,7 @@ references:
   commentId: P:Sdl.FileTypeSupport.Framework.Core.Settings.IFileTypeConfigurationAware.FileTypeConfigurationId
   parent: Sdl.FileTypeSupport.Framework.Core.Settings.IFileTypeConfigurationAware
   isExternal: true
+  href: Sdl.FileTypeSupport.Framework.Core.Settings.IFileTypeConfigurationAware.html#Sdl_FileTypeSupport_Framework_Core_Settings_IFileTypeConfigurationAware_FileTypeConfigurationId
   name: FileTypeConfigurationId
   nameWithType: IFileTypeConfigurationAware.FileTypeConfigurationId
   fullName: Sdl.FileTypeSupport.Framework.Core.Settings.IFileTypeConfigurationAware.FileTypeConfigurationId
@@ -741,12 +1715,17 @@ references:
   commentId: T:System.String
   parent: System
   isExternal: true
-  name: String
-  nameWithType: String
-  fullName: System.String
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
 - uid: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.SubContentFileTypeConfigurationIds*
   commentId: Overload:Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage`2.SubContentFileTypeConfigurationIds
   isExternal: true
+  href: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage-2.html#Sdl_FileTypeSupport_Framework_Core_Settings_AbstractFileTypeSettingsPage_2_SubContentFileTypeConfigurationIds
   name: SubContentFileTypeConfigurationIds
   nameWithType: AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.SubContentFileTypeConfigurationIds
   fullName: Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage<SettingsControlType, SettingsType>.SubContentFileTypeConfigurationIds
@@ -756,6 +1735,7 @@ references:
   commentId: P:Sdl.FileTypeSupport.Framework.Core.Settings.IFileTypeConfigurationAware.SubContentFileTypeConfigurationIds
   parent: Sdl.FileTypeSupport.Framework.Core.Settings.IFileTypeConfigurationAware
   isExternal: true
+  href: Sdl.FileTypeSupport.Framework.Core.Settings.IFileTypeConfigurationAware.html#Sdl_FileTypeSupport_Framework_Core_Settings_IFileTypeConfigurationAware_SubContentFileTypeConfigurationIds
   name: SubContentFileTypeConfigurationIds
   nameWithType: IFileTypeConfigurationAware.SubContentFileTypeConfigurationIds
   fullName: Sdl.FileTypeSupport.Framework.Core.Settings.IFileTypeConfigurationAware.SubContentFileTypeConfigurationIds
@@ -763,49 +1743,41 @@ references:
   commentId: T:System.Collections.Generic.List{System.String}
   parent: System.Collections.Generic
   definition: System.Collections.Generic.List`1
-  name: List<String>
-  nameWithType: List<String>
-  fullName: System.Collections.Generic.List<System.String>
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<string>
+  nameWithType: List<string>
+  fullName: System.Collections.Generic.List<string>
   nameWithType.vb: List(Of String)
-  fullName.vb: System.Collections.Generic.List(Of System.String)
+  fullName.vb: System.Collections.Generic.List(Of String)
   name.vb: List(Of String)
   spec.csharp:
   - uid: System.Collections.Generic.List`1
     name: List
-    nameWithType: List
-    fullName: System.Collections.Generic.List
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
   - name: <
-    nameWithType: <
-    fullName: <
   - uid: System.String
-    name: String
-    nameWithType: String
-    fullName: System.String
+    name: string
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: System.Collections.Generic.List`1
     name: List
-    nameWithType: List
-    fullName: System.Collections.Generic.List
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
   - uid: System.String
     name: String
-    nameWithType: String
-    fullName: System.String
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Collections.Generic.List`1
   commentId: T:System.Collections.Generic.List`1
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
   name: List<T>
   nameWithType: List<T>
   fullName: System.Collections.Generic.List<T>
@@ -815,36 +1787,55 @@ references:
   spec.csharp:
   - uid: System.Collections.Generic.List`1
     name: List
-    nameWithType: List
-    fullName: System.Collections.Generic.List
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
   - name: <
-    nameWithType: <
-    fullName: <
   - name: T
-    nameWithType: T
-    fullName: T
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: System.Collections.Generic.List`1
     name: List
-    nameWithType: List
-    fullName: System.Collections.Generic.List
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
   - name: T
-    nameWithType: T
-    fullName: T
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Collections.Generic
   commentId: N:System.Collections.Generic
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
   name: System.Collections.Generic
   nameWithType: System.Collections.Generic
   fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic

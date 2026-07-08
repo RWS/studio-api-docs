@@ -1,11 +1,9 @@
-Introduction
-=====
-This documentation provides practical examples of how to use the Project Automation API, which allows programmatic access to the project automation functionality of Var:ProductName. Apart from various code snippets that demonstrate common use cases, you will also find a fully-documented command-line sample application that showcases how to automate project creation and batch task functionality.
+# Introduction
+This documentation demonstrates how to use the Project Automation API, which provides programmatic access to the project automation functionality of Var:ProductName. In addition to code snippets covering common use cases, a fully-documented command-line sample application demonstrates how to automate project creation and batch tasks.
 
 
-What you can do with this SDK
-----
-The Project Automation API is concerned with the automation of common project management tasks such as file analysis, pre-translation, generation of finalized target documents, etc. Based on this API you could potentially build fully-fledged, customized workflow systems. Below you can find examples of applications for the API:
+## What you can do with this SDK
+The Project Automation API automates common project management tasks: file analysis, pre-translation, generation of finalized target documents, and more. You can build fully-fledged, customized workflow systems on top of it. Example applications include:
 
 
 * Developing a Command-line application that traverses a folder / sub-folder structure to analyze or pre-translate the translatable documents contained therein.

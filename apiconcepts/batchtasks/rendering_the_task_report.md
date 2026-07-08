@@ -1,17 +1,22 @@
-Rendering the Task Report
-============================
-Configure the report of your custom batch task.
+# Rendering the Task Report
+Learn how to configure and render the report for your custom batch task in Var:ProductName.
 
-How to render the Task Report XML with XSLT
------------------------------------
+## How to Render the Task Report XML with XSLT
 
-Follow the next steps to add a report. During the application logic implementation, you already learned that you need to construct an XML string for the report content. When you call the **CreateReport()** method you pass the report content 
-        XML to this method.
+To add a report, follow these steps:
 
-For Var:ProductName to render the report XML, you need to develop a matching XSL stylesheet and add it to your project and make sure that in your Visual Studio project file the stylesheet is included as an embedded resource:
-# [XSLT Stylesheet](#tab/tabid-1)
+1. Construct an XML string for the report content during the application logic implementation.
+2. Call the **CreateReport()** method and pass the XML string as the report content.
+
+To render the report XML in Var:ProductName:
+
+1. Develop a matching XSL stylesheet. 
 [!code-xml[ReportXSLT](code_samples/Stylesheet.xsl)]		
+
+2. Add the stylesheet to your project.
+3. Ensure the stylesheet is included as an embedded resource in your Visual Studio project file.
+
 ***
 
-When rendered in Studio, the report looks as shown below:
-<img style="display:block; " src="images/ReportOutput.jpg" />
+When rendered in Var:ProductName, the report appears as shown below:
+![Rendered Report Output](images/ReportOutput.jpg)

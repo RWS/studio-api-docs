@@ -1,9 +1,7 @@
-Required References and Namespaces
-===
+# Required References and Namespaces
 To develop 'against' the Project Automation API your project needs to use the following libraries as references:
 
-Reference Libraries to Add
---
+## Reference Libraries to Add
 
 * Sdl.Core.Globalization
 * Sdl.Core.Settings
@@ -20,8 +18,7 @@ Finally, the **Sdl.ProjectAutomation.Settings** assembly exposes a number of set
 
 ![References](images/References.jpg)
 
-Namespaces to Use
---
+## Namespaces to Use
 The classes of your project needs to use the following namespaces:
 
 * System.Globalization
@@ -31,15 +28,13 @@ The classes of your project needs to use the following namespaces:
 * Sdl.ProjectAutomation.FileBased
 * Sdl.ProjectAutomation.Settings
 
-Further Requirements
---
+## Further Requirements
 In addition to the above, you should observer the following:
 
 * As build output location choose the installation folder of Var:ProductName , e.g. *Var:InstallationFolder*
 * Configure your projects as x84 applications, as otherwise they will not work when running on 64 bit platforms. Therefore, set the platform target of your projects to x84.
 
-References from the Translation Memory API
--- 
+## References from the Translation Memory API
 For some implementations it may be necessary to leverage the functionality of the Translation Memory API. In fact, this SDK describes the development of [IProject](../../api/projectautomation/Sdl.ProjectAutomation.Core.IProject.yml)  a sample application that uses the Project Automation API to run a batch analysis and at the same time requires some of the functionality offered by the TM API to read certain information from a TM setup (see [Introduction to the Sample Application](introduction_to_the_sample_app.md)).
 
 If you need to use the TM API in your implementation, you require the following references in addition:
@@ -55,8 +50,7 @@ Your class needs to use the following namespaces:
 * Sdl.LanguagePlatform.Core.Tokenization
 * Sdl.LanguagePlatform.Core
 
-See Also
---
+## See Also
 [Setting up a Developer Machine](../../articles/gettingstarted/setting_up_a_developer_machine.md)
 
 [Platform Support](../../articles/gettingstarted/platform_support.md) 

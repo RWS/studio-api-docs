@@ -1,13 +1,11 @@
-Project TM Creation Settings
-==
+# Project TM Creation Settings
 
 A project translation memory is a subset of a main TM, which contains only TUs that according to the file analysis were found to be relevant for the source documents of a project. Project TMs are not required for standalone scenarios, but are usually created for projects that involve multiple players, e.g. a project manager, external translators, editors, proofreaders, etc. Project TMs are then useful for two main reasons:
 
 * Project TMs are smaller than the main TMs and thus easier to send e.g. in a package via e-mail
 * Through project TMs you can make sure that external translators only receive the content that is relevant for the project that they are working on, and no other content, which may be confidential.
 
-Configuring the Task Settings
---
+## Configuring the Task Settings
 
 As illustrated in the following screenshot the following settings can be configured for project TMs.
 
@@ -53,33 +51,23 @@ project.UpdateSettings(settings);
 >
 >File TMs are created in a Tm sub-folder of the project folder strcture. A German project TM would, for example, be stord in a sub-folder called *Tm/de-DE*. The project TM name is a combination of the project name and the name of the main TM from which the project TM was generated.
 
-Putting it All Together
---
+## Putting it All Together
 
 # [C#](#tab/tabid-4)
 ```CS
 public void GetProjectTmTaskSettings(FileBasedProject project)
 {
-    #region "TaskSettings"
     ISettingsBundle settings = project.GetSettings();
     ProjectTranslationMemoryTaskSettings projectTmSettings = settings.GetSettingsGroup<ProjectTranslationMemoryTaskSettings>();            
-    #endregion
-
-    #region "ProjectTmSettings"
     projectTmSettings.CreateServerBasedProjectTranslationMemories.Value = true;
     projectTmSettings.ServerConnectionUri.Value = string.Empty;
     projectTmSettings.TranslationMemoryContainerName.Value = "TMCont";
-    #endregion
-
-    #region "UpdateTaskSettings"
     project.UpdateSettings(settings);
-    #endregion
 }
 ```
 ***
 
-See Also
---
+## See Also
 [Analyze Files Settings](analyze_files_settings.md)
 
 [Pre-translate Settings](project_tm_creation_settings.md)

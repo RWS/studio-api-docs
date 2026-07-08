@@ -1,27 +1,24 @@
-Introduction
-===
-In this chapter you will learn how to develop a document preview, which goes beyond the features a simple preview document that is shown in an external application.
+# Introduction
 
-Enhance your File Type Plug-in by Adding Internal Preview Functionality
---
+This section explains how to develop a document preview that offers more functionality than a simple external preview.
 
-Instead of launching an external application such as Microsoft Word or Notepad, you can also generate a preview in a window that is embedded in Var:ProductName. You can implement a static (internal) preview. This means that the source or target text is displayed within Var:ProductName. With this preview type there is no interaction between the side-by-side translation editor and the preview document.
+## Add internal preview functionality to your file type plug-in
 
-You may also implement a dynamic real-time preview, which is somewhat more sophisticated, because it interacts with the side-by-side editor of Var:ProductName. This means that when the user selects a segment in the editor, the corresponding segment in the preview will be highlighted and vice versa.
+Instead of launching an external application such as Microsoft Word or Notepad, you can generate a preview in a window that Var:ProductName embeds. You can implement a static internal preview, which displays the source or target text inside Var:ProductName. With this preview type, the side-by-side translation editor does not interact with the preview document.
 
-Example of an internal, real-time preview of a DOC file in Var:ProductName:
+You can also implement a dynamic real-time preview. This preview type is more advanced because it interacts with the side-by-side editor in Var:ProductName. When users select a segment in the editor, the corresponding segment in the preview is highlighted, and the reverse also applies.
+
+The following example shows an internal real-time preview of a DOC file in Var:ProductName:
 
 ![RealtimePreview](images/RealtimePreview.jpg)
 
-Since our project will require a number of new items, we recommend that you add a new **Preview** folder to your Visual Studio project. Within this folder we will later create an internal preview control and additional classes.
+This project requires several new items, so add a **Preview** folder to your Visual Studio project. You will use this folder later for the internal preview control and related classes.
 
 ![PreviewFolder](images/PreviewFolder.jpg)
 
-See Also
---
+## See also
 
-
-[Previewing files](previewing_files.md)
+- [Previewing files](previewing_files.md)
 
 >[!NOTE]
 >

@@ -1,31 +1,30 @@
-Create a New Project
-===
+# Create a New Project
 
-In this chapter you will learn how to properly set up a project for developing a verification plug-in that works on the native file format.
+Learn how to properly set up a project for developing a verification plug-in that works on the native file format.
 
-Create the Project
---
+## Create the Project
 
-After launching Var:VisualStudioEdition choose to create a new Var:ProductName Plug-in Project, and give it an appropriate name, e.g. *Sdl.Sdk.FileTypeSupport.Samples.XMLChecker*. The instructions for creating a Var:ProductName Plug-in Project are described in the [**Building a Plug-in**](../../articles/gettingstarted/building_a_plugin.md) article under the **Getting Started** section.
+Launch Var:VisualStudioEdition and create a new Var:ProductName Plug-in Project. Give it an appropriate name, such as `Sdl.Sdk.FileTypeSupport.Samples.XMLChecker`.
 
-Var:ProductName Plug-in Project produces a Plug-in Package (.sdlplugin). This needs to be manually deployed or copied to the Var:ProductName Plug-in Packages directory so that Var:ProductName can use the plug-in. See the [**Plug-in Deployment**](../../articles/gettingstarted/plugin_deployment.md) article under the **Getting Started** section.
+For instructions on creating a Var:ProductName Plug-in Project, see the [Building a Plug-in](../../articles/gettingstarted/building_a_plugin.md) article in the **Getting Started** section.
 
-Add the Required References
---
+A Var:ProductName Plug-in Project produces a Plug-in Package (`*.sdlplugin`). You must manually deploy or copy this package to the Var:ProductName Plug-in Packages directory so that Var:ProductName can use the plug-in. For deployment instructions, see the [Plug-in Deployment](../../articles/gettingstarted/plugin_deployment.md) article in the **Getting Started** section.
 
-Next add the references from the File Type Support Framework APIs. These are contained in the following assemblies:
+## Add the Required References
 
-* **Sdl.FileTypeSupport.Framework.Core.dll**: This is the main reference to the File Type Support Framework API
-* **Sdl.FileTypeSupport.Framework.Core.Settings.dll**
+Add references from the File Type Support Framework APIs. These references are contained in the following assemblies:
 
-Then add the references from the Core APIs.
-* **Sdl.Core.Settings.dll**
-* **Sdl.Core.PluginFramework.dll**
+- **Sdl.FileTypeSupport.Framework.Core.dll** — The main reference to the File Type Support Framework API
+- **Sdl.FileTypeSupport.Framework.Core.Settings.dll**
 
-By default you find these files in the Var:ProductName installation folder, usually *Var:InstallationFolder*. The **Copy Local** property for these references should be set to True.
+Add references from the Core APIs:
+
+- **Sdl.Core.Settings.dll**
+- **Sdl.Core.PluginFramework.dll**
+
+By default, these files are in the Var:ProductName installation folder (usually *Var:InstallationFolder*). Set the **Copy Local** property for these references to True.
 
 ![NativeVerifierReferences](images/NativeVerifierReferences.jpg)
 
->[!NOTE]
->
+> [!NOTE]
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

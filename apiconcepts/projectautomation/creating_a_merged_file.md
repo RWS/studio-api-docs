@@ -1,5 +1,4 @@
-Creating a Merged File
-==
+# Creating a Merged File
 
 By default, when you add a native file (e.g. a Microsoft Word document) to a project, a bilingual (SDLXliff) intermediary file will be created from it for further processing, e.g. file analysis, pre-translation, editing, etc. As a general rule, one bilingual file will be created for each native source file per target language.
 
@@ -46,8 +45,7 @@ project.SetFileRole(files.GetIds(), FileRole.Translatable);
 
 Also note that when you decide to create a merged bilingual file, only this bilingual (SDLXliff) file will exist alongside the original native documents. There will be no individual SDLXliff files, as is the case if you do not create a merged file.
 
-See Also
---
+## See Also
 
 [Adding Files and Folders](adding_files_and_folders.md)
 

@@ -1,23 +1,25 @@
-Using Var:ProductName EditorController
-=====
-TranslationStudioAutomation provides support for third-party developers to access the Var:ProductName editor view and perform editor operations.
+# Using Var:ProductName EditorController
 
-Creating a custom document list inside a viewpart that belongs to the editor view
-----
-The following sample demonstrates how to create a custom documents list built by using the [EditorController](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.yml) and add it to the editor view as a custom viewpart.
+The TranslationStudioAutomation API enables you to access the Var:ProductName editor view and perform editor operations.
 
-The custom list features:
+## Create a custom document list in a viewpart
 
-* Display the following columns:
-    * The document file name
-    * Number of segments to be translated
+This sample demonstrates how to create a custom document list using the [EditorController](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.yml) and add it to the editor view as a custom viewpart.
+
+The custom list includes:
+
+* Four columns:
+    * Document file name
+    * Number of segments to translate
     * Source language
     * Target language
 
-* Activating the document list items will active the document in the editor too.
-* The active document will always be displayed as selected in the list.
+* Selection synchronization: activating items in the custom list activates the document in the editor
+* Active document display: the currently active document appears selected in the list
 
-Start by implementing the windows form user control that will fill the content of the viewpart and is implementing the list view.
+### Step 1: Implement the user control
+
+Create a Windows Forms user control to display the document list:
 # [C#](#tab/tabid-1)
 ```cs
 private void InitializeDocumentListTab()
@@ -69,9 +71,10 @@ private Document ActiveDocument
     }
 }
 ```
-****
 
-Finally, integrate the new viewpart to the editor view.
+### Step 2: Integrate the viewpart into the editor view
+
+Register the viewpart with the editor view:
 # [C#](#tab/tabid-2)
 ```cs
 using System;
@@ -104,11 +107,10 @@ namespace EditorOperations.Sample
     }
 }
 ```
-****
 
-Tracking all editor document events and display them inside a list view.
----------
-The following sample demonstrates how to bind to all [EditorController](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.yml) related events and add them into a tab as an events list view.
+## Track editor document events
+
+This sample demonstrates how to subscribe to all [EditorController](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.EditorController.yml) events and add them to a list view for tracking.
 # [C#](#tab/tabid-3)
 ```cs
 private void InitializeTrackingEventsTab()
@@ -170,11 +172,10 @@ private void AddListViewEvent(string eventName, string eventMetadata = "")
     EventsListView.Items.Insert(0, item);
 }
 ```
-****
 
-Performing operations over document selections
-----
-The following sample demonstrates how to retrieve and replace the current document selection.
+## Perform operations on document selections
+
+This sample demonstrates how to retrieve and update the current document selection.
 # [C#](#tab/tabid-4)
 ```cs
 private void InitializeSelectionsTab()
@@ -200,4 +201,3 @@ private void ReplaceSelectionButton_Click(object sender, EventArgs e)
     doc.Selection.Target.Collapse();
 }
 ```
-***

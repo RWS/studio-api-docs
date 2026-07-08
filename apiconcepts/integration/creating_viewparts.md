@@ -1,37 +1,36 @@
-Creating viewparts
-====
+# Creating View Parts
 
-Var:ProductName Integration API provides support for third-party developers to integrate UI viewparts inside the Var:ProductName desktop applications.
+The Var:ProductName Integration API allows developers to integrate custom UI view parts into Var:ProductName desktop applications.
 
-Creating viewparts for a custom view
-----
-In order to create view parts, a third-party developer will require the following steps:
+## View Parts for Custom Views
 
-* Create a view which allows viewparts
-* Create one or more viewparts to define the main view content area
-    * Create a windows form user control to define the content of the viewpart
-    * Create a controller class that will define the main content area of the view which must implement the [AbstractViewPartController](../../api/integration/Sdl.Desktop.IntegrationApi.AbstractViewPartController.yml)
-* Decorate the controller class with the following attributes to provide metadata information regarding the viewparts: 
-    * [ViewPartAttribute](../../api/integration/Sdl.Desktop.IntegrationApi.Extensions.ViewPartAttribute.yml)
-    * [ViewPartLayoutAttribute](../../api/integration/Sdl.Desktop.IntegrationApi.Extensions.ViewPartLayoutAttribute.yml)
-* Target the viewpart location by setting the `LocationByType` property with the view controller type.
-* Set the `Dock` property to `Fill` 
-* Create the other viewparts as the content viewpart with the exception that the docking will not be of type `Fill`.
-  
-[ntegrating viewpart sample](integrating_viewparts.md)
+To create custom view parts for a custom view, complete the following steps:
 
-Creating viewparts for Var:ProductName views
------
-In order to create viewparts and integrate them into the Var:ProductName views, the third-party developer will require the following steps:
+* Create a view that allows view parts
+* Create one or more view parts to define the content area:
+  * Create a Windows Forms user control for the view part content
+  * Create a controller class that implements [AbstractViewPartController](../../api/integration/Sdl.Desktop.IntegrationApi.AbstractViewPartController.yml)
+* Apply the following attributes to specify view part metadata:
+  * [ViewPartAttribute](../../api/integration/Sdl.Desktop.IntegrationApi.Extensions.ViewPartAttribute.yml)
+  * [ViewPartLayoutAttribute](../../api/integration/Sdl.Desktop.IntegrationApi.Extensions.ViewPartLayoutAttribute.yml)
+* Set the `LocationByType` property to target the view controller
+* Set the `Dock` property to `Fill` for the main content area
+* Create additional view parts with appropriate docking (not `Fill`)
 
-* Create a windows form user control to define the content of the viewpart
-* Create a viewpart controller class which must implement the `AbstractViewPartController`
-* Decorate the controller class with the following attributes to provide metadata information regarding the viewparts: 
-    * [ViewPartAttribute](../../api/integration/Sdl.Desktop.IntegrationApi.Extensions.ViewPartAttribute.yml)
-    * [ViewPartLayoutAttribute](../../api/integration/Sdl.Desktop.IntegrationApi.Extensions.ViewPartLayoutAttribute.yml)
-* Target the viewpart location by setting the `LocationByType` property with the one of the view controllers defined:
-    * [ProjectsController](projects_controller.md)
-    * [FilesController](files_controller.md)
-    * [EditorController](editor_controller.md)
-  
-[Integrating viewpart sample](integrating_viewparts.md)
+See [Integrating viewpart sample](integrating_viewparts.md) for an example.
+
+## View Parts for Var:ProductName Views
+
+To create view parts and integrate them into Var:ProductName views, complete the following steps:
+
+* Create a Windows Forms user control for the view part content
+* Create a view part controller class that implements `AbstractViewPartController`
+* Apply the following attributes to specify view part metadata:
+  * [ViewPartAttribute](../../api/integration/Sdl.Desktop.IntegrationApi.Extensions.ViewPartAttribute.yml)
+  * [ViewPartLayoutAttribute](../../api/integration/Sdl.Desktop.IntegrationApi.Extensions.ViewPartLayoutAttribute.yml)
+* Set the `LocationByType` property to target one of the following view controllers:
+  * [ProjectsController](projects_controller.md)
+  * [FilesController](files_controller.md)
+  * [EditorController](editor_controller.md)
+
+See [Integrating viewpart sample](integrating_viewparts.md) for an example.

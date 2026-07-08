@@ -1,21 +1,19 @@
-Native File Tweakers
-===
+# Native File Tweakers
 
-Native file tweakers are optional filter components, which allow additional processing to be performed on the input file before parsing begins or after the target file has been generated.
+Native file tweakers are optional filter components that perform additional processing on the input file before parsing starts or on the target file after generation completes.
 
-Native file tweakers should only be used in the rare cases, for example when the parsing mechanism does not allow for sufficient low-level access to the file details and it is therefore not possible to round-trip all required information. For example, The XML parser uses the .NET XmlReader, which performs it's own pre-processing on entities. This means that you cannot be certain in which form the entity was present in the original file. A file tweaker would then allow you to encode these entities before parsing so you can be certain of their original format.
+Use native file tweakers only in rare cases. For example, you might need one when the parsing mechanism does not provide enough low-level access to preserve all required information during round-tripping. The .NET `XmlReader`, for example, performs its own preprocessing on entities. As a result, you cannot always determine the exact form of an entity in the original file. A file tweaker can encode those entities before parsing so that you can preserve their original format.
 
-Using a Native File Pre-Tweaker
---
+## Using a native file pre-tweaker
 
-The following example demonstrates how to include a pre-tweaker in the extractor of a filter File Type Component Builder:
+The following example shows how to add a pre-tweaker to the extractor in a filter File Type Component Builder:
 # [C#](#tab/tabid-1)
 ```cs
 /// <summary>
 /// Gets the file extractor for this component.
 /// </summary>
 /// <param name="name">not used here</param>
-/// <returns>a FileExtractor containing an Simple Text Parser</returns>
+/// <returns>a FileExtractor containing a Simple Text Parser</returns>
 public virtual IFileExtractor BuildFileExtractor(string name)
 {
     var parser = new SimpleTextParser();
@@ -27,19 +25,18 @@ public virtual IFileExtractor BuildFileExtractor(string name)
 ```
 ***
 
-(SimpleFilePreTweaker is a class that implements [AbstractFilePreTweaker](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.AbstractFilePreTweaker.yml))
+`SimpleFilePreTweaker` implements [AbstractFilePreTweaker](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.AbstractFilePreTweaker.yml).
 
-Using a Native File Post-Tweaker
---
+## Using a native file post-tweaker
 
-The following example demonstrates how to include a post-tweaker in the generator of a filter File Type Component Builder:
+The following example shows how to add a post-tweaker to the generator in a filter File Type Component Builder:
 
 # [C#](#tab/tabid-2)
 ```cs
 /// <summary>
 /// Gets the file generator for this component.
 /// </summary>
-/// <param name="name">not used herer</param>
+/// <param name="name">not used here</param>
 /// <returns><c>Null</c> if no file generator is defined</returns>
 public virtual IFileGenerator BuildFileGenerator(string name)
 {
@@ -51,24 +48,17 @@ public virtual IFileGenerator BuildFileGenerator(string name)
 ```
 ***
 
-(SimpleFilePostTweaker is a class that implements [AbstractFilePostTweaker](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.AbstractFilePostTweaker.yml))
+`SimpleFilePostTweaker` implements [AbstractFilePostTweaker](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.AbstractFilePostTweaker.yml).
 
-See Also
---
+### Reference
 
-**Reference**
+- [RegExFilePreTweaker](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.RegExFilePreTweaker.yml)
 
-[AbstractFilePreTweaker](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.AbstractFilePreTweaker.yml)
+- [RegExFilePostTweaker](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.RegExFilePostTweaker.yml)
 
-[AbstractFilePostTweaker](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.AbstractFilePostTweaker.yml)
+## See also
 
-[RegExFilePreTweaker](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.RegExFilePreTweaker.yml)
-
-[RegExFilePostTweaker](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.RegExFilePostTweaker.yml)
-
-
-
-[Creating a Native File Tweaker](creating_a_native_file_tweaker.md)
+- [Creating a Native File Tweaker](creating_a_native_file_tweaker.md)
 
 >[!NOTE]
 >

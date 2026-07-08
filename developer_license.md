@@ -1,9 +1,3 @@
----
-uid: developer_license
-title: "Request a Developer License"
-description: "How to request a developer license for Trados solutions."
----
-
 # Request a Developer License
 
 ## Selecting the Right License

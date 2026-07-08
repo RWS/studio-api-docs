@@ -1,11 +1,9 @@
-Analyze Files Settings
-==
+# Analyze Files Settings
 
 The Analyze Files task is used to determine the TM leverage for the selected project file(s). This means that it determines how many TUs of the main TMs match the segments in the project files. The task also determines the rate of repeated segments, i.e. repetitions within a document or cross-file repetitions. The task also determines the total number of segments, words, and characters. Therefore it is even useful when no TMs have been added to the project. This chapter provides detailed information on the various settings that you can configure to fine-tune this task programmatically.
 
 
-Configure the Task Settings
---
+## Configure the Task Settings
 
 The screenshot below shows the settings that can be configured for the Analyze Files task in Var:ProductName.
 
@@ -60,8 +58,7 @@ analyseSettings.UnknownSegmentsMaximumMatchValue.Value = 50;
 
 After configuring all task settings you need to update the project by applying the [UpdateSettings](../../api/projectautomation/Sdl.ProjectAutomation.FileBased.FileBasedProject.yml#Sdl_ProjectAutomation_FileBased_FileBasedProject_UpdateSettings_Sdl_Core_Globalization_Language_Sdl_Core_Settings_ISettingsBundle_) method as shown below:
 
-Putting it All Together
---
+## Putting it All Together
 
 The complete function should look as shown below:
 
@@ -69,38 +66,20 @@ The complete function should look as shown below:
 ```CS
 public void GetAnalyzeTaskSettings(FileBasedProject project)
 {
-    #region "AnalysisTaskSettings"
     ISettingsBundle settings = project.GetSettings();
     AnalysisTaskSettings analyseSettings = settings.GetSettingsGroup<AnalysisTaskSettings>();
-    #endregion
-
-    #region "ReportCrossFileRepetitions"
     analyseSettings.ReportCrossFileRepetitions.Value = true;
-    #endregion
-
-    #region "ReportInternalFuzzyMatchLeverage"
     analyseSettings.ReportInternalFuzzyMatchLeverage.Value = true;
-    #endregion
-
-    #region "ExportFrequentSettings"
     analyseSettings.ExportFrequentSegments.Value = true;
     analyseSettings.FrequentSegmentsNoOfOccurrences.Value = 5;
-    #endregion
-
-    #region "ExportUnknownSegments"
     analyseSettings.ExportUnknownSegments.Value = true;
     analyseSettings.UnknownSegmentsMaximumMatchValue.Value = 50;
-    #endregion
-
-    #region "UpdateAnalyzeSettings"
     project.UpdateSettings(settings);
-    #endregion
 }
 ```
 ***
 
-See Also
---
+## See Also
 
 
 

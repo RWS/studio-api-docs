@@ -1,44 +1,43 @@
-Implement the UI Controller Class
-===
+# Implement the UI Controller Class
 
-In this chapter you will learn how to implement a class that controls the actual plug-in user interface.
+Implement a class that controls the actual plug-in user interface.
 
-When implementing control for the plug-in user interface, you basically need to cover the following scenarios:
+## Settings Page Scenarios
 
-* The user clicks the **Reset to Defaults** button, thereby restoring all control elements to their intended default settings.
-* The user clicks **OK**, thereby applying (saving) the settings.
-After changing the control element settings, the user goes to another settings page, which should also save any changes to the form control elements.
-* The user clicks the **Cancel** button, any changes to the control settings should be discarded.
+A settings page for the plug-in user interface must handle these scenarios:
 
-A settings page does not implement its own **OK**, **Cancel**, **Reset** buttons, but will rely on the control elements that are provided by the dialog box of the framework, which is made possible through this class.
+- The user clicks **Reset to Defaults**, restoring all control elements to their default settings
+- The user clicks **OK**, saving the settings
+- The user navigates to another settings page, which should save changes to form control elements
+- The user clicks **Cancel**, discarding all changes to control settings
 
-Below you see an example of a settings page as it is implemented for one of the default file types in Var:ProductName:
+The settings page does not implement its own **OK**, **Cancel**, or **Reset** buttons. Instead, it uses the control elements provided by the framework's dialog box.
+
+Below is an example of a settings page as implemented for a default file type in `Var:ProductName`:
 
 ![SampleSettingsPage](images/SampleSettingsPage.jpg)
 
-Implement the Settings Page Class
---
+## Implement the Settings Page Class
 
-Add a class called e.g. **SettingsPage.cs** to your project. This is one of the classes that is referenced from the File Type Component Builder file, which was covered in one of the previous chapters (see [Create a New File Type Component Builder](create_new_file_type_component_builder.md)), i.e. it is not the UI class itself that is referenced in the File Type Component Builder. Without this reference, the plug-in UI would not be recognized and displayed by Var:ProductName.
+Add a class called, for example, **SettingsPage.cs** to your project. This class is referenced from the File Type Component Builder file (see [Create a New File Type Component Builder](create_new_file_type_component_builder.md)). It is not the UI class itself that is referenced. Without this reference, the plug-in UI would not be recognized or displayed by `Var:ProductName`.
 
-This class acts as an intermediary between the plug-in UI (see [Implement the User Interface](implement_the_user_interface_bil.md)) and the class that is used to store and retrieve the settings to/from the settings bundle (see [Loading and Saving the Settings](loading_and_saving_the_settings_bil.md)).
+This class acts as an intermediary between the plug-in UI (see [Implement the User Interface](implement_the_user_interface_bil.md)) and the class that stores and retrieves settings to/from the settings bundle (see [Loading and Saving the Settings](loading_and_saving_the_settings_bil.md)).
 
-This class needs to use the following namespaces:
+This class requires the following namespaces:
 
-* **Sdl.FileTypeSupport.Framework.Core.Settings**
-* **Sdl.Core.Settings**
-* **Sdl.Core.PluginFramework**
+- `Sdl.FileTypeSupport.Framework.Core.Settings`
+- `Sdl.Core.Settings`
+- `Sdl.Core.PluginFramework`
 
-Moreover, this component needs to be derived from the ```AbstractFileTypeSettingsPage``` class, which provides the methods for setting the plug-in UI according to the values of the settings class.
+This component must derive from the `AbstractFileTypeSettingsPage` class, which provides methods for setting the plug-in UI according to the settings class values.
 
-Reset to the Default Settings
---
+## Reset to Default Settings
 
-The ```ResetToDefaults``` is triggered when the user clicks the button **Reset to Defaults** in the user interface.
+The `ResetToDefaults` method is triggered when the user clicks **Reset to Defaults** in the user interface:
 
 ![reset_to_defaults](images/reset_to_defaults.jpg)
 
-In our implementation we override this method as shown in the example below. We call the base class to make sure that the settings are reset correctly, and then make sure we update the settings accordingly:
+Override this method to call the base class to ensure settings reset correctly, then update the UI:
 
 # [C#](#tab/tabid-1)
 ```cs
@@ -48,12 +47,10 @@ public override void ResetToDefaults()
     Control.UpdateControl();
 }
 ```
-***
 
-Reload the Settings
---
+## Reload the Settings
 
-When the user moves back to the settings page of our plug-in, we need to make certain that the plug-in UI is displayed with the most up-to-date settings from the settings bundle. This is done through the ```ReloadSettings``` method, which we override as shown below. Here, we must calll the base class to make sure that the settings are reloaded correctly before updating the UI:
+When the user navigates back to the plug-in settings page, ensure the plug-in UI displays the most up-to-date settings from the settings bundle. Override the `Refresh` method to call the base class first to ensure settings reload correctly, then update the UI:
 
 # [C#](#tab/tabid-2)
 ```cs
@@ -63,12 +60,10 @@ public override void Refresh()
     Control.UpdateControl();
 }
 ```
-***
 
-Declare the Class in the File Type Component Builder
---
+## Declare the Class in the File Type Component Builder
 
-For the plug-in settings UI to become visible in Var:ProductName, the File Type Component Builder file needs to include the following method. You may open the **.sdlfiletype* file in a text editor, then search for <```WinFormSettingsPageIds```>, and add the node to the list of settings page IDs.
+To make the plug-in settings UI visible in `Var:ProductName`, the File Type Component Builder file must include the settings page IDs. Open the **.sdlfiletype** file in a text editor, search for `WinFormSettingsPageIds`, and add the node to the list:
 
 ![excel_verifier_simplified_gui](images/excel_verifier_simplified_gui.jpg)
 
@@ -81,12 +76,10 @@ For the plug-in settings UI to become visible in Var:ProductName, the File Type 
     </list>
 </property>
 ```
-***
 
-Putting it all Together
---
+## Putting It All Together
 
-The complete class should now look as shown below:
+The complete class should now look as follows:
 
 # [C#](#tab/tabid-4)
 ```cs
@@ -100,57 +93,44 @@ using Sdl.FileTypeSupport.Framework.Core.Settings;
 namespace Sdk.FileTypeSupport.Samples.WordArtVerifier
 {
     /// <summary>
-    /// This class controls the plug-in user interface. It controls what happens, for example,
-    /// when the user clicks the button in the user interface for resetting the control elements
-    /// to their default values. This class is referenced in the file type definition. Without
-    /// this reference in the SDLFILETYPE file, the plug-in user interface would not be available
-    /// to the end user.
+    /// This class controls the plug-in user interface. It controls what happens when the user
+    /// clicks the button to reset control elements to their default values. This class is referenced
+    /// in the file type definition. Without this reference in the SDLFILETYPE file, the plug-in
+    /// user interface would not be available to the end user.
     /// </summary>
     [FileTypeSettingsPage(Id="WordArtVerifier_Settings", Name="Settings_Name",
         Description="Settings_Description")]
     class SettingsPage : AbstractFileTypeSettingsPage<SettingsUI, VerifierSettings>
     {
         /// <summary>
-        /// Triggered, when the user clicks the button Reset to Defaults button in 
-        /// Trados Studio. Restores the default check box state, which should
-        /// be Checked (i.e. verification function enabled), and the default maximum
-        /// word count, which is 3.
+        /// Triggered when the user clicks the Reset to Defaults button in Trados Studio.
+        /// Restores the default check box state (verification enabled) and the default
+        /// maximum word count, which is 3.
         /// </summary>
-        #region "ResetToDefaults"
         public override void ResetToDefaults()
         {
             base.ResetToDefaults();
             Control.UpdateControl();
         }
-        #endregion
 
         /// <summary>
-        /// Triggered when the user raises the plug-in UI, whose controls (in this case the check box
-        /// and the maximum word count text field) will then be set according to the values stored in 
-        /// the settings bundle.
+        /// Triggered when the user opens the plug-in UI. The controls (the check box and the
+        /// maximum word count text field) are set according to the values stored in the
+        /// settings bundle.
         /// </summary>
-        /// <param name="settingsBundle"></param>
-        #region "ReloadSettings"
         public override void Refresh()
         {
             base.Refresh();
             Control.UpdateControl();
         }
-        #endregion
     }
 }
 ```
-***
 
-See Also
---
+## See Also
 
+- [Implement the User Interface](implement_the_user_interface_bil.md)
+- [Loading and Saving the Settings](loading_and_saving_the_settings_bil.md)
 
-
-[Implement the User Interface](implement_the_user_interface_bil.md)
-
-[Loading and Saving the Settings](loading_and_saving_the_settings_bil.md)
-
->[!NOTE]
->
+> [!NOTE]
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

@@ -1,12 +1,12 @@
-Implementing the Preview Writer
-===
+# Implementing the preview writer
 
-In this chapter you will learn how to implement the writer component that generates the HTML code that is going to be displayed in the internal Web browser preview control.
+This article shows how to implement the writer that generates the HTML displayed in the internal web browser preview control.
 
-Add the Preview Writer Class
---
+## Add the preview writer class
 
-Add a class called e.g. **InternalPreviewWriter.cs** to your project. The class needs to implement the same interfaces and members as the file writer class, which we use for generating the target files in their native format (see [Implementing the File Writer](implementing_the_file_writer.md)). The minimum amount of code required to build a file type plug-in with the internal preview writer looks as shown below:
+Add a class such as **InternalPreviewWriter.cs** to your project. The class must implement the same interfaces and members as the file writer class that generates native target files. See [Implementing the File Writer](implementing_the_file_writer.md).
+
+The following example shows the minimum code required for an internal preview writer:
 
 # [C#](#tab/tabid-1)
 ```cs
@@ -22,27 +22,22 @@ namespace Sdk.Snippets.Native
 
         public void SetFileProperties(IFileProperties properties)
         {
-
         }
 
         public void StartOfInput()
         {
-
         }
 
         public void EndOfInput()
         {
-
         }
     }
 }
 ```
-****
 
-Start the Preview Output
---
+## Start the preview output
 
-As preview output we can generate a highly simplified HTML document. First, write the start of the HTML file:
+Generate a simplified HTML document for the preview output. Start by writing the opening HTML markup:
 
 # [C#](#tab/tabid-2)
 ```cs
@@ -53,12 +48,10 @@ public void StartOfInput()
     _preview.WriteLine("<html><body>");
 }
 ```
-***
 
-Output Text and Tags
---
+## Output text and tags
 
-Override the ```Text()``` method to output the translatable strings:
+Override the `Text()` method to write translatable strings:
 
 # [C#](#tab/tabid-3)
 ```cs
@@ -68,9 +61,8 @@ public override void Text(ITextProperties textInfo)
     _preview.Write(textInfo.Text);
 }
 ```
-***
 
-Let us assume that you want to insert a line break after each paragraph unit. To do this use the two following override methods to enclose each paragraph in a **DIV** tag pair:
+If you want to insert a line break after each paragraph unit, override the following methods and wrap each paragraph in a **DIV** tag pair:
 
 # [C#](#tab/tabid-4)
 ```cs
@@ -86,9 +78,8 @@ public override void ParagraphUnitEnd()
     _preview.Write("</div>");
 }
 ```
-***
 
-For good measure, enclose each segment in a **SPAN** tag pair. This is not actually required for the moment, but structuring the output through **SPAN** container tags will become important later, when we implement the real-time preview (see [Enhancing the Preview File Writer](enhancing_the_preview_file_writer.md)).
+Wrap each segment in a **SPAN** tag pair. This step is not required yet, but this structure becomes useful later when you implement the real-time preview. See [Enhancing the Preview File Writer](enhancing_the_preview_file_writer.md).
 
 # [C#](#tab/tabid-5)
 ```cs
@@ -103,9 +94,8 @@ public override void SegmentEnd()
     _preview.Write("</span>");
 }
 ```
-***
 
-Now use the two following override methods to output the content of the inline tags. Note that by emitting the HTML tags we will also apply the corresponding character formatting in the Web browser preview control.
+Next, override the following methods to write inline tag content. When you emit the HTML tags, the web browser preview control also applies the corresponding character formatting.
 
 # [C#](#tab/tabid-6)
 ```cs
@@ -121,14 +111,12 @@ public override void InlineEndTag(IEndTagProperties tagInfo)
     _preview.Write(tagInfo.TagContent);
 }
 ```
-***
 
-Note that we do not output any structure tag content in this preview.
+This preview does not write any structure tag content.
 
-Close the Preview Output
---
+## Close the preview output
 
-Last, close the preview as shown below:
+Finally, close the preview output:
 
 # [C#](#tab/tabid-7)
 ```cs
@@ -139,16 +127,14 @@ public void EndOfInput()
     _preview.Close();
 }
 ```
-***
 
-The static HTML preview looks as shown in the following example:
+The static HTML preview looks like this:
 
 ![StaticHTMLPreview](images/StaticHTMLPreview.jpg)
 
-Putting it All Together
---
+## Put it all together
 
-If you put everything together, the preview writer class looks as shown below:
+The complete preview writer class looks like this:
 
 # [C#](#tab/tabid-8)
 ```cs
@@ -167,24 +153,19 @@ namespace Sdk.Snippets.Native
             // not used in this implementation
         }
 
-        #region "start output"
         // start the preview output
         public void StartOfInput()
         {
             _preview = new StreamWriter(OutputProperties.OutputFilePath);
             _preview.WriteLine("<html><body>");
         }
-        #endregion
 
-        #region "text"
         // output the translatable strings
         public override void Text(ITextProperties textInfo)
         {
             _preview.Write(textInfo.Text);
         }
-        #endregion
 
-        #region "para"
         // each paragraph unit should appear in a new line
         // therefore use a DIV element
         public override void ParagraphUnitStart(IParagraphUnitProperties properties)
@@ -192,15 +173,11 @@ namespace Sdk.Snippets.Native
             _preview.WriteLine("<div>");
         }
 
-
         public override void ParagraphUnitEnd()
         {
             _preview.Write("</div>");
         }
-        #endregion
 
-
-        #region "segment"
         // enclose each segment in a SPAN tag pair
         public override void SegmentStart(ISegmentPairProperties properties)
         {
@@ -211,9 +188,7 @@ namespace Sdk.Snippets.Native
         {
             _preview.Write("</span>");
         }
-        #endregion
 
-        #region "inline tags"
         // output any inline tags,
         // which will also apply the corresponding character formatting
         public override void InlineStartTag(IStartTagProperties tagInfo)
@@ -225,29 +200,20 @@ namespace Sdk.Snippets.Native
         {
             _preview.Write(tagInfo.TagContent);
         }
-        #endregion
 
-
-
-        #region "end output"
         // end the preview output
         public void EndOfInput()
         {
             _preview.WriteLine("</body></html>");
             _preview.Close();
         }
-        #endregion
     }
 }
 ```
-***
 
-See Also
---
+## See also
 
-
-
-[Enhancing the Preview File Writer](enhancing_the_preview_file_writer.md)
+- [Enhancing the Preview File Writer](enhancing_the_preview_file_writer.md)
 
 >[!NOTE]
 >

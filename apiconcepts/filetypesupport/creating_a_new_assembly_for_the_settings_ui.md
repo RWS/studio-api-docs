@@ -1,50 +1,39 @@
-Creating a New Assembly for the Settings UI
-===
+# Creating a New Assembly for the Settings UI
 
-In this chapter we will show you how to create a separate project for adding a user interface to our file type plug-in.
+Create a separate project for adding a user interface to your file type plug-in.
 
-Create a New Project
---
+## Create a New Project
 
-Let us assume that you want to add a user interface to your file type plug-in, so that users can configure certain options at runtime. Example: suppose that sometimes the product code lines need to be locked, but sometimes they may require localization. So, users should be able to make this determination on a case-by-case basis for each document.
+To expose runtime configuration options to users, create a separate assembly for the UI. This allows you to build different user interfaces for the same file type plug-in—for example, a desktop UI or a web-based UI.
 
-In order to achieve this you need to expose a configurable setting to a user interface. Based on the setting applied to the user interface the file parser should later lock the product code lines or expose them for translation.
+Consider this scenario: sometimes product code lines need to be locked, and sometimes they require localization. Users should determine this case-by-case for each document. Based on the user's setting in the UI, the file parser locks or exposes product code lines for translation.
 
-Rather than adding a user interface control to your existing project, you should create a second project for building a separate UI assembly. The reason for this is that you can build different user interfaces for the same file type plug-in. For example, you could have a desktop-based user interface as well as a Web-based UI.
+Rather than adding UI controls to your existing project, create a second project for the UI assembly. This separation enables flexible UI implementations.
 
-For the type of plug-in discussed in this chapter, we require the **Var:ProductName Plug-in Project** template.
-
+For this plug-in, use the **Var:ProductName Plug-in Project** template.
 
 ![PluginTemplate](images/PluginTemplate.jpg)
 
+By default, the project name will be **Var:ProductName Plug-in Project1**. Change it to `Sdl.Sdk.FileTypeSupport.Samples.SimpleText.WinUI` for this sample.
 
-By default, when you create a project based on this template, the project name will be e.g. **Var:ProductName Plug-in Project1**. Change the project name to **Sdl.Sdk.FileTypeSupport.Samples.SimpleText.WinUI** for our sample implementation.
+## Add the Required References
 
-Add the Required References
---
+The plug-in template includes the **Sdl.Core.PluginFramework.dll** reference.
 
-The plug-in template will come with the **Sdl.Core.PluginFramework.dll** reference.
+Add the following libraries as references to the UI project:
 
-Now add the following libraries as references to the new UI project:
+- **Sdl.Core.Settings.dll**
+- **Sdl.FileTypeSupport.Framework.Core.Settings.dll**
 
-* **Sdl.Core.Settings.dll**
-* **Sdl.FileTypeSupport.Framework.Core.Settings.dll**
+Set the project's output path to the Var:ProductName installation folder (for example, *Var:InstallationFolder*).
 
-Set the output path for building your project to the installation folder of Var:ProductName, e.g. *Var:InstallationFolder*.
+## See Also
 
-See Also
---
+- [Implementing the Settings UI](implementing_the_settings_ui.md)
+- [Implementing the UI Controller Class](implementing_the_ui_controller_class.md)
 
+> [!NOTE]
+> Remember to generate a key to sign the assembly.
 
-
-[Implementing the Settings UI](implementing_the_settings_ui.md)
-
-[Implementing the UI Controller Class](implementing_the_ui_controller_class.md)
-
->[!NOTE]
->
->Remember to generate a key to sign the assembly.
-
->[!NOTE]
->
+> [!NOTE]
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

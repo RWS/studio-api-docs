@@ -1,20 +1,17 @@
-Create a Custom Message Control
-=====
-In this section, a simple custom message control will be developed for the IdenticalCheck global verifier described in [How to Create a Global Verifier](how_to_create_a_global_verifier.md).
+# Create a Custom Message Control
+In this section, you will develop a simple custom message control for the IdenticalCheck global verifier described in [How to Create a Global Verifier](how_to_create_a_global_verifier.md).
 
-This project can be found in the samples directory under Sdl.Verification.Sdk.IdenticalCheck.Extended (code located in the MessageUI folder).
+This project can be found in the samples directory under [Sdl.Verification.Sdk.IdenticalCheck.Extended](https://github.com/RWS/trados-studio-api-samples/tree/master/Verification/Sdl.Verification.Sdk.IdenticalCheck.Extended/MessageUI)
 
-Overview
-----
-The custom message control that will be developed will show a BasicSegmentEditControl with the target segment and a text box that describes the identical verification message and will also include the paragraph context.
+## Overview
+The custom message control you will develop displays a `BasicSegmentEditControl` with the target segment, a text box describing the identical verification message, and the paragraph context.
 
 <img style="display:block; " src="images/CustomMessageControl.png" />
 
-Creating the custom message data class
-----
-During verification, the verifier creates verification messages that includes the text, the origin, severity (note, warning, error), and from and upto locations.
+## Creating the custom message data class
+During verification, the verifier creates verification messages that include the text, origin, severity (note, warning, error), and from and up-to locations.
 
-In the IdenticalCheck global verifier, we need the verifier to add the paragraph context to the verification message. To do this, a custom message data object that contains the detailed error with paragraph context must be added to the verification message. In addition, we would like to provide the suggestion for target segment replacement.
+In the IdenticalCheck global verifier, you need to add paragraph context to the verification message. To do this, add a custom message data object that contains detailed error information with paragraph context. You also want to provide a suggestion for target segment replacement.
 
 A custom message data class needs to be defined for the custom message data object with the paragraph context and suggestion for target segment replacement.
 
@@ -25,11 +22,11 @@ A custom message data class needs to be defined for the custom message data obje
 5. Add a `Suggestion` property with a public getter and a private setter.
 6. Change the constructor so that it sets the `Suggestion` property from the `suggestion` argument.
 
-A custom message class also needs to inherit from [Sdl.FileTypeSupport.Framework.IntegrationApi.ExtendedMessageEventData](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.ExtendedMessageEventData.yml). `ExtendedMessageEventData` has a `MessageType` property that should be set to uniquely identify that type of verification message.
+A custom message class also needs to inherit from [Sdl.FileTypeSupport.Framework.IntegrationApi.ExtendedMessageEventData](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.ExtendedMessageEventData.yml). `ExtendedMessageEventData` has a `MessageType` property that should be set to uniquely identify this type of verification message.
 1. Add a using reference to `Sdl.FileTypeSupport.Framework.IntegrationApi`.
 2. Make the class inherit from [ExtendedMessageEventData](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.ExtendedMessageEventData.yml).
 3. Change the constructor so that it sets the `MessageType` to "Sdl.Verification.Sdk.IdenticalCheck.Extended, Error_NotIdentical".
-The complete message class should look as following:
+The complete message class should look as follows:
 
 # [C#](#tab/tabid-1)
 ```cs
@@ -71,8 +68,7 @@ namespace Verification.Sdk.IdenticalCheck.Extended.MessageUI
 ```
 ***
 
-Adding the custom message data object to the verification message
------
+## Adding the custom message data object to the verification message
 Every verifier uses the message reporter to create verification messages. Any verifier that needs to add custom message data to the verification message needs to create their custom message data object and pass this to the message reporter.
 
 In the `IdenticalCheck global verifier`, `IdenticalVerifierMain.CheckParagraphUnit` uses the message reporter to create verification messages. CheckParagraphUnit needs to be modified to create an `IdenticalVerifierMessageData` object with the paragraph context and the source segment as proposed suggestion.
@@ -87,7 +83,7 @@ IdenticalVerifierMessageData extendedData = new IdenticalVerifierMessageData(com
 ```
 ***
 
-After creating the custom or extended data object, this needs to be passed to the message reporter. Only some message reporters can handle custom or extended data and these extended message reporters implement the [IBilingualContentMessageReporterWithExtendedData](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentMessageReporterWithExtendedData.yml) interface and contains just one `ReportMessage` method that includes the extended data as an argument. So the message reporter needs to be cast to an extended message reporter before it can be used to pass the extended data.
+After creating the custom or extended data object, pass it to the message reporter. Only some message reporters can handle custom or extended data. These extended message reporters implement the [IBilingualContentMessageReporterWithExtendedData](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentMessageReporterWithExtendedData.yml) interface and contain a `ReportMessage` method that includes extended data as an argument. Therefore, the message reporter must be cast to an extended message reporter before it can pass extended data.
 
 In `IdenticalVerifierMain.CheckParagraphUnit`, replace the call to `MessageReporter.ReportMessage` with the following:
 
@@ -102,7 +98,7 @@ extendedMessageReporter.ReportMessage(this, PluginResources.Plugin_Name,
 ```
 ***
 
-Since only some message reporters can handle custom or extended data and implement [IBilingualContentMessageReporterWithExtendedData](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentMessageReporterWithExtendedData.yml), then code should be added to guard against this possibility. In the following code, the message reporter is checked to see whether it implements [IBilingualContentMessageReporterWithExtendedData](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentMessageReporterWithExtendedData.yml) if so then the extended data is passed to `ReportMessage` and if not then the extended data is not passed to `ReportMessage`.
+Since only some message reporters can handle custom or extended data and implement [IBilingualContentMessageReporterWithExtendedData](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentMessageReporterWithExtendedData.yml), add code to guard against this. In the following code, the message reporter is checked to see whether it implements [IBilingualContentMessageReporterWithExtendedData](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentMessageReporterWithExtendedData.yml). If it does, extended data is passed to `ReportMessage`; otherwise, it is not.
 
 # [C#](#tab/tabid-4)
 ```cs
@@ -137,11 +133,10 @@ else
 ***
 
 
-Creating a custom message control
-----
+## Creating a custom message control
 The custom message control is a user-control that is created by the custom message plug-in just before showing a verification message. A custom message control only shows one verification message and after showing the verification message then it is disposed. It does not have to implement any specific interfaces or constructors. The custom message plug-in is responsible for passing any information that the custom message control needs in the constructor.
 
-Verification messages are represented by `MessageEventArgs` in [Sdl.FileTypeSupport.Framework.IntegrationApi.MessageEventArgs](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.MessageEventArgs.yml) contains information like the message text, message severity (note, warning, error), message origin, text location, and the extended data. So most custom message control are going to need the `MessageEventArgs` passed in the constructor from the custom message plug-in.
+Verification messages are represented by `MessageEventArgs` in [Sdl.FileTypeSupport.Framework.IntegrationApi.MessageEventArgs](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.MessageEventArgs.yml), which contains information such as message text, message severity (note, warning, error), message origin, text location, and extended data. Most custom message controls require `MessageEventArgs` to be passed in the constructor from the custom message plug-in.
 
 In the `IdenticalCheck` global verifier, a simple user-control needs to be created to display the identical verification message with the paragraph context and suggestion for target segment replacement.
 
@@ -166,10 +161,9 @@ _suggestion = new Suggestion(messageEventArgs.FromLocation, messageEventArgs.Upt
 ```
 ***
 
-Now we need a controls which are able to display our target segment. The [Sdl.DesktopEditor.BasicControls.BasicSegmentEditControl](../../api/integration/Sdl.DesktopEditor.BasicControls.BasicSegmentEditControl.yml) is a simplified control for basic displaying and editing of a bilingual content. In our custom UI we will initialize the control and then add the control to the panel we created earlier. The `BasicSegmentEditControl` can be set as read only - for read/write you would need to add events to handle changes done by the translator manually.
+Now you need controls that can display the target segment. The [Sdl.DesktopEditor.BasicControls.BasicSegmentEditControl](../../api/integration/Sdl.DesktopEditor.BasicControls.BasicSegmentEditControl.yml) is a simplified control for basic display and editing of bilingual content. In the custom UI, initialize this control and add it to the panel created earlier. The `BasicSegmentEditControl` can be set as read-only. For read/write support, you would need to add events to handle manual translator edits.
 
-Creating a custom message plug-in
-----
+## Creating a custom message plug-in
 A custom message plug-in only supports some verification messages and not all verification messages. For those supported verification messages, a custom message plug-in can create a custom message control to show the supported verification message. A custom message plug-in needs to implement [IMessageControlPlugIn](../../api/verification/Sdl.Verification.Api.IMessageControlPlugIn.yml) and the the class should be marked with the [MessageControlPlugInAttribute](../../api/verification/Sdl.Verification.Api.MessageControlPlugInAttribute.yml).
 
 In the `IdenticalCheck` global verifier, a custom message plug-in needs to be developed to create custom message controls; `IdenticalVerifierMessageUI`.
@@ -214,7 +208,7 @@ public UserControl CreateMessageControl(IMessageControlContainer messageControlC
 ```
 ***
 
-The entire `IdenticalVerifierMessagePlugIn` class should look as following:
+The entire `IdenticalVerifierMessagePlugIn` class should look as follows:
 
 # [C#](#tab/tabid-8)
 ```cs
@@ -256,7 +250,6 @@ namespace Verification.Sdk.IdenticalCheck.Extended.MessageUI
 ```
 ***
 
-Summary
------
-That completes the work necessary to display a custom message control for verification messages produced by the `IdenticalCheck` global verifier. If the user double-clicks on a verification message produced by the `IdenticalCheck` global verifier then the Verification Details form will show the custom message control shown in the [Overview](overview.md).
+## Summary
+That completes the work needed to display a custom message control for verification messages produced by the `IdenticalCheck` global verifier. If the user double-clicks a verification message produced by this verifier, the Verification Details form will show the custom message control shown in the [Overview](overview.md).
 

@@ -1,10 +1,10 @@
-Implementing the Element Visitor
-====
-In the previous chapter (see [Implementing the Search Logic](implementing_the_search_logic.md)) we generate the search result based on the search segment / string from the document that is currently open in the editor of Var:ProductName. To make certain that the search string only consists of plain text, we add a helper class called `ListTranslationProviderElementVisitor`. ( This class is not included in the plug-in template.) This component is used to loop through all the elements of a given segment (e.g. text, inline tags, etc), and returns the plain source segment string that will be used for the search and matching to the segments from the delimited list.
+# Implementing the Element Visitor
 
-The class needs to implement the [ISegmentElementVisitor](../../api/translationmemory/Sdl.LanguagePlatform.Core.ISegmentElementVisitor.yml) interface.
+In the previous chapter, [Implementing the Search Logic](implementing_the_search_logic.md), we generate search results from the segment or string currently open in the Var:ProductName editor. To ensure that the search string contains plain text only, add a helper class named `ListTranslationProviderElementVisitor`. This class is not included in the plug-in template. It iterates through all elements in a segment, such as text and inline tags, and returns the plain source segment string used for search and matching against the delimited list.
 
-The complete class looks as shown below:
+The class must implement the [ISegmentElementVisitor](../../api/translationmemory/Sdl.LanguagePlatform.Core.ISegmentElementVisitor.yml) interface.
+
+The complete class looks like this:
 
 # [C#](#tab/tabid-1)
 ```cs
@@ -90,6 +90,6 @@ namespace Sdk.LanguagePlatform.Samples.ListProvider
 ```
 ***
 
-See Also
-----
+## See Also
+
 [Implementing the Search Logic](implementing_the_search_logic.md)

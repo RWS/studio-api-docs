@@ -1,20 +1,17 @@
-Reading Translation Unit System Information
-==
+# Reading Translation Unit System Information
 
-Translation units are associated with a set of system information, which is added automatically to each TU during translation and editing. This means that the system keeps track of such information automatically, no TM fields have to be created or maintained for this kind of information.
+Translation units include system information that the system adds automatically during translation and editing. You do not need TM fields to store this information.
 
-About Translation Unit System Information
---
+## About Translation Unit System Information
 
-For each TU, a set of information is stored, i.e. the date/time when the TU was created and the date/time the TU was last changed (if applicable). In addition, the name of the user who created/changed the TU is also stored as well as the name of the user who last used the TU and when (if applicable). Furthermore, a usage counter is maintained, i.e. the system tracks how often a TU has been used. Using a TU means that it has been found during a TM lookup operation, and the suggested translation has been inserted into the document, thus being 'used'. This allows you, for example, to filter for TUs that have never been used, and delete them in order to keep the TM lean and efficient. The screenshot below shows an example of the system information that is kept for a particular TU in Var:ProductName:
+For each TU, the system stores the creation date and time, the last change date and time, the user who created or changed the TU, the user who last used the TU, and the last usage time, if applicable. The system also maintains a usage counter to track how often a TU has been used. A TU counts as used when a lookup returns it and the translator inserts the suggested translation into the document. You can use this information, for example, to find TUs that have never been used and remove them to keep the TM lean and efficient. The screenshot below shows an example of TU system information in Var:ProductName:
 
 ![SystemInfo](images/SystemInfo.jpg)
 
 
-Add a New Class
---
+## Add a New Class
 
-In the following you will learn how to retrieve the system information of a TU programmatically. Start by adding a new class called ```TuSystemInfo```. Implement a public function called ```GetInfo``` to your class, which uses the TM file name and path as string parameter. First, you open the TM and retrieve a particular TU by searching a segment as demonstrated below:
+This example shows how to retrieve TU system information programmatically. Start by adding a new class named `TuSystemInfo`. Then implement a public method named `GetInfo()` that takes the TM path as a string parameter. First open the TM and search for a segment, as shown below:
 
 # [C#](#tab/tabid-1)
 ```cs
@@ -24,7 +21,7 @@ SearchResults results = tm.LanguageDirection.SearchText(this.GetSearchSettings()
 ```
 ***
 
-Then you create a TU object based on the search result, from which you derive a system info object through which you compile the TU system information output string:
+Then use the search result to access the TU and its system fields. Build a string that contains the TU system information:
 
 # [C#](#tab/tabid-2)
 ```cs
@@ -36,7 +33,7 @@ foreach (SearchResult item in results)
         TranslationUnit tu = item.MemoryTranslationUnit;
         SystemFields sysFields = tu.SystemFields;
 
-        tuInfo = "Creation date: " + sysFields.CreationUser + "\n";
+        tuInfo = "Creation date: " + sysFields.CreationDate + "\n";
         tuInfo += "Creation user: " + sysFields.CreationUser + "\n";
         tuInfo += "Change date: " + sysFields.ChangeDate + "\n";
         tuInfo += "Change user: " + sysFields.ChangeUser + "\n";
@@ -51,10 +48,9 @@ MessageBox.Show(tuInfo, "TU Information");
 ```
 ***
 
-Putting it All Together
---
+## Putting it All Together
 
-The complete class should now look as shown below:
+The complete class should now look like this:
 
 # [C#](#tab/tabid-3)
 ```cs
@@ -84,7 +80,7 @@ namespace SDK.LanguagePlatform.Samples.TmAutomation
                     TranslationUnit tu = item.MemoryTranslationUnit;
                     SystemFields sysFields = tu.SystemFields;
 
-                    tuInfo = "Creation date: " + sysFields.CreationUser + "\n";
+                    tuInfo = "Creation date: " + sysFields.CreationDate + "\n";
                     tuInfo += "Creation user: " + sysFields.CreationUser + "\n";
                     tuInfo += "Change date: " + sysFields.ChangeDate + "\n";
                     tuInfo += "Change user: " + sysFields.ChangeUser + "\n";

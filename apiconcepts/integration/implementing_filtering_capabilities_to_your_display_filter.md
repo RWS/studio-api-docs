@@ -1,17 +1,24 @@
-Implementing filtering capabilities to your Display Filter
-======
-Add the basic filtering functionality to your custom filter.
+# Implementing filtering capabilities to your Display Filter
 
-To work with the Display Filter API, you need to create a class that implements the [IDisplayFilter](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.DisplayFilters.IDisplayFilter.yml) interface from the [Sdl.TranslationStudioAutomation.IntegrationApi.DisplayFilters](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.DisplayFilters.yml) namespace, which exposes one method called [EvaluateRow](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.DisplayFilters.IDisplayFilter.yml#Sdl_TranslationStudioAutomation_IntegrationApi_DisplayFilters_IDisplayFilter_EvaluateRow_Sdl_TranslationStudioAutomation_IntegrationApi_DisplayFilters_IDisplayFilterRowInfo_). This method will then be called by the API for each row after the filter is applied on the document, passing in the [IDisplayFilterRowInfo](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.DisplayFilters.IDisplayFilterRowInfo.yml) model (which includes the [ISegmentPair](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.ISegmentPair.yml) and other relevant properties) that will permit the developer to assert whether or not the segments are visible in the editor.
+Add basic filtering functionality to your custom filter.
 
-Create a new class called `FilterSettings`. This class will manage some basic settings that will persist on the document once the filter has been applied. Make reference to the following example:
+## Implement the IDisplayFilter interface
 
+To work with the Display Filter API, create a class that implements the [IDisplayFilter](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.DisplayFilters.IDisplayFilter.yml) interface from the [Sdl.TranslationStudioAutomation.IntegrationApi.DisplayFilters](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.DisplayFilters.yml) namespace. This interface exposes the [EvaluateRow](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.DisplayFilters.IDisplayFilter.yml#Sdl_TranslationStudioAutomation_IntegrationApi_DisplayFilters_IDisplayFilter_EvaluateRow_Sdl_TranslationStudioAutomation_IntegrationApi_DisplayFilters_IDisplayFilterRowInfo_) method.
 
-To recover the source and target content, we will need to create a class that implements the [IMarkupDataVisitor](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IMarkupDataVisitor.yml). This interface is designed in such a way that you decide what properties from the [ISegment](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.ISegment.yml) are relevant and then process only those.
+The API calls this method for each row after applying the filter to the document. It passes the [IDisplayFilterRowInfo](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.DisplayFilters.IDisplayFilterRowInfo.yml) model, which includes the [ISegmentPair](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.ISegmentPair.yml) and other properties. Use this method to determine whether segments should appear in the editor.
 
-For the purpose of this example, we will recover the content as plain text only, including tags and revisions. This should be sufficient in allowing us to apply a filter to the content.
+## Create the FilterSettings class
 
-Create a new class called `ContentProcessor` with reference to the following code:
+Create a new class called `FilterSettings`. This class manages basic settings that persist on the document after applying the filter.
+
+## Create the ContentProcessor class
+
+To extract source and target content, create a class that implements the [IMarkupDataVisitor](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IMarkupDataVisitor.yml) interface. This interface lets you decide which [ISegment](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.ISegment.yml) properties to process.
+
+For this example, extract the content as plain text only, including tags and revisions. This approach provides sufficient content for applying the filter.
+
+Create a new class called `ContentProcessor`:
 # [C#](#tab/tabid-1)
 ```cs
 using System;
@@ -26,7 +33,6 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Content
 {
     public class ContentProcessor : IMarkupDataVisitor
     {
-
         public ContentProcessor()
         {
             Initialize();
@@ -37,6 +43,7 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Content
             PlainText = new StringBuilder("");
             Comments  = new List<IComment>();
         }
+
         public List<IComment> Comments { get; set; }
         public StringBuilder PlainText { get; set; }
 
@@ -136,15 +143,16 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.Content
     }
 }
 ```
-****
 
-Next, create a new class called `DisplayFilter`. This will implement the [IDisplayFilter](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.DisplayFilters.IDisplayFilter.yml) interface so that we can evaluate each of the segments and decide whether or not they should be displayed in the Var:ProductName Editor.
+## Create the DisplayFilter class
 
-It is good design to include a reference to `IFilterSetting` interface in this class as it will be persisted on the document once the filter has been applied. This is useful to understand the type of filter that is applied (if any), especially in the case when the user is moving between documents in the editor. It permits the developer to differentiate between the internal system filter provider and their own implementation or multiple implementations and then take the appropriate action based on that.
+Create a new class called `DisplayFilter`. This class implements the [IDisplayFilter](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.DisplayFilters.IDisplayFilter.yml) interface to evaluate segments and determine whether to display them in the Var:ProductName Editor.
 
-This example demonstrates how to implement a few filters that are evaluated as the API is iterating over each of the segments after the filter has been applied on the document. Further on in the walkthrough we will discuss how to apply this implementation of the [IDisplayFilter](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.DisplayFilters.IDisplayFilter.yml) on the document itself.
+Include a reference to the `IFilterSetting` interface in this class. This interface persists on the document after applying the filter. It helps you understand which filter applies (if any), especially when users move between documents. This approach lets you differentiate between the internal system filter provider and your custom implementations.
 
-You will notice from the filter examples that we are using the `ContentProcessor` functionality that we created earlier to recover the plain text from both the source and target segments and then apply either a regular expression or normal search as criteria for the filter.
+The following example demonstrates several filters that the API evaluates as it iterates over segments after applying the filter. Later in this walkthrough, you will learn how to apply this `DisplayFilter` implementation to the document.
+
+The filter examples use the `ContentProcessor` functionality to extract plain text from source and target segments. The code then applies either a regular expression or normal search as filter criteria.
 
 # [C#](#tab/tabid-2)
 ```cs
@@ -162,32 +170,18 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.DisplayFilters
 {
     public class DisplayFilter : IDisplayFilter
     {
-        #region  |  Public  |
-
-        /// <summary>
-        /// Display filter settings
-        /// </summary>
         public IDisplayFilterSettings Settings { get; private set; }
-
-
-        #endregion
-        #region  |  Private  |
 
         private ContentProcessor ContentProcessor { get; set; }
 
         private Document ActiveDocument { get; set; }
 
-        #endregion
-        #region  |  Constructor  |
         public DisplayFilter(IDisplayFilterSettings settings, Document document)
         {
             ContentProcessor = new ContentProcessor();
             ActiveDocument = document;
             Settings = settings;
         }
-
-        #endregion
-
 
         public bool EvaluateRow(DisplayFilterRowInfo rowInfo)
         {
@@ -198,50 +192,38 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.DisplayFilters
                 if (success && Settings.SegmentReviewTypes != null && Settings.SegmentReviewTypes.Any())
                     success = IsSegmentReviewTypes(rowInfo);
 
-
                 if (success && Settings.ConfirmationLevels != null && Settings.ConfirmationLevels.Any())
                     success = IsConfirmationLevelFound(rowInfo);
-
 
                 if (success && Settings.OriginTypes != null && Settings.OriginTypes.Any())
                     success = IsOriginTypeFound(rowInfo);
 
-
                 if (success && Settings.PreviousOriginTypes != null && Settings.PreviousOriginTypes.Any())
                     success = IsPreviousOriginTypeFound(rowInfo);
-
 
                 if (success && Settings.RepetitionTypes != null && Settings.RepetitionTypes.Any())
                     success = IsRepetitionTypes(rowInfo);
 
-
                 if (success && Settings.SegmentLockingTypes != null && Settings.SegmentLockingTypes.Any())
                     success = IsSegmentLockingTypes(rowInfo);
-
 
                 if (success && Settings.SegmentContentTypes != null && Settings.SegmentContentTypes.Any())
                     success = IsSegmentContentTypes(rowInfo);
 
-
                 if (success && Settings.SourceText.Trim() != string.Empty)
                     success = IsTextFoundInSource(rowInfo);
-
 
                 if (success && Settings.TargetText.Trim() != string.Empty)
                     success = IsTextFoundInTarget(rowInfo);
 
-
                 if (success && Settings.CommentText.Trim() != string.Empty)
                     success = IsTextFoundInComment(rowInfo);
-
 
                 if (success && Settings.CommentAuthor.Trim() != string.Empty)
                     success = IsAuthorFoundInComment(rowInfo);
 
-
                 if (success && Settings.CommentSeverity > 0)
                     success = IsSeverityFoundInComment(rowInfo);
-
 
                 if (success && Settings.ContextInfoTypes.Any())
                     success = IsContextInfoTypes(rowInfo);
@@ -249,9 +231,6 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.DisplayFilters
 
             return success;
         }
-
-
-        #region  |  Helpers  |
 
         private bool IsSegmentReviewTypes(DisplayFilterRowInfo rowInfo)
         {
@@ -262,6 +241,7 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.DisplayFilters
 
             return success;
         }
+
         private bool SegmentWithTQAs(DisplayFilterRowInfo rowInfo)
         {
             var success = Settings.SegmentReviewTypes.ToList()
@@ -273,6 +253,7 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.DisplayFilters
 
             return success;
         }
+
         private bool SegmentWithTrackedChanges(DisplayFilterRowInfo rowInfo)
         {
             var success = Settings.SegmentReviewTypes.ToList()
@@ -284,22 +265,22 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.DisplayFilters
 
             return success;
         }
+
         private bool SegmentWithComments(DisplayFilterRowInfo rowInfo)
         {
             var success = Settings.SegmentReviewTypes.ToList()
                 .Any(status => string.Compare(status, DisplayFilterSettings.SegmentReviewType.WithComments.ToString()
                     , StringComparison.OrdinalIgnoreCase) == 0);
 
-            // check if comments exist in the target segment
             if (success && !ContentProcessor.GetSegmentComments(rowInfo.SegmentPair.Target).Any())
             {
-                // check if comments exit in the source segment
                 if (!ContentProcessor.GetSegmentComments(rowInfo.SegmentPair.Source).Any())
                     success = false;
             }
 
             return success;
         }
+
         private bool SegmentWithMessages(DisplayFilterRowInfo rowInfo)
         {
             var success = Settings.SegmentReviewTypes.ToList()
@@ -322,6 +303,7 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.DisplayFilters
 
             return success;
         }
+
         private bool IsAuthorFoundInComment(DisplayFilterRowInfo rowInfo)
         {
             var success = ContentProcessor.GetSegmentComments(rowInfo.SegmentPair.Target)
@@ -332,6 +314,7 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.DisplayFilters
 
             return success;
         }
+
         private bool IsTextFoundInComment(DisplayFilterRowInfo rowInfo)
         {
             var success = ContentProcessor.GetSegmentComments(rowInfo.SegmentPair.Target)
@@ -356,36 +339,31 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.DisplayFilters
         {
             var success = false;
 
-            var translationType =
-                Helper.GetOriginType(rowInfo.SegmentPair.Properties.TranslationOrigin);
+            var translationType = Helper.GetOriginType(rowInfo.SegmentPair.Properties.TranslationOrigin);
 
             success = Settings.OriginTypes.ToList()
                 .Any(status => string.Compare(status, translationType.ToString()
                     , StringComparison.OrdinalIgnoreCase) == 0);
 
-
             return success;
         }
+
         private bool IsPreviousOriginTypeFound(DisplayFilterRowInfo rowInfo)
         {
             var success = false;
 
             if (rowInfo.SegmentPair.Properties.TranslationOrigin.OriginBeforeAdaptation != null)
             {
-                var previousTranslationType =
-                    Helper.GetOriginType(
-                        rowInfo.SegmentPair.Properties.TranslationOrigin.OriginBeforeAdaptation);
-                if (
-                    Settings.PreviousOriginTypes.ToList()
-                        .Any(status => string.Compare(status,
-                            previousTranslationType.ToString()
-                            , StringComparison.OrdinalIgnoreCase) == 0))
+                var previousTranslationType = Helper.GetOriginType(
+                    rowInfo.SegmentPair.Properties.TranslationOrigin.OriginBeforeAdaptation);
+                if (Settings.PreviousOriginTypes.ToList()
+                    .Any(status => string.Compare(status, previousTranslationType.ToString()
+                        , StringComparison.OrdinalIgnoreCase) == 0))
                     success = true;
             }
 
             return success;
         }
-
 
         private bool IsRepetitionTypes(DisplayFilterRowInfo rowInfo)
         {
@@ -395,6 +373,7 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.DisplayFilters
 
             return success;
         }
+
         private bool IsRepetitionsAll(DisplayFilterRowInfo rowInfo)
         {
             var success = Settings.RepetitionTypes.ToList()
@@ -406,6 +385,7 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.DisplayFilters
 
             return success;
         }
+
         private bool IsRepetitionsFirstOccurrences(DisplayFilterRowInfo rowInfo)
         {
             var success = Settings.RepetitionTypes.ToList()
@@ -417,6 +397,7 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.DisplayFilters
 
             return success;
         }
+
         private bool IsRepetitionsExcludingFirstOccurrences(DisplayFilterRowInfo rowInfo)
         {
             var success = Settings.RepetitionTypes.ToList()
@@ -429,7 +410,6 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.DisplayFilters
             return success;
         }
 
-
         private bool IsSegmentLockingTypes(DisplayFilterRowInfo rowInfo)
         {
             var success = IsSegmentLockingTypeLocked(rowInfo)
@@ -437,6 +417,7 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.DisplayFilters
 
             return success;
         }
+
         private bool IsSegmentLockingTypeLocked(DisplayFilterRowInfo rowInfo)
         {
             var success = Settings.SegmentLockingTypes.ToList()
@@ -448,19 +429,18 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.DisplayFilters
 
             return success;
         }
+
         private bool IsSegmentLockingTypeUnLocked(DisplayFilterRowInfo rowInfo)
         {
             var success = Settings.SegmentLockingTypes.ToList()
                 .Any(status => string.Compare(status, DisplayFilterSettings.SegmentLockingType.Unlocked.ToString()
                     , StringComparison.OrdinalIgnoreCase) == 0);
 
-
             if (success)
                 success = !rowInfo.SegmentPair.Properties.IsLocked;
 
             return success;
         }
-
 
         private bool IsSegmentContentTypes(DisplayFilterRowInfo rowInfo)
         {
@@ -469,6 +449,7 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.DisplayFilters
 
             return success;
         }
+
         private bool IsSegmentContentTypeNumbersOnly(DisplayFilterRowInfo rowInfo)
         {
             var success = Settings.SegmentContentTypes.ToList()
@@ -488,6 +469,7 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.DisplayFilters
 
             return success;
         }
+
         private bool IsSegmentContentTypeExcludingNumberOnly(DisplayFilterRowInfo rowInfo)
         {
             var success = Settings.SegmentContentTypes.ToList()
@@ -509,12 +491,8 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.DisplayFilters
             return success;
         }
 
-
-
-
         private bool IsTextFoundInSource(DisplayFilterRowInfo rowInfo)
         {
-
             var text = ContentProcessor.GetPlainText(rowInfo.SegmentPair.Source, true);
 
             var success = Settings.IsRegularExpression
@@ -523,6 +501,7 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.DisplayFilters
 
             return success;
         }
+
         private bool IsTextFoundInTarget(DisplayFilterRowInfo rowInfo)
         {
             var text = ContentProcessor.GetPlainText(rowInfo.SegmentPair.Target, true);
@@ -533,6 +512,7 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.DisplayFilters
 
             return success;
         }
+
         private static bool RegularExpressionMatch(string searchFor, string searchIn, bool isCaseSensitive)
         {
             var regex = new Regex(searchFor,
@@ -541,6 +521,7 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.DisplayFilters
 
             return match.Success;
         }
+
         private static bool StringMatch(string searchFor, string searchIn, bool isCaseSensitive)
         {
             if (isCaseSensitive)
@@ -548,9 +529,6 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.DisplayFilters
 
             return searchIn.IndexOf(searchFor, StringComparison.OrdinalIgnoreCase) > -1 ? true : false;
         }
-
-
-
 
         private bool IsContextInfoTypes(DisplayFilterRowInfo rowInfo)
         {
@@ -562,14 +540,8 @@ namespace TranslationStudio.Plugins.AdvancedDisplayFilter.DisplayFilters
                 success = true;
             }
 
-
             return success;
         }
-
-
-        #endregion
-
     }
 }
 ```
-***

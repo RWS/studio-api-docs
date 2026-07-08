@@ -1,12 +1,15 @@
-Introduction
-===
-This API provides access to all translation memory functionality, both for file- and server-based translation memories. In addition, it also provides the capability to create custom translation providers, which allow applications like Var:ProductName to interact with automated translation engines, third-party translation memory implementations or other translation engines in a unified way.
+## Introduction
+This API gives you access to translation memory functionality for file-based translation memories. 
+It also lets you create custom translation providers so applications like Var:ProductName can interact with automated translation engines, third-party translation memory implementations, and other translation engines through a unified interface.
 
-Translation Memories
-----
-The majority of the functionality in this API centers around working with translation memories such as:
+> [!NOTE]
+> Interaction with server based translation memories is no longer supported in this API and will be removed in the future versions.
+> To include functionality please use the Groupshare API instead, which provides access to server based translation memories through the [GroupShareKit](https://github.com/RWS/groupsharekit.net).
 
-* Creating server and file-based TMs
+## Translation Memories
+Most functionality in this API focuses on translation memory workflows, including:
+
+* Creating file-based TMs
 * Configuring a TM
 * Maintaining and tuning a TM
 * Performing TM lookup operations
@@ -14,9 +17,9 @@ The majority of the functionality in this API centers around working with transl
 * Retrieving information on translation units
 * Creating language resources
 * Performing TM imports and exports
-* Connecting to a TM server
-* Retrieving and creating container databases on a TM server
   
-Translation Provider Plug-ins
-----
-Apart from translation memories, Var:ProductName can also leverage other translation providers such as Web-based translation services (e.g. Google Translate), and any other kind of resource that provides translation solutions. This SDK contains an example of how to develop a simple translation provider plug-in that performs lookup operations in delimited text files.
+## Translation Provider Plug-ins
+In addition to translation memories, Var:ProductName can use other translation 
+providers, such as web-based translation services (for example, Google Translate
+and other resources that return translation results. 
+This API includes an example that shows how to build a simple translation provider plug-in that performs lookup operations in delimited text files.

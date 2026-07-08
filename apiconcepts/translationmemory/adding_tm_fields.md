@@ -1,16 +1,14 @@
-Adding TM Fields
-==
+# Adding TM Fields
 
-This page shows how to add fields to a translation memory. For more information on what TM fields are and what their purpose is, please refer to [Configuring Translation Memories](configuring_translation_memories.md).
+This page explains how to add fields to a translation memory. For background on TM fields and their purpose, see [Configuring Translation Memories](configuring_translation_memories.md).
 
-Add a New Class
---
+## Add a New Class
 
-As we are going to implement the functionality for defining TM fields in a separate class, create a new class called ```TmFieldGenerator```. Let us assume that you need to add a picklist field called Customer and a free text field called *Project id*. Picklist fields are always associated with a pre-defined list of values, which can later be selected as required at runtime. Text fields, on the other hand, can be filled with any text. Apart from picklist and text, fields can also be of the types number and date/time. However, since picklist and text fields constitute the most common types, we fill focus on those two.
+Implement the field logic in a separate class named `TmFieldGenerator`. This example adds a picklist field named *Customer* and a free-text field named *Project id*. Picklist fields use a predefined list of values that you select at runtime. Text fields accept any value. TM fields can also use number and date/time types, but this example focuses on picklist and text fields because they are the most common.
 
-The first step is decide whether you want to configure a field as a free text field or a picklist field. Fields that should be associated with only a limited number of values that should be used consistently, will usually be of the type picklist. Common examples are *Subject, Document type, Customer*, etc. Free text fields should be used when at runtime there are virtually limitless possible values. Common examples here are *Project id, Comment*, etc.
+First decide whether the field should be a free-text field or a picklist field. Use picklist fields when you want to limit values to a consistent set, such as *Subject*, *Document type*, or *Customer*. Use free-text fields when the runtime values can vary widely, such as *Project id* or *Comment*.
 
-Start by adding a public function called ```AddFields```, which takes the file path and name as string parameter. This function can be called as shown below:
+Add a public method named `AddFields()` that takes the TM file path as a string parameter. Call it as shown below:
 
 # [C#](#tab/tabid-1)
 ```cs
@@ -19,9 +17,9 @@ tmFieldGenerator.AddFields(_translationMemoryFilePath);
 ```
 ***
 
-In the ```AddFields``` function start by opening the TM to which the fields should be added. Our first field should be called *Customer*, and should be of the type list. Create a list field object through the [FieldDefinition](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemory.FieldDefinitions.yml) class.
+In the `AddFields()` method, open the TM to which you want to add the fields. Create the first field, *Customer*, as a picklist by using the [FieldDefinition](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemory.FieldDefinitions.yml) class.
 
-Apply the **ValueType** property to define the field as a picklist that can hold multiple values. Finally, add two values, e.g. *Microsoft* and *RWS*:
+Set the **ValueType** property to define the field as a multiple picklist, and add two values such as *Microsoft* and *RWS*:
 
 # [C#](#tab/tabid-2)
 ```cs
@@ -35,7 +33,7 @@ listField.PicklistItems.Add("Microsoft");
 ```
 ***
 
-The second example should be a free text field, which we call *Project id*. Therefore, create a free text field object:
+Create the second field, *Project id*, as a free-text field:
 
 # [C#](#tab/tabid-3)
 ```cs
@@ -45,12 +43,11 @@ textField.ValueType = FieldValueType.MultipleString;
 ```
 ***
 
-Note that picklist and text fields can allow for only a single value or for multiple values, e.g. if a translation unit can be associated with several customers or project ids. In the above example we define the fields as multiple.
+Picklist and text fields can allow a single value or multiple values. Use multiple values when a translation unit can be associated with several customers or project IDs, as in this example.
 
-Putting it All Together
---
+## Putting it All Together
 
-The complete class should now look as shown below:
+The complete class should now look like this:
 
 # [C#](#tab/tabid-4)
 ```cs
@@ -93,8 +90,7 @@ namespace SDK.LanguagePlatform.Samples.TmAutomation
 ```
 ***
 
-See Also
---
+## See Also
 [Configuring Translation Memories](configuring_translation_memories.md)
 
 [Creating a File-based Translation Memory](creating_a_file_based_translation_memory.md)

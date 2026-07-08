@@ -1,19 +1,20 @@
-Using Var:ProductName ProjectsController
-=====
-TranslationStudioAutomation provides support for third-party developers to access the Var:ProductName projects view and perform project operations.
+# Using Var:ProductName ProjectsController
 
-Creating a custom project list inside a viewpart that belongs to the projects view
-----
-The following sample demonstrates how to create a custom project list built by using the [ProjectsController](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.ProjectsController.yml) and add it to the projects view as a custom viewpart.
+The TranslationStudioAutomation API enables you to access the Var:ProductName projects view and perform project operations.
 
-The custom list features:
+## Create a custom project list in a viewpart
 
-* Display two columns: the project name and the number of target language files contained in the project.
-* The projects selected in the list will be selected in the projects view list too.
-* Activating a selected project will open it.
+This sample demonstrates how to create a custom project list using the [ProjectsController](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.ProjectsController.yml) and add it to the projects view as a custom viewpart.
 
+The custom list includes:
 
-Start by implementing the windows form user control that will fill the content of the viewpart and is implementing the list view.
+* Two columns: the project name and the number of target language files in the project
+* Selection synchronization between the custom list and the projects view
+* The ability to open a project by activating a selected project
+
+### Step 1: Implement the user control
+
+Create a Windows Forms user control to display the project list:
 
 # [C#](#tab/tabid-1)
 ```cs
@@ -186,9 +187,10 @@ namespace ProjectsOperations.Sample
     }
 }
 ```
-***
 
-Finally integrate the new viewpart to the projects view.
+### Step 2: Integrate the viewpart into the projects view
+
+Register the viewpart with the projects view:
 
 # [C#](#tab/tabid-1)
 ```cs
@@ -222,8 +224,7 @@ namespace ProjectsOperations.Sample
     }
 }
 ```
-***
 
-See Also
-----------
-[Integrating viewparts](integrating_viewparts.md)
+## See also
+
+- [Integrating viewparts](integrating_viewparts.md)

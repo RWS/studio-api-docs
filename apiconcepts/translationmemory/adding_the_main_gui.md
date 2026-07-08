@@ -1,37 +1,37 @@
-Adding the Main GUI
-=====
-This page describes how to set up the main application form that is used to enter search strings and display the search results.
+# Adding the Main GUI
 
-Add the Main Application Form
-------
-Apart from the main application form we will need other forms for selecting the TM and for configuring search settings. Therefore add a folder called **GUI** to your project that will contain all the application forms. Then add a form called `frmLookup`, which will be used to enter search strings and display results.
+This page describes how to set up the main application form for entering search strings and displaying search results.
 
-Add the following elements to your form:
+## Add the Main Application Form
 
-* **txtSearch**: the text field into which the search strings are entered. Make sure to set the **Multiline** property to True.
-* **txtTmPath**: contains the TM file name and path or the server URI and TM name, depending on whether the user has selected a file TM or a server TM. This text field should be disabled, i.e. read-only to prevent users from changing the value after the TM has been properly selected through the GUI. Set the *Modifiers* of this control to *Public*.
-* **btnSelectTm**: button for selecting the TM to use for the search. Opens a context menu (see item below), which offers a choice between file and server TMs.
-* **contextMenuTm**: a context menu that is opened through the **Select TM** button. This menu features the options *Select File TM* and *Select Server TM* for selecting either type of translation memory.
+In addition to the main application form, you need forms for selecting the TM and configuring search settings. Add a folder named **GUI** to your project to hold the application forms. Then add a form named `frmLookup`, which users will use to enter search strings and view results.
+
+Add the following elements to the form:
+
+- **txtSearch**: The text box where users enter search strings. Set the **Multiline** property to `True`.
+- **txtTmPath**: Displays the TM file name and path or the server URI and TM name, depending on whether the user selected a file TM or a server TM. Make this text box read-only so users cannot change it after selection. Set the control's *Modifiers* property to *Public*.
+- **btnSelectTm**: Button for selecting the TM to use for the search. It opens a context menu, described below, that lets users choose between file and server TMs.
+- **contextMenuTm**: Context menu opened by the **Select TM** button. It includes the *Select File TM* and *Select Server TM* commands.
 
 <img style="display:block; " src="images/ContextMenuStrip.jpg"/>
 
-* **comboIndex**: the combo box through which users can select whether the search should be done in the source or in the target language; the items collection needs to contain the values **Source** and **Target**, with the `Text` property being **Source** (i.e. *Source* should be the default value)
-* **btnSearch**: the button that is used to trigger the concordance search
-* **richTextBox**: a rich text control element that we will use to display the search results
-* **menuStrip**: application **Settings** menu that allows users to fine-tune the search options
-***btnClose**: button element that closes the main window and exits the application
-* **comboLanguagePairs**: the combo list element that contains the language directions available in the selected TM. Note that file-based TMs only offer a single language direction, whereas server TMs can have multiple language pairs. Set the *Modifiers* of this control to *Public*.
-* **openFileDialog**: dialog box for selecting the file TM. Set the *Filter* property to *Translation Memories (*.sdltm)|*.sdltm*
+- **comboIndex**: Combo box that lets users choose whether the search runs in the source or target language. Add the values **Source** and **Target** to the list, and set the `Text` property to **Source** so it becomes the default value.
+- **btnSearch**: Button that triggers the concordance search.
+- **richTextBox**: Rich text control used to display the search results.
+- **menuStrip**: Application **Settings** menu that lets users fine-tune the search options.
+- **btnClose**: Button that closes the main window and exits the application.
+- **comboLanguagePairs**: Combo box that contains the language directions available in the selected TM. File-based TMs offer only one language direction, whereas server TMs can contain multiple language pairs. Set the *Modifiers* property to *Public*.
+- **openFileDialog**: Dialog box for selecting the file TM. Set the *Filter* property to `Translation Memories (*.sdltm)|*.sdltm`.
 
-The form should look as shown below:
+The form should look like this:
 
 <img style="display:block; " src="images/frmLookupMain.jpg"/>
 
-Implement the GUI Functionality
-------
+## Implement the GUI Functionality
+
 ### Menu Functions
 
-Clicking the menu items should open the corresponding form, i.e. the form for configuring the search settings:
+Clicking the menu items should open the corresponding form, such as the form for configuring the search settings:
 # [C#](#tab/tabid-1)
 ```cs
 private void searchOptionsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -43,7 +43,7 @@ private void searchOptionsToolStripMenuItem_Click(object sender, EventArgs e)
 
 ### Closing the Application
 
-Clicking the **Close** button should exit the application:
+Clicking the **Close** button exits the application:
 # [C#](#tab/tabid-2)
 ```cs
 private void btnClose_Click(object sender, EventArgs e)
@@ -55,25 +55,25 @@ private void btnClose_Click(object sender, EventArgs e)
 
 ### Selecting the File-based TM
 
-When the corresponding command in the context menu is clicked, you raise the open file dialog, in which the file TM can be selected. The complete file name is entered into the main application form, as is the TM language direction:
+When users click the corresponding command in the context menu, show the open file dialog so they can select the file TM. Then enter the full file name and the TM language direction in the main form:
 # [C#](#tab/tabid-3)
 ```cs
 private void selectFileTMToolStripMenuItem_Click(object sender, EventArgs e)
 {
-    // Raise open file dialog.
+        // Show the open file dialog.
     this.openFileDialog.Title = "Select Translation Memory File";
     this.openFileDialog.Filter = "Translation memories (*.sdltm)|*.sdltm";
 
-    // Check whether an *.sdltm file was selected
+        // Check whether an .sdltm file was selected.
     if (this.openFileDialog.ShowDialog() == DialogResult.OK)
     {
-        // Create a new connector object to connect to the file TM
+            // Create a new connector object to connect to the file TM.
         Connector fileConnect = new Connector();
         fileConnect.SelectFileTm(this.openFileDialog.FileName);
         this.txtTmPath.Text = this.openFileDialog.FileName;
 
-        // File TMs have only one language direction, which is filled into the 
-        // language pair list.
+            // File TMs have only one language direction, which is displayed
+            // in the language pair list.
         string srcLang = Connector.fileTm.LanguageDirection.SourceLanguage.DisplayName.ToString();
         string trgLang = Connector.fileTm.LanguageDirection.TargetLanguage.DisplayName.ToString();
 
@@ -86,7 +86,7 @@ private void selectFileTMToolStripMenuItem_Click(object sender, EventArgs e)
 
 ### Raising the Form for Server TM Selection
 
-Selecting a server TM requires users to enter more than just a file name and path. This is why the second command in the context menu raises a separate form, in which the server URI and user credentials are entered:
+Selecting a server TM requires users to enter more than a file name and path. The second context menu command therefore opens a separate form where users enter the server URI and credentials:
 # [C#](#tab/tabid-4)
 ```cs
 private void selectServerTMToolStripMenuItem_Click(object sender, EventArgs e)
@@ -99,10 +99,10 @@ private void selectServerTMToolStripMenuItem_Click(object sender, EventArgs e)
 
 ### Initializing the Default Search Settings
 
-When the application is started, the form for configuring the search settings should get the default settings, which - in our implementation - are identical to the settings used by Var:ProductName, i.e. 70% as the minimum fuzzy match value and 30 as the maximum number of results that a concordance search should return. Note that both of these settings can have an impact on the search speed.
+When the application starts, initialize the search settings form with default values. In this implementation, use the same settings as Var:ProductName: 70% as the minimum fuzzy match value and 30 as the maximum number of results returned by a concordance search. Both settings can affect search speed.
 # [C#](#tab/tabid-5)
 ```cs
-// Initialize form with default search settings.
+// Initialize the form with default search settings.
 public frmLookup()
 {
     InitializeComponent();
@@ -114,47 +114,38 @@ public frmLookup()
 
 ### Executing the Search
 
-By clicking the Search button the corresponding function in the (yet to be implemented) Search class should be triggered. This function requires the search string (entered into the txtSearch text field, the source/target flag (as set through the comboIndex list) as parameters. In addition it requires the language pair index, which is provided by the comboLanguagePairs control element, as server TMs can have multiple language pairs:
+Clicking the Search button should call the corresponding method in the `Search` class, which you implement later. The method requires the search string entered in `txtSearch`, the source/target flag selected in `comboIndex`, and the language pair index provided by `comboLanguagePairs`, because server TMs can contain multiple language pairs:
 # [C#](#tab/tabid-6)
 ```cs
 private void btnSearch_Click(object sender, EventArgs e)
 {            
-    try
-    {
-        #region "SearchObject"
-        Search search = new Search();
-        #endregion
+        try
+        {
+            Search search = new Search();
 
-        #region "SourceOrTarget"
-        // Determine whether to do the concordance search in the
-        // source or in the target language;
-        bool searchTarget;
-        if (this.comboIndex.Text == "Target")
-            searchTarget = true;
-        else
-            searchTarget = false;
-        #endregion
+            // Determine whether to run the concordance search in the
+            // source or target language.
+            bool searchTarget;
+            if (this.comboIndex.Text == "Target")
+                searchTarget = true;
+            else
+                searchTarget = false;
 
-        #region "FillHitlist"
-        // Fill the search result into the rich text box.
-        this.lblHitCount.Text = search.DoConcordanceSearch(this.txtSearch.Text, searchTarget, 
-            comboLanguagePairs.SelectedIndex);
-        #endregion
-    }
-    catch(Exception ex)
-    {
-        MessageBox.Show("No TM selected." + ex.Message);
-    }
+            // Display the search result.
+            this.lblHitCount.Text = search.DoConcordanceSearch(this.txtSearch.Text, searchTarget,
+                comboLanguagePairs.SelectedIndex);
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show("No TM selected." + ex.Message);
+        }
 }
 ```
 ***
 
-See Also
--------
-[Adding the Server TM Selection Form](adding_the_server_tm_selection_form.md)
+## See Also
 
-[Adding the Search Settings Form](adding_the_search_settings_form.md)
-
-[Adding the Connector Class](adding_the_connector_class.md)
-
-[Implementing the Search Functionality](implementing_the_search_functionality.md)
+- [Adding the Server TM Selection Form](adding_the_server_tm_selection_form.md)
+- [Adding the Search Settings Form](adding_the_search_settings_form.md)
+- [Adding the Connector Class](adding_the_connector_class.md)
+- [Implementing the Search Functionality](implementing_the_search_functionality.md)

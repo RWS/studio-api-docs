@@ -1,18 +1,16 @@
-Adding Language Resources
-==
+# Adding Language Resources
 
-In this chapter you will learn how to add languages resources such as custom abbreviations and variables to a translation memory. For more information on what language resources are, please see [Configuring Translation Memories](configuring_translation_memories.md).
+This chapter explains how to add language resources, such as custom abbreviations and variables, to a translation memory. For background on language resources, see [Configuring Translation Memories](configuring_translation_memories.md).
 
-Add a New Class
---
+## Add a New Class
 
-Add a new class called ```TmLanguageResources``` to your project. Let us assume that you would like to add a number of variables and custom abbreviations to your TM. Remember that variables are used to mark up particular strings such as product names as placeables. With custom abbreviations you can prevent the system from interpreting the dot following an abbreviation as a full stop, and thus as a segment delimiter. A TM includes a list of common abbreviations for each language by default (for example U.S., ref., etc.). Below you see an example of the English abbreviations list that a TM includes by default:
+Add a new class named `TmLanguageResource` to your project. This example adds variables and custom abbreviations to the TM. Variables mark strings such as product names as placeables. Custom abbreviations prevent the system from interpreting the dot after an abbreviation as a sentence break and segment delimiter. A TM includes a list of common abbreviations for each language by default, such as *U.S.* and *ref.*. The following screenshot shows the default English abbreviations list:
 
 ![RecognitionSettings](images/Abbreviations.jpg)
 
-This default list can be expanded with custom abbreviations to further fine-tune the segmentation. Note that there is *no* default variable list, i.e. the variable list for each TM that you create is empty by default.
+You can extend this default list with custom abbreviations to fine-tune segmentation. There is no default variable list, so each new TM starts with an empty variable list.
 
-Add a function called ```AddResource``` to your class, which takes the TM file name and path as string parameter. This function can be called as follows:
+Add a method named `AddResource()` that takes the TM file path as a string parameter. Call it as shown below:
 
 # [C#](#tab/tabid-1)
 ```cs
@@ -21,7 +19,7 @@ tmLanguageResource.AddResource(_translationMemoryFilePath);
 ```
 ***
 
-Start by opening the TM to which the custom abbreviations and variables should be added:
+Start by opening the TM that will receive the custom abbreviations and variables:
 
 # [C#](#tab/tabid-2)
 ```cs
@@ -29,7 +27,7 @@ var tm = new FileBasedTranslationMemory(tmPath);
 ```
 ***
 
-In the next step, create a default language resources object. For each language a default language resources bundle is provided, which contains, for example, the most common abbreviations for that language. For English, it contains abbreviations such as *Mr., Mrs., Dr.*, etc. As mentioned before, the variables lists are always empty by default, as the variables are custom items such as product names.
+Next, create a default language resources object. Each language includes a default language resources bundle with common abbreviations. For English, that bundle includes abbreviations such as *Mr.*, *Mrs.*, and *Dr.*. As noted earlier, the variable list starts empty because variables are custom items, such as product names.
 
 # [C#](#tab/tabid-3)
 ```cs
@@ -37,7 +35,7 @@ var defaultBundle = new DefaultLanguageResourceProvider();
 ```
 ***
 
-Next, create a new language resources bundle object, which is added on top of the default bundle. That way, you leverage all the default resources, and add your own abbreviations, variables, etc. To do this apply the [GetDefaultLanguageResources](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.DefaultLanguageResourceProvider.yml#Sdl_LanguagePlatform_TranslationMemoryApi_DefaultLanguageResourceProvider_GetDefaultLanguageResources_Sdl_Core_Globalization_CultureCode_) method to the default resources bundle object. This method takes the source language culture information as parameter, e.g. *en-US*.
+Next, create a new language resources bundle on top of the default bundle. This approach lets you keep the default resources and add your own abbreviations and variables. To do this, call [GetDefaultLanguageResources](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.DefaultLanguageResourceProvider.yml#Sdl_LanguagePlatform_TranslationMemoryApi_DefaultLanguageResourceProvider_GetDefaultLanguageResources_Sdl_Core_Globalization_CultureCode_) on the default resources provider. Pass the source language culture, such as *en-US*.
 
 # [C#](#tab/tabid-4)
 ```cs
@@ -45,15 +43,7 @@ LanguageResourceBundle newBundle = defaultBundle.GetDefaultLanguageResources(Cul
 ```
 ***
 
-Note that the language resources bundle requires the source language information as parameter, as language resources always apply to the source segments:
-
-# [C#](#tab/tabid-5)
-```cs
-var tm = new FileBasedTranslationMemory(tmPath);
-```
-***
-
-The bundle is the object that holds all possible language resource types, e.g. segmentation rules, variable lists, etc. Continue by creating a new **Wordlist** object, which is required for adding the individual abbreviation items as outlined below:
+The bundle stores all language resource types, such as segmentation rules and variable lists. Next, create a new **Wordlist** object to hold the abbreviation items:
 
 # [C#](#tab/tabid-6)
 ```cs
@@ -68,7 +58,7 @@ newBundle.Abbreviations.Add("cont.");
 >Abbreviations are case-sensitive.
 
 
-Last, create another **Wordlist** object to hold the variables, which are added to the bundle as demonstrated below. Finally add the language resource bundle to the TM, which you then save:
+Finally, create another **Wordlist** object for the variables. Add the language resource bundle to the TM, and then save the TM:
 
 # [C#](#tab/tabid-7)
 ```cs
@@ -82,16 +72,15 @@ tm.Save();
 ```
 ***
 
-When you open the TM in Var:ProductName and view the language resources, the variable list will look as shown in the following screenshot:
+When you open the TM in Var:ProductName and view the language resources, the variable list looks like this:
 
 
 ![VariablesList](images/VariablesList.jpg)
 
 
-Putting it All Together
---
+## Putting it All Together
 
-The complete class should now look as shown below:
+The complete class should now look like this:
 
 # [C#](#tab/tabid-8)
 ```cs
@@ -101,7 +90,7 @@ namespace SDK.LanguagePlatform.Samples.TmAutomation
     using Sdl.LanguagePlatform.Core;
     using Sdl.LanguagePlatform.TranslationMemoryApi;
 
-    public class TMLanguageResource
+    public class TmLanguageResource
     {
         public void AddResource(string tmPath)
         {
@@ -138,9 +127,5 @@ namespace SDK.LanguagePlatform.Samples.TmAutomation
 ```
 ***
 
-See Also
---
+## See Also
 [Configuring Translation Memories](configuring_translation_memories.md)
-
-[Language Resource Templates](language_resource_templates.md)
-

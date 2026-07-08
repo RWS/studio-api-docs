@@ -1,23 +1,23 @@
-Implementing the Plug-in User Interface
-======
-The plug-in user interface needs to allow users to select the delimited list text file, and specify the delimiter character during runtime.
+# Implementing the Plug-in User Interface
 
-Add a form to your project called `ListProviderConfDialog` (this form is not part of the project template), which needs to have the following control elements.
+The plug-in user interface must let users select the delimited list text file and specify the delimiter character at run time.
 
-* **txt_ListFile**: text field for entering the list file name and path.
-* **combo_Delimiter**: combo list for selecting the delimiter character. Enter the following items: ; : = \t.
-* **btn_Browse**: button for opening selecting the list text file.
-* **dlg_OpenFile**: dialog for selecting the list file. The `FileName` property should be empty, the `Filter` property should be *List text files (*.txt)|(*.txt)*
-* **btn_Cancel**: button for closing the form without applying new or changed settings.
-* **btn_OK**: button for closing the form and applying new or changed settings.
+Add a form named `ListProviderConfDialog` to your project. This form is not part of the project template, and it should include the following controls:
+
+* **txt_ListFile**: text box for entering the list file name and path.
+* **combo_Delimiter**: combo box for selecting the delimiter character. Add the following items: ; : = \t.
+* **btn_Browse**: button for opening the file selection dialog.
+* **dlg_OpenFile**: dialog for selecting the list file. Leave the `FileName` property empty, and set the `Filter` property to *List text files (*.txt)|(*.txt)*.
+* **btn_Cancel**: button for closing the form without applying changes.
+* **btn_OK**: button for closing the form and applying changes.
 
 <img style="display:block; " src="images/PluginSettingsForm.jpg"/>
 
-Implement the User Interface Functionality
------
-Take the following steps to implement some of the basic user interface functions:
+## Implement the User Interface Functionality
 
-* **Selecting the delimited text file**: The `btn_Browse` button should raise the **Open File** dialog for selecting the delimited text file, and enter the file name into `txt_ListFile`:
+Use the following steps to implement the basic user interface behavior:
+
+* **Selecting the delimited text file**: The `btn_Browse` button should open the **Open File** dialog and place the selected file name in `txt_ListFile`:
 # [C#](#tab/tabid-1)
 ```cs
 private void btn_Browse_Click(object sender, EventArgs e)
@@ -33,7 +33,7 @@ private void btn_Browse_Click(object sender, EventArgs e)
 ```
 ***
 
-* **Applying the settings**: The `btn_OK` button should close the form and apply the plug-in settings, i.e. the name and path of the text file and the delimiter character.
+* **Applying the settings**: The `btn_OK` button should close the form and apply the plug-in settings, including the text file name and path and the delimiter character.
   
 # [C#](#tab/tabid-2)
 ```cs
@@ -46,10 +46,9 @@ private void bnt_OK_Click(object sender, EventArgs e)
 ***
 > [!NOTE]
 >
-> Of course, the form should also configure the plug-in settings, however, for this we need to implement a distinct `ListTranslationOptions` class, which we will implement in one of the following chapters (see [Storing and Retrieving the Plug-in Settings](storing_and_retrieving_the_plugin_settings.md)).
+> The form should also configure the plug-in settings. To do that, you must implement the separate `ListTranslationOptions` class, which the next chapter covers. See [Storing and Retrieving the Plug-in Settings](storing_and_retrieving_the_plugin_settings.md).
 
-See Also
---------
+# See Also
 [Controlling the Plug-in User Interface](controlling_the_plugin_user_interface.md)
 
 [Storing and Retrieving the Plug-in Settings](storing_and_retrieving_the_plugin_settings.md)

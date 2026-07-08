@@ -1,16 +1,14 @@
-Introduction
-===
+# Introduction
 
-Apart from the classes that you implemented in the previous chapters there are other (optional) components that you may add to your file type plug-in in order to extend its functionality.
+In addition to the classes from the previous chapters, you can add optional components to extend your file type plug-in.
 
-Implementing Extended Functionality
---
+## Implement extended functionality
 
-The minimum requirement for a file type plug-in component is, of course, to read a file and convert it into a bilingual format (extraction) and to convert the target content back to the native file format (generation).
+At a minimum, a file type plug-in must read a file, convert it to a bilingual format for extraction, and convert the target content back to the native file format for generation.
 
-There are a number of features to add to your file type plug-in to either make life easier for translators by allowing them to quickly insert frequently used elements (QuickInsert). However, most importantly, your file type plug-in may require certain settings to meet the requirements of particular native file formats.
+You can also add features that make translation easier. For example, QuickInsert helps translators insert frequently used elements more quickly. Your plug-in may also need settings that support specific native file formats.
 
-For example, Microsoft PowerPoint documents can contain speaker notes, which may be translatable or not. This is why the standard PPT filter that is delivered with Var:ProductName implements a setting that allows you to decide on a case-by-case basis whether to expose speaker note content for translation or not. In the following chapters you will learn how to add such extended functionality to your file type plug-in.
+For example, Microsoft PowerPoint documents can contain speaker notes that may or may not require translation. For that reason, the standard PPT filter in Var:ProductName includes a setting that lets you decide whether to expose speaker note content for translation. The following chapters explain how to add this type of extended functionality to your file type plug-in.
 
 >[!NOTE]
 >

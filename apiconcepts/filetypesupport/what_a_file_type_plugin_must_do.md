@@ -1,27 +1,33 @@
-What a File Type Plug-in Must Do
-==
+# What a File Type Plug-in Must Do
 
-Suppose you want to develop a filter that allows you to translate files Var:ProductName which are not supported by the default installation of the product.
+If you want to develop a filter for a file format that Var:ProductName does not support by default, your plug-in should provide the following capabilities.
 
-Your proposed filter should do the following:
+## Required capabilities
 
-* The new file type must be listed in the File type dropdown list of the Var:ProductName *Open dialog*, see [Opening a document for translation](opening_a_document_for_translation.md) chapter.
-* Var:ProductName must be able to open the new file type and display it, see [The File Parser](the_file_parser.md) chapter (extraction).
-* Upon opening the file, the original format needs to be converted into SDLXliff by the  File Type Support Framework.
-* It must be possible to batch-translate/analyze the new file format in Var:ProductName.
-* The view of Var:ProductName needs to display the text to translate. Any untranslatable bits need to be displayed as tags or hidden from the translator.
-* The display should also include (semi-)WYSIWYG formatting, i.e. bold, italic, underline, etc., see [Text Formatting](text_formatting.md)
-* Optional: Var:ProductName should be able to display the document in its native format using the Realtime Preview feature.
-* The user must be able to translate the text using Var:ProductName.
-* The user must be able to save the file in SDLXliff format.
-* The user must be able to save the fully translated file in the target format (generation), see  [The File Writer](the_file_writer.md).
-* The filter should be able check the validity of the target document during generation (verification).
-* The user must be able to change any required filter settings, see [The text formatting](filter_ui_settings.md).
-* If any problem occurs during any step of translation workflow, the filter should notify the user accordingly, see [Reporting problems](reporting_problems.md). Since filters may also be used in a server envinroment, the filter should use the built-in feature of the  File Type Support Framework for displaying messages, where no user interaction is required.
+* List the new file type in the **File type** drop-down in the Var:ProductName **Open** dialog. For more information, see [Opening a document for translation](opening_a_document_for_translation.md).
+* Open the new file type in Var:ProductName and display its content. For more information, see [The File Parser](the_file_parser.md).
+* Convert the original file format to SDLXLIFF during extraction.
+* Support batch tasks such as translation and analysis for the new file format.
+* Display the translatable text in Var:ProductName. Render non-translatable content as tags or hide it from the translator.
+* Preserve semi-WYSIWYG formatting such as bold, italic, and underline. For more information, see [Text Formatting](text_formatting.md).
+* Optionally display the document in its native format through the Realtime Preview feature.
+* Let users translate the text in Var:ProductName.
+* Let users save the file in SDLXLIFF format.
+* Generate the fully translated target file. For more information, see [The File Writer](the_file_writer.md).
+* Validate the target document during generation.
+* Let users change any required filter settings. For more information, see [Filter UI settings](filter_ui_settings.md).
+* Report problems at any stage of the translation workflow. For more information, see [Reporting problems](reporting_problems.md). Because filters can also run in server environments, use the built-in File Type Support Framework messaging features that do not require user interaction.
 
-Based on FFAPI we can create [monolingual](https://en.wikipedia.org/wiki/Monolingualism) (native) parsers, which can read in the translatable source language for a file type during the content extracttion phase and write the translated text back to a copy of the original document during a content generation phase, or a bilingual parser, which can read both the source and the target text from a bilingual document that contains the original source language text and the translated target language text. A typical example of a monolingual file type is an MS Word (* *.doc*)document; a typical example of a [bilingual](https://en.wikipedia.org/wiki/Multilingualism) file type would be a TradosTag (* *.ttx*) document.
+## Parser models
 
-As you can see, the list of things that the filter will ultimately accomplish is rather comprehensive. In the next chapters we will take you step-by-step through the process of developing a native and a bilingual filter (highly simplified filters) and demonstrate most of the required functions that a filter should implement.
+The File Type Support Framework API (FFAPI) lets you create monolingual and bilingual parsers.
+
+* A [monolingual](https://en.wikipedia.org/wiki/Monolingualism) parser reads the translatable source text during extraction and writes the translated text back during generation. A typical monolingual file type is a Microsoft Word `*.doc` document.
+* A [bilingual](https://en.wikipedia.org/wiki/Multilingualism) parser reads both source and target text from a bilingual document. A typical bilingual file type is a TradosTag `*.ttx` document.
+
+## Next steps
+
+The following chapters walk through the process of developing simplified native and bilingual filters. They also demonstrate most of the functions that a file type plug-in should implement.
 
 
 >[!NOTE]

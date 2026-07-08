@@ -1,4 +1,3 @@
-Introduction
-===
+# Introduction
 
-For more information about Global Verifiers please see [Verification SDK](../verification/overview.md).
+For more information about global verifiers, see the [Verification SDK](../verification/overview.md).

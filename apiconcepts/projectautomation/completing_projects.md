@@ -1,5 +1,4 @@
-Completing Projects
-==
+# Completing Projects
 
 Projects can change their states during the translation process. By using the complete functionality you can change for a project the state to completed.
 
@@ -17,7 +16,6 @@ public void CompleteProject()
 
 You could use this method, for example, when you finished the translation for a project and you want to change the status in completed.
 
-See Also
---
+## See Also
 
 [Setting the Project Information](setting_the_project_information.md)

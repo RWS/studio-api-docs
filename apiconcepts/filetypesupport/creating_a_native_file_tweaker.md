@@ -1,50 +1,49 @@
-Creating a Native File Tweaker
-===
+# Creating a Native File Tweaker
 
-In this chapter, you will learn how to create a native file tweaker. A native file tweaker can either tweak - or perform a minor change to - the original file before being extracted (a pre-tweaker) or tweak the output file after being written (a post-tweaker). See [Native File Tweakers](native_file_tweakers.md) for more information.
+Create native file tweakers that modify the original file before extraction (pre-tweaker) or the output file after generation (post-tweaker). See [Native File Tweakers](native_file_tweakers.md) for more information.
 
-Native file tweakers make use of the following namespaces:
+Native file tweakers use the following namespaces:
 
-* [Sdl.FileTypeSupport.Framework.NativeApi](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.yml)
-* [Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.yml)
+- [Sdl.FileTypeSupport.Framework.NativeApi](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.yml)
+- [Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.yml)
 
-These namespaces should be used and the associated assembly references added when developing native file tweakers.
+Add references to these assemblies when developing native file tweakers.
 
 # [C#](#tab/tabid-1)
 ```cs
 using Sdl.FileTypeSupport.Framework.NativeApi;
 using Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi;
 ```
-***
 
-Creating a Native File Pre-Tweaker
---
+## Creating a Native File Pre-Tweaker
 
-A simple native file pre-tweaker will be developed to remove the byte order mark from the original file before being extracted.
+Develop a simple native file pre-tweaker that removes the byte order mark from the original file before extraction.
 
-Native file pre-tweakers should inherit from [AbstractFilePreTweaker](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.AbstractFilePreTweaker.yml).
+Pre-tweakers inherit from [AbstractFilePreTweaker](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.AbstractFilePreTweaker.yml).
 
 # [C#](#tab/tabid-2)
 ```cs
 public class SimpleFilePreTweaker : AbstractFilePreTweaker
 ```
-***
 
+### Key Properties
 
-The **properties** parameter contains two important properties:
+The `properties` parameter contains two important properties:
 
-* [OriginalFilePath](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPersistentFileConversionProperties.yml#Sdl_FileTypeSupport_Framework_NativeApi_IPersistentFileConversionProperties_OriginalFilePath) is the file path of the original native file.
-* [InputFilePath](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPersistentFileConversionProperties.yml#Sdl_FileTypeSupport_Framework_NativeApi_IPersistentFileConversionProperties_InputFilePath) is the file path of the tweaked native file.
+- [OriginalFilePath](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPersistentFileConversionProperties.yml#Sdl_FileTypeSupport_Framework_NativeApi_IPersistentFileConversionProperties_OriginalFilePath) — The file path of the original native file
+- [InputFilePath](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPersistentFileConversionProperties.yml#Sdl_FileTypeSupport_Framework_NativeApi_IPersistentFileConversionProperties_InputFilePath) — The file path of the tweaked native file
 
-The [Tweak](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.AbstractFilePreTweaker.yml#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_AbstractFilePreTweaker_Tweak_Sdl_FileTypeSupport_Framework_NativeApi_IPersistentFileConversionProperties_) method is where the native file is tweaked. An implementation of this method should read the original native file, perform some processing, and create and write the tweaked native file to [InputFilePath](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPersistentFileConversionProperties.yml#Sdl_FileTypeSupport_Framework_NativeApi_IPersistentFileConversionProperties_InputFilePath). The tweaker is only responsible for creating the tweaked native file; it is not responsible for deleting the tweaked native file after processing.
+### The Tweak Method
 
-In this example, the implementation of the [Tweak](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.AbstractFilePreTweaker.yml#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_AbstractFilePreTweaker_Tweak_Sdl_FileTypeSupport_Framework_NativeApi_IPersistentFileConversionProperties_) method that removes the byte order mark is quite straightforward and consists of the following steps:
+The [Tweak](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.AbstractFilePreTweaker.yml#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_AbstractFilePreTweaker_Tweak_Sdl_FileTypeSupport_Framework_NativeApi_IPersistentFileConversionProperties_) method performs the tweaking. Read the original native file from `OriginalFilePath`, process it, and write the tweaked file to `InputFilePath`. The framework handles deletion of the tweaked file after processing.
 
-1. Open the original file using [OriginalFilePath](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPersistentFileConversionProperties.yml#Sdl_FileTypeSupport_Framework_NativeApi_IPersistentFileConversionProperties_OriginalFilePath) as the file path.
-2. Create the tweaked file with UTF-8 encoding without the byte order mark using [InputFilePath](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPersistentFileConversionProperties.yml#Sdl_FileTypeSupport_Framework_NativeApi_IPersistentFileConversionProperties_InputFilePath) as the file path.
-3. Copy the lines from the original file to the tweaked file.
+This example removes the byte order mark with these steps:
 
-Add the following code to the [Tweak](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.AbstractFilePreTweaker.yml#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_AbstractFilePreTweaker_Tweak_Sdl_FileTypeSupport_Framework_NativeApi_IPersistentFileConversionProperties_) method.
+1. Open the original file using `OriginalFilePath`
+2. Create the tweaked file with UTF-8 encoding without the byte order mark using `InputFilePath`
+3. Copy lines from the original file to the tweaked file
+
+Add the following code to the [Tweak](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.AbstractFilePreTweaker.yml#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_AbstractFilePreTweaker_Tweak_Sdl_FileTypeSupport_Framework_NativeApi_IPersistentFileConversionProperties_) method:
 
 # [C#](#tab/tabid-3)
 ```cs
@@ -63,30 +62,25 @@ using (StreamReader reader = new StreamReader(properties.OriginalFilePath))
     }
 }
 ```
-***
 
-[AbstractFilePreTweaker](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.AbstractFilePreTweaker.yml) has a [WillFileBeTweaked](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.AbstractFilePreTweaker.yml#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_AbstractFilePreTweaker_WillFileBeTweaked_System_String_) method that may be overridden.
+### The WillFileBeTweaked Method
+
+Override the [WillFileBeTweaked](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.AbstractFilePreTweaker.yml#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_AbstractFilePreTweaker_WillFileBeTweaked_System_String_) method to optimize performance. Return `false` when the file doesn't need tweaking, preventing unnecessary file operations.
 
 # [C#](#tab/tabid-4)
 ```cs
 protected override bool WillFileBeTweaked(string originalFilePath)
 ```
-***
 
-There may be some circumstances where the original native file does not need to be tweaked and in these circumstances the [WillFileBeTweaked](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.AbstractFilePreTweaker.yml#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_AbstractFilePreTweaker_WillFileBeTweaked_System_String_) method should return **false** to prevent the original native file from being tweaked.
-Here the original native file only needs to be tweaked if the original native file has a byte order.
-
-Add the following code to the [WillFileBeTweaked](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.AbstractFilePreTweaker.yml#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_AbstractFilePreTweaker_WillFileBeTweaked_System_String_) method.
+In this example, the file only needs tweaking if it has a byte order mark. Add this code to the method:
 
 # [C#](#tab/tabid-5)
 ```cs
 // if original file has a byte order mark then the original file needs to be tweaked
 return HasByteOrderMark(originalFilePath);
 ```
-***
 
-
-Add the following method that determines whether a given file has a byte order mark to the **SimpleFilePreTweaker** class.
+Add the helper method that checks for a byte order mark to the `SimpleFilePreTweaker` class:
 
 # [C#](#tab/tabid-6)
 ```cs
@@ -113,33 +107,40 @@ private bool HasByteOrderMark(string filePath)
     }
 }
 ```
-***
 
+This completes the native file pre-tweaker that removes the byte order mark from the original file.
 
-That completes this simple native file pre-tweaker which removes the byte order mark from the original native file.
+### Parser Implementation Implications
 
-The way native file pre-tweakers work affects the way parsers should be implemented. Any native file pre-tweaker works by reading the original native file from [OriginalFilePath](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPersistentFileConversionProperties.yml#Sdl_FileTypeSupport_Framework_NativeApi_IPersistentFileConversionProperties_OriginalFilePath) and writing a tweaked native file to [InputFilePath](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPersistentFileConversionProperties.yml#Sdl_FileTypeSupport_Framework_NativeApi_IPersistentFileConversionProperties_InputFilePath). This has an important consequence for any parsers. Any parser should read from [InputFilePath](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPersistentFileConversionProperties.yml#Sdl_FileTypeSupport_Framework_NativeApi_IPersistentFileConversionProperties_InputFilePath) rather than [OriginalFilePath](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPersistentFileConversionProperties.yml#Sdl_FileTypeSupport_Framework_NativeApi_IPersistentFileConversionProperties_OriginalFilePath) because this allows the parser to read from tweaked files. If a file has not been tweaked either because a tweaker does not exist or the tweaker reported that the file did not need tweaking then [InputFilePath](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPersistentFileConversionProperties.yml#Sdl_FileTypeSupport_Framework_NativeApi_IPersistentFileConversionProperties_InputFilePath) will be set to [OriginalFilePath](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPersistentFileConversionProperties.yml#Sdl_FileTypeSupport_Framework_NativeApi_IPersistentFileConversionProperties_OriginalFilePath).
+Pre-tweakers read from `OriginalFilePath` and write to `InputFilePath`. This affects how parsers should read files: parsers must read from `InputFilePath`, not `OriginalFilePath`. This allows parsers to work with tweaked files. If no tweaker exists or the tweaker determines the file doesn't need tweaking, the framework sets `InputFilePath` to `OriginalFilePath`.
 
+## Creating a Native File Post-Tweaker
 
-Creating a Native File Post-Tweaker
---
+Develop a simple native file post-tweaker that adds the byte order mark to the output file after generation. Post-tweakers are similar to pre-tweakers and inherit from [AbstractFilePostTweaker](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.AbstractFilePostTweaker.yml).
 
-A simple native file post-tweaker will be developed to add the byte order mark to the output file after being written. A native file post-tweaker is similiar to a native file pre-tweaker. Native file post-tweakers should inherit from [AbstractFilePostTweaker](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.AbstractFilePostTweaker.yml) which has a [Tweak](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.AbstractFilePostTweaker.yml#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_AbstractFilePostTweaker_Tweak_Sdl_FileTypeSupport_Framework_NativeApi_INativeOutputFileProperties_) method that must be overridden.
+Override the [Tweak](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.AbstractFilePostTweaker.yml#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_AbstractFilePostTweaker_Tweak_Sdl_FileTypeSupport_Framework_NativeApi_INativeOutputFileProperties_) method in your post-tweaker.
 
-The [Tweak](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.AbstractFilePostTweaker.yml#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_AbstractFilePostTweaker_Tweak_Sdl_FileTypeSupport_Framework_NativeApi_INativeOutputFileProperties_) method has a **properties** parameter that contains one property that concerns us here:
+### Key Differences from Pre-Tweaker
 
-* [OutputFilePath](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeOutputFileProperties.yml#Sdl_FileTypeSupport_Framework_NativeApi_INativeOutputFileProperties_OutputFilePath) is the file path of the output native file.
+The `properties` parameter contains:
 
-One important difference between a native file pre-tweaker and a native file post-tweaker is that whilst the pre-tweaker reads the original file from [OriginalFilePath](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPersistentFileConversionProperties.yml#Sdl_FileTypeSupport_Framework_NativeApi_IPersistentFileConversionProperties_OriginalFilePath) and writes the tweaked file to [InputFilePath](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPersistentFileConversionProperties.yml#Sdl_FileTypeSupport_Framework_NativeApi_IPersistentFileConversionProperties_InputFilePath), the post-tweaker reads the original file and writes the tweaked file to [OutputFilePath](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeOutputFileProperties.yml#Sdl_FileTypeSupport_Framework_NativeApi_INativeOutputFileProperties_OutputFilePath) . Another important difference is that the native file post-tweaker does not have the [WillFileBeTweaked](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.AbstractFilePreTweaker.yml#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_AbstractFilePreTweaker_WillFileBeTweaked_System_String_) method.
+- [OutputFilePath](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeOutputFileProperties.yml#Sdl_FileTypeSupport_Framework_NativeApi_INativeOutputFileProperties_OutputFilePath) — The file path of the output native file
 
-In this example, the implementation of the [Tweak](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.AbstractFilePostTweaker.yml#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_AbstractFilePostTweaker_Tweak_Sdl_FileTypeSupport_Framework_NativeApi_INativeOutputFileProperties_) method that adds the byte order mark is quite straightforward and consists of the following steps:
+Key differences from pre-tweakers:
 
-1. Open the original file using the original output file path; [OutputFilePath](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeOutputFileProperties.yml#Sdl_FileTypeSupport_Framework_NativeApi_INativeOutputFileProperties_OutputFilePath) .
-2. Create the tweaked file with UTF-8 encoding with the byte order mark using a temporary file path.
-3. Copy the lines from the original file to the tweaked file.
-4. Replace the original file with the tweaked file.
+- Pre-tweakers read from `OriginalFilePath` and write to `InputFilePath`; post-tweakers read from and write to `OutputFilePath`
+- Post-tweakers don't have the `WillFileBeTweaked` method
 
-Here is the complete simple native file post-tweaker code which adds the byte order mark to the original native file.
+### Implementing the Post-Tweaker Tweak Method
+
+This example adds the byte order mark with these steps:
+
+1. Read the output file from `OutputFilePath`
+2. Create a tweaked file with UTF-8 encoding with the byte order mark using a temporary file
+3. Copy lines from the original file to the tweaked file
+4. Replace the original file with the tweaked file
+
+Here's the complete native file post-tweaker that adds the byte order mark:
 
 # [C#](#tab/tabid-7)
 ```cs
@@ -183,15 +184,10 @@ namespace Sdk.FileTypeSupport.Samples.SimpleText
     }
 }
 ```
-***
 
-See Also
---
+## See Also
 
+- [Native File Tweakers](native_file_tweakers.md)
 
-
-[Native File Tweakers](native_file_tweakers.md)
-
->[!NOTE]
->
+> [!NOTE]
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

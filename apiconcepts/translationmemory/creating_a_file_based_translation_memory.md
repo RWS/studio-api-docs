@@ -1,12 +1,12 @@
-Creating a File-based Translation Memory
-==
+# Creating a File-based Translation Memory
 
-In this chapter you will learn how to programmatically create a file-based translation memory, i.e. an *.sdltm file.
+This chapter explains how to create a file-based translation memory programmatically, that is, an *.sdltm* file.
 
-Add a New Class
---
+## Add a New Class
 
-Add a new class to your project called ```TmCreator```. Then, add a public function called ```CreateFileBasedTm()``` to the new class. This function takes ```tmPath``` as string parameter, which specifies the path and file name of the TM to be created. This function can be called as shown below:
+Add a new class to your project named `TmCreator`. Then add a public method named `CreateFileBasedTm()`.
+
+The method takes a `tmPath` string parameter that specifies the path and file name of the translation memory to create. Call it as shown below:
 
 # [C#](#tab/tabid-1)
 ```cs
@@ -15,7 +15,7 @@ tmCreator.CreateFileBasedTm(_translationMemoryFilePath);
 ```
 ***
 
-Within the function, start by creating a TM object as follows:
+Inside the method, create the translation memory object as shown below:
 
 # [C#](#tab/tabid-2)
 ```cs
@@ -39,12 +39,12 @@ public void CreateFileBasedTm(string tmPath)
 ```
 ***
 
-When creating the new TM object you need to provide the following parameters:
+When you create the translation memory object, provide these parameters:
 
 1. The full file name and path.
-2. The TM description string (which can also be empty.)
-3. The source and target language. The language is specified through the [CultureInfo](https://docs.microsoft.com/en-us/dotnet/api/system.globalization.cultureinfo?redirectedfrom=MSDN&view=net-5.0), which is created by the [GetCultureInfo](https://docs.microsoft.com/en-us/dotnet/api/system.globalization.cultureinfo.getcultureinfo?redirectedfrom=MSDN&view=net-5.0#overloads) method. This method takes the language locale as string parameter. To create a TM with the language direction **English (US) -> German**, provide **en-US** and **de-DE** as parameters. Note that providing an invalid locale string (e.g. *en-DE*) will throw an exception.
-4. Moreover, you need to specify the fuzzy indexes that should be created for the TM. Here you specify whether a fuzzy index should be created and maintained for the source and/or target segments. The fuzzy index is required for performing concordance searches, which allow translators to select one or several words in a source or target segment and search for all occurrences in the TM. By creating a fuzzy index for both the source and the target, you enable the TM for concordance searches in both languages. The concordance search can be word- or character-based. A character-based concordance search will potentially yield more results as this kind of search is more tolerant. For example, with a character-based concordance search the user might enter *revolution* and get a result such as revolving, as this result matches some of the search characters. In this case, a word-based concordance search would not present revolving as a result, as this word differs to much from the search expression. However, you need to consider that character-based concordance searches are significantly slower than word-based searches, especially in large TMs. Character-based indexing is therefore only recommended for small TMs, which contain up to a few thousand segments. Also note that users will generally want to do concordance searches both in the source and target language. For our simple example we assume that we enable word- and character-based indexing for both the source and the target segments. As parameter we provide a separate helper function, which contains all available **FuzzyIndexes** enumerator values, i.e:
+2. The TM description string, which can also be empty.
+3. The source and target language. Use [CultureInfo](https://docs.microsoft.com/en-us/dotnet/api/system.globalization.cultureinfo?redirectedfrom=MSDN&view=net-5.0), which you create with [GetCultureInfo](https://docs.microsoft.com/en-us/dotnet/api/system.globalization.cultureinfo.getcultureinfo?redirectedfrom=MSDN&view=net-5.0#overloads). Pass the language locale as a string. To create a TM with the language direction **English (US) -> German**, use **en-US** and **de-DE**. An invalid locale string, such as *en-DE*, throws an exception.
+4. The fuzzy indexes to create for the TM. Specify whether to create and maintain a fuzzy index for the source segment, the target segment, or both. The fuzzy index is required for concordance searches, which let translators select words in a source or target segment and search for matching occurrences in the TM. A character-based concordance search can return more results because it is more tolerant. For example, a search for *revolution* might return *revolving*. A word-based search would not return that result because the words differ too much. Character-based searches are significantly slower than word-based searches, especially in large TMs, so use them only for small TMs with a few thousand segments. In most cases, users search both source and target languages. In this example, enable word- and character-based indexing for both segments. Use a helper function that returns all available **FuzzyIndexes** values, as shown below:
 
 # [C#](#tab/tabid-3)
 ```cs
@@ -58,7 +58,7 @@ private FuzzyIndexes GetFuzzyIndexes()
 ```
 ***
 
-5. The recognition settings are used to identify elements that do not change during translation such as numbers, dates, acronyms, etc. When the recognition settings are enabled these items are identified as placeables. Placeables can be transferred directly from the current source segment to the new target segment without having to type them manually. When you create a TM in Var:ProductName, all recognition settings are enabled by default. In our example we use a ```GetRecognizers``` helper function that returns all possible values of **BuiltinRecognizers**, thereby enabling our sample TM for all recognition types.
+5. The recognition settings identify elements that do not change during translation, such as numbers, dates, and acronyms. When you enable these settings, Studio marks those elements as placeables. Placeables can move directly from the source segment to the target segment without manual entry. When you create a TM in Var:ProductName, Studio enables all recognition settings by default. In this example, a `GetRecognizers` helper function returns all **BuiltinRecognizers** values and enables every recognition type.
 
 # [C#](#tab/tabid-4)
 ```cs
@@ -76,14 +76,13 @@ private BuiltinRecognizers GetRecognizers()
 ***
 
 
-The screenshot below illustrates the TM recognition settings in Var:ProductName:
+The screenshot below shows the TM recognition settings in Var:ProductName:
 
 ![RecognitionSettings](images/RecognitionSettings.jpg)
 
-Putting it All Together
---
+## Putting it All Together
 
-The complete class should now look as shown below:
+The complete class should now look like this:
 
 # [C#](#tab/tabid-5)
 ```cs
@@ -106,7 +105,7 @@ namespace SDK.LanguagePlatform.Samples.TmAutomation
                 CultureInfo.GetCultureInfo("de-DE"),
                 this.GetFuzzyIndexes(),
                 this.GetRecognizers(),
-                TokenizerFlags.BreakOnDash | TokenizerFlags.BreakOnHyphen TokenizerFlags.BreakOnApostrophe, 
+                TokenizerFlags.BreakOnDash | TokenizerFlags.BreakOnHyphen | TokenizerFlags.BreakOnApostrophe, 
                 WordCountFlags.BreakOnTag | WordCountFlags.BreakOnHyphen | WordCountFlags.BreakOnApostrophe | WordCountFlags.BreakOnDash
                 );
 
@@ -134,7 +133,7 @@ namespace SDK.LanguagePlatform.Samples.TmAutomation
                 BuiltinRecognizers.RecognizeNumbers |
                 BuiltinRecognizers.RecognizeTimes |
                 BuiltinRecognizers.RecognizeVariables |
-                BuiltinRecognizers.RecognizeMeasurements|
+                BuiltinRecognizers.RecognizeMeasurements |
                 BuiltinRecognizers.RecognizeAlphaNumeric;
         }
         #endregion
@@ -143,8 +142,7 @@ namespace SDK.LanguagePlatform.Samples.TmAutomation
 ```
 ***
 
-See Also
---
+## See Also
 [Creating Translation Memories](creating_translation_memories.md)
 
 [Performing Translation Memory Lookups](performing_translation_memory_lookups.md)
@@ -160,5 +158,3 @@ See Also
 [Doing Translation Memory Lookups](doing_translation_memory_lookups.md)
 
 [Tuning and Maintaining a Translation Memory](tuning_and_maintaining_a_translation_memory.md)
-
-[Creating a Server Translation Memory](creating_a_server_translation_memory.md)

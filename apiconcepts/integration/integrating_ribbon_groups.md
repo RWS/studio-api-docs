@@ -1,11 +1,10 @@
-Integrating ribbon groups
-=====
+# Integrating Ribbon Groups
 
-Desktop Integration API provides support for third-party developers to integrate UI ribbon groups inside the Var:ProductName desktop applications.
+The Desktop Integration API allows third-party developers to integrate custom UI ribbon groups into Var:ProductName desktop applications.
 
-Integrating ribbon groups
------
-The following example demonstrates how to create a ribbon group into a Var:ProductName application.
+## Example
+
+The following example demonstrates how to create a ribbon group in a Var:ProductName application.
 
 # [C#](#tab/tabid-1)
 [!code-csharp[CreatingRibbonGroups](code_samples/CreatingRibbonGroups.cs#L1-L14)]
@@ -13,24 +12,18 @@ The following example demonstrates how to create a ribbon group into a Var:Produ
 
 > [!NOTE]
 > 
-> Var:ProductName Integration API provide a special location for the plug-ins (see: [TranslationStudioDefaultRibbonTabs](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Presentation.DefaultLocations.TranslationStudioDefaultRibbonTabs.yml)).
+> Var:ProductName Integration API provides a special location for plug-ins (see [TranslationStudioDefaultRibbonTabs](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Presentation.DefaultLocations.TranslationStudioDefaultRibbonTabs.yml)).
 
-For information on how to add UI items inside a ribbon group, read about the actions. (see: [Creating actions](creating_actions.md) or check the sample [Integrating actions](integrating_actions.md))
+To add UI elements to a ribbon group, see [Creating actions](creating_actions.md) or the [Integrating actions](integrating_actions.md) sample.
 
-> [!NOTE]
+> [!IMPORTANT]
 > 
-> If there are no UI elements added inside the ribbon group, it will not be visible.
+> You must add at least one UI element to the ribbon group. Empty ribbon groups do not appear.
 
 
-See Also
---
+## Reference
 
-**Reference**
-
-[AbstractViewPartController](../../api/integration/Sdl.Desktop.IntegrationApi.AbstractViewPartController.yml)
-
-[ViewPartAttribute](../../api/integration/Sdl.Desktop.IntegrationApi.Extensions.ViewPartAttribute.yml)
-
-[ViewPartLayoutAttribute](../../api/integration/Sdl.Desktop.IntegrationApi.Extensions.ViewPartLayoutAttribute.yml)
-
-[TranslationStudioDefaultRibbonTabs](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Presentation.DefaultLocations.TranslationStudioDefaultRibbonTabs.yml)
+* [AbstractRibbonGroup](../../api/integration/Sdl.Desktop.IntegrationApi.AbstractRibbonGroup.yml)
+* [RibbonGroupAttribute](../../api/integration/Sdl.Desktop.IntegrationApi.Extensions.RibbonGroupAttribute.yml)
+* [RibbonGroupLayoutAttribute](../../api/integration/Sdl.Desktop.IntegrationApi.Extensions.RibbonGroupLayoutAttribute.yml)
+* [TranslationStudioDefaultRibbonTabs](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Presentation.DefaultLocations.TranslationStudioDefaultRibbonTabs.yml)

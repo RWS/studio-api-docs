@@ -1,15 +1,11 @@
-The File Sniffer
-===
+# The File Sniffer
 
-The file sniffer for bilingual filters is using the same features as for native filters. See [The File Sniffer](the_file_sniffer.md) for more details.
+The file sniffer for bilingual filters uses the same features as the file sniffer for native filters. For more information, see [The File Sniffer](the_file_sniffer.md).
 
-See Also
---
+## See Also
 
-
-
-[The File Sniffer](the_file_sniffer.md)
+- [The File Sniffer](the_file_sniffer.md)
 
 >[!NOTE]
 >
-> This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.
+> This content may be out of date. To verify the latest information on this topic, inspect the libraries in the Visual Studio Object Browser.

@@ -1,23 +1,21 @@
-Building a plug-in
-====
-This section focuses on how to create a new third-party plug-in for Var:ProductName using one of the standard Visual Studio project templates and offers some information on how this works under the hood.
+# Building a plug-in
+This section explains how to create a third-party plug-in for Var:ProductName using a standard Visual Studio project template and describes how the process works under the hood.
 
-Building a Plug-in
------
-Since Var:ProductName is a Microsoft .NET Framework application, third-party plug-ins should be developed using Microsoft .Net Framework 4.8. The Var:ProductName SDK comes with a number of Visual Studio project templates, which give you a quick start to creating various types of plug-ins.
+## Building a Plug-in
+Var:ProductName requires Microsoft .NET Framework 4.8 for third-party plug-in development. The Var:ProductName SDK includes several Visual Studio project templates that provide a quick start for creating various types of plug-ins.
 
-In this topic, we will be creating a Translation Provider plug-in as an example. We will only focus on aspects common to all types of plug-ins. 
+This topic creates a Translation Provider plug-in as an example and focuses on aspects common to all plug-in types.
 
-First of all, make sure that you have followed the [Setting up a Developer Machine](setting_up_a_developer_machine.md) information.
+First, ensure that you have followed the [Setting up a Developer Machine](setting_up_a_developer_machine.md) guide.
 
-Start Visual Studio and click New Project. Select one of the Var:ProductName project templates that are available. If you don't see any Var:ProductName project templates, make sure you have installed the latest Var:ProductName SDK version from the developer hub.
+Start Visual Studio and click **New Project**. Select one of the available Var:ProductName project templates. If no Var:ProductName project templates appear, install the latest Var:ProductName SDK version from the developer hub.
 
 <img style="display:block; " src="images/NewSdlStudioProject.png" />
 
 
-The project templates already contains stubs for all the classes you will have to implement to create a new plugin.
+The project templates already contain stubs for all the classes you need to implement.
 
-First, open `PluginProperties.cs`, which is located next to the `AssemblyInfo.cs` file in the Properties folder. This contains a single Plugin attribute, which is what fundamentally makes this project a plug-in project. "Plugin_Name" is a resource string defined in `PluginResources.resx`.
+First, open `PluginProperties.cs`, located next to the `AssemblyInfo.cs` file in the Properties folder. This file contains a single Plugin attribute that identifies the project as a plug-in. "Plugin_Name" refers to a resource string defined in `PluginResources.resx`.
 
 # [C#](#tab/tabid-1)
 ```cs
@@ -25,46 +23,44 @@ First, open `PluginProperties.cs`, which is located next to the `AssemblyInfo.cs
 ```
 ***
 
-Open the `PluginResources.resx` file. You'll see that this contains a string value called `Plugin_Name`. 
+Open the `PluginResources.resx` file. It contains a string value called `Plugin_Name`.
 
 <img style="display:block; " src="images/PluginResources.png"/>
 
-This defines the name of the plug-in assembly and will be preset to the name of the Visual Studio project. This is the name that will show up in the Var:ProductName plug-in management dialog. Any localizable strings referred to from the plug-in attribute or extension attributes should be defined in `PluginResources.resx`. This ".resx" file will be compiled into a ".resources" file and will be deployed outside of the plug-in assembly itself, so the host application can access the information within it without having to load the plug-in assembly itself.
+This value defines the plug-in assembly name and defaults to the Visual Studio project name. Var:ProductName displays this name in the plug-in management dialog. Define all localizable strings referenced by plug-in attributes or extension attributes in `PluginResources.resx`. The build compiles this `.resx` file into a `.resources` file and deploys it outside the plug-in assembly, allowing the host application to access the information without loading the assembly.
 
-Every third-party plug-in has to be deployed using a Plug-in Package (*.sdlplugin). This is an OPC-based file format, essentially a ZIP file, that contains the plug-in assembly, plug-in manifest file and the plug-in resources file. All Visual Studio project templates that come with the Var:ProductName SDK are configured to automatically create a plug-in package when the project is built. One essential piece of information required in order to do this is the plug-in package manifest, which is defined in the file `pluginpackage.manifest.xml` that was part of the project template.
+Every third-party plug-in must be deployed as a Plug-in Package (*.sdlplugin). This OPC-based file format (essentially a ZIP file) bundles the plug-in assembly, manifest file, and resources file. The Visual Studio project templates included with the Var:ProductName SDK automatically generate a plug-in package during each build. The build process relies on the plug-in package manifest defined in `pluginpackage.manifest.xml`, which the project template provides.
 
 [!code-xml[ReportXSLT](code_samples/pluginpackage.manifest.xml)]		
 
 The plug-in package manifest defines some pieces of essential information:
 
-* **PlugInName**: the friendly name of the plugin. This can be different to the name of the plug-in defined in `PluginResources.resx`, because a plug-in package can in theory contain multiple plug-ins.
-* **Version**: the version of the plug-in package. This is important, as it will be used to detect updated packages. For more information, see [Plug-in deployment](plugin_deployment.md).
-* **Description**: description of the plug-in package.
-* **Author**: the name of the plug-in author
-* **RequiredProduct**: this indicates which product this plug-in supports. This must include the minimum version and can optionally include a maximum version. <br>
-If the minimum version is set to *Var:VersionNumber.1* that means the plugin can be installed only in Var:ProductName SR1 and above.
-* **Include**: a list of additional files to be included into the plugin package.
+* **PlugInName**: The friendly name of the plug-in. This name can differ from the one defined in `PluginResources.resx`, because a single plug-in package can contain multiple plug-ins.
+* **Version**: The plug-in package version. The system uses this value to detect updated packages. For more information, see [Plug-in deployment](plugin_deployment.md).
+* **Description**: A description of the plug-in package.
+* **Author**: The name of the plug-in author.
+* **RequiredProduct**: Specifies which product this plug-in supports. You must include the minimum version and can optionally include a maximum version. <br>
+Setting the minimum version to *Var:VersionNumber.1* restricts installation to Var:ProductName SR1 and above.
+* **Include**: A list of additional files to include in the plug-in package.
 
-Any plugin project need to have the following nuget packages refrenced : 
+Every plug-in project must reference the following NuGet packages:
 
-* [Sdl.Core.PluginFramework](https://www.nuget.org/packages/Sdl.Core.PluginFramework/): this package provides the API's for the extension points
-* [Sdl.Core.PluginFramework.Build](https://www.nuget.org/packages/Sdl.Core.PluginFramework.Build/): this package provides the plug-in manifest creation build step, which uses the standard MSBuild extension mechanism. See [Plug-in manifest generator](xref:the_plugin_manifest_generator.md).
+* [Sdl.Core.PluginFramework](https://www.nuget.org/packages/Sdl.Core.PluginFramework/): Provides the APIs for extension points.
+* [Sdl.Core.PluginFramework.Build](https://www.nuget.org/packages/Sdl.Core.PluginFramework.Build/): Provides the plug-in manifest creation build step using the standard MSBuild extension mechanism. See [Plug-in manifest generator](xref:the_plugin_manifest_generator.md).
 
 > [!NOTE]
-> `Sdl.Core.PluginFramework.Build` is needed only in build time.
+> `Sdl.Core.PluginFramework.Build` is required only at build time.
 
-Now build the project and have a look in the project output folder. Notice the following:
+Build the project and inspect the output folder. It contains the following:
 
 * The plug-in assembly, `MyPlugin.dll`
-* A "Plugins" folder, which contains:
-    * The plug-in manifest, `MyPlugin.plugin.xml`, which lists information about all the extension classes. the plug-in contains.
-    * The neutral plug-in resources file `MyPlugin.plugin.resources`, which contains all the localizable strings and images referred to within the plug-in manifest. This was compiled from `PluginResources.resx`.
-* The plug-in package, `MyPlugin.sdlplugin` which contains all of the above, together with the plug-in package manifest. </br>
+* A **Plugins** folder, which contains:
+    * The plug-in manifest, `MyPlugin.plugin.xml`, listing all extension classes the plug-in provides.
+    * The neutral plug-in resources file, `MyPlugin.plugin.resources`, containing all localizable strings and images referenced in the plug-in manifest. The build compiles this from `PluginResources.resx`.
+* The plug-in package, `MyPlugin.sdlplugin`, bundling all of the above together with the plug-in package manifest.
 
+After adding all the relevant information, build the project. Find the plug-in at the local path *Var:PluginPackedPath* (unless you changed the default path).
 
-After all the relevant information was added, build the project. Plugin can be found at the following local path *Var:PluginPackedPath* if the default path wasn't changed. </br>
+If the console displays the error `Error 1 Failed to locate ResGen.exe and unable to compile plug-in resource file...`, install [.NET Framework 4.8](https://dotnet.microsoft.com/en-us/download/dotnet-framework/net48).
 
-If in the console following error appears: `Error 1 Failed to locate ResGen.exe and unable to compile plug-in resource file...` please make sure you have installed [.Net Framework 4.8](https://dotnet.microsoft.com/en-us/download/dotnet-framework/net48). 
-
-
-Now, we are ready to deploy the plug-in package in Var:ProductName. See [Plug-in deployment](plugin_deployment.md).
+You can now deploy the plug-in package in Var:ProductName. See [Plug-in deployment](plugin_deployment.md).

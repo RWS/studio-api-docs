@@ -1,166 +1,156 @@
-Reporting Problems
-==
+# Reporting problems
 
-This topic covers different mechanisms that allows information to be communicated from the componentes of a filter to the application that hosts the  File Type Support Framework during content processing.
+This article explains how filter components can report problems to the application that hosts the File Type Support Framework during content processing.
 
-Overview
----
-Since filters may be used in server-based scenarios, they cannot display information to users like normal Windows-based applications do, e.g. by using a ```MessageBox``` or directly updating the user interface of an application. Such behavior could cause the server process to hang, as there is no user to interact with the filter.
+## Overview
 
-If a file processing component comes across a show-stopper, it should throw an exception to abort further processing. The exception should have an explanatory error message that clearly points users to the problem and helps them fix it. It is recommended that you derive exceptions thrown for events that occur during content processing from [FileTypeSupportException](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.FileTypeSupportException.yml).
+Filters can run in server-based scenarios, so they must not display UI such as a `MessageBox` or update an application's user interface directly. That behavior can block the server process because no user can respond.
 
-A lot of events do not need to be treated as show-stoppers, but may still indicate that something is not correct. Such situations should not abort the processing, but may still be of interest to the user. The  File Type Support Framework provides a message reporting mechanism that can be used to communicate with the user. This can be used by filter components to report non-fatal errors, warnings and notes. Such messages can also be associated with specific content locations. For exampe, in the **Messages** window of Var:ProductName you can double-click a message, which leads you directly to the location in the document in which a problem was found (e.g. a missing tag).
+When a file processing component encounters a fatal error, it should throw an exception and stop processing. Use an error message that clearly explains the problem and helps users resolve it. When possible, derive content-processing exceptions from [FileTypeSupportException](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.FileTypeSupportException.yml).
 
-The basic message reporting mechanism is the same for all components. It is accessible through the [IBasicMessageReporter](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IBasicMessageReporter.yml) interface, which is implemented by all message reporters provided by the framework. The [ReportMessage](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IBasicMessageReporter.yml#Sdl_FileTypeSupport_Framework_NativeApi_IBasicMessageReporter_ReportMessage_System_Object_System_String_Sdl_FileTypeSupport_Framework_NativeApi_ErrorLevel_System_String_System_String_) method takes an optional ```locationDescription``` (string) parameter that allows the component to provide a textual description of the location that the message refers to. Showing the text (e.g. in a window or message box) can help users find the relevant location in the document. This mechanism can be useful when the component (for whatever reason) is unable to provide exact coordinates to the associated content.
+Some events do not justify aborting processing, but users may still need to see them. The File Type Support Framework provides a message reporting mechanism for non-fatal errors, warnings, and notes. Components can also associate messages with specific content locations. In the **Messages** window of Var:ProductName, for example, users can double-click a message to jump to the location where the framework detected the issue, such as a missing tag.
 
-As mentioned before, messages may be associated with detailed location information, which can be used by an application like the Var:ProductName to allow users to navigate, e.g. to a particular segment in the editor in which a problem has been identified. How to associate a message with precise location information depends on the type of component used. The mechanism to translate locations associated with messages also differs depending on where in the content processing chain the message is was generated (though this is transparent to the filter component and to the host application). Issues related to message reporting for each component type are covered in separate sections below.
+All framework-provided message reporters implement [IBasicMessageReporter](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IBasicMessageReporter.yml). The [ReportMessage](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IBasicMessageReporter.yml#Sdl_FileTypeSupport_Framework_NativeApi_IBasicMessageReporter_ReportMessage_System_Object_System_String_Sdl_FileTypeSupport_Framework_NativeApi_ErrorLevel_System_String_System_String_) method accepts an optional `locationDescription` parameter. Use this parameter when a component cannot provide exact coordinates but can still describe the relevant location in a way that helps users find it.
 
-Exact location information can represent either a single spot or a range of content. Ranges are reported by specifying separate "from" and an "up to" locations. The "up to" location is optional. If it is omitted, the location is interpreted as a single spot.
+Components can also attach precise location information. Applications such as Var:ProductName can use that information to navigate to a segment or another relevant location in the editor. The exact mechanism depends on the component type. The framework also translates message locations differently depending on where the component reported the message, although that translation remains transparent to both the filter component and the host application. The following sections describe each component type.
 
-All message locations are translated by the framework into a unified location representation, in the form of [IMessageLocation](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IMessageLocation.yml) instances. An application can e.g. pass this to the editor to get a corresponding location inside the document, to provide click-on message functionality.
+Exact location information can identify a single spot or a range of content. To report a range, provide separate `from` and `up to` locations. The `up to` location is optional. If you omit it, the framework treats the location as a single spot.
 
-The locations can also be serialized for use with batch processing (at the time of writing this mechanism was not implemented).
+The framework translates all message locations into a unified representation through [IMessageLocation](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IMessageLocation.yml). An application can pass that object to the editor to resolve the corresponding document location and enable click-on message behavior.
 
-File Sniffer
---
+The framework can also serialize locations for batch processing, although this mechanism was not implemented at the time of writing.
 
-A [INativeFileSniffer](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileSniffer.yml) receives an instance of a [INativeTextLocationMessageReporter](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeTextLocationMessageReporter.yml) in the [Sniff](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileSniffer.yml#Sdl_FileTypeSupport_Framework_NativeApi_INativeFileSniffer_Sniff_System_String_Sdl_Core_Globalization_Language_Sdl_Core_Globalization_Codepage_Sdl_FileTypeSupport_Framework_NativeApi_INativeTextLocationMessageReporter_Sdl_Core_Settings_ISettingsGroup_) method. This can be used to communicate relevant information with associated locations to the  File Type Support Framework (and ultimately to the user).
+## File sniffer
 
-The file sniffer's general purpose is to determine if the specified file is supported or not. Under normal circumstances, file sniffers would not report issues related to the file. This can sometimes be confusing to users, since there may be another filter that properly supports the file. However, in some cases it is helpful for the file sniffer to inform users, e.g. if the file is locked, or if the file type is currect, but cannot be supported for some reason (e.g. a DOC file that contains unaccepted changes).
+An [INativeFileSniffer](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileSniffer.yml) receives an [INativeTextLocationMessageReporter](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeTextLocationMessageReporter.yml) in the [Sniff](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileSniffer.yml#Sdl_FileTypeSupport_Framework_NativeApi_INativeFileSniffer_Sniff_System_String_Sdl_Core_Globalization_Language_Sdl_Core_Globalization_Codepage_Sdl_FileTypeSupport_Framework_NativeApi_INativeTextLocationMessageReporter_Sdl_Core_Settings_ISettingsGroup_) method. The sniffer can use this reporter to send relevant information and associated locations to the File Type Support Framework.
 
-A file sniffer is not expected to throw exceptions. If a file sniffer throws an exception, this normally indicates a bug in the file sniffer. Exceptions thrown by file sniffers are handled by the  File Type Support Framework and reported as warnings through the message reporting mechanism in the same way as messages reported by file sniffers through the message reporter passed to the Sniff() method. If a file sniffer throws an exception, the file is considered as not supported by the corresponding File Type Component Builder.
+The main purpose of a file sniffer is to determine whether it supports a file. Under normal circumstances, a sniffer should not report issues for unsupported files because another filter might support the same file correctly. In some cases, however, a warning helps users. Examples include a locked file or a file that matches the file type but still cannot be processed, such as a DOC file that contains unaccepted changes.
 
-Locations for messages from a file sniffer are reported using [NativeTextLocation](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.NativeTextLocation.yml) instances, which ultimately represent 1-based line and offset numbers.
+A file sniffer should not throw exceptions. If it does, the framework usually treats that exception as a bug in the sniffer. The File Type Support Framework catches the exception, reports it as a warning through the same message reporting mechanism, and treats the file as unsupported by the corresponding File Type Component Builder.
 
-The locations will only be used if the file has actually been opened. Messages from all invoked file sniffers may be shown to the user, regardless of whether they originate from the file sniffer that is part of the File Type Component Builder that was ultimately used to process the file. Since this can potentially be confusing to users, it is recommended that file sniffers only report issues that are very likely of interest to the user. (In real-life scenarios this is typically not a problem, as for most file types only a single file sniffer is invoked.)
+File sniffers report locations with [NativeTextLocation](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.NativeTextLocation.yml) instances, which use 1-based line and offset numbers.
 
-Upon opening a file the locations is automatically translated by the  File Type Support Framework, so that they can be used to generate click-on messages in an editor. The  File Type Support Framework does this by listening to the output from the native file parser and by inserting location markers into the content stream at the line and offset numbers that correspond to the locations for messages reported by file sniffers. The line and offsets are determined from the literal text and tag content output by the parser to the native API.
+The framework only uses these locations if it actually opens the file. Users may still see messages from all invoked file sniffers, even if the selected File Type Component Builder came from a different sniffer. To avoid confusion, report only issues that users are very likely to care about. In practice, this usually works well because most file types invoke only one sniffer.
 
-From the nature of this mechanism it is obvious that the locations reported by the file sniffer may not correspond exactly to the correct locations in the bilingual content. File tweakers might have altered the native file before it was processed by the native parser. Moreover, the native parser may not emit all literal tag and text content through the native API, or it may choose to emit content in a different order than it appears in the native file. Message locations from file sniffers work best with file types in which all content in the native file is preserved and "marked up" as tags and text by the parser. For other file types it may be more suitable to provide a location description instead of an exact location.
+When the framework opens a file, it translates the reported locations automatically so the editor can support click-on messages. The File Type Support Framework listens to the native file parser output and inserts location markers into the content stream at the reported line and offset numbers. It derives those positions from the literal text and tag content that the parser emits through the native API.
 
-Here is a code example that shows how to report a warning from a file sniffer:
+These translated locations may not always match the final bilingual content exactly. A file tweaker may change the native file before the parser runs. The parser may also omit some literal text or tag content, or emit content in a different order than the native file. File sniffer locations work best when the parser preserves the native file content and represents it as tags and text. If that does not apply to the file type, provide a location description instead of an exact location.
 
-# [C#](#tab/tabid-1)
+The following example reports a warning from a file sniffer:
+
 ```cs
 void ReportWarning(string message, int lineNumber, int offset, INativeTextLocationMessageReporter messageReporter)
 {
     NativeTextLocation from = new NativeTextLocation(lineNumber, offset);
-    messageReporter.ReportMessage(this,"SDK Sample", ErrorLevel.Warning, message, from, null);
+    messageReporter.ReportMessage(this, "SDK Sample", ErrorLevel.Warning, message, from, null);
 }
 ```
-***
 
-File Tweaker
---
+## File tweaker
 
-File tweakers are invoked in order to alter the native file before processing with the native parser, and/or to alter the translated native file after processing by the file writer. As such they do not have access to the native content stream or the bilingual content model. So, similar to the file sniffers the file tweakers must report message locations in the form of line and offset numbers in the native file content.
+File tweakers can modify the native file before the native parser processes it, or modify the translated native file after the file writer finishes. Because they do not access the native content stream or the bilingual content model directly, they must report locations as line and offset numbers in the native file.
 
-During initialization the  File Type Support Framework sets the [MessageReporter](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IFileTweaker.yml#Sdl_FileTypeSupport_Framework_NativeApi_IFileTweaker_MessageReporter) property on the file tweaker. The file tweaker can use this to report messages with associated locations to the framework.
+During initialization, the File Type Support Framework sets the [MessageReporter](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IFileTweaker.yml#Sdl_FileTypeSupport_Framework_NativeApi_IFileTweaker_MessageReporter) property on the file tweaker. The tweaker can then use that reporter to send messages and associated locations to the framework.
 
-For pre-tweaking the  File Type Support Framework treats file tweaker message locations similar to locations for messages reported by file sniffers, i.e. location markers are inserted into the native content stream at locations corresponding to the line and offset numbers.
+For pre-tweaking, the File Type Support Framework handles file tweaker locations in the same way that it handles file sniffer locations. It inserts location markers into the native content stream at the reported line and offset numbers.
 
-For post-tweaking the  File Type Support Framework tracks the line and offset numbers for literal text and tag content passed to the native file writer, and uses this information to translate the location into a corresponding place in the native content stream. This is then translated into bilingual content locations by attempting to determine which paragraph unit and segment the location refers to, and how many characters into the segment the location appears in.
+For post-tweaking, the framework tracks the line and offset numbers for literal text and tag content that the native file writer receives. It uses that information to map the reported location to a position in the native content stream, and then tries to translate that position into a corresponding paragraph unit, segment, and character offset in the bilingual content.
 
-Like with file sniffers, the locations reported by file tweakers may not translate correctly into bilingual content locations, for pretty much the same reasons. Also, the message locations works best with file types in which the entire native content is present in the form of tags and text in the native content stream. If this is not the case for the file type being processed, file tweakers may use location descriptions rather than exact locations.
+As with file sniffers, file tweaker locations may not always translate correctly into bilingual content locations. They work best when the native content stream contains the full native file content as tags and text. If that does not apply to the file type, use a location description instead of exact coordinates.
 
-Here is a code example that shows how to communicate information from a file tweaker:
+The following example reports a message from a file tweaker:
 
-# [C#](#tab/tabid-2)
 ```cs
 void ReportMessage(string message, ErrorLevel severity, int lineNumber, int offset, INativeTextLocationMessageReporter messageReporter)
 {
     NativeTextLocation from = new NativeTextLocation(lineNumber, offset);
-    messageReporter.ReportMessage(this,"SDK Sample", severity, message, from, null);
+    messageReporter.ReportMessage(this, "SDK Sample", severity, message, from, null);
 }
 ```
-***
 
-Native File Parser and Native Content Processor for Extraction and Generation
---
+## Native file parser and native content processor for extraction and generation
 
-Components that generate output through the native API can mark locations in the native content by creating a new [LocationMarkerId](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId.yml) and and calling [LocationMark](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IAbstractNativeContentHandler.yml#Sdl_FileTypeSupport_Framework_NativeApi_IAbstractNativeContentHandler_LocationMark_Sdl_FileTypeSupport_Framework_NativeApi_LocationMarkerId_) to output the marker. Locations marked in this way can be associated with messages reported on the [INativeContentStreamMessageReporter](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentStreamMessageReporter.yml) interface by passing the location marker ID as a "from" or "up to" location. The message reporter implementation is provided by the  File Type Support Framework to these components through their implementation of the [MessageReporter](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IFileTweaker.yml#Sdl_FileTypeSupport_Framework_NativeApi_IFileTweaker_MessageReporter) property.
+Components that generate output through the native API can mark locations in the native content by creating a [LocationMarkerId](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.LocationMarkerId.yml) and calling [LocationMark](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IAbstractNativeContentHandler.yml#Sdl_FileTypeSupport_Framework_NativeApi_IAbstractNativeContentHandler_LocationMark_Sdl_FileTypeSupport_Framework_NativeApi_LocationMarkerId_). They can then pass those marker IDs as `from` and `up to` locations when they report a message through [INativeContentStreamMessageReporter](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentStreamMessageReporter.yml). The File Type Support Framework provides the message reporter through the component's [MessageReporter](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IFileTweaker.yml#Sdl_FileTypeSupport_Framework_NativeApi_IFileTweaker_MessageReporter) property.
 
-For messages reported during extraction (parsing) the location marks are propagated into the bilingual content model as [ILocationMarker](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.ILocationMarker.yml) instances, which are referenced explicitly as the bilingual locations. This provides very reliable locations, which often point to the correct locations even after the user has edited the text exensively.
+During extraction, the framework propagates location markers into the bilingual content model as [ILocationMarker](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.ILocationMarker.yml) instances. This approach provides highly reliable locations and often still points to the correct place even after users edit the text extensively.
 
-For messages reported by native content processors during generation (writing) the  File Type Support Framework detects the location marks in the native content stream and does its utmost to translate them into corresponding locations in the bilingual content model. In this case the locations in the bilingual content model will typically NOT be location marker objects. The translation from the native generation into the bilingual content that is implemented in the  File Type Support Framework is not always straightforward. The native API content may look quite different from the bilingual API content due to automatic merging of tag pairs and cloning of source content into the target for parts that have not yet been translated, etc. The  File Type Support Framework attempts to work around the uncertainties as much as possible by "anchoring" the location to the nearest preceding segment or paragraph boundary as detected in the native generation API. The approximate location is determined by counting the number of characters in the native text and tags between the last segment or paragraph boundary and the location marker in the native content stream. This value is then used with the bilingual content model to locate the corresponding paragraph unit and (if possible) segment. The location inside the paragraph or segment is determined by iterating through the segment content and counting characters in the text and tag properties. The bilingual location is restricted to the determined segment, even if it does not contain "enough" characters. That way the location should end up in the correct row in the editor in almost all cases. Therefore, locations reported by native content processors during generation are usually reasonably accurate, but cannot be relied on quite as much as locations reported by parsing. If the user edits the text in the same segment the locations may no longer be correct, however locations in neighboring segments should not be affected.
+During generation, the framework detects location markers in the native content stream and translates them into corresponding locations in the bilingual content model. In this case, the resulting bilingual locations usually are not location marker objects. This translation is less direct because the native API content can differ significantly from the bilingual API content. For example, the framework may merge tag pairs automatically or clone source content into the target for untranslated parts.
 
-Here is a code example that shows how a 'suspicious' tag could be reported by a native content processor. The native content processor in this example would be derived from ```AbstractNativeExtractionContentProcessor``` or ```AbstractNativeGenerationContentProcessor``` and the function below overrides the processing of placeholder tags to check for tags that look 'suspicious' and report those to the user.
+To improve accuracy, the File Type Support Framework anchors the reported location to the nearest preceding segment or paragraph boundary detected in the native generation API. It then counts characters in the native text and tags between that boundary and the location marker. Next, it uses that count to find the corresponding paragraph unit and, when possible, the segment in the bilingual content model. Finally, it determines the location inside that paragraph or segment by counting characters in text and tag properties. The framework restricts the final location to the resolved segment, even if the character count does not map perfectly. As a result, generation-time locations are usually accurate enough to identify the correct editor row, but they are less reliable than parsing-time locations. If a user edits the same segment, the location may become inaccurate. Edits in neighboring segments should not affect it.
 
-# [C#](#tab/tabid-3)
+The following example reports a suspicious tag from a native content processor. This processor derives from `AbstractNativeExtractionContentProcessor` or `AbstractNativeGenerationContentProcessor` and overrides placeholder tag handling:
+
 ```cs
-public void PlaceholderTag(IPlaceholderTagProperties tagInfo)
-  {
+public override void PlaceholderTag(IPlaceholderTagProperties tagInfo)
+{
     if (IsSuspiciousTag(tagInfo))
     {
-      // insert location marks around the tag
-      LocationMarkerId fromId = new LocationMarkerId();
-      LocationMarkerId uptoId = new LocationMarkerId();
+        LocationMarkerId fromId = new LocationMarkerId();
+        LocationMarkerId uptoId = new LocationMarkerId();
 
-      // report the message
-      MessageReporter.ReportMessage(this, "SDK Sample", ErrorLevel.Warning, "Suspicious tag!", fromId, uptoId);
+        LocationMark(fromId);
+        base.PlaceholderTag(tagInfo);
+        LocationMark(uptoId);
+
+        MessageReporter.ReportMessage(this, "SDK Sample", ErrorLevel.Warning, "Suspicious tag!", fromId, uptoId);
+        return;
     }
-  }
+
+    base.PlaceholderTag(tagInfo);
+}
 ```
-***
 
-Bilingual Content Processor, Bilingual Parser and Bilingual Writer
---
+## Bilingual content processor, bilingual parser, and bilingual writer
 
-Components that work directly with the bilingual content model can associate message locations directly with either the source or the target content. The [IBilingualContentMessageReporter](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentMessageReporter.yml) interface takes [TextLocation](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.TextLocation.yml) instances for the "from" and "up to" locations. The [TextLocation](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.TextLocation.yml) class allows you to directly reference a text position inside the bilingual content model. It has several constructors. The one that you may find most convenient is the one that takes a single ````IMarkupData```` item as the location to reference.
+Components that work directly with the bilingual content model can associate message locations with either the source or the target content. The [IBilingualContentMessageReporter](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IBilingualContentMessageReporter.yml) interface accepts [TextLocation](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.TextLocation.yml) instances for the `from` and `up to` locations.
 
-It is important to note that the use of [TextLocation](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.TextLocation.yml) instances means that components that report messages do not need to alter the content of the bilingual object model. This does not require the use of location markers.
+The [TextLocation](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.TextLocation.yml) class lets you reference a text position directly in the bilingual content model. It provides several constructors. One convenient option accepts a single `IMarkupData` item as the referenced location.
 
-The main component of the [TextLocation](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.TextLocation.yml) is a [Location](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.Location.yml), which allows you to reference locations before and after items in the content model.
+Because components can report messages with `TextLocation`, they do not need to alter the bilingual object model. They also do not need location markers.
 
-The locations in the bilingual content model is probably the most reliable message location reference method, as it involves much less 'guesswork' for the  File Type Support Framework to pinpoint the location.
+At its core, [TextLocation](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.TextLocation.yml) wraps a [Location](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.Location.yml), which lets you reference positions before and after items in the content model.
 
-Here is a code example that shows how a string that contains a problem could be reported by a bilingual content processor.
+Direct bilingual locations usually provide the most reliable message references because the File Type Support Framework does far less translation work.
 
-# [C#](#tab/tabid-4)
+The following example reports problematic text from a bilingual content processor:
+
 ```cs
 void ReportOffendingText(IText textItem, int startOffset, int numberOfCharacters)
 {
     TextLocation from = new TextLocation(textItem, startOffset);
     TextLocation upto = new TextLocation(textItem, startOffset + numberOfCharacters);
 
-    // report the message
-    MessageReporter.ReportMessage(this,"SDK Sample", ErrorLevel.Warning, "Inappropriate expression!", from, upto);
+    MessageReporter.ReportMessage(this, "SDK Sample", ErrorLevel.Warning, "Inappropriate expression!", from, upto);
 }
 ```
-***
 
-Native File Writer
---
+## Native file writer
 
-A native file writer receives content on the native input stream. However, the output does not occur through an API provided by the  File Type Support Framework, it rather writes directly into the output file that it is creating. For this reason native file writers must report message locations through the [INativeTextLocationMessageReporter](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeTextLocationMessageReporter.yml) instance provided by the framework through the  [MessageReporter](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IFileTweaker.yml#Sdl_FileTypeSupport_Framework_NativeApi_IFileTweaker_MessageReporter) property.
+A native file writer receives content on the native input stream, but it writes output directly to the file that it creates instead of writing through an API provided by the File Type Support Framework. For that reason, native file writers must report locations through the [INativeTextLocationMessageReporter](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeTextLocationMessageReporter.yml) instance that the framework provides through the [MessageReporter](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IFileTweaker.yml#Sdl_FileTypeSupport_Framework_NativeApi_IFileTweaker_MessageReporter) property.
 
-The message locations are reported as line and offset numbers that refer to the text and tag content that is passed to the writer's implementation of the native content handler interface. These locations are translated by the  File Type Support Framework into locations in the bilingual content model by "anchoring" them to the nearest available paragraph and segment boundaries processed through the writer.
+Native file writers report locations as line and offset numbers that refer to the text and tag content passed to the native content handler implementation. The File Type Support Framework translates those locations into bilingual content locations by anchoring them to the nearest available paragraph and segment boundaries that the writer processes.
 
-If a native file writer encounters a serious error because of which the output file cannot be generated, it should throw an exception. The  File Type Support Framework automatically catches exceptions thrown by native file writers and generates a message for the exception with an associated location that points to the content that was being processed by the file writer, and then the exception again. Provided that the exception is thrown at the time that the 'problematic' content is passed to the native file writer, this should yield a valid location associated with the message. So, if that is the case, the writer does not need to explicitly generate a message. On the other hand, it often happens that the 'problematic' content comes up earlier in the content stream, in which case the location associated with the automatically generated message may be misleading. In such a case, it is recommended that file writers report the error with the appropriate message location before throwing the exception.
+If a native file writer encounters a fatal error and cannot generate the output file, it should throw an exception. The File Type Support Framework catches exceptions from native file writers and automatically generates a message with an associated location that points to the content being processed when the exception was thrown. If the writer throws the exception exactly when it processes the problematic content, that generated location is usually sufficient. If the problematic content appears earlier in the stream, however, the generated location can mislead users. In that case, report the error explicitly with the correct location before you throw the exception.
 
-The  File Type Support Framework provides a [INativeLocationTracker](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeLocationTracker.yml) implementation to the writer by setting the [LocationTracker](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileWriter.yml#Sdl_FileTypeSupport_Framework_NativeApi_INativeFileWriter_LocationTracker) property during initialization of the writer. The location tracker provides a convenient way for the writer to determine the locations of the content that it is currently processing.
+During initialization, the File Type Support Framework also sets the [LocationTracker](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileWriter.yml#Sdl_FileTypeSupport_Framework_NativeApi_INativeFileWriter_LocationTracker) property with an [INativeLocationTracker](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeLocationTracker.yml) implementation. Use that tracker to determine the location of the content currently being processed.
 
-Below you find a code example that shows how an unexpected start tag could be reported by a native file writer:
+The following example reports an unexpected start tag from a native file writer:
 
-# [C#](#tab/tabid-5)
 ```cs
 public override void InlineStartTag(IStartTagProperties tagInfo)
 {
     if (!IsExpectedStartTag(tagInfo))
     {
-        // report the tag and ignore it
         NativeTextLocation from = GetLocationBeforeCurrent();
         NativeTextLocation upto = GetLocationAfterCurrent();
 
-        MessageReporter.ReportMessage(this,"SDK Sample", ErrorLevel.Error, "Unexpected tag pair!", from, upto);
+        MessageReporter.ReportMessage(this, "SDK Sample", ErrorLevel.Error, "Unexpected tag pair!", from, upto);
         return;
     }
 
-    // process as normal
     ProcessStartTag(tagInfo);
 }
 ```
-**
 
 >[!NOTE]
 >

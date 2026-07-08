@@ -1,7 +1,6 @@
-The Sub Content Writer
-==
+# The Sub Content Writer
 
-An example of a sub-content Writer is shown below - note the implementation of [ISubContentWriter](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ISubContentWriter.yml)
+This example demonstrates a sub-content Writer. Review the [ISubContentWriter](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ISubContentWriter.yml) implementation for details.
 
 # [C#](#tab/tabid-1)
 ```cs
@@ -59,7 +58,7 @@ namespace Sdk.Snippets.Native
 
         public void InitializeSubContentWriter(Stream originalSubContent) 
         {
-            // We don't make use of the original source content in this writer, so we can ignore this input parameter here.
+            // This writer ignores the original source content, so we can disregard this input parameter.
         }
     }
 }
@@ -68,4 +67,4 @@ namespace Sdk.Snippets.Native
 
 >[!NOTE]
 >
-> This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.
+>This content may be out-of-date. Inspect the libraries in the Visual Studio Object Browser to verify the latest information on this topic.

@@ -1,17 +1,14 @@
-Enhancing the Preview File Writer
-===
+# Enhancing the preview file writer
 
-In this chapter you will learn how to enhance the preview writer component to support the dynamic functionality of the real-time preview.
+This article shows how to enhance the preview writer to support the dynamic behavior of the real-time preview.
 
-Why you Should Enhance the Preview Writer
---
+## Why you should enhance the preview writer
 
-For the static preview writer it was sufficient to output very simple HTML code (see [Implementing the Preview Writer](implementing_the_preview_writer.md)). However, to implement a dynamic real-time preview, which allows users to click segments and jump to the corresponding row in the side-by-side editor, the preview needs to implement active elements through the addition of CSS and JavaScript.
+The static preview writer only needs to generate simple HTML. See [Implementing the Preview Writer](implementing_the_preview_writer.md). A dynamic real-time preview needs more support. Users can click segments and jump to the corresponding row in the side-by-side editor, so the preview must include active elements through CSS and JavaScript.
 
-Enhance the HTML Header
---
+## Enhance the HTML header
 
-The currently selected (i.e. active) segment in the real-time preview should be highlighted, e.g. with a silver background, while unselected segments retain a white background. In our case, this can be best implemented through CSS stylesheets. Therefore, the header of the preview file will contain the following styles, which are applied to the currently selected segment (```activesegment```) and to the unselected segments (```normal```).
+The real-time preview should highlight the currently selected segment, for example with a silver background. Unselected segments should keep a white background. In this sample, CSS handles that styling. Add the following styles to the preview file header. The `activesegment` style formats the selected segment, and the `normal` style formats unselected segments.
 
 # [HTML](#tab/tabid-1)
 ```html
@@ -24,11 +21,10 @@ The currently selected (i.e. active) segment in the real-time preview should be 
         .normal {color:black; background-color:white; cursor:hand;}                
  </style>
 ```
-***
 
-Moreover, we will use two JavaScript functions to apply the ```activesegment``` or the normal styles. These JavaScript functions can later be called from the Web browser preview control, which we will implement in one of the following chapters (see [Adding a Preview UI Control](adding_a_preview_ui_control.md)).
+Add two JavaScript functions to switch between the `activesegment` and `normal` styles. The web browser preview control can call these functions later. See [Adding a Preview UI Control](adding_a_preview_ui_control.md).
 
-# [C#](#tab/tabid-2)
+# [HTML](#tab/tabid-2)
 ```html
 <script type="text/javascript">
     function setActiveStyle(objDivID)
@@ -42,9 +38,8 @@ Moreover, we will use two JavaScript functions to apply the ```activesegment``` 
     }
        </script>
 ```
-***
 
-First, it is best to add a separate helper function that generates the HTML header as shown below:
+Next, add a helper function that generates the HTML header:
 
 # [C#](#tab/tabid-3)
 ```cs
@@ -89,9 +84,8 @@ private string GetHTMLStart()
     return header;
 }
 ```
-***
 
-Modify the [StartOfInput](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.yml#Sdl_FileTypeSupport_Framework_NativeApi_INativeContentCycleAware_StartOfInput) member as shown below to call the above helper function, which generates the HTML header:
+Update the [StartOfInput](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeContentCycleAware.yml#Sdl_FileTypeSupport_Framework_NativeApi_INativeContentCycleAware_StartOfInput) member to call this helper function:
 
 # [C#](#tab/tabid-4)
 ```cs
@@ -102,23 +96,19 @@ public void StartOfInput()
     _preview.WriteLine(GetHTMLStart());
 }
 ```
-***
 
-Enhance the Segment Output to Allow for Navigation
---
+## Enhance the segment output to allow navigation
 
-To determine a particular segment to be highlighted in the real-time preview when the user selects it in the side-by-side editor (or vice versa), you require two parameters: the paragraph unit id and the segment id.
+To highlight a segment in the real-time preview when the user selects it in the side-by-side editor, you need two parameters: the paragraph unit ID and the segment ID.
 
-First, we add the paragraph unit as a string member to the writer class:
+First, add the paragraph unit as a string member to the writer class:
 
 # [C#](#tab/tabid-5)
 ```cs
 string _paragraphUnitId = String.Empty;
 ```
-***
 
-
-Then we enhance the [ParagraphUnitStart](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileWriter.yml#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileWriter_ParagraphUnitStart_Sdl_FileTypeSupport_Framework_NativeApi_IParagraphUnitProperties_) method to set the value of ```_paragraphUnitId``` to the id of the currently selected paragraph unit.
+Next, update the [ParagraphUnitStart](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileWriter.yml#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileWriter_ParagraphUnitStart_Sdl_FileTypeSupport_Framework_NativeApi_IParagraphUnitProperties_) method so that `_paragraphUnitId` stores the ID of the current paragraph unit.
 
 # [C#](#tab/tabid-6)
 ```cs
@@ -128,10 +118,10 @@ public override void ParagraphUnitStart(IParagraphUnitProperties properties)
 {
     _preview.WriteLine("<div>");
     _paragraphUnitId = properties.ParagraphUnitId.Id;
+}
 ```
-***
 
-Next, we make the segments in the real-time preview 'clickable' by outputting the following HTML through the [SegmentStart](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileWriter.yml#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileWriter_SegmentStart_Sdl_FileTypeSupport_Framework_NativeApi_ISegmentPairProperties_) method:
+Then make the segments in the real-time preview clickable by writing the following HTML through the [SegmentStart](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.AbstractNativeFileWriter.yml#Sdl_FileTypeSupport_Framework_NativeApi_AbstractNativeFileWriter_SegmentStart_Sdl_FileTypeSupport_Framework_NativeApi_ISegmentPairProperties_) method:
 
 # [C#](#tab/tabid-7)
 ```cs
@@ -141,10 +131,10 @@ public override void SegmentStart(ISegmentPairProperties properties)
         _preview.Write("<span id=\"" + properties.Id.Id + "\" onClick=\"window.external.SelectSegment('" + _paragraphUnitId + "','" + properties.Id.Id + "')\" >");
 }
 ```
-***
 
-The **SPAN** tag now includes an onClick event handler, which passes the segment id and the paragraph unit id.
-Below you see an example of the HTML code the enhanced preview writer will generate for a paragraph unit that contains two segments:
+The **SPAN** tag now includes an `onClick` event handler that passes the segment ID and the paragraph unit ID.
+
+The following example shows the HTML generated for a paragraph unit that contains two segments:
 
 # [HTML](#tab/tabid-8)
 ```html
@@ -157,12 +147,10 @@ Opens a dialog box on start-up.
 </span>
 </div>
 ```
-****
 
-Putting it All Together
---
+## Put it all together
 
-Your enhanced preview writer class should now look as shown below. Note that the same preview writer can be used both for the internal static and the real-time preview. There is no harm in having the styles and JavaScript functions in the static preview, they will just never be called.
+The enhanced preview writer class should now look like this. You can use the same preview writer for both the internal static preview and the real-time preview. The static preview can include the styles and JavaScript functions even though it never calls them.
 
 # [C#](#tab/tabid-9)
 ```cs
@@ -183,25 +171,19 @@ namespace Sdk.FileTypeSupport.Samples.SimpleText.Preview
             // not used in this implementation
         }
 
-        #region "start output"
         // start the preview output
         public void StartOfInput()
         {
             _preview = new StreamWriter(OutputProperties.OutputFilePath);
             _preview.WriteLine(GetHTMLStart());
         }
-        #endregion
 
-        #region "text"
         // output the translatable strings
         public override void Text(ITextProperties textInfo)
         {            
             _preview.Write(textInfo.Text);
         }
-        #endregion
 
-        #region "para"
-        #region "para start"
         // each paragraph unit should appear in a new line
         // therefore use a DIV element
         public override void ParagraphUnitStart(IParagraphUnitProperties properties)
@@ -209,23 +191,19 @@ namespace Sdk.FileTypeSupport.Samples.SimpleText.Preview
             _preview.WriteLine("<div>");
             _paragraphUnitId = properties.ParagraphUnitId.Id;
         }
-        #endregion
 
 
         public override void ParagraphUnitEnd()
         {
             _preview.Write("</div>");
         }
-        #endregion
 
 
-        #region "segment"
         // enclose each segment in a SPAN tag pair
         public override void SegmentStart(ISegmentPairProperties properties)
         {
                 _preview.Write("<span id=\"" + properties.Id.Id + "\" onClick=\"window.external.SelectSegment('" + _paragraphUnitId + "','" + properties.Id.Id + "')\" >");
         }
-        #endregion
 
         public override void SegmentEnd()
         {
@@ -233,7 +211,6 @@ namespace Sdk.FileTypeSupport.Samples.SimpleText.Preview
         }
 
 
-        #region "inline tags"
         // output any inline tags,
         // which will also apply the corresponding character formatting
         public override void InlineStartTag(IStartTagProperties tagInfo)
@@ -245,20 +222,16 @@ namespace Sdk.FileTypeSupport.Samples.SimpleText.Preview
         {
             _preview.Write(tagInfo.TagContent);
         }
-        #endregion
 
 
 
-        #region "end output"
         // end the preview output
         public void EndOfInput()
         {
             _preview.WriteLine("</body></html>");
             _preview.Close();
         }
-        #endregion
 
-        #region "html start"
         // write the HTML header, which contains CSS styles
         // and JavaScript functions, which can be called from the
         // preview viewer control
@@ -299,11 +272,14 @@ namespace Sdk.FileTypeSupport.Samples.SimpleText.Preview
             header += "<body>\n";
             return header;
         }
-        #endregion
     }
 }
 ```
-***
+
+## See also
+
+- [Implementing the Preview Writer](implementing_the_preview_writer.md)
+- [Adding a Preview UI Control](adding_a_preview_ui_control.md)
 
 >[!NOTE]
 >

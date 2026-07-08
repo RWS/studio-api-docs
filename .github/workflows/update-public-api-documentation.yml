@@ -1,0 +1,236 @@
+name: Update Public API Documentation
+
+
+on:
+  workflow_dispatch:
+    inputs:
+      projectName:
+        description: 'Select the project you want to generate docfx metadata'
+        required: true
+        default: 'TradosStudio'
+        type: choice
+        options:
+          - 'TradosStudio'
+          - 'Terminology'
+      Beta:
+        description: 'Beta version'
+        required: true
+        default: false
+        type: boolean
+      UpdateBranch:
+        description: 'Update Branch'
+        required: true
+        default: false
+        type: boolean
+      projectBranch:
+        description: 'Branch'
+        required: true
+        default: 'master'
+        type: string
+      targetBranch:
+        description: 'Target docfx branch'
+        required: true
+        default: 'main'
+        type: string
+      sourceBranch:
+        description: 'Source docfx branch'
+        required: true
+        default: 'main'
+        type: string
+
+jobs:
+  push_docfx_api_to_github:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set pipeline ID variable
+        id: set-pipeline-id
+        shell: pwsh
+        run: |
+          $projectName = '${{ inputs.projectName }}'
+          Switch ($projectName) {
+            {$_ -eq "TradosStudio"} { $pipelineID = "1258" }
+            {$_ -eq "Terminology"}  { $pipelineID = "2038" }
+          }
+          Write-Output "projectName: $projectName"
+          Write-Output "pipelineID: $pipelineID"
+          Write-Output "projectBranch: ${{ inputs.projectBranch }}"
+          echo "PIPELINE_ID=$pipelineID" >> $env:GITHUB_ENV
+
+      - name: Download binaries from Azure DevOps
+        shell: pwsh
+        env:
+          AZURE_DEVOPS_TOKEN: ${{ secrets.AZURE_DEVOPS_TOKEN }}
+        run: |
+          $binPath = "${{ github.workspace }}\Bin\Mixed Platforms\Release"
+          New-Item -ItemType Directory -Force -Path $binPath | Out-Null
+
+          $orgUrl    = "https://dev.azure.com/RWS"
+          $project   = "TradosStudio"
+          $pipelineID = $env:PIPELINE_ID
+          $branchName = "refs/heads/${{ inputs.projectBranch }}"
+          $artifactName = "binaries"
+
+          $headers = @{
+            Authorization = "Basic " + [Convert]::ToBase64String(
+              [Text.Encoding]::ASCII.GetBytes(":$env:AZURE_DEVOPS_TOKEN"))
+          }
+
+          # Fetch latest build from the branch (succeeded, partiallySucceeded, or failed)
+          $buildUrl = "$orgUrl/$project/_apis/build/builds" +
+            "?definitions=$pipelineID" +
+            "&branchName=$branchName" +
+            "&tagFilters=retail" +
+            "&resultFilter=succeeded,partiallySucceeded,failed" +
+            "&`$top=1&api-version=7.0"
+
+          $builds = Invoke-RestMethod -Uri $buildUrl -Headers $headers
+          if ($builds.count -eq 0) {
+            Write-Error "No builds found for pipeline $pipelineID on branch $branchName"
+            exit 1
+          }
+
+          $buildId = $builds.value[0].id
+          Write-Host "Using build ID: $buildId"
+
+          # Get artifact download URL
+          $artifactUrl = "$orgUrl/$project/_apis/build/builds/$buildId/artifacts" +
+            "?artifactName=$artifactName&api-version=7.0"
+          $artifact = Invoke-RestMethod -Uri $artifactUrl -Headers $headers
+          $downloadUrl = $artifact.resource.downloadUrl
+          Write-Host "Downloading artifact from: $downloadUrl"
+
+          $zipPath = "${{ github.workspace }}\binaries.zip"
+          Invoke-WebRequest -Uri $downloadUrl -Headers $headers -OutFile $zipPath
+
+          # Extract and copy to target bin path
+          $extractDir = "${{ github.workspace }}\binaries_extracted"
+          Expand-Archive -Path $zipPath -DestinationPath $extractDir -Force
+          # ADO container artifacts unzip into a subfolder named after the artifact
+          $innerDir = Join-Path $extractDir $artifactName
+          $sourceDir = if (Test-Path $innerDir) { $innerDir } else { $extractDir }
+          Copy-Item -Path "$sourceDir\*" -Destination $binPath -Recurse -Force
+          Write-Host "Binaries copied to: $binPath"
+
+      - name: Extract version information from SDL.Versioning.dll
+        shell: pwsh
+        run: |
+          $binPath  = "${{ github.workspace }}\Bin\Mixed Platforms\Release"
+          $dllPath  = Join-Path $binPath "sdl.versioning.dll"
+
+          if (Test-Path $dllPath) {
+            Write-Host "Loading SDL.Versioning.dll from: $dllPath"
+
+            $assembly       = [System.Reflection.Assembly]::LoadFrom($dllPath)
+            $assemblyName   = $assembly.GetName()
+            $version        = $assemblyName.Version
+            $fileVersion    = [System.Diagnostics.FileVersionInfo]::GetVersionInfo($dllPath).FileVersion
+            $productVersion = [System.Diagnostics.FileVersionInfo]::GetVersionInfo($dllPath).ProductVersion
+
+            $metadata = @{
+              AssemblyVersion = $version.ToString()
+              FileVersion     = $fileVersion
+              ProductVersion  = $productVersion
+              FullName        = $assemblyName.FullName
+              Timestamp       = (Get-Item $dllPath).LastWriteTime.ToString("yyyy-MM-dd HH:mm:ss")
+            }
+
+            $versionLabel = if ($productVersion) { $productVersion } else { $version.ToString() }
+            echo "VERSION_LABEL=$versionLabel" >> $env:GITHUB_ENV
+
+            $metadataJson = $metadata | ConvertTo-Json -Depth 10
+            $metadataPath = Join-Path $binPath "source-version-metadata.json"
+            $metadataJson | Out-File -FilePath $metadataPath -Encoding UTF8
+
+            Write-Host "Version metadata written to: $metadataPath"
+            Write-Host "Assembly Version: $($metadata.AssemblyVersion)"
+            Write-Host "File Version:     $($metadata.FileVersion)"
+            Write-Host "Product Version:  $($metadata.ProductVersion)"
+          } else {
+            Write-Warning "SDL.Versioning.dll not found at: $dllPath"
+          }
+
+      - name: Generate API documentation
+        shell: pwsh
+        run: |
+          dotnet tool update -g docfx
+          $projectName  = '${{ inputs.projectName }}'
+          $docfxJsonPath = "docfx_project\$projectName\docfx.json"
+          docfx $docfxJsonPath
+
+      - name: Update the API documentation branch
+        if: ${{ inputs.UpdateBranch == true }}
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          $projectName = '${{ inputs.projectName }}'
+          $isBeta      = '${{ inputs.Beta }}'
+
+          Switch ($projectName) {
+            {$_ -eq "TradosStudio"} { $repoName = "studio-api-docs" }
+            {$_ -eq "Terminology"}  { $repoName = "multiterm-api-docs" }
+          }
+
+          if ($isBeta -eq 'true') {
+            $repoName = $repoName + "-beta"
+          }
+
+          $repoURL      = "https://RWS:$env:GH_TOKEN@github.com/RWS/" + $repoName + ".git"
+          $featureBranch = '${{ inputs.targetBranch }}'
+          $sourceBranch  = '${{ inputs.sourceBranch }}'
+          $metadataPath  = "${{ github.workspace }}\Bin\Mixed Platforms\Release\source-version-metadata.json"
+          $prTitle       = "Update generated documentation"
+
+          if (Test-Path $metadataPath) {
+            try {
+              $metadata = Get-Content -Path $metadataPath -Raw | ConvertFrom-Json
+              if ($metadata.ProductVersion) {
+                $prTitle = "Update generated documentation ($($metadata.ProductVersion))"
+              } elseif ($metadata.AssemblyVersion) {
+                $prTitle = "Update generated documentation ($($metadata.AssemblyVersion))"
+              }
+            } catch {
+              Write-Warning "Failed to read version metadata from $metadataPath"
+            }
+          } else {
+            Write-Warning "Version metadata file not found at: $metadataPath"
+          }
+
+          git clone $repoURL
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.sdl.com"
+
+          Set-Location $repoName
+          git checkout $sourceBranch
+
+          $git_response = git ls-remote --heads "$repoURL" "$featureBranch"
+
+          if ($null -eq $git_response) {
+            git checkout -b $featureBranch
+          } else {
+            git checkout -b "temp_$featureBranch"
+          }
+
+          git rm -r .\api\*
+          Copy-Item -Path "..\docfx_project\$projectName\api\" -Destination .\ -Force -Recurse
+
+          if (Test-Path $metadataPath) {
+            Copy-Item -Path $metadataPath -Destination .\source-version-metadata.json -Force
+          }
+
+          git add .\api\*.*
+          if (Test-Path .\source-version-metadata.json) {
+            git add .\source-version-metadata.json
+          }
+
+          git commit -a -m "update api doc"
+          git push $repoURL
+
+          if ($null -ne $git_response) {
+            gh pr create --title $prTitle --body "Update generated documentation" `
+              -H "temp_$featureBranch" -B $featureBranch
+          }
+

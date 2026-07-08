@@ -1,10 +1,8 @@
-Creating a Project Package
-==
+# Creating a Project Package
 
 When assigning tasks to e.g. translators and freelancers you will create so-called project packages. These are technically speaking ZIP files that carry the extension **.sdlppx*. Project package files contain the elements of a project that are relevant for a particular translator/editor, i.e. the files to translate or localize (e.g. 3 particular files out of a total of 10), project TMs, reference documents, and potentially also termbase files, AutoSuggest Dictionaries. Through packages you can also split up a project between several translators/editors, e.g. assign the package for the French translation to translator A, the German translation to translator B, or assign only some files to a translator, if one person cannot handle all files for a particular language direction.
 
-Assign a Manual Task and Create a Project Package
---
+## Assign a Manual Task and Create a Project Package
 
 The screenshot below illustrates how a project package is created from Var:ProductName.
 
@@ -72,8 +70,7 @@ project.SavePackageAs(projectPackage.PackageId, packageFile);
 
 ![ToFred](images/ToFred.jpg)
 
-Configure the Project Package Options
---
+## Configure the Project Package Options
 
 Apart from the above mentioned parameters there are various other options that you may configure for a project package, e.g. whether or not to include termbases and/or AutoSuggest Dictionaries. The screenshot below shows the project package options that you can set in Var:ProductName:
 
@@ -142,8 +139,7 @@ return options;
 ```
 ***
 
-Check the Project Package Creation Status
--- 
+## Check the Project Package Creation Status
 
 It may happen that the package creation fails for some reason (e.g. the project TMs cannot be created, or any files to include in the package have accidentally been deleted or have became corrupted). This is why you should check for any events during the project package creation, and output a message to the user if required.
 
@@ -181,8 +177,7 @@ if (projectPackage.Status != PackageStatus.Completed)
 ***
 
 
-Putting it All Together
---
+## Putting it All Together
 
 The complete functions should now look as shown below:
 
@@ -190,24 +185,17 @@ The complete functions should now look as shown below:
 ```cs
 public void CreatePackage(FileBasedProject project, string packageFile)
 {
-    #region "CreateManualTask"
     ProjectFile[] packageFiles = project.GetTargetLanguageFiles(new Language(CultureInfo.GetCultureInfo("de-DE")));
     ManualTask newTask = project.CreateManualTask(
         "Translate",
         "Fred",
         DateTime.Now.AddDays(3), 
         packageFiles.GetIds());
-    #endregion
-
-    #region "CreateProjectPackage"
     ProjectPackageCreation projectPackage = project.CreateProjectPackage(
         newTask.Id,
         "Sample Package",
         "Please hurry up, this is job is urgent!", 
         this.GetPackageOptions());
-    #endregion
-
-    #region "PackageStatus"
     bool packageIsCreated = false;
     while (!packageIsCreated)
     {
@@ -234,12 +222,7 @@ public void CreatePackage(FileBasedProject project, string packageFile)
     {
         throw new Exception("A problem occurred during package creation.");
     }
-
-    #endregion
-
-    #region "SavePackage"
     project.SavePackageAs(projectPackage.PackageId, packageFile);
-    #endregion
 }
 ```
 ***
@@ -248,35 +231,20 @@ public void CreatePackage(FileBasedProject project, string packageFile)
 ```cs
 private ProjectPackageCreationOptions GetPackageOptions()
 {
-    #region "ProjectPackageCreationOptions"
     ProjectPackageCreationOptions options = new ProjectPackageCreationOptions();
-    #endregion
-
-    #region "IncludeRessources"
     options.IncludeAutoSuggestDictionaries = false;
     options.IncludeMainTranslationMemories = false;
     options.RemoveServerBasedTranslationMemories = false;
     options.IncludeTermbases = true;
-    #endregion
-
-    #region "RemoveAutomatedTranslationProviders"
     options.RemoveAutomatedTranslationProviders = true;
-    #endregion
-
-    #region "RecomputeAnalysisStatistics"
     options.RecomputeAnalysisStatistics = true;
     options.ProjectTranslationMemoryOptions = ProjectTranslationMemoryPackageOptions.CreateNew;
-    #endregion
-
-    #region "ReturnOptions"
     return options;
-    #endregion
 }
 ```
 ***
 
-See Also
---
+## See Also
 
 [Creating a Return Package](creating_a_return_package.md)
 

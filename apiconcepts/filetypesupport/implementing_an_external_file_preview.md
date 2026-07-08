@@ -1,77 +1,79 @@
-Implementing an External File Preview
-===
 
-In this chapter you will learn how to add a simple document preview function based on the standard Windows Notepad application.
-
-Extend the File Type Component Builder
---
-
-Our aim is to enable the file type plug-in to generate an ad-hoc preview in an external application. This allows users to view the file in its native format.
-
-When processing DOC files, for example, Var:ProductName launches Microsoft Word as external preview application. Since we are dealing with a simple text format, we can use a common text editor such Notepad as external preview application.
-
-What makes implementing the external preview easy is the fact that the application logic required for generating an external preview already exists in our sample file type plug-in - to be more precise, in the file writer class, which you implemented in the previous chapter (see [Implementing the File Writer](implementing_the_file_writer.md)). Therefore, all you need to do is register the external preview application in the File Type Component Builder.
-
-First, we recommend that you add the name of the preview application to the resources file of your project properties. This is the application name that users will see when accessing the external preview menu command in Var:ProductName.
-
-![ExternalPreview_Name](images/ExternalPreview_Name.jpg)
-
-Now add the method shown below to the File Type Component Builder. Note how the external preview application name is referenced. Also note that this implements the external preview both for the source and the target content.
-
-# [C#](#tab/tabid-1)
-```cs
+# Implementing an External File Preview
+ 
+> [!WARNING]
+> **Breaking change in Var:ProductName 2026**
+>
+> The `BuildPreviewApplication` method on `IFileTypeComponentBuilder` is
+> **deprecated and no longer called by Var:ProductName**. The
+> `GenericExternalPreviewApplication` class and the
+> `Sdl.FileTypeSupport.Framework.PreviewControls` assembly reference are no
+> longer needed. Remove them from any file type that targets Var:ProductName 2026 or
+> later.
+>
+> The `PreviewSet` registration pattern shown below still applies, but the
+> Preview ID must now be one of the **built-in IDs** recognised by Var:ProductName.
+> See [Preview API changes in Trados Var:ProductName 2026](preview_api_changes.md)
+> for the full list of built-in IDs and a migration checklist.
+ 
+## Overview
+ 
+Var:ProductName can open a preview of the translated file in an external
+application. The application that is launched is determined automatically by
+the file extension registered in the operating system — the file type plugin
+no longer specifies a path to an executable.
+ 
+The application logic needed to generate the preview file is already
+provided by your file writer class. All you need to do is register the
+external preview in the File Type Component Builder, using the built-in
+`ExternalPreview` ID.
+ 
+## Register the external preview
+ 
+Add the following code to your File Type Component Builder to register an
+external preview for both source and target:
+ 
+```csharp
 IPreviewSet externalPreviewSet = previewFactory.CreatePreviewSet();
-externalPreviewSet.Id = new PreviewSetId("ExternalPreview");
+externalPreviewSet.Id   = new PreviewSetId("ExternalPreview");
 externalPreviewSet.Name = new LocalizableString(Resources.ExternalPreview_Name);
-
-IApplicationPreviewType sourceAppPreviewType = previewFactory.CreatePreviewType<IApplicationPreviewType>() as IApplicationPreviewType;
-
+ 
+IApplicationPreviewType sourceAppPreviewType =
+    previewFactory.CreatePreviewType<IApplicationPreviewType>() as IApplicationPreviewType;
 if (sourceAppPreviewType != null)
 {
     sourceAppPreviewType.SourceGeneratorId = new GeneratorId("DefaultPreview");
-    sourceAppPreviewType.SingleFilePreviewApplicationId = new PreviewApplicationId("ExternalPreview");
+    sourceAppPreviewType.SingleFilePreviewApplicationId =
+        new PreviewApplicationId("ExternalPreview");
     externalPreviewSet.Source = sourceAppPreviewType;
 }
-
-IApplicationPreviewType targetAppPreviewType = previewFactory.CreatePreviewType<IApplicationPreviewType>() as IApplicationPreviewType;
+ 
+IApplicationPreviewType targetAppPreviewType =
+    previewFactory.CreatePreviewType<IApplicationPreviewType>() as IApplicationPreviewType;
 if (targetAppPreviewType != null)
 {
     targetAppPreviewType.TargetGeneratorId = new GeneratorId("DefaultPreview");
-    targetAppPreviewType.SingleFilePreviewApplicationId = new PreviewApplicationId("ExternalPreview");
+    targetAppPreviewType.SingleFilePreviewApplicationId =
+        new PreviewApplicationId("ExternalPreview");
     externalPreviewSet.Target = targetAppPreviewType;
 }
-
+ 
 previewFactory.GetPreviewSets(null).Add(externalPreviewSet);
 ```
-***
-
-Now change the File Type Component Builder to include the external preview. Here the Microsoft Notepad application is used by ```GenericExternalPreviewApplication```
-
-# [C#](#tab/tabid-2)
-```cs
-public IAbstractPreviewApplication BuildPreviewApplication(string name)
-{
-    if (name == "PreviewApplication_ExternalPreview")
-    {
-        Sdl.FileTypeSupport.Framework.PreviewControls.GenericExteralPreviewApplication genericExteralPreviewApplication = new Sdl.FileTypeSupport.Framework.PreviewControls.GenericExteralPreviewApplication();
-        genericExteralPreviewApplication.ApplicationPath = @"c:\Windows\System32\notepad.exe";
-        return genericExteralPreviewApplication;
-    }
-    return null;
-}
-```
-***
-
-You will also need to add an assembly reference to Sdl.FileTypeSupport.Framework.PreviewControls.
-
->[!NOTE]
->
->You can also pass an empty string to the ApplicationPath property. In this case the external preview will call the application that is registered in the OS for this particular file type.
-
-When accessing the **File** > **View** In menu command of Var:ProductName you should now see the following:
-
-![PreviewApplication](images/PreviewApplication.jpg)
-
->[!NOTE]
->
-> This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.
+ 
+`ExternalPreview` is a built-in Var:ProductName preview ID. When a user triggers the
+preview, Var:ProductName opens the generated file in the application registered in
+the OS for that file extension — the same behaviour that the old
+`ApplicationPath = ""` shortcut produced, now as the only and default
+behaviour.
+ 
+> [!NOTE]
+> You do not need to add a reference to
+> `Sdl.FileTypeSupport.Framework.PreviewControls`, and you do not need to
+> implement `BuildPreviewApplication`. Both are deprecated in Var:ProductName 2026.
+ 
+## See also
+ 
+- [Preview API changes in Trados Studio 2026](preview_api_changes.md)
+- [Adding a Preview UI Control](adding_a_preview_ui_control.md)
+- [Implementing the File Writer](implementing_the_file_writer.md)

@@ -1,31 +1,31 @@
-Files controller
-=====
- Var:ProductName Integration API provides support for third-party developers to implement project files functionalities for the Var:ProductName application.
+# Files Controller
 
-Files controller
-----
-The [FilesController](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.FilesController.yml) enables the third-party developer to integrate custom UI functionalities inside Var:ProductName files view and perform project files operations over the current opened project.
+The Var:ProductName Integration API enables third-party developers to implement project file functionalities in the Var:ProductName application.
 
-For more information: [About project files](../projectautomation/about_project_files.md)
+## FilesController Overview
 
-For a sample on how to use it, see the following sample: [Using Var:ProductName FilesController](using_trados_studio_filescontroller.md)
+The [FilesController](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.FilesController.yml) enables third-party developers to integrate custom UI functionalities into the Var:ProductName files view and perform project file operations on the current open project.
 
-Enhance Var:ProductName files view using FilesController
-----
-The [FilesController](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.FilesController.yml) provide support for integrating custom UI inside the Var:ProductName files view.
+For more information, see [About project files](../projectautomation/about_project_files.md).
 
-* Integrating viewparts(see [Integrating viewparts](integrating_viewparts.md))
-* Integrating menus
-* Integrating context menus
+For a complete code sample, see [Using Var:ProductName FilesController](using_trados_studio_filescontroller.md).
 
-Operations on current project files
-----
-The [FilesController](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.FilesController.yml) provide support to perform operations for the current project.
+## Enhancing the Files View
 
-* Operations on the project files and folders
-* Operations on the selected files
-* Operations on the user selected tasks
+The [FilesController](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.FilesController.yml) supports integrating custom UI into the Var:ProductName files view:
 
-For more information: [About project files](../projectautomation/about_project_files.md)
+- Integrating viewparts (see [Integrating viewparts](integrating_viewparts.md))
+- Integrating menus
+- Integrating context menus
 
-To open project files for editing, see the [Editor controller](editor_controller.md).
+## Operations on Current Project Files
+
+The [FilesController](../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.FilesController.yml) supports performing operations on the current project:
+
+- Operations on project files and folders
+- Operations on selected files
+- Operations on user-selected tasks
+
+For more information, see [About project files](../projectautomation/about_project_files.md).
+
+To open project files for editing, see [Editor controller](editor_controller.md).

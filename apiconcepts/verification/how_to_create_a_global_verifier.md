@@ -1,16 +1,27 @@
-Introduction
-=====
+# Introduction
 
-This guide will walk you through creating a C# project in Var:VisualStudioEdition to implement a simple global verification plug-in.
+This guide explains how to create a C# project in `Var:VisualStudioEdition` to implement a simple global verification plug-in.
 
-Global verifiers are not specific to a particular file format. Instead, they can apply to any document type that is localized in Var:ProductName.
+## What are global verifiers?
 
-Out-of-the-box, Var:ProductName is currently equipped with two global verification plug-ins, the **QA Checker** and the **Terminology Verifier**. These plug-ins can be found in the **Options** dialog box under **Verification** (i.e. *not* under **File Types**, as would be the case for file type-specific bilingual or native verification plug-ins). The global plug-ins can be enabled or disabled using the check boxes, which you can find next to the corresponding plug-in name.
+Global verifiers are not specific to a particular file format. Instead, they can apply to any document type localized in `Var:ProductName`.
 
-<img style="display:block; " src="images/standard_global_verifiers.png"/>
+By default, `Var:ProductName` includes three global verification plug-ins:
 
-For the global verifier that we would like to develop in this sample project, imagine the following scenario: Suppose that you need to process documents where text that occurs within a particular context must stay untranslated. For example, the target text for all headlines must be identical to the source segments. To facilitate the task of checking whether such segments have been taken over from the source text unchanged, you need to develop a global verification plug-in. This verifier is supposed to report all segments of a particular context (e.g. H for Heading) that differ from the original segments. To allow for flexibility, you need to be able to change the context that the verification applies to at runtime.
+- **QA Checker**
+- **Tag Verifier**
+- **Terminology Verifier**
 
-<img style="display:block; " src="images/do_not_translate_h.jpg"/>
+These plug-ins are available in the **Options** dialog box under **Verification** (not under **File Types**, which is used for file type-specific bilingual or native verification plug-ins). You can enable or disable the global plug-ins using the check boxes next to each plug-in name.
 
-The Visual Studio sample project can be found in the sub-directory **Sdl.Verification.Sdk.IdenticalCheck** of the SDK samples folder.
+![Standard Global Verifiers](images/standard_global_verifiers.png)
+
+## Sample scenario
+
+Suppose you need to process documents where text in a specific context must remain untranslated. For example, all headlines in the target should remain identical to the source segments. To support this workflow, you can create a global verification plug-in that reports all segments of a selected context (for example, `H` for Heading) that differ from the original segments. For flexibility, the context used for verification should be configurable at runtime.
+
+![Do Not Translate Example](images/do_not_translate_h.jpg)
+
+## Sample project location
+
+The Visual Studio sample project for this scenario is located in the [Sdl.Verification.Sdk.IdenticalCheck](https://github.com/RWS/trados-studio-api-samples/tree/master/Verification/Sdl.Verification.Sdk.IdenticalCheck)

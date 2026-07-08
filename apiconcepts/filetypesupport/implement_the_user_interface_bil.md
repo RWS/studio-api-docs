@@ -1,38 +1,36 @@
-Implement the User Interface
-===
+# Implement the User Interface
 
-In this step you will learn how to add a user interface to your plug-in, through which end users can configure the verification settings at runtime.
+Add a user interface to your plug-in through which end users can configure verification settings at runtime.
 
-Add a User Control
---
+## Add a User Control
 
-Implement the graphical user interface by adding a user control, which you can name e.g. **SettingsUI.cs**. This is the interface that users will see when configuring the file type plug-in in Var:ProductName through e.g. **File** > **Options** > **File Types**. Our simple bilingual verifier will implement two settings through with users can enable/disable the word count check and specify the maximum number of words. First, add a check box to the user control, which you call ```cb_CheckWordArt```.
+Implement the graphical user interface by adding a user control, for example **SettingsUI.cs**. This is the interface users see when configuring the file type plug-in in `Var:ProductName` through **File** > **Options** > **File Types**. Our simple bilingual verifier implements two settings:
 
-Furthermore, add a text field control element (named ```txt_MaxWordCount```) into which users can enter the maximum number of words allowed for WordArt objects at runtime. The default value should be 3.
+- Enable or disable the word count check
+- Specify the maximum number of words
 
-The user control should look as shown below:
+Add a check box named `cb_CheckWordArt` to the user control. Also add a text field control named `txt_MaxWordCount` where users enter the maximum number of words allowed for WordArt objects. Set the default value to 3.
+
+The user control should look as follows:
 
 ![excel_verifier_simplified_gui](images/excel_verifier_simplified_gui.jpg)
 
-Now switch to the code view of your newly-added user control. Your class needs to reference the following namespace:
+Switch to the code view of your user control. Your class requires this namespace:
 
-* **Sdl.FileTypeSupport.Framework.Core.Settings**
+- `Sdl.FileTypeSupport.Framework.Core.Settings`
 
-The Settings Bundle
---
+## The Settings Bundle
 
-Each plug-in uses a settings bundle to store and retrieve settings. The mechanism for doing that is provided in a separate class called ```VerifierSettings```, which we will implement later (see [Loading and Saving the Settings](loading_and_saving_the_settings_bil.md)). For now, we create an object based on the ```VerifierSettings``` class, through which we access the plug-in properties:
+Each plug-in uses a settings bundle to store and retrieve settings. A separate class called `VerifierSettings` handles this mechanism (see [Loading and Saving the Settings](loading_and_saving_the_settings_bil.md)). Create an object based on the `VerifierSettings` class to access the plug-in properties:
 
 # [C#](#tab/tabid-1)
 ```cs
 VerifierSettings _settings;
 ```
-***
 
-Initialize the Plug-in User Interface
---
+## Initialize the Plug-in User Interface
 
-When the user raises the plug-in user interface, the control element should be set according to what is stored in the settings bundle, which is handled through the ```_settings``` object (which we declared previously).
+When the user opens the plug-in user interface, set the control element according to what is stored in the settings bundle. Use the `_settings` object (declared previously) to handle this:
 
 # [C#](#tab/tabid-2)
 ```cs
@@ -49,9 +47,8 @@ public VerifierSettings Settings
     }
 }
 ```
-***
 
-During initialization the ```UpdateControl``` method is invoked, which sets the state of the enabled check box (checked or unchecked) to the value of the CheckWordArt member of the ```VerifierSettings``` class as shown below. The other setting that needs to be retrieved from the bundle is the maximum word count, i.e. ```MaxWordCount```.
+During initialization, the `UpdateControl` method is invoked. It sets the check box state (checked or unchecked) to the value of the `CheckWordArt` member in the `VerifierSettings` class. It also retrieves the other setting, the maximum word count (`MaxWordCount`):
 
 # [C#](#tab/tabid-3)
 ```cs
@@ -61,14 +58,12 @@ public void UpdateControl()
     txt_MaxWordCount.Text = _settings.MaxWordCount.ToString();
 }
 ```
-***
 
-Save the Settings to the Settings Bundle
---
+## Save the Settings to the Settings Bundle
 
-Conversely, the user interface needs to save the check box setting to the settings bundle, e.g. when the user raises the plug-in UI, changes the check box setting, and then clicks **OK** to apply the changed setting to the settings bundle.
+When the user opens the plug-in UI, changes the check box setting, and clicks **OK**, save the setting to the settings bundle.
 
-The first setting to save is the state of the check box (checked or unchecked). According to the check box the ```CheckWordArt``` property will be set to True or False:
+The first setting to save is the check box state (checked or unchecked). The `CheckWordArt` property is set to True or False according to the check box:
 
 # [C#](#tab/tabid-4)
 ```cs
@@ -77,9 +72,8 @@ private void cb_CheckWordArt_CheckedChanged(object sender, EventArgs e)
     _settings.CheckWordArt = cb_CheckWordArt.Checked;
 }
 ```
-***
 
-The second setting is the maximum word count, which is entered into the UI as a string value. The following function converts the text value to an integer, and sets the ```MaxWordCount``` property of the ```VerifierSettings``` class, if the value is greater than zero:
+The second setting is the maximum word count, entered into the UI as a string. Convert the text value to an integer and set the `MaxWordCount` property of the `VerifierSettings` class if the value is greater than zero:
 
 # [C#](#tab/tabid-5)
 ```cs
@@ -93,12 +87,11 @@ private void txt_MaxWordCount_TextChanged(object sender, EventArgs e)
     }
 }
 ```
-***
 
-Putting it all Together
---
+## Putting It All Together
 
-The complete class should look as shown below:
+The complete class should look as follows:
+
 # [C#](#tab/tabid-6)
 ```cs
 using System;
@@ -111,25 +104,22 @@ using System.Text;
 using System.Windows.Forms;
 using Sdl.FileTypeSupport.Framework.Core.Settings;
 
-
 namespace Sdk.FileTypeSupport.Samples.WordArtVerifier
 {
     /// <summary>
-    /// Implements theuUser interface through which the settings of the verification plug-in 
-    /// are configured, i.e. the maximum word count and enabling / disabling the verification.
+    /// Implements the user interface through which the verification plug-in settings are
+    /// configured: the maximum word count and enabling/disabling verification.
     /// </summary>
     public partial class SettingsUI : UserControl, IFileTypeSettingsAware<VerifierSettings>
     {
         /// <summary>
         /// Create a settings object based on the VerifierSettings class. 
         /// </summary>
-        #region "SettingsObject"
         VerifierSettings _settings;
-        #endregion
 
         /// <summary>
-        /// Initalize the user interface control by setting it to the
-        /// setting value stored in the settings bundle.
+        /// Initialize the user interface control by setting it to the value
+        /// stored in the settings bundle.
         /// </summary>
         public SettingsUI()
         {
@@ -137,42 +127,33 @@ namespace Sdk.FileTypeSupport.Samples.WordArtVerifier
         }
 
         /// <summary>
-        /// Reset the user interface control to its default value, which is
-        /// checked, i.e. the verification functionality should be enabled
-        /// by default.
+        /// Reset the user interface control to its default value: checked,
+        /// which enables verification functionality by default.
         /// </summary>
-        #region "UpdateControl"
         public void UpdateControl()
         {
             cb_CheckWordArt.Checked = _settings.CheckWordArt;
             txt_MaxWordCount.Text = _settings.MaxWordCount.ToString();
         }
-        #endregion
-
 
         /// <summary>
-        /// Save the settings based on the value of the check box.
-        /// The setting is saved through the VerifierSettings class, which
-        /// handles the plug-in settings bundle.
+        /// Save the settings based on the check box value. The setting is saved through
+        /// the VerifierSettings class, which handles the plug-in settings bundle.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        #region "SaveSettingEnabled"
         private void cb_CheckWordArt_CheckedChanged(object sender, EventArgs e)
         {
             _settings.CheckWordArt = cb_CheckWordArt.Checked;
         }
-        #endregion
 
         /// <summary>
-        /// Save the settings based on the value of the maximum word count text field.
-        /// Note that the word count is a string value, which needs to be converted to an integer.
-        /// The setting is saved through the VerifierSettings class, which
-        /// handles the plug-in settings bundle.
+        /// Save the settings based on the maximum word count text field value. Note that the
+        /// word count is a string value that must be converted to an integer. The setting is
+        /// saved through the VerifierSettings class, which handles the plug-in settings bundle.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        #region "SaveSettingMaxCount"
         private void txt_MaxWordCount_TextChanged(object sender, EventArgs e)
         {
             int tempvalue = 0;
@@ -182,9 +163,11 @@ namespace Sdk.FileTypeSupport.Samples.WordArtVerifier
                 _settings.MaxWordCount = tempvalue;
             }
         }
-        #endregion
 
-        #region "Initialize"
+        /// <summary>
+        /// Implementation of IFileTypeSettingsAware allowing the Filter Framework
+        /// to pass through the user settings so that we can initialize the UI.
+        /// </summary>
         public VerifierSettings Settings
         {
             get
@@ -197,21 +180,14 @@ namespace Sdk.FileTypeSupport.Samples.WordArtVerifier
                 UpdateControl();
             }
         }
-        #endregion
     }
 }
 ```
-***
 
-See Also
---
+## See Also
 
+- [Implement the UI Controller Class](implement_the_ui_controller_class_bil.md)
+- [Loading and Saving the Settings](loading_and_saving_the_settings_bil.md)
 
-
-[Implement the UI Controller Class](implement_the_ui_controller_class_bil.md)
-
-[Loading and Saving the Settings](loading_and_saving_the_settings_bil.md)
-
->[!NOTE]
->
+> [!NOTE]
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

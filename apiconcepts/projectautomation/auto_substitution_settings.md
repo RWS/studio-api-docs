@@ -1,5 +1,4 @@
-Auto-Substitution Settings
-==
+# Auto-Substitution Settings
 
 Var:ProductName offers the ability to automatically substitute and localize certain elements within a segment, e.g. numbers. Example: The segments '*You owe me 100 dollars.*' and '*You owe me 2,000 dollars.*' are regarded as being identical, because the only difference here is a number, which can be automatically substituted. Moreover, Var:ProductName can also auto-localize the number format. For example, the number '2,000' in English needs to be localized into '2.000' when the target language is e.g. German.
 
@@ -56,8 +55,7 @@ tmSettings.MeasurementsFormattingMode.Value = Settings.MeasurementsFormattingMod
 
 ***
 
-See Also
---
+## See Also
 
 [Translation Memory Search Settings](translation_memory_search_settings.md)
 

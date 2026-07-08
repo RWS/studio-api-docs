@@ -1,5 +1,4 @@
-Generating and Exporting Target Files
-==
+# Generating and Exporting Target Files
 
 At the end of a project lifecycle you will usually generate the native file formats from the bilingual (SDLXliff) documents. In addition you may want to copy the native target files to a specified location for delivery to the end customer. This is accomplished with two automatic tasks, i.e. the generation of the native document format and exporting the finalized files to a specific folder.
 
@@ -48,8 +47,7 @@ project.UpdateSettings(settings);
 ```
 ***
 
-Putting it All Together
---
+## Putting it All Together
 
 The complete function should look as shown below:
 
@@ -57,28 +55,16 @@ The complete function should look as shown below:
 ```CS
 public void GetExportTaskSettings(FileBasedProject project)
 {
-    #region "ExportTaskSettings"
     ISettingsBundle settings = project.GetSettings();
     ExportFilesSettings exportTaskSettings = settings.GetSettingsGroup<ExportFilesSettings>();
-    #endregion
-
-    #region "ExportLocation"
     exportTaskSettings.ExportLocation.Value = @"c:\temp";
-    #endregion
-
-    #region "ExportFileVersion"
     exportTaskSettings.ExportFileVersion.Value = ExportFileVersion.Bilingual;
-    #endregion
-
-    #region "UpdateSettings"
     project.UpdateSettings(settings);
-    #endregion
 }
 ```
 ***
 
-See Also
---
+## See Also
 [Analyze Files Settings](analyze_files_settings.md)
 
 [Project TM Creation Settings](project_tm_creation_settings.md)

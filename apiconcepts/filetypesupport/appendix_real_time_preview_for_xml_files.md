@@ -1,15 +1,15 @@
-Appendix: Real-time Preview for XML Files
-===
+# Appendix: Real-time preview for XML files
 
-This chapter explains how to use XSLT stylesheets to implement a real-time preview for custom XML documents.
+This article explains how to use XSLT stylesheets to implement a real-time preview for custom XML documents.
 
-Real-time Preview for XML Through XSTL
-For XML files it is not necessary to develop a real-time preview component. All you need to do is to add a suitable XSLT stylesheet into your custom XML file type settings. The stylesheet code will then embedded in the settings bundle for your custom XML file type.
+## Real-time preview for XML through XSLT
 
-The SDK sample folder **Realtime XML Preview** contains a set of sample files:
+For XML files, you do not need to develop a real-time preview component. Instead, add a suitable XSLT stylesheet to your custom XML file type settings. Var:ProductName then embeds the stylesheet code in the settings bundle for your custom XML file type.
 
-* A sample XML source file to translate (**sample.xml**)
-* An XSL stylesheet (**stylesheet.xsl**)
+The SDK sample folder **Realtime XML Preview** contains the following files:
+
+- A sample XML source file to translate (**sample.xml**)
+- An XSL stylesheet (**stylesheet.xsl**)
 
 The sample XML file looks as shown below:
 
@@ -36,9 +36,8 @@ The sample XML file looks as shown below:
 </list>
 </document>
 ```
-***
 
-Below you find the corresponding XSL code:
+The following XSL code transforms the sample XML file:
 
 # [Xml](#tab/tabid-1)
 ```xml
@@ -75,18 +74,17 @@ Below you find the corresponding XSL code:
 <!-- ***********************************************************************-->
 </xsl:stylesheet>
 ```
-***
 
-The XSL stylesheet can be embedded in settings bundle through the File Type Manager user interface by selecting the corresponding file type and by adding the XSL file in the **Preview** section as shown in the following illustration:
+You can embed the XSL stylesheet in the settings bundle through the File Type Manager UI. Select the corresponding file type, then add the XSL file in the **Preview** section, as shown in the following illustration:
 
 ![add_stylesheet](images/add_stylesheet.jpg)
 
-Once the XSL file has been embedded in the settings bundle, the real-time preview can be called during translation (see example below):
+After you embed the XSL file in the settings bundle, you can open the real-time preview during translation:
 
 ![XML_preview](images/XML_preview.jpg)
 
- Settings bundle for your custom XML file type can be of course exported (as **.sdlftsettings*) and distributed to other users.
+You can also export the settings bundle for your custom XML file type as **.sdlftsettings** and distribute it to other users.
 
- >[!NOTE]
+>[!NOTE]
 >
 > This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.

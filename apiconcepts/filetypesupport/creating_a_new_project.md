@@ -1,39 +1,36 @@
-Creating a New Project
-===
-In this chapter you will learn how to properly set up a project for developing a file type plug-in.
+# Creating a new project
 
-Create the Project
---
+This article shows how to set up a project for developing a file type plug-in.
 
-Before you start developing plug-ins for Var:ProductName, you should make sure that the SDK is installed on your development computer. The SDK installer will add new templates to your Microsoft Visual Studio environment, as illustrated in the screenshot below. For the type of plug-in discussed in this chapter, we require the **Var:ProductName Plug-in Project** template.
+## Create the project
+
+Before you start developing plug-ins for Var:ProductName, make sure that you installed the SDK on your development computer. The SDK installer adds new templates to Visual Studio, as shown in the following screenshot. For the plug-in type covered in this article, use the **Var:ProductName Plug-in Project** template.
 
 ![PlugInTemplate](images/PlugInTemplate.jpg)
 
-By default, when you create a project based on this template, the project name will be e.g. **Var:ProductName Plug-in Project1**. Change the project name to **Sdl.Sdk.FileTypeSupport.Samples.SimpleText** for our sample implementation.
+By default, Visual Studio assigns a name such as **Var:ProductName Plug-in Project1**. For this sample, rename the project to **Sdl.Sdk.FileTypeSupport.Samples.SimpleText**.
 
-Add the Required References
---
+## Add the required references
 
-The plug-in template will come with the **Sdl.Core.PluginFramework.dll** reference. For our file type plug-in implementation, we also need to reference the File Type Support Framework, i.e. **Sdl.FileTypeSupport.Framework.Core.dll**. For implementing the functionality required by our example, you need to add the libraries used for integration with Var:ProductName, which are as follows:
+The plug-in template already includes a reference to **Sdl.Core.PluginFramework.dll**. For this file type plug-in, also add a reference to **Sdl.FileTypeSupport.Framework.Core.dll**. To support the functionality in this example, add the following libraries that integrate with Var:ProductName:
 
 * **Sdl.FileTypeSupport.Framework.Core.Settings.dll**
 * **Sdl.Core.Settings.dll**
 * **Sdl.Core.Globalization.dll**
 * **Sdl.FileTypeSupport.Framework.Core.Utilities**
 
-By default these files can be found in the installation folder of Var:ProductName, i.e. *Var:InstallationFolder*. The 'Copy Local' property for these references should be set to True.
+You can find these files in the Var:ProductName installation folder, that is, `Var:InstallationFolder`. Set the **Copy Local** property for these references to **True**.
 
 ![NativeFilterRef](images/NativeFilterRef.jpg)
 
 >[!NOTE]
 >
->Do not forget to sign the assembly. Otherwise, your plug-in might not be loaded by Var:ProductName
+> Sign the assembly. Otherwise, Var:ProductName might not load your plug-in.
 
-See Also
---
+## See also
 
 
-[What is the Verification Framework?](what_is_the_verification_framework.md)
+- [What is the Verification Framework?](what_is_the_verification_framework.md)
 
 >[!NOTE]
 >

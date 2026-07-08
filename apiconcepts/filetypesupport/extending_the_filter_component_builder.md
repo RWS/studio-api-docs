@@ -1,17 +1,14 @@
-Extending the Filter Component Builder
-===
-This section shows how to extend an existing file type plug-in
+# Extending the Filter Component Builder
 
->[!NOTE]
->
->Please note that this functionality is only available in Studio 2011 SP3.
+This page shows how to extend an existing file type plug-in.
 
-Existing file type plug-in can be extended by implementing the ```IFileTypeComponentBuilderAdapter``` interface and applying the ```FileTypeComponentBuilderExtensionAttribute``` attribute to the component builder class. Using this technique it is easy to add new [Pre and Post Tweakers](native_file_tweakers.md), add new Native and Bilingual Content Processors to the [Parser](the_file_parser.md) and to the [Writer]the_file_writer.md) and add new Verifiers (Native or Bilingual). It also allows to redefine the file type plug-ins [Sniffer](the_file_sniffer.md) and the [IFileTypeInformation](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeInformation.yml) associated to the file type plug-in. For more advanced users it is also possible to define a new [File Preview mechanism](the_filter_preview.md) to existing file type plug-in.
+You can extend an existing file type plug-in by implementing the `IFileTypeComponentBuilderAdapter` interface and applying the `FileTypeComponentBuilderExtensionAttribute` attribute to the component builder class. This approach lets you add [pre- and post-tweakers](native_file_tweakers.md), add native and bilingual content processors to the [parser](the_file_parser.md) and [writer](the_file_writer.md), and add native or bilingual verifiers. It also lets you redefine the plug-in [sniffer](the_file_sniffer.md), update the associated [IFileTypeInformation](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeInformation.yml), or define a new [file preview mechanism](the_filter_preview.md) for an existing file type plug-in.
 
-How to do it
---
+## How to extend a builder
 
-The Filter extension implementation consists of a class that implements the ```IFileTypeComponentBuilderAdapter``` interface. The original File Type Component Builder can be accessed by the ```Original``` property. For example to add a new [IFilePreTweaker](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IFilePreTweaker.yml) to the existing SimpleText Filter provided with the examples of this SDK it is enough to implement the [BuildFileExtractor](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.DynamicFilterComponentBuilder.yml#Sdl_FileTypeSupport_Framework_IntegrationApi_DynamicFilterComponentBuilder_BuildFileExtractor_System_String_) method, call the original method and add the new tweaker to the [INativeExtractor](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeExtractor.yml) using [AddFileTweaker](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileExtractor.yml#Sdl_FileTypeSupport_Framework_IntegrationApi_IFileExtractor_AddFileTweaker_Sdl_FileTypeSupport_Framework_NativeApi_IFilePreTweaker_) method. The following code shows how to do this:
+A filter extension is implemented as a class that implements `IFileTypeComponentBuilderAdapter`. You can access the original File Type Component Builder through the `Original` property.
+
+For example, to add a new [IFilePreTweaker](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IFilePreTweaker.yml) to the existing SimpleText filter from the SDK samples, implement the [BuildFileExtractor](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.DynamicFilterComponentBuilder.yml#Sdl_FileTypeSupport_Framework_IntegrationApi_DynamicFilterComponentBuilder_BuildFileExtractor_System_String_) method, call the original method, and add the tweaker to the [INativeExtractor](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeExtractor.yml) by using [AddFileTweaker](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileExtractor.yml#Sdl_FileTypeSupport_Framework_IntegrationApi_IFileExtractor_AddFileTweaker_Sdl_FileTypeSupport_Framework_NativeApi_IFilePreTweaker_). The following example shows this pattern:
 
 # [C#](#tab/tabid-1)
 ```cs
@@ -35,13 +32,14 @@ public  IFileExtractor BuildFileExtractor(string name)
     return extractor;
 }
 ```
-***
 
-where ```SimpleTextExtensionPreTweaker``` is the class that implements the new Tweaker that is being added.
+In this example, `SimpleTextExtensionPreTweaker` implements the new tweaker.
 
-Note that extending an extension and extending a filter template are not supported by the filter framework and can have unexpected results.
+The filter framework does not support extending an extension or extending a filter template. Those approaches can produce unexpected results.
 
-The next code shows part of the example (SimpleTextExtension) included with the sample projects. Note that the class has an attribute called ```FileTypeComponentBuilderExtensionAttribute``` to enable the plug-in mechanism. The property ```OriginalFileType``` must be set to match the FileTypeId of the FileType you wish to extend. Please refer to the [Build the File Type Plug-in](build_the_file_type_plug_in.md) topic for more information.
+The next example shows part of the `SimpleTextExtension` sample project. The class uses the `FileTypeComponentBuilderExtensionAttribute` attribute to enable the plug-in mechanism. Set the `OriginalFileType` property to the `FileTypeId` of the file type that you want to extend. For more information, see [Build the File Type Plug-in](build_the_file_type_plug_in.md).
+
+## Full example
 
 # [C#](#tab/tabid-2)
 ```cs
@@ -79,7 +77,6 @@ namespace Sdk.FileTypeSupport.Samples.SimpleTextExtension
             return Original.BuildFileSniffer(name);
         }
 
-        #region BuildFileExtractor
         public  IFileExtractor BuildFileExtractor(string name)
         {
             // remember to call the original component builder method
@@ -99,7 +96,6 @@ namespace Sdk.FileTypeSupport.Samples.SimpleTextExtension
 
             return extractor;
         }
-        #endregion
 
         public  IFileGenerator BuildFileGenerator(string name)
         {
@@ -173,9 +169,8 @@ namespace Sdk.FileTypeSupport.Samples.SimpleTextExtension
     }
 }
 ```
-***
 
-Note that if the ```FileTypeDefinitionId``` is changed in the ```BuildFileTypeInformation``` section, then the extension will appear as a new filter in the Studio file type options dialog. Otherwise it will simply override the original one (i.e. no new filter will appear in U.I.)
+If you change `FileTypeDefinitionId` in `BuildFileTypeInformation`, the extension appears as a new filter in the Studio file type options dialog. Otherwise, it overrides the original filter and no new filter appears in the UI.
 
 >[!NOTE]
 >

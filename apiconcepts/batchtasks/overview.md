@@ -1,31 +1,40 @@
-Batch Tasks Overview
-====================
+# Batch Tasks Overview
 
-This section gives an overview of what batch tasks in Var:ProductName are and what they are used for.
+This section provides an overview of batch tasks in Var:ProductName and their main use cases.
 
-What are Batch Tasks?
-----------------------
+## What Are Batch Tasks?
 
-Batch tasks are used to process one or many project files in Var:ProductName. There are several built-in batch tasks, for example, for analysing and pre-translating files. Batch tasks are most frequently applied to the bilingual SDLXliff files, but can also be used to process native file formats (for example, DOCX or PPTX). Batch tasks are typically used to:
-* Alter the content of files (for example, the **Pre-translate Files** task inserts matches from a translation memory into the selected files).
-* Read the content of files and compile a report (e.g. the **Analyze Files** task that determines the translation memory leverage for selected files).
-* Extract content from the selected files to write them into another file format (for example, the **Export for External Review**) task that generated bilingual Microsoft Word tables from SDLXliff files.
-  
-The only standard batch task that works directly on the native files is the **Convert to Translatable Format** task, which converts native files (for example, DOCX) to SDLXliff.
+Batch tasks process one or multiple project files in Var:ProductName. Several built-in tasks are available, such as analyzing and pre-translating files. Batch tasks are most commonly applied to bilingual SDLXliff files, but they can also process native file formats (for example, DOCX or PPTX).
+
+Batch tasks are typically used to:
+* Modify file content (for example, the **Pre-translate Files** task inserts translation memory matches into selected files).
+* Read file content and compile a report (for example, the **Analyze Files** task determines translation memory leverage for selected files).
+* Extract content and generate another file format (for example, the **Export for External Review** task generates bilingual Microsoft Word tables from SDLXliff files).
+
+The only standard batch task that works directly on native files is the **Convert to Translatable Format** task, which converts native files (for example, DOCX) to SDLXliff.
+
+## Running Batch Tasks
 
 End users can run batch tasks by selecting them from a list in the Var:ProductName user interface.
-<img style="display:block; " src="images/list_batch_tasks.png" />
-Batch tasks are also typically executed when creating a project. In this case, batch tasks are applied to the project files in a sequence, for example: 
-<img style="display:block; " src="images/task_sequence.png" />
+![List of Batch Tasks](images/list_batch_tasks.png)
 
-Batch tasks are shown the Var:ProductName user interface with a name and a description, for example:
-<img style="display:block; " src="images/analysis_general.png" />
+Batch tasks are also commonly executed when creating a project. In this case, tasks are applied to project files in sequence.
+![Task Sequence](images/task_sequence.png)
 
-Batch tasks are then applied to one or multiple files, e.g.:
-<img style="display:block; " src="images/analysis_files.png" />
+## Viewing Task Information
 
-Batch tasks can have settings that you can configure through a property page. For the analysis task, for example, there is a setting that determines whether cross-file repetitions should be reported or not, for example:
-<img style="display:block; " src="images/analysis_settings.png" />
-        
-Batch tasks can also generate a report that the user can view and print. For the analysis task, the report states the number of no matches, fuzzy matches, exact matches, repetitions, etc.
-<img style="display:block; " src="images/analysis_report.png" />
+Batch tasks are shown in the Var:ProductName user interface with a name and description.
+![Batch Task Information](images/analysis_general.png)
+
+Batch tasks are then applied to one or multiple files.
+![Batch Task Files](images/analysis_files.png)
+
+## Configuring Settings
+
+Batch tasks can include settings that you configure through a property page. For example, the analysis task includes a setting that determines whether cross-file repetitions are reported.
+![Analysis Settings](images/analysis_settings.png)
+
+## Reviewing Reports
+
+Batch tasks can also generate reports that users can view and print. For the analysis task, the report includes values such as no matches, fuzzy matches, exact matches, and repetitions.
+![Analysis Report](images/analysis_report.png)

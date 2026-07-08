@@ -22,27 +22,95 @@ items:
   nameWithType: IParagraphUnit
   fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit
   type: Interface
-  source:
-    path: Sdl.FileTypeSupport.Framework.Core
-    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.BilingualApi
-  summary: "\nA continous unit of source language content within a single context,\nand (if applicable) the localized target language version of the content.\nThis often corresponds to a paragraph of text in a native file. \n"
-  remarks: "\n<p>\nThere are two types of paragraph units: those that contain localizable content,\nand those that do not contain localizable content. The latter is referred to as a structure paragraph unit,\nand typically only contains structure tags and associated whitespace.\nThe <xref href=\"Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.IsStructure\" data-throw-if-not-resolved=\"false\"></xref> property indicates whether this paragraph unit is a structure\nparagraph unit. Since the content of structure paragraph units is not localized,\ntheir <xref href=\"Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.Target\" data-throw-if-not-resolved=\"false\"></xref> property is null.\n</p>\n<p>\nParagraph units that are not structure paragraph units are referred to as localizable\nparagraph units. They normally have both <xref href=\"Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.Source\" data-throw-if-not-resolved=\"false\"></xref> and <xref href=\"Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.Target\" data-throw-if-not-resolved=\"false\"></xref>,\nand never contain structure tags.\n</p>\n<p>\nThe <xref href=\"Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.Properties\" data-throw-if-not-resolved=\"false\"></xref> of the paragraph unit contains associated\ninformation, including contexts and the paragraph unit&apos;s unique id.\n</p>\n<p>\nThe content in localizable paragraph units is typically divided into segments.\nA segment is usually a sentence. Segments exist in source and target language versions,\nand you can iterate over them using the <xref href=\"Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.SegmentPairs\" data-throw-if-not-resolved=\"false\"></xref> property.\n</p>\n<p>\nWhen processing content in a localizable paragraph, it is important to be aware of the fact that\nthe segments do not represent all content of the paragraph. There may also be content between\nsegments. Examples of such content include space characters (which separate sentences), \ntags that appearr between sentences, etc. Content between segments can differ between the <xref href=\"Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.Source\" data-throw-if-not-resolved=\"false\"></xref>\nand <xref href=\"Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.Target\" data-throw-if-not-resolved=\"false\"></xref>.\n</p>\n<p>\nTo iterate over content between segments you can use a <xref href=\"Sdl.FileTypeSupport.Framework.BilingualApi.Location\" data-throw-if-not-resolved=\"false\"></xref>. The <xref href=\"Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetSourceSegmentLocation(Sdl.FileTypeSupport.Framework.NativeApi.SegmentId)\" data-throw-if-not-resolved=\"false\"></xref>\nand <xref href=\"Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetTargetSegmentLocation(Sdl.FileTypeSupport.Framework.NativeApi.SegmentId)\" data-throw-if-not-resolved=\"false\"></xref> methods can be useful for this task.\n</p>\n<p>\nThe <xref href=\"Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetSourceSegment(Sdl.FileTypeSupport.Framework.NativeApi.SegmentId)\" data-throw-if-not-resolved=\"false\"></xref> and <xref href=\"Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetTargetSegment(Sdl.FileTypeSupport.Framework.NativeApi.SegmentId)\" data-throw-if-not-resolved=\"false\"></xref> methods provide a convenient\nway of locating the corresponding source/target version for a segment.\n</p>\n"
+  summary: >-
+    A continous unit of source language content within a single context,
+
+    and (if applicable) the localized target language version of the content.
+
+    This often corresponds to a paragraph of text in a native file.
+  remarks: >-
+    <p>
+
+    There are two types of paragraph units: those that contain localizable content,
+
+    and those that do not contain localizable content. The latter is referred to as a structure paragraph unit,
+
+    and typically only contains structure tags and associated whitespace.
+
+    The <xref href="Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.IsStructure" data-throw-if-not-resolved="false"></xref> property indicates whether this paragraph unit is a structure
+
+    paragraph unit. Since the content of structure paragraph units is not localized,
+
+    their <xref href="Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.Target" data-throw-if-not-resolved="false"></xref> property is null.
+
+    </p>
+
+    <p>
+
+    Paragraph units that are not structure paragraph units are referred to as localizable
+
+    paragraph units. They normally have both <xref href="Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.Source" data-throw-if-not-resolved="false"></xref> and <xref href="Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.Target" data-throw-if-not-resolved="false"></xref>,
+
+    and never contain structure tags.
+
+    </p>
+
+    <p>
+
+    The <xref href="Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.Properties" data-throw-if-not-resolved="false"></xref> of the paragraph unit contains associated
+
+    information, including contexts and the paragraph unit's unique id.
+
+    </p>
+
+    <p>
+
+    The content in localizable paragraph units is typically divided into segments.
+
+    A segment is usually a sentence. Segments exist in source and target language versions,
+
+    and you can iterate over them using the <xref href="Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.SegmentPairs" data-throw-if-not-resolved="false"></xref> property.
+
+    </p>
+
+    <p>
+
+    When processing content in a localizable paragraph, it is important to be aware of the fact that
+
+    the segments do not represent all content of the paragraph. There may also be content between
+
+    segments. Examples of such content include space characters (which separate sentences), 
+
+    tags that appearr between sentences, etc. Content between segments can differ between the <xref href="Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.Source" data-throw-if-not-resolved="false"></xref>
+
+    and <xref href="Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.Target" data-throw-if-not-resolved="false"></xref>.
+
+    </p>
+
+    <p>
+
+    To iterate over content between segments you can use a <xref href="Sdl.FileTypeSupport.Framework.BilingualApi.Location" data-throw-if-not-resolved="false"></xref>. The <xref href="Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetSourceSegmentLocation(Sdl.FileTypeSupport.Framework.NativeApi.SegmentId)" data-throw-if-not-resolved="false"></xref>
+
+    and <xref href="Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetTargetSegmentLocation(Sdl.FileTypeSupport.Framework.NativeApi.SegmentId)" data-throw-if-not-resolved="false"></xref> methods can be useful for this task.
+
+    </p>
+
+    <p>
+
+    The <xref href="Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetSourceSegment(Sdl.FileTypeSupport.Framework.NativeApi.SegmentId)" data-throw-if-not-resolved="false"></xref> and <xref href="Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetTargetSegment(Sdl.FileTypeSupport.Framework.NativeApi.SegmentId)" data-throw-if-not-resolved="false"></xref> methods provide a convenient
+
+    way of locating the corresponding source/target version for a segment.
+
+    </p>
+  example: []
   syntax:
     content: 'public interface IParagraphUnit : ICloneable'
-    content.vb: >-
-      Public Interface IParagraphUnit
-          Inherits ICloneable
+    content.vb: Public Interface IParagraphUnit Inherits ICloneable
   inheritedMembers:
   - System.ICloneable.Clone
-  modifiers.csharp:
-  - public
-  - interface
-  modifiers.vb:
-  - Public
-  - Interface
 - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetSourceSegment(Sdl.FileTypeSupport.Framework.NativeApi.SegmentId)
   commentId: M:Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetSourceSegment(Sdl.FileTypeSupport.Framework.NativeApi.SegmentId)
   id: GetSourceSegment(Sdl.FileTypeSupport.Framework.NativeApi.SegmentId)
@@ -54,18 +122,17 @@ items:
   nameWithType: IParagraphUnit.GetSourceSegment(SegmentId)
   fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetSourceSegment(Sdl.FileTypeSupport.Framework.NativeApi.SegmentId)
   type: Method
-  source:
-    path: Sdl.FileTypeSupport.Framework.Core
-    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.BilingualApi
-  summary: "\nReturns the segment with the specified id if it exists in the source of this ParagraphUnit.\n"
+  summary: Returns the segment with the specified id if it exists in the source of this ParagraphUnit.
+  example: []
   syntax:
     content: ISegment GetSourceSegment(SegmentId id)
     parameters:
     - id: id
       type: Sdl.FileTypeSupport.Framework.NativeApi.SegmentId
+      description: ''
     return:
       type: Sdl.FileTypeSupport.Framework.BilingualApi.ISegment
       description: <code>Null</code> if no segment with that id exists in the source
@@ -82,18 +149,17 @@ items:
   nameWithType: IParagraphUnit.GetTargetSegment(SegmentId)
   fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetTargetSegment(Sdl.FileTypeSupport.Framework.NativeApi.SegmentId)
   type: Method
-  source:
-    path: Sdl.FileTypeSupport.Framework.Core
-    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.BilingualApi
-  summary: "\nReturns the segment with the specified id if it exists in the target of this ParagraphUnit.\n"
+  summary: Returns the segment with the specified id if it exists in the target of this ParagraphUnit.
+  example: []
   syntax:
     content: ISegment GetTargetSegment(SegmentId id)
     parameters:
     - id: id
       type: Sdl.FileTypeSupport.Framework.NativeApi.SegmentId
+      description: ''
     return:
       type: Sdl.FileTypeSupport.Framework.BilingualApi.ISegment
       description: <code>Null</code> if no segment with that id exists in the target
@@ -110,18 +176,17 @@ items:
   nameWithType: IParagraphUnit.GetSegmentPair(SegmentId)
   fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetSegmentPair(Sdl.FileTypeSupport.Framework.NativeApi.SegmentId)
   type: Method
-  source:
-    path: Sdl.FileTypeSupport.Framework.Core
-    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.BilingualApi
-  summary: "\nGet the source and target segment with a specified id.\n"
+  summary: Get the source and target segment with a specified id.
+  example: []
   syntax:
     content: ISegmentPair GetSegmentPair(SegmentId id)
     parameters:
     - id: id
       type: Sdl.FileTypeSupport.Framework.NativeApi.SegmentId
+      description: ''
     return:
       type: Sdl.FileTypeSupport.Framework.BilingualApi.ISegmentPair
       description: <code>Null</code> if no segments with that id exist in the source
@@ -138,13 +203,11 @@ items:
   nameWithType: IParagraphUnit.GetSourceSegmentLocation(SegmentId)
   fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetSourceSegmentLocation(Sdl.FileTypeSupport.Framework.NativeApi.SegmentId)
   type: Method
-  source:
-    path: Sdl.FileTypeSupport.Framework.Core
-    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.BilingualApi
-  summary: "\nLocates the segment with the specified id inside the source.\n"
+  summary: Locates the segment with the specified id inside the source.
+  example: []
   syntax:
     content: Location GetSourceSegmentLocation(SegmentId id)
     parameters:
@@ -167,13 +230,11 @@ items:
   nameWithType: IParagraphUnit.GetTargetSegmentLocation(SegmentId)
   fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetTargetSegmentLocation(Sdl.FileTypeSupport.Framework.NativeApi.SegmentId)
   type: Method
-  source:
-    path: Sdl.FileTypeSupport.Framework.Core
-    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.BilingualApi
-  summary: "\nLocates the segment with the specified id inside the target.\n"
+  summary: Locates the segment with the specified id inside the target.
+  example: []
   syntax:
     content: Location GetTargetSegmentLocation(SegmentId id)
     parameters:
@@ -196,13 +257,11 @@ items:
   nameWithType: IParagraphUnit.Properties
   fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.Properties
   type: Property
-  source:
-    path: Sdl.FileTypeSupport.Framework.Core
-    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.BilingualApi
-  summary: "\nInformation on this paragraph unit\n"
+  summary: Information on this paragraph unit
+  example: []
   syntax:
     content: IParagraphUnitProperties Properties { get; set; }
     parameters: []
@@ -210,9 +269,6 @@ items:
       type: Sdl.FileTypeSupport.Framework.NativeApi.IParagraphUnitProperties
     content.vb: Property Properties As IParagraphUnitProperties
   overload: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.Properties*
-  modifiers.csharp:
-  - get
-  - set
 - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.IsStructure
   commentId: P:Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.IsStructure
   id: IsStructure
@@ -224,13 +280,14 @@ items:
   nameWithType: IParagraphUnit.IsStructure
   fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.IsStructure
   type: Property
-  source:
-    path: Sdl.FileTypeSupport.Framework.Core
-    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.BilingualApi
-  summary: "\n<code>true</code> if this is a structure ParagraphUnit, i.e. a paragraph unit that\ncontains no localizable content (i.e. structure tags and whitespace only).\n"
+  summary: >-
+    <code>true</code> if this is a structure ParagraphUnit, i.e. a paragraph unit that
+
+    contains no localizable content (i.e. structure tags and whitespace only).
+  example: []
   syntax:
     content: bool IsStructure { get; }
     parameters: []
@@ -238,10 +295,6 @@ items:
       type: System.Boolean
     content.vb: ReadOnly Property IsStructure As Boolean
   overload: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.IsStructure*
-  modifiers.csharp:
-  - get
-  modifiers.vb:
-  - ReadOnly
 - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.Source
   commentId: P:Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.Source
   id: Source
@@ -253,13 +306,11 @@ items:
   nameWithType: IParagraphUnit.Source
   fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.Source
   type: Property
-  source:
-    path: Sdl.FileTypeSupport.Framework.Core
-    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.BilingualApi
-  summary: "\nSource language content of the ParagraphUnit\n"
+  summary: Source language content of the ParagraphUnit
+  example: []
   syntax:
     content: IParagraph Source { get; set; }
     parameters: []
@@ -267,9 +318,6 @@ items:
       type: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraph
     content.vb: Property Source As IParagraph
   overload: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.Source*
-  modifiers.csharp:
-  - get
-  - set
 - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.Target
   commentId: P:Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.Target
   id: Target
@@ -281,13 +329,11 @@ items:
   nameWithType: IParagraphUnit.Target
   fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.Target
   type: Property
-  source:
-    path: Sdl.FileTypeSupport.Framework.Core
-    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.BilingualApi
-  summary: "\nTarget language content of the ParagraphUnit\n"
+  summary: Target language content of the ParagraphUnit
+  example: []
   syntax:
     content: IParagraph Target { get; set; }
     parameters: []
@@ -295,9 +341,6 @@ items:
       type: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraph
     content.vb: Property Target As IParagraph
   overload: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.Target*
-  modifiers.csharp:
-  - get
-  - set
 - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.SegmentPairs
   commentId: P:Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.SegmentPairs
   id: SegmentPairs
@@ -309,13 +352,11 @@ items:
   nameWithType: IParagraphUnit.SegmentPairs
   fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.SegmentPairs
   type: Property
-  source:
-    path: Sdl.FileTypeSupport.Framework.Core
-    isExternal: true
   assemblies:
   - Sdl.FileTypeSupport.Framework.Core
   namespace: Sdl.FileTypeSupport.Framework.BilingualApi
-  summary: "\nIterator for easy access to the source and target segments in the ParagraphUnit\n"
+  summary: Iterator for easy access to the source and target segments in the ParagraphUnit
+  example: []
   syntax:
     content: IEnumerable<ISegmentPair> SegmentPairs { get; }
     parameters: []
@@ -323,64 +364,254 @@ items:
       type: System.Collections.Generic.IEnumerable{Sdl.FileTypeSupport.Framework.BilingualApi.ISegmentPair}
     content.vb: ReadOnly Property SegmentPairs As IEnumerable(Of ISegmentPair)
   overload: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.SegmentPairs*
-  modifiers.csharp:
-  - get
-  modifiers.vb:
-  - ReadOnly
 references:
+- uid: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.IsStructure
+  commentId: P:Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.IsStructure
+  isExternal: true
+  href: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.html#Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_IsStructure
+  name: IsStructure
+  nameWithType: IParagraphUnit.IsStructure
+  fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.IsStructure
+- uid: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.Target
+  commentId: P:Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.Target
+  isExternal: true
+  href: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.html#Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_Target
+  name: Target
+  nameWithType: IParagraphUnit.Target
+  fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.Target
+- uid: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.Source
+  commentId: P:Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.Source
+  isExternal: true
+  href: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.html#Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_Source
+  name: Source
+  nameWithType: IParagraphUnit.Source
+  fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.Source
+- uid: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.Properties
+  commentId: P:Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.Properties
+  isExternal: true
+  href: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.html#Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_Properties
+  name: Properties
+  nameWithType: IParagraphUnit.Properties
+  fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.Properties
+- uid: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.SegmentPairs
+  commentId: P:Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.SegmentPairs
+  isExternal: true
+  href: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.html#Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_SegmentPairs
+  name: SegmentPairs
+  nameWithType: IParagraphUnit.SegmentPairs
+  fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.SegmentPairs
+- uid: Sdl.FileTypeSupport.Framework.BilingualApi.Location
+  commentId: T:Sdl.FileTypeSupport.Framework.BilingualApi.Location
+  parent: Sdl.FileTypeSupport.Framework.BilingualApi
+  isExternal: true
+  href: Sdl.FileTypeSupport.Framework.BilingualApi.Location.html
+  name: Location
+  nameWithType: Location
+  fullName: Sdl.FileTypeSupport.Framework.BilingualApi.Location
+- uid: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetSourceSegmentLocation(Sdl.FileTypeSupport.Framework.NativeApi.SegmentId)
+  commentId: M:Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetSourceSegmentLocation(Sdl.FileTypeSupport.Framework.NativeApi.SegmentId)
+  isExternal: true
+  href: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.html#Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_GetSourceSegmentLocation_Sdl_FileTypeSupport_Framework_NativeApi_SegmentId_
+  name: GetSourceSegmentLocation(SegmentId)
+  nameWithType: IParagraphUnit.GetSourceSegmentLocation(SegmentId)
+  fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetSourceSegmentLocation(Sdl.FileTypeSupport.Framework.NativeApi.SegmentId)
+  spec.csharp:
+  - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetSourceSegmentLocation(Sdl.FileTypeSupport.Framework.NativeApi.SegmentId)
+    name: GetSourceSegmentLocation
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.html#Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_GetSourceSegmentLocation_Sdl_FileTypeSupport_Framework_NativeApi_SegmentId_
+  - name: (
+  - uid: Sdl.FileTypeSupport.Framework.NativeApi.SegmentId
+    name: SegmentId
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.NativeApi.SegmentId.html
+  - name: )
+  spec.vb:
+  - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetSourceSegmentLocation(Sdl.FileTypeSupport.Framework.NativeApi.SegmentId)
+    name: GetSourceSegmentLocation
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.html#Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_GetSourceSegmentLocation_Sdl_FileTypeSupport_Framework_NativeApi_SegmentId_
+  - name: (
+  - uid: Sdl.FileTypeSupport.Framework.NativeApi.SegmentId
+    name: SegmentId
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.NativeApi.SegmentId.html
+  - name: )
+- uid: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetTargetSegmentLocation(Sdl.FileTypeSupport.Framework.NativeApi.SegmentId)
+  commentId: M:Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetTargetSegmentLocation(Sdl.FileTypeSupport.Framework.NativeApi.SegmentId)
+  isExternal: true
+  href: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.html#Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_GetTargetSegmentLocation_Sdl_FileTypeSupport_Framework_NativeApi_SegmentId_
+  name: GetTargetSegmentLocation(SegmentId)
+  nameWithType: IParagraphUnit.GetTargetSegmentLocation(SegmentId)
+  fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetTargetSegmentLocation(Sdl.FileTypeSupport.Framework.NativeApi.SegmentId)
+  spec.csharp:
+  - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetTargetSegmentLocation(Sdl.FileTypeSupport.Framework.NativeApi.SegmentId)
+    name: GetTargetSegmentLocation
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.html#Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_GetTargetSegmentLocation_Sdl_FileTypeSupport_Framework_NativeApi_SegmentId_
+  - name: (
+  - uid: Sdl.FileTypeSupport.Framework.NativeApi.SegmentId
+    name: SegmentId
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.NativeApi.SegmentId.html
+  - name: )
+  spec.vb:
+  - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetTargetSegmentLocation(Sdl.FileTypeSupport.Framework.NativeApi.SegmentId)
+    name: GetTargetSegmentLocation
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.html#Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_GetTargetSegmentLocation_Sdl_FileTypeSupport_Framework_NativeApi_SegmentId_
+  - name: (
+  - uid: Sdl.FileTypeSupport.Framework.NativeApi.SegmentId
+    name: SegmentId
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.NativeApi.SegmentId.html
+  - name: )
+- uid: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetSourceSegment(Sdl.FileTypeSupport.Framework.NativeApi.SegmentId)
+  commentId: M:Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetSourceSegment(Sdl.FileTypeSupport.Framework.NativeApi.SegmentId)
+  isExternal: true
+  href: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.html#Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_GetSourceSegment_Sdl_FileTypeSupport_Framework_NativeApi_SegmentId_
+  name: GetSourceSegment(SegmentId)
+  nameWithType: IParagraphUnit.GetSourceSegment(SegmentId)
+  fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetSourceSegment(Sdl.FileTypeSupport.Framework.NativeApi.SegmentId)
+  spec.csharp:
+  - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetSourceSegment(Sdl.FileTypeSupport.Framework.NativeApi.SegmentId)
+    name: GetSourceSegment
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.html#Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_GetSourceSegment_Sdl_FileTypeSupport_Framework_NativeApi_SegmentId_
+  - name: (
+  - uid: Sdl.FileTypeSupport.Framework.NativeApi.SegmentId
+    name: SegmentId
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.NativeApi.SegmentId.html
+  - name: )
+  spec.vb:
+  - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetSourceSegment(Sdl.FileTypeSupport.Framework.NativeApi.SegmentId)
+    name: GetSourceSegment
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.html#Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_GetSourceSegment_Sdl_FileTypeSupport_Framework_NativeApi_SegmentId_
+  - name: (
+  - uid: Sdl.FileTypeSupport.Framework.NativeApi.SegmentId
+    name: SegmentId
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.NativeApi.SegmentId.html
+  - name: )
+- uid: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetTargetSegment(Sdl.FileTypeSupport.Framework.NativeApi.SegmentId)
+  commentId: M:Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetTargetSegment(Sdl.FileTypeSupport.Framework.NativeApi.SegmentId)
+  isExternal: true
+  href: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.html#Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_GetTargetSegment_Sdl_FileTypeSupport_Framework_NativeApi_SegmentId_
+  name: GetTargetSegment(SegmentId)
+  nameWithType: IParagraphUnit.GetTargetSegment(SegmentId)
+  fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetTargetSegment(Sdl.FileTypeSupport.Framework.NativeApi.SegmentId)
+  spec.csharp:
+  - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetTargetSegment(Sdl.FileTypeSupport.Framework.NativeApi.SegmentId)
+    name: GetTargetSegment
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.html#Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_GetTargetSegment_Sdl_FileTypeSupport_Framework_NativeApi_SegmentId_
+  - name: (
+  - uid: Sdl.FileTypeSupport.Framework.NativeApi.SegmentId
+    name: SegmentId
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.NativeApi.SegmentId.html
+  - name: )
+  spec.vb:
+  - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetTargetSegment(Sdl.FileTypeSupport.Framework.NativeApi.SegmentId)
+    name: GetTargetSegment
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.html#Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_GetTargetSegment_Sdl_FileTypeSupport_Framework_NativeApi_SegmentId_
+  - name: (
+  - uid: Sdl.FileTypeSupport.Framework.NativeApi.SegmentId
+    name: SegmentId
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.NativeApi.SegmentId.html
+  - name: )
 - uid: Sdl.FileTypeSupport.Framework.BilingualApi
   commentId: N:Sdl.FileTypeSupport.Framework.BilingualApi
   isExternal: true
+  href: Sdl.html
   name: Sdl.FileTypeSupport.Framework.BilingualApi
   nameWithType: Sdl.FileTypeSupport.Framework.BilingualApi
   fullName: Sdl.FileTypeSupport.Framework.BilingualApi
+  spec.csharp:
+  - uid: Sdl
+    name: Sdl
+    isExternal: true
+    href: Sdl.html
+  - name: .
+  - uid: Sdl.FileTypeSupport
+    name: FileTypeSupport
+    isExternal: true
+    href: Sdl.FileTypeSupport.html
+  - name: .
+  - uid: Sdl.FileTypeSupport.Framework
+    name: Framework
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.html
+  - name: .
+  - uid: Sdl.FileTypeSupport.Framework.BilingualApi
+    name: BilingualApi
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.BilingualApi.html
+  spec.vb:
+  - uid: Sdl
+    name: Sdl
+    isExternal: true
+    href: Sdl.html
+  - name: .
+  - uid: Sdl.FileTypeSupport
+    name: FileTypeSupport
+    isExternal: true
+    href: Sdl.FileTypeSupport.html
+  - name: .
+  - uid: Sdl.FileTypeSupport.Framework
+    name: Framework
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.html
+  - name: .
+  - uid: Sdl.FileTypeSupport.Framework.BilingualApi
+    name: BilingualApi
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.BilingualApi.html
 - uid: System.ICloneable.Clone
   commentId: M:System.ICloneable.Clone
   parent: System.ICloneable
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.icloneable.clone
   name: Clone()
   nameWithType: ICloneable.Clone()
   fullName: System.ICloneable.Clone()
   spec.csharp:
   - uid: System.ICloneable.Clone
     name: Clone
-    nameWithType: ICloneable.Clone
-    fullName: System.ICloneable.Clone
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.icloneable.clone
   - name: (
-    nameWithType: (
-    fullName: (
   - name: )
-    nameWithType: )
-    fullName: )
   spec.vb:
   - uid: System.ICloneable.Clone
     name: Clone
-    nameWithType: ICloneable.Clone
-    fullName: System.ICloneable.Clone
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.icloneable.clone
   - name: (
-    nameWithType: (
-    fullName: (
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.ICloneable
   commentId: T:System.ICloneable
   parent: System
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.icloneable
   name: ICloneable
   nameWithType: ICloneable
   fullName: System.ICloneable
 - uid: System
   commentId: N:System
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
   name: System
   nameWithType: System
   fullName: System
 - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetSourceSegment*
   commentId: Overload:Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetSourceSegment
   isExternal: true
+  href: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.html#Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_GetSourceSegment_Sdl_FileTypeSupport_Framework_NativeApi_SegmentId_
   name: GetSourceSegment
   nameWithType: IParagraphUnit.GetSourceSegment
   fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetSourceSegment
@@ -388,6 +619,7 @@ references:
   commentId: T:Sdl.FileTypeSupport.Framework.NativeApi.SegmentId
   parent: Sdl.FileTypeSupport.Framework.NativeApi
   isExternal: true
+  href: Sdl.FileTypeSupport.Framework.NativeApi.SegmentId.html
   name: SegmentId
   nameWithType: SegmentId
   fullName: Sdl.FileTypeSupport.Framework.NativeApi.SegmentId
@@ -395,24 +627,68 @@ references:
   commentId: T:Sdl.FileTypeSupport.Framework.BilingualApi.ISegment
   parent: Sdl.FileTypeSupport.Framework.BilingualApi
   isExternal: true
+  href: Sdl.FileTypeSupport.Framework.BilingualApi.ISegment.html
   name: ISegment
   nameWithType: ISegment
   fullName: Sdl.FileTypeSupport.Framework.BilingualApi.ISegment
 - uid: Sdl.FileTypeSupport.Framework.NativeApi
   commentId: N:Sdl.FileTypeSupport.Framework.NativeApi
   isExternal: true
+  href: Sdl.html
   name: Sdl.FileTypeSupport.Framework.NativeApi
   nameWithType: Sdl.FileTypeSupport.Framework.NativeApi
   fullName: Sdl.FileTypeSupport.Framework.NativeApi
+  spec.csharp:
+  - uid: Sdl
+    name: Sdl
+    isExternal: true
+    href: Sdl.html
+  - name: .
+  - uid: Sdl.FileTypeSupport
+    name: FileTypeSupport
+    isExternal: true
+    href: Sdl.FileTypeSupport.html
+  - name: .
+  - uid: Sdl.FileTypeSupport.Framework
+    name: Framework
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.html
+  - name: .
+  - uid: Sdl.FileTypeSupport.Framework.NativeApi
+    name: NativeApi
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.NativeApi.html
+  spec.vb:
+  - uid: Sdl
+    name: Sdl
+    isExternal: true
+    href: Sdl.html
+  - name: .
+  - uid: Sdl.FileTypeSupport
+    name: FileTypeSupport
+    isExternal: true
+    href: Sdl.FileTypeSupport.html
+  - name: .
+  - uid: Sdl.FileTypeSupport.Framework
+    name: Framework
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.html
+  - name: .
+  - uid: Sdl.FileTypeSupport.Framework.NativeApi
+    name: NativeApi
+    isExternal: true
+    href: Sdl.FileTypeSupport.Framework.NativeApi.html
 - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetTargetSegment*
   commentId: Overload:Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetTargetSegment
   isExternal: true
+  href: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.html#Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_GetTargetSegment_Sdl_FileTypeSupport_Framework_NativeApi_SegmentId_
   name: GetTargetSegment
   nameWithType: IParagraphUnit.GetTargetSegment
   fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetTargetSegment
 - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetSegmentPair*
   commentId: Overload:Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetSegmentPair
   isExternal: true
+  href: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.html#Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_GetSegmentPair_Sdl_FileTypeSupport_Framework_NativeApi_SegmentId_
   name: GetSegmentPair
   nameWithType: IParagraphUnit.GetSegmentPair
   fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetSegmentPair
@@ -420,31 +696,28 @@ references:
   commentId: T:Sdl.FileTypeSupport.Framework.BilingualApi.ISegmentPair
   parent: Sdl.FileTypeSupport.Framework.BilingualApi
   isExternal: true
+  href: Sdl.FileTypeSupport.Framework.BilingualApi.ISegmentPair.html
   name: ISegmentPair
   nameWithType: ISegmentPair
   fullName: Sdl.FileTypeSupport.Framework.BilingualApi.ISegmentPair
 - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetSourceSegmentLocation*
   commentId: Overload:Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetSourceSegmentLocation
   isExternal: true
+  href: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.html#Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_GetSourceSegmentLocation_Sdl_FileTypeSupport_Framework_NativeApi_SegmentId_
   name: GetSourceSegmentLocation
   nameWithType: IParagraphUnit.GetSourceSegmentLocation
   fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetSourceSegmentLocation
-- uid: Sdl.FileTypeSupport.Framework.BilingualApi.Location
-  commentId: T:Sdl.FileTypeSupport.Framework.BilingualApi.Location
-  parent: Sdl.FileTypeSupport.Framework.BilingualApi
-  isExternal: true
-  name: Location
-  nameWithType: Location
-  fullName: Sdl.FileTypeSupport.Framework.BilingualApi.Location
 - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetTargetSegmentLocation*
   commentId: Overload:Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetTargetSegmentLocation
   isExternal: true
+  href: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.html#Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_GetTargetSegmentLocation_Sdl_FileTypeSupport_Framework_NativeApi_SegmentId_
   name: GetTargetSegmentLocation
   nameWithType: IParagraphUnit.GetTargetSegmentLocation
   fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.GetTargetSegmentLocation
 - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.Properties*
   commentId: Overload:Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.Properties
   isExternal: true
+  href: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.html#Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_Properties
   name: Properties
   nameWithType: IParagraphUnit.Properties
   fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.Properties
@@ -452,12 +725,14 @@ references:
   commentId: T:Sdl.FileTypeSupport.Framework.NativeApi.IParagraphUnitProperties
   parent: Sdl.FileTypeSupport.Framework.NativeApi
   isExternal: true
+  href: Sdl.FileTypeSupport.Framework.NativeApi.IParagraphUnitProperties.html
   name: IParagraphUnitProperties
   nameWithType: IParagraphUnitProperties
   fullName: Sdl.FileTypeSupport.Framework.NativeApi.IParagraphUnitProperties
 - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.IsStructure*
   commentId: Overload:Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.IsStructure
   isExternal: true
+  href: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.html#Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_IsStructure
   name: IsStructure
   nameWithType: IParagraphUnit.IsStructure
   fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.IsStructure
@@ -465,12 +740,17 @@ references:
   commentId: T:System.Boolean
   parent: System
   isExternal: true
-  name: Boolean
-  nameWithType: Boolean
-  fullName: System.Boolean
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
 - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.Source*
   commentId: Overload:Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.Source
   isExternal: true
+  href: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.html#Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_Source
   name: Source
   nameWithType: IParagraphUnit.Source
   fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.Source
@@ -478,18 +758,21 @@ references:
   commentId: T:Sdl.FileTypeSupport.Framework.BilingualApi.IParagraph
   parent: Sdl.FileTypeSupport.Framework.BilingualApi
   isExternal: true
+  href: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraph.html
   name: IParagraph
   nameWithType: IParagraph
   fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraph
 - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.Target*
   commentId: Overload:Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.Target
   isExternal: true
+  href: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.html#Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_Target
   name: Target
   nameWithType: IParagraphUnit.Target
   fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.Target
 - uid: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.SegmentPairs*
   commentId: Overload:Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.SegmentPairs
   isExternal: true
+  href: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.html#Sdl_FileTypeSupport_Framework_BilingualApi_IParagraphUnit_SegmentPairs
   name: SegmentPairs
   nameWithType: IParagraphUnit.SegmentPairs
   fullName: Sdl.FileTypeSupport.Framework.BilingualApi.IParagraphUnit.SegmentPairs
@@ -497,6 +780,7 @@ references:
   commentId: T:System.Collections.Generic.IEnumerable{Sdl.FileTypeSupport.Framework.BilingualApi.ISegmentPair}
   parent: System.Collections.Generic
   definition: System.Collections.Generic.IEnumerable`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
   name: IEnumerable<ISegmentPair>
   nameWithType: IEnumerable<ISegmentPair>
   fullName: System.Collections.Generic.IEnumerable<Sdl.FileTypeSupport.Framework.BilingualApi.ISegmentPair>
@@ -506,40 +790,31 @@ references:
   spec.csharp:
   - uid: System.Collections.Generic.IEnumerable`1
     name: IEnumerable
-    nameWithType: IEnumerable
-    fullName: System.Collections.Generic.IEnumerable
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
   - name: <
-    nameWithType: <
-    fullName: <
   - uid: Sdl.FileTypeSupport.Framework.BilingualApi.ISegmentPair
     name: ISegmentPair
-    nameWithType: ISegmentPair
-    fullName: Sdl.FileTypeSupport.Framework.BilingualApi.ISegmentPair
     isExternal: true
+    href: Sdl.FileTypeSupport.Framework.BilingualApi.ISegmentPair.html
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: System.Collections.Generic.IEnumerable`1
     name: IEnumerable
-    nameWithType: IEnumerable
-    fullName: System.Collections.Generic.IEnumerable
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
   - uid: Sdl.FileTypeSupport.Framework.BilingualApi.ISegmentPair
     name: ISegmentPair
-    nameWithType: ISegmentPair
-    fullName: Sdl.FileTypeSupport.Framework.BilingualApi.ISegmentPair
     isExternal: true
+    href: Sdl.FileTypeSupport.Framework.BilingualApi.ISegmentPair.html
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Collections.Generic.IEnumerable`1
   commentId: T:System.Collections.Generic.IEnumerable`1
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
   name: IEnumerable<T>
   nameWithType: IEnumerable<T>
   fullName: System.Collections.Generic.IEnumerable<T>
@@ -549,36 +824,55 @@ references:
   spec.csharp:
   - uid: System.Collections.Generic.IEnumerable`1
     name: IEnumerable
-    nameWithType: IEnumerable
-    fullName: System.Collections.Generic.IEnumerable
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
   - name: <
-    nameWithType: <
-    fullName: <
   - name: T
-    nameWithType: T
-    fullName: T
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: System.Collections.Generic.IEnumerable`1
     name: IEnumerable
-    nameWithType: IEnumerable
-    fullName: System.Collections.Generic.IEnumerable
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
   - name: T
-    nameWithType: T
-    fullName: T
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Collections.Generic
   commentId: N:System.Collections.Generic
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
   name: System.Collections.Generic
   nameWithType: System.Collections.Generic
   fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic

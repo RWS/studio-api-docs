@@ -1,28 +1,23 @@
-Setting Translation Memory Access Rights
-==
+# Setting Translation Memory Access Rights
 
-As a general rule, file-based TMs can generally be opened and used by anyone who is equipped with Var:ProductName. As long as you do not assign passwords to a TM file, any user can have unrestricted access to it (e.g. read/write, import/export, etc.) to the translation memory. However, you may protect a TM file with passwords that allow access to only a certain level of functionality.
+By default, anyone who has Var:ProductName can open and use a file-based TM. If you do not assign passwords, users have unrestricted access to the translation memory, including read/write and import/export operations. You can also protect a TM with passwords that restrict access to specific functionality.
 
-There are four different access levels for file based TMs:
+## Access Levels
 
-* **Administrator**: Can perform any TM-related operation, i.e. read/write, change settings, import/export.
-* **Maintenance**: Can perform operations such as global find/replace in a TM (but no change to TM settings and no import/export).
-* **Read/Write**: This access level is typically used by translators, who need to be able to add/change TUs and search the TM.
-* **Read-only**: Guest access that allows users to perform only TM look-ups.
+File-based TMs support four access levels:
 
->[!NOTE]
->
->Server TMs use a different, much more sophisticated and granular access rights model.
+* **Administrator**: Can perform any TM-related operation, including read/write, settings changes, and import/export.
+* **Maintenance**: Can perform tasks such as global find and replace, but cannot change TM settings or use import/export.
+* **Read/Write**: Typically used by translators who need to add or change TUs and search the TM.
+* **Read-only**: Guest access that allows users to perform only TM lookups.
 
-
-When a user opens a password-protected TM in Var:ProductName the following prompt will be shown where you can select the required access level and then enter the corresponding password:
+When a user opens a password-protected TM in Var:ProductName, the following prompt lets the user select an access level and enter the corresponding password:
 
 ![PwdPrompt](images/PwdPrompt.jpg)
 
-Setting Passwords Programmatically
---
+## Setting Passwords Programmatically
 
-Add a new class to your project, which you call ```TmProtector```. Add a public function called ```AssignPasswords``` to your newly-created class, which takes the file name and path as parameter. This function can be called as shown below:
+Add a new class named `TmProtector` to your project. Then add a public method named `AssignPasswords()` that takes the TM file path as a parameter. Call it as shown below:
 
 # [C#](#tab/tabid-1)
 ```cs
@@ -32,7 +27,7 @@ tmProtector.AssignPasswords(_translationMemoryFilePath);
 ***
 
 
-The API offers four different methods for setting passwords corresponding to the four access levels that are available for file-based TMs. When applying these methods you need to provide the password to set as string parameter. Note that when setting passwords, a specific order has to be observed. For example, a read-only password can only be set *after* a read/write password has been assigned. The function for setting the passwords can look as shown in the following example:
+The API provides four methods for setting passwords, one for each access level. Pass each password as a string. When you set passwords, follow the required order. For example, set the read-only password only after you set the read/write password. The method can look like this:
 
 # [C#](#tab/tabid-2)
 ```cs
@@ -51,12 +46,11 @@ public void AssignPasswords(string tmPath)
 ```
 ***
 
-Note that the function for setting the passwords calls a separate helper function to open the password-protected TM.
+The password-setting method calls a separate helper method to open the protected TM.
 
-Open a Password-protected TM
---
+## Open a Password-Protected TM
 
-Add the following function to your class, which opens the TM with the previously assigned administrator password. To open a password-protected TM, the password needs to be provided as a string parameter. Of course, you should catch any exception, e.g. in cases in which the wrong password was entered.
+Add the following method to open the TM with the administrator password. Pass the password as a string parameter and catch exceptions for cases such as an invalid password.
 
 # [C#](#tab/tabid-3)
 ```cs
@@ -74,10 +68,9 @@ private void OpenProtectedTm(string tmPath, string password)
 ```
 ***
 
-Putting it All Together
---
+## Putting it All Together
 
-The complete class should look as shown below:
+The complete class should now look like this:
 
 # [C#](#tab/tabid-4)
 ```cs
