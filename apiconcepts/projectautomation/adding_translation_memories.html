@@ -209,15 +209,11 @@ project.UpdateTranslationProviderConfiguration(trgLangFr, tmConfigEnFr);
 
 <pre><code class="lang-CS">public void AddMasterTMs(FileBasedProject project, string path)
 {
-    #region &quot;TranslationProviderConfiguration&quot;
     Language trgLangDe = new Language(CultureInfo.GetCultureInfo(&quot;de-DE&quot;));
     Language trgLangFr = new Language(CultureInfo.GetCultureInfo(&quot;fr-FR&quot;));
 
     TranslationProviderConfiguration tmConfigEnDe = project.GetTranslationProviderConfiguration(trgLangDe);
     TranslationProviderConfiguration tmConfigEnFr = project.GetTranslationProviderConfiguration(trgLangFr);
-    #endregion
-
-    #region &quot;ConfigureTms&quot;
     TranslationProviderCascadeEntry[] tmEntriesEnDe = 
     {
         new TranslationProviderCascadeEntry(path + &quot;Software En-De.sdltm&quot;, true, true, true, 0),  
@@ -229,9 +225,6 @@ project.UpdateTranslationProviderConfiguration(trgLangFr, tmConfigEnFr);
         new TranslationProviderCascadeEntry(path + &quot;Software En-Fr.sdltm&quot;, true, true, true, 0),  
         new TranslationProviderCascadeEntry(path + &quot;General En-Fr.sdltm&quot;, true, true, true, 2)
     };
-    #endregion
-
-    #region &quot;AddTmsAndUpdate&quot;
     for (int i = 0; i &lt; tmEntriesEnDe.Length; i++)
     {
         tmConfigEnDe.Entries.Add(tmEntriesEnDe[i]);
@@ -244,7 +237,6 @@ project.UpdateTranslationProviderConfiguration(trgLangFr, tmConfigEnFr);
 
     project.UpdateTranslationProviderConfiguration(trgLangDe, tmConfigEnDe);
     project.UpdateTranslationProviderConfiguration(trgLangFr, tmConfigEnFr);
-    #endregion
 }
 </code></pre>
 </section>

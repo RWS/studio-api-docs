@@ -172,8 +172,7 @@ analyzeSettings.ReportInternalFuzzyMatchLeverage.Value = reportInternalFuzzyMatc
 </ul>
 <section id="tabpanel_6_tabid-6" role="tabpanel" data-tab="tabid-6">
 
-<pre><code class="lang-cs">#region &quot;GetAnalyzeSettingsFunction&quot;
-/// &lt;summary&gt;
+<pre><code class="lang-cs">/// &lt;summary&gt;
 /// Configures the analyze task file settings, i.e. in our implementation
 /// report cross-file repetitions and report the internal fuzzy match leverage.
 /// &lt;/summary&gt; 
@@ -182,25 +181,13 @@ private void GetAnalyzeSettings(
     string trgLocale,
     bool reportCrossFileRepetitions,
     bool reportInternalFuzzyMatchLeverage)
-#endregion
 {
-    #region &quot;trgLanguage&quot;
     Language trgLanguage = new Language(CultureInfo.GetCultureInfo(trgLocale));
-    #endregion
-
-    #region &quot;ISettingsBundle&quot;
     ISettingsBundle settings = project.GetSettings(trgLanguage);
     AnalysisTaskSettings analyzeSettings = settings.GetSettingsGroup&lt;AnalysisTaskSettings&gt;();
-    #endregion
-
-    #region &quot;ConfigureSettings&quot;
     analyzeSettings.ReportCrossFileRepetitions.Value = reportCrossFileRepetitions;
     analyzeSettings.ReportInternalFuzzyMatchLeverage.Value = reportInternalFuzzyMatchLeverage;
-    #endregion
-
-    #region &quot;UpdateSettings&quot;
     project.UpdateSettings(trgLanguage, settings);
-    #endregion
 }
 </code></pre>
 </section>

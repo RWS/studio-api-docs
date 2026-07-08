@@ -82,30 +82,32 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="extracting-comments">Extracting Comments</h1>
 
-<p>In this chapter you will learn how to extract comments from a given BIL file and add them to the intermediary (SDLXliff) document.</p>
+<p>Extract comments from a given BIL file and add them to the intermediary (SDLXliff) document.</p>
 <h2 id="about-comments">About Comments</h2>
-<p>A unit in a BIL file can contain one or more comments, e.g.:</p>
+<p>A unit in a BIL file can contain one or more comments, for example:</p>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
 <a href="#tabpanel_1_tabid-1" role="tab" aria-controls="tabpanel_1_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">Xml</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-2" role="tab" aria-controls="tabpanel_1_tabid-2" data-tab="tabid-2" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-3" role="tab" aria-controls="tabpanel_1_tabid-3" data-tab="tabid-3" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-4" role="tab" aria-controls="tabpanel_1_tabid-4" data-tab="tabid-4" tabindex="-1">C#</a>
 </li>
 </ul>
 <section id="tabpanel_1_tabid-1" role="tabpanel" data-tab="tabid-1">
 
 <pre><code class="lang-xml">&lt;comment&gt;This segment was translated using web translator.&lt;/comment&gt;
 </code></pre>
-</section>
-</div>
 <h2 id="extend-the-helper-function-for-creating-paragraph-units">Extend the Helper Function for Creating Paragraph Units</h2>
-<p>First, add the following to the <code>CreateParagraphUnit()</code> helper function:</p>
-<div class="tabGroup" id="tabgroup_2">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_2_tabid-2" role="tab" aria-controls="tabpanel_2_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_2_tabid-2" role="tabpanel" data-tab="tabid-2">
+<p>Add the following to the <code>CreateParagraphUnit()</code> helper function:</p>
+</section>
+<section id="tabpanel_1_tabid-2" role="tabpanel" data-tab="tabid-2" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">// extract comment (if applicable)
 if(xmlUnit.SelectSingleNode(&quot;comment&quot;)!=null)
@@ -113,25 +115,16 @@ if(xmlUnit.SelectSingleNode(&quot;comment&quot;)!=null)
     paragraphUnit.Properties.Comments = CreateComment(xmlUnit.SelectSingleNode(&quot;comment&quot;).InnerText);
 }
 </code></pre>
+<p>This condition checks whether a <code>comment</code> element exists in the unit and passes the comment text to a separate helper function.</p>
+<p>The complete <code>CreateParagraphUnit()</code> helper function looks as follows:</p>
 </section>
-</div>
-
-<p>This condition determines whether a <code>comment</code> element exists in the unit and then passes the comment text to a separate helper function.
-The complete <code>CreateParagraphUnit()</code> helper function looks as shown below:</p>
-<div class="tabGroup" id="tabgroup_3">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_3_tabid-3" role="tab" aria-controls="tabpanel_3_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_3_tabid-3" role="tabpanel" data-tab="tabid-3">
+<section id="tabpanel_1_tabid-3" role="tabpanel" data-tab="tabid-3" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">// helper function for creating paragraph units
 private IParagraphUnit CreateParagraphUnit(XmlNode xmlUnit)
 {
     // create paragraph unit object
     IParagraphUnit paragraphUnit = ItemFactory.CreateParagraphUnit(LockTypeFlags.Unlocked);
-
 
     // create segment pair object
     ISegmentPairProperties segmentPairProperties = ItemFactory.CreateSegmentPairProperties();  
@@ -149,41 +142,36 @@ private IParagraphUnit CreateParagraphUnit(XmlNode xmlUnit)
         paragraphUnit.Target.Add(trgSegment);
     }
 
-    #region &quot;context&quot;
     // create paragraph unit context
     string id = xmlUnit.SelectSingleNode(&quot;./@id&quot;).InnerText;
     if(xmlUnit.SelectSingleNode(&quot;type/@spec&quot;)!=null)
     {
         string spec = xmlUnit.SelectSingleNode(&quot;type/@spec&quot;).InnerText;
-
         paragraphUnit.Properties.Contexts=CreateContext(spec, id);
-    } else {
+    }
+    else
+    {
         paragraphUnit.Properties.Contexts = CreateContext(&quot;Paragraph&quot;, id);
     }
-    #endregion
 
-    #region &quot;comments&quot;
     // extract comment (if applicable)
     if(xmlUnit.SelectSingleNode(&quot;comment&quot;)!=null)
     {
         paragraphUnit.Properties.Comments = CreateComment(xmlUnit.SelectSingleNode(&quot;comment&quot;).InnerText);
     }
-    #endregion
 
     return paragraphUnit;
 }
 </code></pre>
-</section>
-</div>
-<h2 id="add-a-helper-function-for-generating-the-comments">Add a Helper Function for Generating the Comments</h2>
-<p>Below you see the helper function that actually generates the comments in the intermediary (SDLXliff) file. When generating a comment through the properties factory you need to provide the following parameters: the comment text, the user who added the comment (in this case we just use a hard-coded string to keep this example simple), and the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IComment.html#Sdl_FileTypeSupport_Framework_NativeApi_IComment_Severity">Severity</a> level, which we set to <code>Medium</code>.</p>
-<div class="tabGroup" id="tabgroup_4">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_4_tabid-4" role="tab" aria-controls="tabpanel_4_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
-</li>
+<h2 id="add-a-helper-function-for-generating-comments">Add a Helper Function for Generating Comments</h2>
+<p>The following helper function generates comments in the intermediary (SDLXliff) file. When generating a comment through the properties factory, provide these parameters:</p>
+<ul>
+<li>Comment text</li>
+<li>User who added the comment (this example uses a hard-coded string for simplicity)</li>
+<li><a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IComment.html#Sdl_FileTypeSupport_Framework_NativeApi_IComment_Severity">Severity</a> level (set to <code>Medium</code>)</li>
 </ul>
-<section id="tabpanel_4_tabid-4" role="tabpanel" data-tab="tabid-4">
+</section>
+<section id="tabpanel_1_tabid-4" role="tabpanel" data-tab="tabid-4" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">private ICommentProperties CreateComment(string commentText)
 {
@@ -194,14 +182,13 @@ private IParagraphUnit CreateParagraphUnit(XmlNode xmlUnit)
     return commentProperties;
 }
 </code></pre>
-</section>
-</div>
-
-<p>In Trados Studio the comments will be visible in the <strong>Comments</strong> windows. Double-clicking a comment here will lead you directly to the corresponding paragraph unit / segment pair in the editor.</p>
+<p>In Trados Studio, comments appear in the <strong>Comments</strong> window. Double-click a comment to navigate directly to the corresponding paragraph unit or segment pair in the editor.</p>
 <p><img src="images/ParagraphComments.jpg" alt="ParagraphComments"></p>
 <div class="NOTE">
 <h5>Note</h5>
 <p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+</div>
+</section>
 </div>
 
 </article>

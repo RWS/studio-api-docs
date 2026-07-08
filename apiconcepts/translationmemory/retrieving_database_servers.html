@@ -82,31 +82,29 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="retrieving-database-servers">Retrieving Database Servers</h1>
 
-<p>In this chapter you will learn how to get programmatic access to the database server(s) that is/are used by the TM Server.</p>
+<p>This chapter shows how to access the database servers used by the TM Server programmatically.</p>
 <h2 id="add-a-new-class">Add a New Class</h2>
-<p>Start by adding a new class called <code>DatabaseServersProvider</code> to your project. Add a public function called <code>GetDBServers</code>, which takes a <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.html">TranslationProviderServer</a> object as parameter. Call this function from Connect as shown below:</p>
+<p>Start by adding a class called <code>DatabaseServersProvider</code> to your project. Add a public function called <code>GetDBServers</code>, which takes a <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.html">TranslationProviderServer</a> object as a parameter. Call this function from <code>Connect</code> as shown below:</p>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
 <a href="#tabpanel_1_tabid-1" role="tab" aria-controls="tabpanel_1_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
 </li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-2" role="tab" aria-controls="tabpanel_1_tabid-2" data-tab="tabid-2" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-3" role="tab" aria-controls="tabpanel_1_tabid-3" data-tab="tabid-3" tabindex="-1">C#</a>
+</li>
 </ul>
 <section id="tabpanel_1_tabid-1" role="tabpanel" data-tab="tabid-1">
 
-<pre><code class="lang-cs">var serverProvider = new DataBaseServersProvider();
+<pre><code class="lang-cs">var serverProvider = new DatabaseServersProvider();
 serverProvider.GetDBServers(tmServer);
 </code></pre>
+<p>In <code>GetDBServers</code>, call the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.html#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationProviderServer_GetDatabaseServers">GetDatabaseServers</a> method on the server object. Then loop through the database servers registered for the TM Server. Although most setups use a single database server, TM Server can connect to several database servers.</p>
 </section>
-</div>
-
-<p>In the <code>GetDBServers</code> function the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.html#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationProviderServer_GetDatabaseServers">GetDatabaseServers</a> method is applied to the server object. Then the function loops through the database servers that are registered for the given TM server. Although most setups involve only a single database server, it is conceivable that the TM Server connects to several DB servers.</p>
-<div class="tabGroup" id="tabgroup_2">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_2_tabid-2" role="tab" aria-controls="tabpanel_2_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_2_tabid-2" role="tabpanel" data-tab="tabid-2">
+<section id="tabpanel_1_tabid-2" role="tabpanel" data-tab="tabid-2" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">public void GetDBServers(TranslationProviderServer tmServer)
 {
@@ -120,33 +118,24 @@ serverProvider.GetDBServers(tmServer);
         serverInfo += &quot;Server type: &quot; + dbServer.ServerType + &quot;\n\n&quot;;
     }
 
-    MessageBox.Show(serverInfo, &quot;Container Information&quot;);
+    MessageBox.Show(serverInfo, &quot;Database Server Information&quot;);
 }
 </code></pre>
-</section>
-</div>
-
-<p>In the <code>foreach</code> loop we build up the string that contains all DB servers and their properties. <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.DatabaseServer.html#Sdl_LanguagePlatform_TranslationMemoryApi_DatabaseServer_ServerName">ServerName</a> gets the full DNS name or IP address of the DB server, while <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.DatabaseServer.html#Sdl_LanguagePlatform_TranslationMemoryApi_DatabaseServer_Name">Name</a> is used to retrieve the friendly DB server name. Note that when registering a DB server, the administrator can enter the actual server name (e.g. sqlserv\sqlexpress) and assign a friendly name like in the current example, <em>Test Server</em>. Among other things, you can retrieve a server <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.DatabaseServer.html#Sdl_LanguagePlatform_TranslationMemoryApi_DatabaseServer_Description">Description</a> (which is optional) as well the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.DatabaseServer.html#Sdl_LanguagePlatform_TranslationMemoryApi_DatabaseServer_ServerType">Authentification</a>, which can be Windows or Database authentification type.
-Below you see an example of a box containing information on a particular DB server in the GroupShare Web UI:</p>
+<p>In the <code>foreach</code> loop, build the string that contains the database server properties. <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.DatabaseServer.html#Sdl_LanguagePlatform_TranslationMemoryApi_DatabaseServer_ServerName">ServerName</a> returns the full DNS name or IP address of the database server, while <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.DatabaseServer.html#Sdl_LanguagePlatform_TranslationMemoryApi_DatabaseServer_Name">Name</a> returns the friendly database server name. When registering a database server, the administrator can enter the actual server name, such as <code>sqlserv\sqlexpress</code>, and assign a friendly name such as <em>Test Server</em>. You can also retrieve the optional <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.DatabaseServer.html#Sdl_LanguagePlatform_TranslationMemoryApi_DatabaseServer_Description">Description</a> and the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.DatabaseServer.html#Sdl_LanguagePlatform_TranslationMemoryApi_DatabaseServer_ServerType">Authentication</a> type, which can be Windows or database authentication.</p>
+<p>The image below shows a box with information about a specific database server in the GroupShare Web UI:</p>
 <img style="display:block; " src="images/DatabaseServerInfo.jpg">
-<h2 id="putting-it-all-together">Putting it All Together</h2>
-<p>The complete class looks as shown below:</p>
-<div class="tabGroup" id="tabgroup_3">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_3_tabid-3" role="tab" aria-controls="tabpanel_3_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_3_tabid-3" role="tabpanel" data-tab="tabid-3">
+<h2 id="putting-it-all-together">Putting It All Together</h2>
+<p>The complete class looks like this:</p>
+</section>
+<section id="tabpanel_1_tabid-3" role="tabpanel" data-tab="tabid-3" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">namespace SDK.LanguagePlatform.Samples.TmAutomation
 {
     using System.Windows.Forms;
     using Sdl.LanguagePlatform.TranslationMemoryApi;
 
-    public class DataBaseServersProvider
+   public class DatabaseServersProvider
     {
-        #region &quot;get&quot;
         public void GetDBServers(TranslationProviderServer tmServer)
         {
             string serverInfo = string.Empty;
@@ -159,12 +148,13 @@ Below you see an example of a box containing information on a particular DB serv
                 serverInfo += &quot;Server type: &quot; + dbServer.ServerType + &quot;\n\n&quot;;
             }
 
-            MessageBox.Show(serverInfo, &quot;Container Information&quot;);
+            MessageBox.Show(serverInfo, &quot;Database Server Information&quot;);
         }
-        #endregion
     }
 }
 </code></pre>
+<h2 id="see-also">See Also</h2>
+<p><a href="required_references_and_namespaces.html">Required References and Namespaces</a></p>
 </section>
 </div>
 

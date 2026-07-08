@@ -82,15 +82,30 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="outputting-segment-pairs">Outputting Segment Pairs</h1>
 
-<p>In this chapter you will learn how to extract and expose the source and target segments of a given BIL input file in the intermediary (SDLXliff) file, and thus in the editing environment of Trados Studio.</p>
+<p>Extract and expose source and target segments from a BIL input file in the intermediary SDLXliff file for editing in Trados Studio.</p>
 <h2 id="extend-the-parsing-method">Extend the Parsing Method</h2>
-<p>Now we need to extend the parsing logic to extract the source and target segments and expose them for translation in the editor of Trados Studio. Basically, our parser should work like this: the content of a unit element defines a paragraph unit in the intermediary (SDLXliff) file. A unit element in a BIL file always contains one source segment and one or no target segment. These segments will be added to the paragraph unit as segment pairs. A segment pair must contain a source segment, but the target segment may be empty, i.e. in this case the target of the BIL unit element is empty.</p>
-<p>Note that in this first step we are not going to process inline tags, formatting or any of the other elements a unit may contain (e.g. comments).</p>
+<p>Extend the parsing logic to extract source and target segments and expose them for translation in Trados Studio's editor. A unit element defines a paragraph unit in the SDLXliff file. Each unit contains one source segment and optionally a target segment. These segments are added to the paragraph unit as segment pairs. A segment pair requires a source segment; the target segment may be empty.</p>
+<p>Note: This step does not process inline tags, formatting, or other unit elements (e.g., comments).</p>
 <p>Add the following <code>foreach</code> loop to the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.AbstractBilingualParser.html#Sdl_FileTypeSupport_Framework_BilingualApi_AbstractBilingualParser_ParseNext">ParseNext</a> method:</p>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
 <a href="#tabpanel_1_tabid-1" role="tab" aria-controls="tabpanel_1_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-2" role="tab" aria-controls="tabpanel_1_tabid-2" data-tab="tabid-2" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-3" role="tab" aria-controls="tabpanel_1_tabid-3" data-tab="tabid-3" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-4" role="tab" aria-controls="tabpanel_1_tabid-4" data-tab="tabid-4" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-5" role="tab" aria-controls="tabpanel_1_tabid-5" data-tab="tabid-5" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-6" role="tab" aria-controls="tabpanel_1_tabid-6" data-tab="tabid-6" tabindex="-1">C#</a>
 </li>
 </ul>
 <section id="tabpanel_1_tabid-1" role="tabpanel" data-tab="tabid-1">
@@ -100,110 +115,66 @@
         Output.ProcessParagraphUnit(CreateParagraphUnit(item));
 }
 </code></pre>
-</section>
-</div>
-
-<p>This loop iterates through all <code>unit</code> elements of the input BIL file and outputs a paragraph unit in the intermediary (SDLXliff) document by calling a separate <code>CreateParagraphUnit()</code> helper function. This helper function takes the sub-nodes of the <code>unit</code> element as parameter. The sub-nodes in the current basic implementation will be, the <code>source</code> and <code>target</code> nodes.</p>
+<p>This loop iterates through all <code>unit</code> elements in the input BIL file and outputs a paragraph unit in the SDLXliff document by calling the <code>CreateParagraphUnit()</code> helper function. This function takes the unit node's sub-nodes as parameters: the <code>source</code> and <code>target</code> nodes.</p>
 <h2 id="add-a-helper-function-for-generating-paragraph-units">Add a Helper Function for Generating Paragraph Units</h2>
-<p>In the next step add the helper function that is used to generate a paragraph unit from the current unit node. In this function you generate a paragraph unit object through the item factory as shown below:</p>
-<div class="tabGroup" id="tabgroup_2">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_2_tabid-2" role="tab" aria-controls="tabpanel_2_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_2_tabid-2" role="tabpanel" data-tab="tabid-2">
+<p>Add the helper function to generate a paragraph unit from the current unit node. Create a paragraph unit object through the item factory:</p>
+</section>
+<section id="tabpanel_1_tabid-2" role="tabpanel" data-tab="tabid-2" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">IParagraphUnit paragraphUnit = ItemFactory.CreateParagraphUnit(LockTypeFlags.Unlocked);
 </code></pre>
+<p>The <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.LockTypeFlags.html">LockTypeFlags</a> parameter determines whether a paragraph unit is locked for editing. Normally, paragraph units remain unlocked, allowing translator access and editing.</p>
+<p>Create a segment pair object through the item factory:</p>
 </section>
-</div>
-
-<p>Through the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.LockTypeFlags.html">LockTypeFlags</a> parameter of the <code>CreateParagraphUnit()</code> helper function you can determine whether a paragraph unit should be locked for editing or not. Normally, the paragraph units will not be locked, which means that they can be accessed and edited by the translator.</p>
-<p>Now you use the item factory to create a segment pair object as shown below:</p>
-<div class="tabGroup" id="tabgroup_3">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_3_tabid-3" role="tab" aria-controls="tabpanel_3_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_3_tabid-3" role="tabpanel" data-tab="tabid-3">
+<section id="tabpanel_1_tabid-3" role="tabpanel" data-tab="tabid-3" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">ISegmentPairProperties segmentPairProperties = ItemFactory.CreateSegmentPairProperties();
 </code></pre>
+<p>Create source and target segment objects and attach them to the paragraph unit. Below is the complete helper function for generating the paragraph unit object. Actual source and target segment generation occurs in a separate helper function, created in the next step.</p>
 </section>
-</div>
+<section id="tabpanel_1_tabid-4" role="tabpanel" data-tab="tabid-4" aria-hidden="true" hidden="hidden">
 
-<p>Next, you create a source segment object, which is then attached to the paragraph unit. If a target segment is available, you also need to create a target segment object and attach it to the paragraph unit. Below you see the full helper function for generating the paragraph unit object to output in the document. Note that the actual source and target segment generation occurs in a separate helper function, which we will create in the next step.</p>
-<div class="tabGroup" id="tabgroup_4">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_4_tabid-4" role="tab" aria-controls="tabpanel_4_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_4_tabid-4" role="tabpanel" data-tab="tabid-4">
-
-<pre><code class="lang-cs">// helper function for creating paragraph units
-private IParagraphUnit CreateParagraphUnit(XmlNode xmlUnit)
+<pre><code class="lang-cs">private IParagraphUnit CreateParagraphUnit(XmlNode xmlUnit)
 {
-    // create paragraph unit object
     IParagraphUnit paragraphUnit = ItemFactory.CreateParagraphUnit(LockTypeFlags.Unlocked);
 
+    ISegmentPairProperties segmentPairProperties = ItemFactory.CreateSegmentPairProperties();
+    segmentPairProperties.ConfirmationLevel = CreateConfirmationLevel(xmlUnit.Attributes[&quot;status&quot;].Value);
 
-    // create segment pair object
-    ISegmentPairProperties segmentPairProperties = ItemFactory.CreateSegmentPairProperties();  
-    // assign the appropriate confirmation level to the segment pair            
-    segmentPairProperties.ConfirmationLevel=CreateConfirmationLevel(xmlUnit.Attributes[&quot;status&quot;].Value);
-
-    // add source segment to paragraph unit
-    ISegment srcSegment = CreateSegment(xmlUnit.SelectSingleNode(&quot;source/seg&quot;), segmentPairProperties);            
+    ISegment srcSegment = CreateSegment(xmlUnit.SelectSingleNode(&quot;source/seg&quot;), segmentPairProperties);
     paragraphUnit.Source.Add(srcSegment);
 
-    // add target segment to paragraph unit if available
-    if(xmlUnit.SelectSingleNode(&quot;target/seg&quot;) != null)            
+    if (xmlUnit.SelectSingleNode(&quot;target/seg&quot;) != null)
     {
         ISegment trgSegment = CreateSegment(xmlUnit.SelectSingleNode(&quot;target/seg&quot;), segmentPairProperties);
         paragraphUnit.Target.Add(trgSegment);
     }
 
-    #region &quot;context&quot;
-    // create paragraph unit context
     string id = xmlUnit.SelectSingleNode(&quot;./@id&quot;).InnerText;
-    if(xmlUnit.SelectSingleNode(&quot;type/@spec&quot;)!=null)
+    if (xmlUnit.SelectSingleNode(&quot;type/@spec&quot;) != null)
     {
         string spec = xmlUnit.SelectSingleNode(&quot;type/@spec&quot;).InnerText;
-
-        paragraphUnit.Properties.Contexts=CreateContext(spec, id);
-    } else {
+        paragraphUnit.Properties.Contexts = CreateContext(spec, id);
+    }
+    else
+    {
         paragraphUnit.Properties.Contexts = CreateContext(&quot;Paragraph&quot;, id);
     }
-    #endregion
 
-    #region &quot;comments&quot;
-    // extract comment (if applicable)
-    if(xmlUnit.SelectSingleNode(&quot;comment&quot;)!=null)
+    if (xmlUnit.SelectSingleNode(&quot;comment&quot;) != null)
     {
         paragraphUnit.Properties.Comments = CreateComment(xmlUnit.SelectSingleNode(&quot;comment&quot;).InnerText);
     }
-    #endregion
 
     return paragraphUnit;
 }
 </code></pre>
+<h2 id="add-a-helper-function-for-generating-source-and-target-segments">Add a Helper Function for Generating Source and Target Segments</h2>
+<p>The helper function that creates source and target segments requires the segment node and segment pair properties as parameters. Passing segment pair properties ensures source and target segments assign to the correct segment pair. This function uses the properties factory to generate text properties from the segment node's text content, creates the text object through the item factory, adds the text to the segment object, and returns it:</p>
 </section>
-</div>
-<h2 id="add-a-helper-function-for-generating-the-source-and-target-segments">Add a Helper Function for Generating the Source and Target Segments</h2>
-<p>The helper function that creates the source and target segments requires the segment node and the segment pair properties as parameters. Passing the segment pair properties makes certain that the source and target segments are assigned to the correct segment pair. This helper function uses the properties factory to generate the text properties from the text content of the seg node. Through the item factory you create the actual text object from the text properties. Last, the text is added to the segment object, which is then returned to the helper function.</p>
-<div class="tabGroup" id="tabgroup_5">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_5_tabid-5" role="tab" aria-controls="tabpanel_5_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_5_tabid-5" role="tabpanel" data-tab="tabid-5">
+<section id="tabpanel_1_tabid-5" role="tabpanel" data-tab="tabid-5" aria-hidden="true" hidden="hidden">
 
-<pre><code class="lang-cs">// helper function for creating segment objects
-private ISegment CreateSegment(XmlNode segNode, ISegmentPairProperties pair)
+<pre><code class="lang-cs">private ISegment CreateSegment(XmlNode segNode, ISegmentPairProperties pair)
 {
     ISegment segment = ItemFactory.CreateSegment(pair);
 
@@ -222,31 +193,21 @@ private ISegment CreateSegment(XmlNode segNode, ISegmentPairProperties pair)
     return segment;
 }
 </code></pre>
-</section>
-</div>
-
-<p>If you build your project at this stage, your file type plug-in should yield the following result when opening the sample file:</p>
+<p>Your file type plug-in produces the following result when opening the sample file at this stage:</p>
 <p><img src="images/BilText.jpg" alt="BilText"></p>
 <h2 id="update-the-progress-count">Update the Progress Count</h2>
-<p>At this point it is a good idea to implement the logic required for updating the progress report by making the following additions to the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.AbstractBilingualParser.html#Sdl_FileTypeSupport_Framework_BilingualApi_AbstractBilingualParser_ParseNext">ParseNext</a> method:</p>
-<div class="tabGroup" id="tabgroup_6">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_6_tabid-6" role="tab" aria-controls="tabpanel_6_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_6_tabid-6" role="tabpanel" data-tab="tabid-6">
+<p>Implement logic for updating the progress report by adding the following to the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.AbstractBilingualParser.html#Sdl_FileTypeSupport_Framework_BilingualApi_AbstractBilingualParser_ParseNext">ParseNext</a> method:</p>
+</section>
+<section id="tabpanel_1_tabid-6" role="tabpanel" data-tab="tabid-6" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">public bool ParseNext()
 {
-    // variables for the progress report
     int totalUnitCount = _document.SelectNodes(&quot;//unit&quot;).Count;
     int currentUnitCount = 0;
     foreach (XmlNode item in _document.SelectNodes(&quot;//unit&quot;))
     {
         Output.ProcessParagraphUnit(CreateParagraphUnit(item));
 
-        // update the progress report   
         currentUnitCount++;
         OnProgress(Convert.ToByte(Math.Round(100 * ((decimal)currentUnitCount / totalUnitCount), 0)));
     }
@@ -254,16 +215,18 @@ private ISegment CreateSegment(XmlNode segNode, ISegmentPairProperties pair)
     return false;
 }
 </code></pre>
-</section>
-</div>
 <h2 id="see-also">See Also</h2>
-<p><a href="processing_inline_tags.html">Processing Inline Tags</a></p>
-<p><a href="applying_character_formatting.html">Applying Character Formatting</a></p>
-<p><a href="applying_the_segment_pair_confirmation_levels.html">Applying the Segment Pair Confirmation Levels</a></p>
-<p><a href="adding_context_information.html">Adding Context Information</a></p>
+<ul>
+<li><a href="processing_inline_tags.html">Processing Inline Tags</a></li>
+<li><a href="applying_character_formatting.html">Applying Character Formatting</a></li>
+<li><a href="applying_the_segment_pair_confirmation_levels.html">Applying the Segment Pair Confirmation Levels</a></li>
+<li><a href="adding_context_information.html">Adding Context Information</a></li>
+</ul>
 <div class="NOTE">
 <h5>Note</h5>
 <p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+</div>
+</section>
 </div>
 
 </article>

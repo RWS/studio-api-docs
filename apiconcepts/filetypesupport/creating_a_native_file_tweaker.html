@@ -82,17 +82,35 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="creating-a-native-file-tweaker">Creating a Native File Tweaker</h1>
 
-<p>In this chapter, you will learn how to create a native file tweaker. A native file tweaker can either tweak - or perform a minor change to - the original file before being extracted (a pre-tweaker) or tweak the output file after being written (a post-tweaker). See <a href="native_file_tweakers.html">Native File Tweakers</a> for more information.</p>
-<p>Native file tweakers make use of the following namespaces:</p>
+<p>Create native file tweakers that modify the original file before extraction (pre-tweaker) or the output file after generation (post-tweaker). See <a href="native_file_tweakers.html">Native File Tweakers</a> for more information.</p>
+<p>Native file tweakers use the following namespaces:</p>
 <ul>
 <li><a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.html">Sdl.FileTypeSupport.Framework.NativeApi</a></li>
 <li><a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.html">Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi</a></li>
 </ul>
-<p>These namespaces should be used and the associated assembly references added when developing native file tweakers.</p>
+<p>Add references to these assemblies when developing native file tweakers.</p>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
 <a href="#tabpanel_1_tabid-1" role="tab" aria-controls="tabpanel_1_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-2" role="tab" aria-controls="tabpanel_1_tabid-2" data-tab="tabid-2" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-3" role="tab" aria-controls="tabpanel_1_tabid-3" data-tab="tabid-3" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-4" role="tab" aria-controls="tabpanel_1_tabid-4" data-tab="tabid-4" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-5" role="tab" aria-controls="tabpanel_1_tabid-5" data-tab="tabid-5" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-6" role="tab" aria-controls="tabpanel_1_tabid-6" data-tab="tabid-6" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-7" role="tab" aria-controls="tabpanel_1_tabid-7" data-tab="tabid-7" tabindex="-1">C#</a>
 </li>
 </ul>
 <section id="tabpanel_1_tabid-1" role="tabpanel" data-tab="tabid-1">
@@ -100,44 +118,31 @@
 <pre><code class="lang-cs">using Sdl.FileTypeSupport.Framework.NativeApi;
 using Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi;
 </code></pre>
-</section>
-</div>
 <h2 id="creating-a-native-file-pre-tweaker">Creating a Native File Pre-Tweaker</h2>
-<p>A simple native file pre-tweaker will be developed to remove the byte order mark from the original file before being extracted.</p>
-<p>Native file pre-tweakers should inherit from <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.AbstractFilePreTweaker.html">AbstractFilePreTweaker</a>.</p>
-<div class="tabGroup" id="tabgroup_2">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_2_tabid-2" role="tab" aria-controls="tabpanel_2_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_2_tabid-2" role="tabpanel" data-tab="tabid-2">
+<p>Develop a simple native file pre-tweaker that removes the byte order mark from the original file before extraction.</p>
+<p>Pre-tweakers inherit from <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.AbstractFilePreTweaker.html">AbstractFilePreTweaker</a>.</p>
+</section>
+<section id="tabpanel_1_tabid-2" role="tabpanel" data-tab="tabid-2" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">public class SimpleFilePreTweaker : AbstractFilePreTweaker
 </code></pre>
-</section>
-</div>
-
-<p>The <strong>properties</strong> parameter contains two important properties:</p>
+<h3 id="key-properties">Key Properties</h3>
+<p>The <code>properties</code> parameter contains two important properties:</p>
 <ul>
-<li><a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPersistentFileConversionProperties.html#Sdl_FileTypeSupport_Framework_NativeApi_IPersistentFileConversionProperties_OriginalFilePath">OriginalFilePath</a> is the file path of the original native file.</li>
-<li><a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPersistentFileConversionProperties.html#Sdl_FileTypeSupport_Framework_NativeApi_IPersistentFileConversionProperties_InputFilePath">InputFilePath</a> is the file path of the tweaked native file.</li>
+<li><a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPersistentFileConversionProperties.html#Sdl_FileTypeSupport_Framework_NativeApi_IPersistentFileConversionProperties_OriginalFilePath">OriginalFilePath</a> — The file path of the original native file</li>
+<li><a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPersistentFileConversionProperties.html#Sdl_FileTypeSupport_Framework_NativeApi_IPersistentFileConversionProperties_InputFilePath">InputFilePath</a> — The file path of the tweaked native file</li>
 </ul>
-<p>The <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.AbstractFilePreTweaker.html#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_AbstractFilePreTweaker_Tweak_Sdl_FileTypeSupport_Framework_NativeApi_IPersistentFileConversionProperties_">Tweak</a> method is where the native file is tweaked. An implementation of this method should read the original native file, perform some processing, and create and write the tweaked native file to <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPersistentFileConversionProperties.html#Sdl_FileTypeSupport_Framework_NativeApi_IPersistentFileConversionProperties_InputFilePath">InputFilePath</a>. The tweaker is only responsible for creating the tweaked native file; it is not responsible for deleting the tweaked native file after processing.</p>
-<p>In this example, the implementation of the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.AbstractFilePreTweaker.html#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_AbstractFilePreTweaker_Tweak_Sdl_FileTypeSupport_Framework_NativeApi_IPersistentFileConversionProperties_">Tweak</a> method that removes the byte order mark is quite straightforward and consists of the following steps:</p>
+<h3 id="the-tweak-method">The Tweak Method</h3>
+<p>The <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.AbstractFilePreTweaker.html#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_AbstractFilePreTweaker_Tweak_Sdl_FileTypeSupport_Framework_NativeApi_IPersistentFileConversionProperties_">Tweak</a> method performs the tweaking. Read the original native file from <code>OriginalFilePath</code>, process it, and write the tweaked file to <code>InputFilePath</code>. The framework handles deletion of the tweaked file after processing.</p>
+<p>This example removes the byte order mark with these steps:</p>
 <ol>
-<li>Open the original file using <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPersistentFileConversionProperties.html#Sdl_FileTypeSupport_Framework_NativeApi_IPersistentFileConversionProperties_OriginalFilePath">OriginalFilePath</a> as the file path.</li>
-<li>Create the tweaked file with UTF-8 encoding without the byte order mark using <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPersistentFileConversionProperties.html#Sdl_FileTypeSupport_Framework_NativeApi_IPersistentFileConversionProperties_InputFilePath">InputFilePath</a> as the file path.</li>
-<li>Copy the lines from the original file to the tweaked file.</li>
+<li>Open the original file using <code>OriginalFilePath</code></li>
+<li>Create the tweaked file with UTF-8 encoding without the byte order mark using <code>InputFilePath</code></li>
+<li>Copy lines from the original file to the tweaked file</li>
 </ol>
-<p>Add the following code to the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.AbstractFilePreTweaker.html#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_AbstractFilePreTweaker_Tweak_Sdl_FileTypeSupport_Framework_NativeApi_IPersistentFileConversionProperties_">Tweak</a> method.</p>
-<div class="tabGroup" id="tabgroup_3">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_3_tabid-3" role="tab" aria-controls="tabpanel_3_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_3_tabid-3" role="tabpanel" data-tab="tabid-3">
+<p>Add the following code to the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.AbstractFilePreTweaker.html#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_AbstractFilePreTweaker_Tweak_Sdl_FileTypeSupport_Framework_NativeApi_IPersistentFileConversionProperties_">Tweak</a> method:</p>
+</section>
+<section id="tabpanel_1_tabid-3" role="tabpanel" data-tab="tabid-3" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">// open original file
 using (StreamReader reader = new StreamReader(properties.OriginalFilePath))
@@ -154,48 +159,23 @@ using (StreamReader reader = new StreamReader(properties.OriginalFilePath))
     }
 }
 </code></pre>
+<h3 id="the-willfilebetweaked-method">The WillFileBeTweaked Method</h3>
+<p>Override the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.AbstractFilePreTweaker.html#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_AbstractFilePreTweaker_WillFileBeTweaked_System_String_">WillFileBeTweaked</a> method to optimize performance. Return <code>false</code> when the file doesn't need tweaking, preventing unnecessary file operations.</p>
 </section>
-</div>
-
-<p><a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.AbstractFilePreTweaker.html">AbstractFilePreTweaker</a> has a <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.AbstractFilePreTweaker.html#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_AbstractFilePreTweaker_WillFileBeTweaked_System_String_">WillFileBeTweaked</a> method that may be overridden.</p>
-<div class="tabGroup" id="tabgroup_4">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_4_tabid-4" role="tab" aria-controls="tabpanel_4_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_4_tabid-4" role="tabpanel" data-tab="tabid-4">
+<section id="tabpanel_1_tabid-4" role="tabpanel" data-tab="tabid-4" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">protected override bool WillFileBeTweaked(string originalFilePath)
 </code></pre>
+<p>In this example, the file only needs tweaking if it has a byte order mark. Add this code to the method:</p>
 </section>
-</div>
-
-<p>There may be some circumstances where the original native file does not need to be tweaked and in these circumstances the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.AbstractFilePreTweaker.html#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_AbstractFilePreTweaker_WillFileBeTweaked_System_String_">WillFileBeTweaked</a> method should return <strong>false</strong> to prevent the original native file from being tweaked.
-Here the original native file only needs to be tweaked if the original native file has a byte order.</p>
-<p>Add the following code to the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.AbstractFilePreTweaker.html#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_AbstractFilePreTweaker_WillFileBeTweaked_System_String_">WillFileBeTweaked</a> method.</p>
-<div class="tabGroup" id="tabgroup_5">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_5_tabid-5" role="tab" aria-controls="tabpanel_5_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_5_tabid-5" role="tabpanel" data-tab="tabid-5">
+<section id="tabpanel_1_tabid-5" role="tabpanel" data-tab="tabid-5" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">// if original file has a byte order mark then the original file needs to be tweaked
 return HasByteOrderMark(originalFilePath);
 </code></pre>
+<p>Add the helper method that checks for a byte order mark to the <code>SimpleFilePreTweaker</code> class:</p>
 </section>
-</div>
-
-<p>Add the following method that determines whether a given file has a byte order mark to the <strong>SimpleFilePreTweaker</strong> class.</p>
-<div class="tabGroup" id="tabgroup_6">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_6_tabid-6" role="tab" aria-controls="tabpanel_6_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_6_tabid-6" role="tabpanel" data-tab="tabid-6">
+<section id="tabpanel_1_tabid-6" role="tabpanel" data-tab="tabid-6" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">private bool HasByteOrderMark(string filePath)
 {
@@ -220,33 +200,33 @@ return HasByteOrderMark(originalFilePath);
     }
 }
 </code></pre>
-</section>
-</div>
-
-<p>That completes this simple native file pre-tweaker which removes the byte order mark from the original native file.</p>
-<p>The way native file pre-tweakers work affects the way parsers should be implemented. Any native file pre-tweaker works by reading the original native file from <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPersistentFileConversionProperties.html#Sdl_FileTypeSupport_Framework_NativeApi_IPersistentFileConversionProperties_OriginalFilePath">OriginalFilePath</a> and writing a tweaked native file to <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPersistentFileConversionProperties.html#Sdl_FileTypeSupport_Framework_NativeApi_IPersistentFileConversionProperties_InputFilePath">InputFilePath</a>. This has an important consequence for any parsers. Any parser should read from <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPersistentFileConversionProperties.html#Sdl_FileTypeSupport_Framework_NativeApi_IPersistentFileConversionProperties_InputFilePath">InputFilePath</a> rather than <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPersistentFileConversionProperties.html#Sdl_FileTypeSupport_Framework_NativeApi_IPersistentFileConversionProperties_OriginalFilePath">OriginalFilePath</a> because this allows the parser to read from tweaked files. If a file has not been tweaked either because a tweaker does not exist or the tweaker reported that the file did not need tweaking then <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPersistentFileConversionProperties.html#Sdl_FileTypeSupport_Framework_NativeApi_IPersistentFileConversionProperties_InputFilePath">InputFilePath</a> will be set to <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPersistentFileConversionProperties.html#Sdl_FileTypeSupport_Framework_NativeApi_IPersistentFileConversionProperties_OriginalFilePath">OriginalFilePath</a>.</p>
+<p>This completes the native file pre-tweaker that removes the byte order mark from the original file.</p>
+<h3 id="parser-implementation-implications">Parser Implementation Implications</h3>
+<p>Pre-tweakers read from <code>OriginalFilePath</code> and write to <code>InputFilePath</code>. This affects how parsers should read files: parsers must read from <code>InputFilePath</code>, not <code>OriginalFilePath</code>. This allows parsers to work with tweaked files. If no tweaker exists or the tweaker determines the file doesn't need tweaking, the framework sets <code>InputFilePath</code> to <code>OriginalFilePath</code>.</p>
 <h2 id="creating-a-native-file-post-tweaker">Creating a Native File Post-Tweaker</h2>
-<p>A simple native file post-tweaker will be developed to add the byte order mark to the output file after being written. A native file post-tweaker is similiar to a native file pre-tweaker. Native file post-tweakers should inherit from <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.AbstractFilePostTweaker.html">AbstractFilePostTweaker</a> which has a <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.AbstractFilePostTweaker.html#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_AbstractFilePostTweaker_Tweak_Sdl_FileTypeSupport_Framework_NativeApi_INativeOutputFileProperties_">Tweak</a> method that must be overridden.</p>
-<p>The <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.AbstractFilePostTweaker.html#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_AbstractFilePostTweaker_Tweak_Sdl_FileTypeSupport_Framework_NativeApi_INativeOutputFileProperties_">Tweak</a> method has a <strong>properties</strong> parameter that contains one property that concerns us here:</p>
+<p>Develop a simple native file post-tweaker that adds the byte order mark to the output file after generation. Post-tweakers are similar to pre-tweakers and inherit from <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.AbstractFilePostTweaker.html">AbstractFilePostTweaker</a>.</p>
+<p>Override the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.AbstractFilePostTweaker.html#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_AbstractFilePostTweaker_Tweak_Sdl_FileTypeSupport_Framework_NativeApi_INativeOutputFileProperties_">Tweak</a> method in your post-tweaker.</p>
+<h3 id="key-differences-from-pre-tweaker">Key Differences from Pre-Tweaker</h3>
+<p>The <code>properties</code> parameter contains:</p>
 <ul>
-<li><a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeOutputFileProperties.html#Sdl_FileTypeSupport_Framework_NativeApi_INativeOutputFileProperties_OutputFilePath">OutputFilePath</a> is the file path of the output native file.</li>
+<li><a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeOutputFileProperties.html#Sdl_FileTypeSupport_Framework_NativeApi_INativeOutputFileProperties_OutputFilePath">OutputFilePath</a> — The file path of the output native file</li>
 </ul>
-<p>One important difference between a native file pre-tweaker and a native file post-tweaker is that whilst the pre-tweaker reads the original file from <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPersistentFileConversionProperties.html#Sdl_FileTypeSupport_Framework_NativeApi_IPersistentFileConversionProperties_OriginalFilePath">OriginalFilePath</a> and writes the tweaked file to <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPersistentFileConversionProperties.html#Sdl_FileTypeSupport_Framework_NativeApi_IPersistentFileConversionProperties_InputFilePath">InputFilePath</a>, the post-tweaker reads the original file and writes the tweaked file to <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeOutputFileProperties.html#Sdl_FileTypeSupport_Framework_NativeApi_INativeOutputFileProperties_OutputFilePath">OutputFilePath</a> . Another important difference is that the native file post-tweaker does not have the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.AbstractFilePreTweaker.html#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_AbstractFilePreTweaker_WillFileBeTweaked_System_String_">WillFileBeTweaked</a> method.</p>
-<p>In this example, the implementation of the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.AbstractFilePostTweaker.html#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_AbstractFilePostTweaker_Tweak_Sdl_FileTypeSupport_Framework_NativeApi_INativeOutputFileProperties_">Tweak</a> method that adds the byte order mark is quite straightforward and consists of the following steps:</p>
+<p>Key differences from pre-tweakers:</p>
+<ul>
+<li>Pre-tweakers read from <code>OriginalFilePath</code> and write to <code>InputFilePath</code>; post-tweakers read from and write to <code>OutputFilePath</code></li>
+<li>Post-tweakers don't have the <code>WillFileBeTweaked</code> method</li>
+</ul>
+<h3 id="implementing-the-post-tweaker-tweak-method">Implementing the Post-Tweaker Tweak Method</h3>
+<p>This example adds the byte order mark with these steps:</p>
 <ol>
-<li>Open the original file using the original output file path; <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeOutputFileProperties.html#Sdl_FileTypeSupport_Framework_NativeApi_INativeOutputFileProperties_OutputFilePath">OutputFilePath</a> .</li>
-<li>Create the tweaked file with UTF-8 encoding with the byte order mark using a temporary file path.</li>
-<li>Copy the lines from the original file to the tweaked file.</li>
-<li>Replace the original file with the tweaked file.</li>
+<li>Read the output file from <code>OutputFilePath</code></li>
+<li>Create a tweaked file with UTF-8 encoding with the byte order mark using a temporary file</li>
+<li>Copy lines from the original file to the tweaked file</li>
+<li>Replace the original file with the tweaked file</li>
 </ol>
-<p>Here is the complete simple native file post-tweaker code which adds the byte order mark to the original native file.</p>
-<div class="tabGroup" id="tabgroup_7">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_7_tabid-7" role="tab" aria-controls="tabpanel_7_tabid-7" data-tab="tabid-7" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_7_tabid-7" role="tabpanel" data-tab="tabid-7">
+<p>Here's the complete native file post-tweaker that adds the byte order mark:</p>
+</section>
+<section id="tabpanel_1_tabid-7" role="tabpanel" data-tab="tabid-7" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">using System.IO;
 using System.Text;
@@ -288,13 +268,15 @@ namespace Sdk.FileTypeSupport.Samples.SimpleText
     }
 }
 </code></pre>
-</section>
-</div>
 <h2 id="see-also">See Also</h2>
-<p><a href="native_file_tweakers.html">Native File Tweakers</a></p>
+<ul>
+<li><a href="native_file_tweakers.html">Native File Tweakers</a></li>
+</ul>
 <div class="NOTE">
 <h5>Note</h5>
 <p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+</div>
+</section>
 </div>
 
 </article>

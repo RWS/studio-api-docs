@@ -82,11 +82,11 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="adding-tm-fields">Adding TM Fields</h1>
 
-<p>This page shows how to add fields to a translation memory. For more information on what TM fields are and what their purpose is, please refer to <a href="configuring_translation_memories.html">Configuring Translation Memories</a>.</p>
+<p>This page explains how to add fields to a translation memory. For background on TM fields and their purpose, see <a href="configuring_translation_memories.html">Configuring Translation Memories</a>.</p>
 <h2 id="add-a-new-class">Add a New Class</h2>
-<p>As we are going to implement the functionality for defining TM fields in a separate class, create a new class called <code>TmFieldGenerator</code>. Let us assume that you need to add a picklist field called Customer and a free text field called <em>Project id</em>. Picklist fields are always associated with a pre-defined list of values, which can later be selected as required at runtime. Text fields, on the other hand, can be filled with any text. Apart from picklist and text, fields can also be of the types number and date/time. However, since picklist and text fields constitute the most common types, we fill focus on those two.</p>
-<p>The first step is decide whether you want to configure a field as a free text field or a picklist field. Fields that should be associated with only a limited number of values that should be used consistently, will usually be of the type picklist. Common examples are <em>Subject, Document type, Customer</em>, etc. Free text fields should be used when at runtime there are virtually limitless possible values. Common examples here are <em>Project id, Comment</em>, etc.</p>
-<p>Start by adding a public function called <code>AddFields</code>, which takes the file path and name as string parameter. This function can be called as shown below:</p>
+<p>Implement the field logic in a separate class named <code>TmFieldGenerator</code>. This example adds a picklist field named <em>Customer</em> and a free-text field named <em>Project id</em>. Picklist fields use a predefined list of values that you select at runtime. Text fields accept any value. TM fields can also use number and date/time types, but this example focuses on picklist and text fields because they are the most common.</p>
+<p>First decide whether the field should be a free-text field or a picklist field. Use picklist fields when you want to limit values to a consistent set, such as <em>Subject</em>, <em>Document type</em>, or <em>Customer</em>. Use free-text fields when the runtime values can vary widely, such as <em>Project id</em> or <em>Comment</em>.</p>
+<p>Add a public method named <code>AddFields()</code> that takes the TM file path as a string parameter. Call it as shown below:</p>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
@@ -101,8 +101,8 @@ tmFieldGenerator.AddFields(_translationMemoryFilePath);
 </section>
 </div>
 
-<p>In the <code>AddFields</code> function start by opening the TM to which the fields should be added. Our first field should be called <em>Customer</em>, and should be of the type list. Create a list field object through the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemory.FieldDefinitions.html">FieldDefinition</a> class.</p>
-<p>Apply the <strong>ValueType</strong> property to define the field as a picklist that can hold multiple values. Finally, add two values, e.g. <em>Microsoft</em> and <em>RWS</em>:</p>
+<p>In the <code>AddFields()</code> method, open the TM to which you want to add the fields. Create the first field, <em>Customer</em>, as a picklist by using the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemory.FieldDefinitions.html">FieldDefinition</a> class.</p>
+<p>Set the <strong>ValueType</strong> property to define the field as a multiple picklist, and add two values such as <em>Microsoft</em> and <em>RWS</em>:</p>
 <div class="tabGroup" id="tabgroup_2">
 <ul role="tablist">
 <li role="presentation">
@@ -122,7 +122,7 @@ listField.PicklistItems.Add(&quot;Microsoft&quot;);
 </section>
 </div>
 
-<p>The second example should be a free text field, which we call <em>Project id</em>. Therefore, create a free text field object:</p>
+<p>Create the second field, <em>Project id</em>, as a free-text field:</p>
 <div class="tabGroup" id="tabgroup_3">
 <ul role="tablist">
 <li role="presentation">
@@ -138,9 +138,9 @@ textField.ValueType = FieldValueType.MultipleString;
 </section>
 </div>
 
-<p>Note that picklist and text fields can allow for only a single value or for multiple values, e.g. if a translation unit can be associated with several customers or project ids. In the above example we define the fields as multiple.</p>
+<p>Picklist and text fields can allow a single value or multiple values. Use multiple values when a translation unit can be associated with several customers or project IDs, as in this example.</p>
 <h2 id="putting-it-all-together">Putting it All Together</h2>
-<p>The complete class should now look as shown below:</p>
+<p>The complete class should now look like this:</p>
 <div class="tabGroup" id="tabgroup_4">
 <ul role="tablist">
 <li role="presentation">

@@ -82,20 +82,26 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="enhancing-the-file-parser-to-process-the-settings">Enhancing the File Parser to Process the Settings</h1>
 
-<p>Now that you have implemented the user interface for configuring the file type plug-in settings as well as the functionality to load and save these settings, you need to extend your file parser class to make it 'aware' of the settings, so that they can be taken into consideration when processing a given file.</p>
+<p>After implementing the user interface for configuring the file type plug-in settings and the functionality to load and save settings, extend your file parser class to be settings-aware so it considers settings when processing files.</p>
 <h2 id="add-and-initialize-the-settings-property">Add and Initialize the Settings Property</h2>
-<p>First, you need to make sure that your parser class also uses the following, additional namespaces:</p>
+<p>Ensure your parser class uses the following additional namespaces:</p>
 <ul>
 <li><strong>Sdl.FileTypeSupport.Framework.IntegrationApi</strong></li>
 <li><strong>Sdl.Core.Settings</strong></li>
 <li><strong>Sdl.FileTypeSupport.Framework.Core.Settings</strong></li>
 </ul>
-<p>Then your parser class needs to implement the <code>ISettingsAware</code> interface, which makes it 'aware' of the plug-in settings and provides the method that allows it to initialize the settings.</p>
-<p>In the next step, add the following boolean property to your parser class:</p>
+<p>Implement the <code>ISettingsAware</code> interface in your parser class. This interface makes the parser settings-aware and provides the method to initialize the settings.</p>
+<p>Add the following boolean property to your parser class:</p>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
 <a href="#tabpanel_1_tabid-1" role="tab" aria-controls="tabpanel_1_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-2" role="tab" aria-controls="tabpanel_1_tabid-2" data-tab="tabid-2" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-3" role="tab" aria-controls="tabpanel_1_tabid-3" data-tab="tabid-3" tabindex="-1">C#</a>
 </li>
 </ul>
 <section id="tabpanel_1_tabid-1" role="tabpanel" data-tab="tabid-1">
@@ -106,18 +112,10 @@
     set;
 }
 </code></pre>
+<p>This property corresponds to the setting retrieved through the settings UI.</p>
+<p>Use the <code>InitializeSettings</code> method to initialize the plug-in setting. Call the <code>UserSettings</code> class and apply <code>PopulateFromSettingsBundle</code> to retrieve the current plug-in configuration. Set the <code>LockPrdCodes</code> property accordingly:</p>
 </section>
-</div>
-
-<p>The property corresponds to the setting that has been retrieved through the settings UI.</p>
-<p>Then, use the <code>InitializeSettings</code> method of the interface to initialize the plug-in setting. Within this method, we call on the UserSettings class and apply the <code>PopulateFromSettingsBundle</code> method to retrieve the current plug-in configuration and then set the <code>LockPrdCodes</code> of the main verifier component accordingly.</p>
-<div class="tabGroup" id="tabgroup_2">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_2_tabid-2" role="tab" aria-controls="tabpanel_2_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_2_tabid-2" role="tabpanel" data-tab="tabid-2">
+<section id="tabpanel_1_tabid-2" role="tabpanel" data-tab="tabid-2" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">public void InitializeSettings(Sdl.Core.Settings.ISettingsBundle settingsBundle, string configurationId)
 {
@@ -126,17 +124,9 @@
     LockPrdCodes = _userSettings.LockPrdCodes;
 }
 </code></pre>
+<p>Modify the <code>ProcessLine()</code> helper function to call <code>WriteLockedContent()</code> only when the current line starts with the <em>Prd-Code</em> string and <code>LockPrdCodes</code> equals True:</p>
 </section>
-</div>
-
-<p>Modify the <code>ProcessLine()</code> helper function so that it triggers <code>WriteLockedContent()</code> only if the current line starts with the <em>Prd-Code</em> string and if <code>LockPrdCodes</code> equals True.</p>
-<div class="tabGroup" id="tabgroup_3">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_3_tabid-3" role="tab" aria-controls="tabpanel_3_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_3_tabid-3" role="tabpanel" data-tab="tabid-3">
+<section id="tabpanel_1_tabid-3" role="tabpanel" data-tab="tabid-3" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">// determines whether a given line is
 // translatable or not
@@ -149,29 +139,29 @@ private void ProcessLine(string sLine)
         WriteStructureTag(sLine);
         WriteContext(sLine);
     }
-    else if (sLine.StartsWith(&quot;Prd-Code&quot;) &amp;&amp; LockPrdCodes==true)
+    else if (sLine.StartsWith(&quot;Prd-Code&quot;) &amp;&amp; LockPrdCodes == true)
     {
         WriteLockedContent(sLine);
-
-    } 
+    }
     else
     {
         WriteText(ProcessFormatting(sLine));
     }
 }
 </code></pre>
-</section>
-</div>
-
-<p>After making these changes your file parser should now respond to settings changes made at runtime.</p>
+<p>Your file parser now responds to settings changes made at runtime.</p>
 <h2 id="see-also">See Also</h2>
-<p><a href="creating_a_new_assembly_for_the_settings_ui.html">Creating a New Assembly for the Settings UI</a></p>
-<p><a href="implementing_the_settings_ui.html">Implementing the Settings UI</a></p>
-<p><a href="implementing_the_ui_controller_class.html">Implementing the UI Controller Class</a></p>
-<p><a href="loading_and_saving_settings.html">Loading and Saving the Settings</a></p>
+<ul>
+<li><a href="creating_a_new_assembly_for_the_settings_ui.html">Creating a New Assembly for the Settings UI</a></li>
+<li><a href="implementing_the_settings_ui.html">Implementing the Settings UI</a></li>
+<li><a href="implementing_the_ui_controller_class.html">Implementing the UI Controller Class</a></li>
+<li><a href="loading_and_saving_settings.html">Loading and Saving the Settings</a></li>
+</ul>
 <div class="NOTE">
 <h5>Note</h5>
 <p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+</div>
+</section>
 </div>
 
 </article>

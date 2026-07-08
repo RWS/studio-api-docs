@@ -152,15 +152,9 @@ project.UpdateTranslationProviderConfiguration(config);
 /// Adds the TM that should be used for the analysis. The project languages are
 /// set according to the TM.
 /// &lt;/summary&gt; 
-#region &quot;AddTmFunction&quot;
 private void AddTm(FileBasedProject project, string tmFilePath)
-#endregion
 {
-    #region &quot;TranslationProviderConfiguration&quot;
     TranslationProviderConfiguration config = project.GetTranslationProviderConfiguration();
-    #endregion
-
-    #region &quot;TranslationProviderCascadeEntry&quot;
     TranslationProviderCascadeEntry tm = new TranslationProviderCascadeEntry(
         tmFilePath,
         true,
@@ -169,7 +163,6 @@ private void AddTm(FileBasedProject project, string tmFilePath)
     config.Entries.Add(tm);
 
     project.UpdateTranslationProviderConfiguration(config);
-    #endregion
 }
 </code></pre>
 </section>
@@ -259,20 +252,14 @@ project.UpdateTranslationProviderConfiguration(config);
 </ul>
 <section id="tabpanel_9_tabid-9" role="tabpanel" data-tab="tabid-9">
 
-<pre><code class="lang-cs">#region &quot;AddServerTmFunction&quot;
-/// &lt;summary&gt;
+<pre><code class="lang-cs">/// &lt;summary&gt;
 /// Add a server TM to be used for anaysis. The project languages are
 /// set according to the TM.
 /// &lt;/summary&gt;
 private void AddServerTm(FileBasedProject project, string serverAddress, string organizationPath, string tmName, bool useWindowsSecurity, string username, string password)
-#endregion
 {
-    #region &quot;TranslationProviderConfiguration&quot;
     Uri tmAddress = new Uri(String.Format(&quot;sdltm.{1}{2}/{3}&quot;, serverAddress, organizationPath, tmName));
     TranslationProviderConfiguration config = project.GetTranslationProviderConfiguration();
-    #endregion
-
-    #region &quot;TranslationProviderCascadeEntryForServerTM&quot;
     TranslationProviderCascadeEntry tm = new TranslationProviderCascadeEntry
     (
           new TranslationProviderReference(tmAddress),
@@ -282,12 +269,8 @@ private void AddServerTm(FileBasedProject project, string serverAddress, string 
     );
     config.Entries.Add(tm);
     project.UpdateTranslationProviderConfiguration(config);
-    #endregion
-
-    #region &quot;CredentialsForServerTm&quot;
     project.Credentials.AddCredential(new Uri(serverAddress), String.Format(&quot;user={0};password={1};type=CustomUser&quot;, username, password, useWindowsSecurity ? &quot;WindowsUser&quot; : &quot;CustomUser&quot;));
     project.UpdateTranslationProviderConfiguration(config);
-    #endregion
 }
 </code></pre>
 </section>

@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-      <title>Implementing the Search Logic </title>
+      <title> </title>
       <meta name="viewport" content="width=device-width">
-      <meta name="title" content="Implementing the Search Logic ">
+      <meta name="title" content=" ">
     
     
       <link rel="shortcut icon" href="../../favicon.ico">
@@ -80,13 +80,13 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-<h1 id="implementing-the-search-logic">Implementing the Search Logic</h1>
 
-<p>The actual search functionality is implemented in a separate component. The plug-in template contains a class called <code>MyTranslationProviderLanguageDirection</code>, which - in our sample implementation - we will re-name to <code>ListTranslationProviderLanguageDirection</code>. This class implements the ITranslationProviderLanguageDirection interface, which contains numerous members. In this chapter we will focus on the members that are actually used for implementing the functionality of our plug-in. Members used for updating and adding translation units are not required for our implementation.</p>
+<h2 id="implementing-the-search-logic">Implementing the Search Logic</h2>
+<p>The search functionality lives in a separate component. The plug-in template includes a class named <code>MyTranslationProviderLanguageDirection</code>, which we rename to <code>ListTranslationProviderLanguageDirection</code> in this sample. This class implements <code>ITranslationProviderLanguageDirection</code>, which exposes many members. Here, we focus on the members required for the search functionality. We do not need the members for adding or updating translation units.</p>
 <h2 id="implement-the-private-class-members">Implement the Private Class Members</h2>
-<p>The class that hosts the logic for the actual search functionality requires access to, for example, the plug-in options, as it needs to 'know' the name and path of the list file as well as the delimiter. This is done by creating an object based on the <code>ListTranslationOptions</code> class (see <a href="storing_and_retrieving_the_plugin_settings.html">Storing and Retrieving the Plug-in Settings</a>).</p>
-<p>Also, the <code>ListTranslationProviderElementVisitor</code> helper class (which we will implement in the next chapter, see <a href="implementing_the_element_visitor.html">Implementing the Element Visitor</a>) provides functionality necessary for making sure that we retrieve the required plain segment text information for carrying out the search in the delimited text lists.</p>
-<p>Also, we declare a <code>_listOfTranslations</code> object based on the <code>Dictionary</code> class. We will later load the content of the delimited list file into this object. At the beginning of our class we therefore declare the following private members:</p>
+<p>The class that contains the search logic needs access to the plug-in options, including the list file path, file name, and delimiter. Create an object based on the <code>ListTranslationOptions</code> class (see <a href="storing_and_retrieving_the_plugin_settings.html">Storing and Retrieving the Plug-in Settings</a>).</p>
+<p>The <code>ListTranslationProviderElementVisitor</code> helper class, which we implement in the next chapter (see <a href="implementing_the_element_visitor.html">Implementing the Element Visitor</a>), extracts the plain segment text required for searches in the delimited list.</p>
+<p>Declare a <code>_listOfTranslations</code> object based on <code>Dictionary&lt;string, string&gt;</code>. Later, we load the contents of the delimited list file into this object. At the beginning of the class, declare the following private members:</p>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
@@ -104,7 +104,7 @@ private Dictionary&lt;string, string&gt; _listOfTranslations;
 </section>
 </div>
 
-<p>These members are then instantiated in the <code>ListTranslationProviderLanguageDirection</code> constructor method, which also creates the <code>_listOfTranslations</code> object to hold the segment pair collection:</p>
+<p>Instantiate these members in the <code>ListTranslationProviderLanguageDirection</code> constructor, which also creates the <code>_listOfTranslations</code> object to store the segment pairs:</p>
 <div class="tabGroup" id="tabgroup_2">
 <ul role="tablist">
 <li role="presentation">
@@ -122,8 +122,8 @@ _listOfTranslations = new Dictionary&lt;string, string&gt;();
 </section>
 </div>
 
-<p>In the next step we open the list file. Note that the file name and path is provided through the plug-in options, as is the delimiter character. The first line, which holds the language direction information should not be put into the collection, which is why before looping through the segment pairs we apply the ReadLine method, so that this line is skipped.</p>
-<p>Within the loop we split the following lines into segment pairs. If the split is successful and generates a source and a target segment, we add the pair to the collection.</p>
+<p>Next, open the list file. The plug-in options provide both the file path and the delimiter character. The first line contains the language direction and should not be added to the collection, so read and skip that line before processing the segment pairs.</p>
+<p>Inside the loop, split each line into a source and target segment. If the split succeeds, add the pair to the collection.</p>
 <div class="tabGroup" id="tabgroup_3">
 <ul role="tablist">
 <li role="presentation">
@@ -162,7 +162,7 @@ using (StreamReader sourceFile = new StreamReader(_options.ListFileName))
 </section>
 </div>
 
-<p>The complete method should now look as shown below:</p>
+<p>The complete constructor should now look like this:</p>
 <div class="tabGroup" id="tabgroup_4">
 <ul role="tablist">
 <li role="presentation">
@@ -172,16 +172,13 @@ using (StreamReader sourceFile = new StreamReader(_options.ListFileName))
 <section id="tabpanel_4_tabid-4" role="tabpanel" data-tab="tabid-4">
 
 <pre><code class="lang-cs">public ListTranslationProviderLanguageDirection(ListTranslationProvider provider, LanguagePair languages)
-{
-    #region &quot;Instantiate&quot;
+{    
     _provider = provider;
     _languageDirection = languages;
     _options = _provider.Options;
     _visitor = new ListTranslationProviderElementVisitor(_options);
     _listOfTranslations = new Dictionary&lt;string, string&gt;();
-    #endregion
-
-    #region &quot;CompileCollection&quot;
+ 
     // Load the content of the specified list file and fill it
     // into the multiple identical sources are not allowed
     using (StreamReader sourceFile = new StreamReader(_options.ListFileName))
@@ -208,23 +205,22 @@ using (StreamReader sourceFile = new StreamReader(_options.ListFileName))
         }
         sourceFile.Close();
     }
-    #endregion
 }
 </code></pre>
 </section>
 </div>
 <h2 id="search-the-current-segment">Search the Current Segment</h2>
-<p>A segment lookup is (by default) triggered in Trados Studio when the user moves the cursor into a particular target cell. This will search for a match for the current source segment in the selected translation provider source. The screenshot below shows two source segments as they are displayed in the editor of Trados Studio and the empty target cells next to them:</p>
+<p>By default, Trados Studio triggers a segment lookup when the user moves the cursor into a target cell. The application then searches the selected translation provider for a match to the current source segment. The screenshot below shows two source segments in the editor and the empty target cells beside them:</p>
 <img style="display:block; " src="images/Segments.jpg">
-<p>When moving into a target cell the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderLanguageDirection.html#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderLanguageDirection_SearchSegment_Sdl_LanguagePlatform_TranslationMemory_SearchSettings_Sdl_LanguagePlatform_Core_Segment_">SearchSegment</a> method of the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderLanguageDirection.html">ITranslationProviderLanguageDirection</a> interface is invoked. This method takes the current segment object and the search settings as parameters. Search settings include, for example, the maximum number of matches that a search should return. These settings can be configured by the user of Trados Studio at runtime. The screenshot below shows the search settings that users can configure. If a user, for example, limits the number of concordance matches that a translation provider should return to 5, then the this is the maximum number of concordance hits that your provider will return. There is no need for you to implement the logic for applying the settings yourself.
+<p>When the user moves into a target cell, Trados Studio invokes the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderLanguageDirection.html#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderLanguageDirection_SearchSegment_Sdl_LanguagePlatform_TranslationMemory_SearchSettings_Sdl_LanguagePlatform_Core_Segment_">SearchSegment</a> method on the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderLanguageDirection.html">ITranslationProviderLanguageDirection</a> interface. The method accepts the current segment and the search settings as parameters. Search settings include values such as the maximum number of matches to return. Users configure these settings at runtime. For example, if a user limits concordance matches to 5, your provider must return no more than 5 hits. You do not need to implement the settings logic yourself.
 <img style="display:block; " src="images/SearchSettings.jpg"></p>
 <div class="NOTE">
 <h5>Note</h5>
-<p>Depending on your translation provider, some of the search settings that Trados Studio offers may or may not be relevant for your implementation. For example, since our provider will only support exact matches, the <strong>Minimum match value</strong> setting will not be relevant for the delimited list translation provider, as our logic will only implement searches for 100% matches.</p>
+<p>Depending on your translation provider, some search settings in Trados Studio may not apply to your implementation. For example, this provider supports only exact matches, so the <strong>Minimum match value</strong> setting is not relevant for the delimited list provider.</p>
 </div>
-<p>Also, our implementation only support plain text searches. The segment pairs in the delimited list files are plain text, i.e. they do not contain any text., it is likely that a document that is opened in Trados Studio contains inline tags, e.g. for character formatting as shown in the example below:</p>
+<p>This implementation supports plain-text searches only. The segment pairs in the delimited list files contain plain text, and documents opened in Trados Studio may contain inline tags, such as character formatting, as shown below:</p>
 <img style="display:block; " src="images/NotPlainText.jpg">
-<p>We therefore loop through all elements in the current segment and make sure that only plain text is returned. Note that the functionality for returning only the plain source segment text is implemented in a separate component, which we will add later (see <a href="implementing_the_element_visitor.html">Implementing the Element Visitor</a>).</p>
+<p>Loop through all elements in the current segment and return only plain text. The logic that extracts the plain source segment text lives in a separate component, which we add later (see <a href="implementing_the_element_visitor.html">Implementing the Element Visitor</a>).</p>
 <div class="tabGroup" id="tabgroup_5">
 <ul role="tablist">
 <li role="presentation">
@@ -242,8 +238,8 @@ foreach (var element in segment.Elements)
 </section>
 </div>
 <h2 id="create-the-search-results-object">Create the Search Results Object</h2>
-<p>In the next step we create an object based on the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemory.SearchResults.html">SearchResults</a> class. This object holds the results of our search, which we will fill with the information found in our list translation provider (if any). A search result usually consists of the source and the target segments that were found in the translation provider (and potentially further information data such as context information, TM fields - e.g. Client, Project -, which, however will not be the case for our simplified implementation).</p>
-<p>Therefore <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemory.SearchResults.html#Sdl_LanguagePlatform_TranslationMemory_SearchResults_SourceSegment">SourceSegment</a> property, which we set to the current segment as shown below:</p>
+<p>Next, create an object based on the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemory.SearchResults.html">SearchResults</a> class. This object stores the search results and any information returned by the list translation provider. A search result usually includes source and target segments, and may also include context data or TM fields such as Client and Project. This simplified implementation does not use those extra fields.</p>
+<p>Set the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemory.SearchResults.html#Sdl_LanguagePlatform_TranslationMemory_SearchResults_SourceSegment">SourceSegment</a> property to the current segment, as shown below:</p>
 <div class="tabGroup" id="tabgroup_6">
 <ul role="tablist">
 <li role="presentation">
@@ -258,17 +254,17 @@ results.SourceSegment = segment.Duplicate();
 </section>
 </div>
 
-<p>Note that we apply the <a href="../../api/translationmemory/Sdl.LanguagePlatform.Core.Segment.html#Sdl_LanguagePlatform_Core_Segment_Duplicate">Duplicate</a> method, which creates an instance that is a deep copy of the segment object instance.</p>
+<p>Note that we use the <a href="../../api/translationmemory/Sdl.LanguagePlatform.Core.Segment.html#Sdl_LanguagePlatform_Core_Segment_Duplicate">Duplicate</a> method to create a deep copy of the segment object.</p>
 <h2 id="the-search-types-supported-by-the-plug-in">The Search Types Supported by the Plug-in</h2>
-<p>Remember that our plug-in needs to implement the following search types:</p>
+<p>The plug-in must support the following search types:</p>
 <ul>
-<li>(source) segment lookup</li>
-<li>source concordance search</li>
-<li>target concordance search</li>
+<li>Source segment lookup</li>
+<li>Source concordance search</li>
+<li>Target concordance search</li>
 </ul>
-<p>A concordance search can be triggered by, for example, selecting a source or target string in the editor and by pressing <strong>F3</strong>. The type of search that was called by the user from the editor can be determined using the <code>SearchMode</code> property, whose value can be retrieved through the search settings object.</p>
+<p>A concordance search can be triggered by selecting a source or target string in the editor and pressing <strong>F3</strong>. Use the <code>SearchMode</code> property, available through the search settings object, to determine which search type the user invoked.</p>
 <h2 id="implement-the-segment-lookup">Implement the Segment Lookup</h2>
-<p>The following code snippet shows how we handle the normal segment lookup. If the search mode equals <strong>NormalSearch</strong>, and if a source segment match is found for the plain text version of the current source segment from the editor, then a target segment object should be created using the target segment string (i.e. the key value) from our segment pair collection. The current source segment and the target segment will be used to construct a search result, which will be displayed in the <strong>Translation Results</strong> window of Trados Studio. The result will be generated through a separate <code>CreateSearchResult</code> helper function, which we will implement later.</p>
+<p>The following code snippet shows the normal segment lookup. When the search mode equals <strong>NormalSearch</strong> and the provider finds a match for the plain-text version of the current source segment, create a target segment from the matching value in the segment-pair collection. Use the current source segment and the target segment to construct a search result, which appears in the <strong>Translation Results</strong> window of Trados Studio. The result comes from the <code>CreateSearchResult</code> helper function, which we implement later.</p>
 <div class="tabGroup" id="tabgroup_7">
 <ul role="tablist">
 <li role="presentation">
@@ -288,8 +284,8 @@ results.SourceSegment = segment.Duplicate();
 </section>
 </div>
 <h2 id="implement-the-concordance-search">Implement the Concordance Search</h2>
-<p>In the same manner we implement the source/target concordance search: If the search mode equals <strong>ConcordanceSearch</strong>, we loop through all the items in our segment pair collection. If items contain the search string, then a search result shall be generated for each matching segment. Note that for concordance searches we can have multiple hits.</p>
-<p>For concordance searches, the search segment returned from the editor will usually not be an entire segment, but part of a segment, i.e. the string that the user selected for the concordance search. Note that in our implementation we apply ToLower to the search string and the hit from our segment pair collection, which makes the concordance search case-insensitive:</p>
+<p>Implement source and target concordance searches in the same way. When the search mode equals <strong>ConcordanceSearch</strong>, loop through the segment-pair collection. If an item contains the search string, generate a search result for each match. Concordance searches can return multiple hits.</p>
+<p>For concordance searches, the segment returned from the editor is usually only part of a segment: the string the user selected for the search. In this implementation, apply <code>ToLower()</code> to both the search string and the value from the segment-pair collection to make the search case-insensitive:</p>
 <div class="tabGroup" id="tabgroup_8">
 <ul role="tablist">
 <li role="presentation">
@@ -314,7 +310,7 @@ results.SourceSegment = segment.Duplicate();
 </section>
 </div>
 
-<p>The target concordance search works almost the same way. The only difference is that we check for the search mode <strong>TargetConcordanceSearch</strong> and whether the current search string is contained in any of the target segments from the collection:</p>
+<p>Target concordance search works almost the same way. The only difference is that you check for <strong>TargetConcordanceSearch</strong> and test whether the current search string appears in any target segment from the collection:</p>
 <div class="tabGroup" id="tabgroup_9">
 <ul role="tablist">
 <li role="presentation">
@@ -339,7 +335,7 @@ results.SourceSegment = segment.Duplicate();
 </section>
 </div>
 
-<p>At the end of the loop we return the search result:</p>
+<p>Return the search results at the end of the method:</p>
 <div class="tabGroup" id="tabgroup_10">
 <ul role="tablist">
 <li role="presentation">
@@ -353,7 +349,7 @@ results.SourceSegment = segment.Duplicate();
 </section>
 </div>
 
-<p>The complete function should look as shown below:</p>
+<p>The complete function should now look like this:</p>
 <div class="tabGroup" id="tabgroup_11">
 <ul role="tablist">
 <li role="presentation">
@@ -367,35 +363,27 @@ results.SourceSegment = segment.Duplicate();
     // Loop through segment elements to 'filter out' e.g. tags in order to 
     // make certain that only plain text information is retrieved for
     // this simplified implementation.            
-    #region &quot;SegmentElements&quot;
     _visitor.Reset();
     foreach (var element in segment.Elements)
     {
         element.AcceptSegmentElementVisitor(_visitor);
     }
-    #endregion
-
-    #region &quot;SearchResultsObject&quot;
+        
     SearchResults results = new SearchResults();
     results.SourceSegment = segment.Duplicate();
-    #endregion
-
-
-    // Look up the currently selected segment in the collection (normal segment lookup).
-    #region &quot;SegmentLookup&quot;
+    
+    // Look up the currently selected segment in the collection (normal segment lookup).    
     if (settings.Mode == SearchMode.NormalSearch &amp;&amp;
         _listOfTranslations.ContainsKey(_visitor.PlainText))
     {
         Segment translation = new Segment(_languageDirection.TargetCulture);
         translation.Add(_listOfTranslations[_visitor.PlainText]);
         results.Add(CreateSearchResult(segment, translation, _visitor.PlainText, segment.HasTags));
-    }
-    #endregion
+    }   
 
     // Source concordance search
     // In this implementation the concordance search should be case-insensitive,
     // therefore ToLower() is applied.
-    #region &quot;SourceConcordanceSearch&quot;
     if (settings.Mode == SearchMode.ConcordanceSearch)
     {
         foreach (var item in _listOfTranslations.Keys)
@@ -408,12 +396,10 @@ results.SourceSegment = segment.Duplicate();
             }
         }
     }
-    #endregion
-
+   
     // Target concordance search
     // In this implementation the concordance search should be case-insensitive,
     // therefore ToLower() is applied.
-    #region &quot;TargetConcordanceSearch&quot;
     if (settings.Mode == SearchMode.TargetConcordanceSearch)
     {
         foreach (var item in _listOfTranslations.Keys)
@@ -426,25 +412,22 @@ results.SourceSegment = segment.Duplicate();
             }
         }
     }
-    #endregion
 
-    #region &quot;Close&quot;
     return results;
-    #endregion
 }
 </code></pre>
 </section>
 </div>
 <h2 id="generate-the-search-result-translation-unit">Generate the Search Result Translation Unit</h2>
-<p>In the next step, implement the <code>CreateSearchResult</code> helper function, which generates the search result if a match has been found in the translation list provider.</p>
-<p>The search result that we construct is basically a translation unit with the following information:</p>
+<p>Next, implement the <code>CreateSearchResult</code> helper function. It generates a search result when the translation list provider finds a match.</p>
+<p>The search result is essentially a translation unit with the following information:</p>
 <ul>
-<li>The source/target segment from the translation provider</li>
-<li>The match value</li>
-<li>The confirmation status, i.e. <strong>Draft</strong> or <strong>Translated</strong></li>
-<li>Potentially a formatting/tag penalty</li>
+<li>Source and target segments from the translation provider</li>
+<li>Match value</li>
+<li>Confirmation status, such as <strong>Draft</strong> or <strong>Translated</strong></li>
+<li>Optional formatting or tag penalty</li>
 </ul>
-<p>The function looks as shown below:</p>
+<p>The function signature looks like this:</p>
 <div class="tabGroup" id="tabgroup_12">
 <ul role="tablist">
 <li role="presentation">
@@ -458,19 +441,18 @@ results.SourceSegment = segment.Duplicate();
 </section>
 </div>
 
-<p>It takes the source segment (<em>searchSegment</em>), the target segment (<em>translation</em>) as segment parameters. In addition it takes the source segment as it was found in the list file as string parameter. The reason for using this additional parameter in our implementation: When finding a match during a normal source segment lookup, the source segment from the list file will be identical to the source segment from the document that was looked up. In this case, there would be no need for this additional string parameter, as the source segment could be already retrieved from the <code>searchSegment</code> parameter.
-However, for a concordance search, the search segment would not be the whole segment, but only part of it. But since we want to display the full segment in the <strong>Concordance</strong> window, and not only the concordance search string, we provide the full string as it was found in the list file as an additional string parameter.</p>
-<p>Another parameter that we use is the <code>formattingPenalty</code>, which is a boolean value. This parameter communicates to the function whether the original segment contained any inline tags (<code>segment.HasTags</code>). It may happen that an original source segment inline character formatting or any other tags. Our simple list provider only provides plain text, i.e. it does not insert any kind of tags or formatting information. This could lead to the fact that a segment with tags is translated by using a plain text target segment. Applying a slightly lower than 100% match value and a draft confirmation status alerts the translator to the fact that the suggested translation might require some editing. The translator then has to decide whether to apply the tags/formatting manually. Based on this parameter we lower match the match value for the TU to 99%. Also, we apply the confirmation level <a href="../../api/core/Sdl.Core.Globalization.ConfirmationLevel.html">Draft</a> instead of <a href="../../api/core/Sdl.Core.Globalization.ConfirmationLevel.html">Translated</a>.</p>
+<p>The function takes the source segment (<code>searchSegment</code>) and the target segment (<code>translation</code>) as parameters. It also takes the source segment string as it appears in the list file. This extra parameter is not necessary for a normal segment lookup, because the source segment from the list file matches the source segment from the document. However, concordance searches often use only part of a segment. To display the full segment in the <strong>Concordance</strong> window, pass the complete source string from the list file as an additional parameter.</p>
+<p>Another parameter, <code>formattingPenalty</code>, is a Boolean value. It tells the function whether the original segment contains inline tags (<code>segment.HasTags</code>). The simple list provider returns plain text only, so a tagged source segment may be translated with a plain-text target segment. Lowering the match value to 99% and setting the confirmation level to <a href="../../api/core/Sdl.Core.Globalization.ConfirmationLevel.html">Draft</a> signals to the translator that the suggestion may require manual tag handling. Otherwise, use <a href="../../api/core/Sdl.Core.Globalization.ConfirmationLevel.html">Translated</a>.</p>
 <div class="NOTE">
 <h5>Note</h5>
-<p>For concordance searches this formatting penalty parameter is always set to False as in our implementation formatting is not relevant for concordance searches.</p>
+<p>For concordance searches, set <code>formattingPenalty</code> to <code>false</code> because formatting does not affect concordance results in this implementation.</p>
 </div>
-<p>Below are some examples that illustrate how search results will be displayed in Trados Studio:</p>
-<p>The following result would be displayed in the <strong>Translation Results</strong> window when an exact (100%) match has been found in the delimited list:</p>
+<p>The examples below show how search results appear in Trados Studio:</p>
+<p>The following result appears in the <strong>Translation Results</strong> window when the provider finds an exact 100% match in the delimited list:</p>
 <img style="display:block; " src="images/SearchResultNormalSearch.jpg">
-<p>The following result would be displayed in the <strong>Concordance</strong> window for the search string photo printer. Note that when doing a concordance search in a translation memory, the corresponding search string is highlighted in the matching segments. This is not done in our simplified implementation.</p>
+<p>The following result appears in the <strong>Concordance</strong> window for the search string <code>photo printer</code>. In a translation memory, the search string is usually highlighted in the matching segments. This simplified implementation does not apply that highlighting.</p>
 <img style="display:block; " src="images/SearchResultConcordance.jpg">
-<p>The above result is achieved by creating a translation unit based on the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemory.TranslationUnit.html">TranslationUnit</a> class. To this <code>tu</code> object we apply the source and target segment as shown below. Remember that in order to make sure that the TU always shows the full source segment for concordance searches (instead of just the search string), we create a new <a href="../../api/translationmemory/Sdl.LanguagePlatform.Core.Segment.html">Segment</a> object based on the full source segment string as it is provided from the list file:</p>
+<p>Create the result by constructing a translation unit based on the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemory.TranslationUnit.html">TranslationUnit</a> class. Apply the source and target segments to the <code>tu</code> object, as shown below. To ensure that concordance searches display the full source segment instead of only the search string, create a new <a href="../../api/translationmemory/Sdl.LanguagePlatform.Core.Segment.html">Segment</a> object from the full source string in the list file:</p>
 <div class="tabGroup" id="tabgroup_13">
 <ul role="tablist">
 <li role="presentation">
@@ -488,27 +470,27 @@ tu.TargetSegment = translation;
 </section>
 </div>
 
-<p>Next, we set some properties for the TU:</p>
+<p>Next, set the following translation-unit properties:</p>
 <ul>
-<li>The match value, which should be 100, but which might be reduced through a penalty to 99% in order to alert the user to the fact that tags/inline formatting information is missing.</li>
-<li>The <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemory.TranslationUnitOrigin.html">TranslationUnitOrigin</a>, which indicates that the translation came from. TU origins could be, for example, translation memories, machine translation providers, Context TM, or an alignment of existing documents. A delimited list is similar in nature to a very rudimentary translation memory, therefore we chose <strong>TM</strong> as the TU origin value. Note that information such as the name of the provider and the TU origin is stored in the SDLXliff document as illustrated in the screenshot below. The user can make such information visible in a tooltip.</li>
+<li>Match value. Start at 100, but reduce it to 99% when a penalty applies so that users know tags or inline formatting are missing.</li>
+<li><a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemory.TranslationUnitOrigin.html">TranslationUnitOrigin</a>, which identifies the source of the translation. TU origins can include translation memories, machine translation providers, Context TM, or aligned documents. A delimited list behaves like a very simple translation memory, so we use <strong>TM</strong> as the TU origin value. Information such as the provider name and TU origin is stored in the SDLXliff document, as shown below. Users can display that information in a tooltip.</li>
 </ul>
 <img style="display:block; " src="images/TuInfoTooltip.jpg">
 <ul>
-<li><p>The <a href="../../api/core/Sdl.Core.Globalization.ConfirmationLevel.html">ConfirmationLevel</a>, which could be, for example, draft, signed-off, translated, etc. As an exact match from a delimited list file can be assumed to be quite reliable, we will give it the status <code>Translated</code>, or <code>Draft</code> if the suggested translation is missing tags. The confirmation status is displayed in the editor as shown in the above screenshot. The code snippet below shows how the draft status is applied to the TU:</p>
+<li><p><a href="../../api/core/Sdl.Core.Globalization.ConfirmationLevel.html">ConfirmationLevel</a>, which can be draft, signed-off, translated, and so on. Because an exact match from a delimited list is usually reliable, set the status to <code>Translated</code>, or to <code>Draft</code> when the suggested translation is missing tags. The confirmation status appears in the editor, as shown above. The code snippet below shows how to apply the draft status to the TU:</p>
 <pre><code class="lang-cs">tu.ConfirmationLevel = ConfirmationLevel.Draft;
 </code></pre>
 </li>
-<li><p>If the boolean <code>formattingPenalty</code> parameter equals True, the TU should also receive a formatting penalty of 1%. To do this you first have to create a penalty object based on the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemory.Penalty.html">Penalty</a> class. This penalty is then applied to the scoring result by using the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemory.ScoringResult.html#Sdl_LanguagePlatform_TranslationMemory_ScoringResult_ApplyPenalty_Sdl_LanguagePlatform_TranslationMemory_Penalty_">ApplyPenalty</a> method. This method takes the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemory.Penalty.html">Penalty</a> as parameter. Penalties can be applied for various reasons. In our example the cause of the penalty is the lacking formatting tags. Therefore, the applicable penalty type is <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemory.PenaltyType.html">TagMismatch</a>. Another parameter is the 'malus', i.e. the percentage point(s) to subtract from the base score, which we set to 1 as shown in the code snippet below:</p>
+<li><p>If the Boolean <code>formattingPenalty</code> parameter equals <code>true</code>, apply a 1% formatting penalty. First create a penalty object based on the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemory.Penalty.html">Penalty</a> class. Then apply it to the scoring result by using the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemory.ScoringResult.html#Sdl_LanguagePlatform_TranslationMemory_ScoringResult_ApplyPenalty_Sdl_LanguagePlatform_TranslationMemory_Penalty_">ApplyPenalty</a> method. This method accepts a <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemory.Penalty.html">Penalty</a> as a parameter. In this example, the penalty comes from missing formatting tags, so the appropriate penalty type is <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemory.PenaltyType.html">TagMismatch</a>. The malus, or percentage points to subtract from the base score, is 1, as shown below:</p>
 <pre><code class="lang-cs">Penalty penalty = new Penalty(PenaltyType.TagMismatch, 1);
 searchResult.ScoringResult.ApplyPenalty(penalty);
 </code></pre>
 </li>
-<li><p>When a formatting (i.e. tag) penalty is applied to a TU, it will be shown in Trados Studio as illustrated in the screenshot below:</p>
+<li><p>When a formatting, or tag, penalty applies to a TU, Trados Studio displays it as shown below:</p>
   <img style="display:block; " src="images/FormattingPenalty.jpg">
 </li>
 </ul>
-<p>The complete function should now look as shown below:</p>
+<p>The complete function should now look like this:</p>
 <div class="tabGroup" id="tabgroup_14">
 <ul role="tablist">
 <li role="presentation">
@@ -519,43 +501,34 @@ searchResult.ScoringResult.ApplyPenalty(penalty);
 
 <pre><code class="lang-cs">private SearchResult CreateSearchResult(Segment searchSegment, Segment translation, 
     string sourceSegment, bool formattingPenalty)
-{                
-        #region &quot;TranslationUnit&quot;
+{                        
         TranslationUnit tu = new TranslationUnit();
         Segment orgSegment = new Segment();
         orgSegment.Add(sourceSegment);
         tu.SourceSegment = orgSegment;
-        tu.TargetSegment = translation; 
-        #endregion           
+        tu.TargetSegment = translation;                    
 
         tu.ResourceId = new PersistentObjectToken(tu.GetHashCode(), Guid.Empty);
-
-        #region &quot;TuProperties&quot;
+              
         int score = 100;
         tu.Origin = TranslationUnitOrigin.TM;           
-
 
         SearchResult searchResult = new SearchResult(tu);
         searchResult.ScoringResult = new ScoringResult();
         searchResult.ScoringResult.BaseScore = score;
 
         if (formattingPenalty)
-        {
-            #region &quot;Draft&quot;
+        {            
             tu.ConfirmationLevel = ConfirmationLevel.Draft;
-            #endregion
-
-            #region &quot;FormattingPenalty&quot;
+            
             Penalty penalty = new Penalty(PenaltyType.TagMismatch, 1);
-            searchResult.ScoringResult.ApplyPenalty(penalty);
-            #endregion
+            searchResult.ScoringResult.ApplyPenalty(penalty);            
         }
         else
         {
             tu.ConfirmationLevel = ConfirmationLevel.Translated;
         }
-        #endregion
-
+        
         return searchResult;
 }
 </code></pre>

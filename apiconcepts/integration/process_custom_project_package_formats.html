@@ -82,12 +82,11 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="processing-custom-project-package-formats">Processing custom project package formats</h1>
 
-<p>Trados Studio Integration API provides support for third-party developers to transform third-party packages into a format that Trados Studio can work with.
-This page will describe the steps required to create a custom package converter.</p>
-<h2 id="declaring-a-custom-package-converter">Declaring a custom package converter</h2>
-<p>The first step in creating a custom package converter is the declaration:</p>
+<p>The Trados Studio Integration API enables you to transform third-party packages into a format that Trados Studio can work with. This page describes the steps required to create a custom package converter.</p>
+<h2 id="declare-a-custom-package-converter">Declare a custom package converter</h2>
+<p>Creating a custom package converter starts with the declaration:</p>
 <ul>
-<li><p>Create a class that implements <a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IExternalPackageConverter.html">IExternalPackageConverter</a> interface and provide specific implementations for the following methods:</p>
+<li><p>Implement the <a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IExternalPackageConverter.html">IExternalPackageConverter</a> interface with the following methods:</p>
 <table>
 <thead>
 <tr>
@@ -98,16 +97,16 @@ This page will describe the steps required to create a custom package converter.
 <tbody>
 <tr>
 <td><code>ConvertPackage</code></td>
-<td>This method allows implementing logic that will transform a third party package format into a format recognised by Trados Studio.</td>
+<td>Transforms a third-party package format into a format Trados Studio recognizes.</td>
 </tr>
 <tr>
 <td><code>ConvertReturnPackage</code></td>
-<td>This method allows conversion from the Trados Studio return package format into the third party package format.</td>
+<td>Converts a Trados Studio return package into the third-party package format.</td>
 </tr>
 </tbody>
 </table>
 </li>
-<li><p>Decorate the class with the <a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Extensions.ExternalPackageConvertorExtensionAttribute.html">ExternalPackageConvertorExtension</a> attribute.</p>
+<li><p>Decorate the class with the <a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Extensions.ExternalPackageConvertorExtensionAttribute.html">ExternalPackageConvertorExtension</a> attribute:</p>
 <table>
 <thead>
 <tr>
@@ -118,33 +117,33 @@ This page will describe the steps required to create a custom package converter.
 <tbody>
 <tr>
 <td><code>Id</code></td>
-<td>Unique identifier for the converter. To avoid confusion with other third party plugins we recommend using a combination of the project namespace and class name.</td>
+<td>Unique identifier for the converter. We recommend using a combination of the project namespace and class name to avoid conflicts.</td>
 </tr>
 <tr>
 <td><code>Name</code></td>
-<td>Name of the converter</td>
+<td>Display name for the converter</td>
 </tr>
 <tr>
 <td><code>Description</code></td>
-<td>Description for the converter</td>
+<td>Description of the converter</td>
 </tr>
 <tr>
 <td><code>PackageFileFilter</code></td>
-<td>The filter to be used by the Windows OS File Opener dialog. This allows the user to see only files that match the given extension and thus pick a valid file.</td>
+<td>File filter for the Windows file dialog (e.g., &quot;Sample Packages (<em>.zip)|</em>.zip&quot;). This lets users see only compatible files.</td>
 </tr>
 <tr>
 <td><code>PackageFileExtension</code></td>
-<td>The file extension of the package to be imported into Trados Studio.</td>
+<td>File extension of the package to import (e.g., &quot;.zip&quot;)</td>
 </tr>
 <tr>
 <td><code>ReturnPackageFileExtension</code></td>
-<td>The file extension of the return package.</td>
+<td>File extension of the return package (e.g., &quot;.zip&quot;)</td>
 </tr>
 </tbody>
 </table>
 </li>
 </ul>
-<p>The bellow sample provides a visual to the elements described above:</p>
+<p>The following code sample shows the basic structure:</p>
 <pre><code class="lang-cs">[ExternalPackageConvertorExtension(
     Id = &quot;Sdl.ProjectsOperations.Sample.SamplePackageConverter&quot;,
     Name = &quot;Sample Package Converter&quot;,
@@ -176,14 +175,14 @@ public class SamplePackageConverter : IExternalPackageConverter
 </code></pre>
 <div class="NOTE">
 <h5>Note</h5>
-<p>The <strong>Open Package</strong> and <strong>Create Return Package</strong> wizard's <code>Data</code> object is available in the custom package converter as well, via the <a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.ExternalPackageConversionInfo.html#Sdl_TranslationStudioAutomation_IntegrationApi_Packaging_ExternalPackageConversionInfo_CustomData">ExternalPackageConversionInfo.CustomData</a> property, allowing third party developers to use inside the converter data that has been captured in their custom wizard pages .</p>
+<p>The <strong>Open Package</strong> and <strong>Create Return Package</strong> wizards' <code>Data</code> object is available in the custom package converter through the <a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.ExternalPackageConversionInfo.html#Sdl_TranslationStudioAutomation_IntegrationApi_Packaging_ExternalPackageConversionInfo_CustomData">ExternalPackageConversionInfo.CustomData</a> property. This allows third-party developers to use data captured in their custom wizard pages inside the converter.</p>
 </div>
-<h2 id="importing-a-custom-package">Importing a custom package</h2>
-<p>Importing a custom package is done by implementing the <code>ConvertPackage(IConversionContext context, ExternalPackageConversionInfo externalPackageConversionInfo)</code> method. The usual steps within the implementation are as follows:</p>
+<h2 id="import-a-custom-package">Import a custom package</h2>
+<p>Importing a custom package involves implementing the <code>ConvertPackage(IConversionContext context, ExternalPackageConversionInfo externalPackageConversionInfo)</code> method. Typical implementation steps include:</p>
 <ul>
-<li><p>Unzipping the package</p>
+<li><p>Unzip the package</p>
 </li>
-<li><p>Creating an <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.IPackage.html">IPackage</a> object by calling the <a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IConversionContext.html#Sdl_TranslationStudioAutomation_IntegrationApi_Packaging_IConversionContext_CreatePackage_System_String_Sdl_Core_Globalization_Language_System_DateTime_System_String_System_Guid_">IConversionContext.CreatePackage</a> method. The parameters required here are as follows</p>
+<li><p>Create an <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.IPackage.html">IPackage</a> object by calling <a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IConversionContext.html#Sdl_TranslationStudioAutomation_IntegrationApi_Packaging_IConversionContext_CreatePackage_System_String_Sdl_Core_Globalization_Language_System_DateTime_System_String_System_Guid_">IConversionContext.CreatePackage</a> with these parameters:</p>
 <table>
 <thead>
 <tr>
@@ -194,11 +193,11 @@ public class SamplePackageConverter : IExternalPackageConverter
 <tbody>
 <tr>
 <td><code>projectName</code></td>
-<td>The name of the final project to be imported.</td>
+<td>The name of the final project to import.</td>
 </tr>
 <tr>
 <td><code>sourceLanguage</code></td>
-<td>The source language of the project to be imported.</td>
+<td>The source language of the project to import.</td>
 </tr>
 <tr>
 <td><code>createdAt</code></td>
@@ -210,16 +209,16 @@ public class SamplePackageConverter : IExternalPackageConverter
 </tr>
 <tr>
 <td><code>originalProjectGuid</code></td>
-<td>Pass this as <code>Guid.Empty</code> if this is the first time the project is imported into Trados Studio, otherwise pass the original project id. The presence of the project in Trados Studio can be determined by calling <a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IConversionContext.html#Sdl_TranslationStudioAutomation_IntegrationApi_Packaging_IConversionContext_CheckForExistingProject_System_Guid_">IConversionContext.CheckForExistingProject()</a></td>
+<td>Pass <code>Guid.Empty</code> if this is the first import into Trados Studio. Otherwise, pass the original project ID. Use <a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IConversionContext.html#Sdl_TranslationStudioAutomation_IntegrationApi_Packaging_IConversionContext_CheckForExistingProject_System_Guid_">IConversionContext.CheckForExistingProject()</a> to verify if the project exists in Trados Studio.</td>
 </tr>
 </tbody>
 </table>
 </li>
-<li><p>Adding the resources to the package <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.IPackage.html">IPackage</a> object such as: files, translation memories, termbases, specific settings</p>
+<li><p>Add resources to the <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.IPackage.html">IPackage</a> object: files, translation memories, termbases, and settings</p>
 </li>
-<li><p>Physically packaging the package into Trados Studio valid format by calling <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.IPackage.html#Sdl_ProjectAutomation_Core_IPackage_Pack_System_String_">IPackage.Pack()</a> and specifying the location where the package will be saved.</p>
+<li><p>Package the converted data into Trados Studio format by calling <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.IPackage.html#Sdl_ProjectAutomation_Core_IPackage_Pack_System_String_">IPackage.Pack()</a> with the target location</p>
 </li>
-<li><p>Performing cleanup on temporary resources used, such as files.</p>
+<li><p>Clean up temporary resources and files</p>
 </li>
 </ul>
 <pre><code class="lang-cs">public void ConvertPackage(IConversionContext context, ExternalPackageConversionInfo externalPackageConversionInfo)
@@ -244,12 +243,12 @@ public class SamplePackageConverter : IExternalPackageConverter
     OnPackageConverted(100, &quot;Conversion Completed&quot;);
 }
 </code></pre>
-<h2 id="exporting-a-return-package-into-a-custom-format">Exporting a return package into a custom format</h2>
-<p>Exporting a return package into a custom package is done by implementing the <code>ConvertReturnPackage(IConversionContext context, ExternalPackageConversionInfo externalPackageConversionInfo)</code> method. The usual steps within the implementation are as follows:</p>
+<h2 id="export-a-return-package-to-a-custom-format">Export a return package to a custom format</h2>
+<p>Exporting a return package to a custom format involves implementing the <code>ConvertReturnPackage(IConversionContext context, ExternalPackageConversionInfo externalPackageConversionInfo)</code> method. Typical implementation steps include:</p>
 <ul>
-<li>Creating an <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.IPackage.html">IPackage</a> object from the return package file by calling the <a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IConversionContext.html#Sdl_TranslationStudioAutomation_IntegrationApi_Packaging_IConversionContext_OpenPackage_System_String_">IConversionContext.OpenPackage</a> method.</li>
-<li>Extracting the necessary resources from the <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.IPackage.html">IPackage</a> object and creating the custom return package.</li>
-<li>Performing cleanup on temporary resources used, such as files.</li>
+<li>Open an <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.IPackage.html">IPackage</a> object from the return package file by calling <a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.IConversionContext.html#Sdl_TranslationStudioAutomation_IntegrationApi_Packaging_IConversionContext_OpenPackage_System_String_">IConversionContext.OpenPackage</a></li>
+<li>Extract the required resources from the <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.IPackage.html">IPackage</a> object and create the custom return package</li>
+<li>Clean up temporary resources and files</li>
 </ul>
 <pre><code class="lang-cs">public void ConvertReturnPackage(IConversionContext context, ExternalPackageConversionInfo externalPackageConversionInfo)
 {

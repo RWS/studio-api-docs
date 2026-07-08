@@ -84,7 +84,7 @@
 
 <p>In one of the previous chapters you learned how to process tag pairs (e.g. <b></b>) during file parsing (see <a href="processing_inline_formatting.html">Processing Inline Formatting</a>). In this chapter you will learn how to process standalone placeholder tags, such as &lt; img src=&quot;button.jpg&quot; /&gt;</p>
 <h2 id="enhance-your-parser-to-process-standalone-placeholder-tags">Enhance your Parser to Process Standalone Placeholder Tags</h2>
-<p>Let us assume that your sample text files sometimes contain tags for referencing images, e.g.:</p>
+<p>Assume your sample text files sometimes contain tags for referencing images, for example:</p>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
@@ -113,8 +113,8 @@ the dialog box.
 </section>
 </div>
 
-<p>These tags are closed within themselves and occur as placeholders within the text. To keep this example as simple as possible let us proceed on the assumption that the <strong>IMG</strong> tag is the only placeholder tag that we can expect to find in any given document.</p>
-<p>Start by making a small change to the <code>ProcessFormatting()</code> helper function: if the regular expression pattern found a match that starts on &quot;<strong>&lt;img</strong>&quot;, then the <code>WritePlaceHolder()</code> helper function (which we still need to implement) should be called, otherwise we call <code>WriteInlineTag()</code>.</p>
+<p>These tags close within themselves and occur as placeholders within the text. To keep this example simple, assume the <strong>IMG</strong> tag is the only placeholder tag that your document will contain.</p>
+<p>Start by modifying the <code>ProcessFormatting()</code> helper function: if the regular expression pattern finds a match starting with <code>&lt;img</code>, call the <code>WritePlaceHolder()</code> helper function (which you still need to implement). Otherwise, call <code>WriteInlineTag()</code>.</p>
 <div class="tabGroup" id="tabgroup_3">
 <ul role="tablist">
 <li role="presentation">
@@ -159,7 +159,6 @@ private string ProcessFormatting(string sLine)
         {
             WriteText(sLine.Substring(LastPosition, rxMatch.Index - LastPosition));
         }
-        #region &quot;inline or placeholder&quot;
         if (rxMatch.Value.StartsWith(&quot;&lt;img&quot;))
         {
             WritePlaceholderTag(rxMatch.Value);
@@ -167,7 +166,6 @@ private string ProcessFormatting(string sLine)
             bool IsOpening = rxMatch.Value.Contains(&quot;/&quot;) ? false : true;
             WriteInlineTag(rxMatch.Value, IsOpening);
         }
-        #endregion
 
         LastPosition = rxMatch.Index + rxMatch.Length;
     }
@@ -177,7 +175,7 @@ private string ProcessFormatting(string sLine)
 </section>
 </div>
 
-<p>Next, implement the method that outputs the <strong>IMG</strong> placeholder tag. The properties factory implements a <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPropertiesFactory.html#Sdl_FileTypeSupport_Framework_NativeApi_IPropertiesFactory_CreatePlaceholderTagProperties_System_String_">CreatePlaceholderTagProperties</a> method that creates properties for a standalone inline tag. When creating the tag property, the tag content is passed to the <code>Create()</code> method as a parameter. You can define the optional [DisplayText](../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IAbstractBasicTagProperties.yml#Sdl_FileTypeSupport_Framework_NativeApi_IAbstractBasicTagProperties_DisplayText property, which specifies how the tag should be displayed in partial tag text mode. The tag property can be output using the method <code>Output.InlinePlaceholderTag()</code>.</p>
+<p>The properties factory implements a <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPropertiesFactory.html#Sdl_FileTypeSupport_Framework_NativeApi_IPropertiesFactory_CreatePlaceholderTagProperties_System_String_">CreatePlaceholderTagProperties</a> method that creates properties for a standalone inline tag. Pass the tag content to the <code>Create()</code> method as a parameter. You can define the optional <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IAbstractBasicTagProperties.html#Sdl_FileTypeSupport_Framework_NativeApi_IAbstractBasicTagProperties_DisplayText">DisplayText</a> property, which specifies how the tag should display in partial tag text mode. Output the tag property using the <code>Output.InlinePlaceholderTag()</code> method.</p>
 <div class="tabGroup" id="tabgroup_5">
 <ul role="tablist">
 <li role="presentation">
@@ -209,9 +207,9 @@ private string ProcessFormatting(string sLine)
 <p><img src="images/ImgTag.jpg" alt="ImgTag"></p>
 <p>And this is what the placeholder tag looks like when the full tag content is displayed (full tag text mode):</p>
 <p><img src="images/ImgFull.jpg" alt="ImgFull"></p>
-<p>Expose Localizable Text Within a Tag
-As you can see in the above example tags may contain localizable text such as the text defined by the <strong>ALT</strong> attribute. In our current implementation this text is not exposed for translation, as the entire <strong>IMG</strong> tag with all its attributes is treated as a placeable, and thereby as a non-translatable element.</p>
-<p>The API allows you to access localizable text that is embedded within a placeable, which is then treated as a so-called sub-segment, i.e. a segment within a segment. To do this you first have to create a sub-segment object through the properties factory. To this end, the properties factory implements the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPropertiesFactory.html#Sdl_FileTypeSupport_Framework_NativeApi_IPropertiesFactory_CreateSubSegmentProperties_System_Int32_System_Int32_">CreateSubSegmentProperties</a> method, which takes two parameters: the offset and the length of the localizable string. Take a look at our example:</p>
+<h2 id="expose-localizable-text-within-a-tag">Expose Localizable Text Within a Tag</h2>
+<p>As you can see in the above example, tags may contain localizable text such as the text defined by the <strong>ALT</strong> attribute. In this implementation, the entire <strong>IMG</strong> tag with all its attributes is treated as a placeable, which makes it non-translatable.</p>
+<p>The API lets you access localizable text embedded within a placeable. This text becomes a sub-segment—a segment within a segment. Create a sub-segment object through the properties factory by calling <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPropertiesFactory.html#Sdl_FileTypeSupport_Framework_NativeApi_IPropertiesFactory_CreateSubSegmentProperties_System_Int32_System_Int32_">CreateSubSegmentProperties</a>, which takes two parameters: the offset and the length of the localizable string. Consider this example:</p>
 <div class="tabGroup" id="tabgroup_6">
 <ul role="tablist">
 <li role="presentation">
@@ -225,7 +223,7 @@ As you can see in the above example tags may contain localizable text such as th
 </section>
 </div>
 
-<p>The offset in this example is 27, the length of the localizable piece of text (<em>Open dialog box</em>) is 15. The sub-segment object can therefore be created as shown below:</p>
+<p>The offset in this example is 27 and the length of the localizable text (<em>Open dialog box</em>) is 15. Create the sub-segment object as follows:</p>
 <div class="tabGroup" id="tabgroup_7">
 <ul role="tablist">
 <li role="presentation">
@@ -239,7 +237,7 @@ As you can see in the above example tags may contain localizable text such as th
 </section>
 </div>
 
-<p>After creating the sub-segment object, you can add it to the placeable properties by applying the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IAbstractTagProperties.html#Sdl_FileTypeSupport_Framework_NativeApi_IAbstractTagProperties_AddSubSegment_Sdl_FileTypeSupport_Framework_NativeApi_ISubSegmentProperties_">AddSubSegment</a> method:</p>
+<p>Add the sub-segment object to the placeable properties by applying the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IAbstractTagProperties.html#Sdl_FileTypeSupport_Framework_NativeApi_IAbstractTagProperties_AddSubSegment_Sdl_FileTypeSupport_Framework_NativeApi_ISubSegmentProperties_">AddSubSegment</a> method:</p>
 <div class="tabGroup" id="tabgroup_8">
 <ul role="tablist">
 <li role="presentation">
@@ -253,7 +251,7 @@ As you can see in the above example tags may contain localizable text such as th
 </section>
 </div>
 
-<p>After adding the sub-segment object to the placeable properties you can output the placeable as shown below:</p>
+<p>Output the placeable as follows:</p>
 <div class="tabGroup" id="tabgroup_9">
 <ul role="tablist">
 <li role="presentation">
@@ -267,9 +265,9 @@ As you can see in the above example tags may contain localizable text such as th
 </section>
 </div>
 
-<p>The  File Type Support Framework API will then handle the extraction of these localizable sub-segments into separate translation units that are displayed to the translator. Therefore, the output in the editor of Trados Studio will look as shown below:</p>
+<p>The File Type Support Framework API extracts localizable sub-segments into separate translation units displayed to the translator. The output in the editor of Trados Studio looks as shown below:</p>
 <p><img src="images/SubSegment.jpg" alt="SubSegment"></p>
-<p>Of course, you would have to implement the functionality to calculate the offset and length, so that your <code>WritePlaceholderTag()</code> helper function would look as shown below:</p>
+<p>Of course, you would implement the functionality to calculate the offset and length so that your <code>WritePlaceholderTag()</code> helper function looks as follows:</p>
 <div class="tabGroup" id="tabgroup_10">
 <ul role="tablist">
 <li role="presentation">
@@ -297,8 +295,12 @@ As you can see in the above example tags may contain localizable text such as th
 </section>
 </div>
 <h2 id="see-also">See Also</h2>
-<p><a href="processing_inline_formatting.html">Processing Inline Formatting</a></p>
-<p><a href="handling_tags_during_segmentation.html">Handling Tags During Segmentation</a></p>
+<ul>
+<li><p><a href="processing_inline_formatting.html">Processing Inline Formatting</a></p>
+</li>
+<li><p><a href="handling_tags_during_segmentation.html">Handling Tags During Segmentation</a></p>
+</li>
+</ul>
 <div class="NOTE">
 <h5>Note</h5>
 <p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>

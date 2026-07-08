@@ -82,14 +82,14 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="initializing-the-file-type-manager">Initializing the File Type Manager</h1>
 
-<p>This section contains information about how applications hosting the file type support framework can handle initialization of the File Type Manager.</p>
-<p>The <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.html">IFileTypeManager</a> is the main integration point between an application and the file type support framework. The file type manager is typically initialized so that it knows about all file type installed on the system. This section discussed different approaches to that initialization.</p>
+<p>Learn how applications hosting the file type support framework can initialize the File Type Manager.</p>
+<h2 id="overview">Overview</h2>
+<p>The <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.html">IFileTypeManager</a> is the main integration point between an application and the file type support framework. The file type manager is typically initialized to recognize all file types installed on the system. This section discusses different approaches to initialization.</p>
 <h2 id="initializing-the-filter-manager">Initializing the Filter Manager</h2>
-<p>The File Type Support Framework is used in an application through the File Type Manager.</p>
-<p>There are different ways for an application to host the File Type Manager. The most straightforward way is to simply create and initialize it expicitly with a list of File Type Component Builders and related settings.</p>
+<p>The File Type Support Framework is used in an application through the File Type Manager. There are different ways for an application to host the File Type Manager. The most straightforward way is to create and initialize it explicitly with a list of File Type Component Builders and related settings.</p>
 <div class="NOTE">
 <h5>Note</h5>
-<p>You need a reference to <strong>Sdl.FileTypeSupport.Framework.Core.Utilities</strong> in your project. The example below shows how to do this:</p>
+<p>You need a reference to <code>Sdl.FileTypeSupport.Framework.Core.Utilities</code> in your project. The example below shows how to do this:</p>
 </div>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
@@ -105,16 +105,20 @@ filterManager.AddFileTypeDefinition(new SdlXliffFilterComponentBuilder());
 // ...additional filter manager initialization goes here...
 UseFilterManagerForSomething(filterManager);
 </code></pre>
+<p>The first line creates a <code>PocoFilterManager</code> (an implementation of <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.html">IFileTypeManager</a>) that provides functionality to add new filter definitions. It uses the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilder.html">IFileTypeComponentBuilder</a> to build File Type Definitions. The second line adds an Open Office Text filter definition using the <code>OdtFilterDefinitionComponentBuilder</code> (see <a href="the_filter_component_builder.html">the filter component builder</a> example).</p>
+<p>This approach is straightforward, but it has several implications worth noting:</p>
+<ul>
+<li>Your application must explicitly create and manage all File Type Component Builder classes</li>
+<li>Your application must manage their order or priority, which affects how file types are discovered and applied</li>
+<li>Your application is responsible for managing access to the File Type Manager if it is shared across the application (which is preferable to creating a new instance every time, as initialization is resource-intensive)</li>
+<li>It is not easy to modify the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeInformation.html">FileTypeInformation</a> inside a FilterDefinition. The FilterFramework provides a mechanism to simplify this (see XML override).</li>
+</ul>
+<div class="NOTE">
+<h5>Note</h5>
+<p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+</div>
 </section>
 </div>
-
-<p>The example defines in the first line a <code>PocoFilterManager</code> (an implementation of <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeManager.html">IFileTypeManager</a>) that provides functionality to add new filter definitions. It relies on the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilder.html">IFileTypeComponentBuilder</a> to build File Type Definitions. In the second line an Open Office Text filter definition is adding using the <code>OdtFilterDefinitionComponentBuilder</code> (See <a href="the_filter_component_builder.html">the filter component builder</a> example) This approach is very straightforward, but it has several implications that are worth noting:</p>
-<ul>
-<li>The application have to explicitly create and manage all the File Type Component Builder classes.</li>
-<li>The application needs to manage their order or priority. This has implications on how the file types are discovered and applied.</li>
-<li>The application is responsible for managing access to the File Type Manager, if it is shared across the application (which is probably preferrable to creating a new one every time, as the initialization could be resource-intensive)</li>
-<li>It is not easy to modify the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeInformation.html">FileTypeInformation</a> inside a FilterDefinition. The FilterFramework provides a mechanism to simplify this (see Xml override).</li>
-</ul>
 
 </article>
           </div>

@@ -82,15 +82,15 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="enhance-the-verifier">Enhance the Verifier</h1>
 
-<p>In this chapter you will learn learn how to enhance your plug-in to take inline tag differences into account or to ignore inline tags.</p>
+<p>In this chapter, you will learn how to enhance your plug-in to account for inline tag differences or ignore inline tags.</p>
 <h2 id="enhance-the-verifier-plug-in">Enhance the Verifier Plug-in</h2>
-<p>Let us assume the following: the verifier plug-in needs to be able to 'decide' whether a target segment is identical to the corresponding source segment, even when there is a difference in tags. This means that the user should be able to configure whether tag differences should be taken into account when applying the verification, or whether only text changes should be considered to be differences. If tags are ignored, then the following segments would be regarded as being identical:</p>
+<p>Assume the verifier plug-in needs to decide whether a target segment is identical to the corresponding source segment, even when there are differences in tags. This means users should be able to configure whether tag differences are considered during verification, or whether only text changes are treated as differences. If tags are ignored, the following segments are regarded as identical:</p>
 <pre><code class="lang-html">This is a headline.
 </code></pre>
 <pre><code class="lang-html">This is a &lt;u&gt;headline&lt;/u&gt;.
 </code></pre>
 <h2 id="add-a-textgenerator-class">Add a TextGenerator Class</h2>
-<p>To fulfil this requirement you need to extend the plug-in, so that either the plain text (without tags) is be compared or the text with tag content. Start by adding a new a class called e.g. <code>sTextGenerator.cs</code> to your project.</p>
+<p>To fulfil this requirement, extend the plug-in so that either plain text (without tags) or text with tag content can be compared. Start by adding a new class, for example <code>TextGenerator.cs</code>, to your project.</p>
 <p>This class will be responsible for generating the plain text content from the segment pairs. In this class, reference the namespace <strong>Sdl.FileTypeSupport.Framework.BilingualApi</strong> and have it implement the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IMarkupDataVisitor.html">IMarkupDataVisitor</a> interface. The skeleton class should look as shown below:</p>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">

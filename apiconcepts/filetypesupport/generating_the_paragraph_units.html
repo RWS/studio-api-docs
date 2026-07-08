@@ -82,14 +82,31 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="generating-the-paragraph-units">Generating the Paragraph Units</h1>
 
-<p>In this chapter you will learn to extend the writer class to output the actual paragraph units from the intermediary (SDLXliff) file to the target BIL document.</p>
-<h2 id="modify-the-function-for-processing-the-paragraph-units">Modify the Function for Processing the Paragraph Units</h2>
-<p>First, we will add the required application logic to the method <code>CreateParagraphUnit()</code>, which loops through the paragraph units in the intermediary document. The function is supposed to work like this: the id of the current paragraph unit is retrieved from the context metadata. Remember that we added the unit id as hidden meta information (see <a href="adding_context_information.html">Adding Context Information</a>). Using the id we will determine the corresponding <code>unit</code> in the original BIL document. We then call a separate helper function, which replaces the segments from the original BIL document with the paragraph unit content, and thus the segment pairs from the intermediary document.</p>
-<p>The method should look as shown below:</p>
+<p>Extend the writer class to output the actual paragraph units from the intermediary (SDLXliff) file to the target BIL document.</p>
+<h2 id="modify-the-function-for-processing-paragraph-units">Modify the Function for Processing Paragraph Units</h2>
+<p>Add the required application logic to the <code>ProcessParagraphUnit()</code> method, which loops through the paragraph units in the intermediary document. The function works like this:</p>
+<ol>
+<li>Retrieve the id of the current paragraph unit from the context metadata (we added the unit id as hidden meta information; see <a href="adding_context_information.html">Adding Context Information</a>)</li>
+<li>Use the id to locate the corresponding <code>unit</code> in the original BIL document</li>
+<li>Call a separate helper function that replaces the segments from the original BIL document with the paragraph unit content from the intermediary document</li>
+</ol>
+<p>The method should look as follows:</p>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
 <a href="#tabpanel_1_tabid-1" role="tab" aria-controls="tabpanel_1_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-2" role="tab" aria-controls="tabpanel_1_tabid-2" data-tab="tabid-2" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-3" role="tab" aria-controls="tabpanel_1_tabid-3" data-tab="tabid-3" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-4" role="tab" aria-controls="tabpanel_1_tabid-4" data-tab="tabid-4" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-5" role="tab" aria-controls="tabpanel_1_tabid-5" data-tab="tabid-5" tabindex="-1">C#</a>
 </li>
 </ul>
 <section id="tabpanel_1_tabid-1" role="tabpanel" data-tab="tabid-1">
@@ -103,50 +120,33 @@
     CreateParagraphUnit(paragraphUnit, xmlUnit);
 }
 </code></pre>
+<p>For this simple implementation, we assume every paragraph unit in the intermediary document corresponds to a unit id from the original BIL file. In a production implementation, you should handle cases where a given id doesn't exist.</p>
+<h2 id="add-the-helper-function-to-generate-target-paragraph-units">Add the Helper Function to Generate Target Paragraph Units</h2>
+<p>Implement the helper function that generates the new BIL unit elements from the source and target segments in the intermediary file. This function uses the <code>BilTextExtractor</code> class created previously (see <a href="adding_the_text_extractor_class.html">Adding the Text Extractor Class</a>).</p>
+<p>Declare a new global text extractor member derived from this class:</p>
 </section>
-</div>
-
-<p>Note that for this simple implementation we just assume that every paragraph unit in the intermediary document corresponds to a unit id from the original BIL file. In a 'real-life' implementation you should, of course, make sure to catch cases in which a given id does not exist.</p>
-<h2 id="add-the-helper-function-to-generate-the-target-paragraph-units">Add the Helper Function to Generate the Target Paragraph Units</h2>
-<p>Now it is time to implement the helper function that generates the new BIL unit elements from the source target segments in the intermediary file. This function leverages the <code>BilTextExtractor</code> class, which we created previously (see <a href="adding_the_text_extractor_class.html">Adding the Text Extractor Class</a>). Therefore, you should declare a new global text extractor member derived from this class:</p>
-<div class="tabGroup" id="tabgroup_2">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_2_tabid-2" role="tab" aria-controls="tabpanel_2_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_2_tabid-2" role="tabpanel" data-tab="tabid-2">
+<section id="tabpanel_1_tabid-2" role="tabpanel" data-tab="tabid-2" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">private BilTextExtractor _textExtractor;
 </code></pre>
+<p>Use the <code>Initialize()</code> method to create a text extractor object:</p>
 </section>
-</div>
-
-<p>Then you use the the <code>Initialize()</code> method to create a text extractor object:</p>
-<div class="tabGroup" id="tabgroup_3">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_3_tabid-3" role="tab" aria-controls="tabpanel_3_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_3_tabid-3" role="tabpanel" data-tab="tabid-3">
+<section id="tabpanel_1_tabid-3" role="tabpanel" data-tab="tabid-3" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">public void Initialize(IDocumentProperties documentInfo)
 {
     _textExtractor = new BilTextExtractor();
 }
 </code></pre>
+<p>Add the following helper function. It works as follows:</p>
+<ol>
+<li>Retrieve the <code>source</code> and <code>target</code> elements from the current BIL <code>unit</code> element</li>
+<li>Loop through the segment pairs of the current paragraph unit from the intermediary (SDLXliff) document</li>
+<li>Use the text extractor object to retrieve the plain text and tag pairs for each segment pair</li>
+<li>Set the <code>source</code> and <code>target</code> elements to the strings retrieved from the text extractor object</li>
+</ol>
 </section>
-</div>
-
-<p>Now you can add the following helper function, which works as follows: the <code>source</code> and the <code>target</code> elements are taken from the current BIL <code>unit</code> element. Then, the function loops through the segment pairs of the current paragraph unit from the intermediary (SDLXliff) document. The text extractor object is used to retrieve the plain text and the tag pairs for each segment pair. The <code>source</code> and the <code>target</code> elements are then set to the strings that were retrieved through the text extractor object.</p>
-<div class="tabGroup" id="tabgroup_4">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_4_tabid-4" role="tab" aria-controls="tabpanel_4_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_4_tabid-4" role="tabpanel" data-tab="tabid-4">
+<section id="tabpanel_1_tabid-4" role="tabpanel" data-tab="tabid-4" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">private void CreateParagraphUnit(IParagraphUnit paragraphUnit, XmlNode xmlUnit)
 {
@@ -161,19 +161,11 @@
     }
 }
 </code></pre>
+<p>This implementation loops through all segment pairs, though our simplified format assumes each unit contains only one segment pair. If the BIL format allowed multiple <code>seg</code> elements within a <code>source</code> or <code>target</code> node, a paragraph unit would contain several segment pairs.</p>
+<h2 id="putting-it-all-together">Putting It All Together</h2>
+<p>The enhanced writer class should now look as follows:</p>
 </section>
-</div>
-
-<p>Note that we loop through all segment pairs, although in our simplified implementation each unit can be assumed to contain only one segment pair. A paragraph unit in the intermediary (SDLXliff) document would contain several segment pairs if our fictitious BIL format allowed for more than <code>one seg</code> element within a <code>source</code> or <code>target</code> node.</p>
-<h2 id="putting-it-all-together">Putting it All Together</h2>
-<p>The enhanced writer class should now look as shown below:</p>
-<div class="tabGroup" id="tabgroup_5">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_5_tabid-5" role="tab" aria-controls="tabpanel_5_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_5_tabid-5" role="tabpanel" data-tab="tabid-5">
+<section id="tabpanel_1_tabid-5" role="tabpanel" data-tab="tabid-5" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">using System;
 using System.Xml;
@@ -184,14 +176,11 @@ namespace Sdk.Snippets.Bilingual
 {
     class BilWriter2 : AbstractBilingualFileTypeComponent, IBilingualWriter, INativeOutputSettingsAware
     {
-        #region &quot;global&quot;
         private IPersistentFileConversionProperties _originalFileProperties;
         private INativeOutputFileProperties _nativeFileProperties;
         private XmlDocument _targetFile;
         private BilTextExtractor _textExtractor;
-        #endregion
 
-        #region &quot;INativeOutputSettingsAware members&quot;
         public void GetProposedOutputFileInfo(IPersistentFileConversionProperties fileProperties, IOutputFileInfo proposedFileInfo)
         {
             _originalFileProperties = fileProperties;
@@ -201,29 +190,18 @@ namespace Sdk.Snippets.Bilingual
         {
             _nativeFileProperties = properties;
         }
-        #endregion
 
-
-        #region &quot;IBilingualWriter members&quot;
-
-
-        #region &quot;load file&quot;
         public void SetFileProperties(IFileProperties fileInfo)
         {
             _targetFile = new XmlDocument();
             _targetFile.Load(_originalFileProperties.OriginalFilePath);
         }
 
-        #region &quot;initialize&quot;
         public void Initialize(IDocumentProperties documentInfo)
         {
             _textExtractor = new BilTextExtractor();
         }
-        #endregion
 
-        #endregion
-
-        #region &quot;paragraphs&quot;
         public void ProcessParagraphUnit(IParagraphUnit paragraphUnit)
         {
             string unitId = paragraphUnit.Properties.Contexts.Contexts[1].GetMetaData(&quot;UnitID&quot;);
@@ -232,9 +210,7 @@ namespace Sdk.Snippets.Bilingual
             // call helper function to generate the paragraph unit
             CreateParagraphUnit(paragraphUnit, xmlUnit);
         }
-        #endregion
 
-        #region &quot;create paragraph&quot;
         private void CreateParagraphUnit(IParagraphUnit paragraphUnit, XmlNode xmlUnit)
         {
             XmlNode source = xmlUnit.SelectSingleNode(&quot;source&quot;);
@@ -247,9 +223,7 @@ namespace Sdk.Snippets.Bilingual
                 target.InnerXml = _textExtractor.GetPlainText(segmentPair.Target);
             }
         }
-        #endregion
 
-        #region &quot;save file and complete&quot;
         public void FileComplete()
         {
             _targetFile.Save(_nativeFileProperties.OutputFilePath);
@@ -258,31 +232,25 @@ namespace Sdk.Snippets.Bilingual
 
         public void Complete()
         {
-
         }
-        #endregion
-
-        #endregion
-
-        #region Implementation of IDisposable
 
         public void Dispose()
         {
             throw new NotImplementedException();
         }
-
-        #endregion
     }
 }
 </code></pre>
-</section>
-</div>
 <h2 id="see-also">See Also</h2>
-<p><a href="adding_the_file_writer_class.html">Adding the File Writer Class</a></p>
-<p><a href="adding_the_text_extractor_class.html">Adding the Text Extractor Class</a></p>
+<ul>
+<li><a href="adding_the_file_writer_class.html">Adding the File Writer Class</a></li>
+<li><a href="adding_the_text_extractor_class.html">Adding the Text Extractor Class</a></li>
+</ul>
 <div class="NOTE">
 <h5>Note</h5>
 <p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+</div>
+</section>
 </div>
 
 </article>

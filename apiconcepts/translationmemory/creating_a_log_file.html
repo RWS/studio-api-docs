@@ -82,9 +82,9 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="creating-the-log-file">Creating the Log File</h1>
 
-<p>Let us assume that at the end of the import process you would like to create a log file that lists all master TMs that were created alongside the total TU count per TM.</p>
+<p>At the end of the import process, you may want to create a log file that lists all master TMs created during the run, together with the total TU count for each TM.</p>
 <h2 id="add-a-new-class">Add a New Class</h2>
-<p>Add a class called <code>TmLog</code>, which includes the function <code>CreateLogFile</code>. This function, which takes the main path for the *.tmx import files (i.e. the folder specified by the user) as parameter, and is called from <code>Main</code>.</p>
+<p>Add a class named <code>TmLog</code> with a method named <code>CreateLogFile</code>. The method takes the root path for the <code>.tmx</code> import files, that is, the folder specified by the user, and is called from <code>Main</code>.</p>
 <p>First, create the log text file as follows:</p>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
@@ -99,7 +99,7 @@
 </section>
 </div>
 
-<p>In the next step, loop through the master TM files and output the master TM names and the total translation unit count:</p>
+<p>Next, loop through the master TM files and write the master TM names and total translation unit counts:</p>
 <div class="tabGroup" id="tabgroup_2">
 <ul role="tablist">
 <li role="presentation">
@@ -133,8 +133,8 @@ foreach (string file in translationMemoryFiles)
 </code></pre>
 </section>
 </div>
-<h2 id="putting-it-all-together">Putting it All Together</h2>
-<p>The complete class should look as shown below:</p>
+<h1 id="putting-it-all-together">Putting it All Together</h1>
+<p>The complete class should look like this:</p>
 <div class="tabGroup" id="tabgroup_4">
 <ul role="tablist">
 <li role="presentation">
@@ -143,7 +143,7 @@ foreach (string file in translationMemoryFiles)
 </ul>
 <section id="tabpanel_4_tabid-4" role="tabpanel" data-tab="tabid-4">
 
-<pre><code class="lang-cs"> using System.IO;
+<pre><code class="lang-cs">using System.IO;
 using Sdl.LanguagePlatform.TranslationMemoryApi;
 
 namespace SDK.LanguagePlatform.Samples.BatchImporter
@@ -154,19 +154,15 @@ namespace SDK.LanguagePlatform.Samples.BatchImporter
     public class TmLog
     {
         /// &lt;summary&gt;
-        /// This function is used to create a log file after
-        /// the import operation has finished. The log file
-        /// shows which master TMs have been created in the process
-        /// as well as the total TU count for each master TM.
+        /// Creates a log file after the import operation has finished.
+        /// The log file lists the master TMs created during the process
+        /// together with the total TU count for each master TM.
         /// &lt;/summary&gt;
-        /// &lt;param name=&quot;translationMemoryPath&quot;&gt;Path to translation memory.&lt;/param&gt;
+        /// &lt;param name=&quot;translationMemoryPath&quot;&gt;Path to the translation memory folder.&lt;/param&gt;
         public void CreateLogFile(string translationMemoryPath)
-        {
-            #region &quot;CreateLog&quot;
+        {            
             var log = new StreamWriter(translationMemoryPath + @&quot;\log.txt&quot;);
-            #endregion
-
-            #region &quot;LoopMasterTms&quot;
+            
             string[] translationMemoryFiles = Directory.GetFiles(@&quot;c:\MasterTMs&quot;);
             foreach (string file in translationMemoryFiles)
             {
@@ -174,12 +170,9 @@ namespace SDK.LanguagePlatform.Samples.BatchImporter
                 var tm = new FileBasedTranslationMemory(file);
                 log.WriteLine(&quot;TU Count: &quot; + tm.GetTranslationUnitCount().ToString());
                 log.WriteLine();
-            }
-            #endregion
-
-            #region &quot;close&quot;
-            log.Close();
-            #endregion
+            }            
+                       
+            log.Close();            
         }
     }
 }
@@ -187,7 +180,9 @@ namespace SDK.LanguagePlatform.Samples.BatchImporter
 </section>
 </div>
 <h2 id="see-also">See Also</h2>
-<p><a href="setting_and_retrieving_tm_properties.html">Setting and Retrieving TM Properties</a></p>
+<ul>
+<li><a href="setting_and_retrieving_tm_properties.html">Setting and Retrieving TM Properties</a></li>
+</ul>
 
 </article>
           </div>

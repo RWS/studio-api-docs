@@ -82,35 +82,45 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="implement-the-ui-controller-class">Implement the UI Controller Class</h1>
 
-<p>In this chapter you will learn how to implement a class that controls the actual plug-in user interface.</p>
-<p>When implementing control for the plug-in user interface, you basically need to cover the following scenarios:</p>
+<p>Implement a class that controls the actual plug-in user interface.</p>
+<h2 id="settings-page-scenarios">Settings Page Scenarios</h2>
+<p>A settings page for the plug-in user interface must handle these scenarios:</p>
 <ul>
-<li>The user clicks the <strong>Reset to Defaults</strong> button, thereby restoring all control elements to their intended default settings.</li>
-<li>The user clicks <strong>OK</strong>, thereby applying (saving) the settings.
-After changing the control element settings, the user goes to another settings page, which should also save any changes to the form control elements.</li>
-<li>The user clicks the <strong>Cancel</strong> button, any changes to the control settings should be discarded.</li>
+<li>The user clicks <strong>Reset to Defaults</strong>, restoring all control elements to their default settings</li>
+<li>The user clicks <strong>OK</strong>, saving the settings</li>
+<li>The user navigates to another settings page, which should save changes to form control elements</li>
+<li>The user clicks <strong>Cancel</strong>, discarding all changes to control settings</li>
 </ul>
-<p>A settings page does not implement its own <strong>OK</strong>, <strong>Cancel</strong>, <strong>Reset</strong> buttons, but will rely on the control elements that are provided by the dialog box of the framework, which is made possible through this class.</p>
-<p>Below you see an example of a settings page as it is implemented for one of the default file types in Trados Studio:</p>
+<p>The settings page does not implement its own <strong>OK</strong>, <strong>Cancel</strong>, or <strong>Reset</strong> buttons. Instead, it uses the control elements provided by the framework's dialog box.</p>
+<p>Below is an example of a settings page as implemented for a default file type in <code>Trados Studio</code>:</p>
 <p><img src="images/SampleSettingsPage.jpg" alt="SampleSettingsPage"></p>
 <h2 id="implement-the-settings-page-class">Implement the Settings Page Class</h2>
-<p>Add a class called e.g. <strong>SettingsPage.cs</strong> to your project. This is one of the classes that is referenced from the File Type Component Builder file, which was covered in one of the previous chapters (see <a href="create_new_file_type_component_builder.html">Create a New File Type Component Builder</a>), i.e. it is not the UI class itself that is referenced in the File Type Component Builder. Without this reference, the plug-in UI would not be recognized and displayed by Trados Studio.</p>
-<p>This class acts as an intermediary between the plug-in UI (see <a href="implement_the_user_interface_bil.html">Implement the User Interface</a>) and the class that is used to store and retrieve the settings to/from the settings bundle (see <a href="loading_and_saving_the_settings_bil.html">Loading and Saving the Settings</a>).</p>
-<p>This class needs to use the following namespaces:</p>
+<p>Add a class called, for example, <strong>SettingsPage.cs</strong> to your project. This class is referenced from the File Type Component Builder file (see <a href="create_new_file_type_component_builder.html">Create a New File Type Component Builder</a>). It is not the UI class itself that is referenced. Without this reference, the plug-in UI would not be recognized or displayed by <code>Trados Studio</code>.</p>
+<p>This class acts as an intermediary between the plug-in UI (see <a href="implement_the_user_interface_bil.html">Implement the User Interface</a>) and the class that stores and retrieves settings to/from the settings bundle (see <a href="loading_and_saving_the_settings_bil.html">Loading and Saving the Settings</a>).</p>
+<p>This class requires the following namespaces:</p>
 <ul>
-<li><strong>Sdl.FileTypeSupport.Framework.Core.Settings</strong></li>
-<li><strong>Sdl.Core.Settings</strong></li>
-<li><strong>Sdl.Core.PluginFramework</strong></li>
+<li><code>Sdl.FileTypeSupport.Framework.Core.Settings</code></li>
+<li><code>Sdl.Core.Settings</code></li>
+<li><code>Sdl.Core.PluginFramework</code></li>
 </ul>
-<p>Moreover, this component needs to be derived from the <code>AbstractFileTypeSettingsPage</code> class, which provides the methods for setting the plug-in UI according to the values of the settings class.</p>
-<h2 id="reset-to-the-default-settings">Reset to the Default Settings</h2>
-<p>The <code>ResetToDefaults</code> is triggered when the user clicks the button <strong>Reset to Defaults</strong> in the user interface.</p>
+<p>This component must derive from the <code>AbstractFileTypeSettingsPage</code> class, which provides methods for setting the plug-in UI according to the settings class values.</p>
+<h2 id="reset-to-default-settings">Reset to Default Settings</h2>
+<p>The <code>ResetToDefaults</code> method is triggered when the user clicks <strong>Reset to Defaults</strong> in the user interface:</p>
 <p><img src="images/reset_to_defaults.jpg" alt="reset_to_defaults"></p>
-<p>In our implementation we override this method as shown in the example below. We call the base class to make sure that the settings are reset correctly, and then make sure we update the settings accordingly:</p>
+<p>Override this method to call the base class to ensure settings reset correctly, then update the UI:</p>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
 <a href="#tabpanel_1_tabid-1" role="tab" aria-controls="tabpanel_1_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-2" role="tab" aria-controls="tabpanel_1_tabid-2" data-tab="tabid-2" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-3" role="tab" aria-controls="tabpanel_1_tabid-3" data-tab="tabid-3" tabindex="-1">Xml</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-4" role="tab" aria-controls="tabpanel_1_tabid-4" data-tab="tabid-4" tabindex="-1">C#</a>
 </li>
 </ul>
 <section id="tabpanel_1_tabid-1" role="tabpanel" data-tab="tabid-1">
@@ -121,17 +131,10 @@ After changing the control element settings, the user goes to another settings p
     Control.UpdateControl();
 }
 </code></pre>
-</section>
-</div>
 <h2 id="reload-the-settings">Reload the Settings</h2>
-<p>When the user moves back to the settings page of our plug-in, we need to make certain that the plug-in UI is displayed with the most up-to-date settings from the settings bundle. This is done through the <code>ReloadSettings</code> method, which we override as shown below. Here, we must calll the base class to make sure that the settings are reloaded correctly before updating the UI:</p>
-<div class="tabGroup" id="tabgroup_2">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_2_tabid-2" role="tab" aria-controls="tabpanel_2_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_2_tabid-2" role="tabpanel" data-tab="tabid-2">
+<p>When the user navigates back to the plug-in settings page, ensure the plug-in UI displays the most up-to-date settings from the settings bundle. Override the <code>Refresh</code> method to call the base class first to ensure settings reload correctly, then update the UI:</p>
+</section>
+<section id="tabpanel_1_tabid-2" role="tabpanel" data-tab="tabid-2" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">public override void Refresh()
 {
@@ -139,18 +142,11 @@ After changing the control element settings, the user goes to another settings p
     Control.UpdateControl();
 }
 </code></pre>
-</section>
-</div>
 <h2 id="declare-the-class-in-the-file-type-component-builder">Declare the Class in the File Type Component Builder</h2>
-<p>For the plug-in settings UI to become visible in Trados Studio, the File Type Component Builder file needs to include the following method. You may open the *<em>.sdlfiletype</em> file in a text editor, then search for &lt;<code>WinFormSettingsPageIds</code>&gt;, and add the node to the list of settings page IDs.</p>
+<p>To make the plug-in settings UI visible in <code>Trados Studio</code>, the File Type Component Builder file must include the settings page IDs. Open the <strong>.sdlfiletype</strong> file in a text editor, search for <code>WinFormSettingsPageIds</code>, and add the node to the list:</p>
 <p><img src="images/excel_verifier_simplified_gui.jpg" alt="excel_verifier_simplified_gui"></p>
-<div class="tabGroup" id="tabgroup_3">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_3_tabid-3" role="tab" aria-controls="tabpanel_3_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">Xml</a>
-</li>
-</ul>
-<section id="tabpanel_3_tabid-3" role="tabpanel" data-tab="tabid-3">
+</section>
+<section id="tabpanel_1_tabid-3" role="tabpanel" data-tab="tabid-3" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-xml">&lt;property name=&quot;WinFormSettingsPageIds&quot;&gt;
   &lt;list&gt;
@@ -159,17 +155,10 @@ After changing the control element settings, the user goes to another settings p
     &lt;/list&gt;
 &lt;/property&gt;
 </code></pre>
+<h2 id="putting-it-all-together">Putting It All Together</h2>
+<p>The complete class should now look as follows:</p>
 </section>
-</div>
-<h2 id="putting-it-all-together">Putting it all Together</h2>
-<p>The complete class should now look as shown below:</p>
-<div class="tabGroup" id="tabgroup_4">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_4_tabid-4" role="tab" aria-controls="tabpanel_4_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_4_tabid-4" role="tabpanel" data-tab="tabid-4">
+<section id="tabpanel_1_tabid-4" role="tabpanel" data-tab="tabid-4" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">using System;
 using System.Collections.Generic;
@@ -181,54 +170,49 @@ using Sdl.FileTypeSupport.Framework.Core.Settings;
 namespace Sdk.FileTypeSupport.Samples.WordArtVerifier
 {
     /// &lt;summary&gt;
-    /// This class controls the plug-in user interface. It controls what happens, for example,
-    /// when the user clicks the button in the user interface for resetting the control elements
-    /// to their default values. This class is referenced in the file type definition. Without
-    /// this reference in the SDLFILETYPE file, the plug-in user interface would not be available
-    /// to the end user.
+    /// This class controls the plug-in user interface. It controls what happens when the user
+    /// clicks the button to reset control elements to their default values. This class is referenced
+    /// in the file type definition. Without this reference in the SDLFILETYPE file, the plug-in
+    /// user interface would not be available to the end user.
     /// &lt;/summary&gt;
     [FileTypeSettingsPage(Id=&quot;WordArtVerifier_Settings&quot;, Name=&quot;Settings_Name&quot;,
         Description=&quot;Settings_Description&quot;)]
     class SettingsPage : AbstractFileTypeSettingsPage&lt;SettingsUI, VerifierSettings&gt;
     {
         /// &lt;summary&gt;
-        /// Triggered, when the user clicks the button Reset to Defaults button in 
-        /// Trados Studio. Restores the default check box state, which should
-        /// be Checked (i.e. verification function enabled), and the default maximum
-        /// word count, which is 3.
+        /// Triggered when the user clicks the Reset to Defaults button in Trados Studio.
+        /// Restores the default check box state (verification enabled) and the default
+        /// maximum word count, which is 3.
         /// &lt;/summary&gt;
-        #region &quot;ResetToDefaults&quot;
         public override void ResetToDefaults()
         {
             base.ResetToDefaults();
             Control.UpdateControl();
         }
-        #endregion
 
         /// &lt;summary&gt;
-        /// Triggered when the user raises the plug-in UI, whose controls (in this case the check box
-        /// and the maximum word count text field) will then be set according to the values stored in 
-        /// the settings bundle.
+        /// Triggered when the user opens the plug-in UI. The controls (the check box and the
+        /// maximum word count text field) are set according to the values stored in the
+        /// settings bundle.
         /// &lt;/summary&gt;
-        /// &lt;param name=&quot;settingsBundle&quot;&gt;&lt;/param&gt;
-        #region &quot;ReloadSettings&quot;
         public override void Refresh()
         {
             base.Refresh();
             Control.UpdateControl();
         }
-        #endregion
     }
 }
 </code></pre>
-</section>
-</div>
 <h2 id="see-also">See Also</h2>
-<p><a href="implement_the_user_interface_bil.html">Implement the User Interface</a></p>
-<p><a href="loading_and_saving_the_settings_bil.html">Loading and Saving the Settings</a></p>
+<ul>
+<li><a href="implement_the_user_interface_bil.html">Implement the User Interface</a></li>
+<li><a href="loading_and_saving_the_settings_bil.html">Loading and Saving the Settings</a></li>
+</ul>
 <div class="NOTE">
 <h5>Note</h5>
 <p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+</div>
+</section>
 </div>
 
 </article>

@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-      <title>Better Studio interactivity in day to day flow </title>
+      <title>Enhancing Studio Interactivity </title>
       <meta name="viewport" content="width=device-width">
-      <meta name="title" content="Better Studio interactivity in day to day flow ">
+      <meta name="title" content="Enhancing Studio Interactivity ">
     
     
       <link rel="shortcut icon" href="../../../favicon.ico">
@@ -80,12 +80,12 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-<h1 id="better-studio-interactivity-in-day-to-day-flow">Better Studio interactivity in day to day flow</h1>
+<h1 id="enhancing-studio-interactivity">Enhancing Studio Interactivity</h1>
 
-<p>Together with the release of Trados Studio 2019 SR2 we decided to make some improvements to our public APIs and give our 3<sup>rd</sup> Party developers more access to Studio's functional flows as well as user interface styling. Throughout this article we will present the functionality we exposed in our APIs and the means by which you can make the most out of it.</p>
+<p>With the release of Trados Studio 2019 SR2, we introduced significant improvements to our public APIs. These enhancements provide third-party developers with greater access to Studio's functional flows and user interface styling. This article outlines the new functionalities available in the APIs and how to leverage them effectively.</p>
 <h2 id="improved-notification-system">Improved Notification System</h2>
-<p>The notification system in Trados Studio, which can be accessed via the Notification View pane (on the right-hand side), was intended as a mechanism allowing us to promote notifications in a non-intrusive manner, while translators interact with Studio. We continued to take advantage of it, but while developing new features, we realized  it had some short-comings that needed to be addressed. After we fixed the issues, we decided to make them available in the public APIs.</p>
-<p>In order to allow translators to remove a specific notification, we introduced two new properties on the <code>IStudioNotification</code> interface. As developers, you will have full control over which notifications can be removed by translators and which not, as well as over what should happen within the remove logic.</p>
+<p>The notification system in Trados Studio, accessible via the Notification View pane (on the right-hand side), was designed to promote notifications non-intrusively while translators interact with Studio. Recognizing its shortcomings during new feature development, we addressed these issues and made the improvements available in the public APIs.</p>
+<p>To enable translators to remove specific notifications, we introduced two new properties in the <code>IStudioNotification</code> interface. These properties give developers full control over which notifications can be dismissed and the actions triggered during the removal process.</p>
 <table>
 <thead>
 <tr>
@@ -107,7 +107,7 @@
 </tr>
 </tbody>
 </table>
-<p>We also enhanced the control over the notification system by exposing additional events. With the help of these events we now give full access to creating and removing notification groups, but also to what happens inside a group: remove a notification from a group, add a specific notification to a group or create that group if it does not exist.</p>
+<p>We further enhanced the notification system by exposing additional events. These events provide full access to creating and managing notification groups, including adding notifications to groups, removing them, or creating new groups if they do not exist.</p>
 <table>
 <thead>
 <tr>
@@ -126,7 +126,8 @@
 </tr>
 </tbody>
 </table>
-<p>The following code snippet demonstrates how to publish dismissible notifications via the <code>IStudioEventAggregator</code></p>
+<h3 id="code-example">Code Example</h3>
+<p>The following code snippet demonstrates how to publish dismissible notifications using the <code>IStudioEventAggregator</code>.</p>
 <pre><code class="lang-cs">    //create a unique identifier for the notification
     var notificationId = Guid.NewGuid();
     //create an instance of IStudioNotification

@@ -82,9 +82,9 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="exporting-to-a-tmx-file">Exporting to a TMX File</h1>
 
-<p>Sometimes you may want to export the content of a TM to an external TMX file, for example, for generating backups, importing the TMX file into another TM, thereby merging different TMs, etc.</p>
+<p>Sometimes you may want to export TM content to an external TMX file, for example, to create backups or merge content into another TM.</p>
 <h2 id="add-a-new-class">Add a New Class</h2>
-<p>Add a new class called <code>TmExporter</code> to your project. Then, implement a function called <code>ExportTMXFile</code>. This function can be called as shown below:</p>
+<p>Add a new class named <code>TmExporter</code> to your project. Then implement a method named <code>ExportTMXFile()</code>. Call it as shown below:</p>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
@@ -100,8 +100,8 @@ tmExporter.RunFilteredExport(_translationMemoryFilePath, _exportFilePath);
 </section>
 </div>
 
-<p>The function requires the file name and path of the TM and the TMX export file as parameters.</p>
-<p>Start by opening the TM and by creating an exporter object:</p>
+<p>The method requires the TM path and the TMX export file path as parameters.</p>
+<p>Start by opening the TM and creating an exporter object:</p>
 <div class="tabGroup" id="tabgroup_2">
 <ul role="tablist">
 <li role="presentation">
@@ -117,8 +117,8 @@ var exporter = new TranslationMemoryExporter(tm.LanguageDirection);
 </section>
 </div>
 
-<p>Note that the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryExporter.html">TranslationMemoryExporter</a> object requires the TM language direction as parameter. Like a TM, a TMX file too, is bilingual with a dedicated language direction, which will match the TM language direction. That is why you need to provide the TM language direction when creating a new <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryExporter.html">TranslationMemoryExporter</a> object.</p>
-<p>In the next step, you may specify the <a href="../../api/translationmemory/Sdl.Core.TM.ImportExport.Importer.html#Sdl_Core_TM_ImportExport_Importer_ChunkSize">ChunkSize</a>. With the chunk size you determine the maximum amount of units that should be read from the TM. As long as the TM file resides on a local disk, the chunk size can be large, as the whole TM could be read in one go. If the export is going over e.g. an Internet line, then the chunk size should be small enough for the packages to be sent over the WAN. In our example, the chunk size is set to 20, which corresponds roughly to the size of our small sample TM:</p>
+<p>Note that the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryExporter.html">TranslationMemoryExporter</a> object requires the TM language direction. Like a TM, a TMX file is bilingual and uses a language direction that must match the TM direction. Pass the TM language direction when you create the exporter.</p>
+<p>Next, you can set the <a href="../../api/translationmemory/Sdl.Core.TM.ImportExport.Importer.html#Sdl_Core_TM_ImportExport_Importer_ChunkSize">ChunkSize</a>. The chunk size determines the maximum number of units read from the TM at one time. If the TM is on a local disk, a larger chunk size is usually fine. If the export runs over a network, keep the chunk size smaller to reduce latency. In this example, set the chunk size to 20, which roughly matches the size of the sample TM:</p>
 <div class="tabGroup" id="tabgroup_3">
 <ul role="tablist">
 <li role="presentation">
@@ -132,8 +132,8 @@ var exporter = new TranslationMemoryExporter(tm.LanguageDirection);
 </section>
 </div>
 
-<p>Note that the default chunk size is 50 (<a href="../../api/translationmemory/Sdl.Core.TM.ImportExport.Importer.html#Sdl_Core_TM_ImportExport_Importer_DefaultTranslationUnitChunkSize">DefaultTranslationUnitChunkSize</a>), the maximum chunk size is 200 (<a href="../../api/translationmemory/Sdl.Core.TM.ImportExport.Importer.html#Sdl_Core_TM_ImportExport_Importer_MaxTranslationUnitChunkSize">MaxTranslationUnitChunkSize</a>).</p>
-<p>Before executing the export, we fire an event after each batch (as specified by the chunk size) has been performed:</p>
+<p>The default chunk size is 50 (<a href="../../api/translationmemory/Sdl.Core.TM.ImportExport.Importer.html#Sdl_Core_TM_ImportExport_Importer_DefaultTranslationUnitChunkSize">DefaultTranslationUnitChunkSize</a>), and the maximum is 200 (<a href="../../api/translationmemory/Sdl.Core.TM.ImportExport.Importer.html#Sdl_Core_TM_ImportExport_Importer_MaxTranslationUnitChunkSize">MaxTranslationUnitChunkSize</a>).</p>
+<p>Before you execute the export, subscribe to an event that fires after each batch, or chunk, is exported:</p>
 <div class="tabGroup" id="tabgroup_4">
 <ul role="tablist">
 <li role="presentation">
@@ -147,7 +147,7 @@ var exporter = new TranslationMemoryExporter(tm.LanguageDirection);
 </section>
 </div>
 
-<p>Add the following member to your class, which is triggered from the <code>ExportTMXFile</code> function:</p>
+<p>Add the following member to your class. The <code>ExportTMXFile()</code> method triggers it:</p>
 <div class="tabGroup" id="tabgroup_5">
 <ul role="tablist">
 <li role="presentation">
@@ -169,8 +169,8 @@ var exporter = new TranslationMemoryExporter(tm.LanguageDirection);
 </section>
 </div>
 
-<p>After each batch has been processed, the total number of units processed and the total number of units that have actually been exported is determined and output.</p>
-<p>Finally, you apply the <code>Export</code> method to carry out the actual export operation. This method requires the full name and path of the TMX import file. With the second boolean parameter you can determine whether any existing export file should be overwritten or not.</p>
+<p>After each batch is processed, the code reports the total number of units processed and the number actually exported.</p>
+<p>Finally, call the <code>Export()</code> method to perform the export. This method requires the TMX export file path. The second boolean parameter determines whether an existing export file is overwritten.</p>
 <div class="tabGroup" id="tabgroup_6">
 <ul role="tablist">
 <li role="presentation">
@@ -184,8 +184,8 @@ var exporter = new TranslationMemoryExporter(tm.LanguageDirection);
 </section>
 </div>
 
-<p>In the above code example the overwrite parameter is set to True. Note that when you set this parameter to False, and an export file with the same name already exists, an error will be thrown, which has to be caught by your implementation.</p>
-<p>The full <code>ExportTMXFile</code> function looks as shown below:</p>
+<p>In the example above, the overwrite parameter is set to <code>true</code>. If you set it to <code>false</code> and a file with the same name already exists, the export throws an error that your code must handle.</p>
+<p>The complete <code>ExportTMXFile()</code> method looks like this:</p>
 <div class="tabGroup" id="tabgroup_7">
 <ul role="tablist">
 <li role="presentation">
@@ -219,7 +219,7 @@ var exporter = new TranslationMemoryExporter(tm.LanguageDirection);
 </section>
 </div>
 <h2 id="run-a-filtered-export">Run a Filtered Export</h2>
-<p>If you do not want to export the entire TM database content into a TMX file, but only a small part of it, you can run a filtered export. This allows you to export only a subset of the TM content, e.g. all translation units that have a <em>Customer</em> field with the value <em>Microsoft</em>, or all TUs that were created after 1st January 2010, etc. Running such an export is basically the same as the procedure described above. You just have to add a filter before the export is executed. Start by implementing another function called <code>RunFilteredExport</code>, which also takes the TM file name and path as well as the export file name and path as string parameters. First, open the TM and create a TM exporter object as shown below:</p>
+<p>If you do not want to export the entire TM, you can run a filtered export. This lets you export a subset of the TM content, such as all translation units with a <em>Customer</em> field value of <em>Microsoft</em> or all TUs created after 1 January 2010. The overall workflow is the same as for a full export, but you add a filter before you run the export. Start by implementing another method named <code>RunFilteredExport()</code>, which takes the TM path and the TMX export file path as string parameters. First, open the TM and create a TM exporter object:</p>
 <div class="tabGroup" id="tabgroup_8">
 <ul role="tablist">
 <li role="presentation">
@@ -234,7 +234,7 @@ var exporter = new TranslationMemoryExporter(tm.LanguageDirection);
 </section>
 </div>
 
-<p>The main difference to the full export from the example above is that you set the <strong>FilterExpression</strong> property of the TM exporter object. The actual filter expression is generated by a separate helper function, which we will implement in a later step.</p>
+<p>The main difference from the full export is that you set the <strong>FilterExpression</strong> property on the exporter. A separate helper method builds the filter expression.</p>
 <div class="tabGroup" id="tabgroup_9">
 <ul role="tablist">
 <li role="presentation">
@@ -248,7 +248,7 @@ var exporter = new TranslationMemoryExporter(tm.LanguageDirection);
 </section>
 </div>
 
-<p>Like before, we fire the event that outputs the number of exported units in a batch and apply the Export method to carry out the actual export. The complete <code>RunFilteredExport</code> function looks as shown below:</p>
+<p>Like before, subscribe to the batch event and call <code>Export()</code> to perform the export. The complete <code>RunFilteredExport()</code> method looks like this:</p>
 <div class="tabGroup" id="tabgroup_10">
 <ul role="tablist">
 <li role="presentation">
@@ -277,7 +277,7 @@ var exporter = new TranslationMemoryExporter(tm.LanguageDirection);
 </section>
 </div>
 <h2 id="define-the-filter-for-the-export-simple">Define the Filter for the Export (Simple)</h2>
-<p>In this step, you will see how to implement the helper function that creates the filter for the export. Implement a new helper function called <code>GetFilterSimple</code>, which returns a <strong>FilterExpression</strong> object, i.e.:</p>
+<p>This section shows how to implement the helper method that creates a simple export filter. Add a method named <code>GetFilterSimple()</code> that returns a <strong>FilterExpression</strong> object:</p>
 <div class="tabGroup" id="tabgroup_11">
 <ul role="tablist">
 <li role="presentation">
@@ -291,7 +291,7 @@ var exporter = new TranslationMemoryExporter(tm.LanguageDirection);
 </section>
 </div>
 
-<p>Suppose that you want the export to only output TUs where the <em>Customer</em> field is equal to the value Microsoft. Note that in this example, <em>Customer</em> is a picklist field that allows multiple values. The following sample code shows you how to set the field name and value and how to build a filter criterion:</p>
+<p>Suppose you want the export to include only TUs where the <em>Customer</em> field equals <em>Microsoft</em>. In this example, <em>Customer</em> is a picklist field that allows multiple values. The following sample code shows how to define the field name and value and build the criterion:</p>
 <div class="tabGroup" id="tabgroup_12">
 <ul role="tablist">
 <li role="presentation">
@@ -307,7 +307,7 @@ fieldValue.Add(fieldName);
 </section>
 </div>
 
-<p>In the next step you use the <strong>AtomicExpression</strong> class to create the filter expression to return to the export function. The parameters required are the field value and the operator. In our case, the filter calls for an <strong>Equal</strong> value. (Other possible values could be <strong>Contains</strong>, <strong>ContainsNot</strong>, <strong>Greater</strong>, <strong>Smaller</strong>, etc.)</p>
+<p>Next, use the <strong>AtomicExpression</strong> class to create the filter expression to return to the export method. Pass the field value and the operator. In this case, the filter uses <strong>Equal</strong>. Other possible operators include <strong>Contains</strong>, <strong>ContainsNot</strong>, <strong>Greater</strong>, and <strong>Smaller</strong>.</p>
 <div class="tabGroup" id="tabgroup_13">
 <ul role="tablist">
 <li role="presentation">
@@ -322,7 +322,7 @@ return filter;
 </section>
 </div>
 <h2 id="define-the-filter-for-the-export-advanced">Define the Filter for the Export (Advanced)</h2>
-<p>Suppose you want to create a more advanced filter that has two (or more) criteria, e.g. export all TUs where the Customer field value equals Microsoft <strong>OR</strong> in which the <em>Project id</em> text field contains the string <em>2010</em>. Implement another helper function called <code>GetFilterAdvanced</code>, i.e.:</p>
+<p>Suppose you want a more advanced filter with two or more criteria, such as exporting all TUs where the <em>Customer</em> field equals <em>Microsoft</em> <strong>or</strong> the <em>Project id</em> text field contains <em>2010</em>. Add another helper method named <code>GetFilterAdvanced()</code>:</p>
 <div class="tabGroup" id="tabgroup_14">
 <ul role="tablist">
 <li role="presentation">
@@ -336,8 +336,7 @@ return filter;
 </section>
 </div>
 
-<p>The first step is almost identical to the previous example, i.e. you define the first filter criterion and create the first filter
-expression using the <strong>AtomicExpression</strong> class.</p>
+<p>The first step is almost identical to the previous example: define the first criterion and create the first filter expression with the <strong>AtomicExpression</strong> class.</p>
 <div class="tabGroup" id="tabgroup_15">
 <ul role="tablist">
 <li role="presentation">
@@ -354,7 +353,7 @@ var expression1 = new AtomicExpression(fieldValue1, AtomicExpression.Operator.Eq
 </section>
 </div>
 
-<p>Then, you set up the second filter criterion, i.e. <em>Project id</em> contains <em>2010</em> and use the <strong>AtomicExpression</strong> class to construct the second filter expression:</p>
+<p>Then define the second criterion, such as <em>Project id</em> containing <em>2010</em>, and use the <strong>AtomicExpression</strong> class to construct the second expression:</p>
 <div class="tabGroup" id="tabgroup_16">
 <ul role="tablist">
 <li role="presentation">
@@ -370,14 +369,11 @@ var expression2 = new AtomicExpression(fieldName2, AtomicExpression.Operator.Con
 </section>
 </div>
 
-<p>The actual filter object that is returned to the export function is based on the <strong>ComposedExpression</strong> class, which combines expression1 and expression2 with an OR operator, and finally returns the complete filter expression.</p>
+<p>The final filter object uses the <strong>ComposedExpression</strong> class, which combines <code>expression1</code> and <code>expression2</code> with an OR operator and returns the complete filter expression.</p>
 <div class="tabGroup" id="tabgroup_17">
 <ul role="tablist">
 <li role="presentation">
 <a href="#tabpanel_17_tabid-17" role="tab" aria-controls="tabpanel_17_tabid-17" data-tab="tabid-17" tabindex="0" aria-selected="true">C#</a>
-</li>
-<li role="presentation">
-<a href="#tabpanel_17_tabid-18" role="tab" aria-controls="tabpanel_17_tabid-18" data-tab="tabid-18" tabindex="-1">C#</a>
 </li>
 </ul>
 <section id="tabpanel_17_tabid-17" role="tabpanel" data-tab="tabid-17">
@@ -385,11 +381,17 @@ var expression2 = new AtomicExpression(fieldName2, AtomicExpression.Operator.Con
 <pre><code class="lang-cs">var filter = new ComposedExpression(expression1, ComposedExpression.Operator.Or, expression2);
 return filter;
 </code></pre>
-<p>**</p>
-<h2 id="putting-it-all-together">Putting it All Together</h2>
-<p>The complete class should now look as shown below:</p>
 </section>
-<section id="tabpanel_17_tabid-18" role="tabpanel" data-tab="tabid-18" aria-hidden="true" hidden="hidden">
+</div>
+<h2 id="putting-it-all-together">Putting it All Together</h2>
+<p>The complete class should now look like this:</p>
+<div class="tabGroup" id="tabgroup_18">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_18_tabid-18" role="tab" aria-controls="tabpanel_18_tabid-18" data-tab="tabid-18" tabindex="0" aria-selected="true">C#</a>
+</li>
+</ul>
+<section id="tabpanel_18_tabid-18" role="tabpanel" data-tab="tabid-18">
 
 <pre><code class="lang-cs">namespace SDK.LanguagePlatform.Samples.TmAutomation
 {
@@ -501,7 +503,6 @@ return filter;
 <h2 id="see-also">See Also</h2>
 <p><a href="importing_a_tmx_file.html">Importing a TMX File</a></p>
 <p><a href="introduction_to_the_tm_batch_export_tool.html">Introduction to the Batch Export Tool</a></p>
-<p><a href="scheduled_tmx_exports.html">Scheduled TMX Exports</a></p>
 
 </article>
           </div>

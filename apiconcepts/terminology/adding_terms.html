@@ -82,17 +82,28 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="adding-terms">Adding Terms</h1>
 
-<p>You can configure your custom terminology provider to support adding and editing of terminology entries. Learn how to implement some simplified functionality for adding source and target terms to your delimited text list.</p>
-<p>In Trados Studio, you can add source and target terms on the fly by marking them in the Editor and by then clicking either the <strong>Add New Term</strong> button, or the <strong>Quick Add New Term</strong> button.</p>
+<p>Configure your custom terminology provider to support adding and editing terminology entries. This article explains simplified functionality for adding source and target terms to a delimited text list.</p>
+<p>In <strong>Trados Studio</strong>, you can add source and target terms on the fly by marking them in the Editor and then clicking either <strong>Add New Term</strong> or <strong>Quick Add New Term</strong>.</p>
 <img style="display:block; " src="images/add_terms_buttons.jpg">
-<p>The difference between these two buttons in the standard, MultiTerm-based implementation of Trados Studio is that <strong>Add New Term</strong> does not immediately save the term pair to the termbase, but opens up an editor control in the <strong>Termbase Viewer</strong> window that allows you to make changes to the terms before saving them. <strong>Quick Add New Term</strong> adds the term pair directly to the terminology source and displays the newly-created entry in the <strong>Termbase Viewer</strong> window. Our simplified implementation will not offer any editing function. This means that the same thing will happen in our implementation, regardless of whether you click Add New Term or Quick Add New Term.</p>
-<p>Open the <strong>MyTerminologyProviderViewerWinFormsUI.cs</strong> class and go to the <strong>AddTerm()</strong> function. Trados Studio passes the currently selected source and target term to this function through the <strong>source</strong> and <strong>target</strong> string parameters. We then implement the following functionality, which works like this:</p>
+<p>In the standard, MultiTerm-based implementation of <strong>Trados Studio</strong>:</p>
+<ul>
+<li><strong>Add New Term</strong> opens an editor control in the <strong>Termbase Viewer</strong> window so you can modify terms before saving.</li>
+<li><strong>Quick Add New Term</strong> adds the term pair directly to the terminology source and displays the newly created entry in the <strong>Termbase Viewer</strong> window.</li>
+</ul>
+<p>In this simplified implementation, no editing function is provided, so both buttons perform the same action.</p>
+<p>To implement this behavior:</p>
+<ol>
+<li>Open the <strong>MyTerminologyProviderViewerWinFormsUI.cs</strong> class and go to the <strong>AddTerm()</strong> function.</li>
+<li><strong>Trados Studio</strong> passes the selected source and target terms through the <strong>source</strong> and <strong>target</strong> string parameters.</li>
+<li>Implement the following steps:
 <ul>
 <li>Open the glossary text file.</li>
-<li>Loop to the end of the text file, while counting the lines to determine the next entry id.</li>
-<li>Insert the new source and target term (with empty definition).</li>
-<li>Display the newly-created entry in the Internet Explorer control of the <strong>Termbase Viewer</strong> window.</li>
+<li>Loop to the end of the text file while counting lines to determine the next entry ID.</li>
+<li>Insert the new source and target terms (with an empty definition).</li>
+<li>Display the newly created entry in the Internet Explorer control of the <strong>Termbase Viewer</strong> window.</li>
 </ul>
+</li>
+</ol>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
@@ -140,9 +151,9 @@ public void AddTerm(string source, string target)
 </code></pre></section>
 </div>
 
-<p>When a new source/target term pair has been added, the following will, for example, be displayed in the <strong>Termbase Viewer</strong> window:</p>
+<p>When a new source/target term pair is added, the following appears in the <strong>Termbase Viewer</strong> window:</p>
 <img style="display:block; " src="images/entry_added.jpg">
-<p>You can also implement your terminology provider to support editing. However, in this simplified example, we will not actually add any editing functionality. This would require us to implement an editing control in the <strong>Termbase Viewer</strong> window. All we are doing for the moment is to output a message in the <strong>AddAndEditTerm()</strong> function of the <strong>MyTerminologyProviderViewerWinFormsUI.cs</strong> class:</p>
+<p>You can also implement your terminology provider to support editing. However, this simplified example does not add editing functionality. Supporting editing would require an editing control in the <strong>Termbase Viewer</strong> window. For now, the <strong>AddAndEditTerm()</strong> function in the <strong>MyTerminologyProviderViewerWinFormsUI.cs</strong> class outputs a message:</p>
 <div class="tabGroup" id="tabgroup_2">
 <ul role="tablist">
 <li role="presentation">
@@ -159,14 +170,14 @@ public void AddAndEditTerm(Entry term, string source, string target)
 </code></pre></section>
 </div>
 
-<p>When you try to add a term that has already been added, Trados Studio throws the following message that prompts you to:</p>
+<p>If you try to add a term that already exists, <strong>Trados Studio</strong> displays a message that prompts you to:</p>
 <ul>
 <li>Edit the entry by clicking <strong>Yes</strong>.</li>
-<li>Add the term again, thus risking creating a duplicate entry by clicking <strong>No</strong>.</li>
-<li>Abort the entire term add operation with <strong>Cancel</strong>.</li>
+<li>Add the term again, risking a duplicate entry, by clicking <strong>No</strong>.</li>
+<li>Cancel the entire add operation by clicking <strong>Cancel</strong>.</li>
 </ul>
 <img style="display:block; " src="images/term_exists.jpg">
-<p>If you click <strong>Yes</strong> to edit the entry, the following message box will be displayed in our implementation and the <strong>Termbase Viewer</strong> window remains empty. In a 'real' implementation, the entry content will be shown in an edit control where you can still edit it.</p>
+<p>If you click <strong>Yes</strong> to edit the entry, the following message box is displayed in this implementation and the <strong>Termbase Viewer</strong> window remains empty. In a real implementation, the entry content is shown in an edit control where you can still modify it.</p>
 <img style="display:block; " src="images/editing_not_implemented.jpg">
 
 </article>

@@ -82,82 +82,75 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="implementing-an-external-file-preview">Implementing an External File Preview</h1>
 
-<p>In this chapter you will learn how to add a simple document preview function based on the standard Windows Notepad application.</p>
-<h2 id="extend-the-file-type-component-builder">Extend the File Type Component Builder</h2>
-<p>Our aim is to enable the file type plug-in to generate an ad-hoc preview in an external application. This allows users to view the file in its native format.</p>
-<p>When processing DOC files, for example, Trados Studio launches Microsoft Word as external preview application. Since we are dealing with a simple text format, we can use a common text editor such Notepad as external preview application.</p>
-<p>What makes implementing the external preview easy is the fact that the application logic required for generating an external preview already exists in our sample file type plug-in - to be more precise, in the file writer class, which you implemented in the previous chapter (see <a href="implementing_the_file_writer.html">Implementing the File Writer</a>). Therefore, all you need to do is register the external preview application in the File Type Component Builder.</p>
-<p>First, we recommend that you add the name of the preview application to the resources file of your project properties. This is the application name that users will see when accessing the external preview menu command in Trados Studio.</p>
-<p><img src="images/ExternalPreview_Name.jpg" alt="ExternalPreview_Name"></p>
-<p>Now add the method shown below to the File Type Component Builder. Note how the external preview application name is referenced. Also note that this implements the external preview both for the source and the target content.</p>
-<div class="tabGroup" id="tabgroup_1">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_1_tabid-1" role="tab" aria-controls="tabpanel_1_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_1_tabid-1" role="tabpanel" data-tab="tabid-1">
-
-<pre><code class="lang-cs">IPreviewSet externalPreviewSet = previewFactory.CreatePreviewSet();
-externalPreviewSet.Id = new PreviewSetId(&quot;ExternalPreview&quot;);
+<div class="WARNING">
+<h5>Warning</h5>
+<p><strong>Breaking change in Trados Studio 2026</strong></p>
+<p>The <code>BuildPreviewApplication</code> method on <code>IFileTypeComponentBuilder</code> is
+<strong>deprecated and no longer called by Trados Studio</strong>. The
+<code>GenericExternalPreviewApplication</code> class and the
+<code>Sdl.FileTypeSupport.Framework.PreviewControls</code> assembly reference are no
+longer needed. Remove them from any file type that targets Trados Studio 2026 or
+later.</p>
+<p>The <code>PreviewSet</code> registration pattern shown below still applies, but the
+Preview ID must now be one of the <strong>built-in IDs</strong> recognised by Trados Studio.
+See <a href="preview_api_changes.html">Preview API changes in Trados Trados Studio 2026</a>
+for the full list of built-in IDs and a migration checklist.</p>
+</div>
+<h2 id="overview">Overview</h2>
+<p>Trados Studio can open a preview of the translated file in an external
+application. The application that is launched is determined automatically by
+the file extension registered in the operating system — the file type plugin
+no longer specifies a path to an executable.</p>
+<p>The application logic needed to generate the preview file is already
+provided by your file writer class. All you need to do is register the
+external preview in the File Type Component Builder, using the built-in
+<code>ExternalPreview</code> ID.</p>
+<h2 id="register-the-external-preview">Register the external preview</h2>
+<p>Add the following code to your File Type Component Builder to register an
+external preview for both source and target:</p>
+<pre><code class="lang-csharp">IPreviewSet externalPreviewSet = previewFactory.CreatePreviewSet();
+externalPreviewSet.Id   = new PreviewSetId(&quot;ExternalPreview&quot;);
 externalPreviewSet.Name = new LocalizableString(Resources.ExternalPreview_Name);
-
-IApplicationPreviewType sourceAppPreviewType = previewFactory.CreatePreviewType&lt;IApplicationPreviewType&gt;() as IApplicationPreviewType;
-
+ 
+IApplicationPreviewType sourceAppPreviewType =
+    previewFactory.CreatePreviewType&lt;IApplicationPreviewType&gt;() as IApplicationPreviewType;
 if (sourceAppPreviewType != null)
 {
     sourceAppPreviewType.SourceGeneratorId = new GeneratorId(&quot;DefaultPreview&quot;);
-    sourceAppPreviewType.SingleFilePreviewApplicationId = new PreviewApplicationId(&quot;ExternalPreview&quot;);
+    sourceAppPreviewType.SingleFilePreviewApplicationId =
+        new PreviewApplicationId(&quot;ExternalPreview&quot;);
     externalPreviewSet.Source = sourceAppPreviewType;
 }
-
-IApplicationPreviewType targetAppPreviewType = previewFactory.CreatePreviewType&lt;IApplicationPreviewType&gt;() as IApplicationPreviewType;
+ 
+IApplicationPreviewType targetAppPreviewType =
+    previewFactory.CreatePreviewType&lt;IApplicationPreviewType&gt;() as IApplicationPreviewType;
 if (targetAppPreviewType != null)
 {
     targetAppPreviewType.TargetGeneratorId = new GeneratorId(&quot;DefaultPreview&quot;);
-    targetAppPreviewType.SingleFilePreviewApplicationId = new PreviewApplicationId(&quot;ExternalPreview&quot;);
+    targetAppPreviewType.SingleFilePreviewApplicationId =
+        new PreviewApplicationId(&quot;ExternalPreview&quot;);
     externalPreviewSet.Target = targetAppPreviewType;
 }
-
+ 
 previewFactory.GetPreviewSets(null).Add(externalPreviewSet);
 </code></pre>
-</section>
+<p><code>ExternalPreview</code> is a built-in Trados Studio preview ID. When a user triggers the
+preview, Trados Studio opens the generated file in the application registered in
+the OS for that file extension — the same behaviour that the old
+<code>ApplicationPath = &quot;&quot;</code> shortcut produced, now as the only and default
+behaviour.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>You do not need to add a reference to
+<code>Sdl.FileTypeSupport.Framework.PreviewControls</code>, and you do not need to
+implement <code>BuildPreviewApplication</code>. Both are deprecated in Trados Studio 2026.</p>
 </div>
-
-<p>Now change the File Type Component Builder to include the external preview. Here the Microsoft Notepad application is used by <code>GenericExternalPreviewApplication</code></p>
-<div class="tabGroup" id="tabgroup_2">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_2_tabid-2" role="tab" aria-controls="tabpanel_2_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
-</li>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="preview_api_changes.html">Preview API changes in Trados Studio 2026</a></li>
+<li><a href="adding_a_preview_ui_control.html">Adding a Preview UI Control</a></li>
+<li><a href="implementing_the_file_writer.html">Implementing the File Writer</a></li>
 </ul>
-<section id="tabpanel_2_tabid-2" role="tabpanel" data-tab="tabid-2">
-
-<pre><code class="lang-cs">public IAbstractPreviewApplication BuildPreviewApplication(string name)
-{
-    if (name == &quot;PreviewApplication_ExternalPreview&quot;)
-    {
-        Sdl.FileTypeSupport.Framework.PreviewControls.GenericExteralPreviewApplication genericExteralPreviewApplication = new Sdl.FileTypeSupport.Framework.PreviewControls.GenericExteralPreviewApplication();
-        genericExteralPreviewApplication.ApplicationPath = @&quot;c:\Windows\System32\notepad.exe&quot;;
-        return genericExteralPreviewApplication;
-    }
-    return null;
-}
-</code></pre>
-</section>
-</div>
-
-<p>You will also need to add an assembly reference to Sdl.FileTypeSupport.Framework.PreviewControls.</p>
-<div class="NOTE">
-<h5>Note</h5>
-<p>You can also pass an empty string to the ApplicationPath property. In this case the external preview will call the application that is registered in the OS for this particular file type.</p>
-</div>
-<p>When accessing the <strong>File</strong> &gt; <strong>View</strong> In menu command of Trados Studio you should now see the following:</p>
-<p><img src="images/PreviewApplication.jpg" alt="PreviewApplication"></p>
-<div class="NOTE">
-<h5>Note</h5>
-<p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
-</div>
 
 </article>
           </div>

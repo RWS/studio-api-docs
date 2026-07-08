@@ -82,38 +82,43 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="implement-the-user-interface">Implement the User Interface</h1>
 
-<p>In this chapter you will learn how to implement the user interface of your verification plug-in.</p>
+<p>Implement the user interface of your verification plug-in.</p>
 <h2 id="add-a-user-control">Add a User Control</h2>
-<p>Implement the graphical user interface by adding a user control, which you can name, e.g. <strong>SettingsUI.cs</strong>. This is the interface that users will see when configuring the file type plug-in in Trados Studio through, e.g. <strong>File</strong> &gt; <strong>Options</strong> &gt; <strong>File Types</strong>. Our simple native verifier will only implement one setting, through which users can configure whether to enable the verification function or to disable it. Therefore, you only need to add one check box to the user control, which we call <code>cb_Enabled</code>.</p>
-<p>The user interface should look as shown below:</p>
+<p>Implement the graphical user interface by adding a user control, for example <strong>SettingsUI.cs</strong>. This is the interface users see when configuring the file type plug-in in <code>Trados Studio</code> through <strong>File</strong> &gt; <strong>Options</strong> &gt; <strong>File Types</strong>. Our simple native verifier implements one setting: whether to enable or disable the verification function. Add one check box to the user control named <code>cb_Enabled</code>.</p>
+<p>The user interface should look as follows:</p>
 <p><img src="images/length_checker_settings_page.jpg" alt="length_checker_settings_page"></p>
-<p>Next, switch to the code view of your newly added user control. This class needs to use the following namespace:</p>
+<p>Switch to the code view of your user control. This class requires this namespace:</p>
 <ul>
-<li><strong>Sdl.FileTypeSupport.Framework.Core.Settings</strong></li>
+<li><code>Sdl.FileTypeSupport.Framework.Core.Settings</code></li>
 </ul>
 <h2 id="the-settings-bundle">The Settings Bundle</h2>
-<p>Each plug-in uses a settings bundle to store and retrieve settings. The mechanism for doing that is provided in a separate class called <code>VerifierSettings</code>, which we will implement later (see <a href="loading_and_saving_the_settings_native.html">Loading and Saving the Settings</a>). Within the controller UI component, we need to create an object based on the <code>VerifierSettings</code> class:</p>
+<p>Each plug-in uses a settings bundle to store and retrieve settings. A separate class called <code>VerifierSettings</code> handles this mechanism (see <a href="loading_and_saving_the_settings_native.html">Loading and Saving the Settings</a>). Create an object based on the <code>VerifierSettings</code> class within the controller UI component:</p>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
 <a href="#tabpanel_1_tabid-1" role="tab" aria-controls="tabpanel_1_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-2" role="tab" aria-controls="tabpanel_1_tabid-2" data-tab="tabid-2" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-3" role="tab" aria-controls="tabpanel_1_tabid-3" data-tab="tabid-3" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-4" role="tab" aria-controls="tabpanel_1_tabid-4" data-tab="tabid-4" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-5" role="tab" aria-controls="tabpanel_1_tabid-5" data-tab="tabid-5" tabindex="-1">C#</a>
 </li>
 </ul>
 <section id="tabpanel_1_tabid-1" role="tabpanel" data-tab="tabid-1">
 
 <pre><code class="lang-cs">VerifierSettings _settings;
 </code></pre>
-</section>
-</div>
 <h2 id="initialize-the-plug-in-user-interface">Initialize the Plug-in User Interface</h2>
-<p>When the user raises the plug-in user interface, the control element should be set according to what is stored in the settings bundle, which is handled through the <code>_settings</code> object (which we declared previously).</p>
-<div class="tabGroup" id="tabgroup_2">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_2_tabid-2" role="tab" aria-controls="tabpanel_2_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_2_tabid-2" role="tabpanel" data-tab="tabid-2">
+<p>When the user opens the plug-in user interface, set the control element according to what is stored in the settings bundle. Use the <code>_settings</code> object (declared previously) to handle this:</p>
+</section>
+<section id="tabpanel_1_tabid-2" role="tabpanel" data-tab="tabid-2" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">public VerifierSettings Settings
 {
@@ -128,51 +133,29 @@
     }
 }
 </code></pre>
+<p>During initialization, the <code>UpdateControl</code> method is invoked. It sets the check box state (checked or unchecked) to the value of the <code>Enabled</code> member in the <code>VerifierSettings</code> class:</p>
 </section>
-</div>
-
-<p>During initialization the UpdateControl method is invoked, which sets the state of the check box (checked or unchecked) to the value of the <code>Enabled</code> member of the <code>VerifierSettings</code> class as shown below:</p>
-<div class="tabGroup" id="tabgroup_3">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_3_tabid-3" role="tab" aria-controls="tabpanel_3_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_3_tabid-3" role="tabpanel" data-tab="tabid-3">
+<section id="tabpanel_1_tabid-3" role="tabpanel" data-tab="tabid-3" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">public void UpdateControl()
 {
     cb_Enable.Checked = _settings.Enable;
 }
 </code></pre>
-</section>
-</div>
 <h2 id="save-the-settings-to-the-settings-bundle">Save the Settings to the Settings Bundle</h2>
-<p>Conversely, the user interface needs to save the check box setting to the settings bundle, e.g. when the user raises the plug-in UI, changes the check box setting, and then clicks <strong>OK</strong> to apply the changed setting to the settings bundle:</p>
-<div class="tabGroup" id="tabgroup_4">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_4_tabid-4" role="tab" aria-controls="tabpanel_4_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_4_tabid-4" role="tabpanel" data-tab="tabid-4">
+<p>When the user opens the plug-in UI, changes the check box setting, and clicks <strong>OK</strong>, save the setting to the settings bundle:</p>
+</section>
+<section id="tabpanel_1_tabid-4" role="tabpanel" data-tab="tabid-4" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">private void cb_Enable_CheckedChanged(object sender, EventArgs e)
 {
     _settings.Enable = cb_Enable.Checked;
 }
 </code></pre>
+<h2 id="putting-it-all-together">Putting It All Together</h2>
+<p>Your <code>SettingsUI</code> class should look as follows:</p>
 </section>
-</div>
-<h2 id="putting-it-all-together">Putting it all Together</h2>
-<p>If you put it all together, the <code>SettingsUI</code> class should look as shown below:</p>
-<div class="tabGroup" id="tabgroup_5">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_5_tabid-5" role="tab" aria-controls="tabpanel_5_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_5_tabid-5" role="tabpanel" data-tab="tabid-5">
+<section id="tabpanel_1_tabid-5" role="tabpanel" data-tab="tabid-5" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">using System;
 using System.Collections.Generic;
@@ -189,20 +172,16 @@ namespace Sdk.FileTypeSupport.Samples.XMLChecker
     /// &lt;summary&gt;
     /// Implements the user interface through which the verification plug-in can be enabled or disabled.
     /// &lt;/summary&gt;
-    #region ClassDeclaration
     public partial class SettingsUI : UserControl, IFileTypeSettingsAware&lt;VerifierSettings&gt;
-    #endregion
     {
         /// &lt;summary&gt;
         /// Create a settings object based on the VerifierSettings class. 
         /// &lt;/summary&gt;
-        #region &quot;SettingsObject&quot;
         VerifierSettings _settings;
-        #endregion 
 
         /// &lt;summary&gt;
-        /// Initalize the user interface control by setting it to the
-        /// setting value stored in the settings bundle.
+        /// Initialize the user interface control by setting it to the value
+        /// stored in the settings bundle.
         /// &lt;/summary&gt;
         public SettingsUI()
         {
@@ -210,32 +189,29 @@ namespace Sdk.FileTypeSupport.Samples.XMLChecker
         }
 
         /// &lt;summary&gt;
-        /// Reset the user interface control to its default value, which is
-        /// checked, i.e. the verification functionality should be enabled
-        /// by default.
+        /// Reset the user interface control to its default value: checked,
+        /// which enables verification functionality by default.
         /// &lt;/summary&gt;
-        #region &quot;UpdateControl&quot;
         public void UpdateControl()
         {
             cb_Enable.Checked = _settings.Enable;
         }
-        #endregion
 
         /// &lt;summary&gt;
-        /// Save the settings based on the value of the the check box.
-        /// The setting is saved through the VerifierSettings class, which
-        /// handles the plug-in settings bundle.
+        /// Save the settings based on the check box value. The setting is saved through
+        /// the VerifierSettings class, which handles the plug-in settings bundle.
         /// &lt;/summary&gt;
         /// &lt;param name=&quot;sender&quot;&gt;&lt;/param&gt;
         /// &lt;param name=&quot;e&quot;&gt;&lt;/param&gt;
-        #region &quot;SaveSetting&quot;
         private void cb_Enable_CheckedChanged(object sender, EventArgs e)
         {
             _settings.Enable = cb_Enable.Checked;
         }
-        #endregion
 
-        #region &quot;Initialize&quot;
+        /// &lt;summary&gt;
+        /// Implementation of IFileTypeSettingsAware allowing the Filter Framework
+        /// to pass through the user settings so that we can initialize the UI.
+        /// &lt;/summary&gt;
         public VerifierSettings Settings
         {
             get
@@ -248,18 +224,19 @@ namespace Sdk.FileTypeSupport.Samples.XMLChecker
                 UpdateControl();
             }
         }
-        #endregion
     }
 }
 </code></pre>
-</section>
-</div>
 <h2 id="see-also">See Also</h2>
-<p><a href="implement_the_ui_controller_class_native.html">Implement the UI Controller Class</a></p>
-<p><a href="loading_and_saving_the_settings_native.html">Loading and Saving the Settings</a></p>
+<ul>
+<li><a href="implement_the_ui_controller_class_native.html">Implement the UI Controller Class</a></li>
+<li><a href="loading_and_saving_the_settings_native.html">Loading and Saving the Settings</a></li>
+</ul>
 <div class="NOTE">
 <h5>Note</h5>
 <p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+</div>
+</section>
 </div>
 
 </article>

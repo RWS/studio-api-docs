@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Managing Terms in a File-based Termbase </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Managing Terms in a File-based Termbase ">
+    
+    
+      <link rel="shortcut icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../../styles/docfx.css">
+      <link rel="stylesheet" href="../../styles/main.css">
+      <meta property="docfx:navrel" content="../../toc.html">
+      <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>        
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="https://developers.rws.com/">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+
+        <div class="container body-content">
+
+          <div id="search-results">
+            <div class="search-list">Search Results for <span></span></div>
+            <div class="sr-items">
+              <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+            </div>
+            <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+          </div>
+        </div>
+
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="managing-terms-in-a-file-based-termbase">Managing Terms in a File-based Termbase</h1>
+
+<p>This article shows how to manage content in a file-based termbase.</p>
+<h2 id="retrieve-a-file-based-termbase-instance">Retrieve a file-based termbase instance</h2>
+<p>The <a href="../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.Termbase.IStudioTermbase.html">IStudioTermbase</a> interface exposes the methods that manage entries in a file-based termbase.</p>
+<p>To get an <code>IStudioTermbase</code> instance, first retrieve an <a href="../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.ITerminologyProvider.html">ITerminologyProvider</a> by calling the <a href="../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.TerminologyProviderManager.html">TerminologyProviderManager</a> <code>GetTerminologyProvider()</code> method and passing the termbase URI. The URI must use the <code>ttb.file</code> scheme, for example <code>ttb.file:///C:/MyTermbases/MyTermbase.ttb</code>.</p>
+<p>After you retrieve the provider, initialize it and cast it to <code>IStudioTermbase</code>.</p>
+<pre><code class="lang-csharp">ITerminologyProvider terminologyProvider = TerminologyProviderManager.Instance.
+    GetTerminologyProvider(new Uri(&quot;ttb.file:///C:/MyTermbases/MyTermbase.ttb&quot;));
+if (!terminologyProvider.Initialize())
+{
+    // handle case
+    return;
+}
+
+var termbase = terminologyProvider as IStudioTermbase;
+</code></pre>
+<h2 id="understand-entries">Understand entries</h2>
+<p>A termbase entry contains one or more terms in one or more languages together with metadata such as fields and transactions. Each term belongs to a specific language.</p>
+<p>An <a href="../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.Entry.html">Entry</a> object contains these properties:</p>
+<ul>
+<li><strong>Id</strong>: The unique identifier of the entry. This property is optional when you add a new entry because the termbase generates the ID. You must set it when you update an existing entry.</li>
+<li><strong>Fields</strong>: A list of <a href="../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.EntryField.html">EntryField</a> objects that define the entry fields.</li>
+<li><strong>Languages</strong>: A list of <a href="../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.EntryLanguage.html">EntryLanguage</a> objects that define the entry languages.</li>
+<li><strong>Transactions</strong>: A list of <a href="../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.EntryTransaction.html">EntryTransaction</a> objects that record the entry transactions.</li>
+</ul>
+<img style="display:block;" src="images/Cd-Entry%20Dependencies.png" alt="Entry dependencies">
+<h2 id="add-an-entry">Add an entry</h2>
+<p>After you get the termbase instance, call the <code>AddEntry()</code> method to add a new term entry. The method takes an <a href="../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.Entry.html">Entry</a> object and returns the ID of the new entry.</p>
+<p>The language locales must match the termbase definition. In this example, the termbase uses English (<code>en</code>) and German (<code>de</code>), so the entry uses those locales.</p>
+<p>This example creates an <a href="../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.Entry.html">Entry</a> with one field, the English term &quot;Photo printer&quot;, the German equivalent &quot;Fotodrucker&quot;, and an origination transaction. It then adds the entry to the file-based termbase.</p>
+<pre><code class="lang-csharp">var entry = new Entry
+{
+    Fields = new List&lt;EntryField&gt;
+    {
+        new EntryField { Name = &quot;domain&quot;, Value = &quot;general&quot; }
+    },
+    Languages = new List&lt;EntryLanguage&gt;
+    {
+        new EntryLanguage
+        {
+            Locale = &quot;en&quot;,
+            Name = &quot;English&quot;,
+            Terms = new List&lt;EntryTerm&gt; { new EntryTerm { Value = &quot;Photo printer&quot; } }
+        },
+        new EntryLanguage
+        {
+            Locale = &quot;de&quot;,
+            Name = &quot;German&quot;,
+            Terms = new List&lt;EntryTerm&gt; { new EntryTerm { Value = &quot;Fotodrucker&quot; } }
+        }
+    },
+    Transactions = new List&lt;EntryTransaction&gt;
+    {
+        new EntryTransaction
+        {
+            Date = DateTime.Now,
+            Type = TransactionType.Origination,
+            Name = &quot;Creating Entry&quot;
+        }
+    }
+};
+
+int entryId = termbase.AddEntry(entry);
+</code></pre>
+<h2 id="update-an-entry">Update an entry</h2>
+<p>To update an existing term entry, call the <code>UpdateEntry()</code> method and pass an <a href="../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.Entry.html">Entry</a> object.</p>
+<p>Set the <code>Id</code> property to the ID of the entry that you want to update.</p>
+<p>This example updates the entry created earlier. It uses the existing <code>Id</code>, replaces the language content, and adds a modification transaction. The updated entry contains the same German term as the previous example and two English terms, &quot;Photo printer&quot; and &quot;Photo-printer&quot;, with different &quot;Status&quot; field values.</p>
+<pre><code class="lang-csharp">var entryToUpdate = new Entry
+{
+    Id = entryId,
+    Languages = new List&lt;EntryLanguage&gt;
+    {
+        new EntryLanguage
+        {
+            Locale = &quot;en&quot;,
+            Name = &quot;English&quot;,
+            Terms = new List&lt;EntryTerm&gt;
+            {
+                new EntryTerm
+                {
+                    Value = &quot;Photo printer&quot;,
+                    Fields = new List&lt;EntryField&gt;
+                    {
+                        new EntryField { Name = &quot;Status&quot;, Value = &quot;Preferred&quot; }
+                    }
+                },
+                new EntryTerm
+                {
+                    Value = &quot;Photo-printer&quot;,
+                    Fields = new List&lt;EntryField&gt;
+                    {
+                        new EntryField { Name = &quot;Status&quot;, Value = &quot;Forbidden&quot; }
+                    }
+                }
+            }
+        },
+        new EntryLanguage
+        {
+            Locale = &quot;de&quot;,
+            Name = &quot;German&quot;,
+            Terms = new List&lt;EntryTerm&gt; { new EntryTerm { Value = &quot;Fotodrucker&quot; } }
+        }
+    },
+    Transactions = new List&lt;EntryTransaction&gt;
+    {
+        new EntryTransaction
+        {
+            Date = DateTime.Now,
+            Type = TransactionType.Modification,
+            Name = &quot;Modifying Entry&quot;
+        }
+    }
+};
+
+termbase.UpdateEntry(entryToUpdate);
+</code></pre>
+<h2 id="retrieve-all-entry-ids">Retrieve all entry IDs</h2>
+<p>Call the <code>GetEntriesIDs()</code> method to retrieve the IDs of all entries in a file-based termbase. The method returns a list of integers, where each integer identifies an entry.</p>
+<p>This example retrieves all entry IDs and checks whether the termbase returned any values before it processes them.</p>
+<pre><code class="lang-csharp">int[] entryIds = termbase.GetEntriesIDs();
+
+if (entryIds == null || entryIds.Length == 0)
+{
+    // no entries
+}
+else
+{
+    // process entry IDs
+}
+</code></pre>
+<h2 id="retrieve-a-fixed-number-of-entries">Retrieve a fixed number of entries</h2>
+<p>Call the <code>GetEntries()</code> method to retrieve a fixed number of entries from a file-based termbase. The method returns a list of <a href="../../api/terminology/Sdl.Terminology.TerminologyProvider.Core.Entry.html">Entry</a> objects.</p>
+<p>This example retrieves entries in batches of 25. It starts at the first entry, continues until it reaches a limit of 100 entries, and stops early when no more entries are available.</p>
+<pre><code class="lang-csharp">int start = 0;
+int end = 100;
+int batchSize = 25;
+
+for (int offset = start; offset &lt; end; offset += batchSize)
+{
+    var entries = termbase.GetEntries(offset, batchSize);
+
+    if (entries == null || entries.Count == 0)
+    {
+        break;
+    }
+
+    // process entries
+}
+</code></pre>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="creating_a_file_based_termbase.html">Creating a File-based Termbase</a></li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/main/apiconcepts/terminology/managing_terms_in_a_file_based_termbase.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

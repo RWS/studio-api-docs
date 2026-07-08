@@ -82,53 +82,52 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="implementing-the-settings-ui">Implementing the Settings UI</h1>
 
-<p>In this chapter you will learn how to expose file type plug-in configuration settings through a user interface.</p>
-<h1 id="add-an-option-to-lock-product-codes">Add an Option to Lock Product Codes</h1>
-<p>Start by adding a user control element to your WinUI project, which you can call, for example, <strong>SettingsUI.cs</strong>. Add a group box and a check box (named <code>cb_LockPrdCodes</code>) to the control, which should look as shown below:</p>
+<p>Expose file type plug-in configuration settings through a user interface.</p>
+<h2 id="add-an-option-to-lock-product-codes">Add an Option to Lock Product Codes</h2>
+<p>Start by adding a user control element to your WinUI project, for example <strong>SettingsUI.cs</strong>. Add a group box and a check box named <code>cb_LockPrdCodes</code> to the control:</p>
 <p><img src="images/LockPrdCodesOption.jpg" alt="LockPrdCodesOption"></p>
-<p>As product codes should be locked by default, set the <strong>Checked</strong> property to True.</p>
-<p>Your <strong>SettingsUI</strong> class needs to use the following namespace:</p>
+<p>Set the <strong>Checked</strong> property to True, since product codes should be locked by default.</p>
+<p>Your <strong>SettingsUI</strong> class needs the following namespace:</p>
 <ul>
-<li><strong>Sdl.FileTypeSupport.Framework.Core.Settings</strong></li>
+<li><code>Sdl.FileTypeSupport.Framework.Core.Settings</code></li>
 </ul>
 <h2 id="the-settings-bundle">The Settings Bundle</h2>
-<p>Each plug-in uses a settings bundle to store and retrieve settings. The mechanism for doing that is provided in a separate class called <strong>UserSettings</strong>, which we will implement later (<a href="loading_and_saving_settings.html">Loading and Saving the Settings</a>). For now, we create an object based on the <strong>UserSettings</strong> class:</p>
+<p>Each plug-in uses a settings bundle to store and retrieve settings. A separate class called <code>UserSettings</code> handles this mechanism (see <a href="loading_and_saving_settings.html">Loading and Saving the Settings</a>). Create an object based on the <code>UserSettings</code> class:</p>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
 <a href="#tabpanel_1_tabid-1" role="tab" aria-controls="tabpanel_1_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-2" role="tab" aria-controls="tabpanel_1_tabid-2" data-tab="tabid-2" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-3" role="tab" aria-controls="tabpanel_1_tabid-3" data-tab="tabid-3" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-4" role="tab" aria-controls="tabpanel_1_tabid-4" data-tab="tabid-4" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-5" role="tab" aria-controls="tabpanel_1_tabid-5" data-tab="tabid-5" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-6" role="tab" aria-controls="tabpanel_1_tabid-6" data-tab="tabid-6" tabindex="-1">C#</a>
 </li>
 </ul>
 <section id="tabpanel_1_tabid-1" role="tabpanel" data-tab="tabid-1">
 
 <pre><code class="lang-cs">private UserSettings _userSettings;
 </code></pre>
+<p>To obtain the correct user settings for this settings page from the Filter Framework, implement <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Settings.IFileTypeSettingsAware-1.html">IFileTypeSettingsAware</a>:</p>
 </section>
-</div>
-
-<p>So that we can obtain the correct user settings for this settings page from the Filter Framework, we need to tell the framework which settings we need. We can do this by implementing <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Settings.IFileTypeSettingsAware-1.html">IFileTypeSettingsAware</a>:</p>
-<div class="tabGroup" id="tabgroup_2">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_2_tabid-2" role="tab" aria-controls="tabpanel_2_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_2_tabid-2" role="tabpanel" data-tab="tabid-2">
+<section id="tabpanel_1_tabid-2" role="tabpanel" data-tab="tabid-2" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">public partial class SettingsUI : UserControl, IFileTypeSettingsAware&lt;UserSettings&gt;
 </code></pre>
+<h2 id="initialize-the-plug-in-user-interface-settings">Initialize the Plug-in User Interface Settings</h2>
+<p>When the user opens the plug-in user interface, set the control element according to what is stored in the settings bundle. Do this by setting the <code>_userSettings</code> object and implementing the Settings property from <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Settings.IFileTypeSettingsAware-1.html">IFileTypeSettingsAware</a>:</p>
 </section>
-</div>
-
-<p>Initialize the Plug-in User Interface Settings
-When the user raises the plug-in user interface, the control element should be set according to what is stored in the settings bundle. This is handled by setting the _userSettings object (which we declared previously) and implementing the Settings property from <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Settings.IFileTypeSettingsAware-1.html">IFileTypeSettingsAware</a>.</p>
-<div class="tabGroup" id="tabgroup_3">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_3_tabid-3" role="tab" aria-controls="tabpanel_3_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_3_tabid-3" role="tabpanel" data-tab="tabid-3">
+<section id="tabpanel_1_tabid-3" role="tabpanel" data-tab="tabid-3" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">public UserSettings Settings
 {
@@ -143,51 +142,29 @@ When the user raises the plug-in user interface, the control element should be s
     }
 }
 </code></pre>
+<p>During initialization, the <code>UpdateControl</code> method is invoked. It sets the check box state (checked or unchecked) to the value of the <code>LockPrdCodes</code> member in the <code>UserSettings</code> class:</p>
 </section>
-</div>
-
-<p>During initialization the <code>UpdateControl</code> method is invoked, which sets the state of the check box (checked or unchecked) to the value of the LockPrdCodes member of the <code>UserSettings</code> class as shown below:</p>
-<div class="tabGroup" id="tabgroup_4">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_4_tabid-4" role="tab" aria-controls="tabpanel_4_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_4_tabid-4" role="tabpanel" data-tab="tabid-4">
+<section id="tabpanel_1_tabid-4" role="tabpanel" data-tab="tabid-4" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">public void UpdateControl()
 {
     cb_LockPrdCodes.Checked = _userSettings.LockPrdCodes;
 }
 </code></pre>
-</section>
-</div>
 <h2 id="save-the-settings-to-the-settings-bundle">Save the Settings to the Settings Bundle</h2>
-<p>Conversely, the user interface needs to save the check box setting to the settings bundle, e.g. when the user raises the plug-in UI, changes the check box setting, and then clicks <strong>OK</strong> to apply the changed setting to the settings bundle:</p>
-<div class="tabGroup" id="tabgroup_5">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_5_tabid-5" role="tab" aria-controls="tabpanel_5_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_5_tabid-5" role="tabpanel" data-tab="tabid-5">
+<p>When the user opens the plug-in UI, changes the check box setting, and clicks <strong>OK</strong>, save the setting to the settings bundle:</p>
+</section>
+<section id="tabpanel_1_tabid-5" role="tabpanel" data-tab="tabid-5" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">private void cb_LockPrdCodes_CheckedChanged(object sender, EventArgs e)
 {
     _userSettings.LockPrdCodes = cb_LockPrdCodes.Checked;
 }
 </code></pre>
+<h2 id="putting-it-all-together">Putting It All Together</h2>
+<p>The full code of your user control:</p>
 </section>
-</div>
-<h2 id="putting-it-all-together">Putting it All Together</h2>
-<p>The full code of your user control looks as shown below:</p>
-<div class="tabGroup" id="tabgroup_6">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_6_tabid-6" role="tab" aria-controls="tabpanel_6_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_6_tabid-6" role="tabpanel" data-tab="tabid-6">
+<section id="tabpanel_1_tabid-6" role="tabpanel" data-tab="tabid-6" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">using System;
 using System.Collections.Generic;
@@ -204,60 +181,47 @@ namespace Sdk.FileTypeSupport.Samples.SimpleText.WinUI
     /// &lt;summary&gt;
     /// Implements the user interface for the file type definition.
     /// &lt;/summary&gt;
-    #region &quot;ClassDeclaration&quot;
     public partial class SettingsUI : UserControl, IFileTypeSettingsAware&lt;UserSettings&gt;
-    #endregion
     {
         /// &lt;summary&gt;
         /// Create a settings object based on the UserSettings class. 
         /// &lt;/summary&gt;
-        #region &quot;SettingsObject&quot;
         private UserSettings _userSettings;
-        #endregion
 
         /// &lt;summary&gt;
-        /// Initalize the user interface control by setting it to the
+        /// Initialize the user interface control by setting it to the
         /// setting value stored in the settings bundle.
         /// &lt;/summary&gt;
-        #region &quot;Initialize&quot;
         public SettingsUI()
         {
             InitializeComponent();
         }
-        #endregion
-
 
         /// &lt;summary&gt;
-        /// Reset the user interface control to its default value, which is
-        /// checked, i.e. the product lock option should be enabled
-        /// by default.
+        /// Reset the user interface control to its default value: checked,
+        /// which enables the product lock option by default.
         /// &lt;/summary&gt;
-        #region &quot;UpdateControl&quot;
         public void UpdateControl()
         {
             cb_LockPrdCodes.Checked = _userSettings.LockPrdCodes;
         }
-        #endregion
 
         /// &lt;summary&gt;
-        /// Save the settings based on the value of the the check box.
+        /// Save the settings based on the check box value.
         /// The setting is saved through the UserSettings class, which
         /// handles the plug-in settings bundle.
         /// &lt;/summary&gt;
         /// &lt;param name=&quot;sender&quot;&gt;&lt;/param&gt;
         /// &lt;param name=&quot;e&quot;&gt;&lt;/param&gt;
-        #region &quot;SaveSetting&quot;
         private void cb_LockPrdCodes_CheckedChanged(object sender, EventArgs e)
         {
             _userSettings.LockPrdCodes = cb_LockPrdCodes.Checked;
         }
-        #endregion
 
         /// &lt;summary&gt;
-        /// Implementation of &lt;code&gt;IFileTypeSettingsAware&lt;/code&gt; allowing the Filter Framework
+        /// Implementation of IFileTypeSettingsAware allowing the Filter Framework
         /// to pass through the user settings so that we can initialize the UI.
         /// &lt;/summary&gt;
-        #region &quot;ApplySettings&quot;
         public UserSettings Settings
         {
             get
@@ -270,20 +234,21 @@ namespace Sdk.FileTypeSupport.Samples.SimpleText.WinUI
                 UpdateControl();
             }
         }
-        #endregion
     }
 }
 </code></pre>
-</section>
-</div>
 <h2 id="see-also">See Also</h2>
-<p><a href="creating_a_new_assembly_for_the_settings_ui.html">Creating a New Assembly for the Settings UI</a></p>
-<p><a href="implementing_the_ui_controller_class.html">Implementing the UI Controller Class</a></p>
-<p><a href="file_type_settings.html">File type settings</a></p>
-<p><a href="loading_and_saving_settings.html">Loading and Saving the Settings</a></p>
+<ul>
+<li><a href="creating_a_new_assembly_for_the_settings_ui.html">Creating a New Assembly for the Settings UI</a></li>
+<li><a href="implementing_the_ui_controller_class.html">Implementing the UI Controller Class</a></li>
+<li><a href="file_type_settings.html">File type settings</a></li>
+<li><a href="loading_and_saving_settings.html">Loading and Saving the Settings</a></li>
+</ul>
 <div class="NOTE">
 <h5>Note</h5>
 <p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+</div>
+</section>
 </div>
 
 </article>

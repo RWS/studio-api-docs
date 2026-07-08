@@ -309,24 +309,17 @@ if (projectPackage.Status != PackageStatus.Completed)
 
 <pre><code class="lang-cs">public void CreatePackage(FileBasedProject project, string packageFile)
 {
-    #region &quot;CreateManualTask&quot;
     ProjectFile[] packageFiles = project.GetTargetLanguageFiles(new Language(CultureInfo.GetCultureInfo(&quot;de-DE&quot;)));
     ManualTask newTask = project.CreateManualTask(
         &quot;Translate&quot;,
         &quot;Fred&quot;,
         DateTime.Now.AddDays(3), 
         packageFiles.GetIds());
-    #endregion
-
-    #region &quot;CreateProjectPackage&quot;
     ProjectPackageCreation projectPackage = project.CreateProjectPackage(
         newTask.Id,
         &quot;Sample Package&quot;,
         &quot;Please hurry up, this is job is urgent!&quot;, 
         this.GetPackageOptions());
-    #endregion
-
-    #region &quot;PackageStatus&quot;
     bool packageIsCreated = false;
     while (!packageIsCreated)
     {
@@ -353,12 +346,7 @@ if (projectPackage.Status != PackageStatus.Completed)
     {
         throw new Exception(&quot;A problem occurred during package creation.&quot;);
     }
-
-    #endregion
-
-    #region &quot;SavePackage&quot;
     project.SavePackageAs(projectPackage.PackageId, packageFile);
-    #endregion
 }
 </code></pre>
 </section>
@@ -373,29 +361,15 @@ if (projectPackage.Status != PackageStatus.Completed)
 
 <pre><code class="lang-cs">private ProjectPackageCreationOptions GetPackageOptions()
 {
-    #region &quot;ProjectPackageCreationOptions&quot;
     ProjectPackageCreationOptions options = new ProjectPackageCreationOptions();
-    #endregion
-
-    #region &quot;IncludeRessources&quot;
     options.IncludeAutoSuggestDictionaries = false;
     options.IncludeMainTranslationMemories = false;
     options.RemoveServerBasedTranslationMemories = false;
     options.IncludeTermbases = true;
-    #endregion
-
-    #region &quot;RemoveAutomatedTranslationProviders&quot;
     options.RemoveAutomatedTranslationProviders = true;
-    #endregion
-
-    #region &quot;RecomputeAnalysisStatistics&quot;
     options.RecomputeAnalysisStatistics = true;
     options.ProjectTranslationMemoryOptions = ProjectTranslationMemoryPackageOptions.CreateNew;
-    #endregion
-
-    #region &quot;ReturnOptions&quot;
     return options;
-    #endregion
 }
 </code></pre>
 </section>

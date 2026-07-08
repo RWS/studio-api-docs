@@ -82,22 +82,19 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="setting-translation-memory-access-rights">Setting Translation Memory Access Rights</h1>
 
-<p>As a general rule, file-based TMs can generally be opened and used by anyone who is equipped with Trados Studio. As long as you do not assign passwords to a TM file, any user can have unrestricted access to it (e.g. read/write, import/export, etc.) to the translation memory. However, you may protect a TM file with passwords that allow access to only a certain level of functionality.</p>
-<p>There are four different access levels for file based TMs:</p>
+<p>By default, anyone who has Trados Studio can open and use a file-based TM. If you do not assign passwords, users have unrestricted access to the translation memory, including read/write and import/export operations. You can also protect a TM with passwords that restrict access to specific functionality.</p>
+<h2 id="access-levels">Access Levels</h2>
+<p>File-based TMs support four access levels:</p>
 <ul>
-<li><strong>Administrator</strong>: Can perform any TM-related operation, i.e. read/write, change settings, import/export.</li>
-<li><strong>Maintenance</strong>: Can perform operations such as global find/replace in a TM (but no change to TM settings and no import/export).</li>
-<li><strong>Read/Write</strong>: This access level is typically used by translators, who need to be able to add/change TUs and search the TM.</li>
-<li><strong>Read-only</strong>: Guest access that allows users to perform only TM look-ups.</li>
+<li><strong>Administrator</strong>: Can perform any TM-related operation, including read/write, settings changes, and import/export.</li>
+<li><strong>Maintenance</strong>: Can perform tasks such as global find and replace, but cannot change TM settings or use import/export.</li>
+<li><strong>Read/Write</strong>: Typically used by translators who need to add or change TUs and search the TM.</li>
+<li><strong>Read-only</strong>: Guest access that allows users to perform only TM lookups.</li>
 </ul>
-<div class="NOTE">
-<h5>Note</h5>
-<p>Server TMs use a different, much more sophisticated and granular access rights model.</p>
-</div>
-<p>When a user opens a password-protected TM in Trados Studio the following prompt will be shown where you can select the required access level and then enter the corresponding password:</p>
+<p>When a user opens a password-protected TM in Trados Studio, the following prompt lets the user select an access level and enter the corresponding password:</p>
 <p><img src="images/PwdPrompt.jpg" alt="PwdPrompt"></p>
 <h2 id="setting-passwords-programmatically">Setting Passwords Programmatically</h2>
-<p>Add a new class to your project, which you call <code>TmProtector</code>. Add a public function called <code>AssignPasswords</code> to your newly-created class, which takes the file name and path as parameter. This function can be called as shown below:</p>
+<p>Add a new class named <code>TmProtector</code> to your project. Then add a public method named <code>AssignPasswords()</code> that takes the TM file path as a parameter. Call it as shown below:</p>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
@@ -112,7 +109,7 @@ tmProtector.AssignPasswords(_translationMemoryFilePath);
 </section>
 </div>
 
-<p>The API offers four different methods for setting passwords corresponding to the four access levels that are available for file-based TMs. When applying these methods you need to provide the password to set as string parameter. Note that when setting passwords, a specific order has to be observed. For example, a read-only password can only be set <em>after</em> a read/write password has been assigned. The function for setting the passwords can look as shown in the following example:</p>
+<p>The API provides four methods for setting passwords, one for each access level. Pass each password as a string. When you set passwords, follow the required order. For example, set the read-only password only after you set the read/write password. The method can look like this:</p>
 <div class="tabGroup" id="tabgroup_2">
 <ul role="tablist">
 <li role="presentation">
@@ -137,9 +134,9 @@ tmProtector.AssignPasswords(_translationMemoryFilePath);
 </section>
 </div>
 
-<p>Note that the function for setting the passwords calls a separate helper function to open the password-protected TM.</p>
-<h2 id="open-a-password-protected-tm">Open a Password-protected TM</h2>
-<p>Add the following function to your class, which opens the TM with the previously assigned administrator password. To open a password-protected TM, the password needs to be provided as a string parameter. Of course, you should catch any exception, e.g. in cases in which the wrong password was entered.</p>
+<p>The password-setting method calls a separate helper method to open the protected TM.</p>
+<h2 id="open-a-password-protected-tm">Open a Password-Protected TM</h2>
+<p>Add the following method to open the TM with the administrator password. Pass the password as a string parameter and catch exceptions for cases such as an invalid password.</p>
 <div class="tabGroup" id="tabgroup_3">
 <ul role="tablist">
 <li role="presentation">
@@ -163,7 +160,7 @@ tmProtector.AssignPasswords(_translationMemoryFilePath);
 </section>
 </div>
 <h2 id="putting-it-all-together">Putting it All Together</h2>
-<p>The complete class should look as shown below:</p>
+<p>The complete class should now look like this:</p>
 <div class="tabGroup" id="tabgroup_4">
 <ul role="tablist">
 <li role="presentation">

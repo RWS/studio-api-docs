@@ -82,19 +82,40 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="extending-the-configuration-options">Extending the Configuration Options</h1>
 
-<p>This chapter provides an example of how to enhance your file type plug-in with another configuration option.</p>
+<p>Enhance your file type plug-in with another configuration option.</p>
 <h2 id="add-another-file-type-plug-in-option">Add Another File Type Plug-in Option</h2>
-<p>Let us assume that the product code prefix may vary from file to file. In this case it makes sense to implement the product code string as an option that can be configured at runtime rather than hard-coding it in the application. This requires some additions to the filter settings, the control UI, and the file parser component.</p>
+<p>Consider that the product code prefix may vary from file to file. Rather than hard-coding the prefix, implement it as a runtime configuration option. This requires additions to the filter settings, the control UI, and the file parser component.</p>
 <h2 id="extend-the-file-type-settings">Extend the File Type Settings</h2>
-<p>Before we can add the new option to the UI Control we first need to add it to the filter settings. The new setting should follow the same pattern as other settings we have added to the settings class - we will need to add a settings key, a default value, and an accessor property for the setting. We also need to update the <code>ResetToDefaults</code>, <code>PopulateFromSettingsBundle</code> and <code>SaveToSettingsBundle</code> methods to handle the new setting. See <strong>Putting It All Together</strong> for an example of how to do this.</p>
+<p>Before adding the new option to the UI control, add it to the filter settings. The new setting should follow the same pattern as existing settings—add a settings key, a default value, and an accessor property. Update the <code>ResetToDefaults</code>, <code>PopulateFromSettingsBundle</code>, and <code>SaveToSettingsBundle</code> methods to handle the new setting. See <strong>Putting It All Together</strong> for an example.</p>
 <h2 id="extend-the-ui-control">Extend the UI Control</h2>
-<p>Extend the file type plug-in settings UI by adding a new text field called e.g. <code>txt_PrdCodePrefix</code>.</p>
+<p>Extend the file type plug-in settings UI by adding a new text field called <code>txt_PrdCodePrefix</code>:</p>
 <p><img src="images/SimpleFilterExtendedUI.jpg" alt="SimpleFilterExtendedUI"></p>
-<p>Add a helper function that enables or disables the new text field depending on whether the <code>cb_LockPrdCodes</code> check box is checked or not:</p>
+<p>Add a helper function that enables or disables the text field depending on whether the <code>cb_LockPrdCodes</code> check box is checked:</p>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
 <a href="#tabpanel_1_tabid-1" role="tab" aria-controls="tabpanel_1_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-2" role="tab" aria-controls="tabpanel_1_tabid-2" data-tab="tabid-2" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-3" role="tab" aria-controls="tabpanel_1_tabid-3" data-tab="tabid-3" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-4" role="tab" aria-controls="tabpanel_1_tabid-4" data-tab="tabid-4" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-5" role="tab" aria-controls="tabpanel_1_tabid-5" data-tab="tabid-5" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-6" role="tab" aria-controls="tabpanel_1_tabid-6" data-tab="tabid-6" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-7" role="tab" aria-controls="tabpanel_1_tabid-7" data-tab="tabid-7" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-8" role="tab" aria-controls="tabpanel_1_tabid-8" data-tab="tabid-8" tabindex="-1">C#</a>
 </li>
 </ul>
 <section id="tabpanel_1_tabid-1" role="tabpanel" data-tab="tabid-1">
@@ -105,14 +126,7 @@
 }
 </code></pre>
 </section>
-</div>
-<div class="tabGroup" id="tabgroup_2">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_2_tabid-2" role="tab" aria-controls="tabpanel_2_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_2_tabid-2" role="tabpanel" data-tab="tabid-2">
+<section id="tabpanel_1_tabid-2" role="tabpanel" data-tab="tabid-2" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">public void UpdateControl()
 {
@@ -120,17 +134,10 @@
     txt_PrdCodePrefix.Text = _userSettings.PrdCodesPrefix;
 }
 </code></pre>
-</section>
-</div>
 <h2 id="modify-the-file-parser">Modify the File Parser</h2>
-<p>Last, you need to modify the file parser component, so that it uses the configurable product code prefix property rather than the hard-coded string. First, add a new global property to the file parser class:</p>
-<div class="tabGroup" id="tabgroup_3">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_3_tabid-3" role="tab" aria-controls="tabpanel_3_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_3_tabid-3" role="tabpanel" data-tab="tabid-3">
+<p>Modify the file parser component to use the configurable product code prefix property instead of a hard-coded string. First, add a new global property to the file parser class:</p>
+</section>
+<section id="tabpanel_1_tabid-3" role="tabpanel" data-tab="tabid-3" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">public string PrdCodesPrefix
 {
@@ -138,17 +145,9 @@
     set;
 }
 </code></pre>
+<p>In the <code>InitializeSettings</code> method, read this property from the user settings to initialize the file parser class:</p>
 </section>
-</div>
-
-<p>In the <code>InitializeSettings</code> method you need to read this property from the user settings to initialize the file parser class. Here is the complete method with <code>PrdCodesPrefix</code> initialized from the user settings.</p>
-<div class="tabGroup" id="tabgroup_4">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_4_tabid-4" role="tab" aria-controls="tabpanel_4_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_4_tabid-4" role="tabpanel" data-tab="tabid-4">
+<section id="tabpanel_1_tabid-4" role="tabpanel" data-tab="tabid-4" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">public void InitializeSettings(Sdl.Core.Settings.ISettingsBundle settingsBundle, string configurationId)
 {
@@ -158,47 +157,23 @@
     PrdCodesPrefix = userSettings.PrdCodesPrefix;
 }
 </code></pre>
+<p>In the <code>ProcessLine()</code> function, change the <code>else if</code> condition from:</p>
 </section>
-</div>
+<section id="tabpanel_1_tabid-5" role="tabpanel" data-tab="tabid-5" aria-hidden="true" hidden="hidden">
 
-<p>In the ProcessLine() function you then need to change the <code>else if </code>condition from:</p>
-<div class="tabGroup" id="tabgroup_5">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_5_tabid-5" role="tab" aria-controls="tabpanel_5_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_5_tabid-5" role="tabpanel" data-tab="tabid-5">
-
-<pre><code class="lang-cs"> else if (sLine.StartsWith(&quot;Prd-Code&quot;) &amp;&amp; LockPrdCodes==true) 
+<pre><code class="lang-cs">else if (sLine.StartsWith(&quot;Prd-Code&quot;) &amp;&amp; LockPrdCodes==true)
 </code></pre>
-</section>
-</div>
-
 <p>to:</p>
-<div class="tabGroup" id="tabgroup_6">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_6_tabid-6" role="tab" aria-controls="tabpanel_6_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_6_tabid-6" role="tabpanel" data-tab="tabid-6">
+</section>
+<section id="tabpanel_1_tabid-6" role="tabpanel" data-tab="tabid-6" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">else if (sLine.StartsWith(PrdCodePrefix) &amp;&amp; LockPrdCodes==true)
 </code></pre>
-</section>
-</div>
-
-<p>After rebuilding your project, the file type plug-in should implement the second configuration option and apply it during parsing.</p>
+<p>After rebuilding your project, the file type plug-in implements the second configuration option and applies it during parsing.</p>
 <h2 id="putting-it-all-together">Putting It All Together</h2>
-<p>Your extended <code>UserSettings</code> class should now look as shown below:</p>
-<div class="tabGroup" id="tabgroup_7">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_7_tabid-7" role="tab" aria-controls="tabpanel_7_tabid-7" data-tab="tabid-7" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_7_tabid-7" role="tabpanel" data-tab="tabid-7">
+<p>Your extended <code>UserSettings</code> class should now look as follows:</p>
+</section>
+<section id="tabpanel_1_tabid-7" role="tabpanel" data-tab="tabid-7" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">using Sdl.FileTypeSupport.Framework.Core.Settings;
 using Sdl.Core.Settings;
@@ -211,7 +186,6 @@ namespace Sdk.FileTypeSupport.Samples.SimpleText
     /// &lt;/summary&gt;
     public class UserSettingsExtended : FileTypeSettingsBase
     {
-        #region &quot;Properties&quot;
         private const string SettingsLockPrdCodes = &quot;LockPrdCodes&quot;;
         private const string SettingsPrdCodesPrefix = &quot;PrdCodesPrefix&quot;;
 
@@ -240,26 +214,21 @@ namespace Sdk.FileTypeSupport.Samples.SimpleText
                 OnPropertyChanged(&quot;PrdCodesPrefix&quot;);
             }
         }
-        #endregion
 
-        #region &quot;Constructor&quot;
         public UserSettingsExtended()
         {
             ResetToDefaults();
         }
-        #endregion
 
         /// &lt;summary&gt;
         /// Define the default value, which is Enabled, as the product code strings should
         /// not be exposed to translation by default.
         /// &lt;/summary&gt;
-        #region &quot;ResetToDefaults&quot;
         public override sealed void ResetToDefaults()
         {
             LockPrdCodes = DefaultLockPrdCodes;
             PrdCodesPrefix = DefaultPrdCodePrefix;
         }
-        #endregion
 
         /// &lt;summary&gt;
         /// This method is used to load the setting from the settings bundle,
@@ -267,14 +236,12 @@ namespace Sdk.FileTypeSupport.Samples.SimpleText
         /// &lt;/summary&gt;
         /// &lt;param name=&quot;settingsBundle&quot;&gt;&lt;/param&gt;
         /// &lt;param name=&quot;configurationId&quot;&gt;&lt;/param&gt;
-        #region &quot;PopulateFromSettingsBundle&quot;
         public override void PopulateFromSettingsBundle(ISettingsBundle settingsBundle, string filterDefinitionId)
         {
             ISettingsGroup settingsGroup = settingsBundle.GetSettingsGroup(filterDefinitionId);
             LockPrdCodes = GetSettingFromSettingsGroup(settingsGroup, SettingsLockPrdCodes, DefaultLockPrdCodes);
             PrdCodesPrefix = GetSettingFromSettingsGroup(settingsGroup, SettingsPrdCodesPrefix, DefaultPrdCodePrefix);
         }
-        #endregion
 
         /// &lt;summary&gt;
         /// This method is used to store the settings as configured in the plug-in UI
@@ -283,28 +250,18 @@ namespace Sdk.FileTypeSupport.Samples.SimpleText
         /// &lt;/summary&gt;
         /// &lt;param name=&quot;settingsBundle&quot;&gt;&lt;/param&gt;
         /// &lt;param name=&quot;configurationId&quot;&gt;&lt;/param&gt;
-        #region &quot;SaveToSettingsBundle&quot;
         public override void SaveToSettingsBundle(ISettingsBundle settingsBundle, string filterDefinitionId)
         {
             ISettingsGroup settingsGroup = settingsBundle.GetSettingsGroup(filterDefinitionId);
             UpdateSettingInSettingsGroup(settingsGroup, SettingsLockPrdCodes, LockPrdCodes, DefaultLockPrdCodes);
             UpdateSettingInSettingsGroup(settingsGroup, SettingsPrdCodesPrefix, PrdCodesPrefix, DefaultPrdCodePrefix);
         }
-        #endregion
     }
 }
 </code></pre>
+<p>Your extended <code>SettingsUI</code> class should now look as follows:</p>
 </section>
-</div>
-
-<p>Your extended <code>SettingsUI</code> class should now look as shown below:</p>
-<div class="tabGroup" id="tabgroup_8">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_8_tabid-8" role="tab" aria-controls="tabpanel_8_tabid-8" data-tab="tabid-8" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_8_tabid-8" role="tabpanel" data-tab="tabid-8">
+<section id="tabpanel_1_tabid-8" role="tabpanel" data-tab="tabid-8" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">using System;
 using System.Collections.Generic;
@@ -321,50 +278,40 @@ namespace Sdk.FileTypeSupport.Samples.SimpleText.WinUI
     /// &lt;summary&gt;
     /// Implements the user interface for the file type definition.
     /// &lt;/summary&gt;
-    #region &quot;ClassDeclaration&quot;
     public partial class SettingsUIExtended : UserControl, IFileTypeSettingsAware&lt;UserSettingsExtended&gt;
-    #endregion
     {
         /// &lt;summary&gt;
         /// Create a settings object based on the UserSettings class. 
         /// &lt;/summary&gt;
-        #region &quot;SettingsObject&quot;
         private UserSettingsExtended _userSettings;
-        #endregion
 
         /// &lt;summary&gt;
-        /// Initalize the user interface control by setting it to the
+        /// Initialize the user interface control by setting it to the
         /// setting value stored in the settings bundle.
         /// &lt;/summary&gt;
-        #region &quot;Initialize&quot;
         public SettingsUIExtended()
         {
             InitializeComponent();
         }
-        #endregion
-
 
         /// &lt;summary&gt;
         /// Reset the user interface control to its default value, which is
         /// checked, i.e. the product lock option should be enabled
         /// by default.
         /// &lt;/summary&gt;
-        #region &quot;UpdateControl&quot;
         public void UpdateControl()
         {
             cb_LockPrdCodes.Checked = _userSettings.LockPrdCodes;
             txt_PrdCodePrefix.Text = _userSettings.PrdCodesPrefix;
         }
-        #endregion
 
         /// &lt;summary&gt;
-        /// Save the settings based on the value of the the check box.
+        /// Save the settings based on the value of the check box.
         /// The setting is saved through the UserSettings class, which
         /// handles the plug-in settings bundle.
         /// &lt;/summary&gt;
         /// &lt;param name=&quot;sender&quot;&gt;&lt;/param&gt;
         /// &lt;param name=&quot;e&quot;&gt;&lt;/param&gt;
-        #region &quot;SaveSetting&quot;
         private void cb_LockPrdCodes_CheckedChanged(object sender, EventArgs e)
         {
             _userSettings.LockPrdCodes = cb_LockPrdCodes.Checked;
@@ -374,20 +321,16 @@ namespace Sdk.FileTypeSupport.Samples.SimpleText.WinUI
             else
                 txt_PrdCodePrefix.Enabled = false;
         }
-        #endregion
 
-        #region &quot;SaveTextBox&quot;
         private void txt_PrdCodePrefix_TextChanged(object sender, EventArgs e)
         {
             _userSettings.PrdCodesPrefix = txt_PrdCodePrefix.Text;
         }
-        #endregion
 
         /// &lt;summary&gt;
-        /// Implementation of &lt;code&gt;IFileTypeSettingsAware&lt;/code&gt; allowing the Filter Framework
+        /// Implementation of IFileTypeSettingsAware allowing the Filter Framework
         /// to pass through the user settings so that we can initialize the UI.
         /// &lt;/summary&gt;
-        #region &quot;ApplySettings&quot;
         public UserSettingsExtended Settings
         {
             get
@@ -400,16 +343,14 @@ namespace Sdk.FileTypeSupport.Samples.SimpleText.WinUI
                 UpdateControl();
             }
         }
-        #endregion
     }
 }
 </code></pre>
-</section>
-</div>
-
 <div class="NOTE">
 <h5>Note</h5>
 <p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+</div>
+</section>
 </div>
 
 </article>

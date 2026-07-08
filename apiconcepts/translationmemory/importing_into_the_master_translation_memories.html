@@ -107,7 +107,7 @@ if (!System.IO.Directory.Exists(masterPath))
 </section>
 </div>
 <h2 id="determine-the-language-direction">Determine the Language Direction</h2>
-<p>When generating the *.tmx files we appended the language direction to the TM file names, so that we can retrieve this information for creating and naming the master TMs accordingly. Start by parsing the file name string to retrieve the language direction information. To determine the language direction we use the XML DOM API. Below you see an example of a translation unit in TMX format:</p>
+<p>When the application generates the <code>.tmx</code> files, it appends the language direction to the TM file names so that it can later retrieve that information and use it when creating and naming the master TMs. Start by parsing the file name to retrieve the language direction. Use the XML DOM API to read the information from the TMX content. The following example shows a translation unit in TMX format:</p>
 <div class="tabGroup" id="tabgroup_2">
 <ul role="tablist">
 <li role="presentation">
@@ -131,13 +131,13 @@ if (!System.IO.Directory.Exists(masterPath))
 </section>
 </div>
 
-<p>The source/target language locales can be retrieved from the lang attributes of the tuv elements inside the tu nodes. For our implementation we make the following assumptions about the *.tmx files :</p>
+<p>The source and target language locales can be retrieved from the <code>lang</code> attributes of the <code>tuv</code> elements inside the <code>tu</code> nodes. For this implementation, assume that the <code>.tmx</code> files:</p>
 <ul>
-<li>the files are all bilingual</li>
-<li>each file contains at least one TU</li>
-<li>all TUs in one *.tmx file have the same source/target language locales</li>
+<li>are bilingual</li>
+<li>contain at least one TU</li>
+<li>use the same source and target language locales for all TUs in a single <code>.tmx</code> file</li>
 </ul>
-<p>We therefore proceed as follows: We select the first tu element, and then retrieve the values of the <code>lang</code> attributes of the first (i.e. the source) <code>tuv</code>, and then the second (i.e. the target) <code>tuv</code> element:</p>
+<p>Proceed as follows: select the first <code>tu</code> element and retrieve the values of the <code>lang</code> attributes from the first <code>tuv</code> element, which contains the source language, and the second <code>tuv</code> element, which contains the target language:</p>
 <div class="tabGroup" id="tabgroup_3">
 <ul role="tablist">
 <li role="presentation">
@@ -169,7 +169,7 @@ catch
 </section>
 </div>
 <h2 id="create-the-master-tms">Create the Master TMs</h2>
-<p>Next, check whether a master TM for the language direction of the current *.tmx file already exists. If this is not the case, a separate function should be called to create the TM (see <a href="creating_the_master_translation_memories.html">Creating the Master Translation Memories</a>.</p>
+<p>Next, check whether a master TM for the language direction of the current <code>.tmx</code> file already exists. If it does not, call a separate method to create it (see <a href="creating_the_master_translation_memories.html">Creating the Master Translation Memories</a>).</p>
 <div class="tabGroup" id="tabgroup_4">
 <ul role="tablist">
 <li role="presentation">
@@ -190,7 +190,7 @@ if (!System.IO.File.Exists(translationMemoryPath))
 </section>
 </div>
 <h2 id="process-the-import">Process the Import</h2>
-<p>Now import the given *.tmx file into the master TM:</p>
+<p>Now import the <code>.tmx</code> file into the master TM:</p>
 <div class="tabGroup" id="tabgroup_5">
 <ul role="tablist">
 <li role="presentation">
@@ -208,7 +208,7 @@ importer.Import(tmxPath);
 </section>
 </div>
 
-<p>Note that at this point we call a separate function to configure the import settings.</p>
+<p>At this point, call a separate method to configure the import settings.</p>
 <div class="tabGroup" id="tabgroup_6">
 <ul role="tablist">
 <li role="presentation">
@@ -218,9 +218,9 @@ importer.Import(tmxPath);
 <section id="tabpanel_6_tabid-6" role="tabpanel" data-tab="tabid-6">
 
 <pre><code class="lang-cs">/// &lt;summary&gt;
-///  Configure the import settings.
+/// Configures the import settings.
 /// &lt;/summary&gt;
-/// &lt;param name=&quot;importSettings&quot;&gt;Group of settings that control way of import.&lt;/param&gt;
+/// &lt;param name=&quot;importSettings&quot;&gt;Settings that control the import behavior.&lt;/param&gt;
 private void GetImportSettings(ImportSettings importSettings)
 {
     importSettings.CheckMatchingSublanguages = true;
@@ -231,9 +231,9 @@ private void GetImportSettings(ImportSettings importSettings)
 </section>
 </div>
 
-<p>For more information on the import functionality and possible settings, please refer to <a href="importing_a_tmx_file.html">Importing a TMX File</a>.</p>
+<p>For more information about import functionality and available settings, see <a href="importing_a_tmx_file.html">Importing a TMX File</a>.</p>
 <h2 id="putting-it-all-together">Putting it All Together</h2>
-<p>The complete class should look as shown below:</p>
+<p>The complete class should look like this:</p>
 <div class="tabGroup" id="tabgroup_7">
 <ul role="tablist">
 <li role="presentation">
@@ -251,32 +251,26 @@ namespace SDK.LanguagePlatform.Samples.BatchImporter
 {
 
     /// &lt;summary&gt;
-    /// Represents functionality for emporting *.tmx files into translation memory.
+    /// Represents functionality for importing .tmx files into a translation memory.
     /// &lt;/summary&gt;
     public class TmImporter
     {
-        #region &quot;ImportTmx&quot;
-
         /// &lt;summary&gt;
-        /// This function performs the actual TMX import into the appropriate master TM.
+        /// Performs the actual TMX import into the appropriate master TM.
         /// &lt;/summary&gt;
-        /// &lt;param name=&quot;tmxPath&quot;&gt;Path to *.tmx file.&lt;/param&gt;
+        /// &lt;param name=&quot;tmxPath&quot;&gt;Path to the .tmx file.&lt;/param&gt;
         public void Import(string tmxPath)
-        {
-            #region &quot;CreatePath&quot;
-            // Create the path in which the master TMs should be
-            // stored (if the path does not exist yet).
+        {     
+            // Create the path in which the master TMs are stored
+            // if it does not already exist.
             string masterPath = @&quot;c:\MasterTMs\&quot;;
             if (!System.IO.Directory.Exists(masterPath))
             {
                 System.IO.Directory.CreateDirectory(masterPath);
             }
-            #endregion
-
-            #region &quot;GetLanguageDirection&quot;
-            // Retrieve the language direction of the current TM
-            // by reading the appropriate lang values from the first
-            // tu element.
+         
+            // Retrieve the language direction of the current TM by
+            // reading the lang values from the first tu element.
             string srcLang = string.Empty;
             string trgLang = string.Empty;
             var xmlDoc = new XmlDocument();
@@ -290,53 +284,46 @@ namespace SDK.LanguagePlatform.Samples.BatchImporter
             }
             catch
             {
-                // TU count is zero, i.e. no TM content to import
+                // TU count is zero, so there is no TM content to import.
                 Console.WriteLine(tmxPath + &quot; is empty, no content to import.&quot;);
             }
-            #endregion
 
-            #region &quot;CheckMasterTmExists&quot;
-            // Check whether a master TM with the language direction found in the 
+            // Check whether a master TM with the language direction found in the
             // current TMX file already exists. If not, then create the TM.
             string translationMemoryPath = string.Format(&quot;{0}MasterTM_{1}_{2}.sdltm&quot;, masterPath, srcLang, trgLang);
             if (!System.IO.File.Exists(translationMemoryPath))
             {
                 var tmCreator = new TmCreator();
-                create.CreateMasterTm(srcLang, trgLang, masterPath);
+                tmCreator.CreateMasterTm(srcLang, trgLang, masterPath);
             }
-            #endregion
 
-            #region &quot;DoImport&quot;
-            // Open the appropriate master TM and do the import.
+            // Open the appropriate master TM and run the import.
             var tm = new FileBasedTranslationMemory(translationMemoryPath);
             var importer = new TranslationMemoryImporter(tm.LanguageDirection);
             this.GetImportSettings(importer.ImportSettings);
             importer.Import(tmxPath);
-            #endregion
         }
-        #endregion
-
-        #region &quot;settings&quot;
-
+     
         /// &lt;summary&gt;
-        ///  Configure the import settings.
+        /// Configures the import settings.
         /// &lt;/summary&gt;
-        /// &lt;param name=&quot;importSettings&quot;&gt;Group of settings that control way of import.&lt;/param&gt;
+        /// &lt;param name=&quot;importSettings&quot;&gt;Settings that control the import behavior.&lt;/param&gt;
         private void GetImportSettings(ImportSettings importSettings)
         {
             importSettings.CheckMatchingSublanguages = true;
             importSettings.ExistingFieldsUpdateMode = ImportSettings.FieldUpdateMode.Merge;
             importSettings.ExistingTUsUpdateMode = ImportSettings.TUUpdateMode.Overwrite;
-        }
-        #endregion
+        }        
     }
 }
 </code></pre>
 </section>
 </div>
 <h2 id="see-also">See Also</h2>
-<p><a href="creating_the_master_translation_memories.html">Creating the Master Translation Memories</a></p>
-<p><a href="creating_a_log_file.html">Creating the Log File</a></p>
+<ul>
+<li><a href="creating_the_master_translation_memories.html">Creating the Master Translation Memories</a></li>
+<li><a href="creating_a_log_file.html">Creating the Log File</a></li>
+</ul>
 
 </article>
           </div>
