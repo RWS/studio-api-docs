@@ -22,6 +22,8 @@ Get ahead with pre-release documentation of the upcoming version.
 
 ## Var:ProductName API versions
 
+### [Var:ProductName 2024 SR1 - API 18.1](http://developers.rws.com/studio-api-docs/18.1/index.html)
+
 ### [Var:ProductName 2024 - API 18.0](http://developers.rws.com/studio-api-docs/18.0/index.html)
 
 ### [Var:ProductName 2022 - API 17.2](http://developers.rws.com/studio-api-docs/17.2/index.html)
