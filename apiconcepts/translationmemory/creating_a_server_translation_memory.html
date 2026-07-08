@@ -82,9 +82,9 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="creating-a-server-translation-memory">Creating a Server Translation Memory</h1>
 
-<p>Server translation memories can either be created in Trados Studio or in the browser-based TM Server Manager (provided that you have the required access rights). In this chapter you will learn how to create server TMs programmatically, which is probably one of the most common applications.</p>
+<p>You can create server translation memories in Trados Studio or in the browser-based TM Server Manager, provided that you have the required access rights. This chapter shows how to create server TMs programmatically, which is one of the most common scenarios.</p>
 <h2 id="add-a-new-class">Add a New Class</h2>
-<p>The screenshot below illustrates what kind of information you need to provide when creating a new server TM from Trados Studio. Some information is optional such as the description and the copyright information. The mandatory information that you need to provide is a follows:</p>
+<p>The screenshot below shows the information you need to provide when you create a new server TM in Trados Studio. Some information, such as the description and copyright information, is optional. The required information is as follows:</p>
 <ul>
 <li>TM name</li>
 <li>TM Server name</li>
@@ -93,13 +93,37 @@
 <li>Language direction</li>
 </ul>
 <img style="display:block; " src="images/CreateServerTM.jpg">
-<p>To create a server TM programmatically, start by adding a new class called <code>ServerTmCreator</code>. Then implement a function called <code>Create</code>, which takes a TM Server object and the name of the TM to create as parameters.</p>
-<h2 id="check-if-the-tm-already-exists">Check if the TM Already Exists</h2>
-<p>As it is not allowed to create a TM with a name that exists already, you should also check whether the TM you are trying to create is already present on the server. To make your script robust, loop through the available TMs on the server, and then throw an error if a TM with the same name already exists.</p>
+<p>To create a server TM programmatically, start by adding a class called <code>ServerTmCreator</code>. Then implement a <code>Create</code> method that takes a TM Server object and the name of the TM to create as parameters.</p>
+<h2 id="check-whether-the-tm-already-exists">Check whether the TM already exists</h2>
+<p>You cannot create a TM with a name that already exists, so check whether the TM you want to create is already present on the server. To keep the code robust, loop through the available TMs on the server and throw an error if you find a TM with the same name.</p>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
 <a href="#tabpanel_1_tabid-1" role="tab" aria-controls="tabpanel_1_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-2" role="tab" aria-controls="tabpanel_1_tabid-2" data-tab="tabid-2" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-3" role="tab" aria-controls="tabpanel_1_tabid-3" data-tab="tabid-3" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-4" role="tab" aria-controls="tabpanel_1_tabid-4" data-tab="tabid-4" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-5" role="tab" aria-controls="tabpanel_1_tabid-5" data-tab="tabid-5" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-6" role="tab" aria-controls="tabpanel_1_tabid-6" data-tab="tabid-6" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-7" role="tab" aria-controls="tabpanel_1_tabid-7" data-tab="tabid-7" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-8" role="tab" aria-controls="tabpanel_1_tabid-8" data-tab="tabid-8" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-9" role="tab" aria-controls="tabpanel_1_tabid-9" data-tab="tabid-9" tabindex="-1">C#</a>
 </li>
 </ul>
 <section id="tabpanel_1_tabid-1" role="tabpanel" data-tab="tabid-1">
@@ -112,81 +136,44 @@
     }
 }
 </code></pre>
+<h2 id="assign-the-tm-properties">Assign the TM properties</h2>
+<p>After you confirm that a TM with that name does not exist, use the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedTranslationMemory.html">ServerBasedTranslationMemory</a> class to create a new server TM object. Then assign the TM properties: name, and optionally the description and copyright information.</p>
 </section>
-</div>
-<h2 id="assign-the-tm-properties">Assign the TM Properties</h2>
-<p>After you have made certain that a TM with that name does not exist yet, use the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedTranslationMemory.html">ServerBasedTranslationMemory</a> class to create a new server TM object. Then assign the TM properties, i.e. the name and the (optional) description and copyright information:</p>
-<div class="tabGroup" id="tabgroup_2">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_2_tabid-2" role="tab" aria-controls="tabpanel_2_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_2_tabid-2" role="tabpanel" data-tab="tabid-2">
+<section id="tabpanel_1_tabid-2" role="tabpanel" data-tab="tabid-2" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">var newTM = new ServerBasedTranslationMemory(tmServer);
 newTM.Name = tmName;
 newTM.Description = &quot;Programmatically created sample TM&quot;;
 newTM.Copyright = &quot;(c) 2021 RWS Group&quot;;
 </code></pre>
+<h2 id="select-the-container">Select the container</h2>
+<p>Next, select the container database where the new TM should be created. To do this, retrieve the containers available on the TM Server. Reference the container by using the friendly name and the container properties as parameters.</p>
 </section>
-</div>
-<h2 id="select-the-container">Select the Container</h2>
-<p>In the next step, select the container database in which the new TM should be created. To do this, retrieve the containers available on the TM Server. The container is referenced by using the friendly name and the container properties as parameters.</p>
-<div class="tabGroup" id="tabgroup_3">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_3_tabid-3" role="tab" aria-controls="tabpanel_3_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_3_tabid-3" role="tabpanel" data-tab="tabid-3">
+<section id="tabpanel_1_tabid-3" role="tabpanel" data-tab="tabid-3" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">containerPath += containerName;
 TranslationMemoryContainer container = tmServer.GetContainer(containerPath, this.GetContainerProperties());
 newTM.Container = container;
 </code></pre>
+<p>The container properties come from a separate function:</p>
 </section>
-</div>
-
-<p>The container properties are returned by a separate function:</p>
-<div class="tabGroup" id="tabgroup_4">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_4_tabid-4" role="tab" aria-controls="tabpanel_4_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_4_tabid-4" role="tabpanel" data-tab="tabid-4">
+<section id="tabpanel_1_tabid-4" role="tabpanel" data-tab="tabid-4" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">private ContainerProperties GetContainerProperties()
 {
     return new ContainerProperties();
 }
 </code></pre>
+<h2 id="select-the-language-direction">Select the language direction</h2>
+<p>Now assign the language direction, for example English to German (<code>en-US</code> to <code>de-DE</code>):</p>
 </section>
-</div>
-<h2 id="select-the-language-direction">Select the Language Direction</h2>
-<p>Now assign the language direction, e.g. English -&gt; German <em>(en-US -&gt; de-DE)</em>:</p>
-<div class="tabGroup" id="tabgroup_5">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_5_tabid-5" role="tab" aria-controls="tabpanel_5_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_5_tabid-5" role="tabpanel" data-tab="tabid-5">
+<section id="tabpanel_1_tabid-5" role="tabpanel" data-tab="tabid-5" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">this.CreateLanguageDirections(newTM.LanguageDirections);
 </code></pre>
+<p>The language direction is created in a separate function. There, you set the locales of the source and target languages, <code>en-US</code> and <code>de-DE</code>. Then you add the direction to the language-direction collection, which is assigned to the TM.</p>
 </section>
-</div>
-
-<p>The creation of the language direction is done in a separate function. Here, you set the locales of the source and target languages, i.e. <em>en-US</em> and <em>de-DE</em>. This language direction is then added to the language direction collection, which, in turn, is then assigned to the TM.</p>
-<div class="tabGroup" id="tabgroup_6">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_6_tabid-6" role="tab" aria-controls="tabpanel_6_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_6_tabid-6" role="tabpanel" data-tab="tabid-6">
+<section id="tabpanel_1_tabid-6" role="tabpanel" data-tab="tabid-6" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">private void CreateLanguageDirections(ServerBasedTranslationMemoryLanguageDirectionCollection languageDirectionsCollection)
 {
@@ -197,19 +184,11 @@ newTM.Container = container;
     languageDirectionsCollection.Add(languageDirection);
 }
 </code></pre>
+<p>Note that file-based translation memories can only be bilingual, whereas server TMs can be multilingual. You can therefore add multiple language directions to the collection. This example adds only one direction.</p>
+<h2 id="field-and-language-resources-templates">Field and language resources templates</h2>
+<p>When you create a TM, you can select a field template and a language resources template. Field templates store the fields that can be added to a TU, for example <em>Customer</em> and <em>Project id</em>. Language resources templates can store custom abbreviation lists, variables, and other resources. For more information, see <a href="configuring_translation_memories.html">Configuring Translation Memories</a>. To select a field template during TM creation, use the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.html#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationProviderServer_GetFieldsTemplates_System_Boolean_">GetFieldsTemplates</a> method on the TM Server object. This method requires the template ID or path. You can select language resources templates in the same way by using the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.html#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationProviderServer_GetLanguageResourcesTemplate_System_Guid_">GetLanguageResourcesTemplates</a> method, which also takes the template ID or path.</p>
 </section>
-</div>
-
-<p>Note that while file-based translation memories can only be bilingual, server TMs can be multilingual. This means that you can add multiple language directions to the languages directions collection. However, in this example we only add one direction to the language directions collection.</p>
-<h2 id="field-and-language-resources-templates">Field and Language Resources Templates</h2>
-<p>When creating a TM you can select a field and language resources template. Field templates store the fields that can be added to a TU (e.g. <em>Customer, Project id</em>, etc.). Language resource templates can store custom abbreviation lists, variables, etc. For more information on these kinds of templates, please see <a href="configuring_translation_memories.html">Configuring Translation Memories</a>. In order to select a fields template during creation of a TM, you need to apply the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.html#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationProviderServer_GetFieldsTemplates_System_Boolean_">GetFieldsTemplates</a> method to the TM server object. This method requires either the template ID or path as parameters. In the same way you can select the language resources templates by applying the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.html#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationProviderServer_GetLanguageResourcesTemplate_System_Guid_">GetLanguageResourcesTemplates</a> method, which also takes the template ID or path as parameters.</p>
-<div class="tabGroup" id="tabgroup_7">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_7_tabid-7" role="tab" aria-controls="tabpanel_7_tabid-7" data-tab="tabid-7" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_7_tabid-7" role="tabpanel" data-tab="tabid-7">
+<section id="tabpanel_1_tabid-7" role="tabpanel" data-tab="tabid-7" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">string sampleFieldTemplateName = &quot;MyFieldTemplate&quot;;
 foreach (ServerBasedFieldsTemplate template in tmServer.GetFieldsTemplates(FieldsTemplateProperties.All))
@@ -234,15 +213,12 @@ foreach (ServerBasedLanguageResourcesTemplate template in tmServer.GetLanguageRe
     }
 }
 </code></pre>
-</section>
-</div>
-
 <div class="NOTE">
 <h5>Note</h5>
 <p>Field templates are only available for server TMs. For file-based TMs, fields need to be configured for each TM individually, and cannot be centralized in a field template.</p>
 </div>
-<h2 id="select-the-organization">Select the Organization</h2>
-<p>TMs are assigned to organizations, by default to the <em>Root Organization</em>. Organizations make it easier to manage large numbers of TMs. For example, if you want to create TMs for a specific customer, you can first define an organization called e.g. <em>Microsoft</em>, and then create all Microsoft-related TMs within this organization. It is also possible to define that only particular users should have access to this organization, and thus to the TMs created therein. In our implementation we create the new TM within the <em>organization</em> passed in through the organization parameter.</p>
+<h2 id="select-the-organization">Select the organization</h2>
+<p>TMs are assigned to organizations, by default to the <em>Root Organization</em>. Organizations make it easier to manage large numbers of TMs. For example, if you want to create TMs for a specific customer, you can first define an organization called, for example, <em>Microsoft</em>, and then create all Microsoft-related TMs within that organization. You can also restrict access so that only specific users can work with the organization and its TMs. In this implementation, create the new TM in the <em>organization</em> passed in through the organization parameter.</p>
 <div class="NOTE">
 <h5>Note</h5>
 <p>If you have not defined organizations, and want to use the Root Organization, the path would simply be:
@@ -253,15 +229,10 @@ foreach (ServerBasedLanguageResourcesTemplate template in tmServer.GetLanguageRe
 sub-divides into departments), the path would look as shown below:</p>
 <p>/<em>My Company/Marketing</em></p>
 </div>
-<h2 id="delete-the-translation-memory">Delete the Translation Memory</h2>
-<p>Of course, it is also possible to delete server TMs when they are no longer required. Note that this is a dangerous operation, as this will physically delete potentially valuable data. Unless a backup is available, the deleted TM data can no longer be restored. The sample function below opens a server TM and then applies the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedTranslationMemory.html#Sdl_LanguagePlatform_TranslationMemoryApi_ServerBasedTranslationMemory_Delete">Delete</a> method to delete the TM from the server. Note that a TM can only be deleted by a user who has the necessary credentials.</p>
-<div class="tabGroup" id="tabgroup_8">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_8_tabid-8" role="tab" aria-controls="tabpanel_8_tabid-8" data-tab="tabid-8" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_8_tabid-8" role="tabpanel" data-tab="tabid-8">
+<h2 id="delete-the-translation-memory">Delete the translation memory</h2>
+<p>You can also delete server TMs when they are no longer required. This is a dangerous operation, because it physically removes potentially valuable data. Unless you have a backup, you cannot restore the deleted TM data. The sample function below opens a server TM and then applies the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedTranslationMemory.html#Sdl_LanguagePlatform_TranslationMemoryApi_ServerBasedTranslationMemory_Delete">Delete</a> method to remove the TM from the server. Only users with the necessary credentials can delete a TM.</p>
+</section>
+<section id="tabpanel_1_tabid-8" role="tabpanel" data-tab="tabid-8" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">public void DeleteTm(TranslationProviderServer tmServer, string organizationPath, string tmName)
 {
@@ -275,17 +246,10 @@ sub-divides into departments), the path would look as shown below:</p>
     tm.Delete();
 }
 </code></pre>
+<h2 id="putting-it-all-together">Putting It All Together</h2>
+<p>The complete class should now look like this:</p>
 </section>
-</div>
-<h2 id="putting-it-all-together">Putting it All Together</h2>
-<p>The complete class should now look as shown below:</p>
-<div class="tabGroup" id="tabgroup_9">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_9_tabid-9" role="tab" aria-controls="tabpanel_9_tabid-9" data-tab="tabid-9" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_9_tabid-9" role="tabpanel" data-tab="tabid-9">
+<section id="tabpanel_1_tabid-9" role="tabpanel" data-tab="tabid-9" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">namespace SDK.LanguagePlatform.Samples.TmAutomation
 {
@@ -294,54 +258,42 @@ sub-divides into departments), the path would look as shown below:</p>
     using Sdl.LanguagePlatform.TranslationMemoryApi;
 
     public class ServerTmCreator
-    {
-        #region &quot;create&quot;
+    {        
         public void Create(TranslationProviderServer tmServer, string organizationPath, string containerName, string tmName)
         {
-            #region &quot;CheckExists&quot;
             foreach (ServerBasedTranslationMemory item in tmServer.GetTranslationMemories(TranslationMemoryProperties.None))
             {
                 if (item.Name == tmName)
                 {
                     throw new Exception(&quot;TM with that name already exists.&quot;);
                 }
-            }
-            #endregion
-
-            #region &quot;TM&quot;
+            }            
+                       
             var newTM = new ServerBasedTranslationMemory(tmServer);
             newTM.Name = tmName;
             newTM.Description = &quot;Programmatically created sample TM&quot;;
-            newTM.Copyright = &quot;(c) 2021 RWS Group&quot;;
-            #endregion
-
+            newTM.Copyright = &quot;(c) 2024 RWS Group&quot;;
+           
             string containerPath = organizationPath;
             if (!containerPath.EndsWith(&quot;/&quot;))
             {
                 containerPath += &quot;/&quot;;
             }
-
-            #region &quot;container&quot;
+                        
             containerPath += containerName;
             TranslationMemoryContainer container = tmServer.GetContainer(containerPath, this.GetContainerProperties());
             newTM.Container = container;
-            #endregion
-
-            #region &quot;LanguageDirection&quot;
+            
             this.CreateLanguageDirections(newTM.LanguageDirections);
-            #endregion
-
-            #region &quot;org&quot;
+          
             newTM.ParentResourceGroupPath = organizationPath;
-            #endregion
-
+           
             string templatePath = organizationPath;
             if (!templatePath.EndsWith(&quot;/&quot;))
             {
                 templatePath += &quot;/&quot;;
             }
-                
-            #region &quot;templates&quot;
+           
             string sampleFieldTemplateName = &quot;MyFieldTemplate&quot;;
             foreach (ServerBasedFieldsTemplate template in tmServer.GetFieldsTemplates(FieldsTemplateProperties.All))
             {
@@ -363,22 +315,16 @@ sub-divides into departments), the path would look as shown below:</p>
                         templatePath + sampleLanguageResourcesTemplateName, LanguageResourcesTemplateProperties.None);
                     break;
                 }
-            }
-            #endregion
-
+            }         
 
             newTM.Save();
-        }
-        #endregion
+        }       
 
-        #region &quot;ContainerProps&quot;
         private ContainerProperties GetContainerProperties()
         {
             return new ContainerProperties();
         }
-        #endregion
-
-        #region &quot;languages&quot;
+                
         private void CreateLanguageDirections(ServerBasedTranslationMemoryLanguageDirectionCollection languageDirectionsCollection)
         {
             ServerBasedTranslationMemoryLanguageDirection languageDirection = new ServerBasedTranslationMemoryLanguageDirection();
@@ -387,9 +333,7 @@ sub-divides into departments), the path would look as shown below:</p>
 
             languageDirectionsCollection.Add(languageDirection);
         }
-        #endregion
-
-        #region &quot;DeleteTm&quot;
+        
         public void DeleteTm(TranslationProviderServer tmServer, string organizationPath, string tmName)
         {
             string tmPath = organizationPath;
@@ -400,8 +344,7 @@ sub-divides into departments), the path would look as shown below:</p>
 
             ServerBasedTranslationMemory tm = tmServer.GetTranslationMemory(tmPath + tmName, TranslationMemoryProperties.All);
             tm.Delete();
-        }
-        #endregion
+        }        
     }
 }
 </code></pre>

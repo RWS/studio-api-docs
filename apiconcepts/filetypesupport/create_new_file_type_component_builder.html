@@ -86,20 +86,32 @@
 <h5>Note</h5>
 <p>This functionality is only available in Studio 2011 SP3.</p>
 </div>
-<p>This chapter provides basic information on extending a standard Microsoft Word 2007 File Type Component Builder so the WordArt bilingual verifier will be used.</p>
-<h2 id="extending-a-microsoft-word-2007-file-type-component-builder">Extending a Microsoft Word 2007 File Type Component Builder</h2>
-<p>As Microsoft Word 2007 is one of the standard formats supported by Trados Studio, the corresponding File Type Component Builder already exists. This File Type Component Builder will be used to create an extension for Microsoft Word 2007 File Type Component Builder that uses the WordArt bilingual verifier.</p>
-<p>A File Type Component Builder is defined by a filter component builder that implements <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilder.html">IFileTypeComponentBuilder</a>. A filter component builder knows how to create parsers, writers, and so on for the corresponding file type. Microsoft Word 2007 File Type Component Builder has a filter component builder.</p>
-<p>The Microsoft Word 2007 File Type Component Builder can be inherited from indirectly. To create an extension for the The Microsoft Word 2007 File Type Component Builder you need to implement the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilderAdapter.html">IFileTypeComponentBuilderAdapter</a> interface which is used to define <em>Word 2007 v 2.0.0.0</em> documents.</p>
+<p>Extend the standard Microsoft Word 2007 File Type Component Builder so the WordArt bilingual verifier is used.</p>
+<h2 id="extend-a-microsoft-word-2007-file-type-component-builder">Extend a Microsoft Word 2007 File Type Component Builder</h2>
+<p>Trados Studio includes the standard Microsoft Word 2007 format, so the corresponding File Type Component Builder already exists. Use this as the basis for creating an extension that includes the WordArt bilingual verifier.</p>
+<p>A File Type Component Builder is defined by a filter component builder that implements <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilder.html">IFileTypeComponentBuilder</a>. The filter component builder knows how to create parsers, writers, and other components for the corresponding file type. The Microsoft Word 2007 File Type Component Builder has its own filter component builder.</p>
+<p>To extend the Microsoft Word 2007 File Type Component Builder, implement the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilderAdapter.html">IFileTypeComponentBuilderAdapter</a> interface, which is used to define <em>Word 2007 v 2.0.0.0</em> documents.</p>
 <div class="NOTE">
 <h5>Note</h5>
-<p>In Trados Studio all the file type plug-in components are designed in a way that you can extend all the functionality.</p>
+<p>In Trados Studio, all file type plug-in components are designed to be extensible, so you can extend all functionality.</p>
 </div>
-<p>Every filter component builder extension needs to have a <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeComponentBuilderExtensionAttribute.html">FileTypeComponentBuilderExtensionAttribute</a> that describes the file type component builder.</p>
+<p>Every filter component builder extension requires a <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeComponentBuilderExtensionAttribute.html">FileTypeComponentBuilderExtensionAttribute</a> that describes the file type component builder:</p>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
 <a href="#tabpanel_1_tabid-1" role="tab" aria-controls="tabpanel_1_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-2" role="tab" aria-controls="tabpanel_1_tabid-2" data-tab="tabid-2" tabindex="-1">Xml</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-3" role="tab" aria-controls="tabpanel_1_tabid-3" data-tab="tabid-3" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-4" role="tab" aria-controls="tabpanel_1_tabid-4" data-tab="tabid-4" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-5" role="tab" aria-controls="tabpanel_1_tabid-5" data-tab="tabid-5" tabindex="-1">C#</a>
 </li>
 </ul>
 <section id="tabpanel_1_tabid-1" role="tabpanel" data-tab="tabid-1">
@@ -110,17 +122,9 @@
     Description = &quot;Word2007_FilterComponentBuilderExtension_WordArtVerifier_Description&quot;,
     OriginalFileType = &quot;Word 2000-2003 v 1.0.0.0&quot;)]
 </code></pre>
+<p>The <code>Word2007_FilterComponentBuilderExtension_WordArtVerifier_Name</code> and <code>Word2007_FilterComponentBuilderExtension_WordArtVerifier_Description</code> values refer to entries in the <strong>PlugInResources.resx</strong> file:</p>
 </section>
-</div>
-
-<p>&quot;Word2007_FilterComponentBuilderExtension_WordArtVerifier_Name&quot; and &quot;Word2007_FilterComponentBuilderExtension_WordArtVerifier_Description&quot; refers to entries in the <strong>PlugInResources.resx</strong> file.</p>
-<div class="tabGroup" id="tabgroup_2">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_2_tabid-2" role="tab" aria-controls="tabpanel_2_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">Xml</a>
-</li>
-</ul>
-<section id="tabpanel_2_tabid-2" role="tabpanel" data-tab="tabid-2">
+<section id="tabpanel_1_tabid-2" role="tabpanel" data-tab="tabid-2" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-xml">&lt;data name=&quot;Word2007_FilterComponentBuilderExtension_WordArtVerifier_Description&quot;&gt;
   &lt;value&gt;Word 2007 Filter Component Builder WordArt Verifier&lt;/value&gt;
@@ -129,17 +133,9 @@
   &lt;value&gt;Word 2007 Filter Component Builder WordArt Verifier&lt;/value&gt;
 &lt;/data&gt;
 </code></pre>
+<p>Modify the new component builder to include the WordArt bilingual verifier. Call the original <code>BuildVerifierCollection</code> and add the new verifier to the collection:</p>
 </section>
-</div>
-
-<p>This new component builder needs to be changed so it includes the new WordArt bilingual verifier. This can be accomplished simply by calling the original <strong>BuildVerifierCollection</strong> and adding the new verifier to this collection.</p>
-<div class="tabGroup" id="tabgroup_3">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_3_tabid-3" role="tab" aria-controls="tabpanel_3_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_3_tabid-3" role="tabpanel" data-tab="tabid-3">
+<section id="tabpanel_1_tabid-3" role="tabpanel" data-tab="tabid-3" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">public IVerifierCollection BuildVerifierCollection(string name)
 {
@@ -148,17 +144,9 @@
     return verifierCollection;
 }
 </code></pre>
+<p>Modify the file type definition to include the WordArt bilingual verifier settings page. Call the original <code>BuildFileTypeInformation</code> and add the settings page to <code>WinFormSettingsPageIds</code>:</p>
 </section>
-</div>
-
-<p>This new file type definition also needs to be changed so it includes the new WordArt bilingual verifier settings page. This is accomplished by calling the original <strong>BuildFileTypeInformation</strong> and adding the settings page to <strong>WinFormSettingsPageIds</strong>.</p>
-<div class="tabGroup" id="tabgroup_4">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_4_tabid-4" role="tab" aria-controls="tabpanel_4_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_4_tabid-4" role="tabpanel" data-tab="tabid-4">
+<section id="tabpanel_1_tabid-4" role="tabpanel" data-tab="tabid-4" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">public IFileTypeInformation BuildFileTypeInformation(string name)
 {
@@ -169,20 +157,11 @@
     fileTypeInformation.WinFormSettingsPageIds = winFormSettingsPageIds.ToArray();
 
     return fileTypeInformation;
-
 }
 </code></pre>
+<p>The following code shows the complete implementation of a new file type definition based on the Microsoft Word 2007 file type definition with the WordArt bilingual verifier:</p>
 </section>
-</div>
-
-<p>Here is the complete code for creating a new file type definition based upon the Microsoft Word 2007 file type definition using the new WordArt bilingual verifier.</p>
-<div class="tabGroup" id="tabgroup_5">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_5_tabid-5" role="tab" aria-controls="tabpanel_5_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_5_tabid-5" role="tabpanel" data-tab="tabid-5">
+<section id="tabpanel_1_tabid-5" role="tabpanel" data-tab="tabid-5" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">using System.Collections.Generic;
 using Sdl.FileTypeSupport.Filters.Word;
@@ -208,7 +187,6 @@ namespace Sdk.FileTypeSupport.Samples.WordArtVerifier
             fileTypeInformation.WinFormSettingsPageIds = winFormSettingsPageIds.ToArray();
 
             return fileTypeInformation;
-
         }
 
         public IVerifierCollection BuildVerifierCollection(string name)
@@ -276,16 +254,19 @@ namespace Sdk.FileTypeSupport.Samples.WordArtVerifier
     }
 }
 </code></pre>
-</section>
-</div>
-
-<p>Adding a verifier by creating a new file type definition based upon an existing file type definition can be quite effective but suffers one important limitation. In this example, if the user created an <em>sdlxliff</em> file based upon a Microsoft Word 2007 document <strong>before</strong> the new file type definition was added then any operations performed on this <em>sdlxliff</em> file will use the old Microsoft Word 2007 file type definition and that means that it will not use the WordArt bilingual verifier. Only if the user created an <em>sdlxliff</em> file based upon a Microsoft Word 2007 document <strong>after</strong> the new file type definition was added will the new file type definition and therefore the new bilingual verifier be used.</p>
+<h2 id="important-considerations">Important Considerations</h2>
+<p>Creating a new file type definition based on an existing file type definition offers an effective approach but has one important limitation. If users create an SDLXliff file from a Microsoft Word 2007 document <strong>before</strong> you add the new file type definition, operations on that SDLXliff file use the old Microsoft Word 2007 file type definition. The new WordArt bilingual verifier won't be used.</p>
+<p>Only if users create an SDLXliff file from a Microsoft Word 2007 document <strong>after</strong> you add the new file type definition will Trados Studio use the new file type definition and the new bilingual verifier.</p>
 <h2 id="see-also">See Also</h2>
-<p><a href="implement_the_verification_logic_bil.html">Implement the Verification Logic</a></p>
-<p><a href="extending_existing_file_type_component_builder.html">Extending the Filter Component Builder</a></p>
+<ul>
+<li><a href="implement_the_verification_logic_bil.html">Implement the Verification Logic</a></li>
+<li><a href="extending_existing_file_type_component_builder.html">Extending the Filter Component Builder</a></li>
+</ul>
 <div class="NOTE">
 <h5>Note</h5>
 <p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+</div>
+</section>
 </div>
 
 </article>

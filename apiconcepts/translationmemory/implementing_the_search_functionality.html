@@ -82,10 +82,10 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="implementing-the-search-functionality">Implementing the Search Functionality</h1>
 
-<p>This page outlines how to implement the actual search functionality and how to output the results in the rich text element using a simple string output.</p>
+<p>This page explains how to implement the search functionality and display the results in the rich text control by using a simple string output.</p>
 <h2 id="implement-the-search-function">Implement the Search Function</h2>
-<p>Start by adding a new class called <code>Search</code> to your project. Implement a public function called <code>DoConcordanceSearch</code>, which takes the search text as string parameter and a boolean parameter that indicates whether the search should be done in the target index. In addition, we pass the <code>SelectedIndex</code> property of the <code>comboLanguagePairs</code> control as another parameter. The index of this list corresponds to the index of the server TM language pair. The function returns the search result as a string.</p>
-<p>The function is called by clicking the search button on the main lookup form, which then fills the rich text control with the search result:</p>
+<p>Start by adding a class named <code>Search</code> to your project. Implement a public method named <code>DoConcordanceSearch</code> that takes the search text as a string parameter and a Boolean parameter that indicates whether the search should run in the target language. Also pass the <code>SelectedIndex</code> property of the <code>comboLanguagePairs</code> control as another parameter. The index in this list corresponds to the index of the server TM language pair. The method returns the search result as a string.</p>
+<p>The method is called when the user clicks the Search button on the main lookup form, which then fills the rich text control with the search result:</p>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
@@ -95,14 +95,11 @@
 <section id="tabpanel_1_tabid-1" role="tabpanel" data-tab="tabid-1">
 
 <pre><code class="lang-cs">private void btnSearch_Click(object sender, EventArgs e)
-{            
+{
     try
     {
-        #region &quot;SearchObject&quot;
         Search search = new Search();
-        #endregion
 
-        #region &quot;SourceOrTarget&quot;
         // Determine whether to do the concordance search in the
         // source or in the target language;
         bool searchTarget;
@@ -110,13 +107,10 @@
             searchTarget = true;
         else
             searchTarget = false;
-        #endregion
 
-        #region &quot;FillHitlist&quot;
         // Fill the search result into the rich text box.
         this.lblHitCount.Text = search.DoConcordanceSearch(this.txtSearch.Text, searchTarget, 
             comboLanguagePairs.SelectedIndex);
-        #endregion
     }
     catch(Exception ex)
     {
@@ -127,7 +121,7 @@
 </section>
 </div>
 
-<p>In the <code>DoConcordanceSearch</code> function you first execute the search in the selected TM (file or server TM). The boolean server property from the Connector (see <a href="adding_the_connector_class.html">Adding the Connector Class</a>) class flags whether the search should be applied to a file or server TM object.</p>
+<p>In the <code>DoConcordanceSearch</code> method, first run the search in the selected TM, either file-based or server-based. The Boolean <code>server</code> property from the <code>Connector</code> class (see <a href="adding_the_connector_class.html">Adding the Connector Class</a>) indicates whether the search should run against a file TM or a server TM.</p>
 <div class="tabGroup" id="tabgroup_2">
 <ul role="tablist">
 <li role="presentation">
@@ -150,7 +144,7 @@ else
 </section>
 </div>
 
-<p>The <code>SearchText</code> method takes the search string as well as the search settings as parameters. The search settings (as set by the user on the corresponding form, see <a href="adding_the_search_settings_form.html">Adding the Search Settings Form</a>) are returned by a separate function:</p>
+<p>The <code>SearchText</code> method takes the search string and search settings as parameters. Return the search settings from a separate method. The settings come from the search settings form (see <a href="adding_the_search_settings_form.html">Adding the Search Settings Form</a>).</p>
 <div class="tabGroup" id="tabgroup_3">
 <ul role="tablist">
 <li role="presentation">
@@ -182,7 +176,7 @@ private SearchSettings GetSearchSettings(bool target)
 </section>
 </div>
 
-<p>Next, you start building up the hit result string by determining the hit count:</p>
+<p>Next, build the hit result string by adding the hit count:</p>
 <div class="tabGroup" id="tabgroup_4">
 <ul role="tablist">
 <li role="presentation">
@@ -198,7 +192,7 @@ hitlist = &quot;Hit count: &quot; + results.Count.ToString() + &quot;\n\n&quot;;
 </section>
 </div>
 
-<p>In the following step, you need to traverse the search results:</p>
+<p>Next, iterate through the search results:</p>
 <div class="tabGroup" id="tabgroup_5">
 <ul role="tablist">
 <li role="presentation">
@@ -215,7 +209,7 @@ hitlist = &quot;Hit count: &quot; + results.Count.ToString() + &quot;\n\n&quot;;
 </section>
 </div>
 
-<p>The loop continues to build up the hitlist string by calling a separate <code>GetTuInformation</code> helper function, which returns TU information such as the source/target segments, the creation date, any field names and values, as well as the match value:</p>
+<p>The loop continues to build the hit result string by calling a separate <code>GetTuInformation</code> helper method. This method returns TU information such as the source and target segments, the creation date, field names and values, and the match value:</p>
 <div class="tabGroup" id="tabgroup_6">
 <ul role="tablist">
 <li role="presentation">
@@ -231,23 +225,16 @@ private string GetTuInformation(SearchResult tuResult)
 {
     string tuInfo;
 
-    #region &quot;score&quot;
     /// The matching score
     tuInfo = &quot;\nScore: &quot; + tuResult.ScoringResult.Match.ToString() + &quot;%\n&quot;;
-    #endregion
 
-    #region &quot;segments&quot;
     /// The source and target segments
     tuInfo += &quot;Source: &quot; + tuResult.MemoryTranslationUnit.SourceSegment.ToPlain() + &quot;\n&quot;;
     tuInfo += &quot;Target: &quot; + tuResult.MemoryTranslationUnit.TargetSegment.ToPlain() + &quot;\n&quot;;
-    #endregion
 
-    #region &quot;date&quot;
     /// The TU creation date.
     tuInfo += &quot;Creation date: &quot; + tuResult.MemoryTranslationUnit.SystemFields.CreationDate + &quot;\n&quot;;
-    #endregion
 
-    #region &quot;fields&quot;
     /// Any field values (e.g. Customer, Project id, etc. associated with the
     /// given TU.
     foreach (FieldValue field in tuResult.MemoryTranslationUnit.FieldValues)
@@ -255,7 +242,6 @@ private string GetTuInformation(SearchResult tuResult)
         tuInfo += field.Name + &quot;: &quot; + field.ToString();
     }
     tuInfo += &quot;\n&quot;;
-    #endregion
 
     return tuInfo;
 }
@@ -263,7 +249,7 @@ private string GetTuInformation(SearchResult tuResult)
 </section>
 </div>
 
-<p>At the end the <code>DoConcordanceSearch</code> function returns the full hit result string, which is then used to fill the rich text control:</p>
+<p>At the end, the <code>DoConcordanceSearch</code> method returns the full hit result string, which is then used to populate the rich text control:</p>
 <div class="tabGroup" id="tabgroup_7">
 <ul role="tablist">
 <li role="presentation">
@@ -277,7 +263,7 @@ private string GetTuInformation(SearchResult tuResult)
 </section>
 </div>
 <h2 id="apply-the-search-settings">Apply the Search Settings</h2>
-<p>Add the following private function called <code>GetSearchSettings</code>, which configures the search settings according to the settings configured on the search settings form (see <a href="adding_the_search_settings_form.html">Adding the Search Settings Form</a>).</p>
+<p>Add the following private method named <code>GetSearchSettings</code>, which configures the search settings according to the values on the search settings form (see <a href="adding_the_search_settings_form.html">Adding the Search Settings Form</a>).</p>
 <div class="tabGroup" id="tabgroup_8">
 <ul role="tablist">
 <li role="presentation">
@@ -309,9 +295,9 @@ private SearchSettings GetSearchSettings(bool target)
 </section>
 </div>
 
-<p>See also <a href="doing_translation_memory_lookups.html">Doing Translation Memory Lookups</a> for more information on the available search settings.</p>
+<p>See also <a href="doing_translation_memory_lookups.html">Doing Translation Memory Lookups</a> for more information about the available search settings.</p>
 <h2 id="putting-it-all-together">Putting it All Together</h2>
-<p>The complete search class should look as shown below:</p>
+<p>The complete search class should look like this:</p>
 <div class="tabGroup" id="tabgroup_9">
 <ul role="tablist">
 <li role="presentation">
@@ -335,14 +321,12 @@ namespace SDK.LanguagePlatform.Samples.TmLookup
 {
     class Search
     {
-        #region &quot;search&quot;
         /// &lt;summary&gt;
         /// This function performs the actual concordance search operation.
         /// &lt;/summary&gt;
         public string DoConcordanceSearch(string searchText, bool target, int langDirIndex)
         {
-            #region &quot;execute&quot;
-            /// Do the search in either a file- or server-based TM.
+            // Run the search in either a file-based or server-based TM.
             SearchResults results;
             if (Connector.server) 
             {
@@ -351,28 +335,20 @@ namespace SDK.LanguagePlatform.Samples.TmLookup
             else {
                 results = Connector.fileTm.LanguageDirection.SearchText(GetSearchSettings(target), searchText);
             }            
-            #endregion
 
-            #region &quot;StartHitlist&quot;
-            /// Build up the string that holds the hitlist result.
+            // Build the string that holds the hit result.
             string hitlist;
             hitlist = &quot;Hit count: &quot; + results.Count.ToString() + &quot;\n\n&quot;;
-            #endregion
 
-            #region &quot;result&quot;
             foreach (SearchResult result in results)
             {
                 hitlist += GetTuInformation(result);
             }  
-            #endregion
 
             #region &quot;CloseHitlist&quot;
             return hitlist;
-            #endregion
         }
-        #endregion
-
-        #region &quot;TuInfo&quot;
+              
         /// &lt;summary&gt;
         /// This function returns further information on the given translation unit (TU).
         /// &lt;/summary&gt;
@@ -380,41 +356,31 @@ namespace SDK.LanguagePlatform.Samples.TmLookup
         {
             string tuInfo;
 
-            #region &quot;score&quot;
-            /// The matching score
+            // The matching score.
             tuInfo = &quot;\nScore: &quot; + tuResult.ScoringResult.Match.ToString() + &quot;%\n&quot;;
-            #endregion
 
-            #region &quot;segments&quot;
-            /// The source and target segments
+            // The source and target segments.
             tuInfo += &quot;Source: &quot; + tuResult.MemoryTranslationUnit.SourceSegment.ToPlain() + &quot;\n&quot;;
             tuInfo += &quot;Target: &quot; + tuResult.MemoryTranslationUnit.TargetSegment.ToPlain() + &quot;\n&quot;;
-            #endregion
 
-            #region &quot;date&quot;
-            /// The TU creation date.
+            // The TU creation date.
             tuInfo += &quot;Creation date: &quot; + tuResult.MemoryTranslationUnit.SystemFields.CreationDate + &quot;\n&quot;;
-            #endregion
 
-            #region &quot;fields&quot;
-            /// Any field values (e.g. Customer, Project id, etc. associated with the
-            /// given TU.
+            // Any field values, such as Customer or Project ID, associated with the
+            // given TU.
             foreach (FieldValue field in tuResult.MemoryTranslationUnit.FieldValues)
             {
                 tuInfo += field.Name + &quot;: &quot; + field.ToString();
             }
             tuInfo += &quot;\n&quot;;
-            #endregion
 
             return tuInfo;
         }   
-        #endregion
-
-        #region &quot;settings&quot;
+        
         /// &lt;summary&gt;
-        /// Configure the settings that should be applied for the search, i.e.
+        /// Configure the settings that should be applied for the search, including
         /// minimum match value, maximum hit count, and whether the concordance
-        /// search should be done in the source or in the target language.
+        /// search should run in the source or target language.
         /// &lt;/summary&gt;
         private SearchSettings GetSearchSettings(bool target)
         {
@@ -430,7 +396,6 @@ namespace SDK.LanguagePlatform.Samples.TmLookup
 
             return settings;
         }
-        #endregion
     }
 }
 </code></pre>

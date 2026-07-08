@@ -82,9 +82,10 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="the-file-context">The File Context</h1>
 
-<p>Translatable text can occur in one or more contexts. Examples of contexts are file names, URLs, domains, resource types, layout properties (e.g. heading, title, table cell, etc.), and potentially many more. Obviously, contexts can contain other contexts, and they can overlap with other contexts.</p>
-<h2 id="native-file-processing-api-representation">Native File Processing API Representation</h2>
-<p>During native content processing contexts are created by the filter through <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IAbstractNativeContentHandler.html#Sdl_FileTypeSupport_Framework_NativeApi_IAbstractNativeContentHandler_ChangeContext_Sdl_FileTypeSupport_Framework_NativeApi_IContextProperties_">ChangeContext</a>. <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IContextProperties.html">IContextProperties</a>, the input parameter type of <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IAbstractNativeContentHandler.html#Sdl_FileTypeSupport_Framework_NativeApi_IAbstractNativeContentHandler_ChangeContext_Sdl_FileTypeSupport_Framework_NativeApi_IContextProperties_">ChangeContext</a>, wraps an <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IContextInfo.html">IContextInfo</a> array. <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IContextInfo.html">IContextInfo</a> has following properties:</p>
+<p>Translatable text can appear in one or more contexts. Examples include file names, URLs, domains, resource types, and layout properties such as headings, titles, and table cells. Contexts can contain other contexts, and they can overlap.</p>
+<h2 id="native-file-processing-api-representation">Native File Processing API representation</h2>
+<p>During native content processing, the filter creates contexts through <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IAbstractNativeContentHandler.html#Sdl_FileTypeSupport_Framework_NativeApi_IAbstractNativeContentHandler_ChangeContext_Sdl_FileTypeSupport_Framework_NativeApi_IContextProperties_">ChangeContext</a>. The <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IContextProperties.html">IContextProperties</a> parameter wraps an array of <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IContextInfo.html">IContextInfo</a> objects.</p>
+<p><code>IContextInfo</code> exposes the following properties:</p>
 <ul>
 <li><a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IContextInfo.html#Sdl_FileTypeSupport_Framework_NativeApi_IContextInfo_ContextType">ContextType</a></li>
 <li><a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IContextInfo.html#Sdl_FileTypeSupport_Framework_NativeApi_IContextInfo_DefaultFormatting">DefaultFormatting</a></li>
@@ -94,13 +95,16 @@
 <li><a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IContextInfo.html#Sdl_FileTypeSupport_Framework_NativeApi_IContextInfo_DisplayName">DisplayName</a></li>
 <li><a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IContextInfo.html#Sdl_FileTypeSupport_Framework_NativeApi_IContextInfo_Purpose">Purpose</a></li>
 </ul>
-<p>Every call to <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IAbstractNativeContentHandler.html#Sdl_FileTypeSupport_Framework_NativeApi_IAbstractNativeContentHandler_ChangeContext_Sdl_FileTypeSupport_Framework_NativeApi_IContextProperties_">ChangeContext</a> closes all open contexts and opens all contexts specified in the call parameters.</p>
-<h2 id="conversion-from-native-to-bilingual">Conversion from Native to Bilingual</h2>
-<p>Contexts must be identified, created, and maintained by filters. To pass them into the framework the filter must use the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IAbstractNativeContentHandler.html#Sdl_FileTypeSupport_Framework_NativeApi_IAbstractNativeContentHandler_ChangeContext_Sdl_FileTypeSupport_Framework_NativeApi_IContextProperties_">ChangeContext</a> method of the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IAbstractNativeContentHandler.html">IAbstractNativeContentHandler</a> interface. There is no default context. Using contects is not mandatory, but it is recommended to improve translation and match quality, as translators can easily identify a translatable string as e.g. a headline, footnote, etc., which may be important information for the translation process.</p>
-<h2 id="conversion-from-bilingual-to-native">Conversion from Bilingual to Native</h2>
-<p>Contexts are not part of the native format and will therefore not show up in translated files.</p>
-<h2 id="see-also">See Also</h2>
-<p><a href="adding_context_information.html">Adding Context Information</a></p>
+<p>Every call to <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IAbstractNativeContentHandler.html#Sdl_FileTypeSupport_Framework_NativeApi_IAbstractNativeContentHandler_ChangeContext_Sdl_FileTypeSupport_Framework_NativeApi_IContextProperties_">ChangeContext</a> closes the currently open contexts and opens the contexts specified in the call.</p>
+<h2 id="conversion-from-native-to-bilingual">Conversion from native to bilingual</h2>
+<p>Filters must identify, create, and maintain contexts. To pass them into the framework, use the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IAbstractNativeContentHandler.html#Sdl_FileTypeSupport_Framework_NativeApi_IAbstractNativeContentHandler_ChangeContext_Sdl_FileTypeSupport_Framework_NativeApi_IContextProperties_">ChangeContext</a> method on <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IAbstractNativeContentHandler.html">IAbstractNativeContentHandler</a>. The framework does not provide a default context.</p>
+<p>Contexts are optional, but they improve translation and match quality. For example, they help translators identify whether a string is a heading, footnote, or another content type that affects translation.</p>
+<h2 id="conversion-from-bilingual-to-native">Conversion from bilingual to native</h2>
+<p>Contexts are not part of the native file format, so they do not appear in translated output files.</p>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="adding_context_information.html">Adding Context Information</a></li>
+</ul>
 <div class="NOTE">
 <h5>Note</h5>
 <p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>

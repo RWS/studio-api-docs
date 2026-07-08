@@ -82,11 +82,11 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="locking-specific-strings">Locking Specific Strings</h1>
 
-<p>In this chapter you will learn how to protect text against editing by locking strings.</p>
+<p>Protect text against editing by locking strings.</p>
 <h2 id="locking-particular-strings-during-parsing">Locking Particular Strings During Parsing</h2>
-<p>Sometimes you may want to create segments, text selections, or paragraph units that are locked, i.e. whose content users cannot edit. This might be the case, for example, if a paragraph unit contains script code, which should not be altered or accidentally modified by the translator. However, translators should be able to view such strings, as they may contain relevant information, which assists during the translation process.</p>
-<p>Let us assume that our text files contain single lines that start with a product code prefix, e.g. <em>Prd-Code NCC1504</em>. If these strings must not be localized, you can lock them during parsing of the file.</p>
-<p>To do this enhance your file parser by adding a<code> WriteLockedContent()</code> helper function:</p>
+<p>Create locked segments, text selections, or paragraph units to prevent user editing. Lock strings containing script code that should not be altered or modified during translation. Translators can still view locked content, which provides relevant information during the translation process.</p>
+<p>For example, your text files might contain lines starting with a product code prefix, such as <em>Prd-Code NCC1504</em>. Lock these strings during parsing to prevent localization.</p>
+<p>Enhance your file parser by adding a <code>WriteLockedContent()</code> helper function:</p>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
@@ -95,27 +95,22 @@
 </ul>
 <section id="tabpanel_1_tabid-1" role="tabpanel" data-tab="tabid-1">
 
-<pre><code class="lang-cs">// protect text from being altered during translation 
-// by locking it
-private void WriteLockedContent(string LockedContent)
+<pre><code class="lang-cs">private void WriteLockedContent(string LockedContent)
 {
-    //create opening tag for locked content
     ILockedContentProperties Lockedprops = PropertiesFactory.CreateLockedContentProperties(LockTypeFlags.Manual);
     Output.LockedContentStart(Lockedprops);
 
-    //create text inside of locked content
     ITextProperties textProps = PropertiesFactory.CreateTextProperties(LockedContent);
     Output.Text(textProps);
 
-    //close locked content
     Output.LockedContentEnd();
 }
 </code></pre>
 </section>
 </div>
 
-<p>Here, the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IDocumentItemFactory.html#Sdl_FileTypeSupport_Framework_BilingualApi_IDocumentItemFactory_CreateLockedContent_Sdl_FileTypeSupport_Framework_NativeApi_ILockedContentProperties_">CreateLockedContent</a> method is used to create a mark-up container that can wrap all the other containers and mark-up of a target paragraph in a paragraph unit. However, you must first create an <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ILockedContentProperties.html">ILockedContentProperties</a> object by calling <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPropertiesFactory.html#Sdl_FileTypeSupport_Framework_NativeApi_IPropertiesFactory_CreateLockedContentProperties_Sdl_FileTypeSupport_Framework_NativeApi_LockTypeFlags_">CreateLockedContentProperties</a> with a parameter of <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.LockTypeFlags.html">LockTypeFlags</a>. Then, the resulting locked content properties can be passed to the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPropertiesFactory.html#Sdl_FileTypeSupport_Framework_NativeApi_IPropertiesFactory_CreateLockedContentProperties_Sdl_FileTypeSupport_Framework_NativeApi_LockTypeFlags_">CreateLockedContentProperties</a> method. Once an object derived from <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ILockedContentProperties.html">ILockedContentProperties</a> object has been created, it can be used to wrap all the mark-up in the target paragraph of the paragraph unit.</p>
-<p>All you need to do in our example is to extend the <code>ProcessLine()</code> helper function to call <code>WriteLockedContent()</code> whenever a line that starts with a product code prefix has been found:</p>
+<p>The <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.IDocumentItemFactory.html#Sdl_FileTypeSupport_Framework_BilingualApi_IDocumentItemFactory_CreateLockedContent_Sdl_FileTypeSupport_Framework_NativeApi_ILockedContentProperties_">CreateLockedContent</a> method creates a mark-up container that wraps all other containers and mark-up of a target paragraph in a paragraph unit. First, create an <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ILockedContentProperties.html">ILockedContentProperties</a> object by calling <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IPropertiesFactory.html#Sdl_FileTypeSupport_Framework_NativeApi_IPropertiesFactory_CreateLockedContentProperties_Sdl_FileTypeSupport_Framework_NativeApi_LockTypeFlags_">CreateLockedContentProperties</a> with a <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.LockTypeFlags.html">LockTypeFlags</a> parameter. Pass the resulting locked content properties to use for wrapping all mark-up in the target paragraph.</p>
+<p>Extend the <code>ProcessLine()</code> helper function to call <code>WriteLockedContent()</code> whenever a line starts with a product code prefix:</p>
 <div class="tabGroup" id="tabgroup_2">
 <ul role="tablist">
 <li role="presentation">
@@ -124,11 +119,7 @@ private void WriteLockedContent(string LockedContent)
 </ul>
 <section id="tabpanel_2_tabid-2" role="tabpanel" data-tab="tabid-2">
 
-<pre><code class="lang-cs">// determines whether a given line is
-// translatable or not
-// if not, a structure tag is output
-// otherwise, the translatable text is exposed
-private void ProcessLine(string sLine)
+<pre><code class="lang-cs">private void ProcessLine(string sLine)
 {
     if (sLine.StartsWith(&quot;[&quot;) &amp;&amp; sLine.EndsWith(&quot;]&quot;))
     {
@@ -138,7 +129,6 @@ private void ProcessLine(string sLine)
     else if (sLine.StartsWith(&quot;Prd-Code&quot;))
     {
         WriteLockedContent(sLine);
-
     } 
     else
     {
@@ -151,9 +141,9 @@ private void ProcessLine(string sLine)
 
 <p>After making this enhancement to the file parser, the lines that contain product code strings will be locked as shown below:</p>
 <p><img src="images/LockedContent.jpg" alt="LockedContent"></p>
-<p>Note that you may not be able to see the locked units in our example. If you do not see the locked content activate the <strong>Display Filter</strong> toolbar in Trados Studio through the menu command <strong>View</strong> &gt; <strong>Toolbars</strong> &gt; <strong>Display Filter</strong>. Then choose <strong>All content</strong> from the <strong>Display</strong> dropdown list.</p>
-<h2 id="putting-it-all-together">Putting it All Together</h2>
-<p>Your enhanced file parser should now look as shown below:</p>
+<p>If you do not see the locked content, activate the <strong>Display Filter</strong> toolbar in Trados Studio through <strong>View</strong> &gt; <strong>Toolbars</strong> &gt; <strong>Display Filter</strong>, then select <strong>All content</strong> from the <strong>Display</strong> dropdown.</p>
+<h2 id="putting-it-all-together">Putting It All Together</h2>
+<p>Your enhanced file parser now includes all the required functionality:</p>
 <div class="tabGroup" id="tabgroup_3">
 <ul role="tablist">
 <li role="presentation">
@@ -174,16 +164,10 @@ namespace Sdk.Snippets.Native
 {
     public class SimpleTextParser3 : AbstractNativeFileParser, INativeContentCycleAware
     {
-        #region &quot;global settings&quot;
         IPersistentFileConversionProperties _fileConversionProperties;
         StreamReader _reader = null;
-
         FormattingGroup _fBold;
-        #endregion
 
-        #region &quot;INativeContentCycleAware members&quot;
-        // through the properties object you can retrieve important information
-        // on the native input file such as the original file name and path
         public void SetFileProperties(IFileProperties properties)
         {
             _fileConversionProperties = properties.FileConversionProperties;
@@ -194,57 +178,34 @@ namespace Sdk.Snippets.Native
 
         }
 
-
         public void EndOfInput()
         {
 
         }
-        #endregion
 
-        #region &quot;members of AbstractNativeFileParser&quot;
-
-        #region &quot;before parsing&quot;
         protected override void BeforeParsing()
         {
-            // set progress reporter to the beginning
             OnProgress(0);
-
-            // open the native input file for reading
             _reader = new StreamReader(_fileConversionProperties.OriginalFilePath);
         }
-        #endregion
 
-        #region &quot;during parsing&quot;
         protected override bool DuringParsing()
         {
-            // iterate through all lines in the input file
             while (!_reader.EndOfStream)
             {
                 ProcessLine(_reader.ReadLine());
             }
             return false;
         }
-        #endregion
 
-        #region &quot;after parsing&quot;
         protected override void AfterParsing()
         {
-            //close original file
             _reader.Close();
             _reader.Dispose();
             _reader = null;
-            //set progres report to 100%
             OnProgress(100);
         }
-        #endregion
 
-        #endregion
-
-        #region &quot;process line&quot;
-        // determines whether a given line is
-        // translatable or not
-        // if not, a structure tag is output
-        // otherwise, the translatable text is exposed
         private void ProcessLine(string sLine)
         {
             if (sLine.StartsWith(&quot;[&quot;) &amp;&amp; sLine.EndsWith(&quot;]&quot;))
@@ -255,55 +216,37 @@ namespace Sdk.Snippets.Native
             else if (sLine.StartsWith(&quot;Prd-Code&quot;))
             {
                 WriteLockedContent(sLine);
-
             } 
             else
             {
                 WriteText(ProcessFormatting(sLine));
             }
         }
-        #endregion
 
-        #region &quot;text&quot;
-        // output translatable text
         private void WriteText(string TextContent)
         {
             ITextProperties textProperties = PropertiesFactory.CreateTextProperties(TextContent);
             Output.Text(textProperties);
         }
-        #endregion
 
-        #region &quot;lock&quot;
-        // protect text from being altered during translation 
-        // by locking it
         private void WriteLockedContent(string LockedContent)
         {
-            //create opening tag for locked content
             ILockedContentProperties Lockedprops = PropertiesFactory.CreateLockedContentProperties(LockTypeFlags.Manual);
             Output.LockedContentStart(Lockedprops);
 
-            //create text inside of locked content
             ITextProperties textProps = PropertiesFactory.CreateTextProperties(LockedContent);
             Output.Text(textProps);
 
-            //close locked content
             Output.LockedContentEnd();
         }
-        #endregion
 
-        #region &quot;structure&quot;
-        // output non-translatable text as structure tag
         private void WriteStructureTag(string TagContent)
         {
             IStructureTagProperties structureTagProperties = PropertiesFactory.CreateStructureTagProperties(TagContent);
             structureTagProperties.DisplayText = TagContent;
             Output.StructureTag(structureTagProperties);
         }
-        #endregion
 
-        #region &quot;context&quot;
-        // output context information, not required, but useful
-        // information for the translator
         private void WriteContext(string ContextContent)
         {
             IContextProperties contextProperties = PropertiesFactory.CreateContextProperties();
@@ -315,12 +258,7 @@ namespace Sdk.Snippets.Native
             contextProperties.Contexts.Add(contextInfo);
             Output.ChangeContext(contextProperties);
         }
-        #endregion
 
-        #region &quot;process formatting&quot;
-        // this function uses regular expressions to identify
-        // what is 'normal' translatable content and which strings
-        // need to be marked up as inline tags, e.g. &lt;b&gt;
         private string ProcessFormatting(string sLine)
         {
             int LastPosition = 0;
@@ -342,12 +280,7 @@ namespace Sdk.Snippets.Native
             }
             return sLine.Substring(LastPosition, sLine.Length - LastPosition);
         }
-        #endregion
 
-        #region &quot;write inline tag&quot;
-        // this function outputs an opening or a closing &lt;b&gt; tag
-        // and applies bold character formatting to the strings
-        // that the tags enclose
         private void WriteInlineTag(string tagContent, bool isStart)
         {
             _fBold = new FormattingGroup();
@@ -371,7 +304,6 @@ namespace Sdk.Snippets.Native
                 Output.InlineEndTag(endTag);
             }
         }
-        #endregion
     }
 }
 </code></pre>

@@ -82,17 +82,17 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="enabling-the-required-translation-provider-features">Enabling the Required Translation Provider Features</h1>
 
-<p>Not all features that are typically supported by translation memories may make sense for a particular translation provider. For example, a machine translation translation provider will usually not offer concordance searching, nor will it be updated during the translation. Our sample plug-in should support segment lookup and concordance searching in the source and target language. However, the delimited list that contains translation solutions should not be updated, i.e. no write access will occur while the list is used.</p>
+<p>Not all features that translation memories typically support make sense for every translation provider. For example, a machine translation provider usually does not offer concordance search, and it is not updated during translation. This sample plug-in should support segment lookup and concordance search in the source and target language. However, the delimited list that contains translation solutions should not be updated, so the list remains read-only while it is in use.</p>
 <h2 id="implement-the-class-for-enabling-the-provider-features">Implement the Class for Enabling the Provider Features</h2>
-<p>In the project template the class that controls which features the plug-in supports is called <code>MyTranslationProvider</code>. For our sample provider, we will rename this class to <code>ListTranslationProvider</code>.</p>
+<p>In the project template, the class that controls which features the plug-in supports is named <code>MyTranslationProvider</code>. For this sample provider, rename the class to <code>ListTranslationProvider</code>.</p>
 <p>This class implements the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider.html">ITranslationProvider</a> interface, which actually forms the main part of a custom translation provider plug-in implementation.</p>
-<p>This interface contains numerous members such as <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider.html#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProvider_SupportsConcordanceSearch">SupportsConcordanceSearch</a>, which you can set to return <code>True</code> or <code>False</code> depending on whether your implementation is supposed to support e.g. concordance searching or not.</p>
-<p>If you set the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider.html#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProvider_SupportsConcordanceSearch">SupportsConcordanceSearch</a> member to <code>True</code>, the <strong>Concordance</strong> check box for the selected provider will be enabled in the UI of Trados Studio, which should be the case for our implementation. Users can uncheck these options at runtime if, for some reason, the selected provider should not be taken into account when executing a concordance search. Example: While working, the user discovers that the concordance matches offered by a given translation provider are not helpful for a particular project. In this case, he/she can disable concordance searching for this particular provider, and focus on the matches returned by another provider, for example, a translation memory.</p>
-<p>The screenshot below shows an example in which a file TM has been selected for lookup, concordance, and updating. Our sample provider is only enabled for lookup and concordance searching.</p>
+<p>This interface includes members such as <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider.html#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProvider_SupportsConcordanceSearch">SupportsConcordanceSearch</a>, which you can set to return <code>True</code> or <code>False</code> depending on whether your implementation supports concordance search.</p>
+<p>If you set <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider.html#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProvider_SupportsConcordanceSearch">SupportsConcordanceSearch</a> to <code>True</code>, Trados Studio enables the <strong>Concordance</strong> check box for the selected provider. This sample implementation should do that. Users can clear the option at run time if they do not want the provider included in a concordance search. For example, a user might find that the concordance matches from one provider are not useful for a project and decide to rely on another provider instead.</p>
+<p>The screenshot below shows an example in which a file TM has been selected for lookup, concordance, and updating. This sample provider is enabled only for lookup and concordance search.</p>
 <img style="display:block; " src="images/PlugInsSelected.jpg">
-<p>In this chapter we will not explain the functions of all members (as they are quite numerous), but only the ones that are relevant for our particular implementation.</p>
+<p>This chapter does not describe every member of the interface. It focuses on the members relevant to this implementation.</p>
 <ul>
-<li><p><strong>Concordance searching</strong>: As our implementation should support concordance searching, the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider.html#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProvider_SupportsConcordanceSearch">SupportsConcordanceSearch</a> member needs to return <code>True</code>:</p>
+<li><p><strong>Concordance search</strong>: Because this implementation supports concordance search, the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider.html#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProvider_SupportsConcordanceSearch">SupportsConcordanceSearch</a> member returns <code>True</code>:</p>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
@@ -109,7 +109,7 @@
 </section>
 </div>
 </li>
-<li><p><strong>Source/target concordance searching</strong>: The concordance search can be sub-divided into support for concordance searching in the source and/or the target language. Since our implementation is supposed to support concordance searching in both languages, the two following members will also be set to return <code>True</code>:</p>
+<li><p><strong>Source and target concordance search</strong>: Concordance search can be divided into source-language and target-language search. Because this implementation supports both, the following members also return <code>True</code>:</p>
 <pre><code class="lang-cs">public bool SupportsSourceConcordanceSearch
 {
     get { return true; }
@@ -121,24 +121,17 @@ public bool SupportsTargetConcordanceSearch
 }
 </code></pre>
 </li>
-<li><p><strong>Translation unit search</strong>: Our implementation should support matching of translation units to segments in the source document. Therefore, we set <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider.html#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProvider_SupportsSearchForTranslationUnits">SupportsSearchForTranslationUnits</a> to return <code>True</code>. Note that a translation unit in our implementation corresponds to a delimited line in the list file.</p>
+<li><p><strong>Translation unit search</strong>: This implementation supports matching translation units to segments in the source document. Therefore, <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider.html#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProvider_SupportsSearchForTranslationUnits">SupportsSearchForTranslationUnits</a> returns <code>True</code>. In this implementation, a translation unit corresponds to a delimited line in the list file.</p>
 <pre><code class="lang-cs">public bool SupportsSearchForTranslationUnits
 {
     get { return true; }
 }
 </code></pre>
 </li>
-<li><p><strong>Fuzzy searching</strong>: The <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider.html#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProvider_SupportsFuzzySearch">SupportsFuzzySearch</a> should be set to return False, as our simplified implementation should only support exact matches:</p>
-<pre><code class="lang-cs">public bool SupportsFuzzySearch
-{
-    get { return false; }
-}
-</code></pre>
-</li>
 </ul>
-<h2 id="examples-of-features-that-the-sample-implementation-does-not-support">Examples of Features that the Sample Implementation does not Support</h2>
-<p>Below are a few examples of members in the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider.html">ITranslationProvider</a> interface, which you might have to implement for your particular implementation, but that do not need to be used for our simple delimited list provider.</p>
-<p>As our sample plug-in is only supposed to look up and return plain text (i.e. no tagged input), the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider.html#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProvider_SupportsTaggedInput">SupportsTaggedInput</a> property can be set to return <code>False</code>:</p>
+<h2 id="examples-of-features-that-the-sample-implementation-does-not-support">Examples of Features that the Sample Implementation Does Not Support</h2>
+<p>The following examples show members of the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider.html">ITranslationProvider</a> interface that you might need in other implementations but that this simple delimited list provider does not use.</p>
+<p>Because this sample plug-in looks up and returns plain text only, it does not support tagged input. Set the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider.html#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProvider_SupportsTaggedInput">SupportsTaggedInput</a> property to return <code>False</code>:</p>
 <div class="tabGroup" id="tabgroup_2">
 <ul role="tablist">
 <li role="presentation">
@@ -155,7 +148,7 @@ public bool SupportsTargetConcordanceSearch
 </section>
 </div>
 
-<p>Also, the delimited lists are only supposed to be used for lookup, not for updating the translation provider. For this reason, the [SupportsUpdate<code>](../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider.yml#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProvider_SupportsUpdate)property is also set to return </code>False`:</p>
+<p>The delimited lists are also read-only. For that reason, set <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider.html#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProvider_SupportsUpdate">SupportsUpdate</a> to return <code>False</code>:</p>
 <div class="tabGroup" id="tabgroup_3">
 <ul role="tablist">
 <li role="presentation">
@@ -172,9 +165,9 @@ public bool SupportsTargetConcordanceSearch
 </section>
 </div>
 
-<p>Returning <code>False</code> has a direct impact on the user interface of Trados Studio, as it will disable the Update check box as shown below:</p>
+<p>Returning <code>False</code> directly affects the Trados Studio user interface because it disables the <strong>Update</strong> check box, as shown below:</p>
 <img style="display:block; " src="images/UpdateDisabled.jpg">
-<p>This component of the plug-in is also used to determine whether the selected translation provider list actually supports the selected language combination. This is explained in detail in the next chapter (see <a href="verifying_the_language_pair_support.html">Verifying the Language Pair Support</a>).</p>
+<p>This plug-in component also determines whether the selected translation provider list supports the selected language combination. The next chapter explains this in more detail; see <a href="verifying_the_language_pair_support.html">Verifying the Language Pair Support</a>.</p>
 
 </article>
           </div>

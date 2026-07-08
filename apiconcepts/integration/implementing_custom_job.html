@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-      <title>Implementing a custom job </title>
+      <title>Implementing a Custom Job </title>
       <meta name="viewport" content="width=device-width">
-      <meta name="title" content="Implementing a custom job ">
+      <meta name="title" content="Implementing a Custom Job ">
     
     
       <link rel="shortcut icon" href="../../favicon.ico">
@@ -80,9 +80,10 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-<h1 id="implementing-a-custom-job">Implementing a custom job</h1>
+<h1 id="implementing-a-custom-job">Implementing a Custom Job</h1>
 
-<p>The <code>IExternalJob</code> and <code>IExternalJobWithProgress</code> interfaces are the bridge that will allow you to inject custom code into the wizards as well as into Trados Studio's job mechanism. This gives you the advantage to achieve the same look and feel for long processing jobs besides helping you complete your work faster. Once you have an implementation ready all you need to do is publish  <code>ExecuteExternalJobEvent</code> using <code>IStudioEventAggregator</code>. As a result, Trados Studio will pick the job and execute it on a background thread or inject it into the previously-mentioned events. If the job is cancelled for any reason, you can handle that from the <code>JobCanceled</code> method.</p>
+<p>The <code>IExternalJob</code> and <code>IExternalJobWithProgress</code> interfaces enable you to inject custom code into wizards and Trados Studio's job mechanism. This approach maintains consistent look and feel for long-running processing jobs while improving performance.</p>
+<p>To use a custom job, implement one of these interfaces and publish <code>ExecuteExternalJobEvent</code> using <code>IStudioEventAggregator</code>. Trados Studio picks up the job and executes it on a background thread or injects it into the specified events. If the job is cancelled, handle it in the <code>JobCanceled</code> method.</p>
 <table>
 <thead>
 <tr>
@@ -93,15 +94,16 @@
 <tbody>
 <tr>
 <td><code>IExternalJob</code></td>
-<td>Implement this interface when you want to run a long processing job. The logic will be automatically executed on a background thread.</td>
+<td>Use this interface for long-running processing jobs. The logic executes automatically on a background thread.</td>
 </tr>
 <tr>
 <td><code>IExternalJobWithProgress</code></td>
-<td>Implement this interface when you want to run a long processing job that can also report progress to the user. Triggering the <code>ProgressReported</code> event handler will allow you to report progress on the execution of your job to the user.</td>
+<td>Use this interface for long-running processing jobs that report progress. Trigger the <code>ProgressReported</code> event handler to report job progress to the user.</td>
 </tr>
 </tbody>
 </table>
-<p>Here is a code sample on how such an implementation should look like:</p>
+<h2 id="code-sample">Code Sample</h2>
+<p>The following example shows a custom job implementation:</p>
 <pre><code class="lang-cs">public class SampleJob : IExternalJobWithProgress
 {
     public SampleJob()
@@ -148,12 +150,12 @@
 </code></pre>
 <div class="NOTE">
 <h5>Note</h5>
-<p>The <code>JobData</code> property acts as a bridge between Trados Studio and your plugin in case of using the job inside the <strong>Open Package</strong> and <strong>Create Return Package</strong> wizards. Trados Studio will set the file path on the property as follows:</p>
+<p>The <code>JobData</code> property acts as a bridge between Trados Studio and your plug-in when using the job inside the <strong>Open Package</strong> and <strong>Create Return Package</strong> wizards. Trados Studio sets the file path on the property as follows:</p>
 <ul>
-<li>the file path to the project that was just imported into Trados Studio, in the case of the <strong>Open Package</strong> wizard</li>
-<li>the file path for the created package, in the case of the <strong>Create Return Package</strong> wizard.
-All constants used can be referenced from <a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.PackagingConstants.html">PackagingConstants</a></li>
+<li>The file path to the project imported into Trados Studio in the <strong>Open Package</strong> wizard</li>
+<li>The file path for the created package in the <strong>Create Return Package</strong> wizard</li>
 </ul>
+<p>Reference the available constants from <a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.Packaging.PackagingConstants.html">PackagingConstants</a>.</p>
 </div>
 
 </article>

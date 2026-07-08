@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-      <title>Extensions and extension points </title>
+      <title>Extensions and Extension Points </title>
       <meta name="viewport" content="width=device-width">
-      <meta name="title" content="Extensions and extension points ">
+      <meta name="title" content="Extensions and Extension Points ">
     
     
       <link rel="shortcut icon" href="../../favicon.ico">
@@ -80,41 +80,41 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-<h1 id="extensions-and-extension-points">Extensions and extension points</h1>
+<h1 id="extensions-and-extension-points">Extensions and Extension Points</h1>
 
-<p>Trados Studio offers a predefined set of extension points. Your plug-ins can add custom functionality to Trados Studio by defining extensions that target these extension points.</p>
+<p>Trados Studio provides a predefined set of extension points. You can add custom functionality by defining plug-in extensions that target those points.</p>
 <h3 id="extensions">Extensions</h3>
-<p>An extension is an individual unit of logic that provides functionality for Trados Studio through a specific extension point.
-You can create an extension by following the steps below:</p>
+<p>An extension is a unit of logic that provides functionality for Trados Studio through a specific extension point.
+To create an extension:</p>
 <ol>
 <li>Create a class in your plug-in assembly.</li>
 <li>Decorate the class with the attribute that identifies the extension point it is targeting.</li>
 <li>Implement the interface that is required by the extension point.</li>
 </ol>
-<h3 id="extension-points">Extension points</h3>
-<p>An extension point is a point in Trados Studio that allows adding extensions to it.
-You can define an extension point by following the steps below:</p>
+<h3 id="extension-points">Extension Points</h3>
+<p>An extension point is a location in Trados Studio where extensions can be added.
+To define an extension point:</p>
 <ol>
 <li>Create a class in your plug-in assembly and derive it from the <a href="../../api/core/Sdl.Core.PluginFramework.ExtensionAttribute.html">ExtensionAttribute</a> base.</li>
 <li>Decorate the class with the <a href="../../api/core/Sdl.Core.PluginFramework.ExtensionPointInfoAttribute.html">ExtensionPointInfoAttribute</a> attribute.</li>
-<li>Make sure that the class has a default parameterless constructor. This is needed because the <a href="the_plugin_manifest_generator.html">plugin manifest generator</a> uses XML serialization to save attribute information.</li>
+<li>Make sure the class has a default parameterless constructor. This is required because the <a href="the_plugin_manifest_generator.html">plugin manifest generator</a> uses XML serialization to save attribute information.</li>
 </ol>
-<p>Other plug-in developers can create extensions for the extension points you define, by following the procedure described under <a href="#extensions">Extensions</a>.</p>
+<p>Other plug-in developers can create extensions for the extension points you define by following the procedure described under <a href="#extensions">Extensions</a>.</p>
 <p>The <a href="../../api/core/Sdl.Core.PluginFramework.ExtensionAttribute.html">ExtensionAttribute</a> class defines the properties that plug-in developers can provide with their extensions:</p>
 <ul>
-<li><em>Id</em>: A unique id for the extension</li>
-<li><em>Name</em>: A friendly name for the extension.</li>
-<li><em>Description</em>: A description of the extension.</li>
-<li><em>Icon</em>: An optional icon representing the extension.</li>
+<li><strong>Id</strong>: A unique identifier for the extension.</li>
+<li><strong>Name</strong>: A friendly name for the extension.</li>
+<li><strong>Description</strong>: A description of the extension.</li>
+<li><strong>Icon</strong>: An optional icon representing the extension.</li>
 </ul>
 <p>The <a href="../../api/core/Sdl.Core.PluginFramework.ExtensionPointInfoAttribute.html">ExtensionPointInfoAttribute</a> class specifies the name and type of the extension point:</p>
 <ul>
-<li>The name can be used by a plug-in manager UI to represent the extension point.</li>
-<li>The type can be either static or dynamic, referring to whether this extension point allows enabling or disabling of one or more of its extensions without having to restart the application.</li>
+<li><strong>Name</strong>: Can be used by a plug-in manager UI to represent the extension point.</li>
+<li><strong>Type</strong>: Can be static or dynamic, depending on whether one or more extensions can be enabled or disabled without restarting the application.</li>
 </ul>
-<h4 id="example-defining-an-extension-point">Example: Defining an extension point</h4>
-<p>We will demonstrate the various topics presented in this article using a message transmitter example. Our requirement is that the host application is able to use pluggable message transmitters that are defined in plug-ins.</p>
-<p>First, we need to define an extension point:</p>
+<h4 id="example-defining-an-extension-point">Example: Defining an Extension Point</h4>
+<p>This article uses a message transmitter example to demonstrate the concepts. The host application must be able to use pluggable message transmitters defined in plug-ins.</p>
+<p>First, define an extension point:</p>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
@@ -162,10 +162,10 @@ public class MessageTransmitterAttribute : ExtensionAttribute
 </code></pre></section>
 </div>
 <br>
-<p>The purpose of the message transmitter attribute is to allow plug-in developers to use it to annotate their message transmitter extension classes, to make them known as message transmitter implementations to the extension point.</p>
-<p>Note that we have defined an extra property, CostPerCharacter, which indicates the cost in dollars for each character sent in a message.</p>
-<p>Since all these properties will be extracted to the plug-in manifest file by the plug-in manifest generator, the host application will be able to access their values without having to create an instance of the actual transmitters or even load the plug-in assembly. Since the plug-in manifest generator uses XML serialization to save the attribute information, the attribute has have a default, parameterless constructor.</p>
-<p>We still have to define which functionality is required from an extension class to be accepted as a valid message transmitter by the host application. This is done by defining an interface:</p>
+<p>The message transmitter attribute allows plug-in developers to annotate message transmitter extension classes so they are recognized by the extension point as valid message transmitter implementations.</p>
+<p>This example defines an extra property, <code>CostPerCharacter</code>, which indicates the cost in dollars for each character sent in a message.</p>
+<p>All these properties are extracted to the plug-in manifest file by the plug-in manifest generator. As a result, the host application can access the values without creating an instance of the actual transmitters or loading the plug-in assembly. Because the plug-in manifest generator uses XML serialization to save attribute information, the attribute must have a default, parameterless constructor.</p>
+<p>Next, define which functionality an extension class must provide to be accepted as a valid message transmitter by the host application. This is done by defining an interface:</p>
 <div class="tabGroup" id="tabgroup_2">
 <ul role="tablist">
 <li role="presentation">
@@ -180,9 +180,9 @@ public class MessageTransmitterAttribute : ExtensionAttribute
 </code></pre></section>
 </div>
 <br>
-<p>This simple interface contains one method, SendMessage, to be called by the host application to send the message.</p>
-<h4 id="example-creating-extensions-for-an-extension-point">Example: Creating extensions for an extension point</h4>
-<p>Let's define a message transmitter which transmits messages by email, the <code>EmailMessageTransmitter</code> class:</p>
+<p>This simple interface contains one method, <code>SendMessage</code>, which is called by the host application to send a message.</p>
+<h4 id="example-creating-extensions-for-an-extension-point">Example: Creating Extensions for an Extension Point</h4>
+<p>Define a message transmitter that sends messages by email: the <code>EmailMessageTransmitter</code> class.</p>
 <div class="tabGroup" id="tabgroup_3">
 <ul role="tablist">
 <li role="presentation">
@@ -207,8 +207,8 @@ public class EmailMessageTransmitter : IMessageTransmitter
 </code></pre></section>
 </div>
 <br>
-<p>The <code>EmailMessageTransmitter</code> class implements the <code>IMessageTransmitter</code> interface. On top of that, the class is annotated with the extension attribute, <code>MessageTransmitter</code>, which we defined earlier, providing an id, a name, a description and the cost per character when sending messages using this transmitter.</p>
-<p>Similar to the email transmitter, we also define an SMS message transmitter in exactly the same way. We can do this within the same plug-in project, because a plug-in project can contain multiple extensions.</p>
+<p>The <code>EmailMessageTransmitter</code> class implements the <code>IMessageTransmitter</code> interface. In addition, the class is annotated with the <code>MessageTransmitter</code> extension attribute, which was defined earlier and provides an ID, name, description, and cost per character.</p>
+<p>Similar to the email transmitter, an SMS message transmitter can be defined in the same way. This can be done in the same plug-in project, because a plug-in project can contain multiple extensions.</p>
 <div class="tabGroup" id="tabgroup_4">
 <ul role="tablist">
 <li role="presentation">
@@ -242,8 +242,8 @@ public class SMSMessageTransmitter : IMessageTransmitter
 </code></pre></section>
 </div>
 <h3 id="auxiliary-extension-attributes">Auxiliary Extension Attributes</h3>
-<p>In some cases, you might need to add some extra metadata to a certain extension implementation, on top of what is defined in the extension attribute and it might be impractical to add these properties to the extension attribute itself.</p>
-<p>An example of this is for instance a plug-in user action. The extension attribute for the action can define name, icon, tooltip etc, but you also need to specify on which menus, toolbars and context menus this user action will be available. For cases like this, the plug-in framework provides auxiliary extension attributes.</p>
+<p>In some cases, you might need to add extra metadata to an extension implementation beyond what is defined in the extension attribute, and it might be impractical to add those properties to the extension attribute itself.</p>
+<p>For example, consider a plug-in user action. The extension attribute for the action can define a name, icon, and tooltip, but you also need to specify which menus, toolbars, and context menus make the action available. For these cases, the plug-in framework provides auxiliary extension attributes.</p>
 <p>You can only apply one extension attribute to an extension implementation: this is the attribute that uniquely identifies the extension point the extension implementation is targeting. On top of this, you can decorate the implementation class with as many auxiliary extension attributes as you like.</p>
 <p>An auxiliary extension attribute needs to derive from the <a href="../../api/core/Sdl.Core.PluginFramework.AuxiliaryExtensionAttribute.html">AuxiliaryExtensionAttribute</a> base class. For instance, we can define a <code>ToolBarLocation</code> auxiliary attribute, which has a <code>ToolBarId</code> property that can be used to specify on which tool bar the action should appear. For menus, we can define a similar <code>MenuLocation</code> attribute:</p>
 <div class="tabGroup" id="tabgroup_5">
@@ -291,15 +291,15 @@ public class MyPluginButton2 : IPluginButton
 <p>The order in which extensions are processed for a particular extension point is essentially random. However, it is a fairly common requirement for extensions to have a certain order and for extensions themselves to be able to specify where they want to &quot;appear&quot; relative to the other extensions for that extension point. An example of this are menu item extensions: when creating a new menu item extension, there is clearly the need to specify where that menu item should appear relative to other menu items.</p>
 <p>In order to solve this common use case, the plug-in framework provides the <a href="../../api/core/Sdl.Core.PluginFramework.Util.SortableExtensionAttribute.html">SortableExtensionAttribute</a> extension attribute class. This attribute extends the standard <a href="../../api/core/Sdl.Core.PluginFramework.ExtensionAttribute.html">ExtensionAttribute</a> by adding two additional properties: <code>InsertBefore</code> and <code>InsertAfter</code>. Extensions for an extension point that derives from <a href="../../api/core/Sdl.Core.PluginFramework.Util.SortableExtensionAttribute.html">SortableExtensionAttribute</a> can use these properties to specify the Id of other extensions they want to appear before or after. In addition to single Ids, these properties also accept multiple comma-separated Ids.</p>
 <p>You can use the <a href="../../api/core/Sdl.Core.PluginFramework.Util.SortedObjectRegistry-2.html">SortedObjectRegistry&lt;TSortableExtensionAttribute, TExtensionType&gt;</a> class to create instances of all extensions for a sortable extension point and sort these according to the values of the <code>InsertBefore</code> and <code>InsertAfter</code> properties.</p>
-<p>In case you want more control when ordering extensions, you can use the <a href="../../api/core/Sdl.Core.PluginFramework.Util.TopologicalSort-1.html">TopologicalSort&lt; T&gt;</a> class, which implements the sorting algorithm. You then need to provide wrapper objects that implement <a href="../../api/core/Sdl.Core.PluginFramework.Util.ITopologicalSortable.html">ITopologicalSortable</a> for each extension.</p>
-<h3 id="compile-time-validation">Compile-time extension validation</h3>
-<p>In order to catch as many developer errors as possible at compile-time, the plug-in framework provides a mechanism for extension point developers to validate extension definitions at compile-time.</p>
+<p>If you need more control when ordering extensions, you can use the <a href="../../api/core/Sdl.Core.PluginFramework.Util.TopologicalSort-1.html">TopologicalSort&lt; T&gt;</a> class, which implements the sorting algorithm. You then need to provide wrapper objects that implement <a href="../../api/core/Sdl.Core.PluginFramework.Util.ITopologicalSortable.html">ITopologicalSortable</a> for each extension.</p>
+<h3 id="compile-time-extension-validation">Compile-time Extension Validation</h3>
+<p>To catch as many developer errors as possible at compile time, the plug-in framework provides a mechanism for extension point developers to validate extension definitions during build.</p>
 <p>Every <a href="../../api/core/Sdl.Core.PluginFramework.ExtensionAttribute.html">ExtensionAttribute</a> and <a href="../../api/core/Sdl.Core.PluginFramework.AuxiliaryExtensionAttribute.html">AuxiliaryExtensionAttribute</a> has validation methods which are called during the build process. These methods then have the ability to report errors and warnings, which will be displayed in Visual Studio as standard compiler errors.</p>
 <p><strong>Extension Attribute Validation</strong></p>
-<p>The <a href="../../api/core/Sdl.Core.PluginFramework.ExtensionAttribute.html">ExtensionAttribute</a> type has a <code>Validate</code> method, which by default validates that the user has specified values for the <code>Id</code> and the <code>Name</code> property. When developing and extension point, this method can be overridden to perform additional validation.</p>
+<p>When developing an extension point, this method can be overridden to perform additional validation.</p>
 <p><strong>Auxiliary Extension Attribute Validation</strong></p>
 <p>The <a href="../../api/core/Sdl.Core.PluginFramework.AuxiliaryExtensionAttribute.html">AuxiliaryExtensionAttribute</a> type also has a <code>Validate</code> method, which by default doesn't do any special validation. Extension point developers can override this method to perform additional validation for an auxiliary extension attribute.</p>
-<h4 id="example-compile-time-extension-validation">Example: Compile-time extension validation</h4>
+<h4 id="example-compile-time-extension-validation">Example: Compile-time Extension Validation</h4>
 <p>In our message transmitter example, the extension point checks whether the extension implements the IMessageTransmitter interface. If an extension does not implement this interface, an error will be generated at compile time.</p>
 <div class="tabGroup" id="tabgroup_7">
 <ul role="tablist">
@@ -324,7 +324,7 @@ public override void Validate(
 </code></pre></section>
 </div>
 <h3 id="consuming-extensions-using-the-pluginregistry-and-objectregistry">Consuming extensions using the PluginRegistry and ObjectRegistry</h3>
-<p>The <a href="../../api/core/Sdl.Core.PluginFramework.IPluginRegistry.html">IPluginRegistry</a> object is the main object that can be used by the host application or component in order to access and instantiate the available plug-ins.</p>
+<p>The <a href="../../api/core/Sdl.Core.PluginFramework.IPluginRegistry.html">IPluginRegistry</a> object is the main object used by a host application or component to access and instantiate available plug-ins.</p>
 <p>The <a href="../../api/core/Sdl.Core.PluginFramework.PluginManager.html">PluginManager</a> static class, which is the entry point to the plug-in framework object model, provides various ways to create instances of the <a href="../../api/core/Sdl.Core.PluginFramework.IPluginRegistry.html">IPluginRegistry</a> object. By default, plug-ins are installed in the applications installation directory and plug-in manifest and resource files are installed in a &quot;plugins&quot; subdirectory. In order to access these plugins, you can use the <code>DefaultPluginRegistry</code> property, which returns an <a href="../../api/core/Sdl.Core.PluginFramework.IPluginRegistry.html">IPluginRegistry</a> instance, that has been configured to load plug-ins from that default location.</p>
 <p>You can easily instantiate a list of all the extension implementations registered with a particular extension point using the <a href="../../api/core/Sdl.Core.PluginFramework.ObjectRegistry-2.html">ObjectRegistry&lt;TExtensionAttribute, TExtensionType&gt;</a> class. This is a generic class accepting two template parameters:</p>
 <ul>
@@ -334,9 +334,9 @@ The <code>CreateObjects</code> method simply instantiates all the extension impl
 </ul>
 <p>For sortable extension points, you can use the corresponding <a href="../../api/core/Sdl.Core.PluginFramework.Util.SortedObjectRegistry-2.html">SortedObjectRegistry&lt;TSortableExtensionAttribute, TExtensionType&gt;</a> class.</p>
 <h4 id="example-using-the-pluginregistry">Example: Using the PluginRegistry</h4>
-<p>Returning to our message transmitter example, we want to write some custom code that sends a message using a message transmitter. Also, we will let the user select the transmitter they would like to use.</p>
-<p>Message transmitters are defined in plugins. In order to use them we need to do several things.
-First, we get the extension point from the plug-in registry. An extension point is represented by the <a href="../../api/core/Sdl.Core.PluginFramework.IExtensionPoint.html">IExtensionPoint</a> interface and provides access to all extensions discovered for that extension point. We identify our desired extension point by passing <code>MessageTransmitterAttribute</code> as the template parameter:</p>
+<p>Returning to the message transmitter example, the next step is to write custom code that sends a message by using a message transmitter. The user can select which transmitter to use.</p>
+<p>Message transmitters are defined in plug-ins. To use them, several steps are required.
+First, get the extension point from the plug-in registry. An extension point is represented by the <a href="../../api/core/Sdl.Core.PluginFramework.IExtensionPoint.html">IExtensionPoint</a> interface and provides access to all extensions discovered for that extension point. The desired extension point is identified by passing <code>MessageTransmitterAttribute</code> as the template parameter:</p>
 <div class="tabGroup" id="tabgroup_8">
 <ul role="tablist">
 <li role="presentation">
@@ -362,7 +362,7 @@ string message = Console.ReadLine();
 </code></pre></section>
 </div>
 <br>
-<p>Next, list all the available message transmitters, along with their name and the cost per character. This is done by iterating over the Extensions collection of the extension point, which contains <a href="../../api/core/Sdl.Core.PluginFramework.IExtension.html">IExtension</a> objects. These provide access to the extension attribute that was used to annotate the respective extension implementation classes. The name and cost per character can be retreived from that <code>MessageTransmitterAttribute</code>:</p>
+<p>Next, list all available message transmitters, along with their name and cost per character. This is done by iterating over the Extensions collection of the extension point, which contains <a href="../../api/core/Sdl.Core.PluginFramework.IExtension.html">IExtension</a> objects. These provide access to the extension attribute used to annotate the corresponding extension implementation classes. The name and cost per character can be retrieved from <code>MessageTransmitterAttribute</code>:</p>
 <div class="tabGroup" id="tabgroup_10">
 <ul role="tablist">
 <li role="presentation">
@@ -388,7 +388,7 @@ int number = Convert.ToInt32(Console.ReadLine());
 </code></pre></section>
 </div>
 <br>
-<p>Now get the extension object corresponding to the user's choice, and also get hold of the extension attribute instance:</p>
+<p>Now get the extension object corresponding to the user's choice, and retrieve the extension attribute instance:</p>
 <div class="tabGroup" id="tabgroup_11">
 <ul role="tablist">
 <li role="presentation">

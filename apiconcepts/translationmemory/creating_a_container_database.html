@@ -82,13 +82,37 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="creating-a-container-database">Creating a Container Database</h1>
 
-<p>In this chapter you will learn how to programmatically create a container on a database server for storing translation memories.</p>
+<p>This chapter shows how to create a container on a database server for storing translation memories.</p>
 <h2 id="add-a-new-class">Add a New Class</h2>
-<p>Start by adding a new class called <code>ServerContainerManager</code>. Then implement a public Create function, which takes a <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.html">TranslationProviderServer</a> object as parameter. The function should look as shown below:</p>
+<p>Start by adding a new class called <code>ServerContainerManager</code>. Then implement a public <code>Create</code> function that takes a <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.html">TranslationProviderServer</a> object as a parameter. The function should look like this:</p>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
 <a href="#tabpanel_1_tabid-1" role="tab" aria-controls="tabpanel_1_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-2" role="tab" aria-controls="tabpanel_1_tabid-2" data-tab="tabid-2" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-4" role="tab" aria-controls="tabpanel_1_tabid-4" data-tab="tabid-4" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-5" role="tab" aria-controls="tabpanel_1_tabid-5" data-tab="tabid-5" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-6" role="tab" aria-controls="tabpanel_1_tabid-6" data-tab="tabid-6" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-7" role="tab" aria-controls="tabpanel_1_tabid-7" data-tab="tabid-7" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-8" role="tab" aria-controls="tabpanel_1_tabid-8" data-tab="tabid-8" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-9" role="tab" aria-controls="tabpanel_1_tabid-9" data-tab="tabid-9" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-10" role="tab" aria-controls="tabpanel_1_tabid-10" data-tab="tabid-10" tabindex="-1">C#</a>
 </li>
 </ul>
 <section id="tabpanel_1_tabid-1" role="tabpanel" data-tab="tabid-1">
@@ -104,42 +128,26 @@
     container.Save();
 }
 </code></pre>
+<p>First, create the database server object from the TM Server. Use the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.html#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationProviderServer_GetDatabaseServer_System_Guid_">GetDatabaseServer</a> method, which takes the server ID or path. The database server properties come from the helper function shown below. In this sample, the helper is simplified and returns an empty property object, but it still supplies the required parameter for the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.html#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationProviderServer_GetDatabaseServer_System_Guid_">GetDatabaseServer</a> method.</p>
 </section>
-</div>
-
-<p>First, we create the database server object from the TM Server. For this, the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.html#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationProviderServer_GetDatabaseServer_System_Guid_">GetDatabaseServer</a> method is applied, which takes the server ID or path. The database server properties are returned by function that is shown below. Note that this function has been simplified for our sample implementation. It actually returns only an empty property, however, we need it to provide the required parameter for the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.html#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationProviderServer_GetDatabaseServer_System_Guid_">GetDatabaseServer</a> method.</p>
-<div class="tabGroup" id="tabgroup_2">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_2_tabid-2" role="tab" aria-controls="tabpanel_2_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_2_tabid-2" role="tabpanel" data-tab="tabid-2">
+<section id="tabpanel_1_tabid-2" role="tabpanel" data-tab="tabid-2" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">private DatabaseServerProperties GetDbServerProperties()
 {
     return new DatabaseServerProperties();
 }
 </code></pre>
-</section>
-</div>
-
-<p>When creating the container we specify the</p>
+<p>When you create the container, specify the following values:</p>
 <ul>
-<li>database server object</li>
-<li>physical database name (note that this name is subject to DB naming conventions)</li>
-<li>friendly name for the container database</li>
+<li>Database server object</li>
+<li>Physical database name, which must follow database naming conventions</li>
+<li>Friendly name for the container database</li>
 </ul>
-<p>Afterwards, we apply the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryContainer.html#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationMemoryContainer_Save">Save</a> method, which creates the actual container database.</p>
+<p>Then call the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryContainer.html#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationMemoryContainer_Save">Save</a> method to create the container database.</p>
 <h2 id="enhance-the-code-example">Enhance the Code Example</h2>
-<p>In the next step we would like to show to you how to enhance the function for creating containers. Add a new function called <code>CreateAdvanced</code> to your class, which takes a TM Server object and the container database name as parameters. The aim is to make the function for creating the container more robust by first checking whether the TM Server has any database servers registered in the first place. To do this, determine the number of available database servers. If the count equals zero, an error message should be thrown:</p>
-<div class="tabGroup" id="tabgroup_3">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_3_tabid-4" role="tab" aria-controls="tabpanel_3_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_3_tabid-4" role="tabpanel" data-tab="tabid-4">
+<p>Next, extend the container-creation logic. Add a new function called <code>CreateAdvanced</code> to your class. It should take a TM Server object and the container database name as parameters. The goal is to make the function more robust by first checking whether the TM Server has any registered database servers. If the count is zero, throw an error message:</p>
+</section>
+<section id="tabpanel_1_tabid-4" role="tabpanel" data-tab="tabid-4" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">ReadOnlyCollection&lt;DatabaseServer&gt; dbs = tmServer.GetDatabaseServers(DatabaseServerProperties.Containers);
 if (dbs.Count == 0)
@@ -147,17 +155,9 @@ if (dbs.Count == 0)
     throw new Exception(&quot;No DB server registered.&quot;);
 }
 </code></pre>
+<p>Then check whether a container with the requested name already exists on the first available database server. For simplicity, this sample checks only the first database server, because most TM Server setups use a single database server.</p>
 </section>
-</div>
-
-<p>Afterwards, check whether a container with the name that we want to give already exists on the first available database server. For simplicity reasons we are just checking the first database server, as we can assume that most TM Server setups bank on only a single DB server.</p>
-<div class="tabGroup" id="tabgroup_4">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_4_tabid-5" role="tab" aria-controls="tabpanel_4_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_4_tabid-5" role="tabpanel" data-tab="tabid-5">
+<section id="tabpanel_1_tabid-5" role="tabpanel" data-tab="tabid-5" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">foreach (TranslationMemoryContainer item in dbs[0].Containers)
 {
@@ -167,17 +167,9 @@ if (dbs.Count == 0)
     }
 }
 </code></pre>
+<p>If at least one database server is available and no container with that name exists, create the container on the database server:</p>
 </section>
-</div>
-
-<p>If at least one database server is available, and a container by that name does not exist yet, we create the container on the database server:</p>
-<div class="tabGroup" id="tabgroup_5">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_5_tabid-6" role="tab" aria-controls="tabpanel_5_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_5_tabid-6" role="tabpanel" data-tab="tabid-6">
+<section id="tabpanel_1_tabid-6" role="tabpanel" data-tab="tabid-6" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">var container = new TranslationMemoryContainer(tmServer);
 container.DatabaseServer = dbs[0];
@@ -186,34 +178,18 @@ container.Name = newContainerName;
 container.ParentResourceGroupPath = organization;
 container.Save();
 </code></pre>
-</section>
-</div>
-
 <p>Last, check whether the container was actually created by applying the <code>Contains</code> method to the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.DatabaseServer.html#Sdl_LanguagePlatform_TranslationMemoryApi_DatabaseServer_Containers">Containers</a> collection. If the container object was not found on the first available database server, an error message should be thrown:</p>
-<div class="tabGroup" id="tabgroup_6">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_6_tabid-7" role="tab" aria-controls="tabpanel_6_tabid-7" data-tab="tabid-7" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_6_tabid-7" role="tabpanel" data-tab="tabid-7">
+</section>
+<section id="tabpanel_1_tabid-7" role="tabpanel" data-tab="tabid-7" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">if (!dbs[0].Containers.Contains(container))
 {
     throw new Exception(&quot;Container was not created.&quot;);
 }
 </code></pre>
+<p>The complete function should look like this:</p>
 </section>
-</div>
-
-<p>The complete function should look as shown below:</p>
-<div class="tabGroup" id="tabgroup_7">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_7_tabid-8" role="tab" aria-controls="tabpanel_7_tabid-8" data-tab="tabid-8" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_7_tabid-8" role="tabpanel" data-tab="tabid-8">
+<section id="tabpanel_1_tabid-8" role="tabpanel" data-tab="tabid-8" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">public void CreateAdvanced(TranslationProviderServer tmServer, string organization, string newContainerName)
 {
@@ -252,17 +228,10 @@ container.Save();
     #endregion
 }
 </code></pre>
-</section>
-</div>
 <h2 id="delete-a-container">Delete a Container</h2>
-<p>The short sample function below demonstrates how to remove a container database from the TM Server system by applying the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryContainer.html#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationMemoryContainer_Delete">Delete</a> method. This method takes a boolean parameter to indicate whether the actual physical container database should be deleted (True), or whether the database should only be unregistered from the system (False). Note that deleting the physical database represents a risk, as it may contain a lot of valuable data. Therefore, unregistering the database is the safer option, as it can be re-registered later. This method should only be applied when you are absolutely certain that the database content is no longer needed. Note that the delete operation can only be performed by a user who has the required credentials.</p>
-<div class="tabGroup" id="tabgroup_8">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_8_tabid-9" role="tab" aria-controls="tabpanel_8_tabid-9" data-tab="tabid-9" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_8_tabid-9" role="tabpanel" data-tab="tabid-9">
+<p>The sample function below shows how to remove a container database from the TM Server system by using the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryContainer.html#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationMemoryContainer_Delete">Delete</a> method. This method takes a Boolean parameter that determines whether to delete the physical container database (<code>true</code>) or unregister it from the system (<code>false</code>). Deleting the physical database can be risky, because it may contain valuable data. Unregistering the database is safer, because you can re-register it later. Use this operation only when you are certain that the database content is no longer needed. The delete operation also requires the necessary credentials.</p>
+</section>
+<section id="tabpanel_1_tabid-9" role="tabpanel" data-tab="tabid-9" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">public void DeleteContainer(TranslationProviderServer tmServer, string organization, string containerName)
 {
@@ -275,17 +244,10 @@ container.Save();
     container.Delete(false);
 }
 </code></pre>
+<h2 id="putting-it-all-together">Putting It All Together</h2>
+<p>The complete class should now look like this:</p>
 </section>
-</div>
-<h2 id="putting-it-all-together">Putting it All Together</h2>
-<p>The complete class should now look as shown below:</p>
-<div class="tabGroup" id="tabgroup_9">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_9_tabid-10" role="tab" aria-controls="tabpanel_9_tabid-10" data-tab="tabid-10" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_9_tabid-10" role="tabpanel" data-tab="tabid-10">
+<section id="tabpanel_1_tabid-10" role="tabpanel" data-tab="tabid-10" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">namespace SDK.LanguagePlatform.Samples.TmAutomation
 {

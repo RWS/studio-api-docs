@@ -82,39 +82,29 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="introduction">Introduction</h1>
 
-<p>This guide takes you step by step through the creation of a custom file type plug-in for processing simple text files.</p>
-<h2 id="implement-a-file-type-plug-in-for-processing-simple-text-files">Implement a File Type Plug-in for Processing Simple Text Files</h2>
-<p>Imagine that you need to create a file type plug-in for processing simple (monolingual) text files that look as shown below:</p>
-<div class="tabGroup" id="tabgroup_1">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_1_tabid-1" role="tab" aria-controls="tabpanel_1_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">Text</a>
-</li>
-</ul>
-<section id="tabpanel_1_tabid-1" role="tabpanel" data-tab="tabid-1">
-
-<pre><code>[Version=0]
+<p>This guide walks you through the creation of a custom file type plug-in that processes simple text files.</p>
+<h2 id="implement-a-file-type-plug-in-for-simple-text-files">Implement a file type plug-in for simple text files</h2>
+<p>Suppose you need to create a file type plug-in for simple monolingual text files such as the following:</p>
+<pre><code class="lang-text">[Version=0]
 [Element=text1]
 Automatically re-open previously edited documents. 
 [Element=text2]
 Prompt me to re-open previously edited documents. Opens a dialog box on start-up.
 [Element=text3]
-Do &lt;b&gt;not&lt;/b&gt; automatically re-open previously edited couments. This is the default option.
+Do &lt;b&gt;not&lt;/b&gt; automatically re-open previously edited documents. This is the default option.
 [Element=text4]
 Prd-Code NCC1504
 </code></pre>
-</section>
-</div>
-
+<h2 id="localization-requirements">Localization requirements</h2>
 <p>This text format has the following localization requirements:</p>
 <ul>
-<li>The lines that are enclosed in brackets (i.e. []) must be protected from editing and thus from translation.</li>
-<li>The lines that are not enclosed in brackets require localization.</li>
-<li>Translatable text may be enclosed in common HTML tags (e.g. &lt; b &gt;). The file type plug-in needs to recognize tag text as inline elements and apply bold display formatting in the editor of Trados Studio.</li>
-<li>Let us assume that the file name extension for this file type is *<em>.text</em>.</li>
-<li>Certain strings (e.g. <em>Prd-Code NCC1504</em>) have to be locked, so that they cannot be changed by the translator.
-To be sure, you could also process this format using the standard regular expressions text file type plug-in, which is included in Trados Studio out-of-the-box. However, for this exercise we would like to show to you how to implement a 'no-frills' file type plug-in for a highly simplified text format. This allows you to develop a file type plug-in with a minimum amount of native file processing logic (and thus source code).</li>
+<li>Protect lines enclosed in brackets (<code>[]</code>) from editing and translation.</li>
+<li>Localize lines that are not enclosed in brackets.</li>
+<li>Recognize common HTML tags such as <code>&lt;b&gt;</code> as inline elements and apply bold formatting in the Trados Studio editor.</li>
+<li>Assume that this file type uses the <code>.text</code> file name extension.</li>
+<li>Lock specific strings, such as <code>Prd-Code NCC1504</code>, so translators cannot change them.</li>
 </ul>
+<p>You could also process this format with the standard regular expressions text file type plug-in that Trados Studio includes out of the box. This exercise instead shows how to implement a simple file type plug-in for a highly simplified text format. That approach lets you focus on the minimum native file processing logic required.</p>
 <div class="NOTE">
 <h5>Note</h5>
 <p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>

@@ -82,15 +82,18 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="setting-the-glossary-fields">Setting the Glossary Fields</h1>
 
-<p>Apart from the actual source and target terms, a terminology source can also contain additional information such as a definition, a note or an example. Such additional information is referred to as 'descriptive fields'.</p>
-<h2 id="how-to-declare-the-definition-field">How to declare the Definition Field</h2>
-<p>Our glossary text file foresees a definition text in the forth column:</p>
+<p>In addition to source and target terms, a terminology source can include additional information such as definitions, notes, or examples. This additional information is referred to as <strong>descriptive fields</strong>.</p>
+<h2 id="declaring-the-definition-field">Declaring the Definition Field</h2>
+<p>The glossary text file includes a definition in the fourth column:</p>
 <p><em>1;photo printer;Fotodrucker;Peripheral device for creating hardcopies of pictures.</em></p>
-<p>Such information can also be shown when looking up terminology in Trados Studio. When the descriptive field is declared, it can be selected in the Trados Studio UI:</p>
+<p>This information can also be shown when looking up terminology in <strong>Trados Studio</strong>. When the descriptive field is declared, it can be selected in the <strong>Trados Studio</strong> UI:</p>
 <img style="display:block; " src="images/select_fields.jpg">
-<p>If you select to display the field, the content (the definition) is shown alongside the search results:</p>
+<p>If you select the field for display, the content (for example, the definition) is shown alongside the search results:</p>
 <img style="display:block; " src="images/search_results_with_definition.jpg">
-<p>Go to the <strong>MyTerminologyProvider.cs</strong> class and add the following member. It creates a descriptive field labelled 'Definition', which - in turn - can contain a text string. The example field has the field level 'Entry', i.e. it is not specific to a particular term or language. Instead, in the entry structure, it applies to the whole entry.</p>
+<ol>
+<li>Go to the <strong>MyTerminologyProvider.cs</strong> class.</li>
+<li>Add the following member. It creates a descriptive field labeled 'Definition' that can contain a text string. The example field has the field level 'Entry', meaning it is not specific to a particular term or language and instead applies to the whole entry.</li>
+</ol>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
@@ -118,7 +121,9 @@ public IList&lt;DescriptiveField&gt; GetDescriptiveFields()
 </code></pre></section>
 </div>
 
-<p>This function then needs to be called from the following property, which also calls the <strong>GetLanguages()</strong> method to create the full terminology source definition. The terminology source definition then becomes exposed in the Trados Studio UI, where you can select what fields to display (see screenshot above).</p>
+<ol start="3">
+<li>Call this function from the following property, which also calls the <strong>GetLanguages()</strong> method to create the full terminology source definition. The terminology source definition is then exposed in the <strong>Trados Studio</strong> UI, where you can select which fields to display (see screenshot above).</li>
+</ol>
 <div class="tabGroup" id="tabgroup_2">
 <ul role="tablist">
 <li role="presentation">

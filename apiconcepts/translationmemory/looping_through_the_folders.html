@@ -82,9 +82,9 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="looping-through-the-folders">Looping through the Folder(s)</h1>
 
-<p>The user of your sample application is required to enter a main path. The application then loops through the files in that path and any files contained in sub-folders of the main path. The application logic for traversing the folders and sub-folders will be implemented in a dedicated iterator class. This class will be used both for looping through all *.tmx files to import into the master TMs.</p>
+<p>The user enters a root path. The application scans that path and any subfolders for <code>.tmx</code> files and imports them into the master TMs. A dedicated iterator class handles the folder traversal.</p>
 <h2 id="add-a-new-class">Add a New Class</h2>
-<p>Add a class called <code>TmIterator</code> to your project. At the beginning of the class, declare two constants, one to specify how deep into the sub-folder structure the recursion should go. For example, we will hard-code the depth to 10, so that the application will go down to 10 sub-folder levels. The second constant sets the recursion level, which should be 1:</p>
+<p>Add a class named <code>TmIterator</code> to your project. At the beginning of the class, declare two constants: one to define how deep the recursion should go and one to define the current recursion level. For this sample, hard-code the depth to 10 so the application scans up to 10 subfolder levels. Set the initial recursion level to 1:</p>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
@@ -99,14 +99,14 @@
 public const int Depth = 10;
 
 /// &lt;summary&gt;
-/// Determines current recursion level.
+/// Determines the current recursion level.
 /// &lt;/summary&gt;
 private const int RecursionLevel = 1;
 </code></pre>
 </section>
 </div>
 
-<p>Then add a public function called <code>ProcessDirectory</code>:</p>
+<p>Then add a public method named <code>ProcessDirectory</code>:</p>
 <div class="tabGroup" id="tabgroup_2">
 <ul role="tablist">
 <li role="presentation">
@@ -116,18 +116,18 @@ private const int RecursionLevel = 1;
 <section id="tabpanel_2_tabid-2" role="tabpanel" data-tab="tabid-2">
 
 <pre><code class="lang-cs">/// &lt;summary&gt;
-/// This function is used to iterate through the main folder and (if applicable) the subfolders to look for *.tmx import files.
+/// Iterates through the main folder and, if applicable, the subfolders to find .tmx import files.
 /// &lt;/summary&gt;
-/// &lt;param name=&quot;sourceDirectory&quot;&gt;Directory to search in.&lt;/param&gt;
-/// &lt;param name=&quot;processSubFolders&quot;&gt;True if subfolder processing required.&lt;/param&gt;
+/// &lt;param name=&quot;sourceDirectory&quot;&gt;Directory to search.&lt;/param&gt;
+/// &lt;param name=&quot;processSubFolders&quot;&gt;True to process subfolders recursively.&lt;/param&gt;
 public void ProcessDirectory(string sourceDirectory, bool processSubFolders)
 </code></pre>
 </section>
 </div>
 
-<p>This function takes the main folder entered by the user in the command line interface as string parameter, and a boolean parameter that indicates whether sub-folders should be processed through self-recursion.</p>
+<p>This method takes the root folder entered by the user in the command-line interface and a Boolean parameter that indicates whether to process subfolders recursively.</p>
 <h2 id="implement-the-recursion">Implement the Recursion</h2>
-<p>Within the function implement an <code>if</code>, which makes the function loop through all sub-folders until the recursion level has reached the maximum depth.</p>
+<p>Within the method, add an <code>if</code> statement that keeps the recursion within the maximum depth.</p>
 <div class="tabGroup" id="tabgroup_3">
 <ul role="tablist">
 <li role="presentation">
@@ -143,7 +143,7 @@ if (RecursionLevel &lt;= Depth)
 </section>
 </div>
 
-<p>Next, you iterate through the files found in a given directory. However, the files should only be processed if they match the provided extension, i.e. *.tmx. If the extension tmx is encountered, an import operation will be triggered, which we will implement in a separate class in a later step (see <a href="importing_into_the_master_translation_memories.html">Importing into the Master Translation Memories</a>).</p>
+<p>Next, iterate through the files found in the current directory. Process only files that match the <code>.tmx</code> extension. When the application finds a <code>.tmx</code> file, it triggers an import operation that a separate class implements later in the sample (see <a href="importing_into_the_master_translation_memories.html">Importing into the Master Translation Memories</a>).</p>
 <div class="tabGroup" id="tabgroup_4">
 <ul role="tablist">
 <li role="presentation">
@@ -168,7 +168,7 @@ foreach (string fileName in fileEntries)
 </section>
 </div>
 
-<p>After all files of the given folder have been processed accordingly, the function needs to re-trigger itself, so that any files in a sub-folder (if applicable) can be processed. The boolean <code>processSubFolders</code> parameter determines whether the recursion should be triggered or not. If this parameter is <code>False</code>, then only the main path will be processed.</p>
+<p>After the method processes all files in the current folder, it calls itself again so that any files in subfolders can be processed. The Boolean <code>processSubFolders</code> parameter controls whether recursion runs. If this parameter is <code>False</code>, only the root path is processed.</p>
 <div class="tabGroup" id="tabgroup_5">
 <ul role="tablist">
 <li role="presentation">
@@ -186,18 +186,18 @@ if (processSubFolders)
     {
         if ((File.GetAttributes(subdir) &amp; FileAttributes.ReparsePoint) != FileAttributes.ReparsePoint)
         {
-            this.ProcessDir(subdir, processSubFolders);
+            this.ProcessDirectory(subdir, processSubFolders);
         }
     }
 }
 </code></pre>
 </section>
 </div>
-<h2 id="trigger-the-function">Trigger the Function</h2>
-<p>The <code>ProcessDirectory</code> function needs to be called from <code>Main</code> in the <code>Program</code> class as shown below. The user provides two parameters:</p>
+<h2 id="trigger-the-method">Trigger the Method</h2>
+<p>Call <code>ProcessDirectory</code> from <code>Main</code> in the <code>Program</code> class as shown below. The user provides two parameters:</p>
 <ul>
 <li>The main TMX file path</li>
-<li>the <code>/y</code> parameter to indicate that sub-folders (if any) should be processed</li>
+<li>The <code>/y</code> parameter to indicate that subfolders, if any, should be processed</li>
 </ul>
 <p>Example:</p>
 <div class="tabGroup" id="tabgroup_6">
@@ -213,7 +213,7 @@ if (processSubFolders)
 </section>
 </div>
 
-<p>The following code in <code>Program.cs</code> is used for explaining the application use and retrieves the parameters for the file processing. It also checks the validity of the input folder:</p>
+<p>The following code in <code>Program.cs</code> shows how the application reads the command-line arguments and validates the input folder:</p>
 <div class="tabGroup" id="tabgroup_7">
 <ul role="tablist">
 <li role="presentation">
@@ -223,9 +223,9 @@ if (processSubFolders)
 <section id="tabpanel_7_tabid-7" role="tabpanel" data-tab="tabid-7">
 
 <pre><code class="lang-cs">/// &lt;summary&gt;
-/// Main entrance point of the application.
+    /// Main entry point of the application.
 /// &lt;/summary&gt;
-/// &lt;param name=&quot;args&quot;&gt;String arguments passed via command line.&lt;/param&gt;
+    /// &lt;param name=&quot;args&quot;&gt;String arguments passed through the command line.&lt;/param&gt;
 public static void Main(string[] args)
 {
     string mainPath = string.Empty;
@@ -236,7 +236,7 @@ public static void Main(string[] args)
         Console.WriteLine(&quot;Usage:&quot;);
         Console.WriteLine(&quot;Sdl.SDK.LanguagePlatform.Samples.BatchImport.exe source /ps&quot;);
         Console.WriteLine(&quot;source path to input folder&quot;);
-        Console.WriteLine(&quot;/ps   should process subfolders&quot;);
+            Console.WriteLine(&quot;/ps   process subfolders&quot;);
         Console.WriteLine(&quot;This application uses a hard-coded recursion level of up to 10 sub-folders.&quot;);
         Console.WriteLine(&quot;The master TMs are created in a hard-coded location, i.e.: c:\\MasterTMs&quot;);
         return;
@@ -289,40 +289,31 @@ using System.IO;
 namespace SDK.LanguagePlatform.Samples.BatchImporter
 {
     /// &lt;summary&gt;
-    /// Represents class able to iterate thru disk directory tree.
+    /// Represents a class that iterates through a disk directory tree.
     /// &lt;/summary&gt;
     public class TmIterator
-    {
-        #region &quot;constants&quot;
-
+    {       
         /// &lt;summary&gt;
         /// Determines how deep in the sub-folder structure the application should go.
         /// &lt;/summary&gt;
         public const int Depth = 10;
 
         /// &lt;summary&gt;
-        /// Determines current recursion level.
+        /// Determines the current recursion level.
         /// &lt;/summary&gt;
         private const int RecursionLevel = 1;
-        #endregion
-
-        #region &quot;function&quot;
-
+          
         /// &lt;summary&gt;
-        /// This function is used to iterate through the main folder and (if applicable) the subfolders to look for *.tmx import files.
+        /// Iterates through the main folder and, if applicable, the subfolders to find .tmx import files.
         /// &lt;/summary&gt;
-        /// &lt;param name=&quot;sourceDirectory&quot;&gt;Directory to search in.&lt;/param&gt;
-        /// &lt;param name=&quot;processSubFolders&quot;&gt;True if subfolder processing required.&lt;/param&gt;
+        /// &lt;param name=&quot;sourceDirectory&quot;&gt;Directory to search.&lt;/param&gt;
+        /// &lt;param name=&quot;processSubFolders&quot;&gt;True to process subfolders recursively.&lt;/param&gt;
         public void ProcessDirectory(string sourceDirectory, bool processSubFolders)
-        #endregion
-        {
-            #region &quot;scan&quot;
+        {            
             // Loop until the recursion level has reached the
             // maximum folder depth.
             if (RecursionLevel &lt;= Depth)
-            #endregion
-            {
-                #region &quot;ProcessFiles&quot;
+            {                
                 // Retrieve the names of the files found in the given folder.
                 string[] fileEntries = Directory.GetFiles(sourceDirectory);
                 foreach (string fileName in fileEntries)
@@ -334,10 +325,8 @@ namespace SDK.LanguagePlatform.Samples.BatchImporter
                         var tmImporter = new TmImporter();
                         tmImporter.Import(fileName);
                     }
-                }
-                #endregion
-
-                #region &quot;recursion&quot;
+                }                
+                                
                 // Self-recursion to loop through the folder structure until
                 // the folder depth has reached the recursion level value.
                 if (processSubFolders)
@@ -347,11 +336,10 @@ namespace SDK.LanguagePlatform.Samples.BatchImporter
                     {
                         if ((File.GetAttributes(subdir) &amp; FileAttributes.ReparsePoint) != FileAttributes.ReparsePoint)
                         {
-                            this.ProcessDir(subdir, processSubFolders);
+                            this.ProcessDirectory(subdir, processSubFolders);
                         }
                     }
-                }
-                #endregion
+                }                
             }
         }
     }
@@ -360,9 +348,11 @@ namespace SDK.LanguagePlatform.Samples.BatchImporter
 </section>
 </div>
 <h2 id="see-also">See Also</h2>
-<p><a href="importing_into_the_master_translation_memories.html">Importing into the Master Translation Memories</a></p>
-<p><a href="creating_the_master_translation_memories.html">Creating the Master Translation Memories</a></p>
-<p><a href="creating_a_log_file.html">Creating the Log File</a></p>
+<ul>
+<li><a href="importing_into_the_master_translation_memories.html">Importing into the Master Translation Memories</a></li>
+<li><a href="creating_the_master_translation_memories.html">Creating the Master Translation Memories</a></li>
+<li><a href="creating_a_log_file.html">Creating the Log File</a></li>
+</ul>
 
 </article>
           </div>

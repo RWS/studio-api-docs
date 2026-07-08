@@ -82,9 +82,9 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="processing-files-and-application-logic">Processing Files and Application Logic</h1>
 
-<p>Implement the functionality that changes the status of document segments.</p>
-<h2 id="how-to-trigger-the-batch-task">How to trigger the batch task</h2>
-<p>Go back to the <strong>MyCustomBatchTask.cs</strong> class. This class is triggered when you decide to run the batch task. This class inherits from the following abstract class:</p>
+<p>Implement this functionality to update the status of document segments.</p>
+<h2 id="triggering-the-batch-task">Triggering the Batch Task</h2>
+<p>Go to the <strong>MyCustomBatchTask.cs</strong> class. This class is triggered when you run the batch task. It inherits from the following abstract class:</p>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
@@ -97,7 +97,7 @@ public class MyCustomBatchTask : AbstractFileContentProcessingAutomaticTask
 </code></pre></section>
 </div>
 
-<p>Declare a member that stores the plug-in settings, as well as a string variable that is used to construct the XML stream for the task report content:</p>
+<p>Declare a member to store the plug-in settings, and a string variable used to construct the XML stream for the task report content:</p>
 <div class="tabGroup" id="tabgroup_2">
 <ul role="tablist">
 <li role="presentation">
@@ -113,7 +113,7 @@ private string _reportContent;
 </code></pre></section>
 </div>
 
-<p>Initialise the task settings object and start constructing the report XML string by adding the root element. The root element should contain the selected confirmation level value in an attribute:</p>
+<p>Initialize the task settings object and start constructing the report XML string by adding the root element. The root element should include the selected confirmation level value as an attribute:</p>
 <div class="tabGroup" id="tabgroup_3">
 <ul role="tablist">
 <li role="presentation">
@@ -131,8 +131,8 @@ protected override void OnInitializeTask()
 }
 </code></pre></section>
 </div>
-<h2 id="how-to-process-the-sdlxliff-file">How to process the SDLXliff file</h2>
-<p>You can programmatically access the file that is currently processed through the following member. In a &quot;Hello World&quot;-type implementation you could output the name and path of the processed file.</p>
+<h2 id="processing-the-sdlxliff-file">Processing the SDLXliff File</h2>
+<p>You can programmatically access the file currently being processed through the following member. In a &quot;Hello World&quot; implementation, you could output the name and path of the processed file.</p>
 <div class="tabGroup" id="tabgroup_4">
 <ul role="tablist">
 <li role="presentation">
@@ -161,12 +161,12 @@ protected override void ConfigureConverter(ProjectFile projectFile, IMultiFileCo
 </code></pre></section>
 </div>
 
-<p>As SDLXliff is an XML-compliant file type, you could  process it using the standard XML API. However, we recommend that you use the Trados Studio Bilingual API to process the file. This way, we add a new class to our project called <strong>FileReader.cs</strong>.</p>
-<p>The <strong>FileReader.cs</strong> class needs to reference the following libraries:</p>
+<p>SDLXliff is an XML-compliant file type, so you could process it through the standard XML API. However, we recommend using the Trados Studio Bilingual API. To do this, add a new class to your project called <strong>FileReader.cs</strong>.</p>
+<p>The <strong>FileReader.cs</strong> class must reference the following libraries:</p>
 <pre><code class="lang-cs">using Sdl.Core.Globalization
 using Sdl.FileTypeSupport.Framework.BilingualApi
 </code></pre>
-<p>It also needs to inherit from the following abstract class:</p>
+<p>It must also inherit from the following abstract class:</p>
 <div class="tabGroup" id="tabgroup_5">
 <ul role="tablist">
 <li role="presentation">
@@ -180,7 +180,7 @@ public class FileReader : AbstractBilingualContentProcessor
 </code></pre></section>
 </div>
 
-<p>Add the following members to store the task settings, the file name and path of the SDLXliff file to be processed, and the text file name and path that is used to output the exported segments:</p>
+<p>Add the following members to store the task settings, the file name and path of the SDLXliff file to process, and the text file name and path used to output the exported segments:</p>
 <div class="tabGroup" id="tabgroup_6">
 <ul role="tablist">
 <li role="presentation">
@@ -196,8 +196,8 @@ private readonly string _inputFilePath;
 private StreamWriter _outFile;
 </code></pre></section>
 </div>
-<h2 id="how-to-output-the-segment-content-to-a-text-file">How to output the segment content to a text file</h2>
-<p>With the following member we start by creating the text output file. This file is created in the same folder as the corresponding SDLXliff file and the *.txt extension is appended.</p>
+<h2 id="outputting-segment-content-to-a-text-file">Outputting Segment Content to a Text File</h2>
+<p>Use the following member to create the text output file. This file is created in the same folder as the corresponding SDLXliff file, with the *.txt extension appended.</p>
 <div class="tabGroup" id="tabgroup_7">
 <ul role="tablist">
 <li role="presentation">
@@ -213,11 +213,11 @@ public override void SetFileProperties(IFileProperties fileInfo)
 </code></pre></section>
 </div>
 
-<p>In the next step, we loop through each paragraph unit of the SDLXliff file. We make sure to process only paragraph units that actually contain segments. When we encounter a paragraph unit that only contains structure tags (i.e. no localizable segments), we abort. When looping through the segment pairs, we write all segments with the selected confirmation status to the output text file:</p>
+<p>Next, loop through each paragraph unit in the SDLXliff file. Process only paragraph units that contain segments. When a paragraph unit contains only structure tags (that is, no localizable segments), skip it. While looping through segment pairs, write all segments with the selected confirmation status to the output text file:</p>
 <div class="tabGroup" id="tabgroup_8">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_8_tabid-8" role="tab" aria-controls="tabpanel_8_tabid-8" data-tab="tabid-8" tabindex="0" aria-selected="true">Outputing the Segment Pairs</a>
+<a href="#tabpanel_8_tabid-8" role="tab" aria-controls="tabpanel_8_tabid-8" data-tab="tabid-8" tabindex="0" aria-selected="true">Outputting the Segment Pairs</a>
 </li>
 </ul>
 <section id="tabpanel_8_tabid-8" role="tabpanel" data-tab="tabid-8">
@@ -245,7 +245,7 @@ public override void ProcessParagraphUnit(IParagraphUnit paragraphUnit)
 </code></pre></section>
 </div>
 
-<p>Once the file processing is done, we close the text output file.</p>
+<p>Once file processing is complete, close the text output file.</p>
 <div class="tabGroup" id="tabgroup_9">
 <ul role="tablist">
 <li role="presentation">
@@ -262,7 +262,7 @@ public override void FileComplete()
 </code></pre></section>
 </div>
 
-<p>The following member is required by the interface, although our implementation does not actually use it. The file complete member is called when processing a file is finished. However, as users could merge SDLXliff files, the following member must be present to determine what happens when the process has been completed for the entire merged file.</p>
+<p>The following member is required by the interface, although this implementation does not use it directly. The file complete member is called when file processing finishes. Because users can merge SDLXliff files, this member must be present to determine what happens when processing is complete for the entire merged file.</p>
 <div class="tabGroup" id="tabgroup_10">
 <ul role="tablist">
 <li role="presentation">
@@ -280,10 +280,10 @@ public override void Complete()
 }
 </code></pre></section>
 </div>
-<h2 id="how-to-complete-the-report-string">How to complete the Report String</h2>
-<p>Go back to the <strong>MyCustomBatchTask.cs</strong> class. Here we do the following:</p>
-<p>We continue constructing the XML string for the report by adding the name of the file currently processed, its target language and the date/time at which it was processed.</p>
-<p>We create a <strong>FileReader</strong> object to which we pass the current SDLXliff file name, as well as our settings object:</p>
+<h2 id="completing-the-report-string">Completing the Report String</h2>
+<p>Go back to the <strong>MyCustomBatchTask.cs</strong> class. Then do the following:</p>
+<p>Continue constructing the XML string for the report by adding the name of the file currently processed, its target language, and the date and time it was processed.</p>
+<p>Create a <strong>FileReader</strong> object and pass the current SDLXliff file name and your settings object:</p>
 <div class="tabGroup" id="tabgroup_11">
 <ul role="tablist">
 <li role="presentation">
@@ -312,7 +312,7 @@ protected override void ConfigureConverter(ProjectFile projectFile, IMultiFileCo
 </code></pre></section>
 </div>
 
-<p>We complete the task by adding the closing XML report string with the closing root element. Then we generate the report using the <strong>CreateReport</strong> method implemented by the interface.</p>
+<p>Complete the task by adding the closing XML report string with the closing root element. Then generate the report by using the <strong>CreateReport</strong> method implemented by the interface.</p>
 <div class="tabGroup" id="tabgroup_12">
 <ul role="tablist">
 <li role="presentation">
@@ -334,7 +334,7 @@ public override void TaskComplete()
 </code></pre></section>
 </div>
 
-<p>This method requires the report name, description and the XML string for the report content. You  may also add an optional language direction parameter. If this parameter is missing, the report will not be listed under the specific target language, but rather above all available target languages of the corresponding project.</p>
+<p>This method requires the report name, description, and the XML string for the report content. You may also add an optional language direction parameter. If this parameter is omitted, the report is not listed under a specific target language, but above all available target languages for the corresponding project.</p>
 
 </article>
           </div>

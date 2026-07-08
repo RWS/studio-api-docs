@@ -82,29 +82,26 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="plug-in-framework-overview">Plug-in Framework Overview</h1>
 
-<p>This help system describes the Plug-in Framework. This framework offers plug-in functionality to applications and components. Application developers can define extension points and dynamically load any plug-ins providing extensions targeting these extension points using the plug-in framework.</p>
+<p>The Plug-in Framework enables applications and components to support plug-in functionality. Developers can define extension points and dynamically load plug-ins that provide targeted extensions using this framework.</p>
 <h2 id="version">Version</h2>
-<p>The version of the Plug-in Framework documented here is the one that was released with Trados Studio 2024 SR1.</p>
+<p>This documentation covers the version of the Plug-in Framework released with <code>Trados Studio 2024 SR1</code>.</p>
 <h2 id="main-concepts-and-definitions">Main Concepts and Definitions</h2>
-<p>This section introduces a number of concepts and definitions that are central to the plug-in framework.</p>
+<p>This section outlines key concepts and definitions central to the Plug-in Framework.</p>
+<h3 id="hosting-application">Hosting Application</h3>
+<p>The hosting application (or component) provides plug-in capabilities. It defines extension points and uses the Plug-in Framework to discover and load plug-ins and extensions for these points.</p>
+<h3 id="extension-point">Extension Point</h3>
+<p>An extension point is a location in the application or component that supports adding extensions. It is defined by a .NET attribute, called an extension attribute. All extension attributes derive from the <a href="../../api/core/Sdl.Core.PluginFramework.ExtensionAttribute.html">ExtensionAttribute</a> base class.</p>
+<h3 id="extension">Extension</h3>
+<p>An extension is a unit of logic that enhances an application or component through a specific extension point. It is defined by a .NET class within a plug-in assembly and annotated with the extension attribute identifying its target extension point. Typically, an extension class implements an interface required by the targeted extension point.</p>
+<h3 id="plug-in">Plug-in</h3>
+<p>A plug-in contains one or more extensions. It is a .NET assembly annotated with the assembly-level <a href="../../api/core/Sdl.Core.PluginFramework.PluginAttribute.html">PluginAttribute</a>, which includes a Name property for the plug-in's friendly name. This attribute indicates to the framework that the assembly is a plug-in.</p>
+<h3 id="plug-in-registry">Plug-in Registry</h3>
+<p>The plug-in registry (<a href="../../api/core/Sdl.Core.PluginFramework.IPluginRegistry.html">IPluginRegistry</a>) is the central object in the framework. It enables the host application to detect available plug-ins and extensions and create instances of the extensions provided by these plug-ins.</p>
+<h3 id="plug-in-manifest">Plug-in Manifest</h3>
+<p>A plug-in manifest is an XML file containing serialized metadata about a plug-in assembly. It includes:</p>
 <ul>
-<li><strong>Hosting Application</strong> <br>
-This is the application (or component) which provides plug-in capabilities. The hosting application will define certain extension points and will use the plug-in framework to discover and load plug-ins and extensions for these extension points.<br><br></li>
-<li><strong>Extension Point</strong> <br>
-An extension point is a point in the application or component that allows adding extensions to it. An extension point is defined by a .Net attribute, called an extension attribute. All extension attributes should derive from the <a href="../../api/core/Sdl.Core.PluginFramework.ExtensionAttribute.html">ExtensionAttribute</a> base class.<br><br></li>
-<li><strong>Extension</strong> <br>
-An extension is an individual unit of logic that adds functionality to an application or component through a specific extension point. An extension is defined by a .Net class, defined in a plug-in assembly, annotated with the extension attribute that identifies the extension point it targets. An extension class typically implements an interface that is required by the extension point it is targeting.<br><br></li>
-<li><strong>Plug-in</strong> <br>
-A plug-in can contain one or more extensions. A plug-in consist is a .Net assembly which is annotated with the assembly-level <a href="../../api/core/Sdl.Core.PluginFramework.PluginAttribute.html">PluginAttribute</a>, which has a Name property that contains the friendly name of the plug-in. The presence of this attribute tells the framework that this is a plug-in assembly.<br><br></li>
-<li><strong>Plug-in Registry</strong> <br>
-The central object in the plug-in framework is the plug-in registry (<a href="../../api/core/Sdl.Core.PluginFramework.IPluginRegistry.html">IPluginRegistry</a>). The plug-in registry provides functionality to the host application to detect which plug-ins and extensions are available and create instances of the extensions provided by these plug-ins.<br><br></li>
-<li><strong>Plug-in Manifest</strong> <br>
-A plug-in manifest is an XML file, which contains serialized metadata about a plug-in assembly, it contains:
-<ul>
-<li>The plug-in name, plus the plug-in assembly's name and version.</li>
-<li>A list of all the extensions defined within the plug-in assembly, together with the meta data defined in the extension attributes.</li>
-</ul>
-</li>
+<li>The plug-in name, assembly name, and version.</li>
+<li>A list of all extensions defined within the plug-in assembly, along with metadata specified in the extension attributes.</li>
 </ul>
 
 </article>

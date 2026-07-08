@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-      <title>Trados Studio Command line processor </title>
+      <title>Trados Studio Command Line Processor </title>
       <meta name="viewport" content="width=device-width">
-      <meta name="title" content="Trados Studio Command line processor ">
+      <meta name="title" content="Trados Studio Command Line Processor ">
     
     
       <link rel="shortcut icon" href="../../favicon.ico">
@@ -80,22 +80,80 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-<h1 id="varproductname-command-line-processor">Trados Studio Command line processor</h1>
+<h1 id="varproductname-command-line-processor">Trados Studio Command Line Processor</h1>
 
-<p>If you need to run Trados Studio from a command line and you what to execute a custom processing based on a command with arguments the Integration API enables you to create your own command line processor.</p>
-<h2 id="creating-a-varproductname-command-line-argument-processor">Creating a Trados Studio command line argument processor</h2>
-<p>To create a Trados Studio command line processor as a third-party developer :</p>
+<p>If you need to run Trados Studio from a command line and execute custom processing for a specific command with arguments, the Integration API enables you to create your own command line processor.</p>
+<h2 id="creating-a-command-line-argument-processor">Creating a Command Line Argument Processor</h2>
+<p>To create a Trados Studio command line processor, follow these steps:</p>
 <ul>
-<li><p>implement the <a href="../../api/integration/Sdl.Desktop.IntegrationApi.Extensions.CommandLine.IExternalCommandLineProcessor.html">IExternalCommandLineProcessor</a> or <a href="../../api/integration/Sdl.Desktop.IntegrationApi.Extensions.CommandLine.IExternalWindowAwareCommandLineProcessor.html">IExternalWindowAwareCommandLineProcessor</a> depending if you want to run the command line processor before or after the main screen is displayed.</p>
+<li><p>Implement either <a href="../../api/integration/Sdl.Desktop.IntegrationApi.Extensions.CommandLine.IExternalCommandLineProcessor.html">IExternalCommandLineProcessor</a> or <a href="../../api/integration/Sdl.Desktop.IntegrationApi.Extensions.CommandLine.IExternalWindowAwareCommandLineProcessor.html">IExternalWindowAwareCommandLineProcessor</a>, depending on whether you want the processor to run before or after the main screen displays.</p>
 </li>
-<li><p>from <code>Sdl.Desktop.IntegrationApi.Extensions.CommandLine</code> namespace and decorate your class with <a href="../../api/integration/Sdl.Desktop.IntegrationApi.Extensions.CommandLine.ExternalCommandLineProcessorAttribute.html">ExternalCommandLineProcessorAttribute</a> attribute.</p>
+<li><p>Decorate your class with the <a href="../../api/integration/Sdl.Desktop.IntegrationApi.Extensions.CommandLine.ExternalCommandLineProcessorAttribute.html">ExternalCommandLineProcessorAttribute</a> attribute from the <code>Sdl.Desktop.IntegrationApi.Extensions.CommandLine</code> namespace.</p>
 </li>
 </ul>
-<p>If you don't implement <a href="../../api/integration/Sdl.Desktop.IntegrationApi.Extensions.CommandLine.IExternalCommandLineProcessor.html">IExternalCommandLineProcessor</a> or <a href="../../api/integration/Sdl.Desktop.IntegrationApi.Extensions.CommandLine.IExternalWindowAwareCommandLineProcessor.html">IExternalWindowAwareCommandLineProcessor</a>,  an exception will be thrown, but if you omit the <a href="../../api/integration/Sdl.Desktop.IntegrationApi.Extensions.CommandLine.ExternalCommandLineProcessorAttribute.html">ExternalCommandLineProcessorAttribute</a>, your plugin will simply be ignored when Trados Studio starts.</p>
-<p>After successfully creating your command line processor you can check the Help generated for it by and running the following command in cmd.exe : C:\Program Files (x86)\Trados\Trados Studio\Studio18\SdlTradosStudio.exe ? . Your command will appear, among other commands available, in the following screen :
-<img style="display:block; " src="images/cmdHelpWindow.jpg"></p>
-<p>[Creating a Trados Studio Command line processor Sample]
-(trados_studio_command_processor.md)</p>
+<h2 id="requirements-and-behavior">Requirements and Behavior</h2>
+<p>If you do not implement <a href="../../api/integration/Sdl.Desktop.IntegrationApi.Extensions.CommandLine.IExternalCommandLineProcessor.html">IExternalCommandLineProcessor</a> or <a href="../../api/integration/Sdl.Desktop.IntegrationApi.Extensions.CommandLine.IExternalWindowAwareCommandLineProcessor.html">IExternalWindowAwareCommandLineProcessor</a>, an exception is thrown. If you omit the <a href="../../api/integration/Sdl.Desktop.IntegrationApi.Extensions.CommandLine.ExternalCommandLineProcessorAttribute.html">ExternalCommandLineProcessorAttribute</a>, your plug-in is ignored when Trados Studio starts.</p>
+<h2 id="viewing-your-command-in-help">Viewing Your Command in Help</h2>
+<p>After creating your command line processor, view the generated help by running the following command in cmd.exe:</p>
+<pre><code>C:\Program Files\Trados\Trados Studio\Studio19\SdlTradosStudio.exe ?
+</code></pre>
+<p>Your command appears, along with other available commands, in the resulting help screen:</p>
+<p><img src="images/cmdHelpWindow.jpg" alt="Command Help Window"></p>
+<h2 id="example">Example</h2>
+<p>The following example demonstrates how to implement a custom command line processor.</p>
+<p>The plugin implements the required interfaces mentioned above with the following key properties:</p>
+<ul>
+<li><strong>TaskName</strong> — returns the name of the command processing unit</li>
+<li><strong>TaskDescription</strong> — describes what that processing will do</li>
+<li><strong>SupportedArguments</strong> — lists supported arguments</li>
+</ul>
+<h3 id="c">C#</h3>
+<pre><code class="lang-cs">using Sdl.Desktop.IntegrationApi.Extensions.CommandLine;
+using System.Windows.Forms;
+using System.Collections.Generic;
+
+namespace Sdl.CustomPlugin.Packaging.OpenPackageWizard
+{
+    [ExternalCommandLineProcessor(Id = &quot;OpenPackageCommandLineProcessor_Id&quot;, Name = &quot;OpenPackageCommandLineProcessor_Name&quot;, Description = &quot;OpenPackageCommandLineProcessor_Description&quot;)]
+    public class OpenPackageCommandLineProcessor : IExternalWindowAwareCommandLineProcessor
+    {
+        private readonly IList&lt;ExternalCommandLineArgumentDefinition&gt; _supportedArguments;
+        private const string OpenPackageArgument = &quot;openPackage&quot;;
+
+        public OpenPackageCommandLineProcessor()
+        {
+            _supportedArguments = new List&lt;ExternalCommandLineArgumentDefinition&gt;()
+            {
+                new ExternalCommandLineArgumentDefinition(OpenPackageArgument,
+                    StringResources.OpenPackageCommandLineTask_Files)
+                {
+                    MinValues = 1,
+                    MaxValues = 1,
+                    SampleValues = new[] { &quot;package&quot; }
+                }
+            };
+        }
+
+        public string TaskName =&gt; StringResources.OpenPackageCommandLineTask_Name;
+
+        public string TaskDescription =&gt; StringResources.OpenPackageCommandLineTask_Description;
+
+        public IEnumerable&lt;ExternalCommandLineArgumentDefinition&gt; SupportedArguments =&gt; _supportedArguments;
+
+        public void ProcessCommandLine(ExternalCommandLineArguments args)
+        {
+            ExternalCommandLineArgument packagesToOpen = args[OpenPackageArgument];
+            if (packagesToOpen == null)
+            {
+                return;
+            }
+
+            var uiPackageOpener = new UIPackageOpener(Form.ActiveForm);
+            uiPackageOpener.OpenPackage(packagesToOpen.Values[0]);
+        }
+    }
+}
+</code></pre>
 
 </article>
           </div>

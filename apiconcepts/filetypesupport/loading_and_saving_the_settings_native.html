@@ -82,9 +82,9 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="loading-and-saving-the-settings">Loading and Saving the Settings</h1>
 
-<p>In this chapter, you will learn how to implement the class that is actually responsible for physically storing the plug-in settings and for loading them. The settings are physically stored in an *<em>.sdlproj</em> or in an *<em>.sdltpl</em> file, which are both XML compliant.</p>
-<p>*<em>.sdlproj</em> files are automatically created for each document that is opened for translation/editing in Trados Studio or for each project that is created in the application. These files contain project-specific information such as the translation memories/termbases used for a project as well as any other project-specific settings, which can also include plug-in settings. An *<em>.sdltpl</em> file is a project template, which users can create to streamline project creation.</p>
-<p>Within an *<em>.sdlproj</em> or *<em>.sdltpl</em> file the settings bundle node used by our implementation would look, for example, as shown below:</p>
+<p>Implement a class to store and load plug-in settings. Settings store in *<em>.sdlproj</em> or *<em>.sdltpl</em> files, both XML-compliant.</p>
+<p>*<em>.sdlproj</em> files automatically generate when a document opens for translation/editing in Trados Studio or when a user creates a project. These files contain project-specific information, including translation memories, termbases, and plug-in settings. An *<em>.sdltpl</em> file serves as a project template that streamlines project creation.</p>
+<p>Within an *<em>.sdlproj</em> or *<em>.sdltpl</em> file, the settings bundle node appears as follows:</p>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
@@ -100,16 +100,16 @@
 </section>
 </div>
 
-<p>Each <strong>Setting</strong> element contains an <strong>Id</strong> attribute that denotes the setting (property) name. The <strong>Setting</strong> element encloses the property value, which is updated whenever the user changes the settings in the UI.</p>
+<p>Each <strong>Setting</strong> element contains an <strong>Id</strong> attribute that denotes the setting (property) name. The <strong>Setting</strong> element encloses the property value, which updates whenever the user changes settings in the UI.</p>
 <h2 id="add-the-verifiersettings-class">Add the VerifierSettings Class</h2>
-<p>Start by adding a new class to your project called <code>VerifierSettings</code>. Make sure that your class uses the following namespaces:</p>
+<p>Add a new class called <code>VerifierSettings</code> to your project. Ensure your class uses the following namespaces:</p>
 <ul>
 <li>Sdl.Core.Settings</li>
 <li>Sdl.FileTypeSupport.Framework.Core.Settings</li>
 </ul>
-<p>Moreover, the class needs to implement the <code>FileTypeSettingsBase</code> class, which provides the methods required for storing and saving values to the settings bundle.</p>
+<p>The class must implement the <code>FileTypeSettingsBase</code> class, which provides methods for storing and saving values to the settings bundle.</p>
 <h2 id="implement-the-setting-property">Implement the Setting Property</h2>
-<p>In this step, add the property that represents our plug-in setting, in this case the boolean property <code>Enabled</code>. It determines whether the verification functionality should be active or not.</p>
+<p>Add the property representing the plug-in setting: the boolean property <code>Enabled</code>, which determines whether verification functionality is active:</p>
 <div class="tabGroup" id="tabgroup_2">
 <ul role="tablist">
 <li role="presentation">
@@ -134,7 +134,7 @@ public bool Enable
 </section>
 </div>
 <h2 id="implement-the-constructor-method">Implement the Constructor Method</h2>
-<p>The <code>ResetToDefaults</code> method is provided by the base class. In our implementation, it is just overridden to set the <code>Enabled</code> property to our default value, True:</p>
+<p>The base class provides the <code>ResetToDefaults()</code> method. Override it to set the <code>Enabled</code> property to True:</p>
 <div class="tabGroup" id="tabgroup_3">
 <ul role="tablist">
 <li role="presentation">
@@ -150,8 +150,8 @@ public bool Enable
 </code></pre>
 </section>
 </div>
-<h2 id="reset-to-defaults">Reset to Defaults</h2>
-<p>Next, implement the constructor method. In this implementation, the constructor just calls on the <code>ResetToDefaults</code> of the class to set the <code>Enabled</code> property to its default value, which is True:</p>
+
+<p>Next, implement the constructor method. The constructor calls <code>ResetToDefaults()</code> to set the <code>Enabled</code> property to True:</p>
 <div class="tabGroup" id="tabgroup_4">
 <ul role="tablist">
 <li role="presentation">
@@ -167,9 +167,9 @@ public bool Enable
 </code></pre>
 </section>
 </div>
-<h2 id="set-the-enabled-property-to-the-value-from-the-settings-bundle">Set the Enabled Property to the Value from the Settings Bundle</h2>
-<p>The base class provides the <code>PopulateFromSettingsBundle</code> method to retrieve the current setting from the bundle in the *<em>.sdlproj</em> file and to set the Enabled property of our implementation accordingly.</p>
-<p>In the *<em>.sdlproj</em> or *<em>.sdltpl</em> file, a settings bundle can look as shown below:</p>
+<h2 id="set-the-enabled-property-from-the-settings-bundle">Set the Enabled Property from the Settings Bundle</h2>
+<p>The base class provides the <code>PopulateFromSettingsBundle()</code> method to retrieve the current setting from the bundle in the *<em>.sdlproj</em> file and set the Enabled property accordingly.</p>
+<p>In the *<em>.sdlproj</em> or *<em>.sdltpl</em> file, a settings bundle appears as follows:</p>
 <div class="tabGroup" id="tabgroup_5">
 <ul role="tablist">
 <li role="presentation">
@@ -191,8 +191,8 @@ public bool Enable
 </section>
 </div>
 
-<p>A <strong>SettingsBundle</strong> element can enclose a number of <strong>SettingsGroup</strong> nodes. Each settings bundle has a unique id (guid) that is stored in an attribute. The settings bundles are identified by the id of the plug-in that they refer to. A settings group can enclose, for example, file type settings, verification plug-in settings, etc. In the above example the settings bundle encloses one settings group for the term verifier plug-in and another settings group that is used by our sample length verifier plug-in. This id is retrieved from the File Type Component Builder (see <a href="extending_existing_file_type_component_builder.html">Extending existing File Type Component Builder</a>).</p>
-<p>This XML structure is also reflected in the API. Within the <code>SaveToSettingsBundle</code> method we create a settings group object based on <code>ISettingsGroup</code> by applying the <code>GetSettingsGroup</code> method to the settings bundle. This method takes the settings bundle id (e.g. <em>Length Check XML v 1.0.0.0</em>) as string parameter. We then use the GetSettingFromSettingsGroup method to set the <code>Enabled</code> property. This method requires the settings group object, the name of the setting (e.g. <em>Enabled</em>), and the default value as parameters (e.g. True).</p>
+<p>A <strong>SettingsBundle</strong> element contains multiple <strong>SettingsGroup</strong> nodes. Each settings bundle has a unique identifier (GUID) in an attribute that identifies it by the plug-in id it refers to. A settings group contains file type settings, verification plug-in settings, and so on. In the example above, the settings bundle contains one settings group for the term verifier plug-in and another for the sample length verifier plug-in. The File Type Component Builder provides this identifier (see <a href="extending_existing_file_type_component_builder.html">Extending existing File Type Component Builder</a>).</p>
+<p>This XML structure reflects in the API. Within the <code>PopulateFromSettingsBundle()</code> method, create a settings group object based on <code>ISettingsGroup</code> by calling <code>GetSettingsGroup()</code> on the settings bundle. This method accepts the settings bundle id (for example, <em>Length Check XML v 1.0.0.0</em>) as a string parameter. Call <code>GetSettingFromSettingsGroup()</code> to set the <code>Enabled</code> property. This method requires the settings group object, the setting name (for example, <em>Enabled</em>), and the default value (for example, True) as parameters.</p>
 <div class="tabGroup" id="tabgroup_6">
 <ul role="tablist">
 <li role="presentation">
@@ -210,10 +210,9 @@ public bool Enable
 </code></pre>
 </section>
 </div>
-<h2 id="set-the-property-to-the-values-from-the-settings-bundle">Set the Property to the Values from the Settings Bundle</h2>
-<p>The base class also provides the <code>SaveToSettingsBundle</code> method, which is required to physically store the value of the properties in the bundle of the *<em>.sdlproj</em> file.</p>
-<p>Here too, we create a settings group object based on <code>ISettingsGroup</code> by applying the <code>GetSettingsGroup</code> method to the settings bundle.</p>
-<p>Then we invoke the <code>UpdateSettingInSettingsGroup</code> method to save the settings into the physical representation. This method takes the settings group object, the setting name (string), the setting value, and the default value as parameters.</p>
+<h2 id="save-properties-to-the-settings-bundle">Save Properties to the Settings Bundle</h2>
+<p>The base class provides the <code>SaveToSettingsBundle()</code> method to store property values in the bundle of the *<em>.sdlproj</em> file.</p>
+<p>Create a settings group object based on <code>ISettingsGroup</code> by calling <code>GetSettingsGroup()</code> on the settings bundle. Call <code>UpdateSettingInSettingsGroup()</code> to save settings to the physical representation. This method accepts the settings group object, the setting name (string), the setting value, and the default value as parameters.</p>
 <div class="tabGroup" id="tabgroup_7">
 <ul role="tablist">
 <li role="presentation">
@@ -231,8 +230,8 @@ public bool Enable
 </code></pre>
 </section>
 </div>
-<h2 id="putting-it-all-together">Putting it All Together</h2>
-<p>The complete class should now look as shown below:</p>
+<h2 id="putting-it-all-together">Putting It All Together</h2>
+<p>Your complete class now includes all required functionality:</p>
 <div class="tabGroup" id="tabgroup_8">
 <ul role="tablist">
 <li role="presentation">
@@ -251,15 +250,9 @@ using System.Windows.Forms;
 
 namespace Sdk.FileTypeSupport.Samples.XMLChecker
 {
-    /// &lt;summary&gt;
-    /// This class is used to actually store the settings to the settings bundle, which
-    /// is physically saved in an *.sdlproj or in an *.sdltpl file.
-    /// &lt;/summary&gt;
-    public class VerifierSettings: FileTypeSettingsBase
+    public class VerifierSettings : FileTypeSettingsBase
     {
-        #region &quot;Properties&quot;
         bool _enable;
-
 
         public bool Enable
         {
@@ -270,71 +263,41 @@ namespace Sdk.FileTypeSupport.Samples.XMLChecker
                 OnPropertyChanged(&quot;Enable&quot;);
             }
         }
-        #endregion &quot;Properties&quot;
 
-        #region &quot;Constructor&quot;
         public VerifierSettings()
         {
             ResetToDefaults();
         }
-        #endregion &quot;Constructor&quot;
 
-
-
-        #region &quot;OverrideMethods&quot;
-
-        /// &lt;summary&gt;
-        /// Define the default value, which is Enabled, as the verification function should
-        /// be active by default.
-        /// &lt;/summary&gt;
-        #region &quot;ResetToDefaults&quot;
         public override void ResetToDefaults()
         {
             Enable = true;
         }
-        #endregion
 
-        /// &lt;summary&gt;
-        /// This method is used to load the setting from the settings bundle,
-        /// which is physically stored in an XML-compliant *.sdlproj or *.sdltpl file.
-        /// &lt;/summary&gt;
-        /// &lt;param name=&quot;settingsBundle&quot;&gt;&lt;/param&gt;
-        /// &lt;param name=&quot;configurationId&quot;&gt;&lt;/param&gt;
-        #region &quot;PopulateFromSettingsBundle&quot;
         public override void PopulateFromSettingsBundle(ISettingsBundle settingsBundle, string configurationId)
         {
             ISettingsGroup settingsGroup = settingsBundle.GetSettingsGroup(configurationId);
             ResetToDefaults();
             Enable = GetSettingFromSettingsGroup(settingsGroup, &quot;Enable&quot;, Enable);
         }
-        #endregion
 
-        /// &lt;summary&gt;
-        /// This method is used to store the settings as configured in the plug-in UI
-        /// in the settings bundle, which means that the settings are physically written
-        /// into the XML-compliant *.sdlproj or *.sdltpl file.
-        /// &lt;/summary&gt;
-        /// &lt;param name=&quot;settingsBundle&quot;&gt;&lt;/param&gt;
-        /// &lt;param name=&quot;configurationId&quot;&gt;&lt;/param&gt;
-        #region &quot;SaveToSettingsBundle&quot;
         public override void SaveToSettingsBundle(ISettingsBundle settingsBundle, string configurationId)
         {
             ISettingsGroup settingsGroup = settingsBundle.GetSettingsGroup(configurationId);
             var defaults = new VerifierSettings();
             UpdateSettingInSettingsGroup(settingsGroup, &quot;Enable&quot;, Enable, defaults.Enable);
         }
-        #endregion
-
-        #endregion &quot;OverrideMethods&quot;
     }
 }
 </code></pre>
 </section>
 </div>
 <h2 id="see-also">See Also</h2>
-<p><a href="implement_the_user_interface_native.html">Implement the User Interface</a></p>
-<p><a href="implement_the_ui_controller_class_native.html">Implement the UI Controller Class</a></p>
-<p><a href="implement_the_verification_logic_native.html">Implement the Verification Logic</a></p>
+<ul>
+<li><a href="implement_the_user_interface_native.html">Implement the User Interface</a></li>
+<li><a href="implement_the_ui_controller_class_native.html">Implement the UI Controller Class</a></li>
+<li><a href="implement_the_verification_logic_native.html">Implement the Verification Logic</a></li>
+</ul>
 <div class="NOTE">
 <h5>Note</h5>
 <p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>

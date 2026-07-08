@@ -205,40 +205,23 @@ termbaseConfig.LanguageIndexes.Add(new TermbaseLanguageIndex(projTargetLang2, te
 
 <pre><code class="lang-cs">public void AddTermbase(FileBasedProject project, string termbaseFileName)
 {
-    #region &quot;TbConfig&quot;
     TermbaseConfiguration termbaseConfig = project.GetTermbaseConfiguration();
-    #endregion
-
-    #region &quot;AddTb&quot;
     Termbase tb = new LocalTermbase(termbaseFileName);
     termbaseConfig.Termbases.Add(tb);
-    #endregion
-
-    #region &quot;TermRecOptions&quot;
     TermRecognitionOptions options = termbaseConfig.TermRecognitionOptions;
     options.MinimumMatchValue = 50;
     options.SearchDepth = 200;
     options.ShowWithNoAvailableTranslation = true;
     options.SearchOrder = TermbaseSearchOrder.Hierarchical;
-    #endregion
-
-    #region &quot;ProjectLanguagesAndTbIndexes&quot;
     string[] termbaseIndex = { &quot;English&quot;, &quot;German&quot;, &quot;French&quot; };
 
     Language projSourceLang = new Language(CultureInfo.GetCultureInfo(&quot;en-US&quot;));
     Language projTargetLang1 = new Language(CultureInfo.GetCultureInfo(&quot;de-DE&quot;));
     Language projTargetLang2 = new Language(CultureInfo.GetCultureInfo(&quot;fr-FR&quot;));
-    #endregion
-
-    #region &quot;TermbaseLanguageIndex&quot;
     termbaseConfig.LanguageIndexes.Add(new TermbaseLanguageIndex(projSourceLang, termbaseIndex[0]));
     termbaseConfig.LanguageIndexes.Add(new TermbaseLanguageIndex(projTargetLang1, termbaseIndex[1]));
     termbaseConfig.LanguageIndexes.Add(new TermbaseLanguageIndex(projTargetLang2, termbaseIndex[2]));
-    #endregion
-
-    #region &quot;UpdateTermbaseConfiguration&quot;
     project.UpdateTermbaseConfiguration(termbaseConfig);
-    #endregion
 }
 </code></pre>
 </section>

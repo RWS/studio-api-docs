@@ -82,13 +82,13 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="controlling-the-plug-in-user-interface">Controlling the Plug-in User Interface</h1>
 
-<p>The translation provider plug-in template contains a component called <code>MyTranslationProviderWinFormsUI</code>, which we re-name to <code>ListTranslationProviderWinFormsUI</code> for our implementation. This component is used to:</p>
+<p>The translation provider plug-in template includes a component named <code>MyTranslationProviderWinFormsUI</code>, which we rename to <code>ListTranslationProviderWinFormsUI</code> in this implementation. This component lets you:</p>
 <ul>
-<li>Control the appearance of the plug-in when it is displayed in Trados Studio, e.g. the plug-in name, icon, tooltip</li>
-<li>Raise the plug-in user interface</li>
-<li>Obtain credentials from the user, which is not required for our sample implementation</li>
+<li>control how the plug-in appears in Trados Studio, such as its name, icon, and tooltip</li>
+<li>open the plug-in user interface</li>
+<li>collect credentials from the user, which this sample does not require</li>
 </ul>
-<p>The class is preceded by the following declaration, which defines it as an extension class, which will be referenced and declared to the Trados Studio application through the plug-in manifest *.xml file (see also <a href="building_the_plugin.html">Building the Plug-in</a>).</p>
+<p>The class begins with the following declaration. It marks the class as an extension class and makes it available to Trados Studio through the plug-in manifest *.xml file. See also <a href="building_the_plugin.html">Building the Plug-in</a>.</p>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
@@ -105,11 +105,11 @@
 </section>
 </div>
 
-<p>This class implements the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderWinFormsUI.html">ITranslationProviderWinFormsUI</a> interface. Below you see how we use the members of this interface in our implementation.</p>
+<p>This class implements the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderWinFormsUI.html">ITranslationProviderWinFormsUI</a> interface. The following sections show how this implementation uses its members.</p>
 <h2 id="browse-for-the-plug-in">Browse for the Plug-in</h2>
-<p>The UI extension allows users to browse for and select translation providers in a unified way. This is done by the user when opening a document for translation or when adding translation providers to a project through the <strong>Add</strong> button in the UI of Trados Studio as illustrated in the screenshot below:</p>
+<p>The UI extension lets users browse for and select translation providers in a consistent way. Users do this when they open a document for translation or add translation providers to a project through the <strong>Add</strong> button in Trados Studio, as shown below:</p>
 <img style="display:block; " src="images/BrowsePlugin.jpg">
-<p>Some translation providers do not require a user interface for configuring settings. In our implementation, however, a form is used to enter the required settings, which we raise through the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderWinFormsUI.html#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderWinFormsUI_Browse_System_Windows_Forms_IWin32Window_Sdl_LanguagePlatform_Core_LanguagePair___Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderCredentialStore_">Browse</a> method of the interface:</p>
+<p>Some translation providers do not require a user interface for configuration. In this implementation, however, a form collects the required settings, and the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderWinFormsUI.html#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderWinFormsUI_Browse_System_Windows_Forms_IWin32Window_Sdl_LanguagePlatform_Core_LanguagePair___Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderCredentialStore_">Browse</a> method opens it:</p>
 <div class="tabGroup" id="tabgroup_2">
 <ul role="tablist">
 <li role="presentation">
@@ -132,9 +132,9 @@
 </section>
 </div>
 
-<p>Translation provider plug-ins that implement a user interface for configuring settings will usually allow users to change those settings later. For example, users might want to change the plug-in settings while translating, as they discover that a different list file is more suitable for the text that they have selected. For this, the UI of Trados Studio implements a <strong>Settings</strong> button, which can be enabled or disabled through your plug-in (see screenshot below).</p>
+<p>Translation provider plug-ins that include a configuration UI usually let users change settings later. For example, while translating, users might decide that a different list file better matches the text they selected. Trados Studio provides a <strong>Settings</strong> button for this purpose, and your plug-in can enable or disable it, as shown below.</p>
 <img style="display:block; " src="images/ProviderSettingsButton.jpg">
-<p>For our sample plug-in it makes sense to enable this button and allow for any settings to be changed. To do this, we set the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderWinFormsUI.html#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderWinFormsUI_SupportsEditing">SupportsEditing</a> property to return <code>True</code>:</p>
+<p>For this sample plug-in, it makes sense to enable the button and allow settings changes. To do this, set the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderWinFormsUI.html#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderWinFormsUI_SupportsEditing">SupportsEditing</a> property to return <code>True</code>:</p>
 <div class="tabGroup" id="tabgroup_3">
 <ul role="tablist">
 <li role="presentation">
@@ -151,7 +151,7 @@
 </section>
 </div>
 
-<p>Consequently, the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderWinFormsUI.html#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderWinFormsUI_Edit_System_Windows_Forms_IWin32Window_Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProvider_Sdl_LanguagePlatform_Core_LanguagePair___Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderCredentialStore_">Edit</a> method is then used for the same purpose as the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderWinFormsUI.html#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderWinFormsUI_Browse_System_Windows_Forms_IWin32Window_Sdl_LanguagePlatform_Core_LanguagePair___Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderCredentialStore_">Browse</a> method, i.e. to raise the plug-in user interface:</p>
+<p>The <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderWinFormsUI.html#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderWinFormsUI_Edit_System_Windows_Forms_IWin32Window_Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProvider_Sdl_LanguagePlatform_Core_LanguagePair___Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderCredentialStore_">Edit</a> method then serves the same purpose as <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderWinFormsUI.html#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderWinFormsUI_Browse_System_Windows_Forms_IWin32Window_Sdl_LanguagePlatform_Core_LanguagePair___Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderCredentialStore_">Browse</a>: it opens the plug-in user interface.</p>
 <div class="tabGroup" id="tabgroup_4">
 <ul role="tablist">
 <li role="presentation">
@@ -181,11 +181,11 @@
 </section>
 </div>
 
-<p>The plug-in user interface of our implementation will look as shown below:</p>
+<p>The plug-in user interface for this implementation looks like this:</p>
 <img style="display:block; " src="images/PluginGui.jpg">
 <h2 id="user-authentication">User Authentication</h2>
-<p>Through the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderWinFormsUI.html#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderWinFormsUI_GetCredentialsFromUser_System_Windows_Forms_IWin32Window_System_Uri_System_String_Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderCredentialStore_">GetCredentialsFromUser</a> method of the interface we can retrieve user credentials that may be required for connecting to the translation provider. For example, when you connect to a server TM or a Web-based translation service, a user name and login may be required. Very often, you may want to store the login information, so that users are not required have to enter the name and password every time that they connect to the provider.</p>
-<p>In our simple implementation, however, we only access a text file, which means that no user authentication is necessary. We can therefore have this method return always True:</p>
+<p>Use the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderWinFormsUI.html#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderWinFormsUI_GetCredentialsFromUser_System_Windows_Forms_IWin32Window_System_Uri_System_String_Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderCredentialStore_">GetCredentialsFromUser</a> method to collect credentials when the translation provider requires them. For example, a server TM or web-based translation service may require a user name and password. In many cases, you may want to store that information so users do not need to enter it every time they connect.</p>
+<p>In this sample implementation, the plug-in accesses only a text file, so no authentication is necessary. The method can therefore always return <code>True</code>:</p>
 <div class="tabGroup" id="tabgroup_5">
 <ul role="tablist">
 <li role="presentation">
@@ -202,9 +202,9 @@
 </section>
 </div>
 <h2 id="display-the-plug-in-info">Display the Plug-in Info</h2>
-<p>The <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderWinFormsUI.html#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderWinFormsUI_GetDisplayInfo_System_Uri_System_String_">GetDisplayInfo</a> is used to display information such as the plug-in name, icon, etc. in the user interface of Trados Studio. This information is stored in the resources file (see <a href="the_resources_file.html">The Resources File</a>). Within this method we first create a <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderDisplayInfo.html">TranslationProviderDisplayInfo</a> object, and then set the various properties, i.e. plug-in display name, the tooltip text, and the translation provider icon. This information will then be shown in the application as illustrated below:</p>
+<p>Use <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderWinFormsUI.html#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderWinFormsUI_GetDisplayInfo_System_Uri_System_String_">GetDisplayInfo</a> to display plug-in information such as the name and icon in the Trados Studio user interface. Store this information in the resources file. See <a href="the_resources_file.html">The Resources File</a>. The method creates a <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderDisplayInfo.html">TranslationProviderDisplayInfo</a> object and sets the display name, tooltip text, and translation provider icon, as shown below:</p>
 <img style="display:block; " src="images/PluginResourcesInAction.jpg">
-<p>The <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderDisplayInfo.html#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationProviderDisplayInfo_SearchResultImage">SearchResultImage</a> property sets the image that is shown in the <strong>Translation Results</strong> or <strong>Concordance</strong> window of Trados Studio, which helps users ascertain more quickly by which provider a translation solution has been suggested (see screenshot below):</p>
+<p>The <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderDisplayInfo.html#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationProviderDisplayInfo_SearchResultImage">SearchResultImage</a> property sets the image shown in the <strong>Translation Results</strong> or <strong>Concordance</strong> window of Trados Studio. This helps users see which provider suggested a translation solution, as shown below:</p>
 <img style="display:block; " src="images/PngForShowingResults.jpg">
 <div class="tabGroup" id="tabgroup_6">
 <ul role="tablist">
@@ -229,7 +229,7 @@
 </section>
 </div>
 <h2 id="putting-it-all-together">Putting it All Together</h2>
-<p>The complete component should look as shown below:</p>
+<p>The complete component should look like this:</p>
 <div class="tabGroup" id="tabgroup_7">
 <ul role="tablist">
 <li role="presentation">
@@ -248,18 +248,13 @@ using Sdl.LanguagePlatform.TranslationMemory;
 using Sdl.LanguagePlatform.TranslationMemoryApi;
 
 namespace Sdk.LanguagePlatform.Samples.ListProvider
-{
-    #region &quot;Declaration&quot;
+{    
     [TranslationProviderWinFormsUi(
         Id = &quot;ListTranslationProviderWinFormsUI&quot;,
         Name = &quot;ListTranslationProviderWinFormsUI&quot;,
-        Description = &quot;ListTranslationProviderWinFormsUI&quot;)]
-    #endregion
+        Description = &quot;ListTranslationProviderWinFormsUI&quot;)] 
     public class ListTranslationProviderWinFormsUI : ITranslationProviderWinFormsUI
     {
-        #region ITranslationProviderWinFormsUI Members
-
-
         /// &lt;summary&gt;
         /// Show the plug-in settings form when the user is adding the translation provider plug-in
         /// through the GUI of Trados Studio
@@ -268,7 +263,6 @@ namespace Sdk.LanguagePlatform.Samples.ListProvider
         /// &lt;param name=&quot;languagePairs&quot;&gt;&lt;/param&gt;
         /// &lt;param name=&quot;credentialStore&quot;&gt;&lt;/param&gt;
         /// &lt;returns&gt;&lt;/returns&gt;
-        #region &quot;Browse&quot;
         public ITranslationProvider[] Browse(IWin32Window owner, LanguagePair[] languagePairs, ITranslationProviderCredentialStore credentialStore)
         {
             ListProviderConfDialog dialog = new ListProviderConfDialog(new ListTranslationOptions());
@@ -279,20 +273,15 @@ namespace Sdk.LanguagePlatform.Samples.ListProvider
             }
             return null;
         }
-        #endregion
-
-
-
+        
         /// &lt;summary&gt;
         /// Determines whether the plug-in settings can be changed
         /// by displaying the Settings button in Trados Studio.
         /// &lt;/summary&gt;
-        #region &quot;SupportsEditing&quot;
         public bool SupportsEditing
         {
             get { return true; }
         }
-        #endregion
 
         /// &lt;summary&gt;
         /// If the plug-in settings can be changed by the user,
@@ -306,7 +295,6 @@ namespace Sdk.LanguagePlatform.Samples.ListProvider
         /// &lt;param name=&quot;languagePairs&quot;&gt;&lt;/param&gt;
         /// &lt;param name=&quot;credentialStore&quot;&gt;&lt;/param&gt;
         /// &lt;returns&gt;&lt;/returns&gt;
-        #region &quot;Edit&quot;
         public bool Edit(IWin32Window owner, ITranslationProvider translationProvider, LanguagePair[] languagePairs, ITranslationProviderCredentialStore credentialStore)
         {
             ListTranslationProvider editProvider = translationProvider as ListTranslationProvider;
@@ -324,7 +312,6 @@ namespace Sdk.LanguagePlatform.Samples.ListProvider
 
             return false;
         }
-        #endregion
 
         /// &lt;summary&gt;
         /// Can be used in implementations in which a user login is required, e.g.
@@ -337,12 +324,10 @@ namespace Sdk.LanguagePlatform.Samples.ListProvider
         /// &lt;param name=&quot;translationProviderState&quot;&gt;&lt;/param&gt;
         /// &lt;param name=&quot;credentialStore&quot;&gt;&lt;/param&gt;
         /// &lt;returns&gt;&lt;/returns&gt;
-        #region &quot;GetCredentialsFromUser&quot;
         public bool GetCredentialsFromUser(IWin32Window owner, Uri translationProviderUri, string translationProviderState, ITranslationProviderCredentialStore credentialStore)
         {            
             return true;
         }
-        #endregion
 
         /// &lt;summary&gt;
         /// Used for displaying the plug-in info such as the plug-in name,
@@ -351,7 +336,6 @@ namespace Sdk.LanguagePlatform.Samples.ListProvider
         /// &lt;param name=&quot;translationProviderUri&quot;&gt;&lt;/param&gt;
         /// &lt;param name=&quot;translationProviderState&quot;&gt;&lt;/param&gt;
         /// &lt;returns&gt;&lt;/returns&gt;
-        #region &quot;GetDisplayInfo&quot;
         public TranslationProviderDisplayInfo GetDisplayInfo(Uri translationProviderUri, string translationProviderState)
         {
             TranslationProviderDisplayInfo info = new TranslationProviderDisplayInfo();
@@ -363,9 +347,6 @@ namespace Sdk.LanguagePlatform.Samples.ListProvider
 
             return info;
         }
-        #endregion
-
-
 
         public bool SupportsTranslationProviderUri(Uri translationProviderUri)
         {
@@ -385,14 +366,12 @@ namespace Sdk.LanguagePlatform.Samples.ListProvider
         {
             get { return PluginResources.Plugin_NiceName; }
         }
-
-        #endregion
     }
 }
 </code></pre>
 </section>
 </div>
-<h2 id="see-also">See Also</h2>
+<h1 id="see-also">See Also</h1>
 <p><a href="creating_the_translation_provider_ui_extension.html">Creating the Translation Provider UI Extension</a></p>
 <p><a href="implementing_the_plugin_user_interface.html">Implementing the Plug-in User Interface</a></p>
 <p><a href="the_resources_file.html">The Resources File</a></p>

@@ -82,13 +82,16 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="about-the-example-bil-format">About the Example BIL Format</h1>
 
-<p>In order to demonstrate the main features that can be used when developing a bilingual file type plug-in, we have created an example format with the extension *<em>.bil</em> (from now on BIL). This file type is not used in any 3rd party application. It is a fictitious document format, which was created only for this SDK sample project.</p>
+<p>To demonstrate the main features of a bilingual file type plug-in, this sample uses a fictitious format with the <code>.bil</code> extension. This format does not belong to a third-party application. It exists only for this SDK sample.</p>
 <h2 id="format-description">Format Description</h2>
-<p>BIL is custom a XML based format which looks as shown below:</p>
+<p>BIL is a custom XML-based format, as shown in the following example:</p>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_1_tabid-1" role="tab" aria-controls="tabpanel_1_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">Xml</a>
+<a href="#tabpanel_1_tabid-1" role="tab" aria-controls="tabpanel_1_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">XML</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-2" role="tab" aria-controls="tabpanel_1_tabid-2" data-tab="tabid-2" tabindex="-1">XML</a>
 </li>
 </ul>
 <section id="tabpanel_1_tabid-1" role="tabpanel" data-tab="tabid-1">
@@ -105,45 +108,38 @@
         &lt;b&gt;Leistungsmerkmale&lt;/b&gt;
       &lt;/seg&gt;
     &lt;/target&gt;
-   &lt;comment id=&quot;1&quot;&gt;This segment was translated using web translator.&lt;/comment&gt;
+    &lt;comment id=&quot;1&quot;&gt;This segment was translated using web translator.&lt;/comment&gt;
     &lt;type spec=&quot;Heading&quot;/&gt;
+  &lt;/unit&gt;
 &lt;/bilingualdocument&gt;
 </code></pre>
-</section>
-</div>
-
 <p>The BIL format contains the following elements:</p>
 <ul>
-<li><code>bilingualdocument</code>: The root element, in which the source and the target languages are specified within element attributes.</li>
-<li><code>unit</code>: Acts as the container for the source and the target content. Each unit element is identified by the unique value of the id attribute. Also the unit element contains a status attribute, which defines whether the current unit is, for example, new or an exact match.</li>
-<li><code>source</code>: Contains one seg element, which stores the actual source segment content.</li>
-<li><code>target</code>: Can contain a seg element for storing the target content. The target element can be empty if no target segment is available.</li>
-<li><code>seg</code>: Encloses the actual source or target content. Segment content may be enclosed in inline tags such as <em>&lt; b &gt;</em>, <em>&lt; i &gt;</em>, etc.</li>
-<li><code>type</code>: Contains additional information on the type of unit, e.g. heading, paragraph, footnote, etc.</li>
-<li><code>comment</code>: contains a comment related to a unit (if applicable). To keep this example as simple as possible, let us assume that a unit can only have one comment.</li>
+<li><code>bilingualdocument</code>: The root element. Its attributes specify the source and target languages.</li>
+<li><code>unit</code>: The container for the source and target content. Each <code>unit</code> has a unique <code>id</code> attribute and a <code>status</code> attribute that identifies the translation state, such as <code>new</code> or <code>exact</code>.</li>
+<li><code>source</code>: Contains a <code>seg</code> element that stores the source segment content.</li>
+<li><code>target</code>: Can contain a <code>seg</code> element that stores the target content. The <code>target</code> element can remain empty when no target segment is available.</li>
+<li><code>seg</code>: Encloses the source or target content. Segment content can contain inline tags such as <code>&lt;b&gt;</code> and <code>&lt;i&gt;</code>.</li>
+<li><code>type</code>: Contains additional information about the unit type, such as heading, paragraph, or footnote.</li>
+<li><code>comment</code>: Contains a comment for a unit, when applicable. For simplicity, this example assumes that each unit has at most one comment.</li>
 </ul>
 <h2 id="what-the-sample-file-type-plug-in-must-do">What the Sample File Type Plug-in Must Do</h2>
-<p>Your file type plug-in needs to fulfill the following requirements:</p>
+<p>The sample file type plug-in must:</p>
 <ul>
-<li>Generate an SDLXliff file from a given BIL document</li>
-<li>Traverse the BIL file and extract all units; each unit shall represent a paragraph in the translation editor of Trados Studio</li>
-<li>Expose all source segments for translation</li>
-<li>Expose all target segments (if available)</li>
-<li>Markup inline tags such as <em>&lt; b&gt;</em> as tag pairs within the segments and apply the appropriate display formatting</li>
-<li>Generate (untranslatable) contexts from the type attribute values (e.g. heading)</li>
-<li>Map the BIL unit status values to the appropriate confirmation levels found in the intermediary format used by Trados Studio (i.e. SDLXliff), e.g. translated, draft, approved, etc.</li>
-<li>Back conversion, i.e. writing back the content from the intermediary document (SDLXliff)into a target BIL file</li>
+<li>Generate an SDLXLIFF file from a BIL document.</li>
+<li>Traverse the BIL file and extract all units so that each unit appears as a paragraph in the Trados Studio translation editor.</li>
+<li>Expose all source segments for translation.</li>
+<li>Expose all target segments, when available.</li>
+<li>Mark up inline tags such as <code>&lt;b&gt;</code> as tag pairs within segments and apply the correct display formatting.</li>
+<li>Generate untranslatable contexts from <code>type</code> attribute values such as <code>heading</code>.</li>
+<li>Map BIL <code>status</code> values to the appropriate confirmation levels in the intermediary format used by Trados Studio, such as <code>translated</code>, <code>draft</code>, and <code>approved</code>.</li>
+<li>Support back-conversion by writing content from the intermediary SDLXLIFF document to a target BIL file.</li>
 </ul>
-<p>When developing the sample file type plug-in we fill primarily focus on extraction (file parser) and generation (file writer) as well as ways of mapping BIL features to SDLXliff features. We will not implement additional functionality such as QuickInsert, user-configurable settings, or document preview, as this is already covered in the chapter on developing a native file type plug-in.</p>
-<p>Example Document
-Below you see an example of a more comprehensive document, which you can use for testing your BIL file type plug-in:</p>
-<div class="tabGroup" id="tabgroup_2">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_2_tabid-2" role="tab" aria-controls="tabpanel_2_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">Xml</a>
-</li>
-</ul>
-<section id="tabpanel_2_tabid-2" role="tabpanel" data-tab="tabid-2">
+<p>This sample focuses on extraction through the file parser, generation through the file writer, and mapping BIL features to SDLXLIFF features. It does not implement additional functionality such as QuickInsert, user-configurable settings, or document preview, because the chapter on developing a native file type plug-in already covers those topics.</p>
+<h2 id="example-document">Example Document</h2>
+<p>The following example shows a more comprehensive document that you can use to test your BIL file type plug-in:</p>
+</section>
+<section id="tabpanel_1_tabid-2" role="tabpanel" data-tab="tabid-2" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
 &lt;bilingualdocument source-language=&quot;en-US&quot; target-language=&quot;de-DE&quot;&gt;
@@ -158,7 +154,7 @@ Below you see an example of a more comprehensive document, which you can use for
         &lt;b&gt;Leistungsmerkmale&lt;/b&gt;
       &lt;/seg&gt;
     &lt;/target&gt;
-   &lt;comment id=&quot;1&quot;&gt;This segment was translated using web translator.&lt;/comment&gt;
+    &lt;comment id=&quot;1&quot;&gt;This segment was translated using web translator.&lt;/comment&gt;
     &lt;type spec=&quot;Heading&quot;/&gt;
   &lt;/unit&gt;
   &lt;unit id=&quot;2&quot; status=&quot;fuzzy&quot;&gt;
@@ -180,15 +176,15 @@ Below you see an example of a more comprehensive document, which you can use for
         &lt;b&gt;The largest translation supply chain in the world&lt;/b&gt;
       &lt;/seg&gt;
     &lt;/source&gt;
-    &lt;target&gt;&lt;/target&gt;
+    &lt;target /&gt;
     &lt;type spec=&quot;Heading&quot;/&gt;
   &lt;/unit&gt;
   &lt;unit id=&quot;4&quot; status=&quot;new&quot;&gt;
     &lt;source&gt;
       &lt;seg&gt;&lt;i&gt;Trados Studio&lt;/i&gt; is the world’s most popular translation software with over 170,000 users.&lt;/seg&gt;
     &lt;/source&gt;
-    &lt;target&gt;&lt;/target&gt;
-&lt;type spec=&quot;Box&quot;/&gt;
+    &lt;target /&gt;
+    &lt;type spec=&quot;Box&quot;/&gt;
   &lt;/unit&gt;
   &lt;unit id=&quot;5&quot; status=&quot;new&quot;&gt;
     &lt;source&gt;
@@ -196,25 +192,24 @@ Below you see an example of a more comprehensive document, which you can use for
         &lt;b&gt;Dedicated translation environment to handle almost any file type&lt;/b&gt;
       &lt;/seg&gt;
     &lt;/source&gt;
-    &lt;target&gt;&lt;/target&gt;
+    &lt;target /&gt;
     &lt;type spec=&quot;Heading&quot;/&gt;
   &lt;/unit&gt;
   &lt;unit id=&quot;6&quot; status=&quot;new&quot;&gt;
     &lt;source&gt;
       &lt;seg&gt;&lt;b&gt;Easily open&lt;/b&gt; and start working on the widest range of file formats, from the latest Microsoft Office files to XML, from HTML to InDesign.&lt;/seg&gt;
     &lt;/source&gt;
-    &lt;target&gt;&lt;/target&gt;
-  &lt;type spec=&quot;Box&quot;/&gt;
-&lt;comment id=&quot;1&quot;&gt;This is the original comment&lt;/comment&gt;
+    &lt;target /&gt;
+    &lt;type spec=&quot;Box&quot;/&gt;
+    &lt;comment id=&quot;1&quot;&gt;This is the original comment&lt;/comment&gt;
   &lt;/unit&gt;
 &lt;/bilingualdocument&gt;
 </code></pre>
-</section>
-</div>
-
 <div class="NOTE">
 <h5>Note</h5>
-<p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+<p>This content may be out of date. To verify the latest information on this topic, inspect the libraries in the Visual Studio Object Browser.</p>
+</div>
+</section>
 </div>
 
 </article>
