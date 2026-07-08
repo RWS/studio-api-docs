@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-      <title> </title>
+      <title>Adding the Search Settings Form </title>
       <meta name="viewport" content="width=device-width">
-      <meta name="title" content=" ">
+      <meta name="title" content="Adding the Search Settings Form ">
     
     
       <link rel="shortcut icon" href="../../favicon.ico">
@@ -80,23 +80,23 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
+<h1 id="adding-the-search-settings-form">Adding the Search Settings Form</h1>
 
-<p>Adding the Search Settings Form
-This page shows how to implement the user interface for configuring the search settings. The sample application should allow users to set the maximum number of search results as well as the minimum fuzziness value.</p>
-<p>Add the Form Control Elements
-The form configuring the search options needs to have the following control elements:</p>
+<p>This page explains how to implement the user interface for configuring search settings. The sample application lets users set the maximum number of search results and the minimum fuzziness value.</p>
+<h2 id="add-the-form-control-elements">Add the Form Control Elements</h2>
+<p>The search settings form needs the following controls:</p>
 <ul>
-<li><strong>txtMaxHits</strong>: text box in which the maximum number of hits can be entered; set the <em>MaxLength</em> property to 2, so that only values up to 99 can be entered (note that in this simplified application we will not implement any functionality that checks whether the input in this field is numerical)</li>
-<li><strong>trackFuzzy</strong>: slider to set the fuzziness value anywhere between 30 and 100; the minimum value should therefore be 30, the maximum 100, the default value 70</li>
-<li><strong>lblFuzzyValue</strong>: label that shows the fuzziness value set by the slider</li>
-<li><strong>btnDefaults</strong>: restores the settings back to their 8 default values</li>
-<li><strong>btnOK</strong>: closes the form and applies the settings changes</li>
-<li><strong>btnCancel</strong>: closes the form without applying settings changes</li>
+<li><strong>txtMaxHits</strong>: Text box for entering the maximum number of hits. Set the <em>MaxLength</em> property to <code>2</code> so users can enter values up to 99. This simplified application does not validate whether the input is numeric.</li>
+<li><strong>trackFuzzy</strong>: Slider for setting the fuzziness value between 30 and 100. Set the minimum value to 30, the maximum value to 100, and the default value to 70.</li>
+<li><strong>lblFuzzyValue</strong>: Label that displays the fuzziness value selected by the slider.</li>
+<li><strong>btnDefaults</strong>: Restores the default settings.</li>
+<li><strong>btnOK</strong>: Closes the form and applies the settings.</li>
+<li><strong>btnCancel</strong>: Closes the form without applying the settings.</li>
 </ul>
 <img style="display:block; " src="images/frmSearchSettings.jpg">
 <h2 id="implement-the-gui-functionality">Implement the GUI Functionality</h2>
 <h3 id="setting-the-fuzziness-value">Setting the Fuzziness Value</h3>
-<p>Through the slider users can set the minimum fuzziness value between 30 and 100. When changing the slider position, the value should be updated in the label element:</p>
+<p>Users can set the minimum fuzziness value between 30 and 100 by moving the slider. When the slider position changes, update the value in the label:</p>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
@@ -113,7 +113,7 @@ The form configuring the search options needs to have the following control elem
 </section>
 </div>
 <h3 id="resetting-to-default-values">Resetting to Default Values</h3>
-<p>The default settings should be restored as follows by clicking the corresponding button:</p>
+<p>Click the corresponding button to restore the default settings:</p>
 <div class="tabGroup" id="tabgroup_2">
 <ul role="tablist">
 <li role="presentation">
@@ -122,12 +122,12 @@ The form configuring the search options needs to have the following control elem
 </ul>
 <section id="tabpanel_2_tabid-2" role="tabpanel" data-tab="tabid-2">
 
-<pre><code class="lang-cs">// Reset the control elements to the corresponding default values.
+<pre><code class="lang-cs">// Reset the control elements to their default values.
 private void btnDefaults_Click(object sender, EventArgs e)
 {
     this.trackFuzzy.Value = 70;
     this.lblFuzzyValue.Text = &quot;70&quot;;
-    this.txtMaxHits.Text = &quot;30&quot;;            
+    this.txtMaxHits.Text = &quot;30&quot;;
 }
 </code></pre>
 </section>
@@ -143,7 +143,7 @@ private void btnDefaults_Click(object sender, EventArgs e)
 <section id="tabpanel_3_tabid-3" role="tabpanel" data-tab="tabid-3">
 
 <pre><code class="lang-cs">// Property for setting the minimum fuzzy match value
-// that should be used during the search.
+// used during the search.
 public static int minFuzzy
 {
     get;
@@ -160,7 +160,7 @@ public static int minFuzzy
 </ul>
 <section id="tabpanel_4_tabid-4" role="tabpanel" data-tab="tabid-4">
 
-<pre><code class="lang-cs">// Property for setting the maximum amount of hits to return
+<pre><code class="lang-cs">// Property for setting the maximum number of hits to return
 // from the TM.
 public static int maxHits
 {
@@ -171,7 +171,7 @@ public static int maxHits
 </section>
 </div>
 
-<p>Clicking the <strong>OK</strong> button should hide the form and apply the settings.</p>
+<p>Clicking <strong>OK</strong> should hide the form and apply the settings.</p>
 <div class="tabGroup" id="tabgroup_5">
 <ul role="tablist">
 <li role="presentation">
@@ -182,7 +182,7 @@ public static int maxHits
 
 <pre><code class="lang-cs">// Apply the setting values from the form.
 private void btnOK_Click(object sender, EventArgs e)
-{            
+{
     maxHits = Convert.ToInt32(this.txtMaxHits.Text.ToString());
     minFuzzy = this.trackFuzzy.Value;
 
@@ -192,7 +192,7 @@ private void btnOK_Click(object sender, EventArgs e)
 </section>
 </div>
 <h3 id="cancelling">Cancelling</h3>
-<p>Clicking the <strong>Cancel</strong> button should hide the form without applying the settings.</p>
+<p>Clicking <strong>Cancel</strong> should hide the form without applying the settings.</p>
 <div class="tabGroup" id="tabgroup_6">
 <ul role="tablist">
 <li role="presentation">
@@ -209,8 +209,10 @@ private void btnOK_Click(object sender, EventArgs e)
 </section>
 </div>
 <h2 id="see-also">See Also</h2>
-<p><a href="adding_the_connector_class.html">Adding the Connector Class</a></p>
-<p><a href="implementing_the_search_functionality.html">Implementing the Search Functionality</a></p>
+<ul>
+<li><a href="adding_the_connector_class.html">Adding the Connector Class</a></li>
+<li><a href="implementing_the_search_functionality.html">Implementing the Search Functionality</a></li>
+</ul>
 
 </article>
           </div>

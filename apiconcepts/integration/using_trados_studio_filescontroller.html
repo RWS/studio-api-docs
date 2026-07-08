@@ -82,19 +82,23 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="using-varproductname-filescontroller">Using Trados Studio FilesController</h1>
 
-<p>TranslationStudioAutomation provides support for third-party developers to access the Trados Studio files view and perform project files operations.</p>
-<h2 id="creating-a-custom-project-files-list-inside-a-viewpart-that-belongs-to-the-files-view">Creating a custom project files list inside a viewpart that belongs to the files view</h2>
-<p>The following sample demonstrates how to create a custom project files list built by using the <a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.FilesController.html">FilesController</a> and add it to the files view as a custom viewpart.</p>
-<p>The custom list features:</p>
+<p>The TranslationStudioAutomation API enables you to access the Trados Studio files view and perform file operations.</p>
+<h2 id="create-a-custom-file-list-in-a-viewpart">Create a custom file list in a viewpart</h2>
+<p>This sample demonstrates how to create a custom file list using the <a href="../../api/integration/Sdl.TranslationStudioAutomation.IntegrationApi.FilesController.html">FilesController</a> and add it to the files view as a custom viewpart.</p>
+<p>The custom list includes:</p>
 <ul>
-<li>Display two columns: the project file name and the number of total words from the file.</li>
-<li>The projects files selected in the project files list will be in sync with the one from the custom list.</li>
+<li>Two columns: the file name and the total word count from the file</li>
+<li>Selection synchronization between the custom list and the files view</li>
 </ul>
-<p>Start by implementing the windows form user control that will fill the content of the viewpart and is implementing the list view.</p>
+<h3 id="step-1-implement-the-user-control">Step 1: Implement the user control</h3>
+<p>Create a Windows Forms user control to display the file list:</p>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
 <a href="#tabpanel_1_tabid-1" role="tab" aria-controls="tabpanel_1_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-2" role="tab" aria-controls="tabpanel_1_tabid-2" data-tab="tabid-2" tabindex="-1">C#</a>
 </li>
 </ul>
 <section id="tabpanel_1_tabid-1" role="tabpanel" data-tab="tabid-1">
@@ -189,17 +193,10 @@ namespace FilesOperations.Sample
     }
 }
 </code></pre>
+<h3 id="step-2-integrate-the-viewpart-into-the-files-view">Step 2: Integrate the viewpart into the files view</h3>
+<p>Register the viewpart with the files view:</p>
 </section>
-</div>
-
-<p>Finally integrate the new viewpart to the files view.</p>
-<div class="tabGroup" id="tabgroup_2">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_2_tabid-2" role="tab" aria-controls="tabpanel_2_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_2_tabid-2" role="tabpanel" data-tab="tabid-2">
+<section id="tabpanel_1_tabid-2" role="tabpanel" data-tab="tabid-2" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">using System;
 using System.Windows.Forms;

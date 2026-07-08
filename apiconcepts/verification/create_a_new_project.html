@@ -82,24 +82,29 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="create-a-new-project">Create a New Project</h1>
 
-<p>In this chapter you will learn how to properly set up a project for developing a global verification plug-in.</p>
-<h2 id="create-the-project">Create the Project</h2>
-<p>Before you start developing plug-ins for Trados Studio, you should make sure that the SDK is installed on your development computer. The SDK installer will add new templates to your Microsoft Visual Studio 2022 environment, as illustrated in the screenshot below. For the type of plug-in discussed in this chapter, we require the <strong>Trados Studio (2021)</strong> project template.</p>
-<img style="display:block; " src="images/PlugInTemplate.jpg">
-<p>By default, when you create a project based on this template, the project name will be e.g. <strong>Trados Studio1</strong>. Change the project name to <strong>Sdl.Verification.Sdk.IdenticalCheck</strong> for our sample implementation.</p>
-<h2 id="add-the-required-references">Add the Required References</h2>
-<p>The plug-in template will come with the <strong>Sdl.Core.PluginFramework.dll</strong> reference. For our global verifier implementation, we also need to reference the Verification API, i.e. <strong>Sdl.Verification.Api.dll</strong>. For implementing the functionality required by our example, you need to add the libraries used for integration with Trados Studio, which are as follows:</p>
+<p>This chapter explains how to set up a project for developing a global verification plug-in.</p>
+<h2 id="creating-the-project">Creating the Project</h2>
+<p>Before developing plug-ins for Trados Studio, make sure that the SDK is installed on your development computer. The SDK installer adds new templates to your Microsoft Visual Studio 2022 environment, as shown in the screenshot below. For the type of plug-in discussed in this chapter, use the <strong>Trados Studio (2026)</strong> project template.</p>
+<p><img src="images/PlugInTemplate.jpg" alt="Plug-In Template"></p>
+<p>By default, a project created from this template is named, for example, <strong>Trados Studio1</strong>. Rename the project to <strong>Sdl.Verification.Sdk.IdenticalCheck</strong> for this sample implementation.</p>
+<h2 id="adding-the-required-references">Adding the Required References</h2>
+<p>The plug-in template includes the <strong>Sdl.Core.PluginFramework.dll</strong> reference. For the global verifier implementation, you also need to reference the Verification API, i.e. <strong>Sdl.Verification.Api.dll</strong>. To implement the functionality in this example, add the following libraries used for integration with <code>Trados Studio</code>:</p>
 <ul>
 <li><strong>Sdl.Desktop.Platform.dll</strong></li>
 <li><strong>Sdl.FileTypeSupport.Framework.Core</strong></li>
 <li><strong>Sdl.Core.Settings.dll</strong></li>
 </ul>
-<p>By default, these files can be found in the installation folder of Trados Studio, i.e. <em>C:\Program Files (x86)\Trados\Trados Studio\Studio18</em>. The 'Copy Local' property for these references should be set to True.</p>
-<img style="display:block; " src="images/GlobalVerifierRef.jpg">
+<p>These files are typically located in the installation folder of <code>Trados Studio</code>, i.e. <em>C:\Program Files\Trados\Trados Studio\Studio19</em>. Ensure that the <code>Copy Local</code> property for these references is set to <code>True</code>.</p>
+<p><img src="images/GlobalVerifierRef.jpg" alt="Global Verifier References"></p>
 <div class="NOTE">
 <h5>Note</h5>
-<p>Do not forget to sign the assembly. Otherwise, your plug-in might not be loaded by Trados Studio.</p>
+<p>Remember to sign the assembly. Otherwise, your plug-in might not be loaded by Trados Studio.</p>
 </div>
+<h2 id="adding-the-resources-file">Adding the Resources File</h2>
+<p>The project template includes a <strong>PluginResources.resx</strong> resources file, which stores strings and plug-in UI elements, such as the plug-in name and the message texts for any problems that the plug-in reports. These elements are displayed in the user interface of Trados Studio.</p>
+<p>By default, this resources file only includes the <strong>Plugin_Name</strong> string. In our implementation, we need several other strings, such as those for setting the plug-in description and the error messages that the plug-in should display after verification. The resources table should look as follows:</p>
+<p><img src="images/resources_identical_check.jpg" alt="Resources Table for Identical Check"></p>
+<p>The <a href="https://github.com/RWS/trados-studio-api-samples/tree/master/Verification/Sdl.Verification.Sdk.IdenticalCheck">Sdl.Verification.Sdk.IdenticalCheck</a> sample project folder also contains an icon file (<strong>icon.ico</strong>), which you can add to the resource file of your project. This icon will be displayed next to the plug-in name in the <strong>Options</strong> dialog box.</p>
 
 </article>
           </div>

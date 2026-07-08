@@ -82,13 +82,19 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="retrieving-licensing-information">Retrieving Licensing Information</h1>
 
-<p>A TM Server is licensed for a certain number of concurrent users and the number of translation units that it can store at maximum. It may sometimes be necessary to retrieve the maximum number of TUs allowed, and the number of TUs currently stored. This chapter provides an example of how to retrieve this information programmatically.</p>
+<p>A TM Server is licensed for a specific number of concurrent users and a maximum number of translation units. Sometimes you need to retrieve the maximum allowed TU count and the number of TUs currently stored. This chapter shows how to retrieve that information programmatically.</p>
 <h2 id="add-a-new-class">Add a New Class</h2>
-<p>Start by adding a class called <code>ServerLicensing</code> to your project. Then implement a public function called <code>GetLicensingInformation</code>, which takes a <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.html">TranslationProviderServer</a> object as parameter. This function can be called as shown below:</p>
+<p>Start by adding a class called <code>ServerLicensing</code> to your project. Then implement a public function called <code>GetLicensingInformation</code>, which takes a <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.html">TranslationProviderServer</a> object as a parameter. Call the function as shown below:</p>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
 <a href="#tabpanel_1_tabid-1" role="tab" aria-controls="tabpanel_1_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-2" role="tab" aria-controls="tabpanel_1_tabid-2" data-tab="tabid-2" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-3" role="tab" aria-controls="tabpanel_1_tabid-3" data-tab="tabid-3" tabindex="-1">C#</a>
 </li>
 </ul>
 <section id="tabpanel_1_tabid-1" role="tabpanel" data-tab="tabid-1">
@@ -96,23 +102,14 @@
 <pre><code class="lang-cs">var license = new ServerLicensing();
 license.GetLicensingInformation(tmServer);
 </code></pre>
+<p>By calling <code>GetLicensingStatusInformation</code> on the server, you create a <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.LicensingStatusInformation.html">LicensingStatusInformation</a> object. Use it to retrieve information such as the maximum number of concurrent users, the maximum number of TUs, and the current TU count:</p>
 </section>
-</div>
-
-<p>By applying the <code>GetLicensingStatusInformation</code> method to the server you create a <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.LicensingStatusInformation.html">LicensingStatusInformation</a> object, through which you retrieve the required information, such as the maximum  number of concurrent users allowed, the maximum numbers of TUs, as well as the current TU count:</p>
-<div class="tabGroup" id="tabgroup_2">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_2_tabid-2" role="tab" aria-controls="tabpanel_2_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_2_tabid-2" role="tabpanel" data-tab="tabid-2">
+<section id="tabpanel_1_tabid-2" role="tabpanel" data-tab="tabid-2" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">public void GetLicensingInformation(TranslationProviderServer tmServer)
 {
     string licInfo = string.Empty;
-    LicensingStatusInformation info;
-    info = tmServer.GetLicensingStatusInformation();
+    LicensingStatusInformation info = tmServer.GetLicensingStatusInformation();
 
     licInfo += &quot;Max. concurrent users: &quot; + info.MaxConcurrentUsers.ToString();
     licInfo += &quot;Max. TU count: &quot; + info.MaxTranslationUnitCount.ToString();
@@ -122,18 +119,11 @@ license.GetLicensingInformation(tmServer);
     MessageBox.Show(licInfo, &quot;Licensing Information&quot;);
 }
 </code></pre>
-</section>
-</div>
 <img style="display:block; " src="images/LicensingInfo.jpg">
-<h2 id="putting-it-all-together">Putting it All Together</h2>
-<p>The complete class looks as shown below:</p>
-<div class="tabGroup" id="tabgroup_3">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_3_tabid-3" role="tab" aria-controls="tabpanel_3_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_3_tabid-3" role="tabpanel" data-tab="tabid-3">
+<h2 id="putting-it-all-together">Putting It All Together</h2>
+<p>The complete class looks like this:</p>
+</section>
+<section id="tabpanel_1_tabid-3" role="tabpanel" data-tab="tabid-3" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">namespace SDK.LanguagePlatform.Samples.TmAutomation
 {
@@ -142,12 +132,10 @@ license.GetLicensingInformation(tmServer);
 
     public class ServerLicensing
     {
-        #region &quot;get&quot;
         public void GetLicensingInformation(TranslationProviderServer tmServer)
         {
             string licInfo = string.Empty;
-            LicensingStatusInformation info;
-            info = tmServer.GetLicensingStatusInformation();
+            LicensingStatusInformation info = tmServer.GetLicensingStatusInformation();
 
             licInfo += &quot;Max. concurrent users: &quot; + info.MaxConcurrentUsers.ToString();
             licInfo += &quot;Max. TU count: &quot; + info.MaxTranslationUnitCount.ToString();
@@ -156,7 +144,6 @@ license.GetLicensingInformation(tmServer);
 
             MessageBox.Show(licInfo, &quot;Licensing Information&quot;);
         }
-        #endregion
     }
 }
 </code></pre>

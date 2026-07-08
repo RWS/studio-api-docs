@@ -82,7 +82,7 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="the-sub-content-parser">The Sub Content Parser</h1>
 
-<p>An example of a sub-content Parser is shown below - note the implementation of <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ISubContentParser.html">ISubContentParser</a></p>
+<p>This example demonstrates a sub-content Parser. Review the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ISubContentParser.html">ISubContentParser</a> implementation for details.</p>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
@@ -103,15 +103,12 @@ namespace Sdk.Snippets.Native
 {
     public class SimpleSubContentTextParser : AbstractNativeFileParser, INativeContentCycleAware, ISubContentParser
     {
-        #region &quot;global settings&quot;
         IPersistentFileConversionProperties _fileConversionProperties;
         StreamReader _reader = null;
         private Stream _subContentStream;
 
         FormattingGroup _fBold;
-        #endregion
 
-        #region &quot;INativeContentCycleAware members&quot;
         // through the properties object you can retrieve important information
         // on the native input file such as the original file name and path
         public void SetFileProperties(IFileProperties properties)
@@ -129,11 +126,7 @@ namespace Sdk.Snippets.Native
         {
 
         }
-        #endregion
 
-        #region &quot;members of AbstractNativeFileParser&quot;
-
-        #region &quot;before parsing&quot;
         protected override void BeforeParsing()
         {
             // set progress reporter to the beginning
@@ -149,9 +142,7 @@ namespace Sdk.Snippets.Native
                 _reader = new StreamReader(_subContentStream);
             }
         }
-        #endregion
 
-        #region &quot;during parsing&quot;
         protected override bool DuringParsing()
         {
             // iterate through all lines in the input file
@@ -161,9 +152,7 @@ namespace Sdk.Snippets.Native
             }
             return false;
         }
-        #endregion
 
-        #region &quot;after parsing&quot;
         protected override void AfterParsing()
         {
             //close original file
@@ -173,11 +162,7 @@ namespace Sdk.Snippets.Native
             //set progres report to 100%
             OnProgress(100);
         }
-        #endregion
 
-        #endregion
-
-        #region &quot;process line&quot;
         // determines whether a given line is
         // translatable or not
         // if not, a structure tag is output
@@ -194,18 +179,14 @@ namespace Sdk.Snippets.Native
                 WriteText(ProcessFormatting(sLine));
             }
         }
-        #endregion
 
-        #region &quot;text&quot;
         // output translatable text
         private void WriteText(string TextContent)
         {
             ITextProperties textProperties = PropertiesFactory.CreateTextProperties(TextContent);
             Output.Text(textProperties);
         }
-        #endregion
 
-        #region &quot;structure&quot;
         // output non-translatable text as structure tag
         private void WriteStructureTag(string TagContent)
         {
@@ -213,9 +194,7 @@ namespace Sdk.Snippets.Native
             structureTagProperties.DisplayText = TagContent;
             Output.StructureTag(structureTagProperties);
         }
-        #endregion
 
-        #region &quot;context&quot;
         // output context information, not required, but useful
         // information for the translator
         private void WriteContext(string ContextContent)
@@ -229,9 +208,7 @@ namespace Sdk.Snippets.Native
             contextProperties.Contexts.Add(contextInfo);
             Output.ChangeContext(contextProperties);
         }
-        #endregion
 
-        #region &quot;process formatting&quot;
         // this function uses regular expressions to identify
         // what is 'normal' translatable content and which strings
         // need to be marked up as inline tags, e.g. &lt;b&gt;
@@ -256,9 +233,7 @@ namespace Sdk.Snippets.Native
             }
             return sLine.Substring(LastPosition, sLine.Length - LastPosition);
         }
-        #endregion
 
-        #region &quot;write inline tag&quot;
         // this function outputs an opening or a closing &lt;b&gt; tag
         // and applies bold character formatting to the strings
         // that the tags enclose
@@ -285,7 +260,6 @@ namespace Sdk.Snippets.Native
                 Output.InlineEndTag(endTag);
             }
         }
-        #endregion
 
         public void InitializeSubContentParser(Stream subContentStream)
         {
@@ -299,7 +273,7 @@ namespace Sdk.Snippets.Native
 
 <div class="NOTE">
 <h5>Note</h5>
-<p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+<p>This content may be out-of-date. Inspect the libraries in the Visual Studio Object Browser to verify the latest information on this topic.</p>
 </div>
 
 </article>

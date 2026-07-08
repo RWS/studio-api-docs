@@ -239,17 +239,10 @@ result += &quot;Placeables: &quot; + analysisStats.Exact.Placeables.ToString() +
 /// &lt;/summary&gt; 
 private void CreateReports(FileBasedProject project, string path)
 {
-    #region &quot;CreateStandardReport&quot;
     project.SaveTaskReportAs(this.reportId, path + &quot;/AnalyzeTaskReport.xls&quot;, ReportFormat.Excel);
-    #endregion
-
-    #region &quot;Statistics&quot;
     ProjectStatistics projectStats = project.GetProjectStatistics();
     TargetLanguageStatistics[] targetStats = projectStats.TargetLanguageStatistics;
     AnalysisStatistics analysisStats = targetStats[0].AnalysisStatistics;
-    #endregion
-
-    #region &quot;WriteData&quot;
     string result = &quot;Analysis result for all files:\n\n&quot;;
 
     result += &quot;\nPerfect matches\n&quot;;
@@ -265,17 +258,12 @@ private void CreateReports(FileBasedProject project, string path)
     result += &quot;Characters: &quot; + analysisStats.InContextExact.Characters.ToString() + &quot;\n&quot;;
     result += &quot;Tags: &quot; + analysisStats.InContextExact.Tags.ToString() + &quot;\n&quot;;
     result += &quot;Placeables: &quot; + analysisStats.InContextExact.Placeables.ToString() + &quot;\n&quot;;
-
-    #region &quot;Exact&quot;
     result += &quot;\nExact matches\n&quot;;
     result += &quot;Segments: &quot; + analysisStats.Exact.Segments.ToString() + &quot;\n&quot;;
     result += &quot;Words: &quot; + analysisStats.Exact.Words.ToString() + &quot;\n&quot;;
     result += &quot;Characters: &quot; + analysisStats.Exact.Characters.ToString() + &quot;\n&quot;;
     result += &quot;Tags: &quot; + analysisStats.Exact.Tags.ToString() + &quot;\n&quot;;
     result += &quot;Placeables: &quot; + analysisStats.Exact.Placeables.ToString() + &quot;\n&quot;;
-    #endregion
-
-    #region &quot;Fuzzy&quot;
     for (int i = 0; i &lt; analysisStats.Fuzzy.Length; i++)
     {
         string rangeMax = analysisStats.Fuzzy[i].Band.MaximumMatchValue.ToString();
@@ -288,8 +276,6 @@ private void CreateReports(FileBasedProject project, string path)
         result += &quot;Tags: &quot; + analysisStats.Fuzzy[i].Tags.ToString() + &quot;\n&quot;;
         result += &quot;Placeables: &quot; + analysisStats.Fuzzy[i].Placeables.ToString() + &quot;\n&quot;;
     }
-    #endregion
-
     result += &quot;\nRepetitions\n&quot;;
     result += &quot;Segments: &quot; + analysisStats.Repetitions.Segments.ToString() + &quot;\n&quot;;
     result += &quot;Words: &quot; + analysisStats.Repetitions.Words.ToString() + &quot;\n&quot;;
@@ -312,8 +298,6 @@ private void CreateReports(FileBasedProject project, string path)
     result += &quot;Placeables: &quot; + analysisStats.Total.Placeables.ToString() + &quot;\n&quot;;
 
     Console.Write(result);
-
-    #endregion
 }
 </code></pre>
 </section>

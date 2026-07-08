@@ -83,10 +83,11 @@
 <h1 id="plug-in-resources-and-localizability">Plug-in Resources and Localizability</h1>
 
 <p>This section explains how to make extension meta-data localizable.</p>
-<h2 id="plug-in-resources-and-localizability-1">Plug-in Resources and Localizability</h2>
-<p>All the string metadata values used for the properties of the extension attributes shown in the example above are hard-coded strings. In reality these strings need to be localized.</p>
-<p>For that reason, the framework allows adding a specific plug-in resource file to a plug-in project. Instead of hard-coding the strings in code, you can specify the key of a resource string defined in the plug-in resources file. The framework resolves these resource strings at runtime based on the current UI culture and automatically populates the string properties of extension attributes with the corresponding localized values.</p>
-<p>To indicate that the value of a certain property needs to be retrieved from the plug-in resources file, the definition of that property within the extension attribute definition must be annotated with the <code>PluginResource</code> attribute. For instance, a plug-in button extension point, with a localizable <code>ToolTipText</code> property becomes:</p>
+<h2 id="overview">Overview</h2>
+<p>All string metadata values used for the properties of extension attributes in the example above are hard-coded strings. These strings need to be localized.</p>
+<p>To achieve this, the framework allows adding a specific plug-in resource file to a plug-in project. Instead of hard-coding strings in code, you can specify the key of a resource string defined in the plug-in resource file. The framework resolves these resource strings at runtime based on the current UI culture and automatically populates the string properties of extension attributes with the corresponding localized values.</p>
+<h3 id="using-the-pluginresource-attribute">Using the <code>PluginResource</code> Attribute</h3>
+<p>To indicate that a property's value needs to be retrieved from the plug-in resource file, annotate the property within the extension attribute definition with the <code>PluginResource</code> attribute. For example, a plug-in button extension point with a localizable <code>ToolTipText</code> property becomes:</p>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
@@ -107,7 +108,7 @@ public class PluginButtonAttribute : ExtensionAttribute
 </code></pre></section>
 </div>
 <br>
-<p>An extension targeting this extension point, <code>MyPluginButton</code>:</p>
+<p>An extension targeting this extension point, <code>MyPluginButton</code>, is defined as:</p>
 <div class="tabGroup" id="tabgroup_2">
 <ul role="tablist">
 <li role="presentation">
@@ -129,21 +130,23 @@ public class MyPluginButton : IPluginButton
 </code></pre></section>
 </div>
 <br>
-<p>In the above code sample, <code>MyPluginButton_Name</code> and <code>MyPluginButton_ToolTipText</code> are keys of strings defined in the plugin resource file, <code>PluginResources.resx</code>.
-As mentioned before, the plug-in manifest generator requires that you pass the path to the plug-in resx file as the second parameter. To avoid having to load the plug-in assembly to get access to the embedded resource strings when the plug-in meta data is accessed, the plug-in manifest generator compiles an external .Net plug-in resource file. This compiled resource file is copied alongside the plug-in manifest file, so that it can be loaded separately from the plug-in assembly itself. For instance, for the plug-in assembly, PluginLibrary, this becomes:</p>
+<p>In the above code sample, <code>MyPluginButton_Name</code> and <code>MyPluginButton_ToolTipText</code> are keys of strings defined in the plug-in resource file, <code>PluginResources.resx</code>.
+The plug-in manifest generator requires the path to the plug-in <code>.resx</code> file as the second parameter. To avoid loading the plug-in assembly to access embedded resource strings when accessing plug-in metadata, the manifest generator compiles an external .NET plug-in resource file. This compiled resource file is copied alongside the plug-in manifest file, allowing it to be loaded separately from the plug-in assembly. For example, for the plug-in assembly <code>PluginLibrary</code>, the following files are generated:</p>
 <ul>
 <li><code>PluginLibrary.dll</code>: the plug-in assembly</li>
 <li><code>PluginLibrary.plugin.xml</code>: the plug-in manifest file</li>
 <li><code>PluginLibrary.plugin.resources</code>: the plug-in resources file containing strings for the neutral culture.</li>
 <li><code>PluginLibrary.plugin.*.resources</code>: any number of resource files containing the localized strings</li>
 </ul>
-<p>The use of the <code>PluginResource</code> attribute is supported in the following cases:</p>
+<h3 id="supported-use-cases">Supported Use Cases</h3>
+<p>The <code>PluginResource</code> attribute can be used in the following cases:</p>
 <ul>
 <li>Extension attribute string properties</li>
 <li>Auxiliary extension attribute string properties</li>
-<li>Assembly-level <code>PluginAttribute</code> string attributes
-For non-string properties, like for instance an icon, the plug-in resource file can also be used, however, because of the type difference, the value of these kinds of properties cannot be automatically resolved. Define the actual property as a string property, to which uses must assign a resource key. Then, when you need the actual icon, get it from the plug-in resource file using the <code>GetPluginResource&lt;T&gt;</code> method:</li>
+<li>Assembly-level <code>PluginAttribute</code> string attributes</li>
 </ul>
+<h3 id="non-string-properties">Non-String Properties</h3>
+<p>For non-string properties, such as an icon, the plug-in resource file can also be used. However, due to type differences, these properties cannot be automatically resolved. Define the property as a string property, and assign a resource key to it. When the actual icon is needed, retrieve it from the plug-in resource file using the <code>GetPluginResource&lt;T&gt;</code> method:</p>
 <div class="tabGroup" id="tabgroup_3">
 <ul role="tablist">
 <li role="presentation">

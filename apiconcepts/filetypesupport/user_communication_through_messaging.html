@@ -82,15 +82,15 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="user-communication-through-messaging">User Communication Through Messaging</h1>
 
-<p>In this chapter you will learn how to provide users with helpful information on why a given file cannot be supported by the file type plug-in.</p>
-<h2 id="enhance-the-file-sniffer-to-output-a-detailed-message">Enhance the File Sniffer to Output a Detailed Message</h2>
-<p>When the file sniffer determines that a given file cannot be supported, the framework will generate the following default message:</p>
+<p>This section explains how to tell users why the file type plug-in does not support a file.</p>
+<h2 id="enhance-the-file-sniffer-to-output-a-detailed-message">Enhance the file sniffer to output a detailed message</h2>
+<p>When the file sniffer determines that it cannot support a file, the framework generates the following default message:</p>
 <p><img src="images/FileTypeNotSupported.jpg" alt="FileTypeNotSupported"></p>
-<p>However, it may be useful to provide users with more information on why a given file is not supported, so that they can edit the file and resolve the problem. Example: Trados Studio cannot process Microsoft Word documents that contains any pending changes. When users try to open such a DOC file, they will receive a message that points out this particular problem. They can then open the source document in Microsoft Word, accept or reject all pending changes, thereby resolving the problem.</p>
-<p>Remember that our sample file type plug-in checks for the presence of the string <strong>[Version=n]</strong> in the first line. If this string is not present, the sniffer should throw a more detailed message, which states the cause of the problem.</p>
-<p>Let us consolidate the message texts thrown by the sniffer in another resources file. Add an additional resources file (e.g. <strong>StringResources.resx</strong>) to your project. Enter two resource names and values as shown below:</p>
+<p>Provide a more specific message when possible so that users can correct the problem. For example, Trados Studio cannot process Microsoft Word documents that contain pending changes. When users open such a DOC file, the application can explain the problem. Users can then open the source document in Microsoft Word and accept or reject the pending changes.</p>
+<p>The sample file type plug-in checks whether the first line contains <strong>[Version=n]</strong>. If the string is missing, the sniffer should report a detailed message that explains the problem.</p>
+<p>Store the sniffer messages in a separate resource file. Add another resource file, for example <strong>StringResources.resx</strong>, to your project. Then add two resource names and values, as shown below:</p>
 <p><img src="images/SnifferMessages.jpg" alt="SnifferMessages"></p>
-<p>Now enhance the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileSniffer.html#Sdl_FileTypeSupport_Framework_NativeApi_INativeFileSniffer_Sniff_System_String_Sdl_Core_Globalization_Language_Sdl_Core_Globalization_Codepage_Sdl_FileTypeSupport_Framework_NativeApi_INativeTextLocationMessageReporter_Sdl_Core_Settings_ISettingsGroup_">Sniff</a> method as outlined below: apply the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IBasicMessageReporter.html#Sdl_FileTypeSupport_Framework_NativeApi_IBasicMessageReporter_ReportMessage_System_Object_System_String_Sdl_FileTypeSupport_Framework_NativeApi_ErrorLevel_System_String_System_String_">ReportMessage</a> method to the locMsgReporter object, which is returned by the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileSniffer.html#Sdl_FileTypeSupport_Framework_NativeApi_INativeFileSniffer_Sniff_System_String_Sdl_Core_Globalization_Language_Sdl_Core_Globalization_Codepage_Sdl_FileTypeSupport_Framework_NativeApi_INativeTextLocationMessageReporter_Sdl_Core_Settings_ISettingsGroup_">Sniff</a> method:</p>
+<p>Update the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.INativeFileSniffer.html#Sdl_FileTypeSupport_Framework_NativeApi_INativeFileSniffer_Sniff_System_String_Sdl_Core_Globalization_Language_Sdl_Core_Globalization_Codepage_Sdl_FileTypeSupport_Framework_NativeApi_INativeTextLocationMessageReporter_Sdl_Core_Settings_ISettingsGroup_">Sniff</a> method to call <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IBasicMessageReporter.html#Sdl_FileTypeSupport_Framework_NativeApi_IBasicMessageReporter_ReportMessage_System_Object_System_String_Sdl_FileTypeSupport_Framework_NativeApi_ErrorLevel_System_String_System_String_">ReportMessage</a> on the <code>messageReporter</code> object that the method receives:</p>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
@@ -99,21 +99,21 @@
 </ul>
 <section id="tabpanel_1_tabid-1" role="tabpanel" data-tab="tabid-1">
 
-<pre><code class="lang-cs">locMsgReporter.ReportMessage(this, nativeFilePath,
+<pre><code class="lang-cs">messageReporter.ReportMessage(this, nativeFilePath,
         ErrorLevel.Error, StringResources.Sniffer_Message, StringResources.Sniffer_Location);
 </code></pre>
 </section>
 </div>
 
-<p>The <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IBasicMessageReporter.html#Sdl_FileTypeSupport_Framework_NativeApi_IBasicMessageReporter_ReportMessage_System_Object_System_String_Sdl_FileTypeSupport_Framework_NativeApi_ErrorLevel_System_String_System_String_">ReportMessage</a> method takes a number of parameters such as the error level. Since not being able to open a file is, of course, a critical problem, we choose the highest severity level, i.e. Error. From our string resources file, we retrieve the descriptive texts, which provide detailed information to the user.
-Instead of just returning the default generic message, the file sniffer will now generate the following output:</p>
+<p>The <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IBasicMessageReporter.html#Sdl_FileTypeSupport_Framework_NativeApi_IBasicMessageReporter_ReportMessage_System_Object_System_String_Sdl_FileTypeSupport_Framework_NativeApi_ErrorLevel_System_String_System_String_">ReportMessage</a> method accepts several parameters, including the error level. Because the plug-in cannot open the file, use the highest severity level: <code>Error</code>. The string resource file supplies the descriptive text that explains the problem to the user.</p>
+<p>Instead of returning only the generic default message, the file sniffer now generates the following output:</p>
 <p><img src="images/DetailedErrorMessage.jpg" alt="DetailedErrorMessage"></p>
 <div class="NOTE">
 <h5>Note</h5>
-<p>Since file type plug-ins can also be used in server-based scenarios, they cannot always present information to users like 'normal', Windows-based applications do, e.g. by using a message box or by directly updating the user interface of the application. Such behavior could cause the server processing to hang, as there is no user to interact with.</p>
+<p>File type plug-ins can also run in server-based scenarios. In those scenarios, the plug-in cannot always present information the way a Windows application does, for example by showing a message box or updating the application UI directly. That behavior can cause server processing to hang because no user is available to respond.</p>
 </div>
-<h2 id="putting-it-all-together">Putting it All Together</h2>
-<p>Your enhanced file sniffer class should now look as shown below:</p>
+<h2 id="put-it-all-together">Put it all together</h2>
+<p>Your enhanced file sniffer class should now look like this:</p>
 <div class="tabGroup" id="tabgroup_2">
 <ul role="tablist">
 <li role="presentation">
@@ -129,18 +129,16 @@ using Sdl.Core.Settings;
 
 namespace Sdk.FileTypeSupport.Samples.SimpleText
 {
-    // the file sniffer component determines whether a given file
-    // can be processed by the filter or not
     public class SimpleTextSniffer : INativeFileSniffer
     {
         public SniffInfo Sniff(string nativeFilePath, Language suggestedSourceLanguage, Codepage suggestedCodepage, 
             INativeTextLocationMessageReporter messageReporter, ISettingsGroup settingsGroup)
         {
-            SniffInfo fileInfo = new SniffInfo();
+            var fileInfo = new SniffInfo();
 
-            using (StreamReader _reader = new StreamReader(nativeFilePath))
+            using (var reader = new StreamReader(nativeFilePath))
             {
-                if (_reader.ReadLine().StartsWith(&quot;[Version=&quot;))
+                if (reader.ReadLine().StartsWith(&quot;[Version=&quot;))
                 {
                     fileInfo.IsSupported = true;
                 }
@@ -155,18 +153,15 @@ namespace Sdk.FileTypeSupport.Samples.SimpleText
 
             return fileInfo;
         }
-
-        #region INativeFileSniffer Members
-
-
-        #endregion
     }
 }
 </code></pre>
 </section>
 </div>
-<h2 id="see-also">See Also</h2>
-<p><a href="implementing_the_file_sniffer.html">Implementing the File Sniffer</a></p>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="implementing_the_file_sniffer.html">Implementing the File Sniffer</a></li>
+</ul>
 <div class="NOTE">
 <h5>Note</h5>
 <p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>

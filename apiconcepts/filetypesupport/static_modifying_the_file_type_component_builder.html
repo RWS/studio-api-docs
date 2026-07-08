@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-      <title>Modifying the File Type Component Builder </title>
+      <title>Modifying the file type component builder </title>
       <meta name="viewport" content="width=device-width">
-      <meta name="title" content="Modifying the File Type Component Builder ">
+      <meta name="title" content="Modifying the file type component builder ">
     
     
       <link rel="shortcut icon" href="../../favicon.ico">
@@ -80,18 +80,24 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-<h1 id="modifying-the-file-type-component-builder">Modifying the File Type Component Builder</h1>
+<h1 id="modifying-the-file-type-component-builder">Modifying the file type component builder</h1>
 
-<p>This chapter outlines the quickest way to implement an internal static document preview function.</p>
-<h2 id="add-the-static-preview-name-to-the-resources">Add the Static Preview Name to the Resources</h2>
-<p>To implement the static preview we first need to make a few additions to the File Type Component Builder. In the first step, define the preview name in the resources file. This is the name that will be shown later in the combo box of the preview window of Trados Studio. Add the following entries to the resources file, which are going to be referenced in the File Type Component Builder later:</p>
+<p>This article shows how to add an internal static document preview.</p>
+<h2 id="add-the-static-preview-name-to-the-resources">Add the static preview name to the resources</h2>
+<p>Start by defining the preview name in the resources file. Trados Studio displays this name in the Preview window combo box. The File Type Component Builder references these resource entries later.</p>
 <p><img src="images/InternalStaticPreviewName.jpg" alt="InternalStaticPreviewName"></p>
-<h2 id="add-the-static-internal-preview-set-reference">Add the Static Internal Preview Set Reference</h2>
-<p>In the next step add the following preview set method for the static internal preview into the File Type Component Builder file. Note that the method references the preview name that you previously defined in the resources file.</p>
+<h2 id="add-the-static-internal-preview-set-reference">Add the static internal preview set reference</h2>
+<p>Next, add the following preview set definition to the File Type Component Builder. This code references the preview name that you defined in the resources file.</p>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
 <a href="#tabpanel_1_tabid-1" role="tab" aria-controls="tabpanel_1_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-2" role="tab" aria-controls="tabpanel_1_tabid-2" data-tab="tabid-2" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-3" role="tab" aria-controls="tabpanel_1_tabid-3" data-tab="tabid-3" tabindex="-1">C#</a>
 </li>
 </ul>
 <section id="tabpanel_1_tabid-1" role="tabpanel" data-tab="tabid-1">
@@ -117,17 +123,13 @@ if (targetControlPreviewType1 != null)
 }
 previewFactory.GetPreviewSets(null).Add(internalStaticPreviewSet);
 </code></pre>
+<h2 id="define-the-preview-control">Define the preview control</h2>
+<p>An internal preview needs a control that can display document content. You can create a custom preview control, and you will do that later for the dynamic real-time preview. See <a href="adding_a_preview_ui_control.html">Adding a Preview UI Control</a>.</p>
+<p>For this static preview, use the built-in web browser control in Trados Studio. Because this sample uses a simple text format, the built-in control can render the preview output without extra setup.</p>
+<p>To register the built-in web browser control, add the following method to the File Type Component Builder. Place it below the Notepad preview control that you added for the external preview. See <a href="implementing_an_external_file_preview.html">Implementing an External File Preview</a>.</p>
+<p>The object <strong>id</strong> must match the preview set name from the previous step. It must also start with the <strong>PreviewControl_</strong> prefix.</p>
 </section>
-</div>
-<h2 id="define-the-preview-control">Define the Preview Control</h2>
-<p>For an internal preview you require a control element that can display the document content. You could add your own custom preview control element. This is actually what we are going to do later, when we implement the dynamic real-time preview (see <a href="adding_a_preview_ui_control.html">Adding a Preview UI Control</a>). However, to keep things as simple as possible for now, we will leverage the built-in Web browser control that is integrated in Trados Studio. As we are dealing with a simple text format, we can easily use the built-in Web browser control to generate the preview output. To 'tell' the file type plug-in that it should leverage the built-in Web browser control, make an addition to the File Type Component Builder. You can add the new method just below the Notepad preview control, which you defined for the external preview functionality (see <a href="implementing_an_external_file_preview.html">Implementing an External File Preview</a>). Note that the <strong>id</strong> of the object corresponds to the name of the preview set that you added in the previous step, and must be preceded by a <strong>PreviewControl_</strong> prefix to be properly recognized.</p>
-<div class="tabGroup" id="tabgroup_2">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_2_tabid-2" role="tab" aria-controls="tabpanel_2_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_2_tabid-2" role="tabpanel" data-tab="tabid-2">
+<section id="tabpanel_1_tabid-2" role="tabpanel" data-tab="tabid-2" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">/// &lt;summary&gt;
 /// Creates a new instance of the preview control with the specified name.
@@ -156,20 +158,15 @@ public virtual IAbstractPreviewControl BuildPreviewControl(string name)
     }
 }
 </code></pre>
-</section>
-</div>
-<h2 id="define-the-preview-writer">Define the Preview Writer</h2>
-<p>Naturally, you need a writer component to fill the preview control element with content to display. You could, of course, use the file writer class, which you have already implemented in your file type plug-in and which you also leveraged for the external preview (see <a href="implementing_an_external_file_preview.html">Implementing an External File Preview</a>). However, if you did this, the output in the internal Web browser control would look as shown below:</p>
+<h2 id="define-the-preview-writer">Define the preview writer</h2>
+<p>The preview control also needs a writer that supplies the displayed content. You could reuse the file writer that you already implemented for the file type plug-in and the external preview. See <a href="implementing_an_external_file_preview.html">Implementing an External File Preview</a>.</p>
+<p>However, if you reuse that writer, the internal web browser control produces output like this:</p>
 <p><img src="images/StaticPreviewNotGood.jpg" alt="StaticPreviewNotGood"></p>
-<p>As you can see, if we re-used the existing file writer, the internal preview would not add much value to our file type plug-in. First, the inline tags are shown as normal text and no character formatting is applied in this preview. Also, the preview shows all non-translatable strings, which will usually not be very useful for this type of preview. We should therefore implement another writer component that generates a nicely layouted HTML output in the internal preview. This sound like a cosmetic issue, but the preview should be visually appealing to end users and ideally give them an idea of the document layout to provide additional value.</p>
-<p>Before we actually implement our new preview writer component (see <a href="implementing_the_preview_writer.html">Implementing the Preview Writer</a>), we add the method for this new component to the File Type Component Builder. You can make this addition below the object for the external preview writer (see chapter <a href="implementing_an_external_file_preview.html">Implementing an External File Preview</a>). In the next chapter you will learn how to implement the new preview file writer class, which generates the preview output.</p>
-<div class="tabGroup" id="tabgroup_3">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_3_tabid-3" role="tab" aria-controls="tabpanel_3_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_3_tabid-3" role="tabpanel" data-tab="tabid-3">
+<p>This output adds little value. It shows inline tags as plain text. It also applies no character formatting. In addition, it includes all non-translatable strings, which usually do not help in this type of preview.</p>
+<p>Instead, implement a second writer that generates formatted HTML for the internal preview. A better preview improves readability and gives end users a clearer sense of the document layout.</p>
+<p>Before you implement the new preview writer, add the following method to the File Type Component Builder. Place it below the object for the external preview writer. See <a href="implementing_an_external_file_preview.html">Implementing an External File Preview</a>. The next article explains how to implement the preview file writer class. See <a href="implementing_the_preview_writer.html">Implementing the Preview Writer</a>.</p>
+</section>
+<section id="tabpanel_1_tabid-3" role="tabpanel" data-tab="tabid-3" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">/// &lt;summary&gt;
 /// Gets a native or bilingual document generator of the type
@@ -195,14 +192,16 @@ public virtual IAbstractGenerator BuildAbstractGenerator(string name)
     return null;
 }
 </code></pre>
-</section>
-</div>
-<h2 id="see-also">See Also</h2>
-<p><a href="implementing_the_preview_writer.html">Implementing the Preview Writer</a></p>
-<p><a href="implementing_the_file_writer.html">Implementing the File Writer</a></p>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="implementing_the_preview_writer.html">Implementing the Preview Writer</a></li>
+<li><a href="implementing_the_file_writer.html">Implementing the File Writer</a></li>
+</ul>
 <div class="NOTE">
 <h5>Note</h5>
 <p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+</div>
+</section>
 </div>
 
 </article>

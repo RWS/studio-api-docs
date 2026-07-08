@@ -185,7 +185,6 @@ this.ProcessTargetLanguageFiles(project, &quot;fr-FR&quot;);
 
 <pre><code class="lang-CS">public void ProcessTargetLanguageFiles(FileBasedProject project, string locale)
 { 
-    #region &quot;PerfectMatchSetupAndTask&quot;
     Language targetLanguage = new Language(CultureInfo.GetCultureInfo(locale));
 
     ProjectFile[] targetFiles = project.GetTargetLanguageFiles(targetLanguage);
@@ -195,8 +194,6 @@ this.ProcessTargetLanguageFiles(project, &quot;fr-FR&quot;);
     AutomaticTask perfectMatchTask = project.RunAutomaticTask(
     targetFiles.GetIds(),
     AutomaticTaskTemplateIds.PerfectMatch);
-    #endregion
-
     AutomaticTask analzyeTask = project.RunAutomaticTask(
         targetFiles.GetIds(),
         AutomaticTaskTemplateIds.AnalyzeFiles);
@@ -300,11 +297,8 @@ List&lt;MessageEventArgs&gt; messageEventArgsList = new List&lt;MessageEventArgs
 
 <pre><code class="lang-CS">public void PrepareFiles(FileBasedProject project)
 {
-    #region &quot;EventArgs&quot;
     List&lt;TaskStatusEventArgs&gt; taskStatusEventArgsList = new List&lt;TaskStatusEventArgs&gt;();
     List&lt;MessageEventArgs&gt; messageEventArgsList = new List&lt;MessageEventArgs&gt;();
-    #endregion
-
     ProjectFile[] sourceFiles = project.GetSourceLanguageFiles();
 
     for (int i = 0; i &lt; sourceFiles.Length; i++)
@@ -349,12 +343,8 @@ List&lt;MessageEventArgs&gt; messageEventArgsList = new List&lt;MessageEventArgs
         targetFiles.GetIds(),
         AutomaticTaskTemplateIds.AnalyzeFiles);
     this.CheckEvents(taskStatusEventArgsList, messageEventArgsList);
-
-    #region &quot;SaveAnalysisReport&quot;
     Guid reportId = analyzeTask.Reports[0].Id;
     project.SaveTaskReportAs(reportId, @&quot;C:\ProjectFiles\Analysis_report.xls&quot;, ReportFormat.Excel);
-    #endregion
-
     AutomaticTask translateTask = project.RunAutomaticTask(
         targetFiles.GetIds(),
         AutomaticTaskTemplateIds.PreTranslateFiles);

@@ -163,22 +163,11 @@ TranslateTaskSettings pretranslateSettings = settings.GetSettingsGroup&lt;Transl
 
 <pre><code class="lang-CS">public void ConfigureBatchTaskSettings(FileBasedProject project, string trgLocale, int minMatchValue)
 {
-    #region &quot;SetLanguage&quot;
     Language trgLanguage = new Language(CultureInfo.GetCultureInfo(trgLocale));
-    #endregion
-
-    #region &quot;TaskSettings&quot;
     ISettingsBundle settings = project.GetSettings(trgLanguage);
     TranslateTaskSettings pretranslateSettings = settings.GetSettingsGroup&lt;TranslateTaskSettings&gt;();
-    #endregion
-
-    #region &quot;MinimumMatchScore&quot;
     pretranslateSettings.MinimumMatchScore.Value = minMatchValue;
-    #endregion
-
-    #region &quot;UpdateSettings&quot;
     project.UpdateSettings(trgLanguage, settings);
-    #endregion
 }
 </code></pre>
 </section>

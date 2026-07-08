@@ -82,11 +82,19 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="setting-the-source-and-target-language">Setting the Source and Target Language</h1>
 
-<p>In this chapter you will learn how to retrieve and set the terminology provider source and target language.</p>
-<h2 id="how-to-read-the-source-and-target-language-from-the-glossary-file-header">How to read the source and target language from the glossary file header</h2>
-<p>Open the <strong>MyTerminologyProvider.cs</strong> class and go to the <strong>GetLanguages()</strong> function. Our implementation is based on the assumption that the first line in the text file contains the source and target language name and locale in the following form: <em>1;English,en-US;German,de-DE</em></p>
-<p>The source and target language are separated with a semicolon, the language name and locale are comma-separated.</p>
-<p>Modify the <strong>GetLanguages()</strong> function as shown below. In this function, we parse the first line of the text file to retrieve the language label (for example 'English') and the locale (for example 'en-US'). Based on the locale, Trados Studio assigns the glossary languages to the corresponding project language. After parsing the first line, the method creates two language objects which are added to the results list that the method returns.</p>
+<p>Learn how to retrieve and set the source and target languages for the terminology provider.</p>
+<h2 id="reading-the-source-and-target-language-from-the-glossary-file-header">Reading the Source and Target Language from the Glossary File Header</h2>
+<ol>
+<li>Open the <strong>MyTerminologyProvider.cs</strong> class.</li>
+<li>Go to the <strong>GetLanguages()</strong> function. This implementation assumes that the first line in the text file contains the source and target language name and locale in the following format: <code>1;English,en-US;German,de-DE</code>.</li>
+</ol>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The source and target languages are separated by a semicolon, and the language name and locale are comma-separated.</p>
+</div>
+<ol start="3">
+<li>Modify the <strong>GetLanguages()</strong> function as shown below. This function parses the first line of the text file to retrieve the language label (for example, 'English') and locale (for example, 'en-US'). Based on the locale, <strong>Trados Studio</strong> assigns the glossary languages to the corresponding project language. After parsing the first line, the method creates two language objects and adds them to the results list that the method returns.</li>
+</ol>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
@@ -129,7 +137,10 @@ public IList&lt;ILanguage&gt; GetLanguages()
 </code></pre></section>
 </div>
 
-<p>Note that you can add more than two languages. If Trados Studio cannot assign the glossary languages automatically to the project languages, then you have to pick the correct glossary language manually from the dropdown list.</p>
+<div class="TIP">
+<h5>Tip</h5>
+<p>You can add more than two languages. If <strong>Trados Studio</strong> cannot automatically assign the glossary languages to the project languages, select the correct glossary language manually from the dropdown list.</p>
+</div>
 <img style="display:block; " src="images/project_01_selected_languages.jpg">
 
 </article>

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Preview API changes in Trados Studio 2026 </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Preview API changes in Trados Studio 2026 ">
+    
+    
+      <link rel="shortcut icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../../styles/docfx.css">
+      <link rel="stylesheet" href="../../styles/main.css">
+      <meta property="docfx:navrel" content="../../toc.html">
+      <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>        
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="https://developers.rws.com/">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+
+        <div class="container body-content">
+
+          <div id="search-results">
+            <div class="search-list">Search Results for <span></span></div>
+            <div class="sr-items">
+              <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+            </div>
+            <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+          </div>
+        </div>
+
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="preview-api-changes-in-varproductname-2026">Preview API changes in Trados Studio 2026</h1>
+
+<p>Trados Studio 2026 changes the way file type plugins integrate
+with the preview subsystem. This page summarises what has changed, why, and
+what you need to do if you maintain an existing file type plugin.</p>
+<h2 id="what-changed">What changed</h2>
+<p>Previously, each file type was responsible for supplying its own preview UI.
+Plugins did this by implementing <code>BuildPreviewControl</code> or
+<code>BuildPreviewApplication</code> on the File Type Component Builder and returning a
+custom <code>UserControl</code> or a <code>GenericExternalPreviewApplication</code> instance.</p>
+<p>Starting with Trados Studio 2026, <strong>Trados Studio ships a set of built-in preview UIs</strong>.
+File types declare which built-in UI they want by placing a recognised
+Preview ID in their <code>PreviewSet</code> definition. Trados Studio maps that ID to the
+corresponding control at runtime. Plugins no longer build, own, or register
+preview UI components.</p>
+<h2 id="deprecated-api-surface">Deprecated API surface</h2>
+<p>The following methods are <strong>deprecated as of Trados Studio 2026</strong> and are no longer
+called by the host application:</p>
+<table>
+<thead>
+<tr>
+<th>Deprecated member</th>
+<th>Previously used for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>IFileTypeDefinition.BuildPreviewControl</code></td>
+<td>Returning a custom internal preview <code>UserControl</code></td>
+</tr>
+<tr>
+<td><code>IFileTypeDefinition.BuildPreviewApplication</code></td>
+<td>Returning a custom external preview application</td>
+</tr>
+<tr>
+<td><code>IFileTypeComponentBuilder.BuildPreviewControl</code></td>
+<td>Same as above, on the component builder</td>
+</tr>
+<tr>
+<td><code>IFileTypeComponentBuilder.BuildPreviewApplication</code></td>
+<td>Same as above, on the component builder</td>
+</tr>
+</tbody>
+</table>
+<p>Implementing these methods in a plugin targeting Trados Studio 2026 is harmless —
+they are ignored at runtime — but they should be removed to keep the
+codebase clean.</p>
+<h2 id="built-in-preview-ids">Built-in Preview IDs</h2>
+<p>Your <code>PreviewSet</code> must reference one of the following IDs. Trados Studio maps each
+ID to a built-in control:</p>
+<table>
+<thead>
+<tr>
+<th>Preview ID</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>HtmlSingleFilePreview</code></td>
+<td>Renders an HTML file. Source or target individually.</td>
+</tr>
+<tr>
+<td><code>HtmlSideBySidePreview</code></td>
+<td>Renders source and target side by side. Content must be HTML.</td>
+</tr>
+<tr>
+<td><code>ExternalPreview</code></td>
+<td>Opens in an external application based on the OS file-extension registration.</td>
+</tr>
+<tr>
+<td><code>ExternalHtml</code></td>
+<td>Opens in the default browser.</td>
+</tr>
+</tbody>
+</table>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Using a Preview ID that is not in this list is not yet supported. Custom
+third-party preview UIs cannot be registered in Trados Studio 2026.</p>
+</div>
+<h2 id="migration-checklist">Migration checklist</h2>
+<p>Use this checklist when updating an existing file type plugin to target
+Trados Studio 2026.</p>
+<h3 id="internal-control-based-previews">Internal (control-based) previews</h3>
+<ul>
+<li>Delete your custom <code>UserControl</code> class (for example,
+<code>InternalPreviewControl.cs</code>).</li>
+<li>Delete your preview controller class (for example,
+<code>InternalPreviewController.cs</code>).</li>
+<li>Remove the <code>BuildPreviewControl</code> method from your File Type Component
+Builder.</li>
+<li>In your <code>PreviewSet</code> definition, replace any custom <code>PreviewControlId</code>
+value (for example, <code>&quot;InternalNavigablePreview&quot;</code>) with the appropriate
+built-in ID (<code>&quot;HtmlSingleFilePreview&quot;</code> or <code>&quot;HtmlSideBySidePreview&quot;</code>).</li>
+</ul>
+<h3 id="external-application-based-previews">External (application-based) previews</h3>
+<ul>
+<li>Remove the <code>BuildPreviewApplication</code> method from your File Type
+Component Builder.</li>
+<li>Delete any <code>GenericExternalPreviewApplication</code> instantiation and its
+<code>ApplicationPath</code> assignment.</li>
+<li>Remove the assembly reference to
+<code>Sdl.FileTypeSupport.Framework.PreviewControls</code> if it is no longer used
+elsewhere.</li>
+<li>Confirm your <code>PreviewSet</code> uses <code>new PreviewApplicationId(&quot;ExternalPreview&quot;)</code>.
+The OS will determine which application opens the file; no executable path
+is required.</li>
+</ul>
+<h3 id="what-to-keep">What to keep</h3>
+<ul>
+<li>Your <strong>preview generator</strong> (<code>IFileGenerator</code> implementation) is unchanged.
+The way preview <em>content</em> is produced has not changed — only the way it is
+<em>displayed</em>.</li>
+<li>The <code>PreviewSet</code> creation and registration pattern itself is unchanged.
+Only the IDs used inside it need to be updated.</li>
+</ul>
+<h2 id="further-reading">Further reading</h2>
+<ul>
+<li><a href="adding_a_preview_ui_control.html">Adding a Preview UI Control</a></li>
+<li><a href="implementing_an_external_file_preview.html">Implementing an External File Preview</a></li>
+<li><a href="https://rws-dev.atlassian.net/wiki/spaces/LTSTUDIO/pages/1989869850">Studio Preview UI</a>
+(internal Confluence reference — authoritative technical detail on
+built-in preview UI components)</li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/main/apiconcepts/filetypesupport/preview_api_changes.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

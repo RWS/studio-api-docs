@@ -82,11 +82,11 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="storing-and-retrieving-the-plug-in-settings">Storing and Retrieving the Plug-in Settings</h1>
 
-<p>The settings that are configured through the plug-in user interface (see <a href="implementing_the_plugin_user_interface.html">Implementing the Plug-in User Interface</a>) need to be programmatically set and retrieved. This chapter describes how to implement a separate class for storing the plug-in settings. These settings are physically stored in an *<em>.sdlproj</em> or in an *<em>.sdltlp</em> file.</p>
+<p>The settings configured through the plug-in user interface, see <a href="implementing_the_plugin_user_interface.html">Implementing the Plug-in User Interface</a>, must also be stored and retrieved programmatically. This chapter shows how to implement a separate class for storing the plug-in settings. The settings are stored in an <strong>.sdlproj</strong> or <strong>.sdltlp</strong> file.</p>
 <h2 id="implement-the-class-for-handling-the-plug-in-settings">Implement the Class for Handling the Plug-in Settings</h2>
-<p>Add a helper class called <code>ListTranslationOptions</code> to the project. This class is not included in the plug-in template.</p>
+<p>Add a helper class named <code>ListTranslationOptions</code> to the project. The plug-in template does not include this class.</p>
 <h2 id="define-the-translation-method">Define the Translation Method</h2>
-<p>First, we define the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMethod.html">TranslationMethod</a> that best applies to our translation provider source. The translation method could, for example, be translation memory, machine translation, pseudo-translation, etc. A delimited list is basically like a rudimentary TM. Therefore you could, for example, select <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMethod.html">TranslationMemory</a>. However, to set our plug-in apart from a 'normal' TM we select the option Other:</p>
+<p>First, define the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMethod.html">TranslationMethod</a> that best fits the translation provider. The translation method could be translation memory, machine translation, pseudo-translation, or another type. A delimited list is similar to a basic TM, so you could choose <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMethod.html">TranslationMemory</a>. However, to distinguish this plug-in from a standard TM, use the <strong>Other</strong> option:</p>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
@@ -100,7 +100,7 @@
 </section>
 </div>
 <h2 id="create-the-plug-in-uri-builder">Create the Plug-in URI Builder</h2>
-<p>Each plug-in uses a URI to store and retrieve settings. Through the following code we create the URI builder object, which is used to store and persist the plug-in settings:</p>
+<p>Each plug-in uses a URI to store and retrieve settings. The following code creates the URI builder object used to store and persist the plug-in settings:</p>
 <div class="tabGroup" id="tabgroup_2">
 <ul role="tablist">
 <li role="presentation">
@@ -124,7 +124,7 @@ public ListTranslationOptions(Uri uri)
 </section>
 </div>
 
-<p>At the end we return the URI as shown below:</p>
+<p>The URI property returns the resulting URI, as shown below:</p>
 <div class="tabGroup" id="tabgroup_3">
 <ul role="tablist">
 <li role="presentation">
@@ -144,7 +144,7 @@ public ListTranslationOptions(Uri uri)
 </section>
 </div>
 <h2 id="set-and-retrieve-the-plug-in-parameters">Set and Retrieve the Plug-in Parameters</h2>
-<p>Our plug-in implements two string settings, i.e. the list file name and path and the delimiter character. In the following we declare the two public string properties which are set by the plug-in user form. The properties call on two separate private functions to get and to set the corresponding values:</p>
+<p>This plug-in implements two string settings: the list file name and path, and the delimiter character. The following public string properties are set by the plug-in user form. Each property uses a private helper method to get or set the corresponding value:</p>
 <div class="tabGroup" id="tabgroup_4">
 <ul role="tablist">
 <li role="presentation">
@@ -178,7 +178,7 @@ public ListTranslationOptions(Uri uri)
 </section>
 </div>
 
-<p>The following function sets the string parameter. It takes the property name and the corresponding value as string parameters:</p>
+<p>The following method sets a string parameter. It takes the property name and the corresponding value as string parameters:</p>
 <div class="tabGroup" id="tabgroup_6">
 <ul role="tablist">
 <li role="presentation">
@@ -195,7 +195,7 @@ public ListTranslationOptions(Uri uri)
 </section>
 </div>
 
-<p>The following function is used to retrieve the value for a specified URI property:</p>
+<p>The following method retrieves the value for a specified URI property:</p>
 <div class="tabGroup" id="tabgroup_7">
 <ul role="tablist">
 <li role="presentation">
@@ -213,10 +213,10 @@ public ListTranslationOptions(Uri uri)
 </section>
 </div>
 
-<p>The following is an example of what a URI string will look like in our implementation:</p>
+<p>The following example shows what a URI string looks like in this implementation:</p>
 <pre><code>listprovider:///?delimiter=;&amp;listfile=C:\temp\sample_list.txt&quot; Enabled=&quot;true&quot;
 </code></pre>
-<p>The translation provider plug-in settings are physically stored in the project file (<em>.sdlproj) or in the project template (</em>.sdltpl) file. These are XML-compliant files that store project- or project-template specific information. The file excerpt below provides an example of how a translation provider is listed in a project or template file alongside with its respective settings:</p>
+<p>The translation provider plug-in settings are stored in the project file (<em>.sdlproj) or in the project template (</em>.sdltpl) file. These XML-compliant files store project-specific or project-template-specific information. The excerpt below shows how a translation provider appears in a project or template file together with its settings:</p>
 <pre><code class="lang-xml">&lt;CascadeItem OverrideParent=&quot;true&quot; StopSearchingWhenResultsFound=&quot;false&quot;&gt;
   &lt;CascadeEntryItem PerformConcordanceSearch=&quot;true&quot; Penalty=&quot;0&quot; PerformUpdate=&quot;false&quot; PerformNormalSearch=&quot;true&quot;&gt;
     &lt;MainTranslationProviderItem Uri=&quot;listprovider:///?delimiter=;&amp;listfile=C:\temp\sample_list.txt&quot; Enabled=&quot;true&quot; /&gt;
@@ -252,11 +252,7 @@ namespace Sdk.LanguagePlatform.Samples.ListProvider
     /// &lt;/summary&gt;
     public class ListTranslationOptions
     {
-        #region &quot;TranslationMethod&quot;
         public static readonly TranslationMethod ProviderTranslationMethod = TranslationMethod.Other;
-        #endregion
-
-        #region &quot;TranslationProviderUriBuilder&quot;
         TranslationProviderUriBuilder _uriBuilder;        
 
         public ListTranslationOptions()
@@ -268,47 +264,36 @@ namespace Sdk.LanguagePlatform.Samples.ListProvider
         {
             _uriBuilder = new TranslationProviderUriBuilder(uri);
         }
-        #endregion
-
+       
         /// &lt;summary&gt;
         /// Set and retrieve the name and path of the delimited list file.
-        /// &lt;/summary&gt;
-        #region &quot;ListFileName&quot;
+        /// &lt;/summary&gt;        
         public string ListFileName
         {
             get { return GetStringParameter(&quot;listfile&quot;); }
             set { SetStringParameter(&quot;listfile&quot;, value); }            
-        }
-        #endregion
+        }        
 
         /// &lt;summary&gt;
         /// Set and retrieve the delimiter character.
         /// &lt;/summary&gt;
-        #region &quot;Delimiter&quot;
         public string Delimiter
         {
             get { return GetStringParameter(&quot;delimiter&quot;);}
             set {SetStringParameter(&quot;delimiter&quot;, value);}
         }
-        #endregion
 
-        #region &quot;SetStringParameter&quot;
         private void SetStringParameter(string p, string value)
         {
             _uriBuilder[p] = value;
         }
-        #endregion
 
-        #region &quot;GetStringParameter&quot;
         private string GetStringParameter(string p)
         {
             string paramString = _uriBuilder[p];
             return paramString;
         }
-        #endregion
 
-
-        #region &quot;Uri&quot;
         public Uri Uri
         {            
             get
@@ -316,13 +301,12 @@ namespace Sdk.LanguagePlatform.Samples.ListProvider
                 return _uriBuilder.Uri;                
             }
         }
-        #endregion
     }
 }
 </code></pre>
 </section>
 </div>
-<h2 id="see-also">See Also</h2>
+<h1 id="see-also">See Also</h1>
 <p><a href="implementing_the_plugin_user_interface.html">Implementing the Plug-in User Interface</a></p>
 <p><a href="controlling_the_plugin_user_interface.html">Controlling the Plug-in User Interface</a></p>
 

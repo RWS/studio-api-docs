@@ -82,10 +82,10 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="instantiating-the-plug-in">Instantiating the Plug-in</h1>
 
-<p>A translation provider plug-in has to be properly instantiated, so that it can be used in and displayed in Trados Studio. Instantiation is done by a component that is also provided in the plug-in template, and which is called <code>MyTranslationProviderFactory</code>. In our implementation we will rename this component to <code>ListTranslationProviderFactory</code>.</p>
+<p>You must instantiate a translation provider plug-in before Trados Studio can use or display it. The plug-in template includes the factory component that performs this task. In this implementation, rename <code>MyTranslationProviderFactory</code> to <code>ListTranslationProviderFactory</code>.</p>
 <h2 id="the-translation-provider-factory-interface">The Translation Provider Factory Interface</h2>
-<p>The factory component implements the interface <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderFactory.html">ITranslationProviderFactory</a>. This interface, in turn, consists of three methods. The following sections outline how we implement these methods for our sample plug-in.</p>
-<p>The class is preceded by the following declaration, which defines it as an extension class, which will be referenced and declared to the Trados Studio application through the plug-in manifest *.xml file (see also <a href="building_the_plugin.html">Building the Plug-in</a>).</p>
+<p>The factory component implements the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderFactory.html">ITranslationProviderFactory</a> interface. This interface defines three methods, which the following sections describe for the sample plug-in.</p>
+<p>The class begins with the following declaration. It marks the class as an extension class and makes it available to Trados Studio through the plug-in manifest *.xml file. See also <a href="building_the_plugin.html">Building the Plug-in</a>.</p>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
@@ -102,7 +102,7 @@
 </section>
 </div>
 <h2 id="create-the-translation-provider">Create the Translation Provider</h2>
-<p>The <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderFactory.html#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderFactory_CreateTranslationProvider_System_Uri_System_String_Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderCredentialStore_">CreateTranslationProvider</a>: method is used to create the translation provider, which is specified in the translation provider URI. In our implementation we use the string <em>listprovider</em>. As this value is used for identification, it needs to be unique. The URI is also used to store any plug-in settings information, which are loaded through the below method. In our implementation this would be the delimiting character and the delimited text file name and path.</p>
+<p>Use the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderFactory.html#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderFactory_CreateTranslationProvider_System_Uri_System_String_Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderCredentialStore_">CreateTranslationProvider</a> method to create the translation provider specified in the translation provider URI. In this implementation, the scheme uses the string <em>listprovider</em>. This value identifies the provider, so it must be unique. The URI also stores the plug-in settings, which the following method reads. In this implementation, those settings include the delimiter character and the delimited text file name and path.</p>
 <div class="tabGroup" id="tabgroup_2">
 <ul role="tablist">
 <li role="presentation">
@@ -126,12 +126,12 @@
 </section>
 </div>
 
-<p>The plug-in URI is stored in an *<em>.sdlproj</em> or an *<em>.sdltlp</em> file. These are the file types that contain, among other things, the translation providers used for a translation project and the corresponding settings.
-Below you see an example of what a plug-in URI looks like for this sample implementation. The URI is prefixed with <em>listprovider///</em> and followed by the plug-in settings parameters, i.e. <em>delimiter</em> and <em>listfile</em>.</p>
+<p>The plug-in URI is stored in an <strong>.sdlproj</strong> or <strong>.sdltlp</strong> file. These file types store, among other things, the translation providers used in a translation project and their settings.</p>
+<p>The following example shows a plug-in URI for this implementation. The URI starts with <em>listprovider:///</em> and includes the <em>delimiter</em> and <em>listfile</em> settings.</p>
 <pre><code>listprovider:///?delimiter=;&amp;listfile=C:\temp\sample_list.txt&quot; Enabled=&quot;true&quot;
 </code></pre>
 <h2 id="determine-whether-the-uri-is-supported-by-the-plug-in">Determine Whether the URI is Supported by the Plug-in</h2>
-<p><a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderFactory.html#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderFactory_SupportsTranslationProviderUri_System_Uri_">SupportsTranslationProviderUri</a> method you should determine whether the provided URI is actually valid and supported by the plug-in as shown in the sample code below:</p>
+<p>Use the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderFactory.html#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderFactory_SupportsTranslationProviderUri_System_Uri_">SupportsTranslationProviderUri</a> method to determine whether the provided URI is valid and supported by the plug-in, as shown in the sample code below:</p>
 <div class="tabGroup" id="tabgroup_3">
 <ul role="tablist">
 <li role="presentation">
@@ -152,8 +152,8 @@ Below you see an example of what a plug-in URI looks like for this sample implem
 </section>
 </div>
 <h2 id="setting-the-plug-in-info">Setting the Plug-in Info</h2>
-<p>This component is also responsible for setting the plug-in GUI elements, i.e. the name and the plug-in icon. Through the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderFactory.html#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderFactory_GetTranslationProviderInfo_System_Uri_System_String_">GetTranslationProviderInfo</a>: method you set the plug-in name, which should be shown in the user interface of Trados Studio as well as the translation method.</p>
-<p>First, create a <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderInfo.html">TranslationProviderInfo</a> object to hold and set the plug-in properties. The string fro the (nice) plug-in name is accessed from the resources file:</p>
+<p>This component also sets the plug-in UI elements, such as the name and icon. Use the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderFactory.html#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderFactory_GetTranslationProviderInfo_System_Uri_System_String_">GetTranslationProviderInfo</a> method to set the plug-in name and translation method for the Trados Studio user interface.</p>
+<p>First, create a <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderInfo.html">TranslationProviderInfo</a> object to hold the plug-in properties. Retrieve the friendly name from the resources file:</p>
 <div class="tabGroup" id="tabgroup_4">
 <ul role="tablist">
 <li role="presentation">
@@ -167,7 +167,7 @@ Below you see an example of what a plug-in URI looks like for this sample implem
 </section>
 </div>
 
-<p>The <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMethod.html">TranslationMethod</a> is retrieved from a separate <code>ListTranslationOptions</code> class, which we will implement in a later step (see <a href="storing_and_retrieving_the_plugin_settings.html">Storing and Retrieving the Plug-in Settings</a>). The translation method is used to specify what kind of translations a given plug-in provides, e.g. translation solutions from a translation memory, a machine translation system, etc.</p>
+<p>The <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMethod.html">TranslationMethod</a> comes from the separate <code>ListTranslationOptions</code> class, which we implement in a later step. See <a href="storing_and_retrieving_the_plugin_settings.html">Storing and Retrieving the Plug-in Settings</a>. The translation method identifies the type of translation solution the plug-in provides, such as translation memory or machine translation.</p>
 <div class="tabGroup" id="tabgroup_5">
 <ul role="tablist">
 <li role="presentation">
@@ -181,7 +181,7 @@ Below you see an example of what a plug-in URI looks like for this sample implem
 </section>
 </div>
 
-<p>After the specifying these plug-in properties, the info object is returned as shown below:</p>
+<p>After you set these plug-in properties, return the info object as shown below:</p>
 <div class="tabGroup" id="tabgroup_6">
 <ul role="tablist">
 <li role="presentation">
@@ -227,19 +227,14 @@ using Sdl.LanguagePlatform.TranslationMemoryApi;
 using Sdl.Sdk.LanguagePlatform.Samples.ListProvider;
 
 namespace Sdk.LanguagePlatform.Samples.ListProvider
-{
-    #region &quot;Declaration&quot;
+{    
     [TranslationProviderFactory(
         Id = &quot;ListTranslationProviderFactory&quot;,
         Name = &quot;ListTranslationProviderFactory&quot;,
         Description = &quot;Searches in delimited text files.&quot;)]
-    #endregion
-
+ 
     public class ListTranslationProviderFactory : ITranslationProviderFactory
     {
-        #region ITranslationProviderFactory Members
-
-        #region &quot;CreateTranslationProvider&quot;
         public ITranslationProvider CreateTranslationProvider(Uri translationProviderUri, string translationProviderState, ITranslationProviderCredentialStore credentialStore)
         {
             if (!SupportsTranslationProviderUri(translationProviderUri))
@@ -251,9 +246,7 @@ namespace Sdk.LanguagePlatform.Samples.ListProvider
 
             return tp;
         }
-        #endregion
-
-        #region &quot;SupportsTranslationProviderUri&quot;
+ 
         public bool SupportsTranslationProviderUri(Uri translationProviderUri)
         {
             if (translationProviderUri == null)
@@ -262,32 +255,22 @@ namespace Sdk.LanguagePlatform.Samples.ListProvider
             }
             return String.Equals(translationProviderUri.Scheme, ListTranslationProvider.ListTranslationProviderScheme, StringComparison.OrdinalIgnoreCase);
         }
-        #endregion
-
-        #region &quot;GetTranslationProviderInfo&quot;
+                
         public TranslationProviderInfo GetTranslationProviderInfo(Uri translationProviderUri, string translationProviderState)
         {
             TranslationProviderInfo info = new TranslationProviderInfo();
-
-            #region &quot;TranslationMethod&quot;
+                    
             info.TranslationMethod = ListTranslationOptions.ProviderTranslationMethod;
-            #endregion
-
-            #region &quot;Name&quot;
             info.Name = PluginResources.Plugin_NiceName;
-            #endregion
-
+            
             return info;
-        }
-        #endregion
-
-        #endregion
+        }     
     }
 }
 </code></pre>
 </section>
 </div>
-<h2 id="see-also">See Also</h2>
+<h1 id="see-also">See Also</h1>
 <p><a href="creating_the_translation_provider.html">Creating the Translation Provider</a></p>
 <p><a href="storing_and_retrieving_the_plugin_settings.html">Storing and Retrieving the Plug-in Settings</a></p>
 <p><a href="building_the_plugin.html">Building the Plug-in</a></p>

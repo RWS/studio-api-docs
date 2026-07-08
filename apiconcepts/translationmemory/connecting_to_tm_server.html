@@ -82,28 +82,26 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="connecting-to-tm-server">Connecting to TM Server</h1>
 
-<p>This section describes how to connect to a TM server.</p>
-<h2 id="connecting-to-tm-server-1">Connecting to TM Server</h2>
-<p>The central class that allows connecting to TM server is <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.html">TranslationProviderServer</a>. The constructor of <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.html">TranslationProviderServer</a> accepts two parameters:</p>
+<p>This section describes how to connect to a TM Server.</p>
+<h2 id="connect-by-using-translationproviderserver">Connect by Using TranslationProviderServer</h2>
+<p>The main class for connecting to a TM Server is <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.html">TranslationProviderServer</a>. Its constructor accepts two parameters:</p>
 <ul>
-<li><p><strong>Uri</strong>: the Uri representing the server. This should always be of the form http://SERVERNAME:PORT, where SERVERNAME is the IP address or DNS name of the web server that serves as the access point for the TM Server. The initial communication is always done via HTTP, but the system automatically detects the most optimal protocol and uses a TCP connection if that is possible in that particular scenario.</p>
-</li>
-<li><p><strong>Credentials</strong>: one of the supported types of credentials, representing a valid user, defined on the TM Server.
-The <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.html">TranslationProviderServer</a> class provides a number of methods to get the following objects by id (Guid) or name or to get a list of all available objects (visible to the current user) of that type:</p>
-</li>
-<li><p><a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.DatabaseServer.html">DatabaseServer</a></p>
-</li>
-<li><p><a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryContainer.html">TranslationMemoryContainer</a></p>
-</li>
-<li><p><a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedTranslationMemory.html">ServerBasedTranslationMemory</a></p>
-</li>
-<li><p><a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedFieldsTemplate.html">ServerBasedFieldsTemplate</a></p>
-</li>
-<li><p><a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedLanguageResourcesTemplate.html">ServerBasedLanguageResourcesTemplate</a></p>
-</li>
+<li><strong>Uri</strong>: the URI that identifies the server. Use the form <code>http://SERVERNAME:PORT</code>, where <code>SERVERNAME</code> is the IP address or DNS name of the web server that exposes the TM Server. Initial communication always uses HTTP, but the system automatically selects the most efficient protocol and uses TCP when the scenario allows it.</li>
+<li><strong>Credentials</strong>: one of the supported credential types for a valid user defined on the TM Server.</li>
 </ul>
-<p>Each method that retrieves one of these objects accepts an <code>additionalProperties</code> parameter. This parameter allows the caller to specify how much data to retrieve about the object or objects that are being retrieved. Any data that is not initially retrieved, will be retrieved on demand through lazily initialized properties, but it is generally advisable to retrieve all the necessary data upfront to reduce the number of roundtrips to the server if it is known in advance that all that data will be required. For example the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.html#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationProviderServer_GetDatabaseServers">GetDatabaseServers</a> return the database servers registered with this server for use as translation memory container hosts.</p>
-<p>Another general feature that reduces the chattiness of the API is saving changes. Each of the top-level objects has a <code>Save</code> method. When setting properties on the object, these do not result in the property change being communicated to the server immediately. Only when the called calls <code>Save</code> explicitly are all the changes sent back to the server. This allows making a number of changes in one go, without every single change resulting in a roundtrip to the server.</p>
+<p>The <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.html">TranslationProviderServer</a> class also provides methods for retrieving objects by ID, by name, or as a list of all objects of a given type that are visible to the current user:</p>
+<ul>
+<li><a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.DatabaseServer.html">DatabaseServer</a></li>
+<li><a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryContainer.html">TranslationMemoryContainer</a></li>
+<li><a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedTranslationMemory.html">ServerBasedTranslationMemory</a></li>
+<li><a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedFieldsTemplate.html">ServerBasedFieldsTemplate</a></li>
+<li><a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ServerBasedLanguageResourcesTemplate.html">ServerBasedLanguageResourcesTemplate</a></li>
+</ul>
+<h2 id="control-the-amount-of-retrieved-data">Control the Amount of Retrieved Data</h2>
+<p>Each retrieval method accepts an <code>additionalProperties</code> parameter. Use it to control how much data the API returns for the object or objects you request. Properties that are not retrieved initially are loaded on demand through lazy initialization, but it is usually better to retrieve all required data up front. Doing so reduces the number of roundtrips to the server when you know you need the full object graph.</p>
+<p>For example, the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationProviderServer.html#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationProviderServer_GetDatabaseServers">GetDatabaseServers</a> method returns the database servers registered with the TM Server for use as translation memory container hosts.</p>
+<h2 id="save-changes-in-a-single-roundtrip">Save Changes in a Single Roundtrip</h2>
+<p>Another feature that reduces API chattiness is saving changes. Each top-level object has a <code>Save</code> method. When you set properties on an object, the changes are not sent to the server immediately. The server receives them only when you explicitly call <code>Save</code>. This approach lets you make several changes at once without causing a roundtrip for each individual change.</p>
 <img style="display:block; " src="images/cd-TranslationProviderServer.jpg">
 
 </article>

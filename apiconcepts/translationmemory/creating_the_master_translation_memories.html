@@ -82,11 +82,11 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="creating-the-master-translation-memories">Creating the Master Translation Memories</h1>
 
-<p>Remember that all *.tmx files of the same language direction need to be consolidated in a master TM. If the importer class (see <a href="importing_into_the_master_translation_memories.html">Importing into the Master Translation Memories</a>) determines that the corresponding master TM does not yet exist, it should be created through a separate class. On this page you will learn how to implement the class for creating the master TMs.</p>
+<p>All <code>.tmx</code> files for the same language direction must be consolidated into a master TM. If the importer class (see <a href="importing_into_the_master_translation_memories.html">Importing into the Master Translation Memories</a>) determines that the required master TM does not exist, it creates one by using a separate class. This page explains how to implement that class.</p>
 <h2 id="add-a-new-class">Add a New Class</h2>
-<p>Start by adding a new class called <code>TmCreator</code> to your project. Add a public function called <code>CreateMasterTm</code>, which takes the path in which the master TMs should be created and the source/target language locales as string parameters.</p>
+<p>Start by adding a class named <code>TmCreator</code> to your project. Add a public method named <code>CreateMasterTm</code> that takes the path where the master TMs are created and the source and target language locales as string parameters.</p>
 <h2 id="create-the-master-tm">Create the Master TM</h2>
-<p>In the next step, implement the logic required for creating the master TM file. Note that for simplicity's sake, the file name is a combination of a hard-coded string <em>(MasterTM_)</em>, the language direction string, and the extension *.sdltm.</p>
+<p>Next, implement the logic that creates the master TM file. For simplicity, the file name combines a hard-coded string (<code>MasterTM_</code>), the language direction string, and the <code>.sdltm</code> extension.</p>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
@@ -136,7 +136,7 @@ public void CreateMasterTm(string sourceLanguage, string targetLanguage, string 
 </section>
 </div>
 
-<p>The fuzzy indexes are determined through a separate helper function:</p>
+<p>The fuzzy indexes are determined through a separate helper method:</p>
 <div class="tabGroup" id="tabgroup_2">
 <ul role="tablist">
 <li role="presentation">
@@ -146,14 +146,13 @@ public void CreateMasterTm(string sourceLanguage, string targetLanguage, string 
 <section id="tabpanel_2_tabid-2" role="tabpanel" data-tab="tabid-2">
 
 <pre><code class="lang-cs">/// &lt;summary&gt;
-/// Configure the fuzzy indexes, to determine, for example,
-/// that the master TM should support concordance searching 
-/// in the target language.
-/// The fuzzy indexes for source and target should be word-based only
-/// i.e. not character-based for performance reasons. (Master TMs
-/// can be assumed to be big, and therefore slow on character-based searches.)
+/// Configures the fuzzy indexes. For example, this ensures that
+/// the master TM supports concordance searching in the target language.
+/// The fuzzy indexes for source and target should be word-based only,
+/// not character-based, for performance reasons. Master TMs can be
+/// assumed to be large and therefore slow on character-based searches.
 /// &lt;/summary&gt;
-/// &lt;returns&gt;Hard-coded SourceWordBased and TargetWordBased FuzzyIndexes type&lt;/returns&gt;
+/// &lt;returns&gt;Hard-coded SourceWordBased and TargetWordBased FuzzyIndexes value.&lt;/returns&gt;
 private FuzzyIndexes GetFuzzyIndexes()
 {
     return FuzzyIndexes.SourceWordBased | FuzzyIndexes.TargetWordBased;
@@ -162,7 +161,7 @@ private FuzzyIndexes GetFuzzyIndexes()
 </section>
 </div>
 
-<p>Also, the recognition settings are set in a distinct helper function:</p>
+<p>The recognition settings are set in a separate helper method:</p>
 <div class="tabGroup" id="tabgroup_3">
 <ul role="tablist">
 <li role="presentation">
@@ -172,12 +171,12 @@ private FuzzyIndexes GetFuzzyIndexes()
 <section id="tabpanel_3_tabid-3" role="tabpanel" data-tab="tabid-3">
 
 <pre><code class="lang-cs">/// &lt;summary&gt;
-/// Configure the recognition settings for the TM.
-/// Here, we simply activate all recognition settings 
-/// through RecognizeAll, which includes recognition
-/// of variables, dates, numbers, acronyms, measurements, and times.
+/// Configures the recognition settings for the TM.
+/// This sample enables all recognition settings by using
+/// RecognizeAll, which includes variables, dates, numbers,
+/// acronyms, measurements, and times.
 /// &lt;/summary&gt;
-/// &lt;returns&gt;Hard-coded RecognizeAll BuiltinRecognizer.&lt;/returns&gt;
+/// &lt;returns&gt;Hard-coded RecognizeAll BuiltinRecognizers value.&lt;/returns&gt;
 private BuiltinRecognizers GetRecognizers()
 {
     return BuiltinRecognizers.RecognizeAll;
@@ -186,9 +185,9 @@ private BuiltinRecognizers GetRecognizers()
 </section>
 </div>
 
-<p>For more information, on these settings and on TM creation see also <a href="creating_a_file_based_translation_memory.html">Creating a File-based Translation Memory</a>.</p>
+<p>For more information about these settings and TM creation, see <a href="creating_a_file_based_translation_memory.html">Creating a File-based Translation Memory</a>.</p>
 <h2 id="putting-it-all-together">Putting it All Together</h2>
-<p>The complete class should look as shown below:</p>
+<p>The complete class should look like this:</p>
 <div class="tabGroup" id="tabgroup_4">
 <ul role="tablist">
 <li role="presentation">
@@ -205,25 +204,25 @@ using Sdl.LanguagePlatform.TranslationMemoryApi;
 namespace SDK.LanguagePlatform.Samples.BatchImporter
 {
     /// &lt;summary&gt;
-    /// Represents functionality for creating Translation Memories.
+    /// Represents functionality for creating translation memories.
     /// &lt;/summary&gt;
     public class TmCreator
     {
         #region &quot;createTM&quot;
 
         /// &lt;summary&gt;
-        /// Create the master TM based on the source and target locales found in the current TMX file.
+        /// Creates the master TM based on the source and target locales found in the current TMX file.
         /// &lt;/summary&gt;
-        /// &lt;param name=&quot;sourceLanguage&quot;&gt;String representation of translation memory source language.&lt;/param&gt;
-        /// &lt;param name=&quot;targetLanguage&quot;&gt;String representation of translation memory target language.&lt;/param&gt;
-        /// &lt;param name=&quot;masterPath&quot;&gt;Path to translation memory.&lt;/param&gt;
+        /// &lt;param name=&quot;sourceLanguage&quot;&gt;String representation of the translation memory source language.&lt;/param&gt;
+        /// &lt;param name=&quot;targetLanguage&quot;&gt;String representation of the translation memory target language.&lt;/param&gt;
+        /// &lt;param name=&quot;masterPath&quot;&gt;Path to the translation memory folder.&lt;/param&gt;
         public void CreateMasterTm(string sourceLanguage, string targetLanguage, string masterPath)
         {
             #region &quot;Create Translation Memory&quot;
 
             string path = string.Format(
                 CultureInfo.CurrentCulture,
-                &quot;{0}MasterTm_{1}_{2}.sdltm&quot;,
+                &quot;{0}MasterTM_{1}_{2}.sdltm&quot;,
                 masterPath,
                 sourceLanguage,
                 targetLanguage);
@@ -253,14 +252,13 @@ namespace SDK.LanguagePlatform.Samples.BatchImporter
         #region &quot;Get fuzzy indexes&quot;
 
         /// &lt;summary&gt;
-        /// Configure the fuzzy indexes, to determine, for example,
-        /// that the master TM should support concordance searching 
-        /// in the target language.
-        /// The fuzzy indexes for source and target should be word-based only
-        /// i.e. not character-based for performance reasons. (Master TMs
-        /// can be assumed to be big, and therefore slow on character-based searches.)
+        /// Configures the fuzzy indexes. For example, this ensures that
+        /// the master TM supports concordance searching in the target language.
+        /// The fuzzy indexes for source and target should be word-based only,
+        /// not character-based, for performance reasons. Master TMs can be
+        /// assumed to be large and therefore slow on character-based searches.
         /// &lt;/summary&gt;
-        /// &lt;returns&gt;Hard-coded SourceWordBased and TargetWordBased FuzzyIndexes type&lt;/returns&gt;
+        /// &lt;returns&gt;Hard-coded SourceWordBased and TargetWordBased FuzzyIndexes value.&lt;/returns&gt;
         private FuzzyIndexes GetFuzzyIndexes()
         {
             return FuzzyIndexes.SourceWordBased | FuzzyIndexes.TargetWordBased;
@@ -271,12 +269,12 @@ namespace SDK.LanguagePlatform.Samples.BatchImporter
         #region &quot;get recognizers&quot;
 
         /// &lt;summary&gt;
-        /// Configure the recognition settings for the TM.
-        /// Here, we simply activate all recognition settings 
-        /// through RecognizeAll, which includes recognition
-        /// of variables, dates, numbers, acronyms, measurements, and times.
+        /// Configures the recognition settings for the TM.
+        /// This sample enables all recognition settings by using
+        /// RecognizeAll, which includes variables, dates, numbers,
+        /// acronyms, measurements, and times.
         /// &lt;/summary&gt;
-        /// &lt;returns&gt;Hard-coded RecognizeAll BuiltinRecognizer.&lt;/returns&gt;
+        /// &lt;returns&gt;Hard-coded RecognizeAll BuiltinRecognizers value.&lt;/returns&gt;
         private BuiltinRecognizers GetRecognizers()
         {
             return BuiltinRecognizers.RecognizeAll;
@@ -290,8 +288,10 @@ namespace SDK.LanguagePlatform.Samples.BatchImporter
 </section>
 </div>
 <h2 id="see-also">See Also</h2>
-<p><a href="creating_a_log_file.html">Creating the Log File</a></p>
-<p><a href="creating_a_file_based_translation_memory.html">Creating a File-based Translation Memory</a></p>
+<ul>
+<li><a href="creating_a_log_file.html">Creating the Log File</a></li>
+<li><a href="creating_a_file_based_translation_memory.html">Creating a File-based Translation Memory</a></li>
+</ul>
 
 </article>
           </div>

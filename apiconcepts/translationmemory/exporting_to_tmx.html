@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-      <title> </title>
+      <title>Exporting to TMX </title>
       <meta name="viewport" content="width=device-width">
-      <meta name="title" content=" ">
+      <meta name="title" content="Exporting to TMX ">
     
     
       <link rel="shortcut icon" href="../../favicon.ico">
@@ -80,10 +80,11 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
+<h1 id="exporting-to-tmx">Exporting to TMX</h1>
 
-<h2 id="exporting-to-tmx">Exporting to TMX</h2>
-<p>In this step you will learn how to implement the functionality for exporting the content of file TMs (*.sdltm files) to *.tmx.</p>
-<p>Add a class called <code>TmExporter</code> to your project. Then implement a function called Export, which takes the name and path of the TM file as a string parameter. Within this function you first open the file TM using the <code>tmPath</code> parameter. Then create an exporter object based on the TM and its language direction. When applying the <code>Export</code> method to the exporter object, you specify the export file name and path. Let us assume that the TMX file should be stored in the same path as the file TM. Also, the name should be the same as the file TM plus the language direction and the extension TMX, e.g. <em>sample.sdltm_en-US_de-DE.tmx</em>. By including the language direction in the export file name, we can determine into which master TM the *.tmx file should be imported later. That way we can avoid futile import operations (e.g. importing a French-English TMX file into a German-Spanish master TM).</p>
+<p>In this step, you implement the functionality that exports the content of file-based TMs (<code>.sdltm</code> files) to <code>.tmx</code> files.</p>
+<p>Add a class named <code>TmExporter</code> to your project. Then implement a method named <code>Export</code> that takes the path to the TM as a string parameter. In the method, open the file-based TM by using the <code>translationMemoryPath</code> parameter, create an exporter for the TM and its language direction, and call <code>Export</code> with the target file path.</p>
+<p>Store the <code>.tmx</code> file in the same folder as the source TM. Use the same base name as the TM, plus the language direction and the <code>.tmx</code> extension, for example <code>sample.sdltm_en-US_de-DE.tmx</code>. Including the language direction in the file name makes it easier to identify the master TM that should import the file later and helps avoid invalid import operations, such as importing a French-English TMX file into a German-Spanish master TM.</p>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
@@ -133,8 +134,8 @@ private void Exporter_BatchExported(object sender, BatchExportedEventArgs e)
 </code></pre>
 </section>
 </div>
-<h2 id="putting-it-all-together">Putting it All Together</h2>
-<p>The complete class should look as shown below:</p>
+<h1 id="putting-it-all-together">Putting it All Together</h1>
+<p>The complete class should look like this:</p>
 <div class="tabGroup" id="tabgroup_2">
 <ul role="tablist">
 <li role="presentation">
@@ -172,12 +173,12 @@ namespace SDK.LanguagePlatform.Samples.BatchExport
             var tm = new FileBasedTranslationMemory(translationMemoryPath);
             var exporter = new TranslationMemoryExporter(tm.LanguageDirection);
 
-            // set event handler
+            // Set event handler.
             exporter.BatchExported += new EventHandler&lt;BatchExportedEventArgs&gt;(this.Exporter_BatchExported);
 
-            // The *.tmx export files have the same name as the original
-            // *.sdltm files, including the language direction retrieved
-            // from the file TM, e.g. &quot;en-US_de-DE&quot;.
+            // The .tmx export file uses the same base name as the source
+            // .sdltm file, including the language direction, for example
+            // &quot;en-US_de-DE&quot;.
             string exportString = string.Format(
                 CultureInfo.CurrentCulture,
                 &quot;{0}_{1}_{2}.tmx&quot;,
@@ -186,11 +187,11 @@ namespace SDK.LanguagePlatform.Samples.BatchExport
                 tm.LanguageDirection.TargetLanguage);
             exporter.Export(exportString, true);
 
-            Console.Write(&quot;Translation Units exported: {0} \n&quot;, this.exportProgress);
+            Console.Write(&quot;Translation units exported: {0}\n&quot;, this.exportProgress);
         }
 
         /// &lt;summary&gt;
-        /// Updates the console with current export progress
+        /// Updates the console with the current export progress.
         /// &lt;/summary&gt;
         /// &lt;param name=&quot;sender&quot;&gt;Event sender.&lt;/param&gt;
         /// &lt;param name=&quot;e&quot;&gt;Object containing current progress value and related info.&lt;/param&gt;
@@ -206,7 +207,9 @@ namespace SDK.LanguagePlatform.Samples.BatchExport
 </section>
 </div>
 <h2 id="see-also">See Also</h2>
-<p><a href="exporting_to_a_tmx_file.html">Exporting to a TMX File</a></p>
+<ul>
+<li><a href="exporting_to_a_tmx_file.html">Exporting to a TMX File</a></li>
+</ul>
 
 </article>
           </div>

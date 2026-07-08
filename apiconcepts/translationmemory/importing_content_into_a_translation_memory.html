@@ -82,23 +82,25 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="importing-content-into-a-translation-memory">Importing Content into a Translation Memory</h1>
 
-<p>This section describes how to import content into a translation memory.</p>
+<p>This section explains how to import content into a translation memory.</p>
 <h2 id="import">Import</h2>
-<p>Any translation memory allows importing translation units from the following file formats:</p>
+<p>You can import translation units into any translation memory from the following file formats:</p>
 <ul>
 <li>TMX or TMX.GZ (compressed TMX)</li>
-<li>Supported bilingual document formats: SDLXLIFF, TTX and ITD.
-Only bilingual formats are supported, which means in effect the import happens into a specific translation memory language direction (<a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemoryLanguageDirection.html">ITranslationMemoryLanguageDirection</a>). Multilingual TMX files are not supported.</li>
+<li>Supported bilingual document formats: SDLXLIFF, TTX and ITD.</li>
 </ul>
-<p>The import functionality is available through the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryImporter.html">TranslationMemoryImporter</a> class. To import a file into a translation memory, set the language direction into which to import (<a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemoryLanguageDirection.html">ITranslationMemoryLanguageDirection</a>), specify the import settings (<a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemory.ImportSettings.html">ImportSetting</a>) and call the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryImporter.html#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationMemoryImporter_Import_System_String_">Import</a> method.</p>
-<p>The <a href="../../api/translationmemory/Sdl.Core.TM.ImportExport.Importer.html#Sdl_Core_TM_ImportExport_Importer_OnBatchImported_Sdl_LanguagePlatform_TranslationMemory_ImportResults_Sdl_LanguagePlatform_TranslationMemory_ImportStatistics_">OnBatchImported</a> event is raised repeatedly during import (after evey batch of translation units has been imported, see <a href="../../api/translationmemory/Sdl.Core.TM.ImportExport.Importer.html#Sdl_Core_TM_ImportExport_Importer_ChunkSize">ChunkSize</a>). The import can be canceled.</p>
-<p>When the import is complete, the results are available through the Statistics property. This indicates how many of the translation units were read, added, discarded, merged, overwritten or failed to import. When you set the <a href="../../api/translationmemory/Sdl.Core.TM.ImportExport.Importer.html#Sdl_Core_TM_ImportExport_Importer_InvalidTranslationUnitsExportPath">InvalidTranslationUnitsExportPath</a> property, all translation units that failed to export are written to a TMX file in that location.</p>
+<p>Only bilingual formats are supported. In practice, the import targets a specific translation memory language direction (<a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemoryLanguageDirection.html">ITranslationMemoryLanguageDirection</a>). Multilingual TMX files are not supported.</p>
+<p>The import functionality is available through the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryImporter.html">TranslationMemoryImporter</a> class. To import a file into a translation memory, set the target language direction (<a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemoryLanguageDirection.html">ITranslationMemoryLanguageDirection</a>), specify the import settings (<a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemory.ImportSettings.html">ImportSetting</a>), and call the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.TranslationMemoryImporter.html#Sdl_LanguagePlatform_TranslationMemoryApi_TranslationMemoryImporter_Import_System_String_">Import</a> method.</p>
+<p>The <a href="../../api/translationmemory/Sdl.Core.TM.ImportExport.Importer.html#Sdl_Core_TM_ImportExport_Importer_OnBatchImported_Sdl_LanguagePlatform_TranslationMemory_ImportResults_Sdl_LanguagePlatform_TranslationMemory_ImportStatistics_">OnBatchImported</a> event is raised repeatedly during import, after each batch of translation units has been imported. See <a href="../../api/translationmemory/Sdl.Core.TM.ImportExport.Importer.html#Sdl_Core_TM_ImportExport_Importer_ChunkSize">ChunkSize</a>. You can cancel the import at any time.</p>
+<p>When the import completes, the results are available through the Statistics property. This shows how many translation units were read, added, discarded, merged, overwritten, or failed to import. When you set the <a href="../../api/translationmemory/Sdl.Core.TM.ImportExport.Importer.html#Sdl_Core_TM_ImportExport_Importer_InvalidTranslationUnitsExportPath">InvalidTranslationUnitsExportPath</a> property, all translation units that failed to import are written to a TMX file in that location.</p>
 <img style="display:block; " src="images/cd-Import.png">
-<p>Server-based translation memories support scheduling an import, which means the file to be imported is uploaded to the server and the server subsequently imports the file. This is often a quicker way to import data because it avoids the network latency and any additional overhead when importing remotely. For more information, see <a href="performing_a_scheduled_import_or_export.html">Performing a Scheduled Import or Export</a>.</p>
-<h2 id="see-also">See Also</h2>
-<p><a href="importing_a_tmx_file.html">Importing a TMX File</a></p>
-<p><a href="working_with_translation_memories.html">Introduction</a></p>
-<p><a href="performing_a_scheduled_import_or_export.html">Performing a Scheduled Import or Export</a></p>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><p><a href="importing_a_tmx_file.html">Importing a TMX File</a></p>
+</li>
+<li><p><a href="working_with_translation_memories.html">Introduction</a></p>
+</li>
+</ul>
 
 </article>
           </div>

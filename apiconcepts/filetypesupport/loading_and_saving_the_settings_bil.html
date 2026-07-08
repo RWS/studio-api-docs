@@ -82,64 +82,57 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="loading-and-saving-the-settings">Loading and Saving the Settings</h1>
 
-<p>In this chapter we will learn how to implement the class that is actually responsible for physically storing the settings and for loading the plug-in settings into the plug-in UI. The physical storing occurs in an *<em>.sdlproj</em> or in an *<em>.sdltpl</em> file, which are both XML compliant.</p>
-<p>*<em>.sdlproj</em> files are automatically created for each document that is opened for translation/editing in Trados Studio or for each project that is created in the application. These files contain project-specific information such as the translation memories/termbases used for a project as well as any project-specific settings, which can also include plug-in settings. An *<em>.sdltpl</em> file is a project template, which users can create to streamline project creation.</p>
-<p>The settings bundle stored in an *<em>.sdlproj</em> file as used by our implementation would look, for example, as shown below:</p>
+<p>Implement the class responsible for physically storing settings and loading plug-in settings into the plug-in UI. Settings are stored in an <strong>.sdlproj</strong> or <strong>.sdltpl</strong> file, both of which are XML compliant.</p>
+<p><strong>.sdlproj</strong> files are automatically created for each document opened for translation/editing in <code>Trados Studio</code> or for each project created in the application. These files contain project-specific information such as translation memories, termbases, and project-specific settings, which can include plug-in settings. An <strong>.sdltpl</strong> file is a project template that users can create to streamline project creation.</p>
+<p>The settings bundle stored in an <strong>.sdlproj</strong> file looks, for example, as follows:</p>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
 <a href="#tabpanel_1_tabid-1" role="tab" aria-controls="tabpanel_1_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">Xml</a>
 </li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-2" role="tab" aria-controls="tabpanel_1_tabid-2" data-tab="tabid-2" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-3" role="tab" aria-controls="tabpanel_1_tabid-3" data-tab="tabid-3" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-4" role="tab" aria-controls="tabpanel_1_tabid-4" data-tab="tabid-4" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-5" role="tab" aria-controls="tabpanel_1_tabid-5" data-tab="tabid-5" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-6" role="tab" aria-controls="tabpanel_1_tabid-6" data-tab="tabid-6" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-7" role="tab" aria-controls="tabpanel_1_tabid-7" data-tab="tabid-7" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-8" role="tab" aria-controls="tabpanel_1_tabid-8" data-tab="tabid-8" tabindex="-1">C#</a>
+</li>
 </ul>
 <section id="tabpanel_1_tabid-1" role="tabpanel" data-tab="tabid-1">
 
 <pre><code class="lang-xml">&lt;SettingsGroup Id=&quot;Word 2007 v 2.0.0.0&quot;&gt;
-      &lt;Setting Id=&quot;Enable&quot;&gt;True&lt;/Setting&gt;
-    &lt;/SettingsGroup&gt;
+  &lt;Setting Id=&quot;Enable&quot;&gt;True&lt;/Setting&gt;
+&lt;/SettingsGroup&gt;
 </code></pre>
-</section>
-</div>
-
-<p>Click or drag to resize
-Loading and Saving the Settings
-In this chapter we will learn how to implement the class that is actually responsible for physically storing the settings and for loading the plug-in settings into the plug-in UI. The physical storing occurs in an *.sdlproj or in an *.sdltpl file, which are both XML compliant.</p>
-<p>*.sdlproj files are automatically created for each document that is opened for translation/editing in Trados Studio or for each project that is created in the application. These files contain project-specific information such as the translation memories/termbases used for a project as well as any project-specific settings, which can also include plug-in settings. An *.sdltpl file is a project template, which users can create to streamline project creation.</p>
-<p>The settings bundle stored in an *.sdlproj file as used by our implementation would look, for example, as shown below:</p>
-<div class="tabGroup" id="tabgroup_2">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_2_tabid-2" role="tab" aria-controls="tabpanel_2_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">Xml</a>
-</li>
-</ul>
-<section id="tabpanel_2_tabid-2" role="tabpanel" data-tab="tabid-2">
-
-<pre><code class="lang-xml">&lt;SettingsGroup Id=&quot;Word 2007 v 2.0.0.0&quot;&gt;
-      &lt;Setting Id=&quot;Enable&quot;&gt;True&lt;/Setting&gt;
-    &lt;/SettingsGroup&gt;
-</code></pre>
-</section>
-</div>
-
-<p>Each <strong>Setting</strong> element contains an <strong>Id</strong> attribute that denotes the setting (property) name. The <strong>Setting</strong> element encloses the property value, which is changed when the user changes the settings in the UI.</p>
+<p>Each <strong>Setting</strong> element contains an <strong>Id</strong> attribute that denotes the setting (property) name. The <strong>Setting</strong> element encloses the property value, which changes when the user modifies the settings in the UI.</p>
 <h2 id="add-the-verifiersettings-class">Add the VerifierSettings Class</h2>
-<p>Start by adding a new class to your project called <code>VerifierSettings</code>. Make sure that your class uses the following namespaces:</p>
+<p>Add a new class to your project called <strong>VerifierSettings.cs</strong>. Your class requires these namespaces:</p>
 <ul>
-<li><strong>Sdl.Core.Settings</strong></li>
-<li><strong>Sdl.FileTypeSupport.Framework.Core.Settings</strong></li>
+<li><code>Sdl.Core.Settings</code></li>
+<li><code>Sdl.FileTypeSupport.Framework.Core.Settings</code></li>
 </ul>
-<p>Moreover, the component needs to be derived from the <code>FileTypeSettingsBase</code> class, which provides the methods required for storing and saving settings to the bundle.</p>
+<p>Your class must be derived from the <code>FileTypeSettingsBase</code> class, which provides the methods required for storing and saving settings to the bundle.</p>
 <h2 id="implement-the-setting-properties">Implement the Setting Properties</h2>
-<p>In this step, add the property that represents our plug-in setting, in this case the boolean property <code>CheckWordArt</code>, which determines whether the verification functionality should be active or not. The <code>MaxWordCount</code> property is used to set or retrieve the maximum number of words a particular segment is allowed to have.</p>
-<div class="tabGroup" id="tabgroup_3">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_3_tabid-3" role="tab" aria-controls="tabpanel_3_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_3_tabid-3" role="tabpanel" data-tab="tabid-3">
+<p>Add the properties that represent the plug-in settings. In this case, add the boolean property <code>CheckWordArt</code>, which determines whether the verification functionality should be active. The <code>MaxWordCount</code> property stores the maximum number of words a segment is allowed to have.</p>
+</section>
+<section id="tabpanel_1_tabid-2" role="tabpanel" data-tab="tabid-2" aria-hidden="true" hidden="hidden">
 
-<pre><code class="lang-cs">bool _checkWordArt;
-int _maxWordCount;
+<pre><code class="lang-cs">private bool _checkWordArt;
+private int _maxWordCount;
 
 public bool CheckWordArt
 {
@@ -161,17 +154,10 @@ public int MaxWordCount
     }
 }
 </code></pre>
+<h2 id="implement-the-reset-to-defaults-method">Implement the Reset to Defaults Method</h2>
+<p>Override the <code>ResetToDefaults</code> method provided by the base class to set the <code>CheckWordArt</code> and <code>MaxWordCount</code> properties to their default values:</p>
 </section>
-</div>
-<h2 id="implement-the-constructor-method">Implement the Constructor Method</h2>
-<p>The <code>ResetToDefaults</code> method is provided by the base class. In our implementation, it is just overridden to set the <code>MaxWordCount</code> and <code>CheckWordArtproperties</code> to their default values, i.e. 3 and True:</p>
-<div class="tabGroup" id="tabgroup_4">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_4_tabid-4" role="tab" aria-controls="tabpanel_4_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_4_tabid-4" role="tabpanel" data-tab="tabid-4">
+<section id="tabpanel_1_tabid-3" role="tabpanel" data-tab="tabid-3" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">public override void ResetToDefaults()
 {
@@ -179,61 +165,37 @@ public int MaxWordCount
     MaxWordCount = 3;
 }
 </code></pre>
+<h2 id="implement-the-constructor-method">Implement the Constructor Method</h2>
+<p>Implement the constructor method. The constructor calls <code>ResetToDefaults</code> to set the <code>CheckWordArt</code> property to its default value (True) and set the maximum word count to 3:</p>
 </section>
-</div>
-<h2 id="reset-to-defaults">Reset to Defaults</h2>
-<p>Next, implement the constructor method. In this implementation, the constructor just calls on the <code>ResetToDefaults</code> of the class to set the <code>CheckWordArt</code> property to its default value, which is True, and 3 as the maximum word count:</p>
-<div class="tabGroup" id="tabgroup_5">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_5_tabid-5" role="tab" aria-controls="tabpanel_5_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_5_tabid-5" role="tabpanel" data-tab="tabid-5">
+<section id="tabpanel_1_tabid-4" role="tabpanel" data-tab="tabid-4" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">public VerifierSettings()
 {
     ResetToDefaults();
 }
 </code></pre>
+<h2 id="populate-settings-from-the-settings-bundle">Populate Settings from the Settings Bundle</h2>
+<p>The base class provides the <code>PopulateFromSettingsBundle</code> method to retrieve the current settings from the bundle in the <strong>.sdlproj</strong> file and set the <code>CheckWordArt</code> and <code>MaxWordCount</code> properties accordingly.</p>
+<p>In the <strong>.sdlproj</strong> or <strong>.sdltpl</strong> file, a settings bundle looks as follows:</p>
 </section>
-</div>
-<h2 id="set-the-properties-to-the-values-from-the-settings-bundle">Set the Properties to the Values from the Settings Bundle</h2>
-<p>The base class provides the <code>PopulateFromSettingsBundle</code> method to retrieve the current setting from the bundle in the *<em>.sdlproj</em> file and set the <code>CheckWordArt</code> and the <code>MaxWordCount</code> properties of our implementation accordingly.</p>
-<p>In the *<em>.sdlproj</em> or *<em>.sdltpl</em> file a settings bundle can look, for example, as shown below:</p>
-<div class="tabGroup" id="tabgroup_6">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_6_tabid-6" role="tab" aria-controls="tabpanel_6_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">Xml</a>
-</li>
-</ul>
-<section id="tabpanel_6_tabid-6" role="tabpanel" data-tab="tabid-6">
+<section id="tabpanel_1_tabid-5" role="tabpanel" data-tab="tabid-5" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-xml">&lt;SettingsBundle Guid=&quot;e0873e01-9da4-4e37-80e5-a35fc844f03d&quot;&gt;
+  &lt;SettingsGroup Id=&quot;Word 2007 v 2.0.0.0&quot;&gt;
+    &lt;Setting Id=&quot;MaxWordCount&quot;&gt;3&lt;/Setting&gt;
+    &lt;Setting Id=&quot;CheckWordArt&quot;&gt;True&lt;/Setting&gt;
+  &lt;/SettingsGroup&gt;
 
-   &lt;SettingsGroup Id=&quot;Word 2007 v 2.0.0.0&quot;&gt;
-     &lt;Setting Id=&quot;MaxWordCount&quot;&gt;3&lt;/Setting&gt;
-     &lt;Setting Id=&quot;CheckWordArt&quot;&gt;True&lt;/Setting&gt;
-   &lt;/SettingsGroup&gt;
-
-   &lt;SettingsGroup Id=&quot;TermVerifierSettings&quot;&gt;
-     &lt;Setting Id=&quot;Enabled&quot;&gt;True&lt;/Setting&gt;
-   &lt;/SettingsGroup&gt;
-
- &lt;/SettingsBundle&gt;
+  &lt;SettingsGroup Id=&quot;TermVerifierSettings&quot;&gt;
+    &lt;Setting Id=&quot;Enabled&quot;&gt;True&lt;/Setting&gt;
+  &lt;/SettingsGroup&gt;
+&lt;/SettingsBundle&gt;
 </code></pre>
+<p>A <strong>SettingsBundle</strong> element encloses a number of <strong>SettingsGroup</strong> nodes. Each settings bundle has a unique ID (GUID) stored in an attribute. Settings bundles are identified by the ID of the plug-in they refer to. A settings group can enclose file type settings, verification plug-in settings, and so on. In the above example, the settings bundle encloses one settings group for the term verifier plug-in and another settings group for the WordArt verifier plug-in. This ID is retrieved from the File Type Component Builder (see <a href="create_new_file_type_component_builder.html">Create a New File Type Component Builder</a>).</p>
+<p>This XML structure is reflected in the API. Within the <code>PopulateFromSettingsBundle</code> method, create a settings group object based on <code>ISettingsGroup</code> by calling the <code>GetSettingsGroup</code> method on the settings bundle. This method takes the settings bundle ID (for example, <em>Word 2007 v 2.0.0.0</em>) as a string parameter. Then use the <code>GetSettingFromSettingsGroup</code> method to retrieve the <code>CheckWordArt</code> and <code>MaxWordCount</code> properties. This method requires the settings group object, the name of the setting (for example, <em>CheckWordArt</em>), and the default value as parameters:</p>
 </section>
-</div>
-
-<p>A <strong>SettingsBundle</strong> element can enclose a number of <strong>SettingsGroup</strong> nodes. Each settings bundle has a unique id (guid) that is stored in an attribute. The settings bundles are identified by the id of the plug-in that they refer to. A settings group can enclose, for example, file type settings, verification plug-in settings, etc. In the above example the settings bundle encloses one settings group for the term verifier plug-in and another settings group for our sample WordArt verifier plug-in. This id is retrieved from the File Type Component Builder (see <a href="create_new_file_type_component_builder.html">Create a New File Type Component Builder</a>).</p>
-<p>This XML structure is also reflected in the API. Within the <code>SaveToSettingsBundle</code> method we create a settings group object based on <code>ISettingsGroup</code> by applying the <code>GetSettingsGroup</code> method to the settings bundle. This method takes the settings bundle id (e.g. <em>Word 2007 v 2.0.0.0</em>) as string parameter. We then use the <code>GetSettingFromSettingsGroup</code> method to set the <code>CheckWordArt</code> and the <code>MaxWordCount</code> properties. This method requires the settings group object, the name of the setting (e.g. <em>CheckWordArt</em>), and the default value as parameters.</p>
-<div class="tabGroup" id="tabgroup_7">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_7_tabid-7" role="tab" aria-controls="tabpanel_7_tabid-7" data-tab="tabid-7" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_7_tabid-7" role="tabpanel" data-tab="tabid-7">
+<section id="tabpanel_1_tabid-6" role="tabpanel" data-tab="tabid-6" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">public override void PopulateFromSettingsBundle(ISettingsBundle settingsBundle, string configurationId)
 {
@@ -243,19 +205,12 @@ public int MaxWordCount
     MaxWordCount = GetSettingFromSettingsGroup(settingsGroup, &quot;MaxWordCount&quot;, MaxWordCount);
 }
 </code></pre>
+<h2 id="save-the-properties-to-the-settings-bundle">Save the Properties to the Settings Bundle</h2>
+<p>The base class provides the <code>SaveToSettingsBundle</code> method, which physically stores the value of the properties in the bundle of the <strong>.sdlproj</strong> file.</p>
+<p>Create a settings group object based on <code>ISettingsGroup</code> by calling the <code>GetSettingsGroup</code> method on the settings bundle.</p>
+<p>Then use the <code>UpdateSettingInSettingsGroup</code> method to save the settings into the physical representation. This method takes the settings group object, the setting name (string), the setting value, and the default value as parameters:</p>
 </section>
-</div>
-<h2 id="set-the-properties-to-the-values-from-the-settings-bundle-1">Set the Properties to the Values from the Settings Bundle</h2>
-<p>The base class also provides the <code>SaveToSettingsBundle</code> method, which is required to physically store the value of the two properties in the bundle of the *.sdlproj file.</p>
-<p>Here too, we create a settings group object based on <code>ISettingsGroup</code> by applying the <code>GetSettingsGroup</code> method to the settings bundle.</p>
-<p>Then we use the <code>UpdateSettingInSettingsGroup</code> method to save the settings into the physical representation. This method takes the settings group object, the setting name (string), the setting value, and the default value as parameters.</p>
-<div class="tabGroup" id="tabgroup_8">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_8_tabid-8" role="tab" aria-controls="tabpanel_8_tabid-8" data-tab="tabid-8" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_8_tabid-8" role="tabpanel" data-tab="tabid-8">
+<section id="tabpanel_1_tabid-7" role="tabpanel" data-tab="tabid-7" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">public override void SaveToSettingsBundle(ISettingsBundle settingsBundle, string configurationId)
 {
@@ -265,17 +220,10 @@ public int MaxWordCount
     UpdateSettingInSettingsGroup(settingsGroup, &quot;MaxWordCount&quot;, MaxWordCount, defaults.MaxWordCount);
 }
 </code></pre>
+<h2 id="putting-it-all-together">Putting It All Together</h2>
+<p>The complete class should look as follows:</p>
 </section>
-</div>
-<h2 id="putting-it-all-together">Putting it All Together</h2>
-<p>The complete class should now look as shown below:</p>
-<div class="tabGroup" id="tabgroup_9">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_9_tabid-9" role="tab" aria-controls="tabpanel_9_tabid-9" data-tab="tabid-9" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_9_tabid-9" role="tabpanel" data-tab="tabid-9">
+<section id="tabpanel_1_tabid-8" role="tabpanel" data-tab="tabid-8" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">using System;
 using System.Collections.Generic;
@@ -288,14 +236,13 @@ using System.Windows.Forms;
 namespace Sdk.FileTypeSupport.Samples.WordArtVerifier
 {
     /// &lt;summary&gt;
-    /// This class is used to actually store the settings to the settings bundle, which
-    /// is physically saved in an *.sdlproj or in an *.sdltpl file.
+    /// This class stores the settings to the settings bundle, which
+    /// is physically saved in an *.sdlproj or *.sdltpl file.
     /// &lt;/summary&gt;
-    public class VerifierSettings: FileTypeSettingsBase
+    public class VerifierSettings : FileTypeSettingsBase
     {
-        #region &quot;Properties&quot;
-        bool _checkWordArt;
-        int _maxWordCount;
+        private bool _checkWordArt;
+        private int _maxWordCount;
 
         public bool CheckWordArt
         {
@@ -316,38 +263,28 @@ namespace Sdk.FileTypeSupport.Samples.WordArtVerifier
                 OnPropertyChanged(&quot;MaxWordCount&quot;);
             }
         }
-        #endregion
 
-
-        #region &quot;Constructor&quot;
         public VerifierSettings()
         {
             ResetToDefaults();
         }
-        #endregion    
-
-        #region &quot;OverrideMethods&quot;
 
         /// &lt;summary&gt;
-        /// Define the default value, which is Enabled (i.e. true), as the verification function should
+        /// Define the default value: Enabled (True), as the verification function should
         /// be active by default, and 3 for the default maximum word count.
         /// &lt;/summary&gt;
-        #region &quot;ResetToDefaults&quot;
         public override void ResetToDefaults()
         {
             CheckWordArt = true;
             MaxWordCount = 3;
         }
-        #endregion
-
 
         /// &lt;summary&gt;
-        /// This method is used to load the setting from the settings bundle,
+        /// Load the setting from the settings bundle,
         /// which is physically stored in an XML-compliant *.sdlproj or *.sdltpl file.
         /// &lt;/summary&gt;
         /// &lt;param name=&quot;settingsBundle&quot;&gt;&lt;/param&gt;
         /// &lt;param name=&quot;configurationId&quot;&gt;&lt;/param&gt;
-        #region &quot;PopulateFromSettingsBundle&quot;
         public override void PopulateFromSettingsBundle(ISettingsBundle settingsBundle, string configurationId)
         {
             ISettingsGroup settingsGroup = settingsBundle.GetSettingsGroup(configurationId);
@@ -355,17 +292,14 @@ namespace Sdk.FileTypeSupport.Samples.WordArtVerifier
             CheckWordArt = GetSettingFromSettingsGroup(settingsGroup, &quot;CheckWordArt&quot;, CheckWordArt);
             MaxWordCount = GetSettingFromSettingsGroup(settingsGroup, &quot;MaxWordCount&quot;, MaxWordCount);
         }
-        #endregion
-
 
         /// &lt;summary&gt;
-        /// This method is used to store the settings as configured in the plug-in UI
-        /// in the settings bundle, which means that the settings are physically written
+        /// Store the settings as configured in the plug-in UI
+        /// in the settings bundle. The settings are physically written
         /// into the XML-compliant *.sdlproj or *.sdltpl file.
         /// &lt;/summary&gt;
         /// &lt;param name=&quot;settingsBundle&quot;&gt;&lt;/param&gt;
         /// &lt;param name=&quot;configurationId&quot;&gt;&lt;/param&gt;
-        #region &quot;SaveToSettingsBundle&quot;
         public override void SaveToSettingsBundle(ISettingsBundle settingsBundle, string configurationId)
         {
             ISettingsGroup settingsGroup = settingsBundle.GetSettingsGroup(configurationId);
@@ -373,21 +307,20 @@ namespace Sdk.FileTypeSupport.Samples.WordArtVerifier
             UpdateSettingInSettingsGroup(settingsGroup, &quot;CheckWordArt&quot;, CheckWordArt, defaults.CheckWordArt);
             UpdateSettingInSettingsGroup(settingsGroup, &quot;MaxWordCount&quot;, MaxWordCount, defaults.MaxWordCount);
         }
-        #endregion
-
-        #endregion
     }
 }
 </code></pre>
-</section>
-</div>
 <h2 id="see-also">See Also</h2>
-<p><a href="implement_the_user_interface_bil.html">Implement the User Interface</a></p>
-<p><a href="implement_the_ui_controller_class_bil.html">Implement the UI Controller Class</a></p>
-<p><a href="implement_the_verification_logic_bil.html">Implement the Verification Logic</a></p>
+<ul>
+<li><a href="implement_the_user_interface_bil.html">Implement the User Interface</a></li>
+<li><a href="implement_the_ui_controller_class_bil.html">Implement the UI Controller Class</a></li>
+<li><a href="implement_the_verification_logic_bil.html">Implement the Verification Logic</a></li>
+</ul>
 <div class="NOTE">
 <h5>Note</h5>
 <p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+</div>
+</section>
 </div>
 
 </article>

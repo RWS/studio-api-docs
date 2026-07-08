@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-      <title>Extending existing File Type Component Builder </title>
+      <title>Extending Existing File Type Component Builder </title>
       <meta name="viewport" content="width=device-width">
-      <meta name="title" content="Extending existing File Type Component Builder ">
+      <meta name="title" content="Extending Existing File Type Component Builder ">
     
     
       <link rel="shortcut icon" href="../../favicon.ico">
@@ -80,26 +80,35 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-<h1 id="extending-existing-file-type-component-builder">Extending existing File Type Component Builder</h1>
+<h1 id="extending-existing-file-type-component-builder">Extending Existing File Type Component Builder</h1>
 
+<p>Extend the existing XML File Type Component Builder so your native verifier is used when processing XML files.</p>
+<h2 id="overview">Overview</h2>
+<p>XML is one of the standard formats supported by Trados Studio, so the corresponding File Type Component Builder already exists. Use this XML File Type Component Builder to create an extension that includes your native verifier.</p>
+<p>A File Type Component Builder is defined by a filter component builder that implements <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilder.html">IFileTypeComponentBuilder</a>. The filter component builder knows how to create parsers, writers, and other components for the file type. The XML File Type Component Builder has its own filter component builder.</p>
+<p>To extend the XML File Type Component Builder indirectly, implement the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilderAdapter.html">IFileTypeComponentBuilderAdapter</a> interface. Add the <code>FileTypeComponentBuilderExtension</code> attribute to your extension component builder class. Set the <code>OriginalFileType</code> property to <code>XML: Any v 1.2.0.0</code>. You can access the original XML component builder methods through the <code>Original</code> property.</p>
 <div class="NOTE">
 <h5>Note</h5>
-<p>This functionality is only available in Studio 2011 SP3.</p>
+<p>In Trados Studio, all file type plug-in components are designed to be extensible, so you can extend all functionality.</p>
 </div>
-<p>This chapter provides basic information on extending existing XML File Type Component Builder so your native verifier will be used when processing XML files.</p>
-<p>Extending an existing XML File Type Component Builder
-As XML is one of the standard formats supported by Trados Studio, the corresponding File Type Component Builder already exists. The XML File Type Component Builder will be used to create an extension of the XML File Type Component Builder that uses your native verifier.</p>
-<p>A File Type Component Builder is defined by a filter component builder that implements <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilder.html">IFileTypeComponentBuilder</a>. A filter component builder knows how to create parsers, writers, and so on for the corresponding file type. XML File Type Component Builder has a filter component builder.</p>
-<p>The XML File Type Component Builder can be inherited from indirectly by implementing the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IFileTypeComponentBuilderAdapter.html">IFileTypeComponentBuilderAdapter</a> interface. To create an extension for the XML File Type Component Builder you need to add the <code>FileTypeComponentBuilderExtension</code> attribute to your extension component builder class.You must set the <code>OriginalFileType</code> property of the attribute to <code>XML: Any v 1.2.0.0</code>. You can now access the original XML component builder methods through the <code>Original</code> property as shown in the code example at the end of this page.</p>
-<div class="NOTE">
-<h5>Note</h5>
-<p>In Trados Studio all the file type plug-in components are designed in a way that you can extend all the functionality.</p>
-</div>
-<p>Every extension filter component builder needs to have a <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeComponentBuilderExtensionAttribute.html">FileTypeComponentBuilderExtensionAttribute</a> that describes the file type component builder.</p>
+<h2 id="create-the-extension">Create the Extension</h2>
+<p>Every extension filter component builder requires a <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.FileTypeComponentBuilderExtensionAttribute.html">FileTypeComponentBuilderExtensionAttribute</a> that describes the file type component builder:</p>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
 <a href="#tabpanel_1_tabid-1" role="tab" aria-controls="tabpanel_1_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-1" role="tab" aria-controls="tabpanel_1_tabid-1" data-tab="tabid-1" tabindex="-1">Xml</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-2" role="tab" aria-controls="tabpanel_1_tabid-2" data-tab="tabid-2" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-3" role="tab" aria-controls="tabpanel_1_tabid-3" data-tab="tabid-3" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-4" role="tab" aria-controls="tabpanel_1_tabid-4" data-tab="tabid-4" tabindex="-1">C#</a>
 </li>
 </ul>
 <section id="tabpanel_1_tabid-1" role="tabpanel" data-tab="tabid-1">
@@ -110,17 +119,9 @@ As XML is one of the standard formats supported by Trados Studio, the correspond
     Description = &quot;XML_FilterComponentBuilderExtension_Verifier_Description&quot;,
     OriginalFileType = &quot;XML: Any v 1.2.0.0&quot;)]
 </code></pre>
+<p>The <code>XML_FilterComponentBuilderExtension_Verifier_Name</code> and <code>XML_FilterComponentBuilderExtension_Verifier_Description</code> values refer to entries in the <strong>PlugInResources.resx</strong> file:</p>
 </section>
-</div>
-
-<p>&quot;XML_FilterComponentBuilderExtension_Verifier_Name&quot; and &quot;XML_FilterComponentBuilderExtension_Verifier_Description&quot; refers to entries in the <strong>PlugInResources.resx</strong> file.</p>
-<div class="tabGroup" id="tabgroup_2">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_2_tabid-1" role="tab" aria-controls="tabpanel_2_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">Xml</a>
-</li>
-</ul>
-<section id="tabpanel_2_tabid-1" role="tabpanel" data-tab="tabid-1">
+<section id="tabpanel_1_tabid-1" role="tabpanel" data-tab="tabid-1" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-xml">&lt;data name=&quot;XML_FilterComponentBuilderExtension_Verifier_Description&quot; xml:space=&quot;preserve&quot;&gt;
   &lt;value&gt;Length Check XML Filter Component Builder&lt;/value&gt;
@@ -129,38 +130,23 @@ As XML is one of the standard formats supported by Trados Studio, the correspond
   &lt;value&gt;Length Check XML Filter Component Builder&lt;/value&gt;
 &lt;/data&gt;
 </code></pre>
+<h2 id="modify-the-file-type-definition">Modify the File Type Definition</h2>
+<p>At this point, you have a new file type definition identical to the standard XML File Type Component Builder. Modify it to include the new native verifier by calling the original <code>BuildVerifierCollection</code> and adding the new verifier to the collection:</p>
 </section>
-</div>
+<section id="tabpanel_1_tabid-2" role="tabpanel" data-tab="tabid-2" aria-hidden="true" hidden="hidden">
 
-<p>At this point, we have a new file type definition that is identical to the standard XML File Type Component Builder. This new file type definition needs to be changed so it includes the new native verifier. This can be accomplished simply by calling the original <strong>BuildVerifierCollection</strong> and adding the new verifier to this collection.</p>
-<div class="tabGroup" id="tabgroup_3">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_3_tabid-2" role="tab" aria-controls="tabpanel_3_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_3_tabid-2" role="tabpanel" data-tab="tabid-2">
-
-<pre><code class="lang-cs">public  IVerifierCollection BuildVerifierCollection(string name)
+<pre><code class="lang-cs">public IVerifierCollection BuildVerifierCollection(string name)
 {
     var verifierCollection = Original.BuildVerifierCollection(name);
     verifierCollection.NativeVerifiers.Add(new XMLCheckerMain());
     return verifierCollection;
 }
 </code></pre>
+<p>Modify the file type definition to include the native verifier settings page. Call the original <code>BuildFileTypeInformation</code> and add the settings page to <code>WinFormSettingsPageIds</code>:</p>
 </section>
-</div>
+<section id="tabpanel_1_tabid-3" role="tabpanel" data-tab="tabid-3" aria-hidden="true" hidden="hidden">
 
-<p>This new file type definition also needs to be changed so it includes the new native verifier settings page. This is accomplished by calling the original <strong>BuildFileTypeInformation</strong> and adding the settings page to <strong>WinFormSettingsPageIds</strong>.</p>
-<div class="tabGroup" id="tabgroup_4">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_4_tabid-3" role="tab" aria-controls="tabpanel_4_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_4_tabid-3" role="tabpanel" data-tab="tabid-3">
-
-<pre><code class="lang-cs">public  IFileTypeInformation BuildFileTypeInformation(string name)
+<pre><code class="lang-cs">public IFileTypeInformation BuildFileTypeInformation(string name)
 {
     var fileTypeInformation = Original.BuildFileTypeInformation(name);
     // add &quot;XMLVerifier_Settings&quot; to existing WinFormSettingsPageIds
@@ -170,17 +156,10 @@ As XML is one of the standard formats supported by Trados Studio, the correspond
     return fileTypeInformation;
 }
 </code></pre>
+<h2 id="complete-implementation">Complete Implementation</h2>
+<p>Here's the complete code for creating a new file type definition based on the XML file type definition with the new native verifier:</p>
 </section>
-</div>
-
-<p>Here is the complete code for creating a new file type definition based upon the XML file type definition using the new native verifier.</p>
-<div class="tabGroup" id="tabgroup_5">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_5_tabid-4" role="tab" aria-controls="tabpanel_5_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_5_tabid-4" role="tabpanel" data-tab="tabid-4">
+<section id="tabpanel_1_tabid-4" role="tabpanel" data-tab="tabid-4" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">using System.Collections.Generic;
 using Sdl.FileTypeSupport.Framework.IntegrationApi;
@@ -195,7 +174,7 @@ namespace Sdk.FileTypeSupport.Samples.XMLChecker
         OriginalFileType = &quot;XML: Any v 1.2.0.0&quot;)]
     public class VerifierFilterComponentBuilder : IFileTypeComponentBuilderAdapter
     {
-        public  IFileTypeInformation BuildFileTypeInformation(string name)
+        public IFileTypeInformation BuildFileTypeInformation(string name)
         {
             var fileTypeInformation = Original.BuildFileTypeInformation(name);
             // add &quot;XMLVerifier_Settings&quot; to existing WinFormSettingsPageIds
@@ -205,7 +184,7 @@ namespace Sdk.FileTypeSupport.Samples.XMLChecker
             return fileTypeInformation;
         }
 
-        public  IVerifierCollection BuildVerifierCollection(string name)
+        public IVerifierCollection BuildVerifierCollection(string name)
         {
             var verifierCollection = Original.BuildVerifierCollection(name);
             verifierCollection.NativeVerifiers.Add(new XMLCheckerMain());
@@ -270,15 +249,17 @@ namespace Sdk.FileTypeSupport.Samples.XMLChecker
     }
 }
 </code></pre>
-</section>
-</div>
 <h2 id="see-also">See Also</h2>
-<p><a href="implement_the_user_interface_native.html">Implement the User Interface</a></p>
-<p><a href="implement_the_ui_controller_class_native.html">Implement the UI Controller Class</a></p>
-<p><a href="implement_the_verification_logic_native.html">Implement the Verification Logic</a></p>
+<ul>
+<li><a href="implement_the_user_interface_native.html">Implement the User Interface</a></li>
+<li><a href="implement_the_ui_controller_class_native.html">Implement the UI Controller Class</a></li>
+<li><a href="implement_the_verification_logic_native.html">Implement the Verification Logic</a></li>
+</ul>
 <div class="NOTE">
 <h5>Note</h5>
 <p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+</div>
+</section>
 </div>
 
 </article>

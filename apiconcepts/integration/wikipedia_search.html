@@ -82,9 +82,10 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="wikipedia-search">Wikipedia Search</h1>
 
-<p>Wikipedia Search is a useful addition to this plug-in. It illustrates how a view part can be integrated into an existing view in Studio, in this case a view part which integrates into the editor view and allows a Wikipedia search to be carried out on selected text in the editor itself. To activate this feature, open a document in the editor, navigate to View Tab-&gt;Information group and select Wikipedia. This will display the Wikipedia view part. Selecting text in the editor and clicking Search Wikipedia in the Add-Ins tab will populate the Wikipedia view part with the results of the search.</p>
+<p>Wikipedia Search extends this plug-in by demonstrating how a view part integrates into an existing Trados Studio view. The sample integrates a view part into the editor view and allows users to search Wikipedia for selected text in the editor.</p>
+<p>To use this feature, open a document in the editor and navigate to View Tab &gt; Information group, then select Wikipedia. This displays the Wikipedia view part. Select text in the editor and click Search Wikipedia in the Add-Ins tab to populate the Wikipedia view part with search results.</p>
 <h2 id="wikipedia-search-action">Wikipedia Search Action</h2>
-<p>This sample illustrates how a Ribbon Group can be created on the Add-Ins tab and also how actions can be added to it. In the WikipediaSearchAction class the Initialize method shows how a reference to the EditorController can be obtained. The Execute method shows how this reference can be used.</p>
+<p>This sample demonstrates how to create a Ribbon Group on the Add-Ins tab and add actions to it. The WikipediaSearchAction class shows how to obtain a reference to the EditorController in the Initialize method and use it in the Execute method.</p>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
@@ -151,7 +152,7 @@ namespace StudioIntegrationApiSample
 </section>
 </div>
 <h2 id="wikipedia-resultsviewpart-controller">Wikipedia ResultsViewPart Controller</h2>
-<p>The Trados Studio Integration API is built in accordance with the MVC pattern. The ViewPart controller is used to add a new view part using the ViewPart attribute. This controller is also responsible for preparing the lookup URI that will be passed to the UI control for display purposes.</p>
+<p>The Trados Studio Integration API follows the MVC pattern. The ViewPart controller adds a new view part using the ViewPart attribute. This controller prepares the lookup URI that the UI control displays.</p>
 <div class="tabGroup" id="tabgroup_2">
 <ul role="tablist">
 <li role="presentation">
@@ -185,7 +186,6 @@ namespace StudioIntegrationApiSample
             return _control.Value;
         }
 
-
         private readonly Lazy&lt;WikipediaResultsViewPartControl&gt; _control = new Lazy&lt;WikipediaResultsViewPartControl&gt;(() =&gt; new WikipediaResultsViewPartControl());
 
         public void Lookup(string query)
@@ -194,7 +194,6 @@ namespace StudioIntegrationApiSample
 
             _control.Value.Navigate(url);
         }
-
 
         protected override void Initialize()
         {
@@ -205,7 +204,7 @@ namespace StudioIntegrationApiSample
 </section>
 </div>
 <h2 id="wikipedia-results-viewpart-control">Wikipedia Results ViewPart Control</h2>
-<p>This class is responsible for rendering the UI. The view relies on the controller described above to obtain a search URI and passes it to the web browser in order to search Wikipedia and display the results.</p>
+<p>This class renders the UI. The view receives a search URI from the controller and passes it to the web browser to search Wikipedia and display the results.</p>
 <div class="tabGroup" id="tabgroup_3">
 <ul role="tablist">
 <li role="presentation">
@@ -234,8 +233,6 @@ namespace StudioIntegrationApiSample
             InitializeComponent();
         }
 
-
-
         public void Navigate(string url)
         {
             _webBrowser.Navigate(url);
@@ -246,13 +243,15 @@ namespace StudioIntegrationApiSample
 </section>
 </div>
 <h2 id="see-also">See Also</h2>
-<p><a href="reference_sample.html">Reference Sample</a></p>
-<p><a href="project_creator.html">Project Creator</a></p>
-<p><a href="content_connector.html">Content Connector</a></p>
-<p><a href="integrating_actions.html">Integrating actions</a></p>
-<p><a href="integrating_ribbon_groups.html">Integrating ribbon groups</a></p>
-<p><a href="integrating_viewparts.html">Integrating viewparts</a></p>
-<p><a href="integrating_views.html">Integrating views</a></p>
+<ul>
+<li><a href="reference_sample.html">Reference Sample</a></li>
+<li><a href="project_creator.html">Project Creator</a></li>
+<li><a href="content_connector.html">Content Connector</a></li>
+<li><a href="integrating_actions.html">Integrating actions</a></li>
+<li><a href="integrating_ribbon_groups.html">Integrating ribbon groups</a></li>
+<li><a href="integrating_viewparts.html">Integrating viewparts</a></li>
+<li><a href="integrating_views.html">Integrating views</a></li>
+</ul>
 
 </article>
           </div>

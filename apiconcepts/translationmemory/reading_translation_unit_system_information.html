@@ -82,12 +82,12 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="reading-translation-unit-system-information">Reading Translation Unit System Information</h1>
 
-<p>Translation units are associated with a set of system information, which is added automatically to each TU during translation and editing. This means that the system keeps track of such information automatically, no TM fields have to be created or maintained for this kind of information.</p>
+<p>Translation units include system information that the system adds automatically during translation and editing. You do not need TM fields to store this information.</p>
 <h2 id="about-translation-unit-system-information">About Translation Unit System Information</h2>
-<p>For each TU, a set of information is stored, i.e. the date/time when the TU was created and the date/time the TU was last changed (if applicable). In addition, the name of the user who created/changed the TU is also stored as well as the name of the user who last used the TU and when (if applicable). Furthermore, a usage counter is maintained, i.e. the system tracks how often a TU has been used. Using a TU means that it has been found during a TM lookup operation, and the suggested translation has been inserted into the document, thus being 'used'. This allows you, for example, to filter for TUs that have never been used, and delete them in order to keep the TM lean and efficient. The screenshot below shows an example of the system information that is kept for a particular TU in Trados Studio:</p>
+<p>For each TU, the system stores the creation date and time, the last change date and time, the user who created or changed the TU, the user who last used the TU, and the last usage time, if applicable. The system also maintains a usage counter to track how often a TU has been used. A TU counts as used when a lookup returns it and the translator inserts the suggested translation into the document. You can use this information, for example, to find TUs that have never been used and remove them to keep the TM lean and efficient. The screenshot below shows an example of TU system information in Trados Studio:</p>
 <p><img src="images/SystemInfo.jpg" alt="SystemInfo"></p>
 <h2 id="add-a-new-class">Add a New Class</h2>
-<p>In the following you will learn how to retrieve the system information of a TU programmatically. Start by adding a new class called <code>TuSystemInfo</code>. Implement a public function called <code>GetInfo</code> to your class, which uses the TM file name and path as string parameter. First, you open the TM and retrieve a particular TU by searching a segment as demonstrated below:</p>
+<p>This example shows how to retrieve TU system information programmatically. Start by adding a new class named <code>TuSystemInfo</code>. Then implement a public method named <code>GetInfo()</code> that takes the TM path as a string parameter. First open the TM and search for a segment, as shown below:</p>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
@@ -103,7 +103,7 @@ SearchResults results = tm.LanguageDirection.SearchText(this.GetSearchSettings()
 </section>
 </div>
 
-<p>Then you create a TU object based on the search result, from which you derive a system info object through which you compile the TU system information output string:</p>
+<p>Then use the search result to access the TU and its system fields. Build a string that contains the TU system information:</p>
 <div class="tabGroup" id="tabgroup_2">
 <ul role="tablist">
 <li role="presentation">
@@ -120,7 +120,7 @@ foreach (SearchResult item in results)
         TranslationUnit tu = item.MemoryTranslationUnit;
         SystemFields sysFields = tu.SystemFields;
 
-        tuInfo = &quot;Creation date: &quot; + sysFields.CreationUser + &quot;\n&quot;;
+        tuInfo = &quot;Creation date: &quot; + sysFields.CreationDate + &quot;\n&quot;;
         tuInfo += &quot;Creation user: &quot; + sysFields.CreationUser + &quot;\n&quot;;
         tuInfo += &quot;Change date: &quot; + sysFields.ChangeDate + &quot;\n&quot;;
         tuInfo += &quot;Change user: &quot; + sysFields.ChangeUser + &quot;\n&quot;;
@@ -136,7 +136,7 @@ MessageBox.Show(tuInfo, &quot;TU Information&quot;);
 </section>
 </div>
 <h2 id="putting-it-all-together">Putting it All Together</h2>
-<p>The complete class should now look as shown below:</p>
+<p>The complete class should now look like this:</p>
 <div class="tabGroup" id="tabgroup_3">
 <ul role="tablist">
 <li role="presentation">
@@ -171,7 +171,7 @@ MessageBox.Show(tuInfo, &quot;TU Information&quot;);
                     TranslationUnit tu = item.MemoryTranslationUnit;
                     SystemFields sysFields = tu.SystemFields;
 
-                    tuInfo = &quot;Creation date: &quot; + sysFields.CreationUser + &quot;\n&quot;;
+                    tuInfo = &quot;Creation date: &quot; + sysFields.CreationDate + &quot;\n&quot;;
                     tuInfo += &quot;Creation user: &quot; + sysFields.CreationUser + &quot;\n&quot;;
                     tuInfo += &quot;Change date: &quot; + sysFields.ChangeDate + &quot;\n&quot;;
                     tuInfo += &quot;Change user: &quot; + sysFields.ChangeUser + &quot;\n&quot;;

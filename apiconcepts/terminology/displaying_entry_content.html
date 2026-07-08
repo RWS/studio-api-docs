@@ -82,11 +82,21 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="displaying-entry-content">Displaying Entry Content</h1>
 
-<p>The full content of an entry can be displayed in the <strong>Termbase Viewer</strong> window. Learn how to show the content of a line of your glossary file in Trados Studio.</p>
-<p>When you right-click a term in the <strong>Term Recognition</strong> or in the <strong>Termbase Search</strong> window, you can use the command <strong>View term details</strong> to show the full entry content in the <strong>Termbase Viewer</strong> window.</p>
-<p>We need to add an Internet Explorer control in which we can display the entry content in HTML format. To do this, add a user control to your project and call it <strong>TermProviderControl.cs</strong>, for example. Add an Internet Explorer control to it:</p>
+<p>Display the full content of an entry in the <strong>Termbase Viewer</strong> window. This guide explains how to show the content of a glossary file line in <strong>Trados Studio</strong>.</p>
+<p>Right-click a term in the <strong>Term Recognition</strong> or <strong>Termbase Search</strong> window and select <strong>View term details</strong> to display the full entry content in the <strong>Termbase Viewer</strong> window.</p>
+<ol>
+<li>Add an Internet Explorer control to display entry content in HTML format:
+<ul>
+<li>Create a user control in your project named <strong>TermProviderControl.cs</strong>.</li>
+<li>Add an Internet Explorer control to the user control.</li>
+</ul>
+</li>
+</ol>
 <img style="display:block; " src="images/Control.jpg">
-<p>Go to the <strong>MyTerminologyProviderViewerWinFormsUI.cs</strong> class and declare the following term controller object:</p>
+<ol start="2">
+<li>Open the <strong>MyTerminologyProviderViewerWinFormsUI.cs</strong> class.</li>
+<li>Declare the following term controller object:</li>
+</ol>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
@@ -99,7 +109,9 @@ public readonly string fileName;
 </code></pre></section>
 </div>
 
-<p>Modify the following <strong>TermProviderControl</strong> property (which is implemented by the <strong>ITerminologyProviderViewerWinFormsUI</strong> interface) as shown below to create and return the control element:</p>
+<ol start="4">
+<li>Modify the <strong>TermProviderControl</strong> property (implemented by the <strong>ITerminologyProviderViewerWinFormsUI</strong> interface) as shown below to create and return the control element:</li>
+</ol>
 <div class="tabGroup" id="tabgroup_2">
 <ul role="tablist">
 <li role="presentation">
@@ -120,11 +132,15 @@ public MyTerminologyProvider(string providerSettings)
 </code></pre></section>
 </div>
 
-<p>When the you right-click a term and call up the command <strong>View term details</strong>, the corresponding entry content should be shown in the newly-created control.</p>
-<p>You need to modify the <strong>JumpToTerm()</strong> method as shown below. Trados Studio passes the ID of the selected entry, which you can use to:</p>
+<ol start="5">
+<li><p>When you right-click a term and select <strong>View term details</strong>, the corresponding entry content should appear in the newly created control.</p>
+</li>
+<li><p>Modify the <strong>JumpToTerm()</strong> method as shown below. <strong>Trados Studio</strong> passes the ID of the selected entry, which you can use to:</p>
+</li>
+</ol>
 <ul>
 <li>Retrieve the corresponding line from the glossary text file.</li>
-<li>Parse the line and generate the HTML output for the Internet Explorer controller object.</li>
+<li>Parse the line and generate HTML output for the Internet Explorer control.</li>
 </ul>
 <div class="tabGroup" id="tabgroup_3">
 <ul role="tablist">

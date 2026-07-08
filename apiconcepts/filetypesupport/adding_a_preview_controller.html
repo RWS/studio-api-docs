@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-      <title>Adding a Preview Controller </title>
+      <title>Adding a preview controller </title>
       <meta name="viewport" content="width=device-width">
-      <meta name="title" content="Adding a Preview Controller ">
+      <meta name="title" content="Adding a preview controller ">
     
     
       <link rel="shortcut icon" href="../../favicon.ico">
@@ -80,30 +80,54 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-<h1 id="adding-a-preview-controller">Adding a Preview Controller</h1>
+<h1 id="adding-a-preview-controller">Adding a preview controller</h1>
 
-<p>Last, you need to implement a class for controlling the actual preview control element, which you added in the previous step.</p>
-<h2 id="add-a-preview-controller-class">Add a Preview Controller Class</h2>
-<p>The preview control element alone is not sufficient for implementing the real-time preview functionality. You also need to add a class that controls the preview UI, which you can call e.g. <strong>InternalPreviewController.cs</strong>. This class is used to catch events such as the user clicking the <strong>Refresh</strong> button in the preview window, the user clicking a segment, scrolling to a segment, confirming a segment in the editor, etc. When those events are caught by the controller class, it triggers the corresponding functions that have been implemented in the preview control UI (see chapter <a href="adding_a_preview_ui_control.html">Adding a Preview UI Control</a>).</p>
-<p>The preview controller class needs to use the following namespaces:</p>
+<p>The last step is to implement a class that controls the preview control element that you added in the previous step.</p>
+<h2 id="add-a-preview-controller-class">Add a preview controller class</h2>
+<p>The preview control element alone cannot provide the real-time preview functionality. You also need a class that controls the preview UI, for example <strong>InternalPreviewController.cs</strong>. This class handles events such as clicking the <strong>Refresh</strong> button, selecting a segment, scrolling to a segment, and confirming a segment in the editor. In response, it calls the functions implemented in the preview control UI. See <a href="adding_a_preview_ui_control.html">Adding a Preview UI Control</a>.</p>
+<p>The preview controller class uses the following namespaces:</p>
 <ul>
 <li><strong>Sdl.FileTypeSupport.Framework</strong></li>
 <li><strong>Sdl.FileTypeSupport.Framework.NativeApi</strong></li>
 <li><strong>Sdl.FileTypeSupport.Framework.IntegrationApi</strong></li>
 </ul>
-<p>The class must then implement the following interfaces:</p>
+<p>The class must implement the following interfaces:</p>
 <ul>
-<li><a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.ISingleFilePreviewControl.html">ISingleFilePreviewControl</a>: Provides access to the preview file, which is generated in the user's temporary files folder.</li>
-<li><a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.INavigablePreview.html">INavigablePreview</a>: Users can navigate to particular segments in the preview window. This interface provides the functionality to control what should happen when a user, e.g. clicks a particular segment in the preview.</li>
-<li><a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IPreviewUpdatedViaRefresh.html">IPreviewUpdatedViaRefresh</a>: Users can click a <strong>Refresh</strong> button in the preview control. This interface implements functions for controlling the preview behavior before and after a refresh operation.</li>
-<li><code>IDisposable</code>: The preview generates a physical preview file in the user's temporary folder under <strong>SDLTempFileManager</strong>. This temporary file needs to be deleted when the preview is closed or when the user, for example, exits the application. This interface provides the functionality for disposing of the preview file when it is no longer required.</li>
+<li><a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.ISingleFilePreviewControl.html">ISingleFilePreviewControl</a>: Provides access to the preview file generated in the user's temporary files folder.</li>
+<li><a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.INavigablePreview.html">INavigablePreview</a>: Lets users navigate to segments in the preview window and defines what happens when they do.</li>
+<li><a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IPreviewUpdatedViaRefresh.html">IPreviewUpdatedViaRefresh</a>: Defines what happens before and after users click <strong>Refresh</strong> in the preview control.</li>
+<li><code>IDisposable</code>: Disposes of the physical preview file stored temporarily under <strong>SDLTempFileManager</strong> when the preview closes or the application exits.</li>
 </ul>
-<h2 id="declare-the-global-members">Declare the Global Members</h2>
-<p>First, declare the following global class members. Create a <code>_control</code> object for controlling the actual preview UI and other members used to store the file id and to determine whether the preview file has already been opened or not.</p>
+<h2 id="declare-the-global-members">Declare the global members</h2>
+<p>Start by declaring the following class members. Create a <code>_control</code> object for the preview UI. Add members to store the file ID and track whether the preview file is already open.</p>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
 <a href="#tabpanel_1_tabid-1" role="tab" aria-controls="tabpanel_1_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-2" role="tab" aria-controls="tabpanel_1_tabid-2" data-tab="tabid-2" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-3" role="tab" aria-controls="tabpanel_1_tabid-3" data-tab="tabid-3" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-4" role="tab" aria-controls="tabpanel_1_tabid-4" data-tab="tabid-4" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-5" role="tab" aria-controls="tabpanel_1_tabid-5" data-tab="tabid-5" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-6" role="tab" aria-controls="tabpanel_1_tabid-6" data-tab="tabid-6" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-7" role="tab" aria-controls="tabpanel_1_tabid-7" data-tab="tabid-7" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-8" role="tab" aria-controls="tabpanel_1_tabid-8" data-tab="tabid-8" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-9" role="tab" aria-controls="tabpanel_1_tabid-9" data-tab="tabid-9" tabindex="-1">C#</a>
 </li>
 </ul>
 <section id="tabpanel_1_tabid-1" role="tabpanel" data-tab="tabid-1">
@@ -116,17 +140,10 @@ FileId _fileId; // the actual file ID
 // so we know if we should close it during a Refresh()  
 bool _isFileOpen = false;
 </code></pre>
+<h2 id="initialize-the-preview-control-ui">Initialize the preview control UI</h2>
+<p>Next, add the following members to initialize the preview control and dispose of it correctly when the preview or application closes.</p>
 </section>
-</div>
-<h2 id="initialize-the-preview-control-ui">Initialize the Preview Control UI</h2>
-<p>Then add the following members to initialize the preview control and to properly dispose of it, e.g. when the preview or the application is closed by the user.</p>
-<div class="tabGroup" id="tabgroup_2">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_2_tabid-2" role="tab" aria-controls="tabpanel_2_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_2_tabid-2" role="tabpanel" data-tab="tabid-2">
+<section id="tabpanel_1_tabid-2" role="tabpanel" data-tab="tabid-2" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">/// &lt;summary&gt;
 /// initialize the preview controller and preview control
@@ -144,17 +161,10 @@ public InternalPreviewController()
     Dispose(false);
 }
 </code></pre>
+<h2 id="implement-the-members-of-the-abstract-preview-control-interface">Implement the members of the abstract preview control interface</h2>
+<p>The <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IAbstractPreviewControl.html">IAbstractPreviewControl</a> interface lets you control preview behavior, including refresh operations. Add the following members to your preview controller class:</p>
 </section>
-</div>
-<h2 id="implement-the-members-of-the-abstract-preview-control-interface">Implement the Members of the Abstract Preview Control Interface</h2>
-<p>The <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IAbstractPreviewControl.html">IAbstractPreviewControl</a> interface provides the functionality that allows you to control, e.g. what happens when the preview control is refreshed. Add the following members to your preview controller class:</p>
-<div class="tabGroup" id="tabgroup_3">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_3_tabid-3" role="tab" aria-controls="tabpanel_3_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_3_tabid-3" role="tabpanel" data-tab="tabid-3">
+<section id="tabpanel_1_tabid-3" role="tabpanel" data-tab="tabid-3" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">/// &lt;summary&gt;
 /// return a preview control
@@ -198,17 +208,10 @@ public void Refresh()
     _isFileOpen = true;
 }
 </code></pre>
+<h2 id="provide-access-to-the-temporary-preview-file">Provide access to the temporary preview file</h2>
+<p>Add the following member to provide programmatic access to the physical preview file that is generated temporarily on the user's machine:</p>
 </section>
-</div>
-<h2 id="provide-access-to-the-temporary-preview-file">Provide Access to the Temporary Preview File</h2>
-<p>Add the following member, which provides programmatic access to the physical preview file, which is going to be temporarily generated on the user's hard disk:</p>
-<div class="tabGroup" id="tabgroup_4">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_4_tabid-4" role="tab" aria-controls="tabpanel_4_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_4_tabid-4" role="tabpanel" data-tab="tabid-4">
+<section id="tabpanel_1_tabid-4" role="tabpanel" data-tab="tabid-4" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">/// &lt;summary&gt;
 /// access to the temporary preview file
@@ -219,17 +222,10 @@ public TempFileManager PreviewFile
     set;
 }
 </code></pre>
+<h2 id="implement-the-preview-document-navigation">Implement the preview document navigation</h2>
+<p>Next, implement the following members of the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.INavigablePreview.html">INavigablePreview</a> interface. These functions control what happens when the user scrolls to or selects a segment in the preview control.</p>
 </section>
-</div>
-<h2 id="implement-the-preview-document-navigation">Implement the Preview Document Navigation</h2>
-<p>In the next step, implement the following members of the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.INavigablePreview.html">INavigablePreview</a> interface. These functions control what should happen when the user, for example, scrolls to or selects a particular segment in the preview control.</p>
-<div class="tabGroup" id="tabgroup_5">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_5_tabid-5" role="tab" aria-controls="tabpanel_5_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_5_tabid-5" role="tabpanel" data-tab="tabid-5">
+<section id="tabpanel_1_tabid-5" role="tabpanel" data-tab="tabid-5" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">/// &lt;summary&gt;
 /// reference to the current segment
@@ -266,17 +262,10 @@ public virtual void OnSegmentSelected(object sender, SegmentSelectedEventArgs ar
     }
 }
 </code></pre>
+<h2 id="dispose-of-the-preview-file">Dispose of the preview file</h2>
+<p>Add the following members of the <code>IDisposable</code> interface to clean up and remove temporary preview files, for example after the application closes:</p>
 </section>
-</div>
-<h2 id="dispose-of-the-preview-file">Dispose of the Preview File</h2>
-<p>Add the following members of the <code>IDisposable</code> interface, which takes care of cleaning up and removing the temporary preview files, e.g. after the application is closed by the user:</p>
-<div class="tabGroup" id="tabgroup_6">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_6_tabid-6" role="tab" aria-controls="tabpanel_6_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_6_tabid-6" role="tabpanel" data-tab="tabid-6">
+<section id="tabpanel_1_tabid-6" role="tabpanel" data-tab="tabid-6" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">/// &lt;summary&gt;
 /// deletes the preview file, if it exists.
@@ -314,17 +303,10 @@ protected virtual void Dispose(bool disposing)
     }
 }
 </code></pre>
+<h2 id="implement-the-refresh-functionality">Implement the refresh functionality</h2>
+<p>Add the following members of the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IPreviewUpdatedViaRefresh.html">IPreviewUpdatedViaRefresh</a> interface to control what happens when the user refreshes the preview control:</p>
 </section>
-</div>
-<h2 id="implement-the-refresh-functionality">Implement the Refresh Functionality</h2>
-<p>Add the following members of the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.IntegrationApi.IPreviewUpdatedViaRefresh.html">IPreviewUpdatedViaRefresh</a> interface, which provides the functionality to control what happens when the user refreshes the preview control:</p>
-<div class="tabGroup" id="tabgroup_7">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_7_tabid-7" role="tab" aria-controls="tabpanel_7_tabid-7" data-tab="tabid-7" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_7_tabid-7" role="tabpanel" data-tab="tabid-7">
+<section id="tabpanel_1_tabid-7" role="tabpanel" data-tab="tabid-7" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">public void AfterFileRefresh()
 {
@@ -347,17 +329,11 @@ public TempFileManager TargetFilePath
     set;
 }
 </code></pre>
+<h2 id="register-the-preview-controller-in-the-file-type-component-builder">Register the preview controller in the file type component builder</h2>
+<p>Register the preview controller, not the user control itself, in the File Type Component Builder as follows. You can add this object below the control used for the static preview. See <a href="static_modifying_the_file_type_component_builder.html">Modifying the File Type Component Builder</a>.</p>
+<p>The object <strong>id</strong> must match the preview set name that you added earlier. See <a href="dynamic_modifying_the_file_type_component_builder.html">Modifying the File Type Component Builder</a>. It must also start with the <strong>PreviewControl_</strong> prefix.</p>
 </section>
-</div>
-<h2 id="register-the-preview-controller-in-the-file-type-component-builder">Register the Preview Controller in the File Type Component Builder</h2>
-<p>Do not forget to register the preview controller (i.e. NOT the actual user control item) in the File Type Component Builder as follows. You can add this object below the control used for the static preview (see chapter <a href="static_modifying_the_file_type_component_builder.html">Modifying the File Type Component Builder</a>). Note that the <strong>id</strong> of the object corresponds to the name of the preview set that you added previously (see chapter <a href="dynamic_modifying_the_file_type_component_builder.html">Modifying the File Type Component Builder</a>) and must be preceded by a <em><strong>PreviewControl_</strong></em> prefix to be properly recognized.</p>
-<div class="tabGroup" id="tabgroup_8">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_8_tabid-8" role="tab" aria-controls="tabpanel_8_tabid-8" data-tab="tabid-8" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_8_tabid-8" role="tabpanel" data-tab="tabid-8">
+<section id="tabpanel_1_tabid-8" role="tabpanel" data-tab="tabid-8" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">/// &lt;summary&gt;
 /// Creates a new instance of the preview control with the specified name.
@@ -386,17 +362,10 @@ public virtual IAbstractPreviewControl BuildPreviewControl(string name)
     }
 }
 </code></pre>
+<h2 id="put-it-all-together">Put it all together</h2>
+<p>The complete preview controller class looks like this:</p>
 </section>
-</div>
-<h2 id="putting-it-all-together">Putting it All Together</h2>
-<p>All put together, the preview controller class will look as shown below:</p>
-<div class="tabGroup" id="tabgroup_9">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_9_tabid-9" role="tab" aria-controls="tabpanel_9_tabid-9" data-tab="tabid-9" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_9_tabid-9" role="tabpanel" data-tab="tabid-9">
+<section id="tabpanel_1_tabid-9" role="tabpanel" data-tab="tabid-9" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">using System;
 using Sdl.FileTypeSupport.Framework;
@@ -407,7 +376,6 @@ namespace Sdk.FileTypeSupport.Samples.SimpleText.Preview
 {
     class InternalPreviewController : ISingleFilePreviewControl, INavigablePreview, IPreviewUpdatedViaRefresh, IDisposable
     {
-        #region &quot;global&quot;
         InternalPreviewControl _control; // the actual control object
         private bool disposed = false; // used for properly disposing of the control        
         FileId _fileId; // the actual file ID
@@ -415,9 +383,7 @@ namespace Sdk.FileTypeSupport.Samples.SimpleText.Preview
         // indicates whether a file has already been opened in the preview, 
         // so we know if we should close it during a Refresh()  
         bool _isFileOpen = false;
-        #endregion
 
-        #region &quot;init&quot;
         /// &lt;summary&gt;
         /// initialize the preview controller and preview control
         /// &lt;/summary&gt;
@@ -433,10 +399,8 @@ namespace Sdk.FileTypeSupport.Samples.SimpleText.Preview
         {
             Dispose(false);
         }
-        #endregion
 
 
-        #region &quot;IAbstractPreviewControl Members&quot;
         /// &lt;summary&gt;
         /// return a preview control
         /// &lt;/summary&gt;
@@ -478,9 +442,7 @@ namespace Sdk.FileTypeSupport.Samples.SimpleText.Preview
 
             _isFileOpen = true;
         }
-        #endregion
 
-        #region &quot;Temp File Manager&quot;
         /// &lt;summary&gt;
         /// access to the temporary preview file
         /// &lt;/summary&gt;
@@ -491,10 +453,6 @@ namespace Sdk.FileTypeSupport.Samples.SimpleText.Preview
         }
 
 
-        #endregion
-
-
-        #region &quot;INavigablePreview Members&quot;
         /// &lt;summary&gt;
         /// reference to the current segment
         /// &lt;/summary&gt;
@@ -529,9 +487,7 @@ namespace Sdk.FileTypeSupport.Samples.SimpleText.Preview
                 SegmentSelected(sender, args);
             }
         }
-        #endregion
 
-        #region &quot;IDisposable Members&quot;
         /// &lt;summary&gt;
         /// deletes the preview file, if it exists.
         /// &lt;/summary&gt;
@@ -567,9 +523,7 @@ namespace Sdk.FileTypeSupport.Samples.SimpleText.Preview
                 }
             }
         }
-        #endregion
 
-        #region &quot;IPreviewUpdatedViaRefresh Members&quot;
         public void AfterFileRefresh()
         {
             Refresh();
@@ -590,16 +544,20 @@ namespace Sdk.FileTypeSupport.Samples.SimpleText.Preview
             get;
             set;
         }
-        #endregion
     }
 }
 </code></pre>
-</section>
-</div>
-
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="adding_a_preview_ui_control.html">Adding a Preview UI Control</a></li>
+<li><a href="static_modifying_the_file_type_component_builder.html">Modifying the File Type Component Builder</a></li>
+<li><a href="dynamic_modifying_the_file_type_component_builder.html">Modifying the File Type Component Builder</a></li>
+</ul>
 <div class="NOTE">
 <h5>Note</h5>
 <p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+</div>
+</section>
 </div>
 
 </article>

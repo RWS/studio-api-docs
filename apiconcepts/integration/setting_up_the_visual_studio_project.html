@@ -82,31 +82,36 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="setting-up-the-visual-studio-project">Setting up the Visual Studio Project</h1>
 
-<p>To start setting up your custom display filter project, you need to generate a plug-in that can compile and that implements an empty display filter which can be seen and selected in Trados Studio. For the moment, it will not contain any application logic, that is it will not actually perform a real task</p>
-<h2 id="how-to-create-the-visual-studio-project">How to create the Visual Studio Project</h2>
-<p>Assuming that you already installed the Trados Studio SDK, open Microsoft Visual Studio 2022. You will see the following options when you create a new project:
-<img style="display:block; " src="images/PlugInTemplate.jpg"></p>
-<p>With the above templates you can set up the skeleton of an Trados Studio plug-in project.</p>
-<p>Create a new project from Microsoft Visual Studio 2022 using the Trados Studio  (2021) project template. Give the plugin a name, for example, AdvancedDisplayFilter.Example.</p>
-<p>Creating the Visual Studio project using the Trados Studio (2021) template automates the initial setup phase for your development project. It will automatically include all of the standard references to the studio assemblies that you might require for building your project, along with the plugin manifest and resource files. It will also setup the output path of your build environment to the correct location in your systems roaming directory.</p>
-<p>Your project should look like this after creating the project using the Trados Studio (2021) template:</p>
+<p>This guide walks you through creating a custom display filter plug-in project. You will generate a plug-in that compiles and implements an empty display filter visible in Trados Studio. Initially, it contains no application logic and does not perform any real filtering task.</p>
+<h2 id="create-the-visual-studio-project">Create the Visual Studio Project</h2>
+<p>After installing the Trados Studio SDK, open Microsoft Visual Studio 2022. The following templates appear when you create a new project:</p>
+<img style="display:block; " src="images/PlugInTemplate.jpg">
+<p>These templates help you set up the skeleton of a Trados Studio plug-in project.</p>
+<p>Create a new project using the Trados Studio (2021) project template and name it, for example, <code>AdvancedDisplayFilter.Example</code>.</p>
+<p>The Trados Studio (2021) template automates the initial setup phase for your development project. It:</p>
+<ul>
+<li>Includes all standard references to the studio assemblies your project might require</li>
+<li>Adds the plugin manifest and resource files</li>
+<li>Sets the build output path to the correct location in your system's roaming directory</li>
+</ul>
+<p>Your project should look like this after creation:</p>
 <div class="IMPORTANT">
 <h5>Important</h5>
-<p>The <em>The Sdl.Core.Globalization</em> assembly is not automatically added to the project with the Trados Studio (2021) template. This assembly will be required for this project, as we will be making reference to some of the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.ISegmentPair.html">ISegmentPair</a> enumerators.</p>
-<p>To add this assembly, from the Solution Explorer, right-click on the <strong>References</strong> node and click <strong>Add Reference</strong> from the context menu. Then, navigate to the <strong>C:\Program Files (x86)\Trados\Trados Studio\Studio18</strong> and select the <strong>Sdl.Core.Globalization.dll file</strong>.</p>
+<p>The Trados Studio (2021) template does not automatically add the <em>Sdl.Core.Globalization</em> assembly to the project. This project requires this assembly because it references some of the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.BilingualApi.ISegmentPair.html">ISegmentPair</a> enumerators.</p>
+<p>To add this assembly, right-click the <strong>References</strong> node in Solution Explorer and select <strong>Add Reference</strong> from the context menu. Then navigate to <strong>C:\Program Files\Trados\Trados Studio\Studio19</strong> and select <strong>Sdl.Core.Globalization.dll</strong>.</p>
 </div>
-<h2 id="how-to-sign-the-solution">How to sign the solution</h2>
-<p>To sign your development solution from the project properties area.</p>
+<h2 id="sign-the-solution">Sign the solution</h2>
+<p>Follow these steps to sign your development solution from the project properties area:</p>
 <ol>
-<li>In Microsoft Visual Studio 2022, go to <strong>Project &gt; AdvancedDisplayFilter.Example Properties.</strong></li>
-<li>Go to the <strong>Signing tab</strong></li>
-<li>To sign the assembly of the project, select the <strong>Sign the assembly checkbox</strong> and then the <strong>New…</strong> option from the <strong>Choose a strong name key file</strong> combo box.</li>
-<li>In the <strong>Create Strong Name Key</strong> dialog, provide a name, click <strong>OK</strong> and save the project.</li>
+<li>In Microsoft Visual Studio 2022, go to <strong>Project &gt; AdvancedDisplayFilter.Example Properties</strong>.</li>
+<li>Select the <strong>Signing</strong> tab.</li>
+<li>Select the <strong>Sign the assembly</strong> checkbox and choose <strong>New…</strong> from the <strong>Choose a strong name key file</strong> combo box.</li>
+<li>In the <strong>Create Strong Name Key</strong> dialog, provide a name, click <strong>OK</strong>, and save the project.</li>
 </ol>
-<p>Once you have saved the project properties, you will notice that a new file has been added to your project with the .snk extension. This file holds the Strong Name Key details that you provided.</p>
+<p>After saving the project properties, a new file with the <code>.snk</code> extension appears in your project. This file holds the Strong Name Key details you provided.</p>
 <div class="NOTE">
 <h5>Note</h5>
-<p>There are a few reasons why we sign the project, one of the most obvious is that it provides a level of authenticity with the assembly, ensuring that the origins of the assembly are in fact from that author; in turn, it prevents tampering with the assembly. It is also required if you want to include your assembly in the Global Assembly Cache (GAC).</p>
+<p>Signing the project provides authenticity for the assembly, ensuring the assembly originates from the specified author and preventing tampering. You also need to sign assemblies to include them in the Global Assembly Cache (GAC).</p>
 </div>
 
 </article>

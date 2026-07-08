@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-      <title>Implementing the Preview Writer </title>
+      <title>Implementing the preview writer </title>
       <meta name="viewport" content="width=device-width">
-      <meta name="title" content="Implementing the Preview Writer ">
+      <meta name="title" content="Implementing the preview writer ">
     
     
       <link rel="shortcut icon" href="../../favicon.ico">
@@ -80,15 +80,37 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-<h1 id="implementing-the-preview-writer">Implementing the Preview Writer</h1>
+<h1 id="implementing-the-preview-writer">Implementing the preview writer</h1>
 
-<p>In this chapter you will learn how to implement the writer component that generates the HTML code that is going to be displayed in the internal Web browser preview control.</p>
-<h2 id="add-the-preview-writer-class">Add the Preview Writer Class</h2>
-<p>Add a class called e.g. <strong>InternalPreviewWriter.cs</strong> to your project. The class needs to implement the same interfaces and members as the file writer class, which we use for generating the target files in their native format (see <a href="implementing_the_file_writer.html">Implementing the File Writer</a>). The minimum amount of code required to build a file type plug-in with the internal preview writer looks as shown below:</p>
+<p>This article shows how to implement the writer that generates the HTML displayed in the internal web browser preview control.</p>
+<h2 id="add-the-preview-writer-class">Add the preview writer class</h2>
+<p>Add a class such as <strong>InternalPreviewWriter.cs</strong> to your project. The class must implement the same interfaces and members as the file writer class that generates native target files. See <a href="implementing_the_file_writer.html">Implementing the File Writer</a>.</p>
+<p>The following example shows the minimum code required for an internal preview writer:</p>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
 <a href="#tabpanel_1_tabid-1" role="tab" aria-controls="tabpanel_1_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-2" role="tab" aria-controls="tabpanel_1_tabid-2" data-tab="tabid-2" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-3" role="tab" aria-controls="tabpanel_1_tabid-3" data-tab="tabid-3" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-4" role="tab" aria-controls="tabpanel_1_tabid-4" data-tab="tabid-4" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-5" role="tab" aria-controls="tabpanel_1_tabid-5" data-tab="tabid-5" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-6" role="tab" aria-controls="tabpanel_1_tabid-6" data-tab="tabid-6" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-7" role="tab" aria-controls="tabpanel_1_tabid-7" data-tab="tabid-7" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-8" role="tab" aria-controls="tabpanel_1_tabid-8" data-tab="tabid-8" tabindex="-1">C#</a>
 </li>
 </ul>
 <section id="tabpanel_1_tabid-1" role="tabpanel" data-tab="tabid-1">
@@ -105,32 +127,22 @@ namespace Sdk.Snippets.Native
 
         public void SetFileProperties(IFileProperties properties)
         {
-
         }
 
         public void StartOfInput()
         {
-
         }
 
         public void EndOfInput()
         {
-
         }
     }
 }
 </code></pre>
+<h2 id="start-the-preview-output">Start the preview output</h2>
+<p>Generate a simplified HTML document for the preview output. Start by writing the opening HTML markup:</p>
 </section>
-</div>
-<h2 id="start-the-preview-output">Start the Preview Output</h2>
-<p>As preview output we can generate a highly simplified HTML document. First, write the start of the HTML file:</p>
-<div class="tabGroup" id="tabgroup_2">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_2_tabid-2" role="tab" aria-controls="tabpanel_2_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_2_tabid-2" role="tabpanel" data-tab="tabid-2">
+<section id="tabpanel_1_tabid-2" role="tabpanel" data-tab="tabid-2" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">// start the preview output
 public void StartOfInput()
@@ -139,17 +151,10 @@ public void StartOfInput()
     _preview.WriteLine(&quot;&lt;html&gt;&lt;body&gt;&quot;);
 }
 </code></pre>
+<h2 id="output-text-and-tags">Output text and tags</h2>
+<p>Override the <code>Text()</code> method to write translatable strings:</p>
 </section>
-</div>
-<h2 id="output-text-and-tags">Output Text and Tags</h2>
-<p>Override the <code>Text()</code> method to output the translatable strings:</p>
-<div class="tabGroup" id="tabgroup_3">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_3_tabid-3" role="tab" aria-controls="tabpanel_3_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_3_tabid-3" role="tabpanel" data-tab="tabid-3">
+<section id="tabpanel_1_tabid-3" role="tabpanel" data-tab="tabid-3" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">// output the translatable strings
 public override void Text(ITextProperties textInfo)
@@ -157,17 +162,9 @@ public override void Text(ITextProperties textInfo)
     _preview.Write(textInfo.Text);
 }
 </code></pre>
+<p>If you want to insert a line break after each paragraph unit, override the following methods and wrap each paragraph in a <strong>DIV</strong> tag pair:</p>
 </section>
-</div>
-
-<p>Let us assume that you want to insert a line break after each paragraph unit. To do this use the two following override methods to enclose each paragraph in a <strong>DIV</strong> tag pair:</p>
-<div class="tabGroup" id="tabgroup_4">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_4_tabid-4" role="tab" aria-controls="tabpanel_4_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_4_tabid-4" role="tabpanel" data-tab="tabid-4">
+<section id="tabpanel_1_tabid-4" role="tabpanel" data-tab="tabid-4" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">// each paragraph unit should appear in a new line
 // therefore use a DIV element
@@ -181,17 +178,9 @@ public override void ParagraphUnitEnd()
     _preview.Write(&quot;&lt;/div&gt;&quot;);
 }
 </code></pre>
+<p>Wrap each segment in a <strong>SPAN</strong> tag pair. This step is not required yet, but this structure becomes useful later when you implement the real-time preview. See <a href="enhancing_the_preview_file_writer.html">Enhancing the Preview File Writer</a>.</p>
 </section>
-</div>
-
-<p>For good measure, enclose each segment in a <strong>SPAN</strong> tag pair. This is not actually required for the moment, but structuring the output through <strong>SPAN</strong> container tags will become important later, when we implement the real-time preview (see <a href="enhancing_the_preview_file_writer.html">Enhancing the Preview File Writer</a>).</p>
-<div class="tabGroup" id="tabgroup_5">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_5_tabid-5" role="tab" aria-controls="tabpanel_5_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_5_tabid-5" role="tabpanel" data-tab="tabid-5">
+<section id="tabpanel_1_tabid-5" role="tabpanel" data-tab="tabid-5" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">// enclose each segment in a SPAN tag pair
 public override void SegmentStart(ISegmentPairProperties properties)
@@ -204,17 +193,9 @@ public override void SegmentEnd()
     _preview.Write(&quot;&lt;/span&gt;&quot;);
 }
 </code></pre>
+<p>Next, override the following methods to write inline tag content. When you emit the HTML tags, the web browser preview control also applies the corresponding character formatting.</p>
 </section>
-</div>
-
-<p>Now use the two following override methods to output the content of the inline tags. Note that by emitting the HTML tags we will also apply the corresponding character formatting in the Web browser preview control.</p>
-<div class="tabGroup" id="tabgroup_6">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_6_tabid-6" role="tab" aria-controls="tabpanel_6_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_6_tabid-6" role="tabpanel" data-tab="tabid-6">
+<section id="tabpanel_1_tabid-6" role="tabpanel" data-tab="tabid-6" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">// output any inline tags,
 // which will also apply the corresponding character formatting
@@ -228,19 +209,11 @@ public override void InlineEndTag(IEndTagProperties tagInfo)
     _preview.Write(tagInfo.TagContent);
 }
 </code></pre>
+<p>This preview does not write any structure tag content.</p>
+<h2 id="close-the-preview-output">Close the preview output</h2>
+<p>Finally, close the preview output:</p>
 </section>
-</div>
-
-<p>Note that we do not output any structure tag content in this preview.</p>
-<h2 id="close-the-preview-output">Close the Preview Output</h2>
-<p>Last, close the preview as shown below:</p>
-<div class="tabGroup" id="tabgroup_7">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_7_tabid-7" role="tab" aria-controls="tabpanel_7_tabid-7" data-tab="tabid-7" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_7_tabid-7" role="tabpanel" data-tab="tabid-7">
+<section id="tabpanel_1_tabid-7" role="tabpanel" data-tab="tabid-7" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">// end the preview output
 public void EndOfInput()
@@ -249,20 +222,12 @@ public void EndOfInput()
     _preview.Close();
 }
 </code></pre>
-</section>
-</div>
-
-<p>The static HTML preview looks as shown in the following example:</p>
+<p>The static HTML preview looks like this:</p>
 <p><img src="images/StaticHTMLPreview.jpg" alt="StaticHTMLPreview"></p>
-<h2 id="putting-it-all-together">Putting it All Together</h2>
-<p>If you put everything together, the preview writer class looks as shown below:</p>
-<div class="tabGroup" id="tabgroup_8">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_8_tabid-8" role="tab" aria-controls="tabpanel_8_tabid-8" data-tab="tabid-8" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_8_tabid-8" role="tabpanel" data-tab="tabid-8">
+<h2 id="put-it-all-together">Put it all together</h2>
+<p>The complete preview writer class looks like this:</p>
+</section>
+<section id="tabpanel_1_tabid-8" role="tabpanel" data-tab="tabid-8" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">using System.IO;
 using Sdl.FileTypeSupport.Framework.BilingualApi;
@@ -279,24 +244,19 @@ namespace Sdk.Snippets.Native
             // not used in this implementation
         }
 
-        #region &quot;start output&quot;
         // start the preview output
         public void StartOfInput()
         {
             _preview = new StreamWriter(OutputProperties.OutputFilePath);
             _preview.WriteLine(&quot;&lt;html&gt;&lt;body&gt;&quot;);
         }
-        #endregion
 
-        #region &quot;text&quot;
         // output the translatable strings
         public override void Text(ITextProperties textInfo)
         {
             _preview.Write(textInfo.Text);
         }
-        #endregion
 
-        #region &quot;para&quot;
         // each paragraph unit should appear in a new line
         // therefore use a DIV element
         public override void ParagraphUnitStart(IParagraphUnitProperties properties)
@@ -304,15 +264,11 @@ namespace Sdk.Snippets.Native
             _preview.WriteLine(&quot;&lt;div&gt;&quot;);
         }
 
-
         public override void ParagraphUnitEnd()
         {
             _preview.Write(&quot;&lt;/div&gt;&quot;);
         }
-        #endregion
 
-
-        #region &quot;segment&quot;
         // enclose each segment in a SPAN tag pair
         public override void SegmentStart(ISegmentPairProperties properties)
         {
@@ -323,9 +279,7 @@ namespace Sdk.Snippets.Native
         {
             _preview.Write(&quot;&lt;/span&gt;&quot;);
         }
-        #endregion
 
-        #region &quot;inline tags&quot;
         // output any inline tags,
         // which will also apply the corresponding character formatting
         public override void InlineStartTag(IStartTagProperties tagInfo)
@@ -337,28 +291,25 @@ namespace Sdk.Snippets.Native
         {
             _preview.Write(tagInfo.TagContent);
         }
-        #endregion
 
-
-
-        #region &quot;end output&quot;
         // end the preview output
         public void EndOfInput()
         {
             _preview.WriteLine(&quot;&lt;/body&gt;&lt;/html&gt;&quot;);
             _preview.Close();
         }
-        #endregion
     }
 }
 </code></pre>
-</section>
-</div>
-<h2 id="see-also">See Also</h2>
-<p><a href="enhancing_the_preview_file_writer.html">Enhancing the Preview File Writer</a></p>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="enhancing_the_preview_file_writer.html">Enhancing the Preview File Writer</a></li>
+</ul>
 <div class="NOTE">
 <h5>Note</h5>
 <p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+</div>
+</section>
 </div>
 
 </article>

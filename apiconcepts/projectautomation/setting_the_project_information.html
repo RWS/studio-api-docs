@@ -82,9 +82,9 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="setting-the-project-information">Setting the Project Information</h1>
 
-<p>In this chapter you will learn how to programmatically create a simple project, and define the general project properties such as name, description, due date, etc.</p>
+<p>This chapter demonstrates how to programmatically create a project and define its general properties�name, description, due date, and more.</p>
 <h2 id="create-the-project">Create the Project</h2>
-<p>Start by implementing a function called <code> CreateProject</code>. Create a file-based project object called <code>newProject</code> based on the class <a href="../../api%5Cprojectautomation%5CSdl.ProjectAutomation.FileBased.FileBasedProject.yml">FileBasedProject</a>. In our example we provide the project properties as parameter. We recommend that you generate the project properties through a separate helper function called e.g. GetProjectInfo as shown below:</p>
+<p>Start by implementing a function called <code> CreateProject</code>. Create a file-based project object called <code>newProject</code> based on the class <a href="../../api%5Cprojectautomation%5CSdl.ProjectAutomation.FileBased.FileBasedProject.yml">FileBasedProject</a> class. Pass the project properties as a parameter�we recommend generating them through a separate helper function such as <code>GetProjectInfo</code>:</p>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
@@ -137,7 +137,7 @@ info.DueDate = DateTime.Now.AddDays(3);
 <p>The screenshot below illustrates how this information is entered in the <strong>New Project</strong> wizard of Trados Studio.
 <img src="images/NewProject01.jpg" alt="NewProject01"></p>
 <h2 id="set-the-local-project-folder">Set the Local Project Folder</h2>
-<p>All project files, i.e. translatable and localizable documents, reference files, project TMs, etc. are stored in a specific folder. By default, the main folder used for storing projects is: C:\Users\UserName\Documents\Studio 2024\Projects. Below this main folder Trados Studio creates sub-folders that carry the name of the respective project. However, you could just as well pick any other folder name, as long as the specified folder is empty so as to avoid collisions with existing files. In the example below we follow the default folder rule of Trados Studio by selecting the Studio 2024\Projects\ folder below Documents, and by appending the project name sub-folder. We then set the <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.ProjectInfo.html#Sdl_ProjectAutomation_Core_ProjectInfo_LocalProjectFolder">LocalProjectFolder</a> property accordingly as shown in the example below:</p>
+<p>All project files, i.e. translatable and localizable documents, reference files, project TMs, etc. are stored in a specific folder. By default, the main folder used for storing projects is: C:\Users\UserName\Documents\Studio 2026 Release\Projects. Below this main folder Trados Studio creates sub-folders that carry the name of the respective project. However, you could just as well pick any other folder name, as long as the specified folder is empty so as to avoid collisions with existing files. In the example below we follow the default folder rule of Trados Studio by selecting the Studio 2026 Release\Projects\ folder below Documents, and by appending the project name sub-folder. We then set the <a href="../../api/projectautomation/Sdl.ProjectAutomation.Core.ProjectInfo.html#Sdl_ProjectAutomation_Core_ProjectInfo_LocalProjectFolder">LocalProjectFolder</a> property accordingly as shown in the example below:</p>
 <div class="tabGroup" id="tabgroup_4">
 <ul role="tablist">
 <li role="presentation">
@@ -218,7 +218,7 @@ info.TargetLanguages = trgLangs;
 After running the above code you should already see a result in the projects folder as illustrated in the screenshot below:
 <img src="images/FoldersAfterProjectInfo.jpg" alt="FoldersAfterProjectInfo"></p>
 <p>Even if you have not added any translatable files yet, you will end up generating the project sub-folder (i.e. Projects\My first project), which contains the *.sdlproj file. In the following chapters you will learn how to add documents, TMs, termbases, etc. to turn your sample into a meaningful project. Note that if you run your sample application again while the My first project is still there, an error will be thrown, as the folder is not empty. It is recommended that when you re-run your sample application for testing purposes that you delete the project sub-folder, so that you have a fresh start (see also <a href="deleting_projects.html">Deleting Projects</a>).</p>
-<p>Also note that the C:\Users\UserName\Documents\Studio 2024\Projects folder contains a file called projects.xml. This is a meta file that contains references to all the projects that have been created in Trados Studio. The projects that you create programmatically will not be referenced in this file, and thus not be listed in Trados Studio, which is by design. However, you can, of course, open the programmatically created *.sdlproj file in Trados Studio.</p>
+<p>Also note that the C:\Users\UserName\Documents\Studio 2026 Release\Projects folder contains a file called projects.xml. This is a meta file that contains references to all the projects that have been created in Trados Studio. The projects that you create programmatically will not be referenced in this file, and thus not be listed in Trados Studio, which is by design. However, you can, of course, open the programmatically created *.sdlproj file in Trados Studio.</p>
 <h2 id="putting-it-all-together">Putting it All Together</h2>
 <p>The complete function for setting the project properties should look as shown below:</p>
 <div class="tabGroup" id="tabgroup_9">
@@ -231,36 +231,19 @@ After running the above code you should already see a result in the projects fol
 
 <pre><code class="lang-CS">public ProjectInfo GetProjectInfo()
 {
-    #region &quot;InfoObject&quot;
     ProjectInfo info = new ProjectInfo();
-    #endregion
-
-    #region &quot;GeneralInfo&quot;
     info.Name = &quot;My first project&quot;;
     info.Description = &quot;This is a programmatically created project.&quot;;
     info.DueDate = DateTime.Now.AddDays(3);
-    #endregion
-
-    #region &quot;ProjectFolder&quot;
     string localProjectFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).ToString() +
         Path.DirectorySeparatorChar + $@&quot;{Versioning.Versions.StudioDocumentsFolderName}\Projects\&quot; + info.Name;
 
     info.LocalProjectFolder = localProjectFolder;
-    #endregion
-
-    #region &quot;SourceLanguage&quot;
     Language srcLang = new Language(CultureInfo.GetCultureInfo(&quot;en-US&quot;));
     info.SourceLanguage = srcLang;
-    #endregion
-
-    #region &quot;TargetLanguages&quot;
     Language[] trgLangs = new Language[] { new Language(CultureInfo.GetCultureInfo(&quot;de-DE&quot;)), new Language(CultureInfo.GetCultureInfo(&quot;fr-FR&quot;)) };
     info.TargetLanguages = trgLangs;
-    #endregion
-
-    #region &quot;ReturnInfo&quot;
     return info;
-    #endregion
 }
 
 </code></pre>

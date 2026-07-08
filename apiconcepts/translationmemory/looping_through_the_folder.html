@@ -82,9 +82,9 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="looping-through-the-folders">Looping through the Folder(s)</h1>
 
-<p>The user of your sample application is required to enter a main path. The application then loops through the files in that path and any files contained in sub-folders of the main path. The application logic for traversing the folders and sub-folders will be implemented in a dedicated iterator class. This class will be used both for looping through all *.sdltm files, the content of which then need to be exported to *.tmx.</p>
+<p>The user enters a root path. The application then scans that folder and any subfolders for <code>.sdltm</code> files and exports each file to <code>.tmx</code>. The traversal logic lives in a dedicated iterator class.</p>
 <h2 id="add-a-new-class">Add a New Class</h2>
-<p>Add a class called <code>TmIterator</code> to your project. At the beginning of the class, declare two constants, one to specify how deep into the sub-folder structure the recursion should go. For example, we will hard-code the depth to 10, so that the application will go down to 10 sub-folder levels. The second constant sets the recursion level, which should be 1:</p>
+<p>Add a class named <code>TmIterator</code> to your project. At the beginning of the class, declare two constants: one to define how deep the recursion should go, and one to define the current recursion level. For this sample, hard-code the depth to 10 so the application can scan up to 10 subfolder levels. Set the initial recursion level to 1:</p>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
@@ -107,7 +107,7 @@ public const int RecursionLevel = 1;
 </section>
 </div>
 
-<p>Then add a public function called ProcessDirectory:</p>
+<p>Then add a public method named <code>ProcessDirectory</code>:</p>
 <div class="tabGroup" id="tabgroup_2">
 <ul role="tablist">
 <li role="presentation">
@@ -127,9 +127,9 @@ public void ProcessDirectory(string sourceDirectory, bool processSubFolders)
 </section>
 </div>
 
-<p>This function takes the main folder entered by the user in the command line interface as string parameter, and a boolean parameter that indicates whether sub-folders should be processed through self-recursion.</p>
+<p>This method takes the root folder entered by the user in the command-line interface as a string parameter and a Boolean parameter that indicates whether to process subfolders recursively.</p>
 <h2 id="implement-the-recursion">Implement the Recursion</h2>
-<p>Within the function implement an <code>if</code>, which makes the function loop through all sub-folders until the recursion level has reached the maximum depth.</p>
+<p>Within the method, add an <code>if</code> statement that keeps the recursion within the maximum depth.</p>
 <div class="tabGroup" id="tabgroup_3">
 <ul role="tablist">
 <li role="presentation">
@@ -145,7 +145,7 @@ if (RecursionLevel &lt;= Depth)
 </section>
 </div>
 
-<p>Next, you iterate through the files found in a given directory. However, the files should only be processed if they match the provided extension, i.e. *.sdltm. If the extension sdltm is encountered, an export will be triggered, which we will implement in a separate class in a later step (see <a href="importing_into_the_master_translation_memories.html">Importing into the Master Translation Memories</a>).</p>
+<p>Next, iterate through the files in the current directory. Process only files with the <code>.sdltm</code> extension. When the application finds a matching file, it triggers an export that a separate class implements later in the sample.</p>
 <div class="tabGroup" id="tabgroup_4">
 <ul role="tablist">
 <li role="presentation">
@@ -215,7 +215,7 @@ if (processSubFolders)
 </section>
 </div>
 
-<p>The following code in <code>Program.cs</code> is used for explaining the application use and retrieves the parameters for the file processing. It also checks the validity of the input folder:</p>
+<p>The following code in <code>Program.cs</code> shows how the application reads the command-line arguments and validates the input folder:</p>
 <div class="tabGroup" id="tabgroup_7">
 <ul role="tablist">
 <li role="presentation">
@@ -276,7 +276,7 @@ public static void Main(string[] args)
 </section>
 </div>
 <h2 id="putting-it-all-together">Putting it All Together</h2>
-<p>The complete class should now look as shown below:</p>
+<p>The complete class should now look like this:</p>
 <div class="tabGroup" id="tabgroup_8">
 <ul role="tablist">
 <li role="presentation">

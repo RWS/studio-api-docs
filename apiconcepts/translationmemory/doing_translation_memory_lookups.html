@@ -82,9 +82,9 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="doing-translation-memory-lookups">Doing Translation Memory Lookups</h1>
 
-<p>The most common operation performed on a translation memory involves looking up whole segments or searching single words/expressions through a concordance search. This chapter will show to you how to perform TM lookups programmatically. The aim is to develop a simplified application that searches a selected TM for a particular string. The application should be configurable to perform e.g. a normal segment search or a concordance search:</p>
+<p>The most common TM operations involve looking up whole segments or searching for single words and expressions with a concordance search. This chapter explains how to perform TM lookups programmatically. The goal is to build a simple application that searches a selected TM for a specific string. You can configure the application to run either a normal segment search or a concordance search.</p>
 <h2 id="add-a-new-class">Add a New Class</h2>
-<p>Add a new class called <code>TmLookup</code> to your project. Then implement a function called <code>SearchForText</code>, which takes the TM file name and path, the search string and the search mode (i.e. segment lookup or concordance search) as parameters. This function can be called as shown in the example below:</p>
+<p>Add a new class named <code>TmLookup</code> to your project. Then implement a method named <code>SearchForText()</code> that takes the TM path, the search text, and the search mode as parameters. Call it as shown below:</p>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
@@ -99,7 +99,7 @@ search.SearchForText(_translationMemoryFilePath, &quot;To run the Spelling Check
 </section>
 </div>
 <h2 id="execute-the-search-and-configure-the-search-settings">Execute the Search and Configure the Search Settings</h2>
-<p>After opening the TM the search is executed by applying the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.AbstractMachineTranslationProviderLanguageDirection.html#Sdl_LanguagePlatform_TranslationMemoryApi_AbstractMachineTranslationProviderLanguageDirection_SearchText_Sdl_LanguagePlatform_TranslationMemory_SearchSettings_System_String_">SearchText</a> method to the language direction of the selected TM, thereby creating a results object, which holds the search results (if any).</p>
+<p>After you open the TM, run the search by calling the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.AbstractMachineTranslationProviderLanguageDirection.html#Sdl_LanguagePlatform_TranslationMemoryApi_AbstractMachineTranslationProviderLanguageDirection_SearchText_Sdl_LanguagePlatform_TranslationMemory_SearchSettings_System_String_">SearchText</a> method on the TM language direction. This returns a results object that contains the search results, if any.</p>
 <div class="tabGroup" id="tabgroup_2">
 <ul role="tablist">
 <li role="presentation">
@@ -114,7 +114,7 @@ var results = tm.LanguageDirection.SearchText(this.GetSearchSettings(mode), sear
 </section>
 </div>
 
-<p>The <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.AbstractMachineTranslationProviderLanguageDirection.html#Sdl_LanguagePlatform_TranslationMemoryApi_AbstractMachineTranslationProviderLanguageDirection_SearchText_Sdl_LanguagePlatform_TranslationMemory_SearchSettings_System_String_">SearchText</a> method requires the search string as well as the search settings as parameters. The search parameters are configured in a separate helper function:</p>
+<p>The <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.AbstractMachineTranslationProviderLanguageDirection.html#Sdl_LanguagePlatform_TranslationMemoryApi_AbstractMachineTranslationProviderLanguageDirection_SearchText_Sdl_LanguagePlatform_TranslationMemory_SearchSettings_System_String_">SearchText</a> method requires the search text and the search settings as parameters. Configure the search settings in a separate helper method:</p>
 <div class="tabGroup" id="tabgroup_3">
 <ul role="tablist">
 <li role="presentation">
@@ -138,14 +138,14 @@ var results = tm.LanguageDirection.SearchText(this.GetSearchSettings(mode), sear
 </section>
 </div>
 
-<p>Here, you can set, for example, the minimum fuzziness score (<strong>MinScore</strong>) that a TU should have to be offered as a result. Trados Studio uses a default minimum fuzziness value of 70%. You may choose a higher value to restrict the search so that it yields only results that are potentially of better quality. You can also restrict the maximum number of results that should be returned (<strong>MaxResults</strong>).</p>
-<p>Trados Studio uses a default maximum results count of 5. This means that even if the TM contains, for example, 10 potential matches, only the first 5 (best) matches will be returned. Note that setting the minimum fuzziness score and the maximum number of results can have an impact on search performance. The more results potentially need to be returned, and the deeper the search needs to go, the longer the search might take. It usually takes more time to retrieve a low fuzzy match (e.g. 60%) then to retrieve an exact match or a high fuzzy match.</p>
-<p>Another parameter that we pass in this implementation is the search mode, which can be configured, for example, to execute a concordance search, i.e. the search type that looks up all segments that contain a particular string. Note that the search mode can be set to do a concordance search in the source or target segment, provided that during TM creation (<a href="creating_a_file_based_translation_memory.html">Creating a File-based Translation Memory</a>) the database has been configured to index the target segments. You can also set the mode to perform a segment lookup using the values of the <strong>SearchMode</strong> enumerator. By default, Trados Studio performs a <strong>NormalSearch</strong> search. This means that fuzzy matches are only retrieved if no exact or context match has been found. <strong>FullSearch</strong> also yields fuzzy matches even if an exact match has been found. Usually, the exact matches are the ones that translators will insert into the target document. However, in rare instances, a fuzzy match might prove more useful than the exact match. Note that retrieving fuzzy matches even if exact matches have been found can also have an impact on the TM lookup performance.</p>
+<p>Here, you can set the minimum fuzziness score (<strong>MinScore</strong>) that a TU must reach before it can appear in the results. Trados Studio uses a default minimum fuzziness value of 70%. You can choose a higher value to restrict the search to higher-quality matches. You can also limit the maximum number of results that are returned (<strong>MaxResults</strong>).</p>
+<p>Trados Studio uses a default maximum results count of 5. This means that if the TM contains 10 potential matches, only the first five best matches are returned. Setting the minimum fuzziness score and the maximum number of results can affect search performance. The more results the search must consider, the longer it may take. It usually takes longer to retrieve a low fuzzy match, such as 60%, than an exact match or a high fuzzy match.</p>
+<p>Another parameter in this implementation is the search mode. You can use it to run a concordance search, which returns all segments that contain a specific string. You can run a concordance search in the source or target segment if you configured the TM to index the target segments during creation (<a href="creating_a_file_based_translation_memory.html">Creating a File-based Translation Memory</a>). You can also set the mode to perform a segment lookup by using the values of the <strong>SearchMode</strong> enumerator. By default, Trados Studio performs a <strong>NormalSearch</strong>. This means that fuzzy matches are returned only if no exact or context match was found. <strong>FullSearch</strong> also returns fuzzy matches even when an exact match exists. In most cases, translators insert the exact matches into the target document. In rare cases, a fuzzy match may be more useful. Retrieving fuzzy matches even when exact matches exist can also affect lookup performance.</p>
 <h2 id="run-a-filtered-search">Run a Filtered Search</h2>
-<p>Trados Studio allows you to define one or several filter criteria that can be applied during a TM search. Example: You want to focus on TUs that are associated with the customer <em>Microsoft</em>, i.e. where the <em>Customer</em> field contains the value <em>Microsoft</em>. TUs that do not match this filter can still be found, however, a penalty is applied to them. Example: A TU matches a particular segment exactly, i.e. it has the score 100%. However, as it does not match the specified filter, a penalty of 1% is applied, which reduces the score to 99%. This is done to draw the translator's attention to the fact that the suggested translation might not fit the current context, as it was not created for the specified customer.</p>
-<p>The screenshot below shows an example of a filter that applies a penalty of 1% to any TUs that were not created by <em>User1</em>:</p>
+<p>Trados Studio lets you define one or more filter criteria for a TM search. For example, you can focus on TUs associated with the customer <em>Microsoft</em>, where the <em>Customer</em> field contains the value <em>Microsoft</em>. TUs that do not match the filter can still appear in the results, but the search applies a penalty to them. For example, if a TU matches a segment exactly and scores 100%, a 1% penalty reduces the score to 99%. This helps signal that the suggested translation might not fit the current context.</p>
+<p>The following screenshot shows a filter that applies a 1% penalty to any TUs not created by <em>User1</em>:</p>
 <p><img src="images/FilterPenalty.jpg" alt="FilterPenalty"></p>
-<p>In order to apply a filter to your search, expand the helper function <code>GetSearchSettings</code> by adding the two following lines:</p>
+<p>To apply a filter to your search, extend the <code>GetSearchSettings()</code> helper method by adding these lines:</p>
 <div class="tabGroup" id="tabgroup_4">
 <ul role="tablist">
 <li role="presentation">
@@ -160,8 +160,8 @@ settings.AddFilter(filter);
 </section>
 </div>
 
-<p>First, a new filter object is created. This is done by calling a separate helper function called <code>GetFilter</code>, which we will implement in the next step, and which defines the actual filter expression (i.e. the filter criterion). You then provide the filter name as string (which can be any descriptive name) and the penalty value to apply. Then the filter is added to the settings object using the <strong>AddFilter</strong> method.</p>
-<p>Now you add the helper function that returns the <strong>FilterExpression</strong> object. As mentioned above, you would like to focus on TUs where the <em>Customer</em> field is equal to the value <em>Microsoft</em>. Note that in this example, <em>Customer</em> is a picklist field that allows multiple values. The following sample code shows you how to set the field name and value and how to build a filter criterion:</p>
+<p>First, create a new filter object by calling a helper method named <code>GetFilter()</code>, which defines the filter expression. Then provide a descriptive filter name and the penalty value. Finally, add the filter to the settings object by using the <strong>AddFilter</strong> method.</p>
+<p>Next, add the helper method that returns the <strong>FilterExpression</strong> object. In this example, the search should focus on TUs where the <em>Customer</em> field equals <em>Microsoft</em>. Because <em>Customer</em> is a picklist field that allows multiple values, the following sample code shows how to set the field name and value and build the filter criterion:</p>
 <div class="tabGroup" id="tabgroup_5">
 <ul role="tablist">
 <li role="presentation">
@@ -177,7 +177,7 @@ fieldValue.Add(fieldName);
 </section>
 </div>
 
-<p>In the next step you use the <strong>AtomicExpression</strong> class to create the filter expression to return to the function that we use to configure the search settings. The parameters required are the field value and the operator. In our case, the filter calls for an <strong>Equal</strong> value. (Other possible values could be <strong>Contains</strong>, <strong>Greater</strong>, <strong>Smaller</strong>, etc.)</p>
+<p>Next, use the <strong>AtomicExpression</strong> class to create the filter expression that the search settings method returns. Pass the field value and the operator. In this case, the filter uses <strong>Equal</strong>. Other possible values include <strong>Contains</strong>, <strong>Greater</strong>, and <strong>Smaller</strong>.</p>
 <div class="tabGroup" id="tabgroup_6">
 <ul role="tablist">
 <li role="presentation">
@@ -192,7 +192,7 @@ return filter;
 </section>
 </div>
 
-<p>The full function for returning the filter expression thus looks as shown below:</p>
+<p>The full helper method for returning the filter expression looks like this:</p>
 <div class="tabGroup" id="tabgroup_7">
 <ul role="tablist">
 <li role="presentation">
@@ -223,15 +223,15 @@ return filter;
 <p>Filter names must not contain spaces.</p>
 </div>
 <h2 id="output-the-search-results">Output the Search Results</h2>
-<p>After executing the search, you will want to output the result (if any). In our simple implementation we will use a message box, which should include the following:</p>
+<p>After you execute the search, output the results, if any. In this simple implementation, use a message box that includes:</p>
 <ul>
 <li>The hit count.</li>
-<li>The source/target segments of the matching TUs that were found in the TM</li>
-<li>The match score, so that users can ascertain at a glance whether the match is of higher or lower quality.</li>
-<li>The origin - this property will indicate <strong>TM</strong> in our example, as we are searching in a TM. Translators might also consult other translation providers such as online machine translation engines. In this case, the origin will not be a TM.</li>
-<li>The TU creation date, which helps users ascertain how up to date a particular TU is.</li>
+<li>The source and target segments of the matching TUs.</li>
+<li>The match score, so users can quickly judge the match quality.</li>
+<li>The origin. In this example, the origin is <strong>TM</strong> because the search runs against a TM. If translators also use other translation providers, such as online machine translation engines, the origin may be different.</li>
+<li>The TU creation date, which helps users see how current a TU is.</li>
 </ul>
-<p>The following code loops through the search results and compiles a string with the above mentioned information.</p>
+<p>The following code loops through the search results and compiles a string with the information above.</p>
 <div class="tabGroup" id="tabgroup_8">
 <ul role="tablist">
 <li role="presentation">
@@ -256,10 +256,10 @@ MessageBox.Show(hitList);
 </section>
 </div>
 
-<p>Below is an example of a result displayed in the message box:</p>
+<p>The following screenshot shows an example of the result in the message box:</p>
 <p><img src="images/HitListSample.jpg" alt="HitListSample"></p>
 <h2 id="search-for-segment-or-tu">Search for Segment or TU</h2>
-<p>In the example above we provided a 'normal' string as search parameter when applying the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.AbstractMachineTranslationProviderLanguageDirection.html#Sdl_LanguagePlatform_TranslationMemoryApi_AbstractMachineTranslationProviderLanguageDirection_SearchText_Sdl_LanguagePlatform_TranslationMemory_SearchSettings_System_String_">SearchText</a> method. Alternatively, you can also search for a segment or TU object by using <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderLanguageDirection.html#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderLanguageDirection_SearchSegment_Sdl_LanguagePlatform_TranslationMemory_SearchSettings_Sdl_LanguagePlatform_Core_Segment_">SearchSegment</a> or <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderLanguageDirection.html#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderLanguageDirection_SearchTranslationUnit_Sdl_LanguagePlatform_TranslationMemory_SearchSettings_Sdl_LanguagePlatform_TranslationMemory_TranslationUnit_">SearchTranslationUnit</a>. The following sample function outlines how to create and use a <strong>Segment</strong> object to carry out a TM search:</p>
+<p>In the example above, you passed a plain string to the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.AbstractMachineTranslationProviderLanguageDirection.html#Sdl_LanguagePlatform_TranslationMemoryApi_AbstractMachineTranslationProviderLanguageDirection_SearchText_Sdl_LanguagePlatform_TranslationMemory_SearchSettings_System_String_">SearchText</a> method. Alternatively, you can search for a segment or TU object by using <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderLanguageDirection.html#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderLanguageDirection_SearchSegment_Sdl_LanguagePlatform_TranslationMemory_SearchSettings_Sdl_LanguagePlatform_Core_Segment_">SearchSegment</a> or <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProviderLanguageDirection.html#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationProviderLanguageDirection_SearchTranslationUnit_Sdl_LanguagePlatform_TranslationMemory_SearchSettings_Sdl_LanguagePlatform_TranslationMemory_TranslationUnit_">SearchTranslationUnit</a>. The following sample method shows how to create and use a <strong>Segment</strong> object for a TM search:</p>
 <div class="tabGroup" id="tabgroup_9">
 <ul role="tablist">
 <li role="presentation">
@@ -287,7 +287,7 @@ MessageBox.Show(hitList);
 </section>
 </div>
 
-<p>And the sample function below demonstrates how to create and use a <strong>TranslationUnit</strong> object for a TM search:</p>
+<p>The following sample method shows how to create and use a <strong>TranslationUnit</strong> object for a TM search:</p>
 <div class="tabGroup" id="tabgroup_10">
 <ul role="tablist">
 <li role="presentation">
@@ -320,7 +320,7 @@ MessageBox.Show(hitList);
 </section>
 </div>
 <h2 id="putting-it-all-together">Putting it All Together</h2>
-<p>The complete class should now look as shown below:</p>
+<p>The complete class should now look like this:</p>
 <div class="tabGroup" id="tabgroup_11">
 <ul role="tablist">
 <li role="presentation">
@@ -458,7 +458,7 @@ MessageBox.Show(hitList);
 </div>
 <h2 id="see-also">See Also</h2>
 <p><a href="performing_translation_memory_lookups.html">Performing Translation Memory Lookups</a></p>
-<p><a href="introduction_to_the_tm_lookup_tool.html">Introduction the TM Lookup Tool</a></p>
+<p><a href="introduction_to_the_tm_lookup_tool.html">Introduction to the TM Lookup Tool</a></p>
 <p><a href="exporting_to_a_tmx_file.html">Exporting to a TMX File</a></p>
 <p><a href="updating_translation_memories.html">Updating Translation Memories</a></p>
 

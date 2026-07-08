@@ -82,16 +82,16 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="adding-context-information">Adding Context Information</h1>
 
-<p>In this chapter you will learn how to extract helpful context information from a given BIL file.</p>
+<p>This section explains how to extract useful context information from a BIL file.</p>
 <h2 id="about-contexts">About Contexts</h2>
-<p>For the translators it is often useful to know whether a given segment occurs in a headline, paragraph, etc. Units in the BIL sample format may contain a <code>type</code> element, which indicates the context of a <code>unit</code> element, e.g.:</p>
+<p>Translators often need to know whether a segment appears in a heading, paragraph, or another document element. In the BIL sample format, a <code>unit</code> can contain a <code>type</code> element that identifies this context:</p>
 <pre><code class="lang-xml">&lt;type spec=&quot;Heading&quot;/&gt;
 </code></pre>
-<p>Trados Studio can display such information in a column next to the target segments. In this chapter we want to enhance our parser to show the information from the type element in the editor of Trados Studio.</p>
-<p>Below you see an example of how the context information can be displayed in the translation environment. Each context cell contains a display code, which is the abbreviated form of the full context, e.g. <strong>T</strong> for <strong>Topic</strong>. You may also assign different colors for each context type as a visual aid for the translator.</p>
+<p>Trados Studio can display this information in a column next to the target segments. In this section, you enhance the parser so that Trados Studio shows the <code>type</code> element information in the editor.</p>
+<p>The following example shows how the translation environment can display context information. Each context cell contains a display code, which abbreviates the full context, for example <strong>T</strong> for <strong>Topic</strong>. You can also assign a different color to each context type to help translators identify them quickly.</p>
 <p><img src="images/BilContext.jpg" alt="BilContext"></p>
-<p>The API allows you to either create custom context information using, for example, the information from the BIL file, or you can draw from a collection of standard context types. The API offers various standard types to cover a large variety of possible elements that may occur in a document such as title, paragraph, text box, etc.</p>
-<p>To keep things simple let us consider only three mapping scenarios. The table below lists the BIL type values, which should be mapped to the corresponding standard context types offered by the API:</p>
+<p>The API lets you create custom context information from the BIL file or use standard context types. These standard types cover common document elements such as titles, paragraphs, and text boxes.</p>
+<p>For simplicity, this example uses three mapping scenarios. The following table lists the BIL type values and the corresponding standard context types:</p>
 <table>
 <thead>
 <tr>
@@ -110,15 +110,21 @@
 </tr>
 </tbody>
 </table>
-<p>For our implementation, let us assume the following: If a unit in the BIL file does not have a type element, then the standard context type <strong>paragraph</strong> should be used.</p>
-<p>Apart from the <code>type</code> element content we can also use the context information to store the unique id of the units found in the BIL file. The unit element contains an id attribute, which stores the id value. This id should not be shown to the end user, as it is not relevant for the translation. However, it should be included somewhere in the intermediary (SDLXliff) file, so that the writer class (which we will implement later) can reference it when generating the target BIL file (see <a href="adding_the_file_writer_class.html">Adding the File Writer Class</a>). Within the context properties (but not only there) you can include metadata, which is not visible to the user, but is stored physically in the intermediary (SDLXliff) file.</p>
-<p>Note that adding metadata is not limited to contexts. You can apply metadata to various types of instances such as inline tags, structure tags, placeables, etc.</p>
+<p>For this implementation, assume that when a unit in the BIL file does not contain a <code>type</code> element, the parser uses the standard <strong>paragraph</strong> context type.</p>
+<p>In addition to the <code>type</code> element, you can use context information to store the unique ID of each unit in the BIL file. The <code>unit</code> element contains this value in its <code>id</code> attribute. Do not display this ID to end users because it is not relevant during translation. Instead, store it in the intermediary SDLXLIFF file so that the writer class can reference it later when it generates the target BIL file. For more information, see <a href="adding_the_file_writer_class.html">Adding the File Writer Class</a>. You can store this kind of hidden information as metadata in the context properties.</p>
+<p>You can add metadata to more than contexts. You can also apply it to inline tags, structure tags, placeables, and other objects.</p>
 <h2 id="extend-the-helper-function-for-creating-paragraph-units">Extend the Helper Function for Creating Paragraph Units</h2>
 <p>First, add the following to the <code>CreateParagraphUnit()</code> helper function:</p>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
 <a href="#tabpanel_1_tabid-1" role="tab" aria-controls="tabpanel_1_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-2" role="tab" aria-controls="tabpanel_1_tabid-2" data-tab="tabid-2" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-3" role="tab" aria-controls="tabpanel_1_tabid-3" data-tab="tabid-3" tabindex="-1">C#</a>
 </li>
 </ul>
 <section id="tabpanel_1_tabid-1" role="tabpanel" data-tab="tabid-1">
@@ -134,19 +140,10 @@ if(xmlUnit.SelectSingleNode(&quot;type/@spec&quot;)!=null)
     paragraphUnit.Properties.Contexts = CreateContext(&quot;Paragraph&quot;, id);
 }
 </code></pre>
+<p>This condition checks whether a <code>type</code> element is available. If it is, the code passes the <code>spec</code> attribute value to a helper function that returns the appropriate context properties object. If the <code>type</code> element is missing, the helper function creates a standard paragraph context instead. The code also reads the <code>id</code> attribute from the current <code>unit</code> element and passes it to the same helper function.</p>
+<p>The complete <code>CreateParagraphUnit()</code> helper function should look like this:</p>
 </section>
-</div>
-
-<p>The above condition determines whether a <code>type</code> element is available in the first place. If this is the case, the value from the spec attribute is passed to another helper function (which we will add later), which returns the appropriate context properties object. If not, the additional helper function needs to generate a standard paragraph context properties object.
-Second, we determine the value of the id attribute of the current <code>unit</code> element, and pass it to the separate helper function.</p>
-<p>The full <code>CreateParagraphUnit()</code> helper function should look as shown below:</p>
-<div class="tabGroup" id="tabgroup_2">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_2_tabid-2" role="tab" aria-controls="tabpanel_2_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_2_tabid-2" role="tabpanel" data-tab="tabid-2">
+<section id="tabpanel_1_tabid-2" role="tabpanel" data-tab="tabid-2" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">// helper function for creating paragraph units
 private IParagraphUnit CreateParagraphUnit(XmlNode xmlUnit)
@@ -171,7 +168,6 @@ private IParagraphUnit CreateParagraphUnit(XmlNode xmlUnit)
         paragraphUnit.Target.Add(trgSegment);
     }
 
-    #region &quot;context&quot;
     // create paragraph unit context
     string id = xmlUnit.SelectSingleNode(&quot;./@id&quot;).InnerText;
     if(xmlUnit.SelectSingleNode(&quot;type/@spec&quot;)!=null)
@@ -182,33 +178,22 @@ private IParagraphUnit CreateParagraphUnit(XmlNode xmlUnit)
     } else {
         paragraphUnit.Properties.Contexts = CreateContext(&quot;Paragraph&quot;, id);
     }
-    #endregion
-
-    #region &quot;comments&quot;
     // extract comment (if applicable)
     if(xmlUnit.SelectSingleNode(&quot;comment&quot;)!=null)
     {
         paragraphUnit.Properties.Comments = CreateComment(xmlUnit.SelectSingleNode(&quot;comment&quot;).InnerText);
     }
-    #endregion
 
     return paragraphUnit;
 }
 </code></pre>
-</section>
-</div>
 <h2 id="add-the-helper-function-to-create-the-context-properties">Add the Helper Function to Create the Context Properties</h2>
-<p>Before you implement the new context helper function, add the <code>System.Drawing</code> library as a reference to your project. This facilitates the task of assigning different background colors to the various context types, which makes distinguishing the contexts easer for the end user.</p>
-<p>Also, you need to add the following namespace to your class, which provides access to the standard context types that the API offers: <code>Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi</code></p>
-<p>This function uses the properties factory to create a context properties object as well as a context information object. By default, we assign the context type <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.StandardContextTypes.html#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_StandardContextTypes_Paragraph">Paragraph</a> value from the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.StandardContextTypes.html">StandardContextTypes</a> collection. Also, we set the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ContextPurpose.html">ContextPurpose</a> to <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ContextPurpose.html#fields">Information</a>. This means that the context information is purely for information, and not for TM matching purposes. The function than uses a switch statement to map the value from the spec attribute of the <code>type</code> element to the corresponding standard context type and assigns a background colour.</p>
-<p>The second context info (<code>contextID</code>) that is added to the context properties object contains the unit id. Remember that this information is not supposed to be visible to the end user. That is why we add it through the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IMetaDataContainer.html#Sdl_FileTypeSupport_Framework_NativeApi_IMetaDataContainer_MetaData">MetaData</a> property. In this case, the <code>Add()</code> method requires two string parameters: the key (i.e. the field name) and the actual value.</p>
-<div class="tabGroup" id="tabgroup_3">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_3_tabid-3" role="tab" aria-controls="tabpanel_3_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_3_tabid-3" role="tabpanel" data-tab="tabid-3">
+<p>Before you implement the new context helper function, add a reference to the <code>System.Drawing</code> library. This library lets you assign different background colors to context types, which makes them easier for end users to distinguish.</p>
+<p>Also add the following namespace to your class so that you can access the standard context types that the API provides: <code>Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi</code></p>
+<p>This function uses the properties factory to create a context properties object and a context information object. By default, it assigns the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.StandardContextTypes.html#Sdl_FileTypeSupport_Framework_Core_Utilities_NativeApi_StandardContextTypes_Paragraph">Paragraph</a> value from the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Utilities.NativeApi.StandardContextTypes.html">StandardContextTypes</a> collection. It also sets <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ContextPurpose.html">ContextPurpose</a> to <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.ContextPurpose.html#fields">Information</a>, which means the context helps users but does not affect TM matching. The function then uses a switch statement to map the <code>spec</code> attribute value from the <code>type</code> element to the corresponding standard context type and assigns a background color.</p>
+<p>The second context info object (<code>contextID</code>) that is added to the context properties contains the unit ID. This information should remain hidden from end users, so the code stores it through the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.NativeApi.IMetaDataContainer.html#Sdl_FileTypeSupport_Framework_NativeApi_IMetaDataContainer_MetaData">MetaData</a> property. In this case, the <code>Add()</code> method requires two string parameters: the key and the value.</p>
+</section>
+<section id="tabpanel_1_tabid-3" role="tabpanel" data-tab="tabid-3" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">private IContextProperties CreateContext(string spec, string unitID)
 {
@@ -245,12 +230,11 @@ private IParagraphUnit CreateParagraphUnit(XmlNode xmlUnit)
     return contextProperties;
 }
 </code></pre>
-</section>
-</div>
-
 <div class="NOTE">
 <h5>Note</h5>
-<p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+<p>This content may be out of date. To verify the latest information on this topic, inspect the libraries in the Visual Studio Object Browser.</p>
+</div>
+</section>
 </div>
 
 </article>

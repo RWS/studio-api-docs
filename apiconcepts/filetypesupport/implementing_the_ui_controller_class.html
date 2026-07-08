@@ -82,60 +82,68 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="implementing-the-ui-controller-class">Implementing the UI Controller Class</h1>
 
-<p>In this chapter you will learn how to implement the class that manages the relationship between the host application, the user settings and the user interface.</p>
-<p>When implementing a settings page for the plug-in user interface you need to cover the following scenarios:</p>
+<p>Implement the class that manages the relationship between the host application, user settings, and the user interface.</p>
+<h2 id="settings-page-scenarios">Settings Page Scenarios</h2>
+<p>A settings page for the plug-in user interface must handle these scenarios:</p>
 <ul>
-<li>The user clicks the <strong>Reset to Defaults</strong> button, thereby restoring all control elements to their intended default settings.</li>
-<li>The user clicks <strong>OK</strong>, thereby applying (saving) the settings.</li>
-<li>After changing the control element settings, the user goes to another settings page, which should also save any changes to the form control elements.</li>
-<li>The user clicks the <strong>Cancel</strong> button, any changes to the control settings should be discarded.
-A settings page does not implement its own <strong>OK</strong>, <strong>Cancel</strong>, <strong>Reset</strong> buttons, but will rely on the control elements that are provided by the dialog box of the framework, which is made possible through this class.
-Below you see an example of a settings page as it is implemented for one of the default file types in Trados Studio:</li>
+<li>The user clicks <strong>Reset to Defaults</strong>, restoring all control elements to their default settings</li>
+<li>The user clicks <strong>OK</strong>, saving the settings</li>
+<li>The user navigates to another settings page, which should save changes to form control elements</li>
+<li>The user clicks <strong>Cancel</strong>, discarding all changes to control settings</li>
 </ul>
+<p>The settings page does not implement its own <strong>OK</strong>, <strong>Cancel</strong>, or <strong>Reset</strong> buttons. Instead, it uses the control elements provided by the framework's dialog box.</p>
+<p>Below is an example of a settings page as implemented for a default file type in <code>Trados Studio</code>:</p>
 <p><img src="images/SampleSettingsPage.jpg" alt="SampleSettingsPage"></p>
 <h2 id="add-the-settings-page">Add the Settings Page</h2>
-<p>Now you need to add another class, e.g. called <strong>SettingsPage.cs</strong> to your project. This class is used to manage the functions of the user control UI, e.g. it triggers the reset function of the UI when a user clicks the <strong>Reset</strong> button. It is this class that will be registered as a plug-in UI page in the File Type Component Builder (i.e. not the actual user control).</p>
-<p>Reference the following namespace in this class:</p>
+<p>Add another class, for example <strong>SettingsPage.cs</strong>, to your project. This class manages the user control UI functions, such as triggering the reset function when a user clicks <strong>Reset</strong>. This class is registered as a plug-in UI page in the File Type Component Builder, not the actual user control.</p>
+<p>Reference this namespace in your class:</p>
 <ul>
-<li>Sdl.FileTypeSupport.Framework.Core.Settings</li>
+<li><code>Sdl.FileTypeSupport.Framework.Core.Settings</code></li>
 </ul>
-<p>Your <code>SettingsPage</code> class then needs be derived from the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage-2.html">AbstractFileTypeSettingsPage&lt; SettingsControlType, SettingsType&gt;</a> class providing the types of the settings and the UI control:</p>
+<p>Your <code>SettingsPage</code> class must derive from the <a href="../../api/filetypesupport/Sdl.FileTypeSupport.Framework.Core.Settings.AbstractFileTypeSettingsPage-2.html">AbstractFileTypeSettingsPage&lt; SettingsControlType, SettingsType&gt;</a> class, providing the types of the settings and the UI control:</p>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
 <a href="#tabpanel_1_tabid-1" role="tab" aria-controls="tabpanel_1_tabid-1" data-tab="tabid-1" tabindex="0" aria-selected="true">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-2" role="tab" aria-controls="tabpanel_1_tabid-2" data-tab="tabid-2" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-3" role="tab" aria-controls="tabpanel_1_tabid-3" data-tab="tabid-3" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-4" role="tab" aria-controls="tabpanel_1_tabid-4" data-tab="tabid-4" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-5" role="tab" aria-controls="tabpanel_1_tabid-5" data-tab="tabid-5" tabindex="-1">C#</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tabid-6" role="tab" aria-controls="tabpanel_1_tabid-6" data-tab="tabid-6" tabindex="-1">C#</a>
 </li>
 </ul>
 <section id="tabpanel_1_tabid-1" role="tabpanel" data-tab="tabid-1">
 
 <pre><code class="lang-cs">class SettingsPage : AbstractFileTypeSettingsPage&lt;SettingsUI, UserSettings&gt;
 </code></pre>
-</section>
-</div>
-<h2 id="declaring-the-page-as-a-plug-in">Declaring the Page as a Plug-In.</h2>
-<p>The <strong>Plugin Framework</strong> requires all plug-in pages to be marked with a C# attribute. The plugin framework will then generate a plug-in definition for the assembly based on these attributes which can then be used by other applications.</p>
-<p>As we are creating a Filter Settings Page we will use the <code>FileTypeSettingsPage</code> attribute. This attribute requires a unique ID, which will be used to identify this plug-in page at runtime, a name, and a description. If the page needs be localised into other languages, the name and description should be key mappings to the related <strong>PluginResources.resx</strong> file in your assembly.</p>
-<div class="tabGroup" id="tabgroup_2">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_2_tabid-2" role="tab" aria-controls="tabpanel_2_tabid-2" data-tab="tabid-2" tabindex="0" aria-selected="true">C#</a>
-</li>
+<h2 id="declare-the-page-as-a-plug-in">Declare the Page as a Plug-In</h2>
+<p>The plugin framework requires all plug-in pages to be marked with a C# attribute. The framework generates a plug-in definition for the assembly based on these attributes, which other applications can use.</p>
+<p>For a Filter Settings Page, use the <code>FileTypeSettingsPage</code> attribute. This attribute requires:</p>
+<ul>
+<li>A unique ID to identify the plug-in page at runtime</li>
+<li>A name</li>
+<li>A description</li>
 </ul>
-<section id="tabpanel_2_tabid-2" role="tabpanel" data-tab="tabid-2">
+<p>If you need to localize the name and description into other languages, use key mappings to the <strong>PluginResources.resx</strong> file in your assembly:</p>
+</section>
+<section id="tabpanel_1_tabid-2" role="tabpanel" data-tab="tabid-2" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">[FileTypeSettingsPage(Id=&quot;SimpleText_Settings&quot;, Name=&quot;Settings_Name&quot;, Description=&quot;Settings_Description&quot;)]
 </code></pre>
+<h2 id="implement-the-base-class">Implement the Base Class</h2>
+<p>The <code>FileTypeSettingsPage</code> base class handles much of the plumbing to ensure objects load correctly and update at the right points. However, since our control does not use data binding, you must manually inform the UI when settings change. Override the <code>ResetToDefaults</code> and <code>Refresh</code> methods and call <code>UpdateControl</code> on the UI to notify it that the underlying settings data has changed:</p>
 </section>
-</div>
-<h2 id="implementing-the-base-class">Implementing the Base Class</h2>
-<p>The <code>FileTypeSettingsPage</code> base class takes care of a lot of the plumbing required to make sure all the objects are loaded correctly and updated at the correct points. However, because we are not using data binding in our control, the UI must manually be told when settings have been changed. The two methods that make settings changes are <code>ResetToDefaults</code> and Refresh so we need to override them and make a call to our <code>UpdateControl</code> method on the UI to inform it that the underlying settings data has changed.</p>
-<div class="tabGroup" id="tabgroup_3">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_3_tabid-3" role="tab" aria-controls="tabpanel_3_tabid-3" data-tab="tabid-3" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_3_tabid-3" role="tabpanel" data-tab="tabid-3">
+<section id="tabpanel_1_tabid-3" role="tabpanel" data-tab="tabid-3" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">public override void ResetToDefaults()
 {
@@ -144,14 +152,7 @@ Below you see an example of a settings page as it is implemented for one of the 
 }
 </code></pre>
 </section>
-</div>
-<div class="tabGroup" id="tabgroup_4">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_4_tabid-4" role="tab" aria-controls="tabpanel_4_tabid-4" data-tab="tabid-4" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_4_tabid-4" role="tabpanel" data-tab="tabid-4">
+<section id="tabpanel_1_tabid-4" role="tabpanel" data-tab="tabid-4" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">public override void Refresh()
 {
@@ -159,17 +160,10 @@ Below you see an example of a settings page as it is implemented for one of the 
     Control.UpdateControl();
 }
 </code></pre>
+<h2 id="add-the-file-type-settings-page-to-the-file-type-plug-in">Add the File Type Settings Page to the File Type Plug-In</h2>
+<p>To associate your sample file type plug-in with this settings page, use the following code in the <code>SimpleTextFilterComponentBuilder</code> class within the <code>BuildFileTypeInformation</code> method:</p>
 </section>
-</div>
-<h2 id="add-the-file-type-settings-page-to-the-file-type-plug-in">Add the file type settings page to the file type plug-in</h2>
-<p>To associate your sample file type plug-in with this file type settings page the following code was used in the class <strong>SimpleTextFilterComponentBuilder</strong> within the method <strong>BuildFileTypeInformation</strong>.</p>
-<div class="tabGroup" id="tabgroup_5">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_5_tabid-5" role="tab" aria-controls="tabpanel_5_tabid-5" data-tab="tabid-5" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_5_tabid-5" role="tabpanel" data-tab="tabid-5">
+<section id="tabpanel_1_tabid-5" role="tabpanel" data-tab="tabid-5" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">info.WinFormSettingsPageIds = new string[]
 {
@@ -177,75 +171,56 @@ Below you see an example of a settings page as it is implemented for one of the 
     &quot;QuickInserts_Settings&quot;,
 };
 </code></pre>
-</section>
-</div>
-
-<p><strong>WinFormSettingsPageIds</strong> specifies the ids of the settings pages to be associated with a file type plug-in. Here we added <strong>SimpleText_Settings</strong> so that this file type settings page is associated with this file type plug-in. This code was added in an earlier chapter and so should not be added again.</p>
-<p>After adding this file type settings page, the file type plug-in UI becomes available in the File Type Manager.</p>
+<p><code>WinFormSettingsPageIds</code> specifies the IDs of the settings pages to associate with a file type plug-in. Here, <code>SimpleText_Settings</code> associates this settings page with this file type plug-in. (This code was added in an earlier section and should not be repeated.)</p>
+<p>After adding this file type settings page, the file type plug-in UI becomes available in the File Type Manager:</p>
 <p><img src="images/LockProdCodesPage.jpg" alt="LockProdCodesPage"></p>
-<h2 id="putting-it-all-together">Putting it All Together</h2>
-<p>All put together, your user interface controller class should now look as shown below:</p>
-<div class="tabGroup" id="tabgroup_6">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_6_tabid-6" role="tab" aria-controls="tabpanel_6_tabid-6" data-tab="tabid-6" tabindex="0" aria-selected="true">C#</a>
-</li>
-</ul>
-<section id="tabpanel_6_tabid-6" role="tabpanel" data-tab="tabid-6">
+<h2 id="putting-it-all-together">Putting It All Together</h2>
+<p>Your user interface controller class should now look as follows:</p>
+</section>
+<section id="tabpanel_1_tabid-6" role="tabpanel" data-tab="tabid-6" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-cs">using Sdl.FileTypeSupport.Framework.Core.Settings;
 
 namespace Sdk.FileTypeSupport.Samples.SimpleText.WinUI
 {
     /// &lt;summary&gt;
-    /// This class controls the plug-in user interface. It controls what happens, for example,
-    /// when the user clicks the button in the user interface for resetting the control elements
-    /// to their default values. This class is referenced in the file type definition. Without
-    /// this reference in the SDLFILETPYE file, the plug-in user interface would not be available
-    /// to the end user.
+    /// This class controls the plug-in user interface. It controls what happens when the user
+    /// clicks the button to reset control elements to their default values. This class is referenced
+    /// in the file type definition. Without this reference in the SDLFILETYPE file, the plug-in
+    /// user interface would not be available to the end user.
     /// &lt;/summary&gt;
-    #region &quot;SettingsPagePlugin&quot;
     [FileTypeSettingsPage(Id=&quot;SimpleText_Settings&quot;, Name=&quot;Settings_Name&quot;, Description=&quot;Settings_Description&quot;)]
-    #endregion
-    #region &quot;ClassDeclaration&quot;
     class SettingsPage : AbstractFileTypeSettingsPage&lt;SettingsUI, UserSettings&gt;
-    #endregion
     {
         /// &lt;summary&gt;
-        /// Triggered, when the user clicks the button Reset to Defaults button in 
-        /// Trados Studio. Restores the default check box state, which should
-        /// be Checked (i.e. product code strings should be locked).
+        /// Triggered when the user clicks the Reset to Defaults button in Trados Studio.
+        /// Restores the default check box state, which should be checked (product code
+        /// strings should be locked by default).
         /// &lt;/summary&gt;
-        #region &quot;ResetToDefaults&quot;
         public override void ResetToDefaults()
         {
             base.ResetToDefaults();
             Control.UpdateControl();
         }
-        #endregion
 
         /// &lt;summary&gt;
-        /// Triggered when the user raises the plug-in UI, whose controls (in this case the check box
-        /// for locking product code strings) will then be set according to the values stored in 
-        /// the settings bundle.
+        /// Triggered when the user opens the plug-in UI. The controls (in this case, the check box
+        /// for locking product code strings) are set according to the values stored in the
+        /// settings bundle.
         /// &lt;/summary&gt;
-        /// &lt;param name=&quot;settingsBundle&quot;&gt;&lt;/param&gt;
-        #region &quot;Refresh&quot;
         public override void Refresh()
         {
             base.Refresh();
             Control.UpdateControl();
         }
-        #endregion
     }
 }
 </code></pre>
-</section>
-</div>
-
 <div class="NOTE">
 <h5>Note</h5>
 <p>This content may be out-of-date. To check the latest information on this topic, inspect the libraries using the Visual Studio Object Browser.</p>
+</div>
+</section>
 </div>
 
 </article>

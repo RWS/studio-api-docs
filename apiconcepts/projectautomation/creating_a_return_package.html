@@ -187,17 +187,10 @@ if (returnPackage.Status != PackageStatus.Completed)
 
 <pre><code class="lang-cs">public void CreatePackage(FileBasedProject project)
 {
-    #region &quot;FileIds&quot;
     Language targetLang = new Language(CultureInfo.GetCultureInfo(&quot;de-DE&quot;));
     ProjectFile[] files = project.GetTargetLanguageFiles(targetLang);
     Guid[] fileIds = files.GetIds();
-    #endregion
-
-    #region &quot;ReturnPackage&quot;
     ReturnPackageCreation returnPackage = project.CreateReturnPackage(fileIds, &quot;Return Package Name&quot;, &quot;Comment: Everything went fine&quot;);
-    #endregion
-
-    #region &quot;PackageStatus&quot;
     bool packageIsCreated = false;
     while (!packageIsCreated)
     {
@@ -224,11 +217,7 @@ if (returnPackage.Status != PackageStatus.Completed)
     {
         throw new Exception(&quot;A problem occurred during package creation.&quot;);
     }
-    #endregion
-
-    #region &quot;SavePackage&quot;
     project.SavePackageAs(returnPackage.PackageId, @&quot;c\temp\return_package.sdlrpx&quot;);
-    #endregion
 }
 </code></pre>
 </section>

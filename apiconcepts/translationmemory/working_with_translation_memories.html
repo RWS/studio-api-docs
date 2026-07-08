@@ -82,33 +82,35 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="introduction">Introduction</h1>
 
-<p>This section describes how to work with translation memories, focusing on common functionality between file- and server-based translation memories. The <a href="performing_filebased_tm_lookups.html">Performing Translation Memory Lookups</a> section describes use cases that are specific to server-based translation memories.</p>
+<p>This section explains how to work with local translation memories.</p>
 <h2 id="overview">Overview</h2>
-<p>The Translation Memory API models a translation memory using the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.html">ITranslationMemory</a> interface. A translation memory is essentially a specific type of translation provider (see <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider.html">ITranslationProvider</a>), which exposes additional translation memory-specific functionality. For more information about translation providers, see <a href="creating_the_translation_provider.html">Creating the Translation Provider</a>.</p>
-<p><a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.html">ITranslationMemory</a> represents a multilingual translation memory, i.e. a translation memory that can have one or more language directions. Each of the language directions are represented by a <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemoryLanguageDirection.html">ITranslationMemoryLanguageDirection</a> object, which exposes functionality specific to that language direction.</p>
+<p>The Translation Memory API represents a translation memory with the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.html">ITranslationMemory</a> interface. A translation memory is a type of translation provider (see <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationProvider.html">ITranslationProvider</a>) that exposes translation memory-specific functionality. For more information about translation providers, see <a href="creating_the_translation_provider.html">Creating the Translation Provider</a>.</p>
+<p><a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.html">ITranslationMemory</a> represents a multilingual translation memory, which can contain one or more language directions. Each language direction is represented by an <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemoryLanguageDirection.html">ITranslationMemoryLanguageDirection</a> object.</p>
 <img style="display:block; " src="images/Cd-TranslationMemory.png">
-<p>There are several implementations of the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.html">ITranslationMemory</a> interface:</p>
+<p>The <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.html">ITranslationMemory</a> interface has three implementations:</p>
 <ul>
-<li><strong>File-based translation memory</strong>: a translation memory that is stored in a single file on disk, designed for single-user access. File-based translation memories support only a single language direction. For more information, see <a href="working_with_file_based_translation_memories.html">Working with File-based Translation Memories</a>.</li>
-<li><strong>Server-based translation memory</strong>: a translation memory that is hosted on a server and accessed via a WCF service. The translation memory data is stored in a central database (Microsoft SQL Server). For more information about server-based translation memories, see <a href="working_with_tm_server.html">Introduction</a>.</li>
-<li><strong>In-memory translation memory</strong>: a lightweight translation memory implementation, the data of which is held only in memory. This is designed for use is scenarios where there's a need for a relatively small and fast translation memory that does not need to be saved.</li>
+<li><strong>File-based translation memory</strong>: Stores a translation memory in a single file on disk for single-user access. File-based translation memories support one language direction. For more information, see <a href="working_with_file_based_translation_memories.html">Working with File-based Translation Memories</a>.</li>
+<li><strong>Server-based translation memory</strong>: Hosts a translation memory on a server and exposes it through a REST API. The translation memory data is stored in a central Microsoft SQL Server database. For more information, see <a href="working_with_tm_server.html">Introduction</a>.</li>
+<li><strong>In-memory translation memory</strong>: Keeps translation memory data in memory only. Use this implementation when you need a small, fast translation memory that does not need to persist data.</li>
 </ul>
 <img style="display:block; " src="images/Cd-TranslationMemories.png">
-<p>Apart from the standard functionality supported by any translation provider, a translation memory has the following main additional features:</p>
+<p>In addition to the functionality available in any translation provider, a translation memory provides these features:</p>
 <ul>
-<li><strong>Field definitions</strong>: offers support for defining fields that allow associating custom meta-data with the translation units in the translation memory. This meta-data can then be used for filtering translation units during various operations. For more information, see <a href="working_with_field_definitions.html">Working with Field Definitions</a>.</li>
-<li><strong>Language Resources</strong>: offers support for storing custom language resources, such as segmentation rules, abbreviations, ordinal followers, variables, dates, times, numbers, measurements and currency recognizers. Storing these resources in the translation memory ensures that they are consistenly being used throughout translation or when segmenting content that is targeting the translation memory. This ensures consistency and optimal translation re-use. For more information about language resources, see <a href="working_with_language_resources.html">Working with Language Resources</a>.</li>
-<li><strong>Import</strong>: translation memories support bulk import of translation units from TMX or other supported bilingual file formats. For more information, see <a href="importing_content_into_a_translation_memory.html">Importing Content into a Translation Memory</a>.</li>
-<li><strong>Export</strong>: translation memories support exporting translation units to a TMX file. For more information, see <a href="exporting_content_from_a_translation_memory.html">Exporting Content from a Translation Memory</a>.
-The <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.html">ITranslationMemory</a> interface provides management functionality that allows you to modify properties such as name and description, but also language directions, field and language resources. When making changes to any of these, you need to call <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.html#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationMemory_Save">Save</a> in order to keep the changes.</li>
+<li><strong>Field definitions</strong>: Define fields that associate custom metadata with translation units. Use this metadata to filter translation units during different operations. For more information, see <a href="working_with_field_definitions.html">Working with Field Definitions</a>.</li>
+<li><strong>Language resources</strong>: Store custom language resources such as segmentation rules, abbreviations, ordinal followers, variables, dates, times, numbers, measurements, and currency recognizers. These resources help keep translation and segmentation behavior consistent for the target translation memory. For more information, see <a href="working_with_language_resources.html">Working with Language Resources</a>.</li>
+<li><strong>Import</strong>: Import translation units from TMX or other supported bilingual file formats. For more information, see <a href="importing_content_into_a_translation_memory.html">Importing Content into a Translation Memory</a>.</li>
+<li><strong>Export</strong>: Export translation units to a TMX file. For more information, see <a href="exporting_content_from_a_translation_memory.html">Exporting Content from a Translation Memory</a>.</li>
 </ul>
-<h2 id="see-also">See Also</h2>
-<p><a href="working_with_file_based_translation_memories.html">Working with File-based Translation Memories</a></p>
-<p><a href="working_with_field_definitions.html">Working with Field Definitions</a></p>
-<p><a href="working_with_language_resources.html">Working with Language Resources</a></p>
-<p><a href="importing_content_into_a_translation_memory.html">Importing Content into a Translation Memory</a></p>
-<p><a href="exporting_content_from_a_translation_memory.html">Exporting Content from a Translation Memory</a></p>
-<p><a href="performing_filebased_tm_lookups.html">Performing Translation Memory Lookups</a></p>
+<p>The <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.html">ITranslationMemory</a> interface also provides management functionality for properties such as name, description, language directions, fields, and language resources. Call <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.ITranslationMemory.html#Sdl_LanguagePlatform_TranslationMemoryApi_ITranslationMemory_Save">Save</a> after you change any of these properties.</p>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="working_with_file_based_translation_memories.html">Working with File-based Translation Memories</a></li>
+<li><a href="working_with_field_definitions.html">Working with Field Definitions</a></li>
+<li><a href="working_with_language_resources.html">Working with Language Resources</a></li>
+<li><a href="importing_content_into_a_translation_memory.html">Importing Content into a Translation Memory</a></li>
+<li><a href="exporting_content_from_a_translation_memory.html">Exporting Content from a Translation Memory</a></li>
+<li><a href="performing_filebased_tm_lookups.html">Performing Translation Memory Lookups</a></li>
+</ul>
 
 </article>
           </div>

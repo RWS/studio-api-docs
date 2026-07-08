@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-      <title> </title>
+      <title>Updating a Translation Memory </title>
       <meta name="viewport" content="width=device-width">
-      <meta name="title" content=" ">
+      <meta name="title" content="Updating a Translation Memory ">
     
     
       <link rel="shortcut icon" href="../../favicon.ico">
@@ -80,14 +80,14 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
+<h1 id="updating-a-translation-memory">Updating a Translation Memory</h1>
 
-<h2 id="updating-a-translation-memory">Updating a Translation Memory</h2>
-<p>In this chapter you will learn how to add content to a TM. While translators work, they typically add translation units to the TM or edit existing ones, e.g. by replacing past translations. In addition, updating a TM can also involve adding TM field information (e.g. project id, client) to the translation units. The following examples illustrate how to handle these common TM editing scenarios programmatically.</p>
+<p>This chapter explains how to add content to a TM. Translators typically add translation units to a TM or edit existing ones by replacing older translations. Updating a TM can also include adding field information, such as project IDs or client names, to translation units. The following examples show how to handle these common editing tasks programmatically.</p>
 <h2 id="add-a-new-class">Add a New Class</h2>
-<p>Start by adding a new class called <code>TmUpdater</code> to your project.</p>
+<p>Start by adding a new class named <code>TmUpdater</code> to your project.</p>
 <h2 id="add-a-translation-unit">Add a Translation Unit</h2>
-<p>One of the most common use cases is, of course, to add new translation units (TUs) to a TM. This usually happens while translators are translating segment by segment. For the next step we suppose that you would like to add a simple TU with plain text segments. Moreover, we assume that you need to add a picklist field value, i.e. <em>Customer</em> = <em>Microsoft</em> (see <a href="adding_tm_fields.html">Adding TM Fields</a>).</p>
-<p>Start by implementing a function called <code>AddTu</code>, which takes the TM file name and path as string parameter, and which can be called as shown in the example below:</p>
+<p>One of the most common tasks is adding new translation units, or TUs, to a TM. This usually happens while translators work segment by segment. In this example, add a simple TU with plain-text segments and a picklist field value, <em>Customer</em> = <em>Microsoft</em> (see <a href="adding_tm_fields.html">Adding TM Fields</a>).</p>
+<p>Start by implementing a method named <code>AddTu()</code> that takes the TM path as a string parameter. Call it as shown below:</p>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
@@ -98,14 +98,11 @@
 
 <pre><code class="lang-cs">var tmUpdater = new TmUpdater();
 tmUpdater.AddTu(_translationMemoryFilePath);
-tmUpdater.AddTuExtended(_translationMemoryFilePath);
-tmUpdater.EditTu(_translationMemoryFilePath);
-tmUpdater.DeleteTu(_translationMemoryFilePath);
 </code></pre>
 </section>
 </div>
 
-<p>After opening the TM create a TU object:</p>
+<p>After you open the TM, create a TU object:</p>
 <div class="tabGroup" id="tabgroup_2">
 <ul role="tablist">
 <li role="presentation">
@@ -121,7 +118,7 @@ var tu = new TranslationUnit();
 </section>
 </div>
 
-<p>Each TU contains at least a source and a target segment. You therefore need to create a source and target segment object based on the TM language direction. Next, you specify the source and target content. In this example, we specify two strings, which works well if you only need to add plain text.</p>
+<p>Each TU contains at least a source and a target segment. Create source and target segment objects based on the TM language direction, then add the source and target text. In this example, plain strings are sufficient.</p>
 <div class="tabGroup" id="tabgroup_3">
 <ul role="tablist">
 <li role="presentation">
@@ -141,9 +138,9 @@ tu.TargetSegment.Add(&quot;Es öffnet sich ein Dialogfenster.&quot;);
 
 <div class="NOTE">
 <h5>Note</h5>
-<p>If the source/target segment text to add requires tags - e.g. for inline formatting -, you need to specify an element rather than a simple string.</p>
+<p>If the source or target text requires tags, such as inline formatting, use an element instead of a simple string.</p>
 </div>
-<p>Let us assume that you would also like to add a picklist field value to the new TU. Start by creating the picklist field value object and add it to the TU object:</p>
+<p>To add a picklist field value to the TU, create the value object and add it to the TU:</p>
 <div class="tabGroup" id="tabgroup_4">
 <ul role="tablist">
 <li role="presentation">
@@ -168,14 +165,12 @@ tu.FieldValues.Add(value);
 </ul>
 <section id="tabpanel_5_tabid-5" role="tabpanel" data-tab="tabid-5">
 
-<pre><code class="lang-cs">var value = new MultiplePicklistFieldValue(&quot;Customer&quot;);
-value.Add(&quot;Microsoft&quot;);
-tu.FieldValues.Add(value);
+<pre><code class="lang-cs">tm.LanguageDirection.AddTranslationUnit(tu, this.GetImportSettings());
 </code></pre>
 </section>
 </div>
 
-<p>Note that apart from the TU object the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.FileBasedTranslationMemoryLanguageDirection.html#Sdl_LanguagePlatform_TranslationMemoryApi_FileBasedTranslationMemoryLanguageDirection_AddTranslationUnit_Sdl_LanguagePlatform_TranslationMemory_TranslationUnit_Sdl_LanguagePlatform_TranslationMemory_ImportSettings_">AddTranslationUnit</a> method requires the import settings as parameter. Adding a single TU is basically like a mini-import. During import you can specify a number of settings, e.g. what should happen with potentially existing TM field values - whether they should be left unchanged, overwritten, or merged. Another setting allows you to check for sub-languages. Example: A user tries to add segments that have the locale English (UK) to a TM that uses English (US) as source language. Through the <strong>CheckMatchingSublanguages</strong> you can determine whether sub-language differences should be ignored (i.e. False), or whether English (UK) units should be rejected in this case. In our example, we specify the import settings in a separate function, which is then called from the <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.FileBasedTranslationMemoryLanguageDirection.html#Sdl_LanguagePlatform_TranslationMemoryApi_FileBasedTranslationMemoryLanguageDirection_AddTranslationUnit_Sdl_LanguagePlatform_TranslationMemory_TranslationUnit_Sdl_LanguagePlatform_TranslationMemory_ImportSettings_">AddTranslationUnit</a> method:</p>
+<p>The <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.FileBasedTranslationMemoryLanguageDirection.html#Sdl_LanguagePlatform_TranslationMemoryApi_FileBasedTranslationMemoryLanguageDirection_AddTranslationUnit_Sdl_LanguagePlatform_TranslationMemory_TranslationUnit_Sdl_LanguagePlatform_TranslationMemory_ImportSettings_">AddTranslationUnit</a> method also requires import settings. Adding a single TU is similar to a mini-import. Import settings determine, for example, whether existing TM field values are left unchanged, overwritten, or merged. You can also decide whether to check for sublanguages. For example, if a user adds English (UK) segments to a TM that uses English (US) as the source language, <strong>CheckMatchingSublanguages</strong> determines whether to ignore the sublanguage difference or reject the TU. In this example, the import settings are defined in a separate method and passed to <a href="../../api/translationmemory/Sdl.LanguagePlatform.TranslationMemoryApi.FileBasedTranslationMemoryLanguageDirection.html#Sdl_LanguagePlatform_TranslationMemoryApi_FileBasedTranslationMemoryLanguageDirection_AddTranslationUnit_Sdl_LanguagePlatform_TranslationMemory_TranslationUnit_Sdl_LanguagePlatform_TranslationMemory_ImportSettings_">AddTranslationUnit</a>:</p>
 <div class="tabGroup" id="tabgroup_6">
 <ul role="tablist">
 <li role="presentation">
@@ -198,16 +193,16 @@ tu.FieldValues.Add(value);
 
 <div class="NOTE">
 <h5>Note</h5>
-<p>If the same TU already exists, it will not be added as a duplicate.</p>
+<p>If the same TU already exists, it is not added as a duplicate.</p>
 </div>
 <p>The following screenshot illustrates what the newly added TU will look like in Trados Studio:</p>
 <p><img src="images/AddedTu.jpg" alt="AddedTu"></p>
 <div class="NOTE">
 <h5>Note</h5>
-<p>Information such as the creation date and user is added automatically by the API, and does not have to be explicitly set by your application.</p>
+<p>Information such as the creation date and user is added automatically by the API. Your application does not need to set it.</p>
 </div>
 <h2 id="add-further-information-to-the-translation-unit">Add Further Information to the Translation Unit</h2>
-<p>There are also other kinds of information that you may add to a TU. One example is the confirmation level. TUs may have confirmation levels such as draft, approved, rejected, etc., which indicate the quality and reliability of a translation. The confirmation level can be set through the <strong>TranslationUnitConfirmationLevel</strong> property.</p>
+<p>You can also add other TU information. One example is the confirmation level. TUs can have confirmation levels such as draft, approved, or rejected, which indicate the quality and reliability of a translation. Set the confirmation level through the <strong>TranslationUnitConfirmationLevel</strong> property.</p>
 <p>Below is an example of how to set the TU confirmation level to approved:</p>
 <div class="tabGroup" id="tabgroup_7">
 <ul role="tablist">
@@ -222,7 +217,7 @@ tu.FieldValues.Add(value);
 </section>
 </div>
 
-<p>Another example of further information that you may add is the <strong>TranslationUnitFormat</strong>, which can be used to indicate whether a TU is in the format ofTrados Studio, Translator's Workbench, TTX, etc. Below you see how the format is set to Trados Studio:</p>
+<p>Another example is the <strong>TranslationUnitFormat</strong> property, which indicates whether a TU is in the format of Trados Studio, Translator's Workbench, TTX, and so on. The following example sets the format to Trados Studio:</p>
 <div class="tabGroup" id="tabgroup_8">
 <ul role="tablist">
 <li role="presentation">
@@ -236,7 +231,7 @@ tu.FieldValues.Add(value);
 </section>
 </div>
 
-<p>TUs may be created by filling a TM through interactive translation, from translation suggestions provided by a machine translation system, alignment of existing documents, etc. If you want to indicate the origin of a given TU, you can apply the <strong>TranslationUnitOrigin</strong> property. In the example below the TU origin is set to <em>TM</em> (i.e. generated by filling a translation memory through interactive translation):</p>
+<p>TUs may come from interactive translation, machine translation, document alignment, or other sources. If you want to indicate the origin of a TU, set the <strong>TranslationUnitOrigin</strong> property. In the example below, the TU origin is set to <em>TM</em>.</p>
 <div class="tabGroup" id="tabgroup_9">
 <ul role="tablist">
 <li role="presentation">
@@ -250,7 +245,7 @@ tu.FieldValues.Add(value);
 </section>
 </div>
 
-<p>The full function for adding a TU looks as shown below:</p>
+<p>The full method for adding a TU looks like this:</p>
 <div class="tabGroup" id="tabgroup_10">
 <ul role="tablist">
 <li role="presentation">
@@ -293,7 +288,7 @@ tu.FieldValues.Add(value);
     tu.Origin = TranslationUnitOrigin.TM;
     #endregion
 
-    #region &quot;StuctureContext&quot;
+    #region &quot;StructureContext&quot;
     tu.StructureContexts = new string[] { &quot;H&quot; };
     #endregion
 
@@ -307,9 +302,9 @@ tu.FieldValues.Add(value);
 </section>
 </div>
 
-<p>TUs can also contain structure context information that indicates whether a particular segment occurred, for example, in a headline, a table cell, a footnote, etc. This structure context information can be helpful, as the same source segment might sometimes have to be translated differently depending on whether it occurs e.g. in a normal paragraph or in a table cell. For this reason, structure context information, too, can be saved within a TU. Trados Studio uses display codes such as H (Headline), FN (Footnote) to show the structure context of a particular TU to the user.</p>
+<p>TUs can also contain structure context information that shows where a segment appeared, for example, in a headline, table cell, or footnote. This information can be useful because the same source segment may need different translations depending on where it appears. Trados Studio uses display codes such as H (Headline) and FN (Footnote) to show the structure context of a TU.</p>
 <p><img src="images/StructureContext.jpg" alt="StructureContext"></p>
-<p>You can apply structure context information through the <strong>StructureContexts</strong> class as shown in the code example below:</p>
+<p>You can apply structure context information through the <strong>StructureContexts</strong> property as shown below:</p>
 <div class="tabGroup" id="tabgroup_11">
 <ul role="tablist">
 <li role="presentation">
@@ -323,10 +318,10 @@ tu.FieldValues.Add(value);
 </section>
 </div>
 
-<p>When adding structure context information to a TU, you can provide an array of strings, as a particular segment could have occurred, for example, in a heading and a footnote at the same time.</p>
+<p>When you add structure context information to a TU, you can provide an array of strings. A segment can appear in more than one context, for example, in a heading and a footnote.</p>
 <h2 id="edit-a-translation-unit">Edit a Translation Unit</h2>
-<p>TUs are often changed when the translator decides that an existing target segment of a suggested translation unit should be changed, e.g. because the translation that was previously entered is incorrect or outdated. In the following step you will learn how to programmatically handle cases in which the target segment of an existing TU should be replaced by a new translation.</p>
-<p>Start by adding a function called <code>EditTu</code>, which takes the TM file name and path as string parameter, and which can be called as shown below:</p>
+<p>TUs are often changed when a translator decides that an existing target segment should be updated because the previous translation is incorrect or outdated. The following example shows how to replace the target segment of an existing TU with a new translation.</p>
+<p>Start by adding a method named <code>EditTu()</code> that takes the TM path as a string parameter. Call it as shown below:</p>
 <div class="tabGroup" id="tabgroup_12">
 <ul role="tablist">
 <li role="presentation">
@@ -344,7 +339,7 @@ tmUpdater.DeleteTu(_translationMemoryFilePath);
 </section>
 </div>
 
-<p>This new EditTu function simulates the use case in which a translator looks up the segment &quot;&quot;<em>A dialog box will open.</em>&quot;&quot;, and receives a 100% match, whose original target segment (<em>Es öffnet sich ein Dialogfenster</em>.) should be replaced with a new translation, (e.g. <em>Ein Dialogfeld wird geöffnet</em>.). In our simplified implementation, we first open the TM. Then we launch a search for the source segment. Like in the previous chapter (see <a href="doing_translation_memory_lookups.html">Doing Translation Memory Lookups</a>) we 'outsource' the search settings to a separate function, i.e.:</p>
+<p>This <code>EditTu()</code> method simulates a translator looking up <em>A dialog box will open.</em> and receiving a 100% match whose original target segment (<em>Es öffnet sich ein Dialogfenster.</em>) should be replaced with a new translation, such as <em>Ein Dialogfeld wird geöffnet.</em> In this simplified implementation, open the TM, search for the source segment, and move the search settings into a separate helper method, as shown in <a href="doing_translation_memory_lookups.html">Doing Translation Memory Lookups</a>:</p>
 <div class="tabGroup" id="tabgroup_13">
 <ul role="tablist">
 <li role="presentation">
@@ -394,7 +389,7 @@ tmUpdater.DeleteTu(_translationMemoryFilePath);
 </section>
 </div>
 <h2 id="delete-a-translation-unit">Delete a Translation Unit</h2>
-<p>Another use case is the deletion of a particular translation unit, for example, because it is outdated, incorrect, etc. Add a new function to your class, which you call <code>DeleteTu</code>. Here, we proceed similar to the editing of a TU (see section above), i.e. we first do an exact search for the source segment. We then retrieve the id of the TU that was found, and apply a delete action as shown in the following code example:</p>
+<p>Another common task is deleting a translation unit because it is outdated or incorrect. Add a method named <code>DeleteTu()</code>. As with editing a TU, first perform an exact search for the source segment, then retrieve the TU ID and delete the unit, as shown below:</p>
 <div class="tabGroup" id="tabgroup_15">
 <ul role="tablist">
 <li role="presentation">
@@ -423,7 +418,7 @@ foreach (SearchResult item in results)
 <h5>Note</h5>
 <p>Each TU possesses a unique id by which it can be identified within the TM.</p>
 </div>
-<p>It is also possible to 'wipe' the entire TM by applying the <code>DeleteAllTranslationUnits</code>, which will delete all translation units that are stored in the TM.</p>
+<p>You can also clear the entire TM by calling <code>DeleteAllTranslationUnits()</code>, which removes all translation units stored in the TM.</p>
 <div class="tabGroup" id="tabgroup_16">
 <ul role="tablist">
 <li role="presentation">
@@ -439,7 +434,7 @@ foreach (SearchResult item in results)
 
 <div class="NOTE">
 <h5>Note</h5>
-<p>Deleting all TUs in a TM is a potentially dangerous operation, which should only be performed in exceptional cases, as this batch deletion cannot be undone.</p>
+<p>Deleting all TUs in a TM is potentially destructive and should only be done in exceptional cases because the operation cannot be undone.</p>
 </div>
 <h2 id="see-also">See Also</h2>
 <p><a href="updating_translation_memories.html">Updating Translation Memories</a></p>

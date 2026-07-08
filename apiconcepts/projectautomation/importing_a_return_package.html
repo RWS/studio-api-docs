@@ -180,20 +180,10 @@ if (import.Status != PackageStatus.Completed)
 
 <pre><code class="lang-cs">public void OpenPackage(string projectFile, string returnPackageFile)
 {
-    #region &quot;EventArgs&quot;
     List&lt;TaskStatusEventArgs&gt; taskStatusEventArgsList = new List&lt;TaskStatusEventArgs&gt;();
     List&lt;MessageEventArgs&gt; messageEventArgsList = new List&lt;MessageEventArgs&gt;();
-    #endregion
-
-    #region &quot;OpenProject&quot;
     FileBasedProject project = new FileBasedProject(projectFile);
-    #endregion
-
-    #region &quot;ImportPackage&quot;
     ReturnPackageImport import = project.ImportReturnPackage(returnPackageFile);
-    #endregion
-
-    #region &quot;CheckImportStatus&quot;
     bool packageIsImported = false;
     while (!packageIsImported)
     {
@@ -220,7 +210,6 @@ if (import.Status != PackageStatus.Completed)
     {
         throw new Exception(&quot;A problem occurred during package import.&quot;);
     }
-    #endregion
 }
 </code></pre>
 </section>
