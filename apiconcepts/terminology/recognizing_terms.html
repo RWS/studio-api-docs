@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Recognizing Terms in Text </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Recognizing Terms in Text ">
+    
+    
+      <link rel="shortcut icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../../styles/docfx.css">
+      <link rel="stylesheet" href="../../styles/main.css">
+      <meta property="docfx:navrel" content="../../toc.html">
+      <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>        
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="https://developers.rws.com/">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <span class="glyphicon glyphicon-search search-icon"></span>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+
+        <div class="container body-content">
+
+          <div id="search-results">
+            <div class="search-list">Search Results for <span></span></div>
+            <div class="sr-items">
+              <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+            </div>
+            <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+          </div>
+        </div>
+
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="recognizing-terms-in-text">Recognizing Terms in Text</h1>
+
+<p>This article explains how to find the termbase terms that occur in a text, such as a source segment, with the same terms and scores as the <strong>Term Recognition</strong> window in <strong>Trados Studio</strong>.</p>
+<p>Use term recognition when your plugin <em>consumes</em> terminology. For example:</p>
+<ul>
+<li>A translation provider sends the recognized terms and their translations to a machine translation or AI service, so the translation uses the approved terminology.</li>
+<li>A verification plugin checks that the translation uses the target terms of the source terms in the segment.</li>
+</ul>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The term recognition API (<code>TerminologyRecognition</code>) is available from Trados Studio 2026 CU1. To support earlier versions as well, see <a href="#supporting-earlier-versions">Supporting earlier versions</a>.</p>
+</div>
+<h2 id="searching-versus-recognizing-terms">Searching versus recognizing terms</h2>
+<p>The terminology API offers two ways to find terms. They answer different questions.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><code>ITerminologyProvider.Search</code></th>
+<th><code>TerminologyRecognition.RecognizeTerms</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Question it answers</td>
+<td>Which entries in this termbase match this text?</td>
+<td>Which terms occur in this text, and where?</td>
+</tr>
+<tr>
+<td>Comparable window</td>
+<td><strong>Termbase Search</strong></td>
+<td><strong>Term Recognition</strong></td>
+</tr>
+<tr>
+<td>Termbases</td>
+<td>One termbase.</td>
+<td>One or more termbases, in a search order.</td>
+</tr>
+<tr>
+<td>Score</td>
+<td>Not meaningful for file-based termbases. Use <code>Search</code> to look up entries.</td>
+<td>The score of each term against the part of the text it matches, as shown in the <strong>Term Recognition</strong> window.</td>
+</tr>
+<tr>
+<td>Inflected and compound forms</td>
+<td>Returned as candidates, without a score.</td>
+<td>Recognized and scored. For example, <em>USB cables</em> matches the term <em>USB cable</em>.</td>
+</tr>
+<tr>
+<td>Position in the text</td>
+<td>Not returned.</td>
+<td>Returned for each term.</td>
+</tr>
+</tbody>
+</table>
+<p>If your plugin needs the terms of a segment, use <code>TerminologyRecognition</code>. Use <code>Search</code> to look up entries, for example in a search box.</p>
+<h2 id="recognizing-terms-in-a-segment">Recognizing terms in a segment</h2>
+<p>The term recognition types are in the <code>Sdl.Terminology.TerminologyProvider.Core.Recognition</code> namespace of the <code>Sdl.Terminology.TerminologyProvider.Core</code> assembly.</p>
+<ol>
+<li>Create a <code>TermRecognitionRequest</code> with the text, the source and target languages, and the URIs of the termbases to search.</li>
+<li>Call <code>RecognizeTerms</code> on a <code>TerminologyRecognition</code> instance.</li>
+</ol>
+<pre><code class="lang-cs">using System;
+using System.Collections.Generic;
+using Sdl.Core.Globalization;
+using Sdl.Terminology.TerminologyProvider.Core;
+using Sdl.Terminology.TerminologyProvider.Core.Recognition;
+
+public List&lt;RecognizedTerm&gt; RecognizeTerms(string sourceText)
+{
+    var request = new TermRecognitionRequest
+    {
+        Text = sourceText,
+        SourceLanguage = new DefinitionLanguage { Locale = new CultureCode(&quot;en-US&quot;) },
+        TargetLanguage = new DefinitionLanguage { Locale = new CultureCode(&quot;de-DE&quot;) }
+    };
+    request.Termbases.Add(new Uri(&quot;ttb.file:///C:/Termbases/Printer.ttb&quot;));
+
+    return new TerminologyRecognition().RecognizeTerms(request);
+}
+</code></pre>
+<p>For example, take this segment from <em>SamplePhotoPrinter.doc</em> and the <em>Printer</em> termbase, both from the <strong>Trados Studio</strong> sample project:</p>
+<p><em>When connecting power or USB cables, keep the cables clear of the paper path to the front and rear of the photo printer.</em></p>
+<p><code>RecognizeTerms</code> returns two terms, each with its position in the text and its termbase entry:</p>
+<ul>
+<li><em>photo printer</em>, an exact match with a score of 100. Its German translation is <em>Fotodrucker</em>.</li>
+<li><em>USB cable</em>, matched to the plural <em>USB cables</em> with a score below 100. Its German translation is <em>USB-Kabel</em>.</li>
+</ul>
+<p>The default settings of a request match the default termbase settings of a new project. You only need to set the text, the languages and the termbases.</p>
+<h2 id="choosing-the-languages-and-termbase-indexes">Choosing the languages and termbase indexes</h2>
+<p>A termbase stores each language in an <em>index</em>, such as <em>English</em> or <em>German</em>. <code>RecognizeTerms</code> finds the source and target index of each termbase from <code>SourceLanguage</code> and <code>TargetLanguage</code>. You pass these as <code>ILanguage</code> objects; <code>DefinitionLanguage</code> is a ready-made implementation.</p>
+<ul>
+<li><strong>Locale</strong>: the language of the text. <code>RecognizeTerms</code> looks for an index with the same culture, for example <code>de-DE</code>, and then for an index with the same language, for example <code>de</code>.</li>
+<li><strong>Name</strong> (optional): the name of a termbase index, for example <em>German</em>. When a termbase has an index with this name, it is used before the culture is matched. Set it when you follow the language index mapping of a project, as described in <a href="#matching-the-project-settings">Matching the project settings</a>.</li>
+</ul>
+<p><code>RecognizeTerms</code> skips a termbase that has no index for the source language. When <code>TargetRequired</code> is <code>true</code>, it also skips a termbase that has no index for the target language.</p>
+<h2 id="setting-the-recognition-options">Setting the recognition options</h2>
+<p>All the options have defaults, so set only the ones you need.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MinimumMatchValue</code></td>
+<td>70</td>
+<td>The minimum score, from 0 to 100, that a term must have to be recognized.</td>
+</tr>
+<tr>
+<td><code>SearchDepth</code></td>
+<td>200</td>
+<td>The maximum number of candidate terms each termbase returns before scoring.</td>
+</tr>
+<tr>
+<td><code>SearchOrder</code></td>
+<td><code>Sequential</code></td>
+<td>How several termbases are searched. <code>Hierarchical</code>: only the terms of the first termbase that returns results. <code>Sequential</code>: the terms of all termbases. <code>Parallel</code>: currently the same as <code>Sequential</code>.</td>
+</tr>
+<tr>
+<td><code>AllowOverlappingTerms</code></td>
+<td><code>false</code></td>
+<td>Whether recognized terms can overlap in the text, for example <em>power cable</em> and <em>AC power cable</em>.</td>
+</tr>
+<tr>
+<td><code>RepetitionThreshold</code></td>
+<td>10</td>
+<td>The maximum number of times the same term is recognized in the text.</td>
+</tr>
+<tr>
+<td><code>EnableTwoLetterTermRecognition</code></td>
+<td><code>false</code></td>
+<td>Whether terms of two letters are recognized.</td>
+</tr>
+<tr>
+<td><code>MatchCase</code></td>
+<td><code>false</code></td>
+<td>Whether the case of a term must match the text.</td>
+</tr>
+<tr>
+<td><code>TargetRequired</code></td>
+<td><code>false</code></td>
+<td>Whether only termbases with an index for the target language are searched, and only terms with a translation are returned.</td>
+</tr>
+<tr>
+<td><code>IncludeHomonyms</code></td>
+<td><code>true</code></td>
+<td>Whether terms with the same text from different entries or termbases are all returned. See <a href="#homonyms-and-synonyms">Homonyms and synonyms</a>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="reading-the-results">Reading the results</h2>
+<p>Each <code>RecognizedTerm</code> contains:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Text</code></td>
+<td>The term, as it is in the termbase.</td>
+</tr>
+<tr>
+<td><code>MatchedText</code></td>
+<td>The part of the searched text that matches the term, for example <em>USB cables</em> for the term <em>USB cable</em>.</td>
+</tr>
+<tr>
+<td><code>Score</code></td>
+<td>The score of the term against the matched text, from 0 to 100. This is the score shown in the <strong>Term Recognition</strong> window.</td>
+</tr>
+<tr>
+<td><code>Positions</code></td>
+<td>The start (zero-based) and length of each place where the term occurs in the text.</td>
+</tr>
+<tr>
+<td><code>Entry</code></td>
+<td>The termbase entry, with the terms and fields in all its languages.</td>
+</tr>
+<tr>
+<td><code>EntryId</code>, <code>TermbaseUri</code>, <code>TermbaseName</code></td>
+<td>The entry and the termbase the term comes from.</td>
+</tr>
+<tr>
+<td><code>SourceLanguage</code>, <code>TargetLanguage</code></td>
+<td>The termbase indexes that were used. <code>TargetLanguage</code> is <code>null</code> when the termbase has no index for the target language.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="getting-the-translations">Getting the translations</h3>
+<p>The translations of a term are the terms of its entry in the target index:</p>
+<pre><code class="lang-cs">using System.Linq;
+
+foreach (RecognizedTerm term in terms)
+{
+    EntryLanguage target = term.Entry?.Languages?
+        .FirstOrDefault(language =&gt; language.Name == term.TargetLanguage?.Name);
+
+    if (target is null)
+    {
+        // The entry has no translation in the target language.
+        continue;
+    }
+
+    foreach (EntryTerm translation in target.Terms)
+    {
+        EntryField status = translation.Fields?.FirstOrDefault(field =&gt; field.Name == &quot;Status&quot;);
+        Console.WriteLine($&quot;{term.MatchedText} -&gt; {translation.Value} ({status?.Value}, score {term.Score})&quot;);
+    }
+}
+</code></pre>
+<p>The fields of a term, such as <em>Status</em>, depend on the termbase definition. Use them, for example, to prefer <em>Preferred</em> translations and to avoid <em>Forbidden</em> ones.</p>
+<h3 id="homonyms-and-synonyms">Homonyms and synonyms</h3>
+<ul>
+<li><strong>Synonyms</strong> are several terms of the <em>same</em> entry, for example two translations of one concept. They are all in <code>target.Terms</code>. Prefer the one with the best status.</li>
+<li><strong>Homonyms</strong> are terms with the <em>same text</em> in <em>different</em> entries, for example <em>machine distributor</em> as a dealer and as an electrical distribution unit. <code>RecognizeTerms</code> returns one result for each entry. Tell them apart by <code>TermbaseUri</code> and <code>EntryId</code>, and choose by context.</li>
+</ul>
+<p>The same entry can be returned more than once, for example when its term occurs at several positions. To get one result per entry, group the results by <code>TermbaseUri</code> and <code>EntryId</code>.</p>
+<p>When you send terms to a machine translation or AI service, keep the entries apart, for example by numbering them. Otherwise, the service can't tell the translations of two meanings from two translations of one meaning.</p>
+<h2 id="matching-the-project-settings">Matching the project settings</h2>
+<p>To get exactly the terms of the <strong>Term Recognition</strong> window, use the termbases and settings of the project. The project stores them in two places:</p>
+<ul>
+<li><code>TermbaseConfiguration</code>: the termbases, the language index mapping, and the main recognition options.</li>
+<li>The <code>TermRecognitionSettings</code> settings group: the other recognition options.</li>
+</ul>
+<pre><code class="lang-cs">using System;
+using System.Linq;
+using Sdl.Core.Globalization;
+using Sdl.Core.Settings;
+using Sdl.ProjectAutomation.Core;
+using Sdl.ProjectAutomation.FileBased;
+using Sdl.Terminology.TerminologyProvider.Core;
+using Sdl.Terminology.TerminologyProvider.Core.Recognition;
+
+public TermRecognitionRequest CreateRequest(FileBasedProject project, string sourceText,
+    CultureCode sourceLanguage, CultureCode targetLanguage)
+{
+    TermbaseConfiguration configuration = project.GetTermbaseConfiguration();
+    TermRecognitionOptions options = configuration.TermRecognitionOptions;
+    ISettingsGroup settings = project.GetSettings().GetSettingsGroup(&quot;TermRecognitionSettings&quot;);
+
+    var request = new TermRecognitionRequest
+    {
+        Text = sourceText,
+        SourceLanguage = new DefinitionLanguage
+        {
+            Name = GetIndexName(configuration, sourceLanguage),
+            Locale = sourceLanguage
+        },
+        TargetLanguage = new DefinitionLanguage
+        {
+            Name = GetIndexName(configuration, targetLanguage),
+            Locale = targetLanguage
+        },
+        MinimumMatchValue = options.MinimumMatchValue,
+        SearchDepth = options.SearchDepth,
+        SearchOrder = (TermRecognitionSearchOrder)options.SearchOrder,
+        AllowOverlappingTerms = GetSetting(settings, &quot;AllowOverlappingTerms&quot;, false),
+        RepetitionThreshold = GetSetting(settings, &quot;RepetitionThreshold&quot;, TermRecognitionRequest.DefaultRepetitionThreshold),
+        EnableTwoLetterTermRecognition = GetSetting(settings, &quot;EnableTwoLetterTermRecognition&quot;, false),
+        MatchCase = GetSetting(settings, &quot;MatchCaseTerms&quot;, false)
+    };
+
+    // The enabled termbases, in the project's order.
+    foreach (LocalTermbase termbase in configuration.Termbases.OfType&lt;LocalTermbase&gt;().Where(termbase =&gt; termbase.Enabled))
+    {
+        request.Termbases.Add(new Uri(&quot;ttb.&quot; + new Uri(termbase.FilePath).AbsoluteUri));
+    }
+
+    return request;
+}
+
+// The termbase index that the project maps to a language, for example &quot;German&quot; for de-DE.
+private static string GetIndexName(TermbaseConfiguration configuration, CultureCode language)
+{
+    return configuration.LanguageIndexes
+        .FirstOrDefault(index =&gt; string.Equals(index.ProjectLanguage.CultureInfo.Name, language.Name, StringComparison.OrdinalIgnoreCase))?
+        .TermbaseIndex;
+}
+
+private static T GetSetting&lt;T&gt;(ISettingsGroup settings, string settingId, T defaultValue)
+{
+    return settings != null &amp;&amp; settings.ContainsSetting(settingId)
+        ? settings.GetSetting&lt;T&gt;(settingId).Value
+        : defaultValue;
+}
+</code></pre>
+<p>The project's language index mapping applies to all its termbases, as in the <strong>Term Recognition</strong> window. If a termbase has no index with the mapped name, <code>RecognizeTerms</code> matches the index by language.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The example adds the file-based termbases of the project. The project settings describe a server-based termbase by its server and name, not by a termbase URI. For a server-based termbase, use the URI of its terminology provider, for example <code>ITerminologyProvider.Uri</code>.</p>
+</div>
+<p>In a plugin that runs in <strong>Trados Studio</strong>, get the current project from the <code>ProjectsController</code>:</p>
+<pre><code class="lang-cs">FileBasedProject project = SdlTradosStudio.Application.GetController&lt;ProjectsController&gt;().CurrentProject;
+</code></pre>
+<h2 id="performance-and-behavior">Performance and behavior</h2>
+<ul>
+<li><code>RecognizeTerms</code> searches the termbases and scores the candidates each time you call it. Call it once per segment, and reuse the results.</li>
+<li>Calls are processed one at a time. Parallel calls, for example from a batch task, wait for each other.</li>
+<li>Read the project settings once, for example per batch or per document, rather than for each segment.</li>
+<li>A termbase that can't be opened is logged and skipped, so the other termbases still return their terms.</li>
+<li>An empty text returns no terms. A <code>null</code> request throws an <code>ArgumentNullException</code>.</li>
+</ul>
+<h2 id="supporting-earlier-versions">Supporting earlier versions</h2>
+<p><code>TerminologyRecognition</code> is available from Trados Studio 2026 CU1. You have two options:</p>
+<ul>
+<li><strong>Require Trados Studio 2026 CU1.</strong> Set the minimum version in your plugin manifest, for example <code>&lt;RequiredProduct name=&quot;TradosStudio&quot; minversion=&quot;19.0.1&quot; maxversion=&quot;19.0.9&quot;/&gt;</code>.</li>
+<li><strong>Support earlier versions as well.</strong> Check at run time whether the API is there, and use another way to find terms, such as <code>ITerminologyProvider.Search</code>, when it isn't:</li>
+</ul>
+<pre><code class="lang-cs">private static readonly bool IsTermRecognitionAvailable =
+    typeof(ITerminologyProviderManager).Assembly
+        .GetType(&quot;Sdl.Terminology.TerminologyProvider.Core.Recognition.TerminologyRecognition&quot;) != null;
+</code></pre>
+<p>Keep all the code that uses the term recognition types in a separate class, and only use that class when <code>IsTermRecognitionAvailable</code> is <code>true</code>. On an earlier version these types don't exist, so .NET fails when it compiles a method that uses them, even if that code never runs.</p>
+<h2 id="see-also">See Also</h2>
+<ul>
+<li><a href="searching_terms.html">Searching Terms</a></li>
+<li><a href="managing_terms_in_a_file_based_termbase.html">Managing Terms in a File-based Termbase</a></li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/RWS/studio-api-docs/blob/main/apiconcepts/terminology/recognizing_terms.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>
