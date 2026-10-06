@@ -131,9 +131,6 @@ foreach (RecognizedTerm term in terms)
 
 The fields of a term, such as *Status*, depend on the termbase definition. Use them, for example, to prefer *Preferred* translations and to avoid *Forbidden* ones.
 
-> [!TIP]
-> The **Term Recognition** window shows a term without a translation only when the project setting **Show entries with no available translation** is selected. To do the same, keep `TargetRequired` set to `false` and leave out the terms without a translation unless that setting is selected.
-
 ### Homonyms and synonyms
 
 * **Synonyms** are several terms of the *same* entry, for example two translations of one concept. They are all in `target.Terms`. Prefer the one with the best status.
